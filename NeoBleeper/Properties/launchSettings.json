@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NeoBleeper": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
