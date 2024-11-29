@@ -17,7 +17,7 @@ This project is **still in development** and some features and components are st
 
 1. Clone this repository or download the ZIP file:
 ```sh
-git clone https://github.com/user-name/NeoBleeper.git
+git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 ```
 
 2. Extract the downloaded files to your computer and go to the project folder.
