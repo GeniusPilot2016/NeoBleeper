@@ -37,6 +37,9 @@ Contributions are always welcome! You can contribute by submitting a pull reques
 ## Contact
 
 For questions or feedback about the project, please contact: [nisaozdogan280@gmail.com](mailto:nisaozdogan280@gmail.com)
+
 [YouTube](https://www.youtube.com/@geniuspilot2016)
+
 [TikTok](https://www.tiktok.com/@geniuspilot2016)
+
 [My Website](https://geniuspilot2016.wordpress.com)
