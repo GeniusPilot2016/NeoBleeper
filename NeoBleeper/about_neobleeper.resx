@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
@@ -128,6 +124,7 @@
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 125</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
   </data>
@@ -145,7 +142,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -160,7 +157,7 @@
     <value>35, 151</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 32</value>
+    <value>389, 48</value>
   </data>
   <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -168,7 +165,7 @@
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>Inspired by Robbi-985's (aka SomethingUnreal's) Bleeper Music Maker
 Designed and programmed by GeniusPilot2016
-</value>
+All icons in this program are downloaded from icons8.com</value>
   </data>
   <data name="&gt;&gt;lbl_credit.Name" xml:space="preserve">
     <value>lbl_credit</value>
@@ -180,7 +177,7 @@ Designed and programmed by GeniusPilot2016
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_credit.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lbl_name.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -213,7 +210,7 @@ Designed and programmed by GeniusPilot2016
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_name.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lbl_version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -246,10 +243,10 @@ Designed and programmed by GeniusPilot2016
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_version.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btn_get_free_stickers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Bottom, Left, Right</value>
   </data>
   <data name="btn_get_free_stickers.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
@@ -265,32 +262,32 @@ Designed and programmed by GeniusPilot2016
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAACAUAAAJNU0Z0AUkBTAMBAQAB
-        EAEAARABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wGqAXkBLQHi5AAB4QGZARkB/wHgAZcB
-        FwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/AV4BVAFGAZTY
+        IAEAASABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wGOAXABQgHi5AAB4QGZARkB/wHgAZcB
+        FwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/AVABTgFNAZTY
         AAHjAZ4BHAH/AeIBnAEaAf8B4QGZARkB/wHgAZcBFwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0B
-        jgEQAf8B3AGLAQ8B/wHbAYkBDQH/AV4BVAFGAZTQAAFhAVkBSQGXAeQBoAEeAf8B4wGeARwB/wHiAZwB
+        jgEQAf8B3AGLAQ8B/wHbAYkBDQH/AVABTgFNAZTQAAFRAVABTQGXAeQBoAEeAf8B4wGeARwB/wHiAZwB
         GgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4BkgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf8B
         2wGJAQ0B/9AAAeYBpQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeAB
-        lwEXAf8B3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/wHcAYsBDwH/AasBewEuAeHMAAHnAacB
+        lwEXAf8B3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/wHcAYsBDwH/AY8BcQFCAeHMAAHnAacB
         IwH/AeYBpQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B
         3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/wHcAYsBDwH/zAAB6AGqASQB/wHnAacBIwH/AeYB
         pQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B3wGVARUB
         /wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/8wAAekBrAEmAf8B6AGqASQB/wHnAacBIwH/AeYBpQEhAf8B
         5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AdsBmAEdAv8B9gGVAv8B6QF9Af8B
-        jQF7AVUBxMwAAeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQB
-        oAEeAf8B4wGeARwB/wHzAeMBfwL/AfYBlQL/AekBfQH/AY8BfQFUAcnQAAHfAaoBLAH5AeoBrgEoAf8B
+        bAFnAVoBxMwAAeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQB
+        oAEeAf8B4wGeARwB/wHzAeMBfwL/AfYBlQL/AekBfQH/AXIBagFaAcnQAAHVAaIBMgH5AeoBrgEoAf8B
         6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQBuQFKAv8B9gGVAv8B6QF9Af8B
-        lAGDAVMB0NgAAesBsAEpAf8B6gGuASgB/wHpAawBJgH/AegBqgEkAf8B5wGnASMB/wHmAaUBIQL/AfYB
-        lQL/AekBfQH/AZABfwFTAc7cAAMIAQoB6wGwASkB/wHqAa4BKAH/AekBrAEmAf8B6AGqASQB/wHdAaAB
-        IQL/AekBfQH/AZABgAFTAczoAAHfAaoBLAH5AeoBrgEoAf8B6QGsASYB/wHeAaoBLwH/AY8BfgFUAcf/
+        dwFuAVoB0NgAAesBsAEpAf8B6gGuASgB/wHpAawBJgH/AegBqgEkAf8B5wGnASMB/wHmAaUBIQL/AfYB
+        lQL/AekBfQH/AXQBbQFZAc7cAAMIAQoB6wGwASkB/wHqAa4BKAH/AekBrAEmAf8B6AGqASQB/wHdAaAB
+        IQL/AekBfQH/AXIBawFZAczoAAHVAaIBMgH5AeoBrgEoAf8B6QGsASYB/wHeAaoBLwH/AW8BaAFZAcf/
         AP8A2gABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcG
         AAHgAQMGAAHAAQMGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQMGAAHAAQcGAAHgAQ8GAAHgAR8G
         AAH4AT8GAAL/BgAC/wYACw==
 </value>
   </data>
   <data name="btn_get_free_stickers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 190</value>
+    <value>131, 231</value>
   </data>
   <data name="btn_get_free_stickers.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 23</value>
@@ -317,6 +314,39 @@ Designed and programmed by GeniusPilot2016
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_get_free_stickers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="linkLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="linkLabel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>175, 205</value>
+  </data>
+  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 16</value>
+  </data>
+  <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="linkLabel1.Text" xml:space="preserve">
+    <value>Visit icons8.com</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
+    <value>linkLabel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -332,7 +362,7 @@ Designed and programmed by GeniusPilot2016
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>453, 220</value>
+    <value>453, 261</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -653,6 +683,9 @@ Designed and programmed by GeniusPilot2016
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

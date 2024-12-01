@@ -36,13 +36,14 @@
             lbl_version = new Label();
             btn_get_free_stickers = new Button();
             imageList_about = new ImageList(components);
+            linkLabel1 = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
@@ -76,10 +77,18 @@
             imageList_about.TransparentColor = Color.Transparent;
             imageList_about.Images.SetKeyName(0, "icons8-sticker-48.png");
             // 
+            // linkLabel1
+            // 
+            resources.ApplyResources(linkLabel1, "linkLabel1");
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.TabStop = true;
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(linkLabel1);
             Controls.Add(btn_get_free_stickers);
             Controls.Add(lbl_version);
             Controls.Add(lbl_name);
@@ -107,5 +116,6 @@
         private Label lbl_version;
         private Button btn_get_free_stickers;
         private ImageList imageList_about;
+        private LinkLabel linkLabel1;
     }
 }
