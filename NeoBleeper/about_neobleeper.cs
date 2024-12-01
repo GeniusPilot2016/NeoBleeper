@@ -28,6 +28,9 @@ namespace NeoBleeper
                     lbl_name.Font = new Font(fonts.Families[0], 36, FontStyle.Bold);
                 }
             }
+            listView1.Items.Add("GeniusPilot2016");
+            listView1.Items[0].SubItems.Add("Designing and programming");
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -38,9 +38,9 @@
             imageList_about = new ImageList(components);
             linkLabel1 = new LinkLabel();
             listView1 = new ListView();
-            label1 = new Label();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -96,11 +96,6 @@
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
             // 
-            // label1
-            // 
-            resources.ApplyResources(label1, "label1");
-            label1.Name = "label1";
-            // 
             // columnHeader1
             // 
             resources.ApplyResources(columnHeader1, "columnHeader1");
@@ -108,6 +103,11 @@
             // columnHeader2
             // 
             resources.ApplyResources(columnHeader2, "columnHeader2");
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
             // 
             // about_neobleeper
             // 
