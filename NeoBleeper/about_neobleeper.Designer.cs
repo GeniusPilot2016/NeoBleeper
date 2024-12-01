@@ -37,6 +37,10 @@
             btn_get_free_stickers = new Button();
             imageList_about = new ImageList(components);
             linkLabel1 = new LinkLabel();
+            listView1 = new ListView();
+            label1 = new Label();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -84,10 +88,33 @@
             linkLabel1.TabStop = true;
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
+            // listView1
+            // 
+            resources.ApplyResources(listView1, "listView1");
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            listView1.Name = "listView1";
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
+            // 
+            // columnHeader1
+            // 
+            resources.ApplyResources(columnHeader1, "columnHeader1");
+            // 
+            // columnHeader2
+            // 
+            resources.ApplyResources(columnHeader2, "columnHeader2");
+            // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(label1);
+            Controls.Add(listView1);
             Controls.Add(linkLabel1);
             Controls.Add(btn_get_free_stickers);
             Controls.Add(lbl_version);
@@ -117,5 +144,9 @@
         private Button btn_get_free_stickers;
         private ImageList imageList_about;
         private LinkLabel linkLabel1;
+        private ListView listView1;
+        private Label label1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

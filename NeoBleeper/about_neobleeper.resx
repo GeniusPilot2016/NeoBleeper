@@ -142,7 +142,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -177,7 +177,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_credit.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="lbl_name.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -210,7 +210,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_name.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="lbl_version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -243,7 +243,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_version.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btn_get_free_stickers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -261,33 +261,33 @@ All icons in this program are downloaded from icons8.com</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAACAUAAAJNU0Z0AUkBTAMBAQAB
-        IAEAASABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wGOAXABQgHi5AAB4QGZARkB/wHgAZcB
-        FwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/AVABTgFNAZTY
-        AAHjAZ4BHAH/AeIBnAEaAf8B4QGZARkB/wHgAZcBFwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0B
-        jgEQAf8B3AGLAQ8B/wHbAYkBDQH/AVABTgFNAZTQAAFRAVABTQGXAeQBoAEeAf8B4wGeARwB/wHiAZwB
-        GgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4BkgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf8B
-        2wGJAQ0B/9AAAeYBpQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeAB
-        lwEXAf8B3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/wHcAYsBDwH/AY8BcQFCAeHMAAHnAacB
-        IwH/AeYBpQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B
-        3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/wHcAYsBDwH/zAAB6AGqASQB/wHnAacBIwH/AeYB
-        pQEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B3wGVARUB
-        /wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB/8wAAekBrAEmAf8B6AGqASQB/wHnAacBIwH/AeYBpQEhAf8B
-        5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGcARoB/wHhAZkBGQH/AdsBmAEdAv8B9gGVAv8B6QF9Af8B
-        bAFnAVoBxMwAAeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQB
-        oAEeAf8B4wGeARwB/wHzAeMBfwL/AfYBlQL/AekBfQH/AXIBagFaAcnQAAHVAaIBMgH5AeoBrgEoAf8B
-        6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQBuQFKAv8B9gGVAv8B6QF9Af8B
-        dwFuAVoB0NgAAesBsAEpAf8B6gGuASgB/wHpAawBJgH/AegBqgEkAf8B5wGnASMB/wHmAaUBIQL/AfYB
-        lQL/AekBfQH/AXQBbQFZAc7cAAMIAQoB6wGwASkB/wHqAa4BKAH/AekBrAEmAf8B6AGqASQB/wHdAaAB
-        IQL/AekBfQH/AXIBawFZAczoAAHVAaIBMgH5AeoBrgEoAf8B6QGsASYB/wHeAaoBLwH/AW8BaAFZAcf/
-        AP8A2gABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcG
-        AAHgAQMGAAHAAQMGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQMGAAHAAQcGAAHgAQ8GAAHgAR8G
-        AAH4AT8GAAL/BgAC/wYACw==
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/gQAAAJNU0Z0AUkBTAMBAQAB
+        KAEAASgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wGFAWwBSQHi5AAB4QGZARkB/wHgAZcB
+        FwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/A04BlNgAAeMB
+        ngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB
+        /wHcAYsBDwH/AdsBiQENAf8DTgGU0AACTwFOAZcB5AGgAR4B/wHjAZ4BHAH/AeIBnAEaAf8B4QGZARkB
+        /wHgAZcBFwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/0AAB
+        5gGlASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUB
+        FQH/Ad4BkgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf8BhAFuAUgB4cwAAecBpwEjAf8B5gGlASEB
+        /wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4B
+        kgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf/MAAHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMB
+        HwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4BkgEUAf8B
+        3QGQARIB/wHdAY4BEAH/zAAB6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQB
+        oAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B2wGYAR0C/wH2AZUC/wHpAX0B/wFlAWIBWgHEzAAB
+        6gGuASgB/wHpAawBJgH/AegBqgEkAf8B5wGnASMB/wHmAaUBIQH/AeUBowEfAf8B5AGgAR4B/wHjAZ4B
+        HAH/AfMB4wF/Av8B9gGVAv8B6QF9Af8BagFmAVsBydAAAdABngE1AfkB6gGuASgB/wHpAawBJgH/AegB
+        qgEkAf8B5wGnASMB/wHmAaUBIQH/AeUBowEfAf8B5AG5AUoC/wH2AZUC/wHpAX0B/wFuAWkBWwHQ2AAB
+        6wGwASkB/wHqAa4BKAH/AekBrAEmAf8B6AGqASQB/wHnAacBIwH/AeYBpQEhAv8B9gGVAv8B6QF9Af8B
+        bQFnAVsBztwAAwgBCgHrAbABKQH/AeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/Ad0BoAEhAv8B6QF9Af8B
+        agFmAVoBzOgAAdABngE1AfkB6gGuASgB/wHpAawBJgH/Ad4BqgEvAf8BaAFiAVoBx/8A/wDaAAFCAU0B
+        PgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAC/wYAAfgBHwYAAfABBwYAAeABAwYAAcAB
+        AwYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAwYAAcABBwYAAeABDwYAAeABHwYAAfgBPwYAAv8G
+        AAL/BgAL
 </value>
   </data>
   <data name="btn_get_free_stickers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 231</value>
+    <value>131, 409</value>
   </data>
   <data name="btn_get_free_stickers.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 23</value>
@@ -314,7 +314,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btn_get_free_stickers.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="linkLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -347,6 +347,75 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>125</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 248</value>
+  </data>
+  <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>429, 155</value>
+  </data>
+  <data name="listView1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;listView1.Name" xml:space="preserve">
+    <value>listView1</value>
+  </data>
+  <data name="&gt;&gt;listView1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listView1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>182, 229</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 16</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -362,7 +431,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>453, 261</value>
+    <value>453, 439</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -684,9 +753,6 @@ All icons in this program are downloaded from icons8.com</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
@@ -698,6 +764,18 @@ All icons in this program are downloaded from icons8.com</value>
   </data>
   <data name="&gt;&gt;imageList_about.Type" xml:space="preserve">
     <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Name" xml:space="preserve">
+    <value>columnHeader1</value>
+  </data>
+  <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Name" xml:space="preserve">
+    <value>columnHeader2</value>
+  </data>
+  <data name="&gt;&gt;columnHeader2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>about_neobleeper</value>
