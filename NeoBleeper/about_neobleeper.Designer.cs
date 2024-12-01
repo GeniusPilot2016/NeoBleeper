@@ -90,8 +90,9 @@
             // 
             // listView1
             // 
-            resources.ApplyResources(listView1, "listView1");
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            resources.ApplyResources(listView1, "listView1");
+            listView1.Items.AddRange(new ListViewItem[] { (ListViewItem)resources.GetObject("listView1.Items") });
             listView1.Name = "listView1";
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;

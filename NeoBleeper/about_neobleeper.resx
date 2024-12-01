@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -261,29 +261,29 @@ All icons in this program are downloaded from icons8.com</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/gQAAAJNU0Z0AUkBTAMBAQAB
-        OAEAATgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wF5AWkBUgHi5AAB4QGZARkB/wHgAZcB
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/AQAAAJNU0Z0AUkBTAMBAQAB
+        QAEAAUABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsB3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wFzAWcBVgHi5AAB4QGZARkB/wHgAZcB
         FwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/A04BlNgAAeMB
         ngEcAf8B4gGcARoB/wHhAZkBGQH/AeABlwEXAf8B3wGVARUB/wHeAZIBFAH/Ad0BkAESAf8B3QGOARAB
         /wHcAYsBDwH/AdsBiQENAf8DTgGU0AACTwFOAZcB5AGgAR4B/wHjAZ4BHAH/AeIBnAEaAf8B4QGZARkB
         /wHgAZcBFwH/Ad8BlQEVAf8B3gGSARQB/wHdAZABEgH/Ad0BjgEQAf8B3AGLAQ8B/wHbAYkBDQH/0AAB
         5gGlASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUB
-        FQH/Ad4BkgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf8BdgFpAVQB4cwAAecBpwEjAf8B5gGlASEB
+        FQH/Ad4BkgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf8BcQFoAVYB4cwAAecBpwEjAf8B5gGlASEB
         /wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4B
         kgEUAf8B3QGQARIB/wHdAY4BEAH/AdwBiwEPAf/MAAHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMB
         HwH/AeQBoAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B4AGXARcB/wHfAZUBFQH/Ad4BkgEUAf8B
         3QGQARIB/wHdAY4BEAH/zAAB6QGsASYB/wHoAaoBJAH/AecBpwEjAf8B5gGlASEB/wHlAaMBHwH/AeQB
-        oAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B2wGYAR0C/wH2AZUC/wHpAX0B/wFfAV0BWgHEzAAB
+        oAEeAf8B4wGeARwB/wHiAZwBGgH/AeEBmQEZAf8B2wGYAR0C/wH2AZUC/wHpAX0B/wFdAVwBWgHEzAAB
         6gGuASgB/wHpAawBJgH/AegBqgEkAf8B5wGnASMB/wHmAaUBIQH/AeUBowEfAf8B5AGgAR4B/wHjAZ4B
-        HAH/AfMB4wF/Av8B9gGVAv8B6QF9Af8BYwFgAV0BydAAAcQBlgE7AfkB6gGuASgB/wHpAawBJgH/AegB
-        qgEkAf8B5wGnASMB/wHmAaUBIQH/AeUBowEfAf8B5AG5AUoC/wH2AZUC/wHpAX0B/wFmAWMBWwHQ2AAB
+        HAH/AfMB4wF/Av8B9gGVAv8B6QF9Af8BYAFfAV0BydAAAb4BkgE+AfkB6gGuASgB/wHpAawBJgH/AegB
+        qgEkAf8B5wGnASMB/wHmAaUBIQH/AeUBowEfAf8B5AG5AUoC/wH2AZUC/wHpAX0B/wFjAWIBWwHQ2AAB
         6wGwASkB/wHqAa4BKAH/AekBrAEmAf8B6AGqASQB/wHnAacBIwH/AeYBpQEhAv8B9gGVAv8B6QF9Af8B
-        YwFiAV0BztwAAwgBCgHrAbABKQH/AeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/Ad0BoAEhAv8B6QF9Af8B
-        YwFgAVwBzOgAAcQBlgE7AfkB6gGuASgB/wHpAawBJgH/Ad4BqgEvAf8BXwFdAVoBx/8A/wDaAAFCAU0B
-        PgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAC/wYAAfgBHwYAAfABBwYAAeABAwYAAcAB
-        AwYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAwYAAcABBwYAAeABDwYAAeABHwYAAfgBPwYAAv8G
-        AAL/BgAL
+        YgFgAV0BztwAAwgBCgHrAbABKQH/AeoBrgEoAf8B6QGsASYB/wHoAaoBJAH/Ad0BoAEhAv8B6QF9Af8B
+        YAFfAV0BzOgAAb4BkgE+AfkB6gGuASgB/wHpAawBJgH/Ad4BqgEvAf8CXQFaAcf/AP8A2gABQgFNAT4H
+        AAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcGAAHgAQMGAAHAAQMG
+        AAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQMGAAHAAQcGAAHgAQ8GAAHgAR8GAAH4AT8GAAL/BgAC
+        /wYACw==
 </value>
   </data>
   <data name="btn_get_free_stickers.Location" type="System.Drawing.Point, System.Drawing">
@@ -349,9 +349,6 @@ All icons in this program are downloaded from icons8.com</value>
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -366,6 +363,28 @@ All icons in this program are downloaded from icons8.com</value>
   </data>
   <data name="listView1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
+        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
+        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
+        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
+        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
+        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAAD0dlbml1c1BpbG90
+        MjAxNv////8CAAAACQUAAAAF+v///xRTeXN0ZW0uRHJhd2luZy5Db2xvcgQAAAAEbmFtZQV2YWx1ZQpr
+        bm93bkNvbG9yBXN0YXRlAQAAAAkHBwMAAAAKAAAAAAAAAAAYAAEAAAkHAAAAAfj////6////CgAAAAAA
+        AAAAGgABAAEFBQAAADFTeXN0ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJ
+        dGVtBAAAAAR0ZXh0BG5hbWUFc3R5bGUIdXNlckRhdGEBAQQCPlN5c3RlbS5XaW5kb3dzLkZvcm1zLkxp
+        c3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0rU3ViSXRlbVN0eWxlAgAAAAIAAAAGCQAAABlEZXNpZ25p
+        bmcgYW5kIHByb2dyYW1taW5nBgoAAAAQTGlzdFZpZXdTdWJJdGVtMAoKBQcAAAATU3lzdGVtLkRyYXdp
+        bmcuRm9udAQAAAAETmFtZQRTaXplBVN0eWxlBFVuaXQBAAQECxhTeXN0ZW0uRHJhd2luZy5Gb250U3R5
+        bGUDAAAAG1N5c3RlbS5EcmF3aW5nLkdyYXBoaWNzVW5pdAMAAAADAAAABgsAAAAOSGFybW9ueU9TIFNh
+        bnMAABBBBfT///8YU3lzdGVtLkRyYXdpbmcuRm9udFN0eWxlAQAAAAd2YWx1ZV9fAAgDAAAAAAAAAAXz
+        ////G1N5c3RlbS5EcmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
+</value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 248</value>
