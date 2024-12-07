@@ -28,7 +28,7 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 4. To run NeoBleeper, select 'NeoBleeper' next to the Solution Platforms ComboBox.
 
-5. If you have contributed to NeoBleeper, before committing the project, don't forget to select the 'listView1' component in the 'about_neobleeper.cs' file, select the small arrow in the upper right corner, select 'Edit Items', add a ListViewItem, write your name/nickname in the 'Text' property, select the three dots to the right of '(Collection)' in the 'SubItems' property, and write the tasks you have done while contributing to NeoBleeper in the 'Text' property.
+5. If you have contributed to NeoBleeper, don't forget to select the 'listView1' component in the 'about_neobleeper.cs' file, select the small arrow in the upper right corner, select 'Edit Items', add a ListViewItem, write your name/nickname in the 'Text' property, select the three dots to the right of '(Collection)' in the 'SubItems' property, and write the tasks you have done while contributing to NeoBleeper in the 'Text' property, before committing the project.
 
 ## Contributing
 
