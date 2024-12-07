@@ -10,21 +10,25 @@ This project is **still in development** and some features and components are st
 
 ## Features
 
-- User-friendly and more natural interface
+- User-friendly, familiar and more natural interface
 - Add and edit notes
 - Time signature and BPM settings
 - Easy note entry with virtual keyboard
 
-## Installation
+## Cloning
 
-1. Clone this repository or download the ZIP file:
+1. Open Visual Studio.
+
+2. On the start window, select 'Clone a repository'.
+
+3. Enter or type the this repository location, then select the 'Clone' button:
 ```sh
 git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 ```
 
-2. Extract the downloaded files to your computer and go to the project folder.
+4. To run NeoBleeper, select 'NeoBleeper' next to the Solution Platforms ComboBox.
 
-3. Run `NeoBleeper.exe` to open NeoBleeper.
+5. If you have contributed to NeoBleeper, before committing the project, select the 'listView1' component in the 'about_neobleeper.cs' file, select the small arrow in the upper right corner, select 'Edit Items', add a ListViewItem, write your name in the 'Text' property, select the three dots to the right of '(Collection)' in the 'SubItems' property, and write the tasks you have done while contributing to NeoBleeper in the 'Text' property.
 
 ## Contributing
 
