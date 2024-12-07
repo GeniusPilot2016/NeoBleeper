@@ -16,17 +16,17 @@ This project is **still in development** and some features and components are st
   ![image](https://github.com/user-attachments/assets/39b07668-0e0c-4cd0-bd3b-8024dc9d76b6)
   
 - ### Add and edit notes
-  NeoBleeper allows users to add and notes easily and quickly. With its user-friendly and familiar interface, you can creatively add notes to your music or edit notes in your music.
+  NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
   ![image](https://github.com/user-attachments/assets/ada88966-2525-41e3-916c-83699644b079)
 
 - ### Time signature and BPM settings
-  NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
+  NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
   
   ![image](https://github.com/user-attachments/assets/214cb071-f5df-4286-a219-6a5c2fdcc2a1)
 
 - ### Easy note entry with virtual keyboard
-  NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. Thanks to its user-friendly interface, you can effortlessly enter and edit notes, speeding up your creative processes.
+  NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
   
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
 
