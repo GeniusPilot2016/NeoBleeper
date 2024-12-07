@@ -19,16 +19,16 @@ This project is **still in development** and some features and components are st
 
 1. Open Visual Studio.
 
-2. On the start window, select 'Clone a repository'.
+2. On the start window, select `Clone a repository`.
 
-3. Enter or type the this repository location, then select the 'Clone' button:
+3. Enter or type the this repository location, then select the `Clone` button:
 ```sh
 git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 ```
 
-4. To run NeoBleeper, select 'NeoBleeper' next to the Solution Platforms ComboBox.
+4. To run NeoBleeper, select `NeoBleeper` next to the Solution Platforms ComboBox.
 
-5. If you have contributed to NeoBleeper, don't forget to select the 'listView1' component in the 'about_neobleeper.cs' file, select the small arrow in the upper right corner, select 'Edit Items', add a ListViewItem, write your name/nickname in the 'Text' property, select the triple dots to the right of '(Collection)' in the 'SubItems' property, and write the tasks you have done while contributing to NeoBleeper in the 'Text' property, before committing the project.
+5. If you have contributed to NeoBleeper, don't forget to select the `listView1` component in the `about_neobleeper.cs` file, select the small arrow in the upper right corner, select `Edit Items`, add a ListViewItem, write your name/nickname in the `Text` property, select the triple dots to the right of `(Collection)` in the `SubItems` property, and write the tasks you have done while contributing to NeoBleeper in the `Text` property or edit your own existing `ListViewItem`, before committing the project.
 
 ## Contributing
 Contributions are always welcome! You can contribute by submitting a pull request or opening an issue.
@@ -67,9 +67,13 @@ Contributions are always welcome! You can contribute by submitting a pull reques
 
 ### General Instructions
 Start by forking.
-Create a new Branch: git checkout -b feature/AmazingFeature
-Commit your changes: git commit -m 'Add feature: AmazingFeature'
-Do a Push: git push origin feature/AmazingFeature
+
+Create a new Branch: `git checkout -b feature/AmazingFeature`
+
+Commit your changes: `git commit -m 'Add feature: AmazingFeature'`
+
+Do a Push: `git push origin feature/AmazingFeature`
+
 Open a Pull Request.
 
 ## Contact
