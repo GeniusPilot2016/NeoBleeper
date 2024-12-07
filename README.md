@@ -6,7 +6,7 @@ NeoBleeper is a tune creation software using the system speaker on the motherboa
 
 ## Status
 
-This project is **still in development** and some features and components are still unfinished. Please use the program with this in mind and provide feedback for possible errors or omissions.
+This project is **still in development** and some features and components are still unfinished and even some of its parts have not yet been created. Please use the program with this in mind and provide feedback for possible errors or omissions.
 
 ## Features
 
