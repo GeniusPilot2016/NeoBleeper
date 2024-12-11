@@ -1865,6 +1865,7 @@
             // 
             // main_window
             // 
+            AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(checkBox_use_keyboard_as_piano);
@@ -1924,6 +1925,8 @@
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
             Load += main_window_Load;
+            DragDrop += main_window_DragDrop;
+            DragEnter += main_window_DragEnter;
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

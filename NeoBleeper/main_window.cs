@@ -10,6 +10,7 @@ using System.Diagnostics;
 using Microsoft.VisualBasic.Devices;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Forms.Design;
 
 namespace NeoBleeper
 {
@@ -145,6 +146,7 @@ namespace NeoBleeper
             comboBox_note_length.SelectedValue = comboBox_note_length.Items[3];
             Variables.octave = 4;
             Variables.bpm = 140;
+            Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
         }
 
@@ -254,19 +256,19 @@ namespace NeoBleeper
         }
         private void add_note()
         {
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3] || comboBox_note_length.SelectedItem == comboBox_note_length.Items[4] || comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
+            if (comboBox_note_length.SelectedIndex == 3 || comboBox_note_length.SelectedIndex == 4 || comboBox_note_length.SelectedIndex == 5)
             {
                 Line.length = comboBox_note_length.SelectedItem.ToString();
             }
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[2])
+            if (comboBox_note_length.SelectedIndex == 2)
             {
                 Line.length = "Quarter";
             }
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[1])
+            if (comboBox_note_length.SelectedIndex == 1)
             {
                 Line.length = "Half";
             }
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[0])
+            if (comboBox_note_length.SelectedIndex == 0)
             {
                 Line.length = "Whole";
             }
@@ -1224,87 +1226,166 @@ namespace NeoBleeper
 
         }
 
+        private void FileParser(string filename)
+        {
+            string first_line = File.ReadLines(filename).First();
+            if (first_line == "Bleeper Music Maker by Robbi-985 file format")
+            {
+                string[] lines = File.ReadAllLines(filename);
+
+                int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART") + 1;
+
+                for(int i=1; i<noteListStartIndex; i++)
+                {
+                    if (lines[i].StartsWith("//") || lines[i] == string.Empty) 
+                    { 
+                        continue; 
+                    }
+                    else
+                    {
+                        string[] parts = lines[i].Split(' ');
+                        switch (parts[0])
+                        {
+                            case "KeyboardOctave":
+                                Variables.octave = Convert.ToInt32(parts[1]);
+                                break;
+                            case "BPM":
+                                Variables.bpm = Convert.ToInt32(parts[1]);
+                                numericUpDown_bpm.Value = Convert.ToDecimal(parts[1]);
+                                break;
+                            case "TimeSig":
+                                trackBar_time_signature.Value = Convert.ToInt32(parts[1]);
+                                break;
+                            case "NoteSilenceRatio":
+                                Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(parts[1]) / 100);
+                                trackBar_note_silence_ratio.Value = Convert.ToInt32(parts[1]);
+                                break;
+                            case "NoteLength":
+                                comboBox_note_length.SelectedIndex = Convert.ToInt32(parts[1]);
+                                break;
+                            case "AlternateTime":
+                                Variables.alternating_note_length = Convert.ToInt32(parts[1]);
+                                numericUpDown_alternating_notes.Value = Convert.ToDecimal(parts[1]);
+                                break;
+                            case "NoteClickPlay":
+                                checkbox_play_note.Checked = parts[1] == "1";
+                                break;
+                            case "NoteClickAdd":
+                                checkBox_add_note_to_list.Checked = parts[1] == "1";
+                                break;
+                            case "AddNote1":
+                                add_as_note1.Checked = parts[1] == "True";
+                                break;
+                            case "AddNote2":
+                                add_as_note2.Checked = parts[1] == "False";
+                                break;
+                            case "NoteReplace":
+                                checkBox_replace.Checked = parts[1] == "1";
+                                break;
+                            case "NoteLengthReplace":
+                                checkBox_replace_length.Checked = parts[1] == "1";
+                                break;
+                            case "ClickPlayNote1":
+                                checkBox_play_note1_clicked.Checked = parts[1] == "1";
+                                break;
+                            case "ClickPlayNote2":
+                                checkBox_play_note2_clicked.Checked = parts[1] == "1";
+                                break;
+                            case "PlayNote1":
+                                checkBox_play_note1_played.Checked = parts[1] == "1";
+                                break;
+                            case "PlayNote2":
+                                checkBox_play_note2_played.Checked = parts[1] == "1";
+                                break; // Diðer ayarlarý da benzer þekilde iþleyin
+                            default:
+                                continue;
+                        }
+                    }
+                }
+                noteLabelsUpdate();
+                listViewNotes.Items.Clear();
+
+                for (int i = noteListStartIndex; i < lines.Length; i++)
+                {
+                    if (lines[i].StartsWith("//") || lines[i] == string.Empty)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        string[] noteData = lines[i].Split(' ');
+
+                        ListViewItem item = new ListViewItem(noteData[0]); // Note length
+                        if (noteData[1] != "-")
+                        {
+                            item.SubItems.Add(noteData[1]); // Note 1
+                        }
+                        else
+                        {
+                            item.SubItems.Add(string.Empty);
+                        }
+                        if (noteData[2] != "-")
+                        {
+                            item.SubItems.Add(noteData[2]); // Note 2
+                        }
+                        else
+                        {
+                            item.SubItems.Add(string.Empty);
+                        }
+                        if (noteData.Length == 4)
+                        {
+                            if (noteData[3] != "-")
+                            {
+                                for (int j = 0; j < 2; j++)
+                                {
+                                    item.SubItems.Add(string.Empty);
+                                }
+                                item.SubItems.Add(noteData[3]);
+                            }
+                            else
+                            {
+                                for (int j = 0; j < 3; j++)
+                                {
+                                    item.SubItems.Add(string.Empty);
+                                }
+                            }
+                            item.SubItems.Add(string.Empty);
+                        }
+                        else
+                        {
+                            for (int j = 0; j < 4; j++)
+                            {
+                                item.SubItems.Add(string.Empty);
+                            }
+                        }
+                        listViewNotes.Items.Add(item);
+                    }
+                }
+
+            }
+            else if (first_line == "<FileFormat>NeoBleeper File Format</FileFormat>")
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             openFileDialog.ShowDialog(this);
-            if (openFileDialog.FileName!=string.Empty)
+            if (openFileDialog.FileName != string.Empty)
             {
-                string first_line = File.ReadLines(openFileDialog.FileName).First();
-                if (first_line == "Bleeper Music Maker by Robbi-985 file format")
-                {
-
-                    listViewNotes.Items.Clear(); 
-                    string[] lines = File.ReadAllLines(openFileDialog.FileName);
-
-                    int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART") + 1;
-
-                    listViewNotes.Items.Clear();
-                    for (int i = noteListStartIndex; i < lines.Length; i++)
-                    {
-                        if (lines[i].StartsWith("//") || lines[i]==string.Empty)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            string[] noteData = lines[i].Split(' ');
-
-                            ListViewItem item = new ListViewItem(noteData[0]); // Note length
-                            if (noteData[1] != "-")
-                            {
-                                item.SubItems.Add(noteData[1]); // Note 1
-                            }
-                            else
-                            {
-                                item.SubItems.Add(string.Empty);
-                            }
-                            if (noteData[2] != "-")
-                            {
-                                item.SubItems.Add(noteData[2]); // Note 2
-                            }
-                            else
-                            {
-                                item.SubItems.Add(string.Empty);
-                            }
-                            if(noteData.Length==4)
-                            {
-                                if (noteData[3] != "-")
-                                {
-                                    for (int j = 0; j < 2; j++)
-                                    {
-                                        item.SubItems.Add(string.Empty);
-                                    }
-                                    item.SubItems.Add(noteData[3]);
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < 3; j++)
-                                    {
-                                        item.SubItems.Add(string.Empty);
-                                    }
-                                }
-                            }
-                            listViewNotes.Items.Add(item);
-                        }
-                    }
-
-
-                }
-                else if (first_line == "<FileFormat>NeoBleeper File Format</FileFormat>")
-                {
-                    
-                }
-                else
-                {
-                    MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                FileParser(openFileDialog.FileName);
             }
         }
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2325,7 +2406,7 @@ namespace NeoBleeper
                     {
                         play_note_when_line_is_clicked(Convert.ToInt32(note2_frequency), length);
                     }
-                } 		
+                }
 
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
@@ -2686,6 +2767,28 @@ namespace NeoBleeper
             else if (checkBox_use_keyboard_as_piano.Checked == false)
             {
                 hide_keyboard_keys_shortcut();
+            }
+        }
+
+        private void main_window_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void main_window_DragDrop(object sender, DragEventArgs e)
+        {
+            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string fileName = files[0];
+                FileParser(fileName);
             }
         }
     }
