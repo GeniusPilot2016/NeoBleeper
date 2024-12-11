@@ -9,6 +9,7 @@ using Windows.Devices.Usb;
 using System.Diagnostics;
 using Microsoft.VisualBasic.Devices;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NeoBleeper
 {
@@ -1223,27 +1224,80 @@ namespace NeoBleeper
 
         }
 
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             openFileDialog.ShowDialog(this);
-            string line = File.ReadLines(openFileDialog.FileName).First();
-            if (openFileDialog.FileName != string.Empty)
+            if (openFileDialog.FileName!=string.Empty)
             {
-                if (line == "Bleeper Music Maker by Robbi-985 file format")
-                {
-                    file_parser.BleeperMusicMakerFileParser bleeperMusicMakerFileParser 
-                        = new file_parser.BleeperMusicMakerFileParser();
-                    bleeperMusicMakerFileParser.Parse(line);
-                }
-                else if (line == "<Project =\"NeoBleeper.Project\">")
+                string first_line = File.ReadLines(openFileDialog.FileName).First();
+                if (first_line == "Bleeper Music Maker by Robbi-985 file format")
                 {
 
+                    listViewNotes.Items.Clear(); 
+                    string[] lines = File.ReadAllLines(openFileDialog.FileName);
+
+                    int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART") + 1;
+
+                    listViewNotes.Items.Clear();
+                    for (int i = noteListStartIndex; i < lines.Length; i++)
+                    {
+                        if (lines[i].StartsWith("//") || lines[i]==string.Empty)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            string[] noteData = lines[i].Split(' ');
+
+                            ListViewItem item = new ListViewItem(noteData[0]); // Note length
+                            if (noteData[1] != "-")
+                            {
+                                item.SubItems.Add(noteData[1]); // Note 1
+                            }
+                            else
+                            {
+                                item.SubItems.Add(string.Empty);
+                            }
+                            if (noteData[2] != "-")
+                            {
+                                item.SubItems.Add(noteData[2]); // Note 2
+                            }
+                            else
+                            {
+                                item.SubItems.Add(string.Empty);
+                            }
+                            if(noteData.Length==4)
+                            {
+                                if (noteData[3] != "-")
+                                {
+                                    for (int j = 0; j < 2; j++)
+                                    {
+                                        item.SubItems.Add(string.Empty);
+                                    }
+                                    item.SubItems.Add(noteData[3]);
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < 3; j++)
+                                    {
+                                        item.SubItems.Add(string.Empty);
+                                    }
+                                }
+                            }
+                            listViewNotes.Items.Add(item);
+                        }
+                    }
+
+
+                }
+                else if (first_line == "<FileFormat>NeoBleeper File Format</FileFormat>")
+                {
+                    
                 }
                 else
                 {
-                    MessageBox.Show("Invalid file extension", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -2271,7 +2325,8 @@ namespace NeoBleeper
                     {
                         play_note_when_line_is_clicked(Convert.ToInt32(note2_frequency), length);
                     }
-                }
+                } 		
+
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
                     if (checkBox_play_note3_clicked.Checked == true)
