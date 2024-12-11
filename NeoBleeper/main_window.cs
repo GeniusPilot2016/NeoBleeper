@@ -1225,14 +1225,28 @@ namespace NeoBleeper
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open_file = new OpenFileDialog();
-            open_file.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
-            open_file.ShowDialog();
+            openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
+            openFileDialog.ShowDialog(this);
+            if (openFileDialog.FileName != string.Empty)
+            {
+                if (openFileDialog.FileName.Substring(openFileDialog.FileName.Length - 4).ToUpper() == ".BMM")
+                {
+
+                }
+                else if (openFileDialog.FileName.Substring(openFileDialog.FileName.Length - 6).ToUpper() == ".NBPML")
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Invalid file extension", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
