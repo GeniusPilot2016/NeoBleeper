@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using Windows.Devices.Usb;
 using System.Diagnostics;
 using Microsoft.VisualBasic.Devices;
+using System.Linq;
 
 namespace NeoBleeper
 {
@@ -1227,13 +1228,16 @@ namespace NeoBleeper
         {
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             openFileDialog.ShowDialog(this);
+            string line = File.ReadLines(openFileDialog.FileName).First();
             if (openFileDialog.FileName != string.Empty)
             {
-                if (openFileDialog.FileName.Substring(openFileDialog.FileName.Length - 4).ToUpper() == ".BMM")
+                if (line == "Bleeper Music Maker by Robbi-985 file format")
                 {
-
+                    file_parser.BleeperMusicMakerFileParser bleeperMusicMakerFileParser 
+                        = new file_parser.BleeperMusicMakerFileParser();
+                    bleeperMusicMakerFileParser.Parse(line);
                 }
-                else if (openFileDialog.FileName.Substring(openFileDialog.FileName.Length - 6).ToUpper() == ".NBPML")
+                else if (line == "<Project =\"NeoBleeper.Project\">")
                 {
 
                 }

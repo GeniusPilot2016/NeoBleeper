@@ -58,7 +58,9 @@ namespace NeoBleeper
 
             public void Parse(string filePath)
             {
-                var lines = File.ReadAllLines(filePath); bool musicListStarted = false; foreach (var line in lines)
+                var lines = File.ReadAllLines(filePath); 
+                bool musicListStarted = false; 
+                foreach (var line in lines)
                 {
                     if (line.StartsWith("//") || string.IsNullOrWhiteSpace(line))
                     {
