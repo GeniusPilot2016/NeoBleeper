@@ -111,15 +111,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\..\..\Downloads\inpout32.dll" Link="inpout32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\..\Downloads\inpoutx64.dll" Link="inpoutx64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MIDIator" Version="1.0.105" />
     <PackageReference Include="nFMOD" Version="0.6.0" />
     <PackageReference Include="System.Management" Version="9.0.0" />
