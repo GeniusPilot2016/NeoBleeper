@@ -44,12 +44,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="inpout32.dll">
+    <Content Include="inpout32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="inpoutx64.dll">
+    </Content>
+    <Content Include="inpoutx64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="Resources\HarmonyOS_Sans_Black.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
