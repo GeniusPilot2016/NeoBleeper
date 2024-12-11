@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static NeoBleeper.Program;
 
 namespace NeoBleeper
 {
@@ -89,7 +90,8 @@ namespace NeoBleeper
         }
         private void system_speaker_test_tune()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
+            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && 
+                Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
             {
                 RenderBeep.BeepClass.Beep(987, 428);
                 RenderBeep.BeepClass.Beep(987, 428);
@@ -130,7 +132,11 @@ namespace NeoBleeper
 
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RenderBeep.BeepClass.StopBeep();
+            if (eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true &&
+                eligability_of_create_beep_from_system_speaker.is_x64_based==true)
+            {
+                RenderBeep.BeepClass.StopBeep();
+            }
         }
 
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
