@@ -17,6 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="inpout32.dll" />
+    <None Remove="inpoutx64.dll" />
     <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Condensed_Black.ttf" />
@@ -42,6 +44,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="inpout32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="inpoutx64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\HarmonyOS_Sans_Black.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -138,9 +146,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="inpout32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Settings1.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
