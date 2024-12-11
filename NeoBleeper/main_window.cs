@@ -1303,6 +1303,11 @@ namespace NeoBleeper
                     }
                 }
                 noteLabelsUpdate();
+                if (Variables.octave == 9)
+                {
+                    octave10NoteLabelShiftToRight();
+                }
+                this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + filename;
                 listViewNotes.Items.Clear();
 
                 for (int i = noteListStartIndex; i < lines.Length; i++)
@@ -1658,6 +1663,7 @@ namespace NeoBleeper
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = System.AppDomain.CurrentDomain.FriendlyName;
             if (Variables.octave == 9)
             {
                 octave10NoteLabelShiftToRight();
