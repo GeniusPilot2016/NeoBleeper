@@ -2,7 +2,7 @@
 
 NeoBleeper is a tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2010 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above by accessing the physical port of the system speaker 🖥️🎶
 
-![Screenshot_main_window](https://github.com/user-attachments/assets/6f113e33-a89c-4611-a170-6b96a0354338)
+![image](https://github.com/user-attachments/assets/17097a87-60c7-4a85-85e5-fe008f3f8958)
 
 
 ## Status
