@@ -1255,10 +1255,12 @@ namespace NeoBleeper
                                 break;
                             case "TimeSig":
                                 trackBar_time_signature.Value = Convert.ToInt32(parts[1]);
+                                lbl_time_signature.Text = parts[1].ToString();
                                 break;
                             case "NoteSilenceRatio":
                                 Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(parts[1]) / 100);
                                 trackBar_note_silence_ratio.Value = Convert.ToInt32(parts[1]);
+                                lbl_note_silence_ratio.Text = parts[1].ToString() + "%";
                                 break;
                             case "NoteLength":
                                 comboBox_note_length.SelectedIndex = Convert.ToInt32(parts[1]);
