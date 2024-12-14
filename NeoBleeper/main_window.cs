@@ -11,6 +11,7 @@ using Microsoft.VisualBasic.Devices;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms.Design;
+using static NeoBleeper.RenderBeep;
 
 namespace NeoBleeper
 {
@@ -1881,7 +1882,10 @@ namespace NeoBleeper
         private void listViewNotes_Click(object sender, EventArgs e)
         {
             beep_label_appear();
-            play_note_in_line(Convert.ToInt32(final_note_length));
+            new Thread(() =>
+            {
+                play_note_in_line(Convert.ToInt32(final_note_length));
+            }).Start();
         }
 
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
