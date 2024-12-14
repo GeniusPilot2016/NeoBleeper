@@ -2209,7 +2209,7 @@ namespace NeoBleeper
                         {
                             note2_octave = Convert.ToInt32((note2.Substring(2, 2)));
                         }
-                        switch (note1.Substring(0, 2))
+                        switch (note2.Substring(0, 2))
                         {
                             case "C#":
                                 note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
@@ -2335,16 +2335,16 @@ namespace NeoBleeper
                 }
                 if (note4 != string.Empty)
                 {
-                    if (note4.Length == 3)
-                    {
-                        note4_octave = Convert.ToInt32((note4.Substring(2, 1)));
-                    }
-                    else if (note4.Length == 4)
-                    {
-                        note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
-                    }
                     if (note4.Contains("#"))
                     {
+                        if (note4.Length == 3)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(2, 1)));
+                        }
+                        else if (note3.Length == 4)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
+                        }
                         switch (note4.Substring(0, 2))
                         {
                             case "C#":
@@ -2365,15 +2365,15 @@ namespace NeoBleeper
                         }
                     }
                     else
-                    if (note4.Length == 2)
                     {
-                        note4_octave = Convert.ToInt32((note4.Substring(1, 1)));
-                    }
-                    else if (note3.Length == 3)
-                    {
-                        note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
-                    }
-                    {
+                        if (note4.Length == 2)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(1, 1)));
+                        }
+                        else if (note4.Length == 3)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
+                        }
                         switch (note4.Substring(0, 1))
                         {
                             case "C":
@@ -2529,7 +2529,7 @@ namespace NeoBleeper
         }
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewNotes.CheckedItems.Count > 0)
+            if (listViewNotes.SelectedItems.Count > 0)
             {
                 int selectedLine = listViewNotes.SelectedIndices[0];
                 if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
