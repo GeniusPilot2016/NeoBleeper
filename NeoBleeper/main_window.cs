@@ -1881,11 +1881,14 @@ namespace NeoBleeper
         }
         private void listViewNotes_Click(object sender, EventArgs e)
         {
-            beep_label_appear();
-            new Thread(() =>
+            if(listViewNotes.FocusedItem != null)
             {
-                play_note_in_line(Convert.ToInt32(final_note_length));
-            }).Start();
+                beep_label_appear();
+                new Thread(() =>
+                {
+                    play_note_in_line(Convert.ToInt32(final_note_length));
+                }).Start();
+            }
         }
 
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
@@ -1994,10 +1997,10 @@ namespace NeoBleeper
         }*/
         private async void beep_label_appear()
         {
-            if (listViewNotes.FocusedItem.Index >= 0)
+            if (listViewNotes.FocusedItem!=null)
             {
                 Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
-                int selected_line = listViewNotes.Items.IndexOf(listViewNotes.FocusedItem);
+                int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
                 if ((checkBox_play_note1_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[1].Text != string.Empty) ||
                     (checkBox_play_note2_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[2].Text != string.Empty) ||
                     (checkBox_play_note3_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[3].Text != string.Empty) ||
@@ -2126,9 +2129,9 @@ namespace NeoBleeper
             double note4_base_frequency = 0;
             int note4_octave = 0;
             double note4_frequency = 0;
-            if (listViewNotes.FocusedItem.Index >= 0)
+            if (listViewNotes.FocusedItem != null)
             {
-                int selected_line = listViewNotes.Items.IndexOf(listViewNotes.FocusedItem);
+                int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
                 note1 = listViewNotes.Items[selected_line].SubItems[1].Text;
                 note2 = listViewNotes.Items[selected_line].SubItems[2].Text;
                 note3 = listViewNotes.Items[selected_line].SubItems[3].Text;

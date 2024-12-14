@@ -1219,7 +1219,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAATCwAAAJNU0Z0AUkBTAIBARAB
-        AAGYAQYBmAEGARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAEgAQcBIAEHARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AdwAB8AHKAaYC/wGZATMB/wHwAcoBpgH/qAAD
         sgH/BAADwAH/BAAB/wGZATMC/wHMAQAD/wEzAv8BzAEzAv8BmQEACf8DsgH/A7IB/xAAAf8B7AHMAv8B
         zAEzAv8BzAEzAv8BmQEzAv8BmQEzAv8BzAEzAv8B7AHMAf+gAAGkAqAB/wQAAaQCoAL/AewBzAH/AwAB
@@ -1843,7 +1843,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_stop_playing.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 521</value>
+    <value>853, 523</value>
   </data>
   <data name="button_stop_playing.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -6112,7 +6112,7 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>858, 553</value>
+    <value>858, 555</value>
   </data>
   <data name="position_table.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
