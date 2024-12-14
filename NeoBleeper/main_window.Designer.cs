@@ -589,7 +589,7 @@
             resources.ApplyResources(numericUpDown_alternating_notes, "numericUpDown_alternating_notes");
             numericUpDown_alternating_notes.Increment = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_alternating_notes.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
-            numericUpDown_alternating_notes.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
+            numericUpDown_alternating_notes.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_alternating_notes.Name = "numericUpDown_alternating_notes";
             NeoBleeper_help.SetShowHelp(numericUpDown_alternating_notes, (bool)resources.GetObject("numericUpDown_alternating_notes.ShowHelp"));
             toolTip1.SetToolTip(numericUpDown_alternating_notes, resources.GetString("numericUpDown_alternating_notes.ToolTip"));
