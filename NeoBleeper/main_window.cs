@@ -1798,33 +1798,45 @@ namespace NeoBleeper
             while (checkBox_metronome.Checked == true)
             {
                 int i = 1;
-                label_beep.Visible = true;
+                UpdateLabelVisible(true);
                 if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked==false)
                 {
-                    RenderBeep.BeepClass.Beep(1000, 50);
+                    RenderBeep.BeepClass.Beep(1000, 60);
                 }
                 else
                 {
-                    Thread.Sleep(50);
+                    Thread.Sleep(60);
                 }
-                label_beep.Visible = false;
-                Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
+                UpdateLabelVisible(false);
+                Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 60);
                 while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                 {
-                    label_beep.Visible = true;
+                    UpdateLabelVisible(true);
                     if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                     {
-                        RenderBeep.BeepClass.Beep(498, 50);
+                        RenderBeep.BeepClass.Beep(498, 60);
                     }
                     else
                     {
-                        Thread.Sleep(50);
+                        Thread.Sleep(60);
                     }
-                    label_beep.Visible = false;
-                    Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
+                    UpdateLabelVisible(false);
+                    Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 60);
                     i++;
                 }
             }
+        }
+        private void UpdateLabelVisible(bool visible) 
+        { 
+            if (label_beep.InvokeRequired) 
+            { 
+                label_beep.Invoke(new Action(() => 
+                label_beep.Visible = visible)); 
+            } 
+            else 
+            { 
+                label_beep.Visible = visible; 
+            } 
         }
         private void checkBox_metronome_CheckedChanged(object sender, EventArgs e)
         {
