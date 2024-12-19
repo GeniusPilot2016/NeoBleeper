@@ -1795,17 +1795,31 @@ namespace NeoBleeper
         }
         private void metronome()
         {
-            while (checkBox_metronome.Checked == true) 
+            while (checkBox_metronome.Checked == true)
             {
                 int i = 1;
                 label_beep.Visible = true;
-                RenderBeep.BeepClass.Beep(1000, 50);
+                if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked==false)
+                {
+                    RenderBeep.BeepClass.Beep(1000, 50);
+                }
+                else
+                {
+                    Thread.Sleep(50);
+                }
                 label_beep.Visible = false;
                 Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
-                while (i < trackBar_time_signature.Value&& checkBox_metronome.Checked == true)
+                while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                 {
                     label_beep.Visible = true;
-                    RenderBeep.BeepClass.Beep(498, 50);
+                    if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
+                    {
+                        RenderBeep.BeepClass.Beep(498, 50);
+                    }
+                    else
+                    {
+                        Thread.Sleep(50);
+                    }
                     label_beep.Visible = false;
                     Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
                     i++;
