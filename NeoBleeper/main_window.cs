@@ -12,6 +12,7 @@ using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms.Design;
 using static NeoBleeper.RenderBeep;
+using NUnit.Framework;
 
 namespace NeoBleeper
 {
@@ -1792,11 +1793,34 @@ namespace NeoBleeper
         {
 
         }
+        private void metronome()
+        {
+            while (checkBox_metronome.Checked == true) 
+            {
+                int i = 1;
+                label_beep.Visible = true;
+                RenderBeep.BeepClass.Beep(1000, 50);
+                label_beep.Visible = false;
+                Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
+                while (i < trackBar_time_signature.Value&& checkBox_metronome.Checked == true)
+                {
+                    label_beep.Visible = true;
+                    RenderBeep.BeepClass.Beep(498, 50);
+                    label_beep.Visible = false;
+                    Thread.Sleep(Convert.ToInt32(60000 / Variables.bpm) - 50);
+                    i++;
+                }
+            }
+        }
         private void checkBox_metronome_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_metronome.Checked == true)
             {
                 checkBox_metronome.BackColor = Color.FromArgb(192, 255, 192);
+                new Thread(() =>
+                {
+                    metronome();
+                }).Start();
             }
             else
             {
