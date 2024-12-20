@@ -24,7 +24,7 @@ This project is **still in development** and some features and components are st
 - ### Time signature and BPM settings
   NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
   
-  ![image](https://github.com/user-attachments/assets/214cb071-f5df-4286-a219-6a5c2fdcc2a1)
+  ![image](https://github.com/user-attachments/assets/b25ca651-f877-4440-a75c-ee5e30ef2151)
 
 - ### Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
