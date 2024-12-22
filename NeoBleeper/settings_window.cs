@@ -90,39 +90,30 @@ namespace NeoBleeper
         }
         private void system_speaker_test_tune()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && 
+            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true &&
                 Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
             {
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(1046, 428);
-                RenderBeep.BeepClass.Beep(1174, 428);
-                RenderBeep.BeepClass.Beep(1174, 428);
-                RenderBeep.BeepClass.Beep(1046, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(880, 428);
-                RenderBeep.BeepClass.Beep(783, 428);
-                RenderBeep.BeepClass.Beep(783, 428);
-                RenderBeep.BeepClass.Beep(880, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(987, 642);
-                RenderBeep.BeepClass.Beep(880, 214);
-                RenderBeep.BeepClass.Beep(880, 856);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(1046, 428);
-                RenderBeep.BeepClass.Beep(1174, 428);
-                RenderBeep.BeepClass.Beep(1174, 428);
-                RenderBeep.BeepClass.Beep(1046, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(880, 428);
-                RenderBeep.BeepClass.Beep(783, 428);
-                RenderBeep.BeepClass.Beep(783, 428);
-                RenderBeep.BeepClass.Beep(880, 428);
-                RenderBeep.BeepClass.Beep(987, 428);
-                RenderBeep.BeepClass.Beep(880, 642);
-                RenderBeep.BeepClass.Beep(783, 214);
-                RenderBeep.BeepClass.Beep(783, 856);
+                Random rnd = new Random();
+                int tune_number = rnd.Next(1, 6); // 1 ile 5 arasında rastgele bir melodi seç
+
+                switch (tune_number)
+                {
+                    case 1:
+                        PlaySimpleBeepSequence();
+                        break;
+                    case 2:
+                        PlayScale();
+                        break;
+                    case 3:
+                        PlayTwinkleTwinkle();
+                        break;
+                    case 4:
+                        PlayBeethovenFifth();
+                        break;
+                    case 5:
+                        PlayHappyBirthday();
+                        break;
+                }
             }
         }
         private void checkBox_test_system_speaker_CheckedChanged_1(object sender, EventArgs e)
@@ -231,6 +222,261 @@ namespace NeoBleeper
                         Program.creating_sounds.create_beep_with_soundcard = false;
                         break;
                 }
+            }
+        }
+        private void PlayJingleBells()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 1000 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 1000 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 494, 500 }, // B4
+                new int[] { 261, 500 }, // C5
+                new int[] { 329, 500 }, // E5
+                new int[] { 392, 1000 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayMaryHadALittleLamb()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 329, 500 }, // E4
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 1000 }, // G4
+                new int[] { 329, 500 }, // E4
+                new int[] { 329, 500 }, // E4
+                new int[] { 329, 1000 }, // E4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 440, 1000 }  // A4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayOdeToJoy()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 293, 500 }, // D4
+                new int[] { 261, 500 }, // C4
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayYankeeDoodle()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 293, 500 }, // D4
+                new int[] { 261, 500 }, // C4
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayFrereJacques()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 261, 500 }, // C4
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 261, 500 }, // C4
+                new int[] { 261, 500 }, // C4
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 261, 500 }, // C4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 261, 500 }, // C4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 261, 500 }  // C4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayMinorChord()
+        {
+            int[] frequencies = { 261, 311, 392 }; // C4, D#4, G4
+            foreach (int freq in frequencies)
+            {
+                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
+            }
+        }
+        private void PlayMajorChord()
+        {
+            int[] frequencies = { 261, 329, 392 }; // C4, E4, G4
+            foreach (int freq in frequencies)
+            {
+                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
+            }
+        }
+        private void PlayDescendingBeeps()
+        {
+            for (int freq = 2000; freq >= 200; freq -= 200)
+            {
+                RenderBeep.BeepClass.Beep(freq, 500); // Her frekans için 500 ms
+            }
+        }
+        private void PlayAscendingBeeps()
+        {
+            for (int freq = 200; freq <= 2000; freq += 200)
+            {
+                RenderBeep.BeepClass.Beep(freq, 500); // Her frekans için 500 ms
+            }
+        }
+        private void PlayRandomBeeps()
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                int frequency = rnd.Next(200, 2000); // 200 Hz ile 2000 Hz arasında rastgele frekans
+                int duration = rnd.Next(100, 1000); // 100 ms ile 1000 ms arasında rastgele süre
+                RenderBeep.BeepClass.Beep(frequency, duration);
+            }
+        }
+        private void PlayHappyBirthday()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 264, 125 }, // C4
+                new int[] { 264, 125 }, // C4
+                new int[] { 297, 250 }, // D4
+                new int[] { 264, 250 }, // C4
+                new int[] { 352, 250 }, // F4
+                new int[] { 330, 500 }, // E4
+                new int[] { 264, 125 }, // C4
+                new int[] { 264, 125 }, // C4
+                new int[] { 297, 250 }, // D4
+                new int[] { 264, 250 }, // C4
+                new int[] { 396, 250 }, // G4
+                new int[] { 352, 500 }  // F4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayBeethovenFifth()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 523, 250 }, // C5
+                new int[] { 523, 250 }, // C5
+                new int[] { 523, 250 }, // C5
+                new int[] { 415, 1000 }, // G#4
+                new int[] { 466, 250 }, // A#4
+                new int[] { 466, 250 }, // A#4
+                new int[] { 466, 250 }, // A#4
+                new int[] { 349, 1000 }  // F4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlayTwinkleTwinkle()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 261, 500 }, // C4
+                new int[] { 261, 500 }, // C4
+                new int[] { 392, 500 }, // G4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 1000 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 329, 500 }, // E4
+                new int[] { 293, 500 }, // D4
+                new int[] { 293, 500 }, // D4
+                new int[] { 261, 1000 }  // C4
+            };
+
+            foreach (int[] note in melody)
+            {
+                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            }
+        }
+        private void PlaySimpleBeepSequence()
+        {
+            RenderBeep.BeepClass.Beep(1000, 500); // Frekans: 1000 Hz, Süre: 500 ms
+            RenderBeep.BeepClass.Beep(1500, 500); // Frekans: 1500 Hz, Süre: 500 ms
+            RenderBeep.BeepClass.Beep(2000, 500); // Frekans: 2000 Hz, Süre: 500 ms
+        }
+        private void PlayScale()
+        {
+            int[] frequencies = { 261, 293, 329, 349, 392, 440, 493, 523 }; // C4'ten C5'e
+            foreach (int freq in frequencies)
+            {
+                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
             }
         }
     }

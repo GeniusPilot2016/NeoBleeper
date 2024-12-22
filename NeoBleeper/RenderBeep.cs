@@ -15,11 +15,11 @@ namespace NeoBleeper
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
             extern static char Inp32(short PortAddress);
-            public static void Beep(uint freq, int ms)
+            public static void Beep(int freq, int ms)
             {
                 Application.DoEvents();
                 Out32(0x43, 0xB6);
-                int div = 0x1234dc / Convert.ToInt32(freq);
+                int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
                 System.Threading.Thread.Sleep(10);

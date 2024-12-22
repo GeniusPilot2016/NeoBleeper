@@ -433,7 +433,7 @@ namespace NeoBleeper
                 {
                     if (frequency >= 37 && frequency <= 32767)
                     {
-                        RenderBeep.BeepClass.Beep(Convert.ToUInt32(frequency), 100);
+                        RenderBeep.BeepClass.Beep(frequency, 100);
                     }
                 }
             }
@@ -2214,7 +2214,7 @@ namespace NeoBleeper
                 {
                     if (frequency >= 37 && frequency <= 32767)
                     {
-                        RenderBeep.BeepClass.Beep(Convert.ToUInt32(frequency), length);
+                        RenderBeep.BeepClass.Beep(frequency, length);
                     }
                 }
             }
