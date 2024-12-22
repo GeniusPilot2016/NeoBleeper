@@ -13,6 +13,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms.Design;
 using static NeoBleeper.RenderBeep;
 using NUnit.Framework;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace NeoBleeper
 {
@@ -1237,11 +1240,11 @@ namespace NeoBleeper
 
                 int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART") + 1;
 
-                for(int i=1; i<noteListStartIndex; i++)
+                for (int i = 1; i < noteListStartIndex; i++)
                 {
-                    if (lines[i].StartsWith("//") || lines[i] == string.Empty) 
-                    { 
-                        continue; 
+                    if (lines[i].StartsWith("//") || lines[i] == string.Empty)
+                    {
+                        continue;
                     }
                     else
                     {
@@ -1300,7 +1303,7 @@ namespace NeoBleeper
                                 break;
                             case "PlayNote2":
                                 checkBox_play_note2_played.Checked = parts[1] == "1";
-                                break; // Diðer ayarlarý da benzer þekilde iþleyin
+                                break; 
                             default:
                                 continue;
                         }
@@ -1374,14 +1377,69 @@ namespace NeoBleeper
             }
             else if (first_line == "<FileFormat>NeoBleeper File Format</FileFormat>")
             {
+                NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
+                {
 
-            }
-            else
-            {
-                MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                    Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
+                    trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
+                    lbl_time_signature.Text = projectFile.Settings.RandomSettings.KeyboardOctave;
+                    Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
+                    trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
+                    lbl_note_silence_ratio.Text = projectFile.Settings.RandomSettings.NoteSilenceRatio + "%";
+                    comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
+                    Variables.alternating_note_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
+                    numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
+                    checkbox_play_note.Checked = projectFile.Settings.PlaybackSettings.NoteClickPlay == "True";
+                    checkBox_add_note_to_list.Checked = projectFile.Settings.PlaybackSettings.NoteClickAdd == "True";
+                    add_as_note1.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
+                    add_as_note2.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
+                    add_as_note3.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
+                    add_as_note4.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                    checkBox_replace.Checked = projectFile.Settings.PlaybackSettings.NoteReplace == "True";
+                    checkBox_replace_length.Checked = projectFile.Settings.PlaybackSettings.NoteLengthReplace == "True";
+                    checkBox_play_note1_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote1 == "True";
+                    checkBox_play_note2_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote2 == "True";
+                    checkBox_play_note3_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote3 == "True";
+                    checkBox_play_note4_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote4 == "True";
+                    checkBox_play_note1_played.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
+                    checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
+                    checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
+                    checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                    noteLabelsUpdate();
+                    if (Variables.octave == 9)
+                    {
+                        octave10NoteLabelShiftToRight();
+                    }
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + filename;
+                    listViewNotes.Items.Clear();
+
+                    foreach (var line in projectFile.LineList.Lines) 
+                    { 
+                        ListViewItem item = new ListViewItem(line.Length); 
+                        item.SubItems.Add(line.Note1); 
+                        item.SubItems.Add(line.Note2); 
+                        item.SubItems.Add(line.Note3); 
+                        item.SubItems.Add(line.Note4); 
+                        item.SubItems.Add(line.Mod); 
+                        item.SubItems.Add(line.Art); 
+                        listViewNotes.Items.Add(item); 
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-
+        private static NeoBleeperProjectFile DeserializeXML(string filePath) 
+        { 
+            XmlSerializer serializer = new XmlSerializer(typeof(NeoBleeperProjectFile)); 
+            using (StreamReader reader = new StreamReader(filePath)) 
+            { 
+                return (NeoBleeperProjectFile)serializer.Deserialize(reader); 
+            } 
+        }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
