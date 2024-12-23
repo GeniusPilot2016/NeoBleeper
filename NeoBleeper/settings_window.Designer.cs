@@ -371,8 +371,6 @@
             Name = "settings_window";
             ShowIcon = false;
             ShowInTaskbar = false;
-            FormClosing += settings_window_FormClosing;
-            FormClosed += settings_window_FormClosed;
             Load += settings_window_Load;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);

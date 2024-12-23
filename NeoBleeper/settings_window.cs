@@ -94,7 +94,7 @@ namespace NeoBleeper
                 Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
             {
                 Random rnd = new Random();
-                int tune_number = rnd.Next(1, 6); // 1 ile 5 arasında rastgele bir melodi seç
+                int tune_number = rnd.Next(1, 15); // Choose a random tune between 1 and 15
 
                 switch (tune_number)
                 {
@@ -112,6 +112,36 @@ namespace NeoBleeper
                         break;
                     case 5:
                         PlayHappyBirthday();
+                        break;
+                    case 6:
+                        PlayRandomBeeps();
+                        break;
+                    case 7:
+                        PlayAscendingBeeps();
+                        break;
+                    case 8:
+                        PlayDescendingBeeps();
+                        break;
+                    case 9:
+                        PlayMajorChord();
+                        break;
+                    case 10:
+                        PlayMinorChord();
+                        break;
+                    case 11:
+                        PlayFrereJacques();
+                        break;
+                    case 12:
+                        PlayYankeeDoodle();
+                        break;
+                    case 13:
+                        PlayOdeToJoy();
+                        break;
+                    case 14:
+                        PlayMaryHadALittleLamb();
+                        break;
+                    case 15:
+                        PlayJingleBells();
                         break;
                 }
             }
@@ -170,21 +200,6 @@ namespace NeoBleeper
         {
         }
 
-        private void settings_window_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
-            {
-                RenderBeep.BeepClass.StopBeep();
-            }
-        }
-
-        private void settings_window_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
-            {
-                RenderBeep.BeepClass.StopBeep();
-            }
-        }
 
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {

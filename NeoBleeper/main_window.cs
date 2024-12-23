@@ -1375,9 +1375,9 @@ namespace NeoBleeper
                 }
 
             }
-            else if (first_line == "<FileFormat>NeoBleeper File Format</FileFormat>")
+            else if (first_line == "<NeoBleeperProjectFile>")
             {
-                NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
+                NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
                 {
 
                     Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
@@ -1426,18 +1426,18 @@ namespace NeoBleeper
                         listViewNotes.Items.Add(item); 
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private static NeoBleeperProjectFile DeserializeXML(string filePath) 
+        private static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath) 
         { 
-            XmlSerializer serializer = new XmlSerializer(typeof(NeoBleeperProjectFile)); 
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile)); 
             using (StreamReader reader = new StreamReader(filePath)) 
             { 
-                return (NeoBleeperProjectFile)serializer.Deserialize(reader); 
+                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader); 
             } 
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1457,9 +1457,69 @@ namespace NeoBleeper
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save_file = new SaveFileDialog();
-            save_file.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*";
-            save_file.ShowDialog();
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveToNBPML(saveFileDialog.FileName);
+            }
+        }
+
+        private void SaveToNBPML(string filename)
+        {
+            NBPML_File.NeoBleeperProjectFile projectFile = new NBPML_File.NeoBleeperProjectFile
+            {
+                Settings = new NBPML_File.Settings
+                {
+                    RandomSettings = new NBPML_File.RandomSettings
+                    {
+                        KeyboardOctave = Variables.octave.ToString(),
+                        BPM = Variables.bpm.ToString(),
+                        TimeSignature = trackBar_time_signature.Value.ToString(),
+                        NoteSilenceRatio = (Variables.note_silence_ratio * 100).ToString(),
+                        NoteLength = comboBox_note_length.SelectedIndex.ToString(),
+                        AlternateTime = Variables.alternating_note_length.ToString()
+                    },
+                    PlaybackSettings = new NBPML_File.PlaybackSettings
+                    {
+                        NoteClickPlay = checkbox_play_note.Checked.ToString(),
+                        NoteClickAdd = checkBox_add_note_to_list.Checked.ToString(),
+                        NoteReplace = checkBox_replace.Checked.ToString(),
+                        NoteLengthReplace = checkBox_replace_length.Checked.ToString()
+                    },
+                    PlayNotes = new NBPML_File.PlayNotes
+                    {
+                        PlayNote1 = add_as_note1.Checked.ToString(),
+                        PlayNote2 = add_as_note2.Checked.ToString(),
+                        PlayNote3 = add_as_note3.Checked.ToString(),
+                        PlayNote4 = add_as_note4.Checked.ToString()
+                    },
+                    ClickPlayNotes = new NBPML_File.ClickPlayNotes
+                    {
+                        ClickPlayNote1 = checkBox_play_note1_clicked.Checked.ToString(),
+                        ClickPlayNote2 = checkBox_play_note2_clicked.Checked.ToString(),
+                        ClickPlayNote3 = checkBox_play_note3_clicked.Checked.ToString(),
+                        ClickPlayNote4 = checkBox_play_note4_clicked.Checked.ToString()
+                    }
+                },
+                LineList = new NBPML_File.List
+                {
+                    Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
+                    {
+                        Length = item.SubItems[0].Text,
+                        Note1 = item.SubItems[1].Text,
+                        Note2 = item.SubItems[2].Text,
+                        Note3 = item.SubItems[3].Text,
+                        Note4 = item.SubItems[4].Text,
+                        Mod = item.SubItems[5].Text,
+                        Art = item.SubItems[6].Text
+                    }).ToArray()
+                }
+            };
+
+            SerializeXML(filename, projectFile);
         }
 
         private void trackBar_note_silence_ratio_Scroll(object sender, EventArgs e)
@@ -1853,6 +1913,14 @@ namespace NeoBleeper
         }
         private void metronome()
         {
+            if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
+            {
+                RenderBeep.BeepClass.Beep(498, 15);
+            }
+            else
+            {
+                Thread.Sleep(15);
+            }
             while (checkBox_metronome.Checked == true)
             {
                 int i = 1;
@@ -2913,6 +2981,26 @@ namespace NeoBleeper
                 string fileName = files[0];
                 FileParser(fileName);
             }
+        }
+        private static void SerializeXML(string filePath, NBPML_File.NeoBleeperProjectFile projectFile)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            XmlDocument xmlDoc = new XmlDocument();
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+                namespaces.Add(string.Empty, string.Empty); // Namespace'leri kaldýrmak için
+
+                using (XmlWriter writer = XmlWriter.Create(memoryStream, new XmlWriterSettings { OmitXmlDeclaration = true }))
+                {
+                    serializer.Serialize(writer, projectFile, namespaces);
+                }
+                memoryStream.Position = 0;
+                xmlDoc.Load(memoryStream);
+            }
+
+            xmlDoc.Save(filePath);
         }
     }
 }
