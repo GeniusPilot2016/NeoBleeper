@@ -2584,6 +2584,24 @@ namespace NeoBleeper
                     }
                     note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
                 }
+
+                // Combine same notes
+                if (note1 == note2 && note2 == note3 && note3 == note4)
+                {
+                    length *= 4;
+                    note2 = note3 = note4 = string.Empty;
+                }
+                else if (note1 == note2 && note2 == note3)
+                {
+                    length *= 3;
+                    note2 = note3 = string.Empty;
+                }
+                else if (note1 == note2)
+                {
+                    length *= 2;
+                    note2 = string.Empty;
+                }
+
                 if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
                     if (checkBox_play_note1_clicked.Checked == true)
@@ -2622,46 +2640,30 @@ namespace NeoBleeper
                         string[] note_series = { note1, note2, note3, note4 };
                         do
                         {
-                            int column;
-                            column = 0;
-                            if (note_series[column] != string.Empty)
+                            int column = 0;
+                            while (column < 4)
                             {
-                                if ((column + 1) % 2 != 0 && (column + 1) % 3 != 0)
+                                if (note_series[column] != string.Empty)
                                 {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    if (column == 0)
+                                    {
+                                        play_note_when_line_is_clicked(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
+                                    else if (column == 1)
+                                    {
+                                        play_note_when_line_is_clicked(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
+                                    else if (column == 2)
+                                    {
+                                        play_note_when_line_is_clicked(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
+                                    else if (column == 3)
+                                    {
+                                        play_note_when_line_is_clicked(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
                                     note_order++;
-                                    column++;
                                 }
-                                if ((column + 1) % 2 == 0 && (column + 1) % 4 != 0)
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column++;
-                                }
-                                if ((column + 1) % 2 != 0 && (column + 1) % 3 == 0 && (column + 1) % 4 != 0)
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column++;
-                                }
-                                if ((column + 1) % 3 == 0 && (column + 1) % 4 != 0)
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column++;
-                                }
-                                if (column >= 4)
-                                {
-                                    column = 0;
-                                }
-                            }
-                            else
-                            {
-                                note_order++;
-                                if (column >= 4)
-                                {
-                                    column = 0;
-                                }
+                                column++;
                             }
                         }
                         while (note_order < last_note_order);
@@ -2671,38 +2673,23 @@ namespace NeoBleeper
                         string[] note_series = { note1, note2, note3, note4 };
                         do
                         {
-                            int column;
-                            column = 0;
-                            if (note_series[column] != string.Empty)
+                            // Önce tek sayýlý sütunlar (Nota1 ve Nota3)
+                            for (int i = 0; i < 4; i += 2)
                             {
-                                if ((column + 1) % 2 != 0 && (column + 1) % 3 != 0)//1
+                                if (note_series[i] != string.Empty)
                                 {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    play_note_when_line_is_clicked(Convert.ToInt32(note_series[i] == note1 ? note1_frequency : note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     note_order++;
-                                    column = 2;
-                                }
-                                if ((column + 1) % 2 == 0 && (column + 1) % 4 != 0)//2
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column = 3;
-                                }
-                                if ((column + 1) % 2 != 0 && (column + 1) % 3 == 0 && (column + 1) % 4 != 0)//3
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column = 1;
-                                }
-                                if ((column + 1) % 3 == 0 && (column + 1) % 4 != 0)//4
-                                {
-                                    play_note_when_line_is_clicked(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                    column = 0;
                                 }
                             }
-                            else
+                            // Sonra çift sayýlý sütunlar (Nota2 ve Nota4)
+                            for (int i = 1; i < 4; i += 2)
                             {
-                                note_order++;
+                                if (note_series[i] != string.Empty)
+                                {
+                                    play_note_when_line_is_clicked(Convert.ToInt32(note_series[i] == note2 ? note2_frequency : note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    note_order++;
+                                }
                             }
                         }
                         while (note_order < last_note_order);
