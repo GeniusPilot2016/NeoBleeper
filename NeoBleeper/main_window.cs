@@ -2585,23 +2585,102 @@ namespace NeoBleeper
                     note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
                 }
 
-                // Combine same notes
-                if (note1 == note2 && note2 == note3 && note3 == note4)
+                if(radioButtonPlay_alternating_notes1.Checked == true) // Combine same notes in a row and play them as one note with a length of the sum of their lengths
                 {
-                    length *= 4;
-                    note2 = note3 = note4 = string.Empty;
-                }
-                else if (note1 == note2 && note2 == note3)
-                {
-                    length *= 3;
-                    note2 = note3 = string.Empty;
-                }
-                else if (note1 == note2)
-                {
-                    length *= 2;
-                    note2 = string.Empty;
-                }
+                    if (note1 == note2 && note2 == note3 && note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note2 = note3 = note4 = string.Empty;
+                    }
+                    else if (note1 == note2 && note2 == note3)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note2 = note3 = string.Empty;
+                    }
 
+                    else if (note1 == note2)
+                    {
+                        if (note1 == note2 && note3 == note4)
+                        {
+                            Variables.alternating_note_length *= 4;
+                            note2 = string.Empty;
+                            note4 = string.Empty;
+                        }
+                        else
+                        {
+                            Variables.alternating_note_length *= 2;
+                            note2 = string.Empty;
+                        }
+                    }
+                    else if (note1 == note3)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note3 = string.Empty;
+                    }
+                    else if (note2 == note3)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note3 = string.Empty;
+                    }
+                    else if (note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                    else if (note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                }
+                else if (radioButtonPlay_alternating_notes2.Checked==true) 
+                {
+                    if (note1 == note3 && note3 == note2 && note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note3 = note2 = note4 = string.Empty;
+                    }
+                    else if (note1 == note3 && note3 == note2)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note3 = note2 = string.Empty;
+                    }
+
+                    else if (note1 == note2)
+                    {
+                        if (note1 == note3 && note2 == note4)
+                        {
+                            Variables.alternating_note_length *= 4;
+                            note3 = string.Empty;
+                            note4 = string.Empty;
+                        }
+                        else
+                        {
+                            Variables.alternating_note_length *= 2;
+                            note3 = string.Empty;
+                        }
+                    }
+                    else if (note1 == note2)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note2 = string.Empty;
+                    }
+                    else if (note3 == note2)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note2 = string.Empty;
+                    }
+                    else if (note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                    else if (note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                }
                 if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
                     if (checkBox_play_note1_clicked.Checked == true)
