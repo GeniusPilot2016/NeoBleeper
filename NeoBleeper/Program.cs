@@ -12,6 +12,7 @@ namespace NeoBleeper
     internal static class Program
     {
         /// <summary>
+        /// 69f33c74f55ee7628d7a8acbefdb77969716bf21604d1c948d7d612324621b1c
         ///  The main entry point for the application.
         /// </summary>
         /// 
