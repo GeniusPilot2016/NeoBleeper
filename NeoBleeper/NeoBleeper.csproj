@@ -18,7 +18,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="inpout32.dll" />
     <None Remove="inpoutx64.dll" />
     <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
@@ -45,9 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="inpout32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="inpoutx64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
