@@ -2059,6 +2059,7 @@ namespace NeoBleeper
         {
             if(listViewNotes.FocusedItem != null)
             {
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 beep_label_appear();
                 new Thread(() =>
                 {
