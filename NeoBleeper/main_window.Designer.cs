@@ -2015,7 +2015,6 @@
         private CheckBox checkBox_triplet;
         private CheckBox checkBox_metronome;
         private CheckBox checkBox_staccato;
-        private ToolStripMenuItem openToolStripMenuItem;
         private ToolStripMenuItem saveToolStripMenuItem;
         private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
@@ -2156,5 +2155,6 @@
         private ToolStripMenuItem openRecentToolStripMenuItem;
         private Panel panel5;
         private CheckBox checkBox_use_keyboard_as_piano;
+        private ToolStripMenuItem openToolStripMenuItem;
     }
 }
