@@ -53,7 +53,7 @@ CPU: Intel® Core i3 or equivalent
 
 RAM: 1 GB (minimum), 2 GB (recommended)
 
-Display resolution: 1024x768 (minimum), 1920x1080 (recommended)
+Display Resolution: 1024x768 (minimum), 1920x1080 (recommended)
 
 Storage: 150 MB (minimum)
 
