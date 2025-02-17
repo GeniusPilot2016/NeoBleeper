@@ -1376,7 +1376,7 @@ namespace NeoBleeper
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     DialogResult dialogResult = MessageBox.Show("This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. \n\n" +
                         "Do you want to open this file anyway?", string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -1455,13 +1455,13 @@ namespace NeoBleeper
                 MessageBox.Show("Invalid project file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath) 
-        { 
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile)); 
-            using (StreamReader reader = new StreamReader(filePath)) 
-            { 
-                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader); 
-            } 
+        private static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader);
+            }
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1952,7 +1952,7 @@ namespace NeoBleeper
             {
                 int i = 1;
                 UpdateLabelVisible(true);
-                if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked==false)
+                if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                 {
                     RenderBeep.BeepClass.Beep(1000, 60);
                 }
@@ -1979,17 +1979,17 @@ namespace NeoBleeper
                 }
             }
         }
-        private void UpdateLabelVisible(bool visible) 
-        { 
-            if (label_beep.InvokeRequired) 
-            { 
-                label_beep.Invoke(new Action(() => 
-                label_beep.Visible = visible)); 
-            } 
-            else 
-            { 
-                label_beep.Visible = visible; 
-            } 
+        private void UpdateLabelVisible(bool visible)
+        {
+            if (label_beep.InvokeRequired)
+            {
+                label_beep.Invoke(new Action(() =>
+                label_beep.Visible = visible));
+            }
+            else
+            {
+                label_beep.Visible = visible;
+            }
         }
         private void checkBox_metronome_CheckedChanged(object sender, EventArgs e)
         {
@@ -2084,7 +2084,7 @@ namespace NeoBleeper
         }
         private void listViewNotes_Click(object sender, EventArgs e)
         {
-            if(listViewNotes.FocusedItem != null)
+            if (listViewNotes.FocusedItem != null)
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 beep_label_appear();
@@ -2201,7 +2201,7 @@ namespace NeoBleeper
         }*/
         private async void beep_label_appear()
         {
-            if (listViewNotes.FocusedItem!=null)
+            if (listViewNotes.FocusedItem != null)
             {
                 Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
@@ -2613,7 +2613,7 @@ namespace NeoBleeper
                     note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
                 }
 
-                if(radioButtonPlay_alternating_notes1.Checked == true) // Combine same notes in a row and play them as one note with a length of the sum of their lengths
+                if (radioButtonPlay_alternating_notes1.Checked == true) // Combine same notes in a row and play them as one note with a length of the sum of their lengths
                 {
                     if (note1 == note2 && note2 == note3 && note3 == note4)
                     {
@@ -2661,7 +2661,7 @@ namespace NeoBleeper
                         note4 = string.Empty;
                     }
                 }
-                else if (radioButtonPlay_alternating_notes2.Checked==true) 
+                else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     if (note1 == note3 && note3 == note2 && note2 == note4)
                     {
@@ -3069,7 +3069,7 @@ namespace NeoBleeper
 
         private void main_window_DragDrop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 string fileName = files[0];
@@ -3095,6 +3095,41 @@ namespace NeoBleeper
             }
 
             xmlDoc.Save(filePath);
+        }
+
+        private void playMIDIFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Filter = "MIDI Files|*.mid|All Files|*.*";
+            openFileDialog.ShowDialog(this);
+            if (openFileDialog.FileName != string.Empty)
+            {
+                if (IsMidiFile(openFileDialog.FileName))
+                {
+                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName);
+                    midi_file_player.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("This file is not a valid MIDI file or the file is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private bool IsMidiFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            byte[] header = new byte[4];
+            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                fs.Read(header, 0, 4);
+            }
+
+            // MIDI dosyalarý "MThd" ile baþlar
+            return header[0] == 'M' && header[1] == 'T' && header[2] == 'h' && header[3] == 'd';
         }
     }
 }

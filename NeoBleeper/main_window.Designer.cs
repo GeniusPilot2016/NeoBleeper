@@ -510,6 +510,7 @@
             // 
             resources.ApplyResources(playMIDIFileToolStripMenuItem, "playMIDIFileToolStripMenuItem");
             playMIDIFileToolStripMenuItem.Name = "playMIDIFileToolStripMenuItem";
+            playMIDIFileToolStripMenuItem.Click += playMIDIFileToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 

@@ -31,12 +31,6 @@ namespace NeoBleeper
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            get_stickers_window get_stickers = new get_stickers_window();
-            get_stickers.ShowDialog();
-        }
-
         private void about_neobleeper_Load(object sender, EventArgs e)
         {
 
@@ -52,7 +46,7 @@ namespace NeoBleeper
 
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://icons8.com/") { UseShellExecute = true });
         }
