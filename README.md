@@ -1,6 +1,6 @@
 # NeoBleeper
 
-NeoBleeper is a tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2010 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above by accessing the physical port of the system speaker 🖥️🎶
+NeoBleeper is a tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above by accessing the physical port of the system speaker 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/17097a87-60c7-4a85-85e5-fe008f3f8958)
 
@@ -45,6 +45,19 @@ This project is **still in development** and some features and components are st
 
   ![Screenshot_compact_computer_warning](https://github.com/user-attachments/assets/fa959744-577e-444b-928a-9c542ac832e0)
 
+## System Requirements
+
+Windows Version: Windows 10 (1809 and above) 64-bit/Windows 11 (recommended)
+
+CPU: Intel® Core i3 or equivalent
+
+RAM: 1 GB (minimum), 2 GB (recommended)
+
+Display resolution: 1024x768 (minimum), 1920x1080 (recommended)
+
+Storage: 150 MB (minimum)
+
+Required hardware: System speaker (recommended)
 
 ## Cloning
 
