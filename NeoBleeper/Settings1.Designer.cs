@@ -12,7 +12,7 @@ namespace NeoBleeper {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
     internal sealed partial class Settings1 : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings1 defaultInstance = ((Settings1)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings1())));
@@ -32,6 +32,138 @@ namespace NeoBleeper {
             }
             set {
                 this["theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 224, 192")]
+        public global::System.Drawing.Color first_octave_color {
+            get {
+                return ((global::System.Drawing.Color)(this["first_octave_color"]));
+            }
+            set {
+                this["first_octave_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 192, 255")]
+        public global::System.Drawing.Color second_octave_color {
+            get {
+                return ((global::System.Drawing.Color)(this["second_octave_color"]));
+            }
+            set {
+                this["second_octave_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 192")]
+        public global::System.Drawing.Color third_octave_color {
+            get {
+                return ((global::System.Drawing.Color)(this["third_octave_color"]));
+            }
+            set {
+                this["third_octave_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 224, 192")]
+        public global::System.Drawing.Color blank_line_color {
+            get {
+                return ((global::System.Drawing.Color)(this["blank_line_color"]));
+            }
+            set {
+                this["blank_line_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 128, 255")]
+        public global::System.Drawing.Color clear_notes_color {
+            get {
+                return ((global::System.Drawing.Color)(this["clear_notes_color"]));
+            }
+            set {
+                this["clear_notes_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 255, 255")]
+        public global::System.Drawing.Color unselect_line_color {
+            get {
+                return ((global::System.Drawing.Color)(this["unselect_line_color"]));
+            }
+            set {
+                this["unselect_line_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 128, 128")]
+        public global::System.Drawing.Color erase_whole_line_color {
+            get {
+                return ((global::System.Drawing.Color)(this["erase_whole_line_color"]));
+            }
+            set {
+                this["erase_whole_line_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128, 255, 128")]
+        public global::System.Drawing.Color playback_buttons_color {
+            get {
+                return ((global::System.Drawing.Color)(this["playback_buttons_color"]));
+            }
+            set {
+                this["playback_buttons_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 192")]
+        public global::System.Drawing.Color metronome_color {
+            get {
+                return ((global::System.Drawing.Color)(this["metronome_color"]));
+            }
+            set {
+                this["metronome_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color beep_indicator_color {
+            get {
+                return ((global::System.Drawing.Color)(this["beep_indicator_color"]));
+            }
+            set {
+                this["beep_indicator_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color note_indicator_color {
+            get {
+                return ((global::System.Drawing.Color)(this["note_indicator_color"]));
+            }
+            set {
+                this["note_indicator_color"] = value;
             }
         }
     }

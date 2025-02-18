@@ -303,6 +303,56 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_1_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-1-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_2_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-2-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_3_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-3-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_4_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-4-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_clear_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-clear-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_clock_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-clock-48", resourceCulture);
@@ -323,9 +373,29 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_eraser_tool_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-eraser-tool-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_laptop_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-laptop-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_line_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-line-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -356,6 +426,46 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_open_file_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-open-file-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_pause_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-pause-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_play_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-play-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_play_property_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-play-property-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_playlist_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-playlist-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +516,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_save_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-save-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_select_none_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-select-none-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

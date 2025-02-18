@@ -75,7 +75,7 @@
             button_unselect = new Button();
             button_erase_line = new Button();
             button_play_all = new Button();
-            button1 = new Button();
+            button_play_from_selected_line = new Button();
             button_stop_playing = new Button();
             numericUpDown_bpm = new NumericUpDown();
             comboBox_note_length = new ComboBox();
@@ -90,6 +90,19 @@
             note4 = new ColumnHeader();
             mod = new ColumnHeader();
             art = new ColumnHeader();
+            notes_list_right_click = new ContextMenuStrip(components);
+            blankLineToolStripMenuItem = new ToolStripMenuItem();
+            clearNotesToolStripMenuItem = new ToolStripMenuItem();
+            clearNote1ToolStripMenuItem = new ToolStripMenuItem();
+            clearNote2ToolStripMenuItem = new ToolStripMenuItem();
+            clearNote3ToolStripMenuItem = new ToolStripMenuItem();
+            clearNote4ToolStripMenuItem = new ToolStripMenuItem();
+            unselectLineToolStripMenuItem = new ToolStripMenuItem();
+            eraseWholeLineToolStripMenuItem = new ToolStripMenuItem();
+            playbackControlsToolStripMenuItem = new ToolStripMenuItem();
+            playAllToolStripMenuItem = new ToolStripMenuItem();
+            playFromSelectedLineToolStripMenuItem = new ToolStripMenuItem();
+            stopPlayingToolStripMenuItem = new ToolStripMenuItem();
             label_note_length = new Label();
             trackBar_note_silence_ratio = new TrackBar();
             label_note_silence_ratio = new Label();
@@ -195,7 +208,6 @@
             checkBox_do_not_update = new CheckBox();
             lbl_note_silence_ratio = new Label();
             lbl_time_signature = new Label();
-            errorProvider1 = new ErrorProvider(components);
             panel1 = new Panel();
             panel4 = new Panel();
             alternating_note_timer = new System.Windows.Forms.Timer(components);
@@ -204,6 +216,7 @@
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_notes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_bpm).BeginInit();
+            notes_list_right_click.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar_note_silence_ratio).BeginInit();
             group_adding_note.SuspendLayout();
             group_key_is_clicked.SuspendLayout();
@@ -214,7 +227,6 @@
             panel3.SuspendLayout();
             position_table.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             SuspendLayout();
@@ -667,17 +679,19 @@
             NeoBleeper_help.SetShowHelp(button_play_all, (bool)resources.GetObject("button_play_all.ShowHelp"));
             toolTip1.SetToolTip(button_play_all, resources.GetString("button_play_all.ToolTip"));
             button_play_all.UseVisualStyleBackColor = false;
+            button_play_all.Click += button_play_all_Click;
             // 
-            // button1
+            // button_play_from_selected_line
             // 
-            resources.ApplyResources(button1, "button1");
-            button1.BackColor = Color.FromArgb(128, 255, 128);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.ImageList = imageList_main_window;
-            button1.Name = "button1";
-            NeoBleeper_help.SetShowHelp(button1, (bool)resources.GetObject("button1.ShowHelp"));
-            toolTip1.SetToolTip(button1, resources.GetString("button1.ToolTip"));
-            button1.UseVisualStyleBackColor = false;
+            resources.ApplyResources(button_play_from_selected_line, "button_play_from_selected_line");
+            button_play_from_selected_line.BackColor = Color.FromArgb(128, 255, 128);
+            button_play_from_selected_line.FlatAppearance.BorderSize = 0;
+            button_play_from_selected_line.ImageList = imageList_main_window;
+            button_play_from_selected_line.Name = "button_play_from_selected_line";
+            NeoBleeper_help.SetShowHelp(button_play_from_selected_line, (bool)resources.GetObject("button_play_from_selected_line.ShowHelp"));
+            toolTip1.SetToolTip(button_play_from_selected_line, resources.GetString("button_play_from_selected_line.ToolTip"));
+            button_play_from_selected_line.UseVisualStyleBackColor = false;
+            button_play_from_selected_line.Click += button_play_from_selected_line_Click;
             // 
             // button_stop_playing
             // 
@@ -751,6 +765,7 @@
             // 
             resources.ApplyResources(listViewNotes, "listViewNotes");
             listViewNotes.Columns.AddRange(new ColumnHeader[] { length, note1, note2, note3, note4, mod, art });
+            listViewNotes.ContextMenuStrip = notes_list_right_click;
             listViewNotes.FullRowSelect = true;
             listViewNotes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listViewNotes.MultiSelect = false;
@@ -788,6 +803,94 @@
             // art
             // 
             resources.ApplyResources(art, "art");
+            // 
+            // notes_list_right_click
+            // 
+            resources.ApplyResources(notes_list_right_click, "notes_list_right_click");
+            notes_list_right_click.ImageScalingSize = new Size(20, 20);
+            notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, playbackControlsToolStripMenuItem });
+            notes_list_right_click.Name = "contextMenuStrip1";
+            // 
+            // blankLineToolStripMenuItem
+            // 
+            blankLineToolStripMenuItem.Image = Properties.Resources.icons8_line_48;
+            blankLineToolStripMenuItem.Name = "blankLineToolStripMenuItem";
+            resources.ApplyResources(blankLineToolStripMenuItem, "blankLineToolStripMenuItem");
+            blankLineToolStripMenuItem.Click += blankLineToolStripMenuItem_Click;
+            // 
+            // clearNotesToolStripMenuItem
+            // 
+            clearNotesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearNote1ToolStripMenuItem, clearNote2ToolStripMenuItem, clearNote3ToolStripMenuItem, clearNote4ToolStripMenuItem });
+            clearNotesToolStripMenuItem.Image = Properties.Resources.icons8_clear_48;
+            clearNotesToolStripMenuItem.Name = "clearNotesToolStripMenuItem";
+            resources.ApplyResources(clearNotesToolStripMenuItem, "clearNotesToolStripMenuItem");
+            // 
+            // clearNote1ToolStripMenuItem
+            // 
+            clearNote1ToolStripMenuItem.Image = Properties.Resources.icons8_1_48;
+            clearNote1ToolStripMenuItem.Name = "clearNote1ToolStripMenuItem";
+            resources.ApplyResources(clearNote1ToolStripMenuItem, "clearNote1ToolStripMenuItem");
+            clearNote1ToolStripMenuItem.Click += clearNote1ToolStripMenuItem_Click;
+            // 
+            // clearNote2ToolStripMenuItem
+            // 
+            clearNote2ToolStripMenuItem.Image = Properties.Resources.icons8_2_48;
+            clearNote2ToolStripMenuItem.Name = "clearNote2ToolStripMenuItem";
+            resources.ApplyResources(clearNote2ToolStripMenuItem, "clearNote2ToolStripMenuItem");
+            // 
+            // clearNote3ToolStripMenuItem
+            // 
+            clearNote3ToolStripMenuItem.Image = Properties.Resources.icons8_3_48;
+            clearNote3ToolStripMenuItem.Name = "clearNote3ToolStripMenuItem";
+            resources.ApplyResources(clearNote3ToolStripMenuItem, "clearNote3ToolStripMenuItem");
+            // 
+            // clearNote4ToolStripMenuItem
+            // 
+            clearNote4ToolStripMenuItem.Image = Properties.Resources.icons8_4_48;
+            clearNote4ToolStripMenuItem.Name = "clearNote4ToolStripMenuItem";
+            resources.ApplyResources(clearNote4ToolStripMenuItem, "clearNote4ToolStripMenuItem");
+            // 
+            // unselectLineToolStripMenuItem
+            // 
+            unselectLineToolStripMenuItem.Image = Properties.Resources.icons8_select_none_48;
+            unselectLineToolStripMenuItem.Name = "unselectLineToolStripMenuItem";
+            resources.ApplyResources(unselectLineToolStripMenuItem, "unselectLineToolStripMenuItem");
+            unselectLineToolStripMenuItem.Click += unselectLineToolStripMenuItem_Click;
+            // 
+            // eraseWholeLineToolStripMenuItem
+            // 
+            eraseWholeLineToolStripMenuItem.Image = Properties.Resources.icons8_eraser_tool_48;
+            eraseWholeLineToolStripMenuItem.Name = "eraseWholeLineToolStripMenuItem";
+            resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
+            eraseWholeLineToolStripMenuItem.Click += eraseWholeLineToolStripMenuItem_Click;
+            // 
+            // playbackControlsToolStripMenuItem
+            // 
+            playbackControlsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { playAllToolStripMenuItem, playFromSelectedLineToolStripMenuItem, stopPlayingToolStripMenuItem });
+            playbackControlsToolStripMenuItem.Image = Properties.Resources.icons8_play_property_48;
+            playbackControlsToolStripMenuItem.Name = "playbackControlsToolStripMenuItem";
+            resources.ApplyResources(playbackControlsToolStripMenuItem, "playbackControlsToolStripMenuItem");
+            // 
+            // playAllToolStripMenuItem
+            // 
+            playAllToolStripMenuItem.Image = Properties.Resources.icons8_play_48;
+            playAllToolStripMenuItem.Name = "playAllToolStripMenuItem";
+            resources.ApplyResources(playAllToolStripMenuItem, "playAllToolStripMenuItem");
+            playAllToolStripMenuItem.Click += playAllToolStripMenuItem_Click;
+            // 
+            // playFromSelectedLineToolStripMenuItem
+            // 
+            playFromSelectedLineToolStripMenuItem.Image = Properties.Resources.icons8_playlist_48;
+            playFromSelectedLineToolStripMenuItem.Name = "playFromSelectedLineToolStripMenuItem";
+            resources.ApplyResources(playFromSelectedLineToolStripMenuItem, "playFromSelectedLineToolStripMenuItem");
+            playFromSelectedLineToolStripMenuItem.Click += playFromSelectedLineToolStripMenuItem_Click;
+            // 
+            // stopPlayingToolStripMenuItem
+            // 
+            resources.ApplyResources(stopPlayingToolStripMenuItem, "stopPlayingToolStripMenuItem");
+            stopPlayingToolStripMenuItem.Image = Properties.Resources.icons8_pause_48;
+            stopPlayingToolStripMenuItem.Name = "stopPlayingToolStripMenuItem";
+            stopPlayingToolStripMenuItem.Click += stopPlayingToolStripMenuItem_Click;
             // 
             // label_note_length
             // 
@@ -1838,10 +1941,6 @@
             resources.ApplyResources(lbl_time_signature, "lbl_time_signature");
             lbl_time_signature.Name = "lbl_time_signature";
             // 
-            // errorProvider1
-            // 
-            errorProvider1.ContainerControl = this;
-            // 
             // panel1
             // 
             resources.ApplyResources(panel1, "panel1");
@@ -1898,7 +1997,7 @@
             Controls.Add(checkBox_synchronized_play);
             Controls.Add(label_mods);
             Controls.Add(button_stop_playing);
-            Controls.Add(button1);
+            Controls.Add(button_play_from_selected_line);
             Controls.Add(button_play_all);
             Controls.Add(button_erase_line);
             Controls.Add(button_unselect);
@@ -1933,6 +2032,7 @@
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_notes).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_bpm).EndInit();
+            notes_list_right_click.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)trackBar_note_silence_ratio).EndInit();
             group_adding_note.ResumeLayout(false);
             group_adding_note.PerformLayout();
@@ -1951,7 +2051,6 @@
             position_table.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel4.ResumeLayout(false);
@@ -2005,7 +2104,7 @@
         private Button button_unselect;
         private Button button_erase_line;
         private Button button_play_all;
-        private Button button1;
+        private Button button_play_from_selected_line;
         private Button button_stop_playing;
         private Label label_mods;
         private CheckBox checkBox_play_beat_sound;
@@ -2055,7 +2154,6 @@
         private Button button_clear_note3;
         private Label lbl_ms;
         private ColumnHeader art;
-        private ErrorProvider errorProvider1;
         private CheckBox checkBox_spiccato;
         private Label lbl_beat_traditional;
         private Label lbl_beat;
@@ -2157,5 +2255,18 @@
         private Panel panel5;
         private CheckBox checkBox_use_keyboard_as_piano;
         private ToolStripMenuItem openToolStripMenuItem;
+        private ContextMenuStrip notes_list_right_click;
+        private ToolStripMenuItem blankLineToolStripMenuItem;
+        private ToolStripMenuItem clearNotesToolStripMenuItem;
+        private ToolStripMenuItem clearNote1ToolStripMenuItem;
+        private ToolStripMenuItem clearNote2ToolStripMenuItem;
+        private ToolStripMenuItem clearNote3ToolStripMenuItem;
+        private ToolStripMenuItem clearNote4ToolStripMenuItem;
+        private ToolStripMenuItem unselectLineToolStripMenuItem;
+        private ToolStripMenuItem eraseWholeLineToolStripMenuItem;
+        private ToolStripMenuItem playbackControlsToolStripMenuItem;
+        private ToolStripMenuItem playAllToolStripMenuItem;
+        private ToolStripMenuItem playFromSelectedLineToolStripMenuItem;
+        private ToolStripMenuItem stopPlayingToolStripMenuItem;
     }
 }

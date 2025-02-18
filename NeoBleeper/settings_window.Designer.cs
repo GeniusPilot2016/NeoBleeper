@@ -39,22 +39,25 @@
             groupBox_appearance = new GroupBox();
             lbl_theme = new Label();
             comboBox_theme = new ComboBox();
-            label_test_system_speaker_message_3 = new Label();
             label_test_system_speaker_message_2 = new Label();
+            label_test_system_speaker_message_3 = new Label();
             creating_sound_settings = new TabPage();
-            button_show_reason = new Button();
+            group_fmod_settings = new GroupBox();
             label_create_beep_from_soundcard_automatically_activated_message_2 = new Label();
             label_create_beep_from_soundcard_automatically_activated_message_1 = new Label();
-            group_fmod_settings = new GroupBox();
-            checkBox1 = new CheckBox();
+            button_show_reason = new Button();
             group_fmod_waveform = new GroupBox();
             radioButton_noise = new RadioButton();
+            checkBox1 = new CheckBox();
             radioButton_triangle = new RadioButton();
             radioButton_sine = new RadioButton();
             radioButton_square = new RadioButton();
             checkBox_enable_create_beep_from_soundcard = new CheckBox();
             devices_settings = new TabPage();
             groupBox1 = new GroupBox();
+            groupBox5 = new GroupBox();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
             label_motor_speed_mod = new Label();
             checkBox_use_motor_speed_mod = new CheckBox();
             trackBar_motor_octave = new TrackBar();
@@ -66,7 +69,46 @@
             comboBox_midi_input_devices = new ComboBox();
             label_midi_input_device = new Label();
             checkBox_use_midi_input = new CheckBox();
+            appearance = new TabPage();
+            reset_colors = new Button();
+            groupBox4 = new GroupBox();
+            note_indicator_color_change = new Button();
+            label11 = new Label();
+            beep_indicator_color_change = new Button();
+            label12 = new Label();
+            beep_indicator_color = new Panel();
+            note_indicator_color = new Panel();
+            groupBox3 = new GroupBox();
+            metronome_color_change = new Button();
+            playback_buttons_color_change = new Button();
+            erase_whole_line_color_change = new Button();
+            unseelct_line_color_change = new Button();
+            clear_notes_color_change = new Button();
+            blank_line_color_change = new Button();
+            metronome_color = new Panel();
+            playback_buttons_color = new Panel();
+            erase_whole_line_color = new Panel();
+            unselect_line_color = new Panel();
+            clear_notes_color = new Panel();
+            blank_line_color = new Panel();
+            label10 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            groupBox2 = new GroupBox();
+            third_octave_color_change = new Button();
+            second_octave_color_change = new Button();
+            first_octave_color_change = new Button();
+            third_octave_color = new Panel();
+            second_octave_color = new Panel();
+            first_octave_color = new Panel();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             toolTip1 = new ToolTip(components);
+            colorDialog1 = new ColorDialog();
             tabControl_settings.SuspendLayout();
             general_settings.SuspendLayout();
             groupBox_system_speaker_test.SuspendLayout();
@@ -76,9 +118,14 @@
             group_fmod_waveform.SuspendLayout();
             devices_settings.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).BeginInit();
             group_midi_output_devices.SuspendLayout();
             group_midi_input_devices.SuspendLayout();
+            appearance.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox3.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl_settings
@@ -86,6 +133,7 @@
             tabControl_settings.Controls.Add(general_settings);
             tabControl_settings.Controls.Add(creating_sound_settings);
             tabControl_settings.Controls.Add(devices_settings);
+            tabControl_settings.Controls.Add(appearance);
             resources.ApplyResources(tabControl_settings, "tabControl_settings");
             tabControl_settings.ImageList = imageList_settings;
             tabControl_settings.Name = "tabControl_settings";
@@ -96,8 +144,8 @@
             // 
             general_settings.Controls.Add(groupBox_system_speaker_test);
             general_settings.Controls.Add(groupBox_appearance);
-            general_settings.Controls.Add(label_test_system_speaker_message_3);
             general_settings.Controls.Add(label_test_system_speaker_message_2);
+            general_settings.Controls.Add(label_test_system_speaker_message_3);
             resources.ApplyResources(general_settings, "general_settings");
             general_settings.Name = "general_settings";
             general_settings.UseVisualStyleBackColor = true;
@@ -134,6 +182,8 @@
             imageList_settings.Images.SetKeyName(5, "icons8-motor-48.png");
             imageList_settings.Images.SetKeyName(6, "icons8-piano-48.png");
             imageList_settings.Images.SetKeyName(7, "icons8-motor-48.png");
+            imageList_settings.Images.SetKeyName(8, "icons8-brush-48.png");
+            imageList_settings.Images.SetKeyName(9, "icons8-reset-48.png");
             // 
             // label_test_system_speaker_message
             // 
@@ -164,13 +214,6 @@
             toolTip1.SetToolTip(comboBox_theme, resources.GetString("comboBox_theme.ToolTip"));
             comboBox_theme.SelectedIndexChanged += comboBox_theme_SelectedIndexChanged;
             // 
-            // label_test_system_speaker_message_3
-            // 
-            resources.ApplyResources(label_test_system_speaker_message_3, "label_test_system_speaker_message_3");
-            label_test_system_speaker_message_3.ForeColor = Color.FromArgb(255, 128, 0);
-            label_test_system_speaker_message_3.Name = "label_test_system_speaker_message_3";
-            label_test_system_speaker_message_3.Click += label_test_system_speaker_message_2_Click;
-            // 
             // label_test_system_speaker_message_2
             // 
             resources.ApplyResources(label_test_system_speaker_message_2, "label_test_system_speaker_message_2");
@@ -178,23 +221,30 @@
             label_test_system_speaker_message_2.Name = "label_test_system_speaker_message_2";
             label_test_system_speaker_message_2.Click += label_test_system_speaker_message_2_Click;
             // 
+            // label_test_system_speaker_message_3
+            // 
+            resources.ApplyResources(label_test_system_speaker_message_3, "label_test_system_speaker_message_3");
+            label_test_system_speaker_message_3.ForeColor = Color.FromArgb(255, 128, 0);
+            label_test_system_speaker_message_3.Name = "label_test_system_speaker_message_3";
+            label_test_system_speaker_message_3.Click += label_test_system_speaker_message_2_Click;
+            // 
             // creating_sound_settings
             // 
-            creating_sound_settings.Controls.Add(button_show_reason);
-            creating_sound_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
-            creating_sound_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
             creating_sound_settings.Controls.Add(group_fmod_settings);
             creating_sound_settings.Controls.Add(checkBox_enable_create_beep_from_soundcard);
             resources.ApplyResources(creating_sound_settings, "creating_sound_settings");
             creating_sound_settings.Name = "creating_sound_settings";
             creating_sound_settings.UseVisualStyleBackColor = true;
             // 
-            // button_show_reason
+            // group_fmod_settings
             // 
-            resources.ApplyResources(button_show_reason, "button_show_reason");
-            button_show_reason.Name = "button_show_reason";
-            button_show_reason.UseVisualStyleBackColor = true;
-            button_show_reason.Click += button1_Click;
+            resources.ApplyResources(group_fmod_settings, "group_fmod_settings");
+            group_fmod_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
+            group_fmod_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
+            group_fmod_settings.Controls.Add(button_show_reason);
+            group_fmod_settings.Controls.Add(group_fmod_waveform);
+            group_fmod_settings.Name = "group_fmod_settings";
+            group_fmod_settings.TabStop = false;
             // 
             // label_create_beep_from_soundcard_automatically_activated_message_2
             // 
@@ -206,24 +256,18 @@
             resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_1, "label_create_beep_from_soundcard_automatically_activated_message_1");
             label_create_beep_from_soundcard_automatically_activated_message_1.Name = "label_create_beep_from_soundcard_automatically_activated_message_1";
             // 
-            // group_fmod_settings
+            // button_show_reason
             // 
-            resources.ApplyResources(group_fmod_settings, "group_fmod_settings");
-            group_fmod_settings.Controls.Add(checkBox1);
-            group_fmod_settings.Controls.Add(group_fmod_waveform);
-            group_fmod_settings.Name = "group_fmod_settings";
-            group_fmod_settings.TabStop = false;
-            // 
-            // checkBox1
-            // 
-            resources.ApplyResources(checkBox1, "checkBox1");
-            checkBox1.Name = "checkBox1";
-            checkBox1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(button_show_reason, "button_show_reason");
+            button_show_reason.Name = "button_show_reason";
+            button_show_reason.UseVisualStyleBackColor = true;
+            button_show_reason.Click += button1_Click;
             // 
             // group_fmod_waveform
             // 
             resources.ApplyResources(group_fmod_waveform, "group_fmod_waveform");
             group_fmod_waveform.Controls.Add(radioButton_noise);
+            group_fmod_waveform.Controls.Add(checkBox1);
             group_fmod_waveform.Controls.Add(radioButton_triangle);
             group_fmod_waveform.Controls.Add(radioButton_sine);
             group_fmod_waveform.Controls.Add(radioButton_square);
@@ -235,6 +279,12 @@
             resources.ApplyResources(radioButton_noise, "radioButton_noise");
             radioButton_noise.Name = "radioButton_noise";
             radioButton_noise.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            resources.ApplyResources(checkBox1, "checkBox1");
+            checkBox1.Name = "checkBox1";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // radioButton_triangle
             // 
@@ -280,11 +330,34 @@
             // groupBox1
             // 
             resources.ApplyResources(groupBox1, "groupBox1");
+            groupBox1.Controls.Add(groupBox5);
             groupBox1.Controls.Add(label_motor_speed_mod);
             groupBox1.Controls.Add(checkBox_use_motor_speed_mod);
             groupBox1.Controls.Add(trackBar_motor_octave);
             groupBox1.Name = "groupBox1";
             groupBox1.TabStop = false;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(radioButton2);
+            groupBox5.Controls.Add(radioButton1);
+            resources.ApplyResources(groupBox5, "groupBox5");
+            groupBox5.Name = "groupBox5";
+            groupBox5.TabStop = false;
+            // 
+            // radioButton2
+            // 
+            resources.ApplyResources(radioButton2, "radioButton2");
+            radioButton2.Name = "radioButton2";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            resources.ApplyResources(radioButton1, "radioButton1");
+            radioButton1.Checked = true;
+            radioButton1.Name = "radioButton1";
+            radioButton1.TabStop = true;
+            radioButton1.UseVisualStyleBackColor = true;
             // 
             // label_motor_speed_mod
             // 
@@ -360,6 +433,284 @@
             checkBox_use_midi_input.Name = "checkBox_use_midi_input";
             checkBox_use_midi_input.UseVisualStyleBackColor = true;
             // 
+            // appearance
+            // 
+            appearance.Controls.Add(reset_colors);
+            appearance.Controls.Add(groupBox4);
+            appearance.Controls.Add(groupBox3);
+            appearance.Controls.Add(groupBox2);
+            resources.ApplyResources(appearance, "appearance");
+            appearance.Name = "appearance";
+            appearance.UseVisualStyleBackColor = true;
+            // 
+            // reset_colors
+            // 
+            resources.ApplyResources(reset_colors, "reset_colors");
+            reset_colors.ImageList = imageList_settings;
+            reset_colors.Name = "reset_colors";
+            reset_colors.UseVisualStyleBackColor = true;
+            reset_colors.Click += reset_colors_Click;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(note_indicator_color_change);
+            groupBox4.Controls.Add(label11);
+            groupBox4.Controls.Add(beep_indicator_color_change);
+            groupBox4.Controls.Add(label12);
+            groupBox4.Controls.Add(beep_indicator_color);
+            groupBox4.Controls.Add(note_indicator_color);
+            resources.ApplyResources(groupBox4, "groupBox4");
+            groupBox4.Name = "groupBox4";
+            groupBox4.TabStop = false;
+            // 
+            // note_indicator_color_change
+            // 
+            resources.ApplyResources(note_indicator_color_change, "note_indicator_color_change");
+            note_indicator_color_change.Name = "note_indicator_color_change";
+            note_indicator_color_change.UseVisualStyleBackColor = true;
+            note_indicator_color_change.Click += note_indicator_color_change_Click;
+            // 
+            // label11
+            // 
+            resources.ApplyResources(label11, "label11");
+            label11.Name = "label11";
+            // 
+            // beep_indicator_color_change
+            // 
+            resources.ApplyResources(beep_indicator_color_change, "beep_indicator_color_change");
+            beep_indicator_color_change.Name = "beep_indicator_color_change";
+            beep_indicator_color_change.UseVisualStyleBackColor = true;
+            beep_indicator_color_change.Click += beep_indicator_color_change_Click;
+            // 
+            // label12
+            // 
+            resources.ApplyResources(label12, "label12");
+            label12.Name = "label12";
+            // 
+            // beep_indicator_color
+            // 
+            beep_indicator_color.BackColor = Color.Red;
+            beep_indicator_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(beep_indicator_color, "beep_indicator_color");
+            beep_indicator_color.Name = "beep_indicator_color";
+            // 
+            // note_indicator_color
+            // 
+            note_indicator_color.BackColor = Color.Red;
+            note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(note_indicator_color, "note_indicator_color");
+            note_indicator_color.Name = "note_indicator_color";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(metronome_color_change);
+            groupBox3.Controls.Add(playback_buttons_color_change);
+            groupBox3.Controls.Add(erase_whole_line_color_change);
+            groupBox3.Controls.Add(unseelct_line_color_change);
+            groupBox3.Controls.Add(clear_notes_color_change);
+            groupBox3.Controls.Add(blank_line_color_change);
+            groupBox3.Controls.Add(metronome_color);
+            groupBox3.Controls.Add(playback_buttons_color);
+            groupBox3.Controls.Add(erase_whole_line_color);
+            groupBox3.Controls.Add(unselect_line_color);
+            groupBox3.Controls.Add(clear_notes_color);
+            groupBox3.Controls.Add(blank_line_color);
+            groupBox3.Controls.Add(label10);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(label5);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(label7);
+            resources.ApplyResources(groupBox3, "groupBox3");
+            groupBox3.Name = "groupBox3";
+            groupBox3.TabStop = false;
+            // 
+            // metronome_color_change
+            // 
+            resources.ApplyResources(metronome_color_change, "metronome_color_change");
+            metronome_color_change.Name = "metronome_color_change";
+            metronome_color_change.UseVisualStyleBackColor = true;
+            metronome_color_change.Click += metronome_color_change_Click;
+            // 
+            // playback_buttons_color_change
+            // 
+            resources.ApplyResources(playback_buttons_color_change, "playback_buttons_color_change");
+            playback_buttons_color_change.Name = "playback_buttons_color_change";
+            playback_buttons_color_change.UseVisualStyleBackColor = true;
+            playback_buttons_color_change.Click += playback_buttons_color_change_Click;
+            // 
+            // erase_whole_line_color_change
+            // 
+            resources.ApplyResources(erase_whole_line_color_change, "erase_whole_line_color_change");
+            erase_whole_line_color_change.Name = "erase_whole_line_color_change";
+            erase_whole_line_color_change.UseVisualStyleBackColor = true;
+            erase_whole_line_color_change.Click += erase_whole_line_color_change_Click;
+            // 
+            // unseelct_line_color_change
+            // 
+            resources.ApplyResources(unseelct_line_color_change, "unseelct_line_color_change");
+            unseelct_line_color_change.Name = "unseelct_line_color_change";
+            unseelct_line_color_change.UseVisualStyleBackColor = true;
+            unseelct_line_color_change.Click += unseelct_line_color_change_Click;
+            // 
+            // clear_notes_color_change
+            // 
+            resources.ApplyResources(clear_notes_color_change, "clear_notes_color_change");
+            clear_notes_color_change.Name = "clear_notes_color_change";
+            clear_notes_color_change.UseVisualStyleBackColor = true;
+            clear_notes_color_change.Click += clear_notes_color_change_Click;
+            // 
+            // blank_line_color_change
+            // 
+            resources.ApplyResources(blank_line_color_change, "blank_line_color_change");
+            blank_line_color_change.Name = "blank_line_color_change";
+            blank_line_color_change.UseVisualStyleBackColor = true;
+            blank_line_color_change.Click += blank_line_color_change_Click;
+            // 
+            // metronome_color
+            // 
+            metronome_color.BackColor = Color.FromArgb(192, 255, 192);
+            metronome_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(metronome_color, "metronome_color");
+            metronome_color.Name = "metronome_color";
+            // 
+            // playback_buttons_color
+            // 
+            playback_buttons_color.BackColor = Color.FromArgb(128, 255, 128);
+            playback_buttons_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(playback_buttons_color, "playback_buttons_color");
+            playback_buttons_color.Name = "playback_buttons_color";
+            // 
+            // erase_whole_line_color
+            // 
+            erase_whole_line_color.BackColor = Color.FromArgb(255, 128, 128);
+            erase_whole_line_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(erase_whole_line_color, "erase_whole_line_color");
+            erase_whole_line_color.Name = "erase_whole_line_color";
+            // 
+            // unselect_line_color
+            // 
+            unselect_line_color.BackColor = Color.FromArgb(128, 255, 255);
+            unselect_line_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(unselect_line_color, "unselect_line_color");
+            unselect_line_color.Name = "unselect_line_color";
+            // 
+            // clear_notes_color
+            // 
+            clear_notes_color.BackColor = Color.FromArgb(128, 128, 255);
+            clear_notes_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(clear_notes_color, "clear_notes_color");
+            clear_notes_color.Name = "clear_notes_color";
+            // 
+            // blank_line_color
+            // 
+            blank_line_color.BackColor = Color.FromArgb(255, 224, 192);
+            blank_line_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(blank_line_color, "blank_line_color");
+            blank_line_color.Name = "blank_line_color";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(label10, "label10");
+            label10.Name = "label10";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(label8, "label8");
+            label8.Name = "label8";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(label9, "label9");
+            label9.Name = "label9";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(label5, "label5");
+            label5.Name = "label5";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(label6, "label6");
+            label6.Name = "label6";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(label7, "label7");
+            label7.Name = "label7";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(third_octave_color_change);
+            groupBox2.Controls.Add(second_octave_color_change);
+            groupBox2.Controls.Add(first_octave_color_change);
+            groupBox2.Controls.Add(third_octave_color);
+            groupBox2.Controls.Add(second_octave_color);
+            groupBox2.Controls.Add(first_octave_color);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(label2);
+            resources.ApplyResources(groupBox2, "groupBox2");
+            groupBox2.Name = "groupBox2";
+            groupBox2.TabStop = false;
+            // 
+            // third_octave_color_change
+            // 
+            resources.ApplyResources(third_octave_color_change, "third_octave_color_change");
+            third_octave_color_change.Name = "third_octave_color_change";
+            third_octave_color_change.UseVisualStyleBackColor = true;
+            third_octave_color_change.Click += third_octave_color_change_Click;
+            // 
+            // second_octave_color_change
+            // 
+            resources.ApplyResources(second_octave_color_change, "second_octave_color_change");
+            second_octave_color_change.Name = "second_octave_color_change";
+            second_octave_color_change.UseVisualStyleBackColor = true;
+            second_octave_color_change.Click += second_octave_color_change_Click;
+            // 
+            // first_octave_color_change
+            // 
+            resources.ApplyResources(first_octave_color_change, "first_octave_color_change");
+            first_octave_color_change.Name = "first_octave_color_change";
+            first_octave_color_change.UseVisualStyleBackColor = true;
+            first_octave_color_change.Click += first_octave_color_change_Click;
+            // 
+            // third_octave_color
+            // 
+            third_octave_color.BackColor = Color.FromArgb(192, 255, 192);
+            third_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(third_octave_color, "third_octave_color");
+            third_octave_color.Name = "third_octave_color";
+            // 
+            // second_octave_color
+            // 
+            second_octave_color.BackColor = Color.FromArgb(192, 192, 255);
+            second_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(second_octave_color, "second_octave_color");
+            second_octave_color.Name = "second_octave_color";
+            // 
+            // first_octave_color
+            // 
+            first_octave_color.BackColor = Color.FromArgb(255, 224, 192);
+            first_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(first_octave_color, "first_octave_color");
+            first_octave_color.Name = "first_octave_color";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(label4, "label4");
+            label4.Name = "label4";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(label3, "label3");
+            label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
+            // 
             // settings_window
             // 
             resources.ApplyResources(this, "$this");
@@ -389,11 +740,20 @@
             devices_settings.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).EndInit();
             group_midi_output_devices.ResumeLayout(false);
             group_midi_output_devices.PerformLayout();
             group_midi_input_devices.ResumeLayout(false);
             group_midi_input_devices.PerformLayout();
+            appearance.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -436,5 +796,47 @@
         private ImageList imageList_settings;
         public Label label_create_beep_from_soundcard_automatically_activated_message_2;
         public Label label_test_system_speaker_message_3;
+        private TabPage appearance;
+        private GroupBox groupBox2;
+        private Panel first_octave_color;
+        private Label label2;
+        private Button second_octave_color_change;
+        private Button first_octave_color_change;
+        private Panel second_octave_color;
+        private Label label3;
+        private Button third_octave_color_change;
+        private Panel third_octave_color;
+        private Label label4;
+        private GroupBox groupBox3;
+        private Button unseelct_line_color_change;
+        private Button clear_notes_color_change;
+        private Button blank_line_color_change;
+        private Panel unselect_line_color;
+        private Panel clear_notes_color;
+        private Panel blank_line_color;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Button erase_whole_line_color_change;
+        private Panel erase_whole_line_color;
+        private Label label9;
+        private Button playback_buttons_color_change;
+        private Panel playback_buttons_color;
+        private Label label8;
+        private Button metronome_color_change;
+        private Panel metronome_color;
+        private Label label10;
+        private GroupBox groupBox4;
+        private Button note_indicator_color_change;
+        private Label label11;
+        private Button beep_indicator_color_change;
+        private Label label12;
+        private Panel beep_indicator_color;
+        private Panel note_indicator_color;
+        private GroupBox groupBox5;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private ColorDialog colorDialog1;
+        private Button reset_colors;
     }
 }

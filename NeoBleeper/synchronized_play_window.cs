@@ -25,13 +25,13 @@ namespace NeoBleeper
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = new Font(fonts.Families[0], 9);
-                    lbl_hour_minute_second.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                    lbl_current_time.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                    lbl_current_system_time.Font = new Font(fonts.Families[0], 15, FontStyle.Bold);
-                    lbl_waiting.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-                    dateTimePicker1.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
                 }
             }
+            lbl_hour_minute_second.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            lbl_current_time.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            lbl_current_system_time.Font = new Font(fonts.Families[0], 15, FontStyle.Bold);
+            lbl_waiting.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
+            dateTimePicker1.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

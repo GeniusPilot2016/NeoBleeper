@@ -24,9 +24,9 @@ namespace NeoBleeper
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = new Font(fonts.Families[0], 9);
-                    label_unknown_type_of_computer_result.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
                 }
             }
+            label_unknown_type_of_computer_result.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
         }
 
         private void button_yes_Click(object sender, EventArgs e)

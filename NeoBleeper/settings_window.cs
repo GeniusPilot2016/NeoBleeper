@@ -28,14 +28,14 @@ namespace NeoBleeper
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = new Font(fonts.Families[0], 9);
-                    checkBox_use_motor_speed_mod.Font = new Font(fonts.Families[0], 9);
-                    label_test_system_speaker_message_2.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                    label_test_system_speaker_message_3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                    label_create_beep_from_soundcard_automatically_activated_message_1.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
-                    label_create_beep_from_soundcard_automatically_activated_message_2.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
-                    label_motor_speed_mod.Font = new Font(fonts.Families[0], 9, FontStyle.Italic);
                 }
             }
+            checkBox_use_motor_speed_mod.Font = new Font(fonts.Families[0], 9);
+            label_test_system_speaker_message_2.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            label_test_system_speaker_message_3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            label_create_beep_from_soundcard_automatically_activated_message_1.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
+            label_create_beep_from_soundcard_automatically_activated_message_2.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
+            label_motor_speed_mod.Font = new Font(fonts.Families[0], 9, FontStyle.Italic);
             if (Program.creating_sounds.create_beep_with_soundcard == true)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = true;
@@ -44,8 +44,7 @@ namespace NeoBleeper
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = false;
             }
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false ||
-                    Program.eligability_of_create_beep_from_system_speaker.is_x64_based == false)
+            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 label_test_system_speaker_message_2.Visible = true;
                 label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
@@ -67,6 +66,17 @@ namespace NeoBleeper
                 groupBox_system_speaker_test.Enabled = false;
             }
             comboBox_theme.SelectedItem = comboBox_theme.Items[0];
+            first_octave_color.BackColor = Settings1.Default.first_octave_color;
+            second_octave_color.BackColor = Settings1.Default.second_octave_color;
+            third_octave_color.BackColor = Settings1.Default.third_octave_color;
+            blank_line_color.BackColor = Settings1.Default.blank_line_color;
+            clear_notes_color.BackColor = Settings1.Default.clear_notes_color;
+            unselect_line_color.BackColor = Settings1.Default.unselect_line_color;
+            erase_whole_line_color.BackColor = Settings1.Default.erase_whole_line_color;
+            playback_buttons_color.BackColor = Settings1.Default.playback_buttons_color;
+            metronome_color.BackColor = Settings1.Default.metronome_color;
+            beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color;
+            note_indicator_color.BackColor = Settings1.Default.note_indicator_color;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -90,8 +100,7 @@ namespace NeoBleeper
         }
         private void system_speaker_test_tune()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true &&
-                Program.eligability_of_create_beep_from_system_speaker.is_x64_based == true)
+            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 Random rnd = new Random();
                 int tune_number = rnd.Next(1, 15); // Choose a random tune between 1 and 15
@@ -146,15 +155,10 @@ namespace NeoBleeper
                 }
             }
         }
-        private void checkBox_test_system_speaker_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true &&
-                eligability_of_create_beep_from_system_speaker.is_x64_based==true)
+            if (eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 RenderBeep.BeepClass.StopBeep();
             }
@@ -378,7 +382,7 @@ namespace NeoBleeper
             int[] frequencies = { 261, 311, 392 }; // C4, D#4, G4
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
+                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each note
             }
         }
         private void PlayMajorChord()
@@ -386,21 +390,21 @@ namespace NeoBleeper
             int[] frequencies = { 261, 329, 392 }; // C4, E4, G4
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
+                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each note
             }
         }
         private void PlayDescendingBeeps()
         {
             for (int freq = 2000; freq >= 200; freq -= 200)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // Her frekans için 500 ms
+                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each frequency
             }
         }
         private void PlayAscendingBeeps()
         {
             for (int freq = 200; freq <= 2000; freq += 200)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // Her frekans için 500 ms
+                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each frequency
             }
         }
         private void PlayRandomBeeps()
@@ -408,8 +412,8 @@ namespace NeoBleeper
             Random rnd = new Random();
             for (int i = 0; i < 10; i++)
             {
-                int frequency = rnd.Next(200, 2000); // 200 Hz ile 2000 Hz arasında rastgele frekans
-                int duration = rnd.Next(100, 1000); // 100 ms ile 1000 ms arasında rastgele süre
+                int frequency = rnd.Next(200, 2000); // Random frequency between 200 Hz and 2000 Hz
+                int duration = rnd.Next(100, 1000); // Random duration between 100 ms and 1000 ms
                 RenderBeep.BeepClass.Beep(frequency, duration);
             }
         }
@@ -482,17 +486,154 @@ namespace NeoBleeper
         }
         private void PlaySimpleBeepSequence()
         {
-            RenderBeep.BeepClass.Beep(1000, 500); // Frekans: 1000 Hz, Süre: 500 ms
-            RenderBeep.BeepClass.Beep(1500, 500); // Frekans: 1500 Hz, Süre: 500 ms
-            RenderBeep.BeepClass.Beep(2000, 500); // Frekans: 2000 Hz, Süre: 500 ms
+            RenderBeep.BeepClass.Beep(1000, 500); // Frequency: 1000 Hz, Duration: 500 ms
+            RenderBeep.BeepClass.Beep(1500, 500); // Frequency: 1500 Hz, Duration: 500 ms
+            RenderBeep.BeepClass.Beep(2000, 500); // Frequency: 2000 Hz, Duration: 500 ms
         }
         private void PlayScale()
         {
-            int[] frequencies = { 261, 293, 329, 349, 392, 440, 493, 523 }; // C4'ten C5'e
+            int[] frequencies = { 261, 293, 329, 349, 392, 440, 493, 523 }; // C4 to C5
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // Her nota için 500 ms
+                RenderBeep.BeepClass.Beep(freq, 500); // 500ms for each note
             }
+        }
+
+        private void first_octave_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                first_octave_color.BackColor = colorDialog1.Color;
+                Settings1.Default.first_octave_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void second_octave_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                second_octave_color.BackColor = colorDialog1.Color;
+                Settings1.Default.second_octave_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void third_octave_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                third_octave_color.BackColor = colorDialog1.Color;
+                Settings1.Default.third_octave_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void blank_line_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                blank_line_color.BackColor = colorDialog1.Color;
+                Settings1.Default.blank_line_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void clear_notes_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                clear_notes_color.BackColor = colorDialog1.Color;
+                Settings1.Default.clear_notes_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void unseelct_line_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                unselect_line_color.BackColor = colorDialog1.Color;
+                Settings1.Default.unselect_line_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void erase_whole_line_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                erase_whole_line_color.BackColor = colorDialog1.Color;
+                Settings1.Default.erase_whole_line_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void playback_buttons_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                playback_buttons_color.BackColor = colorDialog1.Color;
+                Settings1.Default.playback_buttons_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void metronome_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                metronome_color.BackColor = colorDialog1.Color;
+                Settings1.Default.metronome_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void beep_indicator_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                beep_indicator_color.BackColor = colorDialog1.Color;
+                Settings1.Default.beep_indicator_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void note_indicator_color_change_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                note_indicator_color.BackColor = colorDialog1.Color;
+                Settings1.Default.note_indicator_color = colorDialog1.Color;
+                Settings1.Default.Save();
+            }
+        }
+
+        private void reset_colors_Click(object sender, EventArgs e)
+        {
+            first_octave_color.BackColor = Settings1.Default.first_octave_color = Color.FromArgb(255, 224, 192);
+            second_octave_color.BackColor = Settings1.Default.second_octave_color = Color.FromArgb(192, 192, 255);
+            third_octave_color.BackColor = Settings1.Default.third_octave_color = Color.FromArgb(192, 255, 192);
+            blank_line_color.BackColor = Settings1.Default.blank_line_color = Color.FromArgb(255, 224, 192);
+            clear_notes_color.BackColor = Settings1.Default.clear_notes_color = Color.FromArgb(128, 128, 255);
+            unselect_line_color.BackColor = Settings1.Default.unselect_line_color = Color.FromArgb(128, 255, 255);
+            erase_whole_line_color.BackColor = Settings1.Default.erase_whole_line_color = Color.FromArgb(255, 128, 128);
+            playback_buttons_color.BackColor = Settings1.Default.playback_buttons_color = Color.FromArgb(128, 255, 128);
+            metronome_color.BackColor = Settings1.Default.metronome_color = Color.FromArgb(192, 255, 192);
+            beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color = Color.Red;
+            note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
+            Settings1.Default.Save();
         }
     }
 }

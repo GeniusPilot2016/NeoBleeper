@@ -24,11 +24,11 @@ namespace NeoBleeper
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = new Font(fonts.Families[0], 9);
-                    lbl_version.Font = new Font(fonts.Families[0], 14);
-                    lbl_name.Font = new Font(fonts.Families[0], 36, FontStyle.Bold);
-                    label1.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
                 }
             }
+            lbl_version.Font = new Font(fonts.Families[0], 14);
+            lbl_name.Font = new Font(fonts.Families[0], 36, FontStyle.Bold);
+            label1.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
         }
 
         private void about_neobleeper_Load(object sender, EventArgs e)
