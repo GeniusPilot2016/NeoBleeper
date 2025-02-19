@@ -147,9 +147,7 @@ namespace NeoBleeper
                 checkBox_mute_system_speaker.Checked = true;
                 checkBox_mute_system_speaker.Enabled = false;
             }
-            set_keyboard_colors();
-            set_buttons_colors();
-            set_beep_label_color();
+            main_window_refresh();
             comboBox_note_length.SelectedItem = comboBox_note_length.Items[3];
             comboBox_note_length.SelectedValue = comboBox_note_length.Items[3];
             Variables.octave = 4;
@@ -158,6 +156,109 @@ namespace NeoBleeper
             Variables.note_silence_ratio = 0.5;
         }
 
+        private void dark_theme()
+        {
+            menuStrip1.BackColor = Color.Black;
+            menuStrip1.ForeColor = Color.White;
+            listViewNotes.BackColor = Color.Black;
+            listViewNotes.ForeColor = Color.White;
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            numericUpDown_alternating_notes.BackColor = Color.Black;
+            numericUpDown_alternating_notes.ForeColor = Color.White;
+            numericUpDown_bpm.BackColor = Color.Black;
+            numericUpDown_bpm.ForeColor = Color.White;
+            comboBox_note_length.BackColor = Color.Black;
+            comboBox_note_length.ForeColor = Color.White;
+            group_key_is_clicked.ForeColor = Color.White;
+            group_adding_note.ForeColor = Color.White;
+            group_notes.ForeColor = Color.White;
+            group_line_clicked.ForeColor = Color.White;
+            group_music_played.ForeColor = Color.White;
+            btn_octave_increase.BackColor = Color.FromArgb(32, 32, 32);
+            btn_octave_decrease.BackColor = Color.FromArgb(32, 32, 32);
+            btn_octave_decrease.ForeColor = Color.White;
+            btn_octave_increase.ForeColor = Color.White;
+            checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_dotted.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_triplet.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_staccato.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_spiccato.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_fermata.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_metronome.ForeColor = Color.White;
+            checkBox_dotted.ForeColor = Color.White;
+            checkBox_triplet.ForeColor = Color.White;
+            checkBox_staccato.ForeColor = Color.White;
+            checkBox_spiccato.ForeColor = Color.White;
+            checkBox_fermata.ForeColor = Color.White;
+            checkBox_mute_system_speaker.ForeColor = Color.White;
+        }
+        private void light_theme()
+        {
+            menuStrip1.BackColor = SystemColors.ControlLightLight;
+            menuStrip1.ForeColor = SystemColors.ControlText;
+            listViewNotes.BackColor = SystemColors.Window;
+            listViewNotes.ForeColor = SystemColors.WindowText;
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            numericUpDown_alternating_notes.BackColor = SystemColors.Window;
+            numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
+            numericUpDown_bpm.BackColor = SystemColors.Window;
+            numericUpDown_bpm.ForeColor = SystemColors.WindowText;
+            comboBox_note_length.BackColor = SystemColors.Window;
+            comboBox_note_length.ForeColor = SystemColors.WindowText;
+            group_key_is_clicked.ForeColor = SystemColors.ControlText;
+            group_adding_note.ForeColor = SystemColors.ControlText;
+            group_notes.ForeColor = SystemColors.ControlText;
+            group_line_clicked.ForeColor = SystemColors.ControlText;
+            group_music_played.ForeColor = SystemColors.ControlText;
+            btn_octave_increase.BackColor = Color.Transparent;
+            btn_octave_decrease.BackColor = Color.Transparent;
+            btn_octave_decrease.ForeColor = SystemColors.ControlText;
+            btn_octave_increase.ForeColor = SystemColors.ControlText;
+            checkBox_metronome.BackColor = Color.Transparent;
+            checkBox_dotted.BackColor = Color.Transparent;
+            checkBox_triplet.BackColor = Color.Transparent;
+            checkBox_staccato.BackColor = Color.Transparent;
+            checkBox_spiccato.BackColor = Color.Transparent;
+            checkBox_fermata.BackColor = Color.Transparent;
+            checkBox_metronome.ForeColor = SystemColors.ControlText;
+            checkBox_dotted.ForeColor = SystemColors.ControlText;
+            checkBox_triplet.ForeColor = SystemColors.ControlText;
+            checkBox_staccato.ForeColor = SystemColors.ControlText;
+            checkBox_spiccato.ForeColor = SystemColors.ControlText;
+            checkBox_fermata.ForeColor = SystemColors.ControlText;
+            checkBox_mute_system_speaker.ForeColor = SystemColors.ControlText;
+        }
+
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0:
+                    {
+                        if (check_system_theme.IsDarkTheme() == true)
+                        {
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2:
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+        }
         private void set_keyboard_colors()
         {
             lbl_c3.BackColor = Settings1.Default.first_octave_color;
@@ -234,6 +335,7 @@ namespace NeoBleeper
         }
         private void main_window_refresh()
         {
+            set_theme();
             set_keyboard_colors();
             set_buttons_colors();
             set_beep_label_color();
@@ -321,7 +423,12 @@ namespace NeoBleeper
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             settings_window settings = new settings_window();
+            settings.ColorsAndThemeChanged += refresh_main_window_elements_color;
             settings.ShowDialog();
+        }
+
+        private void refresh_main_window_elements_color(object sender, EventArgs e)
+        {
             main_window_refresh();
         }
 
@@ -2100,7 +2207,23 @@ namespace NeoBleeper
         {
             if (checkBox_metronome.Checked == true)
             {
-                checkBox_metronome.BackColor = Color.FromArgb(192, 255, 192);
+                checkBox_metronome.BackColor = Settings1.Default.metronome_color;
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        {
+                            if (check_system_theme.IsDarkTheme() == true)
+                            {
+                                checkBox_metronome.ForeColor = SystemColors.ControlText;
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            checkBox_metronome.ForeColor = SystemColors.ControlText;
+                            break;
+                        }
+                }
                 new Thread(() =>
                 {
                     metronome();
@@ -2108,7 +2231,33 @@ namespace NeoBleeper
             }
             else
             {
-                checkBox_metronome.BackColor = System.Drawing.Color.Transparent;
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        {
+                            if (check_system_theme.IsDarkTheme() == true)
+                            {
+                                checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
+                                checkBox_metronome.ForeColor = Color.White;
+                            }
+                            else
+                            {
+                                checkBox_metronome.BackColor = System.Drawing.Color.Transparent;
+                            }
+                            break;
+                        }
+                    case 1:
+                        {
+                            checkBox_metronome.BackColor = System.Drawing.Color.Transparent;
+                            break;
+                        }
+                    case 2:
+                        {
+                            checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
+                            checkBox_metronome.ForeColor = Color.White;
+                            break;
+                        }
+                }
             }
         }
 

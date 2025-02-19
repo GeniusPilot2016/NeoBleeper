@@ -62,10 +62,16 @@
             checkBox_use_motor_speed_mod = new CheckBox();
             trackBar_motor_octave = new TrackBar();
             group_midi_output_devices = new GroupBox();
-            comboBox_midi_output = new ComboBox();
-            label1 = new Label();
-            checkBox_midi_output = new CheckBox();
+            comboBox_midi_output_instrument = new ComboBox();
+            comboBox_midi_output_channel = new ComboBox();
+            label_instrument = new Label();
+            label_channel = new Label();
+            refresh_midi_output_button = new Button();
+            comboBox_midi_output_devices = new ComboBox();
+            label_midi_output_device = new Label();
+            checkBox_use_midi_output = new CheckBox();
             group_midi_input_devices = new GroupBox();
+            refresh_midi_input_button = new Button();
             comboBox_midi_input_devices = new ComboBox();
             label_midi_input_device = new Label();
             checkBox_use_midi_input = new CheckBox();
@@ -184,6 +190,7 @@
             imageList_settings.Images.SetKeyName(7, "icons8-motor-48.png");
             imageList_settings.Images.SetKeyName(8, "icons8-brush-48.png");
             imageList_settings.Images.SetKeyName(9, "icons8-reset-48.png");
+            imageList_settings.Images.SetKeyName(10, "icons8-refresh-48 (1).png");
             // 
             // label_test_system_speaker_message
             // 
@@ -219,14 +226,12 @@
             resources.ApplyResources(label_test_system_speaker_message_2, "label_test_system_speaker_message_2");
             label_test_system_speaker_message_2.ForeColor = Color.FromArgb(192, 0, 0);
             label_test_system_speaker_message_2.Name = "label_test_system_speaker_message_2";
-            label_test_system_speaker_message_2.Click += label_test_system_speaker_message_2_Click;
             // 
             // label_test_system_speaker_message_3
             // 
             resources.ApplyResources(label_test_system_speaker_message_3, "label_test_system_speaker_message_3");
             label_test_system_speaker_message_3.ForeColor = Color.FromArgb(255, 128, 0);
             label_test_system_speaker_message_3.Name = "label_test_system_speaker_message_3";
-            label_test_system_speaker_message_3.Click += label_test_system_speaker_message_2_Click;
             // 
             // creating_sound_settings
             // 
@@ -320,7 +325,7 @@
             // 
             devices_settings.Controls.Add(groupBox1);
             devices_settings.Controls.Add(group_midi_output_devices);
-            devices_settings.Controls.Add(checkBox_midi_output);
+            devices_settings.Controls.Add(checkBox_use_midi_output);
             devices_settings.Controls.Add(group_midi_input_devices);
             devices_settings.Controls.Add(checkBox_use_midi_input);
             resources.ApplyResources(devices_settings, "devices_settings");
@@ -382,37 +387,83 @@
             // group_midi_output_devices
             // 
             resources.ApplyResources(group_midi_output_devices, "group_midi_output_devices");
-            group_midi_output_devices.Controls.Add(comboBox_midi_output);
-            group_midi_output_devices.Controls.Add(label1);
+            group_midi_output_devices.Controls.Add(comboBox_midi_output_instrument);
+            group_midi_output_devices.Controls.Add(comboBox_midi_output_channel);
+            group_midi_output_devices.Controls.Add(label_instrument);
+            group_midi_output_devices.Controls.Add(label_channel);
+            group_midi_output_devices.Controls.Add(refresh_midi_output_button);
+            group_midi_output_devices.Controls.Add(comboBox_midi_output_devices);
+            group_midi_output_devices.Controls.Add(label_midi_output_device);
             group_midi_output_devices.Name = "group_midi_output_devices";
             group_midi_output_devices.TabStop = false;
             // 
-            // comboBox_midi_output
+            // comboBox_midi_output_instrument
             // 
-            resources.ApplyResources(comboBox_midi_output, "comboBox_midi_output");
-            comboBox_midi_output.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_midi_output.FormattingEnabled = true;
-            comboBox_midi_output.Name = "comboBox_midi_output";
+            comboBox_midi_output_instrument.DropDownStyle = ComboBoxStyle.DropDownList;
+            resources.ApplyResources(comboBox_midi_output_instrument, "comboBox_midi_output_instrument");
+            comboBox_midi_output_instrument.FormattingEnabled = true;
+            comboBox_midi_output_instrument.Name = "comboBox_midi_output_instrument";
             // 
-            // label1
+            // comboBox_midi_output_channel
             // 
-            resources.ApplyResources(label1, "label1");
-            label1.Name = "label1";
+            comboBox_midi_output_channel.DropDownStyle = ComboBoxStyle.DropDownList;
+            resources.ApplyResources(comboBox_midi_output_channel, "comboBox_midi_output_channel");
+            comboBox_midi_output_channel.FormattingEnabled = true;
+            comboBox_midi_output_channel.Name = "comboBox_midi_output_channel";
             // 
-            // checkBox_midi_output
+            // label_instrument
             // 
-            resources.ApplyResources(checkBox_midi_output, "checkBox_midi_output");
-            checkBox_midi_output.ImageList = imageList_settings;
-            checkBox_midi_output.Name = "checkBox_midi_output";
-            checkBox_midi_output.UseVisualStyleBackColor = true;
+            resources.ApplyResources(label_instrument, "label_instrument");
+            label_instrument.Name = "label_instrument";
+            // 
+            // label_channel
+            // 
+            resources.ApplyResources(label_channel, "label_channel");
+            label_channel.Name = "label_channel";
+            // 
+            // refresh_midi_output_button
+            // 
+            resources.ApplyResources(refresh_midi_output_button, "refresh_midi_output_button");
+            refresh_midi_output_button.ImageList = imageList_settings;
+            refresh_midi_output_button.Name = "refresh_midi_output_button";
+            refresh_midi_output_button.UseVisualStyleBackColor = true;
+            refresh_midi_output_button.Click += refresh_midi_output_button_Click;
+            // 
+            // comboBox_midi_output_devices
+            // 
+            resources.ApplyResources(comboBox_midi_output_devices, "comboBox_midi_output_devices");
+            comboBox_midi_output_devices.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_midi_output_devices.FormattingEnabled = true;
+            comboBox_midi_output_devices.Name = "comboBox_midi_output_devices";
+            // 
+            // label_midi_output_device
+            // 
+            resources.ApplyResources(label_midi_output_device, "label_midi_output_device");
+            label_midi_output_device.Name = "label_midi_output_device";
+            // 
+            // checkBox_use_midi_output
+            // 
+            resources.ApplyResources(checkBox_use_midi_output, "checkBox_use_midi_output");
+            checkBox_use_midi_output.ImageList = imageList_settings;
+            checkBox_use_midi_output.Name = "checkBox_use_midi_output";
+            checkBox_use_midi_output.UseVisualStyleBackColor = true;
             // 
             // group_midi_input_devices
             // 
             resources.ApplyResources(group_midi_input_devices, "group_midi_input_devices");
+            group_midi_input_devices.Controls.Add(refresh_midi_input_button);
             group_midi_input_devices.Controls.Add(comboBox_midi_input_devices);
             group_midi_input_devices.Controls.Add(label_midi_input_device);
             group_midi_input_devices.Name = "group_midi_input_devices";
             group_midi_input_devices.TabStop = false;
+            // 
+            // refresh_midi_input_button
+            // 
+            resources.ApplyResources(refresh_midi_input_button, "refresh_midi_input_button");
+            refresh_midi_input_button.ImageList = imageList_settings;
+            refresh_midi_input_button.Name = "refresh_midi_input_button";
+            refresh_midi_input_button.UseVisualStyleBackColor = true;
+            refresh_midi_input_button.Click += refresh_midi_input_button_Click;
             // 
             // comboBox_midi_input_devices
             // 
@@ -776,10 +827,10 @@
         private GroupBox group_midi_input_devices;
         private ComboBox comboBox_midi_input_devices;
         private Label label_midi_input_device;
-        private CheckBox checkBox_midi_output;
+        private CheckBox checkBox_use_midi_output;
         private GroupBox group_midi_output_devices;
-        private ComboBox comboBox_midi_output;
-        private Label label1;
+        private ComboBox comboBox_midi_output_devices;
+        private Label label_midi_output_device;
         private ToolTip toolTip1;
         private GroupBox groupBox_appearance;
         public CheckBox checkBox_enable_create_beep_from_soundcard;
@@ -838,5 +889,11 @@
         private RadioButton radioButton1;
         private ColorDialog colorDialog1;
         private Button reset_colors;
+        private Button refresh_midi_input_button;
+        private Button refresh_midi_output_button;
+        private ComboBox comboBox_midi_output_channel;
+        private Label label_channel;
+        private ComboBox comboBox_midi_output_instrument;
+        private Label label_instrument;
     }
 }

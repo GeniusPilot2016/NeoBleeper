@@ -744,21 +744,23 @@
             // checkBox_dotted
             // 
             resources.ApplyResources(checkBox_dotted, "checkBox_dotted");
+            checkBox_dotted.BackColor = Color.Transparent;
             checkBox_dotted.FlatAppearance.BorderSize = 0;
             checkBox_dotted.Name = "checkBox_dotted";
             NeoBleeper_help.SetShowHelp(checkBox_dotted, (bool)resources.GetObject("checkBox_dotted.ShowHelp"));
             toolTip1.SetToolTip(checkBox_dotted, resources.GetString("checkBox_dotted.ToolTip"));
-            checkBox_dotted.UseVisualStyleBackColor = true;
+            checkBox_dotted.UseVisualStyleBackColor = false;
             checkBox_dotted.CheckedChanged += checkBox_dotted_CheckedChanged;
             // 
             // checkBox_triplet
             // 
             resources.ApplyResources(checkBox_triplet, "checkBox_triplet");
+            checkBox_triplet.BackColor = Color.Transparent;
             checkBox_triplet.FlatAppearance.BorderSize = 0;
             checkBox_triplet.Name = "checkBox_triplet";
             NeoBleeper_help.SetShowHelp(checkBox_triplet, (bool)resources.GetObject("checkBox_triplet.ShowHelp"));
             toolTip1.SetToolTip(checkBox_triplet, resources.GetString("checkBox_triplet.ToolTip"));
-            checkBox_triplet.UseVisualStyleBackColor = true;
+            checkBox_triplet.UseVisualStyleBackColor = false;
             checkBox_triplet.CheckedChanged += checkBox_triplet_CheckedChanged;
             // 
             // listViewNotes
@@ -976,11 +978,12 @@
             // checkBox_staccato
             // 
             resources.ApplyResources(checkBox_staccato, "checkBox_staccato");
+            checkBox_staccato.BackColor = Color.Transparent;
             checkBox_staccato.FlatAppearance.BorderSize = 0;
             checkBox_staccato.Name = "checkBox_staccato";
             NeoBleeper_help.SetShowHelp(checkBox_staccato, (bool)resources.GetObject("checkBox_staccato.ShowHelp"));
             toolTip1.SetToolTip(checkBox_staccato, resources.GetString("checkBox_staccato.ToolTip"));
-            checkBox_staccato.UseVisualStyleBackColor = true;
+            checkBox_staccato.UseVisualStyleBackColor = false;
             checkBox_staccato.CheckedChanged += checkBox_staccato_CheckedChanged;
             // 
             // label_beep
@@ -994,11 +997,12 @@
             // checkBox_fermata
             // 
             resources.ApplyResources(checkBox_fermata, "checkBox_fermata");
+            checkBox_fermata.BackColor = Color.Transparent;
             checkBox_fermata.FlatAppearance.BorderSize = 0;
             checkBox_fermata.Name = "checkBox_fermata";
             NeoBleeper_help.SetShowHelp(checkBox_fermata, (bool)resources.GetObject("checkBox_fermata.ShowHelp"));
             toolTip1.SetToolTip(checkBox_fermata, resources.GetString("checkBox_fermata.ToolTip"));
-            checkBox_fermata.UseVisualStyleBackColor = true;
+            checkBox_fermata.UseVisualStyleBackColor = false;
             checkBox_fermata.CheckedChanged += checkBox_fermata_CheckedChanged;
             // 
             // lbl_alternating_note_options
@@ -1157,11 +1161,12 @@
             // checkBox_spiccato
             // 
             resources.ApplyResources(checkBox_spiccato, "checkBox_spiccato");
+            checkBox_spiccato.BackColor = Color.Transparent;
             checkBox_spiccato.FlatAppearance.BorderSize = 0;
             checkBox_spiccato.Name = "checkBox_spiccato";
             NeoBleeper_help.SetShowHelp(checkBox_spiccato, (bool)resources.GetObject("checkBox_spiccato.ShowHelp"));
             toolTip1.SetToolTip(checkBox_spiccato, resources.GetString("checkBox_spiccato.ToolTip"));
-            checkBox_spiccato.UseVisualStyleBackColor = true;
+            checkBox_spiccato.UseVisualStyleBackColor = false;
             checkBox_spiccato.CheckedChanged += checkBox_spiccato_CheckedChanged;
             // 
             // lbl_beat
@@ -1793,21 +1798,23 @@
             // btn_octave_decrease
             // 
             resources.ApplyResources(btn_octave_decrease, "btn_octave_decrease");
+            btn_octave_decrease.BackColor = Color.Transparent;
             btn_octave_decrease.FlatAppearance.BorderSize = 0;
             btn_octave_decrease.Name = "btn_octave_decrease";
             NeoBleeper_help.SetShowHelp(btn_octave_decrease, (bool)resources.GetObject("btn_octave_decrease.ShowHelp"));
             toolTip1.SetToolTip(btn_octave_decrease, resources.GetString("btn_octave_decrease.ToolTip"));
-            btn_octave_decrease.UseVisualStyleBackColor = true;
+            btn_octave_decrease.UseVisualStyleBackColor = false;
             btn_octave_decrease.Click += btn_octave_decrease_Click;
             // 
             // btn_octave_increase
             // 
             resources.ApplyResources(btn_octave_increase, "btn_octave_increase");
+            btn_octave_increase.BackColor = Color.Transparent;
             btn_octave_increase.FlatAppearance.BorderSize = 0;
             btn_octave_increase.Name = "btn_octave_increase";
             NeoBleeper_help.SetShowHelp(btn_octave_increase, (bool)resources.GetObject("btn_octave_increase.ShowHelp"));
             toolTip1.SetToolTip(btn_octave_increase, resources.GetString("btn_octave_increase.ToolTip"));
-            btn_octave_increase.UseVisualStyleBackColor = true;
+            btn_octave_increase.UseVisualStyleBackColor = false;
             btn_octave_increase.Click += btn_octave_increase_Click;
             // 
             // panel5

@@ -117,9 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 15</value>
+    <value>50, 15</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -128,7 +132,6 @@
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 156</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
   </data>
@@ -146,10 +149,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top, Bottom</value>
   </data>
   <data name="lbl_credit.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -158,13 +161,13 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 186</value>
+    <value>64, 186</value>
   </data>
   <data name="lbl_credit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>497, 60</value>
+    <value>497, 80</value>
   </data>
   <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -172,7 +175,8 @@
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>Inspired by Robbi-985's (aka SomethingUnreal's) Bleeper Music Maker
 Designed and programmed by GeniusPilot2016
-All icons in this program are downloaded from icons8.com</value>
+All icons in this program are downloaded from icons8.com
+NeoBleeper is licensed under the GNU General Public License v3.0</value>
   </data>
   <data name="&gt;&gt;lbl_credit.Name" xml:space="preserve">
     <value>lbl_credit</value>
@@ -184,10 +188,10 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_credit.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="lbl_name.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top</value>
   </data>
   <data name="lbl_name.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -196,7 +200,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>HarmonyOS Sans, 36pt, style=Bold</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>180, 29</value>
+    <value>215, 29</value>
   </data>
   <data name="lbl_name.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -220,10 +224,10 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_name.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="lbl_version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Top</value>
   </data>
   <data name="lbl_version.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -232,7 +236,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>HarmonyOS Sans, 14.25pt</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 110</value>
+    <value>229, 110</value>
   </data>
   <data name="lbl_version.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -256,7 +260,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_version.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <metadata name="imageList_about.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -265,27 +269,59 @@ All icons in this program are downloaded from icons8.com</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAeAQAAAJNU0Z0AUkBTAMBAQAB
-        gAEAAYABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wD/
-        ABwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIBngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8B
-        LAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB/wElAX0BEwH/0AABOwGwASUB/wE7AbABJQH/Ac8B
-        6AHLDf8BLAGMARoB/wEuAYYBHQH/Ae8B8wHuAf8BfAGoAXMB/wElAX0BEwH/ASUBfQETAf/QAAE7AbAB
-        JQH/ATsBsAElAf8D/AH/A/oB/wP6Af8D+wH/ASwBiwEaAf8D+QH/A/gB/wP4Af8BfAGoAXMB/wElAX0B
-        EwH/0AABRwHEATEB/wFHAcQBMQH/A/kB/wP4Af8D+AH/A/kB/wEvAZQBHAH/A/gB/wP3Af8D+AH/Ae8B
-        8wHuAf8BLAGMARoB/9AAAUcBxAExAf8BRwHEATEB/wP4Af8D+AH/A/gB/wP4Af8BMgGeAR4B/wP5Af8D
-        +AH/A/kB/wEvAYYBHgH/ASwBjAEaAf/QAAFHAcQBMQH/AUcBxAExAf8D+AH/A/cB/wP3Af8D+AH/ATIB
-        ngEeAf8BMgGeAR4B/wEvAZQBHAH/ASwBiwEaAf8BLAGMARoB/wEsAYwBGgH/0AABVQHRAT8B/wFVAdEB
-        PwH/A/gB/wP4Af8D+AH/A/gB/wE7AbABJQH/AdQB5wHRAf8D+QH/A/kB/wEyAZ4BHgH/ATIBngEeAf/Q
-        AAFVAdEBPwH/AVUB0QE/Af8D+QH/A/gB/wP4Af8D+AH/ATkBqgEkAf8D+AH/A/gB/wP4Af8BzAHgAckB
-        /wEyAZ4BHgH/0AABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D+QH/A/oB/wE5AakBJAH/A/gB/wP4Af8D
-        +AH/AcwB4AHJAf8BMgGeAR4B/9AAAWMB2wFNAf8BYwHbAU0F/wP+Af8D/gX/AUcBxAExAf8B1wHrAdQB
-        /wP5Af8D+QH/ATsBsAElAf8BOwGwASUB/9AAAWMB2wFNAf8BYwHbAU0B/wFjAdsBTQH/AVUB0QE/Af8B
-        VQHRAT8B/wFVAdEBPwH/AUcBxAExAf8BRwHEATEB/wFHAcQBMQH/ATsBsAElAf8BOwGwASUB/wE7AbAB
-        JQH/0AADMAFLAWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB0QE/Af8BVQHRAT8B/wFHAcQBMQH/AUcB
-        xAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB//8A/wDKAAFCAU0BPgcAAT4DAAEoAwAB
-        QAMAARADAAEBAQABAQUAAYAXAAP/AQAC/wYAAv8GAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMG
-        AAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAHAAQMGAAL/BgAC/wYACw==
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASAgAAAJNU0Z0AUkBTAIBAQIB
+        AAGgAQABoAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AF8AAfIBSQG3Af8gAANEAXeUAAE7AbABJQH/ATsBsAElAf8BOwGwASUB/wEyAZ4BHgH/ATIBngEeAf8B
+        MgGeAR4B/wEsAYwBGgH/ASwBjAEaAf8BLAGMARoB/wElAX0BEwH/ASUBfQETAf8BJQF9ARMB/xQAAfAB
+        QwGxAf8B7wE+AaoB/xgAAUQBQwFEAXcB7wE/AawB/5QAATsBsAElAf8BOwGwASUB/wHPAegByw3/ASwB
+        jAEaAf8BLgGGAR0B/wHvAfMB7gH/AXwBqAFzAf8BJQF9ARMB/wElAX0BEwH/DAAB8gFJAbcB/wHwAUMB
+        sQH/Ae8BPgGqAf8B7QE4AaQB/wFJAZkB4wH/BAABUgFdAWEBtAEIAbsB/gH/AwQBBQJVAVcBpgHFAUoB
+        sAH/Ae0BOgGmAf8B7wE/AawB/wHxAUUBswH/AYcBWQF4AdmIAAE7AbABJQH/ATsBsAElAf8D/AH/A/oB
+        /wP6Af8D+wH/ASwBiwEaAf8D+QH/A/gB/wP4Af8BfAGoAXMB/wElAX0BEwH/EAAB7wE+AaoB/wHtATgB
+        pAH/AesBMgGeAf8BDAHCAf4B/wELAcEB/gH/AQoBvwH+Af8BCQG+Af4B/wEJAbwB/gH/AQgBuwH+Af8B
+        BwG6Af4B/wHsATQBoAH/Ae0BOgGmAf8B7wE/AawB/4wAAUcBxAExAf8BRwHEATEB/wP5Af8D+AH/A/gB
+        /wP5Af8BLwGUARwB/wP4Af8D9wH/A/gB/wHvAfMB7gH/ASwBjAEaAf8UAAE4AasB7AH/AQ8BxgH+Af8B
+        DgHFAf4B/wENAcMB/gH/AQwBwgH+Af8BCwHAAf4B/wEKAb8B/gH/AQkBvQH+Af8BCAG8Af4B/wEHAbsB
+        /gH/AcUBSgGwAf+QAAFHAcQBMQH/AUcBxAExAf8D+AH/A/gB/wP4Af8D+AH/ATIBngEeAf8D+QH/A/gB
+        /wP5Af8BLwGGAR4B/wEsAYwBGgH/FAABEQHKAv8BEQHJAv8BEAHHAf4B/wEPAcYB/gH/AQ4BxAH+Af8B
+        DQHDAf4B/wEMAcEB/gH/AQsBwAH+Af8BCgG+Af4B/wEJAb0B/gH/AzEBTZAAAUcBxAExAf8BRwHEATEB
+        /wP4Af8D9wH/A/cB/wP4Af8BMgGeAR4B/wEyAZ4BHgH/AS8BlAEcAf8BLAGLARoB/wEsAYwBGgH/ASwB
+        jAEaAf8UAAFEAYwBnwHjARIBywL/AREBygL/ARAByAH+Af8BDwHHAf4B/wEOAcUB/gH/AQ0BxAH+Af8B
+        DQHCAf4B/wEMAcEB/gH/AQsBwAH+Af8DBAEFkAABVQHRAT8B/wFVAdEBPwH/A/gB/wP4Af8D+AH/A/gB
+        /wE7AbABJQH/AdQB5wHRAf8D+QH/A/kB/wEyAZ4BHgH/ATIBngEeAf8QAAFFAYcBlQHfARUBzwL/ARQB
+        zgL/ARMBzAL/ARIBywL/AREByQL/ARAByAH+Af8BDwHGAf4B/wEOAcUB/gH/AQ0BwwH+Af8BDAHCAf4B
+        /wELAcEB/gH/kAABVQHRAT8B/wFVAdEBPwH/A/kB/wP4Af8D+AH/A/gB/wE5AaoBJAH/A/gB/wP4Af8D
+        +AH/AcwB4AHJAf8BMgGeAR4B/xQAARYB0QL/ARUB0AL/ARQBzwL/ARQBzQL/ARMBzAL/ARIBygL/AREB
+        yQL/ARABxwH+Af8BDwHGAf4B/wEOAcUB/gH/AVIBXgFhAbSQAAFVAdEBPwH/AVUB0QE/Af8D+gH/A/kB
+        /wP5Af8D+gH/ATkBqQEkAf8D+AH/A/gB/wP4Af8BzAHgAckB/wEyAZ4BHgH/FAABUQF3AX4B0QEXAdIC
+        /wEWAdEC/wEVAdAC/wEUAc4C/wETAc0C/wESAcsC/wERAcoC/wEQAcgB/gH/ARABxwH+Af+UAAFjAdsB
+        TQH/AWMB2wFNBf8D/gH/A/4F/wFHAcQBMQH/AdcB6wHUAf8D+QH/A/kB/wE7AbABJQH/ATsBsAElAf8U
+        AAEaAdYC/wEZAdUC/wEYAdQC/wEXAdIC/wEWAdEC/wEVAc8C/wEUAc4C/wETAcwC/wESAcsC/wERAcoC
+        /wFTAWIBZQG6kAABYwHbAU0B/wFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
+        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEZAdYC/wEYAdUC
+        /wEYAdMC/wEXAdIC/wEWAdAC/wEVAc8C/wEUAc0C/5gAAzABSwFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B
+        /wFVAdEBPwH/AVUB0QE/Af8BRwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsB
+        sAElAf8cAAEbAdkC/wFRAXcBfgHRARkB1gL/ARgB1AL/AUQBjgGfAeMBFgHRAv8BTgF2AX4B0fAAAUgB
+        jQGZAeD/AJ0AAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAAC/wHvAfcE
+        AAHAAQMC5wQAAcABAwGCBQABwAEDAcABAQQAAcABAwHgAQMEAAHAAQMB4AEDBAABwAEDAeABAwQAAcAB
+        AwHAAQMEAAHAAQMB4AEDBAABwAEDAeABBwQAAcABAwHgAQMEAAHAAQMB+AEPBAABwAEDAfgBDwQAA/8B
+        fwQABP8EAAs=
 </value>
+  </data>
+  <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>250</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>350</value>
   </data>
   <data name="listView1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
@@ -327,22 +363,21 @@ All icons in this program are downloaded from icons8.com</value>
         AAH4////+v///woAAAAAAAAAABoAAQABBQUAAAAxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
         dGVtK0xpc3RWaWV3U3ViSXRlbQQAAAAEdGV4dARuYW1lBXN0eWxlCHVzZXJEYXRhAQEEAj5TeXN0ZW0u
         V2luZG93cy5Gb3Jtcy5MaXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJdGVtK1N1Ykl0ZW1TdHlsZQIAAAAC
-        AAAABgkAAAAfSW5pdGlhbCBkZXZlbG9wbWVudCBhbmQgY29uY2VwdAYKAAAAEExpc3RWaWV3U3ViSXRl
-        bTAKCgUHAAAAE1N5c3RlbS5EcmF3aW5nLkZvbnQEAAAABE5hbWUEU2l6ZQVTdHlsZQRVbml0AQAEBAsY
-        U3lzdGVtLkRyYXdpbmcuRm9udFN0eWxlAwAAABtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQDAAAA
-        AwAAAAYLAAAADkhhcm1vbnlPUyBTYW5zAAAQQQX0////GFN5c3RlbS5EcmF3aW5nLkZvbnRTdHlsZQEA
-        AAAHdmFsdWVfXwAIAwAAAAAAAAAF8////xtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQBAAAAB3Zh
-        bHVlX18ACAMAAAADAAAACw==
+        AAAABgkAAAAfSW5pdGlhbCBkZXZlbG9wbWVudCBhbmQgY29uY2VwdAoKCgUHAAAAE1N5c3RlbS5EcmF3
+        aW5nLkZvbnQEAAAABE5hbWUEU2l6ZQVTdHlsZQRVbml0AQAEBAsYU3lzdGVtLkRyYXdpbmcuRm9udFN0
+        eWxlAwAAABtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQDAAAAAwAAAAYKAAAADkhhcm1vbnlPUyBT
+        YW5zAAAQQQX1////GFN5c3RlbS5EcmF3aW5nLkZvbnRTdHlsZQEAAAAHdmFsdWVfXwAIAwAAAAAAAAAF
+        9P///xtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 331</value>
+    <value>13, 347</value>
   </data>
   <data name="listView1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>535, 193</value>
+    <value>606, 193</value>
   </data>
   <data name="listView1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -357,22 +392,10 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>227</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
-    <value>300</value>
+    <value>3</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+    <value>Bottom</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -381,7 +404,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>232, 302</value>
+    <value>267, 318</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -405,7 +428,10 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -414,13 +440,13 @@ All icons in this program are downloaded from icons8.com</value>
     <value>0</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 262</value>
+    <value>152, 281</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 29</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>0</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Visit icons8.com</value>
@@ -441,6 +467,48 @@ All icons in this program are downloaded from icons8.com</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="button2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="button2.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>315, 281</value>
+  </data>
+  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 29</value>
+  </data>
+  <data name="button2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="button2.Text" xml:space="preserve">
+    <value>View License Text</value>
+  </data>
+  <data name="button2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="button2.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;button2.Name" xml:space="preserve">
+    <value>button2</value>
+  </data>
+  <data name="&gt;&gt;button2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -456,7 +524,7 @@ All icons in this program are downloaded from icons8.com</value>
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>562, 537</value>
+    <value>633, 553</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -777,6 +845,9 @@ All icons in this program are downloaded from icons8.com</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>

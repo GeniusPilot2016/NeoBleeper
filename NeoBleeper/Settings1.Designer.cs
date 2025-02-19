@@ -25,10 +25,10 @@ namespace NeoBleeper {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("system")]
-        public string theme {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int theme {
             get {
-                return ((string)(this["theme"]));
+                return ((int)(this["theme"]));
             }
             set {
                 this["theme"] = value;

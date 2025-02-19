@@ -50,5 +50,11 @@ namespace NeoBleeper
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://icons8.com/") { UseShellExecute = true });
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            GNU_GPL_v3_license_text gnu_gpl_v3_license_text = new GNU_GPL_v3_license_text();
+            gnu_gpl_v3_license_text.ShowDialog();
+        }
     }
 }

@@ -40,13 +40,14 @@
             columnHeader2 = new ColumnHeader();
             label1 = new Label();
             button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.neobleeper_icon;
             resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Image = Properties.Resources.neobleeper_icon;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
@@ -71,11 +72,12 @@
             imageList_about.ImageStream = (ImageListStreamer)resources.GetObject("imageList_about.ImageStream");
             imageList_about.TransparentColor = Color.Transparent;
             imageList_about.Images.SetKeyName(0, "icons8-icons8-48.png");
+            imageList_about.Images.SetKeyName(1, "icons8-license-48.png");
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             resources.ApplyResources(listView1, "listView1");
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             listView1.FullRowSelect = true;
             listView1.Items.AddRange(new ListViewItem[] { (ListViewItem)resources.GetObject("listView1.Items"), (ListViewItem)resources.GetObject("listView1.Items1") });
             listView1.MultiSelect = false;
@@ -104,10 +106,19 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            resources.ApplyResources(button2, "button2");
+            button2.ImageList = imageList_about;
+            button2.Name = "button2";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(listView1);
@@ -141,5 +152,6 @@
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private Button button1;
+        private Button button2;
     }
 }
