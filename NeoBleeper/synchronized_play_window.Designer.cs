@@ -30,36 +30,36 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(synchronized_play_window));
-            groupBox1 = new GroupBox();
+            groupBox_time = new GroupBox();
             lbl_current_system_time = new Label();
             lbl_current_time = new Label();
             label2 = new Label();
             lbl_hour_minute_second = new Label();
             dateTimePicker1 = new DateTimePicker();
-            groupBox2 = new GroupBox();
+            groupBox_position = new GroupBox();
             radioButton2 = new RadioButton();
             imageList_synchronized_play = new ImageList(components);
             radioButton1 = new RadioButton();
-            button1 = new Button();
+            button_wait = new Button();
             lbl_waiting = new Label();
             label6 = new Label();
             timer_time = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            groupBox_time.SuspendLayout();
+            groupBox_position.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // groupBox1
+            // groupBox_time
             // 
-            resources.ApplyResources(groupBox1, "groupBox1");
-            groupBox1.Controls.Add(lbl_current_system_time);
-            groupBox1.Controls.Add(lbl_current_time);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(lbl_hour_minute_second);
-            groupBox1.Controls.Add(dateTimePicker1);
-            groupBox1.Name = "groupBox1";
-            groupBox1.TabStop = false;
+            resources.ApplyResources(groupBox_time, "groupBox_time");
+            groupBox_time.Controls.Add(lbl_current_system_time);
+            groupBox_time.Controls.Add(lbl_current_time);
+            groupBox_time.Controls.Add(label2);
+            groupBox_time.Controls.Add(lbl_hour_minute_second);
+            groupBox_time.Controls.Add(dateTimePicker1);
+            groupBox_time.Name = "groupBox_time";
+            groupBox_time.TabStop = false;
             // 
             // lbl_current_system_time
             // 
@@ -89,13 +89,13 @@
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.ShowUpDown = true;
             // 
-            // groupBox2
+            // groupBox_position
             // 
-            resources.ApplyResources(groupBox2, "groupBox2");
-            groupBox2.Controls.Add(radioButton2);
-            groupBox2.Controls.Add(radioButton1);
-            groupBox2.Name = "groupBox2";
-            groupBox2.TabStop = false;
+            resources.ApplyResources(groupBox_position, "groupBox_position");
+            groupBox_position.Controls.Add(radioButton2);
+            groupBox_position.Controls.Add(radioButton1);
+            groupBox_position.Name = "groupBox_position";
+            groupBox_position.TabStop = false;
             // 
             // radioButton2
             // 
@@ -122,17 +122,18 @@
             radioButton1.TabStop = true;
             radioButton1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // button_wait
             // 
-            resources.ApplyResources(button1, "button1");
-            button1.ImageList = imageList_synchronized_play;
-            button1.Name = "button1";
-            button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(button_wait, "button_wait");
+            button_wait.ImageList = imageList_synchronized_play;
+            button_wait.Name = "button_wait";
+            button_wait.UseVisualStyleBackColor = true;
             // 
             // lbl_waiting
             // 
             resources.ApplyResources(lbl_waiting, "lbl_waiting");
             lbl_waiting.BackColor = Color.Red;
+            lbl_waiting.ForeColor = SystemColors.ControlText;
             lbl_waiting.Name = "lbl_waiting";
             // 
             // label6
@@ -161,9 +162,9 @@
             Controls.Add(pictureBox1);
             Controls.Add(label6);
             Controls.Add(lbl_waiting);
-            Controls.Add(button1);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(button_wait);
+            Controls.Add(groupBox_position);
+            Controls.Add(groupBox_time);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -171,10 +172,10 @@
             ShowIcon = false;
             FormClosing += synchronized_play_window_FormClosing;
             Load += synchronized_play_window_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            groupBox_time.ResumeLayout(false);
+            groupBox_time.PerformLayout();
+            groupBox_position.ResumeLayout(false);
+            groupBox_position.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -182,16 +183,16 @@
 
         #endregion
 
-        private GroupBox groupBox1;
+        private GroupBox groupBox_time;
         private Label lbl_hour_minute_second;
         private DateTimePicker dateTimePicker1;
         private Label lbl_current_system_time;
         private Label lbl_current_time;
         private Label label2;
-        private GroupBox groupBox2;
+        private GroupBox groupBox_position;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Button button1;
+        private Button button_wait;
         private Label lbl_waiting;
         private Label label6;
         private System.Windows.Forms.Timer timer_time;

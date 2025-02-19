@@ -160,8 +160,17 @@ namespace NeoBleeper
         {
             menuStrip1.BackColor = Color.Black;
             menuStrip1.ForeColor = Color.White;
+            fileToolStripMenuItem.BackColor = Color.Black;
+            fileToolStripMenuItem.ForeColor = Color.White;
+            editToolStripMenuItem.BackColor = Color.Black;
+            editToolStripMenuItem.ForeColor = Color.White;
             listViewNotes.BackColor = Color.Black;
-            listViewNotes.ForeColor = Color.White;
+            listViewNotes.ForeColor = Color.White;   
+            foreach (ListViewItem item in listViewNotes.Items)
+            {
+                item.BackColor = Color.Black;
+                item.ForeColor = Color.White;
+            }
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             numericUpDown_alternating_notes.BackColor = Color.Black;
@@ -192,13 +201,24 @@ namespace NeoBleeper
             checkBox_spiccato.ForeColor = Color.White;
             checkBox_fermata.ForeColor = Color.White;
             checkBox_mute_system_speaker.ForeColor = Color.White;
+            notes_list_right_click.BackColor = Color.Black;
+            notes_list_right_click.ForeColor = Color.White;
         }
         private void light_theme()
         {
             menuStrip1.BackColor = SystemColors.ControlLightLight;
             menuStrip1.ForeColor = SystemColors.ControlText;
+            fileToolStripMenuItem.BackColor = SystemColors.ControlLightLight;
+            fileToolStripMenuItem.ForeColor = SystemColors.ControlText;
+            editToolStripMenuItem.BackColor = SystemColors.ControlLightLight;
+            editToolStripMenuItem.ForeColor = SystemColors.ControlText;
             listViewNotes.BackColor = SystemColors.Window;
             listViewNotes.ForeColor = SystemColors.WindowText;
+            foreach (ListViewItem item in listViewNotes.Items)
+            {
+                item.BackColor = SystemColors.Window;
+                item.ForeColor = SystemColors.WindowText;
+            }
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             numericUpDown_alternating_notes.BackColor = SystemColors.Window;
@@ -229,6 +249,8 @@ namespace NeoBleeper
             checkBox_spiccato.ForeColor = SystemColors.ControlText;
             checkBox_fermata.ForeColor = SystemColors.ControlText;
             checkBox_mute_system_speaker.ForeColor = SystemColors.ControlText;
+            notes_list_right_click.BackColor = SystemColors.Window;
+            notes_list_right_click.ForeColor = SystemColors.WindowText;
         }
 
         private void set_theme()
@@ -335,10 +357,12 @@ namespace NeoBleeper
         }
         private void main_window_refresh()
         {
+            Application.DoEvents();
             set_theme();
             set_keyboard_colors();
             set_buttons_colors();
             set_beep_label_color();
+            this.Refresh();
         }
         private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
         {
@@ -424,6 +448,14 @@ namespace NeoBleeper
         {
             settings_window settings = new settings_window();
             settings.ColorsAndThemeChanged += refresh_main_window_elements_color;
+            settings.ColorsAndThemeChanged += (s, args) =>
+            {
+                synchronized_play_window synchronizedPlayWindow = checkBox_synchronized_play.Tag as synchronized_play_window;
+                if (synchronizedPlayWindow != null)
+                {
+                    synchronizedPlayWindow.set_theme();
+                }
+            };
             settings.ShowDialog();
         }
 
@@ -1757,6 +1789,7 @@ namespace NeoBleeper
 
         private void noteLabelsUpdate()
         {
+            Application.DoEvents();
             lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
             lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
             lbl_e3.Text = "E" + (Variables.octave - 1).ToString();

@@ -31,13 +31,14 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GNU_GPL_v3_license_text));
             richTextBox1 = new RichTextBox();
-            button1 = new Button();
+            close_button = new Button();
             icons = new ImageList(components);
             SuspendLayout();
             // 
             // richTextBox1
             // 
             richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richTextBox1.BackColor = SystemColors.Window;
             richTextBox1.Font = new Font("HarmonyOS Sans", 8.95F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBox1.Location = new Point(12, 12);
             richTextBox1.Name = "richTextBox1";
@@ -47,21 +48,21 @@
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             richTextBox1.LinkClicked += richTextBox1_LinkClicked;
             // 
-            // button1
+            // close_button
             // 
-            button1.Anchor = AnchorStyles.Bottom;
-            button1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ImageIndex = 0;
-            button1.ImageList = icons;
-            button1.Location = new Point(229, 604);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 1;
-            button1.Text = "Close";
-            button1.TextAlign = ContentAlignment.MiddleRight;
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            close_button.Anchor = AnchorStyles.Bottom;
+            close_button.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            close_button.ImageIndex = 0;
+            close_button.ImageList = icons;
+            close_button.Location = new Point(229, 604);
+            close_button.Name = "close_button";
+            close_button.Size = new Size(94, 29);
+            close_button.TabIndex = 1;
+            close_button.Text = "Close";
+            close_button.TextAlign = ContentAlignment.MiddleRight;
+            close_button.TextImageRelation = TextImageRelation.ImageBeforeText;
+            close_button.UseVisualStyleBackColor = true;
+            close_button.Click += close_button_Click;
             // 
             // icons
             // 
@@ -75,7 +76,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(569, 645);
-            Controls.Add(button1);
+            Controls.Add(close_button);
             Controls.Add(richTextBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -91,7 +92,7 @@
         #endregion
 
         private RichTextBox richTextBox1;
-        private Button button1;
+        private Button close_button;
         private ImageList icons;
     }
 }

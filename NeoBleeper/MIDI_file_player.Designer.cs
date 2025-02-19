@@ -35,12 +35,12 @@
             groupBox1 = new GroupBox();
             label3 = new Label();
             label2 = new Label();
-            checkBox1 = new CheckBox();
+            checkBox_loop = new CheckBox();
             icons2 = new ImageList(components);
-            button3 = new Button();
+            button_stop = new Button();
             icons = new ImageList(components);
-            button2 = new Button();
-            button1 = new Button();
+            button_play = new Button();
+            button_rewind = new Button();
             trackBar1 = new TrackBar();
             label4 = new Label();
             checkBox2 = new CheckBox();
@@ -92,7 +92,7 @@
             label_note30 = new Label();
             label_note28 = new Label();
             label_note32 = new Label();
-            button4 = new Button();
+            button_browse_file = new Button();
             checkBox18 = new CheckBox();
             checkBox19 = new CheckBox();
             checkBox20 = new CheckBox();
@@ -103,6 +103,7 @@
             // 
             // textBox1
             // 
+            textBox1.BackColor = SystemColors.Window;
             textBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(10, 34);
             textBox1.Name = "textBox1";
@@ -124,10 +125,10 @@
             // 
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(checkBox1);
-            groupBox1.Controls.Add(button3);
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(checkBox_loop);
+            groupBox1.Controls.Add(button_stop);
+            groupBox1.Controls.Add(button_play);
+            groupBox1.Controls.Add(button_rewind);
             groupBox1.Controls.Add(trackBar1);
             groupBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(12, 67);
@@ -156,18 +157,18 @@
             label2.TabIndex = 3;
             label2.Text = "Position: 00:00.00";
             // 
-            // checkBox1
+            // checkBox_loop
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.ImageIndex = 1;
-            checkBox1.ImageList = icons2;
-            checkBox1.Location = new Point(123, 60);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(82, 24);
-            checkBox1.TabIndex = 5;
-            checkBox1.Text = "Loop";
-            checkBox1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            checkBox1.UseVisualStyleBackColor = true;
+            checkBox_loop.AutoSize = true;
+            checkBox_loop.ImageIndex = 1;
+            checkBox_loop.ImageList = icons2;
+            checkBox_loop.Location = new Point(123, 60);
+            checkBox_loop.Name = "checkBox_loop";
+            checkBox_loop.Size = new Size(82, 24);
+            checkBox_loop.TabIndex = 5;
+            checkBox_loop.Text = "Loop";
+            checkBox_loop.TextImageRelation = TextImageRelation.ImageBeforeText;
+            checkBox_loop.UseVisualStyleBackColor = true;
             // 
             // icons2
             // 
@@ -177,17 +178,17 @@
             icons2.Images.SetKeyName(0, "icons8-browse-folder-48.png");
             icons2.Images.SetKeyName(1, "icons8-loop-48.png");
             // 
-            // button3
+            // button_stop
             // 
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.ImageIndex = 1;
-            button3.ImageList = icons;
-            button3.Location = new Point(82, 57);
-            button3.Name = "button3";
-            button3.Size = new Size(27, 27);
-            button3.TabIndex = 4;
-            button3.UseVisualStyleBackColor = true;
+            button_stop.FlatAppearance.BorderSize = 0;
+            button_stop.FlatStyle = FlatStyle.Flat;
+            button_stop.ImageIndex = 1;
+            button_stop.ImageList = icons;
+            button_stop.Location = new Point(82, 57);
+            button_stop.Name = "button_stop";
+            button_stop.Size = new Size(27, 27);
+            button_stop.TabIndex = 4;
+            button_stop.UseVisualStyleBackColor = true;
             // 
             // icons
             // 
@@ -198,29 +199,29 @@
             icons.Images.SetKeyName(1, "icons8-pause-48.png");
             icons.Images.SetKeyName(2, "icons8-rewind-48.png");
             // 
-            // button2
+            // button_play
             // 
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ImageIndex = 0;
-            button2.ImageList = icons;
-            button2.Location = new Point(49, 57);
-            button2.Name = "button2";
-            button2.Size = new Size(27, 27);
-            button2.TabIndex = 3;
-            button2.UseVisualStyleBackColor = true;
+            button_play.FlatAppearance.BorderSize = 0;
+            button_play.FlatStyle = FlatStyle.Flat;
+            button_play.ImageIndex = 0;
+            button_play.ImageList = icons;
+            button_play.Location = new Point(49, 57);
+            button_play.Name = "button_play";
+            button_play.Size = new Size(27, 27);
+            button_play.TabIndex = 3;
+            button_play.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // button_rewind
             // 
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ImageIndex = 2;
-            button1.ImageList = icons;
-            button1.Location = new Point(16, 57);
-            button1.Name = "button1";
-            button1.Size = new Size(27, 27);
-            button1.TabIndex = 2;
-            button1.UseVisualStyleBackColor = true;
+            button_rewind.FlatAppearance.BorderSize = 0;
+            button_rewind.FlatStyle = FlatStyle.Flat;
+            button_rewind.ImageIndex = 2;
+            button_rewind.ImageList = icons;
+            button_rewind.Location = new Point(16, 57);
+            button_rewind.Name = "button_rewind";
+            button_rewind.Size = new Size(27, 27);
+            button_rewind.TabIndex = 2;
+            button_rewind.UseVisualStyleBackColor = true;
             // 
             // trackBar1
             // 
@@ -843,20 +844,20 @@
             label_note32.Text = "C#4";
             label_note32.Visible = false;
             // 
-            // button4
+            // button_browse_file
             // 
-            button4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.ImageIndex = 0;
-            button4.ImageList = icons2;
-            button4.Location = new Point(316, 32);
-            button4.Name = "button4";
-            button4.Size = new Size(123, 31);
-            button4.TabIndex = 0;
-            button4.Text = "Browse File";
-            button4.TextAlign = ContentAlignment.MiddleRight;
-            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            button_browse_file.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button_browse_file.ImageIndex = 0;
+            button_browse_file.ImageList = icons2;
+            button_browse_file.Location = new Point(316, 32);
+            button_browse_file.Name = "button_browse_file";
+            button_browse_file.Size = new Size(123, 31);
+            button_browse_file.TabIndex = 0;
+            button_browse_file.Text = "Browse File";
+            button_browse_file.TextAlign = ContentAlignment.MiddleRight;
+            button_browse_file.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_browse_file.UseVisualStyleBackColor = true;
+            button_browse_file.Click += button4_Click;
             // 
             // checkBox18
             // 
@@ -902,7 +903,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(451, 655);
-            Controls.Add(button4);
+            Controls.Add(button_browse_file);
             Controls.Add(checkBox17);
             Controls.Add(checkBox19);
             Controls.Add(checkBox20);
@@ -979,11 +980,11 @@
         private Label label1;
         private GroupBox groupBox1;
         private TrackBar trackBar1;
-        private Button button3;
-        private Button button2;
+        private Button button_stop;
+        private Button button_play;
         private ImageList icons;
-        private Button button1;
-        private CheckBox checkBox1;
+        private Button button_rewind;
+        private CheckBox checkBox_loop;
         private Label label3;
         private Label label2;
         private Label label4;
@@ -1036,7 +1037,7 @@
         private Label label_note30;
         private Label label_note28;
         private Label label_note32;
-        private Button button4;
+        private Button button_browse_file;
         private ImageList icons2;
         private CheckBox checkBox18;
         private CheckBox checkBox19;

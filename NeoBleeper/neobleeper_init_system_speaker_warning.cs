@@ -27,8 +27,57 @@ namespace NeoBleeper
                 }
             }
             label_system_speaker_warning_result.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            set_theme();
         }
 
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0:
+                    {
+                        if (check_system_theme.IsDarkTheme() == true)
+                        {
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2:
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+        }
+
+        private void dark_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            button_yes.BackColor = Color.FromArgb(32, 32, 32);
+            button_no.BackColor = Color.FromArgb(32, 32, 32);
+            this.Refresh();
+        }
+
+        private void light_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            button_yes.BackColor = Color.Transparent;
+            button_no.BackColor = Color.Transparent;
+            this.Refresh();
+        }
         private void button_yes_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
@@ -39,12 +88,6 @@ namespace NeoBleeper
         {
             this.DialogResult = DialogResult.No;
             this.Dispose();
-        }
-
-        private void neobleeper_init_system_speaker_warning_Load(object sender, EventArgs e)
-
-        {
-
         }
     }
 }

@@ -149,7 +149,6 @@
             Name = "neobleeper_init_system_speaker_warning";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Load += neobleeper_init_system_speaker_warning_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -69,7 +69,6 @@ namespace NeoBleeper
                 checkBox_enable_create_beep_from_soundcard.Enabled = false;
                 groupBox_system_speaker_test.Enabled = false;
             }
-            comboBox_theme.SelectedItem = comboBox_theme.Items[0];
             first_octave_color.BackColor = Settings1.Default.first_octave_color;
             second_octave_color.BackColor = Settings1.Default.second_octave_color;
             third_octave_color.BackColor = Settings1.Default.third_octave_color;
@@ -81,10 +80,144 @@ namespace NeoBleeper
             metronome_color.BackColor = Settings1.Default.metronome_color;
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color;
+            comboBox_theme.SelectedIndex = Settings1.Default.theme;
+            set_theme();
             refresh_midi_input();
             refresh_midi_output();
         }
+        private void dark_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = Color.Black;
+            this.ForeColor = Color.White;
+            foreach (TabPage tabPage in tabControl_settings.TabPages)
+            {
+                tabPage.BackColor = Color.FromArgb(32, 32, 32);
+                tabPage.ForeColor = Color.White;
+            }
+            groupBox_appearance.ForeColor = Color.White;
+            btn_test_system_speaker.BackColor = Color.FromArgb(32, 32, 32);
+            btn_test_system_speaker.ForeColor = Color.White;
+            comboBox_theme.BackColor = Color.Black;
+            comboBox_theme.ForeColor = Color.White;
+            group_beep_creation_from_sound_card_settings.ForeColor = Color.White;
+            button_show_reason.BackColor = Color.FromArgb(32, 32, 32);
+            button_show_reason.ForeColor = Color.White;
+            button_show_reason.BackColor = Color.FromArgb(32, 32, 32);
+            button_show_reason.ForeColor = Color.White;
+            group_midi_input_devices.ForeColor = Color.White;
+            comboBox_midi_input_devices.BackColor = Color.Black;
+            comboBox_midi_input_devices.ForeColor = Color.White;
+            refresh_midi_input_button.BackColor = Color.FromArgb(32, 32, 32);
+            group_midi_output_devices.ForeColor = Color.White;
+            comboBox_midi_output_devices.BackColor = Color.Black;
+            comboBox_midi_output_devices.ForeColor = Color.White;
+            refresh_midi_input_button.BackColor = Color.FromArgb(32, 32, 32);
+            comboBox_midi_output_channel.BackColor = Color.Black;
+            comboBox_midi_output_channel.ForeColor = Color.White;
+            comboBox_midi_output_instrument.BackColor = Color.Black;
+            comboBox_midi_output_instrument.ForeColor = Color.White;
+            refresh_midi_output_button.BackColor = Color.FromArgb(32, 32, 32);
+            groupBox_other_devices.ForeColor = Color.White;
+            groupBox_type_of_device.ForeColor = Color.White;
+            trackBar_motor_octave.BackColor = Color.FromArgb(32, 32, 32);
+            group_keyboard_colors.ForeColor = Color.White;
+            group_buttons_and_controls_colors.ForeColor = Color.White;
+            group_indicator_colors.ForeColor = Color.White;
+            first_octave_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            second_octave_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            third_octave_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            blank_line_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            clear_notes_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            unselect_line_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            erase_whole_line_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            playback_buttons_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            metronome_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            beep_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            note_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            reset_colors.BackColor = Color.FromArgb(32, 32, 32);
+            this.Refresh();
+        }
+        private void light_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            foreach (TabPage tabPage in tabControl_settings.TabPages)
+            {
+                tabPage.BackColor = SystemColors.Window;
+                tabPage.ForeColor = SystemColors.ControlText;
+            }
+            groupBox_appearance.ForeColor = SystemColors.ControlText;
+            btn_test_system_speaker.BackColor = Color.Transparent;
+            btn_test_system_speaker.ForeColor = SystemColors.ControlText;
+            comboBox_theme.BackColor = SystemColors.Window;
+            comboBox_theme.ForeColor = SystemColors.WindowText;
+            group_beep_creation_from_sound_card_settings.ForeColor = SystemColors.ControlText;
+            button_show_reason.BackColor = Color.Transparent;
+            button_show_reason.ForeColor = SystemColors.ControlText;
+            group_midi_input_devices.ForeColor = SystemColors.ControlText;
+            comboBox_midi_input_devices.BackColor = SystemColors.Window;
+            comboBox_midi_input_devices.ForeColor = SystemColors.WindowText;
+            refresh_midi_input_button.BackColor = Color.Transparent;
+            group_midi_output_devices.ForeColor = SystemColors.ControlText;
+            comboBox_midi_output_devices.BackColor = SystemColors.Window;
+            comboBox_midi_output_devices.ForeColor = SystemColors.WindowText;
+            refresh_midi_input_button.BackColor = Color.Transparent;
+            comboBox_midi_output_channel.BackColor = SystemColors.Window;
+            comboBox_midi_output_channel.ForeColor = SystemColors.WindowText;
+            comboBox_midi_output_instrument.BackColor = SystemColors.Window;
+            comboBox_midi_output_instrument.ForeColor = SystemColors.WindowText;
+            refresh_midi_output_button.BackColor = Color.Transparent;
+            groupBox_other_devices.ForeColor = SystemColors.ControlText;
+            groupBox_type_of_device.ForeColor = SystemColors.ControlText;
+            trackBar_motor_octave.BackColor = SystemColors.Window;
+            group_keyboard_colors.ForeColor = SystemColors.ControlText;
+            group_buttons_and_controls_colors.ForeColor = SystemColors.ControlText;
+            group_indicator_colors.ForeColor = SystemColors.ControlText;
+            first_octave_color_change.BackColor = Color.Transparent;
+            second_octave_color_change.BackColor = Color.Transparent;
+            third_octave_color_change.BackColor = Color.Transparent;
+            blank_line_color_change.BackColor = Color.Transparent;
+            clear_notes_color_change.BackColor = Color.Transparent;
+            unselect_line_color_change.BackColor = Color.Transparent;
+            erase_whole_line_color_change.BackColor = Color.Transparent;
+            playback_buttons_color_change.BackColor = Color.Transparent;
+            metronome_color_change.BackColor = Color.Transparent;
+            beep_indicator_color_change.BackColor = Color.Transparent;
+            note_indicator_color_change.BackColor = Color.Transparent;
+            reset_colors.BackColor = Color.Transparent;
+            this.Refresh();
+        }
 
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0:
+                    {
+                        if (check_system_theme.IsDarkTheme() == true)
+                        {
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2:
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+        }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -179,6 +312,7 @@ namespace NeoBleeper
         {
             Settings1.Default.theme = comboBox_theme.SelectedIndex;
             Settings1.Default.Save();
+            set_theme();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
         }
 

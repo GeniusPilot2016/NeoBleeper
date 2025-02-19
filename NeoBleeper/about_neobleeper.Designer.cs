@@ -39,8 +39,8 @@
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            button_visit_icons8 = new Button();
+            button_view_license_text = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -98,28 +98,28 @@
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
             // 
-            // button1
+            // button_visit_icons8
             // 
-            resources.ApplyResources(button1, "button1");
-            button1.ImageList = imageList_about;
-            button1.Name = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            resources.ApplyResources(button_visit_icons8, "button_visit_icons8");
+            button_visit_icons8.ImageList = imageList_about;
+            button_visit_icons8.Name = "button_visit_icons8";
+            button_visit_icons8.UseVisualStyleBackColor = true;
+            button_visit_icons8.Click += button_visit_icons8_Click;
             // 
-            // button2
+            // button_view_license_text
             // 
-            resources.ApplyResources(button2, "button2");
-            button2.ImageList = imageList_about;
-            button2.Name = "button2";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            resources.ApplyResources(button_view_license_text, "button_view_license_text");
+            button_view_license_text.ImageList = imageList_about;
+            button_view_license_text.Name = "button_view_license_text";
+            button_view_license_text.UseVisualStyleBackColor = true;
+            button_view_license_text.Click += button_view_license_text_Click;
             // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(button_view_license_text);
+            Controls.Add(button_visit_icons8);
             Controls.Add(label1);
             Controls.Add(listView1);
             Controls.Add(lbl_version);
@@ -151,7 +151,7 @@
         private Label label1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private Button button1;
-        private Button button2;
+        private Button button_visit_icons8;
+        private Button button_view_license_text;
     }
 }

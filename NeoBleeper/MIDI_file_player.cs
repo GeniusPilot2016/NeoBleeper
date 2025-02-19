@@ -58,6 +58,7 @@ namespace NeoBleeper
             label_note30.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
             label_note31.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
             label_note32.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
+            set_theme();
             label_note1.BackColor = Settings1.Default.note_indicator_color;
             label_note2.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
             label_note3.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
@@ -123,6 +124,57 @@ namespace NeoBleeper
             label_note31.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note32.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             textBox1.Text = filename;
+        }
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0:
+                    {
+                        if (check_system_theme.IsDarkTheme() == true)
+                        {
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2:
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+        }
+        private void dark_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            textBox1.BackColor = Color.Black;
+            textBox1.ForeColor = Color.White;
+            groupBox1.ForeColor = Color.White;
+            button_browse_file.BackColor = Color.FromArgb(32, 32, 32);
+            this.Refresh();
+        }
+
+        private void light_theme()
+        {
+            Application.DoEvents();
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            textBox1.BackColor = SystemColors.Window;
+            textBox1.ForeColor = SystemColors.WindowText;
+            groupBox1.ForeColor = SystemColors.ControlText;
+            button_browse_file.BackColor = Color.Transparent;
+            this.Refresh();
         }
         private bool IsMidiFile(string filePath)
         {

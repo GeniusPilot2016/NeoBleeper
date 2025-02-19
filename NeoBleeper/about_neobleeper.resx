@@ -269,43 +269,43 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASAgAAAJNU0Z0AUkBTAIBAQIB
-        AAGgAQABoAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAARAgAAAJNU0Z0AUkBTAIBAQIB
+        AAG4AQABuAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXeUAAE7AbABJQH/ATsBsAElAf8BOwGwASUB/wEyAZ4BHgH/ATIBngEeAf8B
         MgGeAR4B/wEsAYwBGgH/ASwBjAEaAf8BLAGMARoB/wElAX0BEwH/ASUBfQETAf8BJQF9ARMB/xQAAfAB
         QwGxAf8B7wE+AaoB/xgAAUQBQwFEAXcB7wE/AawB/5QAATsBsAElAf8BOwGwASUB/wHPAegByw3/ASwB
         jAEaAf8BLgGGAR0B/wHvAfMB7gH/AXwBqAFzAf8BJQF9ARMB/wElAX0BEwH/DAAB8gFJAbcB/wHwAUMB
-        sQH/Ae8BPgGqAf8B7QE4AaQB/wFJAZkB4wH/BAABUgFdAWEBtAEIAbsB/gH/AwQBBQJVAVcBpgHFAUoB
-        sAH/Ae0BOgGmAf8B7wE/AawB/wHxAUUBswH/AYcBWQF4AdmIAAE7AbABJQH/ATsBsAElAf8D/AH/A/oB
-        /wP6Af8D+wH/ASwBiwEaAf8D+QH/A/gB/wP4Af8BfAGoAXMB/wElAX0BEwH/EAAB7wE+AaoB/wHtATgB
-        pAH/AesBMgGeAf8BDAHCAf4B/wELAcEB/gH/AQoBvwH+Af8BCQG+Af4B/wEJAbwB/gH/AQgBuwH+Af8B
-        BwG6Af4B/wHsATQBoAH/Ae0BOgGmAf8B7wE/AawB/4wAAUcBxAExAf8BRwHEATEB/wP5Af8D+AH/A/gB
-        /wP5Af8BLwGUARwB/wP4Af8D9wH/A/gB/wHvAfMB7gH/ASwBjAEaAf8UAAE4AasB7AH/AQ8BxgH+Af8B
-        DgHFAf4B/wENAcMB/gH/AQwBwgH+Af8BCwHAAf4B/wEKAb8B/gH/AQkBvQH+Af8BCAG8Af4B/wEHAbsB
-        /gH/AcUBSgGwAf+QAAFHAcQBMQH/AUcBxAExAf8D+AH/A/gB/wP4Af8D+AH/ATIBngEeAf8D+QH/A/gB
-        /wP5Af8BLwGGAR4B/wEsAYwBGgH/FAABEQHKAv8BEQHJAv8BEAHHAf4B/wEPAcYB/gH/AQ4BxAH+Af8B
-        DQHDAf4B/wEMAcEB/gH/AQsBwAH+Af8BCgG+Af4B/wEJAb0B/gH/AzEBTZAAAUcBxAExAf8BRwHEATEB
-        /wP4Af8D9wH/A/cB/wP4Af8BMgGeAR4B/wEyAZ4BHgH/AS8BlAEcAf8BLAGLARoB/wEsAYwBGgH/ASwB
-        jAEaAf8UAAFEAYwBnwHjARIBywL/AREBygL/ARAByAH+Af8BDwHHAf4B/wEOAcUB/gH/AQ0BxAH+Af8B
-        DQHCAf4B/wEMAcEB/gH/AQsBwAH+Af8DBAEFkAABVQHRAT8B/wFVAdEBPwH/A/gB/wP4Af8D+AH/A/gB
-        /wE7AbABJQH/AdQB5wHRAf8D+QH/A/kB/wEyAZ4BHgH/ATIBngEeAf8QAAFFAYcBlQHfARUBzwL/ARQB
-        zgL/ARMBzAL/ARIBywL/AREByQL/ARAByAH+Af8BDwHGAf4B/wEOAcUB/gH/AQ0BwwH+Af8BDAHCAf4B
-        /wELAcEB/gH/kAABVQHRAT8B/wFVAdEBPwH/A/kB/wP4Af8D+AH/A/gB/wE5AaoBJAH/A/gB/wP4Af8D
-        +AH/AcwB4AHJAf8BMgGeAR4B/xQAARYB0QL/ARUB0AL/ARQBzwL/ARQBzQL/ARMBzAL/ARIBygL/AREB
-        yQL/ARABxwH+Af8BDwHGAf4B/wEOAcUB/gH/AVIBXgFhAbSQAAFVAdEBPwH/AVUB0QE/Af8D+gH/A/kB
-        /wP5Af8D+gH/ATkBqQEkAf8D+AH/A/gB/wP4Af8BzAHgAckB/wEyAZ4BHgH/FAABUQF3AX4B0QEXAdIC
-        /wEWAdEC/wEVAdAC/wEUAc4C/wETAc0C/wESAcsC/wERAcoC/wEQAcgB/gH/ARABxwH+Af+UAAFjAdsB
-        TQH/AWMB2wFNBf8D/gH/A/4F/wFHAcQBMQH/AdcB6wHUAf8D+QH/A/kB/wE7AbABJQH/ATsBsAElAf8U
-        AAEaAdYC/wEZAdUC/wEYAdQC/wEXAdIC/wEWAdEC/wEVAc8C/wEUAc4C/wETAcwC/wESAcsC/wERAcoC
-        /wFTAWIBZQG6kAABYwHbAU0B/wFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
-        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEZAdYC/wEYAdUC
-        /wEYAdMC/wEXAdIC/wEWAdAC/wEVAc8C/wEUAc0C/5gAAzABSwFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B
-        /wFVAdEBPwH/AVUB0QE/Af8BRwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsB
-        sAElAf8cAAEbAdkC/wFRAXcBfgHRARkB1gL/ARgB1AL/AUQBjgGfAeMBFgHRAv8BTgF2AX4B0fAAAUgB
-        jQGZAeD/AJ0AAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAAC/wHvAfcE
-        AAHAAQMC5wQAAcABAwGCBQABwAEDAcABAQQAAcABAwHgAQMEAAHAAQMB4AEDBAABwAEDAeABAwQAAcAB
-        AwHAAQMEAAHAAQMB4AEDBAABwAEDAeABBwQAAcABAwHgAQMEAAHAAQMB+AEPBAABwAEDAfgBDwQAA/8B
-        fwQABP8EAAs=
+        sQH/Ae8BPgGqAf8B7QE4AaQB/wFJAZkB4wH/BAABVQFYAVkBtAEIAbsB/gH/AwQBBQNUAaYBxQFKAbAB
+        /wHtAToBpgH/Ae8BPwGsAf8B8QFFAbMB/wFvAVwBZgHZiAABOwGwASUB/wE7AbABJQH/A/wB/wP6Af8D
+        +gH/A/sB/wEsAYsBGgH/A/kB/wP4Af8D+AH/AXwBqAFzAf8BJQF9ARMB/xAAAe8BPgGqAf8B7QE4AaQB
+        /wHrATIBngH/AQwBwgH+Af8BCwHBAf4B/wEKAb8B/gH/AQkBvgH+Af8BCQG8Af4B/wEIAbsB/gH/AQcB
+        ugH+Af8B7AE0AaAB/wHtAToBpgH/Ae8BPwGsAf+MAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D
+        +QH/AS8BlAEcAf8D+AH/A/cB/wP4Af8B7wHzAe4B/wEsAYwBGgH/FAABOAGrAewB/wEPAcYB/gH/AQ4B
+        xQH+Af8BDQHDAf4B/wEMAcIB/gH/AQsBwAH+Af8BCgG/Af4B/wEJAb0B/gH/AQgBvAH+Af8BBwG7Af4B
+        /wHFAUoBsAH/kAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D+AH/A/gB/wEyAZ4BHgH/A/kB/wP4Af8D
+        +QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARABxwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0B
+        wwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B/wMxAU2QAAFHAcQBMQH/AUcBxAExAf8D
+        +AH/A/cB/wP3Af8D+AH/ATIBngEeAf8BMgGeAR4B/wEvAZQBHAH/ASwBiwEaAf8BLAGMARoB/wEsAYwB
+        GgH/FAABUwF3AYEB4wESAcsC/wERAcoC/wEQAcgB/gH/AQ8BxwH+Af8BDgHFAf4B/wENAcQB/gH/AQ0B
+        wgH+Af8BDAHBAf4B/wELAcAB/gH/AwQBBZAAAVUB0QE/Af8BVQHRAT8B/wP4Af8D+AH/A/gB/wP4Af8B
+        OwGwASUB/wHUAecB0QH/A/kB/wP5Af8BMgGeAR4B/wEyAZ4BHgH/EAABVAFvAXcB3wEVAc8C/wEUAc4C
+        /wETAcwC/wESAcsC/wERAckC/wEQAcgB/gH/AQ8BxgH+Af8BDgHFAf4B/wENAcMB/gH/AQwBwgH+Af8B
+        CwHBAf4B/5AAAVUB0QE/Af8BVQHRAT8B/wP5Af8D+AH/A/gB/wP4Af8BOQGqASQB/wP4Af8D+AH/A/gB
+        /wHMAeAByQH/ATIBngEeAf8UAAEWAdEC/wEVAdAC/wEUAc8C/wEUAc0C/wETAcwC/wESAcoC/wERAckC
+        /wEQAccB/gH/AQ8BxgH+Af8BDgHFAf4B/wFVAVgBWQG0kAABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D
+        +QH/A/oB/wE5AakBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAAVsBZgFnAdEBFwHSAv8B
+        FgHRAv8BFQHQAv8BFAHOAv8BEwHNAv8BEgHLAv8BEQHKAv8BEAHIAf4B/wEQAccB/gH/lAABYwHbAU0B
+        /wFjAdsBTQX/A/4B/wP+Bf8BRwHEATEB/wHXAesB1AH/A/kB/wP5Af8BOwGwASUB/wE7AbABJQH/FAAB
+        GgHWAv8BGQHVAv8BGAHUAv8BFwHSAv8BFgHRAv8BFQHPAv8BFAHOAv8BEwHMAv8BEgHLAv8BEQHKAv8B
+        WAJaAbqQAAFjAdsBTQH/AWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB0QE/Af8BVQHRAT8B/wFHAcQB
+        MQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB/xwAARkB1gL/ARgB1QL/ARgB
+        0wL/ARcB0gL/ARYB0AL/ARUBzwL/ARQBzQL/mAADMAFLAWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB
+        0QE/Af8BVQHRAT8B/wFHAcQBMQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB
+        /xwAARsB2QL/AVsBZgFnAdEBGQHWAv8BGAHUAv8BUwF3AYEB4wEWAdEC/wFZAWYBZwHR8AABVwF3AX0B
+        4P8AnQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAL/Ae8B9wQAAcAB
+        AwLnBAABwAEDAYIFAAHAAQMBwAEBBAABwAEDAeABAwQAAcABAwHgAQMEAAHAAQMB4AEDBAABwAEDAcAB
+        AwQAAcABAwHgAQMEAAHAAQMB4AEHBAABwAEDAeABAwQAAcABAwH4AQ8EAAHAAQMB+AEPBAAD/wF/BAAE
+        /wQACw==
 </value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -430,85 +430,85 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="button_visit_icons8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="button_visit_icons8.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="button1.ImageIndex" type="System.Int32, mscorlib">
+  <data name="button_visit_icons8.ImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 281</value>
   </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 29</value>
   </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+  <data name="button_visit_icons8.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
+  <data name="button_visit_icons8.Text" xml:space="preserve">
     <value>Visit icons8.com</value>
   </data>
-  <data name="button1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="button_visit_icons8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="button1.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+  <data name="button_visit_icons8.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
   </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
+  <data name="&gt;&gt;button_visit_icons8.Name" xml:space="preserve">
+    <value>button_visit_icons8</value>
   </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+  <data name="&gt;&gt;button_visit_icons8.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;button_visit_icons8.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;button_visit_icons8.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="button2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="button_view_license_text.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="button_view_license_text.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="button2.ImageIndex" type="System.Int32, mscorlib">
+  <data name="button_view_license_text.ImageIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="button_view_license_text.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
     <value>315, 281</value>
   </data>
-  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 29</value>
   </data>
-  <data name="button2.TabIndex" type="System.Int32, mscorlib">
+  <data name="button_view_license_text.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="button2.Text" xml:space="preserve">
+  <data name="button_view_license_text.Text" xml:space="preserve">
     <value>View License Text</value>
   </data>
-  <data name="button2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="button2.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+  <data name="button_view_license_text.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
   </data>
-  <data name="&gt;&gt;button2.Name" xml:space="preserve">
-    <value>button2</value>
+  <data name="&gt;&gt;button_view_license_text.Name" xml:space="preserve">
+    <value>button_view_license_text</value>
   </data>
-  <data name="&gt;&gt;button2.Type" xml:space="preserve">
+  <data name="&gt;&gt;button_view_license_text.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;button_view_license_text.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;button_view_license_text.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -845,9 +845,6 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
