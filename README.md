@@ -47,17 +47,17 @@ This project is **still in development** and some features and components are st
 
 ## System Requirements
 
-Windows Version: Windows 10 (1809 and above) 64-bit/Windows 11 (recommended)
+**Windows Version:** Windows 10 (1809 and above) 64-bit/Windows 11 (recommended)
 
-CPU: Intel® Core i3 or equivalent
+**CPU:** Intel® Core i3 or equivalent
 
-RAM: 1 GB (minimum), 2 GB (recommended)
+**RAM:** 1 GB (minimum), 2 GB (recommended)
 
-Display Resolution: 1024x768 (minimum), 1920x1080 (recommended)
+**Display Resolution:** 1024x768 (minimum), 1920x1080 (recommended)
 
-Storage: 150 MB (minimum)
+**Storage:** 150 MB (minimum)
 
-Required hardware: System speaker (recommended)
+**Required Hardware:** System speaker (recommended)
 
 ## Cloning
 
