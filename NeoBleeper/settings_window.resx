@@ -117,16 +117,230 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBox_system_speaker_test.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Name" xml:space="preserve">
+    <value>groupBox_system_speaker_test</value>
   </data>
-  <data name="groupBox_system_speaker_test.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Name" xml:space="preserve">
+    <value>groupBox_appearance</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Name" xml:space="preserve">
+    <value>label_test_system_speaker_message_2</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Name" xml:space="preserve">
+    <value>label_test_system_speaker_message_3</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_test_system_speaker.ImageIndex" type="System.Int32, mscorlib">
+  <data name="general_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="general_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="general_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 454</value>
+  </data>
+  <data name="general_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Name" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;general_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Name" xml:space="preserve">
+    <value>checkBox_enable_create_beep_from_soundcard</value>
+  </data>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Parent" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="creating_sound_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="creating_sound_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 454</value>
+  </data>
+  <data name="creating_sound_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Creating Sounds</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Name" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_output.Name" xml:space="preserve">
+    <value>checkBox_use_midi_output</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_output.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_output.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_output.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_input.Name" xml:space="preserve">
+    <value>checkBox_use_midi_input</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_input.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_input.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_input.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="devices_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="devices_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="devices_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 454</value>
+  </data>
+  <data name="devices_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Name" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="reset_colors.ImageIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <metadata name="imageList_settings.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>120, 21</value>
@@ -136,42 +350,42 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAWikAAAJNU0Z0AUkBTAIBAQsB
-        AAEwAQIBMAECARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAATYDAAEBAQABIAUAAcAB
-        PP8AkwADKwFCAlkBVwG8AWsBZwFaAfIBgwFeASEB+wFhAl0BzwM+AWoDBwEJrAABWwJhAd4BAAHBAfoB
-        /wEAAbQB9wH/AQABpwH0Af8BXQJfAckDGgEkPAABpAGAAUEB/gHGAXkBEQH/AbUBVwEAAf8BvwFfAQAB
+        AAFAAQIBQAECARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAATYDAAEBAQABIAUAAcAB
+        PP8AkwADKwFCAlkBVwG8AWsBZwFaAfIBgQFeASEB+wFhAl0BzwM+AWoDBwEJrAABWwJhAd4BAAHBAfoB
+        /wEAAbQB9wH/AQABpwH0Af8BXQJfAckDGgEkPAABoAGAAUMB/gHGAXkBEQH/AbUBVwEAAf8BvwFfAQAB
         /wHEAWMBAAH/AcYBZQEAAf8BxgFkAQAB/wHDAWIBAAH/A0kBhxwAA1IBoAJcAVoBxAwAAzUBVQHLAXgB
         AAH/AcgBdgECAf8CcAFlAfFoAAMHAQkBAAHBAfoB/wEAAbQB9wH/AQABpwH0Af8BAAGbAfEB/wEBAY4B
         7gH/AU0CfQH6AUACQQFwLAADBAEFAb4BqQFAAf0B0AGHARYB/wG7AVsBAAH/AmMBWgHpA0QBewI5ATgB
         XQJRAVABnQHPAWwBAAH/Ac0BawEAAf8BygFoAQAB/wJaAVcBwhQAA00BkgHpAa0BJgH/AegBrQEmAf8C
         WQFXAbwIAAM1AVUBywF4AQAB/wHGAXMBAAH/Ab8BbQEAAf8B6gG1AS0B/wI7AToBYmQAAz4BagEAAbQB
         9wH/AQABpwH0Af8BAAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wFBAkIBcyQAAwMBBAHpAa8B
-        JwH/AekBrQEnAf8BfAFcAUkB+AMbASYUAAJQAU8BmwHQAW4BAAH/AcwBagEAAf8DSQGHDAACTQFMAZEB
+        JwH/AekBrQEnAf8BfAFcAU0B+AMbASYUAAJQAU8BmwHQAW4BAAH/AcwBagEAAf8DSQGHDAACTQFMAZEB
         6QGvAScB/wHpAa4BJwH/AekBrgEnAf8B6QGuAScB/wJcAVoBxAgAAwYBCAM6AWACagFeAe0BuAFmAQAB
         /wHuAboBMAH/AyMBMmUAAbQB9wH/AQABpwH0Af8BAAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB
         /wEBAWkB5QH/JAADRAF4AeoBsAEpAf8BzQGBARQB/wMLAQ4cAANPAZkB0QFuAQAB/wHLAWkBAAH/AwcB
         CRAAAeoBsAEoAf8B6QGvASgB/xwAAbgBZQEAAf8B7QG4AS8B/wJrAVoB8mQAAVcCWgHCAQABpwH0Af8B
-        AAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAABqwGAAUgB/gHrAbIBKgH/A0sB
+        AAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAABpwGAAUoB/gHrAbIBKgH/A0sB
         jCQAAdIBbwEAAf8BzgFsAQAB/wM+AWoQAAHqAbEBKQH/AeoBsQEpAf8cAAMJAQwB7AG3AS0B/wHtAbcB
         LgH/ZAADKQE9AQABpwH0Af8BAAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAAB
         6wG0ASsB/wHrAbMBKwH/Ax4BKyQAAlEBUAGdAdABbQEAAf8CXwFbAdAQAAHrAbIBKgH/AesBsgEqAf8g
         AAHsAbYBLQH/AewBtgEtAf9oAAFZAmcB7wEAAZsB8QH/AQEBjgHuAf8BAQGCAesB/wEBAXUB6AH/AV4C
-        agHtAwQBBSAAAewBtgEtAf8B7AG1ASwB/wMFAQYkAAM5AV4B0AFuAQAB/wF9AU0BMwH6EAAB6wG0ASsB
+        agHtAwQBBSAAAewBtgEtAf8B7AG1ASwB/wMFAQYkAAM5AV4B0AFuAQAB/wF9AU0BNgH6EAAB6wG0ASsB
         /wHrAbQBKwH/IAAB6wG0ASsB/wHrAbQBLAH/aAADBgEHAVkCXAG+AQEBjgHuAf8BAQGCAesB/wFAAYwB
         2QH/AcIBtwGuAf8BuQGwAacB/QMyAU8cAAHtAbcBLgH/AewBtwEtAf8DDgESQAAB7AG2ASwB/wHsAbUB
         LAH/AwQBBRwAAesBswEqAf8B6wGzASsB/3gAA2wB6wHJAb4BtQH/AcIBtwGuAf8BugGwAagB/wNLAY0Y
         AAHtAbkBLwH/Ae0BuAEuAf8DMwFSQAAB7AG3AS0B/wHsAbYBLQH/AjEBMAFMHAAB6gGxASkB/wHqAbIB
-        KgH/fAACvgG8Af0ByQG+AbUB/wHCAbcBrgH/AboBsAGoAf8BZQFgAWUB4xQAA1YBsAHuAboBLwH/Aa8B
-        gAFOAf5AAAHqAbQBLAH/Ae0BuAEuAf8CZQFgAeMcAAHqAbABKAH/AeoBsAEpAf98AAMcAScB0QHGAbwB
+        KgH/fAACvgG8Af0ByQG+AbUB/wHCAbcBrgH/AboBsAGoAf8BZQFgAWUB4xQAA1YBsAHuAboBLwH/AasB
+        gAFQAf5AAAHqAbQBLAH/Ae0BuAEuAf8CZQFgAeMcAAHqAbABKAH/AeoBsAEpAf98AAMcAScB0QHGAbwB
         /wHJAb4BtQH/AW0BYQHNAf8BPQEuAekB/wJNAX0B+gMUARsMAAMQARUB7gG7ATEB/wHuAboBMAH/Al0B
-        WgHHFAABcQFjAUgB9gNWAbADGgEkHAADEgEXAe4BuQEvAf8BxgF7AQ0B/wJfAVsB0AMGAQgMAAJfAV0B
+        WgHHFAABbQFjAUgB9gNWAbADGgEkHAADEgEXAe4BuQEvAf8BxgF7AQ0B/wJfAVsB0AMGAQgMAAJfAV0B
         yQHpAa4BJwH/AekBrgEnAf8B6QGvAScB/wHpAa8BKAH/AekBrwEoAf94AAM+AWkBfAFwAdQB/wFLAT8B
-        7gH/AUQBNwHsAf8CWwFeAc0UAAI+AT0BaQHvAbwBMQH/Ae4BuwEwAf8BsAGAAU8B/gMzAVIDDwETBAID
+        7gH/AUQBNwHsAf8CWwFeAc0UAAI+AT0BaQHvAbwBMQH/Ae4BuwEwAf8BrAGAAVEB/gMzAVIDDwETBAID
         GAEhAlcBVgG1AewBtgEtAf8B7AG1ASwB/wNOAZYcAANOAZQB5QGtASgB/wG9AWsBAAH/AcQBcQEAAf8B
         ygF3AQAB/wJhAVwB1ggAAmMBXQHfAekBrQEmAf8B6QGuAScB/wHpAa4BJwH/AxwBJ3wAA14B0gFSAUYB
         8QH/AlsBXgHNHAACPgE9AWkB7wG9ATIB/wHuAbwBMQH/Ae4BuwEwAf8B7gG6ATAB/wHtAbkBLwH/Ae0B
         uAEvAf8B7QG4AS4B/wHtAbcBLgH/AewBtgEtAf8DEgEXIAADMwFQAeYBrQEpAf8BxAFxAQAB/wHKAXcB
         AAH/Ac4BewEAAf8MAAJjAV0B3wHoAawBJQH/AwMBBIQAA1IBoCQAAxEBFgNWAbAB7wG9ATIB/wHuAbwB
-        MQH/Ae4BuwExAf8B7gG6ATAB/wGIAX0BQQH5A0UBfAHtAbgBLgH/LAADKgE/AzMBUQMrAUEQAAMRARbQ
+        MQH/Ae4BuwExAf8B7gG6ATAB/wGGAXkBQQH5A0UBfAHtAbgBLgH/LAADKgE/AzMBUQMrAUEQAAMRARbQ
         AAM+AWr/AP8A/wBHAAMWAR0DLgFIAzQBUwMoATwDBwEJfAADFgEdAy4BSAM0AVMDKAE8AwcBCXQAAxwB
         JwGJAX8BdQH/AYcBfQFyAf8BhQF7AXAB/wGDAXkBbQH/AYEBdgFqAf8BfwF1AWkB/wJnAWYB6gQBbAAD
         HAEnAYkBfwF1Af8BhwF9AXIB/wGFAXsBcAH/AYMBeQFtAf8BgQF2AWoB/wF/AXUBaQH/AmcBZgHqBAEw
@@ -221,7 +435,7 @@
         AANlAd0BlQGOAYYB/wMcASccAANSAaEBjAGDAXkB/wMbASYMAANVAaoBjgGGAXwB/wGOAYYBfAH/AY4B
         hgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB
         /wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8QAANlAd0BlQGOAYYB/wMcAScc
-        AANSAaEBjAGDAXkB/wMbASYcAAGAAXYBgAH+Ab8BMgGTAf8BvwEyAZMB/wG/ATEBkwH/AW8BYAFvAfMw
+        AANSAaEBjAGDAXkB/wMbASYcAAGAAXgBgAH+Ab8BMgGTAf8BvwEyAZMB/wG/ATEBkwH/AW8BYAFvAfMw
         AANsAesBlQGOAYYB/wM8AWUEAgwAAw8BFANfAckBjgGGAX0B/wNNAZMQAANSAaQBkAGJAYAB/wGQAYkB
         gAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8B
         kAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8UAANsAesBlQGOAYYB
@@ -315,16 +529,1194 @@
         /wG/AT8C/wMACf8DAAs=
 </value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 28</value>
+  <data name="reset_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 377</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_test_system_speaker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="reset_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="reset_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 26</value>
+  </data>
+  <data name="reset_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="reset_colors.Text" xml:space="preserve">
+    <value>Reset Colors to Default Values</value>
+  </data>
+  <data name="reset_colors.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="reset_colors.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;reset_colors.Name" xml:space="preserve">
+    <value>reset_colors</value>
+  </data>
+  <data name="&gt;&gt;reset_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;reset_colors.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;reset_colors.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="note_indicator_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 46</value>
+  </data>
+  <data name="note_indicator_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="note_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="note_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="note_indicator_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="note_indicator_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the note indicator while playing MIDI file in the MIDI file playing window</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Name" xml:space="preserve">
+    <value>note_indicator_color_change</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 26</value>
+  </data>
+  <data name="label11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 16</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Beep Indicator Color</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="beep_indicator_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="beep_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 22</value>
+  </data>
+  <data name="beep_indicator_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="beep_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="beep_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="beep_indicator_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="beep_indicator_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the representer beep indicator while playing music from the list in the main window</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Name" xml:space="preserve">
+    <value>beep_indicator_color_change</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 50</value>
+  </data>
+  <data name="label12.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 16</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Note Indicator Color</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="beep_indicator_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="beep_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="beep_indicator_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Name" xml:space="preserve">
+    <value>beep_indicator_color</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 50</value>
+  </data>
+  <data name="note_indicator_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="note_indicator_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Name" xml:space="preserve">
+    <value>note_indicator_color</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 293</value>
+  </data>
+  <data name="group_indicator_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_indicator_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 80</value>
+  </data>
+  <data name="group_indicator_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Indicator Colors</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Name" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="metronome_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="metronome_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 143</value>
+  </data>
+  <data name="metronome_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="metronome_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="metronome_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="metronome_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="metronome_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the "Metronome" button while enabled</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Name" xml:space="preserve">
+    <value>metronome_color_change</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="playback_buttons_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="playback_buttons_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 119</value>
+  </data>
+  <data name="playback_buttons_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="playback_buttons_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="playback_buttons_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="playback_buttons_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="playback_buttons_color_change.ToolTip" xml:space="preserve">
+    <value>Change colors of "Play All", "Play From the Selected Line" and "Stop Playing" buttons</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Name" xml:space="preserve">
+    <value>playback_buttons_color_change</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="erase_whole_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="erase_whole_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 96</value>
+  </data>
+  <data name="erase_whole_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="erase_whole_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="erase_whole_line_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="erase_whole_line_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="erase_whole_line_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the "Erase Whole Line" button</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Name" xml:space="preserve">
+    <value>erase_whole_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="unselect_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="unselect_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 71</value>
+  </data>
+  <data name="unselect_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="unselect_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="unselect_line_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="unselect_line_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="unselect_line_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the "Un-select Line" button</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Name" xml:space="preserve">
+    <value>unselect_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="clear_notes_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="clear_notes_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 47</value>
+  </data>
+  <data name="clear_notes_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="clear_notes_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="clear_notes_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="clear_notes_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="clear_notes_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of "Clear Note 1", "Clear Note 2", "Clear Note 3" and "Clear Note 4" buttons</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Name" xml:space="preserve">
+    <value>clear_notes_color_change</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="blank_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="blank_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 24</value>
+  </data>
+  <data name="blank_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="blank_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="blank_line_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="blank_line_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="blank_line_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the "Blank Line" button</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Name" xml:space="preserve">
+    <value>blank_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 147</value>
+  </data>
+  <data name="metronome_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="metronome_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="metronome_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Name" xml:space="preserve">
+    <value>metronome_color</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 123</value>
+  </data>
+  <data name="playback_buttons_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="playback_buttons_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="playback_buttons_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Name" xml:space="preserve">
+    <value>playback_buttons_color</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 99</value>
+  </data>
+  <data name="erase_whole_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="erase_whole_line_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="erase_whole_line_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Name" xml:space="preserve">
+    <value>erase_whole_line_color</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 75</value>
+  </data>
+  <data name="unselect_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="unselect_line_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="unselect_line_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Name" xml:space="preserve">
+    <value>unselect_line_color</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 51</value>
+  </data>
+  <data name="clear_notes_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="clear_notes_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="clear_notes_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Name" xml:space="preserve">
+    <value>clear_notes_color</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 28</value>
+  </data>
+  <data name="blank_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="blank_line_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="blank_line_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Name" xml:space="preserve">
+    <value>blank_line_color</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 147</value>
+  </data>
+  <data name="label10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 16</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Metronome Color</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 123</value>
+  </data>
+  <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 16</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Playback Buttons Color</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 99</value>
+  </data>
+  <data name="label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 16</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Erase Whole Line Color</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 75</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 16</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Un-select Line Color</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 51</value>
+  </data>
+  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 16</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Clear Notes Color</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 28</value>
+  </data>
+  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 16</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Blank Line Color</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 112</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 176</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Buttons and Controls Colors</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Name" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="third_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 70</value>
+  </data>
+  <data name="third_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="third_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="third_octave_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="third_octave_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="third_octave_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the third octave</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Name" xml:space="preserve">
+    <value>third_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="second_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="second_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 46</value>
+  </data>
+  <data name="second_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="second_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="second_octave_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="second_octave_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="second_octave_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the second octave</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Name" xml:space="preserve">
+    <value>second_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="first_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="first_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 22</value>
+  </data>
+  <data name="first_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="first_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="first_octave_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="first_octave_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="first_octave_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the first octave</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Name" xml:space="preserve">
+    <value>first_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 74</value>
+  </data>
+  <data name="third_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="third_octave_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="third_octave_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Name" xml:space="preserve">
+    <value>third_octave_color</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 50</value>
+  </data>
+  <data name="second_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="second_octave_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="second_octave_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Name" xml:space="preserve">
+    <value>second_octave_color</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 26</value>
+  </data>
+  <data name="first_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="first_octave_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 16</value>
+  </data>
+  <data name="first_octave_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Name" xml:space="preserve">
+    <value>first_octave_color</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 74</value>
+  </data>
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 16</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Third Octave Color</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 50</value>
+  </data>
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 16</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Second Octave Color</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 26</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 16</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>First Octave Color</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="group_keyboard_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_keyboard_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 103</value>
+  </data>
+  <data name="group_keyboard_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Keyboard Colors</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Name" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="appearance.ImageIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="appearance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 454</value>
+  </data>
+  <data name="appearance.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="&gt;&gt;appearance.Name" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;appearance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;appearance.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;appearance.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabControl_settings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControl_settings.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="tabControl_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="tabControl_settings.Padding" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 489</value>
+  </data>
+  <data name="tabControl_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Name" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="groupBox_system_speaker_test.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="btn_test_system_speaker.ImageIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 22</value>
   </data>
   <data name="btn_test_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 38</value>
+    <value>150, 30</value>
   </data>
   <data name="btn_test_system_speaker.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -363,13 +1755,10 @@
     <value>True</value>
   </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 69</value>
-  </data>
-  <data name="label_test_system_speaker_message.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 55</value>
   </data>
   <data name="label_test_system_speaker_message.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 40</value>
+    <value>285, 32</value>
   </data>
   <data name="label_test_system_speaker_message.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -391,16 +1780,10 @@ sound card to create beep" feature.</value>
     <value>1</value>
   </data>
   <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 97</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>5, 78</value>
   </data>
   <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 128</value>
+    <value>303, 107</value>
   </data>
   <data name="groupBox_system_speaker_test.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -426,6 +1809,54 @@ sound card to create beep" feature.</value>
   <data name="groupBox_appearance.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <data name="&gt;&gt;lbl_theme.Name" xml:space="preserve">
+    <value>lbl_theme</value>
+  </data>
+  <data name="&gt;&gt;lbl_theme.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_theme.Parent" xml:space="preserve">
+    <value>groupBox_appearance</value>
+  </data>
+  <data name="&gt;&gt;lbl_theme.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBox_theme.Name" xml:space="preserve">
+    <value>comboBox_theme</value>
+  </data>
+  <data name="&gt;&gt;comboBox_theme.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_theme.Parent" xml:space="preserve">
+    <value>groupBox_appearance</value>
+  </data>
+  <data name="&gt;&gt;comboBox_theme.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox_appearance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 6</value>
+  </data>
+  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>303, 65</value>
+  </data>
+  <data name="groupBox_appearance.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>General Appearance</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Name" xml:space="preserve">
+    <value>groupBox_appearance</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="lbl_theme.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -436,13 +1867,10 @@ sound card to create beep" feature.</value>
     <value>MiddleLeft</value>
   </data>
   <data name="lbl_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 35</value>
-  </data>
-  <data name="lbl_theme.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>9, 28</value>
   </data>
   <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
+    <value>45, 16</value>
   </data>
   <data name="lbl_theme.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -478,13 +1906,10 @@ sound card to create beep" feature.</value>
     <value>Dark</value>
   </data>
   <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 31</value>
-  </data>
-  <data name="comboBox_theme.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>60, 25</value>
   </data>
   <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 28</value>
+    <value>231, 24</value>
   </data>
   <data name="comboBox_theme.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -504,36 +1929,6 @@ sound card to create beep" feature.</value>
   <data name="&gt;&gt;comboBox_theme.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox_appearance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 8</value>
-  </data>
-  <data name="groupBox_appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 81</value>
-  </data>
-  <data name="groupBox_appearance.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>General Appearance</value>
-  </data>
-  <data name="&gt;&gt;groupBox_appearance.Name" xml:space="preserve">
-    <value>groupBox_appearance</value>
-  </data>
-  <data name="&gt;&gt;groupBox_appearance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_appearance.Parent" xml:space="preserve">
-    <value>general_settings</value>
-  </data>
-  <data name="&gt;&gt;groupBox_appearance.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="label_test_system_speaker_message_2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -544,22 +1939,19 @@ sound card to create beep" feature.</value>
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="label_test_system_speaker_message_2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 260</value>
-  </data>
-  <data name="label_test_system_speaker_message_2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 210</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 80</value>
+    <value>273, 64</value>
   </data>
   <data name="label_test_system_speaker_message_2.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Testing the system speaker is not available on 
-computers that do not have a system speaker output, 
-or on computers with a non-standard system speaker 
-output.</value>
+computers that do not have a system speaker 
+output, or on computers with a non-standard 
+system speaker output.</value>
   </data>
   <data name="label_test_system_speaker_message_2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -589,13 +1981,10 @@ output.</value>
     <value>NoControl</value>
   </data>
   <data name="label_test_system_speaker_message_3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 243</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>5, 192</value>
   </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 120</value>
+    <value>302, 96</value>
   </data>
   <data name="label_test_system_speaker_message_3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -623,41 +2012,80 @@ output instead of the actual system speaker.</value>
   <data name="&gt;&gt;label_test_system_speaker_message_3.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="general_settings.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="general_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="general_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="general_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 566</value>
-  </data>
-  <data name="general_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Name" xml:space="preserve">
-    <value>general_settings</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;general_settings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="group_beep_creation_from_sound_card_settings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Name" xml:space="preserve">
+    <value>label_create_beep_from_soundcard_automatically_activated_message_2</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Name" xml:space="preserve">
+    <value>label_create_beep_from_soundcard_automatically_activated_message_1</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Name" xml:space="preserve">
+    <value>button_show_reason</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 30</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 289</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Beep Creation from Sound Card Settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -672,13 +2100,10 @@ output instead of the actual system speaker.</value>
     <value>NoControl</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 229</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>12, 195</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 57</value>
+    <value>271, 45</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -713,13 +2138,10 @@ compact computer or its type is unknown.</value>
     <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 219</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>12, 187</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 76</value>
+    <value>274, 60</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -752,13 +2174,10 @@ output is non-standard.</value>
     <value>NoControl</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>38, 309</value>
-  </data>
-  <data name="button_show_reason.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>30, 253</value>
   </data>
   <data name="button_show_reason.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 32</value>
+    <value>245, 30</value>
   </data>
   <data name="button_show_reason.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -784,6 +2203,90 @@ output is non-standard.</value>
   <data name="group_tone_waveform.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="&gt;&gt;radioButton_noise.Name" xml:space="preserve">
+    <value>radioButton_noise</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Name" xml:space="preserve">
+    <value>checkBox1</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Name" xml:space="preserve">
+    <value>radioButton_triangle</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Name" xml:space="preserve">
+    <value>radioButton_sine</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Name" xml:space="preserve">
+    <value>radioButton_square</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 150</value>
+  </data>
+  <data name="group_tone_waveform.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Tone Waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="radioButton_noise.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -791,13 +2294,10 @@ output is non-standard.</value>
     <value>True</value>
   </data>
   <data name="radioButton_noise.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 93</value>
-  </data>
-  <data name="radioButton_noise.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 74</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 24</value>
+    <value>56, 20</value>
   </data>
   <data name="radioButton_noise.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -824,13 +2324,10 @@ output is non-standard.</value>
     <value>True</value>
   </data>
   <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 125</value>
-  </data>
-  <data name="checkBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 100</value>
   </data>
   <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 44</value>
+    <value>281, 36</value>
   </data>
   <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -858,13 +2355,10 @@ is playing</value>
     <value>True</value>
   </data>
   <data name="radioButton_triangle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 71</value>
-  </data>
-  <data name="radioButton_triangle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 57</value>
   </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 24</value>
+    <value>69, 20</value>
   </data>
   <data name="radioButton_triangle.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -894,13 +2388,10 @@ is playing</value>
     <value>True</value>
   </data>
   <data name="radioButton_sine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 48</value>
-  </data>
-  <data name="radioButton_sine.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 38</value>
   </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 24</value>
+    <value>49, 20</value>
   </data>
   <data name="radioButton_sine.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -927,13 +2418,10 @@ is playing</value>
     <value>True</value>
   </data>
   <data name="radioButton_square.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
-  </data>
-  <data name="radioButton_square.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 18</value>
   </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 24</value>
+    <value>116, 20</value>
   </data>
   <data name="radioButton_square.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -953,66 +2441,6 @@ is playing</value>
   <data name="&gt;&gt;radioButton_square.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 28</value>
-  </data>
-  <data name="group_tone_waveform.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_tone_waveform.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 175</value>
-  </data>
-  <data name="group_tone_waveform.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Tone Waveform</value>
-  </data>
-  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
-    <value>group_tone_waveform</value>
-  </data>
-  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
-    <value>group_beep_creation_from_sound_card_settings</value>
-  </data>
-  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 38</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 349</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Beep Creation from Sound Card Settings</value>
-  </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
-    <value>group_beep_creation_from_sound_card_settings</value>
-  </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
-    <value>creating_sound_settings</value>
-  </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1023,13 +2451,10 @@ is playing</value>
     <value>4</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 6</value>
-  </data>
-  <data name="checkBox_enable_create_beep_from_soundcard.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 5</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 24</value>
+    <value>211, 20</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1055,38 +2480,137 @@ is playing</value>
   <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="creating_sound_settings.ImageIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="creating_sound_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="creating_sound_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 566</value>
-  </data>
-  <data name="creating_sound_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Creating Sounds</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Name" xml:space="preserve">
-    <value>creating_sound_settings</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="groupBox_other_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Name" xml:space="preserve">
+    <value>label_motor_speed_mod</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_motor_speed_mod.Name" xml:space="preserve">
+    <value>checkBox_use_motor_speed_mod</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_motor_speed_mod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_motor_speed_mod.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_motor_speed_mod.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Name" xml:space="preserve">
+    <value>trackBar_motor_octave</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBox_other_devices.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="groupBox_other_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 273</value>
+  </data>
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 179</value>
+  </data>
+  <data name="groupBox_other_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>124</value>
+  </data>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Other Devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Name" xml:space="preserve">
+    <value>radioButton2</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Parent" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
+    <value>radioButton1</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 58</value>
+  </data>
+  <data name="groupBox_type_of_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBox_type_of_device.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
+    <value>295, 63</value>
+  </data>
+  <data name="groupBox_type_of_device.TabIndex" type="System.Int32, mscorlib">
+    <value>124</value>
+  </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Type of Device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="radioButton2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1095,10 +2619,13 @@ is playing</value>
     <value>NoControl</value>
   </data>
   <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 49</value>
+    <value>12, 39</value>
+  </data>
+  <data name="radioButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 24</value>
+    <value>63, 20</value>
   </data>
   <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1122,10 +2649,13 @@ is playing</value>
     <value>True</value>
   </data>
   <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 26</value>
+    <value>12, 21</value>
+  </data>
+  <data name="radioButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>57, 20</value>
   </data>
   <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1145,30 +2675,6 @@ is playing</value>
   <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 73</value>
-  </data>
-  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 79</value>
-  </data>
-  <data name="groupBox_type_of_device.TabIndex" type="System.Int32, mscorlib">
-    <value>124</value>
-  </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Type of Device</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
-    <value>groupBox_type_of_device</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
-    <value>groupBox_other_devices</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="label_motor_speed_mod.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1185,13 +2691,10 @@ is playing</value>
     <value>NoControl</value>
   </data>
   <data name="label_motor_speed_mod.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 159</value>
-  </data>
-  <data name="label_motor_speed_mod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>9, 132</value>
   </data>
   <data name="label_motor_speed_mod.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 20</value>
+    <value>80, 15</value>
   </data>
   <data name="label_motor_speed_mod.TabIndex" type="System.Int32, mscorlib">
     <value>122</value>
@@ -1230,13 +2733,13 @@ is playing</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 22</value>
+    <value>9, 18</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Size" type="System.Drawing.Size, System.Drawing">
-    <value>370, 44</value>
+    <value>295, 36</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.TabIndex" type="System.Int32, mscorlib">
     <value>121</value>
@@ -1270,13 +2773,10 @@ Raspberry Pi or ESP32)</value>
     <value>NoControl</value>
   </data>
   <data name="trackBar_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>121, 159</value>
-  </data>
-  <data name="trackBar_motor_octave.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>97, 129</value>
   </data>
   <data name="trackBar_motor_octave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 56</value>
+    <value>90, 45</value>
   </data>
   <data name="trackBar_motor_octave.TabIndex" type="System.Int32, mscorlib">
     <value>123</value>
@@ -1293,50 +2793,128 @@ Raspberry Pi or ESP32)</value>
   <data name="&gt;&gt;trackBar_motor_octave.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="groupBox_other_devices.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="groupBox_other_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 341</value>
-  </data>
-  <data name="groupBox_other_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_other_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 217</value>
-  </data>
-  <data name="groupBox_other_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>124</value>
-  </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Other Devices</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
-    <value>groupBox_other_devices</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
-    <value>devices_settings</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="group_midi_output_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Name" xml:space="preserve">
+    <value>comboBox_midi_output_instrument</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Name" xml:space="preserve">
+    <value>comboBox_midi_output_channel</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Name" xml:space="preserve">
+    <value>label_instrument</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Name" xml:space="preserve">
+    <value>label_channel</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_channel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Name" xml:space="preserve">
+    <value>refresh_midi_output_button</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Name" xml:space="preserve">
+    <value>comboBox_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Name" xml:space="preserve">
+    <value>label_midi_output_device</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="group_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 128</value>
+  </data>
+  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 143</value>
+  </data>
+  <data name="group_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>MIDI Output Devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="comboBox_midi_output_instrument.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_instrument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 128</value>
+    <value>80, 102</value>
+  </data>
+  <data name="comboBox_midi_output_instrument.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_midi_output_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 28</value>
+    <value>218, 24</value>
   </data>
   <data name="comboBox_midi_output_instrument.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1357,10 +2935,13 @@ Raspberry Pi or ESP32)</value>
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_channel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 94</value>
+    <value>80, 75</value>
+  </data>
+  <data name="comboBox_midi_output_channel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_midi_output_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 28</value>
+    <value>118, 24</value>
   </data>
   <data name="comboBox_midi_output_channel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1387,10 +2968,13 @@ Raspberry Pi or ESP32)</value>
     <value>NoControl</value>
   </data>
   <data name="label_instrument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 131</value>
+    <value>7, 105</value>
+  </data>
+  <data name="label_instrument.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
   <data name="label_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 20</value>
+    <value>65, 16</value>
   </data>
   <data name="label_instrument.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1417,10 +3001,13 @@ Raspberry Pi or ESP32)</value>
     <value>False</value>
   </data>
   <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 97</value>
+    <value>23, 78</value>
+  </data>
+  <data name="label_channel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
   <data name="label_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 20</value>
+    <value>53, 16</value>
   </data>
   <data name="label_channel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1447,10 +3034,13 @@ Raspberry Pi or ESP32)</value>
     <value>NoControl</value>
   </data>
   <data name="refresh_midi_output_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>282, 48</value>
+    <value>225, 37</value>
+  </data>
+  <data name="refresh_midi_output_button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="refresh_midi_output_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 26</value>
   </data>
   <data name="refresh_midi_output_button.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1483,13 +3073,10 @@ Raspberry Pi or ESP32)</value>
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 49</value>
-  </data>
-  <data name="comboBox_midi_output_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 39</value>
   </data>
   <data name="comboBox_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 28</value>
+    <value>214, 24</value>
   </data>
   <data name="comboBox_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1519,13 +3106,10 @@ Raspberry Pi or ESP32)</value>
     <value>NoControl</value>
   </data>
   <data name="label_midi_output_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 26</value>
-  </data>
-  <data name="label_midi_output_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 21</value>
   </data>
   <data name="label_midi_output_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 20</value>
+    <value>151, 16</value>
   </data>
   <data name="label_midi_output_device.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1545,36 +3129,6 @@ Raspberry Pi or ESP32)</value>
   <data name="&gt;&gt;label_midi_output_device.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="group_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 160</value>
-  </data>
-  <data name="group_midi_output_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_output_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 173</value>
-  </data>
-  <data name="group_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>MIDI Output Devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
-    <value>group_midi_output_devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
-    <value>devices_settings</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="checkBox_use_midi_output.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1588,13 +3142,10 @@ Raspberry Pi or ESP32)</value>
     <value>6</value>
   </data>
   <data name="checkBox_use_midi_output.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 137</value>
-  </data>
-  <data name="checkBox_use_midi_output.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 110</value>
   </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 24</value>
+    <value>132, 20</value>
   </data>
   <data name="checkBox_use_midi_output.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1620,14 +3171,77 @@ Raspberry Pi or ESP32)</value>
   <data name="group_midi_input_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Name" xml:space="preserve">
+    <value>refresh_midi_input_button</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Name" xml:space="preserve">
+    <value>comboBox_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Name" xml:space="preserve">
+    <value>label_midi_input_device</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="group_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 27</value>
+  </data>
+  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 81</value>
+  </data>
+  <data name="group_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>MIDI Input Devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="refresh_midi_input_button.ImageIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>282, 49</value>
+    <value>225, 37</value>
+  </data>
+  <data name="refresh_midi_input_button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="refresh_midi_input_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 26</value>
   </data>
   <data name="refresh_midi_input_button.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1660,13 +3274,10 @@ Raspberry Pi or ESP32)</value>
     <value>False</value>
   </data>
   <data name="comboBox_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 49</value>
-  </data>
-  <data name="comboBox_midi_input_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 39</value>
   </data>
   <data name="comboBox_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 28</value>
+    <value>214, 24</value>
   </data>
   <data name="comboBox_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1693,13 +3304,10 @@ Raspberry Pi or ESP32)</value>
     <value>False</value>
   </data>
   <data name="label_midi_input_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 26</value>
-  </data>
-  <data name="label_midi_input_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 21</value>
   </data>
   <data name="label_midi_input_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 20</value>
+    <value>141, 16</value>
   </data>
   <data name="label_midi_input_device.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1719,36 +3327,6 @@ Raspberry Pi or ESP32)</value>
   <data name="&gt;&gt;label_midi_input_device.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="group_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 34</value>
-  </data>
-  <data name="group_midi_input_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_input_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 95</value>
-  </data>
-  <data name="group_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>MIDI Input Devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
-    <value>group_midi_input_devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
-    <value>devices_settings</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="checkBox_use_midi_input.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1762,13 +3340,10 @@ Raspberry Pi or ESP32)</value>
     <value>6</value>
   </data>
   <data name="checkBox_use_midi_input.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 8</value>
-  </data>
-  <data name="checkBox_use_midi_input.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 6</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 24</value>
+    <value>146, 20</value>
   </data>
   <data name="checkBox_use_midi_input.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1791,1095 +3366,6 @@ Raspberry Pi or ESP32)</value>
   <data name="&gt;&gt;checkBox_use_midi_input.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="devices_settings.ImageIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="devices_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="devices_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="devices_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 566</value>
-  </data>
-  <data name="devices_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Devices</value>
-  </data>
-  <data name="&gt;&gt;devices_settings.Name" xml:space="preserve">
-    <value>devices_settings</value>
-  </data>
-  <data name="&gt;&gt;devices_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;devices_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;devices_settings.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="reset_colors.ImageIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="reset_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 468</value>
-  </data>
-  <data name="reset_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 29</value>
-  </data>
-  <data name="reset_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="reset_colors.Text" xml:space="preserve">
-    <value>Reset Colors to Default Values</value>
-  </data>
-  <data name="reset_colors.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="reset_colors.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.Name" xml:space="preserve">
-    <value>reset_colors</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.Parent" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="note_indicator_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 59</value>
-  </data>
-  <data name="note_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="note_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="note_indicator_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="note_indicator_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the note indicator while playing MIDI file in the MIDI file playing window</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color_change.Name" xml:space="preserve">
-    <value>note_indicator_color_change</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color_change.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color_change.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 33</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Beep Indicator Color</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="beep_indicator_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="beep_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 29</value>
-  </data>
-  <data name="beep_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="beep_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="beep_indicator_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="beep_indicator_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the representer beep indicator while playing music from the list in the main window</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color_change.Name" xml:space="preserve">
-    <value>beep_indicator_color_change</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color_change.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color_change.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 63</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 20</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Note Indicator Color</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 33</value>
-  </data>
-  <data name="beep_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="beep_indicator_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color.Name" xml:space="preserve">
-    <value>beep_indicator_color</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;beep_indicator_color.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 63</value>
-  </data>
-  <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="note_indicator_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color.Name" xml:space="preserve">
-    <value>note_indicator_color</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color.Parent" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;note_indicator_color.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 362</value>
-  </data>
-  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 100</value>
-  </data>
-  <data name="group_indicator_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Indicator Colors</value>
-  </data>
-  <data name="&gt;&gt;group_indicator_colors.Name" xml:space="preserve">
-    <value>group_indicator_colors</value>
-  </data>
-  <data name="&gt;&gt;group_indicator_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_indicator_colors.Parent" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;group_indicator_colors.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="metronome_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="metronome_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 180</value>
-  </data>
-  <data name="metronome_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="metronome_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="metronome_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="metronome_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the "Metronome" button while enabled</value>
-  </data>
-  <data name="&gt;&gt;metronome_color_change.Name" xml:space="preserve">
-    <value>metronome_color_change</value>
-  </data>
-  <data name="&gt;&gt;metronome_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;metronome_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;metronome_color_change.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="playback_buttons_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="playback_buttons_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 150</value>
-  </data>
-  <data name="playback_buttons_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="playback_buttons_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="playback_buttons_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="playback_buttons_color_change.ToolTip" xml:space="preserve">
-    <value>Change colors of "Play All", "Play From the Selected Line" and "Stop Playing" buttons</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color_change.Name" xml:space="preserve">
-    <value>playback_buttons_color_change</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color_change.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="erase_whole_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="erase_whole_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 120</value>
-  </data>
-  <data name="erase_whole_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="erase_whole_line_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="erase_whole_line_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="erase_whole_line_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the "Erase Whole Line" button</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color_change.Name" xml:space="preserve">
-    <value>erase_whole_line_color_change</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color_change.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="unselect_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="unselect_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 90</value>
-  </data>
-  <data name="unselect_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="unselect_line_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="unselect_line_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="unselect_line_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the "Un-select Line" button</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color_change.Name" xml:space="preserve">
-    <value>unselect_line_color_change</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color_change.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="clear_notes_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="clear_notes_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 60</value>
-  </data>
-  <data name="clear_notes_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="clear_notes_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="clear_notes_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="clear_notes_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of "Clear Note 1", "Clear Note 2", "Clear Note 3" and "Clear Note 4" buttons</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color_change.Name" xml:space="preserve">
-    <value>clear_notes_color_change</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color_change.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="blank_line_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="blank_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 31</value>
-  </data>
-  <data name="blank_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="blank_line_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="blank_line_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="blank_line_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the "Blank Line" button</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color_change.Name" xml:space="preserve">
-    <value>blank_line_color_change</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color_change.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color_change.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 184</value>
-  </data>
-  <data name="metronome_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="metronome_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;metronome_color.Name" xml:space="preserve">
-    <value>metronome_color</value>
-  </data>
-  <data name="&gt;&gt;metronome_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;metronome_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;metronome_color.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 154</value>
-  </data>
-  <data name="playback_buttons_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="playback_buttons_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color.Name" xml:space="preserve">
-    <value>playback_buttons_color</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;playback_buttons_color.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 124</value>
-  </data>
-  <data name="erase_whole_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="erase_whole_line_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color.Name" xml:space="preserve">
-    <value>erase_whole_line_color</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;erase_whole_line_color.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 94</value>
-  </data>
-  <data name="unselect_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="unselect_line_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color.Name" xml:space="preserve">
-    <value>unselect_line_color</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;unselect_line_color.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 64</value>
-  </data>
-  <data name="clear_notes_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="clear_notes_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color.Name" xml:space="preserve">
-    <value>clear_notes_color</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;clear_notes_color.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 35</value>
-  </data>
-  <data name="blank_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="blank_line_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color.Name" xml:space="preserve">
-    <value>blank_line_color</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;blank_line_color.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 184</value>
-  </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Metronome Color</value>
-  </data>
-  <data name="&gt;&gt;label10.Name" xml:space="preserve">
-    <value>label10</value>
-  </data>
-  <data name="&gt;&gt;label10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 154</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 20</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Playback Buttons Color</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 124</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Erase Whole Line Color</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 94</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 20</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Un-select Line Color</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 64</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Clear Notes Color</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 35</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 20</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Blank Line Color</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 136</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 220</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Buttons and Controls Colors</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Name" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Parent" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="third_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 88</value>
-  </data>
-  <data name="third_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="third_octave_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="third_octave_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="third_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the third octave</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color_change.Name" xml:space="preserve">
-    <value>third_octave_color_change</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color_change.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color_change.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="second_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="second_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 59</value>
-  </data>
-  <data name="second_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="second_octave_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="second_octave_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="second_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the second octave</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color_change.Name" xml:space="preserve">
-    <value>second_octave_color_change</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color_change.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color_change.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="first_octave_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="first_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 29</value>
-  </data>
-  <data name="first_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
-  </data>
-  <data name="first_octave_color_change.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="first_octave_color_change.Text" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="first_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Change color of the first octave</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color_change.Name" xml:space="preserve">
-    <value>first_octave_color_change</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color_change.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color_change.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color_change.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 92</value>
-  </data>
-  <data name="third_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="third_octave_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color.Name" xml:space="preserve">
-    <value>third_octave_color</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;third_octave_color.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 63</value>
-  </data>
-  <data name="second_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="second_octave_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color.Name" xml:space="preserve">
-    <value>second_octave_color</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;second_octave_color.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 33</value>
-  </data>
-  <data name="first_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="first_octave_color.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color.Name" xml:space="preserve">
-    <value>first_octave_color</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;first_octave_color.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 92</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 20</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Third Octave Color</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 63</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Second Octave Color</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 33</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 20</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>First Octave Color</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 6</value>
-  </data>
-  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>383, 124</value>
-  </data>
-  <data name="group_keyboard_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Keyboard Colors</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Name" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Parent" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="appearance.ImageIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="appearance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 566</value>
-  </data>
-  <data name="appearance.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Appearance</value>
-  </data>
-  <data name="&gt;&gt;appearance.Name" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;appearance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;appearance.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;appearance.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabControl_settings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tabControl_settings.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="tabControl_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="tabControl_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="tabControl_settings.Padding" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>403, 605</value>
-  </data>
-  <data name="tabControl_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Name" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>301, 21</value>
   </metadata>
@@ -2887,13 +3373,13 @@ Raspberry Pi or ESP32)</value>
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>415, 617</value>
+    <value>332, 499</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3215,11 +3701,8 @@ Raspberry Pi or ESP32)</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

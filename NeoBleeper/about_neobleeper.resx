@@ -123,14 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 15</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>40, 12</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 156</value>
+    <value>125, 125</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -161,13 +157,10 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 186</value>
-  </data>
-  <data name="lbl_credit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>51, 149</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>497, 80</value>
+    <value>389, 64</value>
   </data>
   <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -200,13 +193,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 36pt, style=Bold</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 29</value>
-  </data>
-  <data name="lbl_name.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>172, 23</value>
   </data>
   <data name="lbl_name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 79</value>
+    <value>297, 64</value>
   </data>
   <data name="lbl_name.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -236,13 +226,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 14.25pt</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>229, 110</value>
-  </data>
-  <data name="lbl_version.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>183, 88</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 32</value>
+    <value>123, 25</value>
   </data>
   <data name="lbl_version.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -269,14 +256,14 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAARAgAAAJNU0Z0AUkBTAIBAQIB
-        AAG4AQABuAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPggAAAJNU0Z0AUkBTAIBAQIB
+        AAHAAQABwAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXeUAAE7AbABJQH/ATsBsAElAf8BOwGwASUB/wEyAZ4BHgH/ATIBngEeAf8B
         MgGeAR4B/wEsAYwBGgH/ASwBjAEaAf8BLAGMARoB/wElAX0BEwH/ASUBfQETAf8BJQF9ARMB/xQAAfAB
         QwGxAf8B7wE+AaoB/xgAAUQBQwFEAXcB7wE/AawB/5QAATsBsAElAf8BOwGwASUB/wHPAegByw3/ASwB
         jAEaAf8BLgGGAR0B/wHvAfMB7gH/AXwBqAFzAf8BJQF9ARMB/wElAX0BEwH/DAAB8gFJAbcB/wHwAUMB
-        sQH/Ae8BPgGqAf8B7QE4AaQB/wFJAZkB4wH/BAABVQFYAVkBtAEIAbsB/gH/AwQBBQNUAaYBxQFKAbAB
-        /wHtAToBpgH/Ae8BPwGsAf8B8QFFAbMB/wFvAVwBZgHZiAABOwGwASUB/wE7AbABJQH/A/wB/wP6Af8D
+        sQH/Ae8BPgGqAf8B7QE4AaQB/wFJAZkB4wH/BAABVQFXAVgBtAEIAbsB/gH/AwQBBQNUAaYBxQFKAbAB
+        /wHtAToBpgH/Ae8BPwGsAf8B8QFFAbMB/wFqAVwBZAHZiAABOwGwASUB/wE7AbABJQH/A/wB/wP6Af8D
         +gH/A/sB/wEsAYsBGgH/A/kB/wP4Af8D+AH/AXwBqAFzAf8BJQF9ARMB/xAAAe8BPgGqAf8B7QE4AaQB
         /wHrATIBngH/AQwBwgH+Af8BCwHBAf4B/wEKAb8B/gH/AQkBvgH+Af8BCQG8Af4B/wEIAbsB/gH/AQcB
         ugH+Af8B7AE0AaAB/wHtAToBpgH/Ae8BPwGsAf+MAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D
@@ -286,26 +273,25 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         +QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARABxwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0B
         wwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B/wMxAU2QAAFHAcQBMQH/AUcBxAExAf8D
         +AH/A/cB/wP3Af8D+AH/ATIBngEeAf8BMgGeAR4B/wEvAZQBHAH/ASwBiwEaAf8BLAGMARoB/wEsAYwB
-        GgH/FAABUwF3AYEB4wESAcsC/wERAcoC/wEQAcgB/gH/AQ8BxwH+Af8BDgHFAf4B/wENAcQB/gH/AQ0B
+        GgH/FAABVgFzAXsB4wESAcsC/wERAcoC/wEQAcgB/gH/AQ8BxwH+Af8BDgHFAf4B/wENAcQB/gH/AQ0B
         wgH+Af8BDAHBAf4B/wELAcAB/gH/AwQBBZAAAVUB0QE/Af8BVQHRAT8B/wP4Af8D+AH/A/gB/wP4Af8B
-        OwGwASUB/wHUAecB0QH/A/kB/wP5Af8BMgGeAR4B/wEyAZ4BHgH/EAABVAFvAXcB3wEVAc8C/wEUAc4C
+        OwGwASUB/wHUAecB0QH/A/kB/wP5Af8BMgGeAR4B/wEyAZ4BHgH/EAABVwFrAXEB3wEVAc8C/wEUAc4C
         /wETAcwC/wESAcsC/wERAckC/wEQAcgB/gH/AQ8BxgH+Af8BDgHFAf4B/wENAcMB/gH/AQwBwgH+Af8B
         CwHBAf4B/5AAAVUB0QE/Af8BVQHRAT8B/wP5Af8D+AH/A/gB/wP4Af8BOQGqASQB/wP4Af8D+AH/A/gB
         /wHMAeAByQH/ATIBngEeAf8UAAEWAdEC/wEVAdAC/wEUAc8C/wEUAc0C/wETAcwC/wESAcoC/wERAckC
-        /wEQAccB/gH/AQ8BxgH+Af8BDgHFAf4B/wFVAVgBWQG0kAABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D
-        +QH/A/oB/wE5AakBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAAVsBZgFnAdEBFwHSAv8B
-        FgHRAv8BFQHQAv8BFAHOAv8BEwHNAv8BEgHLAv8BEQHKAv8BEAHIAf4B/wEQAccB/gH/lAABYwHbAU0B
-        /wFjAdsBTQX/A/4B/wP+Bf8BRwHEATEB/wHXAesB1AH/A/kB/wP5Af8BOwGwASUB/wE7AbABJQH/FAAB
-        GgHWAv8BGQHVAv8BGAHUAv8BFwHSAv8BFgHRAv8BFQHPAv8BFAHOAv8BEwHMAv8BEgHLAv8BEQHKAv8B
-        WAJaAbqQAAFjAdsBTQH/AWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB0QE/Af8BVQHRAT8B/wFHAcQB
-        MQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB/xwAARkB1gL/ARgB1QL/ARgB
-        0wL/ARcB0gL/ARYB0AL/ARUBzwL/ARQBzQL/mAADMAFLAWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB
-        0QE/Af8BVQHRAT8B/wFHAcQBMQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB
-        /xwAARsB2QL/AVsBZgFnAdEBGQHWAv8BGAHUAv8BUwF3AYEB4wEWAdEC/wFZAWYBZwHR8AABVwF3AX0B
-        4P8AnQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAL/Ae8B9wQAAcAB
-        AwLnBAABwAEDAYIFAAHAAQMBwAEBBAABwAEDAeABAwQAAcABAwHgAQMEAAHAAQMB4AEDBAABwAEDAcAB
-        AwQAAcABAwHgAQMEAAHAAQMB4AEHBAABwAEDAeABAwQAAcABAwH4AQ8EAAHAAQMB+AEPBAAD/wF/BAAE
-        /wQACw==
+        /wEQAccB/gH/AQ8BxgH+Af8BDgHFAf4B/wFVAVcBWAG0kAABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D
+        +QH/A/oB/wE5AakBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAAV0CZAHRARcB0gL/ARYB
+        0QL/ARUB0AL/ARQBzgL/ARMBzQL/ARIBywL/AREBygL/ARAByAH+Af8BEAHHAf4B/5QAAWMB2wFNAf8B
+        YwHbAU0F/wP+Af8D/gX/AUcBxAExAf8B1wHrAdQB/wP5Af8D+QH/ATsBsAElAf8BOwGwASUB/xQAARoB
+        1gL/ARkB1QL/ARgB1AL/ARcB0gL/ARYB0QL/ARUBzwL/ARQBzgL/ARMBzAL/ARIBywL/AREBygL/AVgC
+        WgG6kAABYwHbAU0B/wFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8BRwHEATEB
+        /wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEZAdYC/wEYAdUC/wEYAdMC
+        /wEXAdIC/wEWAdAC/wEVAc8C/wEUAc0C/5gAAzABSwFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEB
+        PwH/AVUB0QE/Af8BRwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8c
+        AAEbAdkC/wFdAmQB0QEZAdYC/wEYAdQC/wFWAXMBewHjARYB0QL/AVsCZAHR8AABWgFzAXcB4P8AnQAB
+        QgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAL/Ae8B9wQAAcABAwLnBAAB
+        wAEDAYIFAAHAAQMBwAEBBAABwAEDAeABAwQAAcABAwHgAQMEAAHAAQMB4AEDBAABwAEDAcABAwQAAcAB
+        AwHgAQMEAAHAAQMB4AEHBAABwAEDAeABAwQAAcABAwH4AQ8EAAHAAQMB+AEPBAAD/wF/BAAE/wQACw==
 </value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -371,13 +357,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 347</value>
-  </data>
-  <data name="listView1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 278</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>606, 193</value>
+    <value>486, 155</value>
   </data>
   <data name="listView1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -404,13 +387,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 318</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>214, 254</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 20</value>
+    <value>80, 16</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -440,10 +420,14 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>0</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 281</value>
+    <value>122, 225</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_visit_icons8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 29</value>
+    <value>126, 25</value>
   </data>
   <data name="button_visit_icons8.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -482,10 +466,13 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>NoControl</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>315, 281</value>
+    <value>252, 225</value>
+  </data>
+  <data name="button_view_license_text.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 29</value>
+    <value>132, 25</value>
   </data>
   <data name="button_view_license_text.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -515,7 +502,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -524,7 +511,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>633, 553</value>
+    <value>506, 442</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -845,9 +832,6 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

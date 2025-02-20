@@ -98,8 +98,10 @@ namespace NeoBleeper
             groupBox_appearance.ForeColor = Color.White;
             btn_test_system_speaker.BackColor = Color.FromArgb(32, 32, 32);
             btn_test_system_speaker.ForeColor = Color.White;
+            groupBox_system_speaker_test.ForeColor = Color.White;
             comboBox_theme.BackColor = Color.Black;
             comboBox_theme.ForeColor = Color.White;
+            group_tone_waveform.ForeColor = Color.White;
             group_beep_creation_from_sound_card_settings.ForeColor = Color.White;
             button_show_reason.BackColor = Color.FromArgb(32, 32, 32);
             button_show_reason.ForeColor = Color.White;
@@ -153,7 +155,9 @@ namespace NeoBleeper
             btn_test_system_speaker.ForeColor = SystemColors.ControlText;
             comboBox_theme.BackColor = SystemColors.Window;
             comboBox_theme.ForeColor = SystemColors.WindowText;
+            groupBox_system_speaker_test.ForeColor = SystemColors.ControlText;
             group_beep_creation_from_sound_card_settings.ForeColor = SystemColors.ControlText;
+            group_tone_waveform.ForeColor = SystemColors.ControlText;
             button_show_reason.BackColor = Color.Transparent;
             button_show_reason.ForeColor = SystemColors.ControlText;
             group_midi_input_devices.ForeColor = SystemColors.ControlText;
