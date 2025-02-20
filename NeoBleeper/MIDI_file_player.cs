@@ -201,11 +201,42 @@ namespace NeoBleeper
             {
                 if (IsMidiFile(openFileDialog.FileName))
                 {
-                    textBox1 .Text = openFileDialog.FileName;
+                    textBox1.Text = openFileDialog.FileName;
                 }
                 else
                 {
                     MessageBox.Show("This file is not a valid MIDI file or the file is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void MIDI_file_player_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void MIDI_file_player_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string fileName = files[0];
+                string first_line = File.ReadLines(fileName).First();
+                if (IsMidiFile(fileName))
+                {
+                    MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
+                    midi_file_player.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

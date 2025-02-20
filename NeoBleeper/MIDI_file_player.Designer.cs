@@ -144,7 +144,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(295, 64);
+            label3.Location = new Point(295, 59);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
             label3.Size = new Size(40, 16);
@@ -154,7 +154,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(231, 49);
+            label2.Location = new Point(231, 43);
             label2.Name = "label2";
             label2.Size = new Size(104, 16);
             label2.TabIndex = 3;
@@ -928,6 +928,7 @@
             // 
             // MIDI_file_player
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(363, 491);
@@ -996,6 +997,8 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Play MIDI File";
+            DragDrop += MIDI_file_player_DragDrop;
+            DragEnter += MIDI_file_player_DragEnter;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
