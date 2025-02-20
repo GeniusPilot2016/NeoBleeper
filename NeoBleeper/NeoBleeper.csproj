@@ -117,11 +117,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
-    <PackageReference Include="MIDIator" Version="1.0.105" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="nFMOD" Version="0.6.0" />
-    <PackageReference Include="System.Management" Version="9.0.0" />
+    <PackageReference Include="System.Management" Version="9.0.2" />
     <PackageReference Include="System.Threading.Timer" Version="4.3.0" />
   </ItemGroup>
 
