@@ -815,7 +815,6 @@
             // 
             // blankLineToolStripMenuItem
             // 
-            blankLineToolStripMenuItem.Image = Properties.Resources.icons8_line_48;
             blankLineToolStripMenuItem.Name = "blankLineToolStripMenuItem";
             resources.ApplyResources(blankLineToolStripMenuItem, "blankLineToolStripMenuItem");
             blankLineToolStripMenuItem.Click += blankLineToolStripMenuItem_Click;
@@ -823,45 +822,38 @@
             // clearNotesToolStripMenuItem
             // 
             clearNotesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearNote1ToolStripMenuItem, clearNote2ToolStripMenuItem, clearNote3ToolStripMenuItem, clearNote4ToolStripMenuItem });
-            clearNotesToolStripMenuItem.Image = Properties.Resources.icons8_clear_48;
             clearNotesToolStripMenuItem.Name = "clearNotesToolStripMenuItem";
             resources.ApplyResources(clearNotesToolStripMenuItem, "clearNotesToolStripMenuItem");
             // 
             // clearNote1ToolStripMenuItem
             // 
-            clearNote1ToolStripMenuItem.Image = Properties.Resources.icons8_1_48;
             clearNote1ToolStripMenuItem.Name = "clearNote1ToolStripMenuItem";
             resources.ApplyResources(clearNote1ToolStripMenuItem, "clearNote1ToolStripMenuItem");
             clearNote1ToolStripMenuItem.Click += clearNote1ToolStripMenuItem_Click;
             // 
             // clearNote2ToolStripMenuItem
             // 
-            clearNote2ToolStripMenuItem.Image = Properties.Resources.icons8_2_48;
             clearNote2ToolStripMenuItem.Name = "clearNote2ToolStripMenuItem";
             resources.ApplyResources(clearNote2ToolStripMenuItem, "clearNote2ToolStripMenuItem");
             // 
             // clearNote3ToolStripMenuItem
             // 
-            clearNote3ToolStripMenuItem.Image = Properties.Resources.icons8_3_48;
             clearNote3ToolStripMenuItem.Name = "clearNote3ToolStripMenuItem";
             resources.ApplyResources(clearNote3ToolStripMenuItem, "clearNote3ToolStripMenuItem");
             // 
             // clearNote4ToolStripMenuItem
             // 
-            clearNote4ToolStripMenuItem.Image = Properties.Resources.icons8_4_48;
             clearNote4ToolStripMenuItem.Name = "clearNote4ToolStripMenuItem";
             resources.ApplyResources(clearNote4ToolStripMenuItem, "clearNote4ToolStripMenuItem");
             // 
             // unselectLineToolStripMenuItem
             // 
-            unselectLineToolStripMenuItem.Image = Properties.Resources.icons8_select_none_48;
             unselectLineToolStripMenuItem.Name = "unselectLineToolStripMenuItem";
             resources.ApplyResources(unselectLineToolStripMenuItem, "unselectLineToolStripMenuItem");
             unselectLineToolStripMenuItem.Click += unselectLineToolStripMenuItem_Click;
             // 
             // eraseWholeLineToolStripMenuItem
             // 
-            eraseWholeLineToolStripMenuItem.Image = Properties.Resources.icons8_eraser_tool_48;
             eraseWholeLineToolStripMenuItem.Name = "eraseWholeLineToolStripMenuItem";
             resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
             eraseWholeLineToolStripMenuItem.Click += eraseWholeLineToolStripMenuItem_Click;
@@ -869,20 +861,17 @@
             // playbackControlsToolStripMenuItem
             // 
             playbackControlsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { playAllToolStripMenuItem, playFromSelectedLineToolStripMenuItem, stopPlayingToolStripMenuItem });
-            playbackControlsToolStripMenuItem.Image = Properties.Resources.icons8_play_property_48;
             playbackControlsToolStripMenuItem.Name = "playbackControlsToolStripMenuItem";
             resources.ApplyResources(playbackControlsToolStripMenuItem, "playbackControlsToolStripMenuItem");
             // 
             // playAllToolStripMenuItem
             // 
-            playAllToolStripMenuItem.Image = Properties.Resources.icons8_play_48;
             playAllToolStripMenuItem.Name = "playAllToolStripMenuItem";
             resources.ApplyResources(playAllToolStripMenuItem, "playAllToolStripMenuItem");
             playAllToolStripMenuItem.Click += playAllToolStripMenuItem_Click;
             // 
             // playFromSelectedLineToolStripMenuItem
             // 
-            playFromSelectedLineToolStripMenuItem.Image = Properties.Resources.icons8_playlist_48;
             playFromSelectedLineToolStripMenuItem.Name = "playFromSelectedLineToolStripMenuItem";
             resources.ApplyResources(playFromSelectedLineToolStripMenuItem, "playFromSelectedLineToolStripMenuItem");
             playFromSelectedLineToolStripMenuItem.Click += playFromSelectedLineToolStripMenuItem_Click;
@@ -890,7 +879,6 @@
             // stopPlayingToolStripMenuItem
             // 
             resources.ApplyResources(stopPlayingToolStripMenuItem, "stopPlayingToolStripMenuItem");
-            stopPlayingToolStripMenuItem.Image = Properties.Resources.icons8_pause_48;
             stopPlayingToolStripMenuItem.Name = "stopPlayingToolStripMenuItem";
             stopPlayingToolStripMenuItem.Click += stopPlayingToolStripMenuItem_Click;
             // 
