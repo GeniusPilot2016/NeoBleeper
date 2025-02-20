@@ -231,8 +231,7 @@ namespace NeoBleeper
                 string first_line = File.ReadLines(fileName).First();
                 if (IsMidiFile(fileName))
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
-                    midi_file_player.ShowDialog();
+                    textBox1.Text = fileName;
                 }
                 else
                 {
