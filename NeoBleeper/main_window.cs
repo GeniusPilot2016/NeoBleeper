@@ -1,4 +1,3 @@
-using Sanford.Multimedia;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using static NeoBleeper.base_note_length_timer;
@@ -12,7 +11,6 @@ using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms.Design;
 using static NeoBleeper.RenderBeep;
-using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
