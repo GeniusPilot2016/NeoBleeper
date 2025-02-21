@@ -909,7 +909,7 @@
             button_browse_file.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button_browse_file.ImageIndex = 0;
             button_browse_file.ImageList = icons2;
-            button_browse_file.Location = new Point(280, 30);
+            button_browse_file.Location = new Point(280, 31);
             button_browse_file.Name = "button_browse_file";
             button_browse_file.Size = new Size(123, 35);
             button_browse_file.TabIndex = 0;

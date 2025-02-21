@@ -45,7 +45,7 @@
             button_yes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_yes.AutoSize = true;
             button_yes.DialogResult = DialogResult.Yes;
-            button_yes.Font = new Font("HarmonyOS Sans", 9F);
+            button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_disable_create_beep_from_sound_card_warning;
             button_yes.Location = new Point(89, 238);
@@ -71,7 +71,7 @@
             button_no.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_no.AutoSize = true;
             button_no.DialogResult = DialogResult.No;
-            button_no.Font = new Font("HarmonyOS Sans", 9F);
+            button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_disable_create_beep_from_sound_card_warning;
             button_no.Location = new Point(266, 238);
@@ -88,7 +88,7 @@
             // 
             label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_unknown_type_of_computer_warning.AutoSize = true;
-            label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 9F);
+            label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
             label_unknown_type_of_computer_warning.Location = new Point(83, 9);
             label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
             label_unknown_type_of_computer_warning.Size = new Size(362, 160);
@@ -109,7 +109,7 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Font = new Font("HarmonyOS Sans", 9F);
+            label1.Font = new Font("HarmonyOS Sans", 8.999999F);
             label1.Location = new Point(12, 183);
             label1.Name = "label1";
             label1.Size = new Size(398, 40);
@@ -128,7 +128,7 @@
             Controls.Add(label_unknown_type_of_computer_warning);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;

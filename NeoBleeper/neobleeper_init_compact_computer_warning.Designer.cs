@@ -46,7 +46,7 @@
             button_yes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_yes.AutoSize = true;
             button_yes.DialogResult = DialogResult.Yes;
-            button_yes.Font = new Font("HarmonyOS Sans", 9F);
+            button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_compact_computer_warning;
             button_yes.Location = new Point(89, 325);
@@ -71,7 +71,7 @@
             // 
             label_compact_computer_warning.Anchor = AnchorStyles.Top;
             label_compact_computer_warning.AutoSize = true;
-            label_compact_computer_warning.Font = new Font("HarmonyOS Sans", 9F);
+            label_compact_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
             label_compact_computer_warning.Location = new Point(89, 12);
             label_compact_computer_warning.Name = "label_compact_computer_warning";
             label_compact_computer_warning.Size = new Size(357, 100);
@@ -92,8 +92,8 @@
             // 
             label_compact_computer_warning_result.Anchor = AnchorStyles.None;
             label_compact_computer_warning_result.AutoSize = true;
-            label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Bold);
-            label_compact_computer_warning_result.Location = new Point(12, 180);
+            label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_compact_computer_warning_result.Location = new Point(7, 175);
             label_compact_computer_warning_result.Name = "label_compact_computer_warning_result";
             label_compact_computer_warning_result.Size = new Size(424, 140);
             label_compact_computer_warning_result.TabIndex = 9;
@@ -104,7 +104,7 @@
             button_no.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_no.AutoSize = true;
             button_no.DialogResult = DialogResult.No;
-            button_no.Font = new Font("HarmonyOS Sans", 9F);
+            button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_compact_computer_warning;
             button_no.Location = new Point(251, 325);
@@ -121,8 +121,8 @@
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Font = new Font("HarmonyOS Sans", 9F);
-            label1.Location = new Point(12, 126);
+            label1.Font = new Font("HarmonyOS Sans", 8.999999F);
+            label1.Location = new Point(7, 121);
             label1.Name = "label1";
             label1.Size = new Size(429, 40);
             label1.TabIndex = 6;
@@ -141,7 +141,7 @@
             Controls.Add(label_compact_computer_warning_result);
             Controls.Add(button_no);
             Controls.Add(label1);
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
