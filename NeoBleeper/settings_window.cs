@@ -783,7 +783,7 @@ namespace NeoBleeper
                 string deviceName = MidiIn.DeviceInfo(device).ProductName;
                 comboBox_midi_input_devices.Items.Add(deviceName);
             }
-            if(comboBox_midi_input_devices.Items.Count > 0)
+            if (comboBox_midi_input_devices.Items.Count > 0)
             {
                 label_midi_input_device.Enabled = true;
                 comboBox_midi_input_devices.SelectedIndex = 0;
@@ -892,6 +892,11 @@ namespace NeoBleeper
         private void refresh_midi_output_button_Click(object sender, EventArgs e)
         {
             refresh_midi_output();
+        }
+
+        private void appearance_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

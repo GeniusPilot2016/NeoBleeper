@@ -41,6 +41,7 @@
             label1 = new Label();
             button_visit_icons8 = new Button();
             button_view_license_text = new Button();
+            button_fork_me_on_github = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -73,6 +74,7 @@
             imageList_about.TransparentColor = Color.Transparent;
             imageList_about.Images.SetKeyName(0, "icons8-icons8-48.png");
             imageList_about.Images.SetKeyName(1, "icons8-license-48.png");
+            imageList_about.Images.SetKeyName(2, "icons8-github-48.png");
             // 
             // listView1
             // 
@@ -114,10 +116,19 @@
             button_view_license_text.UseVisualStyleBackColor = true;
             button_view_license_text.Click += button_view_license_text_Click;
             // 
+            // button_fork_me_on_github
+            // 
+            resources.ApplyResources(button_fork_me_on_github, "button_fork_me_on_github");
+            button_fork_me_on_github.ImageList = imageList_about;
+            button_fork_me_on_github.Name = "button_fork_me_on_github";
+            button_fork_me_on_github.UseVisualStyleBackColor = true;
+            button_fork_me_on_github.Click += button_fork_me_on_github_Click;
+            // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(button_fork_me_on_github);
             Controls.Add(button_view_license_text);
             Controls.Add(button_visit_icons8);
             Controls.Add(label1);
@@ -153,5 +164,6 @@
         private ColumnHeader columnHeader2;
         private Button button_visit_icons8;
         private Button button_view_license_text;
+        private Button button_fork_me_on_github;
     }
 }

@@ -125,5 +125,10 @@ namespace NeoBleeper
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://icons8.com/") { UseShellExecute = true });
         }
+
+        private void button_fork_me_on_github_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper") { UseShellExecute = true });
+        }
     }
 }

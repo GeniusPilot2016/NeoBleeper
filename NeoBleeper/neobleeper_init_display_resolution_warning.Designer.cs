@@ -40,14 +40,14 @@
             // button_close
             // 
             button_close.AccessibleRole = AccessibleRole.None;
-            button_close.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button_close.Anchor = AnchorStyles.Bottom;
             button_close.AutoSize = true;
             button_close.DialogResult = DialogResult.Abort;
             button_close.Font = new Font("HarmonyOS Sans", 9F);
             button_close.ImageIndex = 0;
             button_close.ImageList = imageList_display_resolution_warning;
             button_close.Location = new Point(178, 65);
-            button_close.Margin = new Padding(4, 4, 4, 4);
+            button_close.Margin = new Padding(4);
             button_close.Name = "button_close";
             button_close.Size = new Size(165, 32);
             button_close.TabIndex = 5;
@@ -79,9 +79,10 @@
             // 
             pictureBox1.Image = Properties.Resources.icons8_resolution_48;
             pictureBox1.Location = new Point(15, 15);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(60, 60);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
@@ -89,13 +90,12 @@
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
             ClientSize = new Size(510, 105);
             Controls.Add(pictureBox1);
             Controls.Add(button_close);
             Controls.Add(label_display_resolution_warning);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "neobleeper_init_display_resolution_warning";

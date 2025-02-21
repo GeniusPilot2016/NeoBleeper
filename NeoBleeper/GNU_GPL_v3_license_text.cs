@@ -76,7 +76,7 @@ namespace NeoBleeper
                 ctrl.ForeColor = SystemColors.ControlText;
                 richTextBox1.BackColor = SystemColors.Window;
                 richTextBox1.ForeColor = SystemColors.WindowText;
-                close_button.BackColor = SystemColors.Control;
+                close_button.BackColor = Color.Transparent;
                 this.Refresh();
             }
         }

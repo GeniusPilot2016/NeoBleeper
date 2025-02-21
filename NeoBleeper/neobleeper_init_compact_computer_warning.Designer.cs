@@ -49,9 +49,9 @@
             button_yes.Font = new Font("HarmonyOS Sans", 9F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_compact_computer_warning;
-            button_yes.Location = new Point(67, 265);
+            button_yes.Location = new Point(89, 325);
             button_yes.Name = "button_yes";
-            button_yes.Size = new Size(75, 26);
+            button_yes.Size = new Size(94, 32);
             button_yes.TabIndex = 7;
             button_yes.Text = "&Yes";
             button_yes.TextAlign = ContentAlignment.MiddleRight;
@@ -69,12 +69,12 @@
             // 
             // label_compact_computer_warning
             // 
-            label_compact_computer_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label_compact_computer_warning.Anchor = AnchorStyles.Top;
             label_compact_computer_warning.AutoSize = true;
             label_compact_computer_warning.Font = new Font("HarmonyOS Sans", 9F);
-            label_compact_computer_warning.Location = new Point(67, 12);
+            label_compact_computer_warning.Location = new Point(89, 12);
             label_compact_computer_warning.Name = "label_compact_computer_warning";
-            label_compact_computer_warning.Size = new Size(281, 80);
+            label_compact_computer_warning.Size = new Size(357, 100);
             label_compact_computer_warning.TabIndex = 5;
             label_compact_computer_warning.Text = resources.GetString("label_compact_computer_warning.Text");
             // 
@@ -83,18 +83,19 @@
             pictureBox1.Image = Properties.Resources.icons8_laptop_48;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
+            pictureBox1.Size = new Size(60, 60);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             // 
             // label_compact_computer_warning_result
             // 
-            label_compact_computer_warning_result.Anchor = AnchorStyles.Top;
+            label_compact_computer_warning_result.Anchor = AnchorStyles.None;
             label_compact_computer_warning_result.AutoSize = true;
             label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Bold);
-            label_compact_computer_warning_result.Location = new Point(9, 145);
+            label_compact_computer_warning_result.Location = new Point(12, 180);
             label_compact_computer_warning_result.Name = "label_compact_computer_warning_result";
-            label_compact_computer_warning_result.Size = new Size(349, 112);
+            label_compact_computer_warning_result.Size = new Size(424, 140);
             label_compact_computer_warning_result.TabIndex = 9;
             label_compact_computer_warning_result.Text = resources.GetString("label_compact_computer_warning_result.Text");
             // 
@@ -106,9 +107,9 @@
             button_no.Font = new Font("HarmonyOS Sans", 9F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_compact_computer_warning;
-            button_no.Location = new Point(211, 265);
+            button_no.Location = new Point(251, 325);
             button_no.Name = "button_no";
-            button_no.Size = new Size(75, 26);
+            button_no.Size = new Size(94, 32);
             button_no.TabIndex = 8;
             button_no.Text = "&No";
             button_no.TextAlign = ContentAlignment.MiddleRight;
@@ -118,21 +119,20 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top;
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("HarmonyOS Sans", 9F);
-            label1.Location = new Point(9, 102);
+            label1.Location = new Point(12, 126);
             label1.Name = "label1";
-            label1.Size = new Size(334, 32);
+            label1.Size = new Size(429, 40);
             label1.TabIndex = 6;
             label1.Text = "Despite this, do you want to continue using the NeoBleeper \r\napplication?\r\n";
             // 
             // neobleeper_init_compact_computer_warning
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(360, 297);
+            ClientSize = new Size(448, 362);
             Controls.Add(button_yes);
             Controls.Add(label_compact_computer_warning);
             Controls.Add(pictureBox1);
