@@ -71,6 +71,7 @@ namespace NeoBleeper
             label1.ForeColor = Color.White;
             button_visit_icons8.BackColor = Color.FromArgb(32, 32, 32);
             button_view_license_text.BackColor = Color.FromArgb(32, 32, 32);
+            button_fork_me_on_github.BackColor = Color.FromArgb(32, 32, 32);
             listView1.BackColor = Color.Black;
             listView1.ForeColor = Color.White;
             foreach (ListViewItem item in listView1.Items)
@@ -91,6 +92,7 @@ namespace NeoBleeper
             label1.ForeColor = SystemColors.ControlText;
             button_visit_icons8.BackColor = Color.Transparent;
             button_view_license_text.BackColor = Color.Transparent;
+            button_fork_me_on_github.BackColor = Color.Transparent;
             listView1.BackColor = SystemColors.Window;
             listView1.ForeColor = SystemColors.WindowText;
             foreach (ListViewItem item in listView1.Items)
