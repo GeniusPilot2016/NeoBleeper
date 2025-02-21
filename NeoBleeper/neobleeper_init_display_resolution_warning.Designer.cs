@@ -90,6 +90,7 @@
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
+            CancelButton = button_close;
             ClientSize = new Size(510, 105);
             Controls.Add(pictureBox1);
             Controls.Add(button_close);
