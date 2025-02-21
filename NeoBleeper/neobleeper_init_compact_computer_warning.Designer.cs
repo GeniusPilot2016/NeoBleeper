@@ -130,8 +130,10 @@
             // 
             // neobleeper_init_compact_computer_warning
             // 
+            AcceptButton = button_yes;
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
+            CancelButton = button_no;
             ClientSize = new Size(448, 362);
             Controls.Add(button_yes);
             Controls.Add(label_compact_computer_warning);
@@ -139,7 +141,7 @@
             Controls.Add(label_compact_computer_warning_result);
             Controls.Add(button_no);
             Controls.Add(label1);
-            Font = new Font("HarmonyOS Sans", 9F);
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
