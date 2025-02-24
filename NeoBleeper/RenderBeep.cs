@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -30,6 +32,81 @@ namespace NeoBleeper
             public static void StopBeep()
             {
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
+            }
+        }
+        public static class SynthMisc
+        {
+            public static void SquareWave(int freq, int ms)
+            {
+                SignalGenerator squareWave = new SignalGenerator()
+                {
+                    Gain = 0.2,
+                    Frequency = freq,
+                    Type = SignalGeneratorType.Square
+                };
+                using (var waveOut = new WaveOutEvent())
+                {
+                    Application.DoEvents();
+                    waveOut.DesiredLatency = 100;
+                    waveOut.Init(squareWave);
+                    waveOut.Play();
+                    System.Threading.Thread.Sleep(ms);
+                    waveOut.Stop();
+                }
+            }
+            public static void SineWave(int freq, int ms)
+            {
+                SignalGenerator sineWave = new SignalGenerator()
+                {
+                    Gain = 0.2,
+                    Frequency = freq,
+                    Type = SignalGeneratorType.Sin
+                };
+                using (var waveOut = new WaveOutEvent())
+                {
+                    Application.DoEvents();
+                    waveOut.DesiredLatency = 100;
+                    waveOut.Init(sineWave);
+                    waveOut.Play();
+                    System.Threading.Thread.Sleep(ms);
+                    waveOut.Stop();
+                }
+            }
+            public static void TriangleWave(int freq, int ms)
+            {
+                SignalGenerator triangleWave = new SignalGenerator()
+                {
+                    Gain = 0.2,
+                    Frequency = freq,
+                    Type = SignalGeneratorType.Triangle
+                };
+                using (var waveOut = new WaveOutEvent())
+                {
+                    Application.DoEvents();
+                    waveOut.DesiredLatency = 100;
+                    waveOut.Init(triangleWave);
+                    waveOut.Play();
+                    System.Threading.Thread.Sleep(ms);
+                    waveOut.Stop();
+                }
+            }
+            public static void Noise(int freq, int ms)
+            {
+                SignalGenerator noise = new SignalGenerator()
+                {
+                    Gain = 0.2,
+                    Frequency = freq,
+                    Type = SignalGeneratorType.White
+                };
+                using (var waveOut = new WaveOutEvent())
+                {
+                    Application.DoEvents();
+                    waveOut.DesiredLatency = 100;
+                    waveOut.Init(noise);
+                    waveOut.Play();
+                    System.Threading.Thread.Sleep(ms);
+                    waveOut.Stop();
+                }
             }
         }
     }

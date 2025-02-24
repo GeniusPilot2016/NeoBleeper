@@ -34,6 +34,24 @@ namespace NeoBleeper
                     ctrl.Font = new Font(fonts.Families[0], 9);
                 }
             }
+            switch(Program.creating_sounds.soundcard_beep_waveform)
+            {
+                case 0:
+                    radioButton_square.Checked = true;
+                    break;
+                case 1:
+                    radioButton_sine.Checked = true;
+                    break;
+                case 2:
+                    radioButton_triangle.Checked = true;
+                    break;
+                case 3:
+                    radioButton_noise.Checked = true;
+                    break;
+                default:
+                    radioButton_square.Checked = true;
+                    break;
+            }
             checkBox_use_motor_speed_mod.Font = new Font(fonts.Families[0], 9);
             label_test_system_speaker_message_2.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
             label_test_system_speaker_message_3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
@@ -222,10 +240,7 @@ namespace NeoBleeper
                     }
             }
         }
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void checkBox_test_system_speaker_CheckedChanged(object sender, EventArgs e)
         {
@@ -897,6 +912,26 @@ namespace NeoBleeper
         private void appearance_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void soundcard_beep_waveform_selection(object sender, EventArgs e)
+        {
+            if (radioButton_square.Checked == true)
+            {
+                Program.creating_sounds.soundcard_beep_waveform = 0;
+            }
+            else if (radioButton_sine.Checked == true)
+            {
+                Program.creating_sounds.soundcard_beep_waveform = 1;
+            }
+            else if (radioButton_triangle.Checked == true)
+            {
+                Program.creating_sounds.soundcard_beep_waveform = 2;
+            }
+            else if (radioButton_noise.Checked == true)
+            {
+                Program.creating_sounds.soundcard_beep_waveform = 3;
+            }
         }
     }
 }

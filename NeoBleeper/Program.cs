@@ -23,6 +23,7 @@ namespace NeoBleeper
         public static class creating_sounds
         {
             public static bool create_beep_with_soundcard;
+            public static int soundcard_beep_waveform = 0; // 0 = square, 1 = sine, 2 = triangle, 3 = noise
             public static bool permanently_enabled;
         }
         [STAThread]

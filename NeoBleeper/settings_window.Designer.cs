@@ -282,18 +282,21 @@
             resources.ApplyResources(radioButton_noise, "radioButton_noise");
             radioButton_noise.Name = "radioButton_noise";
             radioButton_noise.UseVisualStyleBackColor = true;
+            radioButton_noise.CheckedChanged += soundcard_beep_waveform_selection;
             // 
             // radioButton_triangle
             // 
             resources.ApplyResources(radioButton_triangle, "radioButton_triangle");
             radioButton_triangle.Name = "radioButton_triangle";
             radioButton_triangle.UseVisualStyleBackColor = true;
+            radioButton_triangle.CheckedChanged += soundcard_beep_waveform_selection;
             // 
             // radioButton_sine
             // 
             resources.ApplyResources(radioButton_sine, "radioButton_sine");
             radioButton_sine.Name = "radioButton_sine";
             radioButton_sine.UseVisualStyleBackColor = true;
+            radioButton_sine.CheckedChanged += soundcard_beep_waveform_selection;
             // 
             // radioButton_square
             // 
@@ -302,7 +305,7 @@
             radioButton_square.Name = "radioButton_square";
             radioButton_square.TabStop = true;
             radioButton_square.UseVisualStyleBackColor = true;
-            radioButton_square.CheckedChanged += radioButton1_CheckedChanged;
+            radioButton_square.CheckedChanged += soundcard_beep_waveform_selection;
             // 
             // checkBox_enable_create_beep_from_soundcard
             // 
