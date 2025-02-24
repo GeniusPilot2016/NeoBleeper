@@ -2183,13 +2183,18 @@ namespace NeoBleeper
                     Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                     beep_label_appear_when_music_is_being_played();
                     play_note_in_line(Convert.ToInt32(final_note_length));
-                    await Task.Delay(Convert.ToInt32(note_length - final_note_length));
-                    if (listViewNotes.SelectedIndices.Count > 0 && listViewNotes.SelectedIndices[0] < listViewNotes.Items.Count - 1)
+                    double delay = Convert.ToDouble(note_length - final_note_length);
+                    if (delay > 10)
                     {
-                        if (listViewNotes.SelectedIndices[0] < listViewNotes.Items.Count - 2)
+                        await Task.Delay(Convert.ToInt32(delay - 10));
+                    }
+                    if (listViewNotes.SelectedIndices.Count > 0)
+                    {
+                        int nextIndex = listViewNotes.SelectedIndices[0] + 1;
+                        if (nextIndex < listViewNotes.Items.Count)
                         {
-                            listViewNotes.Items[listViewNotes.SelectedIndices[0] + 1].Selected = true;
-                            listViewNotes.EnsureVisible(listViewNotes.SelectedIndices[0] + 1);
+                            listViewNotes.Items[nextIndex].Selected = true;
+                            listViewNotes.EnsureVisible(nextIndex);
                         }
                         else if (checkBox_loop.Checked == true)
                         {
@@ -2214,7 +2219,6 @@ namespace NeoBleeper
             {
                 listViewNotes.Items[0].Selected = true;
                 listViewNotes.EnsureVisible(0);
-                listViewNotes.Enabled = false;
                 checkBox_do_not_update.Enabled = false;
                 numericUpDown_bpm.Enabled = false;
                 numericUpDown_alternating_notes.Enabled = false;
@@ -2232,7 +2236,6 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0)
             {
-                listViewNotes.Enabled = false;
                 checkBox_do_not_update.Enabled = false;
                 numericUpDown_bpm.Enabled = false;
                 numericUpDown_alternating_notes.Enabled = false;
@@ -2657,10 +2660,6 @@ namespace NeoBleeper
                         is_note_playing = false;
                         total_note_length = 0;
                         note_count = 0;
-                        listViewNotes.Enabled = true;
-                        checkBox_do_not_update.Enabled = true;
-                        numericUpDown_bpm.Enabled = true;
-                        numericUpDown_alternating_notes.Enabled = true;
                     }
                 }
             }
@@ -2726,7 +2725,6 @@ namespace NeoBleeper
                         final_note_count = Convert.ToInt32(final_note_length);
                         if (is_music_playing == false)
                         {
-                            listViewNotes.Enabled = false;
                             checkBox_do_not_update.Enabled = false;
                             numericUpDown_bpm.Enabled = false;
                             numericUpDown_alternating_notes.Enabled = false;
@@ -2741,7 +2739,6 @@ namespace NeoBleeper
                             is_note_playing = false;
                             total_note_length = 0;
                             note_count = 0;
-                            listViewNotes.Enabled = true;
                             checkBox_do_not_update.Enabled = true;
                             numericUpDown_bpm.Enabled = true;
                             numericUpDown_alternating_notes.Enabled = true;
@@ -3268,7 +3265,6 @@ namespace NeoBleeper
                             while (note_order < last_note_order);
                         }
                     }
-                    //Thread.Sleep(Convert.ToInt32(note_length-final_note_length));
                 }
             }
         }
