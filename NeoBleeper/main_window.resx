@@ -136,14 +136,14 @@
     <value>NoControl</value>
   </data>
   <data name="button_c_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 6</value>
+    <value>34, 5</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button_c_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <metadata name="NeoBleeper_help.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>569, 32</value>
@@ -152,7 +152,7 @@
     <value>True</value>
   </data>
   <data name="button_c_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_c_s3.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -194,19 +194,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_d_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 6</value>
+    <value>79, 5</value>
   </data>
   <data name="button_d_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_d_s3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_d_s3.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -245,19 +245,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_f_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>211, 6</value>
+    <value>169, 5</value>
   </data>
   <data name="button_f_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_f_s3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_f_s3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -296,19 +296,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_g_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 6</value>
+    <value>214, 5</value>
   </data>
   <data name="button_g_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_g_s3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_g_s3.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -347,19 +347,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_a_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>324, 6</value>
+    <value>259, 5</value>
   </data>
   <data name="button_a_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_a_s3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_a_s3.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -398,19 +398,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_a_s4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>718, 6</value>
+    <value>574, 5</value>
   </data>
   <data name="button_a_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_a_s4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a_s4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_a_s4.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -449,19 +449,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_g_s4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>661, 6</value>
+    <value>529, 5</value>
   </data>
   <data name="button_g_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_g_s4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g_s4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_g_s4.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -500,19 +500,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_f_s4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 6</value>
+    <value>484, 5</value>
   </data>
   <data name="button_f_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_f_s4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f_s4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_f_s4.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -551,19 +551,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_d_s4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>492, 6</value>
+    <value>394, 5</value>
   </data>
   <data name="button_d_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_d_s4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d_s4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_d_s4.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -602,19 +602,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_c_s4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>436, 6</value>
+    <value>349, 5</value>
   </data>
   <data name="button_c_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_c_s4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_c_s4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_c_s4.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -653,19 +653,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_a_s5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1111, 6</value>
+    <value>889, 5</value>
   </data>
   <data name="button_a_s5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_a_s5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a_s5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_a_s5.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -704,19 +704,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_g_s5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1055, 6</value>
+    <value>844, 5</value>
   </data>
   <data name="button_g_s5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_g_s5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g_s5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_g_s5.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -755,19 +755,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_f_s5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>999, 6</value>
+    <value>799, 5</value>
   </data>
   <data name="button_f_s5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_f_s5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f_s5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_f_s5.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -806,19 +806,19 @@
     <value>NoControl</value>
   </data>
   <data name="button_d_s5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>886, 6</value>
+    <value>709, 5</value>
   </data>
   <data name="button_d_s5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_d_s5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d_s5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_d_s5.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -848,16 +848,16 @@
     <value>True</value>
   </data>
   <data name="red_felt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="red_felt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="red_felt.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="red_felt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1182, 12</value>
+    <value>946, 10</value>
   </data>
   <data name="red_felt.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -884,16 +884,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_bpm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, -4</value>
+    <value>7, -3</value>
   </data>
   <data name="label_bpm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_bpm.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_bpm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 20</value>
+    <value>32, 16</value>
   </data>
   <data name="label_bpm.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
@@ -917,16 +917,16 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="trackBar_time_signature.Location" type="System.Drawing.Point, System.Drawing">
-    <value>820, 316</value>
+    <value>656, 253</value>
   </data>
   <data name="trackBar_time_signature.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="trackBar_time_signature.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="trackBar_time_signature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 56</value>
+    <value>121, 45</value>
   </data>
   <data name="trackBar_time_signature.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>
@@ -956,16 +956,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_time_signature.Location" type="System.Drawing.Point, System.Drawing">
-    <value>848, 290</value>
+    <value>678, 232</value>
   </data>
   <data name="label_time_signature.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_time_signature.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_time_signature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 20</value>
+    <value>90, 16</value>
   </data>
   <data name="label_time_signature.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
@@ -1001,7 +1001,7 @@
     <value>Ctrl+N</value>
   </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="newToolStripMenuItem1.Text" xml:space="preserve">
     <value>New</value>
@@ -1016,7 +1016,7 @@
     <value>Ctrl+O</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Open</value>
@@ -1028,13 +1028,13 @@
     <value>Ctrl+Shift+O</value>
   </data>
   <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
     <value>Open Recent</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>217, 6</value>
   </data>
   <data name="saveToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
@@ -1046,7 +1046,7 @@
     <value>Ctrl+S</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
@@ -1061,13 +1061,13 @@
     <value>Ctrl+Alt+S</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Save As...</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 6</value>
+    <value>217, 6</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
@@ -1089,7 +1089,7 @@
     <value>Ctrl+M</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 26</value>
+    <value>220, 22</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Play MIDI file</value>
@@ -1098,7 +1098,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 24</value>
+    <value>39, 20</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;File</value>
@@ -1107,7 +1107,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 26</value>
+    <value>152, 22</value>
   </data>
   <data name="undoToolStripMenuItem.Text" xml:space="preserve">
     <value>Undo</value>
@@ -1116,7 +1116,7 @@
     <value>Ctrl+Y</value>
   </data>
   <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 26</value>
+    <value>152, 22</value>
   </data>
   <data name="redoToolStripMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
@@ -1125,7 +1125,7 @@
     <value>Ctrl+R</value>
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 26</value>
+    <value>152, 22</value>
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Revert</value>
@@ -1134,7 +1134,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 24</value>
+    <value>40, 20</value>
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Edit</value>
@@ -1143,7 +1143,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 24</value>
+    <value>63, 20</value>
   </data>
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Settings</value>
@@ -1152,7 +1152,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="aboutNeoBleeperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 24</value>
+    <value>121, 20</value>
   </data>
   <data name="aboutNeoBleeperToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About NeoBleeper</value>
@@ -1161,7 +1161,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 24</value>
+    <value>45, 20</value>
   </data>
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Help</value>
@@ -1170,13 +1170,13 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 4, 0, 4</value>
+    <value>6, 3, 0, 3</value>
   </data>
   <data name="menuStrip1.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1278, 32</value>
+    <value>1022, 26</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
@@ -1218,212 +1218,212 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASiwAAAJNU0Z0AUkBTAIBARAC
-        AAEPAQABDwEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAFQAwABAQEAASAGAAFQ/wD/
-        AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AHcAAfABygGmAv8BmQEzAf8B8AHKAaYB/6gAA7IB
-        /wQAA8AB/wQAAf8BmQEzAv8BzAEAA/8BMwL/AcwBMwL/AZkBAAn/A7IB/wOyAf8QAAH/AewBzAL/AcwB
-        MwL/AcwBMwL/AZkBMwL/AZkBMwL/AcwBMwL/AewBzAH/oAABpAKgAf8EAAGkAqAC/wHsAcwB/wMAAf8D
-        AAH/AwAB/wMAAf8DAAL/AZkBAAH/BAABpAKgAf8QAAX/AcwBZgL/AcwBMwL/AcwBMwL/AcwBMwL/AcwB
-        MwL/AZkBMwL/AZkBMwX/GAABjQGGAX8B/wGMAYUBfgH/AYsBhAF9Af8BigGDAX0B/wGJAYIBfAH/AYgB
-        gQF7Af8BiAGBAXoB/wGHAYABeQH/AYYBfwF5Af8BhQF+AXgB/wGFAX4BeAH/AYUBfgF4Af8BhQF+AXgB
-        /wGFAX4BeAH/A2UB4gQAAZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcB
-        jwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8B
-        ngGXAY8B/wGeAZcBjwH/CAAB/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAB/wMAAf8DAAH/AwAB/wMAAf8D
-        AAL/AcwBMwH/BAABpAKgAf8QAAH/AcwBZgL/AcwBZgL/AcwBZgL/AcwBMwL/AcwBMwL/AcwBMwL/AcwB
-        MwL/AZkBMwL/AZkBMwH/GAABjgGHAYAB/wHZAdIBygH/AY0BhgF/Af8B2QHSAcoB/wGLAYQBfQH/AdkB
-        0gHKAf8B2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wGGAX8BeQH/AdkB0gHKAf8BhQF+AXgB
-        /wHZAdIBygH/AYUBfgF4Af8EAAGTAY0BhQH/AeQB4QHeAf8B5AHiAd8B/wHkAeEB3wH/AeMB4AHdAf8B
-        4gHgAd0B/wHkAeEB3wH/AeQB4gHfAf8B5AHhAd4B/wGTAY0BhQH/AeMB4AHeAf8B1wHVAdMB/wGlAaMB
-        ogH/AeMB4QHeAf8BoAGZAZEB/wgAAcwBmQEAAf8BzAGZAQAB/wGZAWYBAAH/AcwBmQEAAf8DAAH/AwAB
-        /wMAAf8DAAH/AwAD/wEzAf8EAAGkAqAB/xAAAf8BzAFmAv8BzAFmAv8BzAFmAf8DAAL/AcwBMwL/AcwB
-        MwL/AcwBMwL/AcwBMwL/AZkBMwL/AcwBMwX/EAABkAGJAYIB/wHZAdIBygH/AY8BiAGBAf8B2QHSAcoB
-        /wGNAYYBfwH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wGIAYEBegH/AdkB
-        0gHKAf8BhgF/AXkB/wHZAdIBygH/AYUBfgF4Af8EAAGVAY8BhwH/AekB5gHkAf8B3AHYAdYB/wHpAecB
-        5QH/AecB5QHjAf8B5wHlAeIB/wHpAecB5QH/Ad8B3AHaAf8B6QHmAeQB/wGVAY8BhwH/AegB5gHjAf8B
-        6QHnAeUB/wNTAf8B6AHmAeMB/wGiAZsBkwH/CAABzAGZAQAB/wHMAZkBAAH/AcwBmQEAAv8BzAEzAf8D
-        AAH/AwAB/wMAAf8DAAH/AwAC/wHMAQAB/wQAAaQCoAH/EAAB/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB
-        /wHMAZkBAAH/AZkBZgEAAv8BzAEzAv8BzAEzAv8BzAEzAf8D1wL/AcwBMwL/AewBzAH/DAABkgGLAYQB
-        /wHZAdIBygH/AdkB0gHKAf8BjwGIAYEB/wHZAdIBygH/AY4BhwGAAf8B2QHSAcoB/wGMAYUBfgH/AdkB
-        0gHKAf8BigGDAX0B/wHZAdIBygH/AYgBgQF7Af8B2QHSAcoB/wHZAdIBygH/AYYBfwF5Af8EAAGWAZAB
-        iAH/AYoBhgGEAf8B4gHgAd8B/wFSAU4BSgH/AewB6gHoAf8B6wHpAecB/wFSAU4BSgH/AeIB3wHeAf8B
-        mQGWAZIB/wGWAZABiAH/AewB6gHpAf8DYAH/A2AB/wHtAesB6QH/AaQBnAGUAf8IAAHMAZkBAAH/AcwB
-        mQEAAf8BzAGZAQAB/wGZAWYBAAL/AcwBMwH/AwAB/wMAAf8DAAP/ATMC/wHMAWYB/wQAAaQCoAH/A/EB
-        /wPxAf8LAAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/AZkBZgEAAf8BzAGZAQAC/wHMATMC/wHMATMB
-        /wPdAf8D1wL/AcwBMwH/DAABlAGNAYUB/wHZAdIBygH/AdkB0gHKAf8BkQGKAYMB/wHZAdIBygH/AY8B
-        iAGBAf8B2QHSAcoB/wGOAYcBgAH/AdkB0gHKAf8BjAGFAX4B/wHZAdIBygH/AYoBgwF9Af8B2QHSAcoB
-        /wHZAdIBygH/AYgBgQF6Af8EAAGYAZIBigH/AVIBTgFKAf8B9ALyAf8BUgFOAUoB/wHvAe4B7AH/Ae8B
-        7QHsAf8BUgFOAUoB/wH0AvIB/wFSAU4BSgH/AZgBkgGKAf8B8AHvAe0B/wHzAfIB8QH/AfQB8gHxAf8B
-        8QHvAe4B/wGmAZ4BlgH/CAABzAGZATMB/wHMAZkBAAH/AcwBmQEAAf8BzAGZAQAB/wGZAWYBAAL/AcwB
-        MwL/AcwBMwL/AcwBMwL/AewBzAH/CAABpAKgAf8BpAKgAf8QAAL/AZkB/wMAAv8BzAFmAv8BzAFmAv8B
-        zAFmAf8BzAGZAQAB/wHMAZkBAAH/A+oB/wHwAcoBpgH/A90D/wFmA/8BmQH/CAABlgGPAYcB/wHZAdIB
-        ygH/AZQBjQGFAf8B2QHSAcoB/wGSAYsBhAH/AdkB0gHKAf8BkAGJAYIB/wHZAdIBygH/AY8BiAGBAf8B
-        2QHSAcoB/wGNAYYBfwH/AdkB0gHKAf8BiwGEAX0B/wHZAdIBygH/AYkBggF8Af8EAAGaAZMBiwH/AYoB
-        iAGEAf8B9wH2AfUB/wFSAU4BSgH/AfIB8AHvAf8B8QHvAe4B/wFSAU4BSgH/AfgC9wH/AX4BewF4Af8B
-        mgGTAYsB/wHzAfEB8AH/AfgC9gH/AfgB9wH2Af8B8wHyAfEB/wGoAaABlwH/CAABmQFmAQAB/wGZAWYB
-        AAH/AZkBZgEAAf8BzAGZATMB/wHMAZkBAAH/GAABpAKgAf8YAAL/AZkB/wMAAv8BzAFmAv8BzAFmAv8B
-        zAFmAf8BmQFmAQAB/wGZAWYBAAH/AZkBZgEAAf8D4wH/A90C/wHMAWYB/wgAAZcBkAGIAf8B2QHSAcoB
-        /wGWAY8BhwH/AdkB0gHKAf8BlAGNAYUB/wHZAdIBygH/AZIBiwGEAf8B2QHSAcoB/wGQAYkBggH/AdkB
-        0gHKAf8BjwGIAYEB/wHZAdIBygH/AY0BhgF/Af8B2QHSAcoB/wGLAYQBfQH/BAABnAGVAY0B/wH0AvIB
-        /wG5AbUBswH/AfYC9AH/AfEB7wHuAf8B8QHvAe4B/wH1AfQB8wH/AbIBrwGtAf8B9AHzAfIB/wGcAZUB
-        jQH/AfIB8QHwAf8BmQKYAf8BmgKZAf8B8wHxAfAB/wGqAaIBmQH/CAAB/wHMAQAC/wHMAQAC/wHMAQAC
-        /wHMAQAC/wHMAQAB/xAAAZkBzAL/A+oF/yAAAf8BzAEzAf8D+AH/A/gC/wHsAcwB/wGZAWYBAAH/AZkB
-        ZgEAAf8D6gL/AcwBmQL/AewBzAH/CAABmAGRAYkB/wHJAcMBuwH/AcoBwwG6Af8BlgGPAYgB/wGWAY8B
-        hwH/AckBwgG6Af8ByQHCAbkB/wGTAYwBhAH/AZIBiwGEAf8ByAHBAbkB/wHIAcEBuQH/AY8BiAGBAf8B
-        jwGIAYEB/wHHAcABuQH/AY0BhgF/Af8EAAGeAZYBjwH/AfAB7wHtAf8B8gHxAfAB/wHyAfAB7wH/Ae4B
-        7QHrAf8B7gHsAesB/wHxAfAB7wH/AfIB8QHwAf8B8QHvAe4B/wGeAZYBjwH/Ae8B7gHsAf8DSgH/A0oB
-        /wHwAe4B7AH/AawBowGbAf8wAAGZAcwC/wEzAcwC/yAAAf8BzAEzAf8D8QX/A/gB/wPxAf8D8QH/A+oC
-        /wHMAWYB/wwAAZgBkQGJAf8BmAGRAYkB/wGYAZEBiQH/AZgBkQGJAf8BlwGQAYgB/wGWAY8BiAH/AZYB
-        jwGHAf8BlQGOAYYB/wGUAY0BhQH/AZMBjAGEAf8BkgGLAYQB/wGRAYoBgwH/AZABiQGCAf8BjwGIAYEB
-        /wGPAYgBgQH/BAABqQGgAZcB/wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8B
-        oQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8BqQGgAZcB/wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB/wGhAZgB
-        kAH/Aa4BpQGcAf9cAAH/AZkBMwL/AewBzAH/A/gB/wPxAf8D8QL/AcwBZgL/AewBzAH/6AAB/wHMATMC
-        /wHMATMB/wMAAv8BzAFmBf//AP8A/wCXAAGZAcwC/wFmAcwC/wFmAcwC/wEzAcwC/wFmAcwC/wFmAcwC
-        /wFmAcwC/wFmAcwC/wFmAcwC/wFmAcwC/wFmAcwC/wFmAcwC/xgAA/EB/wEAAWYBzAH/AQABZgHMAf8B
-        AAFmAZkB/wEAAWYBmQH/AQABZgGZAf8BAAFmAZkB/wEAAWYBmQH/KAABZgHMAv8EAAFmAcwC/wQAAWYB
-        zAL/XAAE/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
-        /wEzAcwC/wEzAcwC/xgAApkBzAH/ATMBZgHMAf8BAAFmAcwB/wEAAWYBzAH/AQABZgHMAf8BAAFmAZkB
-        /wEAAWYBmQH/AQABZgGZAf8cAAGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/ATMBmQEAAf8B
-        ZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8BZgGZAQAB/wFmAZkBAAH/A+oB/xAAAZkCZgH/AZkCZgH/AZkC
-        ZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/AZkCZgH/A5YB
-        /xAAATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMB
-        zAL/ATMBzAL/GAAD6gH/ATMBZgHMAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8BAAFmAcwB/wEAAWYB
-        zAH/AQABZgHMAf8cAAGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB
-        /wEzAZkBAAH/AWYBmQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8QAAN3Af8DdwH/A3cB/wN3Af8D
-        dwH/A8AB/wPXAf8BpAKgAf8DdwH/A3cB/wN3Af8DdwH/A3cB/xAAATMBzAL/ATMBzAL/ATMBzAL/ATMB
-        zAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/AswC/x0AAWYBzAH/AQABZgHMAf8B
-        MwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8BMwFmAcwB/wEzAWYBzAH/HAABmQHMAQAB/wGZAcwBAAH/AZkB
-        zAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BMwGZAQAB
-        /wFmAZkBAAH/EAADdwH/A3cB/wGZAmYB/wPXAf8D1wH/A9cB/wEzApkB/wPXAf8D1wH/AaQCoAH/A3cB
-        /wN3Af8DdwH/EAABZgHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
-        MwHMAv8BMwHMBv8cAAEzAmYB/wEzAmYB/wIzAWYB/wGZAswB/wEzAmYB/wEzAmYB/wEzAmYB/xgAATMB
-        zAL/AZkBzAEAAf8BmQHMAQAB/wFmAZkBMwH/A0IB/wNCAf8DQgH/A0IB/wNCAf8BMwGZAQAB/wGZAcwB
-        AAH/AZkBzAEAAf8BZgHMAv8MAAKZAWYB/wKZAWYB/wPXAf8D3QH/A90B/wPdAf8BZgGZAcwB/wPdAf8D
-        3QH/A90B/wOWAf8CmQFmAf8CmQFmAf8QAALMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
-        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8gAAEzAmYB/wIzAWYB/wEzAWYBmQH/AswC/wEzAmYB/wEzAmYB
-        /wEzAmYB/xwAAZkBzAEAAf8BmQHMAQAB/wNCAf8DQgH/A0IB/wNCAf8DQgH/A0IB/wEzAZkBAAH/AZkB
-        zAEAAf8BmQHMAQAB/xAAA4AB/wN3Af8D3QH/A90B/wPdAf8D3QH/AWYBmQHMAf8D3QH/A90B/wPdAf8D
-        3QH/ApkBZgH/A4AB/xAABP8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
-        MwHMAv8BMwHMAv8hAAEzAWYB/wEzAWYBmQH/ATMCZgH/AswC/wEzAmYB/wEzAmYB/wKZAcwB/xgAATMB
-        zAL/AZkBzAEAAf8BmQHMAQAB/wNNAf8DTQH/A00B/wNNAf8DTQH/A00B/wEzAZkBAAH/AZkBzAEAAf8B
-        mQHMAQAB/wFmAcwC/wwAA4AB/wPAAf8D3QH/A+MB/wPjAf8D4wH/AWYBmQHMAf8D4wH/A+MB/wPjAf8D
-        3QH/A3cB/wOAAf8UAAGZAWYBAAH/AcwBmQEzAf8BzAGZAQAB/wHMAZkBAAH/AcwBmQEAAf8BzAGZAQAB
-        /wHMAZkBAAH/AZkBZgEAAf8BmQFmAQAB/xwAA4YB/wEzAmYB/wEzAmYB/wGZAcwC/wLMAv8BMwJmAf8B
-        MwJmBf8cAAGZAcwBMwH/AZkBzAEzAf8DTQH/A00B/wNNAf8DTQH/A00B/wNNAf8BMwGZAQAB/wGZAcwB
-        AAH/AZkBzAEAAf8QAAKZAWYB/wPdAf8D4wH/A+MB/wPqAf8DTQH/AyIB/wPqAf8D4wH/A+MB/wPjAf8D
-        dwH/A4YB/xQAAf8BzAFmAf8CmQEzAf8BmQFmAQAB/wGZAWYBAAH/AZkBZgEAAf8BzAGZAQAB/wHMAZkB
-        AAH/AcwBmQEAAf8D4wH/GAACMwGZAf8CZgGZAf8BZgGZAcwB/wIzAZkB/wIzAZkB/wLMAv8CMwGZAf8C
-        MwGZAf8cAAEzAcwC/wGZAcwBMwH/AZkBzAEzAf8CmQEzAf8DVQH/A1UB/wNVAf8DVQH/A1UB/wEzAZkB
-        AAH/AZkBzAEAAf8BmQHMAQAB/wFmAcwC/wwAA4YB/wOyAf8D4wH/A1UB/wNVAf8D6gH/A+oB/wNNAf8D
-        6gH/A+oB/wPjAf8DgAH/A8AB/yAAAZkBZgEAAf8BmQFmAQAB/ygABP8EAAT/AjMBmQH/AjMBmQH/AswC
-        /wIzAZkB/wIzAZkB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
-        MwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/xAAAaQCoAH/A4AB/wPqAf8D
-        6gH/A+oB/wPxAf8D8QH/A/EB/wNNAf8D6gH/A+oB/wOGAf8lAAGZAcwB/wEAAZkBzAH/NAACMwGZAf8B
-        xgHWAe8B/wLMAv8CMwGZAf8CMwGZAf8gAAGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
-        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8UAALMAWYB
-        /wOyAf8D6gH/A/EB/wPxAf8D8QH/A/EB/wPxAf8D6gH/A4AB/wLMAWYB/yUAAswB/wEAAswB/zUAAWYB
-        zAH/AQABZgHMAf8BAAFmAcwB/wEAAWYBzAH/ATMBZgHMAf8gAAGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
-        /wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
-        zAEzAf8UAAPqAf8DlgH/AaQCoAH/A/EB/wPxAf8D+AH/A/EB/wPxAf8DgAH/A5YB/wNNAf8lAALMAf8B
-        AALMAf85AAFmAcwB/wEAAWYBzAH/ATMBZgHMAf8wAAEzAcwC/wQAATMBzAL/BAABMwHMAv8kAAPxAf8D
-        lgH/A4AB/wOGAf8DgAH/A4YB/wOWAf8DlgH/A00B/wPAAf8kAAEzAswB/wEAAswB/zwAAWYBmQHMAf90
-        AAPxAf8DsgH/A5YB/wPAAf//AP8AKgAB/wGZATMB/0AAAYABfAL/AYABfAL/fAABmQFmAcwB/wGZAWYB
-        zAH/AZkBZgHMAf8sAAH/AWYBAAL/AWYBAAL/AewBzAH/NAABgAF8Av8BgAF8Av8D3QH/AYABfAL/KAAB
-        mQJmAf9IAAGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8oAAH/AWYBAAL/AWYB
-        AAL/AWYBAAL/AWYBAAH/LAABgAF8Av8BgAF8Av8D4wH/AYABfAL/AjMC/wIzAv9kAAGZAf8BAAH/AZkB
-        /wEAAf8BmQH/AQAB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAv8BzAFmAv8B
-        zAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAH/AfAB
-        ygGmAf8gAAGAAXwC/wGAAXwC/wPjAf8BgAF8Av8CMwL/AjMC/wIzAv8CMwL/IAADmQH/SAABmQFmAcwB
-        /wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/KAAB/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC
-        /wFmAQAC/wFmAQAC/wFmAQAF/xgAAYABfAL/A+oB/wGAAXwC/wEzAWYBzAH/AjMC/wIzAv8CMwL/AjMC
-        /wIzAv8cAAGkAqAB/zwAAZkB/wEAAf8BmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQFmAcwB/wGZAWYB
-        zAH/AZkBZgHMAf8BmQFmAcwC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB/xQAAf8BZgEAAv8B
-        ZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BmQEzAf8UAAHWAucB/wGAAXwC
-        /wEzAWYBzAH/AlAC/wEzAWYBzAH/AjMC/wIzAv8CMwL/AcwBZgEAAf8BzAFmAQAB/1gAAZkB/wEAAf8B
-        mQH/AQAB/wGZAf8BAAH/AZkB/wEAAv8BzAFmAv8BzAFmAf8BmQFmAcwB/wGZAWYBzAL/AcwBZgL/AcwB
-        ZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC
-        /wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAB/xQAAcYB1gHvAf8CUAL/ATMBZgHMAf8CUAL/ATMBZgHMAf8C
-        MwL/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf9sAAGZAWYBzAH/AZkBZgHMAf8oAAH/AZkB
-        AAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAX/GAACmQL/AlAC
-        /wEzAWYBzAH/AlAD/wGZATMC/wGZAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/EAAD
-        mQH/PAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYC/wGZAWYD
-        /wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB/xQAAf8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8B
-        mQEAAv8BmQEAAv8BmQEAAv8BzAFmAf8kAAKZAv8CUAP/AZkBMwL/AZkBMwL/AZkBMwL/AZkBAAH/AcwB
-        ZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8MAAGkAqAB/1QAAZkBZgL/AZkBZgL/KAAB/wGZAQAC
-        /wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAF/ywAAfABygGmAv8BZgEzAv8BmQEzAv8BmQEzAv8B
-        mQEzAv8BmQEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf9kAAGZAWYC/wGZAWYC/ygAAf8BmQEAAv8B
-        mQEAAv8BmQEAAv8BmQEAAf8B8AHKAaYB/zsAAv8BZgEzAv8BmQEzAv8BmQEzAv8BmQEzAv8BmQEAAf8B
-        zAFmAQAC/wHsAcwB/0wAAZkB/wEAAf8BmQH/AQAB/wGZAf8BAAH/AZkB/wEAAv8BzAFmAv8BzAFmAf8B
-        mQFmAv8BmQFmAv8BZgEzAcwB/wFmATMBzAL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wGZAQAC/wGZAQAC
-        /wGZAQAB/0cAAv8BZgEzAv8BmQEzAv8BmQEzAv8BmQEzAv8B7AHMAf8QAAGZAmYB/1QAAZkBZgL/AZkB
-        ZgL/AWYBMwHMAf8BZgEzAcwB/yAAAf8BmQEAAf8D6gH/TwAC/wFmATMC/wGZATMC/wHsAcwB/xQAA+oB
-        /wGZAmYB/wgAAaQCoAH/A5kB/wgAAaQCoAH/A5kB/wQAAZkCZgH/KAAE/wGZAWYC/wFmATMBzAH/AWYB
-        MwHMAf94AAPdAv8B7AHMAf//AP8ArgADwAH/FAAE/wIzAv8YAAPxAv8BzAEzAv8BzAEzAv8BzAEzAv8B
-        mQEzAv8BzAEAAf8cAAFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB
-        /wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wHMAf8BZgH/XAAD
-        6gH/A5YB/wwAAf8BmQFmAv8BzAEzAf8CMwb/FAAB/wHMATMC/wHMATMB/wHMAZkBMwH/AcwBmQEzAv8B
-        zAEAAv8BmQEzAv8BzAEAAv8BzAEAAv8BmQFmAf8UAAGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAATCwAAAJNU0Z0AUkBTAIBARAB
+        AAEIAQ8BCAEPARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AdwAB8AHKAaYC/wGZATMB/wHwAcoBpgH/qAAD
+        sgH/BAADwAH/BAAB/wGZATMC/wHMAQAD/wEzAv8BzAEzAv8BmQEACf8DsgH/A7IB/xAAAf8B7AHMAv8B
+        zAEzAv8BzAEzAv8BmQEzAv8BmQEzAv8BzAEzAv8B7AHMAf+gAAGkAqAB/wQAAaQCoAL/AewBzAH/AwAB
+        /wMAAf8DAAH/AwAB/wMAAv8BmQEAAf8EAAGkAqAB/xAABf8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        zAEzAv8BmQEzAv8BmQEzBf8YAAGNAYYBfwH/AYwBhQF+Af8BiwGEAX0B/wGKAYMBfQH/AYkBggF8Af8B
+        iAGBAXsB/wGIAYEBegH/AYcBgAF5Af8BhgF/AXkB/wGFAX4BeAH/AYUBfgF4Af8BhQF+AXgB/wGFAX4B
+        eAH/AYUBfgF4Af8DZQHiBAABngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4B
+        lwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B
+        /wGeAZcBjwH/AZ4BlwGPAf8IAAH/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAH/AwAB/wMAAf8DAAH/AwAB
+        /wMAAv8BzAEzAf8EAAGkAqAB/xAAAf8BzAFmAv8BzAFmAv8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        zAEzAv8BmQEzAv8BmQEzAf8YAAGOAYcBgAH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8B
+        2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYYBfwF5Af8B2QHSAcoB/wGFAX4B
+        eAH/AdkB0gHKAf8BhQF+AXgB/wQAAZMBjQGFAf8B5AHhAd4B/wHkAeIB3wH/AeQB4QHfAf8B4wHgAd0B
+        /wHiAeAB3QH/AeQB4QHfAf8B5AHiAd8B/wHkAeEB3gH/AZMBjQGFAf8B4wHgAd4B/wHXAdUB0wH/AaUB
+        owGiAf8B4wHhAd4B/wGgAZkBkQH/CAABzAGZAQAB/wHMAZkBAAH/AZkBZgEAAf8BzAGZAQAB/wMAAf8D
+        AAH/AwAB/wMAAf8DAAP/ATMB/wQAAaQCoAH/EAAB/wHMAWYC/wHMAWYC/wHMAWYB/wMAAv8BzAEzAv8B
+        zAEzAv8BzAEzAv8BzAEzAv8BmQEzAv8BzAEzBf8QAAGQAYkBggH/AdkB0gHKAf8BjwGIAYEB/wHZAdIB
+        ygH/AY0BhgF/Af8B2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYgBgQF6Af8B
+        2QHSAcoB/wGGAX8BeQH/AdkB0gHKAf8BhQF+AXgB/wQAAZUBjwGHAf8B6QHmAeQB/wHcAdgB1gH/AekB
+        5wHlAf8B5wHlAeMB/wHnAeUB4gH/AekB5wHlAf8B3wHcAdoB/wHpAeYB5AH/AZUBjwGHAf8B6AHmAeMB
+        /wHpAecB5QH/A1MB/wHoAeYB4wH/AaIBmwGTAf8IAAHMAZkBAAH/AcwBmQEAAf8BzAGZAQAC/wHMATMB
+        /wMAAf8DAAH/AwAB/wMAAf8DAAL/AcwBAAH/BAABpAKgAf8QAAH/AcwBZgL/AcwBZgL/AcwBZgL/AcwB
+        ZgH/AcwBmQEAAf8BmQFmAQAC/wHMATMC/wHMATMC/wHMATMB/wPXAv8BzAEzAv8B7AHMAf8MAAGSAYsB
+        hAH/AdkB0gHKAf8B2QHSAcoB/wGPAYgBgQH/AdkB0gHKAf8BjgGHAYAB/wHZAdIBygH/AYwBhQF+Af8B
+        2QHSAcoB/wGKAYMBfQH/AdkB0gHKAf8BiAGBAXsB/wHZAdIBygH/AdkB0gHKAf8BhgF/AXkB/wQAAZYB
+        kAGIAf8BigGGAYQB/wHiAeAB3wH/AVIBTgFKAf8B7AHqAegB/wHrAekB5wH/AVIBTgFKAf8B4gHfAd4B
+        /wGZAZYBkgH/AZYBkAGIAf8B7AHqAekB/wNgAf8DYAH/Ae0B6wHpAf8BpAGcAZQB/wgAAcwBmQEAAf8B
+        zAGZAQAB/wHMAZkBAAH/AZkBZgEAAv8BzAEzAf8DAAH/AwAB/wMAA/8BMwL/AcwBZgH/BAABpAKgAf8D
+        8QH/A/EB/wsAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQFmAQAB/wHMAZkBAAL/AcwBMwL/AcwB
+        MwH/A90B/wPXAv8BzAEzAf8MAAGUAY0BhQH/AdkB0gHKAf8B2QHSAcoB/wGRAYoBgwH/AdkB0gHKAf8B
+        jwGIAYEB/wHZAdIBygH/AY4BhwGAAf8B2QHSAcoB/wGMAYUBfgH/AdkB0gHKAf8BigGDAX0B/wHZAdIB
+        ygH/AdkB0gHKAf8BiAGBAXoB/wQAAZgBkgGKAf8BUgFOAUoB/wH0AvIB/wFSAU4BSgH/Ae8B7gHsAf8B
+        7wHtAewB/wFSAU4BSgH/AfQC8gH/AVIBTgFKAf8BmAGSAYoB/wHwAe8B7QH/AfMB8gHxAf8B9AHyAfEB
+        /wHxAe8B7gH/AaYBngGWAf8IAAHMAZkBMwH/AcwBmQEAAf8BzAGZAQAB/wHMAZkBAAH/AZkBZgEAAv8B
+        zAEzAv8BzAEzAv8BzAEzAv8B7AHMAf8IAAGkAqAB/wGkAqAB/xAAAv8BmQH/AwAC/wHMAWYC/wHMAWYC
+        /wHMAWYB/wHMAZkBAAH/AcwBmQEAAf8D6gH/AfABygGmAf8D3QP/AWYD/wGZAf8IAAGWAY8BhwH/AdkB
+        0gHKAf8BlAGNAYUB/wHZAdIBygH/AZIBiwGEAf8B2QHSAcoB/wGQAYkBggH/AdkB0gHKAf8BjwGIAYEB
+        /wHZAdIBygH/AY0BhgF/Af8B2QHSAcoB/wGLAYQBfQH/AdkB0gHKAf8BiQGCAXwB/wQAAZoBkwGLAf8B
+        igGIAYQB/wH3AfYB9QH/AVIBTgFKAf8B8gHwAe8B/wHxAe8B7gH/AVIBTgFKAf8B+AL3Af8BfgF7AXgB
+        /wGaAZMBiwH/AfMB8QHwAf8B+AL2Af8B+AH3AfYB/wHzAfIB8QH/AagBoAGXAf8IAAGZAWYBAAH/AZkB
+        ZgEAAf8BmQFmAQAB/wHMAZkBMwH/AcwBmQEAAf8YAAGkAqAB/xgAAv8BmQH/AwAC/wHMAWYC/wHMAWYC
+        /wHMAWYB/wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wPjAf8D3QL/AcwBZgH/CAABlwGQAYgB/wHZAdIB
+        ygH/AZYBjwGHAf8B2QHSAcoB/wGUAY0BhQH/AdkB0gHKAf8BkgGLAYQB/wHZAdIBygH/AZABiQGCAf8B
+        2QHSAcoB/wGPAYgBgQH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8EAAGcAZUBjQH/AfQC
+        8gH/AbkBtQGzAf8B9gL0Af8B8QHvAe4B/wHxAe8B7gH/AfUB9AHzAf8BsgGvAa0B/wH0AfMB8gH/AZwB
+        lQGNAf8B8gHxAfAB/wGZApgB/wGaApkB/wHzAfEB8AH/AaoBogGZAf8IAAH/AcwBAAL/AcwBAAL/AcwB
+        AAL/AcwBAAL/AcwBAAH/EAABmQHMAv8D6gX/IAAB/wHMATMB/wP4Af8D+AL/AewBzAH/AZkBZgEAAf8B
+        mQFmAQAB/wPqAv8BzAGZAv8B7AHMAf8IAAGYAZEBiQH/AckBwwG7Af8BygHDAboB/wGWAY8BiAH/AZYB
+        jwGHAf8ByQHCAboB/wHJAcIBuQH/AZMBjAGEAf8BkgGLAYQB/wHIAcEBuQH/AcgBwQG5Af8BjwGIAYEB
+        /wGPAYgBgQH/AccBwAG5Af8BjQGGAX8B/wQAAZ4BlgGPAf8B8AHvAe0B/wHyAfEB8AH/AfIB8AHvAf8B
+        7gHtAesB/wHuAewB6wH/AfEB8AHvAf8B8gHxAfAB/wHxAe8B7gH/AZ4BlgGPAf8B7wHuAewB/wNKAf8D
+        SgH/AfAB7gHsAf8BrAGjAZsB/zAAAZkBzAL/ATMBzAL/IAAB/wHMATMB/wPxBf8D+AH/A/EB/wPxAf8D
+        6gL/AcwBZgH/DAABmAGRAYkB/wGYAZEBiQH/AZgBkQGJAf8BmAGRAYkB/wGXAZABiAH/AZYBjwGIAf8B
+        lgGPAYcB/wGVAY4BhgH/AZQBjQGFAf8BkwGMAYQB/wGSAYsBhAH/AZEBigGDAf8BkAGJAYIB/wGPAYgB
+        gQH/AY8BiAGBAf8EAAGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB
+        /wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB/wGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEB
+        mAGQAf8BrgGlAZwB/1wAAf8BmQEzAv8B7AHMAf8D+AH/A/EB/wPxAv8BzAFmAv8B7AHMAf/oAAH/AcwB
+        MwL/AcwBMwH/AwAC/wHMAWYF//8A/wD/AJcAAZkBzAL/AWYBzAL/AWYBzAL/ATMBzAL/AWYBzAL/AWYB
+        zAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/GAAD8QH/AQABZgHMAf8BAAFmAcwB
+        /wEAAWYBmQH/AQABZgGZAf8BAAFmAZkB/wEAAWYBmQH/AQABZgGZAf8oAAFmAcwC/wQAAWYBzAL/BAAB
+        ZgHMAv9cAAT/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMB
+        zAL/ATMBzAL/ATMBzAL/GAACmQHMAf8BMwFmAcwB/wEAAWYBzAH/AQABZgHMAf8BAAFmAcwB/wEAAWYB
+        mQH/AQABZgGZAf8BAAFmAZkB/xwAAZkBzAEzAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BMwGZAQAB
+        /wFmAZkBAAH/AWYBmQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8D6gH/EAABmQJmAf8BmQJmAf8B
+        mQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8D
+        lgH/EAABMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8BMwHMAv8YAAPqAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8BMwFmAcwB/wEAAWYBzAH/AQAB
+        ZgHMAf8BAAFmAcwB/xwAAZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwB
+        AAH/ATMBmQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8BZgGZAQAB/xAAA3cB/wN3Af8DdwH/A3cB
+        /wN3Af8DwAH/A9cB/wGkAqAB/wN3Af8DdwH/A3cB/wN3Af8DdwH/EAABMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8CzAL/HQABZgHMAf8BAAFmAcwB
+        /wEzAWYBzAH/ATMBZgHMAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8cAAGZAcwBAAH/AZkBzAEAAf8B
+        mQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wEzAZkB
+        AAH/AWYBmQEAAf8QAAN3Af8DdwH/AZkCZgH/A9cB/wPXAf8D1wH/ATMCmQH/A9cB/wPXAf8BpAKgAf8D
+        dwH/A3cB/wN3Af8QAAFmAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/wEzAcwG/xwAATMCZgH/ATMCZgH/AjMBZgH/AZkCzAH/ATMCZgH/ATMCZgH/ATMCZgH/GAAB
+        MwHMAv8BmQHMAQAB/wGZAcwBAAH/AWYBmQEzAf8DQgH/A0IB/wNCAf8DQgH/A0IB/wEzAZkBAAH/AZkB
+        zAEAAf8BmQHMAQAB/wFmAcwC/wwAApkBZgH/ApkBZgH/A9cB/wPdAf8D3QH/A90B/wFmAZkBzAH/A90B
+        /wPdAf8D3QH/A5YB/wKZAWYB/wKZAWYB/xAAAswC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/yAAATMCZgH/AjMBZgH/ATMBZgGZAf8CzAL/ATMCZgH/ATMC
+        ZgH/ATMCZgH/HAABmQHMAQAB/wGZAcwBAAH/A0IB/wNCAf8DQgH/A0IB/wNCAf8DQgH/ATMBmQEAAf8B
+        mQHMAQAB/wGZAcwBAAH/EAADgAH/A3cB/wPdAf8D3QH/A90B/wPdAf8BZgGZAcwB/wPdAf8D3QH/A90B
+        /wPdAf8CmQFmAf8DgAH/EAAE/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/wEzAcwC/yEAATMBZgH/ATMBZgGZAf8BMwJmAf8CzAL/ATMCZgH/ATMCZgH/ApkBzAH/GAAB
+        MwHMAv8BmQHMAQAB/wGZAcwBAAH/A00B/wNNAf8DTQH/A00B/wNNAf8DTQH/ATMBmQEAAf8BmQHMAQAB
+        /wGZAcwBAAH/AWYBzAL/DAADgAH/A8AB/wPdAf8D4wH/A+MB/wPjAf8BZgGZAcwB/wPjAf8D4wH/A+MB
+        /wPdAf8DdwH/A4AB/xQAAZkBZgEAAf8BzAGZATMB/wHMAZkBAAH/AcwBmQEAAf8BzAGZAQAB/wHMAZkB
+        AAH/AcwBmQEAAf8BmQFmAQAB/wGZAWYBAAH/HAADhgH/ATMCZgH/ATMCZgH/AZkBzAL/AswC/wEzAmYB
+        /wEzAmYF/xwAAZkBzAEzAf8BmQHMATMB/wNNAf8DTQH/A00B/wNNAf8DTQH/A00B/wEzAZkBAAH/AZkB
+        zAEAAf8BmQHMAQAB/xAAApkBZgH/A90B/wPjAf8D4wH/A+oB/wNNAf8DIgH/A+oB/wPjAf8D4wH/A+MB
+        /wN3Af8DhgH/FAAB/wHMAWYB/wKZATMB/wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wHMAZkBAAH/AcwB
+        mQEAAf8BzAGZAQAB/wPjAf8YAAIzAZkB/wJmAZkB/wFmAZkBzAH/AjMBmQH/AjMBmQH/AswC/wIzAZkB
+        /wIzAZkB/xwAATMBzAL/AZkBzAEzAf8BmQHMATMB/wKZATMB/wNVAf8DVQH/A1UB/wNVAf8DVQH/ATMB
+        mQEAAf8BmQHMAQAB/wGZAcwBAAH/AWYBzAL/DAADhgH/A7IB/wPjAf8DVQH/A1UB/wPqAf8D6gH/A00B
+        /wPqAf8D6gH/A+MB/wOAAf8DwAH/IAABmQFmAQAB/wGZAWYBAAH/KAAE/wQABP8CMwGZAf8CMwGZAf8C
+        zAL/AjMBmQH/AjMBmQH/IAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/EAABpAKgAf8DgAH/A+oB
+        /wPqAf8D6gH/A/EB/wPxAf8D8QH/A00B/wPqAf8D6gH/A4YB/yUAAZkBzAH/AQABmQHMAf80AAIzAZkB
+        /wHGAdYB7wH/AswC/wIzAZkB/wIzAZkB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/xQAAswB
+        ZgH/A7IB/wPqAf8D8QH/A/EB/wPxAf8D8QH/A/EB/wPqAf8DgAH/AswBZgH/JQACzAH/AQACzAH/NQAB
+        ZgHMAf8BAAFmAcwB/wEAAWYBzAH/AQABZgHMAf8BMwFmAcwB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwB
         MwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
-        mQHMATMB/wGZAcwBMwH/FAAB/wFmAQAC/wFmAQAC/wFmAQAB/wwAAf8BZgEAAv8BZgEAAv8BZgEAAf8g
-        AAT/A4YB/wOZAf8IAALMAWYC/wFmAQAB/wIzAv8D8QH/FAAB/wFmAQAB/wHMAZkBMwH/AcwBZgEABf8M
-        AAH/AZkBZgL/AcwBAAL/AcwBMwL/AZkBZgH/WAAB/wFmAQAC/wFmAQAC/wFmAQAB/wwAAf8BZgEAAv8B
-        ZgEAAv8BZgEAAf8cAAT/A4YB/wOGAf8DmQH/BAAB8AHKAaYC/wHMAQAB/wIzA/8BZgEAAv8BZgEAAf8Q
-        AAHwAcoBpgL/AWYBAAL/AcwBZgH/GAAF/wHMATMC/wHMAQAB/1gAAf8BZgEAAv8BZgEAAv8BZgEAAf8M
-        AAH/AWYBAAL/AWYBAAL/AWYBAAH/FAADhgH/A2YB/wOGAf8DhgH/A4YB/wOZA/8BZgL/AcwBMwH/AjMD
-        /wHMATMC/wHMAWYC/wFmAQAF/wwAAcwBmQEzAv8BmQEzAf8gAAH/AcwBMwL/AcwBAAL/AZkBMwL/AcwB
-        MwH/UAAB/wFmAQAC/wFmAQAC/wFmAQAB/wwAAf8BZgEAAv8BZgEAAv8BZgEAAf8UAANmAf8DZgH/A4YB
-        /wOGAf8DhgH/A5kB/wMAAf8CMwP/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAH/AswBZgH/MAAF/wHMATMC
-        /wHMAQAC/wHMATMF/wgAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        mQHMATMB/xQAA+oB/wOWAf8BpAKgAf8D8QH/A/EB/wP4Af8D8QH/A/EB/wOAAf8DlgH/A00B/yUAAswB
+        /wEAAswB/zkAAWYBzAH/AQABZgHMAf8BMwFmAcwB/zAAATMBzAL/BAABMwHMAv8EAAEzAcwC/yQAA/EB
+        /wOWAf8DgAH/A4YB/wOAAf8DhgH/A5YB/wOWAf8DTQH/A8AB/yQAATMCzAH/AQACzAH/PAABZgGZAcwB
+        /3QAA/EB/wOyAf8DlgH/A8AB//8A/wAqAAH/AZkBMwH/QAABgAF8Av8BgAF8Av98AAGZAWYBzAH/AZkB
+        ZgHMAf8BmQFmAcwB/ywAAf8BZgEAAv8BZgEAAv8B7AHMAf80AAGAAXwC/wGAAXwC/wPdAf8BgAF8Av8o
+        AAGZAmYB/0gAAZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/ygAAf8BZgEAAv8B
+        ZgEAAv8BZgEAAv8BZgEAAf8sAAGAAXwC/wGAAXwC/wPjAf8BgAF8Av8CMwL/AjMC/2QAAZkB/wEAAf8B
+        mQH/AQAB/wGZAf8BAAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwC/wHMAWYC
+        /wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB/xQAAf8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAf8B
+        8AHKAaYB/yAAAYABfAL/AYABfAL/A+MB/wGAAXwC/wIzAv8CMwL/AjMC/wIzAv8gAAOZAf9IAAGZAWYB
+        zAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8oAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAL/AWYBAAX/GAABgAF8Av8D6gH/AYABfAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8C
+        MwL/AjMC/xwAAaQCoAH/PAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAWYBzAH/AZkB
+        ZgHMAf8BmQFmAcwB/wGZAWYBzAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wFmAQAC
+        /wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wGZATMB/xQAAdYC5wH/AYAB
+        fAL/ATMBZgHMAf8CUAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8BzAFmAQAB/wHMAWYBAAH/WAABmQH/AQAB
+        /wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYBzAH/AZkBZgHMAv8BzAFmAv8B
+        zAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAH/FAABxgHWAe8B/wJQAv8BMwFmAcwB/wJQAv8BMwFmAcwB
+        /wIzAv8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2wAAZkBZgHMAf8BmQFmAcwB/ygAAf8B
+        mQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEABf8YAAKZAv8C
+        UAL/ATMBZgHMAf8CUAP/AZkBMwL/AZkBAAH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8Q
+        AAOZAf88AAGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgH/AZkBZgL/AZkB
+        ZgP/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC
+        /wGZAQAC/wGZAQAC/wGZAQAC/wHMAWYB/yQAApkC/wJQA/8BmQEzAv8BmQEzAv8BmQEzAv8BmQEAAf8B
+        zAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/wwAAaQCoAH/VAABmQFmAv8BmQFmAv8oAAH/AZkB
+        AAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAX/LAAB8AHKAaYC/wFmATMC/wGZATMC/wGZATMC
+        /wGZATMC/wGZAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2QAAZkBZgL/AZkBZgL/KAAB/wGZAQAC
+        /wGZAQAC/wGZAQAC/wGZAQAB/wHwAcoBpgH/OwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wGZAQAB
+        /wHMAWYBAAL/AewBzAH/TAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB
+        /wGZAWYC/wGZAWYC/wFmATMBzAH/AWYBMwHMAv8BzAFmAv8BzAFmAv8BzAFmAf8UAAH/AZkBAAL/AZkB
+        AAL/AZkBAAH/RwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wHsAcwB/xAAAZkCZgH/VAABmQFmAv8B
+        mQFmAv8BZgEzAcwB/wFmATMBzAH/IAAB/wGZAQAB/wPqAf9PAAL/AWYBMwL/AZkBMwL/AewBzAH/FAAD
+        6gH/AZkCZgH/CAABpAKgAf8DmQH/CAABpAKgAf8DmQH/BAABmQJmAf8oAAT/AZkBZgL/AWYBMwHMAf8B
+        ZgEzAcwB/3gAA90C/wHsAcwB//8A/wCuAAPAAf8UAAT/AjMC/xgAA/EC/wHMATMC/wHMATMC/wHMATMC
+        /wGZATMC/wHMAQAB/xwAAWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwB
+        AAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AcwB/wFmAf9c
+        AAPqAf8DlgH/DAAB/wGZAWYC/wHMATMB/wIzBv8UAAH/AcwBMwL/AcwBMwH/AcwBmQEzAf8BzAGZATMC
+        /wHMAQAC/wGZATMC/wHMAQAC/wHMAQAC/wGZAWYB/xQAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /wGZAcwBMwH/AZkBzAEzAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB
+        /yAABP8DhgH/A5kB/wgAAswBZgL/AWYBAAH/AjMC/wPxAf8UAAH/AWYBAAH/AcwBmQEzAf8BzAFmAQAF
+        /wwAAf8BmQFmAv8BzAEAAv8BzAEzAv8BmQFmAf9YAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC
+        /wFmAQAC/wFmAQAB/xwABP8DhgH/A4YB/wOZAf8EAAHwAcoBpgL/AcwBAAH/AjMD/wFmAQAC/wFmAQAB
+        /xAAAfABygGmAv8BZgEAAv8BzAFmAf8YAAX/AcwBMwL/AcwBAAH/WAAB/wFmAQAC/wFmAQAC/wFmAQAB
+        /wwAAf8BZgEAAv8BZgEAAv8BZgEAAf8UAAOGAf8DZgH/A4YB/wOGAf8DhgH/A5kD/wFmAv8BzAEzAf8C
+        MwP/AcwBMwL/AcwBZgL/AWYBAAX/DAABzAGZATMC/wGZATMB/yAAAf8BzAEzAv8BzAEAAv8BmQEzAv8B
+        zAEzAf9QAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/xQAA2YB/wNmAf8D
+        hgH/A4YB/wOGAf8DmQH/AwAB/wIzA/8BzAEzAv8BzAEAAv8BzAEAAv8BZgEAAf8CzAFmAf8wAAX/AcwB
+        MwL/AcwBAAL/AcwBMwX/CAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /xQAAf8BZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYBAAH/FAADZgH/A2YB/wOGAf8D
+        hgH/A4YB/wOZAf8CMwP/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAH/AcwBmQEzAf8MAAH/AcwB
+        MwH/KAAB/wHMAQAC/wHMATMB/1QAAf8BZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYB
+        AAH/FAADZgH/A2YB/wOGAf8DhgH/A4YB/wIzAv8DAAL/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYB
+        AAL/AcwBMwH/CAAB/wHMAZkC/wHMATMC/wHMATMC/wHMATMB/3wAAf8BmQEAAv8BmQEAAv8BmQEAAf8M
+        AAH/AZkBAAL/AZkBAAL/AZkBAAH/FAADZgH/A2YB/wOGAf8DhgH/AjMC/wGkAqAC/wHMATMC/wHMATMC
+        /wHMAWYC/wHMAQAC/wHMATMC/wFmAQAD/wHMAf8IAAH/AcwBMwL/AcwBMwL/AcwBMwH/JAACzAGZAf9Y
+        AAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xwAA8wB/wIzAv8DhgH/AaQC
+        oAH/BAAB/wHMATMC/wHMAQAC/wHMAQAC/wFmAQAC/wFmAQAB/xAAAf8BzAEzAv8BzAEzAv8BmQEzAf8c
+        AALMAWYC/wFmAQAF/wwAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
         MwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8U
-        AAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/xQAA2YB/wNmAf8DhgH/A4YB
-        /wOGAf8DmQH/AjMD/wHMATMC/wHMATMC/wHMAQAC/wHMAQAC/wFmAQAB/wHMAZkBMwH/DAAB/wHMATMB
-        /ygAAf8BzAEAAv8BzAEzAf9UAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB
-        /xQAA2YB/wNmAf8DhgH/A4YB/wOGAf8CMwL/AwAC/wHMATMC/wHMATMC/wHMAQAC/wHMAQAC/wFmAQAC
-        /wHMATMB/wgAAf8BzAGZAv8BzAEzAv8BzAEzAv8BzAEzAf98AAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB
-        /wGZAQAC/wGZAQAC/wGZAQAB/xQAA2YB/wNmAf8DhgH/A4YB/wIzAv8BpAKgAv8BzAEzAv8BzAEzAv8B
-        zAFmAv8BzAEAAv8BzAEzAv8BZgEAA/8BzAH/CAAB/wHMATMC/wHMATMC/wHMATMB/yQAAswBmQH/WAAB
-        /wGZAQAC/wGZAQAC/wGZAQAB/wwAAf8BmQEAAv8BmQEAAv8BmQEAAf8cAAPMAf8CMwL/A4YB/wGkAqAB
-        /wQAAf8BzAEzAv8BzAEAAv8BzAEAAv8BZgEAAv8BZgEAAf8QAAH/AcwBMwL/AcwBMwL/AZkBMwH/HAAC
-        zAFmAv8BZgEABf8MAAGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
-        /wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/FAAB
-        /wGZAQAC/wGZAQAC/wGZAQAB/wwAAf8BmQEAAv8BmQEAAv8BmQEAAf8YAAT/AjMC/wGkAqAB/wOGAf8B
-        pAKgAf8IAAH/AcwBAAL/AcwBZgL/AWYBAAL/AcwBMwH/FAAB/wHMATMC/wHMATMC/wGZATMB/xQAAoAB
-        AAL/AWYBAAL/AWYBAAH/WAAB/wGZAQAC/wGZAQAC/wGZAQAB/wwAAf8BmQEAAv8BmQEAAv8BmQEAAf8U
-        AAT/AjMG/wQAAswBZgH/AaQCoAH/DAAB/wFmAQAC/wFmAQAB/xgABf8BzAEzAv8BzAEzAv8BzAEzAf8B
-        zAGZATMB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/wHMAZkBMwL/AZkBAAH/XAAB/wGZAQAC/wGZAQAC
-        /wGZAQAB/wwAAf8BmQEAAv8BmQEAAv8BmQEAAf8QAAT/AjMG/wwAA7IB/zQAAf8BzAEzAv8BzAEzAv8B
-        mQEzAv8BzAEAAv8BzAEAAv8BzAEzAv8BzAFmAf8YAAGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
-        MwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
-        mQHMATMB/wGZAcwBMwH/FAAB/wGZAQAC/wGZAQAB/wHMAZkBMwH/DAAB/wGZAQAC/wGZAQAB/wHMAZkB
-        MwH/EAAI//8A9QABQgFNAT4HAAE+AwABKAMAAUADAAFQAwABAQEAAQEFAAGAAQIWAAP/gQAK/wH4Bf8B
-        1AEBAeABPwT/AdABCwHAAR8BgAEAAYABAAHAAQsBwAEfAYABAAGAAQABwAELAcABBwGAAQABgAEAAcAB
-        CwHAAQMBgAEAAYABAAHAAQgBwAEDAYABAAGAAQABwAEZAeABAQGAAQABgAEAAcEB+wHwAQEBgAEAAYAB
-        AAHBAeMB/AEBAYABAAGAAQAB/wHzAfwBAwGAAQABgAEAAv8B/gEDB/8BBxz/AcABAwHwAQ8B/QFfAv8B
-        wAEDAfABDwHgAQMBwAEBAeABAwHwAQ8B4AEDAcABAQHgAQMB+AEPAeABAwHAAQEB4AEDAfgBDwHAAQEB
-        wAEBAeABBwH4AQ8B4AEDAcABAQHgAQcB+AEPAcABAQHAAQEB8AEHAfABDwHgAQMBwAEBAfABBwHgAR8B
-        wAEBAcABAQH+AX8B6AEfAeABAwHAAQMB/gF/AfwBHwHgAQMB4AEDAf4BfwH8AR8B4AEDAeABAwH+AX8B
-        /gE/Af0BXwHwAQMB/gF/Af8BfwL/AfwBPxD/AfcB/wH5A/8B/AF/AfEB/wHwAf8B3wH/AfgBPwHwAf8B
-        4AF/Av8BwAEBAfABPwHAAT8B3wH/AfgBPwHwAQ8BwAEfAd8B/wHAAQEB8AEHAcABDwL/AcABAQHwAQMB
-        4AEHA/8BPwHwAQMB8AEDAd8B/wHAAQEB8AEPAfgBAQHfAv8BPwHwAR8B/AEBA/8BPwHwAX8B/gEBAv8B
-        wAEBAfEC/wEDAd8C/wEPAfMC/wGHAcwBywH/AQ8D/wHPFP8B/gH5AfgBHwHAAQEC/wH8AeEB8AEHAcAB
-        AQHxAccB+AHDAeEBwwL/AfEBxwHwAYMBxwHjAv8B8QHHAcABAQHPAfAC/wHxAccBwAEBAf8B4AHAAQEB
-        8QHHAcABAQHfAfkC/wHxAccBwAEBAYcD/wHxAccBwAEBAY8B+wL/AfEBxwHwAYMBxwHxAcABAQHxAccB
-        4AHDAuMC/wHxAccBxAHnAeABBwL/AfEBxwGOAf8B+AEPAcABAQHxAccBnw//Cw==
+        AAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xgABP8CMwL/AaQCoAH/A4YB
+        /wGkAqAB/wgAAf8BzAEAAv8BzAFmAv8BZgEAAv8BzAEzAf8UAAH/AcwBMwL/AcwBMwL/AZkBMwH/FAAC
+        gAEAAv8BZgEAAv8BZgEAAf9YAAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB
+        /xQABP8CMwb/BAACzAFmAf8BpAKgAf8MAAH/AWYBAAL/AWYBAAH/GAAF/wHMATMC/wHMATMC/wHMATMB
+        /wHMAZkBMwH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBmQEzAv8BmQEAAf9cAAH/AZkBAAL/AZkB
+        AAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xAABP8CMwb/DAADsgH/NAAB/wHMATMC/wHMATMC
+        /wGZATMC/wHMAQAC/wHMAQAC/wHMATMC/wHMAWYB/xgAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /wGZAcwBMwH/AZkBzAEzAf8UAAH/AZkBAAL/AZkBAAH/AcwBmQEzAf8MAAH/AZkBAAL/AZkBAAH/AcwB
+        mQEzAf8QAAj//wD1AAFCAU0BPgcAAT4DAAEoAwABQAMAAVADAAEBAQABAQUAAYABAhYAA/+BAAr/AfgF
+        /wHUAQEB4AE/BP8B0AELAcABHwGAAQABgAEAAcABCwHAAR8BgAEAAYABAAHAAQsBwAEHAYABAAGAAQAB
+        wAELAcABAwGAAQABgAEAAcABCAHAAQMBgAEAAYABAAHAARkB4AEBAYABAAGAAQABwQH7AfABAQGAAQAB
+        gAEAAcEB4wH8AQEBgAEAAYABAAH/AfMB/AEDAYABAAGAAQAC/wH+AQMH/wEHHP8BwAEDAfABDwH9AV8C
+        /wHAAQMB8AEPAeABAwHAAQEB4AEDAfABDwHgAQMBwAEBAeABAwH4AQ8B4AEDAcABAQHgAQMB+AEPAcAB
+        AQHAAQEB4AEHAfgBDwHgAQMBwAEBAeABBwH4AQ8BwAEBAcABAQHwAQcB8AEPAeABAwHAAQEB8AEHAeAB
+        HwHAAQEBwAEBAf4BfwHoAR8B4AEDAcABAwH+AX8B/AEfAeABAwHgAQMB/gF/AfwBHwHgAQMB4AEDAf4B
+        fwH+AT8B/QFfAfABAwH+AX8B/wF/Av8B/AE/EP8B9wH/AfkD/wH8AX8B8QH/AfAB/wHfAf8B+AE/AfAB
+        /wHgAX8C/wHAAQEB8AE/AcABPwHfAf8B+AE/AfABDwHAAR8B3wH/AcABAQHwAQcBwAEPAv8BwAEBAfAB
+        AwHgAQcD/wE/AfABAwHwAQMB3wH/AcABAQHwAQ8B+AEBAd8C/wE/AfABHwH8AQED/wE/AfABfwH+AQEC
+        /wHAAQEB8QL/AQMB3wL/AQ8B8wL/AYcBzAHLAf8BDwP/Ac8U/wH+AfkB+AEfAcABAQL/AfwB4QHwAQcB
+        wAEBAfEBxwH4AcMB4QHDAv8B8QHHAfABgwHHAeMC/wHxAccBwAEBAc8B8AL/AfEBxwHAAQEB/wHgAcAB
+        AQHxAccBwAEBAd8B+QL/AfEBxwHAAQEBhwP/AfEBxwHAAQEBjwH7Av8B8QHHAfABgwHHAfEBwAEBAfEB
+        xwHgAcMC4wL/AfEBxwHEAecB4AEHAv8B8QHHAY4B/wH4AQ8BwAEBAfEBxwGfD/8L
 </value>
   </data>
   <data name="checkBox_mute_system_speaker.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="checkBox_mute_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 835</value>
+    <value>5, 667</value>
   </data>
   <data name="checkBox_mute_system_speaker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_mute_system_speaker.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_mute_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 24</value>
+    <value>156, 20</value>
   </data>
   <data name="checkBox_mute_system_speaker.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
@@ -1462,13 +1462,13 @@
     <value>0, 0</value>
   </data>
   <data name="numericUpDown_alternating_notes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="numericUpDown_alternating_notes.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="numericUpDown_alternating_notes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 27</value>
+    <value>44, 23</value>
   </data>
   <data name="numericUpDown_alternating_notes.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
@@ -1501,16 +1501,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_blank_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 349</value>
+    <value>880, 279</value>
   </data>
   <data name="button_blank_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_blank_line.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_blank_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 32</value>
+    <value>109, 26</value>
   </data>
   <data name="button_blank_line.TabIndex" type="System.Int32, mscorlib">
     <value>62</value>
@@ -1549,16 +1549,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 380</value>
+    <value>880, 304</value>
   </data>
   <data name="button_clear_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note1.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_clear_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 32</value>
+    <value>109, 26</value>
   </data>
   <data name="button_clear_note1.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
@@ -1597,16 +1597,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_clear_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 412</value>
+    <value>880, 330</value>
   </data>
   <data name="button_clear_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note2.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_clear_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 32</value>
+    <value>109, 26</value>
   </data>
   <data name="button_clear_note2.TabIndex" type="System.Int32, mscorlib">
     <value>64</value>
@@ -1645,16 +1645,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_unselect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1095, 512</value>
+    <value>876, 410</value>
   </data>
   <data name="button_unselect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_unselect.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_unselect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 32</value>
+    <value>119, 26</value>
   </data>
   <data name="button_unselect.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
@@ -1693,16 +1693,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_erase_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1084, 549</value>
+    <value>867, 439</value>
   </data>
   <data name="button_erase_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_erase_line.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_erase_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 32</value>
+    <value>136, 26</value>
   </data>
   <data name="button_erase_line.TabIndex" type="System.Int32, mscorlib">
     <value>68</value>
@@ -1741,16 +1741,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_play_all.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1066, 589</value>
+    <value>853, 471</value>
   </data>
   <data name="button_play_all.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_play_all.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_play_all.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 32</value>
+    <value>164, 26</value>
   </data>
   <data name="button_play_all.TabIndex" type="System.Int32, mscorlib">
     <value>69</value>
@@ -1792,16 +1792,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_play_from_selected_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1066, 621</value>
+    <value>853, 497</value>
   </data>
   <data name="button_play_from_selected_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_play_from_selected_line.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_play_from_selected_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 32</value>
+    <value>164, 26</value>
   </data>
   <data name="button_play_from_selected_line.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -1843,16 +1843,16 @@
     <value>NoControl</value>
   </data>
   <data name="button_stop_playing.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1066, 654</value>
+    <value>853, 523</value>
   </data>
   <data name="button_stop_playing.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_stop_playing.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_stop_playing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 32</value>
+    <value>164, 26</value>
   </data>
   <data name="button_stop_playing.TabIndex" type="System.Int32, mscorlib">
     <value>71</value>
@@ -1891,16 +1891,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="numericUpDown_bpm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 25</value>
+    <value>0, 19</value>
   </data>
   <data name="numericUpDown_bpm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="numericUpDown_bpm.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="numericUpDown_bpm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 27</value>
+    <value>51, 23</value>
   </data>
   <data name="numericUpDown_bpm.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -1948,16 +1948,16 @@
     <value>1/32</value>
   </data>
   <data name="comboBox_note_length.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 28</value>
+    <value>7, 22</value>
   </data>
   <data name="comboBox_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="comboBox_note_length.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="comboBox_note_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 28</value>
+    <value>116, 24</value>
   </data>
   <data name="comboBox_note_length.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
@@ -1993,16 +1993,16 @@
     <value>9</value>
   </data>
   <data name="checkBox_metronome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>840, 354</value>
+    <value>672, 283</value>
   </data>
   <data name="checkBox_metronome.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_metronome.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_metronome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 30</value>
+    <value>96, 26</value>
   </data>
   <data name="checkBox_metronome.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -2044,16 +2044,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_dotted.Location" type="System.Drawing.Point, System.Drawing">
-    <value>615, 399</value>
+    <value>492, 319</value>
   </data>
   <data name="checkBox_dotted.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_dotted.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 30</value>
+    <value>55, 26</value>
   </data>
   <data name="checkBox_dotted.TabIndex" type="System.Int32, mscorlib">
     <value>73</value>
@@ -2092,16 +2092,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_triplet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>688, 399</value>
+    <value>550, 319</value>
   </data>
   <data name="checkBox_triplet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_triplet.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_triplet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 30</value>
+    <value>51, 26</value>
   </data>
   <data name="checkBox_triplet.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
@@ -2179,61 +2179,61 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 24</value>
+    <value>171, 22</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Blank Line</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 26</value>
+    <value>143, 22</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 1</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 26</value>
+    <value>143, 22</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 2</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 26</value>
+    <value>143, 22</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 3</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 26</value>
+    <value>143, 22</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 4</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 24</value>
+    <value>171, 22</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Notes</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 24</value>
+    <value>171, 22</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Un-select Line</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 24</value>
+    <value>171, 22</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Erase Whole Line</value>
   </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 26</value>
+    <value>206, 22</value>
   </data>
   <data name="playAllToolStripMenuItem.Text" xml:space="preserve">
     <value>Play All</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 26</value>
+    <value>206, 22</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Play From Selected Line</value>
@@ -2242,19 +2242,19 @@
     <value>False</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 26</value>
+    <value>206, 22</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Stop Playing</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 24</value>
+    <value>171, 22</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback Controls</value>
   </data>
   <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 124</value>
+    <value>172, 114</value>
   </data>
   <data name="&gt;&gt;notes_list_right_click.Name" xml:space="preserve">
     <value>notes_list_right_click</value>
@@ -2266,16 +2266,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>572, 439</value>
+    <value>458, 351</value>
   </data>
   <data name="listViewNotes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="listViewNotes.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>488, 414</value>
+    <value>391, 332</value>
   </data>
   <data name="listViewNotes.TabIndex" type="System.Int32, mscorlib">
     <value>78</value>
@@ -2302,16 +2302,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 2</value>
+    <value>25, 2</value>
   </data>
   <data name="label_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_note_length.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_note_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 20</value>
+    <value>76, 16</value>
   </data>
   <data name="label_note_length.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -2335,16 +2335,16 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="trackBar_note_silence_ratio.Location" type="System.Drawing.Point, System.Drawing">
-    <value>566, 316</value>
+    <value>453, 253</value>
   </data>
   <data name="trackBar_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="trackBar_note_silence_ratio.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="trackBar_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 56</value>
+    <value>190, 45</value>
   </data>
   <data name="trackBar_note_silence_ratio.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
@@ -2374,16 +2374,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_note_silence_ratio.Location" type="System.Drawing.Point, System.Drawing">
-    <value>615, 290</value>
+    <value>492, 232</value>
   </data>
   <data name="label_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_note_silence_ratio.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 20</value>
+    <value>111, 16</value>
   </data>
   <data name="label_note_silence_ratio.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
@@ -2413,16 +2413,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_silence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>568, 352</value>
+    <value>454, 282</value>
   </data>
   <data name="label_silence.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_silence.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 20</value>
+    <value>47, 16</value>
   </data>
   <data name="label_silence.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>
@@ -2452,16 +2452,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>762, 352</value>
+    <value>610, 282</value>
   </data>
   <data name="label_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_note.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 20</value>
+    <value>34, 16</value>
   </data>
   <data name="label_note.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
@@ -2494,16 +2494,16 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label_alternating_notes_switch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 2</value>
+    <value>3, 2</value>
   </data>
   <data name="label_alternating_notes_switch.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_alternating_notes_switch.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_alternating_notes_switch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 40</value>
+    <value>140, 32</value>
   </data>
   <data name="label_alternating_notes_switch.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -2537,16 +2537,16 @@ alternating notes every: </value>
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="label_mods.Location" type="System.Drawing.Point, System.Drawing">
-    <value>425, 645</value>
+    <value>340, 516</value>
   </data>
   <data name="label_mods.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_mods.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 20</value>
+    <value>39, 16</value>
   </data>
   <data name="label_mods.TabIndex" type="System.Int32, mscorlib">
     <value>71</value>
@@ -2579,16 +2579,16 @@ alternating notes every: </value>
     <value>11</value>
   </data>
   <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 695</value>
+    <value>272, 555</value>
   </data>
   <data name="checkBox_synchronized_play.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_synchronized_play.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_synchronized_play.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 24</value>
+    <value>142, 20</value>
   </data>
   <data name="checkBox_synchronized_play.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>
@@ -2627,16 +2627,16 @@ alternating notes every: </value>
     <value>12</value>
   </data>
   <data name="checkBox_play_beat_sound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 721</value>
+    <value>272, 576</value>
   </data>
   <data name="checkBox_play_beat_sound.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_beat_sound.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_beat_sound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 24</value>
+    <value>139, 20</value>
   </data>
   <data name="checkBox_play_beat_sound.TabIndex" type="System.Int32, mscorlib">
     <value>83</value>
@@ -2675,16 +2675,16 @@ alternating notes every: </value>
     <value>10</value>
   </data>
   <data name="checkBox_act_as_circuit_bent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 670</value>
+    <value>272, 535</value>
   </data>
   <data name="checkBox_act_as_circuit_bent.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_act_as_circuit_bent.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_act_as_circuit_bent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 24</value>
+    <value>152, 20</value>
   </data>
   <data name="checkBox_act_as_circuit_bent.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
@@ -2723,16 +2723,16 @@ alternating notes every: </value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_staccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>770, 399</value>
+    <value>616, 319</value>
   </data>
   <data name="checkBox_staccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_staccato.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_staccato.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 30</value>
+    <value>65, 26</value>
   </data>
   <data name="checkBox_staccato.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -2768,16 +2768,16 @@ alternating notes every: </value>
     <value>HarmonyOS Sans, 14.25pt, style=Bold</value>
   </data>
   <data name="label_beep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1130, 829</value>
+    <value>904, 663</value>
   </data>
   <data name="label_beep.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label_beep.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label_beep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 32</value>
+    <value>71, 25</value>
   </data>
   <data name="label_beep.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2822,16 +2822,16 @@ alternating notes every: </value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_fermata.Location" type="System.Drawing.Point, System.Drawing">
-    <value>938, 399</value>
+    <value>750, 319</value>
   </data>
   <data name="checkBox_fermata.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_fermata.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_fermata.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 30</value>
+    <value>63, 26</value>
   </data>
   <data name="checkBox_fermata.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
@@ -2870,16 +2870,16 @@ alternating notes every: </value>
     <value>NoControl</value>
   </data>
   <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>356, 446</value>
+    <value>285, 357</value>
   </data>
   <data name="lbl_alternating_note_options.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_alternating_note_options.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 40</value>
+    <value>151, 32</value>
   </data>
   <data name="lbl_alternating_note_options.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
@@ -2916,16 +2916,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_d3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 204</value>
+    <value>59, 163</value>
   </data>
   <data name="lbl_d3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_d3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_d3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_d3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2958,16 +2958,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_e3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 204</value>
+    <value>104, 163</value>
   </data>
   <data name="lbl_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_e3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_e3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_e3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -3000,16 +3000,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_f3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>188, 204</value>
+    <value>150, 163</value>
   </data>
   <data name="lbl_f3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_f3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_f3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>22, 18</value>
   </data>
   <data name="lbl_f3.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -3042,16 +3042,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_g3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 204</value>
+    <value>194, 163</value>
   </data>
   <data name="lbl_g3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_g3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_g3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_g3.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -3084,16 +3084,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_a3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 204</value>
+    <value>239, 163</value>
   </data>
   <data name="lbl_a3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_a3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_a3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_a3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -3126,16 +3126,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_b3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 204</value>
+    <value>284, 163</value>
   </data>
   <data name="lbl_b3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_b3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_b3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_b3.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -3168,16 +3168,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_b4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>749, 204</value>
+    <value>599, 163</value>
   </data>
   <data name="lbl_b4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_b4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_b4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_b4.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -3210,16 +3210,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_a4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>692, 204</value>
+    <value>554, 163</value>
   </data>
   <data name="lbl_a4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_a4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_a4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_a4.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -3252,16 +3252,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_g4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>636, 204</value>
+    <value>509, 163</value>
   </data>
   <data name="lbl_g4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_g4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_g4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_g4.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -3294,16 +3294,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_f4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>581, 204</value>
+    <value>465, 163</value>
   </data>
   <data name="lbl_f4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_f4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_f4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>22, 18</value>
   </data>
   <data name="lbl_f4.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -3336,16 +3336,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_e4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>523, 204</value>
+    <value>418, 163</value>
   </data>
   <data name="lbl_e4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_e4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_e4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_e4.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -3378,16 +3378,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_d4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>468, 204</value>
+    <value>374, 163</value>
   </data>
   <data name="lbl_d4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_d4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_d4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_d4.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -3420,16 +3420,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_c4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>412, 204</value>
+    <value>330, 163</value>
   </data>
   <data name="lbl_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_c4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_c4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_c4.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -3462,10 +3462,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_g5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1030, 204</value>
+    <value>824, 163</value>
   </data>
   <data name="lbl_g5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_g5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -3474,7 +3474,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_g5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_g5.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -3510,10 +3510,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_e5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>918, 204</value>
+    <value>734, 163</value>
   </data>
   <data name="lbl_e5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_e5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -3522,7 +3522,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_e5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_e5.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -3558,10 +3558,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_d5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>861, 204</value>
+    <value>689, 163</value>
   </data>
   <data name="lbl_d5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_d5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -3570,7 +3570,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_d5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_d5.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -3606,10 +3606,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_c5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>805, 204</value>
+    <value>644, 163</value>
   </data>
   <data name="lbl_c5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_c5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -3618,7 +3618,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_c5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_c5.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -3654,16 +3654,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 476</value>
+    <value>880, 381</value>
   </data>
   <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_clear_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 32</value>
+    <value>109, 26</value>
   </data>
   <data name="button_clear_note4.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
@@ -3703,16 +3703,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_clear_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 444</value>
+    <value>880, 355</value>
   </data>
   <data name="button_clear_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_clear_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 32</value>
+    <value>109, 26</value>
   </data>
   <data name="button_clear_note3.TabIndex" type="System.Int32, mscorlib">
     <value>65</value>
@@ -3755,16 +3755,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>854, 399</value>
+    <value>683, 319</value>
   </data>
   <data name="checkBox_spiccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_spiccato.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_spiccato.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 30</value>
+    <value>64, 26</value>
   </data>
   <data name="checkBox_spiccato.TabIndex" type="System.Int32, mscorlib">
     <value>76</value>
@@ -3800,16 +3800,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_beat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 27</value>
+    <value>7, 22</value>
   </data>
   <data name="lbl_beat.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_beat.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 20</value>
+    <value>34, 16</value>
   </data>
   <data name="lbl_beat.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -3839,16 +3839,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_beat_traditional.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 49</value>
+    <value>7, 39</value>
   </data>
   <data name="lbl_beat_traditional.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_beat_traditional.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 40</value>
+    <value>78, 32</value>
   </data>
   <data name="lbl_beat_traditional.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -3880,16 +3880,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 1</value>
+    <value>94, 1</value>
   </data>
   <data name="lbl_measure_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_measure_value.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_measure_value.Size" type="System.Drawing.Size, System.Drawing">
-    <value>18, 20</value>
+    <value>14, 16</value>
   </data>
   <data name="lbl_measure_value.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -3922,16 +3922,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 27</value>
+    <value>94, 22</value>
   </data>
   <data name="lbl_beat_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_beat_value.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_beat_value.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 20</value>
+    <value>24, 16</value>
   </data>
   <data name="lbl_beat_value.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -3964,16 +3964,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 49</value>
+    <value>94, 39</value>
   </data>
   <data name="lbl_beat_traditional_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_beat_traditional_value.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_beat_traditional_value.Size" type="System.Drawing.Size, System.Drawing">
-    <value>18, 20</value>
+    <value>14, 16</value>
   </data>
   <data name="lbl_beat_traditional_value.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -4012,19 +4012,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_c3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 1</value>
+    <value>3, 1</value>
   </data>
   <data name="button_c3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_c3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_c3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_c3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -4063,19 +4063,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_d3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 1</value>
+    <value>48, 1</value>
   </data>
   <data name="button_d3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_d3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_d3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -4114,19 +4114,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_e3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 1</value>
+    <value>93, 1</value>
   </data>
   <data name="button_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_e3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_e3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_e3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_e3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -4165,19 +4165,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_f3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>172, 1</value>
+    <value>138, 1</value>
   </data>
   <data name="button_f3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_f3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_f3.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -4216,19 +4216,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_g3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>229, 1</value>
+    <value>183, 1</value>
   </data>
   <data name="button_g3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_g3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_g3.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -4267,19 +4267,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_a3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 1</value>
+    <value>228, 1</value>
   </data>
   <data name="button_a3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_a3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_a3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -4318,19 +4318,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_b3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 1</value>
+    <value>273, 1</value>
   </data>
   <data name="button_b3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_b3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_b3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_b3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_b3.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -4369,19 +4369,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_c4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>398, 1</value>
+    <value>318, 1</value>
   </data>
   <data name="button_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_c4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_c4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_c4.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -4420,19 +4420,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_d4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>454, 1</value>
+    <value>363, 1</value>
   </data>
   <data name="button_d4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_d4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_d4.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -4471,19 +4471,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_e4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>510, 1</value>
+    <value>408, 1</value>
   </data>
   <data name="button_e4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_e4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_e4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_e4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_e4.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -4522,19 +4522,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_a4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>679, 1</value>
+    <value>543, 1</value>
   </data>
   <data name="button_a4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_a4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_a4.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -4573,19 +4573,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_b4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>735, 1</value>
+    <value>588, 1</value>
   </data>
   <data name="button_b4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_b4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_b4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_b4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_b4.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -4624,19 +4624,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_c5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>791, 1</value>
+    <value>633, 1</value>
   </data>
   <data name="button_c5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_c5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_c5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_c5.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -4675,19 +4675,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_d5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>848, 1</value>
+    <value>678, 1</value>
   </data>
   <data name="button_d5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_d5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_d5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_d5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_d5.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -4726,19 +4726,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_e5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>904, 1</value>
+    <value>723, 1</value>
   </data>
   <data name="button_e5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_e5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_e5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_e5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_e5.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -4777,19 +4777,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_f5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>960, 1</value>
+    <value>768, 1</value>
   </data>
   <data name="button_f5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_f5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_f5.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -4828,19 +4828,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_a5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1072, 1</value>
+    <value>858, 1</value>
   </data>
   <data name="button_a5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_a5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_a5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_a5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_a5.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -4876,10 +4876,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_b5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1142, 204</value>
+    <value>914, 163</value>
   </data>
   <data name="lbl_b5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_b5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -4888,7 +4888,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_b5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_b5.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -4924,10 +4924,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_a5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1086, 204</value>
+    <value>869, 163</value>
   </data>
   <data name="lbl_a5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_a5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -4936,7 +4936,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_a5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>24, 18</value>
   </data>
   <data name="lbl_a5.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -4975,19 +4975,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_b5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1129, 1</value>
+    <value>903, 1</value>
   </data>
   <data name="button_b5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_b5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_b5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_b5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_b5.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -5026,19 +5026,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_c_s5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>830, 6</value>
+    <value>664, 5</value>
   </data>
   <data name="button_c_s5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_c_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 25</value>
+    <value>0, 0, 0, 20</value>
   </data>
   <data name="button_c_s5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_c_s5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 150</value>
+    <value>28, 120</value>
   </data>
   <data name="button_c_s5.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -5068,16 +5068,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkbox_play_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 25</value>
+    <value>8, 20</value>
   </data>
   <data name="checkbox_play_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkbox_play_note.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkbox_play_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 24</value>
+    <value>77, 20</value>
   </data>
   <data name="checkbox_play_note.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -5107,16 +5107,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="add_as_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 120</value>
+    <value>28, 96</value>
   </data>
   <data name="add_as_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="add_as_note4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 24</value>
+    <value>102, 20</value>
   </data>
   <data name="add_as_note4.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
@@ -5146,16 +5146,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="add_as_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 96</value>
+    <value>28, 77</value>
   </data>
   <data name="add_as_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="add_as_note3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 24</value>
+    <value>102, 20</value>
   </data>
   <data name="add_as_note3.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
@@ -5188,16 +5188,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_replace_length.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 168</value>
+    <value>47, 134</value>
   </data>
   <data name="checkBox_replace_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_replace_length.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_replace_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 24</value>
+    <value>130, 20</value>
   </data>
   <data name="checkBox_replace_length.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -5227,16 +5227,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_replace.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 144</value>
+    <value>28, 115</value>
   </data>
   <data name="checkBox_replace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_replace.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 24</value>
+    <value>162, 20</value>
   </data>
   <data name="checkBox_replace.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
@@ -5266,16 +5266,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="add_as_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 72</value>
+    <value>28, 58</value>
   </data>
   <data name="add_as_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="add_as_note2.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 24</value>
+    <value>102, 20</value>
   </data>
   <data name="add_as_note2.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
@@ -5305,16 +5305,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="add_as_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 49</value>
+    <value>28, 39</value>
   </data>
   <data name="add_as_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="add_as_note1.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 24</value>
+    <value>102, 20</value>
   </data>
   <data name="add_as_note1.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>
@@ -5344,16 +5344,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_add_note_to_list.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 22</value>
+    <value>8, 18</value>
   </data>
   <data name="checkBox_add_note_to_list.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_add_note_to_list.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 24</value>
+    <value>156, 20</value>
   </data>
   <data name="checkBox_add_note_to_list.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
@@ -5374,19 +5374,19 @@ Options</value>
     <value>6</value>
   </data>
   <data name="group_adding_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 52</value>
+    <value>6, 42</value>
   </data>
   <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_adding_note.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_adding_note.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 196</value>
+    <value>245, 157</value>
   </data>
   <data name="group_adding_note.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -5413,19 +5413,19 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="group_key_is_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 296</value>
+    <value>4, 237</value>
   </data>
   <data name="group_key_is_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_key_is_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_key_is_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="group_key_is_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 256</value>
+    <value>258, 205</value>
   </data>
   <data name="group_key_is_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -5458,16 +5458,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note4_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 89</value>
+    <value>17, 71</value>
   </data>
   <data name="checkBox_play_note4_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note4_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note4_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>50</value>
@@ -5497,16 +5497,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note3_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 68</value>
+    <value>17, 54</value>
   </data>
   <data name="checkBox_play_note3_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note3_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note3_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
@@ -5536,16 +5536,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note2_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 46</value>
+    <value>17, 37</value>
   </data>
   <data name="checkBox_play_note2_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note2_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note2_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -5575,16 +5575,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note1_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 25</value>
+    <value>17, 20</value>
   </data>
   <data name="checkBox_play_note1_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note1_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note1_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -5605,19 +5605,19 @@ Options</value>
     <value>3</value>
   </data>
   <data name="group_line_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
+    <value>6, 18</value>
   </data>
   <data name="group_line_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_line_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_line_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 120</value>
+    <value>245, 96</value>
   </data>
   <data name="group_line_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -5650,16 +5650,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note4_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 89</value>
+    <value>17, 71</value>
   </data>
   <data name="checkBox_play_note4_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note4_played.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note4_played.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
@@ -5689,16 +5689,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note1_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 25</value>
+    <value>17, 20</value>
   </data>
   <data name="checkBox_play_note1_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note1_played.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note1_played.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
@@ -5728,16 +5728,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note3_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 68</value>
+    <value>17, 54</value>
   </data>
   <data name="checkBox_play_note3_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note3_played.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note3_played.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -5767,16 +5767,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note2_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 46</value>
+    <value>17, 37</value>
   </data>
   <data name="checkBox_play_note2_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_play_note2_played.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 24</value>
+    <value>89, 20</value>
   </data>
   <data name="checkBox_play_note2_played.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -5797,19 +5797,19 @@ Options</value>
     <value>3</value>
   </data>
   <data name="group_music_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 146</value>
+    <value>6, 117</value>
   </data>
   <data name="group_music_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_music_played.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_music_played.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 120</value>
+    <value>245, 96</value>
   </data>
   <data name="group_music_played.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -5836,19 +5836,19 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="group_notes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 558</value>
+    <value>4, 446</value>
   </data>
   <data name="group_notes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_notes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="group_notes.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="group_notes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 275</value>
+    <value>258, 220</value>
   </data>
   <data name="group_notes.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
@@ -5884,19 +5884,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_g5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1016, 1</value>
+    <value>813, 1</value>
   </data>
   <data name="button_g5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_g5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_g5.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -5932,10 +5932,10 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_f5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>975, 204</value>
+    <value>780, 163</value>
   </data>
   <data name="lbl_f5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_f5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -5944,7 +5944,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="lbl_f5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 23</value>
+    <value>22, 18</value>
   </data>
   <data name="lbl_f5.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -5983,19 +5983,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_g4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>622, 1</value>
+    <value>498, 1</value>
   </data>
   <data name="button_g4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_g4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_g4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_g4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_g4.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -6034,19 +6034,19 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="button_f4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>566, 1</value>
+    <value>453, 1</value>
   </data>
   <data name="button_f4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button_f4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 40</value>
+    <value>0, 0, 0, 32</value>
   </data>
   <data name="button_f4.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="button_f4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 238</value>
+    <value>46, 190</value>
   </data>
   <data name="button_f4.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -6079,13 +6079,13 @@ Options</value>
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="lbl_ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>58, 5</value>
+    <value>46, 4</value>
   </data>
   <data name="lbl_ms.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_ms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 20</value>
+    <value>24, 16</value>
   </data>
   <data name="lbl_ms.TabIndex" type="System.Int32, mscorlib">
     <value>112</value>
@@ -6109,16 +6109,13 @@ Options</value>
     <value>0</value>
   </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 50</value>
-  </data>
-  <data name="panel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>41, 40</value>
   </data>
   <data name="panel2.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 34</value>
+    <value>81, 27</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>117</value>
@@ -6139,16 +6136,13 @@ Options</value>
     <value>Top, Left, Right</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1018, 292</value>
-  </data>
-  <data name="panel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>814, 234</value>
   </data>
   <data name="panel3.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 52</value>
+    <value>51, 42</value>
   </data>
   <data name="panel3.TabIndex" type="System.Int32, mscorlib">
     <value>117</value>
@@ -6181,13 +6175,13 @@ Options</value>
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_measure.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 1</value>
+    <value>7, 1</value>
   </data>
   <data name="lbl_measure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 20</value>
+    <value>57, 16</value>
   </data>
   <data name="lbl_measure.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -6214,10 +6208,10 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1072, 694</value>
+    <value>858, 555</value>
   </data>
   <data name="position_table.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="position_table.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
@@ -6226,7 +6220,7 @@ Options</value>
     <value>True</value>
   </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 96</value>
+    <value>153, 77</value>
   </data>
   <data name="position_table.TabIndex" type="System.Int32, mscorlib">
     <value>114</value>
@@ -6244,7 +6238,7 @@ Options</value>
     <value>7</value>
   </data>
   <data name="position_table.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lbl_measure" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_measure_value" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_value" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional_value" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,136" /&gt;&lt;Rows Styles="Percent,54,285713,Percent,45,714287,Absolute,45" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lbl_measure" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_measure_value" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_value" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional_value" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,110" /&gt;&lt;Rows Styles="Percent,54,285713,Percent,45,714287,Absolute,36" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="checkBox_bleeper_portamento.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -6262,16 +6256,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 746</value>
+    <value>272, 596</value>
   </data>
   <data name="checkBox_bleeper_portamento.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_bleeper_portamento.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_bleeper_portamento.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 24</value>
+    <value>153, 20</value>
   </data>
   <data name="checkBox_bleeper_portamento.TabIndex" type="System.Int32, mscorlib">
     <value>83</value>
@@ -6307,16 +6301,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="btn_octave_decrease.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 102</value>
+    <value>4, 82</value>
   </data>
   <data name="btn_octave_decrease.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="btn_octave_decrease.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="btn_octave_decrease.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 100</value>
+    <value>30, 80</value>
   </data>
   <data name="btn_octave_decrease.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -6349,16 +6343,16 @@ Options</value>
     <value>NoControl</value>
   </data>
   <data name="btn_octave_increase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1235, 102</value>
+    <value>988, 82</value>
   </data>
   <data name="btn_octave_increase.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="btn_octave_increase.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="btn_octave_increase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 100</value>
+    <value>30, 80</value>
   </data>
   <data name="btn_octave_increase.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -6397,13 +6391,13 @@ Options</value>
     <value>HarmonyOS Sans, 9.75pt</value>
   </data>
   <data name="lbl_c3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 204</value>
+    <value>14, 163</value>
   </data>
   <data name="lbl_c3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_c3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
+    <value>23, 18</value>
   </data>
   <data name="lbl_c3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -6427,16 +6421,13 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 40</value>
-  </data>
-  <data name="panel5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>35, 32</value>
   </data>
   <data name="panel5.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1190, 243</value>
+    <value>952, 194</value>
   </data>
   <data name="panel5.TabIndex" type="System.Int32, mscorlib">
     <value>119</value>
@@ -6463,13 +6454,13 @@ Options</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 491</value>
+    <value>272, 392</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 44</value>
+    <value>160, 36</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -6503,13 +6494,13 @@ order</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 542</value>
+    <value>272, 433</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 84</value>
+    <value>178, 68</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -6548,13 +6539,10 @@ columns</value>
     <value>1</value>
   </data>
   <data name="checkBox_loop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1134, 321</value>
-  </data>
-  <data name="checkBox_loop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>903, 257</value>
   </data>
   <data name="checkBox_loop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 24</value>
+    <value>69, 19</value>
   </data>
   <data name="checkBox_loop.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -6587,13 +6575,10 @@ columns</value>
     <value>14</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 770</value>
-  </data>
-  <data name="checkBox_use_keyboard_as_piano.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>272, 616</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 24</value>
+    <value>160, 19</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.TabIndex" type="System.Int32, mscorlib">
     <value>120</value>
@@ -6635,13 +6620,13 @@ columns</value>
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_do_not_update.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1104, 796</value>
+    <value>884, 636</value>
   </data>
   <data name="checkBox_do_not_update.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_do_not_update.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 24</value>
+    <value>105, 20</value>
   </data>
   <data name="checkBox_do_not_update.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
@@ -6671,13 +6656,13 @@ columns</value>
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
   <data name="lbl_note_silence_ratio.Location" type="System.Drawing.Point, System.Drawing">
-    <value>662, 354</value>
+    <value>530, 283</value>
   </data>
   <data name="lbl_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 25</value>
+    <value>40, 20</value>
   </data>
   <data name="lbl_note_silence_ratio.TabIndex" type="System.Int32, mscorlib">
     <value>108</value>
@@ -6710,13 +6695,13 @@ columns</value>
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
   <data name="lbl_time_signature.Location" type="System.Drawing.Point, System.Drawing">
-    <value>966, 314</value>
+    <value>773, 251</value>
   </data>
   <data name="lbl_time_signature.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_time_signature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 25</value>
+    <value>18, 20</value>
   </data>
   <data name="lbl_time_signature.TabIndex" type="System.Int32, mscorlib">
     <value>109</value>
@@ -6743,13 +6728,10 @@ columns</value>
     <value>Bottom, Left, Right</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>356, 359</value>
-  </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>285, 287</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 79</value>
+    <value>147, 63</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>116</value>
@@ -6770,13 +6752,10 @@ columns</value>
     <value>Bottom, Left, Right</value>
   </data>
   <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 292</value>
-  </data>
-  <data name="panel4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>295, 234</value>
   </data>
   <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 59</value>
+    <value>127, 47</value>
   </data>
   <data name="panel4.TabIndex" type="System.Int32, mscorlib">
     <value>118</value>
@@ -6806,10 +6785,10 @@ columns</value>
     <value>86</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1278, 859</value>
+    <value>1022, 687</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -7135,7 +7114,7 @@ columns</value>
 </value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="$this.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
