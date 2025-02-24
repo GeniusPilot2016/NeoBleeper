@@ -2047,6 +2047,10 @@ namespace NeoBleeper
         }
         private void createNewFile()
         {
+            if(is_music_playing == true)
+            {
+                stop_playing();
+            }
             this.Text = System.AppDomain.CurrentDomain.FriendlyName;
             if (Variables.octave == 9)
             {
@@ -2170,54 +2174,63 @@ namespace NeoBleeper
             }
         }
 
-        private void play_music()
+        private async void play_music()
         {
-            new Thread(() =>
+            try
             {
                 while (listViewNotes.SelectedItems.Count > 0 && is_music_playing == true)
                 {
                     Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                     beep_label_appear_when_music_is_being_played();
                     play_note_in_line(Convert.ToInt32(final_note_length));
-                    if (listViewNotes.SelectedIndices[0] <= listViewNotes.Items.Count - 1)
+                    await Task.Delay(Convert.ToInt32(note_length - final_note_length));
+                    if (listViewNotes.SelectedIndices.Count > 0 && listViewNotes.SelectedIndices[0] < listViewNotes.Items.Count - 1)
                     {
-                        if (listViewNotes.SelectedIndices[0] < listViewNotes.Items.Count - 1)
+                        if (listViewNotes.SelectedIndices[0] < listViewNotes.Items.Count - 2)
                         {
                             listViewNotes.Items[listViewNotes.SelectedIndices[0] + 1].Selected = true;
+                            listViewNotes.EnsureVisible(listViewNotes.SelectedIndices[0] + 1);
+                        }
+                        else if (checkBox_loop.Checked == true)
+                        {
+                            listViewNotes.Items[0].Selected = true;
+                            listViewNotes.EnsureVisible(0);
+                        }
+                        else
+                        {
+                            stop_playing();
                         }
                     }
-                    else if (checkBox_loop.Checked == true)
-                    {
-                        listViewNotes.Items[0].Selected = true;
-                    }
-                    else
-                    {
-                        is_music_playing = false;
-                        button_stop_playing.Enabled = false;
-                    }
                 }
-            }).Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
         }
         private void button_play_all_Click(object sender, EventArgs e)
         {
-            listViewNotes.Enabled = false;
-            checkBox_do_not_update.Enabled = false;
-            numericUpDown_bpm.Enabled = false;
-            numericUpDown_alternating_notes.Enabled = false;
             if (listViewNotes.Items.Count > 0)
             {
+                listViewNotes.Items[0].Selected = true;
+                listViewNotes.EnsureVisible(0);
+                listViewNotes.Enabled = false;
+                checkBox_do_not_update.Enabled = false;
+                numericUpDown_bpm.Enabled = false;
+                numericUpDown_alternating_notes.Enabled = false;
                 button_play_all.Enabled = false;
                 button_play_from_selected_line.Enabled = false;
                 button_stop_playing.Enabled = true;
-                listViewNotes.Items[0].Selected = true;
                 is_music_playing = true;
+
+                // Kullanýcý arayüzü iþ parçacýðýnda play_music metodunu çalýþtýrýn
                 play_music();
             }
         }
 
         private void button_play_from_selected_line_Click(object sender, EventArgs e)
         {
-            if (listViewNotes.SelectedItems.Count > 0)
+            if (listViewNotes.Items.Count > 0)
             {
                 listViewNotes.Enabled = false;
                 checkBox_do_not_update.Enabled = false;
@@ -2227,10 +2240,20 @@ namespace NeoBleeper
                 button_play_from_selected_line.Enabled = false;
                 button_stop_playing.Enabled = true;
                 is_music_playing = true;
+                if (listViewNotes.SelectedItems.Count < 1)
+                {
+                    listViewNotes.Items[0].Selected = true;
+                    listViewNotes.EnsureVisible(0);
+                }
                 play_music();
             }
         }
         private void button_stop_playing_Click(object sender, EventArgs e)
+        {
+            stop_playing();
+        }
+
+        private void stop_playing()
         {
             listViewNotes.Enabled = true;
             checkBox_do_not_update.Enabled = true;
@@ -2451,11 +2474,7 @@ namespace NeoBleeper
         }
         private void listViewNotes_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                is_music_playing = false;
-                button_stop_playing.Enabled = false;
-            }
+            stop_playing();
             if (listViewNotes.FocusedItem != null)
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
@@ -2573,7 +2592,7 @@ namespace NeoBleeper
         }*/
         private async void beep_label_appear_when_music_is_being_played()
         {
-            if (listViewNotes.FocusedItem != null)
+            if (listViewNotes.SelectedItems.Count > 0)
             {
                 Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
@@ -2741,7 +2760,19 @@ namespace NeoBleeper
                     {
                         RenderBeep.BeepClass.Beep(frequency, length);
                     }
+                    else
+                    {
+                        Thread.Sleep(length);
+                    }
                 }
+                else
+                {
+                    Thread.Sleep(length);
+                }
+            }
+            else
+            {
+                Thread.Sleep(length);
             }
         }
         private void play_note_in_line(int length)
@@ -3171,7 +3202,7 @@ namespace NeoBleeper
                     }
                     else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                     {
-                        Thread.Sleep(length);
+                        Thread.Sleep(Convert.ToInt32(final_note_length));
                     }
                     else
                     {
