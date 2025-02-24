@@ -14,8 +14,11 @@ This project is **still in development** and some features and components are st
 - ### User-friendly, familiar and more natural interface
   NeoBleeper offers a user-friendly, familiar and more natural interface that compatible with high resolution displays.
 
-  ![image](https://github.com/user-attachments/assets/39b07668-0e0c-4cd0-bd3b-8024dc9d76b6)
-  
+  ![image](https://github.com/user-attachments/assets/ff5834ad-b19c-4f6a-80b3-ee88294dc3ac)
+
+
+  ![image](https://github.com/user-attachments/assets/f24265b6-e445-4c32-b1a4-1c13011738c1)
+
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
@@ -36,10 +39,16 @@ This project is **still in development** and some features and components are st
 
   ![image](https://github.com/user-attachments/assets/0bd8de5f-3645-485d-a92b-710b6c6b0fd7)
 
+- ### You can personalize as you wish
+  You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only limit to this feature is your imagination.
+
+  ![image](https://github.com/user-attachments/assets/c97deae7-0cbb-42b2-95b5-ee39333a0012)
+  
 - ### Detects system speaker for you
   If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound card to create the beep' option permanently.
   
   ![Screenshot_system_speaker_warning](https://github.com/user-attachments/assets/862d10a5-7891-4e87-bdd3-6495caf8e09d)
+  
 - ### Smarter than you think
   NeoBleeper recognizes your computer type and prevents possible undesired situations by automatically activating the 'Use sound card to create the beep' option on compact computers.
 

@@ -46,12 +46,12 @@
             button_yes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_yes.AutoSize = true;
             button_yes.DialogResult = DialogResult.Yes;
-            button_yes.Font = new Font("HarmonyOS Sans", 9F);
+            button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_unknown_type_of_computer_warning;
-            button_yes.Location = new Point(66, 243);
+            button_yes.Location = new Point(89, 291);
             button_yes.Name = "button_yes";
-            button_yes.Size = new Size(75, 26);
+            button_yes.Size = new Size(94, 32);
             button_yes.TabIndex = 13;
             button_yes.Text = "&Yes";
             button_yes.TextAlign = ContentAlignment.MiddleRight;
@@ -72,12 +72,12 @@
             button_no.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_no.AutoSize = true;
             button_no.DialogResult = DialogResult.No;
-            button_no.Font = new Font("HarmonyOS Sans", 9F);
+            button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_unknown_type_of_computer_warning;
-            button_no.Location = new Point(210, 243);
+            button_no.Location = new Point(251, 291);
             button_no.Name = "button_no";
-            button_no.Size = new Size(75, 26);
+            button_no.Size = new Size(94, 32);
             button_no.TabIndex = 14;
             button_no.Text = "&No";
             button_no.TextAlign = ContentAlignment.MiddleRight;
@@ -87,12 +87,12 @@
             // 
             // label_unknown_type_of_computer_warning
             // 
-            label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top;
             label_unknown_type_of_computer_warning.AutoSize = true;
-            label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 9F);
-            label_unknown_type_of_computer_warning.Location = new Point(66, 12);
+            label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
+            label_unknown_type_of_computer_warning.Location = new Point(89, 12);
             label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
-            label_unknown_type_of_computer_warning.Size = new Size(275, 48);
+            label_unknown_type_of_computer_warning.Size = new Size(343, 60);
             label_unknown_type_of_computer_warning.TabIndex = 11;
             label_unknown_type_of_computer_warning.Text = "The NeoBleeper Smart Device Type Recognition \r\nSystem has detected that your computer is an \r\nunknown type of computer.";
             // 
@@ -101,45 +101,47 @@
             pictureBox1.Image = Properties.Resources.icons8_question_mark_48;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
+            pictureBox1.Size = new Size(60, 60);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 16;
             pictureBox1.TabStop = false;
             // 
             // label_unknown_type_of_computer_result
             // 
-            label_unknown_type_of_computer_result.Anchor = AnchorStyles.Top;
+            label_unknown_type_of_computer_result.Anchor = AnchorStyles.None;
             label_unknown_type_of_computer_result.AutoSize = true;
-            label_unknown_type_of_computer_result.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Bold);
-            label_unknown_type_of_computer_result.Location = new Point(7, 123);
+            label_unknown_type_of_computer_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_unknown_type_of_computer_result.Location = new Point(7, 142);
             label_unknown_type_of_computer_result.Name = "label_unknown_type_of_computer_result";
-            label_unknown_type_of_computer_result.Size = new Size(349, 112);
+            label_unknown_type_of_computer_result.Size = new Size(424, 140);
             label_unknown_type_of_computer_result.TabIndex = 15;
             label_unknown_type_of_computer_result.Text = resources.GetString("label_unknown_type_of_computer_result.Text");
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top;
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Font = new Font("HarmonyOS Sans", 9F);
-            label1.Location = new Point(7, 76);
+            label1.Font = new Font("HarmonyOS Sans", 8.999999F);
+            label1.Location = new Point(7, 90);
             label1.Name = "label1";
-            label1.Size = new Size(334, 32);
+            label1.Size = new Size(429, 40);
             label1.TabIndex = 12;
             label1.Text = "Despite this, do you want to continue using the NeoBleeper \r\napplication?\r\n";
             // 
             // neobleeper_init_unknown_type_of_computer_warning
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AcceptButton = button_yes;
+            AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(366, 274);
+            CancelButton = button_no;
+            ClientSize = new Size(448, 328);
             Controls.Add(button_yes);
             Controls.Add(button_no);
             Controls.Add(label_unknown_type_of_computer_warning);
             Controls.Add(pictureBox1);
             Controls.Add(label_unknown_type_of_computer_result);
             Controls.Add(label1);
-            Font = new Font("HarmonyOS Sans", 9F);
+            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
