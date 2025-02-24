@@ -40,7 +40,7 @@ namespace NeoBleeper
             {
                 SignalGenerator squareWave = new SignalGenerator()
                 {
-                    Gain = 0.2,
+                    Gain = 0.15,
                     Frequency = freq,
                     Type = SignalGeneratorType.Square
                 };
@@ -58,7 +58,7 @@ namespace NeoBleeper
             {
                 SignalGenerator sineWave = new SignalGenerator()
                 {
-                    Gain = 0.2,
+                    Gain = 0.15,
                     Frequency = freq,
                     Type = SignalGeneratorType.Sin
                 };
@@ -76,7 +76,7 @@ namespace NeoBleeper
             {
                 SignalGenerator triangleWave = new SignalGenerator()
                 {
-                    Gain = 0.2,
+                    Gain = 0.15,
                     Frequency = freq,
                     Type = SignalGeneratorType.Triangle
                 };
@@ -94,7 +94,7 @@ namespace NeoBleeper
             {
                 SignalGenerator noise = new SignalGenerator()
                 {
-                    Gain = 0.2,
+                    Gain = 0.15,
                     Frequency = freq,
                     Type = SignalGeneratorType.White
                 };
