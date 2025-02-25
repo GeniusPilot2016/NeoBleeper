@@ -14,6 +14,7 @@ using static NeoBleeper.RenderBeep;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Drawing;
 
 namespace NeoBleeper
 {
@@ -2169,53 +2170,49 @@ namespace NeoBleeper
         {
             try
             {
-                await Task.Run(async () =>
+                while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
                 {
-                    while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
+                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    note_length_calculator();
+                    await play_note_in_line(Convert.ToInt32(final_note_length), 1);
+                    double delay = note_length - final_note_length;
+                    if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                     {
-                        Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                        beep_label_appear_when_music_is_being_played();
-                        play_note_in_line(Convert.ToInt32(final_note_length));
-                        double delay = note_length - final_note_length;
-
-                        if (Program.creating_sounds.create_beep_with_soundcard == false)
+                        if (delay > 20)
                         {
-                            if (delay > 10)
+                            await Task.Delay(Convert.ToInt32(delay) - 20);
+                        }
+                    }
+                    else
+                    {
+                        await Task.Delay(Convert.ToInt32(delay));
+                    }
+
+                    if (listViewNotes.SelectedIndices.Count > 0)
+                    {
+                        int nextIndex = listViewNotes.SelectedIndices[0] + 1;
+                        if (nextIndex < listViewNotes.Items.Count)
+                        {
+                            Invoke(new Action(() =>
                             {
-                                await Task.Delay(Convert.ToInt32(delay) - 10);
-                            }
+                                listViewNotes.Items[nextIndex].Selected = true;
+                                listViewNotes.EnsureVisible(nextIndex);
+                            }));
+                        }
+                        else if (checkBox_loop.Checked)
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                listViewNotes.Items[0].Selected = true;
+                                listViewNotes.EnsureVisible(0);
+                            }));
                         }
                         else
                         {
-                            await Task.Delay(Convert.ToInt32(delay));
-                        }
-
-                        if (listViewNotes.SelectedIndices.Count > 0)
-                        {
-                            int nextIndex = listViewNotes.SelectedIndices[0] + 1;
-                            if (nextIndex < listViewNotes.Items.Count)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    listViewNotes.Items[nextIndex].Selected = true;
-                                    listViewNotes.EnsureVisible(nextIndex);
-                                }));
-                            }
-                            else if (checkBox_loop.Checked)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    listViewNotes.Items[0].Selected = true;
-                                    listViewNotes.EnsureVisible(0);
-                                }));
-                            }
-                            else
-                            {
-                                Invoke(new Action(() => stop_playing()));
-                            }
+                            Invoke(new Action(() => stop_playing()));
                         }
                     }
-                });
+                }
             }
             catch (Exception ex)
             {
@@ -2228,6 +2225,7 @@ namespace NeoBleeper
             if (listViewNotes.Items.Count > 0)
             {
                 listViewNotes.Items[0].Selected = true;
+                listViewNotes.EnsureVisible(0);
                 checkBox_do_not_update.Enabled = false;
                 numericUpDown_bpm.Enabled = false;
                 numericUpDown_alternating_notes.Enabled = false;
@@ -2235,12 +2233,7 @@ namespace NeoBleeper
                 button_play_from_selected_line.Enabled = false;
                 button_stop_playing.Enabled = true;
                 is_music_playing = true;
-
-                // Run play_music() in a new thread
-                new Thread(() =>
-                {
-                    play_music();
-                }).Start();
+                play_music();
             }
         }
 
@@ -2258,11 +2251,9 @@ namespace NeoBleeper
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
                     listViewNotes.Items[0].Selected = true;
+                    listViewNotes.EnsureVisible(0);
                 }
-                new Thread(() =>
-                {
-                    play_music();
-                }).Start();
+                play_music();
             }
         }
         private void button_stop_playing_Click(object sender, EventArgs e)
@@ -2573,11 +2564,18 @@ namespace NeoBleeper
             if (listViewNotes.FocusedItem != null)
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                beep_label_appear_when_line_is_clicked();
-                new Thread(() =>
-                {
-                    play_note_in_line(Convert.ToInt32(final_note_length));
-                }).Start();
+                note_length_calculator();
+                numericUpDown_alternating_notes.Enabled = false;
+                numericUpDown_bpm.Enabled = false;
+                checkBox_do_not_update.Enabled = false;
+                is_note_playing = true;
+                play_note_in_line(Convert.ToInt32(final_note_length),0);
+                is_note_playing = false;
+                numericUpDown_alternating_notes.Enabled = true;
+                numericUpDown_bpm.Enabled = true;
+                checkBox_do_not_update.Enabled = true;
+                total_note_length = 0;
+                note_count = 0;
             }
         }
 
@@ -2685,161 +2683,63 @@ namespace NeoBleeper
                 listViewNotes.Enabled = true;
             }
         }*/
-        private async void beep_label_appear_when_music_is_being_played()
+
+        private void note_length_calculator()
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
-                if ((checkBox_play_note1_played.Checked == true && listViewNotes.Items[selected_line].SubItems[1].Text != string.Empty) ||
-                    (checkBox_play_note2_played.Checked == true && listViewNotes.Items[selected_line].SubItems[2].Text != string.Empty) ||
-                    (checkBox_play_note3_played.Checked == true && listViewNotes.Items[selected_line].SubItems[3].Text != string.Empty) ||
-                    (checkBox_play_note4_played.Checked == true && listViewNotes.Items[selected_line].SubItems[4].Text != string.Empty))
+                if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                 {
-                    if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 4;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 2;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat);
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 2;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 4;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
-                    {
-                        note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 8;
-                    }
-                    if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
-                    {
-                        note_length *= 1.5;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
-                    {
-                        note_length /= 3;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
-                    {
-                        note_length /= 2;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
-                    {
-                        note_length /= 4;
-                    }
-                    else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
-                    {
-                        note_length *= 2;
-                    }
-                    final_note_length = note_length * Variables.note_silence_ratio;
-                    final_note_count = Convert.ToInt32(final_note_length);
-                    is_note_playing = true;
-                    label_beep.Visible = true;
-                    duration(Convert.ToInt32(final_note_length));
-                    async Task duration(int length)
-                    {
-                        await Task.Delay(length);
-                        label_beep.Visible = false;
-                        is_note_playing = false;
-                        total_note_length = 0;
-                        note_count = 0;
-                    }
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 4;
                 }
+                else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
+                {
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 2;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
+                {
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat);
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
+                {
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 2;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
+                {
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 4;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
+                {
+                    note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 8;
+                }
+                if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
+                {
+                    note_length *= 1.5;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
+                {
+                    note_length /= 3;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
+                {
+                    note_length /= 2;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
+                {
+                    note_length /= 4;
+                }
+                else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
+                {
+                    note_length *= 2;
+                }
+                final_note_length = note_length * Variables.note_silence_ratio;
+                final_note_count = Convert.ToInt32(final_note_length);
             }
         }
-        private async void beep_label_appear_when_line_is_clicked()
-        {
-            if (listViewNotes.FocusedItem != null)
-            {
-                Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
-                if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
-                {
-                    int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
-                    if ((checkBox_play_note1_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[1].Text != string.Empty) ||
-                        (checkBox_play_note2_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[2].Text != string.Empty) ||
-                        (checkBox_play_note3_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[3].Text != string.Empty) ||
-                        (checkBox_play_note4_clicked.Checked == true && listViewNotes.Items[selected_line].SubItems[4].Text != string.Empty))
-                    {
-                        if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 4;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat) * 2;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 2;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 4;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
-                        {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat) / 8;
-                        }
-                        if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
-                        {
-                            note_length *= 1.5;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
-                        {
-                            note_length /= 3;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
-                        {
-                            note_length /= 2;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
-                        {
-                            note_length /= 4;
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
-                        {
-                            note_length *= 2;
-                        }
-                        final_note_length = note_length * Variables.note_silence_ratio;
-                        final_note_count = Convert.ToInt32(final_note_length);
-                        if (is_music_playing == false)
-                        {
-                            checkBox_do_not_update.Enabled = false;
-                            numericUpDown_bpm.Enabled = false;
-                            numericUpDown_alternating_notes.Enabled = false;
-                        }
-                        is_note_playing = true;
-                        label_beep.Visible = true;
-                        duration(Convert.ToInt32(final_note_length));
-                        async Task duration(int length)
-                        {
-                            await Task.Delay(length);
-                            label_beep.Visible = false;
-                            is_note_playing = false;
-                            total_note_length = 0;
-                            note_count = 0;
-                            checkBox_do_not_update.Enabled = true;
-                            numericUpDown_bpm.Enabled = true;
-                            numericUpDown_alternating_notes.Enabled = true;
-                        }
-                    }
-                }
-            }
-        }
-        private void play_note(int frequency, int length)
+        
+        private async Task play_note(int frequency, int length)
         {
             if (Program.creating_sounds.create_beep_with_soundcard == false)
             {
@@ -2851,12 +2751,12 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        Thread.Sleep(length);
+                        await Task.Delay(length);
                     }
                 }
                 else
                 {
-                    Thread.Sleep(length);
+                    await Task.Delay(length);
                 }
             }
             else if (Program.creating_sounds.create_beep_with_soundcard == true)
@@ -2886,7 +2786,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private void play_note_in_line(int length)
+        private async Task play_note_in_line(int length, int type) //0 = click, 1 = playback
         {
             string note1;
             string note2;
@@ -2904,481 +2804,704 @@ namespace NeoBleeper
             double note4_base_frequency = 0;
             int note4_octave = 0;
             double note4_frequency = 0;
-            if (listViewNotes.FocusedItem != null)
+            if (listViewNotes.SelectedItems.Count > 0)
             {
-                if (listViewNotes.SelectedItems.Count > 0)
+                int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
+                note1 = listViewNotes.Items[selected_line].SubItems[1].Text;
+                note2 = listViewNotes.Items[selected_line].SubItems[2].Text;
+                note3 = listViewNotes.Items[selected_line].SubItems[3].Text;
+                note4 = listViewNotes.Items[selected_line].SubItems[4].Text;
+                if (note1 != string.Empty)
                 {
-                    int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
-                    note1 = listViewNotes.Items[selected_line].SubItems[1].Text;
-                    note2 = listViewNotes.Items[selected_line].SubItems[2].Text;
-                    note3 = listViewNotes.Items[selected_line].SubItems[3].Text;
-                    note4 = listViewNotes.Items[selected_line].SubItems[4].Text;
-                    if (note1 != string.Empty)
+                    if (note1.Contains("#"))
                     {
-                        if (note1.Contains("#"))
+                        if (note1.Length == 3)
                         {
-                            if (note1.Length == 3)
-                            {
-                                note1_octave = Convert.ToInt32((note1.Substring(2, 1)));
-                            }
-                            else if (note1.Length == 4)
-                            {
-                                note1_octave = Convert.ToInt32((note1.Substring(2, 2)));
-                            }
-                            switch (note1.Substring(0, 2))
-                            {
-                                case "C#":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                    break;
-                                case "D#":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                    break;
-                                case "F#":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                    break;
-                                case "G#":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                    break;
-                                case "A#":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                    break;
-                            }
+                            note1_octave = Convert.ToInt32((note1.Substring(2, 1)));
                         }
-                        else
+                        else if (note1.Length == 4)
                         {
-                            if (note1.Length == 2)
-                            {
-                                note1_octave = Convert.ToInt32((note1.Substring(1, 1)));
-                            }
-                            else if (note1.Length == 3)
-                            {
-                                note1_octave = Convert.ToInt32((note1.Substring(1, 2)));
-                            }
-                            switch (note1.Substring(0, 1))
-                            {
-                                case "C":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                case "D":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                    break;
-                                case "E":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                    break;
-                                case "F":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                    break;
-                                case "G":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                    break;
-                                case "A":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                    break;
-                                case "B":
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                    break;
-                            }
+                            note1_octave = Convert.ToInt32((note1.Substring(2, 2)));
                         }
-                        note1_frequency = note1_base_frequency * Math.Pow(2, (note1_octave - 4));
-                    }
-                    if (note2 != string.Empty)
-                    {
-                        if (note2.Contains("#"))
+                        switch (note1.Substring(0, 2))
                         {
-                            if (note2.Length == 3)
-                            {
-                                note2_octave = Convert.ToInt32((note2.Substring(2, 1)));
-                            }
-                            else if (note2.Length == 4)
-                            {
-                                note2_octave = Convert.ToInt32((note2.Substring(2, 2)));
-                            }
-                            switch (note2.Substring(0, 2))
-                            {
-                                case "C#":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                    break;
-                                case "D#":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                    break;
-                                case "F#":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                    break;
-                                case "G#":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                    break;
-                                case "A#":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                    break;
-                            }
+                            case "C#":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
+                                break;
+                            case "D#":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
+                                break;
+                            case "F#":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
+                                break;
+                            case "G#":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
+                                break;
+                            case "A#":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
+                                break;
                         }
-                        else
-                        {
-                            if (note2.Length == 2)
-                            {
-                                note2_octave = Convert.ToInt32((note2.Substring(1, 1)));
-                            }
-                            else if (note2.Length == 3)
-                            {
-                                note2_octave = Convert.ToInt32((note2.Substring(1, 2)));
-                            }
-                            switch (note2.Substring(0, 1))
-                            {
-                                case "C":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                case "D":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                    break;
-                                case "E":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                    break;
-                                case "F":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                    break;
-                                case "G":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                    break;
-                                case "A":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                    break;
-                                case "B":
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                    break;
-                            }
-                        }
-                        note2_frequency = note2_base_frequency * Math.Pow(2, (note2_octave - 4));
-                    }
-                    if (note3 != string.Empty)
-                    {
-                        if (note3.Contains("#"))
-                        {
-                            if (note3.Length == 3)
-                            {
-                                note3_octave = Convert.ToInt32((note3.Substring(2, 1)));
-                            }
-                            else if (note3.Length == 4)
-                            {
-                                note3_octave = Convert.ToInt32((note3.Substring(2, 2)));
-                            }
-                            switch (note3.Substring(0, 2))
-                            {
-                                case "C#":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                    break;
-                                case "D#":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                    break;
-                                case "F#":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                    break;
-                                case "G#":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                    break;
-                                case "A#":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            if (note3.Length == 2)
-                            {
-                                note3_octave = Convert.ToInt32((note3.Substring(1, 1)));
-                            }
-                            else if (note3.Length == 3)
-                            {
-                                note3_octave = Convert.ToInt32((note3.Substring(1, 2)));
-                            }
-                            switch (note3.Substring(0, 1))
-                            {
-                                case "C":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                case "D":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                    break;
-                                case "E":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                    break;
-                                case "F":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                    break;
-                                case "G":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                    break;
-                                case "A":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                    break;
-                                case "B":
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                    break;
-                            }
-                        }
-                        note3_frequency = note3_base_frequency * Math.Pow(2, (note3_octave - 4));
-                    }
-                    if (note4 != string.Empty)
-                    {
-                        if (note4.Contains("#"))
-                        {
-                            if (note4.Length == 3)
-                            {
-                                note4_octave = Convert.ToInt32((note4.Substring(2, 1)));
-                            }
-                            else if (note3.Length == 4)
-                            {
-                                note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
-                            }
-                            switch (note4.Substring(0, 2))
-                            {
-                                case "C#":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                    break;
-                                case "D#":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                    break;
-                                case "F#":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                    break;
-                                case "G#":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                    break;
-                                case "A#":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            if (note4.Length == 2)
-                            {
-                                note4_octave = Convert.ToInt32((note4.Substring(1, 1)));
-                            }
-                            else if (note4.Length == 3)
-                            {
-                                note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
-                            }
-                            switch (note4.Substring(0, 1))
-                            {
-                                case "C":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                case "D":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                    break;
-                                case "E":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                    break;
-                                case "F":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                    break;
-                                case "G":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                    break;
-                                case "A":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                    break;
-                                case "B":
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                    break;
-                            }
-                        }
-                        note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
-                    }
-
-                    if (radioButtonPlay_alternating_notes1.Checked == true) // Combine same notes in a row and play them as one note with a length of the sum of their lengths
-                    {
-                        if (note1 == note2 && note2 == note3 && note3 == note4)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note2 = note3 = note4 = string.Empty;
-                        }
-                        else if (note1 == note2 && note2 == note3)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note2 = note3 = string.Empty;
-                        }
-
-                        else if (note1 == note2)
-                        {
-                            if (note1 == note2 && note3 == note4)
-                            {
-                                Variables.alternating_note_length *= 4;
-                                note2 = string.Empty;
-                                note4 = string.Empty;
-                            }
-                            else
-                            {
-                                Variables.alternating_note_length *= 2;
-                                note2 = string.Empty;
-                            }
-                        }
-                        else if (note1 == note3)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note3 = string.Empty;
-                        }
-                        else if (note2 == note3)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note3 = string.Empty;
-                        }
-                        else if (note2 == note4)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note4 = string.Empty;
-                        }
-                        else if (note3 == note4)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note4 = string.Empty;
-                        }
-                    }
-                    else if (radioButtonPlay_alternating_notes2.Checked == true)
-                    {
-                        if (note1 == note3 && note3 == note2 && note2 == note4)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note3 = note2 = note4 = string.Empty;
-                        }
-                        else if (note1 == note3 && note3 == note2)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note3 = note2 = string.Empty;
-                        }
-
-                        else if (note1 == note2)
-                        {
-                            if (note1 == note3 && note2 == note4)
-                            {
-                                Variables.alternating_note_length *= 4;
-                                note3 = string.Empty;
-                                note4 = string.Empty;
-                            }
-                            else
-                            {
-                                Variables.alternating_note_length *= 2;
-                                note3 = string.Empty;
-                            }
-                        }
-                        else if (note1 == note2)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note2 = string.Empty;
-                        }
-                        else if (note3 == note2)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note2 = string.Empty;
-                        }
-                        else if (note3 == note4)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note4 = string.Empty;
-                        }
-                        else if (note2 == note4)
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note4 = string.Empty;
-                        }
-                    }
-                    if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-                    {
-                        if (checkBox_play_note1_clicked.Checked == true)
-                        {
-                            play_note(Convert.ToInt32(note1_frequency), length);
-                        }
-                    }
-                    else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-                    {
-                        if (checkBox_play_note2_clicked.Checked == true)
-                        {
-                            play_note(Convert.ToInt32(note2_frequency), length);
-                        }
-                    }
-
-                    else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
-                    {
-                        if (checkBox_play_note3_clicked.Checked == true)
-                        {
-                            play_note(Convert.ToInt32(note3_frequency), length);
-                        }
-                    }
-                    else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
-                    {
-                        if (checkBox_play_note4_clicked.Checked == true)
-                        {
-                            play_note(Convert.ToInt32(note4_frequency), length);
-                        }
-                    }
-                    else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-                    {
-                        Thread.Sleep(Convert.ToInt32(final_note_length));
                     }
                     else
                     {
-                        int note_order = 1;
-                        int last_note_order = length / Variables.alternating_note_length;
-                        if (radioButtonPlay_alternating_notes1.Checked == true)
+                        if (note1.Length == 2)
                         {
-                            string[] note_series = { note1, note2, note3, note4 };
-                            do
-                            {
-                                int column = 0;
-                                while (column < 4)
-                                {
-                                    if (note_series[column] != string.Empty)
-                                    {
-                                        if (column == 0)
-                                        {
-                                            play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        else if (column == 1)
-                                        {
-                                            play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        else if (column == 2)
-                                        {
-                                            play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        else if (column == 3)
-                                        {
-                                            play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        note_order++;
-                                    }
-                                    column++;
-                                }
-                            }
-                            while (note_order < last_note_order);
+                            note1_octave = Convert.ToInt32((note1.Substring(1, 1)));
                         }
-                        else if (radioButtonPlay_alternating_notes2.Checked == true)
+                        else if (note1.Length == 3)
                         {
-                            string[] note_series = { note1, note2, note3, note4 };
-                            do
-                            {
-                                // Odd number columns first (Note1 and Note3)
-                                for (int i = 0; i < 4; i += 2)
-                                {
-                                    if (note_series[i] != string.Empty)
-                                    {
-                                        play_note(Convert.ToInt32(note_series[i] == note1 ? note1_frequency : note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        note_order++;
-                                    }
-                                }
-                                // Even number columns then (Note2 and Note4)
-                                for (int i = 1; i < 4; i += 2)
-                                {
-                                    if (note_series[i] != string.Empty)
-                                    {
-                                        play_note(Convert.ToInt32(note_series[i] == note2 ? note2_frequency : note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        note_order++;
-                                    }
-                                }
-                            }
-                            while (note_order < last_note_order);
+                            note1_octave = Convert.ToInt32((note1.Substring(1, 2)));
+                        }
+                        switch (note1.Substring(0, 1))
+                        {
+                            case "C":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
+                            case "D":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
+                                break;
+                            case "E":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
+                                break;
+                            case "F":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
+                                break;
+                            case "G":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
+                                break;
+                            case "A":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
+                                break;
+                            case "B":
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
+                                break;
                         }
                     }
+                    note1_frequency = note1_base_frequency * Math.Pow(2, (note1_octave - 4));
+                }
+                if (note2 != string.Empty)
+                {
+                    if (note2.Contains("#"))
+                    {
+                        if (note2.Length == 3)
+                        {
+                            note2_octave = Convert.ToInt32((note2.Substring(2, 1)));
+                        }
+                        else if (note2.Length == 4)
+                        {
+                            note2_octave = Convert.ToInt32((note2.Substring(2, 2)));
+                        }
+                        switch (note2.Substring(0, 2))
+                        {
+                            case "C#":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
+                                break;
+                            case "D#":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
+                                break;
+                            case "F#":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
+                                break;
+                            case "G#":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
+                                break;
+                            case "A#":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (note2.Length == 2)
+                        {
+                            note2_octave = Convert.ToInt32((note2.Substring(1, 1)));
+                        }
+                        else if (note2.Length == 3)
+                        {
+                            note2_octave = Convert.ToInt32((note2.Substring(1, 2)));
+                        }
+                        switch (note2.Substring(0, 1))
+                        {
+                            case "C":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
+                            case "D":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
+                                break;
+                            case "E":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
+                                break;
+                            case "F":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
+                                break;
+                            case "G":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
+                                break;
+                            case "A":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
+                                break;
+                            case "B":
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
+                                break;
+                        }
+                    }
+                    note2_frequency = note2_base_frequency * Math.Pow(2, (note2_octave - 4));
+                }
+                if (note3 != string.Empty)
+                {
+                    if (note3.Contains("#"))
+                    {
+                        if (note3.Length == 3)
+                        {
+                            note3_octave = Convert.ToInt32((note3.Substring(2, 1)));
+                        }
+                        else if (note3.Length == 4)
+                        {
+                            note3_octave = Convert.ToInt32((note3.Substring(2, 2)));
+                        }
+                        switch (note3.Substring(0, 2))
+                        {
+                            case "C#":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
+                                break;
+                            case "D#":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
+                                break;
+                            case "F#":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
+                                break;
+                            case "G#":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
+                                break;
+                            case "A#":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (note3.Length == 2)
+                        {
+                            note3_octave = Convert.ToInt32((note3.Substring(1, 1)));
+                        }
+                        else if (note3.Length == 3)
+                        {
+                            note3_octave = Convert.ToInt32((note3.Substring(1, 2)));
+                        }
+                        switch (note3.Substring(0, 1))
+                        {
+                            case "C":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
+                            case "D":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
+                                break;
+                            case "E":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
+                                break;
+                            case "F":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
+                                break;
+                            case "G":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
+                                break;
+                            case "A":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
+                                break;
+                            case "B":
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
+                                break;
+                        }
+                    }
+                    note3_frequency = note3_base_frequency * Math.Pow(2, (note3_octave - 4));
+                }
+                if (note4 != string.Empty)
+                {
+                    if (note4.Contains("#"))
+                    {
+                        if (note4.Length == 3)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(2, 1)));
+                        }
+                        else if (note3.Length == 4)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
+                        }
+                        switch (note4.Substring(0, 2))
+                        {
+                            case "C#":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
+                                break;
+                            case "D#":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
+                                break;
+                            case "F#":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
+                                break;
+                            case "G#":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
+                                break;
+                            case "A#":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (note4.Length == 2)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(1, 1)));
+                        }
+                        else if (note4.Length == 3)
+                        {
+                            note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
+                        }
+                        switch (note4.Substring(0, 1))
+                        {
+                            case "C":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
+                            case "D":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
+                                break;
+                            case "E":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
+                                break;
+                            case "F":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
+                                break;
+                            case "G":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
+                                break;
+                            case "A":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
+                                break;
+                            case "B":
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
+                                break;
+                        }
+                    }
+                    note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
+                }
+
+                if (radioButtonPlay_alternating_notes1.Checked == true) // Combine same notes in a row and play them as one note with a length of the sum of their lengths
+                {
+                    if (note1 == note2 && note2 == note3 && note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note2 = note3 = note4 = string.Empty;
+                    }
+                    else if (note1 == note2 && note2 == note3)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note2 = note3 = string.Empty;
+                    }
+
+                    else if (note1 == note2)
+                    {
+                        if (note1 == note2 && note3 == note4)
+                        {
+                            Variables.alternating_note_length *= 4;
+                            note2 = string.Empty;
+                            note4 = string.Empty;
+                        }
+                        else
+                        {
+                            Variables.alternating_note_length *= 2;
+                            note2 = string.Empty;
+                        }
+                    }
+                    else if (note1 == note3)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note3 = string.Empty;
+                    }
+                    else if (note2 == note3)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note3 = string.Empty;
+                    }
+                    else if (note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                    else if (note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                }
+                else if (radioButtonPlay_alternating_notes2.Checked == true)
+                {
+                    if (note1 == note3 && note3 == note2 && note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note3 = note2 = note4 = string.Empty;
+                    }
+                    else if (note1 == note3 && note3 == note2)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note3 = note2 = string.Empty;
+                    }
+
+                    else if (note1 == note2)
+                    {
+                        if (note1 == note3 && note2 == note4)
+                        {
+                            Variables.alternating_note_length *= 4;
+                            note3 = string.Empty;
+                            note4 = string.Empty;
+                        }
+                        else
+                        {
+                            Variables.alternating_note_length *= 2;
+                            note3 = string.Empty;
+                        }
+                    }
+                    else if (note1 == note2)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note2 = string.Empty;
+                    }
+                    else if (note3 == note2)
+                    {
+                        Variables.alternating_note_length *= 4;
+                        note2 = string.Empty;
+                    }
+                    else if (note3 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                    else if (note2 == note4)
+                    {
+                        Variables.alternating_note_length *= 2;
+                        note4 = string.Empty;
+                    }
+                }
+                if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                {
+                    await Task.Delay(Convert.ToInt32(final_note_length));
+                    return;
+                }
+                switch (type)
+                {
+                    case 0:
+                        {
+                            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note1_clicked.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note1_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note2_clicked.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note2_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+
+                            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note3_clicked.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note3_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
+                            {
+                                if (checkBox_play_note4_clicked.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note4_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            else
+                            {
+                                if (checkBox_play_note1_clicked.Checked == true || checkBox_play_note2_clicked.Checked == true ||
+                                                    checkBox_play_note3_clicked.Checked == true || checkBox_play_note4_clicked.Checked)
+                                {
+                                    label_beep.Visible = true;
+                                }
+                                int note_order = 1;
+                                int last_note_order = length / Variables.alternating_note_length;
+                                if (radioButtonPlay_alternating_notes1.Checked == true)
+                                {
+                                    string[] note_series = { note1, note2, note3, note4 };
+                                    do
+                                    {
+                                        int column = 0;
+                                        while (column < 4)
+                                        {
+                                            if (note_series[column] != string.Empty)
+                                            {
+                                                if (column == 0)
+                                                {
+                                                    if(checkBox_play_note1_clicked.Checked==true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 1)
+                                                {
+                                                    if (checkBox_play_note2_clicked.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 2)
+                                                {
+                                                    if (checkBox_play_note3_clicked.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 3)
+                                                {
+                                                    if (checkBox_play_note4_clicked.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                note_order++;
+                                            }
+                                            column++;
+                                        }
+                                    }
+                                    while (note_order < last_note_order);
+                                }
+                                else if (radioButtonPlay_alternating_notes2.Checked == true)
+                                {
+                                    string[] note_series = { note1, note2, note3, note4 };
+                                    do
+                                    {
+                                        // Odd number columns first (Note1 and Note3)
+                                        for (int i = 0; i < 4; i += 2)
+                                        {
+                                            if (note_series[i] != string.Empty)
+                                            {
+                                                if (i == 0 && checkBox_play_note1_clicked.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                else if (i == 2 && checkBox_play_note3_clicked.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                note_order++;
+                                            }
+                                        }
+                                        // Even number columns then (Note2 and Note4)
+                                        for (int i = 1; i < 4; i += 2)
+                                        {
+                                            if (note_series[i] != string.Empty)
+                                            {
+                                                if (i == 1 && checkBox_play_note2_clicked.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                else if (i == 3 && checkBox_play_note4_clicked.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                note_order++;
+                                            }
+                                        }
+                                    }
+                                    while (note_order < last_note_order);  
+                                }
+                                if (checkBox_play_note1_clicked.Checked == true || checkBox_play_note2_clicked.Checked == true ||
+                                                    checkBox_play_note3_clicked.Checked == true || checkBox_play_note4_clicked.Checked)
+                                {
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            break;
+                        }
+                    case 1:
+                        {
+                            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note1_played.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note1_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note2_played.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note2_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+
+                            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
+                            {
+                                if (checkBox_play_note3_played.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note3_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
+                            {
+                                if (checkBox_play_note4_played.Checked == true)
+                                {
+                                    label_beep.Visible = true;
+                                    await play_note(Convert.ToInt32(note4_frequency), length);
+                                    label_beep.Visible = false;
+                                }
+                            } 
+                            else
+                            {
+                                if (checkBox_play_note1_played.Checked == true || checkBox_play_note2_played.Checked == true ||
+                                                    checkBox_play_note3_played.Checked == true || checkBox_play_note4_played.Checked)
+                                {
+                                    label_beep.Visible = true;
+                                }
+                                int note_order = 1;
+                                int last_note_order = length / Variables.alternating_note_length;
+                                if (radioButtonPlay_alternating_notes1.Checked == true)
+                                {
+                                    string[] note_series = { note1, note2, note3, note4 };
+                                    do
+                                    {
+                                        int column = 0;
+                                        while (column < 4)
+                                        {
+                                            if (note_series[column] != string.Empty)
+                                            {
+                                                if (column == 0)
+                                                {
+                                                    if (checkBox_play_note1_played.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 1)
+                                                {
+                                                    if (checkBox_play_note2_played.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 2)
+                                                {
+                                                    if (checkBox_play_note3_played.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                else if (column == 3)
+                                                {
+                                                    if (checkBox_play_note4_played.Checked == true)
+                                                    {
+                                                        await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    }
+                                                    else
+                                                    {
+                                                        continue;
+                                                    }
+                                                }
+                                                note_order++;
+                                            }
+                                            column++;
+                                        }
+                                    }
+                                    while (note_order < last_note_order);
+                                }
+                                else if (radioButtonPlay_alternating_notes2.Checked == true)
+                                {
+                                    string[] note_series = { note1, note2, note3, note4 };
+                                    do
+                                    {
+                                        // Odd number columns first (Note1 and Note3)
+                                        for (int i = 0; i < 4; i += 2)
+                                        {
+                                            if (note_series[i] != string.Empty)
+                                            {
+                                                if (i == 0 && checkBox_play_note1_played.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                else if (i == 2 && checkBox_play_note3_played.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                note_order++;
+                                            }
+                                        }
+                                        // Even number columns then (Note2 and Note4)
+                                        for (int i = 1; i < 4; i += 2)
+                                        {
+                                            if (note_series[i] != string.Empty)
+                                            {
+                                                if (i == 1 && checkBox_play_note2_played.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                else if (i == 3 && checkBox_play_note4_played.Checked)
+                                                {
+                                                    await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                }
+                                                note_order++;
+                                            }
+                                        }
+                                    }
+                                    while (note_order < last_note_order);
+                                }
+                                if (checkBox_play_note1_played.Checked == true || checkBox_play_note2_played.Checked == true ||
+                                                    checkBox_play_note3_played.Checked == true || checkBox_play_note4_played.Checked)
+                                {
+                                    label_beep.Visible = false;
+                                }
+                            }
+                            break;
+                        }
+                        
                 }
             }
         }
