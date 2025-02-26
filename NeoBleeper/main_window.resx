@@ -173,7 +173,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c_s3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c_s3.ZOrder" xml:space="preserve">
     <value>24</value>
@@ -224,7 +224,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d_s3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d_s3.ZOrder" xml:space="preserve">
     <value>26</value>
@@ -275,7 +275,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f_s3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f_s3.ZOrder" xml:space="preserve">
     <value>28</value>
@@ -326,7 +326,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g_s3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g_s3.ZOrder" xml:space="preserve">
     <value>30</value>
@@ -377,7 +377,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a_s3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a_s3.ZOrder" xml:space="preserve">
     <value>32</value>
@@ -428,7 +428,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a_s4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a_s4.ZOrder" xml:space="preserve">
     <value>31</value>
@@ -479,7 +479,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g_s4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g_s4.ZOrder" xml:space="preserve">
     <value>33</value>
@@ -530,7 +530,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f_s4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f_s4.ZOrder" xml:space="preserve">
     <value>35</value>
@@ -581,7 +581,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d_s4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d_s4.ZOrder" xml:space="preserve">
     <value>36</value>
@@ -632,7 +632,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c_s4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c_s4.ZOrder" xml:space="preserve">
     <value>34</value>
@@ -683,7 +683,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a_s5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a_s5.ZOrder" xml:space="preserve">
     <value>22</value>
@@ -734,7 +734,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g_s5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g_s5.ZOrder" xml:space="preserve">
     <value>23</value>
@@ -785,7 +785,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f_s5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f_s5.ZOrder" xml:space="preserve">
     <value>25</value>
@@ -836,7 +836,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d_s5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d_s5.ZOrder" xml:space="preserve">
     <value>27</value>
@@ -869,7 +869,7 @@
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;red_felt.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;red_felt.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1219,7 +1219,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAATCwAAAJNU0Z0AUkBTAIBARAB
-        AAH4ARIB+AESARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAG4ARQBuAEUARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AdwAB8AHKAaYC/wGZATMB/wHwAcoBpgH/qAAD
         sgH/BAADwAH/BAAB/wGZATMC/wHMAQAD/wEzAv8BzAEzAv8BmQEACf8DsgH/A7IB/xAAAf8B7AHMAv8B
         zAEzAv8BzAEzAv8BmQEzAv8BmQEzAv8BzAEzAv8B7AHMAf+gAAGkAqAB/wQAAaQCoAL/AewBzAH/AwAB
@@ -2179,61 +2179,61 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>175, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Blank Line</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 1</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 2</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 3</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+    <value>184, 26</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 4</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>175, 26</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Notes</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>175, 26</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Un-select Line</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>175, 26</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Erase Whole Line</value>
   </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>210, 26</value>
   </data>
   <data name="playAllToolStripMenuItem.Text" xml:space="preserve">
     <value>Play All</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>210, 26</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Play From Selected Line</value>
@@ -2242,19 +2242,19 @@
     <value>False</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>210, 26</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Stop Playing</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 22</value>
+    <value>175, 26</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
     <value>Playback Controls</value>
   </data>
   <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 114</value>
+    <value>176, 134</value>
   </data>
   <data name="&gt;&gt;notes_list_right_click.Name" xml:space="preserve">
     <value>notes_list_right_click</value>
@@ -2940,7 +2940,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_d3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_d3.ZOrder" xml:space="preserve">
     <value>20</value>
@@ -2982,7 +2982,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_e3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_e3.ZOrder" xml:space="preserve">
     <value>19</value>
@@ -3024,7 +3024,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_f3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_f3.ZOrder" xml:space="preserve">
     <value>18</value>
@@ -3066,7 +3066,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_g3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_g3.ZOrder" xml:space="preserve">
     <value>17</value>
@@ -3108,7 +3108,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_a3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_a3.ZOrder" xml:space="preserve">
     <value>16</value>
@@ -3150,7 +3150,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_b3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_b3.ZOrder" xml:space="preserve">
     <value>15</value>
@@ -3192,7 +3192,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_b4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_b4.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -3234,7 +3234,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_a4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_a4.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -3276,7 +3276,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_g4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_g4.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -3318,7 +3318,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_f4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_f4.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -3360,7 +3360,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_e4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_e4.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -3402,7 +3402,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_d4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_d4.ZOrder" xml:space="preserve">
     <value>13</value>
@@ -3444,7 +3444,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_c4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_c4.ZOrder" xml:space="preserve">
     <value>14</value>
@@ -3492,7 +3492,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_g5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_g5.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -3540,7 +3540,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_e5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_e5.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -3588,7 +3588,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_d5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_d5.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -3636,7 +3636,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_c5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_c5.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -4042,7 +4042,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c3.ZOrder" xml:space="preserve">
     <value>37</value>
@@ -4093,7 +4093,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d3.ZOrder" xml:space="preserve">
     <value>43</value>
@@ -4144,7 +4144,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_e3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_e3.ZOrder" xml:space="preserve">
     <value>42</value>
@@ -4195,7 +4195,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f3.ZOrder" xml:space="preserve">
     <value>44</value>
@@ -4246,7 +4246,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g3.ZOrder" xml:space="preserve">
     <value>38</value>
@@ -4297,7 +4297,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a3.ZOrder" xml:space="preserve">
     <value>45</value>
@@ -4348,7 +4348,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_b3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_b3.ZOrder" xml:space="preserve">
     <value>46</value>
@@ -4399,7 +4399,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c4.ZOrder" xml:space="preserve">
     <value>39</value>
@@ -4450,7 +4450,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d4.ZOrder" xml:space="preserve">
     <value>47</value>
@@ -4501,7 +4501,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_e4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_e4.ZOrder" xml:space="preserve">
     <value>48</value>
@@ -4552,7 +4552,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a4.ZOrder" xml:space="preserve">
     <value>50</value>
@@ -4603,7 +4603,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_b4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_b4.ZOrder" xml:space="preserve">
     <value>41</value>
@@ -4654,7 +4654,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c5.ZOrder" xml:space="preserve">
     <value>53</value>
@@ -4705,7 +4705,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_d5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_d5.ZOrder" xml:space="preserve">
     <value>52</value>
@@ -4756,7 +4756,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_e5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_e5.ZOrder" xml:space="preserve">
     <value>51</value>
@@ -4807,7 +4807,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f5.ZOrder" xml:space="preserve">
     <value>54</value>
@@ -4858,7 +4858,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_a5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_a5.ZOrder" xml:space="preserve">
     <value>55</value>
@@ -4906,7 +4906,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_b5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_b5.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -4954,7 +4954,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_a5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_a5.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -5005,7 +5005,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_b5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_b5.ZOrder" xml:space="preserve">
     <value>56</value>
@@ -5056,7 +5056,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_c_s5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_c_s5.ZOrder" xml:space="preserve">
     <value>29</value>
@@ -5914,7 +5914,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g5.ZOrder" xml:space="preserve">
     <value>57</value>
@@ -5962,7 +5962,7 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_f5.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_f5.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -6013,7 +6013,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_g4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_g4.ZOrder" xml:space="preserve">
     <value>49</value>
@@ -6064,7 +6064,7 @@ Options</value>
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button_f4.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;button_f4.ZOrder" xml:space="preserve">
     <value>40</value>
@@ -6375,10 +6375,10 @@ Options</value>
   <data name="&gt;&gt;btn_octave_increase.ZOrder" xml:space="preserve">
     <value>46</value>
   </data>
-  <data name="panel5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="keyboard_panel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="panel5.AutoSize" type="System.Boolean, mscorlib">
+  <data name="keyboard_panel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_c3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -6412,36 +6412,36 @@ Options</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_c3.Parent" xml:space="preserve">
-    <value>panel5</value>
+    <value>keyboard_panel</value>
   </data>
   <data name="&gt;&gt;lbl_c3.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="panel5.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="keyboard_panel.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
-  <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="keyboard_panel.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 32</value>
   </data>
-  <data name="panel5.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="keyboard_panel.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="keyboard_panel.Size" type="System.Drawing.Size, System.Drawing">
     <value>952, 194</value>
   </data>
-  <data name="panel5.TabIndex" type="System.Int32, mscorlib">
+  <data name="keyboard_panel.TabIndex" type="System.Int32, mscorlib">
     <value>119</value>
   </data>
-  <data name="&gt;&gt;panel5.Name" xml:space="preserve">
-    <value>panel5</value>
+  <data name="&gt;&gt;keyboard_panel.Name" xml:space="preserve">
+    <value>keyboard_panel</value>
   </data>
-  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
+  <data name="&gt;&gt;keyboard_panel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;keyboard_panel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;keyboard_panel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

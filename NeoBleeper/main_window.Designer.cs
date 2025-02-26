@@ -196,7 +196,7 @@
             checkBox_bleeper_portamento = new CheckBox();
             btn_octave_decrease = new Button();
             btn_octave_increase = new Button();
-            panel5 = new Panel();
+            keyboard_panel = new Panel();
             lbl_c3 = new Label();
             toolTip1 = new ToolTip(components);
             radioButtonPlay_alternating_notes1 = new RadioButton();
@@ -226,7 +226,7 @@
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             position_table.SuspendLayout();
-            panel5.SuspendLayout();
+            keyboard_panel.SuspendLayout();
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             SuspendLayout();
@@ -815,6 +815,7 @@
             // 
             // blankLineToolStripMenuItem
             // 
+            blankLineToolStripMenuItem.Image = Properties.Resources.icons8_line_48;
             blankLineToolStripMenuItem.Name = "blankLineToolStripMenuItem";
             resources.ApplyResources(blankLineToolStripMenuItem, "blankLineToolStripMenuItem");
             blankLineToolStripMenuItem.Click += blankLineToolStripMenuItem_Click;
@@ -822,38 +823,45 @@
             // clearNotesToolStripMenuItem
             // 
             clearNotesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearNote1ToolStripMenuItem, clearNote2ToolStripMenuItem, clearNote3ToolStripMenuItem, clearNote4ToolStripMenuItem });
+            clearNotesToolStripMenuItem.Image = Properties.Resources.icons8_clear_48;
             clearNotesToolStripMenuItem.Name = "clearNotesToolStripMenuItem";
             resources.ApplyResources(clearNotesToolStripMenuItem, "clearNotesToolStripMenuItem");
             // 
             // clearNote1ToolStripMenuItem
             // 
+            clearNote1ToolStripMenuItem.Image = Properties.Resources.icons8_1_48;
             clearNote1ToolStripMenuItem.Name = "clearNote1ToolStripMenuItem";
             resources.ApplyResources(clearNote1ToolStripMenuItem, "clearNote1ToolStripMenuItem");
             clearNote1ToolStripMenuItem.Click += clearNote1ToolStripMenuItem_Click;
             // 
             // clearNote2ToolStripMenuItem
             // 
+            clearNote2ToolStripMenuItem.Image = Properties.Resources.icons8_2_48;
             clearNote2ToolStripMenuItem.Name = "clearNote2ToolStripMenuItem";
             resources.ApplyResources(clearNote2ToolStripMenuItem, "clearNote2ToolStripMenuItem");
             // 
             // clearNote3ToolStripMenuItem
             // 
+            clearNote3ToolStripMenuItem.Image = Properties.Resources.icons8_3_48;
             clearNote3ToolStripMenuItem.Name = "clearNote3ToolStripMenuItem";
             resources.ApplyResources(clearNote3ToolStripMenuItem, "clearNote3ToolStripMenuItem");
             // 
             // clearNote4ToolStripMenuItem
             // 
+            clearNote4ToolStripMenuItem.Image = Properties.Resources.icons8_4_48;
             clearNote4ToolStripMenuItem.Name = "clearNote4ToolStripMenuItem";
             resources.ApplyResources(clearNote4ToolStripMenuItem, "clearNote4ToolStripMenuItem");
             // 
             // unselectLineToolStripMenuItem
             // 
+            unselectLineToolStripMenuItem.Image = Properties.Resources.icons8_select_none_48;
             unselectLineToolStripMenuItem.Name = "unselectLineToolStripMenuItem";
             resources.ApplyResources(unselectLineToolStripMenuItem, "unselectLineToolStripMenuItem");
             unselectLineToolStripMenuItem.Click += unselectLineToolStripMenuItem_Click;
             // 
             // eraseWholeLineToolStripMenuItem
             // 
+            eraseWholeLineToolStripMenuItem.Image = Properties.Resources.icons8_eraser_tool_48;
             eraseWholeLineToolStripMenuItem.Name = "eraseWholeLineToolStripMenuItem";
             resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
             eraseWholeLineToolStripMenuItem.Click += eraseWholeLineToolStripMenuItem_Click;
@@ -861,17 +869,20 @@
             // playbackControlsToolStripMenuItem
             // 
             playbackControlsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { playAllToolStripMenuItem, playFromSelectedLineToolStripMenuItem, stopPlayingToolStripMenuItem });
+            playbackControlsToolStripMenuItem.Image = Properties.Resources.icons8_play_property_48;
             playbackControlsToolStripMenuItem.Name = "playbackControlsToolStripMenuItem";
             resources.ApplyResources(playbackControlsToolStripMenuItem, "playbackControlsToolStripMenuItem");
             // 
             // playAllToolStripMenuItem
             // 
+            playAllToolStripMenuItem.Image = Properties.Resources.icons8_play_48;
             playAllToolStripMenuItem.Name = "playAllToolStripMenuItem";
             resources.ApplyResources(playAllToolStripMenuItem, "playAllToolStripMenuItem");
             playAllToolStripMenuItem.Click += playAllToolStripMenuItem_Click;
             // 
             // playFromSelectedLineToolStripMenuItem
             // 
+            playFromSelectedLineToolStripMenuItem.Image = Properties.Resources.icons8_playlist_48;
             playFromSelectedLineToolStripMenuItem.Name = "playFromSelectedLineToolStripMenuItem";
             resources.ApplyResources(playFromSelectedLineToolStripMenuItem, "playFromSelectedLineToolStripMenuItem");
             playFromSelectedLineToolStripMenuItem.Click += playFromSelectedLineToolStripMenuItem_Click;
@@ -879,6 +890,7 @@
             // stopPlayingToolStripMenuItem
             // 
             resources.ApplyResources(stopPlayingToolStripMenuItem, "stopPlayingToolStripMenuItem");
+            stopPlayingToolStripMenuItem.Image = Properties.Resources.icons8_pause_48;
             stopPlayingToolStripMenuItem.Name = "stopPlayingToolStripMenuItem";
             stopPlayingToolStripMenuItem.Click += stopPlayingToolStripMenuItem_Click;
             // 
@@ -1599,6 +1611,7 @@
             checkBox_play_note4_clicked.Name = "checkBox_play_note4_clicked";
             NeoBleeper_help.SetShowHelp(checkBox_play_note4_clicked, (bool)resources.GetObject("checkBox_play_note4_clicked.ShowHelp"));
             checkBox_play_note4_clicked.UseVisualStyleBackColor = true;
+            checkBox_play_note4_clicked.CheckedChanged += checkBox_play_note4_clicked_CheckedChanged;
             // 
             // checkBox_play_note3_clicked
             // 
@@ -1608,6 +1621,7 @@
             checkBox_play_note3_clicked.Name = "checkBox_play_note3_clicked";
             NeoBleeper_help.SetShowHelp(checkBox_play_note3_clicked, (bool)resources.GetObject("checkBox_play_note3_clicked.ShowHelp"));
             checkBox_play_note3_clicked.UseVisualStyleBackColor = true;
+            checkBox_play_note3_clicked.CheckedChanged += checkBox_play_note3_clicked_CheckedChanged;
             // 
             // checkBox_play_note2_clicked
             // 
@@ -1617,6 +1631,7 @@
             checkBox_play_note2_clicked.Name = "checkBox_play_note2_clicked";
             NeoBleeper_help.SetShowHelp(checkBox_play_note2_clicked, (bool)resources.GetObject("checkBox_play_note2_clicked.ShowHelp"));
             checkBox_play_note2_clicked.UseVisualStyleBackColor = true;
+            checkBox_play_note2_clicked.CheckedChanged += checkBox_play_note2_clicked_CheckedChanged;
             // 
             // checkBox_play_note1_clicked
             // 
@@ -1626,6 +1641,7 @@
             checkBox_play_note1_clicked.Name = "checkBox_play_note1_clicked";
             NeoBleeper_help.SetShowHelp(checkBox_play_note1_clicked, (bool)resources.GetObject("checkBox_play_note1_clicked.ShowHelp"));
             checkBox_play_note1_clicked.UseVisualStyleBackColor = true;
+            checkBox_play_note1_clicked.CheckedChanged += checkBox_play_note1_clicked_CheckedChanged;
             // 
             // group_music_played
             // 
@@ -1646,6 +1662,7 @@
             checkBox_play_note4_played.Name = "checkBox_play_note4_played";
             NeoBleeper_help.SetShowHelp(checkBox_play_note4_played, (bool)resources.GetObject("checkBox_play_note4_played.ShowHelp"));
             checkBox_play_note4_played.UseVisualStyleBackColor = true;
+            checkBox_play_note4_played.CheckedChanged += checkBox_play_note4_played_CheckedChanged;
             // 
             // checkBox_play_note1_played
             // 
@@ -1655,6 +1672,7 @@
             checkBox_play_note1_played.Name = "checkBox_play_note1_played";
             NeoBleeper_help.SetShowHelp(checkBox_play_note1_played, (bool)resources.GetObject("checkBox_play_note1_played.ShowHelp"));
             checkBox_play_note1_played.UseVisualStyleBackColor = true;
+            checkBox_play_note1_played.CheckedChanged += checkBox_play_note1_played_CheckedChanged;
             // 
             // checkBox_play_note3_played
             // 
@@ -1664,6 +1682,7 @@
             checkBox_play_note3_played.Name = "checkBox_play_note3_played";
             NeoBleeper_help.SetShowHelp(checkBox_play_note3_played, (bool)resources.GetObject("checkBox_play_note3_played.ShowHelp"));
             checkBox_play_note3_played.UseVisualStyleBackColor = true;
+            checkBox_play_note3_played.CheckedChanged += checkBox_play_note3_played_CheckedChanged;
             // 
             // checkBox_play_note2_played
             // 
@@ -1673,6 +1692,7 @@
             checkBox_play_note2_played.Name = "checkBox_play_note2_played";
             NeoBleeper_help.SetShowHelp(checkBox_play_note2_played, (bool)resources.GetObject("checkBox_play_note2_played.ShowHelp"));
             checkBox_play_note2_played.UseVisualStyleBackColor = true;
+            checkBox_play_note2_played.CheckedChanged += checkBox_play_note2_played_CheckedChanged;
             // 
             // group_notes
             // 
@@ -1805,70 +1825,70 @@
             btn_octave_increase.UseVisualStyleBackColor = false;
             btn_octave_increase.Click += btn_octave_increase_Click;
             // 
-            // panel5
+            // keyboard_panel
             // 
-            resources.ApplyResources(panel5, "panel5");
-            panel5.BackColor = Color.Transparent;
-            panel5.Controls.Add(red_felt);
-            panel5.Controls.Add(lbl_b5);
-            panel5.Controls.Add(lbl_a5);
-            panel5.Controls.Add(lbl_g5);
-            panel5.Controls.Add(lbl_f5);
-            panel5.Controls.Add(lbl_e5);
-            panel5.Controls.Add(lbl_d5);
-            panel5.Controls.Add(lbl_c5);
-            panel5.Controls.Add(lbl_b4);
-            panel5.Controls.Add(lbl_a4);
-            panel5.Controls.Add(lbl_g4);
-            panel5.Controls.Add(lbl_f4);
-            panel5.Controls.Add(lbl_e4);
-            panel5.Controls.Add(lbl_d4);
-            panel5.Controls.Add(lbl_c4);
-            panel5.Controls.Add(lbl_b3);
-            panel5.Controls.Add(lbl_a3);
-            panel5.Controls.Add(lbl_g3);
-            panel5.Controls.Add(lbl_f3);
-            panel5.Controls.Add(lbl_e3);
-            panel5.Controls.Add(lbl_d3);
-            panel5.Controls.Add(lbl_c3);
-            panel5.Controls.Add(button_a_s5);
-            panel5.Controls.Add(button_g_s5);
-            panel5.Controls.Add(button_c_s3);
-            panel5.Controls.Add(button_f_s5);
-            panel5.Controls.Add(button_d_s3);
-            panel5.Controls.Add(button_d_s5);
-            panel5.Controls.Add(button_f_s3);
-            panel5.Controls.Add(button_c_s5);
-            panel5.Controls.Add(button_g_s3);
-            panel5.Controls.Add(button_a_s4);
-            panel5.Controls.Add(button_a_s3);
-            panel5.Controls.Add(button_g_s4);
-            panel5.Controls.Add(button_c_s4);
-            panel5.Controls.Add(button_f_s4);
-            panel5.Controls.Add(button_d_s4);
-            panel5.Controls.Add(button_c3);
-            panel5.Controls.Add(button_g3);
-            panel5.Controls.Add(button_c4);
-            panel5.Controls.Add(button_f4);
-            panel5.Controls.Add(button_b4);
-            panel5.Controls.Add(button_e3);
-            panel5.Controls.Add(button_d3);
-            panel5.Controls.Add(button_f3);
-            panel5.Controls.Add(button_a3);
-            panel5.Controls.Add(button_b3);
-            panel5.Controls.Add(button_d4);
-            panel5.Controls.Add(button_e4);
-            panel5.Controls.Add(button_g4);
-            panel5.Controls.Add(button_a4);
-            panel5.Controls.Add(button_e5);
-            panel5.Controls.Add(button_d5);
-            panel5.Controls.Add(button_c5);
-            panel5.Controls.Add(button_f5);
-            panel5.Controls.Add(button_a5);
-            panel5.Controls.Add(button_b5);
-            panel5.Controls.Add(button_g5);
-            panel5.Name = "panel5";
-            NeoBleeper_help.SetShowHelp(panel5, (bool)resources.GetObject("panel5.ShowHelp"));
+            resources.ApplyResources(keyboard_panel, "keyboard_panel");
+            keyboard_panel.BackColor = Color.Transparent;
+            keyboard_panel.Controls.Add(red_felt);
+            keyboard_panel.Controls.Add(lbl_b5);
+            keyboard_panel.Controls.Add(lbl_a5);
+            keyboard_panel.Controls.Add(lbl_g5);
+            keyboard_panel.Controls.Add(lbl_f5);
+            keyboard_panel.Controls.Add(lbl_e5);
+            keyboard_panel.Controls.Add(lbl_d5);
+            keyboard_panel.Controls.Add(lbl_c5);
+            keyboard_panel.Controls.Add(lbl_b4);
+            keyboard_panel.Controls.Add(lbl_a4);
+            keyboard_panel.Controls.Add(lbl_g4);
+            keyboard_panel.Controls.Add(lbl_f4);
+            keyboard_panel.Controls.Add(lbl_e4);
+            keyboard_panel.Controls.Add(lbl_d4);
+            keyboard_panel.Controls.Add(lbl_c4);
+            keyboard_panel.Controls.Add(lbl_b3);
+            keyboard_panel.Controls.Add(lbl_a3);
+            keyboard_panel.Controls.Add(lbl_g3);
+            keyboard_panel.Controls.Add(lbl_f3);
+            keyboard_panel.Controls.Add(lbl_e3);
+            keyboard_panel.Controls.Add(lbl_d3);
+            keyboard_panel.Controls.Add(lbl_c3);
+            keyboard_panel.Controls.Add(button_a_s5);
+            keyboard_panel.Controls.Add(button_g_s5);
+            keyboard_panel.Controls.Add(button_c_s3);
+            keyboard_panel.Controls.Add(button_f_s5);
+            keyboard_panel.Controls.Add(button_d_s3);
+            keyboard_panel.Controls.Add(button_d_s5);
+            keyboard_panel.Controls.Add(button_f_s3);
+            keyboard_panel.Controls.Add(button_c_s5);
+            keyboard_panel.Controls.Add(button_g_s3);
+            keyboard_panel.Controls.Add(button_a_s4);
+            keyboard_panel.Controls.Add(button_a_s3);
+            keyboard_panel.Controls.Add(button_g_s4);
+            keyboard_panel.Controls.Add(button_c_s4);
+            keyboard_panel.Controls.Add(button_f_s4);
+            keyboard_panel.Controls.Add(button_d_s4);
+            keyboard_panel.Controls.Add(button_c3);
+            keyboard_panel.Controls.Add(button_g3);
+            keyboard_panel.Controls.Add(button_c4);
+            keyboard_panel.Controls.Add(button_f4);
+            keyboard_panel.Controls.Add(button_b4);
+            keyboard_panel.Controls.Add(button_e3);
+            keyboard_panel.Controls.Add(button_d3);
+            keyboard_panel.Controls.Add(button_f3);
+            keyboard_panel.Controls.Add(button_a3);
+            keyboard_panel.Controls.Add(button_b3);
+            keyboard_panel.Controls.Add(button_d4);
+            keyboard_panel.Controls.Add(button_e4);
+            keyboard_panel.Controls.Add(button_g4);
+            keyboard_panel.Controls.Add(button_a4);
+            keyboard_panel.Controls.Add(button_e5);
+            keyboard_panel.Controls.Add(button_d5);
+            keyboard_panel.Controls.Add(button_c5);
+            keyboard_panel.Controls.Add(button_f5);
+            keyboard_panel.Controls.Add(button_a5);
+            keyboard_panel.Controls.Add(button_b5);
+            keyboard_panel.Controls.Add(button_g5);
+            keyboard_panel.Name = "keyboard_panel";
+            NeoBleeper_help.SetShowHelp(keyboard_panel, (bool)resources.GetObject("keyboard_panel.ShowHelp"));
             // 
             // lbl_c3
             // 
@@ -1964,7 +1984,7 @@
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(checkBox_use_keyboard_as_piano);
-            Controls.Add(panel5);
+            Controls.Add(keyboard_panel);
             Controls.Add(checkBox_loop);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -2044,8 +2064,8 @@
             panel3.PerformLayout();
             position_table.ResumeLayout(false);
             position_table.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            keyboard_panel.ResumeLayout(false);
+            keyboard_panel.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel4.ResumeLayout(false);
@@ -2247,7 +2267,7 @@
         public NumericUpDown numericUpDown_bpm;
         private ImageList imageList_main_window;
         private ToolStripMenuItem openRecentToolStripMenuItem;
-        private Panel panel5;
+        private Panel keyboard_panel;
         private CheckBox checkBox_use_keyboard_as_piano;
         private ToolStripMenuItem openToolStripMenuItem;
         private ContextMenuStrip notes_list_right_click;

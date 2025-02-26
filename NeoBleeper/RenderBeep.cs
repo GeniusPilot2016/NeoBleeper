@@ -17,7 +17,7 @@ namespace NeoBleeper
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
             extern static char Inp32(short PortAddress);
-            public static async void Beep(int freq, int ms)
+            public static void Beep(int freq, int ms)
             {
                 Application.DoEvents();
                 Out32(0x43, 0xB6);
@@ -35,7 +35,7 @@ namespace NeoBleeper
         }
         public static class SynthMisc
         {
-            public static async void SquareWave(int freq, int ms)
+            public static void SquareWave(int freq, int ms)
             {
                 SignalGenerator squareWave = new SignalGenerator()
                 {
@@ -46,14 +46,14 @@ namespace NeoBleeper
                 using (var waveOut = new WaveOutEvent())
                 {
                     Application.DoEvents();
-                    waveOut.DesiredLatency = 10;
+                    //waveOut.DesiredLatency = 10;
                     waveOut.Init(squareWave);
                     waveOut.Play();
                     System.Threading.Thread.Sleep(ms);
                     waveOut.Stop();
                 }
             }
-            public static async void SineWave(int freq, int ms)
+            public static void SineWave(int freq, int ms)
             {
                 SignalGenerator sineWave = new SignalGenerator()
                 {
@@ -64,14 +64,14 @@ namespace NeoBleeper
                 using (var waveOut = new WaveOutEvent())
                 {
                     Application.DoEvents();
-                    waveOut.DesiredLatency = 10;
+                    //waveOut.DesiredLatency = 10;
                     waveOut.Init(sineWave);
                     waveOut.Play();
                     System.Threading.Thread.Sleep(ms);
                     waveOut.Stop();
                 }
             }
-            public static async void TriangleWave(int freq, int ms)
+            public static void TriangleWave(int freq, int ms)
             {
                 SignalGenerator triangleWave = new SignalGenerator()
                 {
@@ -82,14 +82,14 @@ namespace NeoBleeper
                 using (var waveOut = new WaveOutEvent())
                 {
                     Application.DoEvents();
-                    waveOut.DesiredLatency = 10;
+                    //waveOut.DesiredLatency = 10;
                     waveOut.Init(triangleWave);
                     waveOut.Play();
                     System.Threading.Thread.Sleep(ms);
                     waveOut.Stop();
                 }
             }
-            public static async void Noise(int freq, int ms)
+            public static void Noise(int freq, int ms)
             {
                 SignalGenerator noise = new SignalGenerator()
                 {
@@ -100,7 +100,7 @@ namespace NeoBleeper
                 using (var waveOut = new WaveOutEvent())
                 {
                     Application.DoEvents();
-                    waveOut.DesiredLatency = 10;
+                    //waveOut.DesiredLatency = 10;
                     waveOut.Init(noise);
                     waveOut.Play();
                     System.Threading.Thread.Sleep(ms);
