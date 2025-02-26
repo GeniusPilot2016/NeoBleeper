@@ -1332,7 +1332,7 @@ namespace NeoBleeper
 
         private void FileParser(string filename)
         {
-            string first_line = File.ReadLines(filename).First();
+            string first_line = File.ReadLines(filename).First().Trim();
             switch (first_line)
             {
                 case "Bleeper Music Maker by Robbi-985 file format":
@@ -1511,10 +1511,10 @@ namespace NeoBleeper
                                 numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
                                 checkbox_play_note.Checked = projectFile.Settings.PlaybackSettings.NoteClickPlay == "True";
                                 checkBox_add_note_to_list.Checked = projectFile.Settings.PlaybackSettings.NoteClickAdd == "True";
-                                add_as_note1.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
-                                add_as_note2.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
-                                add_as_note3.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
-                                add_as_note4.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                                add_as_note1.Checked = projectFile.Settings.PlaybackSettings.AddNote1 == "True";
+                                add_as_note2.Checked = projectFile.Settings.PlaybackSettings.AddNote2 == "True";
+                                add_as_note3.Checked = projectFile.Settings.PlaybackSettings.AddNote3 == "True";
+                                add_as_note4.Checked = projectFile.Settings.PlaybackSettings.AddNote4 == "True";
                                 checkBox_replace.Checked = projectFile.Settings.PlaybackSettings.NoteReplace == "True";
                                 checkBox_replace_length.Checked = projectFile.Settings.PlaybackSettings.NoteLengthReplace == "True";
                                 checkBox_play_note1_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote1 == "True";
@@ -1617,21 +1617,25 @@ namespace NeoBleeper
                         TimeSignature = trackBar_time_signature.Value.ToString(),
                         NoteSilenceRatio = (Variables.note_silence_ratio * 100).ToString(),
                         NoteLength = comboBox_note_length.SelectedIndex.ToString(),
-                        AlternateTime = Variables.alternating_note_length.ToString()
+                        AlternateTime = numericUpDown_alternating_notes.Value.ToString()
                     },
                     PlaybackSettings = new NBPML_File.PlaybackSettings
                     {
                         NoteClickPlay = checkbox_play_note.Checked.ToString(),
                         NoteClickAdd = checkBox_add_note_to_list.Checked.ToString(),
+                        AddNote1 = add_as_note1.Checked.ToString(),
+                        AddNote2 = add_as_note2.Checked.ToString(),
+                        AddNote3 = add_as_note3.Checked.ToString(),
+                        AddNote4 = add_as_note4.Checked.ToString(),
                         NoteReplace = checkBox_replace.Checked.ToString(),
                         NoteLengthReplace = checkBox_replace_length.Checked.ToString()
                     },
                     PlayNotes = new NBPML_File.PlayNotes
                     {
-                        PlayNote1 = add_as_note1.Checked.ToString(),
-                        PlayNote2 = add_as_note2.Checked.ToString(),
-                        PlayNote3 = add_as_note3.Checked.ToString(),
-                        PlayNote4 = add_as_note4.Checked.ToString()
+                        PlayNote1 = checkBox_play_note1_played.Checked.ToString(),
+                        PlayNote2 = checkBox_play_note2_played.Checked.ToString(),
+                        PlayNote3 = checkBox_play_note3_played.Checked.ToString(),
+                        PlayNote4 = checkBox_play_note4_played.Checked.ToString()
                     },
                     ClickPlayNotes = new NBPML_File.ClickPlayNotes
                     {
