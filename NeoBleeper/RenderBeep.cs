@@ -35,77 +35,44 @@ namespace NeoBleeper
         }
         public static class SynthMisc
         {
+            private static readonly WaveOutEvent waveOut = new WaveOutEvent();
+            private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.35 };
+
+            static SynthMisc()
+            {
+                waveOut.DesiredLatency = 20; // Gecikmeyi azaltmak için düşük bir değer ayarlayın
+                waveOut.NumberOfBuffers = 50; // Buffer sayısını artırarak kesintileri azaltın
+                waveOut.Init(signalGenerator);
+            }
+
+            public static void PlayWave(SignalGeneratorType type, int freq, int ms)
+            {
+                Application.DoEvents();
+                signalGenerator.Frequency = freq;
+                signalGenerator.Type = type;
+                waveOut.Play();
+                Thread.Sleep(ms);
+                waveOut.Stop();
+            }
+
             public static void SquareWave(int freq, int ms)
             {
-                SignalGenerator squareWave = new SignalGenerator()
-                {
-                    Gain = 0.15,
-                    Frequency = freq,
-                    Type = SignalGeneratorType.Square
-                };
-                using (var waveOut = new WaveOutEvent())
-                {
-                    Application.DoEvents();
-                    //waveOut.DesiredLatency = 10;
-                    waveOut.Init(squareWave);
-                    waveOut.Play();
-                    System.Threading.Thread.Sleep(ms);
-                    waveOut.Stop();
-                }
+                PlayWave(SignalGeneratorType.Square, freq, ms);
             }
+
             public static void SineWave(int freq, int ms)
             {
-                SignalGenerator sineWave = new SignalGenerator()
-                {
-                    Gain = 0.15,
-                    Frequency = freq,
-                    Type = SignalGeneratorType.Sin
-                };
-                using (var waveOut = new WaveOutEvent())
-                {
-                    Application.DoEvents();
-                    //waveOut.DesiredLatency = 10;
-                    waveOut.Init(sineWave);
-                    waveOut.Play();
-                    System.Threading.Thread.Sleep(ms);
-                    waveOut.Stop();
-                }
+                PlayWave(SignalGeneratorType.Sin, freq, ms);
             }
+
             public static void TriangleWave(int freq, int ms)
             {
-                SignalGenerator triangleWave = new SignalGenerator()
-                {
-                    Gain = 0.15,
-                    Frequency = freq,
-                    Type = SignalGeneratorType.Triangle
-                };
-                using (var waveOut = new WaveOutEvent())
-                {
-                    Application.DoEvents();
-                    //waveOut.DesiredLatency = 10;
-                    waveOut.Init(triangleWave);
-                    waveOut.Play();
-                    System.Threading.Thread.Sleep(ms);
-                    waveOut.Stop();
-                }
+                PlayWave(SignalGeneratorType.Triangle, freq, ms);
             }
+
             public static void Noise(int freq, int ms)
             {
-                SignalGenerator noise = new SignalGenerator()
-                {
-                    Gain = 0.15,
-                    Frequency = freq,
-                    Type = SignalGeneratorType.White
-                };
-                using (var waveOut = new WaveOutEvent())
-                {
-                    Application.DoEvents();
-                    //waveOut.DesiredLatency = 10;
-                    waveOut.Init(noise);
-                    waveOut.Play();
-                    System.Threading.Thread.Sleep(ms);
-                    waveOut.Stop();
-                }
+                PlayWave(SignalGeneratorType.White, freq, ms);
             }
         }
     }

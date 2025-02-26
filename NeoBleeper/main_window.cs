@@ -2060,44 +2060,32 @@ namespace NeoBleeper
 
         private async Task play_music()
         {
-            try
+            while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
+                Application.DoEvents();
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                note_length_calculator();
+                play_note_in_line(Convert.ToInt32(final_note_length), 1);
+                double delay = note_length - final_note_length;
+                await Task.Delay(Convert.ToInt32(delay));
+                if (listViewNotes.SelectedIndices.Count > 0)
                 {
-                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    note_length_calculator();
-                    play_note_in_line(Convert.ToInt32(final_note_length), 1);
-                    double delay = note_length - final_note_length;
-                    await Task.Delay(Convert.ToInt32(delay));
-                    if (listViewNotes.SelectedIndices.Count > 0)
+                    int nextIndex = listViewNotes.SelectedIndices[0] + 1;
+                    if (nextIndex < listViewNotes.Items.Count)
                     {
-                        int nextIndex = listViewNotes.SelectedIndices[0] + 1;
-                        if (nextIndex < listViewNotes.Items.Count)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                listViewNotes.Items[nextIndex].Selected = true;
-                                listViewNotes.EnsureVisible(nextIndex);
-                            }));
-                        }
-                        else if (checkBox_loop.Checked)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                listViewNotes.Items[0].Selected = true;
-                                listViewNotes.EnsureVisible(0);
-                            }));
-                        }
-                        else
-                        {
-                            Invoke(new Action(() => stop_playing()));
-                        }
+                        listViewNotes.Items[nextIndex].Selected = true;
+                        listViewNotes.EnsureVisible(nextIndex);
+                    }
+                    else if (checkBox_loop.Checked)
+                    {
+                        listViewNotes.Items[0].Selected = true;
+                        listViewNotes.EnsureVisible(0);
+                    }
+                    else
+                    {
+                        stop_playing();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
 
@@ -2697,7 +2685,7 @@ namespace NeoBleeper
                     }
             }
         }
-        private async Task play_note_in_line(int length, int type) //0 = click, 1 = playback
+        private async void play_note_in_line(int length, int type) //0 = click, 1 = playback
         {
             string note1;
             string note2;
