@@ -2176,18 +2176,7 @@ namespace NeoBleeper
                     note_length_calculator();
                     await play_note_in_line(Convert.ToInt32(final_note_length), 1);
                     double delay = note_length - final_note_length;
-                    if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
-                    {
-                        if (delay > 20)
-                        {
-                            await Task.Delay(Convert.ToInt32(delay) - 20);
-                        }
-                    }
-                    else
-                    {
-                        await Task.Delay(Convert.ToInt32(delay));
-                    }
-
+                    await Task.Delay(Convert.ToInt32(delay));
                     if (listViewNotes.SelectedIndices.Count > 0)
                     {
                         int nextIndex = listViewNotes.SelectedIndices[0] + 1;
