@@ -2455,22 +2455,23 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null)
             {
-                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                note_length_calculator();
-                keyboard_panel.Enabled = false;
-                numericUpDown_alternating_notes.Enabled = false;
-                numericUpDown_bpm.Enabled = false;
-                checkBox_do_not_update.Enabled = false;
+                
                 new Thread(() =>
                 {
+                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    note_length_calculator();
+                    keyboard_panel.Enabled = false;
+                    numericUpDown_alternating_notes.Enabled = false;
+                    numericUpDown_bpm.Enabled = false;
+                    checkBox_do_not_update.Enabled = false;
                     play_note_in_line(Convert.ToInt32(Math.Round(final_note_length)), 1);
+                    keyboard_panel.Enabled = true;
+                    numericUpDown_alternating_notes.Enabled = true;
+                    numericUpDown_bpm.Enabled = true;
+                    checkBox_do_not_update.Enabled = true;
+                    total_note_length = 0;
+                    note_count = 0;
                 }).Start();
-                keyboard_panel.Enabled = true;
-                numericUpDown_alternating_notes.Enabled = true;
-                numericUpDown_bpm.Enabled = true;
-                checkBox_do_not_update.Enabled = true;
-                total_note_length = 0;
-                note_count = 0;
             }
         }
 
