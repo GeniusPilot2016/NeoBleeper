@@ -72,7 +72,7 @@ namespace NeoBleeper
 
             public static void Noise(int freq, int ms)
             {
-                PlayWave(SignalGeneratorType.White, freq, ms);
+                PlayWave(SignalGeneratorType.Pink, freq, ms);
             }
         }
     }
