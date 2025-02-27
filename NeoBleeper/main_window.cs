@@ -499,10 +499,12 @@ namespace NeoBleeper
                 int selectedLine = listViewNotes.SelectedIndices[0];
                 listViewNotes.Items[selectedLine].Selected = true;
                 listViewNotes.Items.Insert(selectedLine, listViewItem);
+                listViewNotes.EnsureVisible(selectedLine);
             }
             else
             {
                 listViewNotes.Items.Add(listViewItem);
+                listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
             }
         }
         private void add_notes_to_column(string note)
@@ -585,6 +587,7 @@ namespace NeoBleeper
                     if (listViewNotes.Items[i].Selected)
                     {
                         listViewNotes.Items[i].SubItems[0].Text = Line.length;
+
                     }
                 }
             }
@@ -601,6 +604,7 @@ namespace NeoBleeper
                         if (listViewNotes.Items[i].Selected)
                         {
                             listViewNotes.Items[i].SubItems[1].Text = note;
+                            listViewNotes.EnsureVisible(i);
                         }
                     }
                 }
@@ -612,6 +616,7 @@ namespace NeoBleeper
                         if (listViewNotes.Items[i].Selected)
                         {
                             listViewNotes.Items[i].SubItems[2].Text = note;
+                            listViewNotes.EnsureVisible(i);
                         }
                     }
                 }
@@ -623,6 +628,7 @@ namespace NeoBleeper
                         if (listViewNotes.Items[i].Selected)
                         {
                             listViewNotes.Items[i].SubItems[3].Text = note;
+                            listViewNotes.EnsureVisible(i);
                         }
                     }
                 }
@@ -634,6 +640,7 @@ namespace NeoBleeper
                         if (listViewNotes.Items[i].Selected)
                         {
                             listViewNotes.Items[i].SubItems[4].Text = note;
+                            listViewNotes.EnsureVisible(i);
                         }
                     }
                 }
