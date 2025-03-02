@@ -40,8 +40,8 @@ namespace NeoBleeper
 
             static SynthMisc()
             {
-                waveOut.DesiredLatency = 20; // Set the desired latency to 20ms to reduce the delay
-                waveOut.NumberOfBuffers = 50; // Reduce the number of buffers to reduce the delay
+                waveOut.DesiredLatency = 50; // Set the desired latency to 20ms to reduce the delay
+                waveOut.NumberOfBuffers = 35; // Reduce the number of buffers to reduce the delay
                 waveOut.Init(signalGenerator);
             }
 
