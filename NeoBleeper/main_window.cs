@@ -32,9 +32,6 @@ namespace NeoBleeper
             public static int miliseconds_per_beat;
             public static int alternating_note_length;
             public static double note_silence_ratio;
-            public static int measure;
-            public static double beat;
-            public static Tuple<int, int> traditional_beat;
         }
         private bool isClosing = false;
         double note_length;
@@ -3380,23 +3377,44 @@ namespace NeoBleeper
                         checkBox_spiccato.Checked = false;
                     }
                 }
-                if(checkBox_do_not_update.Checked == false)
+                updateIndicators(selectedLine);
+            }
+        }
+        private async void updateIndicators(int selectedLine)
+        {
+            try
+            {
+                int measure=1;
+                double beat=0;
+                Tuple<int, int> traditional_beat;
+                if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    Variables.beat = 0;
+                    
                     for (int i = 0; i <= selectedLine; i++)
                     {
-                        Variables.beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i].SubItems[0].Text));
+                        beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i].SubItems[0].Text));
+                        if (beat % trackBar_time_signature.Value == 0)
+                        {
+                            measure++;
+                        }
                     }
-                    lbl_beat_value.Text = FormatNumber(Variables.beat);
+                    lbl_measure_value.Text = measure.ToString();
+                    lbl_beat_value.Text = FormatNumber(beat);
+                }
+                else
+                {
+                    if (checkBox_do_not_update.Checked == false)
+                    {
+                        beat = 0;
+                        lbl_beat_value.Text = "0.0";
+                        measure = 1;
+                        lbl_measure_value.Text = "1";
+                    }
                 }
             }
-            else
+            catch (InvalidAsynchronousStateException)
             {
-                if (checkBox_do_not_update.Checked == false)
-                {
-                    Variables.beat = 0;
-                    lbl_beat_value.Text = "0.0";
-                }
+                return;
             }
         }
         private double NoteLengthToBeats(string noteLength)
