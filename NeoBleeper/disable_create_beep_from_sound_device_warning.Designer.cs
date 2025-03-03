@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(disable_create_beep_from_sound_card_warning));
             button_yes = new Button();
-            imageList_disable_create_beep_from_sound_card_warning = new ImageList(components);
+            imageList_disable_create_beep_from_sound_device_warning = new ImageList(components);
             button_no = new Button();
             label_unknown_type_of_computer_warning = new Label();
             pictureBox1 = new PictureBox();
@@ -47,10 +47,11 @@
             button_yes.DialogResult = DialogResult.Yes;
             button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
-            button_yes.ImageList = imageList_disable_create_beep_from_sound_card_warning;
-            button_yes.Location = new Point(89, 238);
+            button_yes.ImageList = imageList_disable_create_beep_from_sound_device_warning;
+            button_yes.Location = new Point(71, 190);
+            button_yes.Margin = new Padding(2);
             button_yes.Name = "button_yes";
-            button_yes.Size = new Size(94, 32);
+            button_yes.Size = new Size(75, 26);
             button_yes.TabIndex = 19;
             button_yes.Text = "&Yes";
             button_yes.TextAlign = ContentAlignment.MiddleRight;
@@ -58,13 +59,13 @@
             button_yes.UseVisualStyleBackColor = true;
             button_yes.Click += button_yes_Click;
             // 
-            // imageList_disable_create_beep_from_sound_card_warning
+            // imageList_disable_create_beep_from_sound_device_warning
             // 
-            imageList_disable_create_beep_from_sound_card_warning.ColorDepth = ColorDepth.Depth32Bit;
-            imageList_disable_create_beep_from_sound_card_warning.ImageStream = (ImageListStreamer)resources.GetObject("imageList_disable_create_beep_from_sound_card_warning.ImageStream");
-            imageList_disable_create_beep_from_sound_card_warning.TransparentColor = Color.Transparent;
-            imageList_disable_create_beep_from_sound_card_warning.Images.SetKeyName(0, "icons8-no-48.png");
-            imageList_disable_create_beep_from_sound_card_warning.Images.SetKeyName(1, "icons8-yes-48.png");
+            imageList_disable_create_beep_from_sound_device_warning.ColorDepth = ColorDepth.Depth32Bit;
+            imageList_disable_create_beep_from_sound_device_warning.ImageStream = (ImageListStreamer)resources.GetObject("imageList_disable_create_beep_from_sound_device_warning.ImageStream");
+            imageList_disable_create_beep_from_sound_device_warning.TransparentColor = Color.Transparent;
+            imageList_disable_create_beep_from_sound_device_warning.Images.SetKeyName(0, "icons8-no-48.png");
+            imageList_disable_create_beep_from_sound_device_warning.Images.SetKeyName(1, "icons8-yes-48.png");
             // 
             // button_no
             // 
@@ -73,10 +74,11 @@
             button_no.DialogResult = DialogResult.No;
             button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
-            button_no.ImageList = imageList_disable_create_beep_from_sound_card_warning;
-            button_no.Location = new Point(266, 238);
+            button_no.ImageList = imageList_disable_create_beep_from_sound_device_warning;
+            button_no.Location = new Point(213, 190);
+            button_no.Margin = new Padding(2);
             button_no.Name = "button_no";
-            button_no.Size = new Size(94, 32);
+            button_no.Size = new Size(75, 26);
             button_no.TabIndex = 20;
             button_no.Text = "&No";
             button_no.TextAlign = ContentAlignment.MiddleRight;
@@ -89,18 +91,20 @@
             label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_unknown_type_of_computer_warning.AutoSize = true;
             label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label_unknown_type_of_computer_warning.Location = new Point(83, 9);
+            label_unknown_type_of_computer_warning.Location = new Point(66, 7);
+            label_unknown_type_of_computer_warning.Margin = new Padding(2, 0, 2, 0);
             label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
-            label_unknown_type_of_computer_warning.Size = new Size(362, 160);
+            label_unknown_type_of_computer_warning.Size = new Size(283, 128);
             label_unknown_type_of_computer_warning.TabIndex = 17;
             label_unknown_type_of_computer_warning.Text = resources.GetString("label_unknown_type_of_computer_warning.Text");
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.icons8_warning_48;
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(10, 10);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(60, 60);
+            pictureBox1.Size = new Size(48, 48);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 22;
             pictureBox1.TabStop = false;
@@ -110,19 +114,20 @@
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label1.Location = new Point(12, 183);
+            label1.Location = new Point(10, 146);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(398, 40);
+            label1.Size = new Size(320, 32);
             label1.TabIndex = 18;
-            label1.Text = "Despite this, do you want to disable \"Use sound card to \r\ncreate beeps\" option?";
+            label1.Text = "Despite this, do you want to disable \"Use sound device to \r\ncreate beeps\" option?";
             // 
             // disable_create_beep_from_sound_card_warning
             // 
             AcceptButton = button_yes;
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(453, 276);
+            ClientSize = new Size(362, 221);
             Controls.Add(button_yes);
             Controls.Add(button_no);
             Controls.Add(label_unknown_type_of_computer_warning);
@@ -130,6 +135,7 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "disable_create_beep_from_sound_card_warning";
@@ -142,7 +148,7 @@
         #endregion
 
         private Button button_yes;
-        private ImageList imageList_disable_create_beep_from_sound_card_warning;
+        private ImageList imageList_disable_create_beep_from_sound_device_warning;
         private Button button_no;
         private Label label_unknown_type_of_computer_warning;
         private PictureBox pictureBox1;

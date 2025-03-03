@@ -112,7 +112,6 @@
             label_mods = new Label();
             checkBox_synchronized_play = new CheckBox();
             checkBox_play_beat_sound = new CheckBox();
-            checkBox_act_as_circuit_bent = new CheckBox();
             checkBox_staccato = new CheckBox();
             label_beep = new Label();
             checkBox_fermata = new CheckBox();
@@ -198,6 +197,12 @@
             btn_octave_increase = new Button();
             keyboard_panel = new Panel();
             lbl_c3 = new Label();
+            button_synchronized_play_help = new Button();
+            help_icon = new ImageList(components);
+            button_play_beat_sound_help = new Button();
+            button_bleeper_portamento_help = new Button();
+            button_use_keyboard_as_piano_help = new Button();
+            button_do_not_update_help = new Button();
             toolTip1 = new ToolTip(components);
             radioButtonPlay_alternating_notes1 = new RadioButton();
             radioButtonPlay_alternating_notes2 = new RadioButton();
@@ -532,9 +537,9 @@
             // 
             // undoToolStripMenuItem
             // 
+            resources.ApplyResources(undoToolStripMenuItem, "undoToolStripMenuItem");
             undoToolStripMenuItem.Image = Properties.Resources.icons8_undo_48;
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            resources.ApplyResources(undoToolStripMenuItem, "undoToolStripMenuItem");
             // 
             // redoToolStripMenuItem
             // 
@@ -596,6 +601,7 @@
             imageList_main_window.Images.SetKeyName(13, "icons8-one-way-transition-48.png");
             imageList_main_window.Images.SetKeyName(14, "icons8-keyboard-48.png");
             imageList_main_window.Images.SetKeyName(15, "icons8-countdown-48.png");
+            imageList_main_window.Images.SetKeyName(16, "");
             // 
             // numericUpDown_alternating_notes
             // 
@@ -965,15 +971,6 @@
             NeoBleeper_help.SetShowHelp(checkBox_play_beat_sound, (bool)resources.GetObject("checkBox_play_beat_sound.ShowHelp"));
             toolTip1.SetToolTip(checkBox_play_beat_sound, resources.GetString("checkBox_play_beat_sound.ToolTip"));
             checkBox_play_beat_sound.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_act_as_circuit_bent
-            // 
-            resources.ApplyResources(checkBox_act_as_circuit_bent, "checkBox_act_as_circuit_bent");
-            checkBox_act_as_circuit_bent.ImageList = imageList_main_window;
-            checkBox_act_as_circuit_bent.Name = "checkBox_act_as_circuit_bent";
-            NeoBleeper_help.SetShowHelp(checkBox_act_as_circuit_bent, (bool)resources.GetObject("checkBox_act_as_circuit_bent.ShowHelp"));
-            toolTip1.SetToolTip(checkBox_act_as_circuit_bent, resources.GetString("checkBox_act_as_circuit_bent.ToolTip"));
-            checkBox_act_as_circuit_bent.UseVisualStyleBackColor = true;
             // 
             // checkBox_staccato
             // 
@@ -1896,6 +1893,58 @@
             lbl_c3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_c3.Name = "lbl_c3";
             // 
+            // button_synchronized_play_help
+            // 
+            button_synchronized_play_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_synchronized_play_help, "button_synchronized_play_help");
+            button_synchronized_play_help.ImageList = help_icon;
+            button_synchronized_play_help.Name = "button_synchronized_play_help";
+            NeoBleeper_help.SetShowHelp(button_synchronized_play_help, (bool)resources.GetObject("button_synchronized_play_help.ShowHelp"));
+            button_synchronized_play_help.UseVisualStyleBackColor = true;
+            // 
+            // help_icon
+            // 
+            help_icon.ColorDepth = ColorDepth.Depth32Bit;
+            help_icon.ImageStream = (ImageListStreamer)resources.GetObject("help_icon.ImageStream");
+            help_icon.TransparentColor = Color.Transparent;
+            help_icon.Images.SetKeyName(0, "icons8-help-48.png");
+            // 
+            // button_play_beat_sound_help
+            // 
+            button_play_beat_sound_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_play_beat_sound_help, "button_play_beat_sound_help");
+            button_play_beat_sound_help.ImageList = help_icon;
+            button_play_beat_sound_help.Name = "button_play_beat_sound_help";
+            NeoBleeper_help.SetShowHelp(button_play_beat_sound_help, (bool)resources.GetObject("button_play_beat_sound_help.ShowHelp"));
+            button_play_beat_sound_help.UseVisualStyleBackColor = true;
+            // 
+            // button_bleeper_portamento_help
+            // 
+            button_bleeper_portamento_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_bleeper_portamento_help, "button_bleeper_portamento_help");
+            button_bleeper_portamento_help.ImageList = help_icon;
+            button_bleeper_portamento_help.Name = "button_bleeper_portamento_help";
+            NeoBleeper_help.SetShowHelp(button_bleeper_portamento_help, (bool)resources.GetObject("button_bleeper_portamento_help.ShowHelp"));
+            button_bleeper_portamento_help.UseVisualStyleBackColor = true;
+            // 
+            // button_use_keyboard_as_piano_help
+            // 
+            button_use_keyboard_as_piano_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_use_keyboard_as_piano_help, "button_use_keyboard_as_piano_help");
+            button_use_keyboard_as_piano_help.ImageList = help_icon;
+            button_use_keyboard_as_piano_help.Name = "button_use_keyboard_as_piano_help";
+            NeoBleeper_help.SetShowHelp(button_use_keyboard_as_piano_help, (bool)resources.GetObject("button_use_keyboard_as_piano_help.ShowHelp"));
+            button_use_keyboard_as_piano_help.UseVisualStyleBackColor = true;
+            // 
+            // button_do_not_update_help
+            // 
+            button_do_not_update_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_do_not_update_help, "button_do_not_update_help");
+            button_do_not_update_help.ImageList = help_icon;
+            button_do_not_update_help.Name = "button_do_not_update_help";
+            NeoBleeper_help.SetShowHelp(button_do_not_update_help, (bool)resources.GetObject("button_do_not_update_help.ShowHelp"));
+            button_do_not_update_help.UseVisualStyleBackColor = true;
+            // 
             // toolTip1
             // 
             toolTip1.Popup += toolTip1_Popup;
@@ -1983,6 +2032,11 @@
             AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(button_do_not_update_help);
+            Controls.Add(button_use_keyboard_as_piano_help);
+            Controls.Add(button_bleeper_portamento_help);
+            Controls.Add(button_play_beat_sound_help);
+            Controls.Add(button_synchronized_play_help);
             Controls.Add(checkBox_use_keyboard_as_piano);
             Controls.Add(keyboard_panel);
             Controls.Add(checkBox_loop);
@@ -2006,7 +2060,6 @@
             Controls.Add(checkBox_metronome);
             Controls.Add(checkBox_triplet);
             Controls.Add(checkBox_dotted);
-            Controls.Add(checkBox_act_as_circuit_bent);
             Controls.Add(checkBox_bleeper_portamento);
             Controls.Add(checkBox_play_beat_sound);
             Controls.Add(checkBox_synchronized_play);
@@ -2039,7 +2092,6 @@
             NeoBleeper_help.SetShowHelp(this, (bool)resources.GetObject("$this.ShowHelp"));
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
-            Load += main_window_Load;
             DragDrop += main_window_DragDrop;
             DragEnter += main_window_DragEnter;
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).EndInit();
@@ -2123,7 +2175,6 @@
         private Button button_stop_playing;
         private Label label_mods;
         private CheckBox checkBox_play_beat_sound;
-        private CheckBox checkBox_act_as_circuit_bent;
         private ToolStripMenuItem saveAsToolStripMenuItem;
         private ToolStripMenuItem playMIDIFileToolStripMenuItem;
         private CheckBox checkBox_dotted;
@@ -2283,5 +2334,11 @@
         private ToolStripMenuItem playAllToolStripMenuItem;
         private ToolStripMenuItem playFromSelectedLineToolStripMenuItem;
         private ToolStripMenuItem stopPlayingToolStripMenuItem;
+        private Button button_synchronized_play_help;
+        private ImageList help_icon;
+        private Button button_play_beat_sound_help;
+        private Button button_bleeper_portamento_help;
+        private Button button_use_keyboard_as_piano_help;
+        private Button button_do_not_update_help;
     }
 }

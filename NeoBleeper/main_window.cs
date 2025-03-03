@@ -460,10 +460,6 @@ namespace NeoBleeper
             main_window_refresh();
         }
 
-        private void main_window_Load(object sender, EventArgs e)
-        {
-
-        }
         public static class Line
         {
             public static string length;
@@ -655,8 +651,16 @@ namespace NeoBleeper
         {
             play_note(frequency, 100);
         }
+        private void update_indicator_when_key_is_clicked()
+        {
+            if(checkBox_add_note_to_list.Checked == true)
+            {
+                updateIndicators(listViewNotes.Items.Count-1);
+            }
+        }
         private void button_c3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_c3.Text);
@@ -676,6 +680,7 @@ namespace NeoBleeper
 
         private void button_d3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_d3.Text);
@@ -694,6 +699,7 @@ namespace NeoBleeper
         }
         private void button_e3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_e3.Text);
@@ -713,6 +719,7 @@ namespace NeoBleeper
 
         private void button_f3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_f3.Text);
@@ -732,6 +739,7 @@ namespace NeoBleeper
 
         private void button_g3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_g3.Text);
@@ -751,6 +759,7 @@ namespace NeoBleeper
 
         private void button_a3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_a3.Text);
@@ -770,6 +779,7 @@ namespace NeoBleeper
 
         private void button_b3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_b3.Text);
@@ -788,6 +798,7 @@ namespace NeoBleeper
         }
         private void button_c4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_c4.Text);
@@ -807,6 +818,7 @@ namespace NeoBleeper
 
         private void button_d4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_d4.Text);
@@ -826,6 +838,7 @@ namespace NeoBleeper
 
         private void button_e4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_e4.Text);
@@ -845,6 +858,7 @@ namespace NeoBleeper
 
         private void button_f4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_f4.Text);
@@ -864,6 +878,7 @@ namespace NeoBleeper
 
         private void button_g4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_g4.Text);
@@ -883,6 +898,7 @@ namespace NeoBleeper
 
         private void button_a4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_a4.Text);
@@ -902,6 +918,7 @@ namespace NeoBleeper
 
         private void button_b4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_b4.Text);
@@ -920,6 +937,7 @@ namespace NeoBleeper
         }
         private void button_c5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_c5.Text);
@@ -939,6 +957,7 @@ namespace NeoBleeper
 
         private void button_d5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_d5.Text);
@@ -958,6 +977,7 @@ namespace NeoBleeper
 
         private void button_e5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_e5.Text);
@@ -977,6 +997,7 @@ namespace NeoBleeper
 
         private void button_f5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_f5.Text);
@@ -996,6 +1017,7 @@ namespace NeoBleeper
 
         private void button_g5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_g5.Text);
@@ -1015,6 +1037,7 @@ namespace NeoBleeper
 
         private void button_a5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_a5.Text);
@@ -1034,6 +1057,7 @@ namespace NeoBleeper
 
         private void button_b5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line(lbl_b5.Text);
@@ -1052,7 +1076,7 @@ namespace NeoBleeper
         }
         private void button_c_s3_Click(object sender, EventArgs e)
         {
-
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("C#" + (Variables.octave - 1).ToString());
@@ -1071,6 +1095,7 @@ namespace NeoBleeper
         }
         private void button_d_s3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("D#" + (Variables.octave - 1).ToString());
@@ -1091,6 +1116,7 @@ namespace NeoBleeper
 
         private void button_f_s3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("F#" + (Variables.octave - 1).ToString());
@@ -1110,6 +1136,7 @@ namespace NeoBleeper
 
         private void button_g_s3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("G#" + (Variables.octave - 1).ToString());
@@ -1129,6 +1156,7 @@ namespace NeoBleeper
 
         private void button_a_s3_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("A#" + (Variables.octave - 1).ToString());
@@ -1148,6 +1176,7 @@ namespace NeoBleeper
 
         private void button_c_s4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("C#" + Variables.octave.ToString());
@@ -1167,6 +1196,7 @@ namespace NeoBleeper
 
         private void button_d_s4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("D#" + Variables.octave.ToString());
@@ -1186,6 +1216,7 @@ namespace NeoBleeper
 
         private void button_f_s4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("F#" + Variables.octave.ToString());
@@ -1205,6 +1236,7 @@ namespace NeoBleeper
 
         private void button_g_s4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("G#" + Variables.octave.ToString());
@@ -1224,6 +1256,7 @@ namespace NeoBleeper
 
         private void button_a_s4_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("A#" + Variables.octave.ToString());
@@ -1243,6 +1276,7 @@ namespace NeoBleeper
 
         private void button_c_s5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("C#" + (Variables.octave + 1).ToString());
@@ -1262,6 +1296,7 @@ namespace NeoBleeper
 
         private void button_d_s5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("D#" + (Variables.octave + 1).ToString());
@@ -1282,6 +1317,7 @@ namespace NeoBleeper
 
         private void button_f_s5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("F#" + (Variables.octave + 1).ToString());
@@ -1301,6 +1337,7 @@ namespace NeoBleeper
 
         private void button_g_s5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("G#" + (Variables.octave + 1).ToString());
@@ -1320,6 +1357,7 @@ namespace NeoBleeper
 
         private void button_a_s5_Click(object sender, EventArgs e)
         {
+            update_indicator_when_key_is_clicked();
             if (checkBox_replace.Checked == true)
             {
                 replace_note_in_line("A#" + (Variables.octave + 1).ToString());
@@ -1343,6 +1381,9 @@ namespace NeoBleeper
 
         private void FileParser(string filename)
         {
+            lbl_measure_value.Text = "1";
+            lbl_beat_value.Text = "0.0";
+            lbl_beat_traditional_value.Text = "1";
             string first_line = File.ReadLines(filename).First().Trim();
             switch (first_line)
             {
@@ -1512,6 +1553,7 @@ namespace NeoBleeper
 
                                 Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
                                 Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
+                                numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
                                 trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
                                 lbl_time_signature.Text = projectFile.Settings.RandomSettings.KeyboardOctave;
                                 Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
@@ -1685,70 +1727,91 @@ namespace NeoBleeper
             lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
         }
 
-        private void noteLabelsUpdate()
+        private async void noteLabelsUpdate()
         {
-            Application.DoEvents();
-            lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
-            lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
-            lbl_e3.Text = "E" + (Variables.octave - 1).ToString();
-            lbl_f3.Text = "F" + (Variables.octave - 1).ToString();
-            lbl_g3.Text = "G" + (Variables.octave - 1).ToString();
-            lbl_a3.Text = "A" + (Variables.octave - 1).ToString();
-            lbl_b3.Text = "B" + (Variables.octave - 1).ToString();
-            lbl_c4.Text = "C" + Variables.octave.ToString();
-            lbl_d4.Text = "D" + Variables.octave.ToString();
-            lbl_e4.Text = "E" + Variables.octave.ToString();
-            lbl_f4.Text = "F" + Variables.octave.ToString();
-            lbl_g4.Text = "G" + Variables.octave.ToString();
-            lbl_a4.Text = "A" + Variables.octave.ToString();
-            lbl_b4.Text = "B" + Variables.octave.ToString();
-            lbl_c5.Text = "C" + (Variables.octave + 1).ToString();
-            lbl_d5.Text = "D" + (Variables.octave + 1).ToString();
-            lbl_e5.Text = "E" + (Variables.octave + 1).ToString();
-            lbl_f5.Text = "F" + (Variables.octave + 1).ToString();
-            lbl_g5.Text = "G" + (Variables.octave + 1).ToString();
-            lbl_a5.Text = "A" + (Variables.octave + 1).ToString();
-            lbl_b5.Text = "B" + (Variables.octave + 1).ToString();
-        }
-        private void octave10NoteLabelShiftToRight()
-        {
-            float dX;
-            Graphics g = this.CreateGraphics();
             try
             {
-                dX = g.DpiX;
+                Application.DoEvents();
+                lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
+                lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
+                lbl_e3.Text = "E" + (Variables.octave - 1).ToString();
+                lbl_f3.Text = "F" + (Variables.octave - 1).ToString();
+                lbl_g3.Text = "G" + (Variables.octave - 1).ToString();
+                lbl_a3.Text = "A" + (Variables.octave - 1).ToString();
+                lbl_b3.Text = "B" + (Variables.octave - 1).ToString();
+                lbl_c4.Text = "C" + Variables.octave.ToString();
+                lbl_d4.Text = "D" + Variables.octave.ToString();
+                lbl_e4.Text = "E" + Variables.octave.ToString();
+                lbl_f4.Text = "F" + Variables.octave.ToString();
+                lbl_g4.Text = "G" + Variables.octave.ToString();
+                lbl_a4.Text = "A" + Variables.octave.ToString();
+                lbl_b4.Text = "B" + Variables.octave.ToString();
+                lbl_c5.Text = "C" + (Variables.octave + 1).ToString();
+                lbl_d5.Text = "D" + (Variables.octave + 1).ToString();
+                lbl_e5.Text = "E" + (Variables.octave + 1).ToString();
+                lbl_f5.Text = "F" + (Variables.octave + 1).ToString();
+                lbl_g5.Text = "G" + (Variables.octave + 1).ToString();
+                lbl_a5.Text = "A" + (Variables.octave + 1).ToString();
+                lbl_b5.Text = "B" + (Variables.octave + 1).ToString();
             }
-            finally
+            catch (InvalidAsynchronousStateException)
             {
-                g.Dispose();
+                return;
             }
-            lbl_c5.Location = new Point(lbl_c5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
-            lbl_d5.Location = new Point(lbl_d5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
-            lbl_e5.Location = new Point(lbl_e5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
-            lbl_f5.Location = new Point(lbl_f5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
-            lbl_g5.Location = new Point(lbl_g5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
-            lbl_a5.Location = new Point(lbl_a5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
-            lbl_b5.Location = new Point(lbl_b5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
+        }
+        private async void octave10NoteLabelShiftToRight()
+        {
+            try
+            {
+                float dX;
+                Graphics g = this.CreateGraphics();
+                try
+                {
+                    dX = g.DpiX;
+                }
+                finally
+                {
+                    g.Dispose();
+                }
+                lbl_c5.Location = new Point(lbl_c5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
+                lbl_d5.Location = new Point(lbl_d5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
+                lbl_e5.Location = new Point(lbl_e5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
+                lbl_f5.Location = new Point(lbl_f5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
+                lbl_g5.Location = new Point(lbl_g5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
+                lbl_a5.Location = new Point(lbl_a5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
+                lbl_b5.Location = new Point(lbl_b5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
+            }
+            catch(InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private void octave10NoteLabelShiftToLeft()
         {
-            float dX;
-            Graphics g = this.CreateGraphics();
             try
             {
-                dX = g.DpiX;
+                float dX;
+                Graphics g = this.CreateGraphics();
+                try
+                {
+                    dX = g.DpiX;
+                }
+                finally
+                {
+                    g.Dispose();
+                }
+                lbl_c5.Location = new Point(lbl_c5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
+                lbl_d5.Location = new Point(lbl_d5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
+                lbl_e5.Location = new Point(lbl_e5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
+                lbl_f5.Location = new Point(lbl_f5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
+                lbl_g5.Location = new Point(lbl_g5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
+                lbl_a5.Location = new Point(lbl_a5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
+                lbl_b5.Location = new Point(lbl_b5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
             }
-            finally
+            catch (InvalidAsynchronousStateException)
             {
-                g.Dispose();
+                return;
             }
-            lbl_c5.Location = new Point(lbl_c5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
-            lbl_d5.Location = new Point(lbl_d5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
-            lbl_e5.Location = new Point(lbl_e5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
-            lbl_f5.Location = new Point(lbl_f5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
-            lbl_g5.Location = new Point(lbl_g5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
-            lbl_a5.Location = new Point(lbl_a5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
-            lbl_b5.Location = new Point(lbl_b5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
         }
         private void btn_octave_decrease_Click(object sender, EventArgs e)
         {
@@ -1959,6 +2022,9 @@ namespace NeoBleeper
             Variables.bpm = 140;
             Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
+            lbl_measure_value.Text = "1";
+            lbl_beat_value.Text = "0.0";
+            lbl_beat_traditional_value.Text = "1";
             noteLabelsUpdate();
             listViewNotes.Items.Clear();
             if (checkbox_play_note.Checked == false)
@@ -3377,10 +3443,17 @@ namespace NeoBleeper
                         checkBox_spiccato.Checked = false;
                     }
                 }
-                updateIndicators(selectedLine);
+                if (checkBox_do_not_update.Checked == false && is_music_playing==true)
+                {
+                    updateIndicators(selectedLine);
+                }
+                else if((checkBox_do_not_update.Checked == true || checkBox_do_not_update.Checked == false) && is_music_playing == false)
+                {
+                    updateIndicators(selectedLine);
+                }
             }
         }
-        private async void updateIndicators(int selectedLine)
+        private async void updateIndicators(int Line)
         {
             try
             {
@@ -3388,29 +3461,17 @@ namespace NeoBleeper
                 double beat=0;
                 Tuple<int, int> traditional_beat;
                 if (listViewNotes.SelectedItems.Count > 0)
-                {
-                    
-                    for (int i = 0; i <= selectedLine; i++)
+                    for (int i = 1; i <= Line; i++)
                     {
                         beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i].SubItems[0].Text));
                         if (beat % trackBar_time_signature.Value == 0)
                         {
                             measure++;
+                            beat = 0;
                         }
                     }
-                    lbl_measure_value.Text = measure.ToString();
-                    lbl_beat_value.Text = FormatNumber(beat);
-                }
-                else
-                {
-                    if (checkBox_do_not_update.Checked == false)
-                    {
-                        beat = 0;
-                        lbl_beat_value.Text = "0.0";
-                        measure = 1;
-                        lbl_measure_value.Text = "1";
-                    }
-                }
+                lbl_measure_value.Text = measure.ToString();
+                lbl_beat_value.Text = FormatNumber(beat+1);
             }
             catch (InvalidAsynchronousStateException)
             {
@@ -3575,83 +3636,97 @@ namespace NeoBleeper
                 }
             }
         }
-        private void show_keyboard_keys_shortcut()
+        private async void show_keyboard_keys_shortcut()
         {
-            button_c3.Text = "Tab";
-            button_c_s3.Text = "`";
-            button_d3.Text = "Q";
-            button_d_s3.Text = "1";
-            button_e3.Text = "W";
-            button_f3.Text = "E";
-            button_f_s3.Text = "3";
-            button_g3.Text = "R";
-            button_g_s3.Text = "4";
-            button_a3.Text = "T";
-            button_a_s3.Text = "5";
-            button_b3.Text = "Y";
-            button_c4.Text = "U";
-            button_c_s4.Text = "7";
-            button_d4.Text = "I";
-            button_d_s4.Text = "8";
-            button_e4.Text = "O";
-            button_f4.Text = "P";
-            button_f_s4.Text = "0";
-            button_g4.Text = "[";
-            button_g_s4.Text = "-";
-            button_a4.Text = "]";
-            button_a_s4.Text = "+";
-            button_b4.Text = "|";
-            button_c5.Text = "Shift";
-            button_c_s5.Text = "A";
-            button_d5.Text = "Z";
-            button_d_s5.Text = "S";
-            button_e5.Text = "X";
-            button_f5.Text = "C";
-            button_f_s5.Text = "F";
-            button_g5.Text = "V";
-            button_g_s5.Text = "G";
-            button_a5.Text = "B";
-            button_a_s5.Text = "H";
-            button_b5.Text = "N";
+            try
+            {
+                button_c3.Text = "Tab";
+                button_c_s3.Text = "`";
+                button_d3.Text = "Q";
+                button_d_s3.Text = "1";
+                button_e3.Text = "W";
+                button_f3.Text = "E";
+                button_f_s3.Text = "3";
+                button_g3.Text = "R";
+                button_g_s3.Text = "4";
+                button_a3.Text = "T";
+                button_a_s3.Text = "5";
+                button_b3.Text = "Y";
+                button_c4.Text = "U";
+                button_c_s4.Text = "7";
+                button_d4.Text = "I";
+                button_d_s4.Text = "8";
+                button_e4.Text = "O";
+                button_f4.Text = "P";
+                button_f_s4.Text = "0";
+                button_g4.Text = "[";
+                button_g_s4.Text = "-";
+                button_a4.Text = "]";
+                button_a_s4.Text = "+";
+                button_b4.Text = "|";
+                button_c5.Text = "Shift";
+                button_c_s5.Text = "A";
+                button_d5.Text = "Z";
+                button_d_s5.Text = "S";
+                button_e5.Text = "X";
+                button_f5.Text = "C";
+                button_f_s5.Text = "F";
+                button_g5.Text = "V";
+                button_g_s5.Text = "G";
+                button_a5.Text = "B";
+                button_a_s5.Text = "H";
+                button_b5.Text = "N";
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private void hide_keyboard_keys_shortcut()
         {
-            button_c3.Text = string.Empty;
-            button_c_s3.Text = string.Empty;
-            button_d3.Text = string.Empty;
-            button_d_s3.Text = string.Empty;
-            button_e3.Text = string.Empty;
-            button_f3.Text = string.Empty;
-            button_f_s3.Text = string.Empty;
-            button_g3.Text = string.Empty;
-            button_g_s3.Text = string.Empty;
-            button_a3.Text = string.Empty;
-            button_a_s3.Text = string.Empty;
-            button_b3.Text = string.Empty;
-            button_c4.Text = string.Empty;
-            button_c_s4.Text = string.Empty;
-            button_d4.Text = string.Empty;
-            button_d_s4.Text = string.Empty;
-            button_e4.Text = string.Empty;
-            button_f4.Text = string.Empty;
-            button_f_s4.Text = string.Empty;
-            button_g4.Text = string.Empty;
-            button_g_s4.Text = string.Empty;
-            button_a4.Text = string.Empty;
-            button_a_s4.Text = string.Empty;
-            button_b4.Text = string.Empty;
-            button_c5.Text = string.Empty;
-            button_c_s5.Text = string.Empty;
-            button_d5.Text = string.Empty;
-            button_d_s5.Text = string.Empty;
-            button_e5.Text = string.Empty;
-            button_f5.Text = string.Empty;
-            button_f_s5.Text = string.Empty;
-            button_g5.Text = string.Empty; ;
-            button_g_s5.Text = string.Empty;
-            button_a5.Text = string.Empty;
-            button_a_s5.Text = string.Empty;
-            button_b5.Text = string.Empty;
+            try 
+            {
+                button_c3.Text = string.Empty;
+                button_c_s3.Text = string.Empty;
+                button_d3.Text = string.Empty;
+                button_d_s3.Text = string.Empty;
+                button_e3.Text = string.Empty;
+                button_f3.Text = string.Empty;
+                button_f_s3.Text = string.Empty;
+                button_g3.Text = string.Empty;
+                button_g_s3.Text = string.Empty;
+                button_a3.Text = string.Empty;
+                button_a_s3.Text = string.Empty;
+                button_b3.Text = string.Empty;
+                button_c4.Text = string.Empty;
+                button_c_s4.Text = string.Empty;
+                button_d4.Text = string.Empty;
+                button_d_s4.Text = string.Empty;
+                button_e4.Text = string.Empty;
+                button_f4.Text = string.Empty;
+                button_f_s4.Text = string.Empty;
+                button_g4.Text = string.Empty;
+                button_g_s4.Text = string.Empty;
+                button_a4.Text = string.Empty;
+                button_a_s4.Text = string.Empty;
+                button_b4.Text = string.Empty;
+                button_c5.Text = string.Empty;
+                button_c_s5.Text = string.Empty;
+                button_d5.Text = string.Empty;
+                button_d_s5.Text = string.Empty;
+                button_e5.Text = string.Empty;
+                button_f5.Text = string.Empty;
+                button_f_s5.Text = string.Empty;
+                button_g5.Text = string.Empty; ;
+                button_g_s5.Text = string.Empty;
+                button_a5.Text = string.Empty;
+                button_a_s5.Text = string.Empty;
+                button_b5.Text = string.Empty;
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private void checkBox_use_keyboard_as_piano_CheckedChanged(object sender, EventArgs e)
         {
