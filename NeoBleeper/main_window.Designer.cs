@@ -1992,6 +1992,8 @@
             // checkBox_do_not_update
             // 
             resources.ApplyResources(checkBox_do_not_update, "checkBox_do_not_update");
+            checkBox_do_not_update.Checked = true;
+            checkBox_do_not_update.CheckState = CheckState.Checked;
             checkBox_do_not_update.Name = "checkBox_do_not_update";
             checkBox_do_not_update.UseVisualStyleBackColor = true;
             // 

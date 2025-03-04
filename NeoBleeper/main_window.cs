@@ -655,11 +655,11 @@ namespace NeoBleeper
         {
             play_note(frequency, 100);
         }
-        private void update_indicator_when_key_is_clicked()
+        private async void update_indicator_when_key_is_clicked()
         {
             if(checkBox_add_note_to_list.Checked == true)
             {
-                updateIndicators(listViewNotes.Items.Count-1);
+                await updateIndicators(listViewNotes.Items.Count-1);
             }
         }
         private void button_c3_Click(object sender, EventArgs e)
@@ -2156,7 +2156,7 @@ namespace NeoBleeper
                         checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
                         Convert.ToInt32(Math.Round(final_note_length)));
                     double delay = note_length - final_note_length;
-                    Task.Delay(Convert.ToInt32(Math.Round(delay)));
+                    await Task.Delay(Convert.ToInt32(Math.Round(delay)));
                     if (listViewNotes.SelectedIndices.Count > 0)
                     {
                         int nextIndex = listViewNotes.SelectedIndices[0] + 1;
@@ -3456,15 +3456,15 @@ namespace NeoBleeper
                 }
                 if (checkBox_do_not_update.Checked == false && is_music_playing==true)
                 {
-                    updateIndicators(selectedLine);
+                    await updateIndicators(selectedLine);
                 }
                 else if((checkBox_do_not_update.Checked == true || checkBox_do_not_update.Checked == false) && is_music_playing == false)
                 {
-                    updateIndicators(selectedLine);
+                    await updateIndicators(selectedLine);
                 }
             }
         }
-        private async void updateIndicators(int Line)
+        private async Task updateIndicators(int Line)
         {
             try
             {
