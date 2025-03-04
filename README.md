@@ -2,8 +2,7 @@
 
 NeoBleeper is a tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above by accessing the physical port of the system speaker 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/633a7a8e-a4d6-49ab-9a7b-57dbe48b83ba)
-
+![image](https://github.com/user-attachments/assets/db3cf6e8-25b5-4e1a-8bd7-6d5527eb7fb5)
 
 ## Status
 
@@ -13,19 +12,20 @@ This project is **still in development** and some features and components are st
 
 - ### User-friendly, familiar and more natural interface
   NeoBleeper offers a user-friendly, familiar and more natural interface that compatible with high resolution displays.
-  ![image](https://github.com/user-attachments/assets/7d8926f7-10b3-4edc-8269-27e6ede0e1a1)
+  
+  ![image](https://github.com/user-attachments/assets/7104e35b-e6fc-4ce6-a34f-bb5b59a182b8)
 
-  ![image](https://github.com/user-attachments/assets/afa7433f-910c-48bc-bda6-b33fc6224a88)
+  ![image](https://github.com/user-attachments/assets/cb854d0b-a357-4954-9943-5ab0506a7d57)
 
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
-  ![image](https://github.com/user-attachments/assets/cf16d12d-e124-481b-857b-f0eeb3bfcacf)
+  ![image](https://github.com/user-attachments/assets/053712a2-1d69-4706-ba21-8b6dbb94b6fa)
 
 - ### Time signature and BPM settings
   NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
 
-  ![image](https://github.com/user-attachments/assets/79a470f7-edf8-4a1c-b440-1b7d03f7c8c8)
+  ![image](https://github.com/user-attachments/assets/76786c6e-b89f-40cb-aa08-691044528cf0)
 
 - ### Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
@@ -35,17 +35,17 @@ This project is **still in development** and some features and components are st
 - ### Also you can use your regular keyboard as piano
   NeoBleeper turns your regular keyboard into a piano, allowing you to easily play notes without needing a MIDI input device.
 
-  ![image](https://github.com/user-attachments/assets/61534ae4-9dd8-4f93-a018-2117becbcc51)
+  ![image](https://github.com/user-attachments/assets/2cd6cd90-0f20-43e0-bb4f-e3ffd9d2f832)
 
 - ### Backwards Compatible
   NeoBleeper supports its own file format (.NBPML) as well as the file format of the Bleeper Music Maker program (.BMM), from which it was inspired.
 
-  ![image](https://github.com/user-attachments/assets/73f40528-9227-4e55-aa01-e6cb6058f363)
+  ![image](https://github.com/user-attachments/assets/e581a55b-b34d-42a1-9c4b-1c2a04d1b0b9)
 
 - ### You can personalize as you wish
   You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only limit to this feature is your imagination.
 
-  ![image](https://github.com/user-attachments/assets/c04dfdda-12aa-4ace-a971-e2e08a03ddaa)
+  ![image](https://github.com/user-attachments/assets/8df9250d-b365-4de4-8459-debf2e0612e7)
   
 - ### Detects system speaker for you
   If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound card to create the beep' option permanently.
