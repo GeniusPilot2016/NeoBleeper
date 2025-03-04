@@ -36,7 +36,7 @@ namespace NeoBleeper
         public static class SynthMisc
         {
             private static readonly WaveOutEvent waveOut = new WaveOutEvent();
-            private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.35 };
+            private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
 
             static SynthMisc()
             {

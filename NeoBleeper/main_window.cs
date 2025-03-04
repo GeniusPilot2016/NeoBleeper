@@ -2156,7 +2156,7 @@ namespace NeoBleeper
                         checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
                         Convert.ToInt32(Math.Round(final_note_length)));
                     double delay = note_length - final_note_length;
-                    await Task.Delay(Convert.ToInt32(Math.Round(delay)));
+                    Task.Delay(Convert.ToInt32(Math.Round(delay)));
                     if (listViewNotes.SelectedIndices.Count > 0)
                     {
                         int nextIndex = listViewNotes.SelectedIndices[0] + 1;
