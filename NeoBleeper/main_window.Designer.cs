@@ -553,6 +553,7 @@
             // 
             // rewindToSavedVersionToolStripMenuItem
             // 
+            rewindToSavedVersionToolStripMenuItem.Image = Properties.Resources.icons8_rewind_button_round_48;
             rewindToSavedVersionToolStripMenuItem.Name = "rewindToSavedVersionToolStripMenuItem";
             resources.ApplyResources(rewindToSavedVersionToolStripMenuItem, "rewindToSavedVersionToolStripMenuItem");
             rewindToSavedVersionToolStripMenuItem.Click += rewindToSavedVersionToolStripMenuItem_Click;

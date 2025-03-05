@@ -468,8 +468,9 @@ namespace NeoBleeper
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 SaveToNBPML(saveFileDialog.FileName);
+                initialMemento = originator.CreateMemento(); // Save the current state of the notes list
+                UpdateUndoRedoButtons();
             }
-            initialMemento = originator.CreateMemento();
         }
 
         private void aboutNeoBleeperToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1652,7 +1653,9 @@ namespace NeoBleeper
             if (openFileDialog.FileName != string.Empty)
             {
                 FileParser(openFileDialog.FileName);
-                initialMemento = originator.CreateMemento();
+                initialMemento = originator.CreateMemento(); // Save the initial state
+                undoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -1666,6 +1669,9 @@ namespace NeoBleeper
             if (!string.IsNullOrEmpty(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
             {
                 SaveToNBPML(currentFilePath);
+                initialMemento = originator.CreateMemento(); // Save the initial state
+                undoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem.Enabled = false;
             }
             else
             {
@@ -1682,7 +1688,9 @@ namespace NeoBleeper
                     SaveToNBPML(saveFileDialog.FileName);
                     currentFilePath = saveFileDialog.FileName;
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
-                    initialMemento = originator.CreateMemento();
+                    initialMemento = originator.CreateMemento(); // Save the initial state
+                    undoToolStripMenuItem.Enabled = false;
+                    redoToolStripMenuItem.Enabled = false;
                 }
             }
         }
@@ -3659,7 +3667,9 @@ namespace NeoBleeper
                 stop_playing();
             }
             var rewindCommand = new RewindCommand(originator, initialMemento);
-            commandManager.ExecuteCommand(rewindCommand);
+            commandManager.ExecuteCommand(rewindCommand); // Rewind to the saved version
+            undoToolStripMenuItem.Enabled = false;
+            redoToolStripMenuItem.Enabled = false;  
         }
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
