@@ -61,9 +61,9 @@ This project is **still in development** and some features and components are st
 
 **Windows Version:** Windows 10 (1809 and above) 64-bit/Windows 11 (recommended)
 
-**CPU:** Intel® Core i3 or equivalent
+**CPU:** Intel® Core i3 or equivalent (minimum)
 
-**RAM:** 1 GB (minimum), 2 GB (recommended)
+**RAM:** 2 GB (minimum), 4 GB (recommended)
 
 **Display Resolution:** 1024x768 (minimum), 1920x1080 (recommended)
 
