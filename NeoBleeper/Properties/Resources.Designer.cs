@@ -383,6 +383,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_cut_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-cut-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_eraser_tool_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-eraser-tool-48", resourceCulture);
@@ -566,6 +576,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_select_none_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-select-none-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_sustainable_energy_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-sustainable-energy-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

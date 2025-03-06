@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public interface ICommand
 {
     void Execute();
@@ -17,12 +19,26 @@ public class AddNoteCommand : ICommand
 
     public void Execute()
     {
-        listView.Items.Add(item);
+        try
+        {
+            listView.Items.Add(item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 
     public void Undo()
     {
-        listView.Items.Remove(item);
+        try
+        {
+            listView.Items.Remove(item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 }
 
@@ -37,13 +53,27 @@ public class RemoveNoteCommand : ICommand
         this.item = item;
     }
 
-    public void Execute()
+    public async void Execute()
     {
-        listView.Items.Remove(item);
+        try
+        {
+            listView.Items.Remove(item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 
-    public void Undo()
+    public async void Undo()
     {
-        listView.Items.Add(item);
+        try
+        {
+            listView.Items.Add(item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 }

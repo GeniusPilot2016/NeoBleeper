@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class RewindCommand : ICommand
 {
     private Originator originator;
@@ -11,13 +13,27 @@ public class RewindCommand : ICommand
         this.currentMemento = originator.CreateMemento();
     }
 
-    public void Execute()
+    public async void Execute()
     {
-        originator.SetMemento(initialMemento);
+        try
+        {
+            originator.SetMemento(initialMemento);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 
-    public void Undo()
+    public async void Undo()
     {
-        originator.SetMemento(currentMemento);
+        try
+        {
+            originator.SetMemento(currentMemento);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 }

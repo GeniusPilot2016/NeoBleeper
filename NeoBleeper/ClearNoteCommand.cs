@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class ClearNoteCommand : ICommand
 {
     private ListView listView;
@@ -11,19 +13,33 @@ public class ClearNoteCommand : ICommand
         this.previousItems = listView.SelectedItems.Cast<ListViewItem>().Select(item => (ListViewItem)item.Clone()).ToList();
     }
 
-    public void Execute()
+    public async void Execute()
     {
-        foreach (ListViewItem item in listView.SelectedItems)
+        try
         {
-            item.SubItems[noteIndex].Text = string.Empty;
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                item.SubItems[noteIndex].Text = string.Empty;
+            }
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
         }
     }
 
     public void Undo()
     {
-        for (int i = 0; i < listView.SelectedItems.Count; i++)
+        try
         {
-            listView.SelectedItems[i].SubItems[noteIndex].Text = previousItems[i].SubItems[noteIndex].Text;
+            for (int i = 0; i < listView.SelectedItems.Count; i++)
+            {
+                listView.SelectedItems[i].SubItems[noteIndex].Text = previousItems[i].SubItems[noteIndex].Text;
+            }
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
         }
     }
 }

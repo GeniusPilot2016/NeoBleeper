@@ -26,6 +26,15 @@ public class CommandManager
         OnStateChanged();
     }
 
+    public void ClearHistory()
+    {
+        undoStack.Clear();
+        redoStack.Clear();
+        undoMementos.Clear();
+        redoMementos.Clear();
+        OnStateChanged();
+    }
+
     public void Undo()
     {
         if (CanUndo)

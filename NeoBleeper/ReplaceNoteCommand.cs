@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class ReplaceNoteCommand : ICommand
 {
     private ListView listView;
@@ -13,19 +15,33 @@ public class ReplaceNoteCommand : ICommand
         this.previousNotes = listView.SelectedItems.Cast<ListViewItem>().Select(item => item.SubItems[noteIndex].Text).ToList();
     }
 
-    public void Execute()
+    public async void Execute()
     {
-        foreach (ListViewItem item in listView.SelectedItems)
+        try
         {
-            item.SubItems[noteIndex].Text = newNote;
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                item.SubItems[noteIndex].Text = newNote;
+            }
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
         }
     }
 
-    public void Undo()
+    public async void Undo()
     {
-        for (int i = 0; i < listView.SelectedItems.Count; i++)
+        try
         {
-            listView.SelectedItems[i].SubItems[noteIndex].Text = previousNotes[i];
+            for (int i = 0; i < listView.SelectedItems.Count; i++)
+            {
+                listView.SelectedItems[i].SubItems[noteIndex].Text = previousNotes[i];
+            }
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
         }
     }
 }

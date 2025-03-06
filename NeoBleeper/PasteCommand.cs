@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class PasteCommand : ICommand
 {
     private ListView listView;
@@ -11,20 +13,34 @@ public class PasteCommand : ICommand
         this.insertIndex = insertIndex;
     }
 
-    public void Execute()
+    public async void Execute()
     {
-        if (insertIndex >= 0 && insertIndex < listView.Items.Count)
+        try
         {
-            listView.Items.Insert(insertIndex, newItem);
+            if (insertIndex >= 0 && insertIndex < listView.Items.Count)
+            {
+                listView.Items.Insert(insertIndex, newItem);
+            }
+            else
+            {
+                listView.Items.Add(newItem);
+            }
         }
-        else
+        catch (InvalidAsynchronousStateException)
         {
-            listView.Items.Add(newItem);
+            return;
         }
     }
 
-    public void Undo()
+    public async void Undo()
     {
-        listView.Items.Remove(newItem);
+        try
+        {
+            listView.Items.Remove(newItem);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
     }
 }

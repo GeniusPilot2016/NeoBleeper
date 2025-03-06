@@ -29,7 +29,6 @@ namespace NeoBleeper
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         PrivateFontCollection fonts = new PrivateFontCollection();
         Stopwatch stopwatch = new Stopwatch();
-
         public static class Variables
         {
             public static int octave;
@@ -46,7 +45,7 @@ namespace NeoBleeper
         int final_note_count;
         string currentFilePath;
         Boolean is_music_playing = false;
-
+        Boolean is_file_valid = false;
         public main_window()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -72,207 +71,242 @@ namespace NeoBleeper
             Variables.note_silence_ratio = 0.5;
             initialMemento = originator.CreateMemento();
         }
-        private void CommandManager_StateChanged(object sender, EventArgs e)
+        private async void CommandManager_StateChanged(object sender, EventArgs e)
         {
-            UpdateUndoRedoButtons();
+            try
+            {
+                UpdateUndoRedoButtons();
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
-        private void UpdateUndoRedoButtons()
+        private async void UpdateUndoRedoButtons()
         {
-            undoToolStripMenuItem.Enabled = commandManager.CanUndo;
-            redoToolStripMenuItem.Enabled = commandManager.CanRedo;
+            try
+            {
+                undoToolStripMenuItem.Enabled = commandManager.CanUndo;
+                redoToolStripMenuItem.Enabled = commandManager.CanRedo;
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private async void set_default_font()
         {
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            foreach (Control ctrl in Controls)
+            try
             {
-                ctrl.Font = new Font(fonts.Families[0], 9);
+                fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
+                fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+                foreach (Control ctrl in Controls)
+                {
+                    ctrl.Font = new Font(fonts.Families[0], 9);
+                }
+                lbl_alternating_note_options.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                label_mods.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_note_silence_ratio.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
+                lbl_time_signature.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
+                label_beep.Font = new Font(fonts.Families[0], 14, FontStyle.Bold);
+                lbl_c3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_d3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_e3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_f3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_g3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_a3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_b3.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_c4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_d4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_e4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_f4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_g4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_a4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_b4.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_c5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_d5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_e5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_f5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_g5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_a5.Font = new Font(fonts.Families[0], 9.75F);
+                lbl_b5.Font = new Font(fonts.Families[0], 9.75F);
+                btn_octave_decrease.Font = new Font(fonts.Families[0], 12);
+                btn_octave_increase.Font = new Font(fonts.Families[0], 12);
+                menuStrip1.Font = new Font(fonts.Families[0], 9);
+                listViewNotes.Font = new Font(fonts.Families[0], 9);
+                numericUpDown_bpm.Font = new Font(fonts.Families[0], 9);
+                numericUpDown_alternating_notes.Font = new Font(fonts.Families[0], 9);
+                label_note_length.Font = new Font(fonts.Families[0], 9);
+                comboBox_note_length.Font = new Font(fonts.Families[0], 9);
+                label_alternating_notes_switch.Font = new Font(fonts.Families[0], 9);
+                lbl_ms.Font = new Font(fonts.Families[0], 9);
+                label_bpm.Font = new Font(fonts.Families[0], 9);
+                position_table.Font = new Font(fonts.Families[0], 9);
+                newToolStripMenuItem1.Font = new Font(fonts.Families[0], 9);
+                openToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                saveToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                saveAsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                playMIDIFileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                undoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                redoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                rewindToSavedVersionToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                fileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                editToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                settingsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                aboutNeoBleeperToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                helpToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
+                lbl_measure.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_measure_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_beat.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_beat_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_beat_traditional.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                lbl_beat_traditional_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                button_c3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                button_c_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_d3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_d_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_e3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_g3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_g_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_a3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_a_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_b3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_c4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_c_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_d4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_d_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_e4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_g4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_g_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_a4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_a_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_b4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_c5.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+                button_c_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_d5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_d_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_e5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_f_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_g5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_g_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_a5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                button_a_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
+                button_b5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
+                notes_list_right_click.Font = new Font(fonts.Families[0], 9);
             }
-            lbl_alternating_note_options.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            label_mods.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_note_silence_ratio.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-            lbl_time_signature.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-            label_beep.Font = new Font(fonts.Families[0], 14, FontStyle.Bold);
-            lbl_c3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_d3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_e3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_f3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_g3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_a3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_b3.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_c4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_d4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_e4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_f4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_g4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_a4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_b4.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_c5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_d5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_e5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_f5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_g5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_a5.Font = new Font(fonts.Families[0], 9.75F);
-            lbl_b5.Font = new Font(fonts.Families[0], 9.75F);
-            btn_octave_decrease.Font = new Font(fonts.Families[0], 12);
-            btn_octave_increase.Font = new Font(fonts.Families[0], 12);
-            menuStrip1.Font = new Font(fonts.Families[0], 9);
-            listViewNotes.Font = new Font(fonts.Families[0], 9);
-            numericUpDown_bpm.Font = new Font(fonts.Families[0], 9);
-            numericUpDown_alternating_notes.Font = new Font(fonts.Families[0], 9);
-            label_note_length.Font = new Font(fonts.Families[0], 9);
-            comboBox_note_length.Font = new Font(fonts.Families[0], 9);
-            label_alternating_notes_switch.Font = new Font(fonts.Families[0], 9);
-            lbl_ms.Font = new Font(fonts.Families[0], 9);
-            label_bpm.Font = new Font(fonts.Families[0], 9);
-            position_table.Font = new Font(fonts.Families[0], 9);
-            newToolStripMenuItem1.Font = new Font(fonts.Families[0], 9);
-            openToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            saveToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            saveAsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            playMIDIFileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            undoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            redoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            rewindToSavedVersionToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            fileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            editToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            settingsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            aboutNeoBleeperToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            helpToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-            lbl_measure.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_measure_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_beat.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_beat_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_beat_traditional.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_beat_traditional_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            button_c3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            button_c_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_d3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_d_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_e3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_g3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_g_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_a3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_a_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_b3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_c4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_c_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_d4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_d_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_e4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_g4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_g_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_a4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_a_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_b4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_c5.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            button_c_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_d5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_d_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_e5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_f_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_g5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_g_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_a5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            button_a_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-            button_b5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-            notes_list_right_click.Font = new Font(fonts.Families[0], 9);
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private async void dark_theme()
         {
-            menuStrip1.BackColor = Color.Black;
-            menuStrip1.ForeColor = Color.White;
-            listViewNotes.BackColor = Color.Black;
-            listViewNotes.ForeColor = Color.White;
-            foreach (ListViewItem item in listViewNotes.Items)
+            try
             {
-                item.BackColor = Color.Black;
-                item.ForeColor = Color.White;
+                menuStrip1.BackColor = Color.Black;
+                menuStrip1.ForeColor = Color.White;
+                listViewNotes.BackColor = Color.Black;
+                listViewNotes.ForeColor = Color.White;
+                foreach (ListViewItem item in listViewNotes.Items)
+                {
+                    item.BackColor = Color.Black;
+                    item.ForeColor = Color.White;
+                }
+                this.BackColor = Color.FromArgb(32, 32, 32);
+                this.ForeColor = Color.White;
+                numericUpDown_alternating_notes.BackColor = Color.Black;
+                numericUpDown_alternating_notes.ForeColor = Color.White;
+                numericUpDown_bpm.BackColor = Color.Black;
+                numericUpDown_bpm.ForeColor = Color.White;
+                comboBox_note_length.BackColor = Color.Black;
+                comboBox_note_length.ForeColor = Color.White;
+                group_key_is_clicked.ForeColor = Color.White;
+                group_adding_note.ForeColor = Color.White;
+                group_notes.ForeColor = Color.White;
+                group_line_clicked.ForeColor = Color.White;
+                group_music_played.ForeColor = Color.White;
+                btn_octave_increase.BackColor = Color.FromArgb(32, 32, 32);
+                btn_octave_decrease.BackColor = Color.FromArgb(32, 32, 32);
+                btn_octave_decrease.ForeColor = Color.White;
+                btn_octave_increase.ForeColor = Color.White;
+                checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_dotted.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_triplet.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_staccato.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_spiccato.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_fermata.BackColor = Color.FromArgb(32, 32, 32);
+                checkBox_metronome.ForeColor = Color.White;
+                checkBox_dotted.ForeColor = Color.White;
+                checkBox_triplet.ForeColor = Color.White;
+                checkBox_staccato.ForeColor = Color.White;
+                checkBox_spiccato.ForeColor = Color.White;
+                checkBox_fermata.ForeColor = Color.White;
+                checkBox_mute_system_speaker.ForeColor = Color.White;
+                notes_list_right_click.BackColor = Color.Black;
+                notes_list_right_click.ForeColor = Color.White;
             }
-            this.BackColor = Color.FromArgb(32, 32, 32);
-            this.ForeColor = Color.White;
-            numericUpDown_alternating_notes.BackColor = Color.Black;
-            numericUpDown_alternating_notes.ForeColor = Color.White;
-            numericUpDown_bpm.BackColor = Color.Black;
-            numericUpDown_bpm.ForeColor = Color.White;
-            comboBox_note_length.BackColor = Color.Black;
-            comboBox_note_length.ForeColor = Color.White;
-            group_key_is_clicked.ForeColor = Color.White;
-            group_adding_note.ForeColor = Color.White;
-            group_notes.ForeColor = Color.White;
-            group_line_clicked.ForeColor = Color.White;
-            group_music_played.ForeColor = Color.White;
-            btn_octave_increase.BackColor = Color.FromArgb(32, 32, 32);
-            btn_octave_decrease.BackColor = Color.FromArgb(32, 32, 32);
-            btn_octave_decrease.ForeColor = Color.White;
-            btn_octave_increase.ForeColor = Color.White;
-            checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_dotted.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_triplet.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_staccato.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_spiccato.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_fermata.BackColor = Color.FromArgb(32, 32, 32);
-            checkBox_metronome.ForeColor = Color.White;
-            checkBox_dotted.ForeColor = Color.White;
-            checkBox_triplet.ForeColor = Color.White;
-            checkBox_staccato.ForeColor = Color.White;
-            checkBox_spiccato.ForeColor = Color.White;
-            checkBox_fermata.ForeColor = Color.White;
-            checkBox_mute_system_speaker.ForeColor = Color.White;
-            notes_list_right_click.BackColor = Color.Black;
-            notes_list_right_click.ForeColor = Color.White;
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
 
 
         private async void light_theme()
         {
-            menuStrip1.BackColor = SystemColors.ControlLightLight;
-            menuStrip1.ForeColor = SystemColors.ControlText;
-            listViewNotes.BackColor = SystemColors.Window;
-            listViewNotes.ForeColor = SystemColors.WindowText;
-            foreach (ListViewItem item in listViewNotes.Items)
+            try
             {
-                item.BackColor = SystemColors.Window;
-                item.ForeColor = SystemColors.WindowText;
+                menuStrip1.BackColor = SystemColors.ControlLightLight;
+                menuStrip1.ForeColor = SystemColors.ControlText;
+                listViewNotes.BackColor = SystemColors.Window;
+                listViewNotes.ForeColor = SystemColors.WindowText;
+                foreach (ListViewItem item in listViewNotes.Items)
+                {
+                    item.BackColor = SystemColors.Window;
+                    item.ForeColor = SystemColors.WindowText;
+                }
+                this.BackColor = SystemColors.Control;
+                this.ForeColor = SystemColors.ControlText;
+                numericUpDown_alternating_notes.BackColor = SystemColors.Window;
+                numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
+                numericUpDown_bpm.BackColor = SystemColors.Window;
+                numericUpDown_bpm.ForeColor = SystemColors.WindowText;
+                comboBox_note_length.BackColor = SystemColors.Window;
+                comboBox_note_length.ForeColor = SystemColors.WindowText;
+                group_key_is_clicked.ForeColor = SystemColors.ControlText;
+                group_adding_note.ForeColor = SystemColors.ControlText;
+                group_notes.ForeColor = SystemColors.ControlText;
+                group_line_clicked.ForeColor = SystemColors.ControlText;
+                group_music_played.ForeColor = SystemColors.ControlText;
+                btn_octave_increase.BackColor = Color.Transparent;
+                btn_octave_decrease.BackColor = Color.Transparent;
+                btn_octave_decrease.ForeColor = SystemColors.ControlText;
+                btn_octave_increase.ForeColor = SystemColors.ControlText;
+                checkBox_metronome.BackColor = Color.Transparent;
+                checkBox_dotted.BackColor = Color.Transparent;
+                checkBox_triplet.BackColor = Color.Transparent;
+                checkBox_staccato.BackColor = Color.Transparent;
+                checkBox_spiccato.BackColor = Color.Transparent;
+                checkBox_fermata.BackColor = Color.Transparent;
+                checkBox_metronome.ForeColor = SystemColors.ControlText;
+                checkBox_dotted.ForeColor = SystemColors.ControlText;
+                checkBox_triplet.ForeColor = SystemColors.ControlText;
+                checkBox_staccato.ForeColor = SystemColors.ControlText;
+                checkBox_spiccato.ForeColor = SystemColors.ControlText;
+                checkBox_fermata.ForeColor = SystemColors.ControlText;
+                checkBox_mute_system_speaker.ForeColor = SystemColors.ControlText;
+                notes_list_right_click.BackColor = SystemColors.Window;
+                notes_list_right_click.ForeColor = SystemColors.WindowText;
             }
-            this.BackColor = SystemColors.Control;
-            this.ForeColor = SystemColors.ControlText;
-            numericUpDown_alternating_notes.BackColor = SystemColors.Window;
-            numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
-            numericUpDown_bpm.BackColor = SystemColors.Window;
-            numericUpDown_bpm.ForeColor = SystemColors.WindowText;
-            comboBox_note_length.BackColor = SystemColors.Window;
-            comboBox_note_length.ForeColor = SystemColors.WindowText;
-            group_key_is_clicked.ForeColor = SystemColors.ControlText;
-            group_adding_note.ForeColor = SystemColors.ControlText;
-            group_notes.ForeColor = SystemColors.ControlText;
-            group_line_clicked.ForeColor = SystemColors.ControlText;
-            group_music_played.ForeColor = SystemColors.ControlText;
-            btn_octave_increase.BackColor = Color.Transparent;
-            btn_octave_decrease.BackColor = Color.Transparent;
-            btn_octave_decrease.ForeColor = SystemColors.ControlText;
-            btn_octave_increase.ForeColor = SystemColors.ControlText;
-            checkBox_metronome.BackColor = Color.Transparent;
-            checkBox_dotted.BackColor = Color.Transparent;
-            checkBox_triplet.BackColor = Color.Transparent;
-            checkBox_staccato.BackColor = Color.Transparent;
-            checkBox_spiccato.BackColor = Color.Transparent;
-            checkBox_fermata.BackColor = Color.Transparent;
-            checkBox_metronome.ForeColor = SystemColors.ControlText;
-            checkBox_dotted.ForeColor = SystemColors.ControlText;
-            checkBox_triplet.ForeColor = SystemColors.ControlText;
-            checkBox_staccato.ForeColor = SystemColors.ControlText;
-            checkBox_spiccato.ForeColor = SystemColors.ControlText;
-            checkBox_fermata.ForeColor = SystemColors.ControlText;
-            checkBox_mute_system_speaker.ForeColor = SystemColors.ControlText;
-            notes_list_right_click.BackColor = SystemColors.Window;
-            notes_list_right_click.ForeColor = SystemColors.WindowText;
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
 
         private void set_theme()
@@ -305,48 +339,55 @@ namespace NeoBleeper
         }
         private async void set_keyboard_colors()
         {
-            lbl_c3.BackColor = Settings1.Default.first_octave_color;
-            lbl_d3.BackColor = Settings1.Default.first_octave_color;
-            lbl_e3.BackColor = Settings1.Default.first_octave_color;
-            lbl_f3.BackColor = Settings1.Default.first_octave_color;
-            lbl_g3.BackColor = Settings1.Default.first_octave_color;
-            lbl_a3.BackColor = Settings1.Default.first_octave_color;
-            lbl_b3.BackColor = Settings1.Default.first_octave_color;
-            lbl_c4.BackColor = Settings1.Default.second_octave_color;
-            lbl_d4.BackColor = Settings1.Default.second_octave_color;
-            lbl_e4.BackColor = Settings1.Default.second_octave_color;
-            lbl_f4.BackColor = Settings1.Default.second_octave_color;
-            lbl_g4.BackColor = Settings1.Default.second_octave_color;
-            lbl_a4.BackColor = Settings1.Default.second_octave_color;
-            lbl_b4.BackColor = Settings1.Default.second_octave_color;
-            lbl_c5.BackColor = Settings1.Default.third_octave_color;
-            lbl_d5.BackColor = Settings1.Default.third_octave_color;
-            lbl_e5.BackColor = Settings1.Default.third_octave_color;
-            lbl_f5.BackColor = Settings1.Default.third_octave_color;
-            lbl_g5.BackColor = Settings1.Default.third_octave_color;
-            lbl_a5.BackColor = Settings1.Default.third_octave_color;
-            lbl_b5.BackColor = Settings1.Default.third_octave_color;
-            lbl_c3.ForeColor = set_text_color.GetTextColor(lbl_c3.BackColor);
-            lbl_d3.ForeColor = set_text_color.GetTextColor(lbl_d3.BackColor);
-            lbl_e3.ForeColor = set_text_color.GetTextColor(lbl_e3.BackColor);
-            lbl_f3.ForeColor = set_text_color.GetTextColor(lbl_f3.BackColor);
-            lbl_g3.ForeColor = set_text_color.GetTextColor(lbl_g3.BackColor);
-            lbl_a3.ForeColor = set_text_color.GetTextColor(lbl_a3.BackColor);
-            lbl_b3.ForeColor = set_text_color.GetTextColor(lbl_b3.BackColor);
-            lbl_c4.ForeColor = set_text_color.GetTextColor(lbl_c4.BackColor);
-            lbl_d4.ForeColor = set_text_color.GetTextColor(lbl_d4.BackColor);
-            lbl_e4.ForeColor = set_text_color.GetTextColor(lbl_e4.BackColor);
-            lbl_f4.ForeColor = set_text_color.GetTextColor(lbl_f4.BackColor);
-            lbl_g4.ForeColor = set_text_color.GetTextColor(lbl_g4.BackColor);
-            lbl_a4.ForeColor = set_text_color.GetTextColor(lbl_a4.BackColor);
-            lbl_b4.ForeColor = set_text_color.GetTextColor(lbl_b4.BackColor);
-            lbl_c5.ForeColor = set_text_color.GetTextColor(lbl_c5.BackColor);
-            lbl_d5.ForeColor = set_text_color.GetTextColor(lbl_d5.BackColor);
-            lbl_e5.ForeColor = set_text_color.GetTextColor(lbl_e5.BackColor);
-            lbl_f5.ForeColor = set_text_color.GetTextColor(lbl_f5.BackColor);
-            lbl_g5.ForeColor = set_text_color.GetTextColor(lbl_g5.BackColor);
-            lbl_a5.ForeColor = set_text_color.GetTextColor(lbl_a5.BackColor);
-            lbl_b5.ForeColor = set_text_color.GetTextColor(lbl_b5.BackColor);
+            try
+            {
+                lbl_c3.BackColor = Settings1.Default.first_octave_color;
+                lbl_d3.BackColor = Settings1.Default.first_octave_color;
+                lbl_e3.BackColor = Settings1.Default.first_octave_color;
+                lbl_f3.BackColor = Settings1.Default.first_octave_color;
+                lbl_g3.BackColor = Settings1.Default.first_octave_color;
+                lbl_a3.BackColor = Settings1.Default.first_octave_color;
+                lbl_b3.BackColor = Settings1.Default.first_octave_color;
+                lbl_c4.BackColor = Settings1.Default.second_octave_color;
+                lbl_d4.BackColor = Settings1.Default.second_octave_color;
+                lbl_e4.BackColor = Settings1.Default.second_octave_color;
+                lbl_f4.BackColor = Settings1.Default.second_octave_color;
+                lbl_g4.BackColor = Settings1.Default.second_octave_color;
+                lbl_a4.BackColor = Settings1.Default.second_octave_color;
+                lbl_b4.BackColor = Settings1.Default.second_octave_color;
+                lbl_c5.BackColor = Settings1.Default.third_octave_color;
+                lbl_d5.BackColor = Settings1.Default.third_octave_color;
+                lbl_e5.BackColor = Settings1.Default.third_octave_color;
+                lbl_f5.BackColor = Settings1.Default.third_octave_color;
+                lbl_g5.BackColor = Settings1.Default.third_octave_color;
+                lbl_a5.BackColor = Settings1.Default.third_octave_color;
+                lbl_b5.BackColor = Settings1.Default.third_octave_color;
+                lbl_c3.ForeColor = set_text_color.GetTextColor(lbl_c3.BackColor);
+                lbl_d3.ForeColor = set_text_color.GetTextColor(lbl_d3.BackColor);
+                lbl_e3.ForeColor = set_text_color.GetTextColor(lbl_e3.BackColor);
+                lbl_f3.ForeColor = set_text_color.GetTextColor(lbl_f3.BackColor);
+                lbl_g3.ForeColor = set_text_color.GetTextColor(lbl_g3.BackColor);
+                lbl_a3.ForeColor = set_text_color.GetTextColor(lbl_a3.BackColor);
+                lbl_b3.ForeColor = set_text_color.GetTextColor(lbl_b3.BackColor);
+                lbl_c4.ForeColor = set_text_color.GetTextColor(lbl_c4.BackColor);
+                lbl_d4.ForeColor = set_text_color.GetTextColor(lbl_d4.BackColor);
+                lbl_e4.ForeColor = set_text_color.GetTextColor(lbl_e4.BackColor);
+                lbl_f4.ForeColor = set_text_color.GetTextColor(lbl_f4.BackColor);
+                lbl_g4.ForeColor = set_text_color.GetTextColor(lbl_g4.BackColor);
+                lbl_a4.ForeColor = set_text_color.GetTextColor(lbl_a4.BackColor);
+                lbl_b4.ForeColor = set_text_color.GetTextColor(lbl_b4.BackColor);
+                lbl_c5.ForeColor = set_text_color.GetTextColor(lbl_c5.BackColor);
+                lbl_d5.ForeColor = set_text_color.GetTextColor(lbl_d5.BackColor);
+                lbl_e5.ForeColor = set_text_color.GetTextColor(lbl_e5.BackColor);
+                lbl_f5.ForeColor = set_text_color.GetTextColor(lbl_f5.BackColor);
+                lbl_g5.ForeColor = set_text_color.GetTextColor(lbl_g5.BackColor);
+                lbl_a5.ForeColor = set_text_color.GetTextColor(lbl_a5.BackColor);
+                lbl_b5.ForeColor = set_text_color.GetTextColor(lbl_b5.BackColor);
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
         }
         private async void set_buttons_colors()
         {
@@ -469,7 +510,6 @@ namespace NeoBleeper
             {
                 SaveToNBPML(saveFileDialog.FileName);
                 initialMemento = originator.CreateMemento(); // Save the current state of the notes list
-                UpdateUndoRedoButtons();
             }
         }
 
@@ -1398,6 +1438,7 @@ namespace NeoBleeper
                     {
                         try
                         {
+                            is_file_valid = true;
                             saveToolStripMenuItem.Enabled = true;
                             saveAsToolStripMenuItem.Enabled = false;
                             string[] lines = File.ReadAllLines(filename);
@@ -1558,6 +1599,7 @@ namespace NeoBleeper
                     {
                         try
                         {
+                            is_file_valid = true;
                             saveToolStripMenuItem.Enabled = true;
                             saveAsToolStripMenuItem.Enabled = true;
                             NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
@@ -1628,6 +1670,7 @@ namespace NeoBleeper
                     }
                 default:
                     {
+                        is_file_valid = false;
                         MessageBox.Show("Invalid or corrupted music file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
@@ -1649,13 +1692,27 @@ namespace NeoBleeper
                 stop_playing();
             }
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
-            openFileDialog.ShowDialog(this);
-            if (openFileDialog.FileName != string.Empty)
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                FileParser(openFileDialog.FileName);
+                string filePath = openFileDialog.FileName;
+                FileParser(filePath);
                 initialMemento = originator.CreateMemento(); // Save the initial state
-                undoToolStripMenuItem.Enabled = false;
-                redoToolStripMenuItem.Enabled = false;
+                commandManager.ClearHistory(); // Reset the history
+                // Add the file to the recent files list
+                if (is_file_valid == true)
+                {
+                    if (Settings1.Default.RecentFiles == null)
+                    {
+                        Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+                    }
+
+                    if (!Settings1.Default.RecentFiles.Contains(filePath))
+                    {
+                        Settings1.Default.RecentFiles.Add(filePath);
+                        Settings1.Default.Save();
+                    }
+                    UpdateRecentFilesMenu();
+                }
             }
         }
 
@@ -1670,8 +1727,6 @@ namespace NeoBleeper
             {
                 SaveToNBPML(currentFilePath);
                 initialMemento = originator.CreateMemento(); // Save the initial state
-                undoToolStripMenuItem.Enabled = false;
-                redoToolStripMenuItem.Enabled = false;
             }
             else
             {
@@ -1689,8 +1744,6 @@ namespace NeoBleeper
                     currentFilePath = saveFileDialog.FileName;
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
                     initialMemento = originator.CreateMemento(); // Save the initial state
-                    undoToolStripMenuItem.Enabled = false;
-                    redoToolStripMenuItem.Enabled = false;
                 }
             }
         }
@@ -2035,6 +2088,7 @@ namespace NeoBleeper
         {
             createNewFile();
             initialMemento = originator.CreateMemento();
+            commandManager.ClearHistory(); // Reset the history
         }
         private void createNewFile()
         {
@@ -3667,9 +3721,8 @@ namespace NeoBleeper
                 stop_playing();
             }
             var rewindCommand = new RewindCommand(originator, initialMemento);
-            commandManager.ExecuteCommand(rewindCommand); // Rewind to the saved version
-            undoToolStripMenuItem.Enabled = false;
-            redoToolStripMenuItem.Enabled = false;  
+            commandManager.ExecuteCommand(rewindCommand); // Rewind to the saved version 
+            commandManager.ClearHistory(); // Geçmiþi sýfýrla
         }
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
@@ -4028,7 +4081,7 @@ namespace NeoBleeper
                 "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your watch before using this feature.\n" +
                 "You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings > Time & Language > Date & Time. \n\n" +
                 "When you enable this feature, a new window will open, showing the synchronized playback controls. \n" +
-                "You can then use this window to control the playback of all instances of NeoBleeper on your computer.","Synchronized Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "You can then use this window to control the playback of all instances of NeoBleeper on your computer.", "Synchronized Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_play_beat_sound_help_Click(object sender, EventArgs e)
@@ -4055,6 +4108,84 @@ namespace NeoBleeper
             MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n\n" +
                 "When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. \n\n" +
                 "If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.", "Do Not Update Beat Indicators", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewNotes.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listViewNotes.SelectedItems[0];
+                StringBuilder clipboardText = new StringBuilder();
+
+                foreach (ListViewItem.ListViewSubItem subItem in selectedItem.SubItems)
+                {
+                    clipboardText.Append(subItem.Text + "\t"); // Combine the text with a tab character
+                }
+
+                // Remove the last tab character
+                if (clipboardText.Length > 0)
+                {
+                    clipboardText.Length--;
+                }
+
+                // Copy to clipboard
+                Clipboard.SetText(clipboardText.ToString());
+                erase_line();
+            }
+        }
+        private async void UpdateRecentFilesMenu()
+        {
+            try
+            {
+                openRecentToolStripMenuItem.DropDownItems.Clear();
+                var recentFiles = Settings1.Default.RecentFiles;
+                if (recentFiles != null && recentFiles.Count > 0)
+                {
+                    foreach (string filePath in recentFiles)
+                    {
+                        ToolStripMenuItem item = new ToolStripMenuItem(filePath);
+                        item.Click += (sender, e) => OpenRecentFile(filePath);
+                        item.Enabled = File.Exists(filePath); // Check if the file still exists
+                        openRecentToolStripMenuItem.DropDownItems.Add(item);
+                        openRecentToolStripMenuItem.Enabled = true;
+                    }
+                }
+                else
+                {
+                    openRecentToolStripMenuItem.Enabled = false;
+                }
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
+        }
+        private async void OpenRecentFile(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    FileParser(filePath);
+                    initialMemento = originator.CreateMemento(); // Save the initial state
+                    commandManager.ClearHistory(); // Reset the history
+                }
+                else
+                {
+                    MessageBox.Show("The file is not found: " + filePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Settings1.Default.RecentFiles.Remove(filePath);
+                    Settings1.Default.Save();
+                    UpdateRecentFilesMenu();
+                }
+            }
+            catch (InvalidAsynchronousStateException)
+            {
+                return;
+            }
+        }
+        private void main_window_Load(object sender, EventArgs e)
+        {
+            UpdateRecentFilesMenu();
         }
     }
 }

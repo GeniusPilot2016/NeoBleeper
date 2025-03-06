@@ -99,6 +99,7 @@
             clearNote4ToolStripMenuItem = new ToolStripMenuItem();
             unselectLineToolStripMenuItem = new ToolStripMenuItem();
             eraseWholeLineToolStripMenuItem = new ToolStripMenuItem();
+            cutToolStripMenuItem = new ToolStripMenuItem();
             copyToClipboardToolStripMenuItem = new ToolStripMenuItem();
             pasteToolStripMenuItem = new ToolStripMenuItem();
             playbackControlsToolStripMenuItem = new ToolStripMenuItem();
@@ -821,7 +822,7 @@
             // 
             resources.ApplyResources(notes_list_right_click, "notes_list_right_click");
             notes_list_right_click.ImageScalingSize = new Size(20, 20);
-            notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, copyToClipboardToolStripMenuItem, pasteToolStripMenuItem, playbackControlsToolStripMenuItem });
+            notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, cutToolStripMenuItem, copyToClipboardToolStripMenuItem, pasteToolStripMenuItem, playbackControlsToolStripMenuItem });
             notes_list_right_click.Name = "contextMenuStrip1";
             // 
             // blankLineToolStripMenuItem
@@ -876,6 +877,13 @@
             eraseWholeLineToolStripMenuItem.Name = "eraseWholeLineToolStripMenuItem";
             resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
             eraseWholeLineToolStripMenuItem.Click += eraseWholeLineToolStripMenuItem_Click;
+            // 
+            // cutToolStripMenuItem
+            // 
+            cutToolStripMenuItem.Image = Properties.Resources.icons8_cut_48;
+            cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            resources.ApplyResources(cutToolStripMenuItem, "cutToolStripMenuItem");
+            cutToolStripMenuItem.Click += cutToolStripMenuItem_Click;
             // 
             // copyToClipboardToolStripMenuItem
             // 
@@ -2119,6 +2127,7 @@
             NeoBleeper_help.SetShowHelp(this, (bool)resources.GetObject("$this.ShowHelp"));
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
+            Load += main_window_Load;
             DragDrop += main_window_DragDrop;
             DragEnter += main_window_DragEnter;
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).EndInit();
@@ -2344,7 +2353,6 @@
         private Button btn_octave_decrease;
         public NumericUpDown numericUpDown_bpm;
         private ImageList imageList_main_window;
-        private ToolStripMenuItem openRecentToolStripMenuItem;
         private Panel keyboard_panel;
         private CheckBox checkBox_use_keyboard_as_piano;
         private ToolStripMenuItem openToolStripMenuItem;
@@ -2369,5 +2377,7 @@
         private Button button_do_not_update_help;
         private ToolStripMenuItem copyToClipboardToolStripMenuItem;
         private ToolStripMenuItem pasteToolStripMenuItem;
+        private ToolStripMenuItem cutToolStripMenuItem;
+        private ToolStripMenuItem openRecentToolStripMenuItem;
     }
 }

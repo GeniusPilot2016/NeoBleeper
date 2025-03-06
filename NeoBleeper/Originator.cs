@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class Originator
 {
     private ListView listView;
@@ -12,12 +14,19 @@ public class Originator
         return new Memento(listView.Items.Cast<ListViewItem>().ToList());
     }
 
-    public void SetMemento(Memento memento)
+    public async void SetMemento(Memento memento)
     {
-        listView.Items.Clear();
-        foreach (var item in memento.ListViewItems)
+        try
         {
-            listView.Items.Add((ListViewItem)item.Clone());
+            listView.Items.Clear();
+            foreach (var item in memento.ListViewItems)
+            {
+                listView.Items.Add((ListViewItem)item.Clone());
+            }
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
         }
     }
 }
