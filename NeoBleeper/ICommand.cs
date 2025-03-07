@@ -42,6 +42,44 @@ public class AddNoteCommand : ICommand
     }
 }
 
+public class InsertNoteCommand : ICommand
+{
+    private ListView listView;
+    private ListViewItem item;
+    private int index;
+
+    public InsertNoteCommand(ListView listView, ListViewItem item, int index)
+    {
+        this.listView = listView;
+        this.item = item;
+        this.index = index;
+    }
+
+    public void Execute()
+    {
+        try
+        {
+            listView.Items.Insert(index, item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
+    }
+
+    public void Undo()
+    {
+        try
+        {
+            listView.Items.Remove(item);
+        }
+        catch (InvalidAsynchronousStateException)
+        {
+            return;
+        }
+    }
+}
+
 public class RemoveNoteCommand : ICommand
 {
     private ListView listView;

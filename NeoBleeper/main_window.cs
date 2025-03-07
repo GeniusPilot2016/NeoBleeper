@@ -582,8 +582,17 @@ namespace NeoBleeper
             }
             string[] note_line = { Line.length, Line.note1, Line.note2, Line.note3, Line.note4, Line.mod, Line.art };
             var listViewItem = new ListViewItem(note_line);
-            var addNoteCommand = new AddNoteCommand(listViewNotes, listViewItem);
-            commandManager.ExecuteCommand(addNoteCommand);
+            if (listViewNotes.SelectedItems.Count > 0)
+            {
+                int index = listViewNotes.SelectedIndices[0];
+                var insertNoteCommand = new InsertNoteCommand(listViewNotes, listViewItem, index);
+                commandManager.ExecuteCommand(insertNoteCommand);
+            }
+            else
+            {
+                var addNoteCommand = new AddNoteCommand(listViewNotes, listViewItem);
+                commandManager.ExecuteCommand(addNoteCommand);
+            }
         }
         private void add_notes_to_column(string note)
         {
