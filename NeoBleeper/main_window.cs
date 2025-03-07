@@ -19,6 +19,8 @@ using System.Threading;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Reflection;
 
 namespace NeoBleeper
 {
@@ -2084,8 +2086,13 @@ namespace NeoBleeper
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
+                int index = listViewNotes.SelectedIndices[0];
                 var selectedItem = listViewNotes.SelectedItems[0];
                 var removeNoteCommand = new RemoveNoteCommand(listViewNotes, selectedItem);
+                if(index< listViewNotes.Items.Count - 1)
+                {
+                    listViewNotes.Items[index + 1].Selected = true;
+                }
                 commandManager.ExecuteCommand(removeNoteCommand);
             }
         }
@@ -2234,50 +2241,52 @@ namespace NeoBleeper
             }
         }
 
-        private async Task play_music()
+        private async Task dummy_play_note(int length) // Dummy play note function for testing purposes
+        {
+            String note1, note2, note3, note4;
+            note1 = listViewNotes.SelectedItems[0].SubItems[1].Text;
+            note2 = listViewNotes.SelectedItems[0].SubItems[2].Text;
+            note3 = listViewNotes.SelectedItems[0].SubItems[3].Text;
+            note4 = listViewNotes.SelectedItems[0].SubItems[4].Text;
+            if (note1 != String.Empty || note2!=String.Empty|| note3 != String.Empty || note4 != String.Empty)
+            {
+                UpdateLabelVisible(true);
+                await Task.Delay(length);
+                UpdateLabelVisible(false);
+            }
+            else
+            {
+                await Task.Delay(length);
+            }
+        }
+        private async void play_music(int index)
         {
             try
             {
                 while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
                 {
                     Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    note_length_calculator();
+                    await note_length_calculator();
+                    //await dummy_play_note(Convert.ToInt32(Math.Round(note_length)));
                     await play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
-                        Convert.ToInt32(Math.Round(final_note_length)));
-                    double delay = note_length - final_note_length;
-                    await Task.Delay(Convert.ToInt32(Math.Round(delay)));
-                    listViewNotes.BeginUpdate();
-                    listViewNotes.BeginInvoke(new Action(() =>
+                        Convert.ToInt32(Math.Truncate(final_note_length)));
+                    double delay = note_length-final_note_length;
+                    Thread.Sleep(Convert.ToInt32(Math.Truncate(delay)));
+
+                    if (listViewNotes.InvokeRequired)
                     {
-                        if (listViewNotes.SelectedIndices.Count > 0)
+                        listViewNotes.BeginInvoke(new Action(() =>
                         {
-                            int nextIndex = listViewNotes.SelectedIndices[0] + 1;
-                            if (nextIndex < listViewNotes.Items.Count)
-                            {
-                                listViewNotes.Items[nextIndex].Selected = true;
-                                listViewNotes.EnsureVisible(nextIndex);
-                            }
-                            else if (checkBox_loop.Checked)
-                            {
-                                if (listViewNotes.Items.Count > 0)
-                                {
-                                    listViewNotes.Items[0].Selected = true;
-                                    listViewNotes.EnsureVisible(0);
-                                }
-                                else
-                                {
-                                    stop_playing();
-                                }
-                            }
-                            else
-                            {
-                                stop_playing();
-                            }
-                        }
-                    }));
-                    listViewNotes.EndUpdate();
+                            UpdateListViewSelection(index);
+                        }));
+                    }
+                    else
+                    {
+                        UpdateListViewSelection(index);
+                    }
                 }
+                return;
             }
             catch (InvalidAsynchronousStateException)
             {
@@ -2285,6 +2294,37 @@ namespace NeoBleeper
             }
         }
 
+        private void UpdateListViewSelection(int index)
+        {
+            listViewNotes.BeginUpdate();
+            if (listViewNotes.SelectedIndices.Count > 0)
+            {
+                int nextIndex = listViewNotes.SelectedIndices[0] + 1;
+                if (nextIndex < listViewNotes.Items.Count)
+                {
+                    listViewNotes.Items[nextIndex].Selected = true;
+                    listViewNotes.EnsureVisible(nextIndex);
+                }
+                else if (checkBox_loop.Checked)
+                {
+                    if (listViewNotes.Items.Count > 0)
+                    {
+                        listViewNotes.Items[index].Selected = true;
+                        listViewNotes.EnsureVisible(index);
+                    }
+                    else
+                    {
+                        stop_playing();
+                    }
+                }
+                else
+                {
+                    stop_playing();
+                }
+            }
+            listViewNotes.EndUpdate();
+            return;
+        }
         private async Task play_all()
         {
             if (listViewNotes.Items.Count > 0)
@@ -2307,7 +2347,8 @@ namespace NeoBleeper
                 button_stop_playing.Enabled = true;
                 stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
-                new Thread(async() => play_music()).Start();
+                //play_music();
+                new Thread(() => play_music(0)).Start();
             }
         }
         private async Task play_from_selected_line()
@@ -2332,10 +2373,16 @@ namespace NeoBleeper
                     {
                         listViewNotes.Items[0].Selected = true;
                         listViewNotes.EnsureVisible(0);
+                        new Thread(() => play_music(0)).Start();
                     }));
                     listViewNotes.EndUpdate();
                 }
-                new Thread(async() => play_music()).Start();
+                else
+                {
+                    int index = listViewNotes.SelectedItems[0].Index;
+                    new Thread(() => play_music(index)).Start();
+                }
+                //play_music();
             }
         }
         private void button_play_all_Click(object sender, EventArgs e)
@@ -2494,14 +2541,13 @@ namespace NeoBleeper
         }
         private void UpdateLabelVisible(bool visible)
         {
-            if (isClosing) return;
             try
             {
                 if (label_beep.InvokeRequired)
                 {
                     if (!label_beep.IsDisposed)
                     {
-                        label_beep.Invoke(new Action(() =>
+                        label_beep.BeginInvoke(new Action(() =>
                         {
                             if (!label_beep.IsDisposed)
                             {
@@ -2670,7 +2716,7 @@ namespace NeoBleeper
                 checkBox_do_not_update.Enabled = false;
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                Convert.ToInt32(Math.Round(final_note_length)));
+                Convert.ToInt32(Math.Truncate(final_note_length)));
                 keyboard_panel.Enabled = true;
                 numericUpDown_alternating_notes.Enabled = true;
                 numericUpDown_bpm.Enabled = true;
@@ -2690,102 +2736,7 @@ namespace NeoBleeper
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
         }
 
-        /*private void disable_keys()
-        {
-            if (button_b5.Enabled == button_a5.Enabled == button_g5.Enabled == button_f5.Enabled == button_e5.Enabled == button_d5.Enabled == button_c5.Enabled == true)
-            {
-                button_b5.Enabled = button_a5.Enabled = button_g5.Enabled = button_f5.Enabled = button_e5.Enabled = button_d5.Enabled = button_c5.Enabled = false;
-            }
-            if (button_b4.Enabled == button_a4.Enabled == button_g4.Enabled == button_f4.Enabled == button_e4.Enabled == button_d4.Enabled == button_c4.Enabled == true)
-            {
-                button_b4.Enabled = button_a4.Enabled = button_g4.Enabled = button_f4.Enabled = button_e4.Enabled = button_d4.Enabled = button_c4.Enabled = false;
-            }
-            if (button_b3.Enabled == button_a3.Enabled == button_g3.Enabled == button_f3.Enabled == button_e3.Enabled == button_d3.Enabled == button_c3.Enabled == true)
-            {
-                button_b3.Enabled = button_a3.Enabled = button_g3.Enabled = button_f3.Enabled = button_e3.Enabled = button_d3.Enabled = button_c3.Enabled = false;
-            }
-            if (button_a_s5.Enabled == button_g_s5.Enabled == button_f_s5.Enabled == button_d_s5.Enabled == button_c_s5.Enabled == true)
-            {
-                button_a_s5.Enabled = button_g_s5.Enabled = button_f_s5.Enabled = button_d_s5.Enabled = button_c_s5.Enabled = false;
-            }
-            if (button_a_s4.Enabled == button_g_s4.Enabled == button_f_s4.Enabled == button_d_s4.Enabled == button_c_s4.Enabled == true)
-            {
-                button_a_s4.Enabled = button_g_s4.Enabled = button_f_s4.Enabled = button_d_s4.Enabled = button_c_s4.Enabled = false;
-            }
-            if (button_a_s3.Enabled == button_g_s3.Enabled == button_f_s3.Enabled == button_d_s3.Enabled == button_c_s3.Enabled == true)
-            {
-                button_a_s3.Enabled = button_g_s3.Enabled = button_f_s3.Enabled = button_d_s3.Enabled = button_c_s3.Enabled = false;
-            }
-            if (lbl_b5.Enabled == lbl_a5.Enabled == lbl_g5.Enabled == lbl_f5.Enabled == lbl_e5.Enabled == lbl_d5.Enabled == lbl_c5.Enabled == true)
-            {
-                lbl_b5.Enabled = lbl_a5.Enabled = lbl_g5.Enabled = lbl_f5.Enabled = lbl_e5.Enabled = lbl_d5.Enabled = lbl_c5.Enabled = false;
-            }
-            if (lbl_b4.Enabled == lbl_a4.Enabled == lbl_g4.Enabled == lbl_f4.Enabled == lbl_e4.Enabled == lbl_d4.Enabled == lbl_c4.Enabled == true)
-            {
-                lbl_b4.Enabled = lbl_a4.Enabled = lbl_g4.Enabled = lbl_f4.Enabled = lbl_e4.Enabled = lbl_d4.Enabled = lbl_c4.Enabled = false;
-            }
-            if (lbl_b3.Enabled == lbl_a3.Enabled == lbl_g3.Enabled == lbl_f3.Enabled == lbl_e3.Enabled == lbl_d3.Enabled == lbl_c3.Enabled == true)
-            {
-                lbl_b3.Enabled = lbl_a3.Enabled = lbl_g3.Enabled = lbl_f3.Enabled = lbl_e3.Enabled = lbl_d3.Enabled = lbl_c3.Enabled = false;
-            }
-            if (checkBox_do_not_update.Enabled == true)
-            {
-                checkBox_do_not_update.Enabled = false;
-            }
-            if (listViewNotes.Enabled == true)
-            {
-                listViewNotes.Enabled = false;
-            }
-        }
-        private void enable_keys()
-        {
-            if (button_b5.Enabled == button_a5.Enabled == button_g5.Enabled == button_f5.Enabled == button_e5.Enabled == button_d5.Enabled == button_c5.Enabled == false)
-            {
-                button_b5.Enabled = button_a5.Enabled = button_g5.Enabled = button_f5.Enabled = button_e5.Enabled = button_d5.Enabled = button_c5.Enabled = true;
-            }
-            if (button_b4.Enabled == button_a4.Enabled == button_g4.Enabled == button_f4.Enabled == button_e4.Enabled == button_d4.Enabled == button_c4.Enabled == false)
-            {
-                button_b4.Enabled = button_a4.Enabled = button_g4.Enabled = button_f4.Enabled = button_e4.Enabled = button_d4.Enabled = button_c4.Enabled = true;
-            }
-            if (button_b3.Enabled == button_a3.Enabled == button_g3.Enabled == button_f3.Enabled == button_e3.Enabled == button_d3.Enabled == button_c3.Enabled == false)
-            {
-                button_b3.Enabled = button_a3.Enabled = button_g3.Enabled = button_f3.Enabled = button_e3.Enabled = button_d3.Enabled = button_c3.Enabled = true;
-            }
-            if (button_a_s5.Enabled == button_g_s5.Enabled == button_f_s5.Enabled == button_d_s5.Enabled == button_c_s5.Enabled == false)
-            {
-                button_a_s5.Enabled = button_g_s5.Enabled = button_f_s5.Enabled = button_d_s5.Enabled = button_c_s5.Enabled = true;
-            }
-            if (button_a_s4.Enabled == button_g_s4.Enabled == button_f_s4.Enabled == button_d_s4.Enabled == button_c_s4.Enabled == false)
-            {
-                button_a_s4.Enabled = button_g_s4.Enabled = button_f_s4.Enabled = button_d_s4.Enabled = button_c_s4.Enabled = true;
-            }
-            if (button_a_s3.Enabled == button_g_s3.Enabled == button_f_s3.Enabled == button_d_s3.Enabled == button_c_s3.Enabled == false)
-            {
-                button_a_s3.Enabled = button_g_s3.Enabled = button_f_s3.Enabled = button_d_s3.Enabled = button_c_s3.Enabled = true;
-            }
-            if (lbl_b5.Enabled == lbl_a5.Enabled == lbl_g5.Enabled == lbl_f5.Enabled == lbl_e5.Enabled == lbl_d5.Enabled == lbl_c5.Enabled == false)
-            {
-                lbl_b5.Enabled = lbl_a5.Enabled = lbl_g5.Enabled = lbl_f5.Enabled = lbl_e5.Enabled = lbl_d5.Enabled = lbl_c5.Enabled = true;
-            }
-            if (lbl_b4.Enabled == lbl_a4.Enabled == lbl_g4.Enabled == lbl_f4.Enabled == lbl_e4.Enabled == lbl_d4.Enabled == lbl_c4.Enabled == false)
-            {
-                lbl_b4.Enabled = lbl_a4.Enabled = lbl_g4.Enabled = lbl_f4.Enabled = lbl_e4.Enabled = lbl_d4.Enabled = lbl_c4.Enabled = true;
-            }
-            if (lbl_b3.Enabled == lbl_a3.Enabled == lbl_g3.Enabled == lbl_f3.Enabled == lbl_e3.Enabled == lbl_d3.Enabled == lbl_c3.Enabled == false)
-            {
-                lbl_b3.Enabled = lbl_a3.Enabled = lbl_g3.Enabled = lbl_f3.Enabled = lbl_e3.Enabled = lbl_d3.Enabled = lbl_c3.Enabled = true;
-            }
-            if (checkBox_do_not_update.Enabled == false)
-            {
-                checkBox_do_not_update.Enabled = true;
-            }
-            if (listViewNotes.Enabled == false)
-            {
-                listViewNotes.Enabled = true;
-            }
-        }*/
-
-        private void note_length_calculator()
+        private async Task note_length_calculator()
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
@@ -2836,12 +2787,11 @@ namespace NeoBleeper
                     note_length *= 2;
                 }
                 final_note_length = note_length * Variables.note_silence_ratio;
-                final_note_count = Convert.ToInt32(Math.Round(final_note_length));
+                final_note_count = Convert.ToInt32(Math.Truncate(final_note_length));
             }
         }
 
-        private async Task play_note(int frequency, int length) // Create a beep with the specified frequency and length
-                                                                // 0 = click, 1 = playback
+        private void play_note(int frequency, int length) // Create a beep with the specified frequency and length
         {
             try
             {
@@ -2859,13 +2809,13 @@ namespace NeoBleeper
                                         }
                                         else // If the frequency is out of range, sleep for the length of the note
                                         {
-                                            await Task.Delay(length);
+                                            Thread.Sleep(length);
                                         }
                                         break;
                                     }
                                 case true: // If the system speaker is muted, sleep for the length of the note
                                     {
-                                        await Task.Delay(length);
+                                        Thread.Sleep(length);
                                         break;
                                     }
                             }
@@ -3378,26 +3328,26 @@ namespace NeoBleeper
                     if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                     {
                         UpdateLabelVisible(true);
-                        await play_note(Convert.ToInt32(note1_frequency), length);
+                        play_note(Convert.ToInt32(note1_frequency), length);
                         UpdateLabelVisible(false);
                     }
                     else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                     {
                         UpdateLabelVisible(true);
-                        await play_note(Convert.ToInt32(note2_frequency), length);
+                        play_note(Convert.ToInt32(note2_frequency), length);
                         UpdateLabelVisible(false);
                     }
 
                     else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                     {
                         UpdateLabelVisible(true);
-                        await play_note(Convert.ToInt32(note3_frequency), length);
+                        play_note(Convert.ToInt32(note3_frequency), length);
                         UpdateLabelVisible(false);
                     }
                     else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
                     {
                         UpdateLabelVisible(true);
-                        await play_note(Convert.ToInt32(note4_frequency), length);
+                        play_note(Convert.ToInt32(note4_frequency), length);
                         UpdateLabelVisible(false);
                     }
                     else
@@ -3407,7 +3357,7 @@ namespace NeoBleeper
                             UpdateLabelVisible(true);
                         }
                         int note_order = 1;
-                        int last_note_order = length / Variables.alternating_note_length;
+                        int last_note_order = Convert.ToInt32(Math.Truncate((double)length / Variables.alternating_note_length));
                         if (radioButtonPlay_alternating_notes1.Checked == true)
                         {
                             string[] note_series = { note1, note2, note3, note4 };
@@ -3422,22 +3372,22 @@ namespace NeoBleeper
                                         {
                                             case 0:
                                                 {
-                                                    await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                     break;
                                                 }
                                             case 1:
                                                 {
-                                                    await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                     break;
                                                 }
                                             case 2:
                                                 {
-                                                    await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                     break;
                                                 }
                                             case 3:
                                                 {
-                                                    await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                    play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                     break;
                                                 }
                                         }
@@ -3460,11 +3410,11 @@ namespace NeoBleeper
                                     {
                                         if (i == 0)
                                         {
-                                            await play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                            play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                         }
                                         else if (i == 2)
                                         {
-                                            await play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                            play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                         }
                                         note_order++;
                                     }
@@ -3476,11 +3426,11 @@ namespace NeoBleeper
                                     {
                                         if (i == 1)
                                         {
-                                            await play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                            play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                         }
                                         else if (i == 3)
                                         {
-                                            await play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                            play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                         }
                                         note_order++;
                                     }
