@@ -2231,7 +2231,6 @@ namespace NeoBleeper
             {
                 while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
                 {
-                    Application.DoEvents();
                     Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                     note_length_calculator();
                     await play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
@@ -2239,41 +2238,36 @@ namespace NeoBleeper
                         Convert.ToInt32(Math.Round(final_note_length)));
                     double delay = note_length - final_note_length;
                     await Task.Delay(Convert.ToInt32(Math.Round(delay)));
-                    if (listViewNotes.SelectedIndices.Count > 0)
+                    listViewNotes.BeginUpdate();
+                    listViewNotes.BeginInvoke(new Action(() =>
                     {
-                        int nextIndex = listViewNotes.SelectedIndices[0] + 1;
-                        if (nextIndex < listViewNotes.Items.Count)
+                        if (listViewNotes.SelectedIndices.Count > 0)
                         {
-                            listViewNotes.BeginUpdate();
-                            listViewNotes.BeginInvoke(new Action(() =>
+                            int nextIndex = listViewNotes.SelectedIndices[0] + 1;
+                            if (nextIndex < listViewNotes.Items.Count)
                             {
                                 listViewNotes.Items[nextIndex].Selected = true;
                                 listViewNotes.EnsureVisible(nextIndex);
-                            }));
-                            listViewNotes.EndUpdate();
-                        }
-                        else if (checkBox_loop.Checked)
-                        {
-                            if (listViewNotes.Items.Count > 0)
+                            }
+                            else if (checkBox_loop.Checked)
                             {
-                                listViewNotes.BeginUpdate();
-                                listViewNotes.BeginInvoke(new Action(() =>
+                                if (listViewNotes.Items.Count > 0)
                                 {
                                     listViewNotes.Items[0].Selected = true;
                                     listViewNotes.EnsureVisible(0);
-                                }));
-                                listViewNotes.EndUpdate();
+                                }
+                                else
+                                {
+                                    stop_playing();
+                                }
                             }
                             else
                             {
                                 stop_playing();
                             }
                         }
-                        else
-                        {
-                            stop_playing();
-                        }
-                    }
+                    }));
+                    listViewNotes.EndUpdate();
                 }
             }
             catch (InvalidAsynchronousStateException)
@@ -2304,7 +2298,7 @@ namespace NeoBleeper
                 button_stop_playing.Enabled = true;
                 stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
-                await Task.Run(() => play_music());
+                new Thread(async() => play_music()).Start();
             }
         }
         private async Task play_from_selected_line()
@@ -2332,7 +2326,7 @@ namespace NeoBleeper
                     }));
                     listViewNotes.EndUpdate();
                 }
-                await Task.Run(() => play_music());
+                new Thread(async() => play_music()).Start();
             }
         }
         private void button_play_all_Click(object sender, EventArgs e)
