@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Threading;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
@@ -2243,15 +2244,25 @@ namespace NeoBleeper
                         int nextIndex = listViewNotes.SelectedIndices[0] + 1;
                         if (nextIndex < listViewNotes.Items.Count)
                         {
-                            listViewNotes.Items[nextIndex].Selected = true;
-                            listViewNotes.EnsureVisible(nextIndex);
+                            listViewNotes.BeginUpdate();
+                            listViewNotes.BeginInvoke(new Action(() =>
+                            {
+                                listViewNotes.Items[nextIndex].Selected = true;
+                                listViewNotes.EnsureVisible(nextIndex);
+                            }));
+                            listViewNotes.EndUpdate();
                         }
                         else if (checkBox_loop.Checked)
                         {
                             if (listViewNotes.Items.Count > 0)
                             {
-                                listViewNotes.Items[0].Selected = true;
-                                listViewNotes.EnsureVisible(0);
+                                listViewNotes.BeginUpdate();
+                                listViewNotes.BeginInvoke(new Action(() =>
+                                {
+                                    listViewNotes.Items[0].Selected = true;
+                                    listViewNotes.EnsureVisible(0);
+                                }));
+                                listViewNotes.EndUpdate();
                             }
                             else
                             {
@@ -2271,12 +2282,17 @@ namespace NeoBleeper
             }
         }
 
-        private void play_all()
+        private async Task play_all()
         {
             if (listViewNotes.Items.Count > 0)
             {
-                listViewNotes.Items[0].Selected = true;
-                listViewNotes.EnsureVisible(0);
+                listViewNotes.BeginUpdate();
+                listViewNotes.BeginInvoke(new Action(() =>
+                {
+                    listViewNotes.Items[0].Selected = true;
+                    listViewNotes.EnsureVisible(0);
+                }));
+                listViewNotes.EndUpdate();
                 checkBox_do_not_update.Enabled = false;
                 keyboard_panel.Enabled = false;
                 numericUpDown_bpm.Enabled = false;
@@ -2288,10 +2304,10 @@ namespace NeoBleeper
                 button_stop_playing.Enabled = true;
                 stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
-                play_music();
+                await Task.Run(() => play_music());
             }
         }
-        private void play_from_selected_line()
+        private async Task play_from_selected_line()
         {
             if (listViewNotes.Items.Count > 0)
             {
@@ -2308,10 +2324,15 @@ namespace NeoBleeper
                 is_music_playing = true;
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
-                    listViewNotes.Items[0].Selected = true;
-                    listViewNotes.EnsureVisible(0);
+                    listViewNotes.BeginUpdate();
+                    listViewNotes.BeginInvoke(new Action(() =>
+                    {
+                        listViewNotes.Items[0].Selected = true;
+                        listViewNotes.EnsureVisible(0);
+                    }));
+                    listViewNotes.EndUpdate();
                 }
-                play_music();
+                await Task.Run(() => play_music());
             }
         }
         private void button_play_all_Click(object sender, EventArgs e)
