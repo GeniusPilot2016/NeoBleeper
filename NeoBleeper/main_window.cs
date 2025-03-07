@@ -1608,7 +1608,7 @@ namespace NeoBleeper
                                 Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                                 numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
                                 trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
-                                lbl_time_signature.Text = projectFile.Settings.RandomSettings.KeyboardOctave;
+                                lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
                                 Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
                                 trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
                                 lbl_note_silence_ratio.Text = projectFile.Settings.RandomSettings.NoteSilenceRatio + "%";
