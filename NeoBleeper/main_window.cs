@@ -2490,7 +2490,7 @@ namespace NeoBleeper
                         await Task.Delay(30);
                     }
                     UpdateLabelVisible(false);
-                    await Task.Delay(Convert.ToInt32(60000 / Variables.bpm) - 30);
+                    await Task.Delay(Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm)) - 30);
                     while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                     {
                         UpdateLabelVisible(true);
@@ -2529,7 +2529,7 @@ namespace NeoBleeper
                             await Task.Delay(30);
                         }
                         UpdateLabelVisible(false);
-                        await Task.Delay(Convert.ToInt32(Math.Round(Convert.ToDouble(60000 / Variables.bpm))) - 30);
+                        await Task.Delay(Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm))) - 30);
                         i++;
                     }
                 }
@@ -2702,27 +2702,32 @@ namespace NeoBleeper
         {
             unselect_line();
         }
+        bool is_clicked = false;
         private void listViewNotes_Click(object sender, EventArgs e)
         {
             stop_playing();
             if (listViewNotes.FocusedItem != null)
             {
-                if (cancellationTokenSource.Token.IsCancellationRequested) return;
-                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                note_length_calculator();
-                keyboard_panel.Enabled = false;
-                numericUpDown_alternating_notes.Enabled = false;
-                numericUpDown_bpm.Enabled = false;
-                checkBox_do_not_update.Enabled = false;
-                play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
-                checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                Convert.ToInt32(Math.Truncate(final_note_length)));
-                keyboard_panel.Enabled = true;
-                numericUpDown_alternating_notes.Enabled = true;
-                numericUpDown_bpm.Enabled = true;
-                checkBox_do_not_update.Enabled = true;
-                total_note_length = 0;
-                note_count = 0;
+                new Thread(() =>
+                {
+                    is_clicked = true;
+                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    note_length_calculator();
+                    keyboard_panel.Enabled = false;
+                    numericUpDown_alternating_notes.Enabled = false;
+                    numericUpDown_bpm.Enabled = false;
+                    checkBox_do_not_update.Enabled = false;
+                    play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
+                    checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
+                    Convert.ToInt32(Math.Truncate(final_note_length)));
+                    keyboard_panel.Enabled = true;
+                    numericUpDown_alternating_notes.Enabled = true;
+                    numericUpDown_bpm.Enabled = true;
+                    checkBox_do_not_update.Enabled = true;
+                    total_note_length = 0;
+                    note_count = 0;
+                    is_clicked = false;
+                }).Start();
             }
         }
 
@@ -3509,7 +3514,8 @@ namespace NeoBleeper
                     {
                         await updateIndicators(selectedLine);
                     }
-                    else if ((checkBox_do_not_update.Checked == true || checkBox_do_not_update.Checked == false) && is_music_playing == false)
+                    else if ((checkBox_do_not_update.Checked == true || checkBox_do_not_update.Checked == false) && 
+                        is_music_playing == false && is_clicked == false)
                     {
                         await updateIndicators(selectedLine);
                     }
