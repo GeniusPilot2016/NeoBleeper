@@ -2312,11 +2312,13 @@ namespace NeoBleeper
                     }
                     else
                     {
+                        listViewNotes.SelectedItems.Clear(); // Clear selected items
                         stop_playing();
                     }
                 }
                 else
                 {
+                    listViewNotes.SelectedItems.Clear(); // Clear selected items
                     stop_playing();
                 }
             }
