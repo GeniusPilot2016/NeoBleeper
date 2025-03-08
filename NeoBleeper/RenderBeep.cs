@@ -49,6 +49,7 @@ namespace NeoBleeper
             {
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;
+                Thread.Sleep(1);
                 waveOut.Play();
                 Thread.Sleep(ms);
                 waveOut.Stop();
