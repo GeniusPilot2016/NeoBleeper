@@ -2296,7 +2296,6 @@ namespace NeoBleeper
 
         private void UpdateListViewSelection(int index)
         {
-            listViewNotes.BeginUpdate();
             if (listViewNotes.SelectedIndices.Count > 0)
             {
                 int nextIndex = listViewNotes.SelectedIndices[0] + 1;
@@ -2322,7 +2321,6 @@ namespace NeoBleeper
                     stop_playing();
                 }
             }
-            listViewNotes.EndUpdate();
             return;
         }
         private async Task play_all()
@@ -2590,7 +2588,6 @@ namespace NeoBleeper
                             break;
                         }
                 }
-                if (cancellationTokenSource.Token.IsCancellationRequested) return;
                 metronome();
             }
             else

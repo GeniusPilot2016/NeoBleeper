@@ -19,7 +19,6 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms)
             {
-                Application.DoEvents();
                 Out32(0x43, 0xB6);
                 int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
@@ -47,7 +46,6 @@ namespace NeoBleeper
 
             public static void PlayWave(SignalGeneratorType type, int freq, int ms)
             {
-                Application.DoEvents();
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;
                 waveOut.Play();
