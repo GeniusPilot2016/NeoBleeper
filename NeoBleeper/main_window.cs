@@ -2272,7 +2272,7 @@ namespace NeoBleeper
                         checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
                         Convert.ToInt32(Math.Truncate(final_note_length)));
                     double delay = note_length-final_note_length;
-                    Thread.Sleep(Convert.ToInt32(Math.Truncate(delay - 1)));
+                    Thread.Sleep(Convert.ToInt32(Math.Truncate(delay)));
                     if (listViewNotes.InvokeRequired)
                     {
                         listViewNotes.BeginInvoke(new Action(() =>
