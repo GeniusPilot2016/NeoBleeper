@@ -23,6 +23,7 @@ namespace NeoBleeper
                 int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
+                Thread.Sleep(1);
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
                 System.Threading.Thread.Sleep(ms);
                 StopBeep();
@@ -48,6 +49,7 @@ namespace NeoBleeper
             {
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;
+                Thread.Sleep(1);
                 waveOut.Play();
                 Thread.Sleep(ms);
                 waveOut.Stop();
