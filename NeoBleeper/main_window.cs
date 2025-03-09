@@ -3549,14 +3549,113 @@ namespace NeoBleeper
                             }
                         lbl_measure_value.Text = measure.ToString();
                         lbl_beat_value.Text = FormatNumber(beat + 1);
+                        lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                        lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                     }
-
                 }));
             }
             catch (InvalidAsynchronousStateException)
             {
                 return;
             }
+        }
+        public static string ConvertDecimalBeatToTraditional(double decimalBeat)
+        {
+            double fractionOfWhole = decimalBeat / 4;
+            double sixteenths = Math.Round(fractionOfWhole * 16);
+
+            // Yuvarlama sonrasý orijinal deðerden sapma kontrolü
+            if (Math.Abs((decimalBeat / 4) - (sixteenths / 16)) > 0.00001)
+            {
+                if (sixteenths > 16)
+                {
+                    int tamSayi = (int)Math.Floor(sixteenths / 16);
+                    return (tamSayi + 1) + " (Error)";
+                }
+                else
+                {
+                    return "1 (Error)";
+                }
+            }
+
+            int numerator = (int)sixteenths;
+            int denominator = 16;
+            int gcd = GCD(numerator, denominator);
+
+            numerator /= gcd;
+            denominator /= gcd;
+
+            if (numerator == denominator)
+            {
+                return "1";
+            }
+            else if (numerator == 0)
+            {
+                return "1"; // Sadece "1" döndür
+            }
+            else if (numerator > denominator) // 1'den büyük kesirler için
+            {
+                int tamSayi = numerator / denominator;
+                int kalan = numerator % denominator;
+
+                if (kalan == 0)
+                {
+                    return (tamSayi + 1).ToString(); // Tam sayý kýsmý
+                }
+                else
+                {
+                    return (tamSayi + 1) + " " + kalan + "/" + denominator; // Tam sayý ve kalan kesir
+                }
+            }
+            else if (denominator == 1)
+            {
+                return numerator.ToString();
+            }
+            else if (denominator == 2)
+            {
+                return "1 " + numerator + "/2"; // 1'den küçük kesirler için "1 kesir" formatý
+            }
+            else if (denominator == 4)
+            {
+                return "1 " + numerator + "/4"; // 1'den küçük kesirler için "1 kesir" formatý
+            }
+            else if (denominator == 8)
+            {
+                return "1 " + numerator + "/8"; // 1'den küçük kesirler için "1 kesir" formatý
+            }
+            else if (denominator == 16)
+            {
+                return "1 " + numerator + "/16"; // 1'den küçük kesirler için "1 kesir" formatý
+            }
+            else
+            {
+                int tamSayi = (int)Math.Floor(sixteenths / 16);
+                return (tamSayi + 1) + " (Error)";
+            }
+        }
+
+        public static int GCD(int a, int b)
+        {
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+        private Color set_traditional_beat_color(string text)
+        {
+            Color text_color;
+            if(text.Contains("Error"))
+            {
+                text_color = Color.Red;
+            }
+            else
+            {
+                text_color = Color.Green;
+            }
+            return text_color;
         }
         private double NoteLengthToBeats(ListViewItem listViewItem)
         {

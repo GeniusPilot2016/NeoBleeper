@@ -991,45 +991,6 @@
   <data name="menuStrip1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
-  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 4, 0, 4</value>
-  </data>
-  <data name="menuStrip1.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1278, 32</value>
-  </data>
-  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="menuStrip1.Text" xml:space="preserve">
-    <value>menuStrip_main_window</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>52</value>
-  </data>
-  <data name="fileToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 24</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
   <data name="newToolStripMenuItem1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
@@ -1133,14 +1094,14 @@
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Play MIDI file</value>
   </data>
-  <data name="editToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="fileToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 24</value>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 24</value>
   </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;File</value>
   </data>
   <data name="undoToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1175,6 +1136,15 @@
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Revert All Changes To Saved Version</value>
   </data>
+  <data name="editToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 24</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
   <data name="settingsToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
@@ -1202,6 +1172,36 @@
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
+  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 4, 0, 4</value>
+  </data>
+  <data name="menuStrip1.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1278, 32</value>
+  </data>
+  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="menuStrip1.Text" xml:space="preserve">
+    <value>menuStrip_main_window</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
+    <value>52</value>
+  </data>
   <data name="checkBox_mute_system_speaker.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1225,7 +1225,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAEYAQsBGAELARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAEwAQsBMAELARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -2203,45 +2203,6 @@
   <data name="notes_list_right_click.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>268, 212</value>
-  </data>
-  <data name="&gt;&gt;notes_list_right_click.Name" xml:space="preserve">
-    <value>notes_list_right_click</value>
-  </data>
-  <data name="&gt;&gt;notes_list_right_click.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="listViewNotes.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>588, 439</value>
-  </data>
-  <data name="listViewNotes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
-  </data>
-  <data name="listViewNotes.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 414</value>
-  </data>
-  <data name="listViewNotes.TabIndex" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="&gt;&gt;listViewNotes.Name" xml:space="preserve">
-    <value>listViewNotes</value>
-  </data>
-  <data name="&gt;&gt;listViewNotes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listViewNotes.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;listViewNotes.ZOrder" xml:space="preserve">
-    <value>46</value>
-  </data>
   <data name="blankLineToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+B</value>
   </data>
@@ -2250,12 +2211,6 @@
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Blank Line</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Clear Notes</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+1</value>
@@ -2292,6 +2247,12 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear Note 4</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Clear Notes</value>
   </data>
   <data name="unselectLineToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Space</value>
@@ -2338,12 +2299,6 @@
   <data name="pasteToolStripMenuItem.Text" xml:space="preserve">
     <value>Paste</value>
   </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Playback Controls</value>
-  </data>
   <data name="playAllToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+P</value>
   </data>
@@ -2373,6 +2328,51 @@
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Stop Playing</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Playback Controls</value>
+  </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 212</value>
+  </data>
+  <data name="&gt;&gt;notes_list_right_click.Name" xml:space="preserve">
+    <value>notes_list_right_click</value>
+  </data>
+  <data name="&gt;&gt;notes_list_right_click.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listViewNotes.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>588, 439</value>
+  </data>
+  <data name="listViewNotes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 4, 5, 4</value>
+  </data>
+  <data name="listViewNotes.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>470, 414</value>
+  </data>
+  <data name="listViewNotes.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="&gt;&gt;listViewNotes.Name" xml:space="preserve">
+    <value>listViewNotes</value>
+  </data>
+  <data name="&gt;&gt;listViewNotes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewNotes.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;listViewNotes.ZOrder" xml:space="preserve">
+    <value>46</value>
   </data>
   <data name="label_note_length.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -5131,123 +5131,6 @@ Options</value>
   <data name="&gt;&gt;checkbox_play_note.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;add_as_note4.Name" xml:space="preserve">
-    <value>add_as_note4</value>
-  </data>
-  <data name="&gt;&gt;add_as_note4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;add_as_note4.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;add_as_note4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;add_as_note3.Name" xml:space="preserve">
-    <value>add_as_note3</value>
-  </data>
-  <data name="&gt;&gt;add_as_note3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;add_as_note3.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;add_as_note3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace_length.Name" xml:space="preserve">
-    <value>checkBox_replace_length</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace_length.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace_length.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace_length.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace.Name" xml:space="preserve">
-    <value>checkBox_replace</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;add_as_note2.Name" xml:space="preserve">
-    <value>add_as_note2</value>
-  </data>
-  <data name="&gt;&gt;add_as_note2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;add_as_note2.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;add_as_note2.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;add_as_note1.Name" xml:space="preserve">
-    <value>add_as_note1</value>
-  </data>
-  <data name="&gt;&gt;add_as_note1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;add_as_note1.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;add_as_note1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;checkBox_add_note_to_list.Name" xml:space="preserve">
-    <value>checkBox_add_note_to_list</value>
-  </data>
-  <data name="&gt;&gt;checkBox_add_note_to_list.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_add_note_to_list.Parent" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;checkBox_add_note_to_list.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="group_adding_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 52</value>
-  </data>
-  <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
-  </data>
-  <data name="group_adding_note.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
-  </data>
-  <data name="group_adding_note.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>309, 196</value>
-  </data>
-  <data name="group_adding_note.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Adding note</value>
-  </data>
-  <data name="&gt;&gt;group_adding_note.Name" xml:space="preserve">
-    <value>group_adding_note</value>
-  </data>
-  <data name="&gt;&gt;group_adding_note.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_adding_note.Parent" xml:space="preserve">
-    <value>group_key_is_clicked</value>
-  </data>
-  <data name="&gt;&gt;group_adding_note.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="add_as_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -5524,6 +5407,39 @@ Options</value>
   <data name="&gt;&gt;checkBox_add_note_to_list.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="group_adding_note.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 52</value>
+  </data>
+  <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 4, 5, 4</value>
+  </data>
+  <data name="group_adding_note.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 4, 5, 4</value>
+  </data>
+  <data name="group_adding_note.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
+    <value>309, 196</value>
+  </data>
+  <data name="group_adding_note.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Adding note</value>
+  </data>
+  <data name="&gt;&gt;group_adding_note.Name" xml:space="preserve">
+    <value>group_adding_note</value>
+  </data>
+  <data name="&gt;&gt;group_adding_note.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_adding_note.Parent" xml:space="preserve">
+    <value>group_key_is_clicked</value>
+  </data>
+  <data name="&gt;&gt;group_adding_note.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="group_key_is_clicked.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -5565,87 +5481,6 @@ Options</value>
   </data>
   <data name="group_line_clicked.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_clicked.Name" xml:space="preserve">
-    <value>checkBox_play_note4_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_clicked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_clicked.Parent" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_clicked.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_clicked.Name" xml:space="preserve">
-    <value>checkBox_play_note3_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_clicked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_clicked.Parent" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_clicked.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_clicked.Name" xml:space="preserve">
-    <value>checkBox_play_note2_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_clicked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_clicked.Parent" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_clicked.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_clicked.Name" xml:space="preserve">
-    <value>checkBox_play_note1_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_clicked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_clicked.Parent" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_clicked.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="group_line_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
-  </data>
-  <data name="group_line_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
-  </data>
-  <data name="group_line_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
-  </data>
-  <data name="group_line_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>309, 120</value>
-  </data>
-  <data name="group_line_clicked.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>When a line is clicked</value>
-  </data>
-  <data name="&gt;&gt;group_line_clicked.Name" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="&gt;&gt;group_line_clicked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_line_clicked.Parent" xml:space="preserve">
-    <value>group_notes</value>
-  </data>
-  <data name="&gt;&gt;group_line_clicked.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="checkBox_play_note4_clicked.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -5803,89 +5638,41 @@ Options</value>
   <data name="&gt;&gt;checkBox_play_note1_clicked.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="group_music_played.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="group_line_clicked.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 22</value>
   </data>
-  <data name="&gt;&gt;checkBox_play_note4_played.Name" xml:space="preserve">
-    <value>checkBox_play_note4_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_played.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_played.Parent" xml:space="preserve">
-    <value>group_music_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4_played.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_played.Name" xml:space="preserve">
-    <value>checkBox_play_note1_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_played.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_played.Parent" xml:space="preserve">
-    <value>group_music_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1_played.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_played.Name" xml:space="preserve">
-    <value>checkBox_play_note3_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_played.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_played.Parent" xml:space="preserve">
-    <value>group_music_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_played.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_played.Name" xml:space="preserve">
-    <value>checkBox_play_note2_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_played.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_played.Parent" xml:space="preserve">
-    <value>group_music_played</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2_played.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="group_music_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 146</value>
-  </data>
-  <data name="group_music_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="group_line_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
   </data>
-  <data name="group_music_played.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="group_line_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
   </data>
-  <data name="group_music_played.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="group_line_clicked.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>309, 120</value>
   </data>
-  <data name="group_music_played.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
+  <data name="group_line_clicked.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
   </data>
-  <data name="group_music_played.Text" xml:space="preserve">
-    <value>When the music is being played</value>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>When a line is clicked</value>
   </data>
-  <data name="&gt;&gt;group_music_played.Name" xml:space="preserve">
-    <value>group_music_played</value>
+  <data name="&gt;&gt;group_line_clicked.Name" xml:space="preserve">
+    <value>group_line_clicked</value>
   </data>
-  <data name="&gt;&gt;group_music_played.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_line_clicked.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;group_music_played.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_line_clicked.Parent" xml:space="preserve">
     <value>group_notes</value>
   </data>
-  <data name="&gt;&gt;group_music_played.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;group_line_clicked.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="group_music_played.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
   </data>
   <data name="checkBox_play_note4_played.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -6042,6 +5829,39 @@ Options</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note2_played.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="group_music_played.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 146</value>
+  </data>
+  <data name="group_music_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 4, 5, 4</value>
+  </data>
+  <data name="group_music_played.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 4, 5, 4</value>
+  </data>
+  <data name="group_music_played.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>309, 120</value>
+  </data>
+  <data name="group_music_played.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>When the music is being played</value>
+  </data>
+  <data name="&gt;&gt;group_music_played.Name" xml:space="preserve">
+    <value>group_music_played</value>
+  </data>
+  <data name="&gt;&gt;group_music_played.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_music_played.Parent" xml:space="preserve">
+    <value>group_notes</value>
+  </data>
+  <data name="&gt;&gt;group_music_played.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="group_notes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -6283,45 +6103,6 @@ Options</value>
   <data name="&gt;&gt;button_f4.ZOrder" xml:space="preserve">
     <value>40</value>
   </data>
-  <data name="&gt;&gt;lbl_ms.Name" xml:space="preserve">
-    <value>lbl_ms</value>
-  </data>
-  <data name="&gt;&gt;lbl_ms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbl_ms.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;lbl_ms.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 50</value>
-  </data>
-  <data name="panel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="panel2.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 34</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>117</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="lbl_ms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
@@ -6359,6 +6140,33 @@ Options</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;lbl_ms.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>51, 50</value>
+  </data>
+  <data name="panel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="panel2.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 34</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>117</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="panel3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -6399,6 +6207,30 @@ Options</value>
   </data>
   <data name="position_table.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
+  </data>
+  <data name="lbl_measure.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_measure.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_measure.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 1</value>
+  </data>
+  <data name="lbl_measure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 0, 5, 0</value>
+  </data>
+  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 20</value>
+  </data>
+  <data name="lbl_measure.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_measure.Text" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="lbl_measure.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;lbl_measure.Name" xml:space="preserve">
     <value>lbl_measure</value>
@@ -6447,42 +6279,6 @@ Options</value>
   </data>
   <data name="position_table.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lbl_measure" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lbl_measure_value" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_value" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional_value" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="lbl_beat_traditional" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,159" /&gt;&lt;Rows Styles="Percent,54,285713,Percent,45,714287,Absolute,45" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="lbl_measure.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lbl_measure.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt, style=Bold</value>
-  </data>
-  <data name="lbl_measure.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 1</value>
-  </data>
-  <data name="lbl_measure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
-  </data>
-  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 20</value>
-  </data>
-  <data name="lbl_measure.TabIndex" type="System.Int32, mscorlib">
-    <value>113</value>
-  </data>
-  <data name="lbl_measure.Text" xml:space="preserve">
-    <value>Measure</value>
-  </data>
-  <data name="lbl_measure.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;lbl_measure.Name" xml:space="preserve">
-    <value>lbl_measure</value>
-  </data>
-  <data name="&gt;&gt;lbl_measure.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbl_measure.Parent" xml:space="preserve">
-    <value>position_table</value>
-  </data>
-  <data name="&gt;&gt;lbl_measure.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="checkBox_bleeper_portamento.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -6625,6 +6421,30 @@ Options</value>
   <data name="keyboard_panel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbl_c3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_c3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_c3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_c3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 204</value>
+  </data>
+  <data name="lbl_c3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 0, 5, 0</value>
+  </data>
+  <data name="lbl_c3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 23</value>
+  </data>
+  <data name="lbl_c3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl_c3.Text" xml:space="preserve">
+    <value>C3</value>
+  </data>
   <data name="&gt;&gt;lbl_c3.Name" xml:space="preserve">
     <value>lbl_c3</value>
   </data>
@@ -6667,42 +6487,6 @@ Options</value>
   <data name="&gt;&gt;keyboard_panel.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="lbl_c3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="lbl_c3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lbl_c3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9.75pt</value>
-  </data>
-  <data name="lbl_c3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 204</value>
-  </data>
-  <data name="lbl_c3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
-  </data>
-  <data name="lbl_c3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 23</value>
-  </data>
-  <data name="lbl_c3.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lbl_c3.Text" xml:space="preserve">
-    <value>C3</value>
-  </data>
-  <data name="&gt;&gt;lbl_c3.Name" xml:space="preserve">
-    <value>lbl_c3</value>
-  </data>
-  <data name="&gt;&gt;lbl_c3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbl_c3.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="&gt;&gt;lbl_c3.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
   <data name="button_synchronized_play_help.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -6716,41 +6500,41 @@ Options</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3AcAAAJNU0Z0AUkBTAMBAgAB
-        CwEAAQsBFAEAARQBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFQAwABFAMAAQEBAAEgBgABGf8AbwAE
-        AQM9AWgCVwFWAbUCXQFaAccCUAFPAZsDJAE1/wAhAAMNARECXQFbAcoB4AGWARcB/wHfAZQBFQH/Ad4B
-        kgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8DgAH+Az0BaP8AFQADLQFFAeMBngEcAf8B4gGbARoB
-        /wHhAZkBGQH/AeABlgEXAf8B3wGUARUB/wHeAZIBFAH/Ad0BjwERAf8B3AGNARAB/wHbAYoBDgH/AdoB
-        iAEMAf8CYQFdAdQDAwEE/wAJAAMWAR4B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGbARoB/wHhAZkB
-        GQH/Ad4BlQEXAf8B1wGPARQB/wHeAZIBFAH/Ad0BjwERAf8B3AGNARAB/wHbAYoBDgH/AdoBiAEMAf8C
-        YQFdAdT/AAkAAm4BWgH1AeYBpgEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B4QGbARoB/wHtAdYB
-        rAX/Ad4BqgFUAf8B3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wHaAYgBDAH/Aj4BPQFp/wAB
-        AAM4AVsB6AGrASUB/wHnAagBIwH/AeYBpgEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8B3QGsAVIB
-        /wH1AekB1QH/AdgBlgEiAf8B3wGUARUB/wHeAZIBFAH/Ad0BjwERAf8B3AGNARAB/wHbAYoBDgH/A4AB
-        /v8AAQACYwFfAdoB6QGtASYB/wHoAasBJQH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B
-        3gGgAS0B/wHdAaIBNQH/Ad4BlgEYAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0B
-        EAH/AdsBigEOAf8DJAE1/AACbwFgAfMB6gGvASgB/wHpAa0BJgH/AegBqwElAf8B5wGoASMB/wHmAaYB
-        IQH/AeQBowEfAf8B8AHfAbwF/wHbAZYBGQH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B
-        3QGPAREB/wHcAY0BEAH/AlABTwGb/AADgAH+AesBsgEqAf8B6gGvASgB/wHpAa0BJgH/AegBqwElAf8B
-        5wGoASMB/wHmAaYBIQH/AegBxgGCBf8B7QHXAa4B/wHhAZoBGgH/AeEBmQEZAf8B4AGWARcB/wHfAZQB
-        FQH/Ad4BkgEUAf8B3QGPAREB/wJcAVkBxvwAAmoBQQH5AewBtAEsAf8B6wGyASoB/wHqAa8BKAH/AekB
-        rQEmAf8B6AGrASUB/wHnAagBIwH/AeQBpAEhAf8B7AHUAaUF/wHsAdUBqQH/AeEBmwEaAf8B4QGZARkB
-        /wHgAZYBFwH/Ad8BlAEVAf8B3gGSARQB/wJXAVUBtPwAAmoBYQHmAe0BtwEuAf8B7AG0ASwB/wHrAbIB
-        KgH/AeoBrwEoAf8B6QGtASYB/wHjAacBJAH/AecBqAEjAf8B5QGlASEB/wH9AfsB9wX/AdoBlwEbAf8B
-        4gGbARoB/wHhAZkBGQH/AeABlgEXAf8B3wGUARUB/wM9AWj8AANTAacB7gG5AS8B/wHtAbcBLgH/AewB
-        tAEsAf8B6wGyASoB/wHqAa8BKAH/Af4B/AH5Af8B4wG/AXMB/wHeAbIBVwn/AdsBmgEdAf8B4wGeARwB
-        /wHiAZsBGgH/AeEBmQEZAf8B4AGWARcB/wQC/AADBwEJAe8BuwExAf8B7gG5AS8B/wHtAbcBLgH/AewB
-        tAEsAf8B6wGyASoB/wH8AfkB8g3/Ae0B2AGsAf8B5AGjAR8B/wHkAaABHgH/AeMBngEcAf8B4gGbARoB
-        /wJdAVsByv8ABQADRQF8Ae8BuwExAf8B7gG5AS8B/wHtAbcBLgH/AewBtAEsAf8B6gGxASoB/wHeAaYB
-        JgH/AdcBoAEjAf8B3gGjASMB/wHnAagBIwH/AeYBpgEhAf8B5QGjAR8B/wHkAaABHgH/AeMBngEcAf8D
-        DQER/wAFAAQBAlcBVgG1Ae8BuwExAf8B7gG5AS8B/wHtAbcBLgH/AewBtAEsAf8B6wGyASoB/wHqAa8B
-        KAH/AekBrQEmAf8B6AGrASUB/wHnAagBIwH/AeYBpgEhAf8B5QGjAR8B/wMuAUf/AA0ABAEDRAF7Ae8B
-        uwExAf8B7gG5AS8B/wHtAbcBLgH/AewBtAEsAf8B6wGyASoB/wHqAa8BKAH/AekBrQEmAf8B6AGrASUB
-        /wJjAUgB9gMWAR7/ABkAAwcBCQJUAVIBqAJqAWEB5gJ9AU0B+gOAAf4CbwFgAfMCYwFfAdoDOAFb/wD/
-        AP8AiwABQgFNAT4HAAE+AwABKAMAAVADAAEUAwABAQEAAQEFAAHwFwAD/wEAAv8B8AkAAf4BBwHwCQAB
-        +AEBAfAJAAHwAQABcAkAAeABAAFwCQAB4AEAATAJAAHAAQABMAkAAcABAAEQCQABwAEAARAJAAHAAQAB
-        EAkAAcABAAEQCQABwAEAARAJAAHAAQABEAkAAcABAAEwCQAB4AEAATAJAAHgAQABcAkAAfABAAHwCQAB
-        /AEDAfAJAAL/AfAJAAL/AfAJAAs=
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
+        GAELARgBCwEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
+        3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
+        GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
+        2gGIAQwB/wJhAV0B1AMDAQT/AAkAAxYBHgHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZsBGgH/AeEB
+        mQEZAf8B3gGVARcB/wHXAY8BFAH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B2gGIAQwB
+        /wJhAV0B1P8ACQACbgFaAfUB5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHhAZsBGgH/Ae0B
+        1gGsBf8B3gGqAVQB/wHeAZIBFAH/Ad0BjwERAf8B3AGNARAB/wHbAYoBDgH/AdoBiAEMAf8CPgE9AWn/
+        AAEAAzgBWwHoAasBJQH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHdAawB
+        UgH/AfUB6QHVAf8B2AGWASIB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8D
+        gAH+/wABAAJjAV8B2gHpAa0BJgH/AegBqwElAf8B5wGoASMB/wHmAaYBIQH/AeUBowEfAf8B5AGgAR4B
+        /wHeAaABLQH/Ad0BogE1Af8B3gGWARgB/wHgAZYBFwH/Ad8BlAEVAf8B3gGSARQB/wHdAY8BEQH/AdwB
+        jQEQAf8B2wGKAQ4B/wMkATX8AAJvAWAB8wHqAa8BKAH/AekBrQEmAf8B6AGrASUB/wHnAagBIwH/AeYB
+        pgEhAf8B5AGjAR8B/wHwAd8BvAX/AdsBlgEZAf8B4QGZARkB/wHgAZYBFwH/Ad8BlAEVAf8B3gGSARQB
+        /wHdAY8BEQH/AdwBjQEQAf8CUAFPAZv8AAOAAf4B6wGyASoB/wHqAa8BKAH/AekBrQEmAf8B6AGrASUB
+        /wHnAagBIwH/AeYBpgEhAf8B6AHGAYIF/wHtAdcBrgH/AeEBmgEaAf8B4QGZARkB/wHgAZYBFwH/Ad8B
+        lAEVAf8B3gGSARQB/wHdAY8BEQH/AlwBWQHG/AACagFBAfkB7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B
+        6QGtASYB/wHoAasBJQH/AecBqAEjAf8B5AGkASEB/wHsAdQBpQX/AewB1QGpAf8B4QGbARoB/wHhAZkB
+        GQH/AeABlgEXAf8B3wGUARUB/wHeAZIBFAH/AlcBVQG0/AACagFhAeYB7QG3AS4B/wHsAbQBLAH/AesB
+        sgEqAf8B6gGvASgB/wHpAa0BJgH/AeMBpwEkAf8B5wGoASMB/wHlAaUBIQH/Af0B+wH3Bf8B2gGXARsB
+        /wHiAZsBGgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Az0BaPwAA1MBpwHuAbkBLwH/Ae0BtwEuAf8B
+        7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B/gH8AfkB/wHjAb8BcwH/Ad4BsgFXCf8B2wGaAR0B/wHjAZ4B
+        HAH/AeIBmwEaAf8B4QGZARkB/wHgAZYBFwH/BAL8AAMHAQkB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B
+        7AG0ASwB/wHrAbIBKgH/AfwB+QHyDf8B7QHYAawB/wHkAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZsB
+        GgH/Al0BWwHK/wAFAANFAXwB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHqAbEBKgH/Ad4B
+        pgEmAf8B1wGgASMB/wHeAaMBIwH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB
+        /wMNARH/AAUABAECVwFWAbUB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHrAbIBKgH/AeoB
+        rwEoAf8B6QGtASYB/wHoAasBJQH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/Ay4BR/8ADQAEAQNEAXsB
+        7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B6QGtASYB/wHoAasB
+        JQH/AmMBSAH2AxYBHv8AGQADBwEJAlQBUgGoAmoBYQHmAn0BTQH6A4AB/gJvAWAB8wJjAV8B2gM4AVv/
+        AP8A/wCLAAFCAU0BPgcAAT4DAAEoAwABUAMAARQDAAEBAQABAQUAAfAXAAP/AQAC/wHwCQAB/gEHAfAJ
+        AAH4AQEB8AkAAfABAAFwCQAB4AEAAXAJAAHgAQABMAkAAcABAAEwCQABwAEAARAJAAHAAQABEAkAAcAB
+        AAEQCQABwAEAARAJAAHAAQABEAkAAcABAAEQCQABwAEAATAJAAHgAQABMAkAAeABAAFwCQAB8AEAAfAJ
+        AAH8AQMB8AkAAv8B8AkAAv8B8AkACw==
 </value>
   </data>
   <data name="button_synchronized_play_help.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
