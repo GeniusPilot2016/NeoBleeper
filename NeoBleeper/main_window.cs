@@ -3539,7 +3539,7 @@ namespace NeoBleeper
                         if (listViewNotes.SelectedItems.Count > 0)
                             for (int i = 1; i <= Line; i++)
                             {
-                                beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i].SubItems[0].Text));
+                                beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
                                 if (beat > trackBar_time_signature.Value)
                                 {
                                     measure++;
@@ -3558,25 +3558,61 @@ namespace NeoBleeper
                 return;
             }
         }
-        private double NoteLengthToBeats(string noteLength)
+        private double NoteLengthToBeats(ListViewItem listViewItem)
         {
-            switch (noteLength)
+            double length, mod, art;
+            switch (listViewItem.SubItems[0].Text)
             {
                 case "Whole":
-                    return 4;
+                    length = 4;
+                    break;
                 case "Half":
-                    return 2;
+                    length = 2;
+                    break;
                 case "Quarter":
-                    return 1;
+                    length = 1;
+                    break;
                 case "1/8":
-                    return 1.0 / 2.0;
+                    length = 1.0 / 2.0;
+                    break;
                 case "1/16":
-                    return 1.0 / 4.0;
+                    length = 1.0 / 4.0;
+                    break;
                 case "1/32":
-                    return 1.0 / 8.0;
+                    length = 1.0 / 8.0;
+                    break;
                 default:
-                    return 0;
+                    length = 0;
+                    break;
             }
+            switch(listViewItem.SubItems[5].Text)
+            {
+                case "Dot":
+                    mod = 1.5;
+                    break;
+                case "Tri":
+                    mod = 1.0 / 3.0;
+                    break;
+                default:
+                    mod = 1;
+                    break;
+            }
+            switch (listViewItem.SubItems[6].Text)
+            {
+                case "Sta":
+                    art = 1.0 / 2.0;
+                    break;
+                case "Spi":
+                    art = 1.0 / 4.0;
+                    break;
+                case "Fer":
+                    art = 2;
+                    break;
+                default:
+                    art = 1;
+                    break;
+            }
+            return length * mod * art;
         }
         public static string FormatNumber(double number)
         {
