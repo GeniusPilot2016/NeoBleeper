@@ -1444,6 +1444,7 @@ namespace NeoBleeper
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
+            lbl_beat_traditional_value.ForeColor = Color.Green;
             string first_line = File.ReadLines(filename).First().Trim();
             switch (first_line)
             {
@@ -2127,6 +2128,7 @@ namespace NeoBleeper
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
+            lbl_beat_traditional_value.ForeColor = Color.Green;
             saveAsToolStripMenuItem.Enabled = false;
             noteLabelsUpdate();
             listViewNotes.Items.Clear();
