@@ -2589,7 +2589,7 @@ namespace NeoBleeper
                             break;
                         }
                 }
-                metronome();
+                Task.Run(() => metronome());
             }
             else
             {
@@ -3531,7 +3531,7 @@ namespace NeoBleeper
         {
             try
             {
-                Invoke(new Action(()=>{
+                this.BeginInvoke(new Action(()=>{
                     if (listViewNotes.Items.Count > 0)
                     {
                         int measure = 1;
