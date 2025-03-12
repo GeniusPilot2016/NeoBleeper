@@ -2266,11 +2266,13 @@ namespace NeoBleeper
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
-                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                note_length_calculator();
-                play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
-                    checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
-                    Convert.ToInt32(Math.Truncate(final_note_length + 5)));
+                new Thread(() =>
+                {
+                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    note_length_calculator(); play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
+                        Convert.ToInt32(Math.Truncate(final_note_length + 5)));
+                }).Start();
             }
         }
         private void play_music(int index)
@@ -2281,7 +2283,6 @@ namespace NeoBleeper
                 {
                     note_length_calculator();
                     //await dummy_play_note(Convert.ToInt32(Math.Round(note_length)));
-                    Task.Run(async () => play_note_while_playing());
                     Thread.Sleep(Convert.ToInt32(Math.Round(note_length)));
                     UpdateListViewSelection(index);
                 }
@@ -2324,17 +2325,12 @@ namespace NeoBleeper
             }
             return;
         }
-        private async Task play_all()
+        private void play_all()
         {
             if (listViewNotes.Items.Count > 0)
             {
-                listViewNotes.BeginUpdate();
-                listViewNotes.BeginInvoke(new Action(() =>
-                {
-                    listViewNotes.Items[0].Selected = true;
-                    listViewNotes.EnsureVisible(0);
-                }));
-                listViewNotes.EndUpdate();
+                listViewNotes.Items[0].Selected = true;
+                listViewNotes.EnsureVisible(0);
                 checkBox_do_not_update.Enabled = false;
                 keyboard_panel.Enabled = false;
                 numericUpDown_bpm.Enabled = false;
@@ -2347,10 +2343,10 @@ namespace NeoBleeper
                 stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
                 //play_music();
-                new Thread(() => play_music(0)).Start();
+                Task.Run(() => play_music(0));
             }
         }
-        private async Task play_from_selected_line()
+        private void play_from_selected_line()
         {
             if (listViewNotes.Items.Count > 0)
             {
@@ -2367,19 +2363,15 @@ namespace NeoBleeper
                 is_music_playing = true;
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
-                    listViewNotes.BeginUpdate();
-                    listViewNotes.BeginInvoke(new Action(() =>
-                    {
-                        listViewNotes.Items[0].Selected = true;
-                        listViewNotes.EnsureVisible(0);
-                        new Thread(() => play_music(0)).Start();
-                    }));
-                    listViewNotes.EndUpdate();
+                    listViewNotes.Items[0].Selected = true;
+                    listViewNotes.EnsureVisible(0);
+                    Task.Run(() => play_music(0));
                 }
                 else
                 {
-                    int index = listViewNotes.SelectedItems[0].Index;
-                    new Thread(() => play_music(index)).Start();
+                    int index = listViewNotes.SelectedIndices[0];
+                    listViewNotes.EnsureVisible(index);
+                    Task.Run(() => play_music(index));
                 }
                 //play_music();
             }
@@ -3469,6 +3461,10 @@ namespace NeoBleeper
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     int selectedLine = listViewNotes.SelectedIndices[0];
+                    if (is_music_playing == true)
+                    {
+                        play_note_while_playing();
+                    }
                     if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
                     {
                         checkBox_dotted.Checked = true;
@@ -3526,11 +3522,11 @@ namespace NeoBleeper
                 return;
             }
         }
-        private async void updateIndicators(int Line)
+        private void updateIndicators(int Line)
         {
             try
             {
-                this.BeginInvoke(new Action(()=>{
+                this.Invoke(new Action(()=>{
                     if (listViewNotes.Items.Count > 0)
                     {
                         int measure = 1;
@@ -3558,12 +3554,12 @@ namespace NeoBleeper
                 return;
             }
         }
-        public static string ConvertDecimalBeatToTraditional(double decimalBeat)
+        private string ConvertDecimalBeatToTraditional(double decimalBeat)
         {
             double fractionOfWhole = decimalBeat / 4;
             double sixteenths = Math.Round(fractionOfWhole * 16);
 
-            // Yuvarlama sonrasý orijinal deðerden sapma kontrolü
+            // Check for errors after rounding
             if (Math.Abs((decimalBeat / 4) - (sixteenths / 16)) > 0.00001)
             {
                 if (sixteenths > 16)
@@ -3590,20 +3586,20 @@ namespace NeoBleeper
             }
             else if (numerator == 0)
             {
-                return "1"; // Sadece "1" döndür
+                return "1"; // Return "1" for fractions less than 1/16
             }
-            else if (numerator > denominator) // 1'den büyük kesirler için
+            else if (numerator > denominator) // For fractions greater than 1
             {
-                int tamSayi = numerator / denominator;
-                int kalan = numerator % denominator;
+                int wholeNumber = numerator / denominator;
+                int remaining = numerator % denominator;
 
-                if (kalan == 0)
+                if (remaining == 0)
                 {
-                    return (tamSayi + 1).ToString(); // Tam sayý kýsmý
+                    return (wholeNumber + 1).ToString(); // Integer part
                 }
                 else
                 {
-                    return (tamSayi + 1) + " " + kalan + "/" + denominator; // Tam sayý ve kalan kesir
+                    return (wholeNumber + 1) + " " + remaining + "/" + denominator; // Whole number + fractional part
                 }
             }
             else if (denominator == 1)
@@ -3612,24 +3608,24 @@ namespace NeoBleeper
             }
             else if (denominator == 2)
             {
-                return "1 " + numerator + "/2"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/2"; // "1 fractional" format for fractions less than 1
             }
             else if (denominator == 4)
             {
-                return "1 " + numerator + "/4"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/4"; // "1 fractional" format for fractions less than 1
             }
             else if (denominator == 8)
             {
-                return "1 " + numerator + "/8"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/8"; // "1 fractional" format for fractions less than 1
             }
             else if (denominator == 16)
             {
-                return "1 " + numerator + "/16"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/16"; // "1 fractional" format for fractions less than 1
             }
             else
             {
-                int tamSayi = (int)Math.Floor(sixteenths / 16);
-                return (tamSayi + 1) + " (Error)";
+                int wholeNumber = (int)Math.Floor(sixteenths / 16);
+                return (wholeNumber + 1) + " (Error)";
             }
         }
 
