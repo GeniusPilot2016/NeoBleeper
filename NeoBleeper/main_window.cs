@@ -3529,50 +3529,42 @@ namespace NeoBleeper
                 return;
             }
         }
-        private async void updateIndicators(int Line)
+        private void updateIndicators(int Line)
         {
-            try
-            {
-                this.BeginInvoke(new Action(()=>{
-                    if (listViewNotes.Items.Count > 0)
-                    {
-                        int measure = 1;
-                        double beat = 0;
-                        if (listViewNotes.SelectedItems.Count > 0)
-                            for (int i = 1; i <= Line; i++)
+            Task.Run(() => {
+                if (listViewNotes.Items.Count > 0)
+                {
+                    int measure = 1;
+                    double beat = 0;
+                    if (listViewNotes.SelectedItems.Count > 0)
+                        for (int i = 1; i <= Line; i++)
+                        {
+                            beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
+                            if (beat > trackBar_time_signature.Value)
                             {
-                                beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
-                                if (beat > trackBar_time_signature.Value)
-                                {
-                                    measure++;
-                                    beat = 0;
-                                    
-                                }
+                                measure++;
+                                beat = 0;
+
                             }
-                        lbl_measure_value.Text = measure.ToString();
-                        lbl_beat_value.Text = FormatNumber(beat + 1);
-                        lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
-                        lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
-                    }
-                }));
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+                        }
+                    lbl_measure_value.Text = measure.ToString();
+                    lbl_beat_value.Text = FormatNumber(beat + 1);
+                    lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                    lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
+                }
+            });
         }
         public static string ConvertDecimalBeatToTraditional(double decimalBeat)
         {
             double fractionOfWhole = decimalBeat / 4;
-            double sixteenths = Math.Round(fractionOfWhole * 16);
-
-            // Yuvarlama sonrasý orijinal deðerden sapma kontrolü
-            if (Math.Abs((decimalBeat / 4) - (sixteenths / 16)) > 0.00001)
+            double thirtyseconds = Math.Round(fractionOfWhole * 32);
+            
+            if (Math.Abs((decimalBeat / 4) - (thirtyseconds / 32)) > 0.00001)
             {
-                if (sixteenths > 16)
+                if (thirtyseconds > 16)
                 {
-                    int tamSayi = (int)Math.Floor(sixteenths / 16);
-                    return (tamSayi + 1) + " (Error)";
+                    int wholeNumber = (int)Math.Floor(thirtyseconds / 16);
+                    return (wholeNumber + 1) + " (Error)";
                 }
                 else
                 {
@@ -3580,8 +3572,8 @@ namespace NeoBleeper
                 }
             }
 
-            int numerator = (int)sixteenths;
-            int denominator = 16;
+            int numerator = (int)thirtyseconds;
+            int denominator = 32;
             int gcd = GCD(numerator, denominator);
 
             numerator /= gcd;
@@ -3593,20 +3585,20 @@ namespace NeoBleeper
             }
             else if (numerator == 0)
             {
-                return "1"; // Sadece "1" döndür
+                return "1"; // Return "1" only
             }
-            else if (numerator > denominator) // 1'den büyük kesirler için
+            else if (numerator > denominator) // For fractions that greater than 1
             {
-                int tamSayi = numerator / denominator;
-                int kalan = numerator % denominator;
+                int wholeNumber = numerator / denominator;
+                int remaining = numerator % denominator;
 
-                if (kalan == 0)
+                if (remaining == 0)
                 {
-                    return (tamSayi + 1).ToString(); // Tam sayý kýsmý
+                    return (wholeNumber + 1).ToString(); // Whole number
                 }
                 else
                 {
-                    return (tamSayi + 1) + " " + kalan + "/" + denominator; // Tam sayý ve kalan kesir
+                    return (wholeNumber + 1) + " " + remaining + "/" + denominator; // Whole number and remaining fraction
                 }
             }
             else if (denominator == 1)
@@ -3615,24 +3607,28 @@ namespace NeoBleeper
             }
             else if (denominator == 2)
             {
-                return "1 " + numerator + "/2"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/2"; // "1 fraction" format for fractions that smaller than 1
             }
             else if (denominator == 4)
             {
-                return "1 " + numerator + "/4"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/4"; // "1 fraction" format for fractions that smaller than 1
             }
             else if (denominator == 8)
             {
-                return "1 " + numerator + "/8"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/8"; // "1 fraction" format for fractions that smaller than 1
             }
             else if (denominator == 16)
             {
-                return "1 " + numerator + "/16"; // 1'den küçük kesirler için "1 kesir" formatý
+                return "1 " + numerator + "/16"; // "1 fraction" format for fractions that smaller than 1
+            }
+            else if (denominator == 32)
+            {
+                return "1 " + numerator + "/32"; // "1 fraction" format for fractions that smaller than 1
             }
             else
             {
-                int tamSayi = (int)Math.Floor(sixteenths / 16);
-                return (tamSayi + 1) + " (Error)";
+                int wholeNumber = (int)Math.Floor(thirtyseconds / 32);
+                return (wholeNumber + 1) + " (Error)";
             }
         }
 
