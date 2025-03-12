@@ -2414,13 +2414,13 @@ namespace NeoBleeper
             stopPlayingToolStripMenuItem.Enabled = false;
             is_music_playing = false;
         }
-        private void metronome()
+        private async Task metronome()
         {
             try
             {
                 if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                 {
-                    RenderBeep.BeepClass.Beep(498, 15);
+                    RenderBeep.BeepClass.Beep(498, 10);
                 }
                 else if (Program.creating_sounds.create_beep_with_soundcard == true)
                 {
@@ -2428,29 +2428,29 @@ namespace NeoBleeper
                     {
                         case 0: // Square wave
                             {
-                                RenderBeep.SynthMisc.SquareWave(498, 15);
+                                RenderBeep.SynthMisc.SquareWave(498, 10);
                                 break;
                             }
                         case 1: // Sine wave
                             {
-                                RenderBeep.SynthMisc.SineWave(498, 15);
+                                RenderBeep.SynthMisc.SineWave(498, 10);
                                 break;
                             }
                         case 2: // Triangle wave
                             {
-                                RenderBeep.SynthMisc.TriangleWave(498, 15);
+                                RenderBeep.SynthMisc.TriangleWave(498, 10);
                                 break;
                             }
                         case 3: // Noise
                             {
-                                RenderBeep.SynthMisc.Noise(498, 15);
+                                RenderBeep.SynthMisc.Noise(498, 10);
                                 break;
                             }
                     }
                 }
                 else
                 {
-                    Thread.Sleep(15);
+                    await Task.Delay(10);
                 }
                 while (checkBox_metronome.Checked == true)
                 {
@@ -2458,7 +2458,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                     if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                     {
-                        RenderBeep.BeepClass.Beep(1000, 35);
+                        RenderBeep.BeepClass.Beep(1000, 30);
                     }
                     else if (Program.creating_sounds.create_beep_with_soundcard == true)
                     {
@@ -2466,38 +2466,38 @@ namespace NeoBleeper
                         {
                             case 0: // Square wave
                                 {
-                                    RenderBeep.SynthMisc.SquareWave(1000, 35);
+                                    RenderBeep.SynthMisc.SquareWave(1000, 30);
                                     break;
                                 }
                             case 1: // Sine wave
                                 {
-                                    RenderBeep.SynthMisc.SineWave(1000, 35);
+                                    RenderBeep.SynthMisc.SineWave(1000, 30);
                                     break;
                                 }
                             case 2: // Triangle wave
                                 {
-                                    RenderBeep.SynthMisc.TriangleWave(1000, 35);
+                                    RenderBeep.SynthMisc.TriangleWave(1000, 30);
                                     break;
                                 }
                             case 3: // Noise
                                 {
-                                    RenderBeep.SynthMisc.Noise(1000, 35);
+                                    RenderBeep.SynthMisc.Noise(1000, 30);
                                     break;
                                 }
                         }
                     }
                     else
                     {
-                        Thread.Sleep(35);
+                        await Task.Delay(30);
                     }
                     UpdateLabelVisible(false);
-                    Thread.Sleep(Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm)) - 35);
+                    await Task.Delay(Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm)) - 30);
                     while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                     {
                         UpdateLabelVisible(true);
                         if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
                         {
-                            RenderBeep.BeepClass.Beep(498, 35);
+                            RenderBeep.BeepClass.Beep(498, 30);
                         }
                         else if (Program.creating_sounds.create_beep_with_soundcard == true)
                         {
@@ -2505,32 +2505,32 @@ namespace NeoBleeper
                             {
                                 case 0: // Square wave
                                     {
-                                        RenderBeep.SynthMisc.SquareWave(498, 35);
+                                        RenderBeep.SynthMisc.SquareWave(498, 30);
                                         break;
                                     }
                                 case 1: // Sine wave
                                     {
-                                        RenderBeep.SynthMisc.SineWave(498, 35);
+                                        RenderBeep.SynthMisc.SineWave(498, 30);
                                         break;
                                     }
                                 case 2: // Triangle wave
                                     {
-                                        RenderBeep.SynthMisc.TriangleWave(498, 35);
+                                        RenderBeep.SynthMisc.TriangleWave(498, 30);
                                         break;
                                     }
                                 case 3: // Noise
                                     {
-                                        RenderBeep.SynthMisc.Noise(498, 35);
+                                        RenderBeep.SynthMisc.Noise(498, 30);
                                         break;
                                     }
                             }
                         }
                         else
                         {
-                            Thread.Sleep(35);
+                            await Task.Delay(30);
                         }
                         UpdateLabelVisible(false);
-                        Thread.Sleep(Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm))) - 35);
+                        await Task.Delay(Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm))) - 30);
                         i++;
                     }
                 }
