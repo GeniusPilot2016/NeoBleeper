@@ -2262,28 +2262,31 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private void play_note_while_playing()
-        {
-            if (listViewNotes.SelectedItems.Count > 0)
-            {
-                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                note_length_calculator();
-                play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
-                    checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
-                    Convert.ToInt32(Math.Truncate(final_note_length + 5)));
-            }
-        }
-        private void play_music(int index)
+        private async void play_music(int index)
         {
             try
             {
                 while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
                 {
-                    note_length_calculator();
+                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    await note_length_calculator();
                     //await dummy_play_note(Convert.ToInt32(Math.Round(note_length)));
-                    Task.Run(async () => play_note_while_playing());
-                    Thread.Sleep(Convert.ToInt32(Math.Round(note_length)));
-                    UpdateListViewSelection(index);
+                    await play_note_in_line(checkBox_play_note1_played.Checked, checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked, checkBox_play_note4_played.Checked,
+                        Convert.ToInt32(Math.Truncate(final_note_length)));
+                    double delay = note_length-final_note_length;
+                    Thread.Sleep(Convert.ToInt32(Math.Truncate(delay)));
+                    if (listViewNotes.InvokeRequired)
+                    {
+                        listViewNotes.BeginInvoke(new Action(() =>
+                        {
+                            UpdateListViewSelection(index);
+                        }));
+                    }
+                    else
+                    {
+                        UpdateListViewSelection(index);
+                    }
                 }
                 return;
             }
@@ -2707,12 +2710,12 @@ namespace NeoBleeper
             {
                 new Thread(async() => {
                     Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    note_length_calculator();
+                    await note_length_calculator();
                     keyboard_panel.Enabled = false;
                     numericUpDown_alternating_notes.Enabled = false;
                     numericUpDown_bpm.Enabled = false;
                     checkBox_do_not_update.Enabled = false;
-                    play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
+                    await play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                     checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
                     Convert.ToInt32(Math.Truncate(final_note_length)));
                     keyboard_panel.Enabled = true;
@@ -2739,7 +2742,7 @@ namespace NeoBleeper
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
         }
 
-        private void note_length_calculator()
+        private async Task note_length_calculator()
         {
             if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 && 
                 listViewNotes.Items != null && listViewNotes.Items.Count > 0)
@@ -2865,7 +2868,7 @@ namespace NeoBleeper
                 return;
             }
         }
-        private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // 
+        private async Task play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // 
         {
             try
             {
@@ -2888,7 +2891,7 @@ namespace NeoBleeper
                 double note4_frequency = 0;
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    int selected_line = listViewNotes.SelectedIndices[0];
+                    int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
                     if (play_note1 == true)
                     {
                         note1 = listViewNotes.Items[selected_line].SubItems[1].Text;
