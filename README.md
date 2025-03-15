@@ -27,6 +27,12 @@ This project is **still in development** and some features and components are st
 
   ![image](https://github.com/user-attachments/assets/76786c6e-b89f-40cb-aa08-691044528cf0)
 
+- ### More precise position indicator
+- NeoBleeper offers a position indicator that compatible with 1/32 note length.
+
+  ![image](https://github.com/user-attachments/assets/f729a905-f198-4558-8c18-a290fda96f26)
+
+
 - ### Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
   
