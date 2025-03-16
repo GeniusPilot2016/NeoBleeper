@@ -258,26 +258,23 @@ namespace NeoBleeper
         // Static variables
         private static bool isPlaying = false;
         private static CancellationTokenSource cancellationTokenSource;
-        private static long totalMidiDuration; // Store total MIDI duration
-        private static Label staticLabelPosition; // Static references
+        private static long totalMidiDuration;
+        private static Label staticLabelPosition;
         private static Label staticLabelPercentage;
 
-        // Play method
+        // Play MIDI file method
         public void play_MIDI_file(string filename)
         {
-            // Assign labels into static references
             staticLabelPosition = label_position;
             staticLabelPercentage = label_percentage;
 
             // Stop current playback if playing
             StopPlayback();
 
-            // Create new CancellationTokenSource
             cancellationTokenSource = new CancellationTokenSource();
             var token = cancellationTokenSource.Token;
             isPlaying = true;
 
-            // Play in seperate thread
             Task.Run(() =>
             {
                 try
@@ -286,8 +283,7 @@ namespace NeoBleeper
                 }
                 catch (OperationCanceledException)
                 {
-                    // Çalma iptal edildi
-                    UpdatePositionLabels(0, 0); // Sıfırla
+                    UpdatePositionLabels(0, 0); // Reset if playback is canceled
                 }
                 finally
                 {
@@ -296,117 +292,123 @@ namespace NeoBleeper
             }, token);
         }
 
-        // Method of label updating
+        // Update UI labels
         private static void UpdatePositionLabels(long currentPosition, long totalDuration)
         {
             if (staticLabelPosition != null && staticLabelPercentage != null)
             {
-                // Run in UI thread
                 if (staticLabelPosition.InvokeRequired)
                 {
                     staticLabelPosition.Invoke(new Action(() => UpdatePositionLabels(currentPosition, totalDuration)));
                     return;
                 }
 
-                    // Calculate position (minute:second:decimal)
-                    TimeSpan position = TimeSpan.FromMilliseconds(currentPosition);
+                TimeSpan position = TimeSpan.FromMilliseconds(currentPosition);
                 staticLabelPosition.Text = string.Format("Position: {0:00}:{1:00}.{2:00}",
                     position.Minutes, position.Seconds, Math.Truncate(Convert.ToDouble(position.Milliseconds / 100)));
 
-                // Calculate percentage
                 double percentage = (totalDuration > 0) ? (currentPosition * 100.0 / totalDuration) : 0;
                 staticLabelPercentage.Text = string.Format("%{0:00.00}", percentage);
             }
         }
 
+        // Main playback logic
         private static void PlayMidiFileInternal(string filename, CancellationToken token)
         {
             var midiFile = new MidiFile(filename, false);
             var noteEvents = new List<NoteEvent>();
 
-            // Calculate total duration
+            // Default tempo (120 BPM)
+            double currentTempo = 500000; // Microseconds per quarter note
+            double microsecondsPerTick = currentTempo / midiFile.DeltaTicksPerQuarterNote;
             totalMidiDuration = CalculateTotalMidiDuration(midiFile);
+
+            // Get the first tempo event or use default tempo
+            var initialTempo = midiFile.Events
+                                        .SelectMany(track => track)
+                                        .OfType<TempoEvent>()
+                                        .FirstOrDefault();
+            currentTempo = initialTempo != null
+                ? initialTempo.MicrosecondsPerQuarterNote
+                : 500000; // Default to 120 BPM
+            microsecondsPerTick = currentTempo / midiFile.DeltaTicksPerQuarterNote;
 
             foreach (var track in midiFile.Events)
             {
                 foreach (var midiEvent in track)
                 {
+                    if (midiEvent is MetaEvent metaEvent && metaEvent.MetaEventType == MetaEventType.SetTempo)
+                    {
+                        if (metaEvent is TempoEvent tempoEvent)
+                        {
+                            currentTempo = tempoEvent.MicrosecondsPerQuarterNote;
+                            microsecondsPerTick = currentTempo / midiFile.DeltaTicksPerQuarterNote;
+                        }
+                    }
+
                     if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
                     {
-                        var noteEvent = (NoteEvent)midiEvent;
-                        noteEvents.Add(noteEvent);
+                        var noteEvent = midiEvent as NoteEvent;
+                        if (noteEvent != null)
+                        {
+                            noteEvents.Add(noteEvent);
+                        }
                     }
                 }
             }
 
-            // Group and list notes
             var groupedNotes = noteEvents.GroupBy(e => e.AbsoluteTime)
                                          .OrderBy(g => g.Key)
                                          .ToList();
 
-            // if there's no note, return
-            if (groupedNotes.Count == 0)
-                return;
+            if (groupedNotes.Count == 0) return;
 
             long previousTime = 0;
             long currentPosition = 0;
-
-            // Show start position
             UpdatePositionLabels(0, totalMidiDuration);
 
-            // For each note group
-            for (int i = 0; i < groupedNotes.Count; i++)
+            foreach (var group in groupedNotes)
             {
-                // Stop playback if stopped
                 token.ThrowIfCancellationRequested();
 
-                var group = groupedNotes[i];
                 long currentTime = group.Key;
                 var notes = group.ToList();
 
-                // Calculate duration between previous and current times
                 long timeDifference = currentTime - previousTime;
+                double waitTime = timeDifference * microsecondsPerTick / 1000.0;
 
-                // If time is elapsed, considered as silence
-                if (timeDifference > 0)
+                if (waitTime > 0)
                 {
-                    // Render - wait the silence
                     currentPosition += timeDifference;
                     UpdatePositionLabels(currentPosition, totalMidiDuration);
-                    WaitWithCancellation((int)timeDifference, token);
+                    WaitWithCancellation((int)waitTime, token);
                 }
 
-                // Calculate length of notes
                 int duration = notes.Max(n => n.DeltaTime);
 
                 if (notes.Count == 1)
                 {
-                    // Play single note
                     var note = notes.First();
                     int frequency = NoteToFrequency(note.NoteNumber);
                     NotePlayer.play_note(frequency, duration);
                 }
                 else
                 {
-                    // Play multiple notes in same time
                     var frequencies = notes.Select(note => NoteToFrequency(note.NoteNumber)).ToArray();
                     PlayMultipleNotes(frequencies, duration, token);
                 }
 
-                // Wait length of notes after playing
                 currentPosition += duration;
                 UpdatePositionLabels(currentPosition, totalMidiDuration);
                 WaitWithCancellation(duration, token);
 
-                // Save now for next iteration
                 previousTime = currentTime + duration;
             }
 
-            // Reset position after playing
             UpdatePositionLabels(0, totalMidiDuration);
         }
 
-        // MIDI duration calculation method
+        // Calculate total duration of the MIDI file
         private static long CalculateTotalMidiDuration(MidiFile midiFile)
         {
             long maxTime = 0;
@@ -415,7 +417,6 @@ namespace NeoBleeper
             {
                 foreach (var midiEvent in track)
                 {
-                    // Calculate starting time and duration
                     long endTime = midiEvent.AbsoluteTime;
 
                     if (midiEvent is NoteEvent noteEvent)
@@ -433,7 +434,7 @@ namespace NeoBleeper
             return maxTime;
         }
 
-        // Public method for stop playback
+        // Stop MIDI playback
         public static void StopPlayback()
         {
             if (isPlaying && cancellationTokenSource != null)
@@ -441,38 +442,42 @@ namespace NeoBleeper
                 cancellationTokenSource.Cancel();
                 isPlaying = false;
 
-                // Durdurulduğunda pozisyonu sıfırla
                 if (staticLabelPosition != null && staticLabelPercentage != null)
                 {
                     UpdatePositionLabels(0, totalMidiDuration);
                 }
             }
         }
+
+        // Wait with cancellation
         private static void WaitWithCancellation(int milliseconds, CancellationToken token)
         {
             try
             {
-                Task.Delay(milliseconds, token).Wait(token);
+                var stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
+                while (stopwatch.ElapsedMilliseconds < milliseconds)
+                {
+                    if (token.IsCancellationRequested)
+                        throw new OperationCanceledException();
+                }
+                stopwatch.Stop();
             }
             catch (OperationCanceledException)
             {
-                // Cancelled
                 throw;
             }
         }
 
-        
+        // Play multiple notes with intervals
         private static void PlayMultipleNotes(int[] frequencies, int duration, CancellationToken token)
         {
-                            Application.DoEvents();
-            int interval = 30; // Switch notes between 30 ms
+            int interval = 30; // Switch notes every 30 ms
             int steps = duration / interval;
 
             for (int i = 0; i < steps; i++)
             {
-                // Return if cancelled
-                if (token.IsCancellationRequested)
-                    return;
+                if (token.IsCancellationRequested) return;
 
                 foreach (var frequency in frequencies)
                 {
@@ -481,12 +486,12 @@ namespace NeoBleeper
             }
         }
 
-
+        // Convert MIDI note number to frequency
         private static int NoteToFrequency(int noteNumber)
         {
-            // Frequency from MIDI number
             return (int)(880.0 * Math.Pow(2.0, (noteNumber - 69) / 12.0));
         }
+
         private void button_play_Click(object sender, EventArgs e)
         {
             button_play.Enabled = false;
