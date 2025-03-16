@@ -63,7 +63,7 @@ namespace NeoBleeper
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
-                checkBox_mute_system_speaker.Checked = true;
+                checkBox_mute_system_speaker.Checked = Program.creating_sounds.is_system_speaker_muted;
                 checkBox_mute_system_speaker.Enabled = false;
             }
             main_window_refresh();
@@ -709,7 +709,7 @@ namespace NeoBleeper
         int note_frequency;
         private void play_note_when_key_is_clicked(int frequency)
         {
-            play_note(frequency, 100);
+            NotePlayer.play_note(frequency, 100);
         }
         private async void update_indicator_when_key_is_clicked()
         {
@@ -2148,9 +2148,10 @@ namespace NeoBleeper
             {
                 checkBox_replace_length.Checked = false;
             }
-            if (checkBox_mute_system_speaker.Checked == true)
+            if (checkBox_mute_system_speaker.Checked == true && Program.creating_sounds.is_system_speaker_muted == true)
             {
                 checkBox_mute_system_speaker.Checked = false;
+                Program.creating_sounds.is_system_speaker_muted = false;
             }
             if (add_as_note2.Checked == true)
             {
@@ -2426,7 +2427,7 @@ namespace NeoBleeper
         {
             try
             {
-                if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
+                if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
                 {
                     RenderBeep.BeepClass.Beep(498, 10);
                 }
@@ -2464,7 +2465,7 @@ namespace NeoBleeper
                 {
                     int i = 1;
                     UpdateLabelVisible(true);
-                    if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
+                    if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
                     {
                         RenderBeep.BeepClass.Beep(1000, 30);
                     }
@@ -2503,7 +2504,7 @@ namespace NeoBleeper
                     while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                     {
                         UpdateLabelVisible(true);
-                        if (Program.creating_sounds.create_beep_with_soundcard == false && checkBox_mute_system_speaker.Checked == false)
+                        if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
                         {
                             RenderBeep.BeepClass.Beep(498, 30);
                         }
@@ -2810,71 +2811,6 @@ namespace NeoBleeper
                         final_note_count = Convert.ToInt32(Math.Truncate(final_note_length));
                     }
                 }
-            }
-        }
-
-        private void play_note(int frequency, int length) // Create a beep with the specified frequency and length
-        {
-            try
-            {
-                switch (Program.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
-                {
-                    case false: // System speaker
-                        {
-                            switch (checkBox_mute_system_speaker.Checked) // Mute the system speaker
-                            {
-                                case false: // If the system speaker is not muted, create a beep with the system speaker
-                                    {
-                                        if (frequency >= 37 && frequency <= 32767) // If the frequency is in range, create a beep with the system speaker
-                                        {
-                                            RenderBeep.BeepClass.Beep(frequency, length);
-                                        }
-                                        else // If the frequency is out of range, sleep for the length of the note
-                                        {
-                                            Thread.Sleep(length);
-                                        }
-                                        break;
-                                    }
-                                case true: // If the system speaker is muted, sleep for the length of the note
-                                    {
-                                        Thread.Sleep(length);
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-                    case true: // Soundcard
-                        {
-                            switch (Program.creating_sounds.soundcard_beep_waveform)
-                            {
-                                case 0: // Square wave
-                                    {
-                                        RenderBeep.SynthMisc.SquareWave(frequency, length);
-                                        break;
-                                    }
-                                case 1: // Sine wave
-                                    {
-                                        RenderBeep.SynthMisc.SineWave(frequency, length);
-                                        break;
-                                    }
-                                case 2: // Triangle wave
-                                    {
-                                        RenderBeep.SynthMisc.TriangleWave(frequency, length);
-                                        break;
-                                    }
-                                case 3: // Noise
-                                    {
-                                        RenderBeep.SynthMisc.Noise(frequency, length);
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-                }
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
             }
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // 
@@ -3358,26 +3294,26 @@ namespace NeoBleeper
                 if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
-                    play_note(Convert.ToInt32(note1_frequency), length);
+                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), length);
                     UpdateLabelVisible(false);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
-                    play_note(Convert.ToInt32(note2_frequency), length);
+                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), length);
                     UpdateLabelVisible(false);
                 }
 
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
-                    play_note(Convert.ToInt32(note3_frequency), length);
+                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), length);
                     UpdateLabelVisible(false);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
                 {
                     UpdateLabelVisible(true);
-                    play_note(Convert.ToInt32(note4_frequency), length);
+                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), length);
                     UpdateLabelVisible(false);
                 }
                 else
@@ -3402,22 +3338,22 @@ namespace NeoBleeper
                                     {
                                         case 0:
                                             {
-                                                play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                 break;
                                             }
                                         case 1:
                                             {
-                                                play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                 break;
                                             }
                                         case 2:
                                             {
-                                                play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                 break;
                                             }
                                         case 3:
                                             {
-                                                play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                                 break;
                                             }
                                     }
@@ -3440,11 +3376,11 @@ namespace NeoBleeper
                                 {
                                     if (i == 0)
                                     {
-                                        play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                        NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
                                     else if (i == 2)
                                     {
-                                        play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                        NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
                                     note_order++;
                                 }
@@ -3456,11 +3392,11 @@ namespace NeoBleeper
                                 {
                                     if (i == 1)
                                     {
-                                        play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                        NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
                                     else if (i == 3)
                                     {
-                                        play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                        NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
                                     note_order++;
                                 }
@@ -3786,7 +3722,7 @@ namespace NeoBleeper
 
         private void stop_system_speaker_beep()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && checkBox_mute_system_speaker.Checked == false &&
+            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && Program.creating_sounds.is_system_speaker_muted == false &&
                 Program.creating_sounds.create_beep_with_soundcard == false)
             {
                 RenderBeep.BeepClass.StopBeep();
@@ -3864,13 +3800,14 @@ namespace NeoBleeper
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_mute_system_speaker.Checked == false)
+            if (Program.creating_sounds.is_system_speaker_muted == false && checkBox_mute_system_speaker.Checked == false)
             {
                 if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
                 {
                     RenderBeep.BeepClass.StopBeep();
                 }
             }
+            Program.creating_sounds.is_system_speaker_muted = checkBox_mute_system_speaker.Checked;
         }
         private async void show_keyboard_keys_shortcut()
         {
@@ -3992,22 +3929,30 @@ namespace NeoBleeper
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                string fileName = files[0];
-                string first_line = File.ReadLines(fileName).First();
-                if (IsMidiFile(fileName))
+                try
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
-                    midi_file_player.ShowDialog();
+                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string fileName = files[0];
+                    string first_line = File.ReadLines(fileName).First();
+                    if (IsMidiFile(fileName))
+                    {
+                        MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
+                        midi_file_player.ShowDialog();
+
+                    }
+                    else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
+                        first_line == "<NeoBleeperProjectFile>")
+                    {
+                        FileParser(fileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The file you dragged is not supported by NeoBleeper or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
-                    first_line == "<NeoBleeperProjectFile>")
+                catch (Exception)
                 {
-                    FileParser(fileName);
-                }
-                else
-                {
-                    MessageBox.Show("The file you dragged is not supported by NeoBleeper or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The file you dragged is corrupted or the file is in use by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -4038,7 +3983,7 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
-            openFileDialog.Filter = "MIDI Files|*.mid|All Files|*.*";
+            openFileDialog.Filter = "MIDI Files|*.mid";
             openFileDialog.ShowDialog(this);
             if (openFileDialog.FileName != string.Empty)
             {
@@ -4049,26 +3994,33 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageBox.Show("This file is not a valid MIDI file or the file is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This file is not a valid MIDI file, or it is corrupted or is being used by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private bool IsMidiFile(string filePath)
         {
-            if (!File.Exists(filePath))
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return false;
+                }
+
+                byte[] header = new byte[4];
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    fs.Read(header, 0, 4);
+                }
+
+                // MIDI files start with the header "MThd"
+                return header[0] == 'M' && header[1] == 'T' && header[2] == 'h' && header[3] == 'd';
+            }
+            catch (Exception)
             {
                 return false;
             }
-
-            byte[] header = new byte[4];
-            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                fs.Read(header, 0, 4);
-            }
-
-            // MIDI files start with the header "MThd"
-            return header[0] == 'M' && header[1] == 'T' && header[2] == 'h' && header[3] == 'd';
         }
 
         private void blankLineToolStripMenuItem_Click(object sender, EventArgs e)

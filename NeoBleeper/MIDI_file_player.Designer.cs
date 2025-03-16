@@ -33,8 +33,8 @@
             textBox1 = new TextBox();
             label1 = new Label();
             groupBox1 = new GroupBox();
-            label3 = new Label();
-            label2 = new Label();
+            label_percentage = new Label();
+            label_position = new Label();
             checkBox_loop = new CheckBox();
             icons2 = new ImageList(components);
             button_stop = new Button();
@@ -97,6 +97,8 @@
             checkBox19 = new CheckBox();
             checkBox20 = new CheckBox();
             openFileDialog = new OpenFileDialog();
+            toolTip1 = new ToolTip(components);
+            update_timer = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
@@ -125,8 +127,8 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label_percentage);
+            groupBox1.Controls.Add(label_position);
             groupBox1.Controls.Add(checkBox_loop);
             groupBox1.Controls.Add(button_stop);
             groupBox1.Controls.Add(button_play);
@@ -140,26 +142,26 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Playback Controls";
             // 
-            // label3
+            // label_percentage
             // 
-            label3.Anchor = AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Location = new Point(334, 75);
-            label3.Name = "label3";
-            label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(52, 20);
-            label3.TabIndex = 3;
-            label3.Text = "0,00%";
+            label_percentage.Anchor = AnchorStyles.Right;
+            label_percentage.AutoSize = true;
+            label_percentage.Location = new Point(334, 75);
+            label_percentage.Name = "label_percentage";
+            label_percentage.RightToLeft = RightToLeft.Yes;
+            label_percentage.Size = new Size(52, 20);
+            label_percentage.TabIndex = 3;
+            label_percentage.Text = "0,00%";
             // 
-            // label2
+            // label_position
             // 
-            label2.Anchor = AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Location = new Point(251, 55);
-            label2.Name = "label2";
-            label2.Size = new Size(135, 20);
-            label2.TabIndex = 3;
-            label2.Text = "Position: 00:00.00";
+            label_position.Anchor = AnchorStyles.Right;
+            label_position.AutoSize = true;
+            label_position.Location = new Point(251, 55);
+            label_position.Name = "label_position";
+            label_position.Size = new Size(135, 20);
+            label_position.TabIndex = 3;
+            label_position.Text = "Position: 00:00.00";
             // 
             // checkBox_loop
             // 
@@ -186,6 +188,7 @@
             // button_stop
             // 
             button_stop.Anchor = AnchorStyles.Left;
+            button_stop.Enabled = false;
             button_stop.FlatAppearance.BorderSize = 0;
             button_stop.FlatStyle = FlatStyle.Flat;
             button_stop.ImageIndex = 1;
@@ -194,7 +197,9 @@
             button_stop.Name = "button_stop";
             button_stop.Size = new Size(27, 27);
             button_stop.TabIndex = 4;
+            toolTip1.SetToolTip(button_stop, "Stop");
             button_stop.UseVisualStyleBackColor = true;
+            button_stop.Click += button_stop_Click;
             // 
             // icons
             // 
@@ -216,7 +221,9 @@
             button_play.Name = "button_play";
             button_play.Size = new Size(27, 27);
             button_play.TabIndex = 3;
+            toolTip1.SetToolTip(button_play, "Play from current position");
             button_play.UseVisualStyleBackColor = true;
+            button_play.Click += button_play_Click;
             // 
             // button_rewind
             // 
@@ -229,13 +236,15 @@
             button_rewind.Name = "button_rewind";
             button_rewind.Size = new Size(27, 27);
             button_rewind.TabIndex = 2;
+            toolTip1.SetToolTip(button_rewind, "Rewind");
             button_rewind.UseVisualStyleBackColor = true;
+            button_rewind.Click += button_rewind_Click;
             // 
             // trackBar1
             // 
             trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             trackBar1.Location = new Point(6, 27);
-            trackBar1.Maximum = 255;
+            trackBar1.Maximum = 1000;
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(373, 56);
             trackBar1.TabIndex = 1;
@@ -396,8 +405,6 @@
             // 
             checkBox12.Anchor = AnchorStyles.Left;
             checkBox12.AutoSize = true;
-            checkBox12.Checked = true;
-            checkBox12.CheckState = CheckState.Checked;
             checkBox12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox12.Location = new Point(68, 306);
             checkBox12.Name = "checkBox12";
@@ -1031,6 +1038,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Play MIDI File";
+            FormClosing += MIDI_file_player_FormClosing;
             DragDrop += MIDI_file_player_DragDrop;
             DragEnter += MIDI_file_player_DragEnter;
             groupBox1.ResumeLayout(false);
@@ -1051,8 +1059,8 @@
         private ImageList icons;
         private Button button_rewind;
         private CheckBox checkBox_loop;
-        private Label label3;
-        private Label label2;
+        private Label label_percentage;
+        private Label label_position;
         private Label label4;
         private CheckBox checkBox2;
         private CheckBox checkBox3;
@@ -1109,5 +1117,7 @@
         private CheckBox checkBox19;
         private CheckBox checkBox20;
         private OpenFileDialog openFileDialog;
+        private ToolTip toolTip1;
+        private System.Windows.Forms.Timer update_timer;
     }
 }
