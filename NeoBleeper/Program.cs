@@ -25,6 +25,7 @@ namespace NeoBleeper
             public static bool create_beep_with_soundcard;
             public static int soundcard_beep_waveform = 0; // 0 = square, 1 = sine, 2 = triangle, 3 = noise
             public static bool permanently_enabled;
+            public static bool is_system_speaker_muted = false;
         }
         [STAThread]
         static void Main()
@@ -62,6 +63,7 @@ namespace NeoBleeper
                                         {
                                             creating_sounds.create_beep_with_soundcard = true;
                                             creating_sounds.permanently_enabled = true;
+                                            creating_sounds.is_system_speaker_muted = true;
                                             throw new IOException("I/O Exception: NeoBleeper Smart System Speaker Sensor has detected that your computer has no system speaker output or non-standard system speaker output.");
                                         }
 
