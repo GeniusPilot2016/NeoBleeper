@@ -243,10 +243,10 @@
             // trackBar1
             // 
             trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            trackBar1.Location = new Point(6, 27);
+            trackBar1.Location = new Point(6, 26);
             trackBar1.Maximum = 1000;
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(373, 56);
+            trackBar1.Size = new Size(380, 56);
             trackBar1.TabIndex = 1;
             trackBar1.TickStyle = TickStyle.None;
             // 
