@@ -130,6 +130,7 @@ namespace NeoBleeper
             label_note31.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note32.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             textBox1.Text = filename;
+            LoadMIDI(filename);
         }
         private void set_theme()
         {
@@ -208,13 +209,15 @@ namespace NeoBleeper
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Stop();
+            Thread.Sleep(5);
             openFileDialog.Filter = "MIDI Files|*.mid";
-            openFileDialog.ShowDialog(this);
-            if (openFileDialog.FileName != string.Empty)
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (IsMidiFile(openFileDialog.FileName))
                 {
                     textBox1.Text = openFileDialog.FileName;
+                    LoadMIDI(openFileDialog.FileName);
                 }
                 else
                 {
@@ -247,6 +250,7 @@ namespace NeoBleeper
                     if (IsMidiFile(fileName))
                     {
                         textBox1.Text = fileName;
+                        LoadMIDI(fileName);
                     }
                     else
                     {
@@ -260,89 +264,317 @@ namespace NeoBleeper
             }
         }
 
-        // Play MIDI file method
-        private bool isPlaying = true; // Kontrol bayrağı
+        // Class-level variables for controlling playback
+        private CancellationTokenSource _cancellationTokenSource;
+        private List<(long Time, HashSet<int> ActiveNotes)> _frames;
+        private double _ticksToMs;
+        private int _currentFrameIndex = 0;
+        private bool _isPlaying = false;
+        private string _currentFileName;
 
-        private CancellationTokenSource cancellationTokenSource;
-
-        public void play_MIDI(string filename)
+        public void LoadMIDI(string filename)
         {
-            var midiFile = new MidiFile(filename, false);
-            var noteEvents = new List<NoteEvent>();
-
-            foreach (var track in midiFile.Events)
+            try
             {
-                foreach (var midiEvent in track)
+                _currentFileName = filename;
+                // Stop any current playback
+                Stop();
+
+                // Load the MIDI file using NAudio
+                var midiFile = new MidiFile(filename, false);
+
+                // Extract tempo information
+                int microsecondsPerQuarterNote = 500000; // Default 120 BPM
+                foreach (var midiEvent in midiFile.Events[0])
                 {
-                    if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
+                    if (midiEvent is TempoEvent tempoEvent)
                     {
-                        var noteEvent = (NoteEvent)midiEvent;
-                        noteEvents.Add(noteEvent);
+                        microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
+                        break;
                     }
                 }
+
+                // Calculate timing conversion
+                _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
+
+                // Build a list of "frames" - snapshots of which notes are active at each time point
+                _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                HashSet<int> currentlyActiveNotes = new HashSet<int>();
+
+                // Create a timeline of all note events sorted by time
+                var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn)>();
+                foreach (var track in midiFile.Events)
+                {
+                    foreach (var midiEvent in track)
+                    {
+                        if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
+                        {
+                            var noteEvent = (NoteOnEvent)midiEvent;
+                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0));
+                        }
+                        else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
+                        {
+                            var noteEvent = (NoteEvent)midiEvent;
+                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false));
+                        }
+                    }
+                }
+
+                // Sort all events by time
+                allEvents = allEvents.OrderBy(e => e.Time).ToList();
+
+                // Get unique time points
+                var timePoints = allEvents.Select(e => e.Time).Distinct().OrderBy(t => t).ToList();
+
+                // Build frames
+                foreach (var time in timePoints)
+                {
+                    // Process all events at this time point
+                    foreach (var evt in allEvents.Where(e => e.Time == time))
+                    {
+                        if (evt.IsNoteOn)
+                        {
+                            currentlyActiveNotes.Add(evt.NoteNumber);
+                        }
+                        else
+                        {
+                            currentlyActiveNotes.Remove(evt.NoteNumber);
+                        }
+                    }
+
+                    // Create a new frame with a copy of currently active notes
+                    _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
+                }
+
+                // Reset the current frame index
+                _currentFrameIndex = 0;
+                _isPlaying = false;
+
+                // Debug info
+                Debug.WriteLine($"Loaded MIDI file: {filename}");
+                Debug.WriteLine($"Total frames: {_frames.Count}");
+                Debug.WriteLine($"Ticks to Ms: {_ticksToMs}");
             }
-
-            var groupedNotes = noteEvents.GroupBy(e => e.AbsoluteTime).OrderBy(g => g.Key);
-
-            foreach (var group in groupedNotes)
+            catch (Exception ex)
             {
-                var notes = group.ToList();
-                int duration = notes.Max(n => n.DeltaTime);
-
-                if (notes.Count == 1)
-                {
-                    // Tek nota çal
-                    var note = notes.First();
-                    int frequency = NoteToFrequency(note.NoteNumber);
-                    NotePlayer.play_note(frequency, duration);
-                }
-                else
-                {
-                    // Aynı anda birden fazla nota çal
-                    var frequencies = notes.Select(note => NoteToFrequency(note.NoteNumber)).ToArray();
-                    PlayMultipleNotes(frequencies, duration);
-                }
-                Thread.Sleep(duration);
+                MessageBox.Show($"Error loading MIDI file: {ex.Message}");
+                _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
             }
         }
-        private static int previousTrackBarValue = -1;
-        private void UpdatePosition(double currentTime, double totalTime)
+
+        public void Play()
         {
-            // Calculate minutes, seconds and decimal
-            int minutes = (int)(currentTime / 60000);
-            int seconds = (int)((currentTime % 60000) / 1000);
-            double milliseconds = (currentTime % 1000) / 1000.0;
+            // Debug check
+            Debug.WriteLine($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}");
 
-            // Calculate percentage
-            double percentage = (currentTime / totalTime) * 100;
+            if (_isPlaying || _frames == null || _frames.Count == 0)
+                return;
 
-            // Update TrackBar
-            int currentTrackBarValue = (int)(percentage * 10);
-            if (trackBar1 != null && currentTrackBarValue != previousTrackBarValue)
+            try
             {
-                if (trackBar1.InvokeRequired)
+                // Create a new cancellation token source
+                _cancellationTokenSource = new CancellationTokenSource();
+                var token = _cancellationTokenSource.Token;
+
+                _isPlaying = true;
+
+                // Start playing in a separate task
+                Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
+
+                Debug.WriteLine("Playback started successfully");
+                button_play.Enabled = false;
+                button_stop.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error starting playback: {ex.Message}");
+                _isPlaying = false;
+            }
+        }
+
+        public void Stop()
+        {
+            Debug.WriteLine($"Stop called. IsPlaying: {_isPlaying}");
+
+            if (!_isPlaying)
+                return;
+
+            try
+            {
+                // Cancel the playback
+                _cancellationTokenSource?.Cancel();
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
+                _isPlaying = false;
+
+                // Reset label safely using BeginInvoke
+                if (holded_note_label.InvokeRequired)
                 {
-                    trackBar1.Invoke(new Action(() =>
-                    {
-                        trackBar1.Value = currentTrackBarValue;
+                    holded_note_label.BeginInvoke(new Action(() => {
+                        holded_note_label.Text = "Notes which are currently being held on: (0)";
                     }));
                 }
                 else
                 {
-                    trackBar1.Value = currentTrackBarValue;
+                    holded_note_label.Text = "Notes which are currently being held on: (0)";
                 }
-                previousTrackBarValue = currentTrackBarValue;
+                button_play.Enabled = true;
+                button_stop.Enabled = false;
+                Debug.WriteLine("Playback stopped successfully");
             }
-
-            // Print position
-            Console.WriteLine($"Position: {minutes}:{seconds}.{milliseconds:F3} ({percentage:F2}%)");
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error stopping playback: {ex.Message}");
+            }
         }
 
+        public void SetPosition(double positionPercent)
+        {
+            if (_frames == null || _frames.Count == 0)
+                return;
+
+            bool wasPlaying = _isPlaying;
+
+            // Stop current playback if any
+            if (_isPlaying)
+                Stop();
+
+            // Calculate new position
+            _currentFrameIndex = (int)(positionPercent * _frames.Count / 100.0);
+
+            // Clamp the index to valid range
+            _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
+
+            Debug.WriteLine($"Position set to {positionPercent}% (frame {_currentFrameIndex} of {_frames.Count})");
+
+            // Resume playing if it was playing before
+            if (wasPlaying)
+                Play();
+        }
+
+        private async Task PlayFromPosition(int startIndex, CancellationToken cancellationToken)
+        {
+            Debug.WriteLine($"Starting playback from frame {startIndex} of {_frames.Count}");
+
+            try
+            {
+                // Start playing from the specified index
+                for (int i = startIndex; i < _frames.Count; i++)
+                {
+                    // Check for cancellation
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        Debug.WriteLine("Playback cancelled");
+                        return;
+                    }
+
+                    // Update the current position
+                    _currentFrameIndex = i;
+
+                    var currentFrame = _frames[i];
+                    int notesCount = currentFrame.ActiveNotes.Count;
+
+                    // Update label on UI thread
+                    try
+                    {
+                        if (holded_note_label.InvokeRequired)
+                        {
+                            holded_note_label.BeginInvoke(new Action(() => {
+                                holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
+                            }));
+                        }
+                        else
+                        {
+                            holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error updating label: {ex.Message}");
+                    }
+
+                    // Calculate duration to next frame
+                    int durationMs;
+                    if (i < _frames.Count - 1)
+                    {
+                        durationMs = (int)((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs);
+                    }
+                    else
+                    {
+                        durationMs = 500; // Default duration for last frame
+                    }
+
+                    // Ensure minimum duration
+                    durationMs = Math.Max(10, durationMs);
+
+                    // Debug every 100 frames
+                    if (i % 100 == 0)
+                    {
+                        Debug.WriteLine($"Playing frame {i}, notes: {notesCount}, duration: {durationMs}ms");
+                    }
+
+                    // Play active notes or silence
+                    if (notesCount > 0)
+                    {
+                        var frequencies = currentFrame.ActiveNotes.Select(note => NoteToFrequency(note)).ToArray();
+
+                        if (frequencies.Length == 1)
+                        {
+                            // Single note - play directly
+                            NotePlayer.play_note(frequencies[0], durationMs);
+                        }
+                        else
+                        {
+                            // Multiple notes
+                            PlayMultipleNotes(frequencies, durationMs);
+                        }
+                    }
+                    else
+                    {
+                        // Silence - just wait
+                        await Task.Delay(durationMs, cancellationToken);
+                    }
+                }
+
+                // Finished playing
+                _isPlaying = false;
+                Debug.WriteLine("Playback completed successfully");
+
+                // Reset label
+                if (holded_note_label.InvokeRequired)
+                {
+                    holded_note_label.BeginInvoke(new Action(() => {
+                        holded_note_label.Text = "Notes which are currently being held on: (0)";
+                    }));
+                }
+                else
+                {
+                    holded_note_label.Text = "Notes which are currently being held on: (0)";
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // Task was canceled, do nothing
+                Debug.WriteLine("Task was canceled");
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                Debug.WriteLine($"Error during playback: {ex.Message}");
+                MessageBox.Show($"Error during playback: {ex.Message}");
+            }
+            finally
+            {
+                _isPlaying = false;
+            }
+        }
+
+        // Original PlayMultipleNotes method
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
-            if(!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
+            if (!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
             {
-                int interval = 30; // 10 ms aralıklarla frekans değiştir
+                int interval = 30; // 30 ms aralıklarla frekans değiştir
                 int steps = duration / interval;
                 int i = 0;
                 do
@@ -351,13 +583,17 @@ namespace NeoBleeper
                     {
                         NotePlayer.play_note(frequency, interval);
                         i++;
+
+                        // Check if we've gone past our duration
+                        if (i * interval >= duration)
+                            break;
                     }
                 }
-                while (i < steps);
+                while (i * interval < duration);
             }
             else
             {
-                int interval = Convert.ToInt32(numericUpDown_alternating_note.Value); // 10 ms aralıklarla frekans değiştir
+                int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
                 int steps = duration / interval;
                 int i = 0;
                 do
@@ -366,17 +602,13 @@ namespace NeoBleeper
                     {
                         NotePlayer.play_note(frequency, interval);
                         i++;
+
+                        // Check if we've gone past our duration
+                        if (i * interval >= duration)
+                            break;
                     }
                 }
-                while (i < steps);
-            }   
-        }
-
-        public void StopPlaying()
-        {
-            if (cancellationTokenSource != null)
-            {
-                cancellationTokenSource.Cancel(); // Stop playback
+                while (i * interval < duration);
             }
         }
         private int NoteToFrequency(int noteNumber)
@@ -386,15 +618,11 @@ namespace NeoBleeper
         }
         private void button_play_Click(object sender, EventArgs e)
         {
-            button_play.Enabled = false;
-            button_stop.Enabled = true;
-            Task.Run(() => { play_MIDI(textBox1.Text); });
+            Play();
         }
         private void button_stop_Click(object sender, EventArgs e)
         {
-            button_play.Enabled = true;
-            button_stop.Enabled = false;
-            StopPlaying();
+            Stop();
         }
 
         private void button_rewind_Click(object sender, EventArgs e)
@@ -408,7 +636,7 @@ namespace NeoBleeper
 
         private void disable_alternating_notes_panel(object sender, EventArgs e)
         {
-            if(checkBox_play_each_note.Checked==true||checkBox_make_each_cycle_last_30ms.Checked==true)
+            if (checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true)
             {
                 panel1.Enabled = false;
             }
@@ -416,6 +644,12 @@ namespace NeoBleeper
             {
                 panel1.Enabled = true;
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int positionPercent = trackBar1.Value/10;
+            SetPosition(positionPercent);
         }
     }
 }

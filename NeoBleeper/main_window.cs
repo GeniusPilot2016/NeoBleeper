@@ -2427,117 +2427,18 @@ namespace NeoBleeper
         {
             try
             {
-                if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
-                {
-                    RenderBeep.BeepClass.Beep(498, 10);
-                }
-                else if (Program.creating_sounds.create_beep_with_soundcard == true)
-                {
-                    switch (Program.creating_sounds.soundcard_beep_waveform)
-                    {
-                        case 0: // Square wave
-                            {
-                                RenderBeep.SynthMisc.SquareWave(498, 10);
-                                break;
-                            }
-                        case 1: // Sine wave
-                            {
-                                RenderBeep.SynthMisc.SineWave(498, 10);
-                                break;
-                            }
-                        case 2: // Triangle wave
-                            {
-                                RenderBeep.SynthMisc.TriangleWave(498, 10);
-                                break;
-                            }
-                        case 3: // Noise
-                            {
-                                RenderBeep.SynthMisc.Noise(498, 10);
-                                break;
-                            }
-                    }
-                }
-                else
-                {
-                    Thread.Sleep(10);
-                }
+                NotePlayer.play_note(498, 10);
                 while (checkBox_metronome.Checked == true)
                 {
                     int i = 1;
                     UpdateLabelVisible(true);
-                    if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
-                    {
-                        RenderBeep.BeepClass.Beep(1000, 30);
-                    }
-                    else if (Program.creating_sounds.create_beep_with_soundcard == true)
-                    {
-                        switch (Program.creating_sounds.soundcard_beep_waveform)
-                        {
-                            case 0: // Square wave
-                                {
-                                    RenderBeep.SynthMisc.SquareWave(1000, 30);
-                                    break;
-                                }
-                            case 1: // Sine wave
-                                {
-                                    RenderBeep.SynthMisc.SineWave(1000, 30);
-                                    break;
-                                }
-                            case 2: // Triangle wave
-                                {
-                                    RenderBeep.SynthMisc.TriangleWave(1000, 30);
-                                    break;
-                                }
-                            case 3: // Noise
-                                {
-                                    RenderBeep.SynthMisc.Noise(1000, 30);
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        Thread.Sleep(30);
-                    }
+                    NotePlayer.play_note(1000, 30);
                     UpdateLabelVisible(false);
                     Thread.Sleep(Convert.ToInt32(Math.Truncate(60000.0 / Variables.bpm)) - 30);
                     while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
                     {
                         UpdateLabelVisible(true);
-                        if (Program.creating_sounds.create_beep_with_soundcard == false && Program.creating_sounds.is_system_speaker_muted == false)
-                        {
-                            RenderBeep.BeepClass.Beep(498, 30);
-                        }
-                        else if (Program.creating_sounds.create_beep_with_soundcard == true)
-                        {
-                            switch (Program.creating_sounds.soundcard_beep_waveform)
-                            {
-                                case 0: // Square wave
-                                    {
-                                        RenderBeep.SynthMisc.SquareWave(498, 30);
-                                        break;
-                                    }
-                                case 1: // Sine wave
-                                    {
-                                        RenderBeep.SynthMisc.SineWave(498, 30);
-                                        break;
-                                    }
-                                case 2: // Triangle wave
-                                    {
-                                        RenderBeep.SynthMisc.TriangleWave(498, 30);
-                                        break;
-                                    }
-                                case 3: // Noise
-                                    {
-                                        RenderBeep.SynthMisc.Noise(498, 30);
-                                        break;
-                                    }
-                            }
-                        }
-                        else
-                        {
-                            Thread.Sleep(30);
-                        }
+                        NotePlayer.play_note(498, 30);
                         UpdateLabelVisible(false);
                         Thread.Sleep(Convert.ToInt32(Math.Truncate(60000.0 / Variables.bpm)) - 30);
                         i++;
@@ -3983,9 +3884,8 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
-            openFileDialog.Filter = "MIDI Files|*.mid";
-            openFileDialog.ShowDialog(this);
-            if (openFileDialog.FileName != string.Empty)
+            openFileDialog.Filter = "MIDI Files|*.mid"; 
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (IsMidiFile(openFileDialog.FileName))
                 {

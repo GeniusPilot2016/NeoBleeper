@@ -255,6 +255,7 @@
             trackBar1.Size = new Size(380, 56);
             trackBar1.TabIndex = 1;
             trackBar1.TickStyle = TickStyle.None;
+            trackBar1.Scroll += trackBar1_Scroll;
             // 
             // label4
             // 
