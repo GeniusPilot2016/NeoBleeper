@@ -59,7 +59,7 @@
             checkBox15 = new CheckBox();
             checkBox16 = new CheckBox();
             checkBox17 = new CheckBox();
-            label5 = new Label();
+            holded_note_label = new Label();
             label_note1 = new Label();
             label_note2 = new Label();
             label_note3 = new Label();
@@ -93,14 +93,20 @@
             label_note28 = new Label();
             label_note32 = new Label();
             button_browse_file = new Button();
-            checkBox18 = new CheckBox();
-            checkBox19 = new CheckBox();
-            checkBox20 = new CheckBox();
+            checkBox_play_each_note = new CheckBox();
+            checkBox_make_each_cycle_last_30ms = new CheckBox();
+            checkBox_dont_update_grid = new CheckBox();
             openFileDialog = new OpenFileDialog();
             toolTip1 = new ToolTip(components);
             update_timer = new System.Windows.Forms.Timer(components);
+            label_alternating_note = new Label();
+            numericUpDown_alternating_note = new NumericUpDown();
+            label_ms = new Label();
+            panel1 = new Panel();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
@@ -252,7 +258,6 @@
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Left;
             label4.AutoSize = true;
             label4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.Location = new Point(11, 191);
@@ -263,7 +268,6 @@
             // 
             // checkBox2
             // 
-            checkBox2.Anchor = AnchorStyles.Left;
             checkBox2.AutoSize = true;
             checkBox2.Checked = true;
             checkBox2.CheckState = CheckState.Checked;
@@ -277,7 +281,6 @@
             // 
             // checkBox3
             // 
-            checkBox3.Anchor = AnchorStyles.Left;
             checkBox3.AutoSize = true;
             checkBox3.Checked = true;
             checkBox3.CheckState = CheckState.Checked;
@@ -291,7 +294,6 @@
             // 
             // checkBox4
             // 
-            checkBox4.Anchor = AnchorStyles.Left;
             checkBox4.AutoSize = true;
             checkBox4.Checked = true;
             checkBox4.CheckState = CheckState.Checked;
@@ -305,7 +307,6 @@
             // 
             // checkBox5
             // 
-            checkBox5.Anchor = AnchorStyles.Left;
             checkBox5.AutoSize = true;
             checkBox5.Checked = true;
             checkBox5.CheckState = CheckState.Checked;
@@ -319,7 +320,6 @@
             // 
             // checkBox6
             // 
-            checkBox6.Anchor = AnchorStyles.Left;
             checkBox6.AutoSize = true;
             checkBox6.Checked = true;
             checkBox6.CheckState = CheckState.Checked;
@@ -333,7 +333,6 @@
             // 
             // checkBox7
             // 
-            checkBox7.Anchor = AnchorStyles.Left;
             checkBox7.AutoSize = true;
             checkBox7.Checked = true;
             checkBox7.CheckState = CheckState.Checked;
@@ -347,7 +346,6 @@
             // 
             // checkBox8
             // 
-            checkBox8.Anchor = AnchorStyles.Left;
             checkBox8.AutoSize = true;
             checkBox8.Checked = true;
             checkBox8.CheckState = CheckState.Checked;
@@ -361,7 +359,6 @@
             // 
             // checkBox9
             // 
-            checkBox9.Anchor = AnchorStyles.Left;
             checkBox9.AutoSize = true;
             checkBox9.Checked = true;
             checkBox9.CheckState = CheckState.Checked;
@@ -375,7 +372,6 @@
             // 
             // checkBox10
             // 
-            checkBox10.Anchor = AnchorStyles.Left;
             checkBox10.AutoSize = true;
             checkBox10.Checked = true;
             checkBox10.CheckState = CheckState.Checked;
@@ -389,7 +385,6 @@
             // 
             // checkBox11
             // 
-            checkBox11.Anchor = AnchorStyles.Left;
             checkBox11.AutoSize = true;
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
@@ -403,7 +398,6 @@
             // 
             // checkBox12
             // 
-            checkBox12.Anchor = AnchorStyles.Left;
             checkBox12.AutoSize = true;
             checkBox12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox12.Location = new Point(68, 306);
@@ -415,7 +409,6 @@
             // 
             // checkBox13
             // 
-            checkBox13.Anchor = AnchorStyles.Left;
             checkBox13.AutoSize = true;
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
@@ -429,7 +422,6 @@
             // 
             // checkBox14
             // 
-            checkBox14.Anchor = AnchorStyles.Left;
             checkBox14.AutoSize = true;
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
@@ -443,7 +435,6 @@
             // 
             // checkBox15
             // 
-            checkBox15.Anchor = AnchorStyles.Left;
             checkBox15.AutoSize = true;
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
@@ -457,7 +448,6 @@
             // 
             // checkBox16
             // 
-            checkBox16.Anchor = AnchorStyles.Left;
             checkBox16.AutoSize = true;
             checkBox16.Checked = true;
             checkBox16.CheckState = CheckState.Checked;
@@ -471,7 +461,6 @@
             // 
             // checkBox17
             // 
-            checkBox17.Anchor = AnchorStyles.Left;
             checkBox17.AutoSize = true;
             checkBox17.Checked = true;
             checkBox17.CheckState = CheckState.Checked;
@@ -483,20 +472,19 @@
             checkBox17.Text = "16";
             checkBox17.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // holded_note_label
             // 
-            label5.Anchor = AnchorStyles.Left;
-            label5.AutoSize = true;
-            label5.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(11, 371);
-            label5.Name = "label5";
-            label5.Size = new Size(314, 20);
-            label5.TabIndex = 3;
-            label5.Text = "Notes which are currently being held on: (0)";
+            holded_note_label.AutoSize = true;
+            holded_note_label.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            holded_note_label.Location = new Point(11, 371);
+            holded_note_label.Name = "holded_note_label";
+            holded_note_label.Size = new Size(314, 20);
+            holded_note_label.TabIndex = 3;
+            holded_note_label.Text = "Notes which are currently being held on: (0)";
             // 
             // label_note1
             // 
-            label_note1.Anchor = AnchorStyles.None;
+            label_note1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note1.AutoSize = true;
             label_note1.BackColor = Color.Red;
             label_note1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -509,7 +497,7 @@
             // 
             // label_note2
             // 
-            label_note2.Anchor = AnchorStyles.None;
+            label_note2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note2.AutoSize = true;
             label_note2.BackColor = Color.FromArgb(192, 0, 0);
             label_note2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -522,7 +510,7 @@
             // 
             // label_note3
             // 
-            label_note3.Anchor = AnchorStyles.None;
+            label_note3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note3.AutoSize = true;
             label_note3.BackColor = Color.FromArgb(192, 0, 0);
             label_note3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -535,7 +523,7 @@
             // 
             // label_note4
             // 
-            label_note4.Anchor = AnchorStyles.None;
+            label_note4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note4.AutoSize = true;
             label_note4.BackColor = Color.FromArgb(192, 0, 0);
             label_note4.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -548,7 +536,7 @@
             // 
             // label_note5
             // 
-            label_note5.Anchor = AnchorStyles.None;
+            label_note5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note5.AutoSize = true;
             label_note5.BackColor = Color.FromArgb(192, 0, 0);
             label_note5.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -561,7 +549,7 @@
             // 
             // label_note7
             // 
-            label_note7.Anchor = AnchorStyles.None;
+            label_note7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note7.AutoSize = true;
             label_note7.BackColor = Color.FromArgb(192, 0, 0);
             label_note7.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -574,7 +562,7 @@
             // 
             // label_note6
             // 
-            label_note6.Anchor = AnchorStyles.None;
+            label_note6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note6.AutoSize = true;
             label_note6.BackColor = Color.FromArgb(192, 0, 0);
             label_note6.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -587,7 +575,7 @@
             // 
             // label_note8
             // 
-            label_note8.Anchor = AnchorStyles.None;
+            label_note8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note8.AutoSize = true;
             label_note8.BackColor = Color.FromArgb(192, 0, 0);
             label_note8.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -600,7 +588,7 @@
             // 
             // label_note9
             // 
-            label_note9.Anchor = AnchorStyles.None;
+            label_note9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note9.AutoSize = true;
             label_note9.BackColor = Color.FromArgb(192, 0, 0);
             label_note9.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -613,7 +601,7 @@
             // 
             // label_note13
             // 
-            label_note13.Anchor = AnchorStyles.None;
+            label_note13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note13.AutoSize = true;
             label_note13.BackColor = Color.FromArgb(192, 0, 0);
             label_note13.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -626,7 +614,7 @@
             // 
             // label_note11
             // 
-            label_note11.Anchor = AnchorStyles.None;
+            label_note11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note11.AutoSize = true;
             label_note11.BackColor = Color.FromArgb(192, 0, 0);
             label_note11.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -639,7 +627,7 @@
             // 
             // label_note15
             // 
-            label_note15.Anchor = AnchorStyles.None;
+            label_note15.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note15.AutoSize = true;
             label_note15.BackColor = Color.FromArgb(192, 0, 0);
             label_note15.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -652,7 +640,7 @@
             // 
             // label_note10
             // 
-            label_note10.Anchor = AnchorStyles.None;
+            label_note10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note10.AutoSize = true;
             label_note10.BackColor = Color.FromArgb(192, 0, 0);
             label_note10.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -665,7 +653,7 @@
             // 
             // label_note14
             // 
-            label_note14.Anchor = AnchorStyles.None;
+            label_note14.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note14.AutoSize = true;
             label_note14.BackColor = Color.FromArgb(192, 0, 0);
             label_note14.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -678,7 +666,7 @@
             // 
             // label_note12
             // 
-            label_note12.Anchor = AnchorStyles.None;
+            label_note12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note12.AutoSize = true;
             label_note12.BackColor = Color.FromArgb(192, 0, 0);
             label_note12.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -691,7 +679,7 @@
             // 
             // label_note16
             // 
-            label_note16.Anchor = AnchorStyles.None;
+            label_note16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note16.AutoSize = true;
             label_note16.BackColor = Color.FromArgb(192, 0, 0);
             label_note16.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -704,7 +692,7 @@
             // 
             // label_note17
             // 
-            label_note17.Anchor = AnchorStyles.None;
+            label_note17.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note17.AutoSize = true;
             label_note17.BackColor = Color.FromArgb(192, 0, 0);
             label_note17.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -717,7 +705,7 @@
             // 
             // label_note21
             // 
-            label_note21.Anchor = AnchorStyles.None;
+            label_note21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note21.AutoSize = true;
             label_note21.BackColor = Color.FromArgb(192, 0, 0);
             label_note21.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -730,7 +718,7 @@
             // 
             // label_note19
             // 
-            label_note19.Anchor = AnchorStyles.None;
+            label_note19.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note19.AutoSize = true;
             label_note19.BackColor = Color.FromArgb(192, 0, 0);
             label_note19.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -743,7 +731,7 @@
             // 
             // label_note23
             // 
-            label_note23.Anchor = AnchorStyles.None;
+            label_note23.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note23.AutoSize = true;
             label_note23.BackColor = Color.FromArgb(192, 0, 0);
             label_note23.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -756,7 +744,7 @@
             // 
             // label_note18
             // 
-            label_note18.Anchor = AnchorStyles.None;
+            label_note18.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note18.AutoSize = true;
             label_note18.BackColor = Color.FromArgb(192, 0, 0);
             label_note18.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -769,7 +757,7 @@
             // 
             // label_note22
             // 
-            label_note22.Anchor = AnchorStyles.None;
+            label_note22.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note22.AutoSize = true;
             label_note22.BackColor = Color.FromArgb(192, 0, 0);
             label_note22.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -782,7 +770,7 @@
             // 
             // label_note20
             // 
-            label_note20.Anchor = AnchorStyles.None;
+            label_note20.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note20.AutoSize = true;
             label_note20.BackColor = Color.FromArgb(192, 0, 0);
             label_note20.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -795,7 +783,7 @@
             // 
             // label_note24
             // 
-            label_note24.Anchor = AnchorStyles.None;
+            label_note24.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note24.AutoSize = true;
             label_note24.BackColor = Color.FromArgb(192, 0, 0);
             label_note24.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -808,7 +796,7 @@
             // 
             // label_note25
             // 
-            label_note25.Anchor = AnchorStyles.None;
+            label_note25.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note25.AutoSize = true;
             label_note25.BackColor = Color.FromArgb(192, 0, 0);
             label_note25.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -821,7 +809,7 @@
             // 
             // label_note29
             // 
-            label_note29.Anchor = AnchorStyles.None;
+            label_note29.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note29.AutoSize = true;
             label_note29.BackColor = Color.FromArgb(192, 0, 0);
             label_note29.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -834,7 +822,7 @@
             // 
             // label_note27
             // 
-            label_note27.Anchor = AnchorStyles.None;
+            label_note27.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note27.AutoSize = true;
             label_note27.BackColor = Color.FromArgb(192, 0, 0);
             label_note27.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -847,7 +835,7 @@
             // 
             // label_note31
             // 
-            label_note31.Anchor = AnchorStyles.None;
+            label_note31.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note31.AutoSize = true;
             label_note31.BackColor = Color.FromArgb(192, 0, 0);
             label_note31.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -860,7 +848,7 @@
             // 
             // label_note26
             // 
-            label_note26.Anchor = AnchorStyles.None;
+            label_note26.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note26.AutoSize = true;
             label_note26.BackColor = Color.FromArgb(192, 0, 0);
             label_note26.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -873,7 +861,7 @@
             // 
             // label_note30
             // 
-            label_note30.Anchor = AnchorStyles.None;
+            label_note30.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note30.AutoSize = true;
             label_note30.BackColor = Color.FromArgb(192, 0, 0);
             label_note30.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -886,7 +874,7 @@
             // 
             // label_note28
             // 
-            label_note28.Anchor = AnchorStyles.None;
+            label_note28.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note28.AutoSize = true;
             label_note28.BackColor = Color.FromArgb(192, 0, 0);
             label_note28.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -899,7 +887,7 @@
             // 
             // label_note32
             // 
-            label_note32.Anchor = AnchorStyles.None;
+            label_note32.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label_note32.AutoSize = true;
             label_note32.BackColor = Color.FromArgb(192, 0, 0);
             label_note32.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -912,7 +900,7 @@
             // 
             // button_browse_file
             // 
-            button_browse_file.Anchor = AnchorStyles.Right;
+            button_browse_file.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_browse_file.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button_browse_file.ImageIndex = 0;
             button_browse_file.ImageList = icons2;
@@ -926,59 +914,104 @@
             button_browse_file.UseVisualStyleBackColor = true;
             button_browse_file.Click += button4_Click;
             // 
-            // checkBox18
+            // checkBox_play_each_note
             // 
-            checkBox18.Anchor = AnchorStyles.Left;
-            checkBox18.AutoSize = true;
-            checkBox18.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox18.Location = new Point(11, 538);
-            checkBox18.Name = "checkBox18";
-            checkBox18.Size = new Size(401, 24);
-            checkBox18.TabIndex = 22;
-            checkBox18.Text = "Play each note once at a time (don't keep alternating)";
-            checkBox18.UseVisualStyleBackColor = true;
+            checkBox_play_each_note.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox_play_each_note.AutoSize = true;
+            checkBox_play_each_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_play_each_note.Location = new Point(11, 580);
+            checkBox_play_each_note.Name = "checkBox_play_each_note";
+            checkBox_play_each_note.Size = new Size(401, 24);
+            checkBox_play_each_note.TabIndex = 22;
+            checkBox_play_each_note.Text = "Play each note once at a time (don't keep alternating)";
+            checkBox_play_each_note.UseVisualStyleBackColor = true;
+            checkBox_play_each_note.CheckedChanged += disable_alternating_notes_panel;
             // 
-            // checkBox19
+            // checkBox_make_each_cycle_last_30ms
             // 
-            checkBox19.Anchor = AnchorStyles.Left;
-            checkBox19.AutoSize = true;
-            checkBox19.Checked = true;
-            checkBox19.CheckState = CheckState.Checked;
-            checkBox19.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox19.Location = new Point(11, 569);
-            checkBox19.Name = "checkBox19";
-            checkBox19.Size = new Size(373, 44);
-            checkBox19.TabIndex = 23;
-            checkBox19.Text = "Try making each cycle last 30mS (with maximium \r\nalternating time capped to 15mS per note)";
-            checkBox19.UseVisualStyleBackColor = true;
+            checkBox_make_each_cycle_last_30ms.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox_make_each_cycle_last_30ms.AutoSize = true;
+            checkBox_make_each_cycle_last_30ms.Checked = true;
+            checkBox_make_each_cycle_last_30ms.CheckState = CheckState.Checked;
+            checkBox_make_each_cycle_last_30ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_make_each_cycle_last_30ms.Location = new Point(11, 611);
+            checkBox_make_each_cycle_last_30ms.Name = "checkBox_make_each_cycle_last_30ms";
+            checkBox_make_each_cycle_last_30ms.Size = new Size(373, 44);
+            checkBox_make_each_cycle_last_30ms.TabIndex = 23;
+            checkBox_make_each_cycle_last_30ms.Text = "Try making each cycle last 30mS (with maximium \r\nalternating time capped to 15mS per note)";
+            checkBox_make_each_cycle_last_30ms.UseVisualStyleBackColor = true;
+            checkBox_make_each_cycle_last_30ms.CheckedChanged += disable_alternating_notes_panel;
             // 
-            // checkBox20
+            // checkBox_dont_update_grid
             // 
-            checkBox20.Anchor = AnchorStyles.Left;
-            checkBox20.AutoSize = true;
-            checkBox20.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox20.Location = new Point(11, 618);
-            checkBox20.Name = "checkBox20";
-            checkBox20.Size = new Size(199, 24);
-            checkBox20.TabIndex = 24;
-            checkBox20.Text = "Don't update grid above";
-            checkBox20.UseVisualStyleBackColor = true;
+            checkBox_dont_update_grid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox_dont_update_grid.AutoSize = true;
+            checkBox_dont_update_grid.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_dont_update_grid.Location = new Point(11, 660);
+            checkBox_dont_update_grid.Name = "checkBox_dont_update_grid";
+            checkBox_dont_update_grid.Size = new Size(199, 24);
+            checkBox_dont_update_grid.TabIndex = 24;
+            checkBox_dont_update_grid.Text = "Don't update grid above";
+            checkBox_dont_update_grid.UseVisualStyleBackColor = true;
             // 
             // openFileDialog
             // 
             openFileDialog.FileName = "openFileDialog1";
+            // 
+            // label_alternating_note
+            // 
+            label_alternating_note.AutoSize = true;
+            label_alternating_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label_alternating_note.Location = new Point(3, 6);
+            label_alternating_note.Name = "label_alternating_note";
+            label_alternating_note.Size = new Size(289, 20);
+            label_alternating_note.TabIndex = 25;
+            label_alternating_note.Text = "Switch between alternating notes every:";
+            // 
+            // numericUpDown_alternating_note
+            // 
+            numericUpDown_alternating_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numericUpDown_alternating_note.Location = new Point(293, 3);
+            numericUpDown_alternating_note.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            numericUpDown_alternating_note.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
+            numericUpDown_alternating_note.Name = "numericUpDown_alternating_note";
+            numericUpDown_alternating_note.Size = new Size(61, 27);
+            numericUpDown_alternating_note.TabIndex = 26;
+            numericUpDown_alternating_note.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
+            // label_ms
+            // 
+            label_ms.AutoSize = true;
+            label_ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label_ms.Location = new Point(357, 6);
+            label_ms.Name = "label_ms";
+            label_ms.Size = new Size(31, 20);
+            label_ms.TabIndex = 25;
+            label_ms.Text = "mS";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(label_alternating_note);
+            panel1.Controls.Add(label_ms);
+            panel1.Controls.Add(numericUpDown_alternating_note);
+            panel1.Enabled = false;
+            panel1.Location = new Point(9, 538);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(394, 36);
+            panel1.TabIndex = 27;
             // 
             // MIDI_file_player
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(415, 653);
+            ClientSize = new Size(415, 695);
+            Controls.Add(panel1);
             Controls.Add(button_browse_file);
             Controls.Add(checkBox17);
-            Controls.Add(checkBox19);
-            Controls.Add(checkBox20);
-            Controls.Add(checkBox18);
+            Controls.Add(checkBox_make_each_cycle_last_30ms);
+            Controls.Add(checkBox_dont_update_grid);
+            Controls.Add(checkBox_play_each_note);
             Controls.Add(checkBox13);
             Controls.Add(checkBox9);
             Controls.Add(checkBox5);
@@ -1026,7 +1059,7 @@
             Controls.Add(label_note17);
             Controls.Add(label_note9);
             Controls.Add(label_note1);
-            Controls.Add(label5);
+            Controls.Add(holded_note_label);
             Controls.Add(label4);
             Controls.Add(groupBox1);
             Controls.Add(label1);
@@ -1044,6 +1077,9 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1078,7 +1114,7 @@
         private CheckBox checkBox15;
         private CheckBox checkBox16;
         private CheckBox checkBox17;
-        private Label label5;
+        private Label holded_note_label;
         private Label label_note1;
         private Label label_note2;
         private Label label_note3;
@@ -1113,11 +1149,15 @@
         private Label label_note32;
         private Button button_browse_file;
         private ImageList icons2;
-        private CheckBox checkBox18;
-        private CheckBox checkBox19;
-        private CheckBox checkBox20;
+        private CheckBox checkBox_play_each_note;
+        private CheckBox checkBox_make_each_cycle_last_30ms;
+        private CheckBox checkBox_dont_update_grid;
         private OpenFileDialog openFileDialog;
         private ToolTip toolTip1;
         private System.Windows.Forms.Timer update_timer;
+        private Label label_alternating_note;
+        private NumericUpDown numericUpDown_alternating_note;
+        private Label label_ms;
+        private Panel panel1;
     }
 }

@@ -61,6 +61,9 @@ namespace NeoBleeper
             label_note30.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
             label_note31.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
             label_note32.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
+            label_alternating_note.Font = new Font(fonts.Families[0], 9);
+            numericUpDown_alternating_note.Font = new Font(fonts.Families[0], 9);
+            label_ms.Font = new Font(fonts.Families[0], 9);
             set_theme();
             label_note1.BackColor = Settings1.Default.note_indicator_color;
             label_note2.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
@@ -264,9 +267,6 @@ namespace NeoBleeper
 
         public void play_MIDI(string filename)
         {
-            cancellationTokenSource = new CancellationTokenSource();
-            CancellationToken token = cancellationTokenSource.Token;
-
             var midiFile = new MidiFile(filename, false);
             var noteEvents = new List<NoteEvent>();
 
@@ -284,40 +284,26 @@ namespace NeoBleeper
 
             var groupedNotes = noteEvents.GroupBy(e => e.AbsoluteTime).OrderBy(g => g.Key);
 
-            // Calculate total duration
-            double totalTime = groupedNotes.Last().Key;
-            double currentTime = 0;
-
-            // Create timer
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             foreach (var group in groupedNotes)
             {
-                if (token.IsCancellationRequested) break;
-
                 var notes = group.ToList();
                 int duration = notes.Max(n => n.DeltaTime);
 
                 if (notes.Count == 1)
                 {
+                    // Tek nota çal
                     var note = notes.First();
                     int frequency = NoteToFrequency(note.NoteNumber);
                     NotePlayer.play_note(frequency, duration);
                 }
                 else
                 {
+                    // Aynı anda birden fazla nota çal
                     var frequencies = notes.Select(note => NoteToFrequency(note.NoteNumber)).ToArray();
-                    PlayMultipleNotes(frequencies, duration, token);
+                    PlayMultipleNotes(frequencies, duration);
                 }
-
                 Thread.Sleep(duration);
-
-                // Update position and TrackBar
-                UpdatePosition(stopwatch.ElapsedMilliseconds, totalTime);
             }
-
-            stopwatch.Stop(); // Stop stopwatch after playback
         }
         private static int previousTrackBarValue = -1;
         private void UpdatePosition(double currentTime, double totalTime)
@@ -352,18 +338,38 @@ namespace NeoBleeper
             Console.WriteLine($"Position: {minutes}:{seconds}.{milliseconds:F3} ({percentage:F2}%)");
         }
 
-        public static void PlayMultipleNotes(int[] frequencies, int duration, CancellationToken token)
+        private void PlayMultipleNotes(int[] frequencies, int duration)
         {
-            int interval = 30; // Switch between 30 ms
-            int steps = duration / interval;
-            for (int i = 0; i < steps; i++)
+            if(!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
             {
-                if (token.IsCancellationRequested) break; // Check playback
-                foreach (var frequency in frequencies)
+                int interval = 30; // 10 ms aralıklarla frekans değiştir
+                int steps = duration / interval;
+                int i = 0;
+                do
                 {
-                    NotePlayer.play_note(frequency, interval);
+                    foreach (var frequency in frequencies)
+                    {
+                        NotePlayer.play_note(frequency, interval);
+                        i++;
+                    }
                 }
+                while (i < steps);
             }
+            else
+            {
+                int interval = Convert.ToInt32(numericUpDown_alternating_note.Value); // 10 ms aralıklarla frekans değiştir
+                int steps = duration / interval;
+                int i = 0;
+                do
+                {
+                    foreach (var frequency in frequencies)
+                    {
+                        NotePlayer.play_note(frequency, interval);
+                        i++;
+                    }
+                }
+                while (i < steps);
+            }   
         }
 
         public void StopPlaying()
@@ -382,7 +388,7 @@ namespace NeoBleeper
         {
             button_play.Enabled = false;
             button_stop.Enabled = true;
-            Task.Run(() => {play_MIDI(textBox1.Text); });
+            Task.Run(() => { play_MIDI(textBox1.Text); });
         }
         private void button_stop_Click(object sender, EventArgs e)
         {
@@ -398,6 +404,18 @@ namespace NeoBleeper
 
         private void MIDI_file_player_FormClosing(object sender, FormClosingEventArgs e)
         {
+        }
+
+        private void disable_alternating_notes_panel(object sender, EventArgs e)
+        {
+            if(checkBox_play_each_note.Checked==true||checkBox_make_each_cycle_last_30ms.Checked==true)
+            {
+                panel1.Enabled = false;
+            }
+            else
+            {
+                panel1.Enabled = true;
+            }
         }
     }
 }
