@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
-    public static class set_playing_note_color
+    public static class set_inactive_note_color
     {
-        public static Color GetPlayingNoteColor(Color backgroundColor)
+        public static Color GetInactiveNoteColor(Color backgroundColor)
         {
             // Brightness calculation (YIQ Equation)
             double brightness = ((backgroundColor.R * 299) + (backgroundColor.G * 587) + (backgroundColor.B * 114)) / 1000;

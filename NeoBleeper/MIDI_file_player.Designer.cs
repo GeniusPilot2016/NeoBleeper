@@ -33,6 +33,7 @@
             textBox1 = new TextBox();
             label1 = new Label();
             groupBox1 = new GroupBox();
+            panel2 = new Panel();
             label_percentage = new Label();
             label_position = new Label();
             checkBox_loop = new CheckBox();
@@ -104,6 +105,7 @@
             label_ms = new Label();
             panel1 = new Panel();
             groupBox1.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).BeginInit();
             panel1.SuspendLayout();
@@ -114,17 +116,19 @@
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.BackColor = SystemColors.Window;
             textBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(10, 35);
+            textBox1.Location = new Point(11, 32);
+            textBox1.Margin = new Padding(4, 2, 4, 2);
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
-            textBox1.Size = new Size(264, 27);
+            textBox1.Size = new Size(289, 27);
             textBox1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(11, 9);
+            label1.Location = new Point(12, 9);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(195, 20);
             label1.TabIndex = 1;
@@ -133,37 +137,55 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(label_percentage);
-            groupBox1.Controls.Add(label_position);
+            groupBox1.Controls.Add(panel2);
             groupBox1.Controls.Add(checkBox_loop);
             groupBox1.Controls.Add(button_stop);
             groupBox1.Controls.Add(button_play);
             groupBox1.Controls.Add(button_rewind);
             groupBox1.Controls.Add(trackBar1);
             groupBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(11, 67);
+            groupBox1.Location = new Point(12, 62);
+            groupBox1.Margin = new Padding(4, 2, 4, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(392, 109);
+            groupBox1.Padding = new Padding(4, 2, 4, 2);
+            groupBox1.Size = new Size(429, 114);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Playback Controls";
             // 
+            // panel2
+            // 
+            panel2.Anchor = AnchorStyles.Right;
+            panel2.AutoSize = true;
+            panel2.Controls.Add(label_percentage);
+            panel2.Controls.Add(label_position);
+            panel2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            panel2.Location = new Point(269, 58);
+            panel2.Margin = new Padding(4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(152, 50);
+            panel2.TabIndex = 28;
+            // 
             // label_percentage
             // 
-            label_percentage.Anchor = AnchorStyles.Right;
+            label_percentage.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label_percentage.AutoSize = true;
-            label_percentage.Location = new Point(334, 75);
+            label_percentage.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label_percentage.Location = new Point(96, 25);
+            label_percentage.Margin = new Padding(4, 0, 4, 0);
             label_percentage.Name = "label_percentage";
-            label_percentage.RightToLeft = RightToLeft.Yes;
             label_percentage.Size = new Size(52, 20);
-            label_percentage.TabIndex = 3;
+            label_percentage.TabIndex = 4;
             label_percentage.Text = "0,00%";
+            label_percentage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_position
             // 
-            label_position.Anchor = AnchorStyles.Right;
+            label_position.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_position.AutoSize = true;
-            label_position.Location = new Point(251, 55);
+            label_position.Font = new Font("HarmonyOS Sans", 9F);
+            label_position.Location = new Point(13, 0);
+            label_position.Margin = new Padding(4, 0, 4, 0);
             label_position.Name = "label_position";
             label_position.Size = new Size(135, 20);
             label_position.TabIndex = 3;
@@ -175,7 +197,8 @@
             checkBox_loop.AutoSize = true;
             checkBox_loop.ImageIndex = 1;
             checkBox_loop.ImageList = icons2;
-            checkBox_loop.Location = new Point(123, 60);
+            checkBox_loop.Location = new Point(126, 65);
+            checkBox_loop.Margin = new Padding(4, 2, 4, 2);
             checkBox_loop.Name = "checkBox_loop";
             checkBox_loop.Size = new Size(82, 24);
             checkBox_loop.TabIndex = 5;
@@ -199,9 +222,10 @@
             button_stop.FlatStyle = FlatStyle.Flat;
             button_stop.ImageIndex = 1;
             button_stop.ImageList = icons;
-            button_stop.Location = new Point(82, 57);
+            button_stop.Location = new Point(89, 62);
+            button_stop.Margin = new Padding(4, 2, 4, 2);
             button_stop.Name = "button_stop";
-            button_stop.Size = new Size(27, 27);
+            button_stop.Size = new Size(30, 25);
             button_stop.TabIndex = 4;
             toolTip1.SetToolTip(button_stop, "Stop");
             button_stop.UseVisualStyleBackColor = true;
@@ -223,9 +247,10 @@
             button_play.FlatStyle = FlatStyle.Flat;
             button_play.ImageIndex = 0;
             button_play.ImageList = icons;
-            button_play.Location = new Point(49, 57);
+            button_play.Location = new Point(52, 62);
+            button_play.Margin = new Padding(4, 2, 4, 2);
             button_play.Name = "button_play";
-            button_play.Size = new Size(27, 27);
+            button_play.Size = new Size(30, 25);
             button_play.TabIndex = 3;
             toolTip1.SetToolTip(button_play, "Play from current position");
             button_play.UseVisualStyleBackColor = true;
@@ -238,9 +263,10 @@
             button_rewind.FlatStyle = FlatStyle.Flat;
             button_rewind.ImageIndex = 2;
             button_rewind.ImageList = icons;
-            button_rewind.Location = new Point(16, 57);
+            button_rewind.Location = new Point(16, 62);
+            button_rewind.Margin = new Padding(4, 2, 4, 2);
             button_rewind.Name = "button_rewind";
-            button_rewind.Size = new Size(27, 27);
+            button_rewind.Size = new Size(30, 25);
             button_rewind.TabIndex = 2;
             toolTip1.SetToolTip(button_rewind, "Rewind");
             button_rewind.UseVisualStyleBackColor = true;
@@ -249,10 +275,11 @@
             // trackBar1
             // 
             trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            trackBar1.Location = new Point(6, 26);
+            trackBar1.Location = new Point(6, 25);
+            trackBar1.Margin = new Padding(4, 2, 4, 2);
             trackBar1.Maximum = 1000;
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(380, 56);
+            trackBar1.Size = new Size(415, 56);
             trackBar1.TabIndex = 1;
             trackBar1.TickStyle = TickStyle.None;
             trackBar1.Scroll += trackBar1_Scroll;
@@ -261,7 +288,8 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(11, 191);
+            label4.Location = new Point(12, 179);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(343, 40);
             label4.TabIndex = 3;
@@ -273,7 +301,8 @@
             checkBox2.Checked = true;
             checkBox2.CheckState = CheckState.Checked;
             checkBox2.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox2.Location = new Point(14, 246);
+            checkBox2.Location = new Point(15, 230);
+            checkBox2.Margin = new Padding(4, 2, 4, 2);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(40, 24);
             checkBox2.TabIndex = 6;
@@ -286,7 +315,8 @@
             checkBox3.Checked = true;
             checkBox3.CheckState = CheckState.Checked;
             checkBox3.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox3.Location = new Point(68, 246);
+            checkBox3.Location = new Point(75, 230);
+            checkBox3.Margin = new Padding(4, 2, 4, 2);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(40, 24);
             checkBox3.TabIndex = 7;
@@ -299,7 +329,8 @@
             checkBox4.Checked = true;
             checkBox4.CheckState = CheckState.Checked;
             checkBox4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox4.Location = new Point(125, 246);
+            checkBox4.Location = new Point(136, 230);
+            checkBox4.Margin = new Padding(4, 2, 4, 2);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(40, 24);
             checkBox4.TabIndex = 8;
@@ -312,7 +343,8 @@
             checkBox5.Checked = true;
             checkBox5.CheckState = CheckState.Checked;
             checkBox5.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox5.Location = new Point(181, 246);
+            checkBox5.Location = new Point(198, 230);
+            checkBox5.Margin = new Padding(4, 2, 4, 2);
             checkBox5.Name = "checkBox5";
             checkBox5.Size = new Size(40, 24);
             checkBox5.TabIndex = 9;
@@ -325,7 +357,8 @@
             checkBox6.Checked = true;
             checkBox6.CheckState = CheckState.Checked;
             checkBox6.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox6.Location = new Point(14, 277);
+            checkBox6.Location = new Point(15, 260);
+            checkBox6.Margin = new Padding(4, 2, 4, 2);
             checkBox6.Name = "checkBox6";
             checkBox6.Size = new Size(40, 24);
             checkBox6.TabIndex = 10;
@@ -338,7 +371,8 @@
             checkBox7.Checked = true;
             checkBox7.CheckState = CheckState.Checked;
             checkBox7.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox7.Location = new Point(125, 277);
+            checkBox7.Location = new Point(136, 260);
+            checkBox7.Margin = new Padding(4, 2, 4, 2);
             checkBox7.Name = "checkBox7";
             checkBox7.Size = new Size(40, 24);
             checkBox7.TabIndex = 12;
@@ -351,7 +385,8 @@
             checkBox8.Checked = true;
             checkBox8.CheckState = CheckState.Checked;
             checkBox8.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox8.Location = new Point(68, 277);
+            checkBox8.Location = new Point(75, 260);
+            checkBox8.Margin = new Padding(4, 2, 4, 2);
             checkBox8.Name = "checkBox8";
             checkBox8.Size = new Size(40, 24);
             checkBox8.TabIndex = 11;
@@ -364,7 +399,8 @@
             checkBox9.Checked = true;
             checkBox9.CheckState = CheckState.Checked;
             checkBox9.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox9.Location = new Point(181, 277);
+            checkBox9.Location = new Point(198, 260);
+            checkBox9.Margin = new Padding(4, 2, 4, 2);
             checkBox9.Name = "checkBox9";
             checkBox9.Size = new Size(40, 24);
             checkBox9.TabIndex = 13;
@@ -377,7 +413,8 @@
             checkBox10.Checked = true;
             checkBox10.CheckState = CheckState.Checked;
             checkBox10.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox10.Location = new Point(14, 306);
+            checkBox10.Location = new Point(15, 288);
+            checkBox10.Margin = new Padding(4, 2, 4, 2);
             checkBox10.Name = "checkBox10";
             checkBox10.Size = new Size(40, 24);
             checkBox10.TabIndex = 14;
@@ -390,7 +427,8 @@
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
             checkBox11.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox11.Location = new Point(125, 306);
+            checkBox11.Location = new Point(136, 288);
+            checkBox11.Margin = new Padding(4, 2, 4, 2);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(49, 24);
             checkBox11.TabIndex = 16;
@@ -401,7 +439,8 @@
             // 
             checkBox12.AutoSize = true;
             checkBox12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox12.Location = new Point(68, 306);
+            checkBox12.Location = new Point(75, 288);
+            checkBox12.Margin = new Padding(4, 2, 4, 2);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(49, 24);
             checkBox12.TabIndex = 15;
@@ -414,7 +453,8 @@
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
             checkBox13.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox13.Location = new Point(181, 306);
+            checkBox13.Location = new Point(198, 288);
+            checkBox13.Margin = new Padding(4, 2, 4, 2);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(49, 24);
             checkBox13.TabIndex = 17;
@@ -427,7 +467,8 @@
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
             checkBox14.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox14.Location = new Point(14, 335);
+            checkBox14.Location = new Point(15, 314);
+            checkBox14.Margin = new Padding(4, 2, 4, 2);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(49, 24);
             checkBox14.TabIndex = 18;
@@ -440,7 +481,8 @@
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
             checkBox15.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox15.Location = new Point(125, 335);
+            checkBox15.Location = new Point(136, 314);
+            checkBox15.Margin = new Padding(4, 2, 4, 2);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(49, 24);
             checkBox15.TabIndex = 20;
@@ -453,7 +495,8 @@
             checkBox16.Checked = true;
             checkBox16.CheckState = CheckState.Checked;
             checkBox16.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox16.Location = new Point(68, 335);
+            checkBox16.Location = new Point(75, 314);
+            checkBox16.Margin = new Padding(4, 2, 4, 2);
             checkBox16.Name = "checkBox16";
             checkBox16.Size = new Size(49, 24);
             checkBox16.TabIndex = 19;
@@ -466,7 +509,8 @@
             checkBox17.Checked = true;
             checkBox17.CheckState = CheckState.Checked;
             checkBox17.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox17.Location = new Point(181, 335);
+            checkBox17.Location = new Point(198, 314);
+            checkBox17.Margin = new Padding(4, 2, 4, 2);
             checkBox17.Name = "checkBox17";
             checkBox17.Size = new Size(49, 24);
             checkBox17.TabIndex = 21;
@@ -477,7 +521,8 @@
             // 
             holded_note_label.AutoSize = true;
             holded_note_label.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            holded_note_label.Location = new Point(11, 371);
+            holded_note_label.Location = new Point(12, 348);
+            holded_note_label.Margin = new Padding(4, 0, 4, 0);
             holded_note_label.Name = "holded_note_label";
             holded_note_label.Size = new Size(314, 20);
             holded_note_label.TabIndex = 3;
@@ -489,7 +534,8 @@
             label_note1.AutoSize = true;
             label_note1.BackColor = Color.Red;
             label_note1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note1.Location = new Point(12, 401);
+            label_note1.Location = new Point(12, 376);
+            label_note1.Margin = new Padding(4, 0, 4, 0);
             label_note1.Name = "label_note1";
             label_note1.Size = new Size(44, 23);
             label_note1.TabIndex = 3;
@@ -502,7 +548,8 @@
             label_note2.AutoSize = true;
             label_note2.BackColor = Color.FromArgb(192, 0, 0);
             label_note2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note2.Location = new Point(61, 401);
+            label_note2.Location = new Point(66, 376);
+            label_note2.Margin = new Padding(4, 0, 4, 0);
             label_note2.Name = "label_note2";
             label_note2.Size = new Size(44, 23);
             label_note2.TabIndex = 3;
@@ -515,7 +562,8 @@
             label_note3.AutoSize = true;
             label_note3.BackColor = Color.FromArgb(192, 0, 0);
             label_note3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note3.Location = new Point(110, 401);
+            label_note3.Location = new Point(120, 376);
+            label_note3.Margin = new Padding(4, 0, 4, 0);
             label_note3.Name = "label_note3";
             label_note3.Size = new Size(44, 23);
             label_note3.TabIndex = 3;
@@ -528,7 +576,8 @@
             label_note4.AutoSize = true;
             label_note4.BackColor = Color.FromArgb(192, 0, 0);
             label_note4.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note4.Location = new Point(159, 401);
+            label_note4.Location = new Point(174, 376);
+            label_note4.Margin = new Padding(4, 0, 4, 0);
             label_note4.Name = "label_note4";
             label_note4.Size = new Size(44, 23);
             label_note4.TabIndex = 3;
@@ -541,7 +590,8 @@
             label_note5.AutoSize = true;
             label_note5.BackColor = Color.FromArgb(192, 0, 0);
             label_note5.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note5.Location = new Point(208, 401);
+            label_note5.Location = new Point(228, 376);
+            label_note5.Margin = new Padding(4, 0, 4, 0);
             label_note5.Name = "label_note5";
             label_note5.Size = new Size(44, 23);
             label_note5.TabIndex = 3;
@@ -554,7 +604,8 @@
             label_note7.AutoSize = true;
             label_note7.BackColor = Color.FromArgb(192, 0, 0);
             label_note7.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note7.Location = new Point(307, 401);
+            label_note7.Location = new Point(336, 376);
+            label_note7.Margin = new Padding(4, 0, 4, 0);
             label_note7.Name = "label_note7";
             label_note7.Size = new Size(44, 23);
             label_note7.TabIndex = 3;
@@ -567,7 +618,8 @@
             label_note6.AutoSize = true;
             label_note6.BackColor = Color.FromArgb(192, 0, 0);
             label_note6.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note6.Location = new Point(257, 401);
+            label_note6.Location = new Point(281, 376);
+            label_note6.Margin = new Padding(4, 0, 4, 0);
             label_note6.Name = "label_note6";
             label_note6.Size = new Size(44, 23);
             label_note6.TabIndex = 3;
@@ -580,7 +632,8 @@
             label_note8.AutoSize = true;
             label_note8.BackColor = Color.FromArgb(192, 0, 0);
             label_note8.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note8.Location = new Point(356, 401);
+            label_note8.Location = new Point(390, 376);
+            label_note8.Margin = new Padding(4, 0, 4, 0);
             label_note8.Name = "label_note8";
             label_note8.Size = new Size(44, 23);
             label_note8.TabIndex = 3;
@@ -593,7 +646,8 @@
             label_note9.AutoSize = true;
             label_note9.BackColor = Color.FromArgb(192, 0, 0);
             label_note9.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note9.Location = new Point(12, 436);
+            label_note9.Location = new Point(12, 409);
+            label_note9.Margin = new Padding(4, 0, 4, 0);
             label_note9.Name = "label_note9";
             label_note9.Size = new Size(44, 23);
             label_note9.TabIndex = 3;
@@ -606,7 +660,8 @@
             label_note13.AutoSize = true;
             label_note13.BackColor = Color.FromArgb(192, 0, 0);
             label_note13.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note13.Location = new Point(208, 436);
+            label_note13.Location = new Point(228, 409);
+            label_note13.Margin = new Padding(4, 0, 4, 0);
             label_note13.Name = "label_note13";
             label_note13.Size = new Size(44, 23);
             label_note13.TabIndex = 3;
@@ -619,7 +674,8 @@
             label_note11.AutoSize = true;
             label_note11.BackColor = Color.FromArgb(192, 0, 0);
             label_note11.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note11.Location = new Point(110, 436);
+            label_note11.Location = new Point(120, 409);
+            label_note11.Margin = new Padding(4, 0, 4, 0);
             label_note11.Name = "label_note11";
             label_note11.Size = new Size(44, 23);
             label_note11.TabIndex = 3;
@@ -632,7 +688,8 @@
             label_note15.AutoSize = true;
             label_note15.BackColor = Color.FromArgb(192, 0, 0);
             label_note15.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note15.Location = new Point(307, 436);
+            label_note15.Location = new Point(336, 409);
+            label_note15.Margin = new Padding(4, 0, 4, 0);
             label_note15.Name = "label_note15";
             label_note15.Size = new Size(44, 23);
             label_note15.TabIndex = 3;
@@ -645,7 +702,8 @@
             label_note10.AutoSize = true;
             label_note10.BackColor = Color.FromArgb(192, 0, 0);
             label_note10.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note10.Location = new Point(61, 436);
+            label_note10.Location = new Point(66, 409);
+            label_note10.Margin = new Padding(4, 0, 4, 0);
             label_note10.Name = "label_note10";
             label_note10.Size = new Size(44, 23);
             label_note10.TabIndex = 3;
@@ -658,7 +716,8 @@
             label_note14.AutoSize = true;
             label_note14.BackColor = Color.FromArgb(192, 0, 0);
             label_note14.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note14.Location = new Point(257, 436);
+            label_note14.Location = new Point(281, 409);
+            label_note14.Margin = new Padding(4, 0, 4, 0);
             label_note14.Name = "label_note14";
             label_note14.Size = new Size(44, 23);
             label_note14.TabIndex = 3;
@@ -671,7 +730,8 @@
             label_note12.AutoSize = true;
             label_note12.BackColor = Color.FromArgb(192, 0, 0);
             label_note12.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note12.Location = new Point(159, 436);
+            label_note12.Location = new Point(174, 409);
+            label_note12.Margin = new Padding(4, 0, 4, 0);
             label_note12.Name = "label_note12";
             label_note12.Size = new Size(44, 23);
             label_note12.TabIndex = 3;
@@ -684,7 +744,8 @@
             label_note16.AutoSize = true;
             label_note16.BackColor = Color.FromArgb(192, 0, 0);
             label_note16.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note16.Location = new Point(356, 436);
+            label_note16.Location = new Point(390, 409);
+            label_note16.Margin = new Padding(4, 0, 4, 0);
             label_note16.Name = "label_note16";
             label_note16.Size = new Size(44, 23);
             label_note16.TabIndex = 3;
@@ -697,7 +758,8 @@
             label_note17.AutoSize = true;
             label_note17.BackColor = Color.FromArgb(192, 0, 0);
             label_note17.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note17.Location = new Point(12, 469);
+            label_note17.Location = new Point(12, 440);
+            label_note17.Margin = new Padding(4, 0, 4, 0);
             label_note17.Name = "label_note17";
             label_note17.Size = new Size(44, 23);
             label_note17.TabIndex = 3;
@@ -710,7 +772,8 @@
             label_note21.AutoSize = true;
             label_note21.BackColor = Color.FromArgb(192, 0, 0);
             label_note21.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note21.Location = new Point(208, 469);
+            label_note21.Location = new Point(228, 440);
+            label_note21.Margin = new Padding(4, 0, 4, 0);
             label_note21.Name = "label_note21";
             label_note21.Size = new Size(44, 23);
             label_note21.TabIndex = 3;
@@ -723,7 +786,8 @@
             label_note19.AutoSize = true;
             label_note19.BackColor = Color.FromArgb(192, 0, 0);
             label_note19.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note19.Location = new Point(110, 469);
+            label_note19.Location = new Point(120, 440);
+            label_note19.Margin = new Padding(4, 0, 4, 0);
             label_note19.Name = "label_note19";
             label_note19.Size = new Size(44, 23);
             label_note19.TabIndex = 3;
@@ -736,7 +800,8 @@
             label_note23.AutoSize = true;
             label_note23.BackColor = Color.FromArgb(192, 0, 0);
             label_note23.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note23.Location = new Point(307, 469);
+            label_note23.Location = new Point(336, 440);
+            label_note23.Margin = new Padding(4, 0, 4, 0);
             label_note23.Name = "label_note23";
             label_note23.Size = new Size(44, 23);
             label_note23.TabIndex = 3;
@@ -749,7 +814,8 @@
             label_note18.AutoSize = true;
             label_note18.BackColor = Color.FromArgb(192, 0, 0);
             label_note18.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note18.Location = new Point(61, 469);
+            label_note18.Location = new Point(66, 440);
+            label_note18.Margin = new Padding(4, 0, 4, 0);
             label_note18.Name = "label_note18";
             label_note18.Size = new Size(44, 23);
             label_note18.TabIndex = 3;
@@ -762,7 +828,8 @@
             label_note22.AutoSize = true;
             label_note22.BackColor = Color.FromArgb(192, 0, 0);
             label_note22.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note22.Location = new Point(257, 469);
+            label_note22.Location = new Point(281, 440);
+            label_note22.Margin = new Padding(4, 0, 4, 0);
             label_note22.Name = "label_note22";
             label_note22.Size = new Size(44, 23);
             label_note22.TabIndex = 3;
@@ -775,7 +842,8 @@
             label_note20.AutoSize = true;
             label_note20.BackColor = Color.FromArgb(192, 0, 0);
             label_note20.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note20.Location = new Point(159, 469);
+            label_note20.Location = new Point(174, 440);
+            label_note20.Margin = new Padding(4, 0, 4, 0);
             label_note20.Name = "label_note20";
             label_note20.Size = new Size(44, 23);
             label_note20.TabIndex = 3;
@@ -788,7 +856,8 @@
             label_note24.AutoSize = true;
             label_note24.BackColor = Color.FromArgb(192, 0, 0);
             label_note24.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note24.Location = new Point(356, 469);
+            label_note24.Location = new Point(390, 440);
+            label_note24.Margin = new Padding(4, 0, 4, 0);
             label_note24.Name = "label_note24";
             label_note24.Size = new Size(44, 23);
             label_note24.TabIndex = 3;
@@ -801,7 +870,8 @@
             label_note25.AutoSize = true;
             label_note25.BackColor = Color.FromArgb(192, 0, 0);
             label_note25.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note25.Location = new Point(12, 503);
+            label_note25.Location = new Point(12, 471);
+            label_note25.Margin = new Padding(4, 0, 4, 0);
             label_note25.Name = "label_note25";
             label_note25.Size = new Size(44, 23);
             label_note25.TabIndex = 3;
@@ -814,7 +884,8 @@
             label_note29.AutoSize = true;
             label_note29.BackColor = Color.FromArgb(192, 0, 0);
             label_note29.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note29.Location = new Point(208, 503);
+            label_note29.Location = new Point(228, 471);
+            label_note29.Margin = new Padding(4, 0, 4, 0);
             label_note29.Name = "label_note29";
             label_note29.Size = new Size(44, 23);
             label_note29.TabIndex = 3;
@@ -827,7 +898,8 @@
             label_note27.AutoSize = true;
             label_note27.BackColor = Color.FromArgb(192, 0, 0);
             label_note27.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note27.Location = new Point(110, 503);
+            label_note27.Location = new Point(120, 471);
+            label_note27.Margin = new Padding(4, 0, 4, 0);
             label_note27.Name = "label_note27";
             label_note27.Size = new Size(44, 23);
             label_note27.TabIndex = 3;
@@ -840,7 +912,8 @@
             label_note31.AutoSize = true;
             label_note31.BackColor = Color.FromArgb(192, 0, 0);
             label_note31.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note31.Location = new Point(307, 503);
+            label_note31.Location = new Point(336, 471);
+            label_note31.Margin = new Padding(4, 0, 4, 0);
             label_note31.Name = "label_note31";
             label_note31.Size = new Size(44, 23);
             label_note31.TabIndex = 3;
@@ -853,7 +926,8 @@
             label_note26.AutoSize = true;
             label_note26.BackColor = Color.FromArgb(192, 0, 0);
             label_note26.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note26.Location = new Point(61, 503);
+            label_note26.Location = new Point(66, 471);
+            label_note26.Margin = new Padding(4, 0, 4, 0);
             label_note26.Name = "label_note26";
             label_note26.Size = new Size(44, 23);
             label_note26.TabIndex = 3;
@@ -866,7 +940,8 @@
             label_note30.AutoSize = true;
             label_note30.BackColor = Color.FromArgb(192, 0, 0);
             label_note30.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note30.Location = new Point(257, 503);
+            label_note30.Location = new Point(281, 471);
+            label_note30.Margin = new Padding(4, 0, 4, 0);
             label_note30.Name = "label_note30";
             label_note30.Size = new Size(44, 23);
             label_note30.TabIndex = 3;
@@ -879,7 +954,8 @@
             label_note28.AutoSize = true;
             label_note28.BackColor = Color.FromArgb(192, 0, 0);
             label_note28.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note28.Location = new Point(159, 503);
+            label_note28.Location = new Point(174, 471);
+            label_note28.Margin = new Padding(4, 0, 4, 0);
             label_note28.Name = "label_note28";
             label_note28.Size = new Size(44, 23);
             label_note28.TabIndex = 3;
@@ -892,7 +968,8 @@
             label_note32.AutoSize = true;
             label_note32.BackColor = Color.FromArgb(192, 0, 0);
             label_note32.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note32.Location = new Point(356, 503);
+            label_note32.Location = new Point(390, 471);
+            label_note32.Margin = new Padding(4, 0, 4, 0);
             label_note32.Name = "label_note32";
             label_note32.Size = new Size(44, 23);
             label_note32.TabIndex = 3;
@@ -905,9 +982,10 @@
             button_browse_file.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button_browse_file.ImageIndex = 0;
             button_browse_file.ImageList = icons2;
-            button_browse_file.Location = new Point(280, 31);
+            button_browse_file.Location = new Point(306, 29);
+            button_browse_file.Margin = new Padding(4, 2, 4, 2);
             button_browse_file.Name = "button_browse_file";
-            button_browse_file.Size = new Size(123, 35);
+            button_browse_file.Size = new Size(135, 32);
             button_browse_file.TabIndex = 0;
             button_browse_file.Text = "Browse File";
             button_browse_file.TextAlign = ContentAlignment.MiddleRight;
@@ -920,7 +998,8 @@
             checkBox_play_each_note.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox_play_each_note.AutoSize = true;
             checkBox_play_each_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_play_each_note.Location = new Point(11, 580);
+            checkBox_play_each_note.Location = new Point(12, 542);
+            checkBox_play_each_note.Margin = new Padding(4, 2, 4, 2);
             checkBox_play_each_note.Name = "checkBox_play_each_note";
             checkBox_play_each_note.Size = new Size(401, 24);
             checkBox_play_each_note.TabIndex = 22;
@@ -935,7 +1014,8 @@
             checkBox_make_each_cycle_last_30ms.Checked = true;
             checkBox_make_each_cycle_last_30ms.CheckState = CheckState.Checked;
             checkBox_make_each_cycle_last_30ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_make_each_cycle_last_30ms.Location = new Point(11, 611);
+            checkBox_make_each_cycle_last_30ms.Location = new Point(12, 570);
+            checkBox_make_each_cycle_last_30ms.Margin = new Padding(4, 2, 4, 2);
             checkBox_make_each_cycle_last_30ms.Name = "checkBox_make_each_cycle_last_30ms";
             checkBox_make_each_cycle_last_30ms.Size = new Size(373, 44);
             checkBox_make_each_cycle_last_30ms.TabIndex = 23;
@@ -948,7 +1028,8 @@
             checkBox_dont_update_grid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox_dont_update_grid.AutoSize = true;
             checkBox_dont_update_grid.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_dont_update_grid.Location = new Point(11, 660);
+            checkBox_dont_update_grid.Location = new Point(12, 617);
+            checkBox_dont_update_grid.Margin = new Padding(4, 2, 4, 2);
             checkBox_dont_update_grid.Name = "checkBox_dont_update_grid";
             checkBox_dont_update_grid.Size = new Size(199, 24);
             checkBox_dont_update_grid.TabIndex = 24;
@@ -961,9 +1042,11 @@
             // 
             // label_alternating_note
             // 
+            label_alternating_note.Anchor = AnchorStyles.Left;
             label_alternating_note.AutoSize = true;
             label_alternating_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_alternating_note.Location = new Point(3, 6);
+            label_alternating_note.Location = new Point(1, 4);
+            label_alternating_note.Margin = new Padding(4, 0, 4, 0);
             label_alternating_note.Name = "label_alternating_note";
             label_alternating_note.Size = new Size(289, 20);
             label_alternating_note.TabIndex = 25;
@@ -971,20 +1054,25 @@
             // 
             // numericUpDown_alternating_note
             // 
+            numericUpDown_alternating_note.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            numericUpDown_alternating_note.AutoSize = true;
             numericUpDown_alternating_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numericUpDown_alternating_note.Location = new Point(293, 3);
+            numericUpDown_alternating_note.Location = new Point(291, 0);
+            numericUpDown_alternating_note.Margin = new Padding(4, 2, 4, 2);
             numericUpDown_alternating_note.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numericUpDown_alternating_note.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_alternating_note.Name = "numericUpDown_alternating_note";
-            numericUpDown_alternating_note.Size = new Size(61, 27);
+            numericUpDown_alternating_note.Size = new Size(70, 27);
             numericUpDown_alternating_note.TabIndex = 26;
             numericUpDown_alternating_note.Value = new decimal(new int[] { 30, 0, 0, 0 });
             // 
             // label_ms
             // 
+            label_ms.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_ms.AutoSize = true;
             label_ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_ms.Location = new Point(357, 6);
+            label_ms.Location = new Point(366, 4);
+            label_ms.Margin = new Padding(4, 0, 4, 0);
             label_ms.Name = "label_ms";
             label_ms.Size = new Size(31, 20);
             label_ms.TabIndex = 25;
@@ -992,21 +1080,24 @@
             // 
             // panel1
             // 
+            panel1.AutoSize = true;
             panel1.Controls.Add(label_alternating_note);
             panel1.Controls.Add(label_ms);
             panel1.Controls.Add(numericUpDown_alternating_note);
             panel1.Enabled = false;
-            panel1.Location = new Point(9, 538);
+            panel1.Location = new Point(11, 505);
+            panel1.Margin = new Padding(4, 2, 4, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(394, 36);
+            panel1.Size = new Size(402, 31);
             panel1.TabIndex = 27;
             // 
             // MIDI_file_player
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(415, 695);
+            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            ClientSize = new Size(454, 651);
             Controls.Add(panel1);
             Controls.Add(button_browse_file);
             Controls.Add(checkBox17);
@@ -1066,6 +1157,7 @@
             Controls.Add(label1);
             Controls.Add(textBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(4, 2, 4, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MIDI_file_player";
@@ -1077,6 +1169,8 @@
             DragEnter += MIDI_file_player_DragEnter;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).EndInit();
             panel1.ResumeLayout(false);
@@ -1096,7 +1190,6 @@
         private ImageList icons;
         private Button button_rewind;
         private CheckBox checkBox_loop;
-        private Label label_percentage;
         private Label label_position;
         private Label label4;
         private CheckBox checkBox2;
@@ -1160,5 +1253,7 @@
         private NumericUpDown numericUpDown_alternating_note;
         private Label label_ms;
         private Panel panel1;
+        private Panel panel2;
+        private Label label_percentage;
     }
 }

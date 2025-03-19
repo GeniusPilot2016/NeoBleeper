@@ -64,39 +64,42 @@ namespace NeoBleeper
             label_alternating_note.Font = new Font(fonts.Families[0], 9);
             numericUpDown_alternating_note.Font = new Font(fonts.Families[0], 9);
             label_ms.Font = new Font(fonts.Families[0], 9);
+            label_position.Font = new Font(fonts.Families[0], 9);
+            label_percentage.Font = new Font(fonts.Families[0], 9);
+            label_percentage.RightToLeft = RightToLeft.Yes;
             set_theme();
             label_note1.BackColor = Settings1.Default.note_indicator_color;
-            label_note2.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note3.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note4.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note5.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note6.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note7.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note8.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note9.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note10.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note11.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note12.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note13.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note14.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note15.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note16.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note17.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note18.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note19.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note20.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note21.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note22.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note23.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note24.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note25.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note26.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note27.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note28.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note29.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note30.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note31.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
-            label_note32.BackColor = set_playing_note_color.GetPlayingNoteColor(Settings1.Default.note_indicator_color);
+            label_note2.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note3.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note4.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note5.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note6.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note7.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note8.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note9.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note10.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note11.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note12.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note13.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note14.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note15.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note16.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note17.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note18.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note19.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note20.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note21.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note22.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note23.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note24.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note25.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note26.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note27.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note28.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note29.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note30.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note31.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+            label_note32.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
             label_note1.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note2.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note3.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
@@ -128,7 +131,6 @@ namespace NeoBleeper
             label_note29.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note30.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             label_note31.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note32.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             textBox1.Text = filename;
             LoadMIDI(filename);
         }
@@ -492,6 +494,7 @@ namespace NeoBleeper
                     // Update the current position
                     _currentFrameIndex = i;
                     UpdateTrackBarPosition(i);
+                    UpdateTimeAndPercentPosition(i);
                     var currentFrame = _frames[i];
                     int notesCount = currentFrame.ActiveNotes.Count;
 
@@ -560,6 +563,7 @@ namespace NeoBleeper
                 // Finished playing
                 if (checkBox_loop.Checked == true)
                 {
+                    UpdateTimeAndPercentPosition(100);
                     Rewind();
                 }
                 else
@@ -567,6 +571,7 @@ namespace NeoBleeper
                     Stop();
                     trackBar1.Value = 0;
                     SetPosition(trackBar1.Value/10);
+                    UpdateTimeAndPercentPosition(trackBar1.Value / 10);
                 }
                 Debug.WriteLine("Playback completed successfully");
 
@@ -660,11 +665,26 @@ namespace NeoBleeper
                 trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
             }
         }
+        private void UpdateTimeAndPercentPosition(int frameIndex)
+        {
+            if (trackBar1.InvokeRequired)
+            {
+                trackBar1.Invoke(new Action(() =>
+                {
+                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00")+"%";
+                }));
+            }
+            else
+            {
+                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00")+"%";
+            }
+        }
         private void Rewind()
         {
             trackBar1.Value = 0;
             int positionPercent = trackBar1.Value / 10;
             SetPosition(positionPercent);
+            UpdateTimeAndPercentPosition(positionPercent);
         }
         private void button_play_Click(object sender, EventArgs e)
         {
@@ -700,6 +720,7 @@ namespace NeoBleeper
         {
             int positionPercent = trackBar1.Value/10;
             SetPosition(positionPercent);
+            UpdateTimeAndPercentPosition(positionPercent);
         }
     }
 }
