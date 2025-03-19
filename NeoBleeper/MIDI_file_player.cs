@@ -210,7 +210,6 @@ namespace NeoBleeper
         private void button4_Click(object sender, EventArgs e)
         {
             Stop();
-            Thread.Sleep(5);
             openFileDialog.Filter = "MIDI Files|*.mid";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -492,7 +491,7 @@ namespace NeoBleeper
 
                     // Update the current position
                     _currentFrameIndex = i;
-
+                    UpdateTrackBarPosition(i);
                     var currentFrame = _frames[i];
                     int notesCount = currentFrame.ActiveNotes.Count;
 
@@ -559,7 +558,16 @@ namespace NeoBleeper
                 }
 
                 // Finished playing
-                _isPlaying = false;
+                if (checkBox_loop.Checked == true)
+                {
+                    Rewind();
+                }
+                else
+                {
+                    Stop();
+                    trackBar1.Value = 0;
+                    SetPosition(trackBar1.Value/10);
+                }
                 Debug.WriteLine("Playback completed successfully");
 
                 // Reset label
@@ -638,6 +646,26 @@ namespace NeoBleeper
             // MIDI note number to frequency conversion
             return (int)(880.0 * Math.Pow(2.0, (noteNumber - 69) / 12.0));
         }
+        private void UpdateTrackBarPosition(int frameIndex)
+        {
+            if (trackBar1.InvokeRequired)
+            {
+                trackBar1.Invoke(new Action(() =>
+                {
+                    trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+                }));
+            }
+            else
+            {
+                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+            }
+        }
+        private void Rewind()
+        {
+            trackBar1.Value = 0;
+            int positionPercent = trackBar1.Value / 10;
+            SetPosition(positionPercent);
+        }
         private void button_play_Click(object sender, EventArgs e)
         {
             Play();
@@ -649,7 +677,7 @@ namespace NeoBleeper
 
         private void button_rewind_Click(object sender, EventArgs e)
         {
-
+            Rewind();
         }
 
         private void MIDI_file_player_FormClosing(object sender, FormClosingEventArgs e)
