@@ -378,8 +378,8 @@ namespace NeoBleeper
 
                 _isPlaying = true;
 
-                // Start playing in a separate task
-                Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
+                // Start playing in a separate task and store the task
+                _playbackTask = Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
 
                 Debug.WriteLine("Playback started successfully");
                 button_play.Enabled = false;
@@ -391,7 +391,6 @@ namespace NeoBleeper
                 _isPlaying = false;
             }
         }
-
         public void Stop()
         {
             Debug.WriteLine($"Stop called. IsPlaying: {_isPlaying}");
@@ -403,6 +402,10 @@ namespace NeoBleeper
             {
                 // Cancel the playback
                 _cancellationTokenSource?.Cancel();
+
+                // Wait a moment for cancellation to take effect
+                Thread.Sleep(50);
+
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
                 _isPlaying = false;
@@ -427,8 +430,10 @@ namespace NeoBleeper
                 Debug.WriteLine($"Error stopping playback: {ex.Message}");
             }
         }
+        // Add this field to track the current playback task
+        private Task _playbackTask = null;
 
-        public void SetPosition(double positionPercent)
+        public async Task SetPosition(double positionPercent)
         {
             if (_frames == null || _frames.Count == 0)
                 return;
@@ -437,7 +442,23 @@ namespace NeoBleeper
 
             // Stop current playback if any
             if (_isPlaying)
+            {
                 Stop();
+
+                // Wait for the previous task to truly complete
+                if (_playbackTask != null && !_playbackTask.IsCompleted)
+                {
+                    try
+                    {
+                        // Time out after 1 second to prevent hanging
+                        await Task.WhenAny(_playbackTask, Task.Delay(1000));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error waiting for playback task: {ex.Message}");
+                    }
+                }
+            }
 
             // Calculate new position
             _currentFrameIndex = (int)(positionPercent * _frames.Count / 100.0);
@@ -449,9 +470,10 @@ namespace NeoBleeper
 
             // Resume playing if it was playing before
             if (wasPlaying)
+            {
                 Play();
+            }
         }
-
         private async Task PlayFromPosition(int startIndex, CancellationToken cancellationToken)
         {
             Debug.WriteLine($"Starting playback from frame {startIndex} of {_frames.Count}");
