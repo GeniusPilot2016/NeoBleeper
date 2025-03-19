@@ -478,7 +478,7 @@ namespace NeoBleeper
         private async Task PlayFromPosition(int startIndex, CancellationToken cancellationToken)
         {
             Debug.WriteLine($"Starting playback from frame {startIndex} of {_frames.Count}");
-
+            Stopwatch stopwatch = new Stopwatch();
             try
             {
                 // Start playing from the specified index
@@ -536,7 +536,7 @@ namespace NeoBleeper
                     {
                         Debug.WriteLine($"Playing frame {i}, notes: {notesCount}, duration: {durationMs}ms");
                     }
-
+                    stopwatch.Restart();
                     // Play active notes or silence
                     if (notesCount > 0)
                     {
@@ -557,6 +557,14 @@ namespace NeoBleeper
                     {
                         // Silence - just wait
                         await Task.Delay(durationMs, cancellationToken);
+                    }
+                    stopwatch.Stop();
+                    int elapsedTime = (int)stopwatch.ElapsedMilliseconds;
+                    int remainingTime = durationMs - elapsedTime;
+
+                    if (remainingTime > 0)
+                    {
+                        await Task.Delay(remainingTime, cancellationToken);
                     }
                 }
 
@@ -609,27 +617,155 @@ namespace NeoBleeper
         {
             if (!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
             {
-                int interval = 30; // 30 ms aralıklarla frekans değiştir
-                int steps = duration / interval;
-                int i = 0;
-                do
+                if(checkBox_make_each_cycle_last_30ms.Checked==true)
                 {
-                    foreach (var frequency in frequencies)
+                    if(checkBox_play_each_note.Checked == true)
                     {
-                        NotePlayer.play_note(frequency, interval);
-                        i++;
+                        int interval = 30; // 30 ms aralıklarla frekans değiştir
+                        int minAlternatingTime = 4; // Minimum alternatif süre 4 ms
+                        int maxAlternatingTime = 15; // Maksimum alternatif süre 15 ms
+                        int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                        Random random = new Random();
+                        Stopwatch stopwatch = new Stopwatch();
+                        if (frequencies.Length >= steps)
+                        {
+                            int i = 0;
+                            do
+                            {
+                                foreach (var frequency in frequencies)
+                                {
+                                    int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
 
-                        // Check if we've gone past our duration
-                        if (i * interval >= duration)
-                            break;
+                                    stopwatch.Restart();
+                                    NotePlayer.play_note(frequency, alternatingTime);
+                                    stopwatch.Stop();
+
+                                    long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                    if (elapsedMilliseconds < alternatingTime)
+                                    {
+                                        Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
+                                    }
+
+                                    int remainingTime = interval - alternatingTime;
+
+                                    if (remainingTime > 0)
+                                    {
+                                        Thread.Sleep(remainingTime);
+                                    }
+
+                                    i++;
+                                    if (i * interval >= duration)
+                                        break;
+                                }
+                            }
+                            while (i < steps);
+                        }
+                        else
+                        {
+                            int i = 0;
+                            do
+                            {
+                                foreach (var frequency in frequencies)
+                                {
+                                    NotePlayer.play_note(frequency, interval);
+                                    i++;
+                                    if (i * interval >= frequencies.Length * interval)
+                                        break;
+                                }
+                            }
+                            while(i<frequencies.Length);
+                            Thread.Sleep(duration - (interval * frequencies.Length));
+                        }
+                    }
+                    else
+                    {
+                        int interval = 30; // 30 ms aralıklarla frekans değiştir
+                        int minAlternatingTime = 4; // Minimum alternatif süre 4 ms
+                        int maxAlternatingTime = 15; // Maksimum alternatif süre 15 ms
+                        int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                        int i = 0;
+                        Random random = new Random();
+                        Stopwatch stopwatch = new Stopwatch();
+
+                        do
+                        {
+                            foreach (var frequency in frequencies)
+                            {
+                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+
+                                stopwatch.Restart();
+                                NotePlayer.play_note(frequency, alternatingTime);
+                                stopwatch.Stop();
+
+                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                if (elapsedMilliseconds < alternatingTime)
+                                {
+                                    Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
+                                    if (i * interval >= frequencies.Length * interval)
+                                        break;
+                                }
+
+                                int remainingTime = interval - alternatingTime;
+
+                                if (remainingTime > 0)
+                                {
+                                    Thread.Sleep(remainingTime);
+                                }
+
+                                i++;
+                                if (i * interval >= duration)
+                                    break;
+                            }
+                        }
+                        while (i < steps);
+                    }
+                        
+                }
+                else
+                {
+                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value); 
+                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                    if(frequencies.Length>=steps)
+                    {
+                        int i = 0;
+                        do
+                        {
+                            foreach (var frequency in frequencies)
+                            {
+                                NotePlayer.play_note(frequency, interval);
+                                i++;
+                                // Check if we've gone past our duration
+                                if (i * interval >= duration)
+                                    break;
+                            }
+                        }
+                        while (i < steps);
+                    }
+                    else
+                    {
+                        int i = 0;
+                        do
+                        {
+                            foreach (var frequency in frequencies)
+                            {
+                                NotePlayer.play_note(frequency, interval);
+                                i++;
+                                if (i * interval >= frequencies.Length*interval)
+                                    break;
+                            }
+                        }
+                        while(i < frequencies.Length);
+                        Thread.Sleep(duration-(interval*frequencies.Length));
                     }
                 }
-                while (i * interval < duration);
+                    
             }
             else
             {
                 int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                int steps = duration / interval;
+                int steps = Convert.ToInt32(Math.Truncate(Math.Truncate((double)duration) / (double)interval));
                 int i = 0;
                 do
                 {
@@ -643,7 +779,7 @@ namespace NeoBleeper
                             break;
                     }
                 }
-                while (i * interval < duration);
+                while (i < steps);
             }
         }
         private int NoteToFrequency(int noteNumber)
@@ -667,18 +803,58 @@ namespace NeoBleeper
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
-            if (trackBar1.InvokeRequired)
+            if (label_percentage.InvokeRequired)
             {
-                trackBar1.Invoke(new Action(() =>
+                label_percentage.Invoke(new Action(() =>
                 {
-                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00")+"%";
+                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                 }));
             }
             else
             {
-                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00")+"%";
+                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+            }
+            CalculatePosition(frameIndex);
+        }
+        private void CalculatePosition(int frameIndex)
+        {
+            if (_frames == null || _frames.Count == 0)
+                return;
+
+            if (label_percentage.InvokeRequired)
+            {
+                label_percentage.Invoke(new Action(() =>
+                {
+                    label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                }));
+            }
+            else
+            {
+                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
             }
         }
+
+        private string UpdateTimeLabel(int frameIndex)
+        {
+            if (_frames == null || _frames.Count == 0)
+                return "00:00.00";
+
+            // Calculate total duration
+            double totalTimeMs = _frames[_frames.Count - 1].Time * _ticksToMs;
+
+            // Calculate current duration
+            double currentTimeMs = _frames[frameIndex].Time * _ticksToMs;
+
+            // Convert time to minute:second.(miliseconds/10) format
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(currentTimeMs);
+            int minutes = timeSpan.Minutes;
+            int seconds = timeSpan.Seconds;
+            int milliseconds = timeSpan.Milliseconds / 10; // miliseconds/10
+
+            // Update label_percentage
+            return $"{minutes:D2}:{seconds:D2}.{milliseconds:D2}";
+        }
+        
         private void Rewind()
         {
             trackBar1.Value = 0;
