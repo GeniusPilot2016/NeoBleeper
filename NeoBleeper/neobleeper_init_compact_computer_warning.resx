@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAGQAQABkAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGgAQABoAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -151,19 +151,9 @@
 </value>
   </data>
   <data name="label_compact_computer_warning.Text" xml:space="preserve">
-    <value>The NeoBleeper Smart Device Type Recognition 
-System has detected that your computer is a 
-compact computer and the main speakers may be 
-connected to the system speaker output of your 
-computer instead of the actual system speaker.</value>
+    <value>The NeoBleeper Smart Device Type Recognition System has detected that your computer is a compact computer and the main speakers may be connected to the system speaker output of your computer instead of the actual system speaker.</value>
   </data>
   <data name="label_compact_computer_warning_result.Text" xml:space="preserve">
-    <value>If you want to continue using the application, the "Use 
-sound device to produce beeps" setting will be 
-automatically enabled to produce beeps, and you can 
-disable this setting and use the system speaker output, 
-but using the system speaker output on your computer 
-may result in no sound coming out of the system speaker 
-output, instability, or undesirable behavior.</value>
+    <value>If you want to continue using the application, the "Use sound device to produce beeps" setting will be automatically enabled to produce beeps, and you can disable this setting and use the system speaker output, but using the system speaker output on your computer may result in no sound coming out of the system speaker output, instability, or undesirable behavior.</value>
   </data>
 </root>

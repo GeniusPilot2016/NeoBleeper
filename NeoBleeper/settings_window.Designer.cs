@@ -339,8 +339,8 @@
             // 
             // trackBar_motor_octave
             // 
-            trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
             resources.ApplyResources(trackBar_motor_octave, "trackBar_motor_octave");
+            trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
             trackBar_motor_octave.Maximum = 5;
             trackBar_motor_octave.Name = "trackBar_motor_octave";
             trackBar_motor_octave.Value = 2;
@@ -783,15 +783,12 @@
             Load += settings_window_Load;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);
-            general_settings.PerformLayout();
             groupBox_system_speaker_test.ResumeLayout(false);
-            groupBox_system_speaker_test.PerformLayout();
             groupBox_appearance.ResumeLayout(false);
             groupBox_appearance.PerformLayout();
             creating_sound_settings.ResumeLayout(false);
             creating_sound_settings.PerformLayout();
             group_beep_creation_from_sound_card_settings.ResumeLayout(false);
-            group_beep_creation_from_sound_card_settings.PerformLayout();
             group_tone_waveform.ResumeLayout(false);
             group_tone_waveform.PerformLayout();
             devices_settings.ResumeLayout(false);

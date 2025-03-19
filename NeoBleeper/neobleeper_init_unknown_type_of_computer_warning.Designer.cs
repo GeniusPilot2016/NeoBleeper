@@ -49,8 +49,8 @@
             button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_unknown_type_of_computer_warning;
-            button_yes.Location = new Point(71, 233);
-            button_yes.Margin = new Padding(2, 2, 2, 2);
+            button_yes.Location = new Point(71, 238);
+            button_yes.Margin = new Padding(2);
             button_yes.Name = "button_yes";
             button_yes.Size = new Size(75, 26);
             button_yes.TabIndex = 13;
@@ -76,8 +76,8 @@
             button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_unknown_type_of_computer_warning;
-            button_no.Location = new Point(201, 233);
-            button_no.Margin = new Padding(2, 2, 2, 2);
+            button_no.Location = new Point(201, 238);
+            button_no.Margin = new Padding(2);
             button_no.Name = "button_no";
             button_no.Size = new Size(75, 26);
             button_no.TabIndex = 14;
@@ -90,20 +90,19 @@
             // label_unknown_type_of_computer_warning
             // 
             label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top;
-            label_unknown_type_of_computer_warning.AutoSize = true;
             label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
             label_unknown_type_of_computer_warning.Location = new Point(71, 10);
             label_unknown_type_of_computer_warning.Margin = new Padding(2, 0, 2, 0);
             label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
-            label_unknown_type_of_computer_warning.Size = new Size(275, 48);
+            label_unknown_type_of_computer_warning.Size = new Size(278, 60);
             label_unknown_type_of_computer_warning.TabIndex = 11;
-            label_unknown_type_of_computer_warning.Text = "The NeoBleeper Smart Device Type Recognition \r\nSystem has detected that your computer is an \r\nunknown type of computer.";
+            label_unknown_type_of_computer_warning.Text = "The NeoBleeper Smart Device Type Recognition System has detected that your computer is an unknown type of computer.";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.icons8_question_mark_48;
             pictureBox1.Location = new Point(10, 10);
-            pictureBox1.Margin = new Padding(2, 2, 2, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(48, 48);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -113,26 +112,24 @@
             // label_unknown_type_of_computer_result
             // 
             label_unknown_type_of_computer_result.Anchor = AnchorStyles.None;
-            label_unknown_type_of_computer_result.AutoSize = true;
             label_unknown_type_of_computer_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_unknown_type_of_computer_result.Location = new Point(6, 114);
+            label_unknown_type_of_computer_result.Location = new Point(6, 118);
             label_unknown_type_of_computer_result.Margin = new Padding(2, 0, 2, 0);
             label_unknown_type_of_computer_result.Name = "label_unknown_type_of_computer_result";
-            label_unknown_type_of_computer_result.Size = new Size(334, 112);
+            label_unknown_type_of_computer_result.Size = new Size(343, 118);
             label_unknown_type_of_computer_result.TabIndex = 15;
             label_unknown_type_of_computer_result.Text = resources.GetString("label_unknown_type_of_computer_result.Text");
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
             label1.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label1.Location = new Point(6, 72);
+            label1.Location = new Point(6, 70);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(334, 32);
+            label1.Size = new Size(343, 40);
             label1.TabIndex = 12;
-            label1.Text = "Despite this, do you want to continue using the NeoBleeper \r\napplication?\r\n";
+            label1.Text = "Despite this, do you want to continue using the NeoBleeper application?\r\n";
             // 
             // neobleeper_init_unknown_type_of_computer_warning
             // 
@@ -140,7 +137,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(358, 262);
+            ClientSize = new Size(358, 268);
             Controls.Add(button_yes);
             Controls.Add(button_no);
             Controls.Add(label_unknown_type_of_computer_warning);
@@ -149,7 +146,7 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "neobleeper_init_unknown_type_of_computer_warning";

@@ -18,18 +18,18 @@ namespace NeoBleeper
             {
                 // Make the color slightly darker
                 return Color.FromArgb(
-                    Math.Max(0, backgroundColor.R - 31),
-                    Math.Max(0, backgroundColor.G - 31),
-                    Math.Max(0, backgroundColor.B - 31)
+                    Math.Max(0, backgroundColor.R - 75),
+                    Math.Max(0, backgroundColor.G - 75),
+                    Math.Max(0, backgroundColor.B - 75)
                 );
             }
             else
             {
                 // Make the color slightly lighter
                 return Color.FromArgb(
-                    Math.Min(255, backgroundColor.R + 31),
-                    Math.Min(255, backgroundColor.G + 31),
-                    Math.Min(255, backgroundColor.B + 31)
+                    Math.Min(255, backgroundColor.R + 75),
+                    Math.Min(255, backgroundColor.G + 75),
+                    Math.Min(255, backgroundColor.B + 75)
                 );
             }
         }

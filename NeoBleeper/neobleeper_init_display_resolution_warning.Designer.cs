@@ -66,14 +66,13 @@
             // label_display_resolution_warning
             // 
             label_display_resolution_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label_display_resolution_warning.AutoSize = true;
             label_display_resolution_warning.Font = new Font("HarmonyOS Sans", 9F);
             label_display_resolution_warning.Location = new Point(86, 15);
             label_display_resolution_warning.Margin = new Padding(4, 0, 4, 0);
             label_display_resolution_warning.Name = "label_display_resolution_warning";
-            label_display_resolution_warning.Size = new Size(418, 40);
+            label_display_resolution_warning.Size = new Size(411, 40);
             label_display_resolution_warning.TabIndex = 4;
-            label_display_resolution_warning.Text = "The screen resolution does not meet the screen resolution \r\nrequirements for the NeoBleeper program interface.";
+            label_display_resolution_warning.Text = "The screen resolution does not meet the screen resolution requirements for the NeoBleeper program interface.";
             // 
             // pictureBox1
             // 

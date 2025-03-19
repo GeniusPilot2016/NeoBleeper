@@ -363,9 +363,9 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2AgAAAJNU0Z0AUkBTAIBAQMB
-        AAFgAQABYAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFoAQABaAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
-        AAH/AZkB/wEAAf8cAAF3AWcBSgHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
+        AAH/AZkB/wEAAf8cAAF1AWcBTAHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
         MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAByAFwAQMB/wHIAXAB
         AwH/AzwBZjgAAWIBKQHdAf8BYgEpAd0B/wFiASkB3QH/AWIBKQHdAf8BYgEpAd0B/2gAAv8BmQH/ATMB
         mQHMAf8BMwGZAcwB/wEzAZkBzAH/ATMBmQHMAf8BMwGZAcwB/wEzAZkBzAH/AZABqQGtAf8gAAHIAXAB
@@ -378,7 +378,7 @@
         /wHIAXABAwH/AwUBBhgAAfIBowFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8BaQEuAeMB/wFpAS4B
         4wH/AWkBLgHjAf8BaQEuAeMB/wHtAaQBQgH/Ae0BpAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9Y
         AAL/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgB
-        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wFpAWMBWQHkFAAB8gGjAUIB/wHxAaMB
+        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wFoAWMBWwHkFAAB8gGjAUIB/wHxAaMB
         QgH/AfEBowFCAf8B8AGjAUIB/wHvAaMBQgH/Ae8BowFCAf8BawEwAeUB/wFrATAB5QH/Ae0BpAFCAf8B
         7QGkAUIB/wHsAaQBQgH/AewBpAFCAf8B6wGkAUIB/1wAAf8B7AHMA/8BmQP/AZkD/wGZBf8kAAHIAXAB
         AwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8B
@@ -396,7 +396,7 @@
         ZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAf8cAAHZAYMBCAH/AdkBgwEIAf8B
         2QGDAQgB/0QAAXUBNgHtAf8BdQE2Ae0B/wFNARsBygH/AU4BGwHLAf9cAAGZAf8BAAH/AZkB/wEAAf8B
         mQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/HAAB2QGDAQgB
-        /wMtAUVIAAMRARYBdQE2Ae0B/wFNARsBygH/AU0BMgGhAfn/AP8AUgABQgFNAT4HAAE+AwABKAMAAUAD
+        /wMtAUVIAAMRARYBdQE2Ae0B/wFNARsBygH/AU0BNQGdAfn/AP8AUgABQgFNAT4HAAE+AwABKAMAAUAD
         AAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHgAQcB9wH/AfwBfwIAAfABBwHxAf8B+AE/AgAB8AEPAfAB
         /wHAAQECAAHwAQ8B8AE/AfgBPwIAAfABDwHwAQ8BwAEBAgAB+AEPAfABBwHAAQECAAH8AR8B8AEDAf8B
         PwIAAfgBDwHwAQMBwAEBAgAB8AEPAfABDwH/AT8CAAHwAQ8B8AEfAf8BPwIAAfABDwHwAX8BwAEBAgAB
@@ -550,9 +550,6 @@
   <data name="lbl_waiting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="lbl_waiting.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_waiting.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
@@ -569,8 +566,7 @@
     <value>3</value>
   </data>
   <data name="lbl_waiting.Text" xml:space="preserve">
-    <value>Currently 
-not waiting</value>
+    <value>Currently not waiting</value>
   </data>
   <data name="lbl_waiting.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -590,9 +586,6 @@ not waiting</value>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -609,8 +602,7 @@ not waiting</value>
     <value>4</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Synchronized Play allows multiple running NeoBleeper 
-sessions to play their music exactly at the same time.</value>
+    <value>Synchronized Play allows multiple running NeoBleeper sessions to play their music exactly at the same time.</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>

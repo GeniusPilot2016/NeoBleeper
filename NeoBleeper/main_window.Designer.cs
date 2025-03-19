@@ -2155,7 +2155,6 @@
             keyboard_panel.ResumeLayout(false);
             keyboard_panel.PerformLayout();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);

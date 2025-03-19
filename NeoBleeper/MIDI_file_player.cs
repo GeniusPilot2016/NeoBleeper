@@ -17,6 +17,7 @@ namespace NeoBleeper
     {
         bool is_playing = false;
         PrivateFontCollection fonts = new PrivateFontCollection();
+        private List<int> _displayOrder = new List<int>();
         public MIDI_file_player(string filename)
         {
             InitializeComponent();
@@ -68,69 +69,6 @@ namespace NeoBleeper
             label_percentage.Font = new Font(fonts.Families[0], 9);
             label_percentage.RightToLeft = RightToLeft.Yes;
             set_theme();
-            label_note1.BackColor = Settings1.Default.note_indicator_color;
-            label_note2.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note3.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note4.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note5.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note6.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note7.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note8.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note9.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note10.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note11.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note12.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note13.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note14.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note15.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note16.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note17.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note18.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note19.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note20.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note21.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note22.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note23.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note24.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note25.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note26.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note27.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note28.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note29.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note30.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note31.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note32.BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
-            label_note1.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note2.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note3.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note4.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note5.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note6.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note7.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note8.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note9.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note10.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note11.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note12.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note13.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note14.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note15.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note16.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note17.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note18.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note19.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note20.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note21.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note22.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note23.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note24.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note25.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note26.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note27.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note28.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note29.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note30.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
-            label_note31.ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
             textBox1.Text = filename;
             LoadMIDI(filename);
         }
@@ -171,6 +109,8 @@ namespace NeoBleeper
             textBox1.ForeColor = Color.White;
             groupBox1.ForeColor = Color.White;
             button_browse_file.BackColor = Color.FromArgb(32, 32, 32);
+            numericUpDown_alternating_note.BackColor = Color.Black;
+            numericUpDown_alternating_note.ForeColor = Color.White;
             this.Refresh();
         }
 
@@ -183,6 +123,8 @@ namespace NeoBleeper
             textBox1.ForeColor = SystemColors.WindowText;
             groupBox1.ForeColor = SystemColors.ControlText;
             button_browse_file.BackColor = Color.Transparent;
+            numericUpDown_alternating_note.BackColor = SystemColors.Window;
+            numericUpDown_alternating_note.ForeColor = SystemColors.WindowText;
             this.Refresh();
         }
         private bool IsMidiFile(string filePath)
@@ -414,7 +356,8 @@ namespace NeoBleeper
                 // Reset label safely using BeginInvoke
                 if (holded_note_label.InvokeRequired)
                 {
-                    holded_note_label.BeginInvoke(new Action(() => {
+                    holded_note_label.BeginInvoke(new Action(() =>
+                    {
                         holded_note_label.Text = "Notes which are currently being held on: (0)";
                     }));
                 }
@@ -479,6 +422,10 @@ namespace NeoBleeper
         {
             Debug.WriteLine($"Starting playback from frame {startIndex} of {_frames.Count}");
             Stopwatch stopwatch = new Stopwatch();
+
+            // Keep track of which notes were active in the previous frame
+            HashSet<int> previousActiveNotes = new HashSet<int>();
+
             try
             {
                 // Start playing from the specified index
@@ -488,6 +435,8 @@ namespace NeoBleeper
                     if (cancellationToken.IsCancellationRequested)
                     {
                         Debug.WriteLine("Playback cancelled");
+                        // Hide all labels when playback is cancelled
+                        UpdateNoteLabels(new HashSet<int>());
                         return;
                     }
 
@@ -496,6 +445,16 @@ namespace NeoBleeper
                     UpdateTrackBarPosition(i);
                     UpdateTimeAndPercentPosition(i);
                     var currentFrame = _frames[i];
+
+                    // Update note labels based on currently active notes
+                    if (checkBox_dont_update_grid.Checked == false)
+                    {
+                        UpdateNoteLabels(currentFrame.ActiveNotes);
+                    }
+
+                    // Remember current active notes for next iteration
+                    previousActiveNotes = new HashSet<int>(currentFrame.ActiveNotes);
+
                     int notesCount = currentFrame.ActiveNotes.Count;
 
                     // Update label on UI thread
@@ -503,7 +462,8 @@ namespace NeoBleeper
                     {
                         if (holded_note_label.InvokeRequired)
                         {
-                            holded_note_label.BeginInvoke(new Action(() => {
+                            holded_note_label.BeginInvoke(new Action(() =>
+                            {
                                 holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
                             }));
                         }
@@ -536,6 +496,7 @@ namespace NeoBleeper
                     {
                         Debug.WriteLine($"Playing frame {i}, notes: {notesCount}, duration: {durationMs}ms");
                     }
+
                     stopwatch.Restart();
                     // Play active notes or silence
                     if (notesCount > 0)
@@ -558,6 +519,7 @@ namespace NeoBleeper
                         // Silence - just wait
                         await Task.Delay(durationMs, cancellationToken);
                     }
+
                     stopwatch.Stop();
                     int elapsedTime = (int)stopwatch.ElapsedMilliseconds;
                     int remainingTime = durationMs - elapsedTime;
@@ -578,15 +540,20 @@ namespace NeoBleeper
                 {
                     Stop();
                     trackBar1.Value = 0;
-                    SetPosition(trackBar1.Value/10);
+                    SetPosition(trackBar1.Value / 10);
                     UpdateTimeAndPercentPosition(trackBar1.Value / 10);
                 }
+
+                // Hide all note labels when playback completes
+                UpdateNoteLabels(new HashSet<int>());
+
                 Debug.WriteLine("Playback completed successfully");
 
                 // Reset label
                 if (holded_note_label.InvokeRequired)
                 {
-                    holded_note_label.BeginInvoke(new Action(() => {
+                    holded_note_label.BeginInvoke(new Action(() =>
+                    {
                         holded_note_label.Text = "Notes which are currently being held on: (0)";
                     }));
                 }
@@ -597,6 +564,8 @@ namespace NeoBleeper
             }
             catch (TaskCanceledException)
             {
+                // Hide all labels when playback is cancelled
+                UpdateNoteLabels(new HashSet<int>());
                 // Task was canceled, do nothing
                 Debug.WriteLine("Task was canceled");
             }
@@ -605,25 +574,27 @@ namespace NeoBleeper
                 // Handle any exceptions
                 Debug.WriteLine($"Error during playback: {ex.Message}");
                 MessageBox.Show($"Error during playback: {ex.Message}");
+
+                // Hide all labels in case of error
+                UpdateNoteLabels(new HashSet<int>());
             }
             finally
             {
                 _isPlaying = false;
             }
         }
-
         // Original PlayMultipleNotes method
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
             if (!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
             {
-                if(checkBox_make_each_cycle_last_30ms.Checked==true)
+                if (checkBox_make_each_cycle_last_30ms.Checked == true)
                 {
-                    if(checkBox_play_each_note.Checked == true)
+                    if (checkBox_play_each_note.Checked == true)
                     {
-                        int interval = 30; // 30 ms aralıklarla frekans değiştir
-                        int minAlternatingTime = 4; // Minimum alternatif süre 4 ms
-                        int maxAlternatingTime = 15; // Maksimum alternatif süre 15 ms
+                        int interval = 30; // Switch between 30 ms
+                        int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                        int maxAlternatingTime = 15; // Maximum alternate time 3 ms
                         int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
                         Random random = new Random();
                         Stopwatch stopwatch = new Stopwatch();
@@ -674,15 +645,15 @@ namespace NeoBleeper
                                         break;
                                 }
                             }
-                            while(i<frequencies.Length);
+                            while (i < frequencies.Length);
                             Thread.Sleep(duration - (interval * frequencies.Length));
                         }
                     }
                     else
                     {
-                        int interval = 30; // 30 ms aralıklarla frekans değiştir
-                        int minAlternatingTime = 4; // Minimum alternatif süre 4 ms
-                        int maxAlternatingTime = 15; // Maksimum alternatif süre 15 ms
+                        int interval = 30; // Switch between 30 ms
+                        int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                        int maxAlternatingTime = 15; // Maximum alternate time 3 ms
                         int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
                         int i = 0;
                         Random random = new Random();
@@ -721,13 +692,13 @@ namespace NeoBleeper
                         }
                         while (i < steps);
                     }
-                        
+
                 }
                 else
                 {
-                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value); 
+                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
                     int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
-                    if(frequencies.Length>=steps)
+                    if (frequencies.Length >= steps)
                     {
                         int i = 0;
                         do
@@ -752,15 +723,15 @@ namespace NeoBleeper
                             {
                                 NotePlayer.play_note(frequency, interval);
                                 i++;
-                                if (i * interval >= frequencies.Length*interval)
+                                if (i * interval >= frequencies.Length * interval)
                                     break;
                             }
                         }
-                        while(i < frequencies.Length);
-                        Thread.Sleep(duration-(interval*frequencies.Length));
+                        while (i < frequencies.Length);
+                        Thread.Sleep(duration - (interval * frequencies.Length));
                     }
                 }
-                    
+
             }
             else
             {
@@ -854,13 +825,114 @@ namespace NeoBleeper
             // Update label_percentage
             return $"{minutes:D2}:{seconds:D2}.{milliseconds:D2}";
         }
-        
+
         private void Rewind()
         {
             trackBar1.Value = 0;
             int positionPercent = trackBar1.Value / 10;
             SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
+        }
+        private string MidiNoteToName(int noteNumber)
+        {
+            // Define note names (C, C#, D, etc.)
+            string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+
+            // Calculate the octave (MIDI note 60 is middle C, which is C4)
+            int octave = (noteNumber / 12) - 1;
+
+            // Calculate the note name index (0-11) within the octave
+            int noteIndex = noteNumber % 12;
+
+            // Format the note name with its octave
+            return $"{noteNames[noteIndex]}{octave+1}";
+        }
+        private Dictionary<int, Color> _activeNoteColors = new Dictionary<int, Color>();
+        private Color _highlightColor = Settings1.Default.note_indicator_color; // You can choose any color
+        private void UpdateNoteLabels(HashSet<int> activeNotes)
+        {
+            try
+            {
+                Action updateAction = () =>
+                {
+                    // 1. Reset all labels to their original color and hide them
+                    foreach (var label in _noteLabels)
+                    {
+                        label.Visible = false;
+                        label.BackColor = _originalLabelColors[label];
+                    }
+
+                    // 2. Process active notes
+                    int labelIndex = 0;
+                    foreach (int noteNumber in activeNotes)
+                    {
+                        // a) Add to display order if not already present
+                        if (!_displayOrder.Contains(noteNumber))
+                        {
+                            _displayOrder.Add(noteNumber);
+                        }
+
+                        // b) Update label if in display order
+                        int displayIndex = _displayOrder.IndexOf(noteNumber);
+                        if (displayIndex >= 0 && displayIndex < _noteLabels.Length)
+                        {
+                            Label label = _noteLabels[labelIndex];
+                            label.Visible = true;
+                            label.Text = MidiNoteToName(noteNumber);
+
+                            // Color Highlighting Logic
+                            label.BackColor = _highlightColor; // Set highlight color
+
+                            // We will revert the color later, so no toggling is needed here
+
+                            labelIndex++; // Move to the next label
+                        }
+                    }
+
+                    // 3. (Reverted) Colors for inactive notes are handled in the next step
+
+                    // 4. Update the count display
+                    holded_note_label.Text = $"Notes which are currently being held on: [{activeNotes.Count}]";
+                };
+
+                // Use BeginInvoke to update UI from background thread
+                if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
+                    _noteLabels[0].BeginInvoke(updateAction);
+                else
+                    updateAction();
+
+                // Revert highlight color after a short delay
+                Task.Run(async () =>
+                {
+                    await Task.Delay(50); // Adjust the delay as needed (milliseconds)
+
+                    Action revertColorAction = () =>
+                    {
+                        foreach (int noteNumber in activeNotes)
+                        {
+                            int displayIndex = _displayOrder.IndexOf(noteNumber);
+                            if (displayIndex >= 0 && displayIndex < _noteLabels.Length)
+                            {
+                                Label label = _noteLabels[displayIndex];
+                                if (label.Visible) // Only revert visible labels
+                                {
+                                    label.BackColor = _originalLabelColors[label];
+                                }
+                            }
+                        }
+                    };
+
+                    // Use BeginInvoke to update UI from background thread
+                    if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
+                        _noteLabels[0].BeginInvoke(revertColorAction);
+                    else
+                        revertColorAction();
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error updating note labels: {ex.Message}");
+            }
         }
         private void button_play_Click(object sender, EventArgs e)
         {
@@ -878,6 +950,7 @@ namespace NeoBleeper
 
         private void MIDI_file_player_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Stop();
         }
 
         private void disable_alternating_notes_panel(object sender, EventArgs e)
@@ -894,9 +967,53 @@ namespace NeoBleeper
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            int positionPercent = trackBar1.Value/10;
+            int positionPercent = trackBar1.Value / 10;
             SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
+        }
+
+        private Label[] _noteLabels;
+        private Dictionary<int, int> _noteToLabelMap;
+        private Dictionary<Label, Color> _originalLabelColors = new Dictionary<Label, Color>();
+
+        // Initialize in your constructor or Form_Load
+        private void InitializeNoteLabels()
+        {
+            // Collect all labels
+            _noteLabels = new Label[32];
+            for (int i = 1; i <= 32; i++)
+            {
+                _noteLabels[i - 1] = (Label)this.Controls.Find($"label_note{i}", true)[0];
+                _noteLabels[i - 1].BackColor = set_inactive_note_color.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
+                _noteLabels[i - 1].ForeColor = set_text_color.GetTextColor(Settings1.Default.note_indicator_color);
+                _noteLabels[i - 1].Visible = false; // Initially hide all labels
+
+                // Store the original color
+                _originalLabelColors[_noteLabels[i - 1]] = _noteLabels[i - 1].BackColor;
+            }
+
+            // Create a mapping from MIDI note numbers to label indices
+            // This assumes you want to map certain MIDI notes to your 32 labels
+            _noteToLabelMap = new Dictionary<int, int>();
+
+            // Example mapping (you'll need to adjust this based on your needs)
+            // Maps MIDI notes 60-91 (middle C to G6) to labels 1-32
+            for (int i = 60; i < 92; i++)
+            {
+                _noteToLabelMap[i] = i - 60;
+            }
+        }
+        private void MIDI_file_player_Load(object sender, EventArgs e)
+        {
+            InitializeNoteLabels();
+        }
+
+        private void checkBox_dont_update_grid_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_dont_update_grid.Checked == true)
+            {
+                UpdateNoteLabels(new HashSet<int>());
+            }
         }
     }
 }
