@@ -158,9 +158,9 @@
             panel2.Controls.Add(label_percentage);
             panel2.Controls.Add(label_position);
             panel2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panel2.Location = new Point(178, 51);
+            panel2.Location = new Point(188, 51);
             panel2.Name = "panel2";
-            panel2.Size = new Size(143, 46);
+            panel2.Size = new Size(133, 46);
             panel2.TabIndex = 28;
             // 
             // label_percentage
@@ -168,7 +168,7 @@
             label_percentage.Anchor = AnchorStyles.Right;
             label_percentage.AutoSize = true;
             label_percentage.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_percentage.Location = new Point(98, 26);
+            label_percentage.Location = new Point(88, 26);
             label_percentage.Name = "label_percentage";
             label_percentage.Size = new Size(40, 16);
             label_percentage.TabIndex = 4;
@@ -180,7 +180,7 @@
             label_position.Anchor = AnchorStyles.Right;
             label_position.AutoSize = true;
             label_position.Font = new Font("HarmonyOS Sans", 9F);
-            label_position.Location = new Point(32, 4);
+            label_position.Location = new Point(22, 4);
             label_position.Name = "label_position";
             label_position.Size = new Size(104, 16);
             label_position.TabIndex = 3;
@@ -192,7 +192,7 @@
             checkBox_loop.AutoSize = true;
             checkBox_loop.ImageIndex = 1;
             checkBox_loop.ImageList = icons2;
-            checkBox_loop.Location = new Point(114, 56);
+            checkBox_loop.Location = new Point(112, 56);
             checkBox_loop.Margin = new Padding(3, 2, 3, 2);
             checkBox_loop.Name = "checkBox_loop";
             checkBox_loop.Size = new Size(70, 20);
@@ -283,8 +283,9 @@
             // 
             label4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.Location = new Point(10, 166);
+            label4.MinimumSize = new Size(321, 32);
             label4.Name = "label4";
-            label4.Size = new Size(274, 32);
+            label4.Size = new Size(321, 32);
             label4.TabIndex = 3;
             label4.Text = "Select the channel(s) that should be listened to. \r\nChannels that are not selected will be ignored.";
             // 
@@ -1023,6 +1024,7 @@
             checkBox_play_each_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox_play_each_note.Location = new Point(9, 473);
             checkBox_play_each_note.Margin = new Padding(3, 2, 3, 2);
+            checkBox_play_each_note.MinimumSize = new Size(321, 20);
             checkBox_play_each_note.Name = "checkBox_play_each_note";
             checkBox_play_each_note.Size = new Size(321, 20);
             checkBox_play_each_note.TabIndex = 22;
@@ -1038,8 +1040,10 @@
             checkBox_make_each_cycle_last_30ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox_make_each_cycle_last_30ms.Location = new Point(9, 496);
             checkBox_make_each_cycle_last_30ms.Margin = new Padding(3, 2, 3, 2);
+            checkBox_make_each_cycle_last_30ms.MaximumSize = new Size(321, 42);
+            checkBox_make_each_cycle_last_30ms.MinimumSize = new Size(321, 42);
             checkBox_make_each_cycle_last_30ms.Name = "checkBox_make_each_cycle_last_30ms";
-            checkBox_make_each_cycle_last_30ms.Size = new Size(317, 42);
+            checkBox_make_each_cycle_last_30ms.Size = new Size(321, 42);
             checkBox_make_each_cycle_last_30ms.TabIndex = 23;
             checkBox_make_each_cycle_last_30ms.Text = "Try making each cycle last 30mS (with maximium alternating time capped to 15mS per note)";
             checkBox_make_each_cycle_last_30ms.UseVisualStyleBackColor = true;
@@ -1051,6 +1055,8 @@
             checkBox_dont_update_grid.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox_dont_update_grid.Location = new Point(9, 542);
             checkBox_dont_update_grid.Margin = new Padding(3, 2, 3, 2);
+            checkBox_dont_update_grid.MaximumSize = new Size(321, 20);
+            checkBox_dont_update_grid.MinimumSize = new Size(159, 20);
             checkBox_dont_update_grid.Name = "checkBox_dont_update_grid";
             checkBox_dont_update_grid.Size = new Size(159, 20);
             checkBox_dont_update_grid.TabIndex = 24;

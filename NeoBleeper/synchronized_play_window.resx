@@ -133,14 +133,10 @@
     <value>HarmonyOS Sans, 15.749998pt, style=Bold</value>
   </data>
   <data name="lbl_current_system_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>335, 79</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_current_system_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>268, 63</value>
   </data>
   <data name="lbl_current_system_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 36</value>
+    <value>102, 28</value>
   </data>
   <data name="lbl_current_system_time.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -173,13 +169,10 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_current_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>345, 59</value>
-  </data>
-  <data name="lbl_current_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>276, 47</value>
   </data>
   <data name="lbl_current_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>81, 16</value>
   </data>
   <data name="lbl_current_time.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -212,13 +205,10 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 28</value>
-  </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>14, 22</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 20</value>
+    <value>375, 16</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -248,13 +238,10 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_hour_minute_second.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 59</value>
-  </data>
-  <data name="lbl_hour_minute_second.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>57, 47</value>
   </data>
   <data name="lbl_hour_minute_second.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
+    <value>72, 16</value>
   </data>
   <data name="lbl_hour_minute_second.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -284,13 +271,10 @@
     <value>HarmonyOS Sans, 11.249998pt</value>
   </data>
   <data name="dateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 82</value>
-  </data>
-  <data name="dateTimePicker1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>43, 66</value>
   </data>
   <data name="dateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 32</value>
+    <value>104, 27</value>
   </data>
   <data name="dateTimePicker1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -311,16 +295,10 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="groupBox_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 78</value>
-  </data>
-  <data name="groupBox_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_time.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 62</value>
   </data>
   <data name="groupBox_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>529, 124</value>
+    <value>423, 99</value>
   </data>
   <data name="groupBox_time.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -363,9 +341,9 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2AgAAAJNU0Z0AUkBTAIBAQMB
-        AAFoAQABaAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFwAQABcAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
-        AAH/AZkB/wEAAf8cAAF1AWcBTAHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
+        AAH/AZkB/wEAAf8cAAFzAWcBTgHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
         MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAByAFwAQMB/wHIAXAB
         AwH/AzwBZjgAAWIBKQHdAf8BYgEpAd0B/wFiASkB3QH/AWIBKQHdAf8BYgEpAd0B/2gAAv8BmQH/ATMB
         mQHMAf8BMwGZAcwB/wEzAZkBzAH/ATMBmQHMAf8BMwGZAcwB/wEzAZkBzAH/AZABqQGtAf8gAAHIAXAB
@@ -378,7 +356,7 @@
         /wHIAXABAwH/AwUBBhgAAfIBowFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8BaQEuAeMB/wFpAS4B
         4wH/AWkBLgHjAf8BaQEuAeMB/wHtAaQBQgH/Ae0BpAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9Y
         AAL/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgB
-        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wFoAWMBWwHkFAAB8gGjAUIB/wHxAaMB
+        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wFnAWMBWwHkFAAB8gGjAUIB/wHxAaMB
         QgH/AfEBowFCAf8B8AGjAUIB/wHvAaMBQgH/Ae8BowFCAf8BawEwAeUB/wFrATAB5QH/Ae0BpAFCAf8B
         7QGkAUIB/wHsAaQBQgH/AewBpAFCAf8B6wGkAUIB/1wAAf8B7AHMA/8BmQP/AZkD/wGZBf8kAAHIAXAB
         AwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8B
@@ -396,7 +374,7 @@
         ZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAf8cAAHZAYMBCAH/AdkBgwEIAf8B
         2QGDAQgB/0QAAXUBNgHtAf8BdQE2Ae0B/wFNARsBygH/AU4BGwHLAf9cAAGZAf8BAAH/AZkB/wEAAf8B
         mQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/HAAB2QGDAQgB
-        /wMtAUVIAAMRARYBdQE2Ae0B/wFNARsBygH/AU0BNQGdAfn/AP8AUgABQgFNAT4HAAE+AwABKAMAAUAD
+        /wMtAUVIAAMRARYBdQE2Ae0B/wFNARsBygH/AU0BOAGZAfn/AP8AUgABQgFNAT4HAAE+AwABKAMAAUAD
         AAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHgAQcB9wH/AfwBfwIAAfABBwHxAf8B+AE/AgAB8AEPAfAB
         /wHAAQECAAHwAQ8B8AE/AfgBPwIAAfABDwHwAQ8BwAEBAgAB+AEPAfABBwHAAQECAAH8AR8B8AEDAf8B
         PwIAAfgBDwHwAQMBwAEBAgAB8AEPAfABDwH/AT8CAAHwAQ8B8AEfAf8BPwIAAfABDwHwAX8BwAEBAgAB
@@ -404,13 +382,10 @@
 </value>
   </data>
   <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 54</value>
-  </data>
-  <data name="radioButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 42</value>
   </data>
   <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 24</value>
+    <value>235, 20</value>
   </data>
   <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -446,13 +421,10 @@
     <value>1</value>
   </data>
   <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 28</value>
-  </data>
-  <data name="radioButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 22</value>
   </data>
   <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 24</value>
+    <value>163, 20</value>
   </data>
   <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -479,16 +451,10 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="groupBox_position.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 224</value>
-  </data>
-  <data name="groupBox_position.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_position.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 179</value>
   </data>
   <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>391, 88</value>
+    <value>313, 70</value>
   </data>
   <data name="groupBox_position.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -518,13 +484,10 @@
     <value>0</value>
   </data>
   <data name="button_wait.Location" type="System.Drawing.Point, System.Drawing">
-    <value>411, 224</value>
-  </data>
-  <data name="button_wait.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>329, 179</value>
   </data>
   <data name="button_wait.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 45</value>
+    <value>104, 36</value>
   </data>
   <data name="button_wait.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -554,13 +517,16 @@
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
   <data name="lbl_waiting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>420, 276</value>
+    <value>336, 221</value>
   </data>
-  <data name="lbl_waiting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <data name="lbl_waiting.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>92, 40</value>
+  </data>
+  <data name="lbl_waiting.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>92, 40</value>
   </data>
   <data name="lbl_waiting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 50</value>
+    <value>92, 40</value>
   </data>
   <data name="lbl_waiting.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -590,13 +556,13 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 20</value>
+    <value>92, 16</value>
   </data>
-  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <data name="label6.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>314, 32</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>393, 40</value>
+    <value>314, 32</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -620,13 +586,10 @@
     <value>17, 22</value>
   </metadata>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 20</value>
-  </data>
-  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>46, 16</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 50</value>
+    <value>40, 40</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -650,13 +613,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>554, 341</value>
+    <value>443, 273</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -980,9 +943,6 @@
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Synchronized Play Settings</value>

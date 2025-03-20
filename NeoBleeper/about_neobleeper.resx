@@ -123,14 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 15</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>40, 12</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 156</value>
+    <value>125, 125</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -158,13 +154,13 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 186</value>
+    <value>51, 149</value>
   </data>
-  <data name="lbl_credit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>398, 64</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>497, 80</value>
+    <value>398, 64</value>
   </data>
   <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -197,13 +193,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 35.999996pt, style=Bold</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 29</value>
-  </data>
-  <data name="lbl_name.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>172, 23</value>
   </data>
   <data name="lbl_name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 79</value>
+    <value>297, 64</value>
   </data>
   <data name="lbl_name.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -233,13 +226,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 13.8pt</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>229, 110</value>
-  </data>
-  <data name="lbl_version.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>183, 88</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 30</value>
+    <value>123, 25</value>
   </data>
   <data name="lbl_version.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -266,50 +256,50 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA8AkAAAJNU0Z0AUkBTAIBAQMB
-        AAH4AQAB+AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
-        AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A1kB5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
-        ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
-        /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
-        PAH/AzoB/wNMAZFUAAE7AbABJQH/ATsBsAElAf8BzwHoAcsN/wEsAYwBGgH/AS4BhgEdAf8B7wHzAe4B
-        /wF8AagBcwH/ASUBfQETAf8BJQF9ARMB/wwAAfIBSQG3Af8B8AFDAbEB/wHvAT4BqgH/Ae0BOAGkAf8B
-        SQGZAeMB/wQAAVUCVwG0AQgBuwH+Af8DBAEFA1QBpgHFAUoBsAH/Ae0BOgGmAf8B7wE/AawB/wHxAUUB
-        swH/AWEBXAFhAdkMAANJAf8DfQH/A8sB/wO7Df8DPAH/AzoB/wM5Af8DSQGIUAABOwGwASUB/wE7AbAB
-        JQH/A/wB/wP6Af8D+gH/A/sB/wEsAYsBGgH/A/kB/wP4Af8D+AH/AXwBqAFzAf8BJQF9ARMB/xAAAe8B
-        PgGqAf8B7QE4AaQB/wHrATIBngH/AQwBwgH+Af8BCwHBAf4B/wEKAb8B/gH/AQkBvgH+Af8BCQG8Af4B
-        /wEIAbsB/gH/AQcBugH+Af8B7AE0AaAB/wHtAToBpgH/Ae8BPwGsAf8MAANNAZIDRQH/A9AB/wNFAf8D
-        QQn/A/oB/wM8Af8DOgH/AzkB/wM3Af9QAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D+QH/AS8B
-        lAEcAf8D+AH/A/cB/wP4Af8B7wHzAe4B/wEsAYwBGgH/FAABOAGrAewB/wEPAcYB/gH/AQ4BxQH+Af8B
-        DQHDAf4B/wEMAcIB/gH/AQsBwAH+Af8BCgG/Af4B/wEJAb0B/gH/AQgBvAH+Af8BBwG7Af4B/wHFAUoB
-        sAH/EAADSwH/A0gB/wNGGf8DyQH/AzkB/wM3Af8DXAHhTAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D
-        +AH/A/gB/wEyAZ4BHgH/A/kB/wP4Af8D+QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARAB
-        xwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0BwwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B
-        /wMxAU0QAANLAf8DSQH/A/Ud/wNCAf8DNwH/AzUB/0wAAUcBxAExAf8BRwHEATEB/wP4Af8D9wH/A/cB
-        /wP4Af8BMgGeAR4B/wEyAZ4BHgH/AS8BlAEcAf8BLAGLARoB/wEsAYwBGgH/ASwBjAEaAf8UAAFfAWUB
-        ZgHjARIBywL/AREBygL/ARAByAH+Af8BDwHHAf4B/wEOAcUB/gH/AQ0BxAH+Af8BDQHCAf4B/wEMAcEB
-        /gH/AQsBwAH+Af8DBAEFEAADSwH/A0kh/wO3Af8DNwH/AzUB/0wAAVUB0QE/Af8BVQHRAT8B/wP4Af8D
-        +AH/A/gB/wP4Af8BOwGwASUB/wHUAecB0QH/A/kB/wP5Af8BMgGeAR4B/wEyAZ4BHgH/EAABXQJjAd8B
-        FQHPAv8BFAHOAv8BEwHMAv8BEgHLAv8BEQHJAv8BEAHIAf4B/wEPAcYB/gH/AQ4BxQH+Af8BDQHDAf4B
-        /wEMAcIB/gH/AQsBwQH+Af8QAANLAf8DSSH/A6EB/wM3Af8DNQH/TAABVQHRAT8B/wFVAdEBPwH/A/kB
-        /wP4Af8D+AH/A/gB/wE5AaoBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAARYB0QL/ARUB
-        0AL/ARQBzwL/ARQBzQL/ARMBzAL/ARIBygL/AREByQL/ARABxwH+Af8BDwHGAf4B/wEOAcUB/gH/AVUC
-        VwG0EAADSwH/A0kB/wN7Hf8DOAH/AzcB/wM1Af9MAAFVAdEBPwH/AVUB0QE/Af8D+gH/A/kB/wP5Af8D
-        +gH/ATkBqQEkAf8D+AH/A/gB/wP4Af8BzAHgAckB/wEyAZ4BHgH/FAABXQJhAdEBFwHSAv8BFgHRAv8B
-        FQHQAv8BFAHOAv8BEwHNAv8BEgHLAv8BEQHKAv8BEAHIAf4B/wEQAccB/gH/FAADSgH5A0kB/wNNHf8D
-        OQH/AzcB/wMWAR5MAAFjAdsBTQH/AWMB2wFNBf8D/gH/A/4F/wFHAcQBMQH/AdcB6wHUAf8D+QH/A/kB
-        /wE7AbABJQH/ATsBsAElAf8UAAEaAdYC/wEZAdUC/wEYAdQC/wEXAdIC/wEWAdEC/wEVAc8C/wEUAc4C
-        /wETAcwC/wESAcsC/wERAcoC/wFYAloBuhQAA0kB/wNFAf8DjgH/A0IB/wNBAf8DPwH/Az4B/wM5Af8D
-        tgH/AzkB/wM3Af9QAAFjAdsBTQH/AWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB0QE/Af8BVQHRAT8B
-        /wFHAcQBMQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB/xwAARkB1gL/ARgB
-        1QL/ARgB0wL/ARcB0gL/ARYB0AL/ARUBzwL/ARQBzQL/HAADCAEKA0cB/wNFAf8DQwH/A0IB/wNAAf8D
-        PgH/AzwB/wM6Af8DOQH/VAADMAFLAWMB2wFNAf8BYwHbAU0B/wFVAdEBPwH/AVUB0QE/Af8BVQHRAT8B
-        /wFHAcQBMQH/AUcBxAExAf8BRwHEATEB/wE7AbABJQH/ATsBsAElAf8BOwGwASUB/xwAARsB2QL/AV0C
-        YQHRARkB1gL/ARgB1AL/AV8BZQFmAeMBFgHRAv8BXQJhAdEkAANEAfkDQwH/A0IB/wNAAf8DPgH/AzwB
-        /wNOAZewAAFgAmYB4P8AnQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABv8C
-        AAL/Ae8B9wH4AR8CAAHAAQMC5wHwAQcCAAHAAQMBggEAAeABAwIAAcABAwHAAQEBwAEDAgABwAEDAeAB
-        AwHAAQECAAHAAQMB4AEDAcABAQIAAcABAwHgAQMBwAEBAgABwAEDAcABAwHAAQECAAHAAQMB4AEDAcAB
-        AQIAAcABAwHgAQcBwAEBAgABwAEDAeABAwHgAQMCAAHAAQMB+AEPAeABBwIAAcABAwH4AQ8B+AEPAgAD
-        /wF/Av8CAAb/AgAL
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA6gkAAAJNU0Z0AUkBTAIBAQMC
+        AAEBAQABAQEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wBf
+        AAHyAUkBtwH/IAADRAF3IAADDAEQA2gN/wNcAeVcAAE7AbABJQH/ATsBsAElAf8BOwGwASUB/wEyAZ4B
+        HgH/ATIBngEeAf8BMgGeAR4B/wEsAYwBGgH/ASwBjAEaAf8BLAGMARoB/wElAX0BEwH/ASUBfQETAf8B
+        JQF9ARMB/xQAAfABQwGxAf8B7wE+AaoB/xgAAUQBQwFEAXcB7wE/AawB/xwAA0cB/wNEAf8DPg3/AzwB
+        /wM6Af8DTAGRVAABOwGwASUB/wE7AbABJQH/Ac8B6AHLDf8BLAGMARoB/wEuAYYBHQH/Ae8B8wHuAf8B
+        fAGoAXMB/wElAX0BEwH/ASUBfQETAf8MAAHyAUkBtwH/AfABQwGxAf8B7wE+AaoB/wHtATgBpAH/AUkB
+        mQHjAf8EAAFVAlcBtAEIAbsB/gH/AwQBBQNUAaYBxQFKAbAB/wHtAToBpgH/Ae8BPwGsAf8B8QFFAbMB
+        /wFhAVwBYQHZDAADSQH/A30B/wPLAf8Duw3/AzwB/wM6Af8DOQH/A0kBiFAAATsBsAElAf8BOwGwASUB
+        /wP8Af8D+gH/A/oB/wP7Af8BLAGLARoB/wP5Af8D+AH/A/gB/wF8AagBcwH/ASUBfQETAf8QAAHvAT4B
+        qgH/Ae0BOAGkAf8B6wEyAZ4B/wEMAcIB/gH/AQsBwQH+Af8BCgG/Af4B/wEJAb4B/gH/AQkBvAH+Af8B
+        CAG7Af4B/wEHAboB/gH/AewBNAGgAf8B7QE6AaYB/wHvAT8BrAH/DAADTQGSA0UB/wPQAf8DRQH/A0EJ
+        /wP6Af8DPAH/AzoB/wM5Af8DNwH/UAABRwHEATEB/wFHAcQBMQH/A/kB/wP4Af8D+AH/A/kB/wEvAZQB
+        HAH/A/gB/wP3Af8D+AH/Ae8B8wHuAf8BLAGMARoB/xQAATgBqwHsAf8BDwHGAf4B/wEOAcUB/gH/AQ0B
+        wwH+Af8BDAHCAf4B/wELAcAB/gH/AQoBvwH+Af8BCQG9Af4B/wEIAbwB/gH/AQcBuwH+Af8BxQFKAbAB
+        /xAAA0sB/wNIAf8DRhn/A8kB/wM5Af8DNwH/A10B4UwAAUcBxAExAf8BRwHEATEB/wP4Af8D+AH/A/gB
+        /wP4Af8BMgGeAR4B/wP5Af8D+AH/A/kB/wEvAYYBHgH/ASwBjAEaAf8UAAERAcoC/wERAckC/wEQAccB
+        /gH/AQ8BxgH+Af8BDgHEAf4B/wENAcMB/gH/AQwBwQH+Af8BCwHAAf4B/wEKAb4B/gH/AQkBvQH+Af8D
+        MQFNEAADSwH/A0kB/wP1Hf8DQgH/AzcB/wM1Af9MAAFHAcQBMQH/AUcBxAExAf8D+AH/A/cB/wP3Af8D
+        +AH/ATIBngEeAf8BMgGeAR4B/wEvAZQBHAH/ASwBiwEaAf8BLAGMARoB/wEsAYwBGgH/FAABYAJlAeMB
+        EgHLAv8BEQHKAv8BEAHIAf4B/wEPAccB/gH/AQ4BxQH+Af8BDQHEAf4B/wENAcIB/gH/AQwBwQH+Af8B
+        CwHAAf4B/wMEAQUQAANLAf8DSSH/A7cB/wM3Af8DNQH/TAABVQHRAT8B/wFVAdEBPwH/A/gB/wP4Af8D
+        +AH/A/gB/wE7AbABJQH/AdQB5wHRAf8D+QH/A/kB/wEyAZ4BHgH/ATIBngEeAf8QAAFdAmMB3wEVAc8C
+        /wEUAc4C/wETAcwC/wESAcsC/wERAckC/wEQAcgB/gH/AQ8BxgH+Af8BDgHFAf4B/wENAcMB/gH/AQwB
+        wgH+Af8BCwHBAf4B/xAAA0sB/wNJIf8DoQH/AzcB/wM1Af9MAAFVAdEBPwH/AVUB0QE/Af8D+QH/A/gB
+        /wP4Af8D+AH/ATkBqgEkAf8D+AH/A/gB/wP4Af8BzAHgAckB/wEyAZ4BHgH/FAABFgHRAv8BFQHQAv8B
+        FAHPAv8BFAHNAv8BEwHMAv8BEgHKAv8BEQHJAv8BEAHHAf4B/wEPAcYB/gH/AQ4BxQH+Af8BVQJXAbQQ
+        AANLAf8DSQH/A3sd/wM4Af8DNwH/AzUB/0wAAVUB0QE/Af8BVQHRAT8B/wP6Af8D+QH/A/kB/wP6Af8B
+        OQGpASQB/wP4Af8D+AH/A/gB/wHMAeAByQH/ATIBngEeAf8UAAFdAmEB0QEXAdIC/wEWAdEC/wEVAdAC
+        /wEUAc4C/wETAc0C/wESAcsC/wERAcoC/wEQAcgB/gH/ARABxwH+Af8UAANKAfkDSQH/A00d/wM5Af8D
+        NwH/AxYBHkwAAWMB2wFNAf8BYwHbAU0F/wP+Af8D/gX/AUcBxAExAf8B1wHrAdQB/wP5Af8D+QH/ATsB
+        sAElAf8BOwGwASUB/xQAARoB1gL/ARkB1QL/ARgB1AL/ARcB0gL/ARYB0QL/ARUBzwL/ARQBzgL/ARMB
+        zAL/ARIBywL/AREBygL/AVgCWgG6FAADSQH/A0UB/wOOAf8DQgH/A0EB/wM/Af8DPgH/AzkB/wO2Af8D
+        OQH/AzcB/1AAAWMB2wFNAf8BYwHbAU0B/wFjAdsBTQH/AVUB0QE/Af8BVQHRAT8B/wFVAdEBPwH/AUcB
+        xAExAf8BRwHEATEB/wFHAcQBMQH/ATsBsAElAf8BOwGwASUB/wE7AbABJQH/HAABGQHWAv8BGAHVAv8B
+        GAHTAv8BFwHSAv8BFgHQAv8BFQHPAv8BFAHNAv8cAAMIAQoDRwH/A0UB/wNDAf8DQgH/A0AB/wM+Af8D
+        PAH/AzoB/wM5Af9UAAMwAUsBYwHbAU0B/wFjAdsBTQH/AVUB0QE/Af8BVQHRAT8B/wFVAdEBPwH/AUcB
+        xAExAf8BRwHEATEB/wFHAcQBMQH/ATsBsAElAf8BOwGwASUB/wE7AbABJQH/HAABGwHZAv8BXQJhAdEB
+        GQHWAv8BGAHUAv8BYAJlAeMBFgHRAv8BXQJhAdEkAANEAfkDQwH/A0IB/wNAAf8DPgH/AzwB/wNOAZew
+        AAFgAmYB4P8AnQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAL/Ae8B
+        9wH4AR8CAAHAAQMC5wHwAQcCAAHAAQMBggEAAeABAwIAAcABAwHAAQEBwAEDAgABwAEDAeABAwHAAQEC
+        AAHAAQMB4AEDAcABAQIAAcABAwHgAQMBwAEBAgABwAEDAcABAwHAAQECAAHAAQMB4AEDAcABAQIAAcAB
+        AwHgAQcBwAEBAgABwAEDAeABAwHgAQMCAAHAAQMB+AEPAeABBwIAAcABAwH4AQ8B+AEPAgAD/wF/Av8C
+        AAb/AgAL
 </value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -375,13 +365,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 348</value>
-  </data>
-  <data name="listView1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 278</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>606, 193</value>
+    <value>486, 155</value>
   </data>
   <data name="listView1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -408,13 +395,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 318</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>214, 254</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 20</value>
+    <value>80, 16</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -444,13 +428,14 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>0</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 283</value>
+    <value>48, 226</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button_visit_icons8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 31</value>
+    <value>126, 25</value>
   </data>
   <data name="button_visit_icons8.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -489,13 +474,13 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>NoControl</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 283</value>
+    <value>178, 226</value>
   </data>
   <data name="button_view_license_text.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 31</value>
+    <value>132, 25</value>
   </data>
   <data name="button_view_license_text.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -531,10 +516,13 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>2</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>393, 283</value>
+    <value>314, 226</value>
+  </data>
+  <data name="button_fork_me_on_github.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 31</value>
+    <value>140, 25</value>
   </data>
   <data name="button_fork_me_on_github.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -564,10 +552,10 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>632, 552</value>
+    <value>506, 442</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -891,9 +879,6 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

@@ -1225,7 +1225,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAHgAQ0B4AENARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAH4AQ0B+AENARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -2578,6 +2578,9 @@
   <data name="label_alternating_notes_switch.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
+  <data name="label_alternating_notes_switch.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>142, 32</value>
+  </data>
   <data name="label_alternating_notes_switch.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2901,6 +2904,12 @@
   </data>
   <data name="lbl_alternating_note_options.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_alternating_note_options.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>194, 32</value>
+  </data>
+  <data name="lbl_alternating_note_options.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>150, 32</value>
   </data>
   <data name="lbl_alternating_note_options.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3867,11 +3876,14 @@
   <data name="lbl_beat_traditional.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
+  <data name="lbl_beat_traditional.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>78, 32</value>
+  </data>
   <data name="lbl_beat_traditional.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 32</value>
+    <value>78, 32</value>
   </data>
   <data name="lbl_beat_traditional.TabIndex" type="System.Int32, mscorlib">
     <value>113</value>
@@ -3902,7 +3914,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>92, 1</value>
+    <value>94, 1</value>
   </data>
   <data name="lbl_measure_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -3944,7 +3956,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>92, 22</value>
+    <value>94, 22</value>
   </data>
   <data name="lbl_beat_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -3986,7 +3998,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>92, 39</value>
+    <value>94, 39</value>
   </data>
   <data name="lbl_beat_traditional_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -6480,7 +6492,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        yAENAcgBDQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        4AENAeABDQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -6687,8 +6699,11 @@
   <data name="radioButtonPlay_alternating_notes1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
+  <data name="radioButtonPlay_alternating_notes1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>194, 25</value>
+  </data>
   <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 19</value>
+    <value>194, 25</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -6723,8 +6738,11 @@
   <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
+  <data name="radioButtonPlay_alternating_notes2.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>194, 80</value>
+  </data>
   <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 80</value>
+    <value>194, 80</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>

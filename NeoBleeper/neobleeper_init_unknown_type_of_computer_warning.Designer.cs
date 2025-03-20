@@ -93,6 +93,7 @@
             label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
             label_unknown_type_of_computer_warning.Location = new Point(71, 10);
             label_unknown_type_of_computer_warning.Margin = new Padding(2, 0, 2, 0);
+            label_unknown_type_of_computer_warning.MinimumSize = new Size(278, 60);
             label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
             label_unknown_type_of_computer_warning.Size = new Size(278, 60);
             label_unknown_type_of_computer_warning.TabIndex = 11;
@@ -115,6 +116,7 @@
             label_unknown_type_of_computer_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label_unknown_type_of_computer_result.Location = new Point(6, 118);
             label_unknown_type_of_computer_result.Margin = new Padding(2, 0, 2, 0);
+            label_unknown_type_of_computer_result.MinimumSize = new Size(343, 118);
             label_unknown_type_of_computer_result.Name = "label_unknown_type_of_computer_result";
             label_unknown_type_of_computer_result.Size = new Size(343, 118);
             label_unknown_type_of_computer_result.TabIndex = 15;
@@ -126,6 +128,7 @@
             label1.Font = new Font("HarmonyOS Sans", 8.999999F);
             label1.Location = new Point(6, 70);
             label1.Margin = new Padding(2, 0, 2, 0);
+            label1.MinimumSize = new Size(343, 40);
             label1.Name = "label1";
             label1.Size = new Size(343, 40);
             label1.TabIndex = 12;

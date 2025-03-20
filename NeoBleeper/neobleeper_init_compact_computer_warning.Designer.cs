@@ -74,6 +74,7 @@
             label_compact_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
             label_compact_computer_warning.Location = new Point(71, 10);
             label_compact_computer_warning.Margin = new Padding(2, 0, 2, 0);
+            label_compact_computer_warning.MinimumSize = new Size(278, 91);
             label_compact_computer_warning.Name = "label_compact_computer_warning";
             label_compact_computer_warning.Size = new Size(278, 91);
             label_compact_computer_warning.TabIndex = 5;
@@ -96,6 +97,7 @@
             label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label_compact_computer_warning_result.Location = new Point(6, 151);
             label_compact_computer_warning_result.Margin = new Padding(2, 0, 2, 0);
+            label_compact_computer_warning_result.MinimumSize = new Size(343, 114);
             label_compact_computer_warning_result.Name = "label_compact_computer_warning_result";
             label_compact_computer_warning_result.Size = new Size(343, 114);
             label_compact_computer_warning_result.TabIndex = 9;
@@ -126,6 +128,7 @@
             label1.Font = new Font("HarmonyOS Sans", 8.999999F);
             label1.Location = new Point(10, 101);
             label1.Margin = new Padding(2, 0, 2, 0);
+            label1.MinimumSize = new Size(343, 40);
             label1.Name = "label1";
             label1.Size = new Size(343, 40);
             label1.TabIndex = 6;

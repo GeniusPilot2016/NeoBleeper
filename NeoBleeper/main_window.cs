@@ -4066,8 +4066,8 @@ namespace NeoBleeper
 
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature allows you to synchronize the playback of multiple instances of NeoBleeper. \n\n" +
-                "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your watch before using this feature.\n" +
+            MessageBox.Show("This feature allows you to synchronize the playback of multiple instances of NeoBleeper. \n" +
+                "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your clock before using this feature.\n" +
                 "You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings > Time & Language > Date & Time. \n\n" +
                 "When you enable this feature, a new window will open, showing the synchronized playback controls. \n" +
                 "You can then use this window to control the playback of all instances of NeoBleeper on your computer.", "Synchronized Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4087,14 +4087,14 @@ namespace NeoBleeper
 
         private void button_use_keyboard_as_piano_help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature allows you to use your computer keyboard as a piano keyboard. \n\n" +
+            MessageBox.Show("This feature allows you to use your computer keyboard as a piano keyboard. \n" +
                 "When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. \n\n" +
                 "You can see the key mappings in the buttons on the right side of the window.", "Use Keyboard As Piano", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_do_not_update_help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n\n" +
+            MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n" +
                 "When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. \n\n" +
                 "If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.", "Do Not Update Beat Indicators", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
