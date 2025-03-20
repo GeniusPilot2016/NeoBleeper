@@ -214,7 +214,27 @@ namespace NeoBleeper
         private int _currentFrameIndex = 0;
         private bool _isPlaying = false;
         private string _currentFileName;
+        private HashSet<int> _enabledChannels = new HashSet<int>();
 
+        // Method to update enabled channels based on checkbox states
+        private void UpdateEnabledChannels()
+        {
+            _enabledChannels.Clear();
+
+            // Check each channel checkbox
+            for (int i = 1; i <= 16; i++)
+            {
+                var checkBox = Controls.Find($"checkBox_channel_{i}", true).FirstOrDefault() as CheckBox;
+                if (checkBox != null && checkBox.Checked)
+                {
+                    // Channels in MIDI are 0-based, but our UI is 1-based
+                    _enabledChannels.Add(i - 1);
+                }
+            }
+
+            Debug.WriteLine($"Enabled channels: {string.Join(", ", _enabledChannels)}");
+        }
+        private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         public void LoadMIDI(string filename)
         {
             try
@@ -222,6 +242,9 @@ namespace NeoBleeper
                 _currentFileName = filename;
                 // Stop any current playback
                 Stop();
+
+                // Clear previous channel information
+                _noteChannels.Clear();
 
                 // Load the MIDI file using NAudio
                 var midiFile = new MidiFile(filename, false);
@@ -245,7 +268,7 @@ namespace NeoBleeper
                 HashSet<int> currentlyActiveNotes = new HashSet<int>();
 
                 // Create a timeline of all note events sorted by time
-                var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn)>();
+                var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
                 foreach (var track in midiFile.Events)
                 {
                     foreach (var midiEvent in track)
@@ -253,12 +276,15 @@ namespace NeoBleeper
                         if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
                         {
                             var noteEvent = (NoteOnEvent)midiEvent;
-                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0));
+                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
+
+                            // Store the channel for this note
+                            _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                         }
                         else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
                         {
                             var noteEvent = (NoteEvent)midiEvent;
-                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false));
+                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
                         }
                     }
                 }
@@ -297,6 +323,9 @@ namespace NeoBleeper
                 Debug.WriteLine($"Loaded MIDI file: {filename}");
                 Debug.WriteLine($"Total frames: {_frames.Count}");
                 Debug.WriteLine($"Ticks to Ms: {_ticksToMs}");
+
+                // Initialize the enabled channels based on checkboxes
+                UpdateEnabledChannels();
             }
             catch (Exception ex)
             {
@@ -304,7 +333,6 @@ namespace NeoBleeper
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
             }
         }
-
         public void Play()
         {
             // Debug check
@@ -446,16 +474,27 @@ namespace NeoBleeper
                     UpdateTimeAndPercentPosition(i);
                     var currentFrame = _frames[i];
 
-                    // Update note labels based on currently active notes
+                    // Filter notes by channel
+                    HashSet<int> filteredNotes = new HashSet<int>();
+                    foreach (var note in currentFrame.ActiveNotes)
+                    {
+                        // Only include notes from enabled channels
+                        if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
+                        {
+                            filteredNotes.Add(note);
+                        }
+                    }
+
+                    // Update note labels based on filtered active notes
                     if (checkBox_dont_update_grid.Checked == false)
                     {
-                        UpdateNoteLabels(currentFrame.ActiveNotes);
+                        UpdateNoteLabels(filteredNotes);
                     }
 
                     // Remember current active notes for next iteration
-                    previousActiveNotes = new HashSet<int>(currentFrame.ActiveNotes);
+                    previousActiveNotes = new HashSet<int>(filteredNotes);
 
-                    int notesCount = currentFrame.ActiveNotes.Count;
+                    int notesCount = filteredNotes.Count;
 
                     // Update label on UI thread
                     try
@@ -501,7 +540,7 @@ namespace NeoBleeper
                     // Play active notes or silence
                     if (notesCount > 0)
                     {
-                        var frequencies = currentFrame.ActiveNotes.Select(note => NoteToFrequency(note)).ToArray();
+                        var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
 
                         if (frequencies.Length == 1)
                         {
@@ -583,7 +622,19 @@ namespace NeoBleeper
                 _isPlaying = false;
             }
         }
-        // Original PlayMultipleNotes method
+        private void checkBox_channel_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateEnabledChannels();
+
+            // If we're currently playing, restart from current position to apply the channel change
+            if (_isPlaying)
+            {
+                double currentPositionPercent = (double)_currentFrameIndex / _frames.Count * 100;
+                SetPosition(currentPositionPercent);
+            }
+        }
+
+        // Play multiple notes alternating
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
             if (!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))

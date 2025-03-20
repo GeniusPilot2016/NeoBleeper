@@ -44,22 +44,22 @@
             button_rewind = new Button();
             trackBar1 = new TrackBar();
             label4 = new Label();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox4 = new CheckBox();
-            checkBox5 = new CheckBox();
-            checkBox6 = new CheckBox();
-            checkBox7 = new CheckBox();
-            checkBox8 = new CheckBox();
-            checkBox9 = new CheckBox();
-            checkBox10 = new CheckBox();
-            checkBox11 = new CheckBox();
-            checkBox12 = new CheckBox();
-            checkBox13 = new CheckBox();
-            checkBox14 = new CheckBox();
-            checkBox15 = new CheckBox();
-            checkBox16 = new CheckBox();
-            checkBox17 = new CheckBox();
+            checkBox_channel_1 = new CheckBox();
+            checkBox_channel_2 = new CheckBox();
+            checkBox_channel_3 = new CheckBox();
+            checkBox_channel_4 = new CheckBox();
+            checkBox_channel_5 = new CheckBox();
+            checkBox_channel_7 = new CheckBox();
+            checkBox_channel_6 = new CheckBox();
+            checkBox_channel_8 = new CheckBox();
+            checkBox_channel_9 = new CheckBox();
+            checkBox_channel_11 = new CheckBox();
+            checkBox_channel_10 = new CheckBox();
+            checkBox_channel_12 = new CheckBox();
+            checkBox_channel_13 = new CheckBox();
+            checkBox_channel_15 = new CheckBox();
+            checkBox_channel_14 = new CheckBox();
+            checkBox_channel_16 = new CheckBox();
             holded_note_label = new Label();
             label_note1 = new Label();
             label_note2 = new Label();
@@ -295,227 +295,243 @@
             label4.TabIndex = 3;
             label4.Text = "Select the channel(s) that should be listened to. \r\nChannels that are not selected will be ignored.";
             // 
-            // checkBox2
+            // checkBox_channel_1
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Checked = true;
-            checkBox2.CheckState = CheckState.Checked;
-            checkBox2.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox2.Location = new Point(16, 259);
-            checkBox2.Margin = new Padding(4, 2, 4, 2);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(40, 24);
-            checkBox2.TabIndex = 6;
-            checkBox2.Text = "1";
-            checkBox2.UseVisualStyleBackColor = true;
+            checkBox_channel_1.AutoSize = true;
+            checkBox_channel_1.Checked = true;
+            checkBox_channel_1.CheckState = CheckState.Checked;
+            checkBox_channel_1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_1.Location = new Point(16, 259);
+            checkBox_channel_1.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_1.Name = "checkBox_channel_1";
+            checkBox_channel_1.Size = new Size(40, 24);
+            checkBox_channel_1.TabIndex = 6;
+            checkBox_channel_1.Text = "1";
+            checkBox_channel_1.UseVisualStyleBackColor = true;
+            checkBox_channel_1.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox3
+            // checkBox_channel_2
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Checked = true;
-            checkBox3.CheckState = CheckState.Checked;
-            checkBox3.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox3.Location = new Point(76, 259);
-            checkBox3.Margin = new Padding(4, 2, 4, 2);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(40, 24);
-            checkBox3.TabIndex = 7;
-            checkBox3.Text = "2";
-            checkBox3.UseVisualStyleBackColor = true;
+            checkBox_channel_2.AutoSize = true;
+            checkBox_channel_2.Checked = true;
+            checkBox_channel_2.CheckState = CheckState.Checked;
+            checkBox_channel_2.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_2.Location = new Point(76, 259);
+            checkBox_channel_2.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_2.Name = "checkBox_channel_2";
+            checkBox_channel_2.Size = new Size(40, 24);
+            checkBox_channel_2.TabIndex = 7;
+            checkBox_channel_2.Text = "2";
+            checkBox_channel_2.UseVisualStyleBackColor = true;
+            checkBox_channel_2.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox4
+            // checkBox_channel_3
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Checked = true;
-            checkBox4.CheckState = CheckState.Checked;
-            checkBox4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox4.Location = new Point(138, 259);
-            checkBox4.Margin = new Padding(4, 2, 4, 2);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(40, 24);
-            checkBox4.TabIndex = 8;
-            checkBox4.Text = "3";
-            checkBox4.UseVisualStyleBackColor = true;
+            checkBox_channel_3.AutoSize = true;
+            checkBox_channel_3.Checked = true;
+            checkBox_channel_3.CheckState = CheckState.Checked;
+            checkBox_channel_3.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_3.Location = new Point(138, 259);
+            checkBox_channel_3.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_3.Name = "checkBox_channel_3";
+            checkBox_channel_3.Size = new Size(40, 24);
+            checkBox_channel_3.TabIndex = 8;
+            checkBox_channel_3.Text = "3";
+            checkBox_channel_3.UseVisualStyleBackColor = true;
+            checkBox_channel_3.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox5
+            // checkBox_channel_4
             // 
-            checkBox5.AutoSize = true;
-            checkBox5.Checked = true;
-            checkBox5.CheckState = CheckState.Checked;
-            checkBox5.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox5.Location = new Point(199, 259);
-            checkBox5.Margin = new Padding(4, 2, 4, 2);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(40, 24);
-            checkBox5.TabIndex = 9;
-            checkBox5.Text = "4";
-            checkBox5.UseVisualStyleBackColor = true;
+            checkBox_channel_4.AutoSize = true;
+            checkBox_channel_4.Checked = true;
+            checkBox_channel_4.CheckState = CheckState.Checked;
+            checkBox_channel_4.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_4.Location = new Point(199, 259);
+            checkBox_channel_4.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_4.Name = "checkBox_channel_4";
+            checkBox_channel_4.Size = new Size(40, 24);
+            checkBox_channel_4.TabIndex = 9;
+            checkBox_channel_4.Text = "4";
+            checkBox_channel_4.UseVisualStyleBackColor = true;
+            checkBox_channel_4.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox6
+            // checkBox_channel_5
             // 
-            checkBox6.AutoSize = true;
-            checkBox6.Checked = true;
-            checkBox6.CheckState = CheckState.Checked;
-            checkBox6.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox6.Location = new Point(16, 289);
-            checkBox6.Margin = new Padding(4, 2, 4, 2);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(40, 24);
-            checkBox6.TabIndex = 10;
-            checkBox6.Text = "5";
-            checkBox6.UseVisualStyleBackColor = true;
+            checkBox_channel_5.AutoSize = true;
+            checkBox_channel_5.Checked = true;
+            checkBox_channel_5.CheckState = CheckState.Checked;
+            checkBox_channel_5.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_5.Location = new Point(16, 289);
+            checkBox_channel_5.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_5.Name = "checkBox_channel_5";
+            checkBox_channel_5.Size = new Size(40, 24);
+            checkBox_channel_5.TabIndex = 10;
+            checkBox_channel_5.Text = "5";
+            checkBox_channel_5.UseVisualStyleBackColor = true;
+            checkBox_channel_5.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox7
+            // checkBox_channel_7
             // 
-            checkBox7.AutoSize = true;
-            checkBox7.Checked = true;
-            checkBox7.CheckState = CheckState.Checked;
-            checkBox7.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox7.Location = new Point(138, 289);
-            checkBox7.Margin = new Padding(4, 2, 4, 2);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(40, 24);
-            checkBox7.TabIndex = 12;
-            checkBox7.Text = "7";
-            checkBox7.UseVisualStyleBackColor = true;
+            checkBox_channel_7.AutoSize = true;
+            checkBox_channel_7.Checked = true;
+            checkBox_channel_7.CheckState = CheckState.Checked;
+            checkBox_channel_7.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_7.Location = new Point(138, 289);
+            checkBox_channel_7.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_7.Name = "checkBox_channel_7";
+            checkBox_channel_7.Size = new Size(40, 24);
+            checkBox_channel_7.TabIndex = 12;
+            checkBox_channel_7.Text = "7";
+            checkBox_channel_7.UseVisualStyleBackColor = true;
+            checkBox_channel_7.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox8
+            // checkBox_channel_6
             // 
-            checkBox8.AutoSize = true;
-            checkBox8.Checked = true;
-            checkBox8.CheckState = CheckState.Checked;
-            checkBox8.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox8.Location = new Point(76, 289);
-            checkBox8.Margin = new Padding(4, 2, 4, 2);
-            checkBox8.Name = "checkBox8";
-            checkBox8.Size = new Size(40, 24);
-            checkBox8.TabIndex = 11;
-            checkBox8.Text = "6";
-            checkBox8.UseVisualStyleBackColor = true;
+            checkBox_channel_6.AutoSize = true;
+            checkBox_channel_6.Checked = true;
+            checkBox_channel_6.CheckState = CheckState.Checked;
+            checkBox_channel_6.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_6.Location = new Point(76, 289);
+            checkBox_channel_6.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_6.Name = "checkBox_channel_6";
+            checkBox_channel_6.Size = new Size(40, 24);
+            checkBox_channel_6.TabIndex = 11;
+            checkBox_channel_6.Text = "6";
+            checkBox_channel_6.UseVisualStyleBackColor = true;
+            checkBox_channel_6.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox9
+            // checkBox_channel_8
             // 
-            checkBox9.AutoSize = true;
-            checkBox9.Checked = true;
-            checkBox9.CheckState = CheckState.Checked;
-            checkBox9.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox9.Location = new Point(199, 289);
-            checkBox9.Margin = new Padding(4, 2, 4, 2);
-            checkBox9.Name = "checkBox9";
-            checkBox9.Size = new Size(40, 24);
-            checkBox9.TabIndex = 13;
-            checkBox9.Text = "8";
-            checkBox9.UseVisualStyleBackColor = true;
+            checkBox_channel_8.AutoSize = true;
+            checkBox_channel_8.Checked = true;
+            checkBox_channel_8.CheckState = CheckState.Checked;
+            checkBox_channel_8.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_8.Location = new Point(199, 289);
+            checkBox_channel_8.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_8.Name = "checkBox_channel_8";
+            checkBox_channel_8.Size = new Size(40, 24);
+            checkBox_channel_8.TabIndex = 13;
+            checkBox_channel_8.Text = "8";
+            checkBox_channel_8.UseVisualStyleBackColor = true;
+            checkBox_channel_8.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox10
+            // checkBox_channel_9
             // 
-            checkBox10.AutoSize = true;
-            checkBox10.Checked = true;
-            checkBox10.CheckState = CheckState.Checked;
-            checkBox10.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox10.Location = new Point(16, 317);
-            checkBox10.Margin = new Padding(4, 2, 4, 2);
-            checkBox10.Name = "checkBox10";
-            checkBox10.Size = new Size(40, 24);
-            checkBox10.TabIndex = 14;
-            checkBox10.Text = "9";
-            checkBox10.UseVisualStyleBackColor = true;
+            checkBox_channel_9.AutoSize = true;
+            checkBox_channel_9.Checked = true;
+            checkBox_channel_9.CheckState = CheckState.Checked;
+            checkBox_channel_9.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_9.Location = new Point(16, 317);
+            checkBox_channel_9.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_9.Name = "checkBox_channel_9";
+            checkBox_channel_9.Size = new Size(40, 24);
+            checkBox_channel_9.TabIndex = 14;
+            checkBox_channel_9.Text = "9";
+            checkBox_channel_9.UseVisualStyleBackColor = true;
+            checkBox_channel_9.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox11
+            // checkBox_channel_11
             // 
-            checkBox11.AutoSize = true;
-            checkBox11.Checked = true;
-            checkBox11.CheckState = CheckState.Checked;
-            checkBox11.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox11.Location = new Point(138, 317);
-            checkBox11.Margin = new Padding(4, 2, 4, 2);
-            checkBox11.Name = "checkBox11";
-            checkBox11.Size = new Size(49, 24);
-            checkBox11.TabIndex = 16;
-            checkBox11.Text = "11";
-            checkBox11.UseVisualStyleBackColor = true;
+            checkBox_channel_11.AutoSize = true;
+            checkBox_channel_11.Checked = true;
+            checkBox_channel_11.CheckState = CheckState.Checked;
+            checkBox_channel_11.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_11.Location = new Point(138, 317);
+            checkBox_channel_11.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_11.Name = "checkBox_channel_11";
+            checkBox_channel_11.Size = new Size(49, 24);
+            checkBox_channel_11.TabIndex = 16;
+            checkBox_channel_11.Text = "11";
+            checkBox_channel_11.UseVisualStyleBackColor = true;
+            checkBox_channel_11.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox12
+            // checkBox_channel_10
             // 
-            checkBox12.AutoSize = true;
-            checkBox12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox12.Location = new Point(76, 317);
-            checkBox12.Margin = new Padding(4, 2, 4, 2);
-            checkBox12.Name = "checkBox12";
-            checkBox12.Size = new Size(49, 24);
-            checkBox12.TabIndex = 15;
-            checkBox12.Text = "10";
-            checkBox12.UseVisualStyleBackColor = true;
+            checkBox_channel_10.AutoSize = true;
+            checkBox_channel_10.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_10.Location = new Point(76, 317);
+            checkBox_channel_10.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_10.Name = "checkBox_channel_10";
+            checkBox_channel_10.Size = new Size(49, 24);
+            checkBox_channel_10.TabIndex = 15;
+            checkBox_channel_10.Text = "10";
+            checkBox_channel_10.UseVisualStyleBackColor = true;
+            checkBox_channel_10.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox13
+            // checkBox_channel_12
             // 
-            checkBox13.AutoSize = true;
-            checkBox13.Checked = true;
-            checkBox13.CheckState = CheckState.Checked;
-            checkBox13.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox13.Location = new Point(199, 317);
-            checkBox13.Margin = new Padding(4, 2, 4, 2);
-            checkBox13.Name = "checkBox13";
-            checkBox13.Size = new Size(49, 24);
-            checkBox13.TabIndex = 17;
-            checkBox13.Text = "12";
-            checkBox13.UseVisualStyleBackColor = true;
+            checkBox_channel_12.AutoSize = true;
+            checkBox_channel_12.Checked = true;
+            checkBox_channel_12.CheckState = CheckState.Checked;
+            checkBox_channel_12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_12.Location = new Point(199, 317);
+            checkBox_channel_12.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_12.Name = "checkBox_channel_12";
+            checkBox_channel_12.Size = new Size(49, 24);
+            checkBox_channel_12.TabIndex = 17;
+            checkBox_channel_12.Text = "12";
+            checkBox_channel_12.UseVisualStyleBackColor = true;
+            checkBox_channel_12.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox14
+            // checkBox_channel_13
             // 
-            checkBox14.AutoSize = true;
-            checkBox14.Checked = true;
-            checkBox14.CheckState = CheckState.Checked;
-            checkBox14.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox14.Location = new Point(16, 345);
-            checkBox14.Margin = new Padding(4, 2, 4, 2);
-            checkBox14.Name = "checkBox14";
-            checkBox14.Size = new Size(49, 24);
-            checkBox14.TabIndex = 18;
-            checkBox14.Text = "13";
-            checkBox14.UseVisualStyleBackColor = true;
+            checkBox_channel_13.AutoSize = true;
+            checkBox_channel_13.Checked = true;
+            checkBox_channel_13.CheckState = CheckState.Checked;
+            checkBox_channel_13.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_13.Location = new Point(16, 345);
+            checkBox_channel_13.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_13.Name = "checkBox_channel_13";
+            checkBox_channel_13.Size = new Size(49, 24);
+            checkBox_channel_13.TabIndex = 18;
+            checkBox_channel_13.Text = "13";
+            checkBox_channel_13.UseVisualStyleBackColor = true;
+            checkBox_channel_13.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox15
+            // checkBox_channel_15
             // 
-            checkBox15.AutoSize = true;
-            checkBox15.Checked = true;
-            checkBox15.CheckState = CheckState.Checked;
-            checkBox15.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox15.Location = new Point(138, 345);
-            checkBox15.Margin = new Padding(4, 2, 4, 2);
-            checkBox15.Name = "checkBox15";
-            checkBox15.Size = new Size(49, 24);
-            checkBox15.TabIndex = 20;
-            checkBox15.Text = "15";
-            checkBox15.UseVisualStyleBackColor = true;
+            checkBox_channel_15.AutoSize = true;
+            checkBox_channel_15.Checked = true;
+            checkBox_channel_15.CheckState = CheckState.Checked;
+            checkBox_channel_15.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_15.Location = new Point(138, 345);
+            checkBox_channel_15.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_15.Name = "checkBox_channel_15";
+            checkBox_channel_15.Size = new Size(49, 24);
+            checkBox_channel_15.TabIndex = 20;
+            checkBox_channel_15.Text = "15";
+            checkBox_channel_15.UseVisualStyleBackColor = true;
+            checkBox_channel_15.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox16
+            // checkBox_channel_14
             // 
-            checkBox16.AutoSize = true;
-            checkBox16.Checked = true;
-            checkBox16.CheckState = CheckState.Checked;
-            checkBox16.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox16.Location = new Point(76, 345);
-            checkBox16.Margin = new Padding(4, 2, 4, 2);
-            checkBox16.Name = "checkBox16";
-            checkBox16.Size = new Size(49, 24);
-            checkBox16.TabIndex = 19;
-            checkBox16.Text = "14";
-            checkBox16.UseVisualStyleBackColor = true;
+            checkBox_channel_14.AutoSize = true;
+            checkBox_channel_14.Checked = true;
+            checkBox_channel_14.CheckState = CheckState.Checked;
+            checkBox_channel_14.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_14.Location = new Point(76, 345);
+            checkBox_channel_14.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_14.Name = "checkBox_channel_14";
+            checkBox_channel_14.Size = new Size(49, 24);
+            checkBox_channel_14.TabIndex = 19;
+            checkBox_channel_14.Text = "14";
+            checkBox_channel_14.UseVisualStyleBackColor = true;
+            checkBox_channel_14.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
-            // checkBox17
+            // checkBox_channel_16
             // 
-            checkBox17.AutoSize = true;
-            checkBox17.Checked = true;
-            checkBox17.CheckState = CheckState.Checked;
-            checkBox17.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox17.Location = new Point(199, 345);
-            checkBox17.Margin = new Padding(4, 2, 4, 2);
-            checkBox17.Name = "checkBox17";
-            checkBox17.Size = new Size(49, 24);
-            checkBox17.TabIndex = 21;
-            checkBox17.Text = "16";
-            checkBox17.UseVisualStyleBackColor = true;
+            checkBox_channel_16.AutoSize = true;
+            checkBox_channel_16.Checked = true;
+            checkBox_channel_16.CheckState = CheckState.Checked;
+            checkBox_channel_16.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBox_channel_16.Location = new Point(199, 345);
+            checkBox_channel_16.Margin = new Padding(4, 2, 4, 2);
+            checkBox_channel_16.Name = "checkBox_channel_16";
+            checkBox_channel_16.Size = new Size(49, 24);
+            checkBox_channel_16.TabIndex = 21;
+            checkBox_channel_16.Text = "16";
+            checkBox_channel_16.UseVisualStyleBackColor = true;
+            checkBox_channel_16.CheckedChanged += checkBox_channel_CheckedChanged;
             // 
             // holded_note_label
             // 
@@ -1167,25 +1183,25 @@
             ClientSize = new Size(435, 712);
             Controls.Add(panel1);
             Controls.Add(button_browse_file);
-            Controls.Add(checkBox17);
+            Controls.Add(checkBox_channel_16);
             Controls.Add(checkBox_make_each_cycle_last_30ms);
             Controls.Add(checkBox_dont_update_grid);
             Controls.Add(checkBox_play_each_note);
-            Controls.Add(checkBox13);
-            Controls.Add(checkBox9);
-            Controls.Add(checkBox5);
-            Controls.Add(checkBox16);
-            Controls.Add(checkBox12);
-            Controls.Add(checkBox8);
-            Controls.Add(checkBox3);
-            Controls.Add(checkBox15);
-            Controls.Add(checkBox11);
-            Controls.Add(checkBox7);
-            Controls.Add(checkBox4);
-            Controls.Add(checkBox14);
-            Controls.Add(checkBox10);
-            Controls.Add(checkBox6);
-            Controls.Add(checkBox2);
+            Controls.Add(checkBox_channel_12);
+            Controls.Add(checkBox_channel_8);
+            Controls.Add(checkBox_channel_4);
+            Controls.Add(checkBox_channel_14);
+            Controls.Add(checkBox_channel_10);
+            Controls.Add(checkBox_channel_6);
+            Controls.Add(checkBox_channel_2);
+            Controls.Add(checkBox_channel_15);
+            Controls.Add(checkBox_channel_11);
+            Controls.Add(checkBox_channel_7);
+            Controls.Add(checkBox_channel_3);
+            Controls.Add(checkBox_channel_13);
+            Controls.Add(checkBox_channel_9);
+            Controls.Add(checkBox_channel_5);
+            Controls.Add(checkBox_channel_1);
             Controls.Add(label_note32);
             Controls.Add(label_note24);
             Controls.Add(label_note16);
@@ -1260,22 +1276,22 @@
         private CheckBox checkBox_loop;
         private Label label_position;
         private Label label4;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
-        private CheckBox checkBox5;
-        private CheckBox checkBox6;
-        private CheckBox checkBox7;
-        private CheckBox checkBox8;
-        private CheckBox checkBox9;
-        private CheckBox checkBox10;
-        private CheckBox checkBox11;
-        private CheckBox checkBox12;
-        private CheckBox checkBox13;
-        private CheckBox checkBox14;
-        private CheckBox checkBox15;
-        private CheckBox checkBox16;
-        private CheckBox checkBox17;
+        private CheckBox checkBox_channel_1;
+        private CheckBox checkBox_channel_2;
+        private CheckBox checkBox_channel_3;
+        private CheckBox checkBox_channel_4;
+        private CheckBox checkBox_channel_5;
+        private CheckBox checkBox_channel_7;
+        private CheckBox checkBox_channel_6;
+        private CheckBox checkBox_channel_8;
+        private CheckBox checkBox_channel_9;
+        private CheckBox checkBox_channel_11;
+        private CheckBox checkBox_channel_10;
+        private CheckBox checkBox_channel_12;
+        private CheckBox checkBox_channel_13;
+        private CheckBox checkBox_channel_15;
+        private CheckBox checkBox_channel_14;
+        private CheckBox checkBox_channel_16;
         private Label holded_note_label;
         private Label label_note1;
         private Label label_note2;
