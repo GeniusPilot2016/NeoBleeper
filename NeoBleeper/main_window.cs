@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using System;
 using System.Reflection;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
+using System.Media;
 
 namespace NeoBleeper
 {
@@ -2423,63 +2424,143 @@ namespace NeoBleeper
             stopPlayingToolStripMenuItem.Enabled = false;
             is_music_playing = false;
         }
-        private void metronome()
+        private System.Timers.Timer metronomeTimer;
+        private int beatCount = 0;
+        private readonly object syncLock = new object();
+        private volatile bool isLabelVisible = false;
+
+        // Prepare sound buffers in advance
+        private SoundPlayer accentBeatSound; // For first beat
+        private SoundPlayer normalBeatSound; // For other beats
+
+        private void InitializeMetronome()
         {
+            // Pre-load sounds to eliminate initialization delay
             try
             {
-                NotePlayer.play_note(498, 10);
-                while (checkBox_metronome.Checked == true)
-                {
-                    int i = 1;
-                    UpdateLabelVisible(true);
-                    NotePlayer.play_note(1000, 30);
-                    UpdateLabelVisible(false);
-                    Thread.Sleep(Convert.ToInt32(Math.Truncate(60000.0 / Variables.bpm)) - 30);
-                    while (i < trackBar_time_signature.Value && checkBox_metronome.Checked == true)
-                    {
-                        UpdateLabelVisible(true);
-                        NotePlayer.play_note(498, 30);
-                        UpdateLabelVisible(false);
-                        Thread.Sleep(Convert.ToInt32(Math.Truncate(60000.0 / Variables.bpm)) - 30);
-                        i++;
-                    }
-                }
+                // If NotePlayer uses SoundPlayer internally, consider replacing with direct SoundPlayer usage
+                // Or implement a mechanism to pre-buffer the sounds
+                PreloadSounds();
             }
-            catch (InvalidAsynchronousStateException)
+            catch (Exception ex)
             {
-                return;
+                Debug.WriteLine("Error initializing sounds: " + ex.Message);
+            }
+
+            metronomeTimer = new System.Timers.Timer();
+            metronomeTimer.Elapsed += MetronomeTimer_Elapsed;
+        }
+
+        private void PreloadSounds()
+        {
+            // Option 1: If you can create WAV files for your metronome sounds
+            // accentBeatSound = new SoundPlayer(Properties.Resources.AccentBeat);
+            // normalBeatSound = new SoundPlayer(Properties.Resources.NormalBeat);
+            // accentBeatSound.LoadAsync();
+            // normalBeatSound.LoadAsync();
+
+            // Option 2: If using a different audio system, implement appropriate preloading
+        }
+
+        private void MetronomeTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            metronomeTimer.Stop(); // Temporarily stop to prevent overlapping
+
+            try
+            {
+                if (!checkBox_metronome.Checked)
+                    return;
+
+                // Play the appropriate sound first for minimal latency
+                PlayBeatSound(beatCount == 0);
+
+                // Then update the UI (which is less time-critical)
+                ShowBeatLabel();
+
+                // Update beat counter
+                beatCount = (beatCount + 1) % trackBar_time_signature.Value;
+
+                // Schedule the next beat
+                metronomeTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Metronome error: " + ex.Message);
             }
         }
+
+        private void PlayBeatSound(bool isAccent)
+        {
+            // Option 1: Use pre-loaded SoundPlayer if implemented
+            // (isAccent ? accentBeatSound : normalBeatSound).Play();
+
+            // Option 2: Use your NotePlayer but optimize for immediate playback
+            int frequency = isAccent ? 1000 : 498;
+
+            // Important: Play sound on high-priority thread
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
+                NotePlayer.play_note(frequency, 30);
+            });
+        }
+
+        private void ShowBeatLabel()
+        {
+            if (isLabelVisible) return;
+            isLabelVisible = true;
+
+            UpdateLabelVisible(true);
+
+            // Schedule hiding the label
+            ThreadPool.QueueUserWorkItem(async state =>
+            {
+                await Task.Delay(75);
+                UpdateLabelVisible(false);
+                isLabelVisible = false;
+            });
+        }
+
         private void UpdateLabelVisible(bool visible)
         {
             try
             {
                 if (label_beep.InvokeRequired)
                 {
-                    if (!label_beep.IsDisposed)
+                    label_beep.BeginInvoke(new Action(() =>
                     {
-                        label_beep.BeginInvoke(new Action(() =>
+                        if (!label_beep.IsDisposed)
                         {
-                            if (!label_beep.IsDisposed)
-                            {
-                                label_beep.Visible = visible;
-                            }
-                        }));
-                    }
+                            label_beep.Visible = visible;
+                            if (visible) label_beep.Refresh();
+                        }
+                    }));
                 }
-                else
+                else if (!label_beep.IsDisposed)
                 {
-                    if (!label_beep.IsDisposed)
-                    {
-                        label_beep.Visible = visible;
-                    }
+                    label_beep.Visible = visible;
+                    if (visible) label_beep.Refresh();
                 }
             }
-            catch (InvalidAsynchronousStateException)
+            catch
             {
                 return;
             }
         }
+
+        private void StartMetronome()
+        {
+            beatCount = 0;
+            double interval = 60000.0 / Variables.bpm;
+            metronomeTimer.Interval = interval;
+            metronomeTimer.Start();
+        }
+
+        private void StopMetronome()
+        {
+            metronomeTimer.Stop();
+        }
+
         private void checkBox_metronome_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_metronome.Checked == true)
@@ -2501,7 +2582,7 @@ namespace NeoBleeper
                             break;
                         }
                 }
-                Task.Run(() => metronome());
+                StartMetronome();
             }
             else
             {
@@ -2532,6 +2613,7 @@ namespace NeoBleeper
                             break;
                         }
                 }
+                StopMetronome();
             }
         }
 
@@ -4178,6 +4260,7 @@ namespace NeoBleeper
         }
         private void main_window_Load(object sender, EventArgs e)
         {
+            InitializeMetronome();
             UpdateRecentFilesMenu();
         }
     }
