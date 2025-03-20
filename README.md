@@ -12,7 +12,7 @@ This project is **still in development** and some features and components are st
 ## Features
 
 - ### User-friendly, familiar, more ergonomic and more natural interface
-  NeoBleeper offers a user-friendly, familiar and more natural interface that compatible with high resolution displays.
+  NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays.
   
   ![image](https://github.com/user-attachments/assets/12fa2325-c5ca-49ec-a8e3-fe77990dd389)
 
@@ -26,7 +26,7 @@ This project is **still in development** and some features and components are st
 - ### Time signature and BPM settings
   NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
 
-![image](https://github.com/user-attachments/assets/f20ef62c-ba3e-4c54-ba2c-5ad8ec5caba5)
+  ![image](https://github.com/user-attachments/assets/f20ef62c-ba3e-4c54-ba2c-5ad8ec5caba5)
 
 - ### More precise position indicator
 - NeoBleeper offers a position indicator that compatible with 1/32 note length.
