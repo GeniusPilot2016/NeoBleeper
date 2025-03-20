@@ -66,7 +66,7 @@ This project is **still in development** and some features and components are st
 
 ## System Requirements
 
-**Windows Version:** Windows 10 (1809 and above) 64-bit/Windows 11 (recommended)
+**Windows Version:** Windows 10 (1809 and above) 64-bit (minimum)/Windows 11 (recommended)
 
 **CPU:** Intel® Core i3 or equivalent (minimum)
 
