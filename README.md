@@ -16,7 +16,7 @@ This project is **still in development** and some features and components are st
   
   ![image](https://github.com/user-attachments/assets/a47eb5d7-91c5-4e05-b847-bd5a9af5eaef)
 
-  ![image](https://github.com/user-attachments/assets/cc96c4fd-3e2c-4a2f-8b6e-0e7335eaf768)
+  ![image](https://github.com/user-attachments/assets/d9fd1ffc-df4f-443c-b3f3-8627b83ce22f)
 
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
@@ -51,7 +51,7 @@ This project is **still in development** and some features and components are st
 - ### You can personalize as you wish
   You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only limit to this feature is your imagination.
 
-  ![image](https://github.com/user-attachments/assets/7235ab22-4ded-4d51-93bb-f2796b06ef6a)
+  ![image](https://github.com/user-attachments/assets/94c87cab-e610-4bbd-a7d0-5e609840c491)
 
 - ### Detects system speaker for you
   If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
