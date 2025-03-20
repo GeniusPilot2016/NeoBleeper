@@ -33,9 +33,9 @@
             textBox1 = new TextBox();
             label1 = new Label();
             groupBox1 = new GroupBox();
-            panel2 = new Panel();
-            label_percentage = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             label_position = new Label();
+            label_percentage = new Label();
             checkBox_loop = new CheckBox();
             icons2 = new ImageList(components);
             button_stop = new Button();
@@ -105,7 +105,7 @@
             label_ms = new Label();
             panel1 = new Panel();
             groupBox1.SuspendLayout();
-            panel2.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).BeginInit();
             panel1.SuspendLayout();
@@ -137,7 +137,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(panel2);
+            groupBox1.Controls.Add(flowLayoutPanel1);
             groupBox1.Controls.Add(checkBox_loop);
             groupBox1.Controls.Add(button_stop);
             groupBox1.Controls.Add(button_play);
@@ -153,45 +153,43 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Playback Controls";
             // 
-            // panel2
+            // flowLayoutPanel1
             // 
-            panel2.Anchor = AnchorStyles.Right;
-            panel2.AutoSize = true;
-            panel2.Controls.Add(label_percentage);
-            panel2.Controls.Add(label_position);
-            panel2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panel2.Location = new Point(230, 64);
-            panel2.Margin = new Padding(4, 4, 4, 4);
-            panel2.MaximumSize = new Size(171, 50);
-            panel2.MinimumSize = new Size(171, 50);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(171, 50);
-            panel2.TabIndex = 28;
-            // 
-            // label_percentage
-            // 
-            label_percentage.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label_percentage.AutoSize = true;
-            label_percentage.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_percentage.Location = new Point(115, 30);
-            label_percentage.Margin = new Padding(4, 0, 4, 0);
-            label_percentage.Name = "label_percentage";
-            label_percentage.Size = new Size(52, 20);
-            label_percentage.TabIndex = 4;
-            label_percentage.Text = "0,00%";
-            label_percentage.TextAlign = ContentAlignment.MiddleLeft;
+            flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            flowLayoutPanel1.Controls.Add(label_position);
+            flowLayoutPanel1.Controls.Add(label_percentage);
+            flowLayoutPanel1.FlowDirection = FlowDirection.RightToLeft;
+            flowLayoutPanel1.Location = new Point(230, 69);
+            flowLayoutPanel1.Margin = new Padding(4);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(171, 50);
+            flowLayoutPanel1.TabIndex = 28;
             // 
             // label_position
             // 
-            label_position.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label_position.Anchor = AnchorStyles.Right;
             label_position.AutoSize = true;
             label_position.Font = new Font("HarmonyOS Sans", 9F);
-            label_position.Location = new Point(32, 7);
+            label_position.Location = new Point(32, 0);
             label_position.Margin = new Padding(4, 0, 4, 0);
             label_position.Name = "label_position";
             label_position.Size = new Size(135, 20);
             label_position.TabIndex = 3;
             label_position.Text = "Position: 00:00.00";
+            // 
+            // label_percentage
+            // 
+            label_percentage.Anchor = AnchorStyles.Right;
+            label_percentage.AutoSize = true;
+            label_percentage.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label_percentage.Location = new Point(115, 20);
+            label_percentage.Margin = new Padding(4, 0, 4, 0);
+            label_percentage.MaximumSize = new Size(85, 20);
+            label_percentage.Name = "label_percentage";
+            label_percentage.Size = new Size(52, 20);
+            label_percentage.TabIndex = 4;
+            label_percentage.Text = "0,00%";
+            label_percentage.TextAlign = ContentAlignment.BottomRight;
             // 
             // checkBox_loop
             // 
@@ -415,7 +413,7 @@
             checkBox10.Checked = true;
             checkBox10.CheckState = CheckState.Checked;
             checkBox10.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox10.Location = new Point(16, 318);
+            checkBox10.Location = new Point(16, 317);
             checkBox10.Margin = new Padding(4, 2, 4, 2);
             checkBox10.Name = "checkBox10";
             checkBox10.Size = new Size(40, 24);
@@ -429,7 +427,7 @@
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
             checkBox11.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox11.Location = new Point(138, 318);
+            checkBox11.Location = new Point(138, 317);
             checkBox11.Margin = new Padding(4, 2, 4, 2);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(49, 24);
@@ -441,7 +439,7 @@
             // 
             checkBox12.AutoSize = true;
             checkBox12.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox12.Location = new Point(76, 318);
+            checkBox12.Location = new Point(76, 317);
             checkBox12.Margin = new Padding(4, 2, 4, 2);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(49, 24);
@@ -455,7 +453,7 @@
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
             checkBox13.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox13.Location = new Point(199, 318);
+            checkBox13.Location = new Point(199, 317);
             checkBox13.Margin = new Padding(4, 2, 4, 2);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(49, 24);
@@ -469,7 +467,7 @@
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
             checkBox14.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox14.Location = new Point(16, 342);
+            checkBox14.Location = new Point(16, 345);
             checkBox14.Margin = new Padding(4, 2, 4, 2);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(49, 24);
@@ -483,7 +481,7 @@
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
             checkBox15.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox15.Location = new Point(138, 342);
+            checkBox15.Location = new Point(138, 345);
             checkBox15.Margin = new Padding(4, 2, 4, 2);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(49, 24);
@@ -497,7 +495,7 @@
             checkBox16.Checked = true;
             checkBox16.CheckState = CheckState.Checked;
             checkBox16.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox16.Location = new Point(76, 342);
+            checkBox16.Location = new Point(76, 345);
             checkBox16.Margin = new Padding(4, 2, 4, 2);
             checkBox16.Name = "checkBox16";
             checkBox16.Size = new Size(49, 24);
@@ -511,7 +509,7 @@
             checkBox17.Checked = true;
             checkBox17.CheckState = CheckState.Checked;
             checkBox17.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox17.Location = new Point(199, 342);
+            checkBox17.Location = new Point(199, 345);
             checkBox17.Margin = new Padding(4, 2, 4, 2);
             checkBox17.Name = "checkBox17";
             checkBox17.Size = new Size(49, 24);
@@ -1239,8 +1237,8 @@
             DragEnter += MIDI_file_player_DragEnter;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).EndInit();
             panel1.ResumeLayout(false);
@@ -1323,7 +1321,7 @@
         private NumericUpDown numericUpDown_alternating_note;
         private Label label_ms;
         private Panel panel1;
-        private Panel panel2;
         private Label label_percentage;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }

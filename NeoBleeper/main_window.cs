@@ -3884,6 +3884,10 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            if (checkBox_synchronized_play.Checked == true)
+            {
+                checkBox_synchronized_play.Checked = false;
+            }
             openFileDialog.Filter = "MIDI Files|*.mid"; 
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
