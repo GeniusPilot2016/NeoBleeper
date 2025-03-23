@@ -448,6 +448,8 @@
             // checkBox_channel_10
             // 
             checkBox_channel_10.AutoSize = true;
+            checkBox_channel_10.Checked = true;
+            checkBox_channel_10.CheckState = CheckState.Checked;
             checkBox_channel_10.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox_channel_10.Location = new Point(76, 317);
             checkBox_channel_10.Margin = new Padding(4, 2, 4, 2);
@@ -1085,7 +1087,6 @@
             checkBox_play_each_note.TabIndex = 22;
             checkBox_play_each_note.Text = "Play each note once at a time (don't keep alternating)";
             checkBox_play_each_note.UseVisualStyleBackColor = true;
-            checkBox_play_each_note.CheckedChanged += disable_alternating_notes_panel;
             // 
             // checkBox_make_each_cycle_last_30ms
             // 

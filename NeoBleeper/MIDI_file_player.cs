@@ -637,171 +637,187 @@ namespace NeoBleeper
         // Play multiple notes alternating
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
-            if (!(checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true))
+            switch(checkBox_play_each_note.Checked)
             {
-                if (checkBox_make_each_cycle_last_30ms.Checked == true)
-                {
-                    if (checkBox_play_each_note.Checked == true)
+                case true:
                     {
-                        int interval = 30; // Switch between 30 ms
-                        int minAlternatingTime = 3; // Minimum alternate time 3 ms
-                        int maxAlternatingTime = 15; // Maximum alternate time 3 ms
-                        int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
-                        Random random = new Random();
-                        Stopwatch stopwatch = new Stopwatch();
-                        if (frequencies.Length >= steps)
+                        switch (checkBox_make_each_cycle_last_30ms.Checked)
                         {
-                            int i = 0;
-                            do
-                            {
-                                foreach (var frequency in frequencies)
+                            case true:
                                 {
-                                    int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
-
-                                    stopwatch.Restart();
-                                    NotePlayer.play_note(frequency, alternatingTime);
-                                    stopwatch.Stop();
-
-                                    long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-
-                                    if (elapsedMilliseconds < alternatingTime)
+                                    int interval = 30; // Switch between 30 ms
+                                    int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                                    int maxAlternatingTime = 15; // Maximum alternate time 3 ms
+                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    Random random = new Random();
+                                    Stopwatch stopwatch = new Stopwatch();
+                                    if (frequencies.Length >= steps)
                                     {
-                                        Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+
+                                                stopwatch.Restart();
+                                                NotePlayer.play_note(frequency, alternatingTime);
+                                                stopwatch.Stop();
+
+                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                                if (elapsedMilliseconds < alternatingTime)
+                                                {
+                                                    Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
+                                                }
+
+
+                                                int remainingTime = interval - alternatingTime;
+
+                                                if (remainingTime > 0)
+                                                {
+                                                    Thread.Sleep(remainingTime);
+                                                }
+
+                                                i++;
+                                                if (i * interval >= duration)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < steps);
                                     }
-
-                                    int remainingTime = interval - alternatingTime;
-
-                                    if (remainingTime > 0)
+                                    else
                                     {
-                                        Thread.Sleep(remainingTime);
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                NotePlayer.play_note(frequency, interval);
+                                                i++;
+                                                if (i * interval >= frequencies.Length * interval)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < frequencies.Length);
+                                        UpdateNoteLabels(new HashSet<int>());
+                                        Thread.Sleep(duration - (interval * frequencies.Length));
                                     }
-
-                                    i++;
-                                    if (i * interval >= duration)
-                                        break;
-                                }
-                            }
-                            while (i < steps);
-                        }
-                        else
-                        {
-                            int i = 0;
-                            do
-                            {
-                                foreach (var frequency in frequencies)
-                                {
-                                    NotePlayer.play_note(frequency, interval);
-                                    i++;
-                                    if (i * interval >= frequencies.Length * interval)
-                                        break;
-                                }
-                            }
-                            while (i < frequencies.Length);
-                            Thread.Sleep(duration - (interval * frequencies.Length));
-                        }
-                    }
-                    else
-                    {
-                        int interval = 30; // Switch between 30 ms
-                        int minAlternatingTime = 3; // Minimum alternate time 3 ms
-                        int maxAlternatingTime = 15; // Maximum alternate time 3 ms
-                        int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
-                        int i = 0;
-                        Random random = new Random();
-                        Stopwatch stopwatch = new Stopwatch();
-
-                        do
-                        {
-                            foreach (var frequency in frequencies)
-                            {
-                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
-
-                                stopwatch.Restart();
-                                NotePlayer.play_note(frequency, alternatingTime);
-                                stopwatch.Stop();
-
-                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-
-                                if (elapsedMilliseconds < alternatingTime)
-                                {
-                                    Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
-                                    if (i * interval >= frequencies.Length * interval)
-                                        break;
-                                }
-
-                                int remainingTime = interval - alternatingTime;
-
-                                if (remainingTime > 0)
-                                {
-                                    Thread.Sleep(remainingTime);
-                                }
-
-                                i++;
-                                if (i * interval >= duration)
                                     break;
-                            }
-                        }
-                        while (i < steps);
-                    }
-
-                }
-                else
-                {
-                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
-                    if (frequencies.Length >= steps)
-                    {
-                        int i = 0;
-                        do
-                        {
-                            foreach (var frequency in frequencies)
-                            {
-                                NotePlayer.play_note(frequency, interval);
-                                i++;
-                                // Check if we've gone past our duration
-                                if (i * interval >= duration)
+                                }
+                            case false:
+                                {
+                                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
+                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    if (frequencies.Length >= steps)
+                                    {
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                NotePlayer.play_note(frequency, interval);
+                                                i++;
+                                                // Check if we've gone past our duration
+                                                if (i * interval >= duration)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < steps);
+                                    }
+                                    else
+                                    {
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                NotePlayer.play_note(frequency, interval);
+                                                i++;
+                                                if (i * interval >= frequencies.Length * interval)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < frequencies.Length);
+                                        UpdateNoteLabels(new HashSet<int>());
+                                        Thread.Sleep(duration - (interval * frequencies.Length));
+                                    }
                                     break;
-                            }
+                                }
                         }
-                        while (i < steps);
+                        break;
                     }
-                    else
+                case false:
                     {
-                        int i = 0;
-                        do
+                        switch (checkBox_make_each_cycle_last_30ms.Checked)
                         {
-                            foreach (var frequency in frequencies)
-                            {
-                                NotePlayer.play_note(frequency, interval);
-                                i++;
-                                if (i * interval >= frequencies.Length * interval)
+                            case true:
+                                {
+                                    int interval = 30; // Switch between 30 ms
+                                    int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                                    int maxAlternatingTime = 15; // Maximum alternate time 3 ms
+                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    int i = 0;
+                                    Random random = new Random();
+                                    Stopwatch stopwatch = new Stopwatch();
+
+                                    do
+                                    {
+                                        foreach (var frequency in frequencies)
+                                        {
+                                            int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+
+                                            stopwatch.Restart();
+                                            NotePlayer.play_note(frequency, alternatingTime);
+                                            stopwatch.Stop();
+
+                                            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                            if (elapsedMilliseconds < alternatingTime)
+                                            {
+                                                Thread.Sleep(alternatingTime - (int)elapsedMilliseconds);
+                                                if (i * interval >= frequencies.Length * interval)
+                                                    break;
+                                            }
+
+                                            int remainingTime = interval - alternatingTime;
+
+                                            if (remainingTime > 0)
+                                            {
+                                                Thread.Sleep(remainingTime);
+                                            }
+
+                                            i++;
+                                            if (i * interval >= duration)
+                                                break;
+                                        }
+                                    }
+                                    while (i < steps);
                                     break;
-                            }
+                                }
+                            case false:
+                                {
+                                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
+                                    int steps = Convert.ToInt32(Math.Truncate(Math.Truncate((double)duration) / (double)interval));
+                                    int i = 0;
+                                    do
+                                    {
+                                        foreach (var frequency in frequencies)
+                                        {
+                                            NotePlayer.play_note(frequency, interval);
+                                            i++;
+
+                                            // Check if we've gone past our duration
+                                            if (i * interval >= duration)
+                                                break;
+                                        }
+                                    }
+                                    while (i < steps);
+                                    break;
+                                }
                         }
-                        while (i < frequencies.Length);
-                        Thread.Sleep(duration - (interval * frequencies.Length));
+                        break;
                     }
-                }
-
-            }
-            else
-            {
-                int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                int steps = Convert.ToInt32(Math.Truncate(Math.Truncate((double)duration) / (double)interval));
-                int i = 0;
-                do
-                {
-                    foreach (var frequency in frequencies)
-                    {
-                        NotePlayer.play_note(frequency, interval);
-                        i++;
-
-                        // Check if we've gone past our duration
-                        if (i * interval >= duration)
-                            break;
-                    }
-                }
-                while (i < steps);
             }
         }
         private int NoteToFrequency(int noteNumber)
