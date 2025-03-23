@@ -133,10 +133,14 @@
     <value>HarmonyOS Sans, 15.749998pt, style=Bold</value>
   </data>
   <data name="lbl_current_system_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 63</value>
+    <value>335, 79</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lbl_current_system_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_current_system_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 28</value>
+    <value>127, 36</value>
   </data>
   <data name="lbl_current_system_time.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -169,10 +173,13 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_current_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 47</value>
+    <value>345, 59</value>
+  </data>
+  <data name="lbl_current_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_current_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 16</value>
+    <value>100, 20</value>
   </data>
   <data name="lbl_current_time.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -205,10 +212,13 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 22</value>
+    <value>18, 28</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 16</value>
+    <value>481, 20</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -238,10 +248,13 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_hour_minute_second.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 47</value>
+    <value>71, 59</value>
+  </data>
+  <data name="lbl_hour_minute_second.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_hour_minute_second.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 16</value>
+    <value>90, 20</value>
   </data>
   <data name="lbl_hour_minute_second.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -271,10 +284,13 @@
     <value>HarmonyOS Sans, 11.249998pt</value>
   </data>
   <data name="dateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 66</value>
+    <value>54, 82</value>
+  </data>
+  <data name="dateTimePicker1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="dateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 27</value>
+    <value>129, 32</value>
   </data>
   <data name="dateTimePicker1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -295,10 +311,16 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="groupBox_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 62</value>
+    <value>12, 78</value>
+  </data>
+  <data name="groupBox_time.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="groupBox_time.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="groupBox_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 99</value>
+    <value>529, 124</value>
   </data>
   <data name="groupBox_time.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -321,140 +343,44 @@
   <data name="groupBox_position.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="radioButton2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Name" xml:space="preserve">
+    <value>radioButton_play_currently_selected_line</value>
   </data>
-  <data name="radioButton2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButton2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="radioButton2.ImageIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <metadata name="imageList_synchronized_play.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>128, 22</value>
-  </metadata>
-  <data name="imageList_synchronized_play.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2AgAAAJNU0Z0AUkBTAIBAQMB
-        AAFwAQABcAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
-        AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
-        AAH/AZkB/wEAAf8cAAFzAWcBTgHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
-        MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAByAFwAQMB/wHIAXAB
-        AwH/AzwBZjgAAWIBKQHdAf8BYgEpAd0B/wFiASkB3QH/AWIBKQHdAf8BYgEpAd0B/2gAAv8BmQH/ATMB
-        mQHMAf8BMwGZAcwB/wEzAZkBzAH/ATMBmQHMAf8BMwGZAcwB/wEzAZkBzAH/AZABqQGtAf8gAAHIAXAB
-        AwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/KAAB8gGjAUIB/wHxAaMBQgH/AfEBowFCAf8BZQErAd8B
-        /wFlASsB3wH/AWUBKwHfAf8BZQErAd8B/wFlASsB3wH/Ae0BpAFCAf8B7QGkAUIB/wHsAaQBQgH/AewB
-        pAFCAf8B6wGkAUIB/1QAAv8BmQP/AZkB/wFmAswB/wFmAswB/wFmAswB/wFmAswB/wFmAswD/wGZAf8g
-        AAHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CVQFTAaosAAFnAS0B4QH/AWcB
-        LQHhAf8BZwEtAeEB/wFnAS0B4QH/AWcBLQHhAf9oAAL/AcwD/wGZA/8BmQH/AWYBzAL/AWYBzAL/ApkB
-        zAP/AZkD/wGZAf8gAAHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB
-        /wHIAXABAwH/AwUBBhgAAfIBowFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8BaQEuAeMB/wFpAS4B
-        4wH/AWkBLgHjAf8BaQEuAeMB/wHtAaQBQgH/Ae0BpAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9Y
-        AAL/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgB
-        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wFnAWMBWwHkFAAB8gGjAUIB/wHxAaMB
-        QgH/AfEBowFCAf8B8AGjAUIB/wHvAaMBQgH/Ae8BowFCAf8BawEwAeUB/wFrATAB5QH/Ae0BpAFCAf8B
-        7QGkAUIB/wHsAaQBQgH/AewBpAFCAf8B6wGkAUIB/1wAAf8B7AHMA/8BmQP/AZkD/wGZBf8kAAHIAXAB
-        AwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8B
-        yAFwAQMB/wHIAXABAwH/KAABbgExAecB/wFuATEB5wH/bAAG/wGZA/8BmQP/AZkD/wGZA/8BmQX/IAAB
-        2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wHZAYMB
-        CAH/AdkBgwEIAf8DFAEbEAAB8gGjAUIB/wHxAaMBQgH/AfEBowFCAf8B8AGjAUIB/wHvAaMBQgH/Ae8B
-        owFCAf8BcAEzAekB/wFwATMB6QH/Ae0BpAFCAf8B7QGkAUIB/wHsAaQBQgH/AewBpAFCAf8B6wGkAUIB
-        /1QABv8BmQP/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQH/IAAB2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B
-        2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wJhAV0B0TAAAXIBNAHrAf8BcgE0AesB/2gAAv8B
-        ZgP/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAdkBgwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkB
-        gwEIAf8B2QGDAQgB/wHZAYMBCAH/BAE0AAF1ATYB7QH/AXUBNgHtAf9oAAL/AZkD/wGZA/8BmQP/AZkD
-        /wGZA/8BmQP/AZkD/wGZAf8gAAHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wHZAYMBCAH/Ak0BTAGRJAAB
-        8gGjAUIB/wHxAaMBQgH/AfEBowFCAf8B8AGjAUIB/wHvAaMBQgH/Ae8BowFCAf8BdQE2Ae0B/wF1ATYB
-        7QH/AU0BGwHKAf8BUgEeAcgB/wHsAaQBQgH/AewBpAFCAf8B6wGkAUIB/1QAAf8BZgEzAv8BZgEzAv8B
-        ZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAv8BZgEzAf8cAAHZAYMBCAH/AdkBgwEIAf8B
-        2QGDAQgB/0QAAXUBNgHtAf8BdQE2Ae0B/wFNARsBygH/AU4BGwHLAf9cAAGZAf8BAAH/AZkB/wEAAf8B
-        mQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/HAAB2QGDAQgB
-        /wMtAUVIAAMRARYBdQE2Ae0B/wFNARsBygH/AU0BOAGZAfn/AP8AUgABQgFNAT4HAAE+AwABKAMAAUAD
-        AAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHgAQcB9wH/AfwBfwIAAfABBwHxAf8B+AE/AgAB8AEPAfAB
-        /wHAAQECAAHwAQ8B8AE/AfgBPwIAAfABDwHwAQ8BwAEBAgAB+AEPAfABBwHAAQECAAH8AR8B8AEDAf8B
-        PwIAAfgBDwHwAQMBwAEBAgAB8AEPAfABDwH/AT8CAAHwAQ8B8AEfAf8BPwIAAfABDwHwAX8BwAEBAgAB
-        8AEHAfEC/wEPAgAB4AEHAfMC/wEPAgAG/wIABv8CAAs=
-</value>
-  </data>
-  <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 20</value>
-  </data>
-  <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButton2.Text" xml:space="preserve">
-    <value>Currrently-selected line in music list</value>
-  </data>
-  <data name="radioButton2.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;radioButton2.Name" xml:space="preserve">
-    <value>radioButton2</value>
-  </data>
-  <data name="&gt;&gt;radioButton2.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButton2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Parent" xml:space="preserve">
     <value>groupBox_position</value>
   </data>
-  <data name="&gt;&gt;radioButton2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="radioButton1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Name" xml:space="preserve">
+    <value>radioButton_play_beginning_of_music</value>
   </data>
-  <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioButton1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="radioButton1.ImageIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 20</value>
-  </data>
-  <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButton1.Text" xml:space="preserve">
-    <value>Beginning of music list</value>
-  </data>
-  <data name="radioButton1.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
-    <value>radioButton1</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Parent" xml:space="preserve">
     <value>groupBox_position</value>
   </data>
-  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="groupBox_position.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="groupBox_position.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 179</value>
+    <value>12, 224</value>
+  </data>
+  <data name="groupBox_position.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="groupBox_position.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 70</value>
+    <value>391, 88</value>
   </data>
   <data name="groupBox_position.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -474,6 +400,138 @@
   <data name="&gt;&gt;groupBox_position.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="radioButton_play_currently_selected_line.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.ImageIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <metadata name="imageList_synchronized_play.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>128, 22</value>
+  </metadata>
+  <data name="imageList_synchronized_play.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA1ggAAAJNU0Z0AUkBTAIBAQMB
+        AAGQAQABkAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
+        AAH/AZkB/wEAAf8cAAFtAWcBVgHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
+        MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAByAFwAQMB/wHIAXAB
+        AwH/AzwBZjgAAWIBKQHdAf8BYgEpAd0B/wFiASkB3QH/AWIBKQHdAf8BYgEpAd0B/2gAAv8BmQH/ATMB
+        mQHMAf8BMwGZAcwB/wEzAZkBzAH/ATMBmQHMAf8BMwGZAcwB/wEzAZkBzAH/AZABqQGtAf8gAAHIAXAB
+        AwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/KAAB8gGjAUIB/wHxAaMBQgH/AfEBowFCAf8BZQErAd8B
+        /wFlASsB3wH/AWUBKwHfAf8BZQErAd8B/wFlASsB3wH/Ae0BpAFCAf8B7QGkAUIB/wHsAaQBQgH/AewB
+        pAFCAf8B6wGkAUIB/1QAAv8BmQP/AZkB/wFmAswB/wFmAswB/wFmAswB/wFmAswB/wFmAswD/wGZAf8g
+        AAHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CVQFTAaosAAFnAS0B4QH/AWcB
+        LQHhAf8BZwEtAeEB/wFnAS0B4QH/AWcBLQHhAf9oAAL/AcwD/wGZA/8BmQH/AWYBzAL/AWYBzAL/ApkB
+        zAP/AZkD/wGZAf8gAAHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB
+        /wHIAXABAwH/AwUBBhgAAfIBowFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8BaQEuAeMB/wFpAS4B
+        4wH/AWkBLgHjAf8BaQEuAeMB/wHtAaQBQgH/Ae0BpAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9Y
+        AAL/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgB
+        cAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wJjAVsB5BQAAfIBowFCAf8B8QGjAUIB
+        /wHxAaMBQgH/AfABowFCAf8B7wGjAUIB/wHvAaMBQgH/AWsBMAHlAf8BawEwAeUB/wHtAaQBQgH/Ae0B
+        pAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9cAAH/AewBzAP/AZkD/wGZA/8BmQX/JAAByAFwAQMB
+        /wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AcgB
+        cAEDAf8ByAFwAQMB/ygAAW4BMQHnAf8BbgExAecB/2wABv8BmQP/AZkD/wGZA/8BmQP/AZkF/yAAAdkB
+        gwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB
+        /wHZAYMBCAH/AxQBGxAAAfIBowFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8B7wGjAUIB/wHvAaMB
+        QgH/AXABMwHpAf8BcAEzAekB/wHtAaQBQgH/Ae0BpAFCAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9U
+        AAb/AZkD/wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkB/yAAAdkBgwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkB
+        gwEIAf8B2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8CYQFdAdEwAAFyATQB6wH/AXIBNAHrAf9oAAL/AWYD
+        /wGZA/8BmQP/AZkD/wGZA/8BmQP/AZkD/wGZAf8gAAHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wHZAYMB
+        CAH/AdkBgwEIAf8B2QGDAQgB/wQBNAABdQE2Ae0B/wF1ATYB7QH/aAAC/wGZA/8BmQP/AZkD/wGZA/8B
+        mQP/AZkD/wGZA/8BmQH/IAAB2QGDAQgB/wHZAYMBCAH/AdkBgwEIAf8B2QGDAQgB/wJNAUwBkSQAAfIB
+        owFCAf8B8QGjAUIB/wHxAaMBQgH/AfABowFCAf8B7wGjAUIB/wHvAaMBQgH/AXUBNgHtAf8BdQE2Ae0B
+        /wFNARsBygH/AVIBHgHIAf8B7AGkAUIB/wHsAaQBQgH/AesBpAFCAf9UAAH/AWYBMwL/AWYBMwL/AWYB
+        MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAB2QGDAQgB/wHZAYMBCAH/AdkB
+        gwEIAf9EAAF1ATYB7QH/AXUBNgHtAf8BTQEbAcoB/wFOARsBywH/XAABmQH/AQAB/wGZAf8BAAH/AZkB
+        /wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB/xwAAdkBgwEIAf8D
+        LQFFSAADEQEWAXUBNgHtAf8BTQEbAcoB/wFNAUEBkAH5/wD/AFIAAUIBTQE+BwABPgMAASgDAAFAAwAB
+        EAMAAQEBAAEBBQABgBcAA/8BAAb/AgAB4AEHAfcB/wH8AX8CAAHwAQcB8QH/AfgBPwIAAfABDwHwAf8B
+        wAEBAgAB8AEPAfABPwH4AT8CAAHwAQ8B8AEPAcABAQIAAfgBDwHwAQcBwAEBAgAB/AEfAfABAwH/AT8C
+        AAH4AQ8B8AEDAcABAQIAAfABDwHwAQ8B/wE/AgAB8AEPAfABHwH/AT8CAAHwAQ8B8AF/AcABAQIAAfAB
+        BwHxAv8BDwIAAeABBwHzAv8BDwIABv8CAAb/AgAL
+</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 54</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 24</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.Text" xml:space="preserve">
+    <value>Currrently-selected line in music list</value>
+  </data>
+  <data name="radioButton_play_currently_selected_line.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Name" xml:space="preserve">
+    <value>radioButton_play_currently_selected_line</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.Parent" xml:space="preserve">
+    <value>groupBox_position</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_currently_selected_line.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 28</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 24</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.Text" xml:space="preserve">
+    <value>Beginning of music list</value>
+  </data>
+  <data name="radioButton_play_beginning_of_music.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Name" xml:space="preserve">
+    <value>radioButton_play_beginning_of_music</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.Parent" xml:space="preserve">
+    <value>groupBox_position</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_beginning_of_music.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="button_wait.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -484,10 +542,13 @@
     <value>0</value>
   </data>
   <data name="button_wait.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 179</value>
+    <value>411, 224</value>
+  </data>
+  <data name="button_wait.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="button_wait.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 36</value>
+    <value>130, 45</value>
   </data>
   <data name="button_wait.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -517,16 +578,19 @@
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
   <data name="lbl_waiting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 221</value>
+    <value>420, 276</value>
+  </data>
+  <data name="lbl_waiting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_waiting.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>115, 50</value>
   </data>
   <data name="lbl_waiting.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>115, 50</value>
   </data>
   <data name="lbl_waiting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>115, 50</value>
   </data>
   <data name="lbl_waiting.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -556,13 +620,16 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>92, 16</value>
+    <value>115, 20</value>
+  </data>
+  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label6.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>314, 32</value>
+    <value>392, 40</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 32</value>
+    <value>392, 40</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -586,10 +653,13 @@
     <value>17, 22</value>
   </metadata>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 16</value>
+    <value>58, 20</value>
+  </data>
+  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 40</value>
+    <value>50, 50</value>
   </data>
   <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
@@ -613,13 +683,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
+    <value>120, 120</value>
   </data>
   <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>443, 273</value>
+    <value>554, 341</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -943,6 +1013,9 @@
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Synchronized Play Settings</value>

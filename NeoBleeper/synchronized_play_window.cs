@@ -13,10 +13,17 @@ namespace NeoBleeper
 {
     public partial class synchronized_play_window : Form
     {
+        bool waiting = false;
+        bool is_playing = false;
         PrivateFontCollection fonts = new PrivateFontCollection();
-        public synchronized_play_window()
+
+        private main_window mainWindow;
+
+        public synchronized_play_window(main_window mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
+            this.mainWindow.MusicStopped += MainWindow_MusicStopped;
             fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
             fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
             PrivateFontCollection black_font = new PrivateFontCollection(); ;
@@ -32,7 +39,13 @@ namespace NeoBleeper
             lbl_current_system_time.Font = new Font(fonts.Families[0], 15, FontStyle.Bold);
             lbl_waiting.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
             dateTimePicker1.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
+            dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
             set_theme();
+        }
+
+        private void MainWindow_MusicStopped(object sender, EventArgs e)
+        {
+            stop_playing();
         }
 
         public void set_theme()
@@ -88,8 +101,37 @@ namespace NeoBleeper
         {
             string current_time = DateTime.Now.ToString("HH:mm:ss");
             lbl_current_system_time.Text = current_time;
+            if (waiting == true && is_playing == false)
+            {
+                if (dateTimePicker1.Value < DateTime.Now)
+                {
+                    start_playing();
+                }
+            }
         }
+        private void start_playing()
+        {
+            if (waiting == true)
+            {
+                if (dateTimePicker1.Value < DateTime.Now)
+                {
+                    button_wait.Text = "Stop playing";
+                    lbl_waiting.Text = "Playing";
+                    lbl_waiting.BackColor = Color.Yellow;
+                    is_playing = true;
 
+                    // Radyo butonlarının seçim durumuna göre main_window'daki yöntemleri çağır
+                    if (radioButton_play_beginning_of_music.Checked)
+                    {
+                        mainWindow.play_all();
+                    }
+                    else if (radioButton_play_currently_selected_line.Checked)
+                    {
+                        mainWindow.play_from_selected_line();
+                    }
+                }
+            }
+        }
         private void synchronized_play_window_Load(object sender, EventArgs e)
         {
 
@@ -98,6 +140,61 @@ namespace NeoBleeper
         private void synchronized_play_window_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void stop_playing()
+        {
+            try
+            {
+                if (is_playing)
+                {
+                    // MusicStopped olayını geçici olarak devre dışı bırak
+                    mainWindow.MusicStopped -= MainWindow_MusicStopped;
+                    mainWindow.stop_playing(); // Ana penceredeki müziği durdur
+                    mainWindow.MusicStopped += MainWindow_MusicStopped;
+                }
+                is_playing = false;
+                waiting = false; // waiting bayrağını da false yapıyoruz
+                button_wait.Text = "Start waiting";
+                lbl_waiting.Text = "Currently not waiting";
+                lbl_waiting.BackColor = Color.Red;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
+            }
+        }
+        private void button_wait_Click(object sender, EventArgs e)
+        {
+            if (waiting == false)
+            {
+                waiting = true;
+                if (mainWindow.is_music_playing)
+                {
+                    mainWindow.stop_playing(); // Ana penceredeki müziği durdur
+                }
+                if (dateTimePicker1.Value < DateTime.Now)
+                {
+                    start_playing();
+                }
+                else
+                {
+                    button_wait.Text = "Stop waiting";
+                    lbl_waiting.Text = "Currently waiting";
+                    lbl_waiting.BackColor = Color.Lime;
+                }
+            }
+            else
+            {
+                if (is_playing == true || mainWindow.is_music_playing)
+                {
+                    mainWindow.stop_playing();
+                }
+                waiting = false;
+                button_wait.Text = "Start waiting";
+                lbl_waiting.Text = "Currently not waiting";
+                lbl_waiting.BackColor = Color.Red;
+            }
         }
     }
 }

@@ -37,9 +37,9 @@
             lbl_hour_minute_second = new Label();
             dateTimePicker1 = new DateTimePicker();
             groupBox_position = new GroupBox();
-            radioButton2 = new RadioButton();
+            radioButton_play_currently_selected_line = new RadioButton();
             imageList_synchronized_play = new ImageList(components);
-            radioButton1 = new RadioButton();
+            radioButton_play_beginning_of_music = new RadioButton();
             button_wait = new Button();
             lbl_waiting = new Label();
             label6 = new Label();
@@ -92,17 +92,17 @@
             // groupBox_position
             // 
             resources.ApplyResources(groupBox_position, "groupBox_position");
-            groupBox_position.Controls.Add(radioButton2);
-            groupBox_position.Controls.Add(radioButton1);
+            groupBox_position.Controls.Add(radioButton_play_currently_selected_line);
+            groupBox_position.Controls.Add(radioButton_play_beginning_of_music);
             groupBox_position.Name = "groupBox_position";
             groupBox_position.TabStop = false;
             // 
-            // radioButton2
+            // radioButton_play_currently_selected_line
             // 
-            resources.ApplyResources(radioButton2, "radioButton2");
-            radioButton2.ImageList = imageList_synchronized_play;
-            radioButton2.Name = "radioButton2";
-            radioButton2.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButton_play_currently_selected_line, "radioButton_play_currently_selected_line");
+            radioButton_play_currently_selected_line.ImageList = imageList_synchronized_play;
+            radioButton_play_currently_selected_line.Name = "radioButton_play_currently_selected_line";
+            radioButton_play_currently_selected_line.UseVisualStyleBackColor = true;
             // 
             // imageList_synchronized_play
             // 
@@ -113,14 +113,14 @@
             imageList_synchronized_play.Images.SetKeyName(1, "icons8-play-48.png");
             imageList_synchronized_play.Images.SetKeyName(2, "icons8-music-notation-48.png");
             // 
-            // radioButton1
+            // radioButton_play_beginning_of_music
             // 
-            resources.ApplyResources(radioButton1, "radioButton1");
-            radioButton1.Checked = true;
-            radioButton1.ImageList = imageList_synchronized_play;
-            radioButton1.Name = "radioButton1";
-            radioButton1.TabStop = true;
-            radioButton1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radioButton_play_beginning_of_music, "radioButton_play_beginning_of_music");
+            radioButton_play_beginning_of_music.Checked = true;
+            radioButton_play_beginning_of_music.ImageList = imageList_synchronized_play;
+            radioButton_play_beginning_of_music.Name = "radioButton_play_beginning_of_music";
+            radioButton_play_beginning_of_music.TabStop = true;
+            radioButton_play_beginning_of_music.UseVisualStyleBackColor = true;
             // 
             // button_wait
             // 
@@ -128,6 +128,7 @@
             button_wait.ImageList = imageList_synchronized_play;
             button_wait.Name = "button_wait";
             button_wait.UseVisualStyleBackColor = true;
+            button_wait.Click += button_wait_Click;
             // 
             // lbl_waiting
             // 
@@ -189,8 +190,8 @@
         private Label lbl_current_time;
         private Label label2;
         private GroupBox groupBox_position;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_play_currently_selected_line;
+        private RadioButton radioButton_play_beginning_of_music;
         private Button button_wait;
         private Label lbl_waiting;
         private Label label6;

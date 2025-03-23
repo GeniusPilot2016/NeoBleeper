@@ -34,6 +34,7 @@ namespace NeoBleeper
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         PrivateFontCollection fonts = new PrivateFontCollection();
         Stopwatch stopwatch = new Stopwatch();
+        public event EventHandler MusicStopped;
         public static class Variables
         {
             public static int octave;
@@ -49,7 +50,7 @@ namespace NeoBleeper
         double final_note_length;
         int final_note_count;
         string currentFilePath;
-        Boolean is_music_playing = false;
+        public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
         public main_window()
         {
@@ -2345,7 +2346,7 @@ namespace NeoBleeper
             stop_playing();
             return false;
         }
-        private void play_all()
+        public void play_all()
         {
             if (listViewNotes.Items.Count > 0)
             {
@@ -2366,7 +2367,7 @@ namespace NeoBleeper
                 play_music(0);
             }
         }
-        private void play_from_selected_line()
+        public void play_from_selected_line()
         {
             if (listViewNotes.Items.Count > 0)
             {
@@ -2410,7 +2411,7 @@ namespace NeoBleeper
         {
             stop_playing();
         }
-        private void stop_playing()
+        public void stop_playing()
         {
             keyboard_panel.Enabled = true;
             checkBox_do_not_update.Enabled = true;
@@ -2423,6 +2424,7 @@ namespace NeoBleeper
             button_stop_playing.Enabled = false;
             stopPlayingToolStripMenuItem.Enabled = false;
             is_music_playing = false;
+            OnMusicStopped(EventArgs.Empty);
         }
         private System.Timers.Timer metronomeTimer;
         private int beatCount = 0;
@@ -2432,7 +2434,10 @@ namespace NeoBleeper
         // Prepare sound buffers in advance
         private SoundPlayer accentBeatSound; // For first beat
         private SoundPlayer normalBeatSound; // For other beats
-
+        protected virtual void OnMusicStopped(EventArgs e)
+        {
+            MusicStopped?.Invoke(this, e);
+        }
         private void InitializeMetronome()
         {
             // Pre-load sounds to eliminate initialization delay
@@ -3672,19 +3677,26 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void openSynchronizedPlayWindow()
+        {
+            synchronized_play_window syncPlayWindow = new synchronized_play_window(this);
+            syncPlayWindow.Show();
+            checkBox_synchronized_play.Tag = syncPlayWindow;
+        }
+        private void closeSynchronizedPlayWindow()
+        {
+            synchronized_play_window syncPlayWindow = checkBox_synchronized_play.Tag as synchronized_play_window;
+            syncPlayWindow.Close();
+        }
         private void checkBox_synchronized_play_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_synchronized_play.Checked == true)
             {
-                synchronized_play_window synchronized_play = new synchronized_play_window();
-                synchronized_play.Show();
-                checkBox_synchronized_play.Tag = synchronized_play;
+                openSynchronizedPlayWindow();
             }
             else if (checkBox_synchronized_play.Checked == false)
             {
-                synchronized_play_window synchronized_play = checkBox_synchronized_play.Tag as synchronized_play_window;
-                synchronized_play.Close();
+                closeSynchronizedPlayWindow();
             }
         }
 
