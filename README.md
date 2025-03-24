@@ -21,6 +21,8 @@ This project is **still in development** and some features and components are st
 
   ![image](https://github.com/user-attachments/assets/24ff32f4-8b9e-40ee-a014-a165a2f7a250)
 
+  ![image](https://github.com/user-attachments/assets/17661b33-340b-4882-a702-25e3b9b98443)
+
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
