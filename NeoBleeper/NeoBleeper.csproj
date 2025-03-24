@@ -20,6 +20,7 @@
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>music, beep, pc-speaker, buzzer, tune, pc-beeper, system-speaker, neobleeper, bleeper, motherboard-speaker, motherboard-buzzer</PackageTags>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icon.ico" />
     <Content Include="inpoutx64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
