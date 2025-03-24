@@ -150,6 +150,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Music\Clementi Sonatina No. 3, Op 36.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Settings1.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
