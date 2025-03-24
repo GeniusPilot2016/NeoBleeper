@@ -2291,7 +2291,7 @@ namespace NeoBleeper
                     {
                         await Task.Run(() =>
                         {
-                            listViewNotes.Invoke(new Action(() =>
+                            listViewNotes.BeginInvoke(new Action(() =>
                             {
                                 UpdateListViewSelectionSync(index);
                             }));

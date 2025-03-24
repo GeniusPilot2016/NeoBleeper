@@ -829,7 +829,7 @@ namespace NeoBleeper
         {
             if (trackBar1.InvokeRequired)
             {
-                trackBar1.Invoke(new Action(() =>
+                trackBar1.BeginInvoke(new Action(() =>
                 {
                     trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
                 }));
@@ -843,7 +843,7 @@ namespace NeoBleeper
         {
             if (label_percentage.InvokeRequired)
             {
-                label_percentage.Invoke(new Action(() =>
+                label_percentage.BeginInvoke(new Action(() =>
                 {
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                 }));
@@ -861,7 +861,7 @@ namespace NeoBleeper
 
             if (label_percentage.InvokeRequired)
             {
-                label_percentage.Invoke(new Action(() =>
+                label_percentage.BeginInvoke(new Action(() =>
                 {
                     label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
                 }));
@@ -1001,6 +1001,7 @@ namespace NeoBleeper
                 Debug.WriteLine($"Error updating note labels: {ex.Message}");
             }
         }
+
         private void button_play_Click(object sender, EventArgs e)
         {
             Play();
