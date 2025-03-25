@@ -486,13 +486,10 @@ namespace NeoBleeper
                     }
 
                     // Update note labels based on filtered active notes
-                    if (checkBox_dont_update_grid.Checked == false)
+                    if (!checkBox_dont_update_grid.Checked)
                     {
                         UpdateNoteLabels(filteredNotes);
                     }
-
-                    // Remember current active notes for next iteration
-                    previousActiveNotes = new HashSet<int>(filteredNotes);
 
                     int notesCount = filteredNotes.Count;
 
@@ -570,7 +567,7 @@ namespace NeoBleeper
                 }
 
                 // Finished playing
-                if (checkBox_loop.Checked == true)
+                if (checkBox_loop.Checked)
                 {
                     UpdateTimeAndPercentPosition(100);
                     Rewind();
@@ -648,7 +645,7 @@ namespace NeoBleeper
                                     int interval = 30; // Switch between 30 ms
                                     int minAlternatingTime = 3; // Minimum alternate time 3 ms
                                     int maxAlternatingTime = 15; // Maximum alternate time 3 ms
-                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
                                     Random random = new Random();
                                     Stopwatch stopwatch = new Stopwatch();
                                     if (frequencies.Length >= steps)
@@ -708,7 +705,7 @@ namespace NeoBleeper
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
                                     if (frequencies.Length >= steps)
                                     {
                                         int i = 0;
@@ -756,7 +753,7 @@ namespace NeoBleeper
                                     int interval = 30; // Switch between 30 ms
                                     int minAlternatingTime = 3; // Minimum alternate time 3 ms
                                     int maxAlternatingTime = 15; // Maximum alternate time 3 ms
-                                    int steps = Convert.ToInt32(Math.Truncate((double)duration / (double)interval));
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
                                     int i = 0;
                                     Random random = new Random();
                                     Stopwatch stopwatch = new Stopwatch();
@@ -798,7 +795,7 @@ namespace NeoBleeper
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    int steps = Convert.ToInt32(Math.Truncate(Math.Truncate((double)duration) / (double)interval));
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
                                     int i = 0;
                                     do
                                     {
