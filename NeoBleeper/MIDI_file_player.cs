@@ -1062,7 +1062,15 @@ namespace NeoBleeper
 
         private void MIDI_file_player_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Stop();
+            try
+            {
+                Stop();
+                midiFileLoading.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Error closing the form: {ex.Message}");
+            }
         }
 
         private void disable_alternating_notes_panel(object sender, EventArgs e)
