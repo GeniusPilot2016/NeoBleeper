@@ -99,16 +99,21 @@
             checkBox_dont_update_grid = new CheckBox();
             openFileDialog = new OpenFileDialog();
             toolTip1 = new ToolTip(components);
-            update_timer = new System.Windows.Forms.Timer(components);
+            resetHighlightTimer = new System.Windows.Forms.Timer(components);
             label_alternating_note = new Label();
             numericUpDown_alternating_note = new NumericUpDown();
             label_ms = new Label();
             panel1 = new Panel();
+            label_more_notes = new Label();
+            panel2 = new Panel();
+            flowLayoutPanel2 = new FlowLayoutPanel();
             groupBox1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).BeginInit();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
@@ -548,11 +553,12 @@
             // 
             // label_note1
             // 
+            label_note1.Anchor = AnchorStyles.None;
             label_note1.AutoEllipsis = true;
             label_note1.AutoSize = true;
             label_note1.BackColor = Color.Red;
             label_note1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note1.Location = new Point(12, 418);
+            label_note1.Location = new Point(7, 7);
             label_note1.Margin = new Padding(4, 0, 4, 0);
             label_note1.MinimumSize = new Size(44, 22);
             label_note1.Name = "label_note1";
@@ -564,11 +570,12 @@
             // 
             // label_note2
             // 
+            label_note2.Anchor = AnchorStyles.None;
             label_note2.AutoEllipsis = true;
             label_note2.AutoSize = true;
             label_note2.BackColor = Color.FromArgb(176, 0, 0);
             label_note2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note2.Location = new Point(64, 418);
+            label_note2.Location = new Point(59, 7);
             label_note2.Margin = new Padding(4, 0, 4, 0);
             label_note2.MinimumSize = new Size(44, 22);
             label_note2.Name = "label_note2";
@@ -580,11 +587,12 @@
             // 
             // label_note3
             // 
+            label_note3.Anchor = AnchorStyles.None;
             label_note3.AutoEllipsis = true;
             label_note3.AutoSize = true;
             label_note3.BackColor = Color.FromArgb(176, 0, 0);
             label_note3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note3.Location = new Point(116, 418);
+            label_note3.Location = new Point(111, 7);
             label_note3.Margin = new Padding(4, 0, 4, 0);
             label_note3.MinimumSize = new Size(44, 22);
             label_note3.Name = "label_note3";
@@ -596,11 +604,12 @@
             // 
             // label_note4
             // 
+            label_note4.Anchor = AnchorStyles.None;
             label_note4.AutoEllipsis = true;
             label_note4.AutoSize = true;
             label_note4.BackColor = Color.FromArgb(176, 0, 0);
             label_note4.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note4.Location = new Point(168, 418);
+            label_note4.Location = new Point(163, 7);
             label_note4.Margin = new Padding(4, 0, 4, 0);
             label_note4.MinimumSize = new Size(44, 22);
             label_note4.Name = "label_note4";
@@ -612,11 +621,12 @@
             // 
             // label_note5
             // 
+            label_note5.Anchor = AnchorStyles.None;
             label_note5.AutoEllipsis = true;
             label_note5.AutoSize = true;
             label_note5.BackColor = Color.FromArgb(176, 0, 0);
             label_note5.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note5.Location = new Point(220, 418);
+            label_note5.Location = new Point(215, 7);
             label_note5.Margin = new Padding(4, 0, 4, 0);
             label_note5.MinimumSize = new Size(44, 22);
             label_note5.Name = "label_note5";
@@ -628,11 +638,12 @@
             // 
             // label_note7
             // 
+            label_note7.Anchor = AnchorStyles.None;
             label_note7.AutoEllipsis = true;
             label_note7.AutoSize = true;
             label_note7.BackColor = Color.FromArgb(176, 0, 0);
             label_note7.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note7.Location = new Point(324, 418);
+            label_note7.Location = new Point(319, 7);
             label_note7.Margin = new Padding(4, 0, 4, 0);
             label_note7.MinimumSize = new Size(44, 22);
             label_note7.Name = "label_note7";
@@ -644,11 +655,12 @@
             // 
             // label_note6
             // 
+            label_note6.Anchor = AnchorStyles.None;
             label_note6.AutoEllipsis = true;
             label_note6.AutoSize = true;
             label_note6.BackColor = Color.FromArgb(176, 0, 0);
             label_note6.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note6.Location = new Point(272, 418);
+            label_note6.Location = new Point(267, 7);
             label_note6.Margin = new Padding(4, 0, 4, 0);
             label_note6.MinimumSize = new Size(44, 22);
             label_note6.Name = "label_note6";
@@ -660,11 +672,12 @@
             // 
             // label_note8
             // 
+            label_note8.Anchor = AnchorStyles.None;
             label_note8.AutoEllipsis = true;
             label_note8.AutoSize = true;
             label_note8.BackColor = Color.FromArgb(176, 0, 0);
             label_note8.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note8.Location = new Point(376, 418);
+            label_note8.Location = new Point(371, 7);
             label_note8.Margin = new Padding(4, 0, 4, 0);
             label_note8.MinimumSize = new Size(44, 22);
             label_note8.Name = "label_note8";
@@ -676,11 +689,12 @@
             // 
             // label_note9
             // 
+            label_note9.Anchor = AnchorStyles.None;
             label_note9.AutoEllipsis = true;
             label_note9.AutoSize = true;
             label_note9.BackColor = Color.FromArgb(176, 0, 0);
             label_note9.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note9.Location = new Point(12, 452);
+            label_note9.Location = new Point(7, 41);
             label_note9.Margin = new Padding(4, 0, 4, 0);
             label_note9.MinimumSize = new Size(44, 22);
             label_note9.Name = "label_note9";
@@ -692,11 +706,12 @@
             // 
             // label_note13
             // 
+            label_note13.Anchor = AnchorStyles.None;
             label_note13.AutoEllipsis = true;
             label_note13.AutoSize = true;
             label_note13.BackColor = Color.FromArgb(176, 0, 0);
             label_note13.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note13.Location = new Point(220, 452);
+            label_note13.Location = new Point(215, 41);
             label_note13.Margin = new Padding(4, 0, 4, 0);
             label_note13.MinimumSize = new Size(44, 22);
             label_note13.Name = "label_note13";
@@ -708,11 +723,12 @@
             // 
             // label_note11
             // 
+            label_note11.Anchor = AnchorStyles.None;
             label_note11.AutoEllipsis = true;
             label_note11.AutoSize = true;
             label_note11.BackColor = Color.FromArgb(176, 0, 0);
             label_note11.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note11.Location = new Point(116, 452);
+            label_note11.Location = new Point(111, 41);
             label_note11.Margin = new Padding(4, 0, 4, 0);
             label_note11.MinimumSize = new Size(44, 22);
             label_note11.Name = "label_note11";
@@ -724,11 +740,12 @@
             // 
             // label_note15
             // 
+            label_note15.Anchor = AnchorStyles.None;
             label_note15.AutoEllipsis = true;
             label_note15.AutoSize = true;
             label_note15.BackColor = Color.FromArgb(176, 0, 0);
             label_note15.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note15.Location = new Point(324, 452);
+            label_note15.Location = new Point(319, 41);
             label_note15.Margin = new Padding(4, 0, 4, 0);
             label_note15.MinimumSize = new Size(44, 22);
             label_note15.Name = "label_note15";
@@ -740,11 +757,12 @@
             // 
             // label_note10
             // 
+            label_note10.Anchor = AnchorStyles.None;
             label_note10.AutoEllipsis = true;
             label_note10.AutoSize = true;
             label_note10.BackColor = Color.FromArgb(176, 0, 0);
             label_note10.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note10.Location = new Point(64, 452);
+            label_note10.Location = new Point(59, 41);
             label_note10.Margin = new Padding(4, 0, 4, 0);
             label_note10.MinimumSize = new Size(44, 22);
             label_note10.Name = "label_note10";
@@ -756,11 +774,12 @@
             // 
             // label_note14
             // 
+            label_note14.Anchor = AnchorStyles.None;
             label_note14.AutoEllipsis = true;
             label_note14.AutoSize = true;
             label_note14.BackColor = Color.FromArgb(176, 0, 0);
             label_note14.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note14.Location = new Point(272, 452);
+            label_note14.Location = new Point(267, 41);
             label_note14.Margin = new Padding(4, 0, 4, 0);
             label_note14.MinimumSize = new Size(44, 22);
             label_note14.Name = "label_note14";
@@ -772,11 +791,12 @@
             // 
             // label_note12
             // 
+            label_note12.Anchor = AnchorStyles.None;
             label_note12.AutoEllipsis = true;
             label_note12.AutoSize = true;
             label_note12.BackColor = Color.FromArgb(176, 0, 0);
             label_note12.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note12.Location = new Point(168, 452);
+            label_note12.Location = new Point(163, 41);
             label_note12.Margin = new Padding(4, 0, 4, 0);
             label_note12.MinimumSize = new Size(44, 22);
             label_note12.Name = "label_note12";
@@ -788,11 +808,12 @@
             // 
             // label_note16
             // 
+            label_note16.Anchor = AnchorStyles.None;
             label_note16.AutoEllipsis = true;
             label_note16.AutoSize = true;
             label_note16.BackColor = Color.FromArgb(176, 0, 0);
             label_note16.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note16.Location = new Point(376, 452);
+            label_note16.Location = new Point(371, 41);
             label_note16.Margin = new Padding(4, 0, 4, 0);
             label_note16.MinimumSize = new Size(44, 22);
             label_note16.Name = "label_note16";
@@ -804,11 +825,12 @@
             // 
             // label_note17
             // 
+            label_note17.Anchor = AnchorStyles.None;
             label_note17.AutoEllipsis = true;
             label_note17.AutoSize = true;
             label_note17.BackColor = Color.FromArgb(176, 0, 0);
             label_note17.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note17.Location = new Point(12, 486);
+            label_note17.Location = new Point(7, 75);
             label_note17.Margin = new Padding(4, 0, 4, 0);
             label_note17.MinimumSize = new Size(44, 22);
             label_note17.Name = "label_note17";
@@ -820,11 +842,12 @@
             // 
             // label_note21
             // 
+            label_note21.Anchor = AnchorStyles.None;
             label_note21.AutoEllipsis = true;
             label_note21.AutoSize = true;
             label_note21.BackColor = Color.FromArgb(176, 0, 0);
             label_note21.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note21.Location = new Point(220, 486);
+            label_note21.Location = new Point(215, 75);
             label_note21.Margin = new Padding(4, 0, 4, 0);
             label_note21.MinimumSize = new Size(44, 22);
             label_note21.Name = "label_note21";
@@ -836,11 +859,12 @@
             // 
             // label_note19
             // 
+            label_note19.Anchor = AnchorStyles.None;
             label_note19.AutoEllipsis = true;
             label_note19.AutoSize = true;
             label_note19.BackColor = Color.FromArgb(176, 0, 0);
             label_note19.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note19.Location = new Point(116, 486);
+            label_note19.Location = new Point(111, 75);
             label_note19.Margin = new Padding(4, 0, 4, 0);
             label_note19.MinimumSize = new Size(44, 22);
             label_note19.Name = "label_note19";
@@ -852,11 +876,12 @@
             // 
             // label_note23
             // 
+            label_note23.Anchor = AnchorStyles.None;
             label_note23.AutoEllipsis = true;
             label_note23.AutoSize = true;
             label_note23.BackColor = Color.FromArgb(176, 0, 0);
             label_note23.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note23.Location = new Point(324, 486);
+            label_note23.Location = new Point(319, 75);
             label_note23.Margin = new Padding(4, 0, 4, 0);
             label_note23.MinimumSize = new Size(44, 22);
             label_note23.Name = "label_note23";
@@ -868,11 +893,12 @@
             // 
             // label_note18
             // 
+            label_note18.Anchor = AnchorStyles.None;
             label_note18.AutoEllipsis = true;
             label_note18.AutoSize = true;
             label_note18.BackColor = Color.FromArgb(176, 0, 0);
             label_note18.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note18.Location = new Point(64, 486);
+            label_note18.Location = new Point(59, 75);
             label_note18.Margin = new Padding(4, 0, 4, 0);
             label_note18.MinimumSize = new Size(44, 22);
             label_note18.Name = "label_note18";
@@ -884,11 +910,12 @@
             // 
             // label_note22
             // 
+            label_note22.Anchor = AnchorStyles.None;
             label_note22.AutoEllipsis = true;
             label_note22.AutoSize = true;
             label_note22.BackColor = Color.FromArgb(176, 0, 0);
             label_note22.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note22.Location = new Point(272, 486);
+            label_note22.Location = new Point(267, 75);
             label_note22.Margin = new Padding(4, 0, 4, 0);
             label_note22.MinimumSize = new Size(44, 22);
             label_note22.Name = "label_note22";
@@ -900,11 +927,12 @@
             // 
             // label_note20
             // 
+            label_note20.Anchor = AnchorStyles.None;
             label_note20.AutoEllipsis = true;
             label_note20.AutoSize = true;
             label_note20.BackColor = Color.FromArgb(176, 0, 0);
             label_note20.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note20.Location = new Point(168, 486);
+            label_note20.Location = new Point(163, 75);
             label_note20.Margin = new Padding(4, 0, 4, 0);
             label_note20.MinimumSize = new Size(44, 22);
             label_note20.Name = "label_note20";
@@ -916,11 +944,12 @@
             // 
             // label_note24
             // 
+            label_note24.Anchor = AnchorStyles.None;
             label_note24.AutoEllipsis = true;
             label_note24.AutoSize = true;
             label_note24.BackColor = Color.FromArgb(176, 0, 0);
             label_note24.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note24.Location = new Point(376, 486);
+            label_note24.Location = new Point(371, 75);
             label_note24.Margin = new Padding(4, 0, 4, 0);
             label_note24.MinimumSize = new Size(44, 22);
             label_note24.Name = "label_note24";
@@ -932,11 +961,12 @@
             // 
             // label_note25
             // 
+            label_note25.Anchor = AnchorStyles.None;
             label_note25.AutoEllipsis = true;
             label_note25.AutoSize = true;
             label_note25.BackColor = Color.FromArgb(176, 0, 0);
             label_note25.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note25.Location = new Point(12, 518);
+            label_note25.Location = new Point(7, 107);
             label_note25.Margin = new Padding(4, 0, 4, 0);
             label_note25.MinimumSize = new Size(44, 22);
             label_note25.Name = "label_note25";
@@ -948,11 +978,12 @@
             // 
             // label_note29
             // 
+            label_note29.Anchor = AnchorStyles.None;
             label_note29.AutoEllipsis = true;
             label_note29.AutoSize = true;
             label_note29.BackColor = Color.FromArgb(176, 0, 0);
             label_note29.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note29.Location = new Point(220, 518);
+            label_note29.Location = new Point(215, 107);
             label_note29.Margin = new Padding(4, 0, 4, 0);
             label_note29.MinimumSize = new Size(44, 22);
             label_note29.Name = "label_note29";
@@ -964,11 +995,12 @@
             // 
             // label_note27
             // 
+            label_note27.Anchor = AnchorStyles.None;
             label_note27.AutoEllipsis = true;
             label_note27.AutoSize = true;
             label_note27.BackColor = Color.FromArgb(176, 0, 0);
             label_note27.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note27.Location = new Point(116, 518);
+            label_note27.Location = new Point(111, 107);
             label_note27.Margin = new Padding(4, 0, 4, 0);
             label_note27.MinimumSize = new Size(44, 22);
             label_note27.Name = "label_note27";
@@ -980,11 +1012,12 @@
             // 
             // label_note31
             // 
+            label_note31.Anchor = AnchorStyles.None;
             label_note31.AutoEllipsis = true;
             label_note31.AutoSize = true;
             label_note31.BackColor = Color.FromArgb(176, 0, 0);
             label_note31.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note31.Location = new Point(324, 518);
+            label_note31.Location = new Point(319, 107);
             label_note31.Margin = new Padding(4, 0, 4, 0);
             label_note31.MinimumSize = new Size(44, 22);
             label_note31.Name = "label_note31";
@@ -996,11 +1029,12 @@
             // 
             // label_note26
             // 
+            label_note26.Anchor = AnchorStyles.None;
             label_note26.AutoEllipsis = true;
             label_note26.AutoSize = true;
             label_note26.BackColor = Color.FromArgb(176, 0, 0);
             label_note26.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note26.Location = new Point(64, 518);
+            label_note26.Location = new Point(59, 107);
             label_note26.Margin = new Padding(4, 0, 4, 0);
             label_note26.MinimumSize = new Size(44, 22);
             label_note26.Name = "label_note26";
@@ -1012,11 +1046,12 @@
             // 
             // label_note30
             // 
+            label_note30.Anchor = AnchorStyles.None;
             label_note30.AutoEllipsis = true;
             label_note30.AutoSize = true;
             label_note30.BackColor = Color.FromArgb(176, 0, 0);
             label_note30.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note30.Location = new Point(272, 518);
+            label_note30.Location = new Point(267, 107);
             label_note30.Margin = new Padding(4, 0, 4, 0);
             label_note30.MinimumSize = new Size(44, 22);
             label_note30.Name = "label_note30";
@@ -1028,11 +1063,12 @@
             // 
             // label_note28
             // 
+            label_note28.Anchor = AnchorStyles.None;
             label_note28.AutoEllipsis = true;
             label_note28.AutoSize = true;
             label_note28.BackColor = Color.FromArgb(176, 0, 0);
             label_note28.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note28.Location = new Point(168, 518);
+            label_note28.Location = new Point(163, 107);
             label_note28.Margin = new Padding(4, 0, 4, 0);
             label_note28.MinimumSize = new Size(44, 22);
             label_note28.Name = "label_note28";
@@ -1044,11 +1080,12 @@
             // 
             // label_note32
             // 
+            label_note32.Anchor = AnchorStyles.None;
             label_note32.AutoEllipsis = true;
             label_note32.AutoSize = true;
             label_note32.BackColor = Color.FromArgb(176, 0, 0);
             label_note32.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_note32.Location = new Point(376, 518);
+            label_note32.Location = new Point(371, 107);
             label_note32.Margin = new Padding(4, 0, 4, 0);
             label_note32.MinimumSize = new Size(44, 22);
             label_note32.Name = "label_note32";
@@ -1079,7 +1116,7 @@
             // 
             checkBox_play_each_note.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox_play_each_note.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_play_each_note.Location = new Point(11, 591);
+            checkBox_play_each_note.Location = new Point(11, 627);
             checkBox_play_each_note.Margin = new Padding(4, 2, 4, 2);
             checkBox_play_each_note.MinimumSize = new Size(401, 25);
             checkBox_play_each_note.Name = "checkBox_play_each_note";
@@ -1094,7 +1131,7 @@
             checkBox_make_each_cycle_last_30ms.Checked = true;
             checkBox_make_each_cycle_last_30ms.CheckState = CheckState.Checked;
             checkBox_make_each_cycle_last_30ms.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_make_each_cycle_last_30ms.Location = new Point(11, 620);
+            checkBox_make_each_cycle_last_30ms.Location = new Point(11, 656);
             checkBox_make_each_cycle_last_30ms.Margin = new Padding(4, 2, 4, 2);
             checkBox_make_each_cycle_last_30ms.MaximumSize = new Size(401, 52);
             checkBox_make_each_cycle_last_30ms.MinimumSize = new Size(401, 52);
@@ -1109,7 +1146,7 @@
             // 
             checkBox_dont_update_grid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox_dont_update_grid.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox_dont_update_grid.Location = new Point(11, 678);
+            checkBox_dont_update_grid.Location = new Point(11, 714);
             checkBox_dont_update_grid.Margin = new Padding(4, 2, 4, 2);
             checkBox_dont_update_grid.MaximumSize = new Size(401, 25);
             checkBox_dont_update_grid.MinimumSize = new Size(199, 25);
@@ -1123,6 +1160,10 @@
             // openFileDialog
             // 
             openFileDialog.FileName = "openFileDialog1";
+            // 
+            // resetHighlightTimer
+            // 
+            resetHighlightTimer.Tick += resetHighlightTimer_Tick;
             // 
             // label_alternating_note
             // 
@@ -1169,11 +1210,73 @@
             panel1.Controls.Add(label_ms);
             panel1.Controls.Add(numericUpDown_alternating_note);
             panel1.Enabled = false;
-            panel1.Location = new Point(11, 555);
+            panel1.Location = new Point(11, 591);
             panel1.Margin = new Padding(4, 2, 4, 2);
             panel1.Name = "panel1";
             panel1.Size = new Size(402, 31);
             panel1.TabIndex = 27;
+            // 
+            // label_more_notes
+            // 
+            label_more_notes.Anchor = AnchorStyles.Right;
+            label_more_notes.AutoSize = true;
+            label_more_notes.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_more_notes.Location = new Point(371, 146);
+            label_more_notes.Name = "label_more_notes";
+            label_more_notes.Size = new Size(56, 20);
+            label_more_notes.TabIndex = 28;
+            label_more_notes.Text = "(More)";
+            label_more_notes.Visible = false;
+            // 
+            // panel2
+            // 
+            panel2.Anchor = AnchorStyles.Right;
+            panel2.Controls.Add(label_note1);
+            panel2.Controls.Add(label_note9);
+            panel2.Controls.Add(label_note17);
+            panel2.Controls.Add(label_note25);
+            panel2.Controls.Add(label_note5);
+            panel2.Controls.Add(label_note13);
+            panel2.Controls.Add(label_note21);
+            panel2.Controls.Add(label_note29);
+            panel2.Controls.Add(label_note3);
+            panel2.Controls.Add(label_note11);
+            panel2.Controls.Add(label_note19);
+            panel2.Controls.Add(label_note27);
+            panel2.Controls.Add(label_note7);
+            panel2.Controls.Add(label_note15);
+            panel2.Controls.Add(label_note23);
+            panel2.Controls.Add(label_note31);
+            panel2.Controls.Add(label_note2);
+            panel2.Controls.Add(label_note10);
+            panel2.Controls.Add(label_note18);
+            panel2.Controls.Add(label_note26);
+            panel2.Controls.Add(label_note6);
+            panel2.Controls.Add(label_note14);
+            panel2.Controls.Add(label_note22);
+            panel2.Controls.Add(label_note32);
+            panel2.Controls.Add(label_note30);
+            panel2.Controls.Add(label_note24);
+            panel2.Controls.Add(label_note4);
+            panel2.Controls.Add(label_note16);
+            panel2.Controls.Add(label_note12);
+            panel2.Controls.Add(label_note8);
+            panel2.Controls.Add(label_note20);
+            panel2.Controls.Add(label_note28);
+            panel2.Location = new Point(3, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(424, 140);
+            panel2.TabIndex = 30;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Controls.Add(panel2);
+            flowLayoutPanel2.Controls.Add(label_more_notes);
+            flowLayoutPanel2.FlowDirection = FlowDirection.RightToLeft;
+            flowLayoutPanel2.Location = new Point(2, 411);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(430, 175);
+            flowLayoutPanel2.TabIndex = 31;
             // 
             // MIDI_file_player
             // 
@@ -1181,7 +1284,8 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(435, 712);
+            ClientSize = new Size(435, 748);
+            Controls.Add(flowLayoutPanel2);
             Controls.Add(panel1);
             Controls.Add(button_browse_file);
             Controls.Add(checkBox_channel_16);
@@ -1203,38 +1307,6 @@
             Controls.Add(checkBox_channel_9);
             Controls.Add(checkBox_channel_5);
             Controls.Add(checkBox_channel_1);
-            Controls.Add(label_note32);
-            Controls.Add(label_note24);
-            Controls.Add(label_note16);
-            Controls.Add(label_note8);
-            Controls.Add(label_note28);
-            Controls.Add(label_note20);
-            Controls.Add(label_note12);
-            Controls.Add(label_note4);
-            Controls.Add(label_note30);
-            Controls.Add(label_note22);
-            Controls.Add(label_note14);
-            Controls.Add(label_note6);
-            Controls.Add(label_note26);
-            Controls.Add(label_note18);
-            Controls.Add(label_note10);
-            Controls.Add(label_note2);
-            Controls.Add(label_note31);
-            Controls.Add(label_note23);
-            Controls.Add(label_note15);
-            Controls.Add(label_note7);
-            Controls.Add(label_note27);
-            Controls.Add(label_note19);
-            Controls.Add(label_note11);
-            Controls.Add(label_note3);
-            Controls.Add(label_note29);
-            Controls.Add(label_note21);
-            Controls.Add(label_note13);
-            Controls.Add(label_note5);
-            Controls.Add(label_note25);
-            Controls.Add(label_note17);
-            Controls.Add(label_note9);
-            Controls.Add(label_note1);
             Controls.Add(holded_note_label);
             Controls.Add(label4);
             Controls.Add(groupBox1);
@@ -1260,6 +1332,10 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_note).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1333,12 +1409,15 @@
         private CheckBox checkBox_dont_update_grid;
         private OpenFileDialog openFileDialog;
         private ToolTip toolTip1;
-        private System.Windows.Forms.Timer update_timer;
+        private System.Windows.Forms.Timer resetHighlightTimer;
         private Label label_alternating_note;
         private NumericUpDown numericUpDown_alternating_note;
         private Label label_ms;
         private Panel panel1;
         private Label label_percentage;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Label label_more_notes;
+        private Panel panel2;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }
