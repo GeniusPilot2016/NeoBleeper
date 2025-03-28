@@ -769,6 +769,11 @@
             resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
             // 
+            // colorDialog1
+            // 
+            colorDialog1.AnyColor = true;
+            colorDialog1.FullOpen = true;
+            // 
             // settings_window
             // 
             resources.ApplyResources(this, "$this");

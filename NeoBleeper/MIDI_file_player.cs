@@ -555,8 +555,9 @@ namespace NeoBleeper
                         if (frequencies.Length == 1)
                         {
                             // Single note - play directly
-                            HighlightNoteLabel(filteredNotes.First(), durationMs);
+                            HighlightNoteLabel(filteredNotes.First());
                             NotePlayer.play_note(frequencies[0], durationMs);
+                            UnHighlightNoteLabel(filteredNotes.First());
                         }
                         else
                         {
@@ -672,8 +673,9 @@ namespace NeoBleeper
                                                 int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
 
                                                 stopwatch.Restart();
-                                                HighlightNoteLabel(frequency, alternatingTime);
+                                                HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, alternatingTime);
+                                                UnHighlightNoteLabel(frequency);
                                                 stopwatch.Stop();
 
                                                 long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
@@ -704,8 +706,9 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                HighlightNoteLabel(frequency, interval);
+                                                HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
                                                 i++;
                                                 if (i * interval >= frequencies.Length * interval)
                                                     break;
@@ -728,8 +731,9 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                HighlightNoteLabel(frequency, interval);
+                                                HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
                                                 i++;
                                                 // Check if we've gone past our duration
                                                 if (i * interval >= duration)
@@ -745,8 +749,9 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                HighlightNoteLabel(frequency, interval);
+                                                HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
                                                 i++;
                                                 if (i * interval >= frequencies.Length * interval)
                                                     break;
@@ -782,8 +787,9 @@ namespace NeoBleeper
                                             int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
 
                                             stopwatch.Restart();
-                                            HighlightNoteLabel(frequency, alternatingTime);
+                                            HighlightNoteLabel(frequency);
                                             NotePlayer.play_note(frequency, alternatingTime);
+                                            UnHighlightNoteLabel(frequency);
                                             stopwatch.Stop();
 
                                             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
@@ -819,8 +825,9 @@ namespace NeoBleeper
                                     {
                                         foreach (var frequency in frequencies)
                                         {
-                                            HighlightNoteLabel(frequency, interval);
+                                            HighlightNoteLabel(frequency);
                                             NotePlayer.play_note(frequency, interval);
+                                            UnHighlightNoteLabel(frequency);
                                             i++;
 
                                             // Check if we've gone past our duration
@@ -836,18 +843,17 @@ namespace NeoBleeper
                     }
             }
         }
-        private HashSet<string> _highlightedNotes = new HashSet<string>();
-        private void HighlightNoteLabel(int noteNumber, int duration)
+        private void HighlightNoteLabel(int noteNumber)
         {
-            string noteName = MidiNoteToName(noteNumber); // Convert note number to note name
+            string noteName = MidiNoteToName(noteNumber);
 
             foreach (Label label in _noteLabels)
             {
-
-                if (label.Text.Contains(noteName)) // Check if the label's text contains the note name
+                if (label.Text.Contains(noteName))
                 {
-                    Color originalColor = label.BackColor;
+                    Color originalColor = _originalLabelColors[label];
 
+                    // Highlight immediately
                     if (label.InvokeRequired)
                     {
                         label.BeginInvoke(new Action(() =>
@@ -860,28 +866,30 @@ namespace NeoBleeper
                         label.BackColor = _highlightColor;
                     }
 
-                    // Revert to original color after the duration
-                    var timer = new System.Windows.Forms.Timer();
-                    timer.Interval = duration;
-                    timer.Tick += (s, e) =>
+                    
+                    return;
+                }
+            }
+        }
+        private void UnHighlightNoteLabel(int noteNumber)
+        {
+            string noteName = MidiNoteToName(noteNumber);
+            foreach (Label label in _noteLabels)
+            {
+                if (label.Text.Contains(noteName))
+                {
+                    if (label.InvokeRequired)
                     {
-                        if (label.InvokeRequired)
+                        label.BeginInvoke(new Action(() =>
                         {
-                            label.BeginInvoke(new Action(() =>
-                            {
-                                label.BackColor = originalColor;
-                            }));
-                        }
-                        else
-                        {
-                            label.BackColor = originalColor;
-                        }
-                        timer.Stop();
-                        timer.Dispose();
-                    };
-                    timer.Start();
-
-                    return; // Exit after highlighting the label
+                            label.BackColor = _originalLabelColors[label];
+                        }));
+                    }
+                    else
+                    {
+                        label.BackColor = _originalLabelColors[label];
+                    }
+                    return;
                 }
             }
         }
@@ -987,9 +995,8 @@ namespace NeoBleeper
         {
             try
             {
-                // Only update if the set of active notes has changed
-                if (activeNotes.SetEquals(_previousActiveNotes))
-                    return;
+                // Sort notes to ensure consistent order
+                var sortedNotes = activeNotes.OrderBy(note => note).ToList();
 
                 Action updateAction = () =>
                 {
@@ -1000,42 +1007,49 @@ namespace NeoBleeper
                         label.BackColor = _originalLabelColors[label];
                     }
 
-                    // Process active notes
-                    int labelIndex = 0;
-                    foreach (int noteNumber in activeNotes)
+                    // Process active notes with better mapping
+                    for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
                     {
-                        if (labelIndex < _noteLabels.Length)
+                        int noteNumber = sortedNotes[i];
+                        Label label = _noteLabels[i];
+
+                        // Convert note number to note name
+                        string noteName = MidiNoteToName(noteNumber);
+
+                        label.Visible = true;
+                        label.Text = noteName;
+                        label.BackColor = _highlightColor; // Highlight the label
+
+                        // Create a timer to unhighlight this specific label
+                        var timer = new System.Windows.Forms.Timer();
+                        timer.Tag = label; // Store the label with the timer
+                        timer.Interval = 100; // Short unhighlighting delay
+                        timer.Tick += (s, e) =>
                         {
-                            Label label = _noteLabels[labelIndex];
-                            label.Visible = true;
-                            label.Text = MidiNoteToName(noteNumber);
-                            labelIndex++;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                            var timerLabel = (Label)((System.Windows.Forms.Timer)s).Tag;
+                            if (timerLabel != null)
+                            {
+                                timerLabel.BackColor = _originalLabelColors[timerLabel];
+                            }
+                            ((System.Windows.Forms.Timer)s).Stop();
+                            ((System.Windows.Forms.Timer)s).Dispose();
+                        };
+                        timer.Start();
                     }
 
-                    // Update count display
-                    holded_note_label.Text = $"Notes which are currently being held on: ({activeNotes.Count})";
-
-                    // Handle more notes label
-                    if (activeNotes.Count > _noteLabels.Length)
+                    // Update more notes label if necessary
+                    if (sortedNotes.Count > _noteLabels.Length)
                     {
                         label_more_notes.Visible = true;
-                        label_more_notes.Text = $"({activeNotes.Count - _noteLabels.Length} More)";
+                        label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
                     }
                     else
                     {
                         label_more_notes.Visible = false;
                     }
-
-                    // Store the current active notes for comparison next time
-                    _previousActiveNotes = new HashSet<int>(activeNotes);
                 };
 
-                // Use BeginInvoke to update UI from background thread
+                // Ensure UI update happens on the UI thread
                 if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
                     _noteLabels[0].BeginInvoke(updateAction);
                 else
@@ -1123,7 +1137,7 @@ namespace NeoBleeper
 
             // Example mapping (you'll need to adjust this based on your needs)
             // Maps MIDI notes 60-91 (C1 to B10) to labels 1-32
-            for (int i = 24; i < 144; i++)
+            for (int i = 24; i <= 128; i++)
             {
                 _noteToLabelMap[i] = i - 60;
             }
