@@ -344,6 +344,7 @@
             trackBar_motor_octave.Maximum = 5;
             trackBar_motor_octave.Name = "trackBar_motor_octave";
             trackBar_motor_octave.Value = 2;
+            trackBar_motor_octave.Scroll += trackBar_motor_octave_Scroll;
             // 
             // label_motor_speed_mod
             // 
@@ -363,6 +364,7 @@
             resources.ApplyResources(radioButton2, "radioButton2");
             radioButton2.Name = "radioButton2";
             radioButton2.UseVisualStyleBackColor = true;
+            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
             // 
             // radioButton1
             // 
@@ -371,6 +373,7 @@
             radioButton1.Name = "radioButton1";
             radioButton1.TabStop = true;
             radioButton1.UseVisualStyleBackColor = true;
+            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
             // 
             // checkBox_use_motor_speed_mod
             // 
@@ -378,6 +381,7 @@
             checkBox_use_motor_speed_mod.ImageList = imageList_settings;
             checkBox_use_motor_speed_mod.Name = "checkBox_use_motor_speed_mod";
             checkBox_use_motor_speed_mod.UseVisualStyleBackColor = true;
+            checkBox_use_motor_speed_mod.CheckedChanged += checkBox_use_motor_speed_mod_CheckedChanged;
             // 
             // group_midi_output_devices
             // 
@@ -398,6 +402,7 @@
             comboBox_midi_output_instrument.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_instrument.FormattingEnabled = true;
             comboBox_midi_output_instrument.Name = "comboBox_midi_output_instrument";
+            comboBox_midi_output_instrument.SelectedIndexChanged += comboBox_midi_output_instrument_SelectedIndexChanged;
             // 
             // comboBox_midi_output_channel
             // 
@@ -405,6 +410,7 @@
             comboBox_midi_output_channel.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_channel.FormattingEnabled = true;
             comboBox_midi_output_channel.Name = "comboBox_midi_output_channel";
+            comboBox_midi_output_channel.SelectedIndexChanged += comboBox_midi_output_channel_SelectedIndexChanged;
             // 
             // label_instrument
             // 
@@ -430,6 +436,7 @@
             comboBox_midi_output_devices.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_devices.FormattingEnabled = true;
             comboBox_midi_output_devices.Name = "comboBox_midi_output_devices";
+            comboBox_midi_output_devices.SelectedIndexChanged += comboBox_midi_output_devices_SelectedIndexChanged;
             // 
             // label_midi_output_device
             // 
@@ -442,6 +449,7 @@
             checkBox_use_midi_output.ImageList = imageList_settings;
             checkBox_use_midi_output.Name = "checkBox_use_midi_output";
             checkBox_use_midi_output.UseVisualStyleBackColor = true;
+            checkBox_use_midi_output.CheckedChanged += checkBox_use_midi_output_CheckedChanged;
             // 
             // group_midi_input_devices
             // 
@@ -466,6 +474,7 @@
             comboBox_midi_input_devices.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_input_devices.FormattingEnabled = true;
             comboBox_midi_input_devices.Name = "comboBox_midi_input_devices";
+            comboBox_midi_input_devices.SelectedIndexChanged += comboBox_midi_input_devices_SelectedIndexChanged;
             // 
             // label_midi_input_device
             // 
@@ -478,6 +487,7 @@
             checkBox_use_midi_input.ImageList = imageList_settings;
             checkBox_use_midi_input.Name = "checkBox_use_midi_input";
             checkBox_use_midi_input.UseVisualStyleBackColor = true;
+            checkBox_use_midi_input.CheckedChanged += checkBox_use_midi_input_CheckedChanged;
             // 
             // appearance
             // 

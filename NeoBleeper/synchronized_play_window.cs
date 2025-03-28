@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System.Diagnostics;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace NeoBleeper
 {
@@ -119,8 +111,9 @@ namespace NeoBleeper
                     lbl_waiting.Text = "Playing";
                     lbl_waiting.BackColor = Color.Yellow;
                     is_playing = true;
+                    Debug.WriteLine("Playing music");
 
-                    // Radyo butonlarının seçim durumuna göre main_window'daki yöntemleri çağır
+                    // Call the play function
                     if (radioButton_play_beginning_of_music.Checked)
                     {
                         mainWindow.play_all();
@@ -148,13 +141,13 @@ namespace NeoBleeper
             {
                 if (is_playing)
                 {
-                    // MusicStopped olayını geçici olarak devre dışı bırak
+                    // Disable the event handler to prevent the music from stopping again
                     mainWindow.MusicStopped -= MainWindow_MusicStopped;
-                    mainWindow.stop_playing(); // Ana penceredeki müziği durdur
+                    mainWindow.stop_playing(); // Stop the music
                     mainWindow.MusicStopped += MainWindow_MusicStopped;
                 }
                 is_playing = false;
-                waiting = false; // waiting bayrağını da false yapıyoruz
+                waiting = false; // Set waiting to false
                 button_wait.Text = "Start waiting";
                 lbl_waiting.Text = "Currently not waiting";
                 lbl_waiting.BackColor = Color.Red;
@@ -171,7 +164,7 @@ namespace NeoBleeper
                 waiting = true;
                 if (mainWindow.is_music_playing)
                 {
-                    mainWindow.stop_playing(); // Ana penceredeki müziği durdur
+                    mainWindow.stop_playing(); // Stop the music if it is playing
                 }
                 if (dateTimePicker1.Value < DateTime.Now)
                 {
@@ -195,6 +188,27 @@ namespace NeoBleeper
                 lbl_waiting.Text = "Currently not waiting";
                 lbl_waiting.BackColor = Color.Red;
             }
+        }
+
+        private void radioButton_play_beginning_of_music_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_play_beginning_of_music.Checked)
+            {
+                Debug.WriteLine("Playing from beginning of music is checked");
+            }
+        }
+
+        private void radioButton_play_currently_selected_line_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_play_currently_selected_line.Checked)
+            {
+                Debug.WriteLine("Playing from currently selected line is checked");
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine($"Date time picker value changed to {dateTimePicker1.Value}");
         }
     }
 }

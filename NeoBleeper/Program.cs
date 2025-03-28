@@ -1,9 +1,4 @@
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System;
 using System.Management;
-using System.Drawing.Text;
 using System.Diagnostics;
 
 namespace NeoBleeper
@@ -91,6 +86,7 @@ namespace NeoBleeper
                                                             creating_sounds.create_beep_with_soundcard = false;
                                                             eligability_of_create_beep_from_system_speaker.device_type = 1;
                                                             Application.Run(new main_window());
+                                                            Debug.WriteLine("NeoBleeper is started.");
                                                             break;
                                                         }
                                                     case 8:
@@ -113,9 +109,12 @@ namespace NeoBleeper
                                                             switch (result)
                                                             {
                                                                 case DialogResult.Yes:
+                                                                    Debug.WriteLine("User has chosen to continue with NeoBleeper.");
                                                                     Application.Run(new main_window());
+                                                                    Debug.WriteLine("NeoBleeper is started.");
                                                                     break;
                                                                 case DialogResult.No:
+                                                                    Debug.WriteLine("User has chosen to exit NeoBleeper.");
                                                                     Application.Exit();
                                                                     break;
                                                             }
@@ -130,9 +129,12 @@ namespace NeoBleeper
                                                             switch (result)
                                                             {
                                                                 case DialogResult.Yes:
+                                                                    Debug.WriteLine("User has chosen to continue with NeoBleeper.");
                                                                     Application.Run(new main_window());
+                                                                    Debug.WriteLine("NeoBleeper is started.");
                                                                     break;
                                                                 case DialogResult.No:
+                                                                    Debug.WriteLine("User has chosen to exit NeoBleeper.");
                                                                     Application.Exit();
                                                                     break;
                                                             }
@@ -150,9 +152,12 @@ namespace NeoBleeper
                                                 switch (result)
                                                 {
                                                     case DialogResult.Yes:
+                                                        Debug.WriteLine("User has chosen to continue with NeoBleeper.");
                                                         Application.Run(new main_window());
+                                                        Debug.WriteLine("NeoBleeper is started.");
                                                         break;
                                                     case DialogResult.No:
+                                                        Debug.WriteLine("User has chosen to exit NeoBleeper.");
                                                         Application.Exit();
                                                         break;
                                                 }
@@ -168,9 +173,12 @@ namespace NeoBleeper
                                 switch (result)
                                 {
                                     case DialogResult.Yes:
+                                        Debug.WriteLine("User has chosen to continue with NeoBleeper.");
                                         Application.Run(new main_window());
+                                        Debug.WriteLine("NeoBleeper is started.");
                                         break;
                                     case DialogResult.No:
+                                        Debug.WriteLine("User has chosen to exit NeoBleeper.");
                                         Application.Exit();
                                         break;
                                 }
@@ -187,6 +195,7 @@ namespace NeoBleeper
                 DialogResult result = display_resolution_warning.ShowDialog();
                 if(result==DialogResult.Abort)
                 {
+                    Debug.WriteLine("NeoBleeper is exited.");
                     Application.Exit();
                 }
             }

@@ -1,16 +1,6 @@
 ﻿using NAudio.Midi;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
+using System.Diagnostics;
 using System.Drawing.Text;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static NeoBleeper.Program;
 
 namespace NeoBleeper
@@ -324,14 +314,17 @@ namespace NeoBleeper
 
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("Testing system speaker...");
             system_speaker_test_tune();
         }
 
         private void comboBox_theme_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
             Settings1.Default.theme = comboBox_theme.SelectedIndex;
             Settings1.Default.Save();
             set_theme();
+            Debug.WriteLine("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex]);
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
         }
 
@@ -360,16 +353,21 @@ namespace NeoBleeper
                     {
                         case DialogResult.Yes:
                             Program.creating_sounds.create_beep_with_soundcard = false;
+                            Debug.WriteLine("User chose to disable beep creation from sound card.");
+                            Debug.WriteLine("Beep creation from sound card disabled.");
                             break;
                         case DialogResult.No:
                             checkBox_enable_create_beep_from_soundcard.Checked = true;
                             Program.creating_sounds.create_beep_with_soundcard = true;
+                            Debug.WriteLine("User chose to keep beep creation from sound card enabled.");
+                            Debug.WriteLine("Beep creation from sound card enabled.");
                             break;
                     }
                 }
                 else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
                 {
                     Program.creating_sounds.create_beep_with_soundcard = true;
+                    Debug.WriteLine("Beep creation from sound card enabled.");
                 }
             }
             else
@@ -378,9 +376,11 @@ namespace NeoBleeper
                 {
                     case true:
                         Program.creating_sounds.create_beep_with_soundcard = true;
+                        Debug.WriteLine("Beep creation from sound card enabled.");
                         break;
                     case false:
                         Program.creating_sounds.create_beep_with_soundcard = false;
+                        Debug.WriteLine("Beep creation from sound card disabled.");
                         break;
                 }
             }
@@ -651,6 +651,7 @@ namespace NeoBleeper
                 Settings1.Default.first_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("First octave color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -664,6 +665,7 @@ namespace NeoBleeper
                 Settings1.Default.second_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Second octave color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -677,6 +679,7 @@ namespace NeoBleeper
                 Settings1.Default.third_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Third octave color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -690,6 +693,7 @@ namespace NeoBleeper
                 Settings1.Default.blank_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Blank line color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -703,6 +707,7 @@ namespace NeoBleeper
                 Settings1.Default.clear_notes_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Clear notes color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -716,6 +721,7 @@ namespace NeoBleeper
                 Settings1.Default.unselect_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Unselect line color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -729,6 +735,7 @@ namespace NeoBleeper
                 Settings1.Default.erase_whole_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Erase whole line color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -742,6 +749,7 @@ namespace NeoBleeper
                 Settings1.Default.playback_buttons_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Playback buttons color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -755,6 +763,7 @@ namespace NeoBleeper
                 Settings1.Default.metronome_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Metronome color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -768,6 +777,7 @@ namespace NeoBleeper
                 Settings1.Default.beep_indicator_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Beep indicator color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -781,6 +791,7 @@ namespace NeoBleeper
                 Settings1.Default.note_indicator_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Note indicator color changed to: " + colorDialog1.Color.ToString());
             }
         }
 
@@ -799,6 +810,7 @@ namespace NeoBleeper
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+            Debug.WriteLine("Colors reset to default.");
         }
 
         private void refresh_midi_input()
@@ -823,6 +835,7 @@ namespace NeoBleeper
                 checkBox_use_midi_input.Enabled = false;
                 checkBox_use_midi_input.Checked = false;
             }
+            Debug.WriteLine("MIDI input devices refreshed.");
         }
 
         private void refresh_midi_output()
@@ -908,6 +921,7 @@ namespace NeoBleeper
                 label_instrument.Enabled = false;
                 comboBox_midi_output_instrument.Enabled = false;
             }
+            Debug.WriteLine("MIDI output devices refreshed.");
         }
 
         private void refresh_midi_input_button_Click(object sender, EventArgs e)
@@ -930,19 +944,79 @@ namespace NeoBleeper
             if (radioButton_square.Checked == true)
             {
                 Program.creating_sounds.soundcard_beep_waveform = 0;
+                Debug.WriteLine("Square waveform selected.");
             }
             else if (radioButton_sine.Checked == true)
             {
                 Program.creating_sounds.soundcard_beep_waveform = 1;
+                Debug.WriteLine("Sine waveform selected.");
             }
             else if (radioButton_triangle.Checked == true)
             {
                 Program.creating_sounds.soundcard_beep_waveform = 2;
+                Debug.WriteLine("Triangle waveform selected.");
             }
             else if (radioButton_noise.Checked == true)
             {
                 Program.creating_sounds.soundcard_beep_waveform = 3;
+                Debug.WriteLine("Noise waveform selected.");
             }
+        }
+
+        private void checkBox_use_midi_output_CheckedChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI output device enabled");
+        }
+
+        private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString());
+        }
+
+        private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString());
+        }
+
+        private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI output instrument selected: " + comboBox_midi_output_instrument.SelectedItem.ToString());
+        }
+
+        private void checkBox_use_midi_input_CheckedChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI input device enabled");
+        }
+
+        private void comboBox_midi_input_devices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("MIDI input device selected: " + comboBox_midi_input_devices.SelectedItem.ToString());
+        }
+
+        private void checkBox_use_motor_speed_mod_CheckedChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Motor speed or buzzer tone modulation enabled");
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == true)
+            {
+                Debug.WriteLine("Modulation type: Motor");
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked == true)
+            {
+                Debug.WriteLine("Modulation type: Buzzer");
+            }
+        }
+
+        private void trackBar_motor_octave_Scroll(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Motor speed modulation octave: " + trackBar_motor_octave.Value);
         }
     }
 }

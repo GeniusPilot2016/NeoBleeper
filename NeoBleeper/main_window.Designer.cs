@@ -1556,6 +1556,7 @@
             NeoBleeper_help.SetShowHelp(add_as_note4, (bool)resources.GetObject("add_as_note4.ShowHelp"));
             add_as_note4.TabStop = true;
             add_as_note4.UseVisualStyleBackColor = true;
+            add_as_note4.CheckedChanged += add_as_note4_CheckedChanged;
             // 
             // add_as_note3
             // 
@@ -1564,6 +1565,7 @@
             NeoBleeper_help.SetShowHelp(add_as_note3, (bool)resources.GetObject("add_as_note3.ShowHelp"));
             add_as_note3.TabStop = true;
             add_as_note3.UseVisualStyleBackColor = true;
+            add_as_note3.CheckedChanged += add_as_note3_CheckedChanged;
             // 
             // checkBox_replace_length
             // 
@@ -1571,6 +1573,7 @@
             checkBox_replace_length.Name = "checkBox_replace_length";
             NeoBleeper_help.SetShowHelp(checkBox_replace_length, (bool)resources.GetObject("checkBox_replace_length.ShowHelp"));
             checkBox_replace_length.UseVisualStyleBackColor = true;
+            checkBox_replace_length.CheckedChanged += checkBox_replace_length_CheckedChanged;
             // 
             // checkBox_replace
             // 
@@ -1587,6 +1590,7 @@
             NeoBleeper_help.SetShowHelp(add_as_note2, (bool)resources.GetObject("add_as_note2.ShowHelp"));
             add_as_note2.TabStop = true;
             add_as_note2.UseVisualStyleBackColor = true;
+            add_as_note2.CheckedChanged += add_as_note2_CheckedChanged;
             // 
             // add_as_note1
             // 
@@ -1596,6 +1600,7 @@
             NeoBleeper_help.SetShowHelp(add_as_note1, (bool)resources.GetObject("add_as_note1.ShowHelp"));
             add_as_note1.TabStop = true;
             add_as_note1.UseVisualStyleBackColor = true;
+            add_as_note1.CheckedChanged += add_as_note1_CheckedChanged;
             // 
             // checkBox_add_note_to_list
             // 
@@ -1605,6 +1610,7 @@
             checkBox_add_note_to_list.Name = "checkBox_add_note_to_list";
             NeoBleeper_help.SetShowHelp(checkBox_add_note_to_list, (bool)resources.GetObject("checkBox_add_note_to_list.ShowHelp"));
             checkBox_add_note_to_list.UseVisualStyleBackColor = true;
+            checkBox_add_note_to_list.CheckedChanged += checkBox_add_note_to_list_CheckedChanged;
             // 
             // group_key_is_clicked
             // 
@@ -1990,6 +1996,7 @@
             radioButtonPlay_alternating_notes1.TabStop = true;
             toolTip1.SetToolTip(radioButtonPlay_alternating_notes1, resources.GetString("radioButtonPlay_alternating_notes1.ToolTip"));
             radioButtonPlay_alternating_notes1.UseVisualStyleBackColor = true;
+            radioButtonPlay_alternating_notes1.CheckedChanged += radioButtonPlay_alternating_notes1_CheckedChanged;
             // 
             // radioButtonPlay_alternating_notes2
             // 
@@ -1997,6 +2004,7 @@
             radioButtonPlay_alternating_notes2.Name = "radioButtonPlay_alternating_notes2";
             toolTip1.SetToolTip(radioButtonPlay_alternating_notes2, resources.GetString("radioButtonPlay_alternating_notes2.ToolTip"));
             radioButtonPlay_alternating_notes2.UseVisualStyleBackColor = true;
+            radioButtonPlay_alternating_notes2.CheckedChanged += radioButtonPlay_alternating_notes2_CheckedChanged;
             // 
             // checkBox_loop
             // 
@@ -2007,6 +2015,7 @@
             checkBox_loop.Name = "checkBox_loop";
             toolTip1.SetToolTip(checkBox_loop, resources.GetString("checkBox_loop.ToolTip"));
             checkBox_loop.UseVisualStyleBackColor = true;
+            checkBox_loop.CheckedChanged += checkBox_loop_CheckedChanged;
             // 
             // checkBox_use_keyboard_as_piano
             // 
@@ -2025,6 +2034,7 @@
             checkBox_do_not_update.Name = "checkBox_do_not_update";
             toolTip1.SetToolTip(checkBox_do_not_update, resources.GetString("checkBox_do_not_update.ToolTip"));
             checkBox_do_not_update.UseVisualStyleBackColor = true;
+            checkBox_do_not_update.CheckedChanged += checkBox_do_not_update_CheckedChanged;
             // 
             // openFileDialog
             // 

@@ -1,16 +1,8 @@
 ﻿using NAudio.Midi;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Drawing.Text;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace NeoBleeper
 {
@@ -169,6 +161,7 @@ namespace NeoBleeper
                 else
                 {
                     MessageBox.Show("This file is not a valid MIDI file or the file is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Debug.WriteLine("This file is not a valid MIDI file or the file is corrupted.");
                 }
             }
         }
@@ -201,11 +194,13 @@ namespace NeoBleeper
                     }
                     else
                     {
+                        Debug.WriteLine("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.");
                         MessageBox.Show("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
+                    Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
                     MessageBox.Show("The file you dragged is corrupted or the file is in use by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -340,6 +335,7 @@ namespace NeoBleeper
             {
                 MessageBox.Show($"Error loading MIDI file: {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                Debug.WriteLine($"Error loading MIDI file: {ex.Message}");
             }
             finally
             {
@@ -644,10 +640,207 @@ namespace NeoBleeper
                 double currentPositionPercent = (double)_currentFrameIndex / _frames.Count * 100;
                 SetPosition(currentPositionPercent);
             }
+            Debug.WriteLine("Channel checkboxes changed");
         }
 
         // Play multiple notes alternating
+
         private async void PlayMultipleNotes(int[] frequencies, int duration)
+        {
+            switch (checkBox_play_each_note.Checked)
+            {
+                case true:
+                    {
+                        switch (checkBox_make_each_cycle_last_30ms.Checked)
+                        {
+                            case true:
+                                {
+                                    int interval = 30; // Switch between 30 ms
+                                    int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                                    int maxAlternatingTime = 15; // Maximum alternate time 3 ms
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
+                                    Random random = new Random();
+                                    Stopwatch stopwatch = new Stopwatch();
+                                    if (frequencies.Length >= steps)
+                                    {
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+
+                                                stopwatch.Restart();
+                                                HighlightNoteLabel(frequency);
+                                                NotePlayer.play_note(frequency, alternatingTime);
+                                                UnHighlightNoteLabel(frequency);
+                                                stopwatch.Stop();
+
+                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                                if (elapsedMilliseconds < alternatingTime)
+                                                {
+                                                    await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
+                                                }
+
+                                                int remainingTime = interval - alternatingTime;
+
+                                                if (remainingTime > 0)
+                                                {
+                                                    await Task.Delay(remainingTime);
+                                                }
+
+                                                i++;
+                                                if (i * interval >= duration)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < steps);
+                                    }
+                                    else
+                                    {
+                                        int i = 0;
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                HighlightNoteLabel(frequency);
+                                                NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
+                                                i++;
+                                                if (i * interval >= frequencies.Length * interval)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < frequencies.Length);
+                                        UpdateNoteLabels(new HashSet<int>());
+                                        await Task.Delay(duration - (interval * frequencies.Length));
+                                    }
+                                    break;
+                                }
+                            case false:
+                                {
+                                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
+                                    int i = 0;
+                                    if (frequencies.Length >= steps)
+                                    {
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                HighlightNoteLabel(frequency);
+                                                NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
+                                                await Task.Delay(interval); // Add this line to wait for the interval
+                                                i++;
+                                                if (i * interval >= duration)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < steps);
+                                    }
+                                    else
+                                    {
+                                        do
+                                        {
+                                            foreach (var frequency in frequencies)
+                                            {
+                                                HighlightNoteLabel(frequency);
+                                                NotePlayer.play_note(frequency, interval);
+                                                UnHighlightNoteLabel(frequency);
+                                                await Task.Delay(interval); // Add this line to wait for the interval
+                                                i++;
+                                                if (i * interval >= duration)
+                                                    break;
+                                            }
+                                        }
+                                        while (i < frequencies.Length);
+                                        UpdateNoteLabels(new HashSet<int>());
+                                        await Task.Delay(duration - (interval * frequencies.Length));
+                                    }
+                                }
+                                break;
+                        }
+                        break;
+                    }
+                case false:
+                    {
+                        switch (checkBox_make_each_cycle_last_30ms.Checked)
+                        {
+                            case true:
+                                {
+                                    int interval = 30; // Switch between 30 ms
+                                    int minAlternatingTime = 3; // Minimum alternate time 3 ms
+                                    int maxAlternatingTime = 15; // Maximum alternate time 3 ms
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
+                                    int i = 0;
+                                    Random random = new Random();
+                                    Stopwatch stopwatch = new Stopwatch();
+
+                                    do
+                                    {
+                                        foreach (var frequency in frequencies)
+                                        {
+                                            int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+
+                                            stopwatch.Restart();
+                                            HighlightNoteLabel(frequency);
+                                            NotePlayer.play_note(frequency, alternatingTime);
+                                            UnHighlightNoteLabel(frequency);
+                                            stopwatch.Stop();
+
+                                            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                                            if (elapsedMilliseconds < alternatingTime)
+                                            {
+                                                await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
+                                                if (i * interval >= frequencies.Length * interval)
+                                                    break;
+                                            }
+
+                                            int remainingTime = interval - alternatingTime;
+
+                                            if (remainingTime > 0)
+                                            {
+                                                await Task.Delay(remainingTime);
+                                            }
+
+                                            i++;
+                                            if (i * interval >= duration)
+                                                break;
+                                        }
+                                    }
+                                    while (i < steps);
+                                    break;
+                                }
+                            case false:
+                                {
+                                    int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
+                                    int steps = Convert.ToInt32(Math.Truncate((double)(duration / interval)));
+                                    int i = 0;
+                                    do
+                                    {
+                                        foreach (var frequency in frequencies)
+                                        {
+                                            HighlightNoteLabel(frequency);
+                                            NotePlayer.play_note(frequency, interval);
+                                            UnHighlightNoteLabel(frequency);
+                                            await Task.Delay(interval); // Add this line to wait for the interval
+                                            i++;
+                                            if (i * interval >= duration)
+                                                break;
+                                        }
+                                    }
+                                    while (i < steps);
+                                }
+                                break;
+                        }
+                        break;
+                    }
+            }
+        }
+        /*private async void PlayMultipleNotes(int[] frequencies, int duration)
         {
             switch (checkBox_play_each_note.Checked)
             {
@@ -842,7 +1035,8 @@ namespace NeoBleeper
                         break;
                     }
             }
-        }
+        }*/
+
         private void HighlightNoteLabel(int noteNumber)
         {
             string noteName = MidiNoteToName(noteNumber);
@@ -972,6 +1166,7 @@ namespace NeoBleeper
             int positionPercent = trackBar1.Value / 10;
             SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
+            Debug.WriteLine("Rewind completed");
         }
         private string MidiNoteToName(int noteNumber)
         {
@@ -1092,10 +1287,12 @@ namespace NeoBleeper
             if (checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true)
             {
                 panel1.Enabled = false;
+                Debug.WriteLine("Play each note or make each cycle last 30 ms checkbox is checked. Disabling the panel.");
             }
             else
             {
                 panel1.Enabled = true;
+                Debug.WriteLine("Play each note or make each cycle last 30 ms checkbox is not checked. Enabling the panel.");
             }
         }
 
@@ -1152,12 +1349,39 @@ namespace NeoBleeper
             if (checkBox_dont_update_grid.Checked == true)
             {
                 UpdateNoteLabels(new HashSet<int>());
+                Debug.WriteLine("Don't update grid checkbox is checked. Hiding all labels.");
+            }
+            else
+            {
+                Debug.WriteLine("Don't update grid checkbox is not checked. Showing all labels.");
             }
         }
         private int _highlightDuration;
         private void resetHighlightTimer_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox_loop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_loop.Checked == true)
+            {
+                Debug.WriteLine("Loop is enabled.");
+            }
+            else
+            {
+                Debug.WriteLine("Loop is disabled.");
+            }
+        }
+
+        private void numericUpDown_alternating_note_ValueChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine($"Alternating note duration changed to {numericUpDown_alternating_note.Value} ms.");
+        }
+
+        private void checkBox_play_each_note_CheckedChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Play each note checkbox changed.");
         }
     }
 }

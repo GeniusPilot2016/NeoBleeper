@@ -343,63 +343,6 @@
   <data name="groupBox_position.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;radioButton_play_currently_selected_line.Name" xml:space="preserve">
-    <value>radioButton_play_currently_selected_line</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_currently_selected_line.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_currently_selected_line.Parent" xml:space="preserve">
-    <value>groupBox_position</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_currently_selected_line.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_beginning_of_music.Name" xml:space="preserve">
-    <value>radioButton_play_beginning_of_music</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_beginning_of_music.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_beginning_of_music.Parent" xml:space="preserve">
-    <value>groupBox_position</value>
-  </data>
-  <data name="&gt;&gt;radioButton_play_beginning_of_music.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBox_position.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="groupBox_position.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 224</value>
-  </data>
-  <data name="groupBox_position.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_position.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>391, 88</value>
-  </data>
-  <data name="groupBox_position.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox_position.Text" xml:space="preserve">
-    <value>Position from which to start playing</value>
-  </data>
-  <data name="&gt;&gt;groupBox_position.Name" xml:space="preserve">
-    <value>groupBox_position</value>
-  </data>
-  <data name="&gt;&gt;groupBox_position.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_position.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox_position.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="radioButton_play_currently_selected_line.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -420,9 +363,9 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA1ggAAAJNU0Z0AUkBTAIBAQMB
-        AAGQAQABkAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGgAQABoAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
-        AAH/AZkB/wEAAf8cAAFtAWcBVgHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
+        AAH/AZkB/wEAAf8cAAFpAWcBWQHvRAABYAEoAdsB/wFgASgB2wH/AWABKAHbAf9sAAH/AWYBMwL/AWYB
         MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAByAFwAQMB/wHIAXAB
         AwH/AzwBZjgAAWIBKQHdAf8BYgEpAd0B/wFiASkB3QH/AWIBKQHdAf8BYgEpAd0B/2gAAv8BmQH/ATMB
         mQHMAf8BMwGZAcwB/wEzAZkBzAH/ATMBmQHMAf8BMwGZAcwB/wEzAZkBzAH/AZABqQGtAf8gAAHIAXAB
@@ -453,7 +396,7 @@
         MwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwL/AWYBMwH/HAAB2QGDAQgB/wHZAYMBCAH/AdkB
         gwEIAf9EAAF1ATYB7QH/AXUBNgHtAf8BTQEbAcoB/wFOARsBywH/XAABmQH/AQAB/wGZAf8BAAH/AZkB
         /wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYC/wHMAWYB/xwAAdkBgwEIAf8D
-        LQFFSAADEQEWAXUBNgHtAf8BTQEbAcoB/wFNAUEBkAH5/wD/AFIAAUIBTQE+BwABPgMAASgDAAFAAwAB
+        LQFFSAADEQEWAXUBNgHtAf8BTQEbAcoB/wFNAUEBjgH5/wD/AFIAAUIBTQE+BwABPgMAASgDAAFAAwAB
         EAMAAQEBAAEBBQABgBcAA/8BAAb/AgAB4AEHAfcB/wH8AX8CAAHwAQcB8QH/AfgBPwIAAfABDwHwAf8B
         wAEBAgAB8AEPAfABPwH4AT8CAAHwAQ8B8AEPAcABAQIAAfgBDwHwAQcBwAEBAgAB/AEfAfABAwH/AT8C
         AAH4AQ8B8AEDAcABAQIAAfABDwHwAQ8B/wE/AgAB8AEPAfABHwH/AT8CAAHwAQ8B8AF/AcABAQIAAfAB
@@ -531,6 +474,39 @@
   </data>
   <data name="&gt;&gt;radioButton_play_beginning_of_music.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="groupBox_position.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="groupBox_position.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 224</value>
+  </data>
+  <data name="groupBox_position.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="groupBox_position.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
+    <value>391, 88</value>
+  </data>
+  <data name="groupBox_position.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox_position.Text" xml:space="preserve">
+    <value>Position from which to start playing</value>
+  </data>
+  <data name="&gt;&gt;groupBox_position.Name" xml:space="preserve">
+    <value>groupBox_position</value>
+  </data>
+  <data name="&gt;&gt;groupBox_position.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_position.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox_position.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="button_wait.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>

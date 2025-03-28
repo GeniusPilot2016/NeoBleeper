@@ -88,6 +88,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Time;
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.ShowUpDown = true;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // groupBox_position
             // 
@@ -103,6 +104,7 @@
             radioButton_play_currently_selected_line.ImageList = imageList_synchronized_play;
             radioButton_play_currently_selected_line.Name = "radioButton_play_currently_selected_line";
             radioButton_play_currently_selected_line.UseVisualStyleBackColor = true;
+            radioButton_play_currently_selected_line.CheckedChanged += radioButton_play_currently_selected_line_CheckedChanged;
             // 
             // imageList_synchronized_play
             // 
@@ -121,6 +123,7 @@
             radioButton_play_beginning_of_music.Name = "radioButton_play_beginning_of_music";
             radioButton_play_beginning_of_music.TabStop = true;
             radioButton_play_beginning_of_music.UseVisualStyleBackColor = true;
+            radioButton_play_beginning_of_music.CheckedChanged += radioButton_play_beginning_of_music_CheckedChanged;
             // 
             // button_wait
             // 
