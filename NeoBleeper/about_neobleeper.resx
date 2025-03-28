@@ -248,7 +248,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>4</value>
   </data>
   <data name="lbl_version.Text" xml:space="preserve">
-    <value>Version 0.8.3</value>
+    <value>Version 0.8.4</value>
   </data>
   <data name="&gt;&gt;lbl_version.Name" xml:space="preserve">
     <value>lbl_version</value>
@@ -270,7 +270,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAEgAQEBIAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEoAQEBKAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -284,7 +284,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         QQn/A/oB/wM8Af8DOgH/AzkB/wM3Af9QAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D+QH/AS8B
         lAEcAf8D+AH/A/cB/wP4Af8B7wHzAe4B/wEsAYwBGgH/FAABOAGrAewB/wEPAcYB/gH/AQ4BxQH+Af8B
         DQHDAf4B/wEMAcIB/gH/AQsBwAH+Af8BCgG/Af4B/wEJAb0B/gH/AQgBvAH+Af8BBwG7Af4B/wHFAUoB
-        sAH/EAADSwH/A0gB/wNGGf8DyQH/AzkB/wM3Af8DYQHhTAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D
+        sAH/EAADSwH/A0gB/wNGGf8DyQH/AzkB/wM3Af8DYgHhTAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D
         +AH/A/gB/wEyAZ4BHgH/A/kB/wP4Af8D+QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARAB
         xwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0BwwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B
         /wMxAU0QAANLAf8DSQH/A/Ud/wNCAf8DNwH/AzUB/0wAAUcBxAExAf8BRwHEATEB/wP4Af8D9wH/A/cB

@@ -210,6 +210,7 @@
             checkBox_loop.Text = "Loop";
             checkBox_loop.TextImageRelation = TextImageRelation.ImageBeforeText;
             checkBox_loop.UseVisualStyleBackColor = true;
+            checkBox_loop.CheckedChanged += checkBox_loop_CheckedChanged;
             // 
             // icons2
             // 
@@ -1124,6 +1125,7 @@
             checkBox_play_each_note.TabIndex = 22;
             checkBox_play_each_note.Text = "Play each note once at a time (don't keep alternating)";
             checkBox_play_each_note.UseVisualStyleBackColor = true;
+            checkBox_play_each_note.CheckedChanged += checkBox_play_each_note_CheckedChanged;
             // 
             // checkBox_make_each_cycle_last_30ms
             // 
@@ -1189,6 +1191,7 @@
             numericUpDown_alternating_note.Size = new Size(70, 27);
             numericUpDown_alternating_note.TabIndex = 26;
             numericUpDown_alternating_note.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            numericUpDown_alternating_note.ValueChanged += numericUpDown_alternating_note_ValueChanged;
             // 
             // label_ms
             // 

@@ -1,11 +1,6 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
@@ -25,7 +20,7 @@ namespace NeoBleeper
                 Out32(0x42, (Byte)(div >> 8));
                 Thread.Sleep(1);
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
-                System.Threading.Thread.Sleep(ms);
+                Thread.Sleep(ms);
                 StopBeep();
             }
             public static void StopBeep()
