@@ -643,7 +643,6 @@ namespace NeoBleeper
 
         private void first_octave_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.first_octave_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -656,7 +655,6 @@ namespace NeoBleeper
 
         private void second_octave_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.second_octave_color; 
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -669,7 +667,6 @@ namespace NeoBleeper
 
         private void third_octave_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.third_octave_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -682,7 +679,6 @@ namespace NeoBleeper
 
         private void blank_line_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.blank_line_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -695,7 +691,6 @@ namespace NeoBleeper
 
         private void clear_notes_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.clear_notes_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -708,7 +703,6 @@ namespace NeoBleeper
 
         private void unseelct_line_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.unselect_line_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -721,7 +715,6 @@ namespace NeoBleeper
 
         private void erase_whole_line_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.erase_whole_line_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -734,7 +727,6 @@ namespace NeoBleeper
 
         private void playback_buttons_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.playback_buttons_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -747,7 +739,6 @@ namespace NeoBleeper
 
         private void metronome_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.metronome_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -760,7 +751,6 @@ namespace NeoBleeper
 
         private void beep_indicator_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.beep_indicator_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
@@ -773,7 +763,6 @@ namespace NeoBleeper
 
         private void note_indicator_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.note_indicator_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
