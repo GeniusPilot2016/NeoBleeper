@@ -81,9 +81,9 @@ This project is **still in development** and some features and components are st
 
 **Display Resolution:** 1024x768 (minimum), 1920x1080 (recommended)
 
-**Storage:** 201 MB (minimum)
+**Storage:** 401 MB (minimum)
 
-**Required Hardware:** System speaker (recommended)
+**Required Hardware:** System speaker or any kind of sound device (minimum)
 
 ## Cloning
 
