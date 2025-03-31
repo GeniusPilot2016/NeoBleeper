@@ -83,7 +83,7 @@ This project is **still in development** and some features and components are st
 
 **Storage:** 401 MB (minimum)
 
-**Required Hardware:** System speaker (recommended)
+**Required Hardware:** System speaker or any kind of sound device (minimum)
 
 ## Cloning
 
