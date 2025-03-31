@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
-    internal class RenderBeep
+    public class RenderBeep
     {
         public static class BeepClass
         {
