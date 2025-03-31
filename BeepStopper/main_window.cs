@@ -15,7 +15,7 @@ namespace BeepStopper
             {
                 ctrl.Font = new Font(fonts.Families[0], 9);
             }
-            instructionLabel.Font = new Font(fonts.Families[1], 9, FontStyle.Bold);
+            instructionLabel.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -24,6 +24,7 @@ namespace BeepStopper
             {
                 RenderBeep.BeepClass.StopBeep();
                 MessageBox.Show("Beep is successfully stopped!", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             catch (Exception ex)
             {

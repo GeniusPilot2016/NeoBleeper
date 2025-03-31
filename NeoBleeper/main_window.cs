@@ -2321,87 +2321,56 @@ namespace NeoBleeper
         }
         private void play_music(int index)
         {
-            try
+            while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
-                {
-                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    line_length_calculator();
-                    note_length_calculator();
-                    // Calculate full duration before playing
-                    int noteDuration = Convert.ToInt32(final_note_length);
-                    int waitDuration = Convert.ToInt32(line_length);
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                line_length_calculator();
+                note_length_calculator();
+                // Calculate full duration before playing
+                int noteDuration = Convert.ToInt32(final_note_length);
+                int waitDuration = Convert.ToInt32(line_length);
 
-                    // Play note and continue waiting
-                    play_note_in_line(
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked,
-                        noteDuration);
-
-                    // Do ListView update in UI thread
-                    Task.Run(() =>
-                    {
-                        if (listViewNotes.InvokeRequired)
-                        {
-                            listViewNotes.BeginInvoke(new Action(() =>
-                            {
-                                UpdateListViewSelectionSync(index);
-                            }));
-
-                        }
-                        else
-                        {
-                            UpdateListViewSelectionSync(index);
-                        }
-
-                    });
-
-                    
-                    // Wait between each note
-                    NonBlockingSleep.Sleep(Math.Max(1, waitDuration - noteDuration));
-                }
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
+                // Play note and continue waiting
+                play_note_in_line(
+                    checkBox_play_note1_played.Checked,
+                    checkBox_play_note2_played.Checked,
+                    checkBox_play_note3_played.Checked,
+                    checkBox_play_note4_played.Checked,
+                    noteDuration);
+                // Wait between each note
+                NonBlockingSleep.Sleep(Math.Max(1, waitDuration - noteDuration));
+                // Do ListView update in UI thread
+                UpdateListViewSelectionSync(index);
             }
         }
 
         // Sync ListView update method
-        private bool UpdateListViewSelectionSync(int startIndex)
+        private void UpdateListViewSelectionSync(int startIndex)
         {
-            if (listViewNotes.SelectedIndices.Count <= 0)
-                return false;
-
-            int currentIndex = listViewNotes.SelectedIndices[0];
-            int nextIndex = currentIndex + 1;
-
-            // Clear current selection
-            listViewNotes.SelectedItems.Clear();
-
-            if (nextIndex < listViewNotes.Items.Count)
+            if (listViewNotes.SelectedItems.Count > 0)
             {
-                // Select next note
-                listViewNotes.Items[nextIndex].Selected = true;
-                listViewNotes.EnsureVisible(nextIndex);
-                return true;
-            }
-            else if (checkBox_loop.Checked)
-            {
-                // Loop etkinse baþa dön
-                if (listViewNotes.Items.Count > 0)
+                int currentIndex = listViewNotes.SelectedIndices[0];
+                int nextIndex = currentIndex + 1;
+
+                // Clear current selection
+
+                if (nextIndex < listViewNotes.Items.Count)
                 {
-                    listViewNotes.Items[startIndex].Selected = true;
-                    listViewNotes.EnsureVisible(startIndex);
-                    return true;
+                    // Select next note 
+                    listViewNotes.Items[nextIndex].Selected = true;
+                    listViewNotes.EnsureVisible(nextIndex);
+                }
+                else if (checkBox_loop.Checked)
+                {
+                    // Loop back to the beginning if looping is enabled
+                    if (listViewNotes.Items.Count > 0)
+                    {
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[startIndex].Selected = true;
+                        listViewNotes.EnsureVisible(startIndex);
+                    }
                 }
             }
-
-            // Stop playing
-            stop_playing();
-            return false;
         }
         public void play_all()
         {
@@ -2769,24 +2738,21 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                Task.Run(() =>
-                {
-                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    note_length_calculator();
-                    keyboard_panel.Enabled = false;
-                    numericUpDown_alternating_notes.Enabled = false;
-                    numericUpDown_bpm.Enabled = false;
-                    checkBox_do_not_update.Enabled = false;
-                    play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
-                    checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                    Convert.ToInt32(Math.Truncate(final_note_length)));
-                    keyboard_panel.Enabled = true;
-                    numericUpDown_alternating_notes.Enabled = true;
-                    numericUpDown_bpm.Enabled = true;
-                    checkBox_do_not_update.Enabled = true;
-                    total_note_length = 0;
-                    note_count = 0;
-                });
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                note_length_calculator();
+                keyboard_panel.Enabled = false;
+                numericUpDown_alternating_notes.Enabled = false;
+                numericUpDown_bpm.Enabled = false;
+                checkBox_do_not_update.Enabled = false;
+                play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
+                checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
+                Convert.ToInt32(Math.Truncate(final_note_length)));
+                keyboard_panel.Enabled = true;
+                numericUpDown_alternating_notes.Enabled = true;
+                numericUpDown_bpm.Enabled = true;
+                checkBox_do_not_update.Enabled = true;
+                total_note_length = 0;
+                note_count = 0;
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
@@ -3584,29 +3550,30 @@ namespace NeoBleeper
         }
         private void updateIndicators(int Line)
         {
-            Task.Run(() =>
+            if (listViewNotes.Items.Count > 0)
             {
-                if (listViewNotes.Items.Count > 0)
+                Task.Run(() => { 
+                int measure = 1;
+                double beat = 0;
+                if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    int measure = 1;
-                    double beat = 0;
-                    if (listViewNotes.SelectedItems.Count > 0)
-                        for (int i = 1; i <= Line; i++)
+                    for (int i = 1; i <= Line; i++)
+                    {
+                        beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
+                        if (beat > trackBar_time_signature.Value)
                         {
-                            beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
-                            if (beat > trackBar_time_signature.Value)
-                            {
-                                measure++;
-                                beat = 0;
+                            measure++;
+                            beat = 0;
 
-                            }
                         }
-                    lbl_measure_value.Text = measure.ToString();
-                    lbl_beat_value.Text = FormatNumber(beat + 1);
-                    lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
-                    lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
+                    }
                 }
-            });
+                lbl_measure_value.Text = measure.ToString();
+                lbl_beat_value.Text = FormatNumber(beat + 1);
+                lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text); 
+                });
+            }
         }
         public static string ConvertDecimalBeatToTraditional(double decimalBeat)
         {

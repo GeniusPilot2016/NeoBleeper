@@ -2129,7 +2129,6 @@
             Controls.Add(btn_octave_increase);
             Controls.Add(btn_octave_decrease);
             Controls.Add(menuStrip1);
-            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
             MainMenuStrip = menuStrip1;
