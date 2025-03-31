@@ -22,6 +22,15 @@ namespace NeoBleeper
             public static bool permanently_enabled;
             public static bool is_system_speaker_muted = false;
         }
+        public static class MIDIDevices
+        {
+            public static bool useMIDIinput = false;
+            public static bool useMIDIoutput = false;
+            public static int MIDIOutputDevice=0;
+            public static int MIDIOutputInstrument = 0; // Grand Piano
+            public static int MIDIOutputDeviceChannel=0;
+            public static int MIDIInputDevice=0;
+        }
         [STAThread]
         static void Main()
         {

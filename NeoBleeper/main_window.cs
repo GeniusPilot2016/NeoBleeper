@@ -5,6 +5,9 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Text;
 using System.Media;
+using NAudio.Midi;
+using static NBPML_File;
+using NAudio;
 
 namespace NeoBleeper
 {
@@ -39,6 +42,7 @@ namespace NeoBleeper
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
+            InitializeMidi();
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
@@ -725,6 +729,114 @@ namespace NeoBleeper
                 play_note_when_key_is_clicked(note_frequency);
             }
             Debug.WriteLine($"Key C{Variables.octave - 1} is clicked");
+        }
+        private int note_name_to_MIDI_number(string noteName)
+        {
+            // Define the base MIDI numbers for each note
+            Dictionary<string, int> baseMidiNumbers = new Dictionary<string, int>
+    {
+        { "C", 0 }, { "C#", 1 }, { "D", 2 }, { "D#", 3 },
+        { "E", 4 }, { "F", 5 }, { "F#", 6 }, { "G", 7 },
+        { "G#", 8 }, { "A", 9 }, { "A#", 10 }, { "B", 11 }
+    };
+
+            if (string.IsNullOrEmpty(noteName) || noteName.Length < 2)
+            {
+                return -1;
+            }
+
+            string note = noteName.Substring(0, noteName.Length - 1).ToUpper();
+            string octaveString = noteName.Substring(noteName.Length - 1);
+            int octave;
+
+            if (!int.TryParse(octaveString, out octave))
+            {
+                return -1;
+            }
+
+            if (!baseMidiNumbers.ContainsKey(note))
+            {
+                return -1; 
+            }
+
+            int baseMidiNumber = baseMidiNumbers[note];
+            int midiNumber = (octave + 1) * 12 + baseMidiNumber;
+
+            return midiNumber;
+        }
+        private MidiOut _midiOut; // Class-level variable
+
+        private void InitializeMidi()
+        {
+            try
+            {
+                _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDeviceChannel);
+            }
+            catch (MmException ex)
+            {
+                // Handle exception (log, show message, etc.)
+                Console.WriteLine($"Error initializing MIDI: {ex.Message}");
+                _midiOut = null; // Important: Set to null to prevent further errors
+            }
+        }
+
+        private void DisposeMidi()
+        {
+            if (_midiOut != null)
+            {
+                _midiOut.Dispose();
+                _midiOut = null;
+            }
+        }
+        private void ChangeInstrument(MidiOut midiOut, int programNumber, int channel)
+        {
+            midiOut.Send(MidiMessage.ChangePatch(programNumber, channel+1).RawData);
+        }
+        private void play_note_in_line_from_MIDIOutput(int index, bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length)
+        {
+
+            String note1 = listViewNotes.Items[index].SubItems[1].Text;
+            String note2 = listViewNotes.Items[index].SubItems[2].Text;
+            String note3 = listViewNotes.Items[index].SubItems[3].Text;
+            String note4 = listViewNotes.Items[index].SubItems[4].Text;
+
+            int[] notes = {
+        note_name_to_MIDI_number(note1),
+        note_name_to_MIDI_number(note2),
+        note_name_to_MIDI_number(note3),
+        note_name_to_MIDI_number(note4)
+    };
+
+            if (_midiOut != null) // Check if initialized
+            {
+                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) PlayMidiNote(notes[0], length);
+                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) PlayMidiNote(notes[1], length);
+                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) PlayMidiNote(notes[2], length);
+                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) PlayMidiNote(notes[3], length);
+            }
+        }
+
+        private int DynamicVelocity()
+        {
+            Random random = new Random();
+            int minVelocity = 60;  // Minimum velocity
+            int maxVelocity = 127; // Maximum velocity
+            int dynamicVelocity = random.Next(minVelocity, maxVelocity);
+            return dynamicVelocity;
+        }
+
+        private void PlayMidiNote(int note, int length) //Keep the old method for compatibility
+        {
+            PlayMidiNoteAsync(note, length).Wait();
+        }
+
+        private async Task PlayMidiNoteAsync(int note, int length) // Make async
+        {
+            if (_midiOut == null) return;
+
+            _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), 1).RawData);
+            await Task.Delay(length); // Use Task.Delay
+            _midiOut.Send(MidiMessage.StopNote(note, 0, 1).RawData);
         }
 
         private void button_d3_Click(object sender, EventArgs e)
@@ -2331,11 +2443,24 @@ namespace NeoBleeper
                 int waitDuration = Convert.ToInt32(line_length);
 
                 // Play note and continue waiting
+                if (Program.MIDIDevices.useMIDIoutput == true)
+                {
+                    Task.Run(() =>
+                    {
+                        ChangeInstrument(_midiOut, Program.MIDIDevices.MIDIOutputInstrument, 
+                            Program.MIDIDevices.MIDIOutputDeviceChannel);
+                        play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
+                        checkBox_play_note1_played.Checked,
+                        checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked,
+                        checkBox_play_note4_played.Checked, noteDuration);
+                    });
+                }
                 play_note_in_line(
-                    checkBox_play_note1_played.Checked,
-                    checkBox_play_note2_played.Checked,
-                    checkBox_play_note3_played.Checked,
-                    checkBox_play_note4_played.Checked,
+                checkBox_play_note1_played.Checked,
+                checkBox_play_note2_played.Checked,
+                checkBox_play_note3_played.Checked,
+                checkBox_play_note4_played.Checked,
                     noteDuration);
                 // Wait between each note
                 NonBlockingSleep.Sleep(Math.Max(1, waitDuration - noteDuration));
@@ -2467,6 +2592,28 @@ namespace NeoBleeper
         {
             MusicStopped?.Invoke(this, e);
         }
+        private int FrequencyToMidiNote(double frequency)
+        {
+            double note = 69 + 12 * Math.Log(frequency / 440.0, 2);
+            return (int)Math.Round(note);
+        }
+        private async Task PlayMidiNote(MidiOut midiOut, double frequency, int length)
+        {
+            int note = FrequencyToMidiNote(frequency);
+            midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), 1).RawData);
+            await Task.Delay(length);
+            midiOut.Send(MidiMessage.StopNote(note, 0, 1).RawData);
+        }
+
+        private async void play_metronome_sound(int frequency, int length)
+        {
+            if (_midiOut != null && Program.MIDIDevices.useMIDIoutput==true)
+            {
+                ChangeInstrument(_midiOut, Program.MIDIDevices.MIDIOutputInstrument,
+                            Program.MIDIDevices.MIDIOutputDeviceChannel);
+                await PlayMidiNote(_midiOut, frequency, length); 
+            }
+        }
         private void InitializeMetronome()
         {
             // Pre-load sounds to eliminate initialization delay
@@ -2535,6 +2682,7 @@ namespace NeoBleeper
             ThreadPool.QueueUserWorkItem(state =>
             {
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
+                play_metronome_sound(frequency, 30);
                 NotePlayer.play_note(frequency, 30);
             });
         }
@@ -3812,6 +3960,7 @@ namespace NeoBleeper
             stop_playing();
             cancellationTokenSource.Cancel();
             isClosing = true;
+            DisposeMidi();
             stop_system_speaker_beep();
         }
 

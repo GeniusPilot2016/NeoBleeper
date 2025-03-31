@@ -89,6 +89,8 @@ namespace NeoBleeper
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color;
             comboBox_theme.SelectedIndex = Settings1.Default.theme;
+            checkBox_use_midi_input.Checked=Program.MIDIDevices.useMIDIinput;
+            checkBox_use_midi_output.Checked = Program.MIDIDevices.useMIDIoutput;
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
@@ -824,7 +826,7 @@ namespace NeoBleeper
             if (comboBox_midi_input_devices.Items.Count > 0)
             {
                 label_midi_input_device.Enabled = true;
-                comboBox_midi_input_devices.SelectedIndex = 0;
+                comboBox_midi_input_devices.SelectedIndex = Program.MIDIDevices.MIDIInputDevice;
                 comboBox_midi_input_devices.Enabled = true;
                 checkBox_use_midi_input.Enabled = true;
             }
@@ -849,7 +851,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_devices.Items.Count > 0)
             {
                 label_midi_output_device.Enabled = true;
-                comboBox_midi_output_devices.SelectedIndex = 0;
+                comboBox_midi_output_devices.SelectedIndex = Program.MIDIDevices.MIDIOutputDevice;
                 comboBox_midi_output_devices.Enabled = true;
                 checkBox_use_midi_output.Enabled = true;
             }
@@ -870,7 +872,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_channel.Items.Count > 0)
             {
                 label_channel.Enabled = true;
-                comboBox_midi_output_channel.SelectedIndex = 0;
+                comboBox_midi_output_channel.SelectedIndex = Program.MIDIDevices.MIDIOutputDeviceChannel;
                 comboBox_midi_output_channel.Enabled = true;
             }
             else
@@ -913,7 +915,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_instrument.Items.Count > 0)
             {
                 label_instrument.Enabled = true;
-                comboBox_midi_output_instrument.SelectedIndex = 0;
+                comboBox_midi_output_instrument.SelectedIndex = Program.MIDIDevices.MIDIOutputInstrument;
                 comboBox_midi_output_instrument.Enabled = true;
             }
             else
@@ -965,31 +967,53 @@ namespace NeoBleeper
 
         private void checkBox_use_midi_output_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("MIDI output device enabled");
+            if(checkBox_use_midi_output.Checked == true)
+            {
+                Program.MIDIDevices.useMIDIoutput = true;
+                Debug.WriteLine("MIDI output device enabled");
+            }
+            else
+            {
+                Program.MIDIDevices.useMIDIoutput = false;
+                Debug.WriteLine("MIDI output device disabled");
+            }
         }
 
         private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Program.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
             Debug.WriteLine("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString());
         }
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Program.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
             Debug.WriteLine("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString());
         }
 
         private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Program.MIDIDevices.MIDIOutputInstrument = comboBox_midi_output_instrument.SelectedIndex;
             Debug.WriteLine("MIDI output instrument selected: " + comboBox_midi_output_instrument.SelectedItem.ToString());
         }
 
         private void checkBox_use_midi_input_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("MIDI input device enabled");
+            if(checkBox_use_midi_input.Checked == true)
+            {
+                Program.MIDIDevices.useMIDIinput = true;
+                Debug.WriteLine("MIDI input device enabled");
+            }
+            else
+            {
+                Program.MIDIDevices.useMIDIinput = false;
+                Debug.WriteLine("MIDI input device disabled");
+            }
         }
 
         private void comboBox_midi_input_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Program.MIDIDevices.MIDIInputDevice = comboBox_midi_input_devices.SelectedIndex;
             Debug.WriteLine("MIDI input device selected: " + comboBox_midi_input_devices.SelectedItem.ToString());
         }
 
