@@ -19,13 +19,13 @@ namespace NeoBleeper
                                     }
                                     else // If the frequency is out of range, sleep for the length of the note
                                     {
-                                        Thread.Sleep(length);
+                                        NonBlockingSleep.Sleep(length);
                                     }
                                     break;
                                 }
                             case true: // If the system speaker is muted, sleep for the length of the note
                                 {
-                                    Thread.Sleep(length);
+                                    NonBlockingSleep.Sleep(length);
                                     break;
                                 }
                         }
