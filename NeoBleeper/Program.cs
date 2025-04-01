@@ -39,7 +39,8 @@ namespace NeoBleeper
             Debug.WriteLine("https://github.com/GeniusPilot2016/NeoBleeper \r\n");
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();        
+            ApplicationConfiguration.Initialize();  
+            MIDIIOUtils.InitializeMidi();
             neobleeper_init_system_speaker_warning system_speaker_warning = new neobleeper_init_system_speaker_warning();
             neobleeper_init_display_resolution_warning display_resolution_warning = new neobleeper_init_display_resolution_warning();
             neobleeper_init_compact_computer_warning compact_computer_warning = new neobleeper_init_compact_computer_warning();
@@ -209,6 +210,7 @@ namespace NeoBleeper
                     Application.Exit();
                 }
             }
+            MIDIIOUtils.DisposeMidi();
         }
     }
 }

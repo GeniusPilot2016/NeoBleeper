@@ -546,6 +546,16 @@ namespace NeoBleeper
                     // Play active notes or silence
                     if (notesCount > 0)
                     {
+                        if(MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput==true)
+                        {
+                            Task.Run(() =>
+                            {
+                                foreach (var note in filteredNotes)
+                                {
+                                    MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
+                                }
+                            });
+                        }
                         var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
 
                         if (frequencies.Length == 1)
@@ -1108,17 +1118,20 @@ namespace NeoBleeper
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
-            if (label_percentage.InvokeRequired)
+            Task.Run(() =>
             {
-                label_percentage.BeginInvoke(new Action(() =>
+                if (label_percentage.InvokeRequired)
+                {
+                    label_percentage.BeginInvoke(new Action(() =>
+                    {
+                        label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                    }));
+                }
+                else
                 {
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                }));
-            }
-            else
-            {
-                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-            }
+                }
+            });
             CalculatePosition(frameIndex);
         }
         private void CalculatePosition(int frameIndex)

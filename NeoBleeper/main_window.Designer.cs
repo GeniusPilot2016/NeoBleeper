@@ -763,6 +763,7 @@
             toolTip1.SetToolTip(checkBox_dotted, resources.GetString("checkBox_dotted.ToolTip"));
             checkBox_dotted.UseVisualStyleBackColor = false;
             checkBox_dotted.CheckedChanged += checkBox_dotted_CheckedChanged;
+            checkBox_dotted.Click += checkBox_dotted_Click;
             // 
             // checkBox_triplet
             // 
@@ -774,6 +775,7 @@
             toolTip1.SetToolTip(checkBox_triplet, resources.GetString("checkBox_triplet.ToolTip"));
             checkBox_triplet.UseVisualStyleBackColor = false;
             checkBox_triplet.CheckedChanged += checkBox_triplet_CheckedChanged;
+            checkBox_triplet.Click += checkBox_triplet_Click;
             // 
             // listViewNotes
             // 
@@ -1009,6 +1011,7 @@
             toolTip1.SetToolTip(checkBox_staccato, resources.GetString("checkBox_staccato.ToolTip"));
             checkBox_staccato.UseVisualStyleBackColor = false;
             checkBox_staccato.CheckedChanged += checkBox_staccato_CheckedChanged;
+            checkBox_staccato.Click += checkBox_staccato_Click;
             // 
             // label_beep
             // 
@@ -1028,6 +1031,7 @@
             toolTip1.SetToolTip(checkBox_fermata, resources.GetString("checkBox_fermata.ToolTip"));
             checkBox_fermata.UseVisualStyleBackColor = false;
             checkBox_fermata.CheckedChanged += checkBox_fermata_CheckedChanged;
+            checkBox_fermata.Click += checkBox_fermata_Click;
             // 
             // lbl_alternating_note_options
             // 
@@ -1192,6 +1196,7 @@
             toolTip1.SetToolTip(checkBox_spiccato, resources.GetString("checkBox_spiccato.ToolTip"));
             checkBox_spiccato.UseVisualStyleBackColor = false;
             checkBox_spiccato.CheckedChanged += checkBox_spiccato_CheckedChanged;
+            checkBox_spiccato.Click += checkBox_spiccato_Click;
             // 
             // lbl_beat
             // 
