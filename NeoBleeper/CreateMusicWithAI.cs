@@ -35,7 +35,7 @@ namespace NeoBleeper
                 MessageBox.Show("Internet connection is not available. Please check your connection.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
-            else if(string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+            else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Debug.WriteLine("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.");
                 MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -65,14 +65,9 @@ namespace NeoBleeper
                 musicCreating.Show();
                 SetControlsEnabled(false);
                 var apiKey = Settings1.Default.geminiAPIKey;
-                if (string.IsNullOrEmpty(apiKey))
-                {
-                    return;
-                }
-
                 var googleAI = new GoogleAi(apiKey);
                 var googleModel = googleAI.CreateGenerativeModel("models/gemini-2.0-flash");
-                var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[textBox1.Text]**\r\n\r\n" +
+                var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[{textBoxPrompt.Text}]**\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
                     $"Based on the User Prompt above, generate a sequence of <Line> elements to replace the placeholder section within the <LineList> below.\r\n" +
                     $"- PRIORITY 1: Ensure the output is a complete and valid <NeoBleeperProjectFile> XML structure. Do not include any additional text, code block markers (```xml), or explanations. Use UTF-8 encoding.\r\n" +
@@ -129,7 +124,7 @@ namespace NeoBleeper
             }
             finally
             {
-                musicCreating.Hide();
+                musicCreating.Close();
                 SetControlsEnabled(true);
                 this.Close();
             }
@@ -152,7 +147,7 @@ namespace NeoBleeper
             {
                 ctrl.Enabled = enabled;
             }
-            if(enabled == true)
+            if (enabled == true)
             {
                 if (textBoxPrompt.Text != String.Empty)
                 {
@@ -163,6 +158,11 @@ namespace NeoBleeper
                     buttonCreate.Enabled = false;
                 }
             }
+        }
+
+        private void CreateMusicWithAI_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

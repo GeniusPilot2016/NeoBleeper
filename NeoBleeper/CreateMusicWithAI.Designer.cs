@@ -42,9 +42,10 @@
             labelPrompt.Anchor = AnchorStyles.None;
             labelPrompt.AutoSize = true;
             labelPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            labelPrompt.Location = new Point(24, 41);
+            labelPrompt.Location = new Point(19, 33);
+            labelPrompt.Margin = new Padding(2, 0, 2, 0);
             labelPrompt.Name = "labelPrompt";
-            labelPrompt.Size = new Size(61, 20);
+            labelPrompt.Size = new Size(46, 16);
             labelPrompt.TabIndex = 0;
             labelPrompt.Text = "Prompt";
             // 
@@ -52,23 +53,24 @@
             // 
             textBoxPrompt.Anchor = AnchorStyles.None;
             textBoxPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            textBoxPrompt.Location = new Point(91, 38);
+            textBoxPrompt.Location = new Point(73, 30);
+            textBoxPrompt.Margin = new Padding(2);
             textBoxPrompt.Name = "textBoxPrompt";
-            textBoxPrompt.Size = new Size(288, 27);
+            textBoxPrompt.Size = new Size(231, 23);
             textBoxPrompt.TabIndex = 1;
             textBoxPrompt.TextChanged += textBox1_TextChanged;
             // 
             // buttonCreate
             // 
             buttonCreate.Anchor = AnchorStyles.None;
-            buttonCreate.DialogResult = DialogResult.OK;
             buttonCreate.Enabled = false;
             buttonCreate.Font = new Font("HarmonyOS Sans", 8.999999F);
             buttonCreate.ImageIndex = 1;
             buttonCreate.ImageList = images;
-            buttonCreate.Location = new Point(385, 35);
+            buttonCreate.Location = new Point(308, 28);
+            buttonCreate.Margin = new Padding(2);
             buttonCreate.Name = "buttonCreate";
-            buttonCreate.Size = new Size(128, 33);
+            buttonCreate.Size = new Size(102, 26);
             buttonCreate.TabIndex = 2;
             buttonCreate.Text = "Create";
             buttonCreate.TextAlign = ContentAlignment.MiddleRight;
@@ -92,31 +94,34 @@
             labelPoweredByGemini.ImageAlign = ContentAlignment.MiddleLeft;
             labelPoweredByGemini.ImageIndex = 0;
             labelPoweredByGemini.ImageList = images;
-            labelPoweredByGemini.Location = new Point(139, 89);
+            labelPoweredByGemini.Location = new Point(111, 71);
+            labelPoweredByGemini.Margin = new Padding(2, 0, 2, 0);
             labelPoweredByGemini.Name = "labelPoweredByGemini";
-            labelPoweredByGemini.Size = new Size(224, 20);
+            labelPoweredByGemini.Size = new Size(182, 16);
             labelPoweredByGemini.TabIndex = 3;
-            labelPoweredByGemini.Text = "    Powered by Google Gemini™";
+            labelPoweredByGemini.Text = "      Powered by Google Gemini™";
             labelPoweredByGemini.TextAlign = ContentAlignment.MiddleRight;
             // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(539, 135);
+            ClientSize = new Size(431, 108);
             Controls.Add(labelPoweredByGemini);
             Controls.Add(buttonCreate);
             Controls.Add(textBoxPrompt);
             Controls.Add(labelPrompt);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "CreateMusicWithAI";
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Create Music With AI";
+            Load += CreateMusicWithAI_Load;
             ResumeLayout(false);
             PerformLayout();
         }

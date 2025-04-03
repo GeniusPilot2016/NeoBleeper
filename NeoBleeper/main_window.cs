@@ -4636,35 +4636,29 @@ namespace NeoBleeper
 
         private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI())
+            CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
+            createMusicWithAI.ShowDialog();
+            try
             {
-                try
+                if (createMusicWithAI.output != string.Empty)
                 {
-                    if (createMusicWithAI.ShowDialog() == DialogResult.OK)
+                    if (is_music_playing == true)
                     {
-                        if (createMusicWithAI.output != string.Empty)
-                        {
-                            if (is_music_playing == true)
-                            {
-                                stop_playing();
-                            }
-                            if (checkBox_synchronized_play.Checked == true)
-                            {
-                                checkBox_synchronized_play.Checked = false;
-                            }
-                            Debug.WriteLine(String.Empty);
-                            Debug.WriteLine(createMusicWithAI.output);
-                            createMusicWithAIResponse(createMusicWithAI.output);
-                            saveAsToolStripMenuItem.Enabled = false;
-                            initialMemento = originator.CreateMemento(); // Save the initial state
-                            commandManager.ClearHistory(); // Reset the history
-                        }
+                        stop_playing();
                     }
+                    if (checkBox_synchronized_play.Checked == true)
+                    {
+                        checkBox_synchronized_play.Checked = false;
+                    }
+                    createMusicWithAIResponse(createMusicWithAI.output);
+                    saveAsToolStripMenuItem.Enabled = false;
+                    initialMemento = originator.CreateMemento(); // Save the initial state
+                    commandManager.ClearHistory(); // Reset the history
                 }
-                catch (ObjectDisposedException)
-                {
-                    return;
-                }
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
             }
         }
     }
