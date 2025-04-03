@@ -149,6 +149,12 @@ namespace NeoBleeper
             beep_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
             note_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
             reset_colors.BackColor = Color.FromArgb(32, 32, 32);
+            buttonUpdateAPIKey.BackColor = Color.FromArgb(32, 32, 32);
+            buttonUpdateAPIKey.ForeColor = Color.White;
+            textBoxAPIKey.BackColor = Color.Black;
+            textBoxAPIKey.ForeColor = Color.White;
+            buttonShowHide.BackColor = Color.FromArgb(32, 32, 32);
+            buttonShowHide.ForeColor = Color.White;
             this.Refresh();
         }
         private void light_theme()
@@ -202,6 +208,12 @@ namespace NeoBleeper
             beep_indicator_color_change.BackColor = Color.Transparent;
             note_indicator_color_change.BackColor = Color.Transparent;
             reset_colors.BackColor = Color.Transparent;
+            buttonUpdateAPIKey.BackColor = Color.Transparent;
+            buttonUpdateAPIKey.ForeColor = SystemColors.ControlText;
+            textBoxAPIKey.BackColor = SystemColors.Window;
+            textBoxAPIKey.ForeColor = SystemColors.WindowText;
+            buttonShowHide.BackColor = Color.Transparent;
+            buttonShowHide.ForeColor = SystemColors.ControlText;
             this.Refresh();
         }
 
