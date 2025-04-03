@@ -154,20 +154,26 @@
   <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="lbl_credit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="lbl_credit.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 186</value>
+    <value>65, 188</value>
   </data>
   <data name="lbl_credit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>498, 0</value>
   </data>
   <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>498, 80</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>498, 80</value>
+    <value>498, 100</value>
   </data>
   <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -176,7 +182,8 @@
     <value>Inspired by Robbi-985's (aka SomethingUnreal's) Bleeper Music Maker
 Designed and programmed by GeniusPilot2016
 All icons in this program are downloaded from icons8.com
-NeoBleeper is licensed under the GNU General Public License v3.0</value>
+NeoBleeper is licensed under the GNU General Public License v3.0
+Google Gemini™ is a trademark of Google LLC</value>
   </data>
   <data name="&gt;&gt;lbl_credit.Name" xml:space="preserve">
     <value>lbl_credit</value>
@@ -242,13 +249,13 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>4, 0, 4, 0</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 30</value>
+    <value>159, 30</value>
   </data>
   <data name="lbl_version.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="lbl_version.Text" xml:space="preserve">
-    <value>Version 0.9.0</value>
+    <value>Version 0.10.0</value>
   </data>
   <data name="&gt;&gt;lbl_version.Name" xml:space="preserve">
     <value>lbl_version</value>
@@ -270,7 +277,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFAAQEBQAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFIAQEBSAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -317,18 +324,6 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>250</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
-    <value>350</value>
   </data>
   <data name="listView1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -378,7 +373,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 348</value>
+    <value>12, 396</value>
   </data>
   <data name="listView1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -401,6 +396,18 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
   <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>250</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>350</value>
+  </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -411,7 +418,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 318</value>
+    <value>268, 366</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -447,7 +454,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>0</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 282</value>
+    <value>60, 313</value>
   </data>
   <data name="button_visit_icons8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -492,7 +499,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>NoControl</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 282</value>
+    <value>222, 313</value>
   </data>
   <data name="button_view_license_text.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -534,7 +541,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>2</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 282</value>
+    <value>392, 313</value>
   </data>
   <data name="button_fork_me_on_github.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -573,7 +580,7 @@ NeoBleeper is licensed under the GNU General Public License v3.0</value>
     <value>120, 120</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>632, 552</value>
+    <value>632, 600</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

@@ -58,6 +58,7 @@
             saveAsToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             playMIDIFileToolStripMenuItem = new ToolStripMenuItem();
+            createMusicWithAIToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             undoToolStripMenuItem = new ToolStripMenuItem();
             redoToolStripMenuItem = new ToolStripMenuItem();
@@ -480,7 +481,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, toolStripSeparator2, playMIDIFileToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, toolStripSeparator2, playMIDIFileToolStripMenuItem, createMusicWithAIToolStripMenuItem });
             resources.ApplyResources(fileToolStripMenuItem, "fileToolStripMenuItem");
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
@@ -531,6 +532,13 @@
             resources.ApplyResources(playMIDIFileToolStripMenuItem, "playMIDIFileToolStripMenuItem");
             playMIDIFileToolStripMenuItem.Name = "playMIDIFileToolStripMenuItem";
             playMIDIFileToolStripMenuItem.Click += playMIDIFileToolStripMenuItem_Click;
+            // 
+            // createMusicWithAIToolStripMenuItem
+            // 
+            createMusicWithAIToolStripMenuItem.Image = Properties.Resources.icons8_artificial_intelligence_48;
+            createMusicWithAIToolStripMenuItem.Name = "createMusicWithAIToolStripMenuItem";
+            resources.ApplyResources(createMusicWithAIToolStripMenuItem, "createMusicWithAIToolStripMenuItem");
+            createMusicWithAIToolStripMenuItem.Click += createMusicWithAIToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
@@ -2393,5 +2401,6 @@
         private ToolStripMenuItem pasteToolStripMenuItem;
         private ToolStripMenuItem cutToolStripMenuItem;
         private ToolStripMenuItem openRecentToolStripMenuItem;
+        private ToolStripMenuItem createMusicWithAIToolStripMenuItem;
     }
 }

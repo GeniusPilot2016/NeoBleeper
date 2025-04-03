@@ -32,9 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings_window));
             tabControl_settings = new TabControl();
             general_settings = new TabPage();
+            groupBoxCreateMusicWithAI = new GroupBox();
+            buttonUpdateAPIKey = new Button();
+            imageList_settings = new ImageList(components);
+            buttonShowHide = new Button();
+            labelAPIKeyWarning = new Label();
+            labelAPIKey = new Label();
+            textBoxAPIKey = new TextBox();
             groupBox_system_speaker_test = new GroupBox();
             btn_test_system_speaker = new Button();
-            imageList_settings = new ImageList(components);
             label_test_system_speaker_message = new Label();
             groupBox_appearance = new GroupBox();
             lbl_theme = new Label();
@@ -116,6 +122,7 @@
             colorDialog1 = new ColorDialog();
             tabControl_settings.SuspendLayout();
             general_settings.SuspendLayout();
+            groupBoxCreateMusicWithAI.SuspendLayout();
             groupBox_system_speaker_test.SuspendLayout();
             groupBox_appearance.SuspendLayout();
             creating_sound_settings.SuspendLayout();
@@ -147,6 +154,7 @@
             // 
             // general_settings
             // 
+            general_settings.Controls.Add(groupBoxCreateMusicWithAI);
             general_settings.Controls.Add(groupBox_system_speaker_test);
             general_settings.Controls.Add(groupBox_appearance);
             general_settings.Controls.Add(label_test_system_speaker_message_2);
@@ -155,6 +163,72 @@
             general_settings.Name = "general_settings";
             general_settings.UseVisualStyleBackColor = true;
             general_settings.Click += general_settings_Click;
+            // 
+            // groupBoxCreateMusicWithAI
+            // 
+            resources.ApplyResources(groupBoxCreateMusicWithAI, "groupBoxCreateMusicWithAI");
+            groupBoxCreateMusicWithAI.Controls.Add(buttonUpdateAPIKey);
+            groupBoxCreateMusicWithAI.Controls.Add(buttonShowHide);
+            groupBoxCreateMusicWithAI.Controls.Add(labelAPIKeyWarning);
+            groupBoxCreateMusicWithAI.Controls.Add(labelAPIKey);
+            groupBoxCreateMusicWithAI.Controls.Add(textBoxAPIKey);
+            groupBoxCreateMusicWithAI.Name = "groupBoxCreateMusicWithAI";
+            groupBoxCreateMusicWithAI.TabStop = false;
+            // 
+            // buttonUpdateAPIKey
+            // 
+            resources.ApplyResources(buttonUpdateAPIKey, "buttonUpdateAPIKey");
+            buttonUpdateAPIKey.ImageList = imageList_settings;
+            buttonUpdateAPIKey.Name = "buttonUpdateAPIKey";
+            buttonUpdateAPIKey.UseVisualStyleBackColor = true;
+            buttonUpdateAPIKey.Click += buttonUpdateAPIKey_Click;
+            // 
+            // imageList_settings
+            // 
+            imageList_settings.ColorDepth = ColorDepth.Depth32Bit;
+            imageList_settings.ImageStream = (ImageListStreamer)resources.GetObject("imageList_settings.ImageStream");
+            imageList_settings.TransparentColor = Color.Transparent;
+            imageList_settings.Images.SetKeyName(0, "icons8-wrench-48.png");
+            imageList_settings.Images.SetKeyName(1, "icons8-usb-connected-48.png");
+            imageList_settings.Images.SetKeyName(2, "icons8-wave-48.png");
+            imageList_settings.Images.SetKeyName(3, "icons8-test-48.png");
+            imageList_settings.Images.SetKeyName(4, "icons8-square-wave-48.png");
+            imageList_settings.Images.SetKeyName(5, "icons8-motor-48.png");
+            imageList_settings.Images.SetKeyName(6, "icons8-piano-48.png");
+            imageList_settings.Images.SetKeyName(7, "icons8-motor-48.png");
+            imageList_settings.Images.SetKeyName(8, "icons8-brush-48.png");
+            imageList_settings.Images.SetKeyName(9, "icons8-reset-48.png");
+            imageList_settings.Images.SetKeyName(10, "icons8-refresh-48 (1).png");
+            imageList_settings.Images.SetKeyName(11, "icons8-warning-48.png");
+            imageList_settings.Images.SetKeyName(12, "icons8-mark-view-as-non-hidden-48.png");
+            imageList_settings.Images.SetKeyName(13, "icons8-mark-view-as-hidden-48.png");
+            imageList_settings.Images.SetKeyName(14, "icons8-update-48.png");
+            // 
+            // buttonShowHide
+            // 
+            resources.ApplyResources(buttonShowHide, "buttonShowHide");
+            buttonShowHide.ImageList = imageList_settings;
+            buttonShowHide.Name = "buttonShowHide";
+            buttonShowHide.UseVisualStyleBackColor = true;
+            buttonShowHide.Click += buttonShowHide_Click;
+            // 
+            // labelAPIKeyWarning
+            // 
+            resources.ApplyResources(labelAPIKeyWarning, "labelAPIKeyWarning");
+            labelAPIKeyWarning.ImageList = imageList_settings;
+            labelAPIKeyWarning.Name = "labelAPIKeyWarning";
+            // 
+            // labelAPIKey
+            // 
+            resources.ApplyResources(labelAPIKey, "labelAPIKey");
+            labelAPIKey.Name = "labelAPIKey";
+            // 
+            // textBoxAPIKey
+            // 
+            resources.ApplyResources(textBoxAPIKey, "textBoxAPIKey");
+            textBoxAPIKey.Name = "textBoxAPIKey";
+            textBoxAPIKey.UseSystemPasswordChar = true;
+            textBoxAPIKey.TextChanged += textBoxAPIKey_TextChanged;
             // 
             // groupBox_system_speaker_test
             // 
@@ -173,23 +247,6 @@
             toolTip1.SetToolTip(btn_test_system_speaker, resources.GetString("btn_test_system_speaker.ToolTip"));
             btn_test_system_speaker.UseVisualStyleBackColor = true;
             btn_test_system_speaker.Click += btn_test_system_speaker_Click;
-            // 
-            // imageList_settings
-            // 
-            imageList_settings.ColorDepth = ColorDepth.Depth32Bit;
-            imageList_settings.ImageStream = (ImageListStreamer)resources.GetObject("imageList_settings.ImageStream");
-            imageList_settings.TransparentColor = Color.Transparent;
-            imageList_settings.Images.SetKeyName(0, "icons8-wrench-48.png");
-            imageList_settings.Images.SetKeyName(1, "icons8-usb-connected-48.png");
-            imageList_settings.Images.SetKeyName(2, "icons8-wave-48.png");
-            imageList_settings.Images.SetKeyName(3, "icons8-test-48.png");
-            imageList_settings.Images.SetKeyName(4, "icons8-square-wave-48.png");
-            imageList_settings.Images.SetKeyName(5, "icons8-motor-48.png");
-            imageList_settings.Images.SetKeyName(6, "icons8-piano-48.png");
-            imageList_settings.Images.SetKeyName(7, "icons8-motor-48.png");
-            imageList_settings.Images.SetKeyName(8, "icons8-brush-48.png");
-            imageList_settings.Images.SetKeyName(9, "icons8-reset-48.png");
-            imageList_settings.Images.SetKeyName(10, "icons8-refresh-48 (1).png");
             // 
             // label_test_system_speaker_message
             // 
@@ -798,7 +855,11 @@
             Load += settings_window_Load;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);
+            general_settings.PerformLayout();
+            groupBoxCreateMusicWithAI.ResumeLayout(false);
+            groupBoxCreateMusicWithAI.PerformLayout();
             groupBox_system_speaker_test.ResumeLayout(false);
+            groupBox_system_speaker_test.PerformLayout();
             groupBox_appearance.ResumeLayout(false);
             groupBox_appearance.PerformLayout();
             creating_sound_settings.ResumeLayout(false);
@@ -913,5 +974,11 @@
         private RadioButton radioButton1;
         private CheckBox checkBox_use_motor_speed_mod;
         private TrackBar trackBar_motor_octave;
+        private GroupBox groupBoxCreateMusicWithAI;
+        private Label labelAPIKeyWarning;
+        private Label labelAPIKey;
+        private TextBox textBoxAPIKey;
+        private Button buttonShowHide;
+        private Button buttonUpdateAPIKey;
     }
 }

@@ -89,11 +89,12 @@ namespace NeoBleeper
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color;
             comboBox_theme.SelectedIndex = Settings1.Default.theme;
-            checkBox_use_midi_input.Checked=Program.MIDIDevices.useMIDIinput;
+            checkBox_use_midi_input.Checked = Program.MIDIDevices.useMIDIinput;
             checkBox_use_midi_output.Checked = Program.MIDIDevices.useMIDIoutput;
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
+            textBoxAPIKey.Text = Settings1.Default.geminiAPIKey;
         }
         private void dark_theme()
         {
@@ -967,7 +968,7 @@ namespace NeoBleeper
 
         private void checkBox_use_midi_output_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox_use_midi_output.Checked == true)
+            if (checkBox_use_midi_output.Checked == true)
             {
                 Program.MIDIDevices.useMIDIoutput = true;
                 Debug.WriteLine("MIDI output device enabled");
@@ -1005,7 +1006,7 @@ namespace NeoBleeper
 
         private void checkBox_use_midi_input_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox_use_midi_input.Checked == true)
+            if (checkBox_use_midi_input.Checked == true)
             {
                 Program.MIDIDevices.useMIDIinput = true;
                 Debug.WriteLine("MIDI input device enabled");
@@ -1047,6 +1048,56 @@ namespace NeoBleeper
         private void trackBar_motor_octave_Scroll(object sender, EventArgs e)
         {
             Debug.WriteLine("Motor speed modulation octave: " + trackBar_motor_octave.Value);
+        }
+
+        private void buttonShowHide_Click(object sender, EventArgs e)
+        {
+            if (buttonShowHide.Text == "Show")
+            {
+                buttonShowHide.Text = "Hide";
+                buttonShowHide.ImageIndex = 13;
+            }
+            else
+            {
+                buttonShowHide.Text = "Show";
+                buttonShowHide.ImageIndex = 12;
+            }
+            if (textBoxAPIKey.UseSystemPasswordChar == false)
+            {
+                textBoxAPIKey.UseSystemPasswordChar = true;
+            }
+            else
+            {
+                textBoxAPIKey.UseSystemPasswordChar = false;
+            }
+        }
+
+        private void buttonUpdateAPIKey_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Settings1.Default.geminiAPIKey = textBoxAPIKey.Text;
+                Settings1.Default.Save();
+                buttonUpdateAPIKey.Enabled = false;
+                MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error saving API key: " + ex.Message);
+                MessageBox.Show("Error saving API key: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
+        {
+            if(textBoxAPIKey.Text!=string.Empty&&textBoxAPIKey.Text!=Settings1.Default.geminiAPIKey)
+            {
+                buttonUpdateAPIKey.Enabled = true;
+            }
+            else
+            {
+                buttonUpdateAPIKey.Enabled = false;
+            }
         }
     }
 }
