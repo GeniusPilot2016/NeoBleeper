@@ -2,6 +2,9 @@
   "profiles": {
     "NeoBleeper": {
       "commandName": "Project",
+      "environmentVariables": {
+        "apiKey": "AIzaSyDEzKGervXMbw6rA_NjVd965HMFKv25SsA"
+      },
       "nativeDebugging": false
     }
   }
