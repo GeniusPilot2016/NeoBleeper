@@ -41,6 +41,7 @@ namespace NeoBleeper
                 MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+>>>>>>>>> Temporary merge branch 2
         }
         private bool IsInternetAvailable()
         {
