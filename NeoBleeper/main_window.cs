@@ -735,7 +735,7 @@ namespace NeoBleeper
             }
             Debug.WriteLine($"Key C{Variables.octave - 1} is clicked");
         }
-        
+
         private void button_d3_Click(object sender, EventArgs e)
         {
             update_indicator_when_key_is_clicked();
@@ -1533,7 +1533,87 @@ namespace NeoBleeper
         {
 
         }
+        private static NBPML_File.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            using (StringReader reader = new StringReader(xmlContent))
+            {
+                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader);
+            }
+        }
 
+        private void createMusicWithAIResponse(string createdMusic)
+        {
+            lbl_measure_value.Text = "1";
+            lbl_beat_value.Text = "0.0";
+            lbl_beat_traditional_value.Text = "1";
+            lbl_beat_traditional_value.ForeColor = Color.Green;
+            string first_line = createdMusic.First().ToString().Trim();
+            try
+            {
+                saveToolStripMenuItem.Enabled = true;
+                NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXMLFromString(createdMusic);
+                if (projectFile != null)
+                {
+                    Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                    Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
+                    numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
+                    trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
+                    lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
+                    Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
+                    trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
+                    lbl_note_silence_ratio.Text = projectFile.Settings.RandomSettings.NoteSilenceRatio + "%";
+                    comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
+                    Variables.alternating_note_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
+                    numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
+                    checkbox_play_note.Checked = projectFile.Settings.PlaybackSettings.NoteClickPlay == "True";
+                    checkBox_add_note_to_list.Checked = projectFile.Settings.PlaybackSettings.NoteClickAdd == "True";
+                    add_as_note1.Checked = projectFile.Settings.PlaybackSettings.AddNote1 == "True";
+                    add_as_note2.Checked = projectFile.Settings.PlaybackSettings.AddNote2 == "True";
+                    add_as_note3.Checked = projectFile.Settings.PlaybackSettings.AddNote3 == "True";
+                    add_as_note4.Checked = projectFile.Settings.PlaybackSettings.AddNote4 == "True";
+                    checkBox_replace.Checked = projectFile.Settings.PlaybackSettings.NoteReplace == "True";
+                    checkBox_replace_length.Checked = projectFile.Settings.PlaybackSettings.NoteLengthReplace == "True";
+                    checkBox_play_note1_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote1 == "True";
+                    checkBox_play_note2_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote2 == "True";
+                    checkBox_play_note3_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote3 == "True";
+                    checkBox_play_note4_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote4 == "True";
+                    checkBox_play_note1_played.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
+                    checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
+                    checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
+                    checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                    if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
+                    {
+                        add_as_note1.Checked = true;
+                    }
+                    noteLabelsUpdate();
+                    if (Variables.octave == 9)
+                    {
+                        octave10NoteLabelShiftToRight();
+                    }
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + "AI Generated Music";
+                    listViewNotes.Items.Clear();
+
+                    foreach (var line in projectFile.LineList.Lines)
+                    {
+                        ListViewItem item = new ListViewItem(line.Length);
+                        item.SubItems.Add(line.Note1);
+                        item.SubItems.Add(line.Note2);
+                        item.SubItems.Add(line.Note3);
+                        item.SubItems.Add(line.Note4);
+                        item.SubItems.Add(line.Mod);
+                        item.SubItems.Add(line.Art);
+                        listViewNotes.Items.Add(item);
+                    }
+                }
+                Debug.WriteLine("File is succesfully created by AI");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"AI music creation failed: {ex.Message}");
+                MessageBox.Show("AI music creation failed: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void FileParser(string filename)
         {
             lbl_measure_value.Text = "1";
@@ -2546,7 +2626,7 @@ namespace NeoBleeper
         {
             MusicStopped?.Invoke(this, e);
         }
-        
+
         private async void play_metronome_sound(int frequency, int length)
         {
             if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
@@ -4552,6 +4632,40 @@ namespace NeoBleeper
         private void checkBox_fermata_Click(object sender, EventArgs e)
         {
             Debug.WriteLine($"Checked state of fermata is changed to: {checkBox_fermata.Checked}");
+        }
+
+        private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI())
+            {
+                try
+                {
+                    if (createMusicWithAI.ShowDialog() == DialogResult.OK)
+                    {
+                        if (createMusicWithAI.output != string.Empty)
+                        {
+                            if (is_music_playing == true)
+                            {
+                                stop_playing();
+                            }
+                            if (checkBox_synchronized_play.Checked == true)
+                            {
+                                checkBox_synchronized_play.Checked = false;
+                            }
+                            Debug.WriteLine(String.Empty);
+                            Debug.WriteLine(createMusicWithAI.output);
+                            createMusicWithAIResponse(createMusicWithAI.output);
+                            saveAsToolStripMenuItem.Enabled = false;
+                            initialMemento = originator.CreateMemento(); // Save the initial state
+                            commandManager.ClearHistory(); // Reset the history
+                        }
+                    }
+                }
+                catch (ObjectDisposedException)
+                {
+                    return;
+                }
+            }
         }
     }
 }
