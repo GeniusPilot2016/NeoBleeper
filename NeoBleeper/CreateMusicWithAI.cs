@@ -67,8 +67,6 @@ namespace NeoBleeper
                 var apiKey = Settings1.Default.geminiAPIKey;
                 if (string.IsNullOrEmpty(apiKey))
                 {
-                    Debug.WriteLine("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.");
-                    MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
