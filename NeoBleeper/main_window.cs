@@ -2512,7 +2512,7 @@ namespace NeoBleeper
                 int nextIndex = currentIndex + 1;
 
                 // Clear current selection
-
+                listViewNotes.SelectedItems.Clear();
                 if (nextIndex < listViewNotes.Items.Count)
                 {
                     // Select next note 
@@ -2524,7 +2524,6 @@ namespace NeoBleeper
                     // Loop back to the beginning if looping is enabled
                     if (listViewNotes.Items.Count > 0)
                     {
-                        listViewNotes.SelectedItems.Clear();
                         listViewNotes.Items[startIndex].Selected = true;
                         listViewNotes.EnsureVisible(startIndex);
                     }
