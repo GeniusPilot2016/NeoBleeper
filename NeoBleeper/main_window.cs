@@ -2519,7 +2519,7 @@ namespace NeoBleeper
                     listViewNotes.Items[nextIndex].Selected = true;
                     listViewNotes.EnsureVisible(nextIndex);
                 }
-                else if (checkBox_loop.Checked)
+                else if (checkBox_loop.Checked==true)
                 {
                     // Loop back to the beginning if looping is enabled
                     if (listViewNotes.Items.Count > 0)
@@ -2527,6 +2527,11 @@ namespace NeoBleeper
                         listViewNotes.Items[startIndex].Selected = true;
                         listViewNotes.EnsureVisible(startIndex);
                     }
+                }
+                else if(checkBox_loop.Checked == false)
+                {
+                    // Stop playing if no more notes
+                    stop_playing();
                 }
             }
         }
