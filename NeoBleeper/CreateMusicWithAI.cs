@@ -81,8 +81,13 @@ namespace NeoBleeper
                     $"- Use only valid XML characters and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
                     $"- Generate music with a duration between 10 and 30 seconds.\r\n" +
                     $"- Introduce more variations in melody, harmony, and rhythm.\r\n" +
-                    $"- Vary the BPM between 60 and 200.\r\n- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
-                    $"- Randomly vary the `NoteSilenceRatio` between 50 and 100.\r\n" +
+                    $"- Vary the BPM between 40 and 600.\r\n- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
+                    $"- **Note Silence Ratio:**\r\n" +
+                    $"- Randomly vary the `NoteSilenceRatio` between 1 and 100, favoring higher values (more silence).\r\n" +
+                    $"- If the user's prompt contains keywords like 'sparse', 'minimal', 'quiet', or 'ambient', increase the `NoteSilenceRatio` towards 99.\r\n" +
+                    $"- If the user prompt contains a number, use that number to set the `<NoteSilenceRatio>` value.\r\n" +
+                    $"- If no number is given, use a default value of 95 for the NoteSilenceRatio.\r\n" +
+                    $"- The NoteSilenceRatio value represents the percentage of time that silence occurs, versus a note being played.\r\n" +
                     $"- Randomly vary the `NoteLength` between 1 and 5.\r\n" +
                     $"- Include single-voice sections in the generated music.\r\n" +
                     $"- Distribute notes randomly across all four voices.\r\n" +
