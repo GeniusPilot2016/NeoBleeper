@@ -13,7 +13,7 @@ This project is **still in development** and some features and components are st
 - ### User-friendly, familiar, more ergonomic and more natural interface
   NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays.
   
-  ![image](https://github.com/user-attachments/assets/54c9ceae-2fa5-4351-892a-4b48a7f9f9df)
+  ![image](https://github.com/user-attachments/assets/ad233c54-493a-485a-a63b-eb4c5c613c07)
 
   ![image](https://github.com/user-attachments/assets/fbaad33a-8b1b-4d94-8b95-299c2bb558d0)
   
