@@ -1,72 +1,49 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using NeoBleeper;
 
 public class ValueChangeCommand : ICommand
 {
-    private readonly string propertyName;
+    private readonly string variableName;
     private readonly int oldValue;
     private readonly int newValue;
     private readonly NumericUpDown control;
-    private readonly bool isVariablesBpm;
-    private readonly Action<int> updateVariable;
+    private readonly bool isBpm;
 
-    public ValueChangeCommand(string propertyName, int oldValue, int newValue, NumericUpDown control, bool isVariablesBpm)
+    public ValueChangeCommand(string variableName, int oldValue, int newValue, NumericUpDown control, bool isBpm)
     {
-        this.propertyName = propertyName;
+        this.variableName = variableName;
         this.oldValue = oldValue;
         this.newValue = newValue;
         this.control = control;
-        this.isVariablesBpm = isVariablesBpm;
-
-        // Doðru deðiþkeni güncelleyen lambda tanýmla
-        updateVariable = isVariablesBpm
-            ? (value => NeoBleeper.main_window.Variables.bpm = value)
-            : (value => NeoBleeper.main_window.Variables.alternating_note_length = value);
+        this.isBpm = isBpm;
     }
 
     public void Execute()
     {
-        SetValue(newValue);
+        UpdateValue(newValue);
     }
 
     public void Undo()
     {
-        SetValue(oldValue);
+        UpdateValue(oldValue);
     }
 
-    private void SetValue(int value)
+    private void UpdateValue(int value)
     {
-        try
-        {
-            // Her zaman önce deðiþkeni güncelle
-            updateVariable(value);
+        // Deðer deðiþim olayýnýn gereksiz tetiklenmesini önlemek için bayrak kullanýmý
+        control.Tag = "SkipValueChanged";
+        control.Value = value;
 
-            // Sonra UI'ý güncelle (gerekirse farklý thread'de)
-            if (control != null && !control.IsDisposed)
-            {
-                if (control.InvokeRequired)
-                {
-                    control.BeginInvoke(new Action(() =>
-                    {
-                        // ValueChanged olayýný geçici olarak devre dýþý býrakmak için bir bayrak kullan
-                        control.Tag = "SkipValueChanged";
-                        control.Value = value;
-                        control.Tag = null;
-                    }));
-                }
-                else
-                {
-                    control.Tag = "SkipValueChanged";
-                    control.Value = value;
-                    control.Tag = null;
-                }
-            }
-
-            Debug.WriteLine($"ValueChangeCommand: {propertyName} set to {value}");
-        }
-        catch (Exception ex)
+        if (isBpm)
         {
-            Debug.WriteLine($"ValueChangeCommand.SetValue failed: {ex.Message}");
+            main_window.Variables.bpm = value;
         }
+        else
+        {
+            main_window.Variables.alternating_note_length = value;
+        }
+
+        control.Tag = null;
     }
 }
