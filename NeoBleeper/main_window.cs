@@ -2532,9 +2532,6 @@ namespace NeoBleeper
             {
                 int currentIndex = listViewNotes.SelectedIndices[0];
                 int nextIndex = currentIndex + 1;
-
-                // Clear current selection
-                listViewNotes.SelectedItems.Clear();
                 if (nextIndex < listViewNotes.Items.Count)
                 {
                     // Select next note 
@@ -3199,6 +3196,11 @@ namespace NeoBleeper
                                     note1_octave = Convert.ToInt32((note1.Substring(2, 2)));
                                     break;
                                 }
+                            default:
+                                {
+                                    note1_octave = 4;
+                                    break;
+                                }
                         }
                         switch (note1.Substring(0, 2))
                         {
@@ -3217,6 +3219,9 @@ namespace NeoBleeper
                             case "A#":
                                 note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
                                 break;
+                            default:
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     else
@@ -3231,6 +3236,11 @@ namespace NeoBleeper
                             case 3:
                                 {
                                     note1_octave = Convert.ToInt32((note1.Substring(1, 2)));
+                                    break;
+                                }
+                            default:
+                                {
+                                    note1_octave = 4;
                                     break;
                                 }
                         }
@@ -3257,6 +3267,9 @@ namespace NeoBleeper
                             case "B":
                                 note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
                                 break;
+                            default:
+                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     note1_frequency = note1_base_frequency * Math.Pow(2, (note1_octave - 4));
@@ -3277,6 +3290,11 @@ namespace NeoBleeper
                                     note2_octave = Convert.ToInt32((note2.Substring(2, 2)));
                                     break;
                                 }
+                            default:
+                                {
+                                    note2_octave = 4;
+                                    break;
+                                }
                         }
                         switch (note2.Substring(0, 2))
                         {
@@ -3295,6 +3313,9 @@ namespace NeoBleeper
                             case "A#":
                                 note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
                                 break;
+                            default:
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     else
@@ -3309,6 +3330,11 @@ namespace NeoBleeper
                             case 3:
                                 {
                                     note2_octave = Convert.ToInt32((note2.Substring(1, 2)));
+                                    break;
+                                }
+                            default:
+                                {
+                                    note2_octave = 4;
                                     break;
                                 }
                         }
@@ -3335,6 +3361,9 @@ namespace NeoBleeper
                             case "B":
                                 note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
                                 break;
+                            default:
+                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     note2_frequency = note2_base_frequency * Math.Pow(2, (note2_octave - 4));
@@ -3355,6 +3384,11 @@ namespace NeoBleeper
                                     note3_octave = Convert.ToInt32((note3.Substring(2, 2)));
                                     break;
                                 }
+                            default:
+                                {
+                                    note3_octave = 4;
+                                    break;
+                                }
                         }
                         switch (note3.Substring(0, 2))
                         {
@@ -3373,6 +3407,9 @@ namespace NeoBleeper
                             case "A#":
                                 note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
                                 break;
+                            default:
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     else
@@ -3387,6 +3424,11 @@ namespace NeoBleeper
                             case 3:
                                 {
                                     note3_octave = Convert.ToInt32((note3.Substring(1, 2)));
+                                    break;
+                                }
+                            default:
+                                {
+                                    note3_octave = 4;
                                     break;
                                 }
                         }
@@ -3413,6 +3455,9 @@ namespace NeoBleeper
                             case "B":
                                 note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
                                 break;
+                            default:
+                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     note3_frequency = note3_base_frequency * Math.Pow(2, (note3_octave - 4));
@@ -3433,6 +3478,11 @@ namespace NeoBleeper
                                     note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
                                     break;
                                 }
+                            default:
+                                {
+                                    note4_octave = 4;
+                                    break;
+                                }
                         }
                         switch (note4.Substring(0, 2))
                         {
@@ -3451,6 +3501,9 @@ namespace NeoBleeper
                             case "A#":
                                 note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
                                 break;
+                            default:
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
+                                break;
                         }
                     }
                     else
@@ -3465,6 +3518,11 @@ namespace NeoBleeper
                             case 3:
                                 {
                                     note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
+                                    break;
+                                }
+                            default:
+                                {
+                                    note4_octave = 4;
                                     break;
                                 }
                         }
@@ -3490,6 +3548,9 @@ namespace NeoBleeper
                                 break;
                             case "B":
                                 note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
+                                break;
+                            default:
+                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
                                 break;
                         }
                     }
@@ -3943,7 +4004,7 @@ namespace NeoBleeper
                     length = 1.0 / 8.0;
                     break;
                 default:
-                    length = 0;
+                    length = 1;
                     break;
             }
             switch (listViewItem.SubItems[5].Text)
