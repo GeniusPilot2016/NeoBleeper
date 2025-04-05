@@ -96,7 +96,9 @@ namespace NeoBleeper
                     $"- Use Note 1, Note 2, Note 3 and Note 4 channels randomly.\r\n" +
                     $"- Limit the range of note durations to avoid extreme variations.\r\n" +
                     $"- Control the randomness of note selection to create more coherent melodies.\r\n" +
-                    $"- **Ensure the generated XML includes a randomly chosen <AlternateTime> value (e.g., between 5 and 200) within the <RandomSettings> section for arpeggiated notes (because system speaker can only play single note at a time).**\r\n" +
+                    $"- **Ensure the generated XML includes a randomly chosen <AlternateTime> value (e.g., between 5 and 200) within the <RandomSettings> section for arpeggiated notes and " +
+                    $"<AlternateTime> should be shorter as possible to achieve polyphony in system speaker by fitting the context of the music " +
+                    $"[because the system speaker (PC Speaker) located on the motherboard of the computer and used to make the computer only beep can only play one note at a time.].**\r\n" +
                     $"--- NeoBleeperProjectFile Template ---" +
                     $"\r\n<NeoBleeperProjectFile>\r\n    <Settings>\r\n        <RandomSettings>\r\n            <KeyboardOctave>5</KeyboardOctave>\r\n            <BPM>120</BPM>\r\n            " +
                     $"<TimeSignature>4</TimeSignature>\r\n            <NoteSilenceRatio>98</NoteSilenceRatio>\r\n            <NoteLength>3</NoteLength>\r\n            " +
