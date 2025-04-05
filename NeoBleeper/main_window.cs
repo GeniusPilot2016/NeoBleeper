@@ -4602,6 +4602,8 @@ namespace NeoBleeper
 
                     var pasteCommand = new PasteCommand(listViewNotes, newItem, insertIndex);
                     commandManager.ExecuteCommand(pasteCommand);
+                    isModified = true;
+                    UpdateFormTitle();
                     Debug.WriteLine("Paste is executed.");
                 }
             }
