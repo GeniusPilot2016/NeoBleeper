@@ -2342,6 +2342,8 @@ namespace NeoBleeper
                     listViewNotes.Items[index + 1].Selected = true;
                 }
                 commandManager.ExecuteCommand(removeNoteCommand);
+                isModified = true;
+                UpdateFormTitle();
                 Debug.WriteLine("Line erased");
             }
         }
