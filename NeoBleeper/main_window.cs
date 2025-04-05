@@ -13,6 +13,7 @@ namespace NeoBleeper
 {
     public partial class main_window : Form
     {
+        private bool isModified = false;
         private CommandManager commandManager;
         private Originator originator;
         private Memento initialMemento;
@@ -1605,6 +1606,8 @@ namespace NeoBleeper
                         item.SubItems.Add(line.Art);
                         listViewNotes.Items.Add(item);
                     }
+                    isModified = false;
+                    UpdateFormTitle();
                 }
                 Debug.WriteLine("File is succesfully created by AI");
             }
@@ -1852,7 +1855,9 @@ namespace NeoBleeper
                                     listViewNotes.Items.Add(item);
                                 }
                             }
-                            Debug.WriteLine("NeoBleeper file opened successfully");
+                            Debug.WriteLine("NeoBleeper file opened successfully"); 
+                            isModified = false;
+                            UpdateFormTitle();
                         }
                         catch (Exception ex)
                         {
@@ -1866,6 +1871,8 @@ namespace NeoBleeper
                             }
                             else
                             {
+                                isModified = false;
+                                UpdateFormTitle();
                                 Debug.WriteLine("User chose to open the file anyway");
                             }
                         }
@@ -1930,7 +1937,18 @@ namespace NeoBleeper
             if (!string.IsNullOrEmpty(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
             {
                 SaveToNBPML(currentFilePath);
-                initialMemento = originator.CreateMemento(); // Save the initial state
+
+                // Geçerli durumu SavedStateMemento olarak kaydet
+                List<ListViewItem> items = new List<ListViewItem>();
+                foreach (ListViewItem item in listViewNotes.Items)
+                {
+                    items.Add((ListViewItem)item.Clone());
+                }
+
+                initialMemento = new SavedStateMemento(
+                    items,
+                    Convert.ToInt32(numericUpDown_bpm.Value),
+                    Convert.ToInt32(numericUpDown_alternating_notes.Value));
             }
             else
             {
@@ -2010,7 +2028,9 @@ namespace NeoBleeper
                     }
                 };
 
-                SerializeXML(filename, projectFile);
+                SerializeXML(filename, projectFile); isModified = false;
+                currentFilePath = filename;
+                UpdateFormTitle();
                 Debug.WriteLine("NeoBleeper file saved successfully");
             }
             catch (Exception ex)
@@ -2445,6 +2465,8 @@ namespace NeoBleeper
             {
                 checkBox_bleeper_portamento.Checked = false;
             }
+            isModified = false;
+            UpdateFormTitle();
         }
 
         private async Task dummy_play_note(int length) // Dummy play note function for testing purposes
@@ -2946,14 +2968,51 @@ namespace NeoBleeper
 
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
         {
-            Variables.bpm = Convert.ToInt32(numericUpDown_bpm.Value);
-            Debug.WriteLine("BPM: " + Variables.bpm);
+            // Komut tarafýndan tetiklendiyse iþlemi atla
+            if (numericUpDown_bpm.Tag as string == "SkipValueChanged")
+                return;
+
+            // Normal deðer deðiþikliði iþleme kodlarý
+            int oldValue = Variables.bpm;
+            int newValue = Convert.ToInt32(numericUpDown_bpm.Value);
+
+            if (oldValue != newValue)
+            {
+                var command = new ValueChangeCommand(
+                    "bpm",
+                    oldValue,
+                    newValue,
+                    numericUpDown_bpm,
+                    true);
+
+                commandManager.ExecuteCommand(command);
+                isModified = true;
+                UpdateFormTitle();
+            }
+
+            Debug.WriteLine($"BPM: {Variables.bpm}");
         }
 
         private void numericUpDown_alternating_notes_ValueChanged(object sender, EventArgs e)
         {
-            Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-            Debug.WriteLine("Alternating note length: " + Variables.alternating_note_length);
+            int oldValue = Variables.alternating_note_length;
+            int newValue = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+
+            if (oldValue != newValue)
+            {
+                var command = new ValueChangeCommand(
+                    "alternating_note_length",
+                    oldValue,
+                    newValue,
+                    numericUpDown_alternating_notes,
+                    false);
+
+                commandManager.ExecuteCommand(command);
+                isModified = true;
+                UpdateFormTitle();
+            }
+
+            Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
 
         private void note_length_calculator()
@@ -4041,10 +4100,20 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+
+            // Yeni komut oluþturup çalýþtýr
             var rewindCommand = new RewindCommand(originator, initialMemento);
-            commandManager.ExecuteCommand(rewindCommand); // Rewind to the saved version 
-            commandManager.ClearHistory(); // Reset the history
-            Debug.WriteLine("Rewind to the saved version.");
+            commandManager.ExecuteCommand(rewindCommand);
+
+            // Geçmiþi temizle
+            commandManager.ClearHistory();
+
+            // Deðiþiklikleri sýfýrla
+            isModified = false;
+            UpdateFormTitle();
+
+            // Deðiþkenlerin durumunu logla
+            Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
         }
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
@@ -4664,6 +4733,29 @@ namespace NeoBleeper
             {
                 return;
             }
+        }
+        // This method is used to update the form title with the current file path and modification status.
+        private void UpdateFormTitle()
+        {
+            string title = System.AppDomain.CurrentDomain.FriendlyName;
+
+            // Add the current file path if it exists
+            if (!string.IsNullOrEmpty(currentFilePath))
+            {
+                title += " - " + currentFilePath;
+            }
+            else if (this.Text.Contains("AI Generated Music"))
+            {
+                title += " - AI Generated Music";
+            }
+
+            // Add an asterisk if the file is modified
+            if (isModified && !string.IsNullOrEmpty(currentFilePath))
+            {
+                title += " *";
+            }
+
+            this.Text = title;
         }
     }
 }

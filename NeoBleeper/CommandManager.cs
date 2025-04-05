@@ -5,10 +5,12 @@ public class CommandManager
     private Stack<Memento> undoMementos = new Stack<Memento>();
     private Stack<Memento> redoMementos = new Stack<Memento>();
     private Originator originator;
+    private Memento initialMemento;
 
     public CommandManager(Originator originator)
     {
         this.originator = originator;
+        this.initialMemento = originator.CreateMemento();
     }
 
     public bool CanUndo => undoStack.Count > 0;
@@ -32,6 +34,7 @@ public class CommandManager
         redoStack.Clear();
         undoMementos.Clear();
         redoMementos.Clear();
+        initialMemento = originator.CreateMemento();
         OnStateChanged();
     }
 
@@ -64,5 +67,10 @@ public class CommandManager
     protected virtual void OnStateChanged()
     {
         StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public bool IsAtInitialState()
+    {
+        return undoStack.Count == 0 && redoStack.Count == 0 && originator.CreateMemento().Equals(initialMemento);
     }
 }

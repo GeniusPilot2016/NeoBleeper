@@ -1159,10 +1159,6 @@
             checkBox_dont_update_grid.UseVisualStyleBackColor = true;
             checkBox_dont_update_grid.CheckedChanged += checkBox_dont_update_grid_CheckedChanged;
             // 
-            // openFileDialog
-            // 
-            openFileDialog.FileName = "openFileDialog1";
-            // 
             // resetHighlightTimer
             // 
             resetHighlightTimer.Tick += resetHighlightTimer_Tick;

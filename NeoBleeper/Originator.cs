@@ -11,22 +11,16 @@ public class Originator
 
     public Memento CreateMemento()
     {
-        return new Memento(listView.Items.Cast<ListViewItem>().ToList());
+        var items = listView.Items.Cast<ListViewItem>().Select(item => (ListViewItem)item.Clone()).ToList();
+        return new Memento(items);
     }
 
-    public async void SetMemento(Memento memento)
+    public void SetMemento(Memento memento)
     {
-        try
+        listView.Items.Clear();
+        foreach (var item in memento.Items)
         {
-            listView.Items.Clear();
-            foreach (var item in memento.ListViewItems)
-            {
-                listView.Items.Add((ListViewItem)item.Clone());
-            }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            listView.Items.Add((ListViewItem)item.Clone());
         }
     }
 }

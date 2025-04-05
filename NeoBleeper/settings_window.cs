@@ -94,7 +94,7 @@ namespace NeoBleeper
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
-            textBoxAPIKey.Text = Settings1.Default.geminiAPIKey;
+            textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
         }
         private void dark_theme()
         {
@@ -1088,7 +1088,7 @@ namespace NeoBleeper
         {
             try
             {
-                Settings1.Default.geminiAPIKey = textBoxAPIKey.Text;
+                Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
                 Settings1.Default.Save();
                 buttonUpdateAPIKey.Enabled = false;
                 MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1102,7 +1102,7 @@ namespace NeoBleeper
 
         private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
         {
-            if(textBoxAPIKey.Text!=string.Empty&&textBoxAPIKey.Text!=Settings1.Default.geminiAPIKey)
+            if(textBoxAPIKey.Text!=string.Empty&&textBoxAPIKey.Text!=EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey))
             {
                 buttonUpdateAPIKey.Enabled = true;
             }

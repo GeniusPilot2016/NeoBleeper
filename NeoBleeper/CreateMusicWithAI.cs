@@ -64,7 +64,7 @@ namespace NeoBleeper
             {
                 musicCreating.Show();
                 SetControlsEnabled(false);
-                var apiKey = Settings1.Default.geminiAPIKey;
+                var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
                 var googleModel = googleAI.CreateGenerativeModel("models/gemini-2.0-flash");
                 var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[{textBoxPrompt.Text}]**\r\n\r\n" +
@@ -79,9 +79,10 @@ namespace NeoBleeper
                     $"- <Art /> defines the articulation(e.g Sta, Spi, Fer). Use empty tags (e.g., <Art />) if there's no articulation in that voice/slot.\r\n" +
                     $"- Use the <Settings> provided as context for parameters like BPM and Time Signature, unless the prompt overrides them.\r\n" +
                     $"- Use only valid XML characters and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
-                    $"- Generate music with a duration between 10 and 30 seconds.\r\n" +
+                    $"- Generate music with a duration between 10 and 180 seconds.\r\n" +
                     $"- Introduce more variations in melody, harmony, and rhythm.\r\n" +
-                    $"- Vary the BPM between 40 and 600.\r\n- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
+                    $"- Vary the BPM between 40 and 600.\r\n" +
+                    $"- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
                     $"- **Note Silence Ratio:**\r\n" +
                     $"- Randomly vary the `NoteSilenceRatio` between 1 and 100, favoring higher values (more silence).\r\n" +
                     $"- If the user's prompt contains keywords like 'sparse', 'minimal', 'quiet', or 'ambient', increase the `NoteSilenceRatio` towards 99.\r\n" +
@@ -95,6 +96,7 @@ namespace NeoBleeper
                     $"- Use Note 1, Note 2, Note 3 and Note 4 channels randomly.\r\n" +
                     $"- Limit the range of note durations to avoid extreme variations.\r\n" +
                     $"- Control the randomness of note selection to create more coherent melodies.\r\n" +
+                    $"- **Ensure the generated XML includes a randomly chosen <AlternateTime> value (e.g., between 5 and 200) within the <RandomSettings> section for arpeggiated notes (because system speaker can only play single note at a time).**\r\n" +
                     $"--- NeoBleeperProjectFile Template ---" +
                     $"\r\n<NeoBleeperProjectFile>\r\n    <Settings>\r\n        <RandomSettings>\r\n            <KeyboardOctave>5</KeyboardOctave>\r\n            <BPM>120</BPM>\r\n            " +
                     $"<TimeSignature>4</TimeSignature>\r\n            <NoteSilenceRatio>98</NoteSilenceRatio>\r\n            <NoteLength>3</NoteLength>\r\n            " +
