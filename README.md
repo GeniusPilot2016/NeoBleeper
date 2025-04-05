@@ -22,7 +22,7 @@ This project is **still in development** and some features and components are st
   ![image](https://github.com/user-attachments/assets/24ff32f4-8b9e-40ee-a014-a165a2f7a250)
 
 - ### System speaker meets AI
-  You can create music using artificial intelligence in the NeoBleeper program and play it through the system speaker.
+  You can create music using Google Gemini™ in the NeoBleeper program and play it through the system speaker.
 
   ![image](https://github.com/user-attachments/assets/764f7d68-e3a3-4bff-ba71-e21636f98a50)
 
