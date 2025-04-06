@@ -1527,10 +1527,10 @@ namespace NeoBleeper
 
             if (MIDIIOUtils._midiOut != null) // Check if initialized
             {
-                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) MIDIIOUtils.PlayMidiNote(notes[0], length);
-                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) MIDIIOUtils.PlayMidiNote(notes[1], length);
-                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) MIDIIOUtils.PlayMidiNote(notes[2], length);
-                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNote(notes[3], length);
+                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[0], length));
+                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[1], length));
+                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[2], length));
+                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[3], length));
             }
         }
 
@@ -2531,16 +2531,13 @@ namespace NeoBleeper
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
-                    Task.Run(() =>
-                    {
-                        MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
+                    MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
                             Program.MIDIDevices.MIDIOutputDeviceChannel);
-                        play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, noteDuration);
-                    });
+                    play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
+                    checkBox_play_note1_played.Checked,
+                    checkBox_play_note2_played.Checked,
+                    checkBox_play_note3_played.Checked,
+                    checkBox_play_note4_played.Checked, noteDuration);
                 }
                 play_note_in_line(
                 checkBox_play_note1_played.Checked,

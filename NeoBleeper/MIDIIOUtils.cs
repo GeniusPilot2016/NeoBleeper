@@ -39,7 +39,7 @@ namespace NeoBleeper
         public static int DynamicVelocity()
         {
             Random random = new Random();
-            int minVelocity = 60;  // Minimum velocity
+            int minVelocity = 90;  // Minimum velocity
             int maxVelocity = 127; // Maximum velocity
             int dynamicVelocity = random.Next(minVelocity, maxVelocity);
             return dynamicVelocity;
