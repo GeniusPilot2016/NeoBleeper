@@ -11,7 +11,7 @@ This project is **still in development** and some features and components are st
 ## Features
 
 - ### User-friendly, familiar, more ergonomic and more natural interface
-  NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays.
+  NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays and speeds up the onboarding process for former Bleeper Music Maker users.
   
   ![image](https://github.com/user-attachments/assets/449c447e-ac27-4693-993e-bc07ebe662d1)
 
