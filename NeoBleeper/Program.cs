@@ -47,6 +47,17 @@ namespace NeoBleeper
             neobleeper_init_unknown_type_of_computer_warning unknown_type_of_computer_warning = new neobleeper_init_unknown_type_of_computer_warning();
             try
             {
+                EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            }
+            catch (Exception ex)
+            {
+                Settings1.Default.geminiAPIKey = String.Empty;
+                Settings1.Default.Save();
+                MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.");
+            }
+            try
+            {
                 switch(Screen.PrimaryScreen.Bounds.Width >= 1024 || Screen.PrimaryScreen.Bounds.Height >= 768)
                 {
                     case false:

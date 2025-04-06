@@ -95,6 +95,10 @@ namespace NeoBleeper
             refresh_midi_input();
             refresh_midi_output();
             textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            if(Settings1.Default.geminiAPIKey != String.Empty)
+            {
+                buttonResetAPIKey.Enabled = true;
+            }
         }
         private void dark_theme()
         {
@@ -1091,6 +1095,7 @@ namespace NeoBleeper
                 Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
                 Settings1.Default.Save();
                 buttonUpdateAPIKey.Enabled = false;
+                buttonResetAPIKey.Enabled = true;
                 MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -1102,13 +1107,32 @@ namespace NeoBleeper
 
         private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
         {
-            if(textBoxAPIKey.Text!=string.Empty&&textBoxAPIKey.Text!=EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey))
+            if (textBoxAPIKey.Text != string.Empty && textBoxAPIKey.Text != EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey))
             {
                 buttonUpdateAPIKey.Enabled = true;
             }
             else
             {
                 buttonUpdateAPIKey.Enabled = false;
+            }
+        }
+
+        private void buttonResetAPIKey_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Settings1.Default.geminiAPIKey = string.Empty;
+                Settings1.Default.Save();
+                textBoxAPIKey.Text = string.Empty;
+                buttonUpdateAPIKey.Enabled = false;
+                buttonResetAPIKey.Enabled = false;
+                Debug.WriteLine("Google Gemini™ API key reset successfully.");
+                MessageBox.Show("Google Gemini™ API key reset successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error resetting API key: " + ex.Message);
+                MessageBox.Show("Error resetting API key: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

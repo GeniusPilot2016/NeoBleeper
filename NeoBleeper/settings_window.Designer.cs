@@ -33,8 +33,9 @@
             tabControl_settings = new TabControl();
             general_settings = new TabPage();
             groupBoxCreateMusicWithAI = new GroupBox();
-            buttonUpdateAPIKey = new Button();
+            buttonResetAPIKey = new Button();
             imageList_settings = new ImageList(components);
+            buttonUpdateAPIKey = new Button();
             buttonShowHide = new Button();
             labelAPIKeyWarning = new Label();
             labelAPIKey = new Label();
@@ -167,6 +168,7 @@
             // groupBoxCreateMusicWithAI
             // 
             resources.ApplyResources(groupBoxCreateMusicWithAI, "groupBoxCreateMusicWithAI");
+            groupBoxCreateMusicWithAI.Controls.Add(buttonResetAPIKey);
             groupBoxCreateMusicWithAI.Controls.Add(buttonUpdateAPIKey);
             groupBoxCreateMusicWithAI.Controls.Add(buttonShowHide);
             groupBoxCreateMusicWithAI.Controls.Add(labelAPIKeyWarning);
@@ -175,13 +177,13 @@
             groupBoxCreateMusicWithAI.Name = "groupBoxCreateMusicWithAI";
             groupBoxCreateMusicWithAI.TabStop = false;
             // 
-            // buttonUpdateAPIKey
+            // buttonResetAPIKey
             // 
-            resources.ApplyResources(buttonUpdateAPIKey, "buttonUpdateAPIKey");
-            buttonUpdateAPIKey.ImageList = imageList_settings;
-            buttonUpdateAPIKey.Name = "buttonUpdateAPIKey";
-            buttonUpdateAPIKey.UseVisualStyleBackColor = true;
-            buttonUpdateAPIKey.Click += buttonUpdateAPIKey_Click;
+            resources.ApplyResources(buttonResetAPIKey, "buttonResetAPIKey");
+            buttonResetAPIKey.ImageList = imageList_settings;
+            buttonResetAPIKey.Name = "buttonResetAPIKey";
+            buttonResetAPIKey.UseVisualStyleBackColor = true;
+            buttonResetAPIKey.Click += buttonResetAPIKey_Click;
             // 
             // imageList_settings
             // 
@@ -203,6 +205,14 @@
             imageList_settings.Images.SetKeyName(12, "icons8-mark-view-as-non-hidden-48.png");
             imageList_settings.Images.SetKeyName(13, "icons8-mark-view-as-hidden-48.png");
             imageList_settings.Images.SetKeyName(14, "icons8-update-48.png");
+            // 
+            // buttonUpdateAPIKey
+            // 
+            resources.ApplyResources(buttonUpdateAPIKey, "buttonUpdateAPIKey");
+            buttonUpdateAPIKey.ImageList = imageList_settings;
+            buttonUpdateAPIKey.Name = "buttonUpdateAPIKey";
+            buttonUpdateAPIKey.UseVisualStyleBackColor = true;
+            buttonUpdateAPIKey.Click += buttonUpdateAPIKey_Click;
             // 
             // buttonShowHide
             // 
@@ -980,5 +990,6 @@
         private TextBox textBoxAPIKey;
         private Button buttonShowHide;
         private Button buttonUpdateAPIKey;
+        private Button buttonResetAPIKey;
     }
 }
