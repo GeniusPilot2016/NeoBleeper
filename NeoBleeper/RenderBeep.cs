@@ -12,7 +12,7 @@ namespace NeoBleeper
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
             extern static char Inp32(short PortAddress);
-            public static void Beep(int freq, int ms)
+            public static void Beep(int freq, int ms) // Beep from the system speaker (aka PC speaker)
             {
                 Out32(0x43, 0xB6);
                 int div = 0x1234dc / freq;
@@ -40,7 +40,7 @@ namespace NeoBleeper
                 waveOut.Init(signalGenerator);
             }
 
-            public static void PlayWave(SignalGeneratorType type, int freq, int ms)
+            public static void PlayWave(SignalGeneratorType type, int freq, int ms) // Create many kind of beeps from sound devices (external speakers, headphone, etc.)
             {
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;

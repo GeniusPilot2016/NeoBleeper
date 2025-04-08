@@ -1,8 +1,6 @@
-// SavedStateMemento sýnýfýmýzý geniþletelim
 using NeoBleeper;
 using System.Diagnostics;
 
-// SavedStateMemento sýnýfýmýzý geniþletelim
 public class SavedStateMemento : Memento
 {
     public int BpmValue { get; }
@@ -16,7 +14,6 @@ public class SavedStateMemento : Memento
     }
 }
 
-// RewindCommand için düzeltme
 public class RewindCommand : ICommand
 {
     private readonly Originator originator;
@@ -40,15 +37,15 @@ public class RewindCommand : ICommand
 
     public void Execute()
     {
-        // Mevcut durumu kaydet
+        // Save current state
         currentState = originator.CreateMemento();
 
         try
         {
-            // Kaydedilen duruma geri dön
+            // Turn back into saved state
             originator.SetMemento(savedState);
 
-            // BPM ve Alternating Note Length deðerlerini geri yükle
+            // Reload the BPM and alternating note length values
             if (savedState is SavedStateMemento state && mainWindow != null)
             {
                 mainWindow.RestoreVariableValues(state.BpmValue, state.AlternatingNoteLength);
@@ -65,7 +62,7 @@ public class RewindCommand : ICommand
     {
         try
         {
-            // Mevcut duruma geri dön
+            // Turn back into current state
             originator.SetMemento(currentState);
         }
         catch (Exception ex)

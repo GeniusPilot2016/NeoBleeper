@@ -31,7 +31,7 @@ public class ValueChangeCommand : ICommand
 
     private void UpdateValue(int value)
     {
-        // Deðer deðiþim olayýnýn gereksiz tetiklenmesini önlemek için bayrak kullanýmý
+        // Usage of flag to prevent recursion
         control.Tag = "SkipValueChanged";
         control.Value = value;
 

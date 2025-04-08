@@ -5,9 +5,6 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Text;
 using System.Media;
-using NAudio.Midi;
-using static NBPML_File;
-using NAudio;
 
 namespace NeoBleeper
 {
@@ -1960,7 +1957,7 @@ namespace NeoBleeper
             {
                 SaveToNBPML(currentFilePath);
 
-                // Geçerli durumu SavedStateMemento olarak kaydet
+                // Save current state as SavedStateMemento
                 List<ListViewItem> items = new List<ListViewItem>();
                 foreach (ListViewItem item in listViewNotes.Items)
                 {
@@ -2399,11 +2396,6 @@ namespace NeoBleeper
             if (checkBox_replace_length.Checked == true)
             {
                 checkBox_replace_length.Checked = false;
-            }
-            if (checkBox_mute_system_speaker.Checked == true && Program.creating_sounds.is_system_speaker_muted == true)
-            {
-                checkBox_mute_system_speaker.Checked = false;
-                Program.creating_sounds.is_system_speaker_muted = false;
             }
             if (add_as_note2.Checked == true)
             {
@@ -2960,7 +2952,7 @@ namespace NeoBleeper
             unselect_line();
         }
         bool is_clicked = false;
-        private void listViewNotes_Click(object sender, EventArgs e)
+        private void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
@@ -3001,11 +2993,11 @@ namespace NeoBleeper
 
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
         {
-            // Komut tarafýndan tetiklendiyse iþlemi atla
+            // Skip the process if triggered by command
             if (numericUpDown_bpm.Tag as string == "SkipValueChanged")
                 return;
 
-            // Normal deðer deðiþikliði iþleme kodlarý
+            // Codes of normal value change rendering
             int oldValue = Variables.bpm;
             int newValue = Convert.ToInt32(numericUpDown_bpm.Value);
 
@@ -3028,11 +3020,11 @@ namespace NeoBleeper
 
         private void numericUpDown_alternating_notes_ValueChanged(object sender, EventArgs e)
         {
-            // Komut tarafýndan tetiklendiyse iþlemi atla
+            // Skip the process if triggered by command
             if (numericUpDown_alternating_notes.Tag as string == "SkipValueChanged")
                 return;
 
-            // Normal deðer deðiþikliði iþleme kodlarý
+            // Codes of normal value change rendering
             int oldValue = Variables.alternating_note_length;
             int newValue = Convert.ToInt32(numericUpDown_alternating_notes.Value);
 
@@ -3166,7 +3158,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // 
+        private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
         {
             if (cancellationTokenSource.Token.IsCancellationRequested) return;
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
@@ -3614,7 +3606,7 @@ namespace NeoBleeper
                     note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
                 }
 
-                if (radioButtonPlay_alternating_notes1.Checked == true) // Tek sütun modu
+                if (radioButtonPlay_alternating_notes1.Checked == true) // Odd column mode
                 {
                     if (note1 == note2 && note2 == note3 && note3 == note4)
                     {
@@ -3666,7 +3658,7 @@ namespace NeoBleeper
                         note4 = string.Empty;
                     }
                 }
-                else if (radioButtonPlay_alternating_notes2.Checked == true) // Çift sütun modu
+                else if (radioButtonPlay_alternating_notes2.Checked == true) // Even column mode
                 {
                     if (note1 == note3 && note3 == note2 && note2 == note4)
                     {
@@ -4225,18 +4217,18 @@ namespace NeoBleeper
             }
             try
             {
-                // Yeni komut oluþturup çalýþtýr
+                // Create new command and run
                 var rewindCommand = new RewindCommand(originator, initialMemento);
                 commandManager.ExecuteCommand(rewindCommand);
 
-                // Geçmiþi temizle
+                // Clear history
                 commandManager.ClearHistory();
 
-                // Deðiþiklikleri sýfýrla
+                // Reset changes
                 isModified = false;
                 UpdateFormTitle();
 
-                // Deðiþkenlerin durumunu logla
+                // Log states of variables
                 Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
             }
             catch (Exception ex)
@@ -4415,7 +4407,7 @@ namespace NeoBleeper
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-                namespaces.Add(string.Empty, string.Empty); // Namespace'leri kaldýrmak için
+                namespaces.Add(string.Empty, string.Empty); // to remove namespaces
 
                 using (XmlWriter writer = XmlWriter.Create(memoryStream, new XmlWriterSettings { OmitXmlDeclaration = true }))
                 {
@@ -4725,7 +4717,7 @@ namespace NeoBleeper
                 {
                     FileParser(filePath);
 
-                    // Dosya açýldýktan sonra güncel deðerlerle initialMemento'yu oluþtur
+                    // Create initialMemento with current values after file is opened.
                     initialMemento = originator.CreateSavedStateMemento(
                         Variables.bpm,
                         Variables.alternating_note_length);
@@ -4865,6 +4857,7 @@ namespace NeoBleeper
                     {
                         checkBox_synchronized_play.Checked = false;
                     }
+                    createNewFile();
                     createMusicWithAIResponse(createMusicWithAI.output);
                     saveAsToolStripMenuItem.Enabled = false;
                     initialMemento = originator.CreateMemento(); // Save the initial state
@@ -4903,11 +4896,11 @@ namespace NeoBleeper
         {
             try
             {
-                // Tag'i ayarlayarak ValueChanged olayýnýn tetiklenmesini engelle
+                // Prevent triggering ValueChanged event by setting tag
                 numericUpDown_bpm.Tag = "SkipValueChanged";
                 numericUpDown_alternating_notes.Tag = "SkipValueChanged";
 
-                // Deðerleri güncelle
+                // Update values
                 numericUpDown_bpm.Value = bpmValue;
                 Variables.bpm = bpmValue;
 
@@ -4922,7 +4915,7 @@ namespace NeoBleeper
             }
             finally
             {
-                // Tag'i temizle
+                // Clear tag
                 numericUpDown_bpm.Tag = null;
                 numericUpDown_alternating_notes.Tag = null;
             }
