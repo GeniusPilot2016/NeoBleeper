@@ -2523,8 +2523,30 @@ namespace NeoBleeper
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 line_length_calculator();
+                note_length_calculator();
+                // Calculate full duration before playing
+                int noteDuration = Convert.ToInt32(final_note_length);
+                int waitDuration = Convert.ToInt32(line_length);
+
+                // Play note and continue waiting
+                if (Program.MIDIDevices.useMIDIoutput == true)
+                {
+                    MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
+                            Program.MIDIDevices.MIDIOutputDeviceChannel);
+                    play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
+                    checkBox_play_note1_played.Checked,
+                    checkBox_play_note2_played.Checked,
+                    checkBox_play_note3_played.Checked,
+                    checkBox_play_note4_played.Checked, noteDuration);
+                }
+                play_note_in_line(
+                checkBox_play_note1_played.Checked,
+                checkBox_play_note2_played.Checked,
+                checkBox_play_note3_played.Checked,
+                checkBox_play_note4_played.Checked,
+                    noteDuration);
                 // Wait between each note
-                NonBlockingSleep.Sleep(Convert.ToInt32(Math.Round(line_length)));
+                NonBlockingSleep.Sleep(Math.Max(1, waitDuration - noteDuration));
                 // Do ListView update in UI thread
                 UpdateListViewSelectionSync(index);
             }
@@ -3144,7 +3166,6 @@ namespace NeoBleeper
                 }
             }
         }
-        private static readonly object playbackLock = new object();
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // 
         {
             if (cancellationTokenSource.Token.IsCancellationRequested) return;
@@ -3699,136 +3720,121 @@ namespace NeoBleeper
                 }
                 if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    lock (playbackLock)
-                    {
-                        UpdateLabelVisible(true);
-                        NotePlayer.play_note(Convert.ToInt32(note1_frequency), length);
-                        UpdateLabelVisible(false);
-                    }
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), length);
+                    UpdateLabelVisible(false);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    lock (playbackLock)
-                    {
-                        UpdateLabelVisible(true);
-                        NotePlayer.play_note(Convert.ToInt32(note2_frequency), length);
-                        UpdateLabelVisible(false);
-                    }
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), length);
+                    UpdateLabelVisible(false);
                 }
 
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
-                    lock (playbackLock)
-                    {
-                        UpdateLabelVisible(true);
-                        NotePlayer.play_note(Convert.ToInt32(note3_frequency), length);
-                        UpdateLabelVisible(false);
-                    }
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), length);
+                    UpdateLabelVisible(false);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
                 {
-                    lock (playbackLock) 
-                    {
-                        UpdateLabelVisible(true);
-                        NotePlayer.play_note(Convert.ToInt32(note4_frequency), length);
-                        UpdateLabelVisible(false);
-                    }
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), length);
+                    UpdateLabelVisible(false);
                 }
                 else
                 {
-                    lock (playbackLock)
+                    if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
                     {
-                        if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                        UpdateLabelVisible(true);
+                    }
+                    int note_order = 1;
+                    int last_note_order = Convert.ToInt32(Math.Truncate((double)length / Variables.alternating_note_length));
+                    if (radioButtonPlay_alternating_notes1.Checked == true)
+                    {
+                        string[] note_series = { note1, note2, note3, note4 };
+                        do
                         {
-                            UpdateLabelVisible(true);
-                        }
-                        int note_order = 1;
-                        int last_note_order = Convert.ToInt32(Math.Truncate((double)length / Variables.alternating_note_length));
-                        if (radioButtonPlay_alternating_notes1.Checked == true)
-                        {
-                            string[] note_series = { note1, note2, note3, note4 };
-                            do
+                            int column = 0;
+                            while (column < 4)
                             {
-                                int column = 0;
-                                while (column < 4)
+                                if (note_series[column] != string.Empty)
                                 {
-                                    if (note_series[column] != string.Empty)
+                                    switch (column)
                                     {
-                                        switch (column)
-                                        {
-                                            case 0:
-                                                {
-                                                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                    break;
-                                                }
-                                            case 1:
-                                                {
-                                                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                    break;
-                                                }
-                                            case 2:
-                                                {
-                                                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                    break;
-                                                }
-                                            case 3:
-                                                {
-                                                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                    break;
-                                                }
-                                        }
-                                        note_order++;
+                                        case 0:
+                                            {
+                                                NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                break;
+                                            }
+                                        case 1:
+                                            {
+                                                NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                                break;
+                                            }
                                     }
-                                    column++;
+                                    note_order++;
+                                }
+                                column++;
+                            }
+                        }
+                        while (note_order < last_note_order);
+                    }
+                    else if (radioButtonPlay_alternating_notes2.Checked == true)
+                    {
+                        string[] note_series = { note1, note2, note3, note4 };
+                        do
+                        {
+                            // Odd number columns first (Note1 and Note3)
+                            for (int i = 0; i < 4; i += 2)
+                            {
+                                if (note_series[i] != string.Empty)
+                                {
+                                    if (i == 0)
+                                    {
+                                        NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
+                                    else if (i == 2)
+                                    {
+                                        NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    }
+                                    note_order++;
                                 }
                             }
-                            while (note_order < last_note_order);
-                        }
-                        else if (radioButtonPlay_alternating_notes2.Checked == true)
-                        {
-                            string[] note_series = { note1, note2, note3, note4 };
-                            do
+                            // Even number columns then (Note2 and Note4)
+                            for (int i = 1; i < 4; i += 2)
                             {
-                                // Odd number columns first (Note1 and Note3)
-                                for (int i = 0; i < 4; i += 2)
+                                if (note_series[i] != string.Empty)
                                 {
-                                    if (note_series[i] != string.Empty)
+                                    if (i == 1)
                                     {
-                                        if (i == 0)
-                                        {
-                                            NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        else if (i == 2)
-                                        {
-                                            NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        note_order++;
+                                        NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
-                                }
-                                // Even number columns then (Note2 and Note4)
-                                for (int i = 1; i < 4; i += 2)
-                                {
-                                    if (note_series[i] != string.Empty)
+                                    else if (i == 3)
                                     {
-                                        if (i == 1)
-                                        {
-                                            NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        else if (i == 3)
-                                        {
-                                            NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                        }
-                                        note_order++;
+                                        NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     }
+                                    note_order++;
                                 }
                             }
-                            while (note_order < last_note_order);
                         }
-                        if (cancellationTokenSource.Token.IsCancellationRequested) return;
-                        if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
-                        {
-                            UpdateLabelVisible(false);
-                        }
+                        while (note_order < last_note_order);
+                    }
+                    if (cancellationTokenSource.Token.IsCancellationRequested) return;
+                    if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                    {
+                        UpdateLabelVisible(false);
                     }
                 }
             }
@@ -3840,28 +3846,10 @@ namespace NeoBleeper
             {
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    if (is_music_playing == true)
+                    /*if (is_music_playing == true)
                     {
-                        note_length_calculator();
-                        if (Program.MIDIDevices.useMIDIoutput == true)
-                        {
-                            MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-                                    Program.MIDIDevices.MIDIOutputDeviceChannel);
-                            play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
-                            checkBox_play_note1_played.Checked,
-                            checkBox_play_note2_played.Checked,
-                            checkBox_play_note3_played.Checked,
-                            checkBox_play_note4_played.Checked, Convert.ToInt32(Math.Round(final_note_length)));
-                        }
-                        Task.Run(() => {
-                            play_note_in_line(
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked,
-                            Convert.ToInt32(Math.Round(final_note_length)));
-                        });
-                    }
+                        Task.Run(() => play_note_while_playing());
+                    }*/
                     int selectedLine = listViewNotes.SelectedIndices[0];
                     if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
                     {
