@@ -16,6 +16,10 @@ namespace NeoBleeper
         }
         public static void Sleep(int milliseconds)
         {
+            if(milliseconds <= 0)
+            {
+                return;
+            }
             NonBlockingSleep nbs = new NonBlockingSleep();
             nbs.timer.Interval = milliseconds;
             nbs.timer.Start();

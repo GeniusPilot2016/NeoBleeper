@@ -423,7 +423,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayMaryHadALittleLamb()
@@ -447,7 +447,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayOdeToJoy()
@@ -472,8 +472,8 @@ namespace NeoBleeper
             };
 
             foreach (int[] note in melody)
-            {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+            {   
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayYankeeDoodle()
@@ -498,7 +498,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayFrereJacques()
@@ -535,7 +535,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayMinorChord()
@@ -543,7 +543,7 @@ namespace NeoBleeper
             int[] frequencies = { 261, 311, 392 }; // C4, D#4, G4
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each note
+                NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each note
             }
         }
         private void PlayMajorChord()
@@ -551,21 +551,21 @@ namespace NeoBleeper
             int[] frequencies = { 261, 329, 392 }; // C4, E4, G4
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each note
+                NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each note
             }
         }
         private void PlayDescendingBeeps()
         {
             for (int freq = 2000; freq >= 200; freq -= 200)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each frequency
+                NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each frequency
             }
         }
         private void PlayAscendingBeeps()
         {
             for (int freq = 200; freq <= 2000; freq += 200)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // 500 ms for each frequency
+                NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each frequency
             }
         }
         private void PlayRandomBeeps()
@@ -575,7 +575,7 @@ namespace NeoBleeper
             {
                 int frequency = rnd.Next(200, 2000); // Random frequency between 200 Hz and 2000 Hz
                 int duration = rnd.Next(100, 1000); // Random duration between 100 ms and 1000 ms
-                RenderBeep.BeepClass.Beep(frequency, duration);
+                NotePlayer.PlayOnlySystemSpeakerBeep(frequency, duration);
             }
         }
         private void PlayHappyBirthday()
@@ -598,7 +598,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayBeethovenFifth()
@@ -617,7 +617,7 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlayTwinkleTwinkle()
@@ -642,21 +642,21 @@ namespace NeoBleeper
 
             foreach (int[] note in melody)
             {
-                RenderBeep.BeepClass.Beep(note[0], note[1]);
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
         private void PlaySimpleBeepSequence()
         {
-            RenderBeep.BeepClass.Beep(1000, 500); // Frequency: 1000 Hz, Duration: 500 ms
-            RenderBeep.BeepClass.Beep(1500, 500); // Frequency: 1500 Hz, Duration: 500 ms
-            RenderBeep.BeepClass.Beep(2000, 500); // Frequency: 2000 Hz, Duration: 500 ms
+            NotePlayer.PlayOnlySystemSpeakerBeep(1000, 500); // Frequency: 1000 Hz, Duration: 500 ms
+            NotePlayer.PlayOnlySystemSpeakerBeep(1500, 500); // Frequency: 1500 Hz, Duration: 500 ms
+            NotePlayer.PlayOnlySystemSpeakerBeep(2000, 500); // Frequency: 2000 Hz, Duration: 500 ms
         }
         private void PlayScale()
         {
             int[] frequencies = { 261, 293, 329, 349, 392, 440, 493, 523 }; // C4 to C5
             foreach (int freq in frequencies)
             {
-                RenderBeep.BeepClass.Beep(freq, 500); // 500ms for each note
+                NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500ms for each note
             }
         }
 
