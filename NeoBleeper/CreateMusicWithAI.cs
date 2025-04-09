@@ -29,6 +29,7 @@ namespace NeoBleeper
                 ctrl.Font = new Font(fonts.Families[0], 9);
             }
             InitializeComponent();
+            set_theme();
             if (!IsInternetAvailable())
             {
                 Debug.WriteLine("Internet connection is not available. Please check your connection.");
@@ -41,6 +42,52 @@ namespace NeoBleeper
                 MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+        }
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0:
+                    {
+                        if (check_system_theme.IsDarkTheme() == true)
+                        {
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2:
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+        }
+        private void dark_theme()
+        {
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            buttonCreate.BackColor = Color.FromArgb(32, 32, 32);
+            buttonCreate.ForeColor = Color.White;
+            textBoxPrompt.BackColor = Color.Black;
+            textBoxPrompt.ForeColor = Color.White;
+            this.ForeColor = Color.White;
+        }
+        private void light_theme()
+        {
+            this.BackColor = SystemColors.Control;
+            buttonCreate.BackColor = Color.Transparent;
+            buttonCreate.ForeColor = SystemColors.ControlText;
+            textBoxPrompt.BackColor = SystemColors.Window;
+            textBoxPrompt.ForeColor = SystemColors.WindowText;
+            this.ForeColor = SystemColors.ControlText;
         }
         private bool IsInternetAvailable()
         {

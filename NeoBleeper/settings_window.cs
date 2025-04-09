@@ -159,6 +159,9 @@ namespace NeoBleeper
             textBoxAPIKey.ForeColor = Color.White;
             buttonShowHide.BackColor = Color.FromArgb(32, 32, 32);
             buttonShowHide.ForeColor = Color.White;
+            buttonResetAPIKey.BackColor = Color.FromArgb(32, 32, 32);
+            buttonResetAPIKey.ForeColor = Color.White;
+            groupBoxCreateMusicWithAI.ForeColor = Color.White;
             this.Refresh();
         }
         private void light_theme()
@@ -218,6 +221,9 @@ namespace NeoBleeper
             textBoxAPIKey.ForeColor = SystemColors.WindowText;
             buttonShowHide.BackColor = Color.Transparent;
             buttonShowHide.ForeColor = SystemColors.ControlText;
+            buttonResetAPIKey.BackColor = Color.Transparent;
+            buttonResetAPIKey.ForeColor = SystemColors.ControlText;
+            groupBoxCreateMusicWithAI.ForeColor = SystemColors.ControlText;
             this.Refresh();
         }
 
