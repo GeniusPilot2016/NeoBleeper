@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Text;
 using System.Media;
+using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
@@ -2517,8 +2518,8 @@ namespace NeoBleeper
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = Convert.ToInt32(final_note_length);
-                int waitDuration = Convert.ToInt32(line_length);
+                int noteDuration = Convert.ToInt32(Math.Round(final_note_length));
+                int waitDuration = Convert.ToInt32(Math.Round(line_length));
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
@@ -2538,7 +2539,10 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration);
                 // Wait between each note
-                NonBlockingSleep.Sleep(Math.Max(1, waitDuration - noteDuration));
+                if(waitDuration-noteDuration > 0)
+                {
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration);
+                }
                 // Do ListView update in UI thread
                 UpdateListViewSelectionSync(index);
             }
@@ -2551,9 +2555,6 @@ namespace NeoBleeper
             {
                 int currentIndex = listViewNotes.SelectedIndices[0];
                 int nextIndex = currentIndex + 1;
-
-                // Clear current selection
-                listViewNotes.SelectedItems.Clear();
                 if (nextIndex < listViewNotes.Items.Count)
                 {
                     // Select next note 
@@ -2768,8 +2769,7 @@ namespace NeoBleeper
 
         private void UpdateLabelVisible(bool visible)
         {
-            Task.Run(() =>
-            {
+            Task.Run(() => {
                 if (label_beep.InvokeRequired)
                 {
                     label_beep.BeginInvoke(new Action(() =>
@@ -2777,14 +2777,12 @@ namespace NeoBleeper
                         if (!label_beep.IsDisposed)
                         {
                             label_beep.Visible = visible;
-                            if (visible) label_beep.Refresh();
                         }
                     }));
                 }
                 else if (!label_beep.IsDisposed)
                 {
                     label_beep.Visible = visible;
-                    if (visible) label_beep.Refresh();
                 }
             });
         }
@@ -3101,7 +3099,7 @@ namespace NeoBleeper
                             note_length *= 2;
                         }
                         final_note_length = note_length * Variables.note_silence_ratio;
-                        final_note_count = Convert.ToInt32(Math.Truncate(final_note_length));
+                        final_note_count = Convert.ToInt32(Math.Round(final_note_length));
                     }
                 }
             }
