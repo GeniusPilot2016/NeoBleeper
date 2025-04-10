@@ -2550,7 +2550,7 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                NonBlockingSleep.Sleep(waitDuration - noteDuration);
+                await Task.Delay(waitDuration - noteDuration);
                 // Do ListView update in UI thread
                 await Task.Run(() => { UpdateListViewSelectionSync(index); });
             }
