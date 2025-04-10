@@ -255,7 +255,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>4</value>
   </data>
   <data name="lbl_version.Text" xml:space="preserve">
-    <value>Version 0.10.0</value>
+    <value>Version 0.10.1</value>
   </data>
   <data name="&gt;&gt;lbl_version.Name" xml:space="preserve">
     <value>lbl_version</value>
@@ -277,7 +277,7 @@ Google Gemini™ is a trademark of Google LLC</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFIAQEBSAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFQAQEBUAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -324,6 +324,18 @@ Google Gemini™ is a trademark of Google LLC</value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>250</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>350</value>
   </data>
   <data name="listView1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -395,18 +407,6 @@ Google Gemini™ is a trademark of Google LLC</value>
   </data>
   <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>250</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
-    <value>350</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>

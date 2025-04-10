@@ -44,6 +44,8 @@ namespace NeoBleeper
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
+            listViewNotes.DoubleBuffering(true);
+            label_beep.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             set_default_font();
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -2510,7 +2512,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private void play_music(int index)
+        private async void play_music(int index)
         {
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
@@ -2550,7 +2552,7 @@ namespace NeoBleeper
                 // Wait between each note
                 NonBlockingSleep.Sleep(waitDuration - noteDuration);
                 // Do ListView update in UI thread
-                UpdateListViewSelectionSync(index);
+                await Task.Run(() => { UpdateListViewSelectionSync(index); });
             }
             if(trackBar_note_silence_ratio.Value==100)
             {
@@ -2777,7 +2779,7 @@ namespace NeoBleeper
             });
         }
 
-        private void UpdateLabelVisible(bool visible)
+        private async void UpdateLabelVisible(bool visible)
         {
             Task.Run(() => {
                 if (label_beep.InvokeRequired)
