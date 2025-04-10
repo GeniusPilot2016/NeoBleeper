@@ -2529,8 +2529,8 @@ namespace NeoBleeper
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = Convert.ToInt32(Math.Round(final_note_length));
-                int waitDuration = Convert.ToInt32(Math.Round(line_length));
+                int noteDuration = Convert.ToInt32(Math.Truncate(final_note_length));
+                int waitDuration = Convert.ToInt32(Math.Truncate(line_length));
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
@@ -2550,7 +2550,10 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                await Task.Delay(waitDuration - noteDuration);
+                if (waitDuration - noteDuration > 0) 
+                { 
+                    await Task.Delay(waitDuration - noteDuration); 
+                }
                 // Do ListView update in UI thread
                 await Task.Run(() => { UpdateListViewSelectionSync(index); });
             }
