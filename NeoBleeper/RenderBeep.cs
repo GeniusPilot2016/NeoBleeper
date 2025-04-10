@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using NAudio.Dsp;
+using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Runtime.InteropServices;
 
@@ -54,6 +55,38 @@ namespace NeoBleeper
                     waveOut.Stop();
                 }
             }
+            private static BandPassNoiseGenerator bandPassNoise;
+
+            public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
+            {
+                if (bandPassNoise == null)
+                {
+                    // Create white noise and initialize the band-pass filter
+                    var whiteNoise = new SignalGenerator()
+                    {
+                        Type = SignalGeneratorType.White,
+                        Gain = 0.15
+                    };
+
+                    bandPassNoise = new BandPassNoiseGenerator(whiteNoise, 44100, freq, 1.0f);
+                    waveOut.Init(bandPassNoise);
+                }
+                else
+                {
+                    // Update the frequency dynamically
+                    bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
+                }
+
+                waveOut.Play();
+                NonBlockingSleep.Sleep(ms);
+
+                if (!nonStopping)
+                {
+                    waveOut.Stop();
+                }
+            }
+
+
 
             public static void SquareWave(int freq, int ms, bool nonStopping)
             {
@@ -72,8 +105,39 @@ namespace NeoBleeper
 
             public static void Noise(int freq, int ms, bool nonStopping)
             {
-                PlayWave(SignalGeneratorType.Pink, freq, ms, nonStopping);
+                PlayFilteredNoise(freq, ms, nonStopping);
             }
         }
+
+        public class BandPassNoiseGenerator : ISampleProvider
+        {
+            private readonly ISampleProvider noiseGenerator;
+            private BiQuadFilter bandPassFilter;
+
+            public BandPassNoiseGenerator(ISampleProvider noiseGenerator, int sampleRate, float centerFrequency, float bandwidth)
+            {
+                this.noiseGenerator = noiseGenerator;
+                bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, centerFrequency, bandwidth);
+            }
+
+            public WaveFormat WaveFormat => noiseGenerator.WaveFormat;
+
+            public int Read(float[] buffer, int offset, int count)
+            {
+                int samplesRead = noiseGenerator.Read(buffer, offset, count);
+                for (int i = 0; i < samplesRead; i++)
+                {
+                    buffer[offset + i] = bandPassFilter.Transform(buffer[offset + i]);
+                }
+                return samplesRead;
+            }
+
+            // Update the center frequency dynamically  
+            public void UpdateFrequency(float newFrequency, int sampleRate, float bandwidth)
+            {
+                bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, newFrequency, bandwidth);
+            }
+        }
+
     }
 }

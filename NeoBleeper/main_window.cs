@@ -2550,13 +2550,13 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                NonBlockingSleep.Sleep(waitDuration - noteDuration);
+                await Task.Delay(waitDuration - noteDuration);
                 // Do ListView update in UI thread
                 await Task.Run(() => { UpdateListViewSelectionSync(index); });
             }
             if(trackBar_note_silence_ratio.Value==100)
             {
-                NotePlayer.StopAllNotes();
+                stopAllNotesAfterPlaying();
             }
         }
 
@@ -2998,7 +2998,7 @@ namespace NeoBleeper
                     Convert.ToInt32(Math.Truncate(final_note_length)),nonStopping);
                 if (nonStopping == true)
                 {
-                    NotePlayer.StopAllNotes();
+                    stopAllNotesAfterPlaying();
                 }
                 keyboard_panel.Enabled = true;
                 numericUpDown_alternating_notes.Enabled = true;
@@ -3180,6 +3180,11 @@ namespace NeoBleeper
                     }
                 }
             }
+        }
+        private void stopAllNotesAfterPlaying()
+        {
+            NotePlayer.StopAllNotes();
+            UpdateLabelVisible(false);
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
         {
@@ -3731,7 +3736,7 @@ namespace NeoBleeper
                 {
                     if(nonStopping == true)
                     {
-                        NotePlayer.StopAllNotes();
+                        stopAllNotesAfterPlaying();
                     }
                     NonBlockingSleep.Sleep(Convert.ToInt32(Math.Round(final_note_length)));
                     return;
@@ -3740,26 +3745,38 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(true);
                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), length, nonStopping);
-                    UpdateLabelVisible(false);
+                    if (nonStopping == false)
+                    {
+                        UpdateLabelVisible(false);
+                    }
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), length, nonStopping);
-                    UpdateLabelVisible(false);
+                    if (nonStopping == false)
+                    {
+                        UpdateLabelVisible(false);
+                    }
                 }
 
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
-                    UpdateLabelVisible(false);
+                    if (nonStopping == false)
+                    {
+                        UpdateLabelVisible(false);
+                    }
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
                 {
                     UpdateLabelVisible(true);
                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
-                    UpdateLabelVisible(false);
+                    if (nonStopping == false)
+                    {
+                        UpdateLabelVisible(false);
+                    }
                 }
                 else
                 {
@@ -3852,7 +3869,10 @@ namespace NeoBleeper
                     if (cancellationTokenSource.Token.IsCancellationRequested) return;
                     if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
                     {
-                        UpdateLabelVisible(false);
+                        if (nonStopping == false)
+                        {
+                            UpdateLabelVisible(false);
+                        }
                     }
                 }
             }
