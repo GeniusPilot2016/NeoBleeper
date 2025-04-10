@@ -3078,7 +3078,7 @@ namespace NeoBleeper
             {
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm));
                     int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
                     if (selected_line >= 0)
                     {
@@ -3140,7 +3140,7 @@ namespace NeoBleeper
             {
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm));
                     int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
                     if (selected_line >= 0)
                     {
