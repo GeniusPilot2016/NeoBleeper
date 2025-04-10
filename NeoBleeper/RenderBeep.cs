@@ -36,45 +36,67 @@ namespace NeoBleeper
         {
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
+            private static BandPassNoiseGenerator bandPassNoise;
+            private static ISampleProvider currentProvider; // Şu anda kullanılan ses sağlayıcısını takip etmek için
 
             static SynthMisc()
             {
-                waveOut.DesiredLatency = 50; // Set the desired latency to 20ms to reduce the delay
-                waveOut.NumberOfBuffers = 35; // Reduce the number of buffers to reduce the delay
+                currentProvider = signalGenerator;
+                waveOut.DesiredLatency = 40;
+                waveOut.NumberOfBuffers = 35;
                 waveOut.Init(signalGenerator);
             }
 
-            public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping) // Create many kind of beeps from sound devices (external speakers, headphone, etc.)
+            public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;
+
+                // Change the provider to signalGenerator if it's not already set
+                if (currentProvider != signalGenerator)
+                {
+                    bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
+                    waveOut.Stop();
+                    waveOut.Init(signalGenerator);
+                    currentProvider = signalGenerator;
+                    if (wasPlaying) // Restart if it was playing before
+                        waveOut.Play();
+                }
+
                 waveOut.Play();
                 NonBlockingSleep.Sleep(ms);
-                if(nonStopping== false) // If nonStopping is true, the beep will not stop
+                if (!nonStopping)
                 {
                     waveOut.Stop();
                 }
             }
-            private static BandPassNoiseGenerator bandPassNoise;
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
                 if (bandPassNoise == null)
                 {
-                    // Create white noise and initialize the band-pass filter
                     var whiteNoise = new SignalGenerator()
                     {
-                        Type = SignalGeneratorType.White,
-                        Gain = 0.15
+                        Type = SignalGeneratorType.Pink,
+                        Gain = 0.5
                     };
 
                     bandPassNoise = new BandPassNoiseGenerator(whiteNoise, 44100, freq, 1.0f);
-                    waveOut.Init(bandPassNoise);
                 }
                 else
                 {
-                    // Update the frequency dynamically
                     bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
+                }
+
+                // Change the provider to bandPassNoise if it's not already set
+                if (currentProvider != bandPassNoise)
+                {
+                    bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
+                    waveOut.Stop();
+                    waveOut.Init(bandPassNoise);
+                    currentProvider = bandPassNoise;
+                    if (wasPlaying) // Restart if it was playing before
+                        waveOut.Play();
                 }
 
                 waveOut.Play();
@@ -85,8 +107,6 @@ namespace NeoBleeper
                     waveOut.Stop();
                 }
             }
-
-
 
             public static void SquareWave(int freq, int ms, bool nonStopping)
             {
@@ -138,6 +158,5 @@ namespace NeoBleeper
                 bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, newFrequency, bandwidth);
             }
         }
-
     }
 }
