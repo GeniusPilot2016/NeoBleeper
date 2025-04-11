@@ -71,7 +71,7 @@ namespace NeoBleeper
                             string query2 = "SELECT * FROM Win32_SystemEnclosure";
                             ManagementObjectSearcher searcher1 = new ManagementObjectSearcher(query1);
                             ManagementObjectCollection number_of_system_speaker_devices = searcher1.Get();
-                            eligability_of_create_beep_from_system_speaker.is_system_speaker_present = number_of_system_speaker_devices.Count < 1;
+                            eligability_of_create_beep_from_system_speaker.is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
                             try
                             {
                                 switch (eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
