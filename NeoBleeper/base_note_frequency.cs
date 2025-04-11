@@ -1,7 +1,7 @@
 ﻿
 namespace NeoBleeper
 {
-    internal class base_note_frequency
+    public class base_note_frequency
     {
         public static class base_note_frequency_in_4th_octave
         {

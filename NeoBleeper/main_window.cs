@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Media;
 using System.Threading.Tasks;
+using System.Data.Common;
 
 namespace NeoBleeper
 {
@@ -2521,12 +2522,16 @@ namespace NeoBleeper
                 {
                     nonStopping = false;
                 }
-                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                if (Variables.bpm != 0)
+                {
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
+                }
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = Math.Max(1, Convert.ToInt32(final_note_length));
-                int waitDuration = Math.Max(1, Convert.ToInt32(Math.Round(line_length)));
+                int noteDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(final_note_length)));
+                int waitDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(line_length)));
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
@@ -2967,6 +2972,10 @@ namespace NeoBleeper
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                if(Variables.bpm != 0)
+                {
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)(60000 / Variables.bpm)));
+                }
                 note_length_calculator();
                 keyboard_panel.Enabled = false;
                 numericUpDown_alternating_notes.Enabled = false;
@@ -3072,8 +3081,7 @@ namespace NeoBleeper
             {
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm));
-                    int selected_line = listViewNotes.Items.IndexOf(listViewNotes.SelectedItems[0]);
+                    int selected_line = listViewNotes.SelectedIndices[0];
                     if (selected_line >= 0)
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
@@ -3133,7 +3141,6 @@ namespace NeoBleeper
             {
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)60000 / Variables.bpm));
                     int selected_line = listViewNotes.SelectedIndices[0];
                     if (selected_line >= 0)
                     {
@@ -3186,451 +3193,36 @@ namespace NeoBleeper
         {
             if (cancellationTokenSource.Token.IsCancellationRequested) return;
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-            string note1;
-            string note2;
-            string note3;
-            string note4;
-            double note1_base_frequency = 0;
-            int note1_octave = 0;
-            double note1_frequency = 0;
-            double note2_base_frequency = 0;
-            int note2_octave = 0;
-            double note2_frequency = 0;
-            double note3_base_frequency = 0;
-            int note3_octave = 0;
-            double note3_frequency = 0;
-            double note4_base_frequency = 0;
-            int note4_octave = 0;
-            double note4_frequency = 0;
+
+            string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
+            double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 int selected_line = listViewNotes.SelectedIndices[0];
-                if (play_note1 == true)
-                {
-                    note1 = listViewNotes.Items[selected_line].SubItems[1].Text;
-                }
-                else
-                {
-                    note1 = string.Empty;
-                }
-                if (play_note2 == true)
-                {
-                    note2 = listViewNotes.Items[selected_line].SubItems[2].Text;
-                }
-                else
-                {
-                    note2 = string.Empty;
-                }
-                if (play_note3 == true)
-                {
-                    note3 = listViewNotes.Items[selected_line].SubItems[3].Text;
-                }
-                else
-                {
-                    note3 = string.Empty;
-                }
-                if (play_note4 == true)
-                {
-                    note4 = listViewNotes.Items[selected_line].SubItems[4].Text;
-                }
-                else
-                {
-                    note4 = string.Empty;
-                }
-                if (note1 != string.Empty)
-                {
-                    if (note1.Contains("#"))
-                    {
-                        switch (note1.Length)
-                        {
-                            case 3:
-                                {
-                                    note1_octave = Convert.ToInt32((note1.Substring(2, 1)));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    note1_octave = Convert.ToInt32((note1.Substring(2, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note1_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note1.Substring(0, 2))
-                        {
-                            case "C#":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                break;
-                            case "D#":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                break;
-                            case "F#":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                break;
-                            case "G#":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                break;
-                            case "A#":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                break;
-                            default:
-                                {
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        switch (note1.Length)
-                        {
-                            case 2:
-                                {
-                                    note1_octave = Convert.ToInt32((note1.Substring(1, 1)));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    note1_octave = Convert.ToInt32((note1.Substring(1, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note1_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note1.Substring(0, 1))
-                        {
-                            case "C":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                break;
-                            case "D":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                break;
-                            case "E":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                break;
-                            case "F":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                break;
-                            case "G":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                break;
-                            case "A":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                break;
-                            case "B":
-                                note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                break;
-                            default:
-                                {
-                                    note1_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    note1_frequency = note1_base_frequency * Math.Pow(2, (note1_octave - 4));
-                }
-                if (note2 != string.Empty)
-                {
-                    if (note2.Contains("#"))
-                    {
-                        switch (note2.Length)
-                        {
-                            case 3:
-                                {
-                                    note2_octave = Convert.ToInt32((note2.Substring(2, 1)));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    note2_octave = Convert.ToInt32((note2.Substring(2, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note2_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note2.Substring(0, 2))
-                        {
-                            case "C#":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                break;
-                            case "D#":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                break;
-                            case "F#":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                break;
-                            case "G#":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                break;
-                            case "A#":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                break;
-                            default:
-                                {
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        switch (note2.Length)
-                        {
-                            case 2:
-                                {
-                                    note2_octave = Convert.ToInt32((note2.Substring(1, 1)));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    note2_octave = Convert.ToInt32((note2.Substring(1, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note2_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note2.Substring(0, 1))
-                        {
-                            case "C":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                break;
-                            case "D":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                break;
-                            case "E":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                break;
-                            case "F":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                break;
-                            case "G":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                break;
-                            case "A":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                break;
-                            case "B":
-                                note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                break;
-                            default:
-                                {
-                                    note2_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    note2_frequency = note2_base_frequency * Math.Pow(2, (note2_octave - 4));
-                }
-                if (note3 != string.Empty)
-                {
-                    if (note3.Contains("#"))
-                    {
-                        switch (note3.Length)
-                        {
-                            case 3:
-                                {
-                                    note3_octave = Convert.ToInt32((note3.Substring(2, 1)));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    note3_octave = Convert.ToInt32((note3.Substring(2, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note3_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note3.Substring(0, 2))
-                        {
-                            case "C#":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                break;
-                            case "D#":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                break;
-                            case "F#":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                break;
-                            case "G#":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                break;
-                            case "A#":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                break;
-                            default:
-                                {
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        switch (note3.Length)
-                        {
-                            case 2:
-                                {
-                                    note3_octave = Convert.ToInt32((note3.Substring(1, 1)));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    note3_octave = Convert.ToInt32((note3.Substring(1, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note3_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note3.Substring(0, 1))
-                        {
-                            case "C":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                break;
-                            case "D":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                break;
-                            case "E":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                break;
-                            case "F":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                break;
-                            case "G":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                break;
-                            case "A":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                break;
-                            case "B":
-                                note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                break;
-                            default:
-                                {
-                                    note3_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    note3_frequency = note3_base_frequency * Math.Pow(2, (note3_octave - 4));
-                }
-                if (note4 != string.Empty)
-                {
-                    if (note4.Contains("#"))
-                    {
-                        switch (note4.Length)
-                        {
-                            case 3:
-                                {
-                                    note4_octave = Convert.ToInt32((note4.Substring(2, 1)));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    note4_octave = Convert.ToInt32((note4.Substring(2, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note4_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note4.Substring(0, 2))
-                        {
-                            case "C#":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.CS;
-                                break;
-                            case "D#":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.DS;
-                                break;
-                            case "F#":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.FS;
-                                break;
-                            case "G#":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.GS;
-                                break;
-                            case "A#":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.AS;
-                                break;
-                            default:
-                                {
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        switch (note4.Length)
-                        {
-                            case 2:
-                                {
-                                    note4_octave = Convert.ToInt32((note4.Substring(1, 1)));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    note4_octave = Convert.ToInt32((note4.Substring(1, 2)));
-                                    break;
-                                }
-                            default:
-                                {
-                                    note4_octave = 4;
-                                    break;
-                                }
-                        }
-                        switch (note4.Substring(0, 1))
-                        {
-                            case "C":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                break;
-                            case "D":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.D;
-                                break;
-                            case "E":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.E;
-                                break;
-                            case "F":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.F;
-                                break;
-                            case "G":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.G;
-                                break;
-                            case "A":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.A;
-                                break;
-                            case "B":
-                                note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.B;
-                                break;
-                            default:
-                                {
-                                    note4_base_frequency = base_note_frequency.base_note_frequency_in_4th_octave.C;
-                                    break;
-                                }
-                        }
-                    }
-                    note4_frequency = note4_base_frequency * Math.Pow(2, (note4_octave - 4));
-                }
 
-                if (radioButtonPlay_alternating_notes1.Checked == true) // Odd column mode
+                // Take music note names from the selected line
+                note1 = play_note1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
+                note2 = play_note2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
+                note3 = play_note3 ? listViewNotes.Items[selected_line].SubItems[3].Text : string.Empty;
+                note4 = play_note4 ? listViewNotes.Items[selected_line].SubItems[4].Text : string.Empty;
+
+                // Calculate frequencies from note names
+                if (!string.IsNullOrEmpty(note1))
+                    note1_frequency = GetFrequencyFromNoteName(note1);
+
+                if (!string.IsNullOrEmpty(note2))
+                    note2_frequency = GetFrequencyFromNoteName(note2);
+
+                if (!string.IsNullOrEmpty(note3))
+                    note3_frequency = GetFrequencyFromNoteName(note3);
+
+                if (!string.IsNullOrEmpty(note4))
+                    note4_frequency = GetFrequencyFromNoteName(note4);
+            }
+
+
+            if (radioButtonPlay_alternating_notes1.Checked == true) // Odd column mode
                 {
                     if (note1 == note2 && note2 == note3 && note3 == note4)
                     {
@@ -3787,41 +3379,19 @@ namespace NeoBleeper
                         string[] note_series = { note1, note2, note3, note4 };
                         do
                         {
-                            int column = 0;
-                            while (column < 4)
+                            foreach (string note in note_series)
                             {
-                                if (note_series[column] != string.Empty)
+                                if (!string.IsNullOrEmpty(note))
                                 {
-                                    switch (column)
-                                    {
-                                        case 0:
-                                            {
-                                                NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                break;
-                                            }
-                                        case 1:
-                                            {
-                                                NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                break;
-                                            }
-                                        case 2:
-                                            {
-                                                NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                break;
-                                            }
-                                        case 3:
-                                            {
-                                                NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                                break;
-                                            }
-                                    }
+                                    double frequency = GetFrequencyFromNoteName(note);
+                                    NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                     note_order++;
                                 }
-                                column++;
                             }
                         }
                         while (note_order < last_note_order);
                     }
+
                     else if (radioButtonPlay_alternating_notes2.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
@@ -3872,7 +3442,6 @@ namespace NeoBleeper
                     }
                 }
             }
-        }
 
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -4957,6 +4526,39 @@ namespace NeoBleeper
                 numericUpDown_bpm.Tag = null;
                 numericUpDown_alternating_notes.Tag = null;
             }
+        }
+        private double GetFrequencyFromNoteName(string noteName)
+        {
+            if (string.IsNullOrEmpty(noteName))
+                return 0;
+
+            // Disassemble note name into note and octave
+            string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
+            int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
+            // Basic frequency for the note in the 4th octave
+            double baseFrequency = note switch
+            {
+                "C" => base_note_frequency.base_note_frequency_in_4th_octave.C,
+                "C#" => base_note_frequency.base_note_frequency_in_4th_octave.CS,
+                "D" => base_note_frequency.base_note_frequency_in_4th_octave.D,
+                "D#" => base_note_frequency.base_note_frequency_in_4th_octave.DS,
+                "E" => base_note_frequency.base_note_frequency_in_4th_octave.E,
+                "F" => base_note_frequency.base_note_frequency_in_4th_octave.F,
+                "F#" => base_note_frequency.base_note_frequency_in_4th_octave.FS,
+                "G" => base_note_frequency.base_note_frequency_in_4th_octave.G,
+                "G#" => base_note_frequency.base_note_frequency_in_4th_octave.GS,
+                "A" => base_note_frequency.base_note_frequency_in_4th_octave.A,
+                "A#" => base_note_frequency.base_note_frequency_in_4th_octave.AS,
+                "B" => base_note_frequency.base_note_frequency_in_4th_octave.B,
+                _ => 0 // Invalid note
+            };
+
+            if (baseFrequency == 0)
+                return 0;
+
+            // Oktav farkýný hesaplama
+            int octaveDifference = octave - 4; // 4th octave is the reference octave
+            return baseFrequency * Math.Pow(2, octaveDifference);
         }
     }
 }
