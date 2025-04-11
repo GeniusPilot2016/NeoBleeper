@@ -24,7 +24,7 @@ This project is **still in development** and some features and components are st
 - ### System speaker meets AI
   Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
-  ![image](https://github.com/user-attachments/assets/764f7d68-e3a3-4bff-ba71-e21636f98a50)
+  ![image](https://github.com/user-attachments/assets/1786a4ca-1505-45ec-bd2f-4a2449806402)
 
   ![image](https://github.com/user-attachments/assets/9a7bf243-838b-4cc8-867d-cde839f72011)
 
