@@ -17,7 +17,7 @@ namespace NeoBleeper
             {
                 Out32(0x43, 0xB6);
                 int div = 0x1234dc / freq;
-                NonBlockingSleep.Sleep(1);
+                //NonBlockingSleep.Sleep(1);
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
