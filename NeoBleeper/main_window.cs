@@ -2509,7 +2509,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private async void play_music(int index)
+        private void play_music(int index)
         {
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
@@ -2525,7 +2525,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)(60000 / Variables.bpm)));
                 }
                 line_length_calculator();
                 note_length_calculator();
@@ -2553,10 +2553,10 @@ namespace NeoBleeper
                 // Wait between each note
                 if (waitDuration - noteDuration > 0) 
                 { 
-                    await Task.Delay(waitDuration - noteDuration); 
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration); 
                 }
-                // Do ListView update in UI thread
-                await Task.Run(() => { UpdateListViewSelectionSync(index); });
+                    // Do ListView update in UI thread
+                    UpdateListViewSelectionSync(index);
             }
             if(trackBar_note_silence_ratio.Value==100)
             {
@@ -3373,7 +3373,7 @@ namespace NeoBleeper
                         UpdateLabelVisible(true);
                     }
                     int note_order = 1;
-                    int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
+                    int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length))+1;
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
