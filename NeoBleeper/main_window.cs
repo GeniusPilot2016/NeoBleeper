@@ -3556,7 +3556,7 @@ namespace NeoBleeper
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                 });
-                if (clicked == false && beat_number - Math.Truncate(beat_number) == 0)
+                if (checkBox_play_beat_sound.Checked==true && clicked == false && beat_number - Math.Truncate(beat_number) == 0)
                 {
                     switch(Program.BeatTypes.beat_type)
                     {
