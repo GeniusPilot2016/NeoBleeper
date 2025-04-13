@@ -40,7 +40,7 @@
             radioButton_play_sound_on_all_beats.AutoSize = true;
             radioButton_play_sound_on_all_beats.Checked = true;
             radioButton_play_sound_on_all_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_all_beats.Location = new Point(25, 22);
+            radioButton_play_sound_on_all_beats.Location = new Point(22, 27);
             radioButton_play_sound_on_all_beats.Name = "radioButton_play_sound_on_all_beats";
             radioButton_play_sound_on_all_beats.Size = new Size(423, 24);
             radioButton_play_sound_on_all_beats.TabIndex = 0;
@@ -54,7 +54,7 @@
             radioButton_play_sound_on_odd_beats.Anchor = AnchorStyles.None;
             radioButton_play_sound_on_odd_beats.AutoSize = true;
             radioButton_play_sound_on_odd_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_odd_beats.Location = new Point(25, 52);
+            radioButton_play_sound_on_odd_beats.Location = new Point(22, 57);
             radioButton_play_sound_on_odd_beats.Name = "radioButton_play_sound_on_odd_beats";
             radioButton_play_sound_on_odd_beats.Size = new Size(506, 24);
             radioButton_play_sound_on_odd_beats.TabIndex = 0;
@@ -67,7 +67,7 @@
             radioButton_play_sound_on_even_beats.Anchor = AnchorStyles.None;
             radioButton_play_sound_on_even_beats.AutoSize = true;
             radioButton_play_sound_on_even_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_even_beats.Location = new Point(25, 82);
+            radioButton_play_sound_on_even_beats.Location = new Point(22, 87);
             radioButton_play_sound_on_even_beats.Name = "radioButton_play_sound_on_even_beats";
             radioButton_play_sound_on_even_beats.Size = new Size(320, 24);
             radioButton_play_sound_on_even_beats.TabIndex = 0;
@@ -80,7 +80,7 @@
             label_uncheck_do_not_update.Anchor = AnchorStyles.None;
             label_uncheck_do_not_update.AutoSize = true;
             label_uncheck_do_not_update.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_uncheck_do_not_update.Location = new Point(25, 114);
+            label_uncheck_do_not_update.Location = new Point(22, 119);
             label_uncheck_do_not_update.MaximumSize = new Size(512, 0);
             label_uncheck_do_not_update.Name = "label_uncheck_do_not_update";
             label_uncheck_do_not_update.Size = new Size(500, 40);
@@ -92,8 +92,7 @@
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(552, 161);
+            ClientSize = new Size(546, 200);
             ControlBox = false;
             Controls.Add(label_uncheck_do_not_update);
             Controls.Add(radioButton_play_sound_on_even_beats);
@@ -105,6 +104,7 @@
             Name = "play_beat_window";
             ShowIcon = false;
             Text = "Beat Settings";
+            Load += play_beat_window_Load;
             ResumeLayout(false);
             PerformLayout();
         }

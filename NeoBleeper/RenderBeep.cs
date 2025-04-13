@@ -17,7 +17,6 @@ namespace NeoBleeper
             {
                 Out32(0x43, 0xB6);
                 int div = 0x1234dc / freq;
-                //NonBlockingSleep.Sleep(1);
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
@@ -37,7 +36,7 @@ namespace NeoBleeper
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
             private static BandPassNoiseGenerator bandPassNoise;
-            private static ISampleProvider currentProvider; // Şu anda kullanılan ses sağlayıcısını takip etmek için
+            private static ISampleProvider currentProvider; // To keep track of the current provider
 
             static SynthMisc()
             {

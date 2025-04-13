@@ -113,5 +113,10 @@ namespace NeoBleeper
                 Program.BeatTypes.beat_type = 2;
             }
         }
+
+        private void play_beat_window_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
