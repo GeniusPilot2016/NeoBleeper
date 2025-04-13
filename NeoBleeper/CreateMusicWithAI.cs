@@ -82,6 +82,8 @@ namespace NeoBleeper
             buttonCreate.ForeColor = Color.White;
             textBoxPrompt.BackColor = Color.Black;
             textBoxPrompt.ForeColor = Color.White;
+            comboBox_ai_model.BackColor = Color.FromArgb(32, 32, 32);
+            comboBox_ai_model.ForeColor = Color.White;
             this.ForeColor = Color.White;
         }
         private void light_theme()
@@ -91,6 +93,8 @@ namespace NeoBleeper
             buttonCreate.ForeColor = SystemColors.ControlText;
             textBoxPrompt.BackColor = SystemColors.Window;
             textBoxPrompt.ForeColor = SystemColors.WindowText;
+            comboBox_ai_model.BackColor = SystemColors.Window;
+            comboBox_ai_model.ForeColor = SystemColors.WindowText;
             this.ForeColor = SystemColors.ControlText;
         }
         private bool IsInternetAvailable()
