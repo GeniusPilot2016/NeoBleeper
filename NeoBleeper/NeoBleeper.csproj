@@ -21,7 +21,6 @@
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>music, beep, pc-speaker, buzzer, tune, pc-beeper, system-speaker, neobleeper, bleeper, motherboard-speaker, motherboard-buzzer</PackageTags>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
