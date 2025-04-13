@@ -276,7 +276,7 @@ namespace NeoBleeper
             if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 Random rnd = new Random();
-                int tune_number = rnd.Next(1, 15); // Choose a random tune between 1 and 15
+                int tune_number = rnd.Next(1, 24); // Random number between 1 and 23
 
                 switch (tune_number)
                 {
@@ -324,6 +324,30 @@ namespace NeoBleeper
                         break;
                     case 15:
                         PlayJingleBells();
+                        break;
+                    case 16:
+                        PlayFurElise();
+                        break;
+                    case 17:
+                        PlayTetrisTheme();
+                        break;
+                    case 18:
+                        PlayCanonInD();
+                        break;
+                    case 19:
+                        PlaySuperMarioTheme();
+                        break;
+                    case 20:
+                        PlayTheEntertainer();
+                        break;
+                    case 21:
+                        PlayGreensleeves();
+                        break;
+                    case 22:
+                        PlayRowRowRowYourBoat();
+                        break;
+                    case 23:
+                        PlayMinuetInG();
                         break;
                 }
             }
@@ -410,6 +434,156 @@ namespace NeoBleeper
                 }
             }
         }
+        private void PlayFurElise()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 659, 300 }, // E5
+                new int[] { 622, 300 }, // D#5
+                new int[] { 659, 300 }, // E5
+                new int[] { 622, 300 }, // D#5
+                new int[] { 659, 300 }, // E5
+                new int[] { 494, 300 }, // B4
+                new int[] { 587, 300 }, // D5
+                new int[] { 523, 300 }, // C5
+                new int[] { 440, 600 }, // A4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayTetrisTheme()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 659, 300 }, // E5
+                new int[] { 494, 300 }, // B4
+                new int[] { 523, 300 }, // C5
+                new int[] { 587, 300 }, // D5
+                new int[] { 523, 300 }, // C5
+                new int[] { 494, 300 }, // B4
+                new int[] { 440, 300 }, // A4
+                new int[] { 440, 300 }, // A4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlaySuperMarioTheme()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 660, 100 }, // E5
+                new int[] { 660, 100 }, // E5
+                new int[] { 660, 100 }, // E5
+                new int[] { 510, 100 }, // B4
+                new int[] { 660, 100 }, // E5
+                new int[] { 770, 100 }, // G5
+                new int[] { 380, 100 }, // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayCanonInD()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 293, 500 }, // D4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }  // E4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayTheEntertainer()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 300 }, // G4
+                new int[] { 440, 300 }, // A4
+                new int[] { 392, 300 }, // G4
+                new int[] { 349, 300 }, // F4
+                new int[] { 329, 300 }, // E4
+                new int[] { 349, 300 }, // F4
+                new int[] { 392, 600 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayMinuetInG()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 1000 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayGreensleeves()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 1000 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+        private void PlayRowRowRowYourBoat()
+        {
+            int[][] melody = new int[][]
+            {
+                new int[] { 392, 500 }, // G4
+                new int[] { 440, 500 }, // A4
+                new int[] { 392, 500 }, // G4
+                new int[] { 349, 500 }, // F4
+                new int[] { 329, 500 }, // E4
+                new int[] { 349, 500 }, // F4
+                new int[] { 392, 1000 }  // G4
+            };
+
+            foreach (int[] note in melody)
+            {
+                NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
+            }
+        }
+
+
         private void PlayJingleBells()
         {
             int[][] melody = new int[][]
