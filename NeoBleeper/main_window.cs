@@ -3540,7 +3540,7 @@ namespace NeoBleeper
                     for (int i = 1; i <= Line; i++)
                     {
                         beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
-                        if (beat > trackBar_time_signature.Value)
+                        if (beat >= trackBar_time_signature.Value)
                         {
                             measure++;
                             beat = 0;
@@ -3582,21 +3582,45 @@ namespace NeoBleeper
         }
         private void play_beat()
         {
-            int frequency = Convert.ToInt32(GetFrequencyFromNoteName("C2"));
-            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 18))));
-            if(Program.creating_sounds.is_system_speaker_muted==false || Program.creating_sounds.create_beep_with_soundcard == true)
+            // Basic frequencies
+            int snareFrequency = Convert.ToInt32(GetFrequencyFromNoteName("D2"));
+            int kickFrequency = Convert.ToInt32(GetFrequencyFromNoteName("E2"));
+            int hiHatFrequency = Convert.ToInt32(GetFrequencyFromNoteName("F#2"));
+
+            // Calculate length based on BPM
+            double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
+            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 8) * calculatedLengthFactor)));
+
+            // Perkusif desen oluþturma
+            for (int i = 0; i < 2; i++) // 2 beats
             {
-                NotePlayer.play_note(frequency, length);
-            }
-            else
-            {
-                NonBlockingSleep.Sleep(length);
-            }
-            if(Program.MIDIDevices.useMIDIoutput == true)
-            {
-                Task.Run(() =>
+                if (i % 2 == 0) // Kick 
                 {
-                    play_metronome_sound(frequency, length);
+                    NotePlayer.play_note(kickFrequency, length);
+                }
+                else // Snare
+                {
+                    NotePlayer.play_note(snareFrequency, length);
+                }
+
+                // Her vuruþ arasýnda kýsa bir duraklama
+            }
+            NonBlockingSleep.Sleep(length / 2);
+            // Add hi-hat sound
+            NotePlayer.play_note(hiHatFrequency, length / 2);
+
+            // Percussion sound for MIDI output
+            if (Program.MIDIDevices.useMIDIoutput)
+            {
+                Task.Run(async () =>
+                {
+                    int midiSnare = 38; // Snare Drum
+                    int midiKick = 35;  // Bass Drum
+                    int midiHiHat = 42; // Closed Hi-Hat
+
+                    await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiKick, length);
+                    await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiSnare, length);
+                    await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiHiHat, length / 2);
                 });
             }
         }
