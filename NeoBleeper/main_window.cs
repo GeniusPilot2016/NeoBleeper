@@ -2529,7 +2529,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private async void play_music(int index)
+        private void play_music(int index)
         {
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
@@ -2545,7 +2545,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)(60000 / Variables.bpm)));
                 }
                 line_length_calculator();
                 note_length_calculator();
@@ -2571,12 +2571,12 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                if (waitDuration - noteDuration > 0)
-                {
-                    await Task.Delay(waitDuration - noteDuration);
+                if (waitDuration - noteDuration > 0) 
+                { 
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration); 
                 }
-                // Do ListView update in UI thread
-                await Task.Run(() => { UpdateListViewSelectionSync(index); });
+                    // Do ListView update in UI thread
+                    UpdateListViewSelectionSync(index);
             }
             if (trackBar_note_silence_ratio.Value == 100)
             {
@@ -3369,49 +3369,49 @@ namespace NeoBleeper
                 }
             }
 
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-            }
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-            }
-            else
-            {
-                if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
                     UpdateLabelVisible(true);
-                }
-                int note_order = 1;
-                int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
-                if (radioButtonPlay_alternating_notes1.Checked == true)
-                {
-                    string[] note_series = { note1, note2, note3, note4 };
-                    do
+                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
+                    if (nonStopping == false)
                     {
-                        foreach (string note in note_series)
+                        UpdateLabelVisible(false);
+                    }
+                }
+                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
+                {
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
+                    if (nonStopping == false)
+                    {
+                        UpdateLabelVisible(false);
+                    }
+                }
+                else
+                {
+                    if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                    {
+                        UpdateLabelVisible(true);
+                    }
+                    int note_order = 1;
+                    int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
+                    if (radioButtonPlay_alternating_notes1.Checked == true)
+                    {
+                        string[] note_series = { note1, note2, note3, note4 };
+                        do
                         {
-                            if (!string.IsNullOrEmpty(note))
+                            foreach (string note in note_series)
                             {
-                                double frequency = GetFrequencyFromNoteName(note);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                note_order++;
+                                if (!string.IsNullOrEmpty(note))
+                                {
+                                    double frequency = GetFrequencyFromNoteName(note);
+                                    NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    note_order++;
+                                }
                             }
                         }
+                        while (note_order < last_note_order);
                     }
-                    while (note_order < last_note_order);
-                }
 
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
