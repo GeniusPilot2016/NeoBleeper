@@ -20,6 +20,8 @@ namespace NeoBleeper
     {
         public string output = "";
         PrivateFontCollection fonts = new PrivateFontCollection();
+        int preferredAIModel = Settings1.Default.preferredAIModel;
+        String AIModel = "models/gemini-2.0-flash";
         public CreateMusicWithAI()
         {
             fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
@@ -30,6 +32,8 @@ namespace NeoBleeper
             }
             InitializeComponent();
             set_theme();
+            comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
+            ApplyAIModelChanges();
             if (!IsInternetAvailable())
             {
                 Debug.WriteLine("Internet connection is not available. Please check your connection.");
@@ -113,7 +117,7 @@ namespace NeoBleeper
                 SetControlsEnabled(false);
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
-                var googleModel = googleAI.CreateGenerativeModel("models/gemini-2.0-flash");
+                var googleModel = googleAI.CreateGenerativeModel(AIModel);
                 var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[{textBoxPrompt.Text}]**\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
                     $"Based on the User Prompt above, generate a sequence of <Line> elements to replace the placeholder section within the <LineList> below.\r\n" +
@@ -161,9 +165,14 @@ namespace NeoBleeper
                     output = googleResponse.Text();
 
                     // Remove ```xml and any surrounding text
-                    output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline);
+                    output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*```\s*$", String.Empty);
-
+                    output = Regex.Replace(output, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*1/2\s*$", "Half", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*1/4\s*$", "Quarter", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Eigth\s*$", "1/8", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                 }
@@ -215,10 +224,43 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void ApplyAIModelChanges()
+        {
+            switch (comboBox_ai_model.SelectedIndex)
+            {
+                case 0:
+                    AIModel = "models/gemini-2.0-flash";
+                    break;
+                case 1:
+                    AIModel = "models/gemini-2.0-flash-lite";
+                    break;
+                case 2:
+                    AIModel = "models/gemini-1.5-pro";
+                    break;
+                case 3:
+                    AIModel = "models/gemini-1.5-flash";
+                    break;
+                case 4:
+                    AIModel = "models/gemini-1.5-flash-8b";
+                    break;
+                default:
+                    AIModel = "models/gemini-2.0-flash";
+                    break;
+            }
+        }
         private void CreateMusicWithAI_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox_ai_model.SelectedIndex != Settings1.Default.preferredAIModel)
+            {
+                Settings1.Default.preferredAIModel = comboBox_ai_model.SelectedIndex;
+                Settings1.Default.Save();
+                ApplyAIModelChanges();
+            }
         }
     }
 }

@@ -31,6 +31,12 @@ namespace NeoBleeper
             public static int MIDIOutputDeviceChannel=0;
             public static int MIDIInputDevice=0;
         }
+        public static class BeatTypes
+        {
+            public static int beat_type = 0; // 0 = Play beat sound on all beats (for music with slow tempo)
+            // 1 = Play beat sound on odd-numbered beats (for music with fast tempo)
+            // 2 = Play beat sound on even-numbered beats (for music with fast tempo)
+        }
         [STAThread]
         static void Main()
         {

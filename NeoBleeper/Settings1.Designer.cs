@@ -189,5 +189,17 @@ namespace NeoBleeper {
                 this["geminiAPIKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int preferredAIModel {
+            get {
+                return ((int)(this["preferredAIModel"]));
+            }
+            set {
+                this["preferredAIModel"] = value;
+            }
+        }
     }
 }

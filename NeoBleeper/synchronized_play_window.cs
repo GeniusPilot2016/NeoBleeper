@@ -18,7 +18,7 @@ namespace NeoBleeper
             this.mainWindow.MusicStopped += MainWindow_MusicStopped;
             fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
             fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            PrivateFontCollection black_font = new PrivateFontCollection(); ;
+            PrivateFontCollection black_font = new PrivateFontCollection();
             foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)

@@ -12,6 +12,7 @@ namespace NeoBleeper
 {
     public partial class main_window : Form
     {
+        private play_beat_window play_Beat_Window;
         private bool isModified = false;
         private CommandManager commandManager;
         private Originator originator;
@@ -521,6 +522,14 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            if (checkBox_synchronized_play.Checked == true)
+            {
+                checkBox_synchronized_play.Checked = false;
+            }
+            if(checkBox_play_beat_sound.Checked == true)
+            {
+                checkBox_play_beat_sound.Checked = false;
+            }
             settings_window settings = new settings_window();
             settings.ColorsAndThemeChanged += refresh_main_window_elements_color;
             settings.ColorsAndThemeChanged += (s, args) =>
@@ -529,6 +538,11 @@ namespace NeoBleeper
                 if (synchronizedPlayWindow != null)
                 {
                     synchronizedPlayWindow.set_theme();
+                }
+                play_beat_window playBeatWindow = checkBox_play_beat_sound.Tag as play_beat_window;
+                if (playBeatWindow != null)
+                {
+                    playBeatWindow.set_theme();
                 }
             };
             settings.ShowDialog();
@@ -716,7 +730,7 @@ namespace NeoBleeper
         {
             if (checkBox_add_note_to_list.Checked == true)
             {
-                updateIndicators(listViewNotes.Items.Count - 1);
+                updateIndicators(listViewNotes.Items.Count - 1, true);
             }
         }
         private void button_c3_Click(object sender, EventArgs e)
@@ -1858,7 +1872,7 @@ namespace NeoBleeper
                                     listViewNotes.Items.Add(item);
                                 }
                             }
-                            Debug.WriteLine("NeoBleeper file opened successfully"); 
+                            Debug.WriteLine("NeoBleeper file opened successfully");
                             isModified = false;
                             UpdateFormTitle();
                         }
@@ -2162,45 +2176,51 @@ namespace NeoBleeper
                 return;
             }
         }
-        private void btn_octave_decrease_Click(object sender, EventArgs e)
+        private bool isOctaveChanging = false; // Flag for debouncing
+
+        private async void btn_octave_decrease_Click(object sender, EventArgs e)
         {
-            Variables.octave--;
-            noteLabelsUpdate();
-            if (Variables.octave == 2)
+            if (isOctaveChanging) return; // Don't allow multiple clicks
+            isOctaveChanging = true;
+
+            if (Variables.octave > 2) // Minimum limit check
             {
-                btn_octave_decrease.Enabled = false;
+                Variables.octave--;
+                noteLabelsUpdate();
+                if(Variables.octave == 8)
+                {
+                    octave10NoteLabelShiftToRight(); // Shift labels to the right
+                }
+                if (Variables.octave == 2)
+                {
+                    btn_octave_decrease.Enabled = false; // Disable button at minimum limit
+                }
+                btn_octave_increase.Enabled = true; // Enable the other button
             }
-            else if (Variables.octave == 8)
-            {
-                btn_octave_increase.Enabled = true;
-            }
-            if (Variables.octave == 8)
-            {
-                octave10NoteLabelShiftToRight();
-            }
-            Debug.WriteLine("Octave: " + Variables.octave);
+
+            isOctaveChanging = false; // The operation is complete
         }
 
-        private void btn_octave_increase_Click(object sender, EventArgs e)
+        private async void btn_octave_increase_Click(object sender, EventArgs e)
         {
-            Variables.octave++;
-            noteLabelsUpdate();
-            if (Variables.octave == 9)
+            if (isOctaveChanging) return; // Don't allow multiple clicks
+            isOctaveChanging = true;
+
+            if (Variables.octave < 9) // Maximum limit check
             {
-                btn_octave_increase.Enabled = false;
+                Variables.octave++;
+                noteLabelsUpdate();
+
+                if (Variables.octave == 9)
+                {
+                    btn_octave_increase.Enabled = false; // Disable button at maximum limit
+                    octave10NoteLabelShiftToLeft(); // Shift labels to the left
+                }
+                btn_octave_decrease.Enabled = true; // Enable the other button
             }
-            else if (Variables.octave == 3)
-            {
-                btn_octave_decrease.Enabled = true;
-            }
-            if (Variables.octave == 9)
-            {
-                octave10NoteLabelShiftToLeft();
-            }
-            Debug.WriteLine("Octave: " + Variables.octave);
+
+            isOctaveChanging = false; // The operation is complete
         }
-
-
         private void checkBox_dotted_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_triplet.Checked == checkBox_dotted.Checked)
@@ -2514,7 +2534,7 @@ namespace NeoBleeper
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                if(trackBar_note_silence_ratio.Value ==100)
+                if (trackBar_note_silence_ratio.Value == 100)
                 {
                     nonStopping = true;
                 }
@@ -2551,14 +2571,14 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                if (waitDuration - noteDuration > 0) 
-                { 
-                    await Task.Delay(waitDuration - noteDuration); 
+                if (waitDuration - noteDuration > 0)
+                {
+                    await Task.Delay(waitDuration - noteDuration);
                 }
                 // Do ListView update in UI thread
                 await Task.Run(() => { UpdateListViewSelectionSync(index); });
             }
-            if(trackBar_note_silence_ratio.Value==100)
+            if (trackBar_note_silence_ratio.Value == 100)
             {
                 stopAllNotesAfterPlaying();
             }
@@ -2577,7 +2597,7 @@ namespace NeoBleeper
                     listViewNotes.Items[nextIndex].Selected = true;
                     listViewNotes.EnsureVisible(nextIndex);
                 }
-                else if (checkBox_loop.Checked==true)
+                else if (checkBox_loop.Checked == true)
                 {
                     // Loop back to the beginning if looping is enabled
                     if (listViewNotes.Items.Count > 0)
@@ -2586,7 +2606,7 @@ namespace NeoBleeper
                         listViewNotes.EnsureVisible(startIndex);
                     }
                 }
-                else if(checkBox_loop.Checked == false)
+                else if (checkBox_loop.Checked == false)
                 {
                     // Stop playing if no more notes
                     stop_playing();
@@ -2785,7 +2805,8 @@ namespace NeoBleeper
 
         private async void UpdateLabelVisible(bool visible)
         {
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 if (label_beep.InvokeRequired)
                 {
                     label_beep.BeginInvoke(new Action(() =>
@@ -2972,9 +2993,13 @@ namespace NeoBleeper
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                if(Variables.bpm != 0)
+                if (Variables.bpm != 0)
                 {
                     Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)(60000 / Variables.bpm)));
+                }
+                if (listViewNotes.SelectedItems.Count > 0)
+                {
+                    updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
                 note_length_calculator();
                 keyboard_panel.Enabled = false;
@@ -3001,9 +3026,9 @@ namespace NeoBleeper
                 {
                     nonStopping = false;
                 }
-                    play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
-                    checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                    Convert.ToInt32(Math.Truncate(final_note_length)),nonStopping);
+                play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
+                checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
+                Convert.ToInt32(Math.Truncate(final_note_length)), nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3012,10 +3037,6 @@ namespace NeoBleeper
                 numericUpDown_alternating_notes.Enabled = true;
                 numericUpDown_bpm.Enabled = true;
                 checkBox_do_not_update.Enabled = true;
-                if (listViewNotes.SelectedItems.Count > 0)
-                {
-                    updateIndicators(listViewNotes.SelectedIndices[0]);
-                }
                 Debug.WriteLine("Selected line: " + listViewNotes.FocusedItem.Index);
             }
         }
@@ -3223,225 +3244,225 @@ namespace NeoBleeper
 
 
             if (radioButtonPlay_alternating_notes1.Checked == true) // Odd column mode
+            {
+                if (note1 == note2 && note2 == note3 && note3 == note4)
                 {
-                    if (note1 == note2 && note2 == note3 && note3 == note4)
+                    Variables.alternating_note_length *= 4;
+                    note2 = note3 = note4 = string.Empty;
+                }
+                else if (note1 == note2 && note2 == note3)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note2 = note3 = string.Empty;
+                }
+                else if (note1 == note4)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note4 = string.Empty;
+                }
+                else if (note1 == note2)
+                {
+                    if (note1 == note2 && note3 == note4)
                     {
                         Variables.alternating_note_length *= 4;
-                        note2 = note3 = note4 = string.Empty;
-                    }
-                    else if (note1 == note2 && note2 == note3)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note2 = note3 = string.Empty;
-                    }
-                    else if (note1 == note4)
-                    {
-                        Variables.alternating_note_length *= 2;
+                        note2 = string.Empty;
                         note4 = string.Empty;
                     }
-                    else if (note1 == note2)
-                    {
-                        if (note1 == note2 && note3 == note4)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note2 = string.Empty;
-                            note4 = string.Empty;
-                        }
-                        else
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note2 = string.Empty;
-                        }
-                    }
-                    else if (note1 == note3)
+                    else
                     {
                         Variables.alternating_note_length *= 2;
-                        note3 = string.Empty;
+                        note2 = string.Empty;
                     }
-                    else if (note2 == note3)
+                }
+                else if (note1 == note3)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note3 = string.Empty;
+                }
+                else if (note2 == note3)
+                {
+                    Variables.alternating_note_length *= 4;
+                    note3 = string.Empty;
+                }
+                else if (note2 == note4)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note4 = string.Empty;
+                }
+                else if (note3 == note4)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note4 = string.Empty;
+                }
+            }
+            else if (radioButtonPlay_alternating_notes2.Checked == true) // Even column mode
+            {
+                if (note1 == note3 && note3 == note2 && note2 == note4)
+                {
+                    Variables.alternating_note_length *= 4;
+                    note2 = note3 = note4 = string.Empty;
+                }
+                else if (note1 == note3 && note3 == note2)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note2 = note3 = string.Empty;
+                }
+                else if (note1 == note2)
+                {
+                    if (note1 == note3 && note2 == note4)
                     {
                         Variables.alternating_note_length *= 4;
-                        note3 = string.Empty;
+                        note3 = note4 = string.Empty;
                     }
-                    else if (note2 == note4)
+                    else
                     {
                         Variables.alternating_note_length *= 2;
-                        note4 = string.Empty;
-                    }
-                    else if (note3 == note4)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note4 = string.Empty;
+                        note2 = string.Empty;
                     }
                 }
-                else if (radioButtonPlay_alternating_notes2.Checked == true) // Even column mode
+                else if (note1 == note3)
                 {
-                    if (note1 == note3 && note3 == note2 && note2 == note4)
-                    {
-                        Variables.alternating_note_length *= 4;
-                        note2 = note3 = note4 = string.Empty;
-                    }
-                    else if (note1 == note3 && note3 == note2)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note2 = note3 = string.Empty;
-                    }
-                    else if (note1 == note2)
-                    {
-                        if (note1 == note3 && note2 == note4)
-                        {
-                            Variables.alternating_note_length *= 4;
-                            note3 = note4 = string.Empty;
-                        }
-                        else
-                        {
-                            Variables.alternating_note_length *= 2;
-                            note2 = string.Empty;
-                        }
-                    }
-                    else if (note1 == note3)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note3 = string.Empty;
-                    }
-                    else if (note2 == note3)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note3 = string.Empty;
-                    }
-                    else if (note2 == note4)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note4 = string.Empty;
-                    }
-                    else if (note3 == note4)
-                    {
-                        Variables.alternating_note_length *= 2;
-                        note4 = string.Empty;
-                    }
+                    Variables.alternating_note_length *= 2;
+                    note3 = string.Empty;
                 }
-                if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                else if (note2 == note3)
                 {
-                    if(nonStopping == true)
-                    {
-                        stopAllNotesAfterPlaying();
-                    }
-                    NonBlockingSleep.Sleep(Convert.ToInt32(Math.Round(final_note_length)));
-                    return;
+                    Variables.alternating_note_length *= 2;
+                    note3 = string.Empty;
                 }
-                if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                else if (note2 == note4)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note4 = string.Empty;
+                }
+                else if (note3 == note4)
+                {
+                    Variables.alternating_note_length *= 2;
+                    note4 = string.Empty;
+                }
+            }
+            if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+            {
+                if (nonStopping == true)
+                {
+                    stopAllNotesAfterPlaying();
+                }
+                NonBlockingSleep.Sleep(Convert.ToInt32(Math.Round(final_note_length)));
+                return;
+            }
+            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+            {
+                UpdateLabelVisible(true);
+                NotePlayer.play_note(Convert.ToInt32(note1_frequency), length, nonStopping);
+                if (nonStopping == false)
+                {
+                    UpdateLabelVisible(false);
+                }
+            }
+            else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+            {
+                UpdateLabelVisible(true);
+                NotePlayer.play_note(Convert.ToInt32(note2_frequency), length, nonStopping);
+                if (nonStopping == false)
+                {
+                    UpdateLabelVisible(false);
+                }
+            }
+
+            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
+            {
+                UpdateLabelVisible(true);
+                NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
+                if (nonStopping == false)
+                {
+                    UpdateLabelVisible(false);
+                }
+            }
+            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
+            {
+                UpdateLabelVisible(true);
+                NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
+                if (nonStopping == false)
+                {
+                    UpdateLabelVisible(false);
+                }
+            }
+            else
+            {
+                if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
                 {
                     UpdateLabelVisible(true);
-                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), length, nonStopping);
-                    if (nonStopping == false)
-                    {
-                        UpdateLabelVisible(false);
-                    }
                 }
-                else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+                int note_order = 1;
+                int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
+                if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
-                    UpdateLabelVisible(true);
-                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), length, nonStopping);
-                    if (nonStopping == false)
+                    string[] note_series = { note1, note2, note3, note4 };
+                    do
                     {
-                        UpdateLabelVisible(false);
+                        foreach (string note in note_series)
+                        {
+                            if (!string.IsNullOrEmpty(note))
+                            {
+                                double frequency = GetFrequencyFromNoteName(note);
+                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                note_order++;
+                            }
+                        }
                     }
+                    while (note_order < last_note_order);
                 }
 
-                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
+                else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
-                    UpdateLabelVisible(true);
-                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
+                    string[] note_series = { note1, note2, note3, note4 };
+                    do
+                    {
+                        // Odd number columns first (Note1 and Note3)
+                        for (int i = 0; i < 4; i += 2)
+                        {
+                            if (note_series[i] != string.Empty)
+                            {
+                                if (i == 0)
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                }
+                                else if (i == 2)
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                }
+                                note_order++;
+                            }
+                        }
+                        // Even number columns then (Note2 and Note4)
+                        for (int i = 1; i < 4; i += 2)
+                        {
+                            if (note_series[i] != string.Empty)
+                            {
+                                if (i == 1)
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                }
+                                else if (i == 3)
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                }
+                                note_order++;
+                            }
+                        }
+                    }
+                    while (note_order < last_note_order);
+                }
+                if (cancellationTokenSource.Token.IsCancellationRequested) return;
+                if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                {
                     if (nonStopping == false)
                     {
                         UpdateLabelVisible(false);
-                    }
-                }
-                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
-                {
-                    UpdateLabelVisible(true);
-                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
-                    if (nonStopping == false)
-                    {
-                        UpdateLabelVisible(false);
-                    }
-                }
-                else
-                {
-                    if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
-                    {
-                        UpdateLabelVisible(true);
-                    }
-                    int note_order = 1;
-                    int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
-                    if (radioButtonPlay_alternating_notes1.Checked == true)
-                    {
-                        string[] note_series = { note1, note2, note3, note4 };
-                        do
-                        {
-                            foreach (string note in note_series)
-                            {
-                                if (!string.IsNullOrEmpty(note))
-                                {
-                                    double frequency = GetFrequencyFromNoteName(note);
-                                    NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    note_order++;
-                                }
-                            }
-                        }
-                        while (note_order < last_note_order);
-                    }
-
-                    else if (radioButtonPlay_alternating_notes2.Checked == true)
-                    {
-                        string[] note_series = { note1, note2, note3, note4 };
-                        do
-                        {
-                            // Odd number columns first (Note1 and Note3)
-                            for (int i = 0; i < 4; i += 2)
-                            {
-                                if (note_series[i] != string.Empty)
-                                {
-                                    if (i == 0)
-                                    {
-                                        NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    }
-                                    else if (i == 2)
-                                    {
-                                        NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    }
-                                    note_order++;
-                                }
-                            }
-                            // Even number columns then (Note2 and Note4)
-                            for (int i = 1; i < 4; i += 2)
-                            {
-                                if (note_series[i] != string.Empty)
-                                {
-                                    if (i == 1)
-                                    {
-                                        NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    }
-                                    else if (i == 3)
-                                    {
-                                        NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    }
-                                    note_order++;
-                                }
-                            }
-                        }
-                        while (note_order < last_note_order);
-                    }
-                    if (cancellationTokenSource.Token.IsCancellationRequested) return;
-                    if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
-                    {
-                        if (nonStopping == false)
-                        {
-                            UpdateLabelVisible(false);
-                        }
                     }
                 }
             }
+        }
 
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -3507,31 +3528,75 @@ namespace NeoBleeper
                 return;
             }
         }
-        private void updateIndicators(int Line)
+        private void updateIndicators(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
             {
-                Task.Run(() =>
+                int measure = 1;
+                double beat = 0;
+                double beat_number = 1;
+                if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    int measure = 1;
-                    double beat = 0;
-                    if (listViewNotes.SelectedItems.Count > 0)
+                    for (int i = 1; i <= Line; i++)
                     {
-                        for (int i = 1; i <= Line; i++)
+                        beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
+                        if (beat > trackBar_time_signature.Value)
                         {
-                            beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
-                            if (beat > trackBar_time_signature.Value)
-                            {
-                                measure++;
-                                beat = 0;
+                            measure++;
+                            beat = 0;
 
-                            }
                         }
                     }
+                }
+                beat_number = beat + 1;
+                Task.Run(() =>
+                {
                     lbl_measure_value.Text = measure.ToString();
-                    lbl_beat_value.Text = FormatNumber(beat + 1);
+                    lbl_beat_value.Text = FormatNumber(beat_number);
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
+                });
+                if (clicked == false && beat_number - Math.Truncate(beat_number) == 0)
+                {
+                    switch(Program.BeatTypes.beat_type)
+                    {
+                        case 0:
+                            play_beat();
+                            break;
+                        case 1:
+                            if(beat_number % 2 != 0)
+                            {
+                                play_beat();
+                            }
+                            break;
+                        case 2:
+                            if (beat_number % 2 == 0)
+                            {
+                                play_beat();
+                            }
+                            break;
+                    }
+                    
+                }
+            }
+        }
+        private void play_beat()
+        {
+            int frequency = Convert.ToInt32(GetFrequencyFromNoteName("C2"));
+            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 18))));
+            if(Program.creating_sounds.is_system_speaker_muted==false || Program.creating_sounds.create_beep_with_soundcard == true)
+            {
+                NotePlayer.play_note(frequency, length);
+            }
+            else
+            {
+                NonBlockingSleep.Sleep(length);
+            }
+            if(Program.MIDIDevices.useMIDIoutput == true)
+            {
+                Task.Run(() =>
+                {
+                    play_metronome_sound(frequency, length);
                 });
             }
         }
@@ -4420,6 +4485,18 @@ namespace NeoBleeper
 
         private void checkBox_do_not_update_CheckedChanged(object sender, EventArgs e)
         {
+            var play_Beat_Window = checkBox_play_beat_sound.Tag as play_beat_window;
+            if (play_Beat_Window != null)
+            {
+                if (checkBox_do_not_update.Checked && checkBox_play_beat_sound.Checked)
+                {
+                    play_Beat_Window.label_uncheck_do_not_update.Visible = true;
+                }
+                else
+                {
+                    play_Beat_Window.label_uncheck_do_not_update.Visible = false;
+                }
+            }
             Debug.WriteLine($"Checked state of do not update is changed to: {checkBox_do_not_update.Checked}");
         }
 
@@ -4559,6 +4636,37 @@ namespace NeoBleeper
             // Oktav farkýný hesaplama
             int octaveDifference = octave - 4; // 4th octave is the reference octave
             return baseFrequency * Math.Pow(2, octaveDifference);
+        }
+        private void openPlayBeatSoundWindow()
+        {
+            if (play_Beat_Window == null || play_Beat_Window.IsDisposed)
+            {
+                play_Beat_Window = new play_beat_window(this);
+            }
+            play_Beat_Window.Show();
+            checkBox_play_beat_sound.Tag = play_Beat_Window;
+        }
+        private void closePlayBeatSoundWindow()
+        {
+            play_beat_window play_Beat_Window = checkBox_play_beat_sound.Tag as play_beat_window;
+            play_Beat_Window.Close();
+        }
+        private void checkBox_play_beat_sound_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_play_beat_sound.Checked == true)
+            {
+                if (checkBox_do_not_update.Checked == true)
+                {
+                    checkBox_do_not_update.Checked = false;
+                }
+                openPlayBeatSoundWindow();
+                Debug.WriteLine("Play a beat sound window is opened."); 
+            }
+            else if (checkBox_play_beat_sound.Checked == false)
+            {
+                closePlayBeatSoundWindow();
+                Debug.WriteLine("Play a beat sound window is closed.");
+            }
         }
     }
 }

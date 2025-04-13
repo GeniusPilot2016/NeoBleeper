@@ -1008,6 +1008,7 @@
             NeoBleeper_help.SetShowHelp(checkBox_play_beat_sound, (bool)resources.GetObject("checkBox_play_beat_sound.ShowHelp"));
             toolTip1.SetToolTip(checkBox_play_beat_sound, resources.GetString("checkBox_play_beat_sound.ToolTip"));
             checkBox_play_beat_sound.UseVisualStyleBackColor = true;
+            checkBox_play_beat_sound.CheckedChanged += checkBox_play_beat_sound_CheckedChanged;
             // 
             // checkBox_staccato
             // 

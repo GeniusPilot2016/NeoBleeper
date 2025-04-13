@@ -35,6 +35,8 @@
             buttonCreate = new Button();
             images = new ImageList(components);
             labelPoweredByGemini = new Label();
+            comboBox_ai_model = new ComboBox();
+            label_ai_model = new Label();
             SuspendLayout();
             // 
             // labelPrompt
@@ -42,7 +44,7 @@
             labelPrompt.Anchor = AnchorStyles.None;
             labelPrompt.AutoSize = true;
             labelPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            labelPrompt.Location = new Point(24, 41);
+            labelPrompt.Location = new Point(25, 68);
             labelPrompt.Margin = new Padding(2, 0, 2, 0);
             labelPrompt.Name = "labelPrompt";
             labelPrompt.Size = new Size(61, 20);
@@ -53,7 +55,7 @@
             // 
             textBoxPrompt.Anchor = AnchorStyles.None;
             textBoxPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            textBoxPrompt.Location = new Point(91, 38);
+            textBoxPrompt.Location = new Point(92, 65);
             textBoxPrompt.Margin = new Padding(2);
             textBoxPrompt.Name = "textBoxPrompt";
             textBoxPrompt.Size = new Size(288, 27);
@@ -67,7 +69,7 @@
             buttonCreate.Font = new Font("HarmonyOS Sans", 8.999999F);
             buttonCreate.ImageIndex = 1;
             buttonCreate.ImageList = images;
-            buttonCreate.Location = new Point(385, 35);
+            buttonCreate.Location = new Point(386, 62);
             buttonCreate.Margin = new Padding(2);
             buttonCreate.Name = "buttonCreate";
             buttonCreate.Size = new Size(128, 32);
@@ -94,7 +96,7 @@
             labelPoweredByGemini.ImageAlign = ContentAlignment.MiddleLeft;
             labelPoweredByGemini.ImageIndex = 0;
             labelPoweredByGemini.ImageList = images;
-            labelPoweredByGemini.Location = new Point(139, 89);
+            labelPoweredByGemini.Location = new Point(140, 116);
             labelPoweredByGemini.Margin = new Padding(2, 0, 2, 0);
             labelPoweredByGemini.Name = "labelPoweredByGemini";
             labelPoweredByGemini.Size = new Size(232, 20);
@@ -102,16 +104,43 @@
             labelPoweredByGemini.Text = "      Powered by Google Gemini™";
             labelPoweredByGemini.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // comboBox_ai_model
+            // 
+            comboBox_ai_model.Anchor = AnchorStyles.None;
+            comboBox_ai_model.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox_ai_model.FormattingEnabled = true;
+            comboBox_ai_model.Items.AddRange(new object[] { "Gemini 2.0 Flash", "Gemini 2.0 Flash Lite", "Gemini 1.5 Pro", "Gemini 1.5 Flash", "Gemini 1.5 Flash-8B" });
+            comboBox_ai_model.Location = new Point(92, 22);
+            comboBox_ai_model.Name = "comboBox_ai_model";
+            comboBox_ai_model.Size = new Size(288, 28);
+            comboBox_ai_model.TabIndex = 4;
+            comboBox_ai_model.SelectedIndexChanged += comboBox_ai_model_SelectedIndexChanged;
+            // 
+            // label_ai_model
+            // 
+            label_ai_model.Anchor = AnchorStyles.None;
+            label_ai_model.AutoSize = true;
+            label_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F);
+            label_ai_model.Location = new Point(16, 25);
+            label_ai_model.Margin = new Padding(2, 0, 2, 0);
+            label_ai_model.Name = "label_ai_model";
+            label_ai_model.Size = new Size(70, 20);
+            label_ai_model.TabIndex = 0;
+            label_ai_model.Text = "AI Model";
+            // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(539, 135);
+            ClientSize = new Size(539, 157);
+            Controls.Add(comboBox_ai_model);
             Controls.Add(labelPoweredByGemini);
             Controls.Add(buttonCreate);
             Controls.Add(textBoxPrompt);
+            Controls.Add(label_ai_model);
             Controls.Add(labelPrompt);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(2);
@@ -133,5 +162,7 @@
         private Button buttonCreate;
         private Label labelPoweredByGemini;
         private ImageList images;
+        private ComboBox comboBox_ai_model;
+        private Label label_ai_model;
     }
 }
