@@ -82,7 +82,7 @@ namespace NeoBleeper
             buttonCreate.ForeColor = Color.White;
             textBoxPrompt.BackColor = Color.Black;
             textBoxPrompt.ForeColor = Color.White;
-            comboBox_ai_model.BackColor = Color.FromArgb(32, 32, 32);
+            comboBox_ai_model.BackColor = Color.Black;
             comboBox_ai_model.ForeColor = Color.White;
             this.ForeColor = Color.White;
         }
