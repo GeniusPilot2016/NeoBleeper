@@ -3410,7 +3410,7 @@ namespace NeoBleeper
                                 }
                             }
                         }
-                        while (note_order < last_note_order);
+                        while (note_order <= last_note_order);
                     }
 
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
@@ -3451,7 +3451,7 @@ namespace NeoBleeper
                             }
                         }
                     }
-                    while (note_order < last_note_order);
+                    while (note_order <= last_note_order);
                 }
                 if (cancellationTokenSource.Token.IsCancellationRequested) return;
                 if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
