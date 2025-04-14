@@ -47,5 +47,11 @@
     <Setting Name="preferredAIModel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="Key" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ohf3aR688kaRYSTu7lMeXPoSVUTFcS+WgraFY3mxda0=</Value>
+    </Setting>
+    <Setting Name="IV" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TZnoSs4H8yQZ8kQTgZ7xwg==</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

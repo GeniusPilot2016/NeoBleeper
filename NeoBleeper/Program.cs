@@ -59,6 +59,7 @@ namespace NeoBleeper
             {
                 Settings1.Default.geminiAPIKey = String.Empty;
                 Settings1.Default.Save();
+                EncryptionHelper.ChangeKeyAndIV();
                 MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Debug.WriteLine("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.");
             }

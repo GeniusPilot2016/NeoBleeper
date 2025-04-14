@@ -201,5 +201,29 @@ namespace NeoBleeper {
                 this["preferredAIModel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ohf3aR688kaRYSTu7lMeXPoSVUTFcS+WgraFY3mxda0=")]
+        public string Key {
+            get {
+                return ((string)(this["Key"]));
+            }
+            set {
+                this["Key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("TZnoSs4H8yQZ8kQTgZ7xwg==")]
+        public string IV {
+            get {
+                return ((string)(this["IV"]));
+            }
+            set {
+                this["IV"] = value;
+            }
+        }
     }
 }

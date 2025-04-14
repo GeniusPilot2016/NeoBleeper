@@ -1,3 +1,4 @@
+using NeoBleeper;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -11,8 +12,8 @@ public class EncryptionHelper
     static EncryptionHelper()
     {
         // Retrieve the key and IV from environment variables
-        string keyBase64 = Environment.GetEnvironmentVariable("Key");
-        string ivBase64 = Environment.GetEnvironmentVariable("IV");
+        string keyBase64 = Settings1.Default.Key;
+        string ivBase64 = Settings1.Default.IV;
 
         if (string.IsNullOrEmpty(keyBase64) || string.IsNullOrEmpty(ivBase64))
         {
@@ -71,6 +72,22 @@ public class EncryptionHelper
             {
                 return srDecrypt.ReadToEnd();
             }
+        }
+    }
+    public static void ChangeKeyAndIV()
+    {
+        // Generate a new key and IV
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.GenerateKey();
+            aesAlg.GenerateIV();
+            // Convert the key and IV to base64 strings
+            string newKeyBase64 = Convert.ToBase64String(aesAlg.Key);
+            string newIVBase64 = Convert.ToBase64String(aesAlg.IV);
+            // Store the new key and IV in environment variables
+            Settings1.Default.Key = newKeyBase64;
+            Settings1.Default.IV = newIVBase64;
+            Settings1.Default.Save();
         }
     }
 }
