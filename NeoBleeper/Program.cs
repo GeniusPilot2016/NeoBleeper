@@ -65,7 +65,31 @@ namespace NeoBleeper
             }
             try
             {
-                switch(Screen.PrimaryScreen.Bounds.Width >= 1024 || Screen.PrimaryScreen.Bounds.Height >= 768)
+                // Clear any previously shown warnings
+                bool apiKeyWarningShown = false;
+
+                // Check if we have an API key to verify
+                if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                {
+                    try
+                    {
+                        // Try to decrypt the API key
+                        string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                        Debug.WriteLine("API key validation successful");
+                    }
+                    catch (Exception ex)
+                    {
+                        // If decryption fails, reset the key and show warning
+                        Debug.WriteLine("API key validation failed: " + ex.Message);
+                        Settings1.Default.geminiAPIKey = String.Empty;
+                        Settings1.Default.Save();
+                        EncryptionHelper.ChangeKeyAndIV();
+                        MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.",
+                            String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        apiKeyWarningShown = true;
+                    }
+                }
+                switch (Screen.PrimaryScreen.Bounds.Width >= 1024 || Screen.PrimaryScreen.Bounds.Height >= 768)
                 {
                     case false:
                         {

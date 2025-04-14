@@ -1268,16 +1268,22 @@ namespace NeoBleeper
             }
         }
 
+        // Replace the buttonUpdateAPIKey_Click method
         private void buttonUpdateAPIKey_Click(object sender, EventArgs e)
         {
             try
             {
+                // Generate new encryption keys first
                 EncryptionHelper.ChangeKeyAndIV();
+
+                // Now encrypt and save the API key with the new keys
                 Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
                 Settings1.Default.Save();
+
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = true;
                 MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Debug.WriteLine("API key saved successfully with new encryption keys");
             }
             catch (Exception ex)
             {
@@ -1285,6 +1291,7 @@ namespace NeoBleeper
                 MessageBox.Show("Error saving API key: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
         {
