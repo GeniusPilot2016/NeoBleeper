@@ -1272,6 +1272,7 @@ namespace NeoBleeper
         {
             try
             {
+                EncryptionHelper.ChangeKeyAndIV();
                 Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
                 Settings1.Default.Save();
                 buttonUpdateAPIKey.Enabled = false;
@@ -1303,6 +1304,7 @@ namespace NeoBleeper
             {
                 Settings1.Default.geminiAPIKey = string.Empty;
                 Settings1.Default.Save();
+                EncryptionHelper.ChangeKeyAndIV();
                 textBoxAPIKey.Text = string.Empty;
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
