@@ -1600,9 +1600,103 @@ namespace NeoBleeper
                     checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
                     checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
                     checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                    // Assign default values if none of the radiobuttons are checked
                     if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
                     {
                         add_as_note1.Checked = true;
+                    }
+                    // Assign default values if no time signature is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.TimeSignature))
+                    {
+                        trackBar_time_signature.Value = 4; // Default value
+                        lbl_time_signature.Text = "4";
+                        Debug.WriteLine("Time signature not found, defaulting to 4");
+                    }
+                    // Assign default values if no note silence ratio is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+                    {
+                        Variables.note_silence_ratio = 0.5; // Default value
+                        lbl_note_silence_ratio.Text = "50%";
+                        Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                    }
+                    // Assign default values if no note length is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteLength))
+                    {
+                        comboBox_note_length.SelectedIndex = 0; // Default value
+                        Debug.WriteLine("Note length not found, defaulting to Whole");
+                    }
+                    // Assign default values if no alternating note length is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
+                    {
+                        Variables.alternating_note_length = 30; // Default value
+                        numericUpDown_alternating_notes.Value = 30;
+                        Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                    }
+                    // Assign default values if no note click play is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickPlay))
+                    {
+                        checkbox_play_note.Checked = true; // Default value
+                        Debug.WriteLine("Note click play not found, defaulting to true");
+                    }
+                    // Assign default values if no note click add is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickAdd))
+                    {
+                        checkBox_add_note_to_list.Checked = true; // Default value
+                        Debug.WriteLine("Note click add not found, defaulting to true");
+                    }
+                    // Assign default values if no note replace is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteReplace))
+                    {
+                        checkBox_replace.Checked = false; // Default value
+                        Debug.WriteLine("Note replace not found, defaulting to false");
+                    }
+                    // Assign default values if no note length replace is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
+                    {
+                        checkBox_replace_length.Checked = false; // Default value
+                        Debug.WriteLine("Note length replace not found, defaulting to false");
+                    }
+                    // Assign default values if no click play note is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
+                    {
+                        checkBox_play_note1_clicked.Checked = true; // Default value
+                        Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
+                    {
+                        checkBox_play_note2_clicked.Checked = true; // Default value
+                        Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
+                    {
+                        checkBox_play_note3_clicked.Checked = true; // Default value
+                        Debug.WriteLine("Click play note 3 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
+                    {
+                        checkBox_play_note3_clicked.Checked = true; // Default value
+                        Debug.WriteLine("Click play note 4 not found, defaulting to true");
+                    }
+                    // Assign default values if no play note is found
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote1))
+                    {
+                        checkBox_play_note1_played.Checked = true; // Default value
+                        Debug.WriteLine("Play note 1 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote2))
+                    {
+                        checkBox_play_note2_played.Checked = true; // Default value
+                        Debug.WriteLine("Play note 2 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote3))
+                    {
+                        checkBox_play_note3_played.Checked = true; // Default value
+                        Debug.WriteLine("Play note 3 not found, defaulting to true");
+                    }
+                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote4))
+                    {
+                        checkBox_play_note4_played.Checked = true; // Default value
+                        Debug.WriteLine("Play note 4 not found, defaulting to true");
                     }
                     noteLabelsUpdate();
                     if (Variables.octave == 9)
@@ -1723,9 +1817,84 @@ namespace NeoBleeper
                                     }
                                 }
                             }
+                            // Assign default values if none of the radiobuttons are checked
                             if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
                             {
                                 add_as_note1.Checked = true;
+                                Debug.WriteLine("No note type selected, defaulting to Note 1");
+                            }
+                            // Assign default values if no time signature is found
+                            if (!lines.Any(line => line.StartsWith("TimeSig")))
+                            {
+                                trackBar_time_signature.Value = 4; // Default value
+                                lbl_time_signature.Text = "4";
+                                Debug.WriteLine("Time signature not found, defaulting to 4");
+                            }
+                            // Assign default values if no note silence ratio is found
+                            if (!lines.Any(line => line.StartsWith("NoteSilenceRatio")))
+                            {
+                                Variables.note_silence_ratio = 0.5; // Default value
+                                lbl_note_silence_ratio.Text = "50%";
+                                Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                            }
+                            // Assign default values if no note length is found
+                            if (!lines.Any(line => line.StartsWith("NoteLength")))
+                            {
+                                comboBox_note_length.SelectedIndex = 0; // Default value
+                                Debug.WriteLine("Note length not found, defaulting to Whole");
+                            }
+                            // Assign default values if no alternating note length is found
+                            if (!lines.Any(line => line.StartsWith("AlternateTime")))
+                            {
+                                Variables.alternating_note_length = 30; // Default value
+                                numericUpDown_alternating_notes.Value = 30;
+                                Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                            }
+                            // Assign default values if no note click play is found
+                            if (!lines.Any(line => line.StartsWith("NoteClickPlay")))
+                            {
+                                checkbox_play_note.Checked = true; // Default value
+                                Debug.WriteLine("Note click play not found, defaulting to true");
+                            }
+                            // Assign default values if no note click add is found
+                            if (!lines.Any(line => line.StartsWith("NoteClickAdd")))
+                            {
+                                checkBox_add_note_to_list.Checked = true; // Default value
+                                Debug.WriteLine("Note click add not found, defaulting to true");
+                            }
+                            // Assign default values if no note replace is found
+                            if (!lines.Any(line => line.StartsWith("NoteReplace")))
+                            {
+                                checkBox_replace.Checked = false; // Default value
+                                Debug.WriteLine("Note replace not found, defaulting to false");
+                            }
+                            // Assign default values if no note length replace is found
+                            if (!lines.Any(line => line.StartsWith("NoteLengthReplace")))
+                            {
+                                checkBox_replace_length.Checked = false; // Default value
+                                Debug.WriteLine("Note length replace not found, defaulting to false");
+                            }
+                            // Assign default values if no click play note is found
+                            if (!lines.Any(line => line.StartsWith("ClickPlayNote1")))
+                            {
+                                checkBox_play_note1_clicked.Checked = true; // Default value
+                                Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                            }
+                            if (!lines.Any(line => line.StartsWith("ClickPlayNote2")))
+                            {
+                                checkBox_play_note2_clicked.Checked = true; // Default value
+                                Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                            }
+                            // Assign default values if no play note is found
+                            if (!lines.Any(line => line.StartsWith("PlayNote1")))
+                            {
+                                checkBox_play_note1_played.Checked = true; // Default value
+                                Debug.WriteLine("Play note 1 not found, defaulting to true");
+                            }
+                            if (!lines.Any(line => line.StartsWith("PlayNote2")))
+                            {
+                                checkBox_play_note2_played.Checked = true; // Default value
+                                Debug.WriteLine("Play note 2 not found, defaulting to true");
                             }
                             noteLabelsUpdate();
                             if (Variables.octave == 9)
@@ -1847,9 +2016,103 @@ namespace NeoBleeper
                                 checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
                                 checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
                                 checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
+                                // Assign default values if none of the radiobuttons are checked
                                 if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
                                 {
                                     add_as_note1.Checked = true;
+                                }
+                                // Assign default values if no time signature is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.TimeSignature))
+                                {
+                                    trackBar_time_signature.Value = 4; // Default value
+                                    lbl_time_signature.Text = "4";
+                                    Debug.WriteLine("Time signature not found, defaulting to 4");
+                                }
+                                // Assign default values if no note silence ratio is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+                                {
+                                    Variables.note_silence_ratio = 0.5; // Default value
+                                    lbl_note_silence_ratio.Text = "50%";
+                                    Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                                }
+                                // Assign default values if no note length is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteLength))
+                                {
+                                    comboBox_note_length.SelectedIndex = 0; // Default value
+                                    Debug.WriteLine("Note length not found, defaulting to Whole");
+                                }
+                                // Assign default values if no alternating note length is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
+                                {
+                                    Variables.alternating_note_length = 30; // Default value
+                                    numericUpDown_alternating_notes.Value = 30;
+                                    Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                                }
+                                // Assign default values if no note click play is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickPlay))
+                                {
+                                    checkbox_play_note.Checked = true; // Default value
+                                    Debug.WriteLine("Note click play not found, defaulting to true");
+                                }
+                                // Assign default values if no note click add is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickAdd))
+                                {
+                                    checkBox_add_note_to_list.Checked = true; // Default value
+                                    Debug.WriteLine("Note click add not found, defaulting to true");
+                                }
+                                // Assign default values if no note replace is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteReplace))
+                                {
+                                    checkBox_replace.Checked = false; // Default value
+                                    Debug.WriteLine("Note replace not found, defaulting to false");
+                                }
+                                // Assign default values if no note length replace is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
+                                {
+                                    checkBox_replace_length.Checked = false; // Default value
+                                    Debug.WriteLine("Note length replace not found, defaulting to false");
+                                }
+                                // Assign default values if no click play note is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
+                                {
+                                    checkBox_play_note1_clicked.Checked = true; // Default value
+                                    Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
+                                {
+                                    checkBox_play_note2_clicked.Checked = true; // Default value
+                                    Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
+                                {
+                                    checkBox_play_note3_clicked.Checked = true; // Default value
+                                    Debug.WriteLine("Click play note 3 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
+                                {
+                                    checkBox_play_note3_clicked.Checked = true; // Default value
+                                    Debug.WriteLine("Click play note 4 not found, defaulting to true");
+                                }
+                                // Assign default values if no play note is found
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote1))
+                                {
+                                    checkBox_play_note1_played.Checked = true; // Default value
+                                    Debug.WriteLine("Play note 1 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote2))
+                                {
+                                    checkBox_play_note2_played.Checked = true; // Default value
+                                    Debug.WriteLine("Play note 2 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote3))
+                                {
+                                    checkBox_play_note3_played.Checked = true; // Default value
+                                    Debug.WriteLine("Play note 3 not found, defaulting to true");
+                                }
+                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote4))
+                                {
+                                    checkBox_play_note4_played.Checked = true; // Default value
+                                    Debug.WriteLine("Play note 4 not found, defaulting to true");
                                 }
                                 noteLabelsUpdate();
                                 if (Variables.octave == 9)
@@ -1903,7 +2166,6 @@ namespace NeoBleeper
                         break;
                     }
             }
-
         }
         private static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
