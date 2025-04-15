@@ -29,8 +29,8 @@ namespace NeoBleeper
             public static double note_silence_ratio;
         }
         private bool isClosing = false;
-        double note_length;
-        double final_note_length;
+        int note_length;
+        int final_note_length;
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
@@ -2791,7 +2791,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private void play_music(int index)
+        private async Task play_music(int index)
         {
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
@@ -2807,13 +2807,13 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 }
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(final_note_length)));
-                int waitDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(line_length)));
+                int noteDuration = final_note_length;
+                int waitDuration = line_length;
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
@@ -2835,7 +2835,7 @@ namespace NeoBleeper
                 // Wait between each note
                 if (waitDuration - noteDuration > 0) 
                 { 
-                    NonBlockingSleep.Sleep(waitDuration - noteDuration); 
+                    await Task.Delay(waitDuration - noteDuration); 
                 }
                     // Do ListView update in UI thread
                     UpdateListViewSelectionSync(index);
@@ -3257,7 +3257,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((double)(60000 / Variables.bpm)));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3276,7 +3276,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, Convert.ToInt32(Math.Truncate(final_note_length)));
+                        checkBox_play_note4_played.Checked, final_note_length);
                     });
                 }
                 bool nonStopping;
@@ -3290,7 +3290,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                Convert.ToInt32(Math.Truncate(final_note_length)), nonStopping);
+                final_note_length, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3381,42 +3381,42 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = Variables.miliseconds_per_beat / 2;
+                            note_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            note_length = Variables.miliseconds_per_beat / 4;
+                            note_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.25));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            note_length = Variables.miliseconds_per_beat / 8;
+                            note_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.125));
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            note_length *= 1.5;
+                            note_length = Convert.ToInt32(Math.Truncate(note_length * 1.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length /= 3;
+                            note_length = Convert.ToInt32(Math.Truncate(note_length * 0.333));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length /= 2;
+                            note_length = Convert.ToInt32(Math.Truncate(note_length * 0.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length /= 4;
+                            note_length = Convert.ToInt32(Math.Truncate(note_length * 0.25));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            note_length *= 2;
+                            note_length = note_length * 2;
                         }
-                        final_note_length = note_length * Variables.note_silence_ratio;
+                        final_note_length = Convert.ToInt32(Math.Truncate(note_length * Variables.note_silence_ratio));
                     }
                 }
             }
         }
-        double line_length = 0;
+        int line_length = 0;
         private void line_length_calculator()
         {
             if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
@@ -3441,23 +3441,23 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = Variables.miliseconds_per_beat / 2;
+                            line_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = Variables.miliseconds_per_beat / 4;
+                            line_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.25));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = Variables.miliseconds_per_beat / 8;
+                            line_length = Convert.ToInt32(Math.Truncate(Variables.miliseconds_per_beat * 0.125));
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length *= 1.5;
+                            line_length = Convert.ToInt32(Math.Truncate(line_length * 1.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length /= 3;
+                            line_length = Convert.ToInt32(Math.Truncate(line_length * 0.333));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
