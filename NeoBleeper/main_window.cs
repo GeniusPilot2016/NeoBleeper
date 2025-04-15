@@ -2807,13 +2807,13 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm);
                 }
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = Math.Max(1, Convert.ToInt32(final_note_length));
-                int waitDuration = Math.Max(1, Convert.ToInt32(line_length));
+                int noteDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(final_note_length)));
+                int waitDuration = Math.Max(1, Convert.ToInt32(Math.Truncate(line_length)));
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
