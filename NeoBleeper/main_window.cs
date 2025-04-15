@@ -2791,7 +2791,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private async Task play_music(int index)
+        private void play_music(int index)
         {
             bool nonStopping = false;
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
@@ -2807,7 +2807,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((float)60000 / Variables.bpm));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)60000 / Variables.bpm));
                 }
                 line_length_calculator();
                 note_length_calculator();
@@ -2835,7 +2835,7 @@ namespace NeoBleeper
                 // Wait between each note
                 if (waitDuration - noteDuration > 0) 
                 { 
-                    await Task.Delay(waitDuration - noteDuration); 
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration); 
                 }
                     // Do ListView update in UI thread
                     UpdateListViewSelectionSync(index);
@@ -3257,7 +3257,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3397,7 +3397,7 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = Convert.ToInt32(Math.Truncate(note_length * 0.333)   );
+                            note_length = Convert.ToInt32(Math.Truncate(note_length * 0.333));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
@@ -3655,8 +3655,8 @@ namespace NeoBleeper
                     {
                         UpdateLabelVisible(true);
                     }
-                    int note_order = 1;
-                    int last_note_order = Convert.ToInt32(Math.Truncate((double)length / Variables.alternating_note_length));
+                    int note_order = 0;
+                    int last_note_order = Convert.ToInt32(Math.Round((double)length / Variables.alternating_note_length));
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
@@ -3668,6 +3668,7 @@ namespace NeoBleeper
                                 {
                                     double frequency = GetFrequencyFromNoteName(note);
                                     NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                     note_order++;
                                 }
                             }
@@ -3688,10 +3689,12 @@ namespace NeoBleeper
                                 if (i == 0)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 else if (i == 2)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 note_order++;
                             }
@@ -3704,10 +3707,12 @@ namespace NeoBleeper
                                 if (i == 1)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 else if (i == 3)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 note_order++;
                             }
