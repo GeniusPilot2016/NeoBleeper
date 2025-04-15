@@ -2807,7 +2807,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((float)60000 / Variables.bpm));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Round((float)60000 / Variables.bpm));
                 }
                 line_length_calculator();
                 note_length_calculator();
@@ -3381,7 +3381,7 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = Convert.ToInt32(Variables.miliseconds_per_beat * 0.5);
+                            note_length = Convert.ToInt32(Math.Round(Variables.miliseconds_per_beat * 0.5));
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
@@ -3397,7 +3397,7 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = Convert.ToInt32(note_length * 0.333);
+                            note_length = Convert.ToInt32(note_length * 0.333   );
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
@@ -3411,7 +3411,7 @@ namespace NeoBleeper
                         {
                             note_length = note_length * 2;
                         }
-                        final_note_length = Convert.ToInt32(Math.Truncate(note_length * Variables.note_silence_ratio));
+                        final_note_length = Convert.ToInt32(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
