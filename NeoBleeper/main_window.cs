@@ -2807,7 +2807,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = Convert.ToInt32(Math.Truncate((double)(60000 / Variables.bpm)));
+                    Variables.miliseconds_per_beat = Convert.ToInt32(60000 / Variables.bpm);
                 }
                 line_length_calculator();
                 note_length_calculator();
