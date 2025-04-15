@@ -3609,7 +3609,7 @@ namespace NeoBleeper
                 {
                     stopAllNotesAfterPlaying();
                 }
-                NonBlockingSleep.Sleep(Convert.ToInt32(Math.Round(final_note_length)));
+                NonBlockingSleep.Sleep(length);
                 return;
             }
             if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
