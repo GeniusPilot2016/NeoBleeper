@@ -3411,7 +3411,7 @@ namespace NeoBleeper
                         {
                             note_length = note_length * 2;
                         }
-                        final_note_length = (int)Math.Round(note_length * Variables.note_silence_ratio);
+                        final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
@@ -3655,7 +3655,7 @@ namespace NeoBleeper
                     {
                         UpdateLabelVisible(true);
                     }
-                    int note_order = 0;
+                    int note_order = 1;
                     int last_note_order = length / Variables.alternating_note_length;
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
@@ -3673,7 +3673,7 @@ namespace NeoBleeper
                                 }
                             }
                         }
-                        while (note_order < last_note_order);
+                        while (note_order <= last_note_order);
                     }
 
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
@@ -3718,7 +3718,7 @@ namespace NeoBleeper
                             }
                         }
                     }
-                    while (note_order < last_note_order);
+                    while (note_order <= last_note_order);
                 }
                 if (cancellationTokenSource.Token.IsCancellationRequested) return;
                 if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
