@@ -3411,7 +3411,7 @@ namespace NeoBleeper
                         {
                             note_length *= 2;
                         }
-                        final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
+                        final_note_length = (int)(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
@@ -3453,7 +3453,7 @@ namespace NeoBleeper
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)Math.Truncate(line_length * 1.5F);
+                            line_length = (int)(line_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
