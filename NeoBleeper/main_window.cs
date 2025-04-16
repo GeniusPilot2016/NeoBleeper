@@ -2812,8 +2812,8 @@ namespace NeoBleeper
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
-                int noteDuration = final_note_length;
-                int waitDuration = line_length;
+                int noteDuration = Math.Max(1, final_note_length);
+                int waitDuration = Math.Max(1, line_length);
 
                 // Play note and continue waiting
                 if (Program.MIDIDevices.useMIDIoutput == true)
