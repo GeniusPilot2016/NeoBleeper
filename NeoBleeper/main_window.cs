@@ -3397,19 +3397,19 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = note_length / 3;
+                            note_length /= 3;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length = note_length / 2;
+                            note_length /= 2;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length = note_length / 4;
+                            note_length /= 4;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            note_length = note_length * 2;
+                            note_length *= 2;
                         }
                         final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
                     }
@@ -3453,11 +3453,11 @@ namespace NeoBleeper
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)Math.Truncate(line_length * 1.5);
+                            line_length = (int)Math.Truncate(line_length * 1.5F);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length = line_length / 3;
+                            line_length /= 3;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
