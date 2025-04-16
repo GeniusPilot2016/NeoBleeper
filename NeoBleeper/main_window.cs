@@ -3411,7 +3411,7 @@ namespace NeoBleeper
                         {
                             note_length *= 2;
                         }
-                        final_note_length = (int)(note_length * Variables.note_silence_ratio);
+                        final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
