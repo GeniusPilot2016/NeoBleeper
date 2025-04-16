@@ -95,7 +95,7 @@ namespace NeoBleeper
             lbl_current_system_time.Text = current_time;
             if (waiting == true && is_playing == false)
             {
-                if (dateTimePicker1.Value < DateTime.Now)
+                if (dateTimePicker1.Value <= DateTime.Now)
                 {
                     start_playing();
                 }
