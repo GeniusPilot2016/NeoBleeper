@@ -3662,7 +3662,7 @@ namespace NeoBleeper
                         UpdateLabelVisible(true);
                     }
                     int note_order = 1;
-                    int last_note_order = length / Variables.alternating_note_length;
+                    int last_note_order = (int)FixRoundingErrors(Math.Round((double)length / Variables.alternating_note_length));
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
@@ -3735,6 +3735,22 @@ namespace NeoBleeper
                     }
                 }
             }
+        }
+        public double FixRoundingErrors(double input)
+        {
+            // Compare the input with a small threshold to determine if it's close to an integer
+            const double threshold = 0.0001;
+            if (input > threshold)
+            {
+                // Error fix
+                Debug.WriteLine("FixRoundingErrors() fixed an error.");
+                input = Math.Floor(input + 0.5); // Rounding up
+            }
+
+            // Additional error correction
+            input += 0.00001;
+
+            return input;
         }
 
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
