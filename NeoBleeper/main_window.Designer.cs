@@ -1026,6 +1026,7 @@
             // 
             resources.ApplyResources(label_beep, "label_beep");
             label_beep.BackColor = Color.Red;
+            label_beep.FlatStyle = FlatStyle.System;
             label_beep.Name = "label_beep";
             NeoBleeper_help.SetShowHelp(label_beep, (bool)resources.GetObject("label_beep.ShowHelp"));
             toolTip1.SetToolTip(label_beep, resources.GetString("label_beep.ToolTip"));
