@@ -2793,62 +2793,57 @@ namespace NeoBleeper
         }
         private void play_music(int index)
         {
-            Thread playbackThread = new Thread(() =>
+            bool nonStopping = false;
+            while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                bool nonStopping = false;
-                while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
+                if (trackBar_note_silence_ratio.Value == 100)
                 {
-                    if (trackBar_note_silence_ratio.Value == 100)
-                    {
-                        nonStopping = true;
-                    }
-                    else
-                    {
-                        nonStopping = false;
-                    }
-                    Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    if (Variables.bpm != 0)
-                    {
-                        Variables.miliseconds_per_beat = (int)Math.Truncate((double)60000 / Variables.bpm);
-                    }
-                    line_length_calculator();
-                    note_length_calculator();
-                    // Calculate full duration before playing
-                    int noteDuration = Math.Max(1, final_note_length);
-                    int waitDuration = Math.Max(1, line_length);
+                    nonStopping = true;
+                }
+                else
+                {
+                    nonStopping = false;
+                }
+                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                if (Variables.bpm != 0)
+                {
+                    Variables.miliseconds_per_beat = (int)Math.Truncate((double)60000 / Variables.bpm);
+                }
+                line_length_calculator();
+                note_length_calculator();
+                // Calculate full duration before playing
+                int noteDuration = Math.Max(1, final_note_length);
+                int waitDuration = Math.Max(1, line_length);
 
-                    // Play note and continue waiting
-                    if (Program.MIDIDevices.useMIDIoutput == true)
-                    {
-                        MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-                                Program.MIDIDevices.MIDIOutputDeviceChannel);
-                        play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, noteDuration);
-                    }
-                    play_note_in_line(
+                // Play note and continue waiting
+                if (Program.MIDIDevices.useMIDIoutput == true)
+                {
+                    MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
+                            Program.MIDIDevices.MIDIOutputDeviceChannel);
+                    play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
-                    checkBox_play_note4_played.Checked,
-                        noteDuration, nonStopping);
-                    // Wait between each note
-                    if (waitDuration - noteDuration > 0)
-                    {
-                        NonBlockingSleep.Sleep(waitDuration - noteDuration);
-                    }
-                    // Do ListView update in UI thread
-                    UpdateListViewSelectionSync(index);
+                    checkBox_play_note4_played.Checked, noteDuration);
                 }
-                if (trackBar_note_silence_ratio.Value == 100)
+                play_note_in_line(
+                checkBox_play_note1_played.Checked,
+                checkBox_play_note2_played.Checked,
+                checkBox_play_note3_played.Checked,
+                checkBox_play_note4_played.Checked,
+                    noteDuration, nonStopping);
+                // Wait between each note
+                if (waitDuration - noteDuration > 0)
                 {
-                    stopAllNotesAfterPlaying();
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration);
                 }
-            });
-            playbackThread.Priority = ThreadPriority.Highest;
-            playbackThread.Start();
+                // Do ListView update in UI thread
+                UpdateListViewSelectionSync(index);
+            }
+            if (trackBar_note_silence_ratio.Value == 100)
+            {
+                stopAllNotesAfterPlaying();
+            }
         }
 
         // Sync ListView update method
@@ -3053,7 +3048,7 @@ namespace NeoBleeper
             // (isAccent ? accentBeatSound : normalBeatSound).Play();
 
             // Option 2: Use your NotePlayer but optimize for immediate playback
-            int frequency = isAccent ? 1000 : 498;
+            int frequency = isAccent ? 1000 : 500;
 
             // Important: Play sound on high-priority thread
             ThreadPool.QueueUserWorkItem(state =>
@@ -3085,19 +3080,13 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-                if (label_beep.InvokeRequired)
-                {
-                    label_beep.BeginInvoke(new Action(() =>
-                    {
-                        if (!label_beep.IsDisposed && label_beep.Visible != visible)
-                        {
-                            label_beep.Visible = visible;
-                        }
-                    }));
-                }
-                else if (!label_beep.IsDisposed && label_beep.Visible != visible)
+                label_beep.BeginInvoke(new Action(() =>
                 {
                     label_beep.Visible = visible;
+                }));
+                if (visible)
+                {
+                    label_beep.BringToFront();
                 }
             });
         }
@@ -3672,7 +3661,7 @@ namespace NeoBleeper
                     {
                         UpdateLabelVisible(true);
                     }
-                    int note_order = 0;
+                    int note_order = 1;
                     int last_note_order = length / Variables.alternating_note_length;
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
@@ -3685,6 +3674,7 @@ namespace NeoBleeper
                                 {
                                     double frequency = GetFrequencyFromNoteName(note);
                                     NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5); 
                                     note_order++;
                                 }
                             }
@@ -3705,10 +3695,12 @@ namespace NeoBleeper
                                 if (i == 0)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 else if (i == 2)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 note_order++;
                             }
@@ -3721,10 +3713,12 @@ namespace NeoBleeper
                                 if (i == 1)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 else if (i == 3)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    NonBlockingSleep.Sleep(5);
                                 }
                                 note_order++;
                             }
@@ -4971,5 +4965,6 @@ namespace NeoBleeper
                 Debug.WriteLine("Play a beat sound window is closed.");
             }
         }
+
     }
 }

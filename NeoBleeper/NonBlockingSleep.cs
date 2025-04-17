@@ -20,7 +20,7 @@ namespace NeoBleeper
             while (stopwatch.ElapsedMilliseconds < milliseconds)
             {
                 // Use SpinWait to avoid gaps while maintaining precision
-                System.Threading.Thread.SpinWait(100);
+                Application.DoEvents();
             }
         }
     }
