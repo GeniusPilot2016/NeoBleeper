@@ -43,7 +43,7 @@ namespace NeoBleeper
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
             listViewNotes.DoubleBuffering(true);
-            label_beep.DoubleBuffering(true);
+            //label_beep.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             set_default_font();
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -3065,7 +3065,8 @@ namespace NeoBleeper
             });
         }
 
-        private async void UpdateLabelVisible(bool visible)
+
+        private void UpdateLabelVisible(bool visible)
         {
             Task.Run(() =>
             {
@@ -3073,18 +3074,19 @@ namespace NeoBleeper
                 {
                     label_beep.BeginInvoke(new Action(() =>
                     {
-                        if (!label_beep.IsDisposed)
+                        if (!label_beep.IsDisposed && label_beep.Visible != visible)
                         {
                             label_beep.Visible = visible;
                         }
                     }));
                 }
-                else if (!label_beep.IsDisposed)
+                else if (!label_beep.IsDisposed && label_beep.Visible != visible)
                 {
                     label_beep.Visible = visible;
                 }
             });
         }
+
 
         private void StartMetronome()
         {
