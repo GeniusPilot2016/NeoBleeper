@@ -3407,7 +3407,7 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length = (int)Math.Truncate(note_length / 3D);
+                            note_length = (int)Math.Truncate(note_length / 2D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
