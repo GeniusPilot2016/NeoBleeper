@@ -2794,6 +2794,7 @@ namespace NeoBleeper
         private void play_music(int index)
         {
             bool nonStopping = false;
+            EnableDisableCommonControls(false);
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
                 if (trackBar_note_silence_ratio.Value == 100)
@@ -2844,6 +2845,7 @@ namespace NeoBleeper
             {
                 stopAllNotesAfterPlaying();
             }
+            EnableDisableCommonControls(true);
         }
 
         // Sync ListView update method
@@ -2889,16 +2891,6 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0)
             {
-                checkBox_do_not_update.Enabled = false;
-                keyboard_panel.Enabled = false;
-                numericUpDown_bpm.Enabled = false;
-                numericUpDown_alternating_notes.Enabled = false;
-                button_play_all.Enabled = false;
-                playAllToolStripMenuItem.Enabled = false;
-                button_play_from_selected_line.Enabled = false;
-                playFromSelectedLineToolStripMenuItem.Enabled = false;
-                button_stop_playing.Enabled = true;
-                stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
                 listViewNotes.Items[0].Selected = true;
                 listViewNotes.EnsureVisible(0);
@@ -2910,16 +2902,6 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0)
             {
-                checkBox_do_not_update.Enabled = false;
-                keyboard_panel.Enabled = false;
-                numericUpDown_bpm.Enabled = false;
-                numericUpDown_alternating_notes.Enabled = false;
-                button_play_all.Enabled = false;
-                playAllToolStripMenuItem.Enabled = false;
-                button_play_from_selected_line.Enabled = false;
-                playFromSelectedLineToolStripMenuItem.Enabled = false;
-                button_stop_playing.Enabled = true;
-                stopPlayingToolStripMenuItem.Enabled = true;
                 is_music_playing = true;
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
@@ -2950,18 +2932,30 @@ namespace NeoBleeper
         {
             stop_playing();
         }
+        private void EnableDisableCommonControls(bool enable)
+        {
+            keyboard_panel.Enabled = enable;
+            checkBox_do_not_update.Enabled = enable;
+            numericUpDown_bpm.Enabled = enable;
+            numericUpDown_alternating_notes.Enabled = enable;
+            button_play_all.Enabled = enable;
+            playAllToolStripMenuItem.Enabled = enable;
+            button_play_from_selected_line.Enabled = enable;
+            playFromSelectedLineToolStripMenuItem.Enabled = enable;
+            button_stop_playing.Enabled = !enable;
+            stopPlayingToolStripMenuItem.Enabled = !enable;
+            switch (enable)
+            {
+                case true:
+                    Debug.WriteLine("Controls enabled");
+                    break;
+                case false:
+                    Debug.WriteLine("Controls disabled");
+                    break;
+            }
+        }
         public void stop_playing()
         {
-            keyboard_panel.Enabled = true;
-            checkBox_do_not_update.Enabled = true;
-            numericUpDown_bpm.Enabled = true;
-            numericUpDown_alternating_notes.Enabled = true;
-            button_play_all.Enabled = true;
-            playAllToolStripMenuItem.Enabled = true;
-            button_play_from_selected_line.Enabled = true;
-            playFromSelectedLineToolStripMenuItem.Enabled = true;
-            button_stop_playing.Enabled = false;
-            stopPlayingToolStripMenuItem.Enabled = false;
             is_music_playing = false;
             Debug.WriteLine("Music stopped");
             OnMusicStopped(EventArgs.Empty);
@@ -3080,10 +3074,17 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-                label_beep.BeginInvoke(new Action(() =>
+                if (label_beep.InvokeRequired)
+                {
+                    label_beep.BeginInvoke(new Action(() =>
+                    {
+                        label_beep.Visible = visible;
+                    }));
+                }
+                else
                 {
                     label_beep.Visible = visible;
-                }));
+                }
                 if (visible)
                 {
                     label_beep.BringToFront();
@@ -3270,10 +3271,7 @@ namespace NeoBleeper
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
                 note_length_calculator();
-                keyboard_panel.Enabled = false;
-                numericUpDown_alternating_notes.Enabled = false;
-                numericUpDown_bpm.Enabled = false;
-                checkBox_do_not_update.Enabled = false;
+                EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
                     Task.Run(() =>
@@ -3301,14 +3299,18 @@ namespace NeoBleeper
                 {
                     stopAllNotesAfterPlaying();
                 }
-                keyboard_panel.Enabled = true;
-                numericUpDown_alternating_notes.Enabled = true;
-                numericUpDown_bpm.Enabled = true;
-                checkBox_do_not_update.Enabled = true;
-                Debug.WriteLine("Selected line: " + listViewNotes.FocusedItem.Index);
+                Debug.WriteLine($"Selected line: {listViewNotes.FocusedItem.Index} Length: " +
+                     $"{listViewNotes.FocusedItem.SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.FocusedItem.SubItems[1].Text.ToString())}" +
+                     $" Note 2: {GetOrDefault(listViewNotes.FocusedItem.SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.FocusedItem.SubItems[3].Text.ToString())}" +
+                     $" Note 4: {GetOrDefault(listViewNotes.FocusedItem.SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.FocusedItem.SubItems[5].Text.ToString())}" +
+                     $" Articulation: {GetOrDefault(listViewNotes.FocusedItem.SubItems[6].Text.ToString())}");
+                EnableDisableCommonControls(true);
             }
         }
-
+        private string GetOrDefault(string value)
+        {
+            return string.IsNullOrEmpty(value) ? "None" : value;
+        }
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
         {
             // Skip the process if triggered by command
@@ -4841,9 +4843,9 @@ namespace NeoBleeper
         private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
-            createMusicWithAI.ShowDialog();
             try
             {
+                createMusicWithAI.ShowDialog();
                 if (createMusicWithAI.output != string.Empty)
                 {
                     if (is_music_playing == true)
