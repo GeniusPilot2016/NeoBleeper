@@ -3375,11 +3375,11 @@ namespace NeoBleeper
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                         {
-                            note_length = Variables.miliseconds_per_beat * 4;
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 4D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            note_length = Variables.miliseconds_per_beat * 2;
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 2D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
@@ -3387,35 +3387,35 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = Variables.miliseconds_per_beat / 2;
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 2D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
-                        
-                            note_length = Variables.miliseconds_per_beat / 4;
-                        }
+
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 4D);
+                    }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            note_length = Variables.miliseconds_per_beat / 8;
-                        }
+                        note_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 8D);
+                    }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            note_length = (int)(note_length * 1.5);
+                            note_length = (int)Math.Truncate(note_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length /= 3;
+                            note_length = (int)Math.Truncate(note_length / 3D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length /= 2;
+                            note_length = (int)Math.Truncate(note_length / 3D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length /= 4;
+                            note_length = (int)Math.Truncate(note_length / 4D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            note_length *= 2;
+                            note_length = (int)Math.Truncate(note_length * 2D);
                         }
                         final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
                     }
@@ -3435,11 +3435,11 @@ namespace NeoBleeper
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                         {
-                            line_length = Variables.miliseconds_per_beat * 4;
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 4D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            line_length = Variables.miliseconds_per_beat * 2;
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 2D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
@@ -3447,27 +3447,27 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = Variables.miliseconds_per_beat / 2;
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 2D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = Variables.miliseconds_per_beat / 4;
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 4D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = Variables.miliseconds_per_beat / 8;
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 8D);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)(line_length * 1.5);
+                            line_length = (int)Math.Truncate(line_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length /= 3;
+                            line_length = (int)Math.Truncate(line_length / 3D);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            line_length *= 2;
+                            line_length = (int)Math.Truncate(line_length * 2D);
                         }
                     }
                 }
