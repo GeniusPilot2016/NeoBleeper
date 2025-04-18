@@ -2834,7 +2834,7 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
-                if (waitDuration - noteDuration > 0)
+                if (waitDuration - noteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
                     NonBlockingSleep.Sleep(waitDuration - noteDuration);
                 }
@@ -3264,7 +3264,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = (int)Math.Truncate((double)60000 / Variables.bpm);
+                    Variables.miliseconds_per_beat = (int)FixRoundingErrors(60000 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
