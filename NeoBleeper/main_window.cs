@@ -2872,11 +2872,13 @@ namespace NeoBleeper
                 int nextIndex = currentIndex + 1;
                 if (nextIndex < listViewNotes.Items.Count)
                 {
+                    if (listViewNotes.Items.Count == 0) return;
                     listViewNotes.Items[nextIndex].Selected = true;
                     listViewNotes.EnsureVisible(nextIndex);
                 }
                 else if (checkBox_loop.Checked)
                 {
+                    if (listViewNotes.Items.Count == 0) return;
                     listViewNotes.Items[startIndex].Selected = true;
                     listViewNotes.EnsureVisible(startIndex);
                 }
@@ -3755,7 +3757,6 @@ namespace NeoBleeper
 
             return input;
         }
-
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -4149,8 +4150,8 @@ namespace NeoBleeper
 
         private void main_window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            checkBox_metronome.Checked = false;
             stop_playing();
+            checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
             stop_system_speaker_beep();
@@ -4158,8 +4159,8 @@ namespace NeoBleeper
 
         private void main_window_FormClosed(object sender, FormClosedEventArgs e)
         {
-            checkBox_metronome.Checked = false;
             stop_playing();
+            checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
             stop_system_speaker_beep();
@@ -4984,6 +4985,98 @@ namespace NeoBleeper
                 Debug.WriteLine("Play a beat sound window is closed.");
             }
         }
+        private String ConvertToNBPMLString()
+        {
+            try
+            {
+                // NBPML dosyasýný oluþtur
+                NBPML_File.NeoBleeperProjectFile projectFile = new NBPML_File.NeoBleeperProjectFile
+                {
+                    Settings = new NBPML_File.Settings
+                    {
+                        RandomSettings = new NBPML_File.RandomSettings
+                        {
+                            KeyboardOctave = Variables.octave.ToString(),
+                            BPM = Variables.bpm.ToString(),
+                            TimeSignature = trackBar_time_signature.Value.ToString(),
+                            NoteSilenceRatio = (Variables.note_silence_ratio * 100).ToString(),
+                            NoteLength = comboBox_note_length.SelectedIndex.ToString(),
+                            AlternateTime = numericUpDown_alternating_notes.Value.ToString()
+                        },
+                        PlaybackSettings = new NBPML_File.PlaybackSettings
+                        {
+                            NoteClickPlay = checkbox_play_note.Checked.ToString(),
+                            NoteClickAdd = checkBox_add_note_to_list.Checked.ToString(),
+                            AddNote1 = add_as_note1.Checked.ToString(),
+                            AddNote2 = add_as_note2.Checked.ToString(),
+                            AddNote3 = add_as_note3.Checked.ToString(),
+                            AddNote4 = add_as_note4.Checked.ToString(),
+                            NoteReplace = checkBox_replace.Checked.ToString(),
+                            NoteLengthReplace = checkBox_replace_length.Checked.ToString()
+                        },
+                        PlayNotes = new NBPML_File.PlayNotes
+                        {
+                            PlayNote1 = checkBox_play_note1_played.Checked.ToString(),
+                            PlayNote2 = checkBox_play_note2_played.Checked.ToString(),
+                            PlayNote3 = checkBox_play_note3_played.Checked.ToString(),
+                            PlayNote4 = checkBox_play_note4_played.Checked.ToString()
+                        },
+                        ClickPlayNotes = new NBPML_File.ClickPlayNotes
+                        {
+                            ClickPlayNote1 = checkBox_play_note1_clicked.Checked.ToString(),
+                            ClickPlayNote2 = checkBox_play_note2_clicked.Checked.ToString(),
+                            ClickPlayNote3 = checkBox_play_note3_clicked.Checked.ToString(),
+                            ClickPlayNote4 = checkBox_play_note4_clicked.Checked.ToString()
+                        }
+                    },
+                    LineList = new NBPML_File.List
+                    {
+                        Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
+                        {
+                            Length = item.SubItems[0].Text,
+                            Note1 = item.SubItems[1].Text,
+                            Note2 = item.SubItems[2].Text,
+                            Note3 = item.SubItems[3].Text,
+                            Note4 = item.SubItems[4].Text,
+                            Mod = item.SubItems[5].Text,
+                            Art = item.SubItems[6].Text
+                        }).ToArray()
+                    }
+                };
 
+                // XML'e serileþtir ve string olarak döndür
+                using (StringWriter stringWriter = new StringWriter())
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+                    XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+                    namespaces.Add(string.Empty, string.Empty); // Namespace'i kaldýr
+                    serializer.Serialize(stringWriter, projectFile, namespaces);
+                    return stringWriter.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error converting to NBPML string: " + ex.Message);
+                return string.Empty; // Return empty string in case of error
+            }
+        }
+
+        private void convertToGCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ConvertToGCode convertToGCode = new ConvertToGCode(ConvertToNBPMLString());
+                convertToGCode.ShowDialog();
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error converting to GCode: " + ex.Message);
+                MessageBox.Show("Error converting to GCode: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

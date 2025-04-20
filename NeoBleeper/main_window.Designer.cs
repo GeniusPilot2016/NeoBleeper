@@ -59,6 +59,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             playMIDIFileToolStripMenuItem = new ToolStripMenuItem();
             createMusicWithAIToolStripMenuItem = new ToolStripMenuItem();
+            convertToGCodeToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             undoToolStripMenuItem = new ToolStripMenuItem();
             redoToolStripMenuItem = new ToolStripMenuItem();
@@ -481,7 +482,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, toolStripSeparator2, playMIDIFileToolStripMenuItem, createMusicWithAIToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, toolStripSeparator2, playMIDIFileToolStripMenuItem, createMusicWithAIToolStripMenuItem, convertToGCodeToolStripMenuItem });
             resources.ApplyResources(fileToolStripMenuItem, "fileToolStripMenuItem");
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
@@ -539,6 +540,13 @@
             createMusicWithAIToolStripMenuItem.Name = "createMusicWithAIToolStripMenuItem";
             resources.ApplyResources(createMusicWithAIToolStripMenuItem, "createMusicWithAIToolStripMenuItem");
             createMusicWithAIToolStripMenuItem.Click += createMusicWithAIToolStripMenuItem_Click;
+            // 
+            // convertToGCodeToolStripMenuItem
+            // 
+            convertToGCodeToolStripMenuItem.Image = Properties.Resources.icons8_3d_printer_48;
+            convertToGCodeToolStripMenuItem.Name = "convertToGCodeToolStripMenuItem";
+            resources.ApplyResources(convertToGCodeToolStripMenuItem, "convertToGCodeToolStripMenuItem");
+            convertToGCodeToolStripMenuItem.Click += convertToGCodeToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
@@ -2405,5 +2413,6 @@
         private ToolStripMenuItem cutToolStripMenuItem;
         private ToolStripMenuItem openRecentToolStripMenuItem;
         private ToolStripMenuItem createMusicWithAIToolStripMenuItem;
+        private ToolStripMenuItem convertToGCodeToolStripMenuItem;
     }
 }
