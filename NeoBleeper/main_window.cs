@@ -510,6 +510,7 @@ namespace NeoBleeper
             if (is_music_playing == true)
             {
                 stop_playing();
+                NotePlayer.StopAllNotes();
             }
             about_neobleeper about = new about_neobleeper();
             about.ShowDialog();
@@ -521,6 +522,7 @@ namespace NeoBleeper
             if (is_music_playing == true)
             {
                 stop_playing();
+                NotePlayer.StopAllNotes();
             }
             if (checkBox_synchronized_play.Checked == true)
             {
@@ -2167,7 +2169,7 @@ namespace NeoBleeper
                     }
             }
         }
-        private static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
+        public static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
             using (StreamReader reader = new StreamReader(filePath))
@@ -3503,16 +3505,16 @@ namespace NeoBleeper
 
                 // Calculate frequencies from note names
                 if (!string.IsNullOrEmpty(note1))
-                    note1_frequency = GetFrequencyFromNoteName(note1);
+                    note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
                 if (!string.IsNullOrEmpty(note2))
-                    note2_frequency = GetFrequencyFromNoteName(note2);
+                    note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
 
                 if (!string.IsNullOrEmpty(note3))
-                    note3_frequency = GetFrequencyFromNoteName(note3);
+                    note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
 
                 if (!string.IsNullOrEmpty(note4))
-                    note4_frequency = GetFrequencyFromNoteName(note4);
+                    note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
             }
 
 
@@ -3677,7 +3679,7 @@ namespace NeoBleeper
                         {
                             if (!string.IsNullOrEmpty(note))
                             {
-                                double frequency = GetFrequencyFromNoteName(note);
+                                double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                                 NonBlockingSleep.Sleep(5);
                                 note_order++;
@@ -3741,7 +3743,7 @@ namespace NeoBleeper
                 }
             }
         }
-        public double FixRoundingErrors(double input)
+        public static double FixRoundingErrors(double input)
         {
             // Compare the input with a small threshold to determine if it's close to an integer
             const double threshold = 0.0001;
@@ -3876,9 +3878,9 @@ namespace NeoBleeper
         private void play_beat()
         {
             // Basic frequencies
-            int snareFrequency = Convert.ToInt32(GetFrequencyFromNoteName("D2"));
-            int kickFrequency = Convert.ToInt32(GetFrequencyFromNoteName("E2"));
-            int hiHatFrequency = Convert.ToInt32(GetFrequencyFromNoteName("F#2"));
+            int snareFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("D2"));
+            int kickFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("E2"));
+            int hiHatFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("F#2"));
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
@@ -4413,7 +4415,8 @@ namespace NeoBleeper
         {
             if (is_music_playing == true)
             {
-                stop_playing();
+                stop_playing(); 
+                NotePlayer.StopAllNotes();
             }
             if (checkBox_synchronized_play.Checked == true)
             {
@@ -4609,7 +4612,11 @@ namespace NeoBleeper
 
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
-            stop_playing();
+            if(is_music_playing == true)
+            {
+                stop_playing();
+                NotePlayer.StopAllNotes();
+            }
             MessageBox.Show("This feature allows you to synchronize the playback of multiple instances of NeoBleeper. \n" +
                 "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your clock before using this feature.\n" +
                 "You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings > Time & Language > Date & Time. \n\n" +
@@ -4619,21 +4626,33 @@ namespace NeoBleeper
 
         private void button_play_beat_sound_help_Click(object sender, EventArgs e)
         {
-            stop_playing();
+            if (is_music_playing == true)
+            {
+                stop_playing();
+                NotePlayer.StopAllNotes();
+            }
             MessageBox.Show("This feature allows you to play beat like sounds from system speaker/sound device \n\n" +
                 "You can choose the sound to play by clicking the 'Change Beat Sound' button.", "Play a Beat Sound", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_bleeper_portamento_help_Click(object sender, EventArgs e)
         {
-            stop_playing();
+            if (is_music_playing == true)
+            {
+                stop_playing();
+                NotePlayer.StopAllNotes();
+            }
             MessageBox.Show("Only for the case where music is played in real time on the keyboard. \n\n" +
                 "This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.", "Bleeper Portamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_use_keyboard_as_piano_help_Click(object sender, EventArgs e)
         {
-            stop_playing();
+            if (is_music_playing == true)
+            {
+                stop_playing();
+                NotePlayer.StopAllNotes();
+            }
             MessageBox.Show("This feature allows you to use your computer keyboard as a piano keyboard. \n" +
                 "When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. \n\n" +
                 "You can see the key mappings in the buttons on the right side of the window.", "Use Keyboard As Piano", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4641,7 +4660,11 @@ namespace NeoBleeper
 
         private void button_do_not_update_help_Click(object sender, EventArgs e)
         {
-            stop_playing();
+            if (is_music_playing == true)
+            {
+                stop_playing();
+                NotePlayer.StopAllNotes();
+            }
             MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n" +
                 "When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. \n\n" +
                 "If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.", "Do Not Update Beat Indicators", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4671,31 +4694,30 @@ namespace NeoBleeper
                 Debug.WriteLine("Cut is executed.");
             }
         }
-        private async void UpdateRecentFilesMenu()
+        private void UpdateRecentFilesMenu()
         {
-            try
+            openRecentToolStripMenuItem.DropDownItems.Clear();
+            var recentFiles = Settings1.Default.RecentFiles;
+            if (recentFiles != null && recentFiles.Count > 0)
             {
-                openRecentToolStripMenuItem.DropDownItems.Clear();
-                var recentFiles = Settings1.Default.RecentFiles;
-                if (recentFiles != null && recentFiles.Count > 0)
+                foreach (string filePath in recentFiles)
                 {
-                    foreach (string filePath in recentFiles)
+                    ToolStripMenuItem item = new ToolStripMenuItem(filePath);
+                    item.Click += (sender, e) => OpenRecentFile(filePath);
+
+                    if (!File.Exists(filePath))
                     {
-                        ToolStripMenuItem item = new ToolStripMenuItem(filePath);
-                        item.Click += (sender, e) => OpenRecentFile(filePath);
-                        item.Enabled = File.Exists(filePath); // Check if the file still exists
-                        openRecentToolStripMenuItem.DropDownItems.Add(item);
-                        openRecentToolStripMenuItem.Enabled = true;
+                        item.Text += " (Not Found)"; // "(Not Found)" metni ekleniyor
+                        item.Enabled = false; // Menü öðesi devre dýþý býrakýlýyor
                     }
+
+                    openRecentToolStripMenuItem.DropDownItems.Add(item);
                 }
-                else
-                {
-                    openRecentToolStripMenuItem.Enabled = false;
-                }
+                openRecentToolStripMenuItem.Enabled = true;
             }
-            catch (InvalidAsynchronousStateException)
+            else
             {
-                return;
+                openRecentToolStripMenuItem.Enabled = false;
             }
         }
         private async void OpenRecentFile(string filePath)
@@ -4853,6 +4875,7 @@ namespace NeoBleeper
                     if (is_music_playing == true)
                     {
                         stop_playing();
+                        NotePlayer.StopAllNotes();
                     }
                     if (checkBox_synchronized_play.Checked == true)
                     {
@@ -4921,39 +4944,7 @@ namespace NeoBleeper
                 numericUpDown_alternating_notes.Tag = null;
             }
         }
-        private double GetFrequencyFromNoteName(string noteName)
-        {
-            if (string.IsNullOrEmpty(noteName))
-                return 0;
-
-            // Disassemble note name into note and octave
-            string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
-            int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
-            // Basic frequency for the note in the 4th octave
-            double baseFrequency = note switch
-            {
-                "C" => base_note_frequency.base_note_frequency_in_4th_octave.C,
-                "C#" => base_note_frequency.base_note_frequency_in_4th_octave.CS,
-                "D" => base_note_frequency.base_note_frequency_in_4th_octave.D,
-                "D#" => base_note_frequency.base_note_frequency_in_4th_octave.DS,
-                "E" => base_note_frequency.base_note_frequency_in_4th_octave.E,
-                "F" => base_note_frequency.base_note_frequency_in_4th_octave.F,
-                "F#" => base_note_frequency.base_note_frequency_in_4th_octave.FS,
-                "G" => base_note_frequency.base_note_frequency_in_4th_octave.G,
-                "G#" => base_note_frequency.base_note_frequency_in_4th_octave.GS,
-                "A" => base_note_frequency.base_note_frequency_in_4th_octave.A,
-                "A#" => base_note_frequency.base_note_frequency_in_4th_octave.AS,
-                "B" => base_note_frequency.base_note_frequency_in_4th_octave.B,
-                _ => 0 // Invalid note
-            };
-
-            if (baseFrequency == 0)
-                return 0;
-
-            // Oktav farkýný hesaplama
-            int octaveDifference = octave - 4; // 4th octave is the reference octave
-            return baseFrequency * Math.Pow(2, octaveDifference);
-        }
+        
         private void openPlayBeatSoundWindow()
         {
             if (play_Beat_Window == null || play_Beat_Window.IsDisposed)
@@ -5065,6 +5056,15 @@ namespace NeoBleeper
         {
             try
             {
+                if(is_music_playing == true)
+                {
+                    stop_playing();
+                    NotePlayer.StopAllNotes();
+                }
+                if (checkBox_synchronized_play.Checked == true)
+                {
+                    checkBox_synchronized_play.Checked = false;
+                }
                 ConvertToGCode convertToGCode = new ConvertToGCode(ConvertToNBPMLString());
                 convertToGCode.ShowDialog();
             }
