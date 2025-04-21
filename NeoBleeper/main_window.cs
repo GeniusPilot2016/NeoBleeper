@@ -3085,27 +3085,16 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
+                SuspendLayout();
                 if (label_beep.InvokeRequired)
                 {
-                    label_beep.BeginInvoke(new Action(() =>
-                    {
-                        SuspendLayout();
-                        label_beep.Visible = visible;
-                        ResumeLayout(performLayout: true);
-                    }));
+                    label_beep.Invoke(new Action(() => label_beep.Visible = visible));
                 }
                 else
                 {
-                    SuspendLayout();
                     label_beep.Visible = visible;
-                    ResumeLayout(performLayout: true);
                 }
-                if (visible)
-                {
-                    SuspendLayout();
-                    label_beep.BringToFront(); 
-                    ResumeLayout(performLayout: true);
-                }
+                ResumeLayout(performLayout: true);
                 return;
             });
         }
@@ -3686,18 +3675,9 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = (int)FixRoundingErrors(length / Variables.alternating_note_length);
+                int last_note_order = (int)Math.Round((double)length / Variables.alternating_note_length);
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
-                    int delay_between_notes = 0;
-                    if (Program.creating_sounds.create_beep_with_soundcard == true)
-                    {
-                        delay_between_notes = 8; // Delay for sound card beep
-                    }
-                    else
-                    {
-                        delay_between_notes = 10; // Delay for system speaker beep
-                    }
                     string[] note_series = { note1, note2, note3, note4 };
                     do
                     {
@@ -3707,7 +3687,7 @@ namespace NeoBleeper
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                NonBlockingSleep.Sleep(delay_between_notes);
+                                NonBlockingSleep.Sleep(10);
                                 note_order++;
                             }
                         }
@@ -3718,15 +3698,6 @@ namespace NeoBleeper
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
-                    int delay_between_notes = 0;
-                    if (Program.creating_sounds.create_beep_with_soundcard == true)
-                    {
-                        delay_between_notes = 8; // Delay for sound card beep
-                    }
-                    else
-                    {
-                        delay_between_notes = 10; // Delay for system speaker beep
-                    }
                     do
                     {
                         // Odd number columns first (Note1 and Note3)
@@ -3737,12 +3708,12 @@ namespace NeoBleeper
                                 if (i == 0)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(delay_between_notes);
+                                    NonBlockingSleep.Sleep(10);
                                 }
                                 else if (i == 2)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(delay_between_notes);
+                                    NonBlockingSleep.Sleep(10);
                                 }
                                 note_order++;
                             }
@@ -3755,12 +3726,12 @@ namespace NeoBleeper
                                 if (i == 1)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(delay_between_notes);
+                                    NonBlockingSleep.Sleep(10);
                                 }
                                 else if (i == 3)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(delay_between_notes);
+                                    NonBlockingSleep.Sleep(10);
                                 }
                                 note_order++;
                             }
