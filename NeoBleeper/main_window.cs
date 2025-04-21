@@ -3093,6 +3093,7 @@ namespace NeoBleeper
                 {
                     label_beep.BringToFront();
                 }
+                return;
             });
         }
 
@@ -3633,6 +3634,7 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(false);
                 }
+                return;
             }
             else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
             {
@@ -3642,6 +3644,7 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(false);
                 }
+                return;
             }
 
             else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
@@ -3652,6 +3655,7 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(false);
                 }
+                return;
             }
             else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
             {
@@ -3661,6 +3665,7 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(false);
                 }
+                return;
             }
             else
             {
@@ -3741,6 +3746,7 @@ namespace NeoBleeper
                         UpdateLabelVisible(false);
                     }
                 }
+                return;
             }
         }
         public static double FixRoundingErrors(double input)
