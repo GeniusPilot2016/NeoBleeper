@@ -2812,6 +2812,7 @@ namespace NeoBleeper
                 {
                     Variables.miliseconds_per_beat = (int)FixRoundingErrors(60000 / Variables.bpm);
                 }
+                String articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
                 line_length_calculator();
                 note_length_calculator();
                 // Calculate full duration before playing
@@ -2836,6 +2837,12 @@ namespace NeoBleeper
                 checkBox_play_note4_played.Checked,
                     noteDuration, nonStopping);
                 // Wait between each note
+                if(nonStopping == true && (articulation_string == "Sta")||
+                    (articulation_string == "Spi"))
+                {
+                    stopAllNotesAfterPlaying();
+                    UpdateLabelVisible(false);
+                }
                 if (waitDuration - noteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
                     NonBlockingSleep.Sleep(waitDuration - noteDuration);
@@ -3078,6 +3085,7 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
+                SuspendLayout();
                 if (label_beep.InvokeRequired)
                 {
                     label_beep.BeginInvoke(new Action(() =>
@@ -3093,6 +3101,7 @@ namespace NeoBleeper
                 {
                     label_beep.BringToFront();
                 }
+                ResumeLayout(performLayout: true);
                 return;
             });
         }
@@ -3490,7 +3499,6 @@ namespace NeoBleeper
         {
             if (cancellationTokenSource.Token.IsCancellationRequested) return;
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
 
@@ -3674,9 +3682,18 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = (int)FixRoundingErrors(Math.Round((double)length / Variables.alternating_note_length));
+                int last_note_order = (int)FixRoundingErrors(length / Variables.alternating_note_length);
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
+                    int delay_between_notes = 0;
+                    if (Program.creating_sounds.create_beep_with_soundcard == true)
+                    {
+                        delay_between_notes = 8; // Delay for sound card beep
+                    }
+                    else
+                    {
+                        delay_between_notes = 10; // Delay for system speaker beep
+                    }
                     string[] note_series = { note1, note2, note3, note4 };
                     do
                     {
@@ -3686,7 +3703,7 @@ namespace NeoBleeper
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                NonBlockingSleep.Sleep(5);
+                                NonBlockingSleep.Sleep(delay_between_notes);
                                 note_order++;
                             }
                         }
@@ -3697,6 +3714,15 @@ namespace NeoBleeper
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
+                    int delay_between_notes = 0;
+                    if (Program.creating_sounds.create_beep_with_soundcard == true)
+                    {
+                        delay_between_notes = 8; // Delay for sound card beep
+                    }
+                    else
+                    {
+                        delay_between_notes = 10; // Delay for system speaker beep
+                    }
                     do
                     {
                         // Odd number columns first (Note1 and Note3)
@@ -3707,12 +3733,12 @@ namespace NeoBleeper
                                 if (i == 0)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(5);
+                                    NonBlockingSleep.Sleep(delay_between_notes);
                                 }
                                 else if (i == 2)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(5);
+                                    NonBlockingSleep.Sleep(delay_between_notes);
                                 }
                                 note_order++;
                             }
@@ -3725,12 +3751,12 @@ namespace NeoBleeper
                                 if (i == 1)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(5);
+                                    NonBlockingSleep.Sleep(delay_between_notes);
                                 }
                                 else if (i == 3)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(5);
+                                    NonBlockingSleep.Sleep(delay_between_notes);
                                 }
                                 note_order++;
                             }
@@ -3890,7 +3916,7 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 8) * calculatedLengthFactor)));
+            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 3) * calculatedLengthFactor)));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
@@ -3903,10 +3929,7 @@ namespace NeoBleeper
                 {
                     NotePlayer.play_note(snareFrequency, length);
                 }
-
-                // Her vuruþ arasýnda kýsa bir duraklama
             }
-            NonBlockingSleep.Sleep(length / 2);
             // Add hi-hat sound
             NotePlayer.play_note(hiHatFrequency, length / 2);
 

@@ -41,8 +41,8 @@ namespace NeoBleeper
             static SynthMisc()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 10;
-                waveOut.NumberOfBuffers = 50;
+                waveOut.DesiredLatency = 1;
+                waveOut.NumberOfBuffers = 75;
                 waveOut.Init(signalGenerator);
             }
 
