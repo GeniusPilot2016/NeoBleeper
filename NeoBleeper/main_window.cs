@@ -3085,23 +3085,27 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-                SuspendLayout();
                 if (label_beep.InvokeRequired)
                 {
                     label_beep.BeginInvoke(new Action(() =>
                     {
+                        SuspendLayout();
                         label_beep.Visible = visible;
+                        ResumeLayout(performLayout: true);
                     }));
                 }
                 else
                 {
+                    SuspendLayout();
                     label_beep.Visible = visible;
+                    ResumeLayout(performLayout: true);
                 }
                 if (visible)
                 {
-                    label_beep.BringToFront();
+                    SuspendLayout();
+                    label_beep.BringToFront(); 
+                    ResumeLayout(performLayout: true);
                 }
-                ResumeLayout(performLayout: true);
                 return;
             });
         }
