@@ -3687,7 +3687,6 @@ namespace NeoBleeper
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                NonBlockingSleep.Sleep(10);
                                 note_order++;
                             }
                         }
@@ -3708,12 +3707,10 @@ namespace NeoBleeper
                                 if (i == 0)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(10);
                                 }
                                 else if (i == 2)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(10);
                                 }
                                 note_order++;
                             }
@@ -3726,12 +3723,10 @@ namespace NeoBleeper
                                 if (i == 1)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(10);
                                 }
                                 else if (i == 3)
                                 {
                                     NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                    NonBlockingSleep.Sleep(10);
                                 }
                                 note_order++;
                             }
