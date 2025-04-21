@@ -3675,7 +3675,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = (int)Math.Round((double)length / Variables.alternating_note_length);
+                int last_note_order = (int)FixRoundingErrors(Math.Round((double)length / Variables.alternating_note_length));
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
