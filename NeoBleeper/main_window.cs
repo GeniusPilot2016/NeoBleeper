@@ -3445,39 +3445,39 @@ namespace NeoBleeper
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 4F);
+                            line_length = Variables.miliseconds_per_beat * 4;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat * 2F);
+                            line_length = Variables.miliseconds_per_beat * 2;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            line_length = (int)Math.Truncate((double)Variables.miliseconds_per_beat);
+                            line_length = Variables.miliseconds_per_beat;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 2F);
+                            line_length = Variables.miliseconds_per_beat / 2;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 4F);
+                            line_length = Variables.miliseconds_per_beat / 4;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_beat / 8F);
+                            line_length = Variables.miliseconds_per_beat / 8;
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)Math.Truncate(FixRoundingErrors(line_length * 1.5));
+                            line_length = (int)FixRoundingErrors(line_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length = (int)Math.Truncate(line_length / 3F);
+                            line_length /= 3;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            line_length = (int)Math.Truncate(line_length * 2F);
+                            line_length *=2;
                         }
                     }
                 }
