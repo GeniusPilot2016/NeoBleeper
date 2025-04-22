@@ -391,6 +391,7 @@ namespace NeoBleeper
                 _isPlaying = false;
 
                 // Reset label safely using BeginInvoke
+                SuspendLayout();
                 if (holded_note_label.InvokeRequired)
                 {
                     holded_note_label.BeginInvoke(new Action(() =>
@@ -402,6 +403,7 @@ namespace NeoBleeper
                 {
                     holded_note_label.Text = "Notes which are currently being held on: (0)";
                 }
+                ResumeLayout(performLayout: true);
                 button_play.Enabled = true;
                 button_stop.Enabled = false;
                 Debug.WriteLine("Playback stopped successfully");
@@ -505,6 +507,7 @@ namespace NeoBleeper
                     // Update label on UI thread
                     try
                     {
+                        SuspendLayout();
                         if (holded_note_label.InvokeRequired)
                         {
                             holded_note_label.BeginInvoke(new Action(() =>
@@ -516,6 +519,7 @@ namespace NeoBleeper
                         {
                             holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
                         }
+                        ResumeLayout(performLayout: true);
                     }
                     catch (Exception ex)
                     {
@@ -548,13 +552,14 @@ namespace NeoBleeper
                     {
                         if(MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput==true)
                         {
-                            Task.Run(() =>
+                            foreach (var note in filteredNotes)
                             {
-                                foreach (var note in filteredNotes)
+                                Task.Run(() =>
                                 {
                                     MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
-                                }
-                            });
+                                });
+                            }
+                            
                         }
                         var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
 
@@ -607,6 +612,7 @@ namespace NeoBleeper
                 Debug.WriteLine("Playback completed successfully");
 
                 // Reset label
+                SuspendLayout();
                 if (holded_note_label.InvokeRequired)
                 {
                     holded_note_label.BeginInvoke(new Action(() =>
@@ -618,6 +624,7 @@ namespace NeoBleeper
                 {
                     holded_note_label.Text = "Notes which are currently being held on: (0)";
                 }
+                ResumeLayout(performLayout: true);
             }
             catch (TaskCanceledException)
             {
@@ -862,6 +869,7 @@ namespace NeoBleeper
                     Color originalColor = _originalLabelColors[label];
 
                     // Highlight immediately
+                    SuspendLayout();
                     if (label.InvokeRequired)
                     {
                         label.BeginInvoke(new Action(() =>
@@ -873,6 +881,7 @@ namespace NeoBleeper
                     {
                         label.BackColor = _highlightColor;
                     }
+                    ResumeLayout(performLayout: true);
 
 
                     return;
@@ -886,6 +895,7 @@ namespace NeoBleeper
             {
                 if (label.Text.Contains(noteName))
                 {
+                    SuspendLayout();
                     if (label.InvokeRequired)
                     {
                         label.BeginInvoke(new Action(() =>
@@ -897,6 +907,7 @@ namespace NeoBleeper
                     {
                         label.BackColor = _originalLabelColors[label];
                     }
+                    ResumeLayout(performLayout: true);
                     return;
                 }
             }
@@ -908,6 +919,7 @@ namespace NeoBleeper
         }
         private void UpdateTrackBarPosition(int frameIndex)
         {
+            SuspendLayout();
             if (trackBar1.InvokeRequired)
             {
                 trackBar1.BeginInvoke(new Action(() =>
@@ -919,11 +931,13 @@ namespace NeoBleeper
             {
                 trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
             }
+            ResumeLayout(performLayout: true);
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
             Task.Run(() =>
             {
+                SuspendLayout();
                 if (label_percentage.InvokeRequired)
                 {
                     label_percentage.BeginInvoke(new Action(() =>
@@ -935,6 +949,7 @@ namespace NeoBleeper
                 {
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                 }
+                ResumeLayout(performLayout: true);
             });
             CalculatePosition(frameIndex);
         }
@@ -942,7 +957,7 @@ namespace NeoBleeper
         {
             if (_frames == null || _frames.Count == 0)
                 return;
-
+            SuspendLayout();
             if (label_percentage.InvokeRequired)
             {
                 label_percentage.BeginInvoke(new Action(() =>
@@ -954,6 +969,7 @@ namespace NeoBleeper
             {
                 label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
             }
+            ResumeLayout(performLayout: true);
         }
 
         private string UpdateTimeLabel(int frameIndex)
@@ -1013,6 +1029,7 @@ namespace NeoBleeper
                 Action updateAction = () =>
                 {
                     // Reset all labels
+                    SuspendLayout();
                     foreach (var label in _noteLabels)
                     {
                         label.Visible = false;
@@ -1059,6 +1076,7 @@ namespace NeoBleeper
                     {
                         label_more_notes.Visible = false;
                     }
+                    ResumeLayout(performLayout: true);
                 };
 
                 // Ensure UI update happens on the UI thread
