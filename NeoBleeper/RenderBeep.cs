@@ -19,12 +19,12 @@ namespace NeoBleeper
                 int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
-                NonBlockingSleep.Sleep(10); // Wait for the sound to start
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
                 NonBlockingSleep.Sleep(ms);
                 if(nonStopping==false) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();
+                    NonBlockingSleep.Sleep(10); // Small delay to ensure the sound stops
                 }
             }
             public static void StopBeep()
@@ -59,16 +59,15 @@ namespace NeoBleeper
                     waveOut.Stop();
                     waveOut.Init(signalGenerator);
                     currentProvider = signalGenerator;
-                    NonBlockingSleep.Sleep(5);
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                NonBlockingSleep.Sleep(5);
                 waveOut.Play();
                 NonBlockingSleep.Sleep(ms);
                 if (!nonStopping)
                 {
                     waveOut.Stop();
+                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
                 }
             }
 
@@ -95,18 +94,17 @@ namespace NeoBleeper
                     bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
                     waveOut.Stop();
                     waveOut.Init(bandPassNoise);
-                    currentProvider = bandPassNoise;
-                    NonBlockingSleep.Sleep(5);
+                    currentProvider = bandPassNoise;;
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                NonBlockingSleep.Sleep(5);
                 waveOut.Play();
                 NonBlockingSleep.Sleep(ms);
 
                 if (!nonStopping)
                 {
                     waveOut.Stop();
+                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
                 }
             }
 
