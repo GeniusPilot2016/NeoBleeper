@@ -67,7 +67,7 @@ namespace NeoBleeper
                 if (!nonStopping)
                 {
                     waveOut.Stop();
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
+                    NonBlockingSleep.Sleep(10); // Small delay to ensure the sound stops
                 }
             }
 
@@ -104,7 +104,7 @@ namespace NeoBleeper
                 if (!nonStopping)
                 {
                     waveOut.Stop();
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
+                    NonBlockingSleep.Sleep(10); // Small delay to ensure the sound stops
                 }
             }
 
