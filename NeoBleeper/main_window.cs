@@ -3424,9 +3424,9 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            note_length /= 2;
+                            note_length *= 2;
                         }
-                        final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
+                        final_note_length = (int)FixRoundingErrors(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
