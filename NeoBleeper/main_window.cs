@@ -24,7 +24,7 @@ namespace NeoBleeper
         {
             public static int octave;
             public static int bpm;
-            public static int miliseconds_per_beat;
+            public static int miliseconds_per_whole_note;
             public static int alternating_note_length;
             public static double note_silence_ratio;
         }
@@ -2810,7 +2810,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = (int)Math.Truncate(FixRoundingErrors(240000D / Variables.bpm));
+                    Variables.miliseconds_per_whole_note = (int)Math.Truncate(240000D / Variables.bpm);
                 }
                 String articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
                 line_length_calculator();
@@ -3271,7 +3271,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_beat = (int)Math.Truncate(FixRoundingErrors(240000 / Variables.bpm));
+                    Variables.miliseconds_per_whole_note = (int)Math.Truncate(240000D / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3384,49 +3384,49 @@ namespace NeoBleeper
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                         {
-                            note_length = Variables.miliseconds_per_beat;
+                            note_length = Variables.miliseconds_per_whole_note;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            note_length = (int)(Variables.miliseconds_per_beat * 0.5);
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            note_length = (int)(Variables.miliseconds_per_beat * 0.25);
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = (int)(Variables.miliseconds_per_beat * 0.125);
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            note_length = (int)(Variables.miliseconds_per_beat * 0.0625);
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            note_length = (int)(Variables.miliseconds_per_beat * 0.03125);
+                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            note_length = (int)(note_length * 1.5);
+                            note_length = (int)Math.Truncate(note_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = (int)(note_length * 0.3);
+                            note_length = (int)Math.Truncate(note_length * 0.3);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length = (int)(note_length * 0.5);
+                            note_length = (int)Math.Truncate(note_length * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length = (int)(note_length * 0.25);
+                            note_length = (int)Math.Truncate(note_length * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
                             note_length *= 2;
                         }
-                        final_note_length = (int)Math.Truncate(FixRoundingErrors(note_length * Variables.note_silence_ratio));
+                        final_note_length = (int)(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
@@ -3445,35 +3445,35 @@ namespace NeoBleeper
                     {
                         if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
                         {
-                            line_length = Variables.miliseconds_per_beat;
+                            line_length = Variables.miliseconds_per_whole_note;
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            line_length = (int)(Variables.miliseconds_per_beat * 0.5);
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            line_length = (int)(Variables.miliseconds_per_beat * 0.25);
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = (int)(Variables.miliseconds_per_beat * 0.125);
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = (int)(Variables.miliseconds_per_beat * 0.0625);
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = (int)(Variables.miliseconds_per_beat * 0.03125);
+                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)(line_length * 1.5);
+                            line_length = (int)Math.Truncate(line_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length = (int)(line_length * 0.3);
+                            line_length = (int)Math.Truncate(line_length * 0.3);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
@@ -3679,7 +3679,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = (int)Math.Truncate(FixRoundingErrors(length / Variables.alternating_note_length));
+                int last_note_order = length / Variables.alternating_note_length;
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
@@ -3744,6 +3744,7 @@ namespace NeoBleeper
                     if (nonStopping == false)
                     {
                         UpdateLabelVisible(false);
+                        NonBlockingSleep.Sleep(10);
                     }
                 }
                 return;
@@ -3890,7 +3891,7 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_beat / 3) * calculatedLengthFactor)));
+            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_whole_note / 3) * calculatedLengthFactor)));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
