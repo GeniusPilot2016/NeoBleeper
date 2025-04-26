@@ -3271,7 +3271,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = (int)Math.Truncate(240000D / Variables.bpm);
+                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(Math.Truncate(240000D / Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3388,45 +3388,45 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
+                            note_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
+                            note_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
+                            note_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.125);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
+                            note_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.0625);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
+                            note_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.03125);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            note_length = (int)Math.Truncate(note_length * 1.5);
+                            note_length = (int)Math.Round(note_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.3);
+                            note_length = (int)Math.Round(note_length * 0.3);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.5);
+                            note_length = (int)Math.Round(note_length * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.25);
+                            note_length = (int)Math.Round(note_length * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
                             note_length *= 2;
                         }
-                        final_note_length = (int)(note_length * Variables.note_silence_ratio);
+                        final_note_length = (int)Math.Round(note_length * Variables.note_silence_ratio);
                     }
                 }
             }
@@ -3449,31 +3449,31 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
+                            line_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
+                            line_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.25);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
+                            line_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.125);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
+                            line_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.0625);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
+                            line_length = (int)Math.Round(Variables.miliseconds_per_whole_note * 0.03125);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)Math.Truncate(line_length * 1.5);
+                            line_length = (int)Math.Round(line_length * 1.5);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length = (int)Math.Truncate(line_length * 0.3);
+                            line_length = (int)Math.Round(line_length * 0.3);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
@@ -3679,7 +3679,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = length / Variables.alternating_note_length;
+                int last_note_order = (int)Math.Truncate(FixRoundingErrors(Math.Round((double)(length / Variables.alternating_note_length))));
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
@@ -3753,16 +3753,18 @@ namespace NeoBleeper
         public static double FixRoundingErrors(double input)
         {
             // Compare the input with a small threshold to determine if it's close to an integer
-            const double threshold = 0.0001;
+            const double threshold = 0.0001; // This corresponds to the value at address 00401838h
             if (input > threshold)
             {
-                // Error fix
+                // Debug output
                 Debug.WriteLine("FixRoundingErrors() fixed an error.");
+
+                // Error fix
                 input = Math.Floor(input + 0.5); // Rounding up
             }
 
-            // Additional error correction
-            input += 0.00001;
+                // Additional error correction
+                input += 0.00001; // This corresponds to the value at address 00401830h
 
             return input;
         }
