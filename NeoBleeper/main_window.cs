@@ -24,13 +24,13 @@ namespace NeoBleeper
         {
             public static int octave;
             public static int bpm;
-            public static int miliseconds_per_whole_note;
+            public static double miliseconds_per_whole_note;
             public static int alternating_note_length;
             public static double note_silence_ratio;
         }
         private bool isClosing = false;
-        int note_length;
-        int final_note_length;
+        double note_length;
+        double final_note_length;
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
@@ -2797,63 +2797,79 @@ namespace NeoBleeper
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
+
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                if (trackBar_note_silence_ratio.Value == 100)
-                {
-                    nonStopping = true;
-                }
-                else
-                {
-                    nonStopping = false;
-                }
+                // Determine if notes should play without stopping
+                nonStopping = trackBar_note_silence_ratio.Value == 100;
+
+                // Update alternating note length and BPM-based timing
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = (int)Math.Truncate(240000D / Variables.bpm);
+                    Variables.miliseconds_per_whole_note = 240000.0 / Variables.bpm;
                 }
-                String articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
+
+                // Retrieve articulation and calculate note durations
+                string articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
                 line_length_calculator();
                 note_length_calculator();
-                // Calculate full duration before playing
-                int noteDuration = Math.Max(1, final_note_length);
-                int waitDuration = Math.Max(1, line_length);
 
-                // Play note and continue waiting
-                if (Program.MIDIDevices.useMIDIoutput == true)
+                double noteDuration = Math.Max(1.0, final_note_length);
+                double waitDuration = Math.Max(1.0, line_length);
+
+                // Play notes using MIDI output if enabled
+                if (Program.MIDIDevices.useMIDIoutput)
                 {
-                    MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-                            Program.MIDIDevices.MIDIOutputDeviceChannel);
-                    play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
+                    MIDIIOUtils.ChangeInstrument(
+                        MIDIIOUtils._midiOut,
+                        Program.MIDIDevices.MIDIOutputInstrument,
+                        Program.MIDIDevices.MIDIOutputDeviceChannel
+                    );
+
+                    play_note_in_line_from_MIDIOutput(
+                        listViewNotes.SelectedIndices[0],
+                        checkBox_play_note1_played.Checked,
+                        checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked,
+                        checkBox_play_note4_played.Checked,
+                        (int)noteDuration
+                    );
+                }
+
+                // Play notes using the system speaker or sound device
+                play_note_in_line(
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
-                    checkBox_play_note4_played.Checked, noteDuration);
-                }
-                play_note_in_line(
-                checkBox_play_note1_played.Checked,
-                checkBox_play_note2_played.Checked,
-                checkBox_play_note3_played.Checked,
-                checkBox_play_note4_played.Checked,
-                    noteDuration, nonStopping);
-                // Wait between each note
-                if(nonStopping == true && (articulation_string == "Sta")||
-                    (articulation_string == "Spi"))
+                    checkBox_play_note4_played.Checked,
+                    (int)noteDuration,
+                    nonStopping
+                );
+
+                // Handle articulation-specific behavior
+                if (nonStopping && (articulation_string == "Sta" || articulation_string == "Spi"))
                 {
                     stopAllNotesAfterPlaying();
                     UpdateLabelVisible(false);
                 }
+
+                // Wait for the remaining duration if applicable
                 if (waitDuration - noteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
-                    NonBlockingSleep.Sleep(waitDuration - noteDuration);
+                    NonBlockingSleep.Sleep((int)(waitDuration - noteDuration));
                 }
-                // Do ListView update in UI thread
+
+                // Update the ListView selection for the next note
                 UpdateListViewSelectionSync(index);
             }
+
+            // Stop all notes if silence ratio is 100%
             if (trackBar_note_silence_ratio.Value == 100)
             {
                 stopAllNotesAfterPlaying();
             }
+
             EnableDisableCommonControls(true);
         }
 
@@ -3271,7 +3287,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(Math.Round(240000D / Variables.bpm));
+                    Variables.miliseconds_per_whole_note = 240000.0 / Variables.bpm;
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3287,7 +3303,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, final_note_length);
+                        checkBox_play_note4_played.Checked, (int)final_note_length);
                     });
                 }
                 bool nonStopping;
@@ -3301,7 +3317,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                final_note_length, nonStopping);
+                (int)final_note_length, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3388,51 +3404,51 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
+                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 2.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
+                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 4.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
+                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 8.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
+                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 16.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            note_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
+                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 32.0);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            note_length = (int)Math.Truncate(note_length * 1.5);
+                            note_length = note_length * (3.0 / 2.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.33);
+                            note_length = note_length * (1.0 / 3.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.5);
+                            note_length = note_length * (1.0 / 2.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
                         {
-                            note_length = (int)Math.Truncate(note_length * 0.25);
+                            note_length = note_length * (1.0 / 4.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            note_length *= 2;
+                            note_length *= 2.0;
                         }
-                        final_note_length = (int)Math.Truncate(note_length * Variables.note_silence_ratio);
+                        final_note_length = note_length * Variables.note_silence_ratio;
                     }
                 }
             }
         }
 
-        int line_length = 0;
+        double line_length = 0;
         private void line_length_calculator()
         {
             if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
@@ -3449,35 +3465,35 @@ namespace NeoBleeper
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.5);
+                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 2.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.25);
+                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 4.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.125);
+                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 8.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.0625);
+                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 16.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
                         {
-                            line_length = (int)Math.Truncate(Variables.miliseconds_per_whole_note * 0.03125);
+                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 32.0);
                         }
                         if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
                         {
-                            line_length = (int)Math.Truncate(line_length * 1.5);
+                            line_length = line_length * (3.0 / 2.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
                         {
-                            line_length = (int)Math.Truncate(line_length * 0.33);
+                            line_length = line_length * (1.0 / 3.0);
                         }
                         else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
                         {
-                            line_length *= 2;
+                            line_length *= 2.0;
                         }
                     }
                 }
@@ -3744,7 +3760,7 @@ namespace NeoBleeper
                     if (nonStopping == false)
                     {
                         UpdateLabelVisible(false);
-                        NonBlockingSleep.Sleep(10);
+                        //NonBlockingSleep.Sleep(10);
                     }
                 }
                 return;
