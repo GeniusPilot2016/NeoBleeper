@@ -24,7 +24,7 @@ namespace NeoBleeper
                 if(nonStopping==false) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();
-                    NonBlockingSleep.Sleep(10); // Small delay to ensure the sound stops
+                    NonBlockingSleep.Sleep(15); // Small delay to ensure the sound stops
                 }
             }
             public static void StopBeep()

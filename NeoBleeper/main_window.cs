@@ -2815,8 +2815,8 @@ namespace NeoBleeper
                 line_length_calculator();
                 note_length_calculator();
 
-                double noteDuration = Math.Max(1.0, final_note_length);
-                double waitDuration = Math.Max(1.0, line_length);
+                int noteDuration = Math.Max(1, (int)FixRoundingErrors(Math.Truncate(final_note_length)));
+                int waitDuration = Math.Max(1, (int)FixRoundingErrors(Math.Truncate(line_length)));
 
                 // Play notes using MIDI output if enabled
                 if (Program.MIDIDevices.useMIDIoutput)
@@ -2833,7 +2833,7 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        (int)noteDuration
+                        noteDuration
                     );
                 }
 
@@ -2843,7 +2843,7 @@ namespace NeoBleeper
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
                     checkBox_play_note4_played.Checked,
-                    (int)noteDuration,
+                    noteDuration,
                     nonStopping
                 );
 
@@ -2857,7 +2857,7 @@ namespace NeoBleeper
                 // Wait for the remaining duration if applicable
                 if (waitDuration - noteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
-                    NonBlockingSleep.Sleep((int)(waitDuration - noteDuration));
+                    NonBlockingSleep.Sleep(waitDuration - noteDuration);
                 }
 
                 // Update the ListView selection for the next note
@@ -3639,11 +3639,25 @@ namespace NeoBleeper
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
-                    NonBlockingSleep.Sleep(length);
+                    if(Program.creating_sounds.create_beep_with_soundcard == true)
+                    {
+                        NonBlockingSleep.Sleep(Math.Max(1, length - 8));
+                    }
+                    else
+                    {
+                        NonBlockingSleep.Sleep(Math.Max(1, length));
+                    }
                 }
                 else
                 {
-                    NonBlockingSleep.Sleep(length + 10);
+                    if (Program.creating_sounds.create_beep_with_soundcard == true)
+                    {
+                        NonBlockingSleep.Sleep(Math.Max(1, length + 2));
+                    }
+                    else
+                    {
+                        NonBlockingSleep.Sleep(Math.Max(1, length + 10));
+                    }
                 }
                 return;
             }
