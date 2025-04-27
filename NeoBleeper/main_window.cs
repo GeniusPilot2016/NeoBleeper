@@ -3893,7 +3893,7 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_whole_note / 3) * calculatedLengthFactor)));
+            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_whole_note / 14) * calculatedLengthFactor)));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
