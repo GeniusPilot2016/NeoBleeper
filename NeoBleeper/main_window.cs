@@ -2800,6 +2800,8 @@ namespace NeoBleeper
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
+                double roundedNoteLength = FixRoundingErrors(note_length);
+
                 // Determine if notes should play without stopping
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
@@ -2815,8 +2817,8 @@ namespace NeoBleeper
                 line_length_calculator();
                 note_length_calculator();
 
-                int noteDuration = Math.Max(1, (int)FixRoundingErrors(Math.Truncate(final_note_length)));
-                int waitDuration = Math.Max(1, (int)FixRoundingErrors(Math.Truncate(line_length)));
+                int noteDuration = Math.Max(1, (int)FixRoundingErrors(final_note_length));
+                int waitDuration = Math.Max(1, (int)FixRoundingErrors(line_length));
 
                 // Play notes using MIDI output if enabled
                 if (Program.MIDIDevices.useMIDIoutput)
@@ -3303,7 +3305,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)final_note_length);
+                        checkBox_play_note4_played.Checked, (int)FixRoundingErrors(final_note_length));
                     });
                 }
                 bool nonStopping;
@@ -3317,7 +3319,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                (int)final_note_length, nonStopping);
+                (int)FixRoundingErrors(final_note_length), nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3639,12 +3641,8 @@ namespace NeoBleeper
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
-                    NonBlockingSleep.Sleep(Math.Max(1, length));
                 }
-                else
-                {
-                    NonBlockingSleep.Sleep(Math.Max(1, length + 15));
-                }
+                NonBlockingSleep.Sleep(Math.Max(1, length));
                 return;
             }
             if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
@@ -3695,7 +3693,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(true);
                 }
                 int note_order = 1;
-                int last_note_order = (int)FixRoundingErrors(Math.Round((double)(length / Variables.alternating_note_length)));
+                int last_note_order = (int)FixRoundingErrors(length / Variables.alternating_note_length);
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
@@ -3768,22 +3766,18 @@ namespace NeoBleeper
         }
         public static double FixRoundingErrors(double input)
         {
-            // Compare the input with a small threshold to determine if it's close to an integer
-            const double threshold = 0.0001; // This corresponds to the value at address 00401838h
-            if (input > threshold)
-            {
-                // Debug output
-                Debug.WriteLine("FixRoundingErrors() fixed an error.");
+            // Round to the nearest integer using Math.Round
+            double rounded = Math.Round(input, MidpointRounding.AwayFromZero);
 
-                // Error fix
-                input = Math.Floor(input + 0.5); // Rounding up
-            }
-
-                // Additional error correction
-                input += 0.00001; // This corresponds to the value at address 00401830h
-
-            return input;
+            // Add a small adjustment to handle floating-point precision issues
+            return rounded + 0.00001;
         }
+        public static bool NoRemainder(double value)
+        {
+            // Compare the value with its truncated version
+            return value == Math.Truncate(value);
+        }
+
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -3876,7 +3870,7 @@ namespace NeoBleeper
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                 });
-                if (checkBox_play_beat_sound.Checked == true && clicked == false && beat_number - Math.Truncate(beat_number) == 0)
+                if (checkBox_play_beat_sound.Checked == true && clicked == false && NoRemainder(beat_number))
                 {
                     switch (Program.BeatTypes.beat_type)
                     {
@@ -3896,7 +3890,6 @@ namespace NeoBleeper
                             }
                             break;
                     }
-
                 }
             }
         }
@@ -3909,7 +3902,7 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, Convert.ToInt32(Math.Truncate((double)(Variables.miliseconds_per_whole_note / 14) * calculatedLengthFactor)));
+            int length = Math.Max(1, (int)Math.Truncate((Variables.miliseconds_per_whole_note / 14.0) * calculatedLengthFactor));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
