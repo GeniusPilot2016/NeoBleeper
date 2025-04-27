@@ -3639,25 +3639,11 @@ namespace NeoBleeper
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
-                    if(Program.creating_sounds.create_beep_with_soundcard == true)
-                    {
-                        NonBlockingSleep.Sleep(Math.Max(1, length - 8));
-                    }
-                    else
-                    {
-                        NonBlockingSleep.Sleep(Math.Max(1, length));
-                    }
+                    NonBlockingSleep.Sleep(Math.Max(1, length));
                 }
                 else
                 {
-                    if (Program.creating_sounds.create_beep_with_soundcard == true)
-                    {
-                        NonBlockingSleep.Sleep(Math.Max(1, length + 2));
-                    }
-                    else
-                    {
-                        NonBlockingSleep.Sleep(Math.Max(1, length + 10));
-                    }
+                    NonBlockingSleep.Sleep(Math.Max(1, length + 15));
                 }
                 return;
             }
