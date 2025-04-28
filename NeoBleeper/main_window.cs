@@ -2809,7 +2809,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = 240000.0 / Variables.bpm;
+                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(240000.0 / Variables.bpm);
                 }
 
                 // Retrieve articulation and calculate note durations
@@ -3289,7 +3289,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = 240000.0 / Variables.bpm;
+                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(240000.0 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3435,7 +3435,7 @@ namespace NeoBleeper
                                 note_length *= 1.5; // Dotted note
                                 break;
                             case "Tri":
-                                note_length /= 3.0; // Triplet
+                                note_length *= 0.33; // Triplet
                                 break;
                         }
 
@@ -3507,7 +3507,7 @@ namespace NeoBleeper
                                 line_length *= 1.5; // Dotted note
                                 break;
                             case "Tri":
-                                line_length /= 3.0; // Triplet
+                                line_length *= 0.33; // Triplet
                                 break;
                         }
 
@@ -3924,7 +3924,7 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, (int)Math.Truncate((Variables.miliseconds_per_whole_note / 14.0) * calculatedLengthFactor));
+            int length = Math.Max(1, (int)FixRoundingErrors((Variables.miliseconds_per_whole_note / 14.0) * calculatedLengthFactor));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
