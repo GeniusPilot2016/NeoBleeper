@@ -3400,50 +3400,61 @@ namespace NeoBleeper
                     int selected_line = listViewNotes.SelectedIndices[0];
                     if (selected_line >= 0)
                     {
-                        if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
+                        // Map note type to base duration
+                        string noteType = listViewNotes.Items[selected_line].SubItems[0].Text;
+                        switch (noteType)
                         {
-                            note_length = Variables.miliseconds_per_whole_note;
+                            case "Whole":
+                                note_length = Variables.miliseconds_per_whole_note;
+                                break;
+                            case "Half":
+                                note_length = Variables.miliseconds_per_whole_note * 0.5;
+                                break;
+                            case "Quarter":
+                                note_length = Variables.miliseconds_per_whole_note * 0.25;
+                                break;
+                            case "1/8":
+                                note_length = Variables.miliseconds_per_whole_note * 0.125;
+                                break;
+                            case "1/16":
+                                note_length = Variables.miliseconds_per_whole_note * 0.0625;
+                                break;
+                            case "1/32":
+                                note_length = Variables.miliseconds_per_whole_note * 0.03125;
+                                break;
+                            default:
+                                note_length = 0; // Default to 0 if note type is unrecognized
+                                break;
                         }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
+
+                        // Apply modifiers
+                        string modifier = listViewNotes.Items[selected_line].SubItems[5].Text;
+                        switch (modifier)
                         {
-                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 2.0);
+                            case "Dot":
+                                note_length *= 1.5; // Dotted note
+                                break;
+                            case "Tri":
+                                note_length /= 3.0; // Triplet
+                                break;
                         }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
+
+                        // Apply articulations
+                        string articulation = listViewNotes.Items[selected_line].SubItems[6].Text;
+                        switch (articulation)
                         {
-                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 4.0);
+                            case "Sta":
+                                note_length *= 0.5; // Staccato
+                                break;
+                            case "Spi":
+                                note_length *= 0.25; // Spiccato
+                                break;
+                            case "Fer":
+                                note_length *= 2.0; // Fermata
+                                break;
                         }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
-                        {
-                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 8.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
-                        {
-                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 16.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
-                        {
-                            note_length = Variables.miliseconds_per_whole_note * (1.0 / 32.0);
-                        }
-                        if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
-                        {
-                            note_length = note_length * (3.0 / 2.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
-                        {
-                            note_length = note_length * (1.0 / 3.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Sta")
-                        {
-                            note_length = note_length * (1.0 / 2.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Spi")
-                        {
-                            note_length = note_length * (1.0 / 4.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
-                        {
-                            note_length *= 2.0;
-                        }
+
+                        // Apply silence ratio
                         final_note_length = note_length * Variables.note_silence_ratio;
                     }
                 }
@@ -3461,41 +3472,52 @@ namespace NeoBleeper
                     int selected_line = listViewNotes.SelectedIndices[0];
                     if (selected_line >= 0)
                     {
-                        if (listViewNotes.Items[selected_line].SubItems[0].Text == "Whole")
+                        // Map note type to base duration
+                        string noteType = listViewNotes.Items[selected_line].SubItems[0].Text;
+                        switch (noteType)
                         {
-                            line_length = Variables.miliseconds_per_whole_note;
+                            case "Whole":
+                                line_length = Variables.miliseconds_per_whole_note;
+                                break;
+                            case "Half":
+                                line_length = Variables.miliseconds_per_whole_note * 0.5;
+                                break;
+                            case "Quarter":
+                                line_length = Variables.miliseconds_per_whole_note * 0.25;
+                                break;
+                            case "1/8":
+                                line_length = Variables.miliseconds_per_whole_note * 0.125;
+                                break;
+                            case "1/16":
+                                line_length = Variables.miliseconds_per_whole_note * 0.0625;
+                                break;
+                            case "1/32":
+                                line_length = Variables.miliseconds_per_whole_note * 0.03125;
+                                break;
+                            default:
+                                line_length = 0; // Default to 0 if note type is unrecognized
+                                break;
                         }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Half")
+
+                        // Apply modifiers
+                        string modifier = listViewNotes.Items[selected_line].SubItems[5].Text;
+                        switch (modifier)
                         {
-                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 2.0);
+                            case "Dot":
+                                line_length *= 1.5; // Dotted note
+                                break;
+                            case "Tri":
+                                line_length /= 3.0; // Triplet
+                                break;
                         }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "Quarter")
+
+                        // Apply articulations
+                        string articulation = listViewNotes.Items[selected_line].SubItems[6].Text;
+                        switch (articulation)
                         {
-                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 4.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/8")
-                        {
-                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 8.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/16")
-                        {
-                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 16.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[0].Text == "1/32")
-                        {
-                            line_length = Variables.miliseconds_per_whole_note * (1.0 / 32.0);
-                        }
-                        if (listViewNotes.Items[selected_line].SubItems[5].Text == "Dot")
-                        {
-                            line_length = line_length * (3.0 / 2.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[5].Text == "Tri")
-                        {
-                            line_length = line_length * (1.0 / 3.0);
-                        }
-                        else if (listViewNotes.Items[selected_line].SubItems[6].Text == "Fer")
-                        {
-                            line_length *= 2.0;
+                            case "Fer":
+                                line_length *= 2.0; // Fermata
+                                break;
                         }
                     }
                 }
