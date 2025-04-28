@@ -105,7 +105,7 @@ namespace NeoBleeper
         {
             if (waiting == true)
             {
-                if (dateTimePicker1.Value < DateTime.Now)
+                if (dateTimePicker1.Value.ToUniversalTime() < DateTime.UtcNow)
                 {
                     button_wait.Text = "Stop playing";
                     lbl_waiting.Text = "Playing";
