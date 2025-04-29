@@ -1,6 +1,6 @@
 # NeoBleeper
 
-NeoBleeper is an AI-enabled tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in Windows 7 and above by accessing the physical port of the system speaker 🖥️🎶
+NeoBleeper is an AI-enabled tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/2f6a60b9-e867-41ea-94d6-f292b72fad77)
 
@@ -23,13 +23,6 @@ This project is **still in development** and some features and components are st
 
   ![image](https://github.com/user-attachments/assets/83a3f00b-5a64-4b62-a0c9-8d5a56a3adda)
 
-- ### System speaker meets AI
-  Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
-
-  ![image](https://github.com/user-attachments/assets/5170729c-cd2e-47c6-aa82-3231f732ece9)
-
-  ![image](https://github.com/user-attachments/assets/9a7bf243-838b-4cc8-867d-cde839f72011)
-
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
@@ -44,41 +37,53 @@ This project is **still in development** and some features and components are st
 
   ![image](https://github.com/user-attachments/assets/5e526516-c731-492b-aa95-1520c3fb1250)
 
-- ### More precise position indicator
-- NeoBleeper offers a position indicator that compatible with 1/32 note length.
-
-  ![image](https://github.com/user-attachments/assets/f729a905-f198-4558-8c18-a290fda96f26)
-
 - ### Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
   
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
-
-- ### Also you can use your regular keyboard as piano
-  NeoBleeper turns your regular keyboard into a piano, allowing you to easily play notes without needing a MIDI input device.
-
-  ![image](https://github.com/user-attachments/assets/e4cc765a-fbcf-4813-b12e-046802f0d591)
 
 - ### Backwards Compatible
   NeoBleeper supports its own file format (.NBPML) as well as the file format of the Bleeper Music Maker program (.BMM), from which it was inspired.
 
   ![image](https://github.com/user-attachments/assets/1c1a01dd-83e0-4f5d-b13a-4c20e85404fd)
 
-- ### You can personalize as you wish
-  You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only limit to this feature is your imagination.
-
-  ![image](https://github.com/user-attachments/assets/1be1b9ad-44a8-4ae9-8840-9761b5cb011c)
-
-- ### Detects system speaker for you
-  If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
+- ### More Than a Remake
   
-  ![image](https://github.com/user-attachments/assets/cda71c5b-df10-4ab4-bac6-3b6d176303a0)
+  With its new features, NeoBleeper is more than just a remake of Bleeper Music Maker.
+  
+  - #### System speaker meets AI
+    Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
-- ### Smarter than you think
-  NeoBleeper recognizes your computer type and prevents possible undesired situations by automatically activating the 'Use sound device to create the beep' option on compact computers.
+    ![image](https://github.com/user-attachments/assets/5170729c-cd2e-47c6-aa82-3231f732ece9)
 
-  ![image](https://github.com/user-attachments/assets/69ff23e3-7ee8-4c9f-92d1-ea57c464eb40)
-
+    ![image](https://github.com/user-attachments/assets/9a7bf243-838b-4cc8-867d-cde839f72011)
+    
+  - #### More precise position indicator
+    NeoBleeper offers a position indicator that compatible with 1/32 note length.
+    
+    ![image](https://github.com/user-attachments/assets/f729a905-f198-4558-8c18-a290fda96f26)
+    
+  - #### Also you can use your regular keyboard as piano
+    
+    NeoBleeper turns your regular keyboard into a piano, allowing you to easily play notes without needing a MIDI input device.
+    
+    ![image](https://github.com/user-attachments/assets/e4cc765a-fbcf-4813-b12e-046802f0d591)
+    
+  - #### You can personalize as you wish
+    You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only     
+    limit to this feature is your imagination.
+  
+    ![image](https://github.com/user-attachments/assets/1be1b9ad-44a8-4ae9-8840-9761b5cb011c)
+  
+  - #### Detects system speaker for you
+    If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
+    
+    ![image](https://github.com/user-attachments/assets/cda71c5b-df10-4ab4-bac6-3b6d176303a0)
+  
+  - #### Smarter than you think
+    NeoBleeper recognizes your computer type and prevents possible undesired situations by automatically activating the 'Use sound device to create the beep' option on compact computers.
+  
+    ![image](https://github.com/user-attachments/assets/69ff23e3-7ee8-4c9f-92d1-ea57c464eb40)
 
 ## System Requirements
 
