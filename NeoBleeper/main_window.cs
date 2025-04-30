@@ -3714,8 +3714,9 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(true);
                 }
-                int note_order = 1;
-                int last_note_order = (int)FixRoundingErrors(length / Variables.alternating_note_length);
+                DateTime startTime = DateTime.Now; // Start time of loop
+                double totalDuration = length; // Total playing duration of loop
+
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
@@ -3727,53 +3728,57 @@ namespace NeoBleeper
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                note_order++;
+
+                                // Check elapsed time
+                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
-                    while (note_order <= last_note_order);
+                    while ((DateTime.Now - startTime).TotalMilliseconds < totalDuration);
                 }
-
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
                     do
                     {
-                        // Odd number columns first (Note1 and Note3)
+                        // Tek numaralý sütunlar (Note1 ve Note3)
                         for (int i = 0; i < 4; i += 2)
                         {
-                            if (note_series[i] != string.Empty)
+                            if (!string.IsNullOrEmpty(note_series[i]))
                             {
-                                if (i == 0)
+                                double frequency = (i == 0) ? note1_frequency : note3_frequency;
+                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+
+                                // Geçen süreyi kontrol et
+                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
                                 {
-                                    NotePlayer.play_note(Convert.ToInt32(note1_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    break;
                                 }
-                                else if (i == 2)
-                                {
-                                    NotePlayer.play_note(Convert.ToInt32(note3_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                }
-                                note_order++;
                             }
                         }
-                        // Even number columns then (Note2 and Note4)
+
+                        // Çift numaralý sütunlar (Note2 ve Note4)
                         for (int i = 1; i < 4; i += 2)
                         {
-                            if (note_series[i] != string.Empty)
+                            if (!string.IsNullOrEmpty(note_series[i]))
                             {
-                                if (i == 1)
+                                double frequency = (i == 1) ? note2_frequency : note4_frequency;
+                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+
+                                // Geçen süreyi kontrol et
+                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
                                 {
-                                    NotePlayer.play_note(Convert.ToInt32(note2_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                    break;
                                 }
-                                else if (i == 3)
-                                {
-                                    NotePlayer.play_note(Convert.ToInt32(note4_frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                                }
-                                note_order++;
                             }
                         }
                     }
-                    while (note_order <= last_note_order);
+                    while ((DateTime.Now - startTime).TotalMilliseconds < totalDuration);
                 }
+
                 if (cancellationTokenSource.Token.IsCancellationRequested) return;
                 if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
                 {
