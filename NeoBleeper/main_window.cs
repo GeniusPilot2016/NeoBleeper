@@ -24,13 +24,10 @@ namespace NeoBleeper
         {
             public static int octave;
             public static int bpm;
-            public static double miliseconds_per_whole_note;
             public static int alternating_note_length;
             public static double note_silence_ratio;
         }
         private bool isClosing = false;
-        double note_length;
-        double final_note_length;
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
@@ -2800,25 +2797,19 @@ namespace NeoBleeper
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                double roundedNoteLength = FixRoundingErrors(note_length);
-
                 // Determine if notes should play without stopping
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
-
+                int miliseconds_per_whole_note = 0;
                 // Update alternating note length and BPM-based timing
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(240000.0 / Variables.bpm);
+                    miliseconds_per_whole_note = (int)Math.Truncate(FixRoundingErrors(240000.0 / Variables.bpm));
                 }
-
                 // Retrieve articulation and calculate note durations
                 string articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
-                line_length_calculator();
-                note_length_calculator();
-
-                int noteDuration = Math.Max(1, (int)FixRoundingErrors(final_note_length));
-                int waitDuration = Math.Max(1, (int)FixRoundingErrors(line_length));
+                int calculatedNoteDuration = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(note_length_calculator(miliseconds_per_whole_note))));
+                int calculatedWaitDuration = Math.Max(0, (int)Math.Truncate(FixRoundingErrors(line_length_calculator(miliseconds_per_whole_note))));
 
                 // Play notes using MIDI output if enabled
                 if (Program.MIDIDevices.useMIDIoutput)
@@ -2835,7 +2826,7 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        noteDuration
+                        calculatedNoteDuration
                     );
                 }
 
@@ -2845,7 +2836,7 @@ namespace NeoBleeper
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
                     checkBox_play_note4_played.Checked,
-                    noteDuration,
+                    calculatedNoteDuration,
                     nonStopping
                 );
 
@@ -2857,9 +2848,9 @@ namespace NeoBleeper
                 }
 
                 // Wait for the remaining duration if applicable
-                if (waitDuration - noteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
+                if (calculatedWaitDuration - calculatedNoteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
-                    NonBlockingSleep.Sleep(waitDuration - noteDuration);
+                    NonBlockingSleep.Sleep(calculatedWaitDuration - calculatedNoteDuration);
                 }
 
                 // Update the ListView selection for the next note
@@ -3286,16 +3277,17 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
+                int miliseconds_per_whole_note = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    Variables.miliseconds_per_whole_note = (int)FixRoundingErrors(240000.0 / Variables.bpm);
+                    miliseconds_per_whole_note = (int)Math.Truncate(FixRoundingErrors(240000.0 / Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                note_length_calculator();
+                int calculatedNoteLength = (int)FixRoundingErrors(note_length_calculator(miliseconds_per_whole_note));
                 EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
@@ -3305,7 +3297,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)FixRoundingErrors(final_note_length));
+                        checkBox_play_note4_played.Checked, calculatedNoteLength);
                     });
                 }
                 bool nonStopping;
@@ -3319,7 +3311,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                (int)FixRoundingErrors(final_note_length), nonStopping);
+                calculatedNoteLength, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3390,138 +3382,131 @@ namespace NeoBleeper
             Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
 
-        private void note_length_calculator()
+        private double note_length_calculator(double length)
         {
+            double finalNoteLength = 0;
+
             if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
                 listViewNotes.Items != null && listViewNotes.Items.Count > 0)
             {
-                if (Variables.bpm != 0)
+                int selectedLine = listViewNotes.SelectedIndices[0];
+                string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
+
+                // Map note type to base duration
+                switch (noteType)
                 {
-                    int selected_line = listViewNotes.SelectedIndices[0];
-                    if (selected_line >= 0)
-                    {
-                        // Map note type to base duration
-                        string noteType = listViewNotes.Items[selected_line].SubItems[0].Text;
-                        switch (noteType)
-                        {
-                            case "Whole":
-                                note_length = Variables.miliseconds_per_whole_note;
-                                break;
-                            case "Half":
-                                note_length = Variables.miliseconds_per_whole_note * 0.5;
-                                break;
-                            case "Quarter":
-                                note_length = Variables.miliseconds_per_whole_note * 0.25;
-                                break;
-                            case "1/8":
-                                note_length = Variables.miliseconds_per_whole_note * 0.125;
-                                break;
-                            case "1/16":
-                                note_length = Variables.miliseconds_per_whole_note * 0.0625;
-                                break;
-                            case "1/32":
-                                note_length = Variables.miliseconds_per_whole_note * 0.03125;
-                                break;
-                            default:
-                                note_length = 0; // Default to 0 if note type is unrecognized
-                                break;
-                        }
-
-                        // Apply modifiers
-                        string modifier = listViewNotes.Items[selected_line].SubItems[5].Text;
-                        switch (modifier)
-                        {
-                            case "Dot":
-                                note_length *= 1.5; // Dotted note
-                                break;
-                            case "Tri":
-                                note_length *= 0.33; // Triplet
-                                break;
-                        }
-
-                        // Apply articulations
-                        string articulation = listViewNotes.Items[selected_line].SubItems[6].Text;
-                        switch (articulation)
-                        {
-                            case "Sta":
-                                note_length *= 0.5; // Staccato
-                                break;
-                            case "Spi":
-                                note_length *= 0.25; // Spiccato
-                                break;
-                            case "Fer":
-                                note_length *= 2.0; // Fermata
-                                break;
-                        }
-
-                        // Apply silence ratio
-                        final_note_length = note_length * Variables.note_silence_ratio;
-                    }
+                    case "Whole":
+                        finalNoteLength = length;
+                        break;
+                    case "Half":
+                        finalNoteLength = length * 0.5;
+                        break;
+                    case "Quarter":
+                        finalNoteLength = length * 0.25;
+                        break;
+                    case "1/8":
+                        finalNoteLength = length * 0.125;
+                        break;
+                    case "1/16":
+                        finalNoteLength = length * 0.0625;
+                        break;
+                    case "1/32":
+                        finalNoteLength = length * 0.03125;
+                        break;
+                    default:
+                        finalNoteLength = 0; // Default to 0 if note type is unrecognized
+                        break;
                 }
+
+                // Apply modifiers
+                string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text.ToLowerInvariant();
+                if (modifier.Contains("dot"))
+                {
+                    finalNoteLength *= 1.5; // Dotted note
+                }
+                else if (modifier.Contains("tri"))
+                {
+                    finalNoteLength *= 0.3; // Triplet
+                }
+
+                // Apply articulations
+                string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text.ToLowerInvariant();
+                if (articulation.Contains("sta"))
+                {
+                    finalNoteLength *= 0.5; // Staccato
+                }
+                else if (articulation.Contains("spi"))
+                {
+                    finalNoteLength *= 0.25; // Spiccato
+                }
+                else if (articulation.Contains("fer"))
+                {
+                    finalNoteLength *= 2.0; // Fermata
+                }
+
+                // Apply silence ratio
+                finalNoteLength *= Variables.note_silence_ratio;
             }
+
+            return finalNoteLength;
         }
 
-        double line_length = 0;
-        private void line_length_calculator()
+        private double line_length_calculator(double length)
         {
+            double lineLength = 0;
+
             if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
                 listViewNotes.Items != null && listViewNotes.Items.Count > 0)
             {
-                if (Variables.bpm != 0)
+                int selectedLine = listViewNotes.SelectedIndices[0];
+                string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
+
+                // Map note type to base duration
+                switch (noteType)
                 {
-                    int selected_line = listViewNotes.SelectedIndices[0];
-                    if (selected_line >= 0)
-                    {
-                        // Map note type to base duration
-                        string noteType = listViewNotes.Items[selected_line].SubItems[0].Text;
-                        switch (noteType)
-                        {
-                            case "Whole":
-                                line_length = Variables.miliseconds_per_whole_note;
-                                break;
-                            case "Half":
-                                line_length = Variables.miliseconds_per_whole_note * 0.5;
-                                break;
-                            case "Quarter":
-                                line_length = Variables.miliseconds_per_whole_note * 0.25;
-                                break;
-                            case "1/8":
-                                line_length = Variables.miliseconds_per_whole_note * 0.125;
-                                break;
-                            case "1/16":
-                                line_length = Variables.miliseconds_per_whole_note * 0.0625;
-                                break;
-                            case "1/32":
-                                line_length = Variables.miliseconds_per_whole_note * 0.03125;
-                                break;
-                            default:
-                                line_length = 0; // Default to 0 if note type is unrecognized
-                                break;
-                        }
+                    case "Whole":
+                        lineLength = length;
+                        break;
+                    case "Half":
+                        lineLength = length * 0.5;
+                        break;
+                    case "Quarter":
+                        lineLength = length * 0.25;
+                        break;
+                    case "1/8":
+                        lineLength = length * 0.125;
+                        break;
+                    case "1/16":
+                        lineLength = length * 0.0625;
+                        break;
+                    case "1/32":
+                        lineLength = length * 0.03125;
+                        break;
+                    default:
+                        lineLength = 0; // Default to 0 if note type is unrecognized
+                        break;
+                }
 
-                        // Apply modifiers
-                        string modifier = listViewNotes.Items[selected_line].SubItems[5].Text;
-                        switch (modifier)
-                        {
-                            case "Dot":
-                                line_length *= 1.5; // Dotted note
-                                break;
-                            case "Tri":
-                                line_length *= 0.33; // Triplet
-                                break;
-                        }
+                // Apply modifiers
+                string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text.ToLowerInvariant();
+                if (modifier.Contains("dot"))
+                {
+                    lineLength *= 1.5; // Dotted note
+                }
+                else if (modifier.Contains("tri"))
+                {
+                    lineLength *= 0.3; // Triplet
+                }
 
-                        // Apply articulations
-                        string articulation = listViewNotes.Items[selected_line].SubItems[6].Text;
-                        switch (articulation)
-                        {
-                            case "Fer":
-                                line_length *= 2.0; // Fermata
-                                break;
-                        }
-                    }
+                // Apply articulations
+                string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text.ToLowerInvariant();
+                if (articulation.Contains("fer"))
+                {
+                    lineLength *= 2.0; // Fermata
                 }
             }
+
+            return lineLength;
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3929,7 +3914,12 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int length = Math.Max(1, (int)FixRoundingErrors((Variables.miliseconds_per_whole_note / 14.0) * calculatedLengthFactor));
+            int miliseconds_per_whole_note = 0;
+            if (Variables.bpm != 0)
+            {
+                miliseconds_per_whole_note = (int)Math.Truncate(FixRoundingErrors(240000.0 / Variables.bpm));
+            }
+            int length = Math.Max(1, (int)Math.Truncate(FixRoundingErrors((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor)));
 
             // Perkusif desen oluþturma
             for (int i = 0; i < 2; i++) // 2 beats
