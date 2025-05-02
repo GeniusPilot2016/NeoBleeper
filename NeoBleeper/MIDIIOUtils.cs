@@ -32,9 +32,27 @@ namespace NeoBleeper
                 _midiOut = null;
             }
         }
+        public static void ChangeDevice(int deviceNumber)
+        {
+            DisposeMidi(); // Dispose of the old device
+            try
+            {
+                _midiOut = new MidiOut(deviceNumber);
+            }
+            catch (MmException ex)
+            {
+                // Handle exception (log, show message, etc.)
+                Console.WriteLine($"Error changing MIDI device: {ex.Message}");
+                _midiOut = null; // Important: Set to null to prevent further errors
+            }
+        }
         public static void ChangeInstrument(MidiOut midiOut, int programNumber, int channel)
         {
             midiOut.Send(MidiMessage.ChangePatch(programNumber, channel + 1).RawData);
+        }
+        public static void ChangeChannel(MidiOut midiOut, int channel)
+        {
+            midiOut.Send(MidiMessage.ChangeControl(0, 0, channel + 1).RawData);
         }
         public static int DynamicVelocity()
         {

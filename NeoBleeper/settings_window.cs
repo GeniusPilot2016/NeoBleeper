@@ -1179,16 +1179,14 @@ namespace NeoBleeper
         private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
             Program.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
-            MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-            Program.MIDIDevices.MIDIOutputDeviceChannel);
+            MIDIIOUtils.ChangeDevice(Program.MIDIDevices.MIDIOutputDevice);
             Debug.WriteLine("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString());
         }
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
             Program.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
-            MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-            Program.MIDIDevices.MIDIOutputDeviceChannel);
+            MIDIIOUtils.ChangeChannel(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputDeviceChannel);
             Debug.WriteLine("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString());
         }
 
