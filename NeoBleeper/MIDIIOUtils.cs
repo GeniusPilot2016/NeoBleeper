@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace NeoBleeper
 {
@@ -48,11 +49,26 @@ namespace NeoBleeper
         }
         public static void ChangeInstrument(MidiOut midiOut, int programNumber, int channel)
         {
-            midiOut.Send(MidiMessage.ChangePatch(programNumber, channel + 1).RawData);
+            try
+            {
+                midiOut.Send(MidiMessage.ChangePatch(programNumber, channel + 1).RawData);
+            }
+            catch (MmException)
+            {
+                Debug.WriteLine("MIDI device not found.");
+            }
         }
         public static void ChangeChannel(MidiOut midiOut, int channel)
         {
-            midiOut.Send(MidiMessage.ChangeControl(0, 0, channel + 1).RawData);
+            try
+            {
+                midiOut.Send(MidiMessage.ChangeControl(0, 0, channel + 1).RawData);
+            }
+            catch (MmException)
+            {
+                Debug.WriteLine("MIDI device not found.");
+                return;
+            }
         }
         public static int DynamicVelocity()
         {
@@ -65,7 +81,14 @@ namespace NeoBleeper
 
         public static void PlayMidiNote(int note, int length) //Keep the old method for compatibility
         {
-            PlayMidiNoteAsync(note, length).Wait();
+            try
+            {
+                PlayMidiNoteAsync(note, length).Wait();
+            }
+            catch (AggregateException)
+            {
+                return;
+            }
         }
 
         public static async Task PlayMidiNoteAsync(int note, int length) // Make async

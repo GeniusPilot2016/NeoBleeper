@@ -1048,9 +1048,22 @@ namespace NeoBleeper
             if (comboBox_midi_output_devices.Items.Count > 0)
             {
                 label_midi_output_device.Enabled = true;
-                comboBox_midi_output_devices.SelectedIndex = Program.MIDIDevices.MIDIOutputDevice;
-                comboBox_midi_output_devices.Enabled = true;
-                checkBox_use_midi_output.Enabled = true;
+                if (Program.MIDIDevices.MIDIOutputDevice >= 0 && Program.MIDIDevices.MIDIOutputDevice < comboBox_midi_output_devices.Items.Count)
+                {
+                    comboBox_midi_output_devices.SelectedIndex = Program.MIDIDevices.MIDIOutputDevice;
+                    comboBox_midi_output_devices.Enabled = true;
+                    checkBox_use_midi_output.Enabled = true;
+                }
+                else if(Program.MIDIDevices.MIDIOutputDevice >= 0)
+                {
+                    comboBox_midi_output_devices.SelectedIndex = 0;
+                    comboBox_midi_output_devices.Enabled = true;
+                    checkBox_use_midi_output.Enabled = true;
+                }
+                else
+                {
+                    comboBox_midi_output_devices.SelectedIndex = -1; // Or handle the invalid case appropriately
+                }
             }
             else
             {
