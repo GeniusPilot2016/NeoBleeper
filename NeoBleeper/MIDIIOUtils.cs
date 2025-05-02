@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace NeoBleeper
 {
@@ -16,15 +15,6 @@ namespace NeoBleeper
         {
             try
             {
-                int deviceCount = MidiOut.NumberOfDevices;
-                if (deviceCount == 0)
-                {
-                    Console.WriteLine("No MIDI output devices found. Ensure the MIDI driver is installed.");
-                    _midiOut = null; // Prevent further errors
-                    return;
-                }
-
-                // Initialize the MIDI output device
                 _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDeviceChannel);
             }
             catch (MmException ex)
@@ -58,41 +48,11 @@ namespace NeoBleeper
         }
         public static void ChangeInstrument(MidiOut midiOut, int programNumber, int channel)
         {
-            if (_midiOut == null)
-            {
-                Debug.WriteLine("MIDI device is not available.");
-                return;
-            }
-
-            try
-            {
-                midiOut.Send(MidiMessage.ChangePatch(programNumber, channel + 1).RawData);
-            }
-            catch (MmException ex)
-            {
-                Debug.WriteLine($"Error sending MIDI message: {ex.Message}");
-                DisposeMidi(); // Dispose of the invalid device
-                Console.WriteLine("MIDI device disconnected. Please reconnect or select a new device.");
-            }
+            midiOut.Send(MidiMessage.ChangePatch(programNumber, channel + 1).RawData);
         }
         public static void ChangeChannel(MidiOut midiOut, int channel)
         {
-            if (_midiOut == null)
-            {
-                Debug.WriteLine("MIDI device is not available.");
-                return;
-            }
-
-            try
-            {
-                midiOut.Send(MidiMessage.ChangeControl(0, 0, channel + 1).RawData);
-            }
-            catch (MmException ex)
-            {
-                Debug.WriteLine($"Error sending MIDI message: {ex.Message}");
-                DisposeMidi(); // Dispose of the invalid device
-                Console.WriteLine("MIDI device disconnected. Please reconnect or select a new device.");
-            }
+            midiOut.Send(MidiMessage.ChangeControl(0, 0, channel + 1).RawData);
         }
         public static int DynamicVelocity()
         {
@@ -103,9 +63,9 @@ namespace NeoBleeper
             return dynamicVelocity;
         }
 
-        public static Task PlayMidiNote(int note, int length) // Make it asynchronous
+        public static void PlayMidiNote(int note, int length) //Keep the old method for compatibility
         {
-            return PlayMidiNoteAsync(note, length); // Directly return the Task
+            PlayMidiNoteAsync(note, length).Wait();
         }
 
         public static async Task PlayMidiNoteAsync(int note, int length) // Make async
@@ -128,22 +88,6 @@ namespace NeoBleeper
             midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), 1).RawData);
             await Task.Delay(length);
             midiOut.Send(MidiMessage.StopNote(note, 0, 1).RawData);
-        }
-        public static void CheckMIDIDriver()
-        {
-            int deviceCount = MidiOut.NumberOfDevices;
-            if (deviceCount == 0)
-            {
-                Console.WriteLine("No MIDI output devices found. Ensure the MIDI driver is installed.");
-            }
-            else
-            {
-                Console.WriteLine($"Found {deviceCount} MIDI output device(s):");
-                for (int i = 0; i < deviceCount; i++)
-                {
-                    Console.WriteLine($"Device {i}: {MidiOut.DeviceInfo(i).ProductName}");
-                }
-            }
         }
     }
 }

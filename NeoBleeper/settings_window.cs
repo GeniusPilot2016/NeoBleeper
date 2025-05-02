@@ -1023,8 +1023,7 @@ namespace NeoBleeper
             if (comboBox_midi_input_devices.Items.Count > 0)
             {
                 label_midi_input_device.Enabled = true;
-                comboBox_midi_input_devices.SelectedIndex = 0;
-                Program.MIDIDevices.MIDIInputDevice = comboBox_midi_input_devices.SelectedIndex;
+                comboBox_midi_input_devices.SelectedIndex = Program.MIDIDevices.MIDIInputDevice;
                 comboBox_midi_input_devices.Enabled = true;
                 checkBox_use_midi_input.Enabled = true;
             }
@@ -1049,8 +1048,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_devices.Items.Count > 0)
             {
                 label_midi_output_device.Enabled = true;
-                comboBox_midi_output_devices.SelectedIndex = 0;
-                Program.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
+                comboBox_midi_output_devices.SelectedIndex = Program.MIDIDevices.MIDIOutputDevice;
                 comboBox_midi_output_devices.Enabled = true;
                 checkBox_use_midi_output.Enabled = true;
             }
