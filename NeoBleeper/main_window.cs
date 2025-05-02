@@ -40,7 +40,6 @@ namespace NeoBleeper
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
             listViewNotes.DoubleBuffering(true);
-            //label_beep.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             set_default_font();
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -3039,10 +3038,10 @@ namespace NeoBleeper
                     return;
 
                 // Play the appropriate sound first for minimal latency
-                PlayBeatSound(beatCount == 0);
+                PlayMetronomeBeat(beatCount == 0);
 
                 // Then update the UI (which is less time-critical)
-                ShowBeatLabel();
+                ShowMetronomeBeatLabel();
 
                 // Update beat counter
                 beatCount = (beatCount + 1) % trackBar_time_signature.Value;
@@ -3056,7 +3055,7 @@ namespace NeoBleeper
             }
         }
 
-        private void PlayBeatSound(bool isAccent)
+        private void PlayMetronomeBeat(bool isAccent)
         {
             // Option 1: Use pre-loaded SoundPlayer if implemented
             // (isAccent ? accentBeatSound : normalBeatSound).Play();
@@ -3073,7 +3072,7 @@ namespace NeoBleeper
             });
         }
 
-        private void ShowBeatLabel()
+        private void ShowMetronomeBeatLabel()
         {
             if (isLabelVisible) return;
             isLabelVisible = true;
@@ -3399,19 +3398,19 @@ namespace NeoBleeper
                         finalNoteLength = length;
                         break;
                     case "Half":
-                        finalNoteLength = length * 0.5;
+                        finalNoteLength = length / 2;
                         break;
                     case "Quarter":
-                        finalNoteLength = length * 0.25;
+                        finalNoteLength = length / 4;
                         break;
                     case "1/8":
-                        finalNoteLength = length * 0.125;
+                        finalNoteLength = length / 8;
                         break;
                     case "1/16":
-                        finalNoteLength = length * 0.0625;
+                        finalNoteLength = length / 16;
                         break;
                     case "1/32":
-                        finalNoteLength = length * 0.03125;
+                        finalNoteLength = length / 32;
                         break;
                     default:
                         finalNoteLength = 0; // Default to 0 if note type is unrecognized
@@ -3426,18 +3425,18 @@ namespace NeoBleeper
                 }
                 else if (modifier.Contains("tri"))
                 {
-                    finalNoteLength *= 0.3; // Triplet
+                    finalNoteLength /= 3; // Triplet
                 }
 
                 // Apply articulations
                 string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text.ToLowerInvariant();
                 if (articulation.Contains("sta"))
                 {
-                    finalNoteLength *= 0.5; // Staccato
+                    finalNoteLength /= 2; // Staccato
                 }
                 else if (articulation.Contains("spi"))
                 {
-                    finalNoteLength *= 0.25; // Spiccato
+                    finalNoteLength /= 4; // Spiccato
                 }
                 else if (articulation.Contains("fer"))
                 {
@@ -3468,19 +3467,19 @@ namespace NeoBleeper
                         lineLength = length;
                         break;
                     case "Half":
-                        lineLength = length * 0.5;
+                        lineLength = length / 2;
                         break;
                     case "Quarter":
-                        lineLength = length * 0.25;
+                        lineLength = length / 4;
                         break;
                     case "1/8":
-                        lineLength = length * 0.125;
+                        lineLength = length / 8;
                         break;
                     case "1/16":
-                        lineLength = length * 0.0625;
+                        lineLength = length / 16;
                         break;
                     case "1/32":
-                        lineLength = length * 0.03125;
+                        lineLength = length / 32;
                         break;
                     default:
                         lineLength = 0; // Default to 0 if note type is unrecognized
@@ -3495,7 +3494,7 @@ namespace NeoBleeper
                 }
                 else if (modifier.Contains("tri"))
                 {
-                    lineLength *= 0.3; // Triplet
+                    lineLength /= 3; // Triplet
                 }
 
                 // Apply articulations
@@ -3784,7 +3783,7 @@ namespace NeoBleeper
             // Add a small adjustment to handle floating-point precision issues
             return rounded + 0.00001;
         }
-        public static bool NoRemainder(double value)
+        public static bool IsWholeNumber(double value)
         {
             // Compare the value with its truncated version
             return value == Math.Truncate(value);
@@ -3882,30 +3881,30 @@ namespace NeoBleeper
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                 });
-                if (checkBox_play_beat_sound.Checked == true && clicked == false && NoRemainder(beat_number))
+                if (checkBox_play_beat_sound.Checked == true && clicked == false && IsWholeNumber(beat_number))
                 {
                     switch (Program.BeatTypes.beat_type)
                     {
                         case 0:
-                            play_beat();
+                            play_beat_sound();
                             break;
                         case 1:
                             if (beat_number % 2 != 0)
                             {
-                                play_beat();
+                                play_beat_sound();
                             }
                             break;
                         case 2:
                             if (beat_number % 2 == 0)
                             {
-                                play_beat();
+                                play_beat_sound();
                             }
                             break;
                     }
                 }
             }
         }
-        private void play_beat()
+        private void play_beat_sound()
         {
             // Basic frequencies
             int snareFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("D2"));
