@@ -2813,12 +2813,6 @@ namespace NeoBleeper
                 // Play notes using MIDI output if enabled
                 if (Program.MIDIDevices.useMIDIoutput)
                 {
-                    MIDIIOUtils.ChangeInstrument(
-                        MIDIIOUtils._midiOut,
-                        Program.MIDIDevices.MIDIOutputInstrument,
-                        Program.MIDIDevices.MIDIOutputDeviceChannel
-                    );
-
                     play_note_in_line_from_MIDIOutput(
                         listViewNotes.SelectedIndices[0],
                         checkBox_play_note1_played.Checked,
