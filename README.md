@@ -9,7 +9,7 @@ NeoBleeper is an AI-enabled tune creation software using the system speaker on t
 This project is **still in development** and some features and components are still unfinished and even some of its parts have not yet been created. Please use the program with this in mind and provide feedback for possible errors or omissions.
 
 - ### Known Issues
-- After the system is turned on or rebooted, the program throws a MmException when sending a MIDI signal to MIDI output devices other than Microsoft GS Wavetable Synth until the MIDI output device is changed.
+ After the system is turned on or rebooted, the program throws a MmException when sending a MIDI signal to MIDI output devices other than Microsoft GS Wavetable Synth until the MIDI output device is changed.
 
 ## Features
 
