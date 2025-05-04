@@ -359,7 +359,7 @@ namespace NeoBleeper
                 _isPlaying = true;
 
                 // Start playing in a separate task and store the task
-                _playbackTask = Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
+                PlayFromPosition(_currentFrameIndex, token);
 
                 Debug.WriteLine("Playback started successfully");
                 button_play.Enabled = false;
@@ -661,7 +661,14 @@ namespace NeoBleeper
         }
 
         // Play multiple notes alternating
+        public static double FixRoundingErrors(double input)
+        {
+            // Round to the nearest integer using Math.Round
+            double rounded = Math.Round(input, MidpointRounding.AwayFromZero);
 
+            // Add a small adjustment to handle floating-point precision issues
+            return rounded + 0.00001;
+        }
         private async void PlayMultipleNotes(int[] frequencies, int duration)
         {
             switch (checkBox_play_each_note.Checked)
@@ -673,19 +680,18 @@ namespace NeoBleeper
                             case true:
                                 {
                                     int interval = 30; // Switch between 30 ms
-                                    int minAlternatingTime = 4; // Minimum alternate time 4 ms
-                                    int maxAlternatingTime = 15; // Maximum alternate time 15 ms
                                     int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
                                     DateTime startTime = DateTime.Now;
-                                    Random random = new Random();
                                     Stopwatch stopwatch = new Stopwatch();
+
                                     if (frequencies.Length >= steps)
                                     {
                                         do
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+                                                // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
 
                                                 stopwatch.Restart();
                                                 HighlightNoteLabel(frequency);
@@ -697,7 +703,7 @@ namespace NeoBleeper
 
                                                 if (elapsedMilliseconds < alternatingTime)
                                                 {
-                                                    await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
+                                                    await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
                                                 }
 
                                                 int remainingTime = interval - alternatingTime;
@@ -719,7 +725,8 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+                                                // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
 
                                                 stopwatch.Restart();
                                                 HighlightNoteLabel(frequency);
@@ -731,9 +738,8 @@ namespace NeoBleeper
 
                                                 if (elapsedMilliseconds < alternatingTime)
                                                 {
-                                                    await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
+                                                    await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
                                                 }
-
                                                 int remainingTime = interval - alternatingTime;
 
                                                 if (remainingTime > 0)
@@ -749,6 +755,7 @@ namespace NeoBleeper
                                         UpdateNoteLabels(new HashSet<int>());
                                         await Task.Delay(duration - (interval * frequencies.Length));
                                     }
+
                                     break;
                                 }
                             case false:
@@ -802,17 +809,15 @@ namespace NeoBleeper
                             case true:
                                 {
                                     int interval = 30; // Switch between 30 ms
-                                    int minAlternatingTime = 4; // Minimum alternate time 4 ms
-                                    int maxAlternatingTime = 15; // Maximum alternate time 15 ms
                                     DateTime startTime = DateTime.Now;
-                                    Random random = new Random();
                                     Stopwatch stopwatch = new Stopwatch();
 
                                     do
                                     {
                                         foreach (var frequency in frequencies)
                                         {
-                                            int alternatingTime = random.Next(minAlternatingTime, maxAlternatingTime + 1); // Rastgele alternatif süre
+                                            // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
+                                            int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
 
                                             stopwatch.Restart();
                                             HighlightNoteLabel(frequency);
@@ -824,10 +829,9 @@ namespace NeoBleeper
 
                                             if (elapsedMilliseconds < alternatingTime)
                                             {
-                                                await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
-                                                if ((DateTime.Now - startTime).TotalMilliseconds >= frequencies.Length * interval)
-                                                    break;
+                                                await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
                                             }
+
 
                                             int remainingTime = interval - alternatingTime;
 
@@ -946,19 +950,22 @@ namespace NeoBleeper
         }
         private void UpdateTrackBarPosition(int frameIndex)
         {
-            SuspendLayout();
-            if (trackBar1.InvokeRequired)
+            Task.Run(() =>
             {
-                trackBar1.BeginInvoke(new Action(() =>
+                SuspendLayout();
+                if (trackBar1.InvokeRequired)
+                {
+                    trackBar1.BeginInvoke(new Action(() =>
+                    {
+                        trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+                    }));
+                }
+                else
                 {
                     trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                }));
-            }
-            else
-            {
-                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-            }
-            ResumeLayout(performLayout: true);
+                }
+                ResumeLayout(performLayout: true);
+            });
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
@@ -984,19 +991,22 @@ namespace NeoBleeper
         {
             if (_frames == null || _frames.Count == 0)
                 return;
-            SuspendLayout();
-            if (label_percentage.InvokeRequired)
+            Task.Run(() =>
             {
-                label_percentage.BeginInvoke(new Action(() =>
+                SuspendLayout();
+                if (label_percentage.InvokeRequired)
+                {
+                    label_percentage.BeginInvoke(new Action(() =>
+                    {
+                        label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                    }));
+                }
+                else
                 {
                     label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                }));
-            }
-            else
-            {
-                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-            }
-            ResumeLayout(performLayout: true);
+                }
+                ResumeLayout(performLayout: true);
+            });
         }
 
         private string UpdateTimeLabel(int frameIndex)
