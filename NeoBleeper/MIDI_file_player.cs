@@ -567,9 +567,7 @@ namespace NeoBleeper
                         {
                             // Single note - play directly
                             HighlightNoteLabel(filteredNotes.First());
-                            NotePlayer.play_note(frequencies[0], durationMs, true);
-                            NotePlayer.StopAllNotes();
-                            await Task.Delay(5);
+                            NotePlayer.play_note(frequencies[0], durationMs);
                             UnHighlightNoteLabel(filteredNotes.First());
                         }
                         else
@@ -691,16 +689,16 @@ namespace NeoBleeper
 
                                                 stopwatch.Restart();
                                                 HighlightNoteLabel(frequency);
-                                                NotePlayer.play_note(frequency, alternatingTime, true);
+                                                NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
                                                 stopwatch.Stop();
 
-                                                /*long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
                                                 if (elapsedMilliseconds < alternatingTime)
                                                 {
                                                     await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
-                                                }*/
+                                                }
 
                                                 int remainingTime = interval - alternatingTime;
 
@@ -725,16 +723,16 @@ namespace NeoBleeper
 
                                                 stopwatch.Restart();
                                                 HighlightNoteLabel(frequency);
-                                                NotePlayer.play_note(frequency, alternatingTime, true);
+                                                NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
                                                 stopwatch.Stop();
 
-                                                /*long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
                                                 if (elapsedMilliseconds < alternatingTime)
                                                 {
                                                     await Task.Delay(alternatingTime - (int)elapsedMilliseconds);
-                                                }*/
+                                                }
 
                                                 int remainingTime = interval - alternatingTime;
 
@@ -765,7 +763,7 @@ namespace NeoBleeper
                                             foreach (var frequency in frequencies)
                                             {
                                                 HighlightNoteLabel(frequency);
-                                                NotePlayer.play_note(frequency, interval, true);
+                                                NotePlayer.play_note(frequency, interval);
                                                 UnHighlightNoteLabel(frequency);
                                                 if ((DateTime.Now - startTime).TotalMilliseconds < duration)
                                                     break;
@@ -781,7 +779,7 @@ namespace NeoBleeper
                                             foreach (var frequency in frequencies)
                                             {
                                                 HighlightNoteLabel(frequency);
-                                                NotePlayer.play_note(frequency, interval, true);
+                                                NotePlayer.play_note(frequency, interval);
                                                 UnHighlightNoteLabel(frequency);
                                                 i++;
                                                 if (i * interval >= duration)
@@ -818,7 +816,7 @@ namespace NeoBleeper
 
                                             stopwatch.Restart();
                                             HighlightNoteLabel(frequency);
-                                            NotePlayer.play_note(frequency, alternatingTime, true);
+                                            NotePlayer.play_note(frequency, alternatingTime);
                                             UnHighlightNoteLabel(frequency);
                                             stopwatch.Stop();
 
@@ -831,12 +829,12 @@ namespace NeoBleeper
                                                     break;
                                             }
 
-                                            /*int remainingTime = interval - alternatingTime;
+                                            int remainingTime = interval - alternatingTime;
 
                                             if (remainingTime > 0)
                                             {
                                                 await Task.Delay(remainingTime);
-                                            }*/
+                                            }
 
                                             if ((DateTime.Now - startTime).TotalMilliseconds < duration)
                                                 break;
@@ -854,7 +852,7 @@ namespace NeoBleeper
                                         foreach (var frequency in frequencies)
                                         {
                                             HighlightNoteLabel(frequency);
-                                            NotePlayer.play_note(frequency, interval, true);
+                                            NotePlayer.play_note(frequency, interval);
                                             UnHighlightNoteLabel(frequency);
                                             if ((DateTime.Now - startTime).TotalMilliseconds >= duration)
                                                 break;
@@ -867,66 +865,78 @@ namespace NeoBleeper
                         break;
                     }
             }
-            NotePlayer.StopAllNotes();
-            await Task.Delay(5);
         }
         
         private void HighlightNoteLabel(int noteNumber)
         {
-            string noteName = MidiNoteToName(noteNumber);
-
-            foreach (Label label in _noteLabels)
+            try
             {
-                if (label.Text.Contains(noteName))
-                {
-                    Color originalColor = _originalLabelColors[label];
+                string noteName = MidiNoteToName(noteNumber);
 
-                    // Highlight immediately
-                    Task.Run(() =>
+                foreach (Label label in _noteLabels)
+                {
+                    if (label.Text.Contains(noteName))
                     {
-                        SuspendLayout();
-                        if (label.InvokeRequired)
+                        Color originalColor = _originalLabelColors[label];
+
+                        // Highlight immediately
+                        Task.Run(() =>
                         {
-                            label.BeginInvoke(new Action(() =>
+                            SuspendLayout();
+                            if (label.InvokeRequired)
+                            {
+                                label.BeginInvoke(new Action(() =>
+                                {
+                                    label.BackColor = _highlightColor;
+                                }));
+                            }
+                            else
                             {
                                 label.BackColor = _highlightColor;
-                            }));
-                        }
-                        else
-                        {
-                            label.BackColor = _highlightColor;
-                        }
-                        ResumeLayout(performLayout: true);
-                        return;
-                    });
+                            }
+                            ResumeLayout(performLayout: true);
+                            return;
+                        });
+                    }
                 }
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return;
             }
         }
         private void UnHighlightNoteLabel(int noteNumber)
         {
-            string noteName = MidiNoteToName(noteNumber);
-            foreach (Label label in _noteLabels)
+            try
             {
-                if (label.Text.Contains(noteName))
+                string noteName = MidiNoteToName(noteNumber);
+                foreach (Label label in _noteLabels)
                 {
-                    Task.Run(() =>
+                    if (label.Text.Contains(noteName))
                     {
-                        SuspendLayout();
-                        if (label.InvokeRequired)
+                        Task.Run(() =>
                         {
-                            label.BeginInvoke(new Action(() =>
+                            SuspendLayout();
+                            if (label.InvokeRequired)
+                            {
+                                label.BeginInvoke(new Action(() =>
+                                {
+                                    label.BackColor = _originalLabelColors[label];
+                                }));
+                            }
+                            else
                             {
                                 label.BackColor = _originalLabelColors[label];
-                            }));
-                        }
-                        else
-                        {
-                            label.BackColor = _originalLabelColors[label];
-                        }
-                        ResumeLayout(performLayout: true);
-                        return;
-                    });
+                            }
+                            ResumeLayout(performLayout: true);
+                            return;
+                        });
+                    }
                 }
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return;
             }
         }
         private int NoteToFrequency(int noteNumber)
