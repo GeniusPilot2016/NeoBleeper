@@ -558,9 +558,9 @@ namespace NeoBleeper
                     {
                         if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
                         {
-                            foreach (var note in filteredNotes)
+                            Task.Run(() =>
                             {
-                                Task.Run(() =>
+                                foreach (var note in filteredNotes)
                                 {
                                     MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
                                 });
