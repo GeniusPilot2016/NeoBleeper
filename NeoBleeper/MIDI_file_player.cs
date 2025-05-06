@@ -339,7 +339,17 @@ namespace NeoBleeper
             }
             finally
             {
-                midiFileLoading?.Close();
+                if (midiFileLoading.InvokeRequired)
+                {
+                    midiFileLoading.Invoke(new Action(() =>
+                    {
+                        midiFileLoading?.Close();
+                    }));
+                }
+                else
+                {
+                    midiFileLoading?.Close();
+                }
             }
         }
         public void Play()
@@ -359,7 +369,7 @@ namespace NeoBleeper
                 _isPlaying = true;
 
                 // Start playing in a separate task and store the task
-                PlayFromPosition(_currentFrameIndex, token);
+                _playbackTask = Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
 
                 Debug.WriteLine("Playback started successfully");
                 button_play.Enabled = false;
@@ -391,7 +401,6 @@ namespace NeoBleeper
                 _isPlaying = false;
 
                 // Reset label safely using BeginInvoke
-                SuspendLayout();
                 if (holded_note_label.InvokeRequired)
                 {
                     holded_note_label.BeginInvoke(new Action(() =>
@@ -403,7 +412,6 @@ namespace NeoBleeper
                 {
                     holded_note_label.Text = "Notes which are currently being held on: (0)";
                 }
-                ResumeLayout(performLayout: true);
                 button_play.Enabled = true;
                 button_stop.Enabled = false;
                 Debug.WriteLine("Playback stopped successfully");
@@ -507,7 +515,6 @@ namespace NeoBleeper
                     // Update label on UI thread
                     try
                     {
-                        SuspendLayout();
                         if (holded_note_label.InvokeRequired)
                         {
                             holded_note_label.BeginInvoke(new Action(() =>
@@ -519,7 +526,6 @@ namespace NeoBleeper
                         {
                             holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
                         }
-                        ResumeLayout(performLayout: true);
                     }
                     catch (Exception ex)
                     {
@@ -550,7 +556,7 @@ namespace NeoBleeper
                     // Play active notes or silence
                     if (notesCount > 0)
                     {
-                        if(MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput==true)
+                        if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
                         {
                             foreach (var note in filteredNotes)
                             {
@@ -559,7 +565,6 @@ namespace NeoBleeper
                                     MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
                                 });
                             }
-                            
                         }
                         var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
 
@@ -612,7 +617,6 @@ namespace NeoBleeper
                 Debug.WriteLine("Playback completed successfully");
 
                 // Reset label
-                SuspendLayout();
                 if (holded_note_label.InvokeRequired)
                 {
                     holded_note_label.BeginInvoke(new Action(() =>
@@ -624,7 +628,6 @@ namespace NeoBleeper
                 {
                     holded_note_label.Text = "Notes which are currently being held on: (0)";
                 }
-                ResumeLayout(performLayout: true);
             }
             catch (TaskCanceledException)
             {
@@ -659,8 +662,7 @@ namespace NeoBleeper
             }
             Debug.WriteLine("Channel checkboxes changed");
         }
-
-        // Play multiple notes alternating
+        // Fix rounding errors in floating-point calculations
         public static double FixRoundingErrors(double input)
         {
             // Round to the nearest integer using Math.Round
@@ -669,6 +671,9 @@ namespace NeoBleeper
             // Add a small adjustment to handle floating-point precision issues
             return rounded + 0.00001;
         }
+
+        // Play multiple notes alternating
+
         private async void PlayMultipleNotes(int[] frequencies, int duration)
         {
             switch (checkBox_play_each_note.Checked)
@@ -679,10 +684,10 @@ namespace NeoBleeper
                         {
                             case true:
                                 {
-                                    int interval = 30; // Switch between 30 ms
+                                    int interval = Math.Max(30, frequencies.Length * 5);
                                     int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
-                                    DateTime startTime = DateTime.Now;
                                     Stopwatch stopwatch = new Stopwatch();
+                                    stopwatch.Start(); // Kronometreyi başlat
 
                                     if (frequencies.Length >= steps)
                                     {
@@ -690,33 +695,21 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
-                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
+                                                // Check if it exceeded the time
+                                                if (stopwatch.ElapsedMilliseconds >= duration)
+                                                    break;
 
-                                                stopwatch.Restart();
+                                                // Calculate alternate time: 30's note count, maximum 15 ms
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / frequencies.Length)))));
                                                 HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
-                                                stopwatch.Stop();
-
-                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-
-                                                if (elapsedMilliseconds < alternatingTime)
-                                                {
-                                                    await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
-                                                }
-
-                                                int remainingTime = interval - alternatingTime;
-
-                                                if (remainingTime > 0)
-                                                {
-                                                    await Task.Delay(remainingTime);
-                                                }
-                                                if ((DateTime.Now - startTime).TotalMilliseconds < duration)
-                                                    break;
                                             }
+                                            // Check if it exceeded the time (after playing all notes)
+                                            if (stopwatch.ElapsedMilliseconds >= duration)
+                                                break;
                                         }
-                                        while ((DateTime.Now - startTime).TotalMilliseconds < duration);
+                                        while (stopwatch.ElapsedMilliseconds < duration);
                                     }
                                     else
                                     {
@@ -725,58 +718,56 @@ namespace NeoBleeper
                                         {
                                             foreach (var frequency in frequencies)
                                             {
-                                                // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
-                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
-
-                                                stopwatch.Restart();
+                                                // Calculate alternate time: 30's note count, maximum 15 ms
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / frequencies.Length)))));
                                                 HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
-                                                stopwatch.Stop();
-
-                                                long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-
-                                                if (elapsedMilliseconds < alternatingTime)
-                                                {
-                                                    await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
-                                                }
-                                                int remainingTime = interval - alternatingTime;
-
-                                                if (remainingTime > 0)
-                                                {
-                                                    await Task.Delay(remainingTime);
-                                                }
-                                                if ((DateTime.Now - startTime).TotalMilliseconds < duration)
-                                                    break;
                                                 i++;
+
+                                                // Stopwatch ile süreyi kontrol et
+                                                if (stopwatch.ElapsedMilliseconds >= duration)
+                                                    break;
                                             }
+                                            // Döngüden sonra tekrar kontrol et
+                                            if (stopwatch.ElapsedMilliseconds >= duration)
+                                                break;
                                         }
                                         while (i < frequencies.Length);
-                                        UpdateNoteLabels(new HashSet<int>());
-                                        await Task.Delay(duration - (interval * frequencies.Length));
-                                    }
 
+                                        // Kalan süreyi bekle
+                                        int elapsedMs = (int)stopwatch.ElapsedMilliseconds;
+                                        if (elapsedMs < duration)
+                                        {
+                                            UpdateNoteLabels(new HashSet<int>());
+                                            await Task.Delay(duration - elapsedMs);
+                                        }
+                                    }
+                                    stopwatch.Stop(); // Kronometreyi durdur
                                     break;
                                 }
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
                                     int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
-                                    DateTime startTime = DateTime.Now;
+                                    Stopwatch stopwatch = new Stopwatch();
+                                    stopwatch.Start(); // Start the stopwatch
                                     if (frequencies.Length >= steps)
                                     {
                                         do
                                         {
                                             foreach (var frequency in frequencies)
                                             {
+                                                if (stopwatch.ElapsedMilliseconds >= duration)
+                                                    break;
                                                 HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, interval);
                                                 UnHighlightNoteLabel(frequency);
-                                                if ((DateTime.Now - startTime).TotalMilliseconds < duration)
-                                                    break;
                                             }
+                                            if (stopwatch.ElapsedMilliseconds >= duration)
+                                                break;
                                         }
-                                        while ((DateTime.Now - startTime).TotalMilliseconds < duration);
+                                        while (stopwatch.ElapsedMilliseconds >= duration);
                                     }
                                     else
                                     {
@@ -808,61 +799,50 @@ namespace NeoBleeper
                         {
                             case true:
                                 {
-                                    int interval = 30; // Switch between 30 ms
-                                    DateTime startTime = DateTime.Now;
+                                    int interval = Math.Max(30, frequencies.Length * 5);
+                                    // Switch between 30 ms
                                     Stopwatch stopwatch = new Stopwatch();
-
+                                    stopwatch.Start(); // Start the stopwatch
                                     do
                                     {
                                         foreach (var frequency in frequencies)
                                         {
-                                            // Dalgalanma süresini hesapla: 30'un nota sayısına oranı, maksimum 15 ms
-                                            int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(interval / frequencies.Length))));
+                                            // Check if it exceeded the time
+                                            if (stopwatch.ElapsedMilliseconds >= duration)
+                                                break;
 
-                                            stopwatch.Restart();
+                                            // Calculate alternate time: 30's note count, maximum 15 ms
+                                            int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / frequencies.Length)))));
                                             HighlightNoteLabel(frequency);
                                             NotePlayer.play_note(frequency, alternatingTime);
                                             UnHighlightNoteLabel(frequency);
-                                            stopwatch.Stop();
-
-                                            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-
-                                            if (elapsedMilliseconds < alternatingTime)
-                                            {
-                                                await Task.Delay(Math.Max(1, alternatingTime - (int)elapsedMilliseconds));
-                                            }
-
-
-                                            int remainingTime = interval - alternatingTime;
-
-                                            if (remainingTime > 0)
-                                            {
-                                                await Task.Delay(remainingTime);
-                                            }
-
-                                            if ((DateTime.Now - startTime).TotalMilliseconds < duration)
-                                                break;
                                         }
+                                        // Check if it exceeded the time (after playing all notes)
+                                        if (stopwatch.ElapsedMilliseconds >= duration)
+                                            break;
                                     }
-                                    while ((DateTime.Now - startTime).TotalMilliseconds < duration);
+                                    while (stopwatch.ElapsedMilliseconds < duration);
                                     break;
                                 }
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    DateTime startTime = DateTime.Now;
+                                    Stopwatch stopwatch = new Stopwatch();
+                                    stopwatch.Start(); // Start the stopwatch
                                     do
                                     {
                                         foreach (var frequency in frequencies)
                                         {
+                                            if (stopwatch.ElapsedMilliseconds >= duration)
+                                                break;
                                             HighlightNoteLabel(frequency);
                                             NotePlayer.play_note(frequency, interval);
                                             UnHighlightNoteLabel(frequency);
-                                            if ((DateTime.Now - startTime).TotalMilliseconds >= duration)
-                                                break;
                                         }
+                                        if (stopwatch.ElapsedMilliseconds >= duration)
+                                            break;
                                     }
-                                    while ((DateTime.Now - startTime).TotalMilliseconds < duration);
+                                    while (stopwatch.ElapsedMilliseconds >= duration);
                                 }
                                 break;
                         }
@@ -870,77 +850,55 @@ namespace NeoBleeper
                     }
             }
         }
-        
+
         private void HighlightNoteLabel(int noteNumber)
         {
-            try
-            {
-                string noteName = MidiNoteToName(noteNumber);
+            string noteName = MidiNoteToName(noteNumber);
 
-                foreach (Label label in _noteLabels)
+            foreach (Label label in _noteLabels)
+            {
+                if (label.Text.Contains(noteName))
                 {
-                    if (label.Text.Contains(noteName))
-                    {
-                        Color originalColor = _originalLabelColors[label];
+                    Color originalColor = _originalLabelColors[label];
 
-                        // Highlight immediately
-                        Task.Run(() =>
+                    // Highlight immediately
+                    if (label.InvokeRequired)
+                    {
+                        label.BeginInvoke(new Action(() =>
                         {
-                            SuspendLayout();
-                            if (label.InvokeRequired)
-                            {
-                                label.BeginInvoke(new Action(() =>
-                                {
-                                    label.BackColor = _highlightColor;
-                                }));
-                            }
-                            else
-                            {
-                                label.BackColor = _highlightColor;
-                            }
-                            ResumeLayout(performLayout: true);
-                            return;
-                        });
+                            label.BackColor = _highlightColor;
+                        }));
                     }
+                    else
+                    {
+                        label.BackColor = _highlightColor;
+                    }
+
+
+                    return;
                 }
-            }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                return;
             }
         }
         private void UnHighlightNoteLabel(int noteNumber)
         {
-            try
+            string noteName = MidiNoteToName(noteNumber);
+            foreach (Label label in _noteLabels)
             {
-                string noteName = MidiNoteToName(noteNumber);
-                foreach (Label label in _noteLabels)
+                if (label.Text.Contains(noteName))
                 {
-                    if (label.Text.Contains(noteName))
+                    if (label.InvokeRequired)
                     {
-                        Task.Run(() =>
+                        label.BeginInvoke(new Action(() =>
                         {
-                            SuspendLayout();
-                            if (label.InvokeRequired)
-                            {
-                                label.BeginInvoke(new Action(() =>
-                                {
-                                    label.BackColor = _originalLabelColors[label];
-                                }));
-                            }
-                            else
-                            {
-                                label.BackColor = _originalLabelColors[label];
-                            }
-                            ResumeLayout(performLayout: true);
-                            return;
-                        });
+                            label.BackColor = _originalLabelColors[label];
+                        }));
                     }
+                    else
+                    {
+                        label.BackColor = _originalLabelColors[label];
+                    }
+                    return;
                 }
-            }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                return;
             }
         }
         private int NoteToFrequency(int noteNumber)
@@ -950,28 +908,22 @@ namespace NeoBleeper
         }
         private void UpdateTrackBarPosition(int frameIndex)
         {
-            Task.Run(() =>
+            if (trackBar1.InvokeRequired)
             {
-                SuspendLayout();
-                if (trackBar1.InvokeRequired)
-                {
-                    trackBar1.BeginInvoke(new Action(() =>
-                    {
-                        trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                    }));
-                }
-                else
+                trackBar1.BeginInvoke(new Action(() =>
                 {
                     trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                }
-                ResumeLayout(performLayout: true);
-            });
+                }));
+            }
+            else
+            {
+                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+            }
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
             Task.Run(() =>
             {
-                SuspendLayout();
                 if (label_percentage.InvokeRequired)
                 {
                     label_percentage.BeginInvoke(new Action(() =>
@@ -983,7 +935,6 @@ namespace NeoBleeper
                 {
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                 }
-                ResumeLayout(performLayout: true);
             });
             CalculatePosition(frameIndex);
         }
@@ -991,22 +942,18 @@ namespace NeoBleeper
         {
             if (_frames == null || _frames.Count == 0)
                 return;
-            Task.Run(() =>
+
+            if (label_percentage.InvokeRequired)
             {
-                SuspendLayout();
-                if (label_percentage.InvokeRequired)
-                {
-                    label_percentage.BeginInvoke(new Action(() =>
-                    {
-                        label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                    }));
-                }
-                else
+                label_percentage.BeginInvoke(new Action(() =>
                 {
                     label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                }
-                ResumeLayout(performLayout: true);
-            });
+                }));
+            }
+            else
+            {
+                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+            }
         }
 
         private string UpdateTimeLabel(int frameIndex)
@@ -1066,7 +1013,6 @@ namespace NeoBleeper
                 Action updateAction = () =>
                 {
                     // Reset all labels
-                    SuspendLayout();
                     foreach (var label in _noteLabels)
                     {
                         label.Visible = false;
@@ -1113,7 +1059,6 @@ namespace NeoBleeper
                     {
                         label_more_notes.Visible = false;
                     }
-                    ResumeLayout(performLayout: true);
                 };
 
                 // Ensure UI update happens on the UI thread
