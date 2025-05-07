@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing.Text;
@@ -341,16 +342,18 @@ namespace NeoBleeper
             }
             finally
             {
-                if (midiFileLoading.InvokeRequired)
-                {
-                    midiFileLoading.Invoke(new Action(() =>
+                { 
+                    if (midiFileLoading != null)
                     {
-                        midiFileLoading?.Close();
-                    }));
-                }
-                else
-                {
-                    midiFileLoading?.Close();
+                        if (midiFileLoading.InvokeRequired)
+                        {
+                            midiFileLoading.Invoke(new Action(() => midiFileLoading?.Close()));
+                        }
+                        else
+                        {
+                            midiFileLoading?.Close();
+                        }
+                    }
                 }
             }
         }
@@ -859,52 +862,66 @@ namespace NeoBleeper
 
         private void HighlightNoteLabel(int noteNumber)
         {
-            string noteName = MidiNoteToName(noteNumber);
-
-            foreach (Label label in _noteLabels)
+            try
             {
-                if (label.Text.Contains(noteName))
-                {
-                    Color originalColor = _originalLabelColors[label];
+                string noteName = MidiNoteToName(noteNumber);
 
-                    // Highlight immediately
-                    if (label.InvokeRequired)
+                foreach (Label label in _noteLabels)
+                {
+                    if (label.Text.Contains(noteName))
                     {
-                        label.BeginInvoke(new Action(() =>
+                        Color originalColor = _originalLabelColors[label];
+
+                        // Highlight immediately
+                        if (label.InvokeRequired)
+                        {
+                            label.BeginInvoke(new Action(() =>
+                            {
+                                label.BackColor = _highlightColor;
+                            }));
+                        }
+                        else
                         {
                             label.BackColor = _highlightColor;
-                        }));
-                    }
-                    else
-                    {
-                        label.BackColor = _highlightColor;
-                    }
+                        }
 
 
-                    return;
+                        return;
+                    }
                 }
+            }
+            catch (Win32Exception)
+            {
+                return;
             }
         }
         private void UnHighlightNoteLabel(int noteNumber)
         {
-            string noteName = MidiNoteToName(noteNumber);
-            foreach (Label label in _noteLabels)
+            try
             {
-                if (label.Text.Contains(noteName))
+                string noteName = MidiNoteToName(noteNumber);
+                foreach (Label label in _noteLabels)
                 {
-                    if (label.InvokeRequired)
+                    if (label.Text.Contains(noteName))
                     {
-                        label.BeginInvoke(new Action(() =>
+                        if (label.InvokeRequired)
+                        {
+                            label.BeginInvoke(new Action(() =>
+                            {
+                                label.BackColor = _originalLabelColors[label];
+                            }));
+                        }
+                        else
                         {
                             label.BackColor = _originalLabelColors[label];
-                        }));
+                        }
+                        return;
                     }
-                    else
-                    {
-                        label.BackColor = _originalLabelColors[label];
-                    }
-                    return;
                 }
+            }
+            catch (Win32Exception)
+            {
+                return;
             }
         }
         private int NoteToFrequency(int noteNumber)
