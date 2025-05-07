@@ -255,15 +255,17 @@ namespace NeoBleeper
 
                 // Extract tempo information
                 int microsecondsPerQuarterNote = 500000; // Default 120 BPM
-                foreach (var midiEvent in midiFile.Events[0])
+                foreach (var track in midiFile.Events)
                 {
-                    if (midiEvent is TempoEvent tempoEvent)
+                    foreach (var midiEvent in track)
                     {
-                        microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
-                        break;
+                        if (midiEvent is TempoEvent tempoEvent)
+                        {
+                            microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
+                            break;
+                        }
                     }
                 }
-
                 // Calculate timing conversion
                 _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
 
