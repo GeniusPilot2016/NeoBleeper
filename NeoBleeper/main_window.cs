@@ -2796,21 +2796,57 @@ namespace NeoBleeper
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                // Determine if notes should play without stopping
+                // Not sessizlik oranýný ve nonStopping deðerini hesapla
+                decimal noteSilenceRatio = Convert.ToDecimal(trackBar_note_silence_ratio.Value) / 100m;
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
-                int miliseconds_per_whole_note = 0;
-                // Update alternating note length and BPM-based timing
-                Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                if (Variables.bpm != 0)
-                {
-                    miliseconds_per_whole_note = (int)Math.Truncate(FixRoundingErrors(240000.0 / Variables.bpm));
-                }
-                // Retrieve articulation and calculate note durations
-                string articulation_string = listViewNotes.SelectedItems[0].SubItems[6].Text;
-                int calculatedNoteDuration = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(note_length_calculator(miliseconds_per_whole_note))));
-                int calculatedWaitDuration = Math.Max(0, (int)Math.Truncate(FixRoundingErrors(line_length_calculator(miliseconds_per_whole_note))));
 
-                // Play notes using MIDI output if enabled
+                // BPM'e göre tam not süresi (milisaniye cinsinden)
+                decimal millisecondsPerWholeNote = Variables.bpm > 0
+                    ? 240000m / Convert.ToDecimal(Variables.bpm)
+                    : 0m;
+
+                // Seçili notanýn özellikleri
+                string noteType = listViewNotes.SelectedItems[0].SubItems[0].Text;
+                string modifierString = listViewNotes.SelectedItems[0].SubItems[5].Text;
+                string articulationString = listViewNotes.SelectedItems[0].SubItems[6].Text;
+
+                // Not süresini ve satýr uzunluðunu hassas hesapla
+                double noteLength = note_length_calculator(Convert.ToDouble(millisecondsPerWholeNote));
+                int calculatedNoteDuration = (int)Math.Max(1, Math.Round(noteLength));
+
+                double lineLength = line_length_calculator(Convert.ToDouble(millisecondsPerWholeNote));
+                int calculatedWaitDuration = (int)Math.Max(1, Math.Round(lineLength));
+
+                // Triplet notalar için özel düzeltme
+                bool isTriplet = modifierString.ToLowerInvariant().Contains("tri");
+                bool isShortNote = noteType == "1/16" || noteType == "1/32";
+
+                // %100 not sessizlik oraný için özel durum
+                if (noteSilenceRatio == 1.0m)
+                {
+                    // Triplet notalar ve kýsa notalar için özel davranýþ
+                    if (isTriplet || isShortNote)
+                    {
+                        // Çok kýsa notalar ve tripletler için minimumlara dikkat et
+                        calculatedNoteDuration = (int)Math.Round(calculatedNoteDuration * 0.95);
+                        calculatedWaitDuration = calculatedNoteDuration + 1; // Wait süresi biraz daha uzun
+                    }
+                    else
+                    {
+                        // Diðer notalar için not süresi = satýr süresi
+                        calculatedNoteDuration = calculatedWaitDuration;
+                    }
+                }
+                else
+                {
+                    // Sessizlik oraný %100 deðilse, note ve wait süresi arasýnda minimum boþluk býrak
+                    if (calculatedWaitDuration - calculatedNoteDuration < 5)
+                    {
+                        calculatedWaitDuration = calculatedNoteDuration + 5;
+                    }
+                }
+
+                // MIDI çýkýþý kullanýlýyorsa
                 if (Program.MIDIDevices.useMIDIoutput)
                 {
                     play_note_in_line_from_MIDIOutput(
@@ -2823,7 +2859,7 @@ namespace NeoBleeper
                     );
                 }
 
-                // Play notes using the system speaker or sound device
+                // Notayý çal
                 play_note_in_line(
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
@@ -2833,25 +2869,26 @@ namespace NeoBleeper
                     nonStopping
                 );
 
-                // Handle articulation-specific behavior
-                if (nonStopping && (articulation_string == "Sta" || articulation_string == "Spi"))
+                // Staccato ve Spiccato için özel durum
+                if (nonStopping && (articulationString == "Sta" || articulationString == "Spi"))
                 {
                     stopAllNotesAfterPlaying();
                     UpdateLabelVisible(false);
                 }
 
-                // Wait for the remaining duration if applicable
-                if (calculatedWaitDuration - calculatedNoteDuration > 0 && trackBar_note_silence_ratio.Value < 100)
+                // Sessizlik için bekle
+                int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
+                if (silenceDuration > 0)
                 {
-                    NonBlockingSleep.Sleep(calculatedWaitDuration - calculatedNoteDuration);
+                    NonBlockingSleep.Sleep(silenceDuration);
                 }
 
-                // Update the ListView selection for the next note
+                // Sonraki satýra geç
                 UpdateListViewSelectionSync(index);
             }
 
-            // Stop all notes if silence ratio is 100%
-            if (trackBar_note_silence_ratio.Value == 100)
+            // Müzik durduðunda temizlik iþlemleri
+            if (nonStopping)
             {
                 stopAllNotesAfterPlaying();
             }
@@ -3377,129 +3414,177 @@ namespace NeoBleeper
 
         private double note_length_calculator(double length)
         {
-            double finalNoteLength = 0;
-
-            if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
-                listViewNotes.Items != null && listViewNotes.Items.Count > 0)
+            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
+                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
             {
-                int selectedLine = listViewNotes.SelectedIndices[0];
-                string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
-
-                // Map note type to base duration
-                switch (noteType)
-                {
-                    case "Whole":
-                        finalNoteLength = length;
-                        break;
-                    case "Half":
-                        finalNoteLength = length / 2;
-                        break;
-                    case "Quarter":
-                        finalNoteLength = length / 4;
-                        break;
-                    case "1/8":
-                        finalNoteLength = length / 8;
-                        break;
-                    case "1/16":
-                        finalNoteLength = length / 16;
-                        break;
-                    case "1/32":
-                        finalNoteLength = length / 32;
-                        break;
-                    default:
-                        finalNoteLength = 0; // Default to 0 if note type is unrecognized
-                        break;
-                }
-
-                // Apply modifiers
-                string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text.ToLowerInvariant();
-                if (modifier.Contains("dot"))
-                {
-                    finalNoteLength *= 1.5; // Dotted note
-                }
-                else if (modifier.Contains("tri"))
-                {
-                    finalNoteLength /= 3; // Triplet
-                }
-
-                // Apply articulations
-                string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text.ToLowerInvariant();
-                if (articulation.Contains("sta"))
-                {
-                    finalNoteLength /= 2; // Staccato
-                }
-                else if (articulation.Contains("spi"))
-                {
-                    finalNoteLength /= 4; // Spiccato
-                }
-                else if (articulation.Contains("fer"))
-                {
-                    finalNoteLength *= 2.0; // Fermata
-                }
-
-                // Apply silence ratio
-                finalNoteLength *= Variables.note_silence_ratio;
+                return 0;
             }
 
-            return finalNoteLength;
+            int selectedLine = listViewNotes.SelectedIndices[0];
+            string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
+            string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
+            string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
+
+            // Nota deðerini Decimal hassasiyetiyle hesaplama
+            decimal baseLength;
+            decimal decimalLength = Convert.ToDecimal(length);
+
+            // Nota uzunluðunu hesapla
+            switch (noteType)
+            {
+                case "Whole":
+                    baseLength = decimalLength;
+                    break;
+                case "Half":
+                    baseLength = decimalLength / 2m;
+                    break;
+                case "Quarter":
+                    baseLength = decimalLength / 4m;
+                    break;
+                case "1/8":
+                    baseLength = decimalLength / 8m;
+                    break;
+                case "1/16":
+                    baseLength = decimalLength / 16m;
+                    break;
+                case "1/32":
+                    baseLength = decimalLength / 32m;
+                    break;
+                default:
+                    baseLength = decimalLength / 4m; // Default: Quarter
+                    break;
+            }
+
+            // Modifikatörleri uygula
+            if (!string.IsNullOrEmpty(modifier))
+            {
+                if (modifier.ToLowerInvariant().Contains("dot"))
+                {
+                    baseLength = baseLength * 3m / 2m; // Noktalý: 1.5 katý
+                }
+                else if (modifier.ToLowerInvariant().Contains("tri"))
+                {
+                    // Triplet için daha hassas hesaplama
+                    // Assembly kodunda /3 kullanýlýyor, ancak daha kýsa notalar için ek düzeltme yapýyoruz
+                    baseLength = baseLength / 3m;
+
+                    // Yüksek BPM'lerde kýsa notalar için ek düzeltme
+                    if (Variables.bpm > 180 && (noteType == "1/16" || noteType == "1/32"))
+                    {
+                        baseLength = baseLength * 0.8m; // %20 daha kýsa
+                    }
+                }
+            }
+
+            // Artikülasyonlarý uygula
+            if (!string.IsNullOrEmpty(articulation))
+            {
+                if (articulation.ToLowerInvariant().Contains("sta"))
+                {
+                    baseLength = baseLength / 2m; // Staccato: yarý süre
+                }
+                else if (articulation.ToLowerInvariant().Contains("spi"))
+                {
+                    baseLength = baseLength / 4m; // Spiccato: çeyrek süre
+                }
+                else if (articulation.ToLowerInvariant().Contains("fer"))
+                {
+                    baseLength = baseLength * 2m; // Fermata: iki kat süre
+                }
+            }
+
+            // Kýsa nota deðerleri için ek düzeltme
+            if (noteType == "1/16" || noteType == "1/32")
+            {
+                // Zaten kýsa olan notalarý biraz daha kýsalt (perküsyon benzeri)
+                baseLength = baseLength * 0.85m;
+            }
+
+            // Not sessizlik oranýný uygula
+            decimal silenceRatio = Convert.ToDecimal(trackBar_note_silence_ratio.Value) / 100m;
+
+            // %100 sessizlik oraný için özel durum
+            if (silenceRatio == 1.0m)
+            {
+                // Özellikle triplet notalar için daha hassas hesaplama
+                if (modifier.ToLowerInvariant().Contains("tri"))
+                {
+                    return Math.Max(1.0, Convert.ToDouble(baseLength * 0.95m));
+                }
+                return Math.Max(1.0, Convert.ToDouble(baseLength));
+            }
+            else
+            {
+                decimal result = baseLength * silenceRatio;
+                return Math.Max(1.0, Convert.ToDouble(Math.Round(result, 10)));
+            }
         }
 
         private double line_length_calculator(double length)
         {
-            double lineLength = 0;
-
-            if (listViewNotes.SelectedItems != null && listViewNotes.SelectedItems.Count > 0 &&
-                listViewNotes.Items != null && listViewNotes.Items.Count > 0)
+            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
+                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
             {
-                int selectedLine = listViewNotes.SelectedIndices[0];
-                string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
+                return 0;
+            }
 
-                // Map note type to base duration
-                switch (noteType)
-                {
-                    case "Whole":
-                        lineLength = length;
-                        break;
-                    case "Half":
-                        lineLength = length / 2;
-                        break;
-                    case "Quarter":
-                        lineLength = length / 4;
-                        break;
-                    case "1/8":
-                        lineLength = length / 8;
-                        break;
-                    case "1/16":
-                        lineLength = length / 16;
-                        break;
-                    case "1/32":
-                        lineLength = length / 32;
-                        break;
-                    default:
-                        lineLength = 0; // Default to 0 if note type is unrecognized
-                        break;
-                }
+            int selectedLine = listViewNotes.SelectedIndices[0];
+            string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
+            string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
+            string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
 
-                // Apply modifiers
-                string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text.ToLowerInvariant();
-                if (modifier.Contains("dot"))
-                {
-                    lineLength *= 1.5; // Dotted note
-                }
-                else if (modifier.Contains("tri"))
-                {
-                    lineLength /= 3; // Triplet
-                }
+            // Decimal hassasiyetiyle hesapla
+            decimal baseLength;
+            decimal decimalLength = Convert.ToDecimal(length);
 
-                // Apply articulations
-                string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text.ToLowerInvariant();
-                if (articulation.Contains("fer"))
+            // Nota uzunluðunu hesapla
+            switch (noteType)
+            {
+                case "Whole":
+                    baseLength = decimalLength;
+                    break;
+                case "Half":
+                    baseLength = decimalLength / 2m;
+                    break;
+                case "Quarter":
+                    baseLength = decimalLength / 4m;
+                    break;
+                case "1/8":
+                    baseLength = decimalLength / 8m;
+                    break;
+                case "1/16":
+                    baseLength = decimalLength / 16m;
+                    break;
+                case "1/32":
+                    baseLength = decimalLength / 32m;
+                    break;
+                default:
+                    baseLength = decimalLength / 4m; // Default: Quarter
+                    break;
+            }
+
+            // Modifikatörleri uygula
+            if (!string.IsNullOrEmpty(modifier))
+            {
+                if (modifier.ToLowerInvariant().Contains("dot"))
                 {
-                    lineLength *= 2.0; // Fermata
+                    baseLength = baseLength * 3m / 2m; // Noktalý: 1.5 katý
+                }
+                else if (modifier.ToLowerInvariant().Contains("tri"))
+                {
+                    // Triplet için daha hassas hesaplama
+                    baseLength = baseLength / 3m;
                 }
             }
 
-            return lineLength;
+            // Fermata toplam satýr uzunluðunu etkiler
+            if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
+            {
+                baseLength = baseLength * 2m; // Fermata: iki kat süre
+            }
+
+            // En az 1ms süreli olmalý ve hassasiyet korunmalý
+            return Math.Max(1.0, Convert.ToDouble(Math.Round(baseLength, 10)));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3771,11 +3856,42 @@ namespace NeoBleeper
         }
         public static double FixRoundingErrors(double input)
         {
-            // Round to the nearest integer using Math.Round
-            double rounded = Math.Round(input, MidpointRounding.AwayFromZero);
+            // Decimal veri tipine dönüþtürerek daha hassas iþlem yapalým
+            decimal decimalInput = Convert.ToDecimal(input);
 
-            // Add a small adjustment to handle floating-point precision issues
-            return rounded + 0.00001;
+            // Çok küçük ondalýk deðerleri kaldýr (epsilon deðeri)
+            const decimal epsilon = 0.0000001m;
+
+            // Tam sayýya çok yakýn deðerleri kontrol et
+            decimal roundedInt = Math.Round(decimalInput);
+            if (Math.Abs(decimalInput - roundedInt) < epsilon)
+            {
+                return (double)roundedInt;
+            }
+
+            // 0.5'e yakýn deðerleri kontrol et
+            decimal roundedHalf = Math.Round(decimalInput * 2) / 2;
+            if (Math.Abs(decimalInput - roundedHalf) < epsilon)
+            {
+                return (double)roundedHalf;
+            }
+
+            // 0.25, 0.75'e yakýn deðerleri kontrol et
+            decimal roundedQuarter = Math.Round(decimalInput * 4) / 4;
+            if (Math.Abs(decimalInput - roundedQuarter) < epsilon)
+            {
+                return (double)roundedQuarter;
+            }
+
+            // 0.125, 0.375, 0.625, 0.875'e yakýn deðerleri kontrol et
+            decimal roundedEighth = Math.Round(decimalInput * 8) / 8;
+            if (Math.Abs(decimalInput - roundedEighth) < epsilon)
+            {
+                return (double)roundedEighth;
+            }
+
+            // Normal durumda orjinal deðeri döndür
+            return input;
         }
         public static bool IsWholeNumber(double value)
         {
@@ -4047,59 +4163,70 @@ namespace NeoBleeper
         }
         private double NoteLengthToBeats(ListViewItem listViewItem)
         {
-            double length, mod, art;
+            decimal length = 0m;
+            decimal modifier = 1m;
+            decimal articulation = 1m;
+
+            // Nota uzunluðu için tam kesirli oranlar kullanalým
             switch (listViewItem.SubItems[0].Text)
             {
                 case "Whole":
-                    length = 4;
+                    length = 4m;
                     break;
                 case "Half":
-                    length = 2;
+                    length = 2m;
                     break;
                 case "Quarter":
-                    length = 1;
+                    length = 1m;
                     break;
                 case "1/8":
-                    length = 1.0 / 2.0;
+                    length = 0.5m;
                     break;
                 case "1/16":
-                    length = 1.0 / 4.0;
+                    length = 0.25m;
                     break;
                 case "1/32":
-                    length = 1.0 / 8.0;
+                    length = 0.125m;
                     break;
                 default:
-                    length = 1;
+                    length = 1m; // Default: Quarter
                     break;
             }
+
+            // Modifikatörleri hassas þekilde uygulayalým
             switch (listViewItem.SubItems[5].Text)
             {
                 case "Dot":
-                    mod = 1.5;
+                    modifier = 1.5m;
                     break;
                 case "Tri":
-                    mod = 1.0 / 3.0;
+                    modifier = 2m / 3m; // Hassas triplet hesaplamasý
                     break;
                 default:
-                    mod = 1;
+                    modifier = 1m;
                     break;
             }
+
+            // Artikülasyonlarý hassas þekilde uygulayalým
             switch (listViewItem.SubItems[6].Text)
             {
                 case "Sta":
-                    art = 1.0 / 2.0;
+                    articulation = 0.5m;
                     break;
                 case "Spi":
-                    art = 1.0 / 4.0;
+                    articulation = 0.25m;
                     break;
                 case "Fer":
-                    art = 2;
+                    articulation = 2m;
                     break;
                 default:
-                    art = 1;
+                    articulation = 1m;
                     break;
             }
-            return length * mod * art;
+
+            // Sonucu decimal olarak hesaplayýp double'a dönüþtürelim
+            decimal result = length * modifier * articulation;
+            return Convert.ToDouble(Math.Round(result, 8));
         }
         public static string FormatNumber(double number)
         {
