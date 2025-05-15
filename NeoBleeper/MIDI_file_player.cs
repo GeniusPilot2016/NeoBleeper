@@ -541,7 +541,7 @@ namespace NeoBleeper
                     int durationMs;
                     if (i < _frames.Count - 1)
                     {
-                        durationMs = (int)((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs);
+                        durationMs = (int)Math.Floor((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs);
                     }
                     else
                     {
@@ -670,8 +670,8 @@ namespace NeoBleeper
         // Fix rounding errors in floating-point calculations
         public static double FixRoundingErrors(double input)
         {
-            // Round to the nearest integer using Math.Round
-            double rounded = Math.Round(input, MidpointRounding.AwayFromZero);
+            // Round to the nearest integer using Math.Floor
+            double rounded = Math.Floor(input);
 
             // Add a small adjustment to handle floating-point precision issues
             return rounded + 0.00001;
@@ -690,7 +690,7 @@ namespace NeoBleeper
                             case true:
                                 {
                                     int interval = 30;
-                                    int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
+                                    int steps = Convert.ToInt32(Math.Floor((double)(duration / interval)));
                                     Stopwatch stopwatch = new Stopwatch();
                                     stopwatch.Start(); // Start the stopwatch
 
@@ -705,7 +705,7 @@ namespace NeoBleeper
                                                     break;
 
                                                 // Calculate alternate time: 30's note count, maximum 15 ms
-                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / steps)))));
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Floor(FixRoundingErrors(Math.Round((double)interval / steps)))));
                                                 HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
@@ -724,7 +724,7 @@ namespace NeoBleeper
                                             foreach (var frequency in frequencies)
                                             {
                                                 // Calculate alternate time: 30's note count, maximum 15 ms
-                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / steps)))));
+                                                int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Floor(FixRoundingErrors(Math.Round((double)interval / steps)))));
                                                 HighlightNoteLabel(frequency);
                                                 NotePlayer.play_note(frequency, alternatingTime);
                                                 UnHighlightNoteLabel(frequency);
@@ -754,7 +754,7 @@ namespace NeoBleeper
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
+                                    int steps = Convert.ToInt32(Math.Floor((double)(duration / interval)));
                                     Stopwatch stopwatch = new Stopwatch();
                                     stopwatch.Start(); // Start the stopwatch
                                     if (frequencies.Length >= steps)
@@ -807,7 +807,7 @@ namespace NeoBleeper
                                 {
                                     int interval = 30;
                                     // Switch between 30 ms
-                                    int steps = Convert.ToInt32(Math.Round((double)(duration / interval)));
+                                    int steps = Convert.ToInt32(Math.Floor((double)(duration / interval)));
                                     Stopwatch stopwatch = new Stopwatch();
                                     stopwatch.Start(); // Start the stopwatch
                                     do
@@ -819,7 +819,7 @@ namespace NeoBleeper
                                                 break;
 
                                             // Calculate alternate time: 30's note count, maximum 15 ms
-                                            int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Truncate(FixRoundingErrors(Math.Round((double)interval / steps)))));
+                                            int alternatingTime = Math.Min(15, Math.Max(1, (int)Math.Floor(FixRoundingErrors(Math.Round((double)interval / steps)))));
                                             HighlightNoteLabel(frequency);
                                             NotePlayer.play_note(frequency, alternatingTime);
                                             UnHighlightNoteLabel(frequency);

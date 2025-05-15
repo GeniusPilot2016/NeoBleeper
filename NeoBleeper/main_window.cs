@@ -2804,7 +2804,7 @@ namespace NeoBleeper
 
                 // Whole note duration calculation
                 decimal millisecondsPerWholeNote = Variables.bpm > 0
-                    ? 240000m / Convert.ToDecimal(Variables.bpm)
+                    ? Math.Floor(240000m / Convert.ToDecimal(Variables.bpm))
                     : 0m;
 
                 // Specification of the note type
@@ -2813,11 +2813,11 @@ namespace NeoBleeper
                 string articulationString = listViewNotes.SelectedItems[0].SubItems[6].Text;
 
                 // Calculation of the note length
-                double noteLength = Math.Floor(note_length_calculator(Math.Floor(Convert.ToDouble(millisecondsPerWholeNote))));
+                decimal noteLength = Math.Floor(note_length_calculator(Math.Floor(millisecondsPerWholeNote)));
                 int calculatedNoteDuration = (int)Math.Max(1, Math.Floor(noteLength));
 
 
-                double lineLength = Math.Floor(line_length_calculator(Math.Floor(Convert.ToDouble(millisecondsPerWholeNote))));
+                decimal lineLength = Math.Floor(line_length_calculator(Math.Floor(millisecondsPerWholeNote)));
                 int calculatedWaitDuration = (int)Math.Max(1, Math.Floor(lineLength));
 
 
@@ -3282,17 +3282,17 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                int miliseconds_per_whole_note = 0;
+                decimal miliseconds_per_whole_note = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = (int)Math.Truncate(FixRoundingErrors(240000.0 / Variables.bpm));
+                    miliseconds_per_whole_note = (decimal)Math.Floor(240000.0 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                int calculatedNoteLength = (int)FixRoundingErrors(note_length_calculator(miliseconds_per_whole_note));
+                decimal calculatedNoteLength = Math.Floor(note_length_calculator(miliseconds_per_whole_note));
                 EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
@@ -3302,7 +3302,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, calculatedNoteLength);
+                        checkBox_play_note4_played.Checked, (int)calculatedNoteLength);
                     });
                 }
                 bool nonStopping;
@@ -3316,7 +3316,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                calculatedNoteLength, nonStopping);
+                (int)calculatedNoteLength, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3387,7 +3387,7 @@ namespace NeoBleeper
             Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
 
-        private double note_length_calculator(double length)
+        private decimal note_length_calculator(decimal length)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3402,31 +3402,30 @@ namespace NeoBleeper
 
             // Calculate note length with decimal precision
             decimal baseLength;
-            decimal decimalLength = Math.Floor(Convert.ToDecimal(length));
 
             // Calculate the base length based on the note type
             switch (noteType)
             {
                 case "Whole":
-                    baseLength = Math.Floor(decimalLength);
+                    baseLength = Math.Floor(length);
                     break;
                 case "Half":
-                    baseLength = Math.Floor(decimalLength * 0.5m);
+                    baseLength = Math.Floor(length * 0.5m);
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(decimalLength * 0.25m);
+                    baseLength = Math.Floor(length * 0.25m);
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(decimalLength * 0.125m);
+                    baseLength = Math.Floor(length * 0.125m);
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(decimalLength * 0.0625m);
+                    baseLength = Math.Floor(length * 0.0625m);
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(decimalLength * 0.03125m);
+                    baseLength = Math.Floor(length * 0.03125m);
                     break;
                 default:
-                    baseLength = Math.Floor(decimalLength * 0.25m); // Default: Quarter
+                    baseLength = Math.Floor(length * 0.25m); // Default: Quarter
                     break;
             }
 
@@ -3439,7 +3438,7 @@ namespace NeoBleeper
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.33m);
+                    baseLength = Math.Floor(baseLength * 0.333m);
                 }
             }
 
@@ -3464,10 +3463,10 @@ namespace NeoBleeper
             decimal silenceRatio = Convert.ToDecimal(trackBar_note_silence_ratio.Value) / 100m;
 
             decimal result = Math.Floor(baseLength * silenceRatio);
-            return Math.Max(1.0, Convert.ToDouble(result));
+            return Math.Max(1, result);
         }
 
-        private double line_length_calculator(double length)
+        private decimal line_length_calculator(decimal length)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3482,31 +3481,30 @@ namespace NeoBleeper
 
             // Calculate line length with decimal precision
             decimal baseLength;
-            decimal decimalLength = Math.Floor(Convert.ToDecimal(length));
 
             // Calculate line length based on note type
             switch (noteType)
             {
                 case "Whole":
-                    baseLength = Math.Floor(decimalLength);
+                    baseLength = Math.Floor(length);
                     break;
                 case "Half":
-                    baseLength = Math.Floor(decimalLength * 0.5m);
+                    baseLength = Math.Floor(length * 0.5m);
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(decimalLength * 0.25m);
+                    baseLength = Math.Floor(length * 0.25m);
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(decimalLength * 0.125m);
+                    baseLength = Math.Floor(length * 0.125m);
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(decimalLength * 0.0625m);
+                    baseLength = Math.Floor(length * 0.0625m);
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(decimalLength * 0.03125m);
+                    baseLength = Math.Floor(length * 0.03125m);
                     break;
                 default:
-                    baseLength = Math.Floor(decimalLength * 0.25m); // Default: Quarter
+                    baseLength = Math.Floor(length * 0.25m); // Default: Quarter
                     break;
             }
 
@@ -3531,7 +3529,7 @@ namespace NeoBleeper
             }
 
             // The silence ratio is not applied to the line length
-            return Math.Max(1.0, Convert.ToDouble(baseLength));
+            return Math.Max(1, baseLength);
         }
         private void stopAllNotesAfterPlaying()
         {
