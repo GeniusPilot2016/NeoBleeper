@@ -166,7 +166,7 @@ namespace NeoBleeper
                 {
                     mainWindow.stop_playing(); // Stop the music if it is playing
                 }
-                if (dateTimePicker1.Value < DateTime.Now)
+                if (dateTimePicker1.Value <= DateTime.Now)
                 {
                     start_playing();
                 }

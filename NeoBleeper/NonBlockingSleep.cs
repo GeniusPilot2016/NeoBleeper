@@ -19,7 +19,6 @@ namespace NeoBleeper
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (stopwatch.ElapsedMilliseconds < milliseconds)
             {
-                // Use SpinWait to avoid gaps while maintaining precision
                 Application.DoEvents();
             }
         }

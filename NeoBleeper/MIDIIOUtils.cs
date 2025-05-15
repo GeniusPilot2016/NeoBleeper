@@ -19,7 +19,7 @@ namespace NeoBleeper
                 try
                 {
                     _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDeviceChannel);
-                    return; // Başarılı olursa döngüden çık
+                    return; // Break out of the loop if successful
                 }
                 catch (MmException ex)
                 {
@@ -28,7 +28,7 @@ namespace NeoBleeper
 
                     if (i < retryCount - 1)
                     {
-                        System.Threading.Thread.Sleep(200 * (i + 1)); // Her denemede artan gecikme
+                        System.Threading.Thread.Sleep(200 * (i + 1)); // Incremental backoff
                     }
                 }
             }

@@ -50,7 +50,7 @@ namespace NeoBleeper
             if (baseFrequency == 0)
                 return 0;
 
-            // Oktav farkını hesaplama
+            // Calculate the frequency based on the octave
             int octaveDifference = octave - 4; // 4th octave is the reference octave
             return baseFrequency * Math.Pow(2, octaveDifference);
         }
