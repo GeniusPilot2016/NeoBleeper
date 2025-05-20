@@ -2853,7 +2853,7 @@ namespace NeoBleeper
 
                 // Wait for the note to finish playing
                 int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
-                if (silenceDuration > 0)
+                if (silenceDuration > 0 && trackBar_note_silence_ratio.Value == 100)
                 {
                     NonBlockingSleep.Sleep(silenceDuration);
                 }
