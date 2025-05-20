@@ -2793,7 +2793,7 @@ namespace NeoBleeper
                 await Task.Delay(length);
             }
         }
-        private void play_music(int index)
+        private void play_music(int startIndex)
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
@@ -2803,9 +2803,9 @@ namespace NeoBleeper
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
                 // Whole note duration calculation
-                decimal millisecondsPerWholeNote = Variables.bpm > 0
-                    ? Math.Floor(240000m / Convert.ToDecimal(Variables.bpm))
-                    : 0m;
+                int millisecondsPerWholeNote = Variables.bpm > 0
+                    ? (int)Math.Floor(240000.0 / Variables.bpm)
+                    : 0;
 
                 // Specification of the note type
                 string noteType = listViewNotes.SelectedItems[0].SubItems[0].Text;
@@ -2813,12 +2813,12 @@ namespace NeoBleeper
                 string articulationString = listViewNotes.SelectedItems[0].SubItems[6].Text;
 
                 // Calculation of the note length
-                decimal noteLength = Math.Floor(note_length_calculator(Math.Floor(millisecondsPerWholeNote)));
-                int calculatedNoteDuration = (int)Math.Max(1, Math.Floor(noteLength));
+                int noteLength = note_length_calculator(millisecondsPerWholeNote);
+                int calculatedNoteDuration = Math.Max(1, noteLength);
 
 
-                decimal lineLength = Math.Floor(line_length_calculator(Math.Floor(millisecondsPerWholeNote)));
-                int calculatedWaitDuration = (int)Math.Max(1, Math.Floor(lineLength));
+                int lineLength = line_length_calculator(millisecondsPerWholeNote);
+                int calculatedWaitDuration = Math.Max(1, lineLength);
 
 
                 // If MIDI output is enabled, play the note using MIDI
@@ -2853,13 +2853,13 @@ namespace NeoBleeper
 
                 // Wait for the note to finish playing
                 int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
-                if (silenceDuration > 0)
+                if (silenceDuration > 0 && trackBar_note_silence_ratio.Value == 100)
                 {
                     NonBlockingSleep.Sleep(silenceDuration);
                 }
 
                 // Select the next note in the list
-                UpdateListViewSelectionSync(index);
+                UpdateListViewSelectionSync(startIndex);
             }
 
             // Cleanup after playing
@@ -3282,17 +3282,17 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                decimal miliseconds_per_whole_note = 0;
+                double miliseconds_per_whole_note = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = (decimal)Math.Floor(240000.0 / Variables.bpm);
+                    miliseconds_per_whole_note = Math.Floor(240000.0 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                decimal calculatedNoteLength = Math.Floor(note_length_calculator(miliseconds_per_whole_note));
+                int calculatedNoteLength = note_length_calculator(miliseconds_per_whole_note);
                 EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
@@ -3302,7 +3302,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)calculatedNoteLength);
+                        checkBox_play_note4_played.Checked, calculatedNoteLength);
                     });
                 }
                 bool nonStopping;
@@ -3316,7 +3316,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                (int)calculatedNoteLength, nonStopping);
+                calculatedNoteLength, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3386,8 +3386,7 @@ namespace NeoBleeper
 
             Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
-
-        private decimal note_length_calculator(decimal length)
+        private int note_length_calculator(double length)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3401,31 +3400,31 @@ namespace NeoBleeper
             string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
 
             // Calculate note length with decimal precision
-            decimal baseLength;
+            double baseLength;
 
             // Calculate the base length based on the note type
             switch (noteType)
             {
                 case "Whole":
-                    baseLength = Math.Floor(length);
+                    baseLength = length;
                     break;
                 case "Half":
-                    baseLength = Math.Floor(length * 0.5m);
+                    baseLength = Math.Floor(length * 0.5);
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(length * 0.25m);
+                    baseLength = Math.Floor(length * 0.25);
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(length * 0.125m);
+                    baseLength = Math.Floor(length * 0.125);
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(length * 0.0625m);
+                    baseLength = Math.Floor(length * 0.0625);
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(length * 0.03125m);
+                    baseLength = Math.Floor(length * 0.03125);
                     break;
                 default:
-                    baseLength = Math.Floor(length * 0.25m); // Default: Quarter
+                    baseLength = Math.Floor(length * 0.25); // Default: Quarter
                     break;
             }
 
@@ -3434,11 +3433,11 @@ namespace NeoBleeper
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
                 {
-                    baseLength = Math.Floor(baseLength * 1.5m); // Noktalý: 1.5 katý
+                    baseLength = Math.Floor(baseLength * 1.5); // Noktalý: 1.5 katý
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.333m);
+                    baseLength = Math.Floor(baseLength * 0.33);
                 }
             }
 
@@ -3447,26 +3446,26 @@ namespace NeoBleeper
             {
                 if (articulation.ToLowerInvariant().Contains("sta"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.5m); // Staccato: yarý süre
+                    baseLength = Math.Floor(baseLength * 0.5); // Staccato: yarý süre
                 }
                 else if (articulation.ToLowerInvariant().Contains("spi"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.25m); // Spiccato: çeyrek süre
+                    baseLength = Math.Floor(baseLength * 0.25); // Spiccato: çeyrek süre
                 }
                 else if (articulation.ToLowerInvariant().Contains("fer"))
                 {
-                    baseLength = Math.Floor(baseLength * 2m); // Fermata: iki kat süre
+                    baseLength = Math.Floor(baseLength * 2); // Fermata: iki kat süre
                 }
             }
 
             // Apply silence ratio
-            decimal silenceRatio = Convert.ToDecimal(trackBar_note_silence_ratio.Value) / 100m;
+            double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
 
-            decimal result = Math.Floor(baseLength * silenceRatio);
-            return Math.Max(1, result);
+            double result = baseLength * silenceRatio;
+            return Math.Max(1, (int)Math.Floor(FixRoundingErrors(result)));
         }
 
-        private decimal line_length_calculator(decimal length)
+        private int line_length_calculator(double length)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3480,31 +3479,31 @@ namespace NeoBleeper
             string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
 
             // Calculate line length with decimal precision
-            decimal baseLength;
+            double baseLength;
 
             // Calculate line length based on note type
             switch (noteType)
             {
                 case "Whole":
-                    baseLength = Math.Floor(length);
+                    baseLength = length;
                     break;
                 case "Half":
-                    baseLength = Math.Floor(length * 0.5m);
+                    baseLength = Math.Floor(length * 0.5);
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(length * 0.25m);
+                    baseLength = Math.Floor(length * 0.25);
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(length * 0.125m);
+                    baseLength = Math.Floor(length * 0.125);
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(length * 0.0625m);
+                    baseLength = Math.Floor(length * 0.0625);
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(length * 0.03125m);
+                    baseLength = Math.Floor(length * 0.03125);
                     break;
                 default:
-                    baseLength = Math.Floor(length * 0.25m); // Default: Quarter
+                    baseLength = Math.Floor(length * 0.25); // Default: Quarter
                     break;
             }
 
@@ -3513,23 +3512,23 @@ namespace NeoBleeper
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
                 {
-                    baseLength = Math.Floor(baseLength * 1.5m); // Dotted: 1.5x
+                    baseLength = Math.Floor(baseLength * 1.5); // Dotted: 1.5x
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
                     // More precise calculation for triplet
-                    baseLength = Math.Floor(baseLength * 0.33m);
+                    baseLength = Math.Floor(baseLength * 0.33);
                 }
             }
 
             // Fermata affects line length
             if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
             {
-                baseLength = Math.Floor(baseLength * 2m); // Fermata: Double length
+                baseLength = Math.Floor(baseLength * 2); // Fermata: Double length
             }
 
             // The silence ratio is not applied to the line length
-            return Math.Max(1, baseLength);
+            return Math.Max(1, (int)Math.Floor(baseLength));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3804,34 +3803,38 @@ namespace NeoBleeper
             // Convert the input to decimal for better precision
             decimal decimalInput = Convert.ToDecimal(input);
 
-            // Remove the decimal part if it's very close to an integer with a small epsilon
+            // Define a small epsilon for comparison
             const decimal epsilon = 0.0000001m;
 
-            // Check if the decimal part is very close to an integer
+            // Check if the value is very close to an integer
             decimal roundedInt = Math.Round(decimalInput);
             if (Math.Abs(decimalInput - roundedInt) < epsilon)
             {
+                Debug.WriteLine("Rounding error is fixed.");
                 return (double)roundedInt;
             }
 
-            // Check if the decimal part is very close to 0.5
+            // Check if the value is very close to 0.5
             decimal roundedHalf = Math.Round(decimalInput * 2) / 2;
             if (Math.Abs(decimalInput - roundedHalf) < epsilon)
             {
+                Debug.WriteLine("Rounding error is fixed.");
                 return (double)roundedHalf;
             }
 
-            // Check if the decimal part is very close to 0.25, 0.75
+            // Check if the value is very close to 0.25 or 0.75
             decimal roundedQuarter = Math.Round(decimalInput * 4) / 4;
             if (Math.Abs(decimalInput - roundedQuarter) < epsilon)
             {
+                Debug.WriteLine("Rounding error is fixed.");
                 return (double)roundedQuarter;
             }
 
-            // Check if the decimal part is very close to 0.125, 0.375, 0.625, 0.875
+            // Check if the value is very close to 0.125, 0.375, 0.625, or 0.875
             decimal roundedEighth = Math.Round(decimalInput * 8) / 8;
             if (Math.Abs(decimalInput - roundedEighth) < epsilon)
             {
+                Debug.WriteLine("Rounding error is fixed.");
                 return (double)roundedEighth;
             }
 
