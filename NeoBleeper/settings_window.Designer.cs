@@ -44,6 +44,7 @@
             btn_test_system_speaker = new Button();
             label_test_system_speaker_message = new Label();
             groupBox_appearance = new GroupBox();
+            checkBoxClassicBleeperMode = new CheckBox();
             lbl_theme = new Label();
             comboBox_theme = new ComboBox();
             label_test_system_speaker_message_2 = new Label();
@@ -266,10 +267,18 @@
             // groupBox_appearance
             // 
             resources.ApplyResources(groupBox_appearance, "groupBox_appearance");
+            groupBox_appearance.Controls.Add(checkBoxClassicBleeperMode);
             groupBox_appearance.Controls.Add(lbl_theme);
             groupBox_appearance.Controls.Add(comboBox_theme);
             groupBox_appearance.Name = "groupBox_appearance";
             groupBox_appearance.TabStop = false;
+            // 
+            // checkBoxClassicBleeperMode
+            // 
+            resources.ApplyResources(checkBoxClassicBleeperMode, "checkBoxClassicBleeperMode");
+            checkBoxClassicBleeperMode.Name = "checkBoxClassicBleeperMode";
+            checkBoxClassicBleeperMode.UseVisualStyleBackColor = true;
+            checkBoxClassicBleeperMode.CheckedChanged += checkBoxClassicBleeperMode_CheckedChanged;
             // 
             // lbl_theme
             // 
@@ -991,5 +1000,6 @@
         private Button buttonShowHide;
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
+        private CheckBox checkBoxClassicBleeperMode;
     }
 }

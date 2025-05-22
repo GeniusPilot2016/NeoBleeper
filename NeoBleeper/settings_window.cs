@@ -73,12 +73,13 @@ namespace NeoBleeper
             comboBox_theme.SelectedIndex = Settings1.Default.theme;
             checkBox_use_midi_input.Checked = Program.MIDIDevices.useMIDIinput;
             checkBox_use_midi_output.Checked = Program.MIDIDevices.useMIDIoutput;
+            checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
             setFonts();
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
             textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-            if(Settings1.Default.geminiAPIKey != String.Empty)
+            if (Settings1.Default.geminiAPIKey != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
             }
@@ -86,21 +87,21 @@ namespace NeoBleeper
         private void setFonts()
         {
             UIFonts uiFonts = UIFonts.Instance;
-            foreach(Control ctrl in Controls)
+            foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                     if (ctrl is TabControl tabControl)
                     {
-                        foreach(Control tabControlControls in tabControl.Controls)
+                        foreach (Control tabControlControls in tabControl.Controls)
                         {
                             tabControlControls.Font = uiFonts.SetUIFont(tabControlControls.Font.Size, tabControlControls.Font.Style);
                             if (tabControlControls is TabPage tabPage)
                             {
                                 foreach (Control tabPageControls in tabPage.Controls)
                                 {
-                                    if(tabPageControls is GroupBox groupBox)
+                                    if (tabPageControls is GroupBox groupBox)
                                     {
                                         tabPageControls.Font = uiFonts.SetUIFont(tabPageControls.Font.Size, tabPageControls.Font.Style);
                                         foreach (Control groupBoxControls in groupBox.Controls)
@@ -674,7 +675,7 @@ namespace NeoBleeper
             };
 
             foreach (int[] note in melody)
-            {   
+            {
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
@@ -1076,7 +1077,7 @@ namespace NeoBleeper
                     comboBox_midi_output_devices.Enabled = true;
                     checkBox_use_midi_output.Enabled = true;
                 }
-                else if(Program.MIDIDevices.MIDIOutputDevice >= 0)
+                else if (Program.MIDIDevices.MIDIOutputDevice >= 0)
                 {
                     comboBox_midi_output_devices.SelectedIndex = 0;
                     comboBox_midi_output_devices.Enabled = true;
@@ -1354,6 +1355,22 @@ namespace NeoBleeper
             {
                 Debug.WriteLine("Error resetting API key: " + ex.Message);
                 MessageBox.Show("Error resetting API key: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBoxClassicBleeperMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings1.Default.ClassicBleeperMode = checkBoxClassicBleeperMode.Checked;
+            Settings1.Default.Save();
+            if(Settings1.Default.ClassicBleeperMode == true)
+            {
+                Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
+                Debug.WriteLine("Classic Bleeper Mode enabled.");
+            }
+            else
+            {
+                Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
+                Debug.WriteLine("Classic Bleeper Mode disabled.");
             }
         }
     }

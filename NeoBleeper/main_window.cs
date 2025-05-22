@@ -37,13 +37,13 @@ namespace NeoBleeper
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
+            InitializeButtonShortcuts();
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
             listViewNotes.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             set_default_font();
-            listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 checkBox_mute_system_speaker.Checked = Program.creating_sounds.is_system_speaker_muted;
@@ -88,18 +88,18 @@ namespace NeoBleeper
                 UIFonts uiFonts = UIFonts.Instance;
                 foreach (Control ctrl in Controls)
                 {
-                    if (ctrl is Panel panel) 
+                    if (ctrl is Panel panel)
                     {
                         foreach (Control panelCtrl in panel.Controls)
                         {
-                            if(panelCtrl is Panel childPanel)
+                            if (panelCtrl is Panel childPanel)
                             {
-                                foreach(Control childControl in childPanel.Controls)
+                                foreach (Control childControl in childPanel.Controls)
                                 {
                                     childControl.Font = uiFonts.SetUIFont(childControl.Font.Size, childControl.Font.Style);
                                 }
                             }
-                            else 
+                            else
                             {
                                 panelCtrl.Font = uiFonts.SetUIFont(panelCtrl.Font.Size, panelCtrl.Font.Style);
                             }
@@ -110,7 +110,7 @@ namespace NeoBleeper
                         ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                         foreach (Control groupBoxCtrl in groupBox.Controls)
                         {
-                            if(groupBoxCtrl is GroupBox childGroupBox)
+                            if (groupBoxCtrl is GroupBox childGroupBox)
                             {
                                 childGroupBox.Font = uiFonts.SetUIFont(childGroupBox.Font.Size, childGroupBox.Font.Style);
                                 foreach (Control childControl in childGroupBox.Controls)
@@ -132,7 +132,7 @@ namespace NeoBleeper
                             item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
                             if (item is ToolStripMenuItem menuItem)
                             {
-                                foreach(ToolStripItem subItem in menuItem.DropDownItems)
+                                foreach (ToolStripItem subItem in menuItem.DropDownItems)
                                 {
                                     subItem.Font = uiFonts.SetUIFont(subItem.Font.Size, subItem.Font.Style);
                                 }
@@ -2764,7 +2764,7 @@ namespace NeoBleeper
 
                 // Whole note duration calculation
                 int millisecondsPerWholeNote = Variables.bpm > 0
-                    ? (int)Math.Floor(240000.0 / Variables.bpm)
+                    ? (int)Math.Truncate(240000.0 / Variables.bpm)
                     : 0;
 
                 // Specification of the note type
@@ -3246,7 +3246,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = Math.Floor(240000.0 / Variables.bpm);
+                    miliseconds_per_whole_note = Math.Truncate(240000.0 / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3369,22 +3369,22 @@ namespace NeoBleeper
                     baseLength = length;
                     break;
                 case "Half":
-                    baseLength = Math.Floor(length * 0.5);
+                    baseLength = length * 0.5; 
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(length * 0.25);
+                    baseLength = length * 0.25;
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(length * 0.125);
+                    baseLength = length * 0.125;
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(length * 0.0625);
+                    baseLength = length * 0.0625;
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(length * 0.03125);
+                    baseLength = length * 0.03125;
                     break;
                 default:
-                    baseLength = Math.Floor(length * 0.25); // Default: Quarter
+                    baseLength = length * 0.25; // Default: Quarter
                     break;
             }
 
@@ -3393,11 +3393,11 @@ namespace NeoBleeper
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
                 {
-                    baseLength = Math.Floor(baseLength * 1.5); // Noktalý: 1.5 katý
+                    baseLength = baseLength * 1.5; // Noktalý: 1.5 katý
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.33);
+                    baseLength = baseLength * 0.333;
                 }
             }
 
@@ -3406,15 +3406,15 @@ namespace NeoBleeper
             {
                 if (articulation.ToLowerInvariant().Contains("sta"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.5); // Staccato: yarý süre
+                    baseLength = baseLength * 0.5; // Staccato: yarý süre
                 }
                 else if (articulation.ToLowerInvariant().Contains("spi"))
                 {
-                    baseLength = Math.Floor(baseLength * 0.25); // Spiccato: çeyrek süre
+                    baseLength = baseLength * 0.25; // Spiccato: çeyrek süre
                 }
                 else if (articulation.ToLowerInvariant().Contains("fer"))
                 {
-                    baseLength = Math.Floor(baseLength * 2); // Fermata: iki kat süre
+                    baseLength = baseLength * 2; // Fermata: iki kat süre
                 }
             }
 
@@ -3422,7 +3422,7 @@ namespace NeoBleeper
             double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
 
             double result = baseLength * silenceRatio;
-            return Math.Max(1, (int)Math.Floor(FixRoundingErrors(result)));
+            return Math.Max(1, (int)Math.Round(result));
         }
 
         private int line_length_calculator(double length)
@@ -3448,22 +3448,22 @@ namespace NeoBleeper
                     baseLength = length;
                     break;
                 case "Half":
-                    baseLength = Math.Floor(length * 0.5);
+                    baseLength = length * 0.5;
                     break;
                 case "Quarter":
-                    baseLength = Math.Floor(length * 0.25);
+                    baseLength = length * 0.25;
                     break;
                 case "1/8":
-                    baseLength = Math.Floor(length * 0.125);
+                    baseLength = length * 0.125;
                     break;
                 case "1/16":
-                    baseLength = Math.Floor(length * 0.0625);
+                    baseLength = length * 0.0625;
                     break;
                 case "1/32":
-                    baseLength = Math.Floor(length * 0.03125);
+                    baseLength = length * 0.03125;
                     break;
                 default:
-                    baseLength = Math.Floor(length * 0.25); // Default: Quarter
+                    baseLength = length * 0.25; // Default: Quarter
                     break;
             }
 
@@ -3472,23 +3472,23 @@ namespace NeoBleeper
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
                 {
-                    baseLength = Math.Floor(baseLength * 1.5); // Dotted: 1.5x
+                    baseLength = baseLength * 1.5; // Dotted: 1.5x
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
                     // More precise calculation for triplet
-                    baseLength = Math.Floor(baseLength * 0.33);
+                    baseLength = baseLength * 0.333;
                 }
             }
 
             // Fermata affects line length
             if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
             {
-                baseLength = Math.Floor(baseLength * 2); // Fermata: Double length
+                baseLength = baseLength * 2; // Fermata: Double length
             }
 
             // The silence ratio is not applied to the line length
-            return Math.Max(1, (int)Math.Floor(baseLength));
+            return Math.Max(1, (int)Math.Round(baseLength));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3934,9 +3934,9 @@ namespace NeoBleeper
             int miliseconds_per_whole_note = 0;
             if (Variables.bpm != 0)
             {
-                miliseconds_per_whole_note = (int)Math.Floor(FixRoundingErrors(240000.0 / Variables.bpm));
+                miliseconds_per_whole_note = (int)Math.Truncate(240000.0 / Variables.bpm);
             }
-            int length = Math.Max(1, (int)Math.Floor(FixRoundingErrors((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor)));
+            int length = Math.Max(1, (int)Math.Truncate((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor));
 
             // Create a percussion sound
             for (int i = 0; i < 2; i++) // 2 beats
@@ -3977,7 +3977,7 @@ namespace NeoBleeper
             {
                 if (thirtyseconds > 16)
                 {
-                    int wholeNumber = (int)Math.Floor(thirtyseconds / 16);
+                    int wholeNumber = (int)Math.Truncate(thirtyseconds / 16);
                     return (wholeNumber + 1) + " (Error)";
                 }
                 else
@@ -4041,7 +4041,7 @@ namespace NeoBleeper
             }
             else
             {
-                int wholeNumber = (int)Math.Floor(thirtyseconds / 32);
+                int wholeNumber = (int)Math.Truncate(thirtyseconds / 32);
                 return (wholeNumber + 1) + " (Error)";
             }
         }
@@ -4301,97 +4301,25 @@ namespace NeoBleeper
             Program.creating_sounds.is_system_speaker_muted = checkBox_mute_system_speaker.Checked;
             Debug.WriteLine("System speaker is muted: " + Program.creating_sounds.is_system_speaker_muted);
         }
-        private async void show_keyboard_keys_shortcut()
+        private void show_keyboard_keys_shortcut()
         {
-            try
+            Task.Run(() =>
             {
-                button_c3.Text = "Tab";
-                button_c_s3.Text = "`";
-                button_d3.Text = "Q";
-                button_d_s3.Text = "1";
-                button_e3.Text = "W";
-                button_f3.Text = "E";
-                button_f_s3.Text = "3";
-                button_g3.Text = "R";
-                button_g_s3.Text = "4";
-                button_a3.Text = "T";
-                button_a_s3.Text = "5";
-                button_b3.Text = "Y";
-                button_c4.Text = "U";
-                button_c_s4.Text = "7";
-                button_d4.Text = "I";
-                button_d_s4.Text = "8";
-                button_e4.Text = "O";
-                button_f4.Text = "P";
-                button_f_s4.Text = "0";
-                button_g4.Text = "[";
-                button_g_s4.Text = "-";
-                button_a4.Text = "]";
-                button_a_s4.Text = "+";
-                button_b4.Text = "|";
-                button_c5.Text = "Shift";
-                button_c_s5.Text = "A";
-                button_d5.Text = "Z";
-                button_d_s5.Text = "S";
-                button_e5.Text = "X";
-                button_f5.Text = "C";
-                button_f_s5.Text = "F";
-                button_g5.Text = "V";
-                button_g_s5.Text = "G";
-                button_a5.Text = "B";
-                button_a_s5.Text = "H";
-                button_b5.Text = "N";
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+                foreach (var entry in buttonShortcuts)
+                {
+                    entry.Key.Text = entry.Value; // Set the shortcut text
+                }
+            });
         }
-        private async void hide_keyboard_keys_shortcut()
+        private void hide_keyboard_keys_shortcut()
         {
-            try
+            Task.Run(() =>
             {
-                button_c3.Text = string.Empty;
-                button_c_s3.Text = string.Empty;
-                button_d3.Text = string.Empty;
-                button_d_s3.Text = string.Empty;
-                button_e3.Text = string.Empty;
-                button_f3.Text = string.Empty;
-                button_f_s3.Text = string.Empty;
-                button_g3.Text = string.Empty;
-                button_g_s3.Text = string.Empty;
-                button_a3.Text = string.Empty;
-                button_a_s3.Text = string.Empty;
-                button_b3.Text = string.Empty;
-                button_c4.Text = string.Empty;
-                button_c_s4.Text = string.Empty;
-                button_d4.Text = string.Empty;
-                button_d_s4.Text = string.Empty;
-                button_e4.Text = string.Empty;
-                button_f4.Text = string.Empty;
-                button_f_s4.Text = string.Empty;
-                button_g4.Text = string.Empty;
-                button_g_s4.Text = string.Empty;
-                button_a4.Text = string.Empty;
-                button_a_s4.Text = string.Empty;
-                button_b4.Text = string.Empty;
-                button_c5.Text = string.Empty;
-                button_c_s5.Text = string.Empty;
-                button_d5.Text = string.Empty;
-                button_d_s5.Text = string.Empty;
-                button_e5.Text = string.Empty;
-                button_f5.Text = string.Empty;
-                button_f_s5.Text = string.Empty;
-                button_g5.Text = string.Empty; ;
-                button_g_s5.Text = string.Empty;
-                button_a5.Text = string.Empty;
-                button_a_s5.Text = string.Empty;
-                button_b5.Text = string.Empty;
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+                foreach (var entry in buttonShortcuts)
+                {
+                    entry.Key.Text = string.Empty; // Clear the shortcut text
+                }
+            });
         }
         private void checkBox_use_keyboard_as_piano_CheckedChanged(object sender, EventArgs e)
         {
@@ -5165,6 +5093,47 @@ namespace NeoBleeper
                 closePortamentoWindow();
                 Debug.WriteLine("Bleeper portamento window is closed.");
             }
+        }
+        private readonly Dictionary<Button, string> buttonShortcuts = new Dictionary<Button, string>();
+
+        private void InitializeButtonShortcuts()
+        {
+            buttonShortcuts.Add(button_c3, "Tab");
+            buttonShortcuts.Add(button_c_s3, "`");
+            buttonShortcuts.Add(button_d3, "Q");
+            buttonShortcuts.Add(button_d_s3, "1");
+            buttonShortcuts.Add(button_e3, "W");
+            buttonShortcuts.Add(button_f3, "E");
+            buttonShortcuts.Add(button_f_s3, "3");
+            buttonShortcuts.Add(button_g3, "R");
+            buttonShortcuts.Add(button_g_s3, "4");
+            buttonShortcuts.Add(button_a3, "T");
+            buttonShortcuts.Add(button_a_s3, "5");
+            buttonShortcuts.Add(button_b3, "Y");
+            buttonShortcuts.Add(button_c4, "U");
+            buttonShortcuts.Add(button_c_s4, "7");
+            buttonShortcuts.Add(button_d4, "I");
+            buttonShortcuts.Add(button_d_s4, "8");
+            buttonShortcuts.Add(button_e4, "O");
+            buttonShortcuts.Add(button_f4, "P");
+            buttonShortcuts.Add(button_f_s4, "0");
+            buttonShortcuts.Add(button_g4, "[");
+            buttonShortcuts.Add(button_g_s4, "-");
+            buttonShortcuts.Add(button_a4, "]");
+            buttonShortcuts.Add(button_a_s4, "+");
+            buttonShortcuts.Add(button_b4, "|");
+            buttonShortcuts.Add(button_c5, "Shift");
+            buttonShortcuts.Add(button_c_s5, "A");
+            buttonShortcuts.Add(button_d5, "Z");
+            buttonShortcuts.Add(button_d_s5, "S");
+            buttonShortcuts.Add(button_e5, "X");
+            buttonShortcuts.Add(button_f5, "C");
+            buttonShortcuts.Add(button_f_s5, "F");
+            buttonShortcuts.Add(button_g5, "V");
+            buttonShortcuts.Add(button_g_s5, "G");
+            buttonShortcuts.Add(button_a5, "B");
+            buttonShortcuts.Add(button_a_s5, "H");
+            buttonShortcuts.Add(button_b5, "N");
         }
     }
 }

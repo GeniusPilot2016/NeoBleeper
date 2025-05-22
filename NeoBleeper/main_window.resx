@@ -1240,7 +1240,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAF4ARwBeAEcARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAGwARwBsAEcARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -1541,7 +1541,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_blank_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 349</value>
+    <value>1100, 344</value>
   </data>
   <data name="button_blank_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -1589,7 +1589,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 380</value>
+    <value>1100, 377</value>
   </data>
   <data name="button_clear_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -1637,7 +1637,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_clear_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 412</value>
+    <value>1100, 410</value>
   </data>
   <data name="button_clear_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -1685,7 +1685,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_unselect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1095, 512</value>
+    <value>1095, 513</value>
   </data>
   <data name="button_unselect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -1733,7 +1733,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_erase_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1084, 549</value>
+    <value>1084, 550</value>
   </data>
   <data name="button_erase_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -1781,7 +1781,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_play_all.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1066, 589</value>
+    <value>1066, 588</value>
   </data>
   <data name="button_play_all.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2033,7 +2033,7 @@
     <value>9</value>
   </data>
   <data name="checkBox_metronome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>841, 355</value>
+    <value>841, 360</value>
   </data>
   <data name="checkBox_metronome.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2084,7 +2084,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_dotted.Location" type="System.Drawing.Point, System.Drawing">
-    <value>624, 394</value>
+    <value>620, 399</value>
   </data>
   <data name="checkBox_dotted.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2132,7 +2132,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_triplet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>698, 394</value>
+    <value>693, 399</value>
   </data>
   <data name="checkBox_triplet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2174,43 +2174,31 @@
     <value>Length</value>
   </data>
   <data name="length.Width" type="System.Int32, mscorlib">
-    <value>59</value>
+    <value>65</value>
   </data>
   <data name="note1.Text" xml:space="preserve">
     <value>Note 1</value>
   </data>
-  <data name="note1.Width" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
   <data name="note2.Text" xml:space="preserve">
     <value>Note 2</value>
-  </data>
-  <data name="note2.Width" type="System.Int32, mscorlib">
-    <value>54</value>
   </data>
   <data name="note3.Text" xml:space="preserve">
     <value>Note 3</value>
   </data>
-  <data name="note3.Width" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
   <data name="note4.Text" xml:space="preserve">
     <value>Note 4</value>
-  </data>
-  <data name="note4.Width" type="System.Int32, mscorlib">
-    <value>54</value>
   </data>
   <data name="mod.Text" xml:space="preserve">
     <value>Mod</value>
   </data>
   <data name="mod.Width" type="System.Int32, mscorlib">
-    <value>42</value>
+    <value>50</value>
   </data>
   <data name="art.Text" xml:space="preserve">
     <value>Art</value>
   </data>
   <data name="art.Width" type="System.Int32, mscorlib">
-    <value>37</value>
+    <value>40</value>
   </data>
   <metadata name="notes_list_right_click.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>8, 36</value>
@@ -2363,7 +2351,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>588, 432</value>
+    <value>588, 437</value>
   </data>
   <data name="listViewNotes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2372,7 +2360,7 @@
     <value>True</value>
   </data>
   <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 422</value>
+    <value>470, 417</value>
   </data>
   <data name="listViewNotes.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -2771,7 +2759,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="checkBox_staccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>782, 394</value>
+    <value>779, 399</value>
   </data>
   <data name="checkBox_staccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -2870,7 +2858,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_fermata.Location" type="System.Drawing.Point, System.Drawing">
-    <value>951, 394</value>
+    <value>948, 399</value>
   </data>
   <data name="checkBox_fermata.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -3753,7 +3741,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_clear_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1100, 444</value>
+    <value>1100, 443</value>
   </data>
   <data name="button_clear_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -3805,7 +3793,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>868, 394</value>
+    <value>864, 399</value>
   </data>
   <data name="checkBox_spiccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 4, 5, 4</value>
@@ -6519,7 +6507,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        IAEcASABHAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        WAEcAVgBHAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -6823,7 +6811,7 @@
     <value>1</value>
   </data>
   <data name="checkBox_loop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1138, 321</value>
+    <value>1127, 316</value>
   </data>
   <data name="checkBox_loop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>

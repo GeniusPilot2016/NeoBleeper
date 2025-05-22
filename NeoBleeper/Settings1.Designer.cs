@@ -225,5 +225,17 @@ namespace NeoBleeper {
                 this["IV"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClassicBleeperMode {
+            get {
+                return ((bool)(this["ClassicBleeperMode"]));
+            }
+            set {
+                this["ClassicBleeperMode"] = value;
+            }
+        }
     }
 }
