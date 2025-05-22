@@ -46,8 +46,10 @@ namespace NeoBleeper
                     }
                     else if(ctrl is GroupBox groupBox)
                     {
-                        foreach(Control groupBoxControls in groupBox.Controls)
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                        foreach (Control groupBoxControls in groupBox.Controls)
                         {
+                            groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
                             if (groupBoxControls is Panel groupedPanel)
                             {
                                 foreach (Control groupedPanelCtrl in groupedPanel.Controls)
@@ -55,16 +57,8 @@ namespace NeoBleeper
                                     groupedPanelCtrl.Font = uiFonts.SetUIFont(groupedPanelCtrl.Font.Size, groupedPanelCtrl.Font.Style);
                                 }
                             }
-                            else
-                            {
-                                groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
-                            }
                         }
                     }
-                    else
-                    {
-                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                    }    
                 }
             }
         }

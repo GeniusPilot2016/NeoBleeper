@@ -92,16 +92,28 @@ namespace NeoBleeper
                     {
                         foreach (Control panelCtrl in panel.Controls)
                         {
-                            panelCtrl.Font = uiFonts.SetUIFont(panelCtrl.Font.Size, panelCtrl.Font.Style);
+                            if(panelCtrl is Panel childPanel)
+                            {
+                                foreach(Control childControl in childPanel.Controls)
+                                {
+                                    childControl.Font = uiFonts.SetUIFont(childControl.Font.Size, childControl.Font.Style);
+                                }
+                            }
+                            else 
+                            {
+                                panelCtrl.Font = uiFonts.SetUIFont(panelCtrl.Font.Size, panelCtrl.Font.Style);
+                            }
                         }
                     }
                     else if (ctrl is GroupBox groupBox)
                     {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                         foreach (Control groupBoxCtrl in groupBox.Controls)
                         {
                             if(groupBoxCtrl is GroupBox childGroupBox)
                             {
-                                foreach(Control childControl in childGroupBox.Controls)
+                                childGroupBox.Font = uiFonts.SetUIFont(childGroupBox.Font.Size, childGroupBox.Font.Style);
+                                foreach (Control childControl in childGroupBox.Controls)
                                 {
                                     childControl.Font = uiFonts.SetUIFont(childControl.Font.Size, childControl.Font.Style);
                                 }
@@ -109,6 +121,21 @@ namespace NeoBleeper
                             else
                             {
                                 groupBoxCtrl.Font = uiFonts.SetUIFont(groupBoxCtrl.Font.Size, groupBoxCtrl.Font.Style);
+                            }
+                        }
+                    }
+                    else if (ctrl is MenuStrip menuStrip)
+                    {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                        foreach (ToolStripItem item in menuStrip.Items) // Corrected from MenuStripItem to ToolStripItem  
+                        {
+                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                            if (item is ToolStripMenuItem menuItem)
+                            {
+                                foreach(ToolStripItem subItem in menuItem.DropDownItems)
+                                {
+                                    subItem.Font = uiFonts.SetUIFont(subItem.Font.Size, subItem.Font.Style);
+                                }
                             }
                         }
                     }

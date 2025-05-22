@@ -90,46 +90,34 @@ namespace NeoBleeper
             {
                 if (ctrl.Controls != null)
                 {
-                    if(ctrl is TabControl tabControl)
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    if (ctrl is TabControl tabControl)
                     {
                         foreach(Control tabControlControls in tabControl.Controls)
                         {
+                            tabControlControls.Font = uiFonts.SetUIFont(tabControlControls.Font.Size, tabControlControls.Font.Style);
                             if (tabControlControls is TabPage tabPage)
                             {
                                 foreach (Control tabPageControls in tabPage.Controls)
                                 {
                                     if(tabPageControls is GroupBox groupBox)
                                     {
-                                        foreach(Control groupBoxControls in groupBox.Controls)
+                                        tabPageControls.Font = uiFonts.SetUIFont(tabPageControls.Font.Size, tabPageControls.Font.Style);
+                                        foreach (Control groupBoxControls in groupBox.Controls)
                                         {
-                                            if(groupBoxControls is GroupBox childGroupBox)
+                                            groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
+                                            if (groupBoxControls is GroupBox childGroupBox)
                                             {
-                                                foreach(Control childGroupBoxControls in childGroupBox.Controls)
+                                                foreach (Control childGroupBoxControls in childGroupBox.Controls)
                                                 {
                                                     childGroupBox.Font = uiFonts.SetUIFont(childGroupBox.Font.Size, childGroupBox.Font.Style);
                                                 }
                                             }
-                                            else
-                                            {
-                                                groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
-                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        tabPageControls.Font = uiFonts.SetUIFont(tabPageControls.Font.Size, tabPageControls.Font.Style);
                                     }
                                 }
                             }
-                            else
-                            {
-                                tabControlControls.Font = uiFonts.SetUIFont(tabControlControls.Font.Size, tabControlControls.Font.Style);
-                            }
                         }
-                    }
-                    else
-                    {
-                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                     }
                 }
             }

@@ -27,6 +27,14 @@ namespace NeoBleeper
                 if (ctrl.Controls != null)
                 {
                     ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    if(ctrl is ListView)
+                    {
+                        ListView listView = (ListView)ctrl;
+                        foreach (ListViewItem item in listView.Items)
+                        {
+                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                        }
+                    }
                 }
             }
 

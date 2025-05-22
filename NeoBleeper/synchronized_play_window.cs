@@ -26,16 +26,13 @@ namespace NeoBleeper
             {
                 if (ctrl.Controls != null)
                 {
-                    if(ctrl is GroupBox groupBox)
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    if (ctrl is GroupBox groupBox)
                     {
-                        foreach(Control groupedCtrl in groupBox.Controls)
+                        foreach (Control groupedCtrl in groupBox.Controls)
                         {
                             groupedCtrl.Font = uiFonts.SetUIFont(groupedCtrl.Font.Size, groupedCtrl.Font.Style);
                         }
-                    }
-                    else
-                    {
-                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                     }
                 }
             }
