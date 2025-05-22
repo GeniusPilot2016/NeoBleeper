@@ -85,106 +85,38 @@ namespace NeoBleeper
         {
             try
             {
-                fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-                fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+                UIFonts uiFonts = UIFonts.Instance;
                 foreach (Control ctrl in Controls)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    if (ctrl is Panel panel) 
+                    {
+                        foreach (Control panelCtrl in panel.Controls)
+                        {
+                            panelCtrl.Font = uiFonts.SetUIFont(panelCtrl.Font.Size, panelCtrl.Font.Style);
+                        }
+                    }
+                    else if (ctrl is GroupBox groupBox)
+                    {
+                        foreach (Control groupBoxCtrl in groupBox.Controls)
+                        {
+                            if(groupBoxCtrl is GroupBox childGroupBox)
+                            {
+                                foreach(Control childControl in childGroupBox.Controls)
+                                {
+                                    childControl.Font = uiFonts.SetUIFont(childControl.Font.Size, childControl.Font.Style);
+                                }
+                            }
+                            else
+                            {
+                                groupBoxCtrl.Font = uiFonts.SetUIFont(groupBoxCtrl.Font.Size, groupBoxCtrl.Font.Style);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    }
                 }
-                lbl_alternating_note_options.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                label_mods.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_note_silence_ratio.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-                lbl_time_signature.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-                label_beep.Font = new Font(fonts.Families[0], 14, FontStyle.Bold);
-                lbl_c3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_d3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_e3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_f3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_g3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_a3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_b3.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_c4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_d4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_e4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_f4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_g4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_a4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_b4.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_c5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_d5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_e5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_f5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_g5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_a5.Font = new Font(fonts.Families[0], 9.75F);
-                lbl_b5.Font = new Font(fonts.Families[0], 9.75F);
-                btn_octave_decrease.Font = new Font(fonts.Families[0], 12);
-                btn_octave_increase.Font = new Font(fonts.Families[0], 12);
-                menuStrip1.Font = new Font(fonts.Families[0], 9);
-                listViewNotes.Font = new Font(fonts.Families[0], 9);
-                numericUpDown_bpm.Font = new Font(fonts.Families[0], 9);
-                numericUpDown_alternating_notes.Font = new Font(fonts.Families[0], 9);
-                label_note_length.Font = new Font(fonts.Families[0], 9);
-                comboBox_note_length.Font = new Font(fonts.Families[0], 9);
-                label_alternating_notes_switch.Font = new Font(fonts.Families[0], 9);
-                lbl_ms.Font = new Font(fonts.Families[0], 9);
-                label_bpm.Font = new Font(fonts.Families[0], 9);
-                position_table.Font = new Font(fonts.Families[0], 9);
-                newToolStripMenuItem1.Font = new Font(fonts.Families[0], 9);
-                openToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                saveToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                saveAsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                playMIDIFileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                undoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                redoToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                rewindToSavedVersionToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                fileToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                editToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                settingsToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                aboutNeoBleeperToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                helpToolStripMenuItem.Font = new Font(fonts.Families[0], 9);
-                lbl_measure.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_measure_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_beat.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_beat_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_beat_traditional.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                lbl_beat_traditional_value.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                button_c3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                button_c_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_d3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_d_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_e3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_g3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_g_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_a3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_a_s3.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_b3.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_c4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_c_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_d4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_d_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_e4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_g4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_g_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_a4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_a_s4.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_b4.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_c5.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-                button_c_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_d5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_d_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_e5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_f_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_g5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_g_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_a5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                button_a_s5.Font = new Font(fonts.Families[0], 8.249999F, FontStyle.Bold);
-                button_b5.Font = new Font(fonts.Families[0], 11.249998F, FontStyle.Bold);
-                notes_list_right_click.Font = new Font(fonts.Families[0], 9);
             }
             catch (InvalidAsynchronousStateException)
             {

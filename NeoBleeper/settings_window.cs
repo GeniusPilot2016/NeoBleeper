@@ -9,21 +9,9 @@ namespace NeoBleeper
     {
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
-
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public settings_window()
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular_Italic.ttf");
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
-                }
-            }
             switch (Program.creating_sounds.soundcard_beep_waveform)
             {
                 case 0:
@@ -42,12 +30,6 @@ namespace NeoBleeper
                     radioButton_square.Checked = true;
                     break;
             }
-            checkBox_use_motor_speed_mod.Font = new Font(fonts.Families[0], 9);
-            label_test_system_speaker_message_2.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            label_test_system_speaker_message_3.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            label_create_beep_from_soundcard_automatically_activated_message_1.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
-            label_create_beep_from_soundcard_automatically_activated_message_2.Font = new Font(fonts.Families[0], 8, FontStyle.Bold);
-            label_motor_speed_mod.Font = new Font(fonts.Families[0], 9, FontStyle.Italic);
             if (Program.creating_sounds.create_beep_with_soundcard == true)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = true;
@@ -91,6 +73,7 @@ namespace NeoBleeper
             comboBox_theme.SelectedIndex = Settings1.Default.theme;
             checkBox_use_midi_input.Checked = Program.MIDIDevices.useMIDIinput;
             checkBox_use_midi_output.Checked = Program.MIDIDevices.useMIDIoutput;
+            setFonts();
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
@@ -98,6 +81,57 @@ namespace NeoBleeper
             if(Settings1.Default.geminiAPIKey != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
+            }
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
+            foreach(Control ctrl in Controls)
+            {
+                if (ctrl.Controls != null)
+                {
+                    if(ctrl is TabControl tabControl)
+                    {
+                        foreach(Control tabControlControls in tabControl.Controls)
+                        {
+                            if (tabControlControls is TabPage tabPage)
+                            {
+                                foreach (Control tabPageControls in tabPage.Controls)
+                                {
+                                    if(tabPageControls is GroupBox groupBox)
+                                    {
+                                        foreach(Control groupBoxControls in groupBox.Controls)
+                                        {
+                                            if(groupBoxControls is GroupBox childGroupBox)
+                                            {
+                                                foreach(Control childGroupBoxControls in childGroupBox.Controls)
+                                                {
+                                                    childGroupBox.Font = uiFonts.SetUIFont(childGroupBox.Font.Size, childGroupBox.Font.Style);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        tabPageControls.Font = uiFonts.SetUIFont(tabPageControls.Font.Size, tabPageControls.Font.Style);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                tabControlControls.Font = uiFonts.SetUIFont(tabControlControls.Font.Size, tabControlControls.Font.Style);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    }
+                }
             }
         }
         private void dark_theme()

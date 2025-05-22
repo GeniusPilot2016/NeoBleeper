@@ -4,23 +4,23 @@ namespace NeoBleeper
 {
     public partial class neobleeper_init_unknown_type_of_computer_warning : Form
     {
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public neobleeper_init_unknown_type_of_computer_warning()
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+            setFonts();
+            set_theme();
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
             foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                 }
             }
-            label_unknown_type_of_computer_result.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            set_theme();
         }
-
         private void set_theme()
         {
             switch (Settings1.Default.theme)

@@ -24,26 +24,27 @@ namespace NeoBleeper
         int alternate_length = 30;
         int bpm = 120; // Default BPM
         int note_silence_ratio = 50;
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public ConvertToGCode(String musicFile)
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
-                }
-            }
-            lbl_alternating_note_options.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            setFonts();
             set_theme();
             MusicString = musicFile;
             comboBox_component_note1.SelectedIndex = 0;
             comboBox_component_note2.SelectedIndex = 0;
             comboBox_component_note3.SelectedIndex = 0;
             comboBox_component_note4.SelectedIndex = 0;
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
+            foreach(Control ctrl in Controls)
+            {
+                if (ctrl.Controls != null)
+                {
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                }
+            }
         }
         public class NoteInfo
         {

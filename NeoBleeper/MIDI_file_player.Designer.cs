@@ -191,6 +191,7 @@
             label_percentage.Margin = new Padding(4, 0, 4, 0);
             label_percentage.MaximumSize = new Size(85, 20);
             label_percentage.Name = "label_percentage";
+            label_percentage.RightToLeft = RightToLeft.Yes;
             label_percentage.Size = new Size(52, 20);
             label_percentage.TabIndex = 4;
             label_percentage.Text = "0,00%";

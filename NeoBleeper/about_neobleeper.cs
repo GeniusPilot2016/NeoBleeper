@@ -13,25 +13,24 @@ namespace NeoBleeper
 {
     public partial class about_neobleeper : Form
     {
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public about_neobleeper()
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            foreach (Control ctrl in Controls)
+            setFonts();
+            set_theme();
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
+            foreach(Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                 }
             }
-            lbl_version.Font = new Font(fonts.Families[0], 14);
-            lbl_name.Font = new Font(fonts.Families[0], 36, FontStyle.Bold);
-            label1.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            set_theme();
-        }
 
+        }
         private void set_theme()
         {
             switch (Settings1.Default.theme)
