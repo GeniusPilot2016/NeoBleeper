@@ -52,7 +52,7 @@
             groupBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(601, 185);
+            groupBox1.Size = new Size(580, 185);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Length of sound";
@@ -61,11 +61,11 @@
             // 
             labelLength.AutoSize = true;
             labelLength.Font = new Font("HarmonyOS Sans", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLength.Location = new Point(263, 147);
+            labelLength.Location = new Point(255, 147);
             labelLength.Name = "labelLength";
-            labelLength.Size = new Size(70, 26);
+            labelLength.Size = new Size(82, 26);
             labelLength.TabIndex = 2;
-            labelLength.Text = "50 mS";
+            labelLength.Text = "250 mS";
             // 
             // trackBarLength
             // 
@@ -73,16 +73,16 @@
             trackBarLength.Maximum = 1000;
             trackBarLength.Minimum = 50;
             trackBarLength.Name = "trackBarLength";
-            trackBarLength.Size = new Size(559, 56);
+            trackBarLength.Size = new Size(544, 56);
             trackBarLength.TabIndex = 1;
             trackBarLength.TickFrequency = 50;
-            trackBarLength.Value = 50;
+            trackBarLength.Value = 250;
             trackBarLength.Scroll += trackBarLength_Scroll;
             // 
             // radioButtonProduceSoundForManyMilliseconds
             // 
             radioButtonProduceSoundForManyMilliseconds.AutoSize = true;
-            radioButtonProduceSoundForManyMilliseconds.Location = new Point(19, 65);
+            radioButtonProduceSoundForManyMilliseconds.Location = new Point(19, 66);
             radioButtonProduceSoundForManyMilliseconds.Name = "radioButtonProduceSoundForManyMilliseconds";
             radioButtonProduceSoundForManyMilliseconds.Size = new Size(544, 24);
             radioButtonProduceSoundForManyMilliseconds.TabIndex = 0;
@@ -93,7 +93,7 @@
             // 
             radioButtonAlwaysProduceSound.AutoSize = true;
             radioButtonAlwaysProduceSound.Checked = true;
-            radioButtonAlwaysProduceSound.Location = new Point(19, 35);
+            radioButtonAlwaysProduceSound.Location = new Point(19, 36);
             radioButtonAlwaysProduceSound.Name = "radioButtonAlwaysProduceSound";
             radioButtonAlwaysProduceSound.Size = new Size(400, 24);
             radioButtonAlwaysProduceSound.TabIndex = 0;
@@ -107,10 +107,10 @@
             trackBarPitchChangeSpeed.Maximum = 18000;
             trackBarPitchChangeSpeed.Minimum = 50;
             trackBarPitchChangeSpeed.Name = "trackBarPitchChangeSpeed";
-            trackBarPitchChangeSpeed.Size = new Size(601, 56);
+            trackBarPitchChangeSpeed.Size = new Size(581, 56);
             trackBarPitchChangeSpeed.TabIndex = 1;
             trackBarPitchChangeSpeed.TickFrequency = 400;
-            trackBarPitchChangeSpeed.Value = 50;
+            trackBarPitchChangeSpeed.Value = 12000;
             // 
             // label2
             // 
@@ -127,7 +127,7 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(613, 299);
+            ClientSize = new Size(605, 308);
             ControlBox = false;
             Controls.Add(label2);
             Controls.Add(trackBarPitchChangeSpeed);

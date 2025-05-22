@@ -13,21 +13,10 @@ namespace NeoBleeper
 {
     public partial class play_beat_window : Form
     {
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public play_beat_window(main_window main_window)
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            PrivateFontCollection black_font = new PrivateFontCollection();
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
-                }
-            }
-            label_uncheck_do_not_update.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
+            setFonts();
             set_theme();
             switch (Program.BeatTypes.beat_type)
             {
@@ -52,6 +41,17 @@ namespace NeoBleeper
                         radioButton_play_sound_on_odd_beats.Checked = false;
                         break;
                     }
+            }
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
+            foreach (Control ctrl in Controls)
+            {
+                if (ctrl.Controls != null)
+                {
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                }
             }
         }
         public void set_theme()

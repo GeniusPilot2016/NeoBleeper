@@ -4,16 +4,20 @@ namespace NeoBleeper
 {
     public partial class MusicCreating: Form
     {
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public MusicCreating()
         {
             InitializeComponent();
+            setFonts();
             set_theme();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf"); foreach (Control ctrl in Controls)
+        }
+        private void setFonts()
+        {
+            foreach (Control ctrl in Controls)
             {
+                UIFonts uiFonts = UIFonts.Instance;
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                 }
                 this.SuspendLayout();
             }

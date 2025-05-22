@@ -4,20 +4,22 @@ namespace NeoBleeper
 {
     public partial class GNU_GPL_v3_license_text : Form
     {
-        PrivateFontCollection fonts = new PrivateFontCollection();
         public GNU_GPL_v3_license_text()
         {
             InitializeComponent();
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+            setFonts();
+            set_theme();
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
             foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                 }
             }
-            set_theme();
         }
         private void set_theme()
         {

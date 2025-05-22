@@ -41,99 +41,11 @@
 
   <ItemGroup>
     <None Remove="inpoutx64.dll" />
-    <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Black.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Black_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Bold.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Bold_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Light.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Light_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Medium.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Medium_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Regular.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Regular_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Thin.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Condensed_Thin_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Light.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Light_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Medium.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Medium_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Regular.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Regular_Italic.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Thin.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Thin_Italic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="inpoutx64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Black.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Bold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Black.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Black_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Bold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Bold_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Light.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Light_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Medium_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Regular_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Thin.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Condensed_Thin_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Light.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Light_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Medium_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Regular_Italic.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Thin.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\HarmonyOS_Sans_Thin_Italic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -174,8 +86,38 @@
     <None Update="Music\Clementi Sonatina No. 3, Op 36.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\HarmonyOS_Sans_Black.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Light_Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Medium_Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Regular_Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Thin.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HarmonyOS_Sans_Thin_Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Update="Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

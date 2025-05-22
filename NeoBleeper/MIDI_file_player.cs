@@ -11,63 +11,62 @@ namespace NeoBleeper
     {
         private MIDIFileLoading midiFileLoading;
         bool is_playing = false;
-        PrivateFontCollection fonts = new PrivateFontCollection();
         private List<int> _displayOrder = new List<int>();
         public MIDI_file_player(string filename)
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+            setFonts();
+            set_theme();
+            textBox1.Text = filename;
+            LoadMIDI(filename);
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
             foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    if(ctrl is Panel panel)
+                    {
+                        foreach(Control panelControls in panel.Controls)
+                        {
+                            if(panelControls is Panel childPanel)
+                            {
+                                foreach(Control childPanelCtrl in childPanel.Controls)
+                                {
+                                    childPanelCtrl.Font = uiFonts.SetUIFont(childPanelCtrl.Font.Size, childPanelCtrl.Font.Style);
+                                }
+                            }
+                            else
+                            {
+                                panelControls.Font = uiFonts.SetUIFont(panel.Font.Size, panel.Font.Style);
+                            }
+                        }
+                    }
+                    else if(ctrl is GroupBox groupBox)
+                    {
+                        foreach(Control groupBoxControls in groupBox.Controls)
+                        {
+                            if (groupBoxControls is Panel groupedPanel)
+                            {
+                                foreach (Control groupedPanelCtrl in groupedPanel.Controls)
+                                {
+                                    groupedPanelCtrl.Font = uiFonts.SetUIFont(groupedPanelCtrl.Font.Size, groupedPanelCtrl.Font.Style);
+                                }
+                            }
+                            else
+                            {
+                                groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    }    
                 }
             }
-            label_note1.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note2.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note3.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note4.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note5.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note6.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note7.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note8.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note9.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note10.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note11.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note12.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note13.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note14.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note15.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note16.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note17.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note18.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note19.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note20.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note21.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note22.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note23.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note24.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note25.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note26.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note27.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note28.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note29.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note30.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note31.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_note32.Font = new Font(fonts.Families[0], 10, FontStyle.Bold);
-            label_alternating_note.Font = new Font(fonts.Families[0], 9);
-            numericUpDown_alternating_note.Font = new Font(fonts.Families[0], 9);
-            label_ms.Font = new Font(fonts.Families[0], 9);
-            label_position.Font = new Font(fonts.Families[0], 9);
-            label_percentage.Font = new Font(fonts.Families[0], 9);
-            label_more_notes.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            label_percentage.RightToLeft = RightToLeft.Yes;
-            set_theme();
-            textBox1.Text = filename;
-            LoadMIDI(filename);
         }
         private void set_theme()
         {

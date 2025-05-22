@@ -43,7 +43,7 @@
             warningLabel.Anchor = AnchorStyles.Top;
             warningLabel.AutoSize = true;
             warningLabel.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            warningLabel.Location = new Point(99, 29);
+            warningLabel.Location = new Point(124, 29);
             warningLabel.MaximumSize = new Size(512, 0);
             warningLabel.Name = "warningLabel";
             warningLabel.Size = new Size(503, 60);
@@ -55,7 +55,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Top;
             pictureBox1.Image = Properties.Resources.icons8_warning_48;
-            pictureBox1.Location = new Point(45, 29);
+            pictureBox1.Location = new Point(41, 29);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(48, 48);
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -67,7 +67,7 @@
             instructionLabel.Anchor = AnchorStyles.Top;
             instructionLabel.AutoSize = true;
             instructionLabel.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            instructionLabel.Location = new Point(124, 126);
+            instructionLabel.Location = new Point(124, 114);
             instructionLabel.MaximumSize = new Size(512, 0);
             instructionLabel.Name = "instructionLabel";
             instructionLabel.Size = new Size(431, 20);
@@ -81,7 +81,7 @@
             stopBeepButton.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             stopBeepButton.ImageIndex = 0;
             stopBeepButton.ImageList = icons;
-            stopBeepButton.Location = new Point(263, 173);
+            stopBeepButton.Location = new Point(263, 153);
             stopBeepButton.Name = "stopBeepButton";
             stopBeepButton.Size = new Size(141, 46);
             stopBeepButton.TabIndex = 2;
@@ -103,7 +103,7 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(669, 231);
+            ClientSize = new Size(669, 211);
             Controls.Add(stopBeepButton);
             Controls.Add(pictureBox1);
             Controls.Add(instructionLabel);

@@ -7,7 +7,6 @@ namespace NeoBleeper
     {
         bool waiting = false;
         bool is_playing = false;
-        PrivateFontCollection fonts = new PrivateFontCollection();
 
         private main_window mainWindow;
 
@@ -16,23 +15,30 @@ namespace NeoBleeper
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.mainWindow.MusicStopped += MainWindow_MusicStopped;
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
-            PrivateFontCollection black_font = new PrivateFontCollection();
+            dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
+            setFonts();
+            set_theme();
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
             foreach (Control ctrl in Controls)
             {
                 if (ctrl.Controls != null)
                 {
-                    ctrl.Font = new Font(fonts.Families[0], 9);
+                    if(ctrl is GroupBox groupBox)
+                    {
+                        foreach(Control groupedCtrl in groupBox.Controls)
+                        {
+                            groupedCtrl.Font = uiFonts.SetUIFont(groupedCtrl.Font.Size, groupedCtrl.Font.Style);
+                        }
+                    }
+                    else
+                    {
+                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                    }
                 }
             }
-            lbl_hour_minute_second.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_current_time.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
-            lbl_current_system_time.Font = new Font(fonts.Families[0], 15, FontStyle.Bold);
-            lbl_waiting.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-            dateTimePicker1.Font = new Font(fonts.Families[0], 11, FontStyle.Bold);
-            dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
-            set_theme();
         }
 
         private void MainWindow_MusicStopped(object sender, EventArgs e)

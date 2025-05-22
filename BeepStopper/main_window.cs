@@ -1,5 +1,6 @@
 using NeoBleeper;
 using System.Drawing.Text;
+using static NBPML_File;
 
 namespace BeepStopper
 {
@@ -8,14 +9,19 @@ namespace BeepStopper
         PrivateFontCollection fonts = new PrivateFontCollection();
         public main_window()
         {
-            InitializeComponent(); 
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Regular.ttf");
-            fonts.AddFontFile(Application.StartupPath + "Resources/HarmonyOS_Sans_Bold.ttf");
+            InitializeComponent();
+            setFonts();
+        }
+        private void setFonts()
+        {
+            UIFonts uiFonts = UIFonts.Instance;
             foreach (Control ctrl in Controls)
             {
-                ctrl.Font = new Font(fonts.Families[0], 9);
+                if (ctrl.Controls != null)
+                {
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                }
             }
-            instructionLabel.Font = new Font(fonts.Families[0], 9, FontStyle.Bold);
         }
         private void button1_Click(object sender, EventArgs e)
         {
