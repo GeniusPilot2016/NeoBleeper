@@ -17,6 +17,7 @@ namespace BeepStopper
             ManagementObjectSearcher searcher1 = new ManagementObjectSearcher(query);
             ManagementObjectCollection number_of_system_speaker_devices = searcher1.Get();
             bool is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
+            ApplicationConfiguration.Initialize();
             if(is_system_speaker_present)
             {
                 Application.Run(new main_window());
