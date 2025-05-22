@@ -13,6 +13,7 @@ namespace NeoBleeper
     public partial class main_window : Form
     {
         private play_beat_window play_Beat_Window;
+        private PortamentoWindow portamentoWindow;
         private bool isModified = false;
         private CommandManager commandManager;
         private Originator originator;
@@ -4515,7 +4516,7 @@ namespace NeoBleeper
         {
             if (is_music_playing == true)
             {
-                stop_playing(); 
+                stop_playing();
                 NotePlayer.StopAllNotes();
             }
             if (checkBox_synchronized_play.Checked == true)
@@ -4712,7 +4713,7 @@ namespace NeoBleeper
 
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
-            if(is_music_playing == true)
+            if (is_music_playing == true)
             {
                 stop_playing();
                 NotePlayer.StopAllNotes();
@@ -5044,7 +5045,7 @@ namespace NeoBleeper
                 numericUpDown_alternating_notes.Tag = null;
             }
         }
-        
+
         private void openPlayBeatSoundWindow()
         {
             if (play_Beat_Window == null || play_Beat_Window.IsDisposed)
@@ -5054,10 +5055,24 @@ namespace NeoBleeper
             play_Beat_Window.Show();
             checkBox_play_beat_sound.Tag = play_Beat_Window;
         }
+        private void openBleeperPortamentoWindow()
+        {
+            if (portamentoWindow == null || portamentoWindow.IsDisposed)
+            {
+                portamentoWindow = new PortamentoWindow(this);
+            }
+            portamentoWindow.Show();
+            checkBox_bleeper_portamento.Tag = portamentoWindow;
+        }
         private void closePlayBeatSoundWindow()
         {
             play_beat_window play_Beat_Window = checkBox_play_beat_sound.Tag as play_beat_window;
             play_Beat_Window.Close();
+        }
+        private void closePortamentoWindow()
+        {
+            PortamentoWindow portamentoWindow = checkBox_bleeper_portamento.Tag as PortamentoWindow;
+            portamentoWindow.Close();
         }
         private void checkBox_play_beat_sound_CheckedChanged(object sender, EventArgs e)
         {
@@ -5156,7 +5171,7 @@ namespace NeoBleeper
         {
             try
             {
-                if(is_music_playing == true)
+                if (is_music_playing == true)
                 {
                     stop_playing();
                     NotePlayer.StopAllNotes();
@@ -5176,6 +5191,20 @@ namespace NeoBleeper
             {
                 Debug.WriteLine("Error converting to GCode: " + ex.Message);
                 MessageBox.Show("Error converting to GCode: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBox_bleeper_portamento_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_bleeper_portamento.Checked == true)
+            {
+                openBleeperPortamentoWindow();
+                Debug.WriteLine("Bleeper portamento window is opened.");
+            }
+            else if (checkBox_play_beat_sound.Checked == false)
+            {
+                closePortamentoWindow();
+                Debug.WriteLine("Bleeper portamento window is closed.");
             }
         }
     }

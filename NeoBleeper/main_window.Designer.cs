@@ -1855,6 +1855,7 @@
             NeoBleeper_help.SetShowHelp(checkBox_bleeper_portamento, (bool)resources.GetObject("checkBox_bleeper_portamento.ShowHelp"));
             toolTip1.SetToolTip(checkBox_bleeper_portamento, resources.GetString("checkBox_bleeper_portamento.ToolTip"));
             checkBox_bleeper_portamento.UseVisualStyleBackColor = true;
+            checkBox_bleeper_portamento.CheckedChanged += checkBox_bleeper_portamento_CheckedChanged;
             // 
             // btn_octave_decrease
             // 
