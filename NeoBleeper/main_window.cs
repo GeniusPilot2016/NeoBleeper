@@ -43,7 +43,11 @@ namespace NeoBleeper
             commandManager.StateChanged += CommandManager_StateChanged;
             listViewNotes.DoubleBuffering(true);
             UpdateUndoRedoButtons();
-            set_default_font();
+            listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            if (listViewNotes.Columns.Count > 0)
+            {
+                listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45; 
+            }
             if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 checkBox_mute_system_speaker.Checked = Program.creating_sounds.is_system_speaker_muted;
@@ -2813,7 +2817,7 @@ namespace NeoBleeper
 
                 // Wait for the note to finish playing
                 int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
-                if (silenceDuration > 0 && trackBar_note_silence_ratio.Value == 100)
+                if (silenceDuration > 0 && trackBar_note_silence_ratio.Value < 100)
                 {
                     NonBlockingSleep.Sleep(silenceDuration);
                 }
