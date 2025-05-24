@@ -2767,8 +2767,8 @@ namespace NeoBleeper
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
                 // Whole note duration calculation
-                int millisecondsPerWholeNote = Variables.bpm > 0
-                    ? (int)Math.Truncate(240000.0 / Variables.bpm)
+                double millisecondsPerWholeNote = Variables.bpm > 0
+                    ? 240000.0 / Variables.bpm
                     : 0;
 
                 // Specification of the note type
@@ -3250,7 +3250,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = Math.Truncate(240000.0 / Variables.bpm);
+                    miliseconds_per_whole_note = FixRoundingErrors(Math.Truncate(240000.0 / Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3401,7 +3401,7 @@ namespace NeoBleeper
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = baseLength * 0.333;
+                    baseLength = baseLength * (1.0/3.0);
                 }
             }
 
@@ -3426,7 +3426,7 @@ namespace NeoBleeper
             double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
 
             double result = baseLength * silenceRatio;
-            return Math.Max(1, (int)Math.Round(result));
+            return Math.Max(1, (int)FixRoundingErrors(result));
         }
 
         private int line_length_calculator(double length)
@@ -3481,7 +3481,7 @@ namespace NeoBleeper
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
                     // More precise calculation for triplet
-                    baseLength = baseLength * 0.333;
+                    baseLength = baseLength * (1.0/3.0);
                 }
             }
 
@@ -3492,7 +3492,7 @@ namespace NeoBleeper
             }
 
             // The silence ratio is not applied to the line length
-            return Math.Max(1, (int)Math.Round(baseLength));
+            return Math.Max(1, (int)FixRoundingErrors(baseLength));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3762,48 +3762,15 @@ namespace NeoBleeper
                 return;
             }
         }
-        public static double FixRoundingErrors(double input)
+        public static double FixRoundingErrors(double value)
         {
-            // Convert the input to decimal for better precision
-            decimal decimalInput = Convert.ToDecimal(input);
-
-            // Define a small epsilon for comparison
-            const decimal epsilon = 0.0000001m;
-
-            // Check if the value is very close to an integer
-            decimal roundedInt = Math.Round(decimalInput);
-            if (Math.Abs(decimalInput - roundedInt) < epsilon)
+            const double epsilon = 0.0000001;
+            double rounded = Math.Round(value);
+            if (Math.Abs(value - rounded) < epsilon)
             {
-                Debug.WriteLine("Rounding error is fixed.");
-                return (double)roundedInt;
+                return rounded;
             }
-
-            // Check if the value is very close to 0.5
-            decimal roundedHalf = Math.Round(decimalInput * 2) / 2;
-            if (Math.Abs(decimalInput - roundedHalf) < epsilon)
-            {
-                Debug.WriteLine("Rounding error is fixed.");
-                return (double)roundedHalf;
-            }
-
-            // Check if the value is very close to 0.25 or 0.75
-            decimal roundedQuarter = Math.Round(decimalInput * 4) / 4;
-            if (Math.Abs(decimalInput - roundedQuarter) < epsilon)
-            {
-                Debug.WriteLine("Rounding error is fixed.");
-                return (double)roundedQuarter;
-            }
-
-            // Check if the value is very close to 0.125, 0.375, 0.625, or 0.875
-            decimal roundedEighth = Math.Round(decimalInput * 8) / 8;
-            if (Math.Abs(decimalInput - roundedEighth) < epsilon)
-            {
-                Debug.WriteLine("Rounding error is fixed.");
-                return (double)roundedEighth;
-            }
-
-            // Return the original value if no rounding is needed
-            return input;
+            return value;
         }
         public static bool IsWholeNumber(double value)
         {
