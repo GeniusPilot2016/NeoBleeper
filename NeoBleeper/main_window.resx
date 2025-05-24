@@ -1240,7 +1240,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAEYAR0BGAEdARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAFAAR0BQAEdARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -5117,7 +5117,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkbox_play_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 20</value>
+    <value>8, 18</value>
   </data>
   <data name="checkbox_play_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5396,7 +5396,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_add_note_to_list.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 18</value>
+    <value>8, 19</value>
   </data>
   <data name="checkBox_add_note_to_list.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5426,7 +5426,7 @@
     <value>6</value>
   </data>
   <data name="group_adding_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+    <value>6, 41</value>
   </data>
   <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5438,7 +5438,7 @@
     <value>True</value>
   </data>
   <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 157</value>
+    <value>247, 160</value>
   </data>
   <data name="group_adding_note.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -5465,7 +5465,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="group_key_is_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 237</value>
+    <value>4, 232</value>
   </data>
   <data name="group_key_is_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5477,7 +5477,7 @@
     <value>True</value>
   </data>
   <data name="group_key_is_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 205</value>
+    <value>260, 208</value>
   </data>
   <data name="group_key_is_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -5510,7 +5510,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note4_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 71</value>
+    <value>17, 73</value>
   </data>
   <data name="checkBox_play_note4_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5549,7 +5549,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note3_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 54</value>
+    <value>17, 55</value>
   </data>
   <data name="checkBox_play_note3_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5627,7 +5627,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note1_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 20</value>
+    <value>17, 18</value>
   </data>
   <data name="checkBox_play_note1_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5657,7 +5657,7 @@
     <value>3</value>
   </data>
   <data name="group_line_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 21</value>
   </data>
   <data name="group_line_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5669,7 +5669,7 @@
     <value>True</value>
   </data>
   <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 96</value>
+    <value>247, 99</value>
   </data>
   <data name="group_line_clicked.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -5702,7 +5702,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note4_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 71</value>
+    <value>17, 73</value>
   </data>
   <data name="checkBox_play_note4_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5741,7 +5741,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note1_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 20</value>
+    <value>17, 18</value>
   </data>
   <data name="checkBox_play_note1_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5780,7 +5780,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_play_note3_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 54</value>
+    <value>17, 55</value>
   </data>
   <data name="checkBox_play_note3_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5849,7 +5849,7 @@
     <value>3</value>
   </data>
   <data name="group_music_played.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 117</value>
+    <value>6, 119</value>
   </data>
   <data name="group_music_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5861,7 +5861,7 @@
     <value>True</value>
   </data>
   <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 96</value>
+    <value>247, 99</value>
   </data>
   <data name="group_music_played.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -5888,7 +5888,7 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="group_notes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 446</value>
+    <value>4, 440</value>
   </data>
   <data name="group_notes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5900,7 +5900,7 @@
     <value>True</value>
   </data>
   <data name="group_notes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 220</value>
+    <value>260, 226</value>
   </data>
   <data name="group_notes.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
@@ -6510,7 +6510,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        wAEcAcABHAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        6AEcAegBHAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
