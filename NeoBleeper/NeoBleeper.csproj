@@ -6,7 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+	<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <FileVersion></FileVersion>
     <Title>NeoBleeper</Title>
     <AssemblyVersion></AssemblyVersion>
