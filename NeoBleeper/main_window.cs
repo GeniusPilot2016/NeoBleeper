@@ -4683,8 +4683,8 @@ namespace NeoBleeper
 
                     if (!File.Exists(filePath))
                     {
-                        item.Text += " (Not Found)"; // "(Not Found)" metni ekleniyor
-                        item.Enabled = false; // Menü öðesi devre dýþý býrakýlýyor
+                        item.Text += " (Not Found)"; // Add "(Not Found)" if the file does not exist
+                        item.Enabled = false; // Disable the item if the file is not found
                     }
 
                     openRecentToolStripMenuItem.DropDownItems.Add(item);
@@ -5142,7 +5142,7 @@ namespace NeoBleeper
         }
         private int GetFrequencyFromKeyCode(int keyCode)
         {
-            // Sadece key ve temel nota eþleþmesi
+            // Key and octave offset mapping
             Dictionary<int, (double baseFreq, int octaveOffset)> keyValuePairs = new()
             {
                 { (int)Keys.Tab, (base_note_frequency.base_note_frequency_in_4th_octave.C, -1) }, // C3
@@ -5169,12 +5169,23 @@ namespace NeoBleeper
                 { (int)Keys.OemCloseBrackets, (base_note_frequency.base_note_frequency_in_4th_octave.A, 0) }, // A4
                 { (int)Keys.Oemplus, (base_note_frequency.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
                 { (int)Keys.OemPipe, (base_note_frequency.base_note_frequency_in_4th_octave.B, 0) }, // B4
-                // Diðer tuþlar için de ayný þekilde devam edin
+                { (int)Keys.ShiftKey, (base_note_frequency.base_note_frequency_in_4th_octave.C, 1) }, // C5
+                { (int)Keys.A, (base_note_frequency.base_note_frequency_in_4th_octave.CS, 1) }, // C#5
+                { (int)Keys.Z, (base_note_frequency.base_note_frequency_in_4th_octave.D, 1) }, // D5
+                { (int)Keys.S, (base_note_frequency.base_note_frequency_in_4th_octave.DS, 1) }, // D#5
+                { (int)Keys.X, (base_note_frequency.base_note_frequency_in_4th_octave.E, 1) }, // E5
+                { (int)Keys.C, (base_note_frequency.base_note_frequency_in_4th_octave.F, 1) }, // F5
+                { (int)Keys.F, (base_note_frequency.base_note_frequency_in_4th_octave.FS, 1) }, // F#5
+                { (int)Keys.V, (base_note_frequency.base_note_frequency_in_4th_octave.G, 1) }, // G5
+                { (int)Keys.G, (base_note_frequency.base_note_frequency_in_4th_octave.GS, 1) }, // G#5
+                { (int)Keys.B, (base_note_frequency.base_note_frequency_in_4th_octave.A, 1) }, // A5
+                { (int)Keys.H, (base_note_frequency.base_note_frequency_in_4th_octave.AS, 1) }, // A#5
+                { (int)Keys.N, (base_note_frequency.base_note_frequency_in_4th_octave.B, 1) }, // B5
             };
 
             if (keyValuePairs.TryGetValue(keyCode, out var noteInfo))
             {
-                // Oktavý dinamik olarak hesapla
+                // Calculate the frequency based on the base frequency and octave offset
                 int octave = Variables.octave + noteInfo.octaveOffset;
                 double frequency = noteInfo.baseFreq * Math.Pow(2, octave - 4);
                 return (int)frequency;
