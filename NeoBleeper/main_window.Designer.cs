@@ -2158,6 +2158,7 @@
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
+            KeyPreview = true;
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "main_window";
@@ -2167,6 +2168,8 @@
             Load += main_window_Load;
             DragDrop += main_window_DragDrop;
             DragEnter += main_window_DragEnter;
+            KeyDown += main_window_KeyDown;
+            KeyUp += main_window_KeyUp;
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
