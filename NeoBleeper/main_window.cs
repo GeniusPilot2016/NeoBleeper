@@ -5207,16 +5207,16 @@ namespace NeoBleeper
         }
         private void playWithRegularKeyboard()
         {
+            if (!checkBox_use_keyboard_as_piano.Checked)
+                return;
+
             if (keyCharNum.Length > 1)
             {
                 do
                 {
-                    foreach (int key in keyCharNum) // Corrected 'Item' to 'int'
+                    foreach (int key in keyCharNum)
                     {
-                        if (checkBox_use_keyboard_as_piano.Checked)
-                        {
-                            NotePlayer.play_note(GetFrequencyFromKeyCode(key), Variables.alternating_note_length); // Play the note with the specified frequency and length
-                        }
+                        NotePlayer.play_note(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
                     }
                 }
                 while (KeyPressed == true);
@@ -5225,15 +5225,12 @@ namespace NeoBleeper
             {
                 while (KeyPressed == true)
                 {
-                    foreach (int key in keyCharNum) // Corrected 'Item' to 'int'
+                    foreach (int key in keyCharNum)
                     {
-                        if (checkBox_use_keyboard_as_piano.Checked)
-                        {
-                            NotePlayer.play_note(GetFrequencyFromKeyCode(key), 1, true); // Play the note with the specified frequency and length
-                        }
+                        NotePlayer.play_note(GetFrequencyFromKeyCode(key), 1, true);
                     }
                 }
-                NotePlayer.StopAllNotes(); // Stop all notes when the key is released
+                NotePlayer.StopAllNotes();
             }
         }
     }
