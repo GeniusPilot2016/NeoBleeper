@@ -21,6 +21,8 @@ namespace NeoBleeper
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         PrivateFontCollection fonts = new PrivateFontCollection();
         public event EventHandler MusicStopped;
+        private bool KeyPressed = false;
+        int[] keyCharNum;
         public static class Variables
         {
             public static int octave;
@@ -38,6 +40,7 @@ namespace NeoBleeper
 
             InitializeComponent();
             InitializeButtonShortcuts();
+            set_default_font();
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
@@ -46,7 +49,7 @@ namespace NeoBleeper
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (listViewNotes.Columns.Count > 0)
             {
-                listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45; 
+                listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
             if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
@@ -3373,7 +3376,7 @@ namespace NeoBleeper
                     baseLength = length;
                     break;
                 case "Half":
-                    baseLength = length * 0.5; 
+                    baseLength = length * 0.5;
                     break;
                 case "Quarter":
                     baseLength = length * 0.25;
@@ -3401,7 +3404,7 @@ namespace NeoBleeper
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = baseLength * (1.0/3.0);
+                    baseLength = baseLength * (1.0 / 3.0);
                 }
             }
 
@@ -3481,7 +3484,7 @@ namespace NeoBleeper
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
                     // More precise calculation for triplet
-                    baseLength = baseLength * (1.0/3.0);
+                    baseLength = baseLength * (1.0 / 3.0);
                 }
             }
 
@@ -4301,9 +4304,23 @@ namespace NeoBleeper
             else if (checkBox_use_keyboard_as_piano.Checked == false)
             {
                 hide_keyboard_keys_shortcut();
+                KeyPressed = false; // Reset the KeyPressed flag when the checkbox is unchecked
+            }
+            enableDisableTabStop(this, !checkBox_use_keyboard_as_piano.Checked);
+        }
+        private void enableDisableTabStop(Control parent, bool enabled)
+        {
+            // Corrected the type check to ensure it checks for Control, not TabStop
+            if (parent is Control control)
+            {
+                control.TabStop = enabled;
+            }
+
+            foreach (Control ctrl in parent.Controls)
+            {
+                enableDisableTabStop(ctrl, enabled);
             }
         }
-
         private void main_window_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -5105,6 +5122,95 @@ namespace NeoBleeper
             buttonShortcuts.Add(button_a5, "B");
             buttonShortcuts.Add(button_a_s5, "H");
             buttonShortcuts.Add(button_b5, "N");
+        }
+        private HashSet<int> pressedKeys = new HashSet<int>();
+        private void main_window_KeyDown(object sender, KeyEventArgs e)
+        {
+            KeyPressed = true;
+            pressedKeys.Add((int)e.KeyCode);
+            keyCharNum = pressedKeys.ToArray();
+            playWithRegularKeyboard();
+        }
+
+        private void main_window_KeyUp(object sender, KeyEventArgs e)
+        {
+            pressedKeys.Remove((int)e.KeyCode);
+            keyCharNum = pressedKeys.ToArray();
+            if (pressedKeys.Count == 0)
+                KeyPressed = false;
+            NotePlayer.StopAllNotes();
+        }
+        private int GetFrequencyFromKeyCode(int keyCode)
+        {
+            // Sadece key ve temel nota eþleþmesi
+            Dictionary<int, (double baseFreq, int octaveOffset)> keyValuePairs = new()
+            {
+                { (int)Keys.Tab, (base_note_frequency.base_note_frequency_in_4th_octave.C, -1) }, // C3
+                { (int)Keys.Oemtilde, (base_note_frequency.base_note_frequency_in_4th_octave.CS, -1) }, // C#3
+                { (int)Keys.Q, (base_note_frequency.base_note_frequency_in_4th_octave.D, -1) }, // D3
+                { (int)Keys.D1, (base_note_frequency.base_note_frequency_in_4th_octave.DS, -1) }, // D#3
+                { (int)Keys.W, (base_note_frequency.base_note_frequency_in_4th_octave.E, -1) }, // E3
+                { (int)Keys.E, (base_note_frequency.base_note_frequency_in_4th_octave.F, -1) }, // F3
+                { (int)Keys.D3, (base_note_frequency.base_note_frequency_in_4th_octave.FS, -1) }, // F#3
+                { (int)Keys.R, (base_note_frequency.base_note_frequency_in_4th_octave.G, -1) }, // G3
+                { (int)Keys.D4, (base_note_frequency.base_note_frequency_in_4th_octave.GS, -1) }, // G#3
+                { (int)Keys.T, (base_note_frequency.base_note_frequency_in_4th_octave.A, -1) }, // A3
+                { (int)Keys.D5, (base_note_frequency.base_note_frequency_in_4th_octave.AS, -1) }, // A#3
+                { (int)Keys.Y, (base_note_frequency.base_note_frequency_in_4th_octave.B, -1) }, // B3
+                { (int)Keys.U, (base_note_frequency.base_note_frequency_in_4th_octave.C, 0) }, // C4
+                { (int)Keys.D6, (base_note_frequency.base_note_frequency_in_4th_octave.CS, 0) }, // C#4
+                { (int)Keys.I, (base_note_frequency.base_note_frequency_in_4th_octave.D, 0) }, // D4
+                { (int)Keys.D7, (base_note_frequency.base_note_frequency_in_4th_octave.DS, 0) }, // D#4
+                { (int)Keys.O, (base_note_frequency.base_note_frequency_in_4th_octave.E, 0) }, // E4
+                { (int)Keys.P, (base_note_frequency.base_note_frequency_in_4th_octave.F, 0) }, // F4
+                { (int)Keys.D8, (base_note_frequency.base_note_frequency_in_4th_octave.FS, 0) }, // F#4
+                { (int)Keys.OemOpenBrackets, (base_note_frequency.base_note_frequency_in_4th_octave.G, 0) }, // G4
+                { (int)Keys.OemMinus, (base_note_frequency.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
+                { (int)Keys.OemCloseBrackets, (base_note_frequency.base_note_frequency_in_4th_octave.A, 0) }, // A4
+                { (int)Keys.Oemplus, (base_note_frequency.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
+                { (int)Keys.OemPipe, (base_note_frequency.base_note_frequency_in_4th_octave.B, 0) }, // B4
+                // Diðer tuþlar için de ayný þekilde devam edin
+            };
+
+            if (keyValuePairs.TryGetValue(keyCode, out var noteInfo))
+            {
+                // Oktavý dinamik olarak hesapla
+                int octave = Variables.octave + noteInfo.octaveOffset;
+                double frequency = noteInfo.baseFreq * Math.Pow(2, octave - 4);
+                return (int)frequency;
+            }
+            return 0;
+        }
+        private void playWithRegularKeyboard()
+        {
+            if (keyCharNum.Length > 1)
+            {
+                do
+                {
+                    foreach (int key in keyCharNum) // Corrected 'Item' to 'int'
+                    {
+                        if (checkBox_use_keyboard_as_piano.Checked)
+                        {
+                            NotePlayer.play_note(GetFrequencyFromKeyCode(key), Variables.alternating_note_length); // Play the note with the specified frequency and length
+                        }
+                    }
+                }
+                while (KeyPressed == true);
+            }
+            else if (keyCharNum.Length == 1)
+            {
+                while (KeyPressed == true)
+                {
+                    foreach (int key in keyCharNum) // Corrected 'Item' to 'int'
+                    {
+                        if (checkBox_use_keyboard_as_piano.Checked)
+                        {
+                            NotePlayer.play_note(GetFrequencyFromKeyCode(key), 1, true); // Play the note with the specified frequency and length
+                        }
+                    }
+                }
+                NotePlayer.StopAllNotes(); // Stop all notes when the key is released
+            }
         }
     }
 }
