@@ -457,6 +457,8 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            KeyPressed = false; // Reset the KeyPressed flag
+            NotePlayer.StopAllNotes(); // Stop all notes
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
@@ -473,8 +475,9 @@ namespace NeoBleeper
             if (is_music_playing == true)
             {
                 stop_playing();
-                NotePlayer.StopAllNotes();
             }
+            KeyPressed = false; // Reset the KeyPressed flag
+            NotePlayer.StopAllNotes();
             about_neobleeper about = new about_neobleeper();
             about.ShowDialog();
             Debug.WriteLine("About window is opened");
@@ -485,8 +488,9 @@ namespace NeoBleeper
             if (is_music_playing == true)
             {
                 stop_playing();
-                NotePlayer.StopAllNotes();
             }
+            KeyPressed = false; // Reset the KeyPressed flag
+            NotePlayer.StopAllNotes();
             if (checkBox_synchronized_play.Checked == true)
             {
                 checkBox_synchronized_play.Checked = false;
@@ -2150,6 +2154,8 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            KeyPressed = false; // Reset the key pressed state
+            NotePlayer.StopAllNotes(); // Stop all notes
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -2222,6 +2228,8 @@ namespace NeoBleeper
                 {
                     stop_playing();
                 }
+                KeyPressed = false; // Reset the key pressed state
+                NotePlayer.StopAllNotes(); // Stop all notes
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
@@ -2615,6 +2623,8 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            KeyPressed = false;
+            NotePlayer.StopAllNotes(); // Stop all notes
             this.Text = System.AppDomain.CurrentDomain.FriendlyName;
             currentFilePath = String.Empty;
             if (Variables.octave == 9)
@@ -4391,6 +4401,7 @@ namespace NeoBleeper
         {
             if (is_music_playing == true)
             {
+                KeyPressed = false; // Reset the KeyPressed flag
                 stop_playing();
                 NotePlayer.StopAllNotes();
             }
@@ -4845,14 +4856,15 @@ namespace NeoBleeper
             CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
             try
             {
+                if (is_music_playing == true)
+                {
+                    stop_playing();
+                }
+                KeyPressed = false; // Reset the KeyPressed flag
+                NotePlayer.StopAllNotes();
                 createMusicWithAI.ShowDialog();
                 if (createMusicWithAI.output != string.Empty)
                 {
-                    if (is_music_playing == true)
-                    {
-                        stop_playing();
-                        NotePlayer.StopAllNotes();
-                    }
                     if (checkBox_synchronized_play.Checked == true)
                     {
                         checkBox_synchronized_play.Checked = false;
@@ -5049,8 +5061,9 @@ namespace NeoBleeper
                 if (is_music_playing == true)
                 {
                     stop_playing();
-                    NotePlayer.StopAllNotes();
                 }
+                KeyPressed = false; // Reset the KeyPressed flag
+                NotePlayer.StopAllNotes();
                 if (checkBox_synchronized_play.Checked == true)
                 {
                     checkBox_synchronized_play.Checked = false;
