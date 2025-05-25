@@ -5209,7 +5209,6 @@ namespace NeoBleeper
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
-
             if (keyCharNum.Length > 1)
             {
                 do

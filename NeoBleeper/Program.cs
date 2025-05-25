@@ -262,7 +262,7 @@ namespace NeoBleeper
                     Application.Exit();
                 }
             }
-            MIDIIOUtils.DisposeMidi();
+            MIDIIOUtils.DisposeMidiOutput();
         }
     }
 }

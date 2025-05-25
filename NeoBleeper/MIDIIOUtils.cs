@@ -11,20 +11,23 @@ namespace NeoBleeper
 {
     public static class MIDIIOUtils
     {
-        public static MidiOut _midiOut; // Class-level variable
+        public static MidiOut _midiOut; // Class-level variable for MIDI output
+        public static MidiIn _midiIn; // Class-level variable for MIDI input
         public static void InitializeMidi(int retryCount = 3)
         {
             for (int i = 0; i < retryCount; i++)
             {
                 try
                 {
-                    _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDeviceChannel);
+                    _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDevice);
+                    _midiIn = new MidiIn(Program.MIDIDevices.MIDIInputDevice);
                     return; // Break out of the loop if successful
                 }
                 catch (MmException ex)
                 {
-                    Debug.WriteLine($"Error initializing MIDI (attempt {i + 1}): {ex.Message}");
+                    Debug.WriteLine($"Error initializing MIDI device (attempt {i + 1}): {ex.Message}");
                     _midiOut = null;
+                    _midiIn = null; // Reset MIDI devices on failure
 
                     if (i < retryCount - 1)
                     {
@@ -32,9 +35,9 @@ namespace NeoBleeper
                     }
                 }
             }
-            Debug.WriteLine("Failed to initialize MIDI after multiple attempts");
+            Debug.WriteLine("Failed to initialize MIDI device after multiple attempts");
         }
-        public static void DisposeMidi()
+        public static void DisposeMidiOutput()
         {
             if (_midiOut != null)
             {
@@ -42,9 +45,32 @@ namespace NeoBleeper
                 _midiOut = null;
             }
         }
-        public static void ChangeDevice(int deviceNumber)
+        public static void DisposeMidiInput()
         {
-            DisposeMidi(); // Release old MIDI device
+            if (_midiIn != null)
+            {
+                _midiIn.Dispose();
+                _midiIn = null;
+            }
+        }
+        public static void ChangeInputDevice(int deviceNumber)
+        {
+            DisposeMidiInput(); // Release old MIDI device
+            GC.Collect(); // Run garbage collector
+            GC.WaitForPendingFinalizers(); // Wait for all finalizers to finish
+            try
+            {
+                _midiIn = new MidiIn(deviceNumber);
+            }
+            catch (MmException ex)
+            {
+                Debug.WriteLine($"Error changing MIDI input device: {ex.Message}");
+                _midiIn = null;
+            }
+        }
+        public static void ChangeOutputDevice(int deviceNumber)
+        {
+            DisposeMidiOutput(); // Release old MIDI device
             GC.Collect(); // Run garbage collector
             GC.WaitForPendingFinalizers(); // Wait for all finalizers to finish
             try
@@ -53,7 +79,7 @@ namespace NeoBleeper
             }
             catch (MmException ex)
             {
-                Debug.WriteLine($"Error changing MIDI device: {ex.Message}");
+                Debug.WriteLine($"Error changing MIDI output device: {ex.Message}");
                 _midiOut = null;
             }
         }
@@ -65,7 +91,7 @@ namespace NeoBleeper
             }
             catch (MmException)
             {
-                Debug.WriteLine("MIDI device not found.");
+                Debug.WriteLine("MIDI output device not found.");
             }
         }
         public static int DynamicVelocity()
@@ -77,7 +103,7 @@ namespace NeoBleeper
             return dynamicVelocity;
         }
 
-        public static async void PlayMidiNote(int note, int length) //Keep the old method for compatibility
+        public static async void PlayMidiNote(int note, int length, bool nonStopping = false) //Keep the old method for compatibility
         {
             try
             {
@@ -90,26 +116,36 @@ namespace NeoBleeper
 
         }
 
-        public static async Task PlayMidiNoteAsync(int note, int length) // Make async
+        public static async Task PlayMidiNoteAsync(int note, int length, bool nonStopping = false) // Make async
         {
             if (_midiOut == null) return;
 
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length); // Use Task.Delay
-            _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            if(!nonStopping)
+            {
+                _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            }
         }
         public static int FrequencyToMidiNote(double frequency)
         {
             double note = 69 + 12 * Math.Log(frequency / 440.0, 2);
             return (int)Math.Round(note);
         }
+        public static int MidiNoteToFrequency(int note)
+        {
+            return (int)(440.0 * Math.Pow(2, (note - 69) / 12.0));
+        }
 
-        public static async Task PlayMidiNote(MidiOut midiOut, double frequency, int length)
+        public static async Task PlayMidiNote(MidiOut midiOut, double frequency, int length, bool nonStopping = false)
         {
             int note = FrequencyToMidiNote(frequency);
             midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length);
-            midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            if(!nonStopping)
+            {
+                midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            }
         }
     }
 }
