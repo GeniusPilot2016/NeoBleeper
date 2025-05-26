@@ -5245,6 +5245,7 @@ namespace NeoBleeper
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
+            UpdateLabelVisible(true);
             if (Program.MIDIDevices.useMIDIoutput == true)
             {
                 foreach (int key in keyCharNum)
@@ -5284,6 +5285,7 @@ namespace NeoBleeper
                 }
                 NotePlayer.StopAllNotes();
             }
+            UpdateLabelVisible(false);
         }
     }
 }
