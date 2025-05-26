@@ -459,13 +459,7 @@ namespace NeoBleeper
 
         private void aboutNeoBleeperToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             about_neobleeper about = new about_neobleeper();
             about.ShowDialog();
             Debug.WriteLine("About window is opened");
@@ -473,13 +467,7 @@ namespace NeoBleeper
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             if (checkBox_synchronized_play.Checked == true)
             {
                 checkBox_synchronized_play.Checked = false;
@@ -1688,13 +1676,7 @@ namespace NeoBleeper
         }
         private void FileParser(string filename)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -2146,13 +2128,7 @@ namespace NeoBleeper
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -2226,13 +2202,7 @@ namespace NeoBleeper
         }
         private void OpenSaveAsDialog()
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
@@ -2618,7 +2588,7 @@ namespace NeoBleeper
             UpdateFormTitle();
             Debug.WriteLine("New file created");
         }
-        private void createNewFile()
+        private void stopPlayingAllSounds()
         {
             if (is_music_playing == true)
             {
@@ -2627,6 +2597,12 @@ namespace NeoBleeper
             KeyPressed = false;
             NotePlayer.StopAllNotes(); // Stop all notes
             RemoveUnpressedKeys();
+            singleNote = 0; // Reset the single note variable
+            Debug.WriteLine("All sounds stopped");
+        }
+        private void createNewFile()
+        {
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             this.Text = System.AppDomain.CurrentDomain.FriendlyName;
             currentFilePath = String.Empty;
             if (Variables.octave == 9)
@@ -4401,13 +4377,7 @@ namespace NeoBleeper
 
         private void playMIDIFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             if (checkBox_synchronized_play.Checked == true)
             {
                 checkBox_synchronized_play.Checked = false;
@@ -4602,13 +4572,7 @@ namespace NeoBleeper
 
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             MessageBox.Show("This feature allows you to synchronize the playback of multiple instances of NeoBleeper. \n" +
                 "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your clock before using this feature.\n" +
                 "You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings > Time & Language > Date & Time. \n\n" +
@@ -4618,39 +4582,21 @@ namespace NeoBleeper
 
         private void button_play_beat_sound_help_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             MessageBox.Show("This feature allows you to play beat like sounds from system speaker/sound device \n\n" +
                 "You can choose the sound to play by clicking the 'Change Beat Sound' button.", "Play a Beat Sound", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_bleeper_portamento_help_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             MessageBox.Show("Only for the case where music is played in real time on the keyboard. \n\n" +
                 "This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.", "Bleeper Portamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_use_keyboard_as_piano_help_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             MessageBox.Show("This feature allows you to use your computer keyboard as a piano keyboard. \n" +
                 "When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. \n\n" +
                 "You can see the key mappings in the buttons on the right side of the window.", "Use Keyboard As Piano", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4658,13 +4604,7 @@ namespace NeoBleeper
 
         private void button_do_not_update_help_Click(object sender, EventArgs e)
         {
-            if (is_music_playing == true)
-            {
-                stop_playing();
-            }
-            KeyPressed = false; // Reset the key pressed state
-            NotePlayer.StopAllNotes(); // Stop all notes
-            RemoveUnpressedKeys();
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n" +
                 "When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. \n\n" +
                 "If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.", "Do Not Update Beat Indicators", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4869,13 +4809,7 @@ namespace NeoBleeper
             CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
             try
             {
-                if (is_music_playing == true)
-                {
-                    stop_playing();
-                }
-                KeyPressed = false; // Reset the key pressed state
-                NotePlayer.StopAllNotes(); // Stop all notes
-                RemoveUnpressedKeys();
+                stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 createMusicWithAI.ShowDialog();
                 if (createMusicWithAI.output != string.Empty)
                 {
@@ -5072,13 +5006,7 @@ namespace NeoBleeper
         {
             try
             {
-                if (is_music_playing == true)
-                {
-                    stop_playing();
-                }
-                KeyPressed = false; // Reset the key pressed state
-                NotePlayer.StopAllNotes(); // Stop all notes
-                RemoveUnpressedKeys();
+                stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 if (checkBox_synchronized_play.Checked == true)
                 {
                     checkBox_synchronized_play.Checked = false;
