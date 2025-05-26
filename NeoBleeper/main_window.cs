@@ -1,12 +1,13 @@
-using System.Drawing.Text;
+using System.ComponentModel;
+using System.Data.Common;
 using System.Diagnostics;
+using System.Drawing.Text;
+using System.Media;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Text;
-using System.Media;
-using System.Threading.Tasks;
-using System.Data.Common;
 
 namespace NeoBleeper
 {
@@ -5173,6 +5174,7 @@ namespace NeoBleeper
                 MIDIIOUtils.StopMidiNote(note);
                 activeMidiNotes.Remove(note);
             }
+            UpdateLabelVisible(false);
         }
         private int GetFrequencyFromKeyCode(int keyCode)
         {
@@ -5241,7 +5243,7 @@ namespace NeoBleeper
             }
         }
         private HashSet<int> activeMidiNotes = new HashSet<int>();
-        private void playWithRegularKeyboard()
+        private void playWithRegularKeyboard() // Play notes with regular keyboard (the keyboard of the computer, not MIDI keyboard)
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
@@ -5251,13 +5253,13 @@ namespace NeoBleeper
                 foreach (int key in keyCharNum)
                 {
                     int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(key));
-                    // Eðer bu nota zaten çalýnýyorsa tekrar çalma
+                    // Don't play the same note again if it's already active
                     if (!activeMidiNotes.Contains(midiNote))
                     {
                         activeMidiNotes.Add(midiNote);
                         Task.Run(() =>
                         {
-                            MIDIIOUtils.PlayMidiNote(midiNote, Variables.alternating_note_length, true);
+                            MIDIIOUtils.PlayMidiNote(midiNote, 1, true);
                         });
                     }
                 }
@@ -5276,16 +5278,13 @@ namespace NeoBleeper
             }
             else if (keyCharNum.Length == 1)
             {
-                while (KeyPressed == true)
+                int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(keyCharNum[0]));
+                if (!activeMidiNotes.Contains(midiNote))
                 {
-                    foreach (int key in keyCharNum)
-                    {
-                        NotePlayer.play_note(GetFrequencyFromKeyCode(key), 1, true);
-                    }
+                    activeMidiNotes.Add(midiNote);
+                    NotePlayer.play_note(GetFrequencyFromKeyCode(keyCharNum[0]), 1, true);
                 }
-                NotePlayer.StopAllNotes();
             }
-            UpdateLabelVisible(false);
         }
     }
 }
