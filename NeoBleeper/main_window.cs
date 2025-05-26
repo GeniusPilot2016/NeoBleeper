@@ -5228,13 +5228,16 @@ namespace NeoBleeper
         }
         private void RemoveUnpressedKeys()
         {
-            // Remove keys that are no longer pressed
-            var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
-            var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
-            foreach (var note in notesToRemove)
+            if(keyCharNum != null)
             {
-                MIDIIOUtils.StopMidiNote(note);
-                activeMidiNotes.Remove(note);
+                // Remove keys that are no longer pressed
+                var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
+                var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
+                foreach (var note in notesToRemove)
+                {
+                    MIDIIOUtils.StopMidiNote(note);
+                    activeMidiNotes.Remove(note);
+                }
             }
         }
         private HashSet<int> activeMidiNotes = new HashSet<int>();

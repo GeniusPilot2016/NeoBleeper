@@ -1245,6 +1245,9 @@ namespace NeoBleeper
                 Program.MIDIDevices.useMIDIinput = false;
                 Debug.WriteLine("MIDI input device disabled");
             }
+
+            // Notify that MIDI status has changed
+            Program.MIDIDevices.NotifyMidiStatusChanged();
         }
 
         private void comboBox_midi_input_devices_SelectedIndexChanged(object sender, EventArgs e)
@@ -1252,8 +1255,10 @@ namespace NeoBleeper
             Program.MIDIDevices.MIDIInputDevice = comboBox_midi_input_devices.SelectedIndex;
             MIDIIOUtils.ChangeInputDevice(Program.MIDIDevices.MIDIInputDevice);
             Debug.WriteLine("MIDI input device selected: " + comboBox_midi_input_devices.SelectedItem.ToString());
-        }
 
+            // Notify that MIDI status has changed
+            Program.MIDIDevices.NotifyMidiStatusChanged();
+        }
         private void checkBox_use_motor_speed_mod_CheckedChanged(object sender, EventArgs e)
         {
             Debug.WriteLine("Motor speed or buzzer tone modulation enabled");

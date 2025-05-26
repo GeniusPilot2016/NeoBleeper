@@ -30,6 +30,13 @@ namespace NeoBleeper
             public static int MIDIOutputInstrument = 0; // Grand Piano
             public static int MIDIOutputDeviceChannel=0;
             public static int MIDIInputDevice=0;
+            public static event EventHandler MidiStatusChanged;
+
+            // Add this method to raise the event
+            public static void NotifyMidiStatusChanged()
+            {
+                MidiStatusChanged?.Invoke(null, EventArgs.Empty);
+            }
         }
         public static class BeatTypes
         {
