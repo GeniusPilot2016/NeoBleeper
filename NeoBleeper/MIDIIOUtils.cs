@@ -107,7 +107,7 @@ namespace NeoBleeper
         {
             try
             {
-                await PlayMidiNoteAsync(note, length);
+                await PlayMidiNoteAsync(note, length, nonStopping);
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace NeoBleeper
 
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length); // Use Task.Delay
-            if(!nonStopping)
+            if (!nonStopping)
             {
                 _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
@@ -142,9 +142,36 @@ namespace NeoBleeper
             int note = FrequencyToMidiNote(frequency);
             midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length);
-            if(!nonStopping)
+            if (!nonStopping)
             {
                 midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            }
+        }
+
+        internal static void StopAllNotes()
+        {
+            if (_midiOut != null)
+            {
+                for (int note = 0; note < 128; note++)
+                {
+                    _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                }
+            }
+            else
+            {
+                Debug.WriteLine("MIDI output device not initialized.");
+            }
+        }
+
+        internal static void StopMidiNote(int midiNote)
+        {
+            if (_midiOut != null)
+            {
+                _midiOut.Send(MidiMessage.StopNote(midiNote, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            }
+            else
+            {
+                Debug.WriteLine("MIDI output device not initialized.");
             }
         }
     }

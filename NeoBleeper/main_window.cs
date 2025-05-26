@@ -5152,6 +5152,13 @@ namespace NeoBleeper
             if (pressedKeys.Count == 0)
                 KeyPressed = false;
             NotePlayer.StopAllNotes();
+            var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
+            var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
+            foreach (var note in notesToRemove)
+            {
+                MIDIIOUtils.StopMidiNote(note);
+                activeMidiNotes.Remove(note);
+            }
         }
         private int GetFrequencyFromKeyCode(int keyCode)
         {
@@ -5205,10 +5212,36 @@ namespace NeoBleeper
             }
             return 0;
         }
+        private HashSet<int> activeMidiNotes = new HashSet<int>();
         private void playWithRegularKeyboard()
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
+            if (Program.MIDIDevices.useMIDIoutput == true)
+            {
+                foreach (int key in keyCharNum)
+                {
+                    int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(key));
+                    // Eðer bu nota zaten çalýnýyorsa tekrar çalma
+                    if (!activeMidiNotes.Contains(midiNote))
+                    {
+                        activeMidiNotes.Add(midiNote);
+                        Task.Run(() =>
+                        {
+                            MIDIIOUtils.PlayMidiNote(midiNote, Variables.alternating_note_length, true);
+                        });
+                    }
+                }
+
+                // Artýk basýlý olmayan tuþlarýn notalarýný kaldýr
+                var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
+                var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
+                foreach (var note in notesToRemove)
+                {
+                    MIDIIOUtils.StopMidiNote(note);
+                    activeMidiNotes.Remove(note);
+                }
+            }
             if (keyCharNum.Length > 1)
             {
                 do
