@@ -5527,14 +5527,54 @@ namespace NeoBleeper
         // Handle MIDI device status changes
         private void MidiDevices_StatusChanged(object sender, EventArgs e)
         {
-            if (Program.MIDIDevices.useMIDIinput)
+            try
             {
-                InitializeMidiInput();
+                // First, safely dispose the current MIDI input if it exists
+                if (MIDIIOUtils._midiIn != null)
+                {
+                    try
+                    {
+                        MIDIIOUtils._midiIn.Stop();
+                        MIDIIOUtils._midiIn.MessageReceived -= MidiIn_MessageReceived;
+                    }
+                    catch (NAudio.MmException)
+                    {
+                        // Device might already be disconnected, ignore this error
+                        Debug.WriteLine("MIDI input device already disconnected");
+                    }
+                }
+
+                // If MIDI input is enabled, try to re-initialize it with a fresh device instance
+                if (Program.MIDIDevices.useMIDIinput)
+                {
+                    // Force reinitialize the MIDI device with the current device index
+                    MIDIIOUtils.ChangeInputDevice(Program.MIDIDevices.MIDIInputDevice);
+
+                    // Only proceed if we successfully created a new device instance
+                    if (MIDIIOUtils._midiIn != null)
+                    {
+                        MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
+                        try
+                        {
+                            MIDIIOUtils._midiIn.Start();
+                            Debug.WriteLine("MIDI input reinitialized and listening");
+                        }
+                        catch (NAudio.MmException ex)
+                        {
+                            Debug.WriteLine($"Failed to start MIDI input: {ex.Message}");
+                            // Update UI or show a message to the user that MIDI input is unavailable
+                            MessageBox.Show($"Cannot start MIDI input device: {ex.Message}\nTry refreshing the device list.",
+                                "MIDI Device Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                            // Reset the MIDI device reference
+                            MIDIIOUtils._midiIn = null;
+                        }
+                    }
+                }
             }
-            else if (MIDIIOUtils._midiIn != null)
+            catch (Exception ex)
             {
-                MIDIIOUtils._midiIn.Stop();
-                MIDIIOUtils._midiIn.MessageReceived -= MidiIn_MessageReceived;
+                Debug.WriteLine($"Error handling MIDI status change: {ex.Message}");
             }
         }
 
@@ -5678,32 +5718,46 @@ namespace NeoBleeper
         // Modify the PlayNextAlternatingNote method to handle the alternating notes properly
         private void PlayNextAlternatingNote(object state)
         {
-            // Make sure we're still in alternating mode and have multiple notes to play
-            if (activeMidiNotes.Count <= 1 || !isAlternatingPlaying)
+            try
             {
+                // Turn back to the UI thread if necessary
+                if (InvokeRequired)
+                {
+                    BeginInvoke(new Action(() => PlayNextAlternatingNote(state)));
+                    return;
+                }
+
+                // Stop if there are no active notes or if not in alternating mode
+                if (activeMidiNotes.Count <= 1 || !isAlternatingPlaying)
+                {
+                    StopAlternatingNotes();
+                    return;
+                }
+
+                // Choose the next note based on the current index
+                int index = currentNoteIndex % activeMidiNotes.Count;
+                int midiNote = activeMidiNotes[index];
+                int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
+
+                // Stop any currently playing notes before playing the next one
+                NotePlayer.StopAllNotes();
+
+                
+                if (frequency > 0)
+                {
+                    int noteDuration = (int)(Variables.alternating_note_length);
+                    NotePlayer.play_note(frequency, noteDuration);
+                }
+
+                // Increase the index for the next note
+                currentNoteIndex++;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"PlayNextAlternatingNote hata: {ex.Message}");
+                // Stop the timer and reset state if an error occurs
                 StopAlternatingNotes();
-                return;
             }
-
-            // Get the current note to play
-            int index = currentNoteIndex % activeMidiNotes.Count;
-            int midiNote = activeMidiNotes[index];
-
-            // Convert MIDI note to frequency
-            int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
-
-            // Stop any currently playing notes (for system speaker which can only play one note at a time)
-            NotePlayer.StopAllNotes();
-
-            // Play the note
-            if (frequency > 0)
-            {
-                // Play the note with the system speaker or soundcard
-                NotePlayer.play_note(frequency, Variables.alternating_note_length);
-            }
-
-            // Increment the index for the next note
-            currentNoteIndex++;
         }
         // Add this method to properly handle MIDI input device changes
         public void UpdateMidiInputDevice(int deviceNumber)
