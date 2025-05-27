@@ -139,7 +139,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3D4AAAJNU0Z0AUkBTAIBAQ8B
-        AAHIAQQByAEEARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
+        AAHoAQQB6AEEARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
         AM8AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewB
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsB
@@ -183,7 +183,7 @@
         /wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AckBxwGTAf8B
         QQEvAdYB/wGbAXgBdwH/AbUBkAEzAf8B6wG3ATsB/wHmAc8BnQH/AaoBpQE3Af8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/xAAA00CkwGLAYMB/wGSAYoBgQH/AtYB1QH/AcYBqQGIAf8BngFbARAB
-        /wGYAVkBEgH/AZIBVQEUAf8D9AH/AY4BhAFZAf0BhAF6AW8B/wGBAXcBawH/XAABoQGbARoB/wGhAZsB
+        /wGYAVkBEgH/AZIBVQEUAf8D9AH/AY4BhAFVAf0BhAF6AW8B/wGBAXcBawH/XAABoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaYBoAEoAf8BzgG3AUsB/wHUAbABLQH/Ab8BswFUAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGdAZcBIAH/ATIBIwHhAf8BeQFvAXIB/wHOAbcBSwH/AdQBsAEtAf8BvwGzAVQB
@@ -222,7 +222,7 @@
         /wJaAVcBwhQAA00BkgHpAa0BJgH/AegBrQEmAf8CWQFXAbwIAAM1AVUBywF4AQAB/wHGAXMBAAH/Ab8B
         bQEAAf8B6gG1AS0B/wI7AToBYhQAAysBQQFNAVsBYAH/AQsBwAH+Af8BCwHAAf4B/wEKAb8B/gH/AQoB
         vwH+Af8BCgG+Af4B/wEXAYABpgH/ASkBLQEvAf8BCwGyAe8B/wEJAbwB/gH/AQgBvAH+Af8BCAG8Af4B
-        /wEIAbsB/gH/AQoBtQH1Af8DbAH+EAADPgFqAQABtAH3Af8BAAGnAfQB/wEAAZsB8QH/AQEBjgHuAf8B
+        /wEIAbsB/gH/AQoBtQH1Af8DcAH+EAADPgFqAQABtAH3Af8BAAGnAfQB/wEAAZsB8QH/AQEBjgHuAf8B
         AQGCAesB/wEBAXUB6AH/AUECQgFzJAADAwEEAekBrwEnAf8B6QGtAScB/wF8AlwB+AMbASYUAAJQAU8B
         mwHQAW4BAAH/AcwBagEAAf8DSQGHDAACTQFMAZEB6QGvAScB/wHpAa4BJwH/AekBrgEnAf8B6QGuAScB
         /wJcAVoBxAgAAwYBCAM6AWACagFeAe0BuAFmAQAB/wHuAboBMAH/AyMBMhQAA10B3AEmAZkBvwH/AQwB
@@ -414,7 +414,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>47, 146</value>
+    <value>46, 145</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonResetAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -457,7 +457,7 @@
     <value>14</value>
   </data>
   <data name="buttonUpdateAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>38, 117</value>
+    <value>37, 116</value>
   </data>
   <data name="buttonUpdateAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -541,7 +541,7 @@
     <value>11</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 80</value>
+    <value>6, 75</value>
   </data>
   <data name="labelAPIKeyWarning.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -634,7 +634,7 @@
     <value>5</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 310</value>
+    <value>7, 307</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -643,7 +643,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 180</value>
+    <value>303, 179</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>

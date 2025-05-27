@@ -7,11 +7,13 @@ namespace NeoBleeper
 {
     public partial class settings_window : Form
     {
+        private main_window mainWindow;
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
-        public settings_window()
+        public settings_window(main_window mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
             switch (Program.creating_sounds.soundcard_beep_waveform)
             {
                 case 0:
@@ -1253,11 +1255,16 @@ namespace NeoBleeper
 
         private void comboBox_midi_input_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.MIDIDevices.MIDIInputDevice = comboBox_midi_input_devices.SelectedIndex;
-            MIDIIOUtils.ChangeInputDevice(Program.MIDIDevices.MIDIInputDevice);
-            Debug.WriteLine("MIDI input device selected: " + comboBox_midi_input_devices.SelectedItem.ToString());
+            int selectedDeviceIndex = comboBox_midi_input_devices.SelectedIndex;
+            Program.MIDIDevices.MIDIInputDevice = selectedDeviceIndex;
 
-            // Notify that MIDI status has changed
+            // Update the MIDI input device in the main window
+            if (mainWindow != null)
+            {
+                mainWindow.UpdateMidiInputDevice(Program.MIDIDevices.MIDIInputDevice);
+            }
+
+            // Notify other components about the MIDI device change
             Program.MIDIDevices.NotifyMidiStatusChanged();
         }
         private void checkBox_use_motor_speed_mod_CheckedChanged(object sender, EventArgs e)

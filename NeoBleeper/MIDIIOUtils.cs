@@ -20,14 +20,12 @@ namespace NeoBleeper
                 try
                 {
                     _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDevice);
-                    _midiIn = new MidiIn(Program.MIDIDevices.MIDIInputDevice);
                     return; // Break out of the loop if successful
                 }
                 catch (MmException ex)
                 {
                     Debug.WriteLine($"Error initializing MIDI device (attempt {i + 1}): {ex.Message}");
                     _midiOut = null;
-                    _midiIn = null; // Reset MIDI devices on failure
 
                     if (i < retryCount - 1)
                     {

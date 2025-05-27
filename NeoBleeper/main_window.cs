@@ -1,3 +1,4 @@
+using NAudio.Midi;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Diagnostics;
@@ -65,6 +66,13 @@ namespace NeoBleeper
             Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
             initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
+            Program.MIDIDevices.MidiStatusChanged += MidiDevices_StatusChanged;
+
+            // Initialize MIDI input if it's enabled
+            if (Program.MIDIDevices.useMIDIinput)
+            {
+                InitializeMidiInput();
+            }
         }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
         {
@@ -476,7 +484,7 @@ namespace NeoBleeper
             {
                 checkBox_play_beat_sound.Checked = false;
             }
-            settings_window settings = new settings_window();
+            settings_window settings = new settings_window(this); // Pass reference to main_window
             settings.ColorsAndThemeChanged += refresh_main_window_elements_color;
             settings.ColorsAndThemeChanged += (s, args) =>
             {
@@ -494,7 +502,6 @@ namespace NeoBleeper
             settings.ShowDialog();
             Debug.WriteLine("Settings window is opened");
         }
-
         private void refresh_main_window_elements_color(object sender, EventArgs e)
         {
             main_window_refresh();
@@ -5164,7 +5171,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private HashSet<int> activeMidiNotes = new HashSet<int>();
+        private HashSet<int> activeMidiInNotes = new HashSet<int>();
         private int singleNote = 0; // Variable to store the single note being played
         private void playWithRegularKeyboard() // Play notes with regular keyboard (the keyboard of the computer, not MIDI keyboard)
         {
@@ -5505,6 +5512,226 @@ namespace NeoBleeper
         };
 
             return pianoKeys.Contains(keyCode);
+        }
+        private void InitializeMidiInput()
+        {
+            if (!Program.MIDIDevices.useMIDIinput || MIDIIOUtils._midiIn == null)
+                return;
+
+            // Set up event handler for MIDI input
+            MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
+            MIDIIOUtils._midiIn.Start(); // Start listening for MIDI input
+
+            Debug.WriteLine("MIDI input initialized and listening");
+        }
+        // Handle MIDI device status changes
+        private void MidiDevices_StatusChanged(object sender, EventArgs e)
+        {
+            if (Program.MIDIDevices.useMIDIinput)
+            {
+                InitializeMidiInput();
+            }
+            else if (MIDIIOUtils._midiIn != null)
+            {
+                MIDIIOUtils._midiIn.Stop();
+                MIDIIOUtils._midiIn.MessageReceived -= MidiIn_MessageReceived;
+            }
+        }
+
+        // Store active MIDI notes for alternating playback
+        private List<int> activeMidiNotes = new List<int>();
+        private System.Threading.Timer alternatingNoteTimer;
+        private bool isAlternatingPlaying = false;
+
+        // Modify the MidiIn_MessageReceived method to handle single and multiple notes differently
+        private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        {
+            // Ensure we're on the UI thread
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action<object, MidiInMessageEventArgs>(MidiIn_MessageReceived), sender, e);
+                return;
+            }
+
+            // Process only if appropriate (not playing other music, etc.)
+            if (is_music_playing || isClosing)
+                return;
+
+            // Fix for CS0266: Explicitly cast 'MidiCommandCode' to 'int'
+            int command = (int)e.MidiEvent.CommandCode;
+
+            // Handle note on/off events
+            if (command is (int)MidiCommandCode.NoteOn or (int)MidiCommandCode.NoteOff)
+            {
+                var noteEvent = e.MidiEvent as NoteEvent;
+                if (noteEvent != null)
+                {
+                    int noteNumber = noteEvent.NoteNumber;
+                    int velocity = noteEvent.Velocity;
+
+                    // Note on with velocity > 0
+                    if (command == (int)MidiCommandCode.NoteOn && velocity > 0)
+                    {
+                        // Add to active notes
+                        if (!activeMidiNotes.Contains(noteNumber))
+                        {
+                            activeMidiNotes.Add(noteNumber);
+                            UpdateLabelVisible(true);
+
+                            // If we already have alternating playback, but now only have one note
+                            // we should stop alternating and play the single note directly
+                            if (activeMidiNotes.Count == 1 && isAlternatingPlaying)
+                            {
+                                StopAlternatingNotes();
+                                isAlternatingPlaying = false;
+                            }
+
+                            // Handle based on number of active notes
+                            if (activeMidiNotes.Count == 1)
+                            {
+                                // Single note mode - play directly without alternating
+                                int frequency = MIDIIOUtils.MidiNoteToFrequency(noteNumber);
+                                NotePlayer.play_note(frequency, 0, true); // Continue until note off
+                            }
+                            else if (activeMidiNotes.Count > 1 && !isAlternatingPlaying)
+                            {
+                                // Multiple notes - start alternating
+                                StartAlternatingNotes();
+                            }
+                        }
+                    }
+                    // Note off or Note on with velocity 0 (equivalent to note off)
+                    else
+                    {
+                        // Remove from active notes
+                        if (activeMidiNotes.Contains(noteNumber))
+                        {
+                            activeMidiNotes.Remove(noteNumber);
+
+                            // If no more notes, stop all playback
+                            if (activeMidiNotes.Count == 0)
+                            {
+                                StopAlternatingNotes();
+                                NotePlayer.StopAllNotes();
+                                UpdateLabelVisible(false);
+                            }
+                            // If we now have exactly one note and were in alternating mode
+                            else if (activeMidiNotes.Count == 1 && isAlternatingPlaying)
+                            {
+                                // Switch to single note mode
+                                StopAlternatingNotes();
+                                int remainingNote = activeMidiNotes[0];
+                                int frequency = MIDIIOUtils.MidiNoteToFrequency(remainingNote);
+                                NotePlayer.play_note(frequency, 0, true); // Continue until note off
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Update StartAlternatingNotes to set a proper flag
+        private void StartAlternatingNotes()
+        {
+            // Only start alternating if we have multiple notes
+            if (activeMidiNotes.Count <= 1)
+                return;
+
+            isAlternatingPlaying = true;
+
+            // Stop any continuous notes that might be playing
+            NotePlayer.StopAllNotes();
+
+            // If timer already exists, dispose it
+            if (alternatingNoteTimer != null)
+            {
+                alternatingNoteTimer.Dispose();
+            }
+
+            // Use the alternating_note_length value from Variables to set timing
+            int interval = Variables.alternating_note_length;
+
+            // Create a timer to alternate between notes
+            alternatingNoteTimer = new System.Threading.Timer(
+                PlayNextAlternatingNote,
+                null,
+                0,  // Start immediately
+                interval  // Use alternating_note_length as interval
+            );
+        }
+
+        // Update StopAlternatingNotes to clean up properly
+        private void StopAlternatingNotes()
+        {
+            isAlternatingPlaying = false;
+
+            if (alternatingNoteTimer != null)
+            {
+                alternatingNoteTimer.Dispose();
+                alternatingNoteTimer = null;
+            }
+        }
+
+        // Index to track which note is currently playing
+        private int currentNoteIndex = 0;
+
+        // Modify the PlayNextAlternatingNote method to handle the alternating notes properly
+        private void PlayNextAlternatingNote(object state)
+        {
+            // Make sure we're still in alternating mode and have multiple notes to play
+            if (activeMidiNotes.Count <= 1 || !isAlternatingPlaying)
+            {
+                StopAlternatingNotes();
+                return;
+            }
+
+            // Get the current note to play
+            int index = currentNoteIndex % activeMidiNotes.Count;
+            int midiNote = activeMidiNotes[index];
+
+            // Convert MIDI note to frequency
+            int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
+
+            // Stop any currently playing notes (for system speaker which can only play one note at a time)
+            NotePlayer.StopAllNotes();
+
+            // Play the note
+            if (frequency > 0)
+            {
+                // Play the note with the system speaker or soundcard
+                NotePlayer.play_note(frequency, Variables.alternating_note_length);
+            }
+
+            // Increment the index for the next note
+            currentNoteIndex++;
+        }
+        // Add this method to properly handle MIDI input device changes
+        public void UpdateMidiInputDevice(int deviceNumber)
+        {
+            if (MIDIIOUtils._midiIn != null)
+            {
+                // Stop and clean up the current MIDI input connection
+                MIDIIOUtils._midiIn.Stop();
+                MIDIIOUtils._midiIn.MessageReceived -= MidiIn_MessageReceived;
+            }
+
+            // Change the device using the MIDIIOUtils helper
+            MIDIIOUtils.ChangeInputDevice(deviceNumber);
+
+            // Set up the new connection if MIDI input is enabled
+            if (Program.MIDIDevices.useMIDIinput && MIDIIOUtils._midiIn != null)
+            {
+                MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
+                MIDIIOUtils._midiIn.Start();
+                Debug.WriteLine($"MIDI input device changed to device #{deviceNumber}");
+            }
+
+            // Stop any active alternating notes playback
+            if (isAlternatingPlaying)
+            {
+                StopAlternatingNotes();
+            }
+            activeMidiInNotes.Clear();
         }
     }
 }
