@@ -2598,6 +2598,7 @@ namespace NeoBleeper
             NotePlayer.StopAllNotes(); // Stop all notes
             RemoveUnpressedKeys();
             singleNote = 0; // Reset the single note variable
+            UnmarkAllButtons(); // Unmark all buttons
             Debug.WriteLine("All sounds stopped");
         }
         private void createNewFile()
@@ -2728,25 +2729,6 @@ namespace NeoBleeper
             }
             isModified = false;
             UpdateFormTitle();
-        }
-
-        private async Task dummy_play_note(int length) // Dummy play note function for testing purposes
-        {
-            String note1, note2, note3, note4;
-            note1 = listViewNotes.SelectedItems[0].SubItems[1].Text;
-            note2 = listViewNotes.SelectedItems[0].SubItems[2].Text;
-            note3 = listViewNotes.SelectedItems[0].SubItems[3].Text;
-            note4 = listViewNotes.SelectedItems[0].SubItems[4].Text;
-            if (note1 != String.Empty || note2 != String.Empty || note3 != String.Empty || note4 != String.Empty)
-            {
-                UpdateLabelVisible(true);
-                await Task.Delay(length);
-                UpdateLabelVisible(false);
-            }
-            else
-            {
-                await Task.Delay(length);
-            }
         }
         private void play_music(int startIndex)
         {
@@ -5082,18 +5064,28 @@ namespace NeoBleeper
         private HashSet<int> pressedKeys = new HashSet<int>();
         private void main_window_KeyDown(object sender, KeyEventArgs e)
         {
-            KeyPressed = true;
-            pressedKeys.Add((int)e.KeyCode);
-            keyCharNum = pressedKeys.ToArray();
-            playWithRegularKeyboard();
+            // Check if the key is one we want to use for piano playing
+            if (IsKeyboardPianoKey(e.KeyCode))
+            {
+                KeyPressed = true;
+                pressedKeys.Add((int)e.KeyCode);
+                keyCharNum = pressedKeys.ToArray();
+                MarkdownTheKeyWhenKeyIsPressed(e.KeyValue);
+                playWithRegularKeyboard();
+            }
+            // Allow regular keyboard shortcuts to work
+            else
+            {
+                // Let other key presses pass through (like Ctrl+S, Ctrl+Z, etc.)
+                e.Handled = false;
+            }
         }
 
         private void main_window_KeyUp(object sender, KeyEventArgs e)
         {
             pressedKeys.Remove((int)e.KeyCode);
             keyCharNum = pressedKeys.ToArray();
-            if (pressedKeys.Count == 0)
-                KeyPressed = false;
+            KeyPressed = false;
             NotePlayer.StopAllNotes();
             var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
             var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
@@ -5103,6 +5095,7 @@ namespace NeoBleeper
                 activeMidiNotes.Remove(note);
             }
             singleNote = 0; // Reset single note variable when keys are removed
+            UnmarkAllButtons(); // Unmark all buttons when keys are released
             UpdateLabelVisible(false);
         }
         private int GetFrequencyFromKeyCode(int keyCode)
@@ -5215,6 +5208,303 @@ namespace NeoBleeper
                     NotePlayer.play_note(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
                 }
             }
+        }
+        private void MarkdownTheKeyWhenKeyIsPressed(int keyCode)
+        {
+            if(!checkBox_use_keyboard_as_piano.Checked)
+                return;
+            Color markdownColor = Settings1.Default.markdown_color; // Get the markdown color from settings
+
+            if (buttonShortcuts.TryGetValue(button_c3, out string shortcut))
+            {
+                if (keyCode == (int)Keys.Tab)
+                {
+                    button_c3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_c_s3, out shortcut))
+            {
+                if (keyCode == (int)Keys.Oemtilde)
+                {
+                    button_c_s3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d3, out shortcut))
+            {
+                if (keyCode == (int)Keys.Q)
+                {
+                    button_d3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d_s3, out shortcut))
+            {
+                if (keyCode == (int)Keys.D1)
+                {
+                    button_d_s3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_e3, out shortcut))
+            {
+                if (keyCode == (int)Keys.W)
+                {
+                    button_e3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f3, out shortcut))
+            {
+                if (keyCode == (int)Keys.E)
+                {
+                    button_f3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f_s3, out shortcut))
+            {
+                if (keyCode == (int)Keys.D3)
+                {
+                    button_f_s3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g3, out shortcut))
+            {
+                if (keyCode == (int)Keys.R)
+                {
+                    button_g3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g_s3, out shortcut))
+            {
+                if (keyCode == (int)Keys.D4)
+                {
+                    button_g_s3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a3, out shortcut))
+            {
+                if (keyCode == (int)Keys.T)
+                {
+                    button_a3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a_s3, out shortcut))
+            {
+                if (keyCode == (int)Keys.D5)
+                {
+                    button_a_s3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_b3, out shortcut))
+            {
+                if (keyCode == (int)Keys.Y)
+                {
+                    button_b3.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_c4, out shortcut))
+            {
+                if (keyCode == (int)Keys.U)
+                {
+                    button_c4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_c_s4, out shortcut))
+            {
+                if (keyCode == (int)Keys.D6)
+                {
+                    button_c_s4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d4, out shortcut))
+            {
+                if (keyCode == (int)Keys.I)
+                {
+                    button_d4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d_s4, out shortcut))
+            {
+                if (keyCode == (int)Keys.D7)
+                {
+                    button_d_s4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_e4, out shortcut))
+            {
+                if (keyCode == (int)Keys.O)
+                {
+                    button_e4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f4, out shortcut))
+            {
+                if (keyCode == (int)Keys.P)
+                {
+                    button_f4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f_s4, out shortcut))
+            {
+                if (keyCode == (int)Keys.D8)
+                {
+                    button_f_s4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g4, out shortcut))
+            {
+                if (keyCode == (int)Keys.OemOpenBrackets)
+                {
+                    button_g4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g_s4, out shortcut))
+            {
+                if (keyCode == (int)Keys.OemMinus)
+                {
+                    button_g_s4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a4, out shortcut))
+            {
+                if (keyCode == (int)Keys.OemCloseBrackets)
+                {
+                    button_a4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a_s4, out shortcut))
+            {
+                if (keyCode == (int)Keys.Oemplus)
+                {
+                    button_a_s4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_b4, out shortcut))
+            {
+                if (keyCode == (int)Keys.OemPipe)
+                {
+                    button_b4.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_c5, out shortcut))
+            {
+                if (keyCode == (int)Keys.ShiftKey)
+                {
+                    button_c5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_c_s5, out shortcut))
+            {
+                if (keyCode == (int)Keys.A)
+                {
+                    button_c_s5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d5, out shortcut))
+            {
+                if (keyCode == (int)Keys.Z)
+                {
+                    button_d5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_d_s5, out shortcut))
+            {
+                if (keyCode == (int)Keys.S)
+                {
+                    button_d_s5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_e5, out shortcut))
+            {
+                if (keyCode == (int)Keys.X)
+                {
+                    button_e5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f5, out shortcut))
+            {
+                if (keyCode == (int)Keys.C)
+                {
+                    button_f5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_f_s5, out shortcut))
+            {
+                if (keyCode == (int)Keys.F)
+                {
+                    button_f_s5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g5, out shortcut))
+            {
+                if (keyCode == (int)Keys.V)
+                {
+                    button_g5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_g_s5, out shortcut))
+            {
+                if (keyCode == (int)Keys.G)
+                {
+                    button_g_s5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a5, out shortcut))
+            {
+                if (keyCode == (int)Keys.B)
+                {
+                    button_a5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_a_s5, out shortcut))
+            {
+                if (keyCode == (int)Keys.H)
+                {
+                    button_a_s5.BackColor = markdownColor;
+                }
+            }
+            if (buttonShortcuts.TryGetValue(button_b5, out shortcut))
+            {
+                if (keyCode == (int)Keys.N)
+                {
+                    button_b5.BackColor = markdownColor;
+                }
+            }
+        }
+        private void UnmarkAllButtons()
+        {
+            Color whiteKeyColor = Color.White; // Define the color to reset the button
+            Color blackKeyColor = Color.Black; // Define the color to reset the button
+            foreach (Control ctrl in keyboard_panel.Controls)
+            {
+                if (ctrl is Button)
+                {
+                    if (ctrl.Name.Contains("s") || ctrl.Name.Contains("S")) // Black keys
+                    {
+                        ctrl.BackColor = blackKeyColor;
+                    }
+                    else // White keys
+                    {
+                        ctrl.BackColor = whiteKeyColor;
+                    }
+                }
+            }
+        }
+        // This method checks if a key is part of the piano keyboard
+        private bool IsKeyboardPianoKey(Keys keyCode)
+        {
+            // Define all the keys that should trigger the piano functionality
+            HashSet<Keys> pianoKeys = new HashSet<Keys>
+        {
+            // White keys
+            Keys.Tab, Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y,
+            Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.OemPipe,
+            Keys.ShiftKey, Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N,
+        
+            // Black keys
+            Keys.Oemtilde, Keys.D1, Keys.D3, Keys.D4, Keys.D5,
+            Keys.D6, Keys.D7, Keys.D8, Keys.OemMinus, Keys.Oemplus,
+            Keys.A, Keys.S, Keys.F, Keys.G, Keys.H
+        };
+
+            return pianoKeys.Contains(keyCode);
         }
     }
 }

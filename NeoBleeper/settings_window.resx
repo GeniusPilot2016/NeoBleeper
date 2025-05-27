@@ -139,7 +139,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3D4AAAJNU0Z0AUkBTAIBAQ8B
-        AAG4AQQBuAEEARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
+        AAHIAQQByAEEARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
         AM8AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewB
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsB
@@ -183,7 +183,7 @@
         /wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AckBxwGTAf8B
         QQEvAdYB/wGbAXgBdwH/AbUBkAEzAf8B6wG3ATsB/wHmAc8BnQH/AaoBpQE3Af8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/xAAA00CkwGLAYMB/wGSAYoBgQH/AtYB1QH/AcYBqQGIAf8BngFbARAB
-        /wGYAVkBEgH/AZIBVQEUAf8D9AH/AY4BhAFbAf0BhAF6AW8B/wGBAXcBawH/XAABoQGbARoB/wGhAZsB
+        /wGYAVkBEgH/AZIBVQEUAf8D9AH/AY4BhAFZAf0BhAF6AW8B/wGBAXcBawH/XAABoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaYBoAEoAf8BzgG3AUsB/wHUAbABLQH/Ab8BswFUAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGdAZcBIAH/ATIBIwHhAf8BeQFvAXIB/wHOAbcBSwH/AdQBsAEtAf8BvwGzAVQB
@@ -222,7 +222,7 @@
         /wJaAVcBwhQAA00BkgHpAa0BJgH/AegBrQEmAf8CWQFXAbwIAAM1AVUBywF4AQAB/wHGAXMBAAH/Ab8B
         bQEAAf8B6gG1AS0B/wI7AToBYhQAAysBQQFNAVsBYAH/AQsBwAH+Af8BCwHAAf4B/wEKAb8B/gH/AQoB
         vwH+Af8BCgG+Af4B/wEXAYABpgH/ASkBLQEvAf8BCwGyAe8B/wEJAbwB/gH/AQgBvAH+Af8BCAG8Af4B
-        /wEIAbsB/gH/AQoBtQH1Af8DagH+EAADPgFqAQABtAH3Af8BAAGnAfQB/wEAAZsB8QH/AQEBjgHuAf8B
+        /wEIAbsB/gH/AQoBtQH1Af8DbAH+EAADPgFqAQABtAH3Af8BAAGnAfQB/wEAAZsB8QH/AQEBjgHuAf8B
         AQGCAesB/wEBAXUB6AH/AUECQgFzJAADAwEEAekBrwEnAf8B6QGtAScB/wF8AlwB+AMbASYUAAJQAU8B
         mwHQAW4BAAH/AcwBagEAAf8DSQGHDAACTQFMAZEB6QGvAScB/wHpAa4BJwH/AekBrgEnAf8B6QGuAScB
         /wJcAVoBxAgAAwYBCAM6AWACagFeAe0BuAFmAQAB/wHuAboBMAH/AyMBMhQAA10B3AEmAZkBvwH/AQwB
@@ -414,14 +414,14 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 182</value>
+    <value>47, 146</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonResetAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="buttonResetAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 32</value>
+    <value>211, 26</value>
   </data>
   <data name="buttonResetAPIKey.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -457,13 +457,13 @@
     <value>14</value>
   </data>
   <data name="buttonUpdateAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 146</value>
+    <value>38, 117</value>
   </data>
   <data name="buttonUpdateAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="buttonUpdateAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>285, 32</value>
+    <value>228, 26</value>
   </data>
   <data name="buttonUpdateAPIKey.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -496,13 +496,13 @@
     <value>12</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 52</value>
+    <value>221, 42</value>
   </data>
   <data name="buttonShowHide.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 35</value>
+    <value>70, 28</value>
   </data>
   <data name="buttonShowHide.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -541,19 +541,19 @@
     <value>11</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 100</value>
+    <value>6, 80</value>
   </data>
   <data name="labelAPIKeyWarning.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="labelAPIKeyWarning.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>365, 0</value>
+    <value>292, 0</value>
   </data>
   <data name="labelAPIKeyWarning.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>365, 0</value>
+    <value>292, 0</value>
   </data>
   <data name="labelAPIKeyWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 40</value>
+    <value>292, 32</value>
   </data>
   <data name="labelAPIKeyWarning.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -580,13 +580,13 @@
     <value>True</value>
   </data>
   <data name="labelAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 32</value>
+    <value>9, 26</value>
   </data>
   <data name="labelAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 20</value>
+    <value>142, 16</value>
   </data>
   <data name="labelAPIKey.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -610,13 +610,13 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 56</value>
+    <value>9, 45</value>
   </data>
   <data name="textBoxAPIKey.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 27</value>
+    <value>208, 23</value>
   </data>
   <data name="textBoxAPIKey.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -634,7 +634,7 @@
     <value>5</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 388</value>
+    <value>6, 310</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -643,7 +643,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 225</value>
+    <value>303, 180</value>
   </data>
   <data name="groupBoxCreateMusicWithAI.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -670,13 +670,10 @@
     <value>3</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 28</value>
-  </data>
-  <data name="btn_test_system_speaker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>75, 22</value>
   </data>
   <data name="btn_test_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 38</value>
+    <value>150, 30</value>
   </data>
   <data name="btn_test_system_speaker.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -715,19 +712,16 @@
     <value>True</value>
   </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 69</value>
-  </data>
-  <data name="label_test_system_speaker_message.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 55</value>
   </data>
   <data name="label_test_system_speaker_message.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>365, 0</value>
+    <value>292, 0</value>
   </data>
   <data name="label_test_system_speaker_message.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>365, 40</value>
+    <value>292, 32</value>
   </data>
   <data name="label_test_system_speaker_message.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 40</value>
+    <value>292, 32</value>
   </data>
   <data name="label_test_system_speaker_message.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -748,16 +742,10 @@
     <value>1</value>
   </data>
   <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 120</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>7, 96</value>
   </data>
   <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 122</value>
+    <value>303, 98</value>
   </data>
   <data name="groupBox_system_speaker_test.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -787,10 +775,13 @@
     <value>True</value>
   </data>
   <data name="checkBoxClassicBleeperMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 72</value>
+    <value>9, 58</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 24</value>
+    <value>143, 20</value>
   </data>
   <data name="checkBoxClassicBleeperMode.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -820,13 +811,10 @@
     <value>MiddleLeft</value>
   </data>
   <data name="lbl_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 35</value>
-  </data>
-  <data name="lbl_theme.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>9, 28</value>
   </data>
   <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
+    <value>45, 16</value>
   </data>
   <data name="lbl_theme.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -862,13 +850,10 @@
     <value>Dark</value>
   </data>
   <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 31</value>
-  </data>
-  <data name="comboBox_theme.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>60, 25</value>
   </data>
   <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 28</value>
+    <value>230, 24</value>
   </data>
   <data name="comboBox_theme.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -889,16 +874,10 @@
     <value>2</value>
   </data>
   <data name="groupBox_appearance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
-  </data>
-  <data name="groupBox_appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>7, 7</value>
   </data>
   <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 103</value>
+    <value>303, 82</value>
   </data>
   <data name="groupBox_appearance.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -928,19 +907,16 @@
     <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
   </data>
   <data name="label_test_system_speaker_message_2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 268</value>
-  </data>
-  <data name="label_test_system_speaker_message_2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>7, 214</value>
   </data>
   <data name="label_test_system_speaker_message_2.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>375, 0</value>
+    <value>300, 0</value>
   </data>
   <data name="label_test_system_speaker_message_2.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>375, 80</value>
+    <value>300, 64</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 80</value>
+    <value>300, 64</value>
   </data>
   <data name="label_test_system_speaker_message_2.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -976,19 +952,16 @@
     <value>NoControl</value>
   </data>
   <data name="label_test_system_speaker_message_3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 246</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 197</value>
   </data>
   <data name="label_test_system_speaker_message_3.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>375, 0</value>
+    <value>300, 0</value>
   </data>
   <data name="label_test_system_speaker_message_3.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>375, 120</value>
+    <value>300, 96</value>
   </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 120</value>
+    <value>300, 96</value>
   </data>
   <data name="label_test_system_speaker_message_3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1015,16 +988,13 @@
     <value>0</value>
   </data>
   <data name="general_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="general_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>4, 31</value>
   </data>
   <data name="general_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 620</value>
+    <value>316, 492</value>
   </data>
   <data name="general_settings.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1057,16 +1027,13 @@
     <value>NoControl</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 180</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>12, 144</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>351, 58</value>
+    <value>281, 46</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 58</value>
+    <value>283, 46</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1096,16 +1063,13 @@
     <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 170</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>12, 136</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>351, 76</value>
+    <value>281, 61</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 76</value>
+    <value>283, 61</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1135,13 +1099,10 @@
     <value>NoControl</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 255</value>
-  </data>
-  <data name="button_show_reason.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>29, 204</value>
   </data>
   <data name="button_show_reason.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 38</value>
+    <value>245, 30</value>
   </data>
   <data name="button_show_reason.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1174,13 +1135,10 @@
     <value>True</value>
   </data>
   <data name="radioButton_noise.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 97</value>
-  </data>
-  <data name="radioButton_noise.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 77</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 24</value>
+    <value>201, 20</value>
   </data>
   <data name="radioButton_noise.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1207,13 +1165,10 @@
     <value>True</value>
   </data>
   <data name="radioButton_triangle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 72</value>
-  </data>
-  <data name="radioButton_triangle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 58</value>
   </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 24</value>
+    <value>69, 20</value>
   </data>
   <data name="radioButton_triangle.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1243,13 +1198,10 @@
     <value>True</value>
   </data>
   <data name="radioButton_sine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 48</value>
-  </data>
-  <data name="radioButton_sine.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 38</value>
   </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 24</value>
+    <value>49, 20</value>
   </data>
   <data name="radioButton_sine.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1273,13 +1225,10 @@
     <value>True</value>
   </data>
   <data name="radioButton_square.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
-  </data>
-  <data name="radioButton_square.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 18</value>
   </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 24</value>
+    <value>116, 20</value>
   </data>
   <data name="radioButton_square.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1300,16 +1249,10 @@
     <value>3</value>
   </data>
   <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 28</value>
-  </data>
-  <data name="group_tone_waveform.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_tone_waveform.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 22</value>
   </data>
   <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 128</value>
+    <value>292, 102</value>
   </data>
   <data name="group_tone_waveform.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1330,16 +1273,10 @@
     <value>3</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 38</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 30</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 300</value>
+    <value>305, 240</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1366,13 +1303,10 @@
     <value>4</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 6</value>
-  </data>
-  <data name="checkBox_enable_create_beep_from_soundcard.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 5</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 24</value>
+    <value>223, 20</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1402,13 +1336,10 @@
     <value>2</value>
   </data>
   <data name="creating_sound_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="creating_sound_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>4, 31</value>
   </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 620</value>
+    <value>316, 492</value>
   </data>
   <data name="creating_sound_settings.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1441,13 +1372,10 @@
     <value>NoControl</value>
   </data>
   <data name="trackBar_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>121, 161</value>
-  </data>
-  <data name="trackBar_motor_octave.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>97, 129</value>
   </data>
   <data name="trackBar_motor_octave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 34</value>
+    <value>90, 27</value>
   </data>
   <data name="trackBar_motor_octave.TabIndex" type="System.Int32, mscorlib">
     <value>125</value>
@@ -1477,13 +1405,10 @@
     <value>NoControl</value>
   </data>
   <data name="label_motor_speed_mod.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 161</value>
-  </data>
-  <data name="label_motor_speed_mod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>9, 129</value>
   </data>
   <data name="label_motor_speed_mod.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 20</value>
+    <value>80, 15</value>
   </data>
   <data name="label_motor_speed_mod.TabIndex" type="System.Int32, mscorlib">
     <value>122</value>
@@ -1516,13 +1441,13 @@
     <value>NoControl</value>
   </data>
   <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 48</value>
+    <value>11, 38</value>
   </data>
   <data name="radioButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 24</value>
+    <value>63, 20</value>
   </data>
   <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1549,13 +1474,13 @@
     <value>NoControl</value>
   </data>
   <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 22</value>
+    <value>11, 18</value>
   </data>
   <data name="radioButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>57, 20</value>
   </data>
   <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1576,7 +1501,7 @@
     <value>1</value>
   </data>
   <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 72</value>
+    <value>6, 58</value>
   </data>
   <data name="groupBox_type_of_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -1585,7 +1510,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 78</value>
+    <value>292, 62</value>
   </data>
   <data name="groupBox_type_of_device.TabIndex" type="System.Int32, mscorlib">
     <value>124</value>
@@ -1618,16 +1543,16 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 22</value>
+    <value>9, 18</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 4, 5, 4</value>
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>352, 48</value>
+    <value>282, 38</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.Size" type="System.Drawing.Size, System.Drawing">
-    <value>355, 48</value>
+    <value>284, 38</value>
   </data>
   <data name="checkBox_use_motor_speed_mod.TabIndex" type="System.Int32, mscorlib">
     <value>121</value>
@@ -1654,16 +1579,10 @@
     <value>False</value>
   </data>
   <data name="groupBox_other_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 341</value>
-  </data>
-  <data name="groupBox_other_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="groupBox_other_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 273</value>
   </data>
   <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 243</value>
+    <value>305, 194</value>
   </data>
   <data name="groupBox_other_devices.TabIndex" type="System.Int32, mscorlib">
     <value>124</value>
@@ -1693,13 +1612,13 @@
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_instrument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 128</value>
+    <value>80, 102</value>
   </data>
   <data name="comboBox_midi_output_instrument.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_midi_output_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 28</value>
+    <value>216, 24</value>
   </data>
   <data name="comboBox_midi_output_instrument.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1723,13 +1642,13 @@
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_channel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 94</value>
+    <value>80, 75</value>
   </data>
   <data name="comboBox_midi_output_channel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_midi_output_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 28</value>
+    <value>117, 24</value>
   </data>
   <data name="comboBox_midi_output_channel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1759,13 +1678,13 @@
     <value>NoControl</value>
   </data>
   <data name="label_instrument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 131</value>
+    <value>7, 105</value>
   </data>
   <data name="label_instrument.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 20</value>
+    <value>65, 16</value>
   </data>
   <data name="label_instrument.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1795,13 +1714,13 @@
     <value>False</value>
   </data>
   <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 98</value>
+    <value>23, 78</value>
   </data>
   <data name="label_channel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 20</value>
+    <value>53, 16</value>
   </data>
   <data name="label_channel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1831,13 +1750,13 @@
     <value>NoControl</value>
   </data>
   <data name="refresh_midi_output_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 46</value>
+    <value>223, 37</value>
   </data>
   <data name="refresh_midi_output_button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="refresh_midi_output_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 32</value>
+    <value>75, 26</value>
   </data>
   <data name="refresh_midi_output_button.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1870,13 +1789,10 @@
     <value>False</value>
   </data>
   <data name="comboBox_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 49</value>
-  </data>
-  <data name="comboBox_midi_output_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 39</value>
   </data>
   <data name="comboBox_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 28</value>
+    <value>213, 24</value>
   </data>
   <data name="comboBox_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1903,13 +1819,10 @@
     <value>NoControl</value>
   </data>
   <data name="label_midi_output_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 26</value>
-  </data>
-  <data name="label_midi_output_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 21</value>
   </data>
   <data name="label_midi_output_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 20</value>
+    <value>151, 16</value>
   </data>
   <data name="label_midi_output_device.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1930,16 +1843,10 @@
     <value>6</value>
   </data>
   <data name="group_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 160</value>
-  </data>
-  <data name="group_midi_output_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_output_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 128</value>
   </data>
   <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 180</value>
+    <value>305, 144</value>
   </data>
   <data name="group_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1969,13 +1876,10 @@
     <value>6</value>
   </data>
   <data name="checkBox_use_midi_output.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 138</value>
-  </data>
-  <data name="checkBox_use_midi_output.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 110</value>
   </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 24</value>
+    <value>132, 20</value>
   </data>
   <data name="checkBox_use_midi_output.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2008,13 +1912,13 @@
     <value>10</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 46</value>
+    <value>223, 37</value>
   </data>
   <data name="refresh_midi_input_button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="refresh_midi_input_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 32</value>
+    <value>75, 26</value>
   </data>
   <data name="refresh_midi_input_button.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2047,13 +1951,10 @@
     <value>False</value>
   </data>
   <data name="comboBox_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 49</value>
-  </data>
-  <data name="comboBox_midi_input_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 39</value>
   </data>
   <data name="comboBox_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 28</value>
+    <value>213, 24</value>
   </data>
   <data name="comboBox_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2077,13 +1978,10 @@
     <value>False</value>
   </data>
   <data name="label_midi_input_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 26</value>
-  </data>
-  <data name="label_midi_input_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 21</value>
   </data>
   <data name="label_midi_input_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 20</value>
+    <value>141, 16</value>
   </data>
   <data name="label_midi_input_device.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2104,16 +2002,10 @@
     <value>2</value>
   </data>
   <data name="group_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 34</value>
-  </data>
-  <data name="group_midi_input_devices.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="group_midi_input_devices.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 27</value>
   </data>
   <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 102</value>
+    <value>305, 82</value>
   </data>
   <data name="group_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2143,13 +2035,10 @@
     <value>6</value>
   </data>
   <data name="checkBox_use_midi_input.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 8</value>
-  </data>
-  <data name="checkBox_use_midi_input.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>10, 6</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 24</value>
+    <value>146, 20</value>
   </data>
   <data name="checkBox_use_midi_input.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2176,16 +2065,13 @@
     <value>1</value>
   </data>
   <data name="devices_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
-  </data>
-  <data name="devices_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>4, 31</value>
   </data>
   <data name="devices_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 620</value>
+    <value>316, 492</value>
   </data>
   <data name="devices_settings.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2212,13 +2098,13 @@
     <value>9</value>
   </data>
   <data name="reset_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 471</value>
+    <value>53, 396</value>
   </data>
   <data name="reset_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="reset_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 32</value>
+    <value>212, 26</value>
   </data>
   <data name="reset_colors.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2254,13 +2140,13 @@
     <value>NoControl</value>
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 58</value>
+    <value>220, 46</value>
   </data>
   <data name="note_indicator_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="note_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="note_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2293,13 +2179,13 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 32</value>
+    <value>10, 26</value>
   </data>
   <data name="label11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
+    <value>119, 16</value>
   </data>
   <data name="label11.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2326,13 +2212,13 @@
     <value>NoControl</value>
   </data>
   <data name="beep_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 28</value>
+    <value>220, 22</value>
   </data>
   <data name="beep_indicator_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="beep_indicator_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="beep_indicator_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2365,13 +2251,13 @@
     <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 62</value>
+    <value>10, 50</value>
   </data>
   <data name="label12.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 20</value>
+    <value>117, 16</value>
   </data>
   <data name="label12.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2395,13 +2281,13 @@
     <value>Left, Right</value>
   </data>
   <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 32</value>
+    <value>152, 26</value>
   </data>
   <data name="beep_indicator_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="beep_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="beep_indicator_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2422,13 +2308,13 @@
     <value>Left, Right</value>
   </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 62</value>
+    <value>152, 50</value>
   </data>
   <data name="note_indicator_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="note_indicator_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2446,7 +2332,7 @@
     <value>5</value>
   </data>
   <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 366</value>
+    <value>6, 312</value>
   </data>
   <data name="group_indicator_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2455,7 +2341,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 100</value>
+    <value>305, 80</value>
   </data>
   <data name="group_indicator_colors.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2478,6 +2364,42 @@
   <data name="group_buttons_and_controls_colors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="markdown_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="markdown_color_change.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="markdown_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>220, 165</value>
+  </data>
+  <data name="markdown_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="markdown_color_change.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 24</value>
+  </data>
+  <data name="markdown_color_change.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="markdown_color_change.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="markdown_color_change.ToolTip" xml:space="preserve">
+    <value>Change color of the "Metronome" button while enabled</value>
+  </data>
+  <data name="&gt;&gt;markdown_color_change.Name" xml:space="preserve">
+    <value>markdown_color_change</value>
+  </data>
+  <data name="&gt;&gt;markdown_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;markdown_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;markdown_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="metronome_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
@@ -2485,13 +2407,13 @@
     <value>NoControl</value>
   </data>
   <data name="metronome_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 179</value>
+    <value>220, 139</value>
   </data>
   <data name="metronome_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="metronome_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="metronome_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2512,7 +2434,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;metronome_color_change.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="playback_buttons_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2521,13 +2443,13 @@
     <value>NoControl</value>
   </data>
   <data name="playback_buttons_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 149</value>
+    <value>220, 115</value>
   </data>
   <data name="playback_buttons_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="playback_buttons_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="playback_buttons_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2548,7 +2470,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;playback_buttons_color_change.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="erase_whole_line_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2557,13 +2479,13 @@
     <value>NoControl</value>
   </data>
   <data name="erase_whole_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 120</value>
+    <value>220, 91</value>
   </data>
   <data name="erase_whole_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="erase_whole_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="erase_whole_line_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2584,7 +2506,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;erase_whole_line_color_change.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="unselect_line_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2593,13 +2515,13 @@
     <value>NoControl</value>
   </data>
   <data name="unselect_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 89</value>
+    <value>220, 67</value>
   </data>
   <data name="unselect_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="unselect_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="unselect_line_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2620,7 +2542,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;unselect_line_color_change.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="clear_notes_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2629,13 +2551,13 @@
     <value>NoControl</value>
   </data>
   <data name="clear_notes_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 59</value>
+    <value>220, 43</value>
   </data>
   <data name="clear_notes_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="clear_notes_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="clear_notes_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2656,7 +2578,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;clear_notes_color_change.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="blank_line_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2665,13 +2587,13 @@
     <value>NoControl</value>
   </data>
   <data name="blank_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 30</value>
+    <value>220, 20</value>
   </data>
   <data name="blank_line_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="blank_line_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="blank_line_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2692,19 +2614,46 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;blank_line_color_change.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
+  </data>
+  <data name="markdown_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="markdown_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 169</value>
+  </data>
+  <data name="markdown_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="markdown_color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 16</value>
+  </data>
+  <data name="markdown_color.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;markdown_color.Name" xml:space="preserve">
+    <value>markdown_color</value>
+  </data>
+  <data name="&gt;&gt;markdown_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;markdown_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;markdown_color.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="metronome_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 184</value>
+    <value>152, 143</value>
   </data>
   <data name="metronome_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="metronome_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="metronome_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2719,19 +2668,19 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;metronome_color.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="playback_buttons_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 154</value>
+    <value>152, 119</value>
   </data>
   <data name="playback_buttons_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="playback_buttons_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="playback_buttons_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2746,19 +2695,19 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;playback_buttons_color.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="erase_whole_line_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 124</value>
+    <value>152, 95</value>
   </data>
   <data name="erase_whole_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="erase_whole_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="erase_whole_line_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2773,19 +2722,19 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;erase_whole_line_color.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="unselect_line_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 94</value>
+    <value>152, 71</value>
   </data>
   <data name="unselect_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="unselect_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="unselect_line_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2800,19 +2749,19 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;unselect_line_color.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="clear_notes_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 64</value>
+    <value>152, 47</value>
   </data>
   <data name="clear_notes_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="clear_notes_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="clear_notes_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2827,19 +2776,19 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;clear_notes_color.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="blank_line_color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
   <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 35</value>
+    <value>152, 24</value>
   </data>
   <data name="blank_line_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="blank_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="blank_line_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2854,7 +2803,43 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;blank_line_color.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 169</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 16</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Markdown Color</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
   <data name="label10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2866,13 +2851,13 @@
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 184</value>
+    <value>10, 143</value>
   </data>
   <data name="label10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
+    <value>102, 16</value>
   </data>
   <data name="label10.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2890,7 +2875,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2902,13 +2887,13 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 154</value>
+    <value>10, 119</value>
   </data>
   <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 20</value>
+    <value>133, 16</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2926,7 +2911,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2938,13 +2923,13 @@
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 124</value>
+    <value>10, 95</value>
   </data>
   <data name="label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+    <value>134, 16</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2962,7 +2947,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2974,13 +2959,13 @@
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 94</value>
+    <value>10, 71</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 20</value>
+    <value>120, 16</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2998,7 +2983,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -3010,13 +2995,13 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 64</value>
+    <value>10, 47</value>
   </data>
   <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
+    <value>103, 16</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3034,7 +3019,7 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="label7.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -3046,13 +3031,13 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 35</value>
+    <value>10, 24</value>
   </data>
   <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 20</value>
+    <value>97, 16</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3070,10 +3055,10 @@
     <value>group_buttons_and_controls_colors</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 140</value>
+    <value>6, 112</value>
   </data>
   <data name="group_buttons_and_controls_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3082,7 +3067,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 220</value>
+    <value>305, 196</value>
   </data>
   <data name="group_buttons_and_controls_colors.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3112,13 +3097,13 @@
     <value>NoControl</value>
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 88</value>
+    <value>220, 70</value>
   </data>
   <data name="third_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="third_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="third_octave_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -3148,13 +3133,13 @@
     <value>NoControl</value>
   </data>
   <data name="second_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 58</value>
+    <value>220, 46</value>
   </data>
   <data name="second_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="second_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="second_octave_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -3184,13 +3169,13 @@
     <value>NoControl</value>
   </data>
   <data name="first_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 28</value>
+    <value>220, 22</value>
   </data>
   <data name="first_octave_color_change.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="first_octave_color_change.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 30</value>
+    <value>75, 24</value>
   </data>
   <data name="first_octave_color_change.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -3217,13 +3202,13 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 92</value>
+    <value>153, 74</value>
   </data>
   <data name="third_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="third_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="third_octave_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3244,13 +3229,13 @@
     <value>Left, Right</value>
   </data>
   <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 62</value>
+    <value>153, 50</value>
   </data>
   <data name="second_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="second_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="second_octave_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3271,13 +3256,13 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 32</value>
+    <value>153, 26</value>
   </data>
   <data name="first_octave_color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="first_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
+    <value>56, 16</value>
   </data>
   <data name="first_octave_color.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3304,13 +3289,13 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 92</value>
+    <value>9, 74</value>
   </data>
   <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 20</value>
+    <value>109, 16</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3340,13 +3325,13 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 62</value>
+    <value>9, 50</value>
   </data>
   <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
+    <value>122, 16</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3370,13 +3355,13 @@
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 32</value>
+    <value>9, 26</value>
   </data>
   <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 20</value>
+    <value>104, 16</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3397,7 +3382,7 @@
     <value>8</value>
   </data>
   <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 6</value>
+    <value>6, 5</value>
   </data>
   <data name="group_keyboard_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3406,7 +3391,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 129</value>
+    <value>305, 103</value>
   </data>
   <data name="group_keyboard_colors.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3430,7 +3415,7 @@
     <value>8</value>
   </data>
   <data name="appearance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 35</value>
+    <value>4, 31</value>
   </data>
   <data name="appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3439,7 +3424,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 620</value>
+    <value>316, 492</value>
   </data>
   <data name="appearance.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -3466,16 +3451,13 @@
     <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="tabControl_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="tabControl_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>4, 4</value>
   </data>
   <data name="tabControl_settings.Padding" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 659</value>
+    <value>324, 527</value>
   </data>
   <data name="tabControl_settings.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3502,10 +3484,10 @@
     <value>81</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>415, 669</value>
+    <value>332, 535</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3827,11 +3809,8 @@
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

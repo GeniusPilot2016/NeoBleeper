@@ -237,5 +237,17 @@ namespace NeoBleeper {
                 this["ClassicBleeperMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightBlue")]
+        public global::System.Drawing.Color markdown_color {
+            get {
+                return ((global::System.Drawing.Color)(this["markdown_color"]));
+            }
+            set {
+                this["markdown_color"] = value;
+            }
+        }
     }
 }

@@ -92,18 +92,21 @@
             beep_indicator_color = new Panel();
             note_indicator_color = new Panel();
             group_buttons_and_controls_colors = new GroupBox();
+            markdown_color_change = new Button();
             metronome_color_change = new Button();
             playback_buttons_color_change = new Button();
             erase_whole_line_color_change = new Button();
             unselect_line_color_change = new Button();
             clear_notes_color_change = new Button();
             blank_line_color_change = new Button();
+            markdown_color = new Panel();
             metronome_color = new Panel();
             playback_buttons_color = new Panel();
             erase_whole_line_color = new Panel();
             unselect_line_color = new Panel();
             clear_notes_color = new Panel();
             blank_line_color = new Panel();
+            label1 = new Label();
             label10 = new Label();
             label8 = new Label();
             label9 = new Label();
@@ -639,18 +642,21 @@
             // group_buttons_and_controls_colors
             // 
             resources.ApplyResources(group_buttons_and_controls_colors, "group_buttons_and_controls_colors");
+            group_buttons_and_controls_colors.Controls.Add(markdown_color_change);
             group_buttons_and_controls_colors.Controls.Add(metronome_color_change);
             group_buttons_and_controls_colors.Controls.Add(playback_buttons_color_change);
             group_buttons_and_controls_colors.Controls.Add(erase_whole_line_color_change);
             group_buttons_and_controls_colors.Controls.Add(unselect_line_color_change);
             group_buttons_and_controls_colors.Controls.Add(clear_notes_color_change);
             group_buttons_and_controls_colors.Controls.Add(blank_line_color_change);
+            group_buttons_and_controls_colors.Controls.Add(markdown_color);
             group_buttons_and_controls_colors.Controls.Add(metronome_color);
             group_buttons_and_controls_colors.Controls.Add(playback_buttons_color);
             group_buttons_and_controls_colors.Controls.Add(erase_whole_line_color);
             group_buttons_and_controls_colors.Controls.Add(unselect_line_color);
             group_buttons_and_controls_colors.Controls.Add(clear_notes_color);
             group_buttons_and_controls_colors.Controls.Add(blank_line_color);
+            group_buttons_and_controls_colors.Controls.Add(label1);
             group_buttons_and_controls_colors.Controls.Add(label10);
             group_buttons_and_controls_colors.Controls.Add(label8);
             group_buttons_and_controls_colors.Controls.Add(label9);
@@ -659,6 +665,14 @@
             group_buttons_and_controls_colors.Controls.Add(label7);
             group_buttons_and_controls_colors.Name = "group_buttons_and_controls_colors";
             group_buttons_and_controls_colors.TabStop = false;
+            // 
+            // markdown_color_change
+            // 
+            resources.ApplyResources(markdown_color_change, "markdown_color_change");
+            markdown_color_change.Name = "markdown_color_change";
+            toolTip1.SetToolTip(markdown_color_change, resources.GetString("markdown_color_change.ToolTip"));
+            markdown_color_change.UseVisualStyleBackColor = true;
+            markdown_color_change.Click += markdown_color_change_Click;
             // 
             // metronome_color_change
             // 
@@ -708,6 +722,13 @@
             blank_line_color_change.UseVisualStyleBackColor = true;
             blank_line_color_change.Click += blank_line_color_change_Click;
             // 
+            // markdown_color
+            // 
+            resources.ApplyResources(markdown_color, "markdown_color");
+            markdown_color.BackColor = Color.LightBlue;
+            markdown_color.BorderStyle = BorderStyle.FixedSingle;
+            markdown_color.Name = "markdown_color";
+            // 
             // metronome_color
             // 
             resources.ApplyResources(metronome_color, "metronome_color");
@@ -749,6 +770,11 @@
             blank_line_color.BackColor = Color.FromArgb(255, 224, 192);
             blank_line_color.BorderStyle = BorderStyle.FixedSingle;
             blank_line_color.Name = "blank_line_color";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
             // 
             // label10
             // 
@@ -1001,5 +1027,8 @@
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
         private CheckBox checkBoxClassicBleeperMode;
+        private Button markdown_color_change;
+        private Panel markdown_color;
+        private Label label1;
     }
 }

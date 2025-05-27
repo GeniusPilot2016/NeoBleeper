@@ -1030,6 +1030,7 @@ namespace NeoBleeper
             metronome_color.BackColor = Settings1.Default.metronome_color = Color.FromArgb(192, 255, 192);
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color = Color.Red;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
+            markdown_color.BackColor = Settings1.Default.markdown_color = Color.LightBlue;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
             Debug.WriteLine("Colors reset to default.");
@@ -1368,7 +1369,7 @@ namespace NeoBleeper
         {
             Settings1.Default.ClassicBleeperMode = checkBoxClassicBleeperMode.Checked;
             Settings1.Default.Save();
-            if(Settings1.Default.ClassicBleeperMode == true)
+            if (Settings1.Default.ClassicBleeperMode == true)
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
                 Debug.WriteLine("Classic Bleeper Mode enabled.");
@@ -1377,6 +1378,20 @@ namespace NeoBleeper
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
                 Debug.WriteLine("Classic Bleeper Mode disabled.");
+            }
+        }
+
+        private void markdown_color_change_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = Settings1.Default.markdown_color;
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                markdown_color.BackColor = colorDialog1.Color;
+                Settings1.Default.markdown_color = colorDialog1.Color;
+                Settings1.Default.Save();
+                ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+                Debug.WriteLine("Markdown color changed to: " + colorDialog1.Color.ToString());
             }
         }
     }
