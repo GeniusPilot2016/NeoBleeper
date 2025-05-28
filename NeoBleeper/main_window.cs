@@ -5617,7 +5617,13 @@ namespace NeoBleeper
                         {
                             activeMidiNotes.Add(noteNumber);
                             UpdateLabelVisible(true);
-
+                            if(Program.MIDIDevices.useMIDIoutput)
+                            {
+                                foreach(int note in activeMidiNotes)
+                                {
+                                    MIDIIOUtils.PlayMidiNote(note, 1, true); // Play with sustain
+                                }
+                            }
                             // If we already have alternating playback, but now only have one note
                             // we should stop alternating and play the single note directly
                             if (activeMidiNotes.Count == 1 && isAlternatingPlaying)
@@ -5653,6 +5659,7 @@ namespace NeoBleeper
                             {
                                 StopAlternatingNotes();
                                 NotePlayer.StopAllNotes();
+                                MIDIIOUtils.StopAllNotes(); // Stop all MIDI notes
                                 UpdateLabelVisible(false);
                             }
                             // If we now have exactly one note and were in alternating mode
