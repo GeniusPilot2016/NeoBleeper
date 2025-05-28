@@ -241,12 +241,12 @@ namespace NeoBleeper {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("LightBlue")]
-        public global::System.Drawing.Color markdown_color {
+        public global::System.Drawing.Color markup_color {
             get {
-                return ((global::System.Drawing.Color)(this["markdown_color"]));
+                return ((global::System.Drawing.Color)(this["markup_color"]));
             }
             set {
-                this["markdown_color"] = value;
+                this["markup_color"] = value;
             }
         }
     }

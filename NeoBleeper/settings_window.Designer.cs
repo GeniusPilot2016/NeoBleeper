@@ -92,14 +92,14 @@
             beep_indicator_color = new Panel();
             note_indicator_color = new Panel();
             group_buttons_and_controls_colors = new GroupBox();
-            markdown_color_change = new Button();
+            markup_color_change = new Button();
             metronome_color_change = new Button();
             playback_buttons_color_change = new Button();
             erase_whole_line_color_change = new Button();
             unselect_line_color_change = new Button();
             clear_notes_color_change = new Button();
             blank_line_color_change = new Button();
-            markdown_color = new Panel();
+            markup_color = new Panel();
             metronome_color = new Panel();
             playback_buttons_color = new Panel();
             erase_whole_line_color = new Panel();
@@ -642,14 +642,14 @@
             // group_buttons_and_controls_colors
             // 
             resources.ApplyResources(group_buttons_and_controls_colors, "group_buttons_and_controls_colors");
-            group_buttons_and_controls_colors.Controls.Add(markdown_color_change);
+            group_buttons_and_controls_colors.Controls.Add(markup_color_change);
             group_buttons_and_controls_colors.Controls.Add(metronome_color_change);
             group_buttons_and_controls_colors.Controls.Add(playback_buttons_color_change);
             group_buttons_and_controls_colors.Controls.Add(erase_whole_line_color_change);
             group_buttons_and_controls_colors.Controls.Add(unselect_line_color_change);
             group_buttons_and_controls_colors.Controls.Add(clear_notes_color_change);
             group_buttons_and_controls_colors.Controls.Add(blank_line_color_change);
-            group_buttons_and_controls_colors.Controls.Add(markdown_color);
+            group_buttons_and_controls_colors.Controls.Add(markup_color);
             group_buttons_and_controls_colors.Controls.Add(metronome_color);
             group_buttons_and_controls_colors.Controls.Add(playback_buttons_color);
             group_buttons_and_controls_colors.Controls.Add(erase_whole_line_color);
@@ -666,13 +666,13 @@
             group_buttons_and_controls_colors.Name = "group_buttons_and_controls_colors";
             group_buttons_and_controls_colors.TabStop = false;
             // 
-            // markdown_color_change
+            // markup_color_change
             // 
-            resources.ApplyResources(markdown_color_change, "markdown_color_change");
-            markdown_color_change.Name = "markdown_color_change";
-            toolTip1.SetToolTip(markdown_color_change, resources.GetString("markdown_color_change.ToolTip"));
-            markdown_color_change.UseVisualStyleBackColor = true;
-            markdown_color_change.Click += markdown_color_change_Click;
+            resources.ApplyResources(markup_color_change, "markup_color_change");
+            markup_color_change.Name = "markup_color_change";
+            toolTip1.SetToolTip(markup_color_change, resources.GetString("markup_color_change.ToolTip"));
+            markup_color_change.UseVisualStyleBackColor = true;
+            markup_color_change.Click += markup_color_change_Click;
             // 
             // metronome_color_change
             // 
@@ -722,12 +722,12 @@
             blank_line_color_change.UseVisualStyleBackColor = true;
             blank_line_color_change.Click += blank_line_color_change_Click;
             // 
-            // markdown_color
+            // markup_color
             // 
-            resources.ApplyResources(markdown_color, "markdown_color");
-            markdown_color.BackColor = Color.LightBlue;
-            markdown_color.BorderStyle = BorderStyle.FixedSingle;
-            markdown_color.Name = "markdown_color";
+            resources.ApplyResources(markup_color, "markup_color");
+            markup_color.BackColor = Color.LightBlue;
+            markup_color.BorderStyle = BorderStyle.FixedSingle;
+            markup_color.Name = "markup_color";
             // 
             // metronome_color
             // 
@@ -1027,8 +1027,8 @@
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
         private CheckBox checkBoxClassicBleeperMode;
-        private Button markdown_color_change;
-        private Panel markdown_color;
+        private Button markup_color_change;
+        private Panel markup_color;
         private Label label1;
     }
 }

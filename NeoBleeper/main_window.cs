@@ -5077,7 +5077,7 @@ namespace NeoBleeper
                 KeyPressed = true;
                 pressedKeys.Add((int)e.KeyCode);
                 keyCharNum = pressedKeys.ToArray();
-                MarkdownTheKeyWhenKeyIsPressed(e.KeyValue);
+                MarkupTheKeyWhenKeyIsPressed(e.KeyValue);
                 playWithRegularKeyboard();
             }
             // Allow regular keyboard shortcuts to work
@@ -5216,11 +5216,11 @@ namespace NeoBleeper
                 }
             }
         }
-        private void MarkdownTheKeyWhenKeyIsPressed(int keyCode)
+        private void MarkupTheKeyWhenKeyIsPressed(int keyCode)
         {
             if(!checkBox_use_keyboard_as_piano.Checked)
                 return;
-            Color markdownColor = Settings1.Default.markdown_color; // Get the markdown color from settings
+            Color markdownColor = Settings1.Default.markup_color; // Get the markdown color from settings
 
             if (buttonShortcuts.TryGetValue(button_c3, out string shortcut))
             {

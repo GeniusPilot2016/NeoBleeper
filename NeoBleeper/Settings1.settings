@@ -56,7 +56,7 @@
     <Setting Name="ClassicBleeperMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="markdown_color" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="markup_color" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">LightBlue</Value>
     </Setting>
   </Settings>

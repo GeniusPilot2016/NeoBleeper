@@ -1,6 +1,7 @@
 ﻿using NAudio.Midi;
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Windows.Forms;
 using static NeoBleeper.Program;
 
 namespace NeoBleeper
@@ -187,6 +188,7 @@ namespace NeoBleeper
             buttonResetAPIKey.BackColor = Color.FromArgb(32, 32, 32);
             buttonResetAPIKey.ForeColor = Color.White;
             groupBoxCreateMusicWithAI.ForeColor = Color.White;
+            markup_color_change.BackColor = Color.FromArgb(32, 32, 32);
             this.Refresh();
         }
         private void light_theme()
@@ -249,6 +251,7 @@ namespace NeoBleeper
             buttonResetAPIKey.BackColor = Color.Transparent;
             buttonResetAPIKey.ForeColor = SystemColors.ControlText;
             groupBoxCreateMusicWithAI.ForeColor = SystemColors.ControlText;
+            markup_color_change.BackColor = Color.Transparent;
             this.Refresh();
         }
 
@@ -1032,7 +1035,7 @@ namespace NeoBleeper
             metronome_color.BackColor = Settings1.Default.metronome_color = Color.FromArgb(192, 255, 192);
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color = Color.Red;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
-            markdown_color.BackColor = Settings1.Default.markdown_color = Color.LightBlue;
+            markup_color.BackColor = Settings1.Default.markup_color = Color.LightBlue;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
             Debug.WriteLine("Colors reset to default.");
@@ -1388,17 +1391,17 @@ namespace NeoBleeper
             }
         }
 
-        private void markdown_color_change_Click(object sender, EventArgs e)
+        private void markup_color_change_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = Settings1.Default.markdown_color;
+            colorDialog1.Color = Settings1.Default.markup_color;
             DialogResult result = colorDialog1.ShowDialog();
             if (colorDialog1.Color != null && result == DialogResult.OK)
             {
-                markdown_color.BackColor = colorDialog1.Color;
-                Settings1.Default.markdown_color = colorDialog1.Color;
+                markup_color.BackColor = colorDialog1.Color;
+                Settings1.Default.markup_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Markdown color changed to: " + colorDialog1.Color.ToString());
+                Debug.WriteLine("Keyboard markup color changed to: " + colorDialog1.Color.ToString());
             }
         }
     }
