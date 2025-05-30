@@ -2738,7 +2738,7 @@ namespace NeoBleeper
             isModified = false;
             UpdateFormTitle();
         }
-        private void play_music(int startIndex)
+        private async void play_music(int startIndex)
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
@@ -2749,7 +2749,7 @@ namespace NeoBleeper
 
                 // Whole note duration calculation
                 double millisecondsPerWholeNote = Variables.bpm > 0
-                    ? 240000.0 / Variables.bpm
+                    ? Math.Truncate(240000.0 / Variables.bpm)
                     : 0;
 
                 // Specification of the note type
@@ -2798,7 +2798,7 @@ namespace NeoBleeper
 
                 // Wait for the note to finish playing
                 int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
-                if (silenceDuration > 0 && trackBar_note_silence_ratio.Value < 100)
+                if (silenceDuration > 0 && !nonStopping)
                 {
                     NonBlockingSleep.Sleep(silenceDuration);
                 }
@@ -2817,7 +2817,7 @@ namespace NeoBleeper
         }
 
         // Sync ListView update method
-        private void UpdateListViewSelectionSync(int startIndex)
+        private async Task UpdateListViewSelectionSync(int startIndex)
         {
             if (listViewNotes.InvokeRequired)
             {
@@ -3231,7 +3231,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = FixRoundingErrors(Math.Truncate(240000.0 / Variables.bpm));
+                    miliseconds_per_whole_note = Math.Round(Convert.ToDouble((240000.0 / Variables.bpm).ToString("0.0")), MidpointRounding.AwayFromZero);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3372,7 +3372,7 @@ namespace NeoBleeper
                     baseLength = length * 0.25; // Default: Quarter
                     break;
             }
-
+            
             // Apply modifiers
             if (!string.IsNullOrEmpty(modifier))
             {
@@ -3382,10 +3382,10 @@ namespace NeoBleeper
                 }
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
-                    baseLength = baseLength * (1.0 / 3.0);
+                    baseLength = baseLength * 0.333;
                 }
             }
-
+            
             // Apply articulation effects
             if (!string.IsNullOrEmpty(articulation))
             {
@@ -3402,12 +3402,12 @@ namespace NeoBleeper
                     baseLength = baseLength * 2; // Fermata: iki kat süre
                 }
             }
-
+            
             // Apply silence ratio
             double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
 
             double result = baseLength * silenceRatio;
-            return Math.Max(1, (int)FixRoundingErrors(result));
+            return Math.Max(1, (int)Math.Truncate(result));
         }
 
         private int line_length_calculator(double length)
@@ -3451,7 +3451,6 @@ namespace NeoBleeper
                     baseLength = length * 0.25; // Default: Quarter
                     break;
             }
-
             // Apply modifiers
             if (!string.IsNullOrEmpty(modifier))
             {
@@ -3462,18 +3461,16 @@ namespace NeoBleeper
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                 {
                     // More precise calculation for triplet
-                    baseLength = baseLength * (1.0 / 3.0);
+                    baseLength = baseLength * 0.333;
                 }
             }
-
             // Fermata affects line length
             if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
             {
                 baseLength = baseLength * 2; // Fermata: Double length
             }
-
             // The silence ratio is not applied to the line length
-            return Math.Max(1, (int)FixRoundingErrors(baseLength));
+            return Math.Max(1, (int)Math.Truncate(baseLength));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3666,12 +3663,13 @@ namespace NeoBleeper
                 {
                     UpdateLabelVisible(true);
                 }
-                DateTime startTime = DateTime.Now; // Start time of loop
+                Stopwatch stopwatch = new Stopwatch();
                 double totalDuration = length; // Total playing duration of loop
 
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
+                    stopwatch.Start();
                     do
                     {
                         foreach (string note in note_series)
@@ -3682,18 +3680,21 @@ namespace NeoBleeper
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
 
                                 // Check elapsed time
-                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
+                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
+                                    stopwatch.Stop();
                                     break;
                                 }
                             }
                         }
                     }
-                    while ((DateTime.Now - startTime).TotalMilliseconds < totalDuration);
+                    while (stopwatch.ElapsedMilliseconds < totalDuration);
+                    stopwatch.Stop(); // Stop the stopwatch after the loop ends
                 }
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
+                    stopwatch.Start(); 
                     do
                     {
                         // Tek numaralý sütunlar (Note1 ve Note3)
@@ -3704,9 +3705,10 @@ namespace NeoBleeper
                                 double frequency = (i == 0) ? note1_frequency : note3_frequency;
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
 
-                                // Geçen süreyi kontrol et
-                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
+                                // Check elapsed time
+                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
+                                    stopwatch.Stop();
                                     break;
                                 }
                             }
@@ -3721,14 +3723,16 @@ namespace NeoBleeper
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
 
                                 // Geçen süreyi kontrol et
-                                if ((DateTime.Now - startTime).TotalMilliseconds >= totalDuration)
+                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
+                                    stopwatch.Stop();
                                     break;
                                 }
                             }
                         }
                     }
-                    while ((DateTime.Now - startTime).TotalMilliseconds < totalDuration);
+                    while (stopwatch.ElapsedMilliseconds < totalDuration);
+                    stopwatch.Stop(); // Stop the stopwatch after the loop ends
                 }
 
                 if (cancellationTokenSource.Token.IsCancellationRequested) return;
@@ -3886,9 +3890,10 @@ namespace NeoBleeper
             int miliseconds_per_whole_note = 0;
             if (Variables.bpm != 0)
             {
-                miliseconds_per_whole_note = (int)Math.Truncate(240000.0 / Variables.bpm);
+                miliseconds_per_whole_note = (int)Math.Round(Convert.ToDouble((240000.0 / Variables.bpm).ToString("0.0")), MidpointRounding.ToZero);
             }
-            int length = Math.Max(1, (int)Math.Truncate((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor));
+
+            int length = Math.Max(1, (int)Math.Round(Convert.ToDouble(((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor).ToString("0.0")), MidpointRounding.ToZero));
 
             // Create a percussion sound
             for (int i = 0; i < 2; i++) // 2 beats
