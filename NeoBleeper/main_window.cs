@@ -3372,7 +3372,7 @@ namespace NeoBleeper
                     baseLength = length * 0.25; // Default: Quarter
                     break;
             }
-            
+
             // Apply modifiers
             if (!string.IsNullOrEmpty(modifier))
             {
@@ -3402,7 +3402,7 @@ namespace NeoBleeper
                     baseLength = baseLength * 2; // Fermata: iki kat süre
                 }
             }
-            
+
             // Apply silence ratio
             double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
 
@@ -3451,6 +3451,7 @@ namespace NeoBleeper
                     baseLength = length * 0.25; // Default: Quarter
                     break;
             }
+
             // Apply modifiers
             if (!string.IsNullOrEmpty(modifier))
             {
