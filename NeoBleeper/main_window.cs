@@ -2747,26 +2747,27 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                // Whole note duration calculation
-                double millisecondsPerWholeNote = Variables.bpm > 0
-                    ? Math.Truncate(240000.0 / Variables.bpm)
-                    : 0;
+                // Calculating note length and line length based on BPM
+                decimal millisecondsPerWholeNote = 0m;
+                if (Variables.bpm > 0)
+                {
+                    // 60,000 ms / BPM = whole note duration in milliseconds / 240,000 ms = whole note duration in milliseconds for 4/4 time signature
+                    millisecondsPerWholeNote = 240000m / Variables.bpm;
+                }
 
-                // Specification of the note type
-                string noteType = listViewNotes.SelectedItems[0].SubItems[0].Text;
-                string modifierString = listViewNotes.SelectedItems[0].SubItems[5].Text;
-                string articulationString = listViewNotes.SelectedItems[0].SubItems[6].Text;
+                // Note length and line length calculators
+                int noteLength = note_length_calculator((double)millisecondsPerWholeNote);
+                int lineLength = line_length_calculator((double)millisecondsPerWholeNote);
 
-                // Calculation of the note length
-                int noteLength = note_length_calculator(millisecondsPerWholeNote);
+                // Note duration and wait duration calculations should be at least 1 ms
                 int calculatedNoteDuration = Math.Max(1, noteLength);
+                // Line length should also be at least 1 ms
+                int calculatedWaitDuration = Math.Max(calculatedNoteDuration, lineLength);
 
+                // Silence duration calculation
+                int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
 
-                int lineLength = line_length_calculator(millisecondsPerWholeNote);
-                int calculatedWaitDuration = Math.Max(1, lineLength);
-
-
-                // If MIDI output is enabled, play the note using MIDI
+                // Play with MIDI output if enabled
                 if (Program.MIDIDevices.useMIDIoutput)
                 {
                     play_note_in_line_from_MIDIOutput(
@@ -2779,7 +2780,7 @@ namespace NeoBleeper
                     );
                 }
 
-                // Play note through the system speaker or sound device
+                // Regular note playing logic
                 play_note_in_line(
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
@@ -2789,25 +2790,18 @@ namespace NeoBleeper
                     nonStopping
                 );
 
-                // Exception for non-stopping notes
-                if (nonStopping && (articulationString == "Sta" || articulationString == "Spi"))
-                {
-                    stopAllNotesAfterPlaying();
-                    UpdateLabelVisible(false);
-                }
-
-                // Wait for the note to finish playing
-                int silenceDuration = calculatedWaitDuration - calculatedNoteDuration;
+                // Apply the note length to the selected line in the ListView
                 if (silenceDuration > 0 && !nonStopping)
                 {
+                    UpdateLabelVisible(false); // Hide the label
                     NonBlockingSleep.Sleep(silenceDuration);
                 }
 
-                // Select the next note in the list
-                UpdateListViewSelectionSync(startIndex);
+                // Select the next line in the ListView
+                await UpdateListViewSelectionSync(startIndex);
             }
 
-            // Cleanup after playing
+            // Clean up after playing
             if (nonStopping)
             {
                 stopAllNotesAfterPlaying();
@@ -3227,17 +3221,17 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                double miliseconds_per_whole_note = 0;
+                decimal miliseconds_per_whole_note = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = Math.Round(Convert.ToDouble((240000.0 / Variables.bpm).ToString("0.0")), MidpointRounding.AwayFromZero);
+                    miliseconds_per_whole_note = Math.Round(240000m / Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                int calculatedNoteLength = note_length_calculator(miliseconds_per_whole_note);
+                int calculatedNoteLength = note_length_calculator((double)miliseconds_per_whole_note);
                 EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
@@ -3331,7 +3325,7 @@ namespace NeoBleeper
 
             Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
-        private int note_length_calculator(double length)
+        private int note_length_calculator(double msPerWholeNote)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3344,73 +3338,51 @@ namespace NeoBleeper
             string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
             string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
 
-            // Calculate note length with decimal precision
-            double baseLength;
-
-            // Calculate the base length based on the note type
-            switch (noteType)
+            // Calculate the basic note length based on the note type
+            decimal noteFraction = noteType switch
             {
-                case "Whole":
-                    baseLength = length;
-                    break;
-                case "Half":
-                    baseLength = length * 0.5;
-                    break;
-                case "Quarter":
-                    baseLength = length * 0.25;
-                    break;
-                case "1/8":
-                    baseLength = length * 0.125;
-                    break;
-                case "1/16":
-                    baseLength = length * 0.0625;
-                    break;
-                case "1/32":
-                    baseLength = length * 0.03125;
-                    break;
-                default:
-                    baseLength = length * 0.25; // Default: Quarter
-                    break;
-            }
+                "Whole" => 1m,      // Whole note
+                "Half" => 0.5m,     // Half note
+                "Quarter" => 0.25m, // Quarter note
+                "1/8" => 0.125m,    // 1/8 note
+                "1/16" => 0.0625m,  // 1/16 note
+                "1/32" => 0.03125m, // 1/32 note
+                _ => 0.25m,         // Default: Quarter note
+            };
 
-            // Apply modifiers
+            // Modifier factor (Dot, Triplet)
+            decimal modifierFactor = 1m;
             if (!string.IsNullOrEmpty(modifier))
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
-                {
-                    baseLength = baseLength * 1.5; // Noktalý: 1.5 katý
-                }
+                    modifierFactor = 1.5m; // Dotted note: 1.5x length
                 else if (modifier.ToLowerInvariant().Contains("tri"))
-                {
-                    baseLength = baseLength * 0.333;
-                }
+                    modifierFactor = 1m / 3m; // Triplet: 1/3x length
             }
-            
-            // Apply articulation effects
+
+            // Articulation factor - only affects fermata
+            decimal articulationFactor = 1m;
             if (!string.IsNullOrEmpty(articulation))
             {
                 if (articulation.ToLowerInvariant().Contains("sta"))
-                {
-                    baseLength = baseLength * 0.5; // Staccato: yarý süre
-                }
+                    articulationFactor = 0.5m;    // Staccato: 0.5x length
                 else if (articulation.ToLowerInvariant().Contains("spi"))
-                {
-                    baseLength = baseLength * 0.25; // Spiccato: çeyrek süre
-                }
+                    articulationFactor = 0.25m;   // Spiccato: 0.25x length
                 else if (articulation.ToLowerInvariant().Contains("fer"))
-                {
-                    baseLength = baseLength * 2; // Fermata: iki kat süre
-                }
+                    articulationFactor = 2m;      // Fermata: 2x length
             }
 
-            // Apply silence ratio
-            double silenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100.0;
+            // Note-silence ratio (from trackBar)
+            decimal silenceRatio = (decimal)trackBar_note_silence_ratio.Value / 100m;
 
-            double result = baseLength * silenceRatio;
-            return Math.Max(1, (int)Math.Truncate(result));
+            // Calculate the total note length
+            decimal result = (decimal)msPerWholeNote * noteFraction * modifierFactor * articulationFactor * silenceRatio;
+
+            // Should be at least 1 ms
+            return Math.Max(1, (int)Math.Round(result, MidpointRounding.AwayFromZero));
         }
 
-        private int line_length_calculator(double length)
+        private int line_length_calculator(double msPerWholeNote)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3423,55 +3395,41 @@ namespace NeoBleeper
             string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
             string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
 
-            // Calculate line length with decimal precision
-            double baseLength;
-
-            // Calculate line length based on note type
-            switch (noteType)
+            // Calculate the basic note length based on the note type
+            decimal noteFraction = noteType switch
             {
-                case "Whole":
-                    baseLength = length;
-                    break;
-                case "Half":
-                    baseLength = length * 0.5;
-                    break;
-                case "Quarter":
-                    baseLength = length * 0.25;
-                    break;
-                case "1/8":
-                    baseLength = length * 0.125;
-                    break;
-                case "1/16":
-                    baseLength = length * 0.0625;
-                    break;
-                case "1/32":
-                    baseLength = length * 0.03125;
-                    break;
-                default:
-                    baseLength = length * 0.25; // Default: Quarter
-                    break;
-            }
+                "Whole" => 1m,      // Whole note
+                "Half" => 0.5m,     // Half note
+                "Quarter" => 0.25m, // Quarter note
+                "1/8" => 0.125m,    // 1/8 note
+                "1/16" => 0.0625m,  // 1/16 note
+                "1/32" => 0.03125m, // 1/32 note
+                _ => 0.25m,         // Default: Quarter note
+            };
 
-            // Apply modifiers
+            // Modifier factor (Dot, Triplet)
+            decimal modifierFactor = 1m;
             if (!string.IsNullOrEmpty(modifier))
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
-                {
-                    baseLength = baseLength * 1.5; // Dotted: 1.5x
-                }
+                    modifierFactor = 1.5m; // Dotted: 1.5x length
                 else if (modifier.ToLowerInvariant().Contains("tri"))
-                {
-                    // More precise calculation for triplet
-                    baseLength = baseLength * 0.333;
-                }
+                    modifierFactor = 1m / 3m; // Triplet: 1/3x length
             }
-            // Fermata affects line length
+
+            // Articulation factor - only affects fermata
+            decimal articulationFactor = 1m;
             if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
             {
-                baseLength = baseLength * 2; // Fermata: Double length
+                articulationFactor = 2m; // Fermata: 2x length
             }
-            // The silence ratio is not applied to the line length
-            return Math.Max(1, (int)Math.Truncate(baseLength));
+            // Staccato and Spiccato do not affect line length
+
+            // Calculate the total line length (without note-silence ratio)
+            decimal result = (decimal)msPerWholeNote * noteFraction * modifierFactor * articulationFactor;
+
+            // Should be at least 1 ms
+            return Math.Max(1, (int)Math.Round(result, MidpointRounding.AwayFromZero));
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -4066,7 +4024,7 @@ namespace NeoBleeper
                     modifier = 1.5m;
                     break;
                 case "Tri":
-                    modifier = 2m / 3m; // Precise triplet calculation
+                    modifier = 1m / 3m; // Precise triplet calculation
                     break;
                 default:
                     modifier = 1m;
