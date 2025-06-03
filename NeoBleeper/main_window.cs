@@ -2756,8 +2756,8 @@ namespace NeoBleeper
                 }
 
                 // Note length and line length calculators
-                int noteLength = note_length_calculator((double)millisecondsPerWholeNote);
-                int lineLength = line_length_calculator((double)millisecondsPerWholeNote);
+                int noteLength = note_length_calculator(millisecondsPerWholeNote);
+                int lineLength = line_length_calculator(millisecondsPerWholeNote);
 
                 // Note duration and wait duration calculations should be at least 1 ms
                 int calculatedNoteDuration = Math.Max(1, noteLength);
@@ -3231,7 +3231,7 @@ namespace NeoBleeper
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                int calculatedNoteLength = note_length_calculator((double)miliseconds_per_whole_note);
+                int calculatedNoteLength = note_length_calculator(miliseconds_per_whole_note);
                 EnableDisableCommonControls(false);
                 if (Program.MIDIDevices.useMIDIoutput == true)
                 {
@@ -3325,7 +3325,7 @@ namespace NeoBleeper
 
             Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
         }
-        private int note_length_calculator(double msPerWholeNote)
+        private int note_length_calculator(decimal msPerWholeNote)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3373,16 +3373,20 @@ namespace NeoBleeper
             }
 
             // Note-silence ratio (from trackBar)
-            decimal silenceRatio = (decimal)trackBar_note_silence_ratio.Value / 100m;
+            decimal silenceRatio = trackBar_note_silence_ratio.Value / 100m;
 
             // Calculate the total note length
-            decimal result = (decimal)msPerWholeNote * noteFraction * modifierFactor * articulationFactor * silenceRatio;
+            decimal result = msPerWholeNote;
+            result = Math.Truncate(result * noteFraction);
+            result = Math.Truncate(result * modifierFactor);
+            result = Math.Truncate(result * articulationFactor);
+            result = Math.Truncate(result * silenceRatio);
 
             // Should be at least 1 ms
-            return Math.Max(1, (int)Math.Truncate(result));
+            return Math.Max(1, (int)result);
         }
 
-        private int line_length_calculator(double msPerWholeNote)
+        private int line_length_calculator(decimal msPerWholeNote)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3426,10 +3430,13 @@ namespace NeoBleeper
             // Staccato and Spiccato do not affect line length
 
             // Calculate the total line length (without note-silence ratio)
-            decimal result = (decimal)msPerWholeNote * noteFraction * modifierFactor * articulationFactor;
+            decimal result = msPerWholeNote;
+            result = Math.Truncate(result * noteFraction);
+            result = Math.Truncate(result * modifierFactor);
+            result = Math.Truncate(result * articulationFactor);
 
             // Should be at least 1 ms
-            return Math.Max(1, (int)Math.Truncate(result));
+            return Math.Max(1, (int)result);
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3706,13 +3713,13 @@ namespace NeoBleeper
                 return;
             }
         }
-        public static double FixRoundingErrors(double value)
+        public static decimal FixRoundingErrors(decimal value)
         {
             const double epsilon = 0.0000001;
-            double rounded = Math.Round(value);
-            if (Math.Abs(value - rounded) < epsilon)
+            double rounded = Math.Round((double)value); // Explicitly cast 'value' to 'double'  
+            if (Math.Abs((double)value - rounded) < epsilon)
             {
-                return rounded;
+                return (decimal)rounded; // Explicitly cast 'rounded' back to 'decimal'  
             }
             return value;
         }
