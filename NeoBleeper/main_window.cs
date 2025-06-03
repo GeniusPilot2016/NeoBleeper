@@ -3225,7 +3225,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    miliseconds_per_whole_note = Math.Truncate(240000m / Variables.bpm);
+                    miliseconds_per_whole_note = Math.Round(Convert.ToDouble((240000.0 / Variables.bpm).ToString("0.0")), MidpointRounding.AwayFromZero);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
