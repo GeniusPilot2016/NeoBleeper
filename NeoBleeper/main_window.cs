@@ -5046,6 +5046,14 @@ namespace NeoBleeper
             // Check if the key is one we want to use for piano playing
             if (IsKeyboardPianoKey(e.KeyCode))
             {
+                HashSet<int> currentlyPressedKeys = new HashSet<int>();
+                currentlyPressedKeys.Add((int)e.KeyCode);
+                if(currentlyPressedKeys == pressedKeys)
+                {
+                    // If the key is already pressed, do nothing
+                    e.Handled = true;
+                    return;
+                }
                 KeyPressed = true; // Set KeyPressed to true when a key is pressed
                 pressedKeys.Add((int)e.KeyCode);
                 keyCharNum = pressedKeys.ToArray();
@@ -5064,39 +5072,25 @@ namespace NeoBleeper
         {
             pressedKeys.Remove((int)e.KeyCode);
             keyCharNum = pressedKeys.ToArray();
-            KeyPressed = false;
+
+            // Stop alternating playback and reset flags
             isAlternatingPlayingRegularKeyboard = false;
-
-            // Update the active MIDI notes
-            var currentMidiNotes = keyCharNum.Select(k => MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(k))).ToHashSet();
-            var notesToRemove = activeMidiNotes.Except(currentMidiNotes).ToList();
-            UnmarkAllButtons();
-            UpdateLabelVisible(false);
-
-            // Stop only the notes that are no longer pressed
-            foreach (var note in notesToRemove)
+            UnmarkAllButtons(); // Unmark all buttons when a key is released
+            singleNote = 0; // Reset singleNote to ensure no lingering playback
+            stopAllNotesAfterPlaying(); // Stop all notes only when no keys remain
+            // Stop all notes if no keys are pressed
+            if (pressedKeys.Count == 0)
             {
-                MIDIIOUtils.StopMidiNote(note);
-                activeMidiNotes.Remove(note);
+                KeyPressed = false;
             }
-
-            if (pressedKeys.Count > 0)
+            else
             {
-                // Reset singleNote to 0 if only one key is pressed
-                if (pressedKeys.Count == 1)
-                    singleNote = 0;
-
+                // Continue playing notes for remaining pressed keys
                 foreach (int key in keyCharNum)
                 {
                     MarkupTheKeyWhenKeyIsPressed(key);
                 }
-                playWithRegularKeyboard();
-            }
-            else
-            {
-                // Stop all notes when no keys are pressed
-                NotePlayer.StopAllNotes();
-                singleNote = 0;
+                playWithRegularKeyboard(); // Trigger playback for remaining notes
             }
         }
         private int GetFrequencyFromKeyCode(int keyCode)
@@ -5172,8 +5166,10 @@ namespace NeoBleeper
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
+
             UpdateLabelVisible(true);
-            if (Program.MIDIDevices.useMIDIoutput == true)
+
+            if (Program.MIDIDevices.useMIDIoutput)
             {
                 foreach (int key in keyCharNum)
                 {
@@ -5190,26 +5186,26 @@ namespace NeoBleeper
                 }
                 RemoveUnpressedKeys();
             }
+
             if (keyCharNum.Length > 1)
             {
                 if (!isAlternatingPlayingRegularKeyboard)
                 {
                     isAlternatingPlayingRegularKeyboard = true;
-                    do
+                    while (KeyPressed && isAlternatingPlayingRegularKeyboard)
                     {
                         foreach (int key in keyCharNum)
                         {
                             NotePlayer.play_note(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
                         }
                     }
-                    while (KeyPressed == true && isAlternatingPlayingRegularKeyboard == true);
                 }
             }
             else if (keyCharNum.Length == 1)
             {
                 isAlternatingPlayingRegularKeyboard = false;
                 int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(keyCharNum[0]));
-                if (!(singleNote == midiNote))
+                if (singleNote != midiNote)
                 {
                     singleNote = midiNote;
                     NotePlayer.play_note(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
