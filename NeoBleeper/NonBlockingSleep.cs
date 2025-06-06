@@ -20,7 +20,6 @@ namespace NeoBleeper
             while (stopwatch.ElapsedMilliseconds < milliseconds)
             {
                 Application.DoEvents();
-                Thread.Sleep(0);
             }
         }
     }
