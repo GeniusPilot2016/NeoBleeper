@@ -182,6 +182,11 @@ namespace NeoBleeper
                     output = Regex.Replace(output, @"\s*Eigth\s*$", "1/8", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Db\s*$", "C#", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Eb\s*$", "D#", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Gb\s*$", "F#", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Ab\s*$", "G#", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Bb\s*$", "A#", RegexOptions.IgnoreCase);
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                 }
