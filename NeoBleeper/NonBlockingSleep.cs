@@ -4,12 +4,22 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace NeoBleeper
 {
     public class NonBlockingSleep
     {
+        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
+        public static extern uint TimeBeginPeriod(uint uMilliseconds);
+        
+        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod", SetLastError = true)]
+        public static extern uint TimeEndPeriod(uint uMilliseconds);
+
+        private static readonly double StopwatchFrequency = Stopwatch.Frequency / 1000.0; // Frekans/ms
+
         public static void Sleep(int milliseconds)
         {
             if (milliseconds <= 0)
@@ -17,52 +27,58 @@ namespace NeoBleeper
                 return;
             }
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            long targetTime = stopwatch.ElapsedMilliseconds + milliseconds;
+            // Sistem zamanlayıcı çözünürlüğünü geçici olarak artır
+            TimeBeginPeriod(1);
             
-            while (stopwatch.ElapsedMilliseconds < targetTime)
+            try
             {
-                if (Application.MessageLoop && Application.OpenForms.Count > 0)
-                {
-                    Application.DoEvents();
-                }
+                // Yüksek çözünürlüklü süre ölçümü için
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                
+                // Ticks'leri doğrudan hesapla (daha kesin)
+                long targetTicks = stopwatch.ElapsedTicks + (long)(milliseconds * StopwatchFrequency);
 
-                long remainingTime = targetTime - stopwatch.ElapsedMilliseconds;
-
-                if (remainingTime > 20)
+                while (stopwatch.ElapsedTicks < targetTicks)
                 {
-                    // For longer waits (>20ms), sleep a tiny amount to reduce CPU usage
-                    // while still maintaining responsiveness
-                    Thread.Sleep(1);
-                }
-                else if (remainingTime > 10)
-                {
-                    // For medium waits (10-20ms), yield to other threads but don't sleep
-                    Thread.SpinWait(1);
-                }
-                else if (remainingTime > 3)
-                {
-                    // For short waits (3-10ms), yield without sleeping
-                    Thread.Yield();
-                }
-                else
-                {
-                    // For very short durations (<3ms), use aggressive CPU spinning
-                    // This approach maximizes precision at the cost of CPU usage
-                    Thread.SpinWait(30); // Higher spin count for tighter loops
-                    
-                    // Check more frequently within the tight loop
-                    if (remainingTime < 1 && stopwatch.ElapsedMilliseconds >= targetTime - 1)
+                    if (Application.MessageLoop && Application.OpenForms.Count > 0)
                     {
-                        // Ultra-fine tuning for the final millisecond
-                        // Pure CPU burn for maximum precision
-                        while (stopwatch.ElapsedMilliseconds < targetTime)
+                        Application.DoEvents();
+                    }
+
+                    // Kalan zamanı ticks olarak hesapla
+                    long remainingTicks = targetTicks - stopwatch.ElapsedTicks;
+                    double remainingMs = remainingTicks / StopwatchFrequency;
+                    if (remainingMs > 15)
+                    {
+                        Thread.Sleep(0); // İşletim sistemine kontrol vermek için
+                    }
+                    else if (remainingMs > 5)
+                    {
+                        Thread.Yield(); // Diğer thread'lere izin ver
+                    }
+                    else if (remainingMs > 1)
+                    {
+                        // Hassas beklemeler için spin sayısını hedefe göre ayarla
+                        int spinCount = (int)(remainingMs * 100);
+                        Thread.SpinWait(spinCount);
+                    }
+                    else
+                    {
+                        // 1ms altındaki beklemeler için ultra-hassas döngü
+                        // Donanım performansına dayalı adaptif döngü
+                        while (stopwatch.ElapsedTicks < targetTicks)
                         {
-                            // Empty loop - pure CPU spinning for maximum timing precision
+                            // CPU'ya bir sinyal göndererek döngüyü optimize et
+                            Thread.SpinWait(10); 
                         }
-                        break;
                     }
                 }
+            }
+            finally
+            {
+                // Sistem zamanlayıcı çözünürlüğünü eski haline getir
+                TimeEndPeriod(1);
             }
         }
     }

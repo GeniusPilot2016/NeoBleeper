@@ -2792,7 +2792,7 @@ namespace NeoBleeper
                 }
 
                 // Select the next line in the ListView
-                UpdateListViewSelectionSync(startIndex);
+                await UpdateListViewSelectionSync(startIndex);
             }
 
             // Clean up after playing
