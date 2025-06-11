@@ -2752,7 +2752,7 @@ namespace NeoBleeper
                 if (Variables.bpm > 0)
                 {
                     // 60,000 ms / BPM = quarter note duration in milliseconds
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
 
                 // Note length and line length calculators
@@ -2770,7 +2770,7 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        (int)Math.Round(noteLength, 0, MidpointRounding.ToZero)
+                        (int)Math.Truncate(noteLength)
                     );
                 }
 
@@ -2780,7 +2780,7 @@ namespace NeoBleeper
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
                     checkBox_play_note4_played.Checked,
-                    (int)Math.Round(noteLength, 0, MidpointRounding.ToZero),
+                    (int)Math.Truncate(noteLength),
                     nonStopping
                 );
 
@@ -2788,7 +2788,7 @@ namespace NeoBleeper
                 if (silenceDuration > 0 && !nonStopping)
                 {
                     UpdateLabelVisible(false); // Hide the label
-                    NonBlockingSleep.Sleep((int)Math.Round(silenceDuration, 0, MidpointRounding.ToZero));
+                    NonBlockingSleep.Sleep((int)Math.Truncate(silenceDuration));
                 }
 
                 // Select the next line in the ListView
@@ -3219,7 +3219,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3235,7 +3235,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)Math.Round(calculatedNoteLength));
+                        checkBox_play_note4_played.Checked, (int)Math.Truncate(calculatedNoteLength));
                     });
                 }
                 bool nonStopping;
@@ -3371,7 +3371,10 @@ namespace NeoBleeper
             double silenceRatio = (double)trackBar_note_silence_ratio.Value / 100.0;
 
             // Calculate the total note length
-            double result = baseLength * noteFraction * modifierFactor * articulationFactor * silenceRatio;
+            double result = Math.Truncate(baseLength * noteFraction);
+            result = Math.Truncate(result * modifierFactor);
+            result = Math.Truncate(result * articulationFactor);
+            result = Math.Truncate(result * silenceRatio);
 
             // Should be at least 1 ms
             return Math.Max(1, result);
@@ -3422,7 +3425,9 @@ namespace NeoBleeper
             // Staccato and Spiccato do not affect line length
 
             // Calculate the total line length (without note-silence ratio)
-            double result = quarterNoteMs * noteFraction * modifierFactor * articulationFactor;
+            double result = Math.Truncate(quarterNoteMs * noteFraction);
+            result = Math.Truncate(result * modifierFactor);
+            result = Math.Truncate(result * articulationFactor);
 
             // Should be at least 1 ms
             return Math.Max(1, result);
