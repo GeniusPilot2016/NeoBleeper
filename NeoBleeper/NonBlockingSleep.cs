@@ -22,18 +22,28 @@ namespace NeoBleeper
             
             while (stopwatch.ElapsedMilliseconds < targetTime)
             {
-                // Process Windows messages to keep UI responsive
-                Application.DoEvents();
-                
-                if (targetTime - stopwatch.ElapsedMilliseconds > 10)
+                if (Application.MessageLoop && Application.OpenForms.Count > 0)
                 {
-                    // For longer waits, yield without sleeping
+                    Application.DoEvents();
+                }
+
+                long remainingTime = targetTime - stopwatch.ElapsedMilliseconds;
+
+                if (remainingTime > 15)
+                {
+                    // For longer waits, use SpinWait to yield efficiently
+                    Thread.SpinWait(1);
+                }
+                else if (remainingTime > 5)
+                {
+                    // For medium waits, yield without sleeping
                     Thread.Yield();
                 }
                 else
                 {
-                    // For very short remaining times, burn CPU to ensure precision
+                    // For very short remaining times, actively spin
                     // This ensures no thread switch occurs during critical timing
+                    Thread.SpinWait(10);
                 }
             }
         }
