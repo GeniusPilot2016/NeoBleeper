@@ -62,13 +62,7 @@ namespace NeoBleeper
                     double remainingMs = remainingTicks / StopwatchFrequency;
                     
                     // Hyper-optimized sleep strategy
-                    if (remainingMs > 15)
-                    {
-                        // For longer waits, use much smaller sleep intervals
-                        // Use fixed tiny sleeps to maintain control
-                        Thread.Sleep(1);
-                    }
-                    else if (remainingMs > 5)
+                    if (remainingMs > 5)
                     {
                         // Use sleep(0) which yields to other threads but returns very quickly
                         Thread.Sleep(0);
