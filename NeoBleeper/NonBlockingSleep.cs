@@ -27,16 +27,16 @@ namespace NeoBleeper
                 return;
             }
 
-            // Sistem zamanlayıcı çözünürlüğünü geçici olarak artır
+            // Increase system timer resolution for more accurate timing
             TimeBeginPeriod(1);
             
             try
             {
-                // Yüksek çözünürlüklü süre ölçümü için
+                // Use Stopwatch for high-resolution timing
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
-                
-                // Ticks'leri doğrudan hesapla (daha kesin)
+
+                // Calculate target ticks based on the requested milliseconds
                 long targetTicks = stopwatch.ElapsedTicks + (long)(milliseconds * StopwatchFrequency);
 
                 while (stopwatch.ElapsedTicks < targetTicks)
@@ -46,30 +46,30 @@ namespace NeoBleeper
                         Application.DoEvents();
                     }
 
-                    // Kalan zamanı ticks olarak hesapla
+                    // Calculate remaining ticks and adjust sleep strategy
                     long remainingTicks = targetTicks - stopwatch.ElapsedTicks;
                     double remainingMs = remainingTicks / StopwatchFrequency;
                     if (remainingMs > 15)
                     {
-                        Thread.Sleep(0); // İşletim sistemine kontrol vermek için
+                        Thread.Sleep(0); // To allow other threads to run
                     }
                     else if (remainingMs > 5)
                     {
-                        Thread.Yield(); // Diğer thread'lere izin ver
+                        Thread.Yield(); // Allow other threads to run, but yield the current thread
                     }
                     else if (remainingMs > 1)
                     {
-                        // Hassas beklemeler için spin sayısını hedefe göre ayarla
+                        // Set spinCount based on remaining milliseconds
                         int spinCount = (int)(remainingMs * 100);
                         Thread.SpinWait(spinCount);
                     }
                     else
                     {
-                        // 1ms altındaki beklemeler için ultra-hassas döngü
-                        // Donanım performansına dayalı adaptif döngü
+                        // Ultra-low latency spin-waiting
+                        // Adaptive spin-waiting based on remaining ticks
                         while (stopwatch.ElapsedTicks < targetTicks)
                         {
-                            // CPU'ya bir sinyal göndererek döngüyü optimize et
+                            // Optimize for very short waits
                             Thread.SpinWait(10); 
                         }
                     }
@@ -77,7 +77,7 @@ namespace NeoBleeper
             }
             finally
             {
-                // Sistem zamanlayıcı çözünürlüğünü eski haline getir
+                // Restore system timer resolution
                 TimeEndPeriod(1);
             }
         }
