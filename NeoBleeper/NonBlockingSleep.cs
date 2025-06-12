@@ -27,7 +27,7 @@ namespace NeoBleeper
                 return;
             }
 
-            // Increase system timer resolution for more accurate timing
+            // Increase system timer resolution to minimum possible value
             TimeBeginPeriod(1);
             
             try
@@ -38,40 +38,84 @@ namespace NeoBleeper
 
                 // Calculate target ticks based on the requested milliseconds
                 long targetTicks = stopwatch.ElapsedTicks + (long)(milliseconds * StopwatchFrequency);
+                
+                // Ultra-minimal overhead compensation - virtually none for short durations
+                double overheadCompensationMs = Math.Min(0.02, milliseconds * 0.001);
+                long overheadTicks = (long)(overheadCompensationMs * StopwatchFrequency);
+                long adjustedTargetTicks = targetTicks - overheadTicks;
 
-                while (stopwatch.ElapsedTicks < targetTicks)
+                int iterationCount = 0;
+                
+                while (stopwatch.ElapsedTicks < adjustedTargetTicks)
                 {
-                    if (Application.MessageLoop && Application.OpenForms.Count > 0)
+                    iterationCount++;
+                    
+                    // Process windows messages less frequently to reduce timing impact
+                    if (iterationCount % 10 == 0 && Application.MessageLoop && Application.OpenForms.Count > 0)
                     {
+                        // Use a more selective message filtering approach
                         Application.DoEvents();
                     }
 
-                    // Calculate remaining ticks and adjust sleep strategy
-                    long remainingTicks = targetTicks - stopwatch.ElapsedTicks;
+                    // Calculate remaining time 
+                    long remainingTicks = adjustedTargetTicks - stopwatch.ElapsedTicks;
                     double remainingMs = remainingTicks / StopwatchFrequency;
+                    
+                    // Hyper-optimized sleep strategy
                     if (remainingMs > 15)
                     {
-                        Thread.Sleep(0); // To allow other threads to run
+                        // For longer waits, use much smaller sleep intervals
+                        // Use fixed tiny sleeps to maintain control
+                        Thread.Sleep(1);
                     }
                     else if (remainingMs > 5)
                     {
-                        Thread.Yield(); // Allow other threads to run, but yield the current thread
+                        // Use sleep(0) which yields to other threads but returns very quickly
+                        Thread.Sleep(0);
                     }
                     else if (remainingMs > 1)
                     {
-                        // Set spinCount based on remaining milliseconds
-                        int spinCount = (int)(remainingMs * 100);
-                        Thread.SpinWait(spinCount);
+                        // Use Thread.Yield which is more predictable than Sleep(0) for short durations
+                        Thread.Yield();
                     }
                     else
                     {
-                        // Ultra-low latency spin-waiting
-                        // Adaptive spin-waiting based on remaining ticks
-                        while (stopwatch.ElapsedTicks < targetTicks)
+                        // Below 1ms, use pure busy-waiting with calibrated SpinWait
+                        // Use a hybrid approach based on CPU characteristics
+                        long cpuEstimate = (long)(Stopwatch.Frequency / 1000000.0); // Estimate CPU speed
+                        int spinBase = Math.Max(10, (int)(cpuEstimate / 100)); 
+                        
+                        // Exponential spin-down approach for maximum precision
+                        while (stopwatch.ElapsedTicks < adjustedTargetTicks)
                         {
-                            // Optimize for very short waits
-                            Thread.SpinWait(10); 
+                            // Recalculate with each iteration for highest precision
+                            long microRemainingTicks = adjustedTargetTicks - stopwatch.ElapsedTicks;
+                            double microRemainingMs = microRemainingTicks / StopwatchFrequency;
+                            
+                            if (microRemainingMs <= 0.01)
+                            {
+                                // At terminal approach (10 microseconds) use minimal spin
+                                Thread.SpinWait(1);
+                            }
+                            else if (microRemainingMs <= 0.1)
+                            {
+                                // Under 0.1ms, very fine grained waiting
+                                Thread.SpinWait(spinBase);
+                            }
+                            else if (microRemainingMs <= 0.5)
+                            {
+                                // Under 0.5ms
+                                Thread.SpinWait(spinBase * 5);
+                            }
+                            else
+                            {
+                                // Adapted spin count for current processor
+                                int dynamicSpinCount = (int)(microRemainingMs * 500 * 
+                                    (Environment.ProcessorCount > 4 ? 1.5 : 1.0));
+                                Thread.SpinWait(dynamicSpinCount);
+                            }
                         }
+                        break; // Exit main loop once busy-wait complete
                     }
                 }
             }
@@ -79,23 +123,6 @@ namespace NeoBleeper
             {
                 // Restore system timer resolution
                 TimeEndPeriod(1);
-                    // For very short durations (<3ms), use aggressive CPU spinning
-                    // This approach maximizes precision at the cost of CPU usage
-                    Thread.SpinWait(30); // Higher spin count for tighter loops
-                    
-                    // Check more frequently within the tight loop
-                    if (remainingTime < 1 && stopwatch.ElapsedMilliseconds >= targetTime - 1)
-                    {
-                        // Ultra-fine tuning for the final millisecond
-                        // Pure CPU burn for maximum precision
-                        while (stopwatch.ElapsedMilliseconds < targetTime)
-                        {
-                            // Empty loop - pure CPU spinning for maximum timing precision
-                        }
-                        break;
-                    }
->>>>>>>>> Temporary merge branch 2
-                }
             }
         }
     }
