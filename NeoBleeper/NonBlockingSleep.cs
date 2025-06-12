@@ -79,6 +79,23 @@ namespace NeoBleeper
             {
                 // Sistem zamanlayıcı çözünürlüğünü eski haline getir
                 TimeEndPeriod(1);
+                    // For very short durations (<3ms), use aggressive CPU spinning
+                    // This approach maximizes precision at the cost of CPU usage
+                    Thread.SpinWait(30); // Higher spin count for tighter loops
+                    
+                    // Check more frequently within the tight loop
+                    if (remainingTime < 1 && stopwatch.ElapsedMilliseconds >= targetTime - 1)
+                    {
+                        // Ultra-fine tuning for the final millisecond
+                        // Pure CPU burn for maximum precision
+                        while (stopwatch.ElapsedMilliseconds < targetTime)
+                        {
+                            // Empty loop - pure CPU spinning for maximum timing precision
+                        }
+                        break;
+                    }
+>>>>>>>>> Temporary merge branch 2
+                }
             }
         }
     }
