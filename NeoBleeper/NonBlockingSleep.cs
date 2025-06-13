@@ -6,116 +6,176 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace NeoBleeper
 {
     public class NonBlockingSleep
     {
-        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
-        public static extern uint TimeBeginPeriod(uint uMilliseconds);
-        
-        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod", SetLastError = true)]
-        public static extern uint TimeEndPeriod(uint uMilliseconds);
+        // Windows multimedia timer functions
+        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod")]
+        private static extern uint TimeBeginPeriod(uint uMilliseconds);
 
-        private static readonly double StopwatchFrequency = Stopwatch.Frequency / 1000.0; // Frekans/ms
+        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod")]
+        private static extern uint TimeEndPeriod(uint uMilliseconds);
 
+        [DllImport("winmm.dll", EntryPoint = "timeGetTime")]
+        private static extern uint TimeGetTime();
+
+        // High precision kernel timer functions
+        [DllImport("kernel32.dll")]
+        private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool QueryPerformanceFrequency(out long lpFrequency);
+
+        // Cache the performance frequency to avoid repeated calls
+        private static readonly long PerformanceFrequency;
+
+        // Static constructor to initialize the performance frequency
+        static NonBlockingSleep()
+        {
+            QueryPerformanceFrequency(out PerformanceFrequency);
+        }
+
+        // Power management functions to prevent CPU throttling during critical timing operations
+        [DllImport("kernel32.dll")]
+        private static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
+
+        [Flags]
+        private enum ExecutionState : uint
+        {
+            EsSystemRequired = 0x00000001,
+            EsDisplayRequired = 0x00000002,
+            EsContinuous = 0x80000000,
+            EsAwayModeRequired = 0x00000040
+        }
+
+        /// <summary>
+        /// Ultra-high-precision non-blocking sleep implementation for multimedia applications
+        /// </summary>
+        /// <param name="milliseconds">Sleep time in milliseconds</param>
         public static void Sleep(int milliseconds)
         {
             if (milliseconds <= 0)
-            {
                 return;
-            }
 
-            // Increase system timer resolution to minimum possible value
             TimeBeginPeriod(1);
-            
+            var previousExecutionState = SetThreadExecutionState(ExecutionState.EsSystemRequired);
+
             try
             {
-                // Use Stopwatch for high-resolution timing
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
+                QueryPerformanceCounter(out long startTime);
+                long targetTime = startTime + (milliseconds * PerformanceFrequency / 1000);
 
-                // Calculate target ticks based on the requested milliseconds
-                long targetTicks = stopwatch.ElapsedTicks + (long)(milliseconds * StopwatchFrequency);
-                
-                // Ultra-minimal overhead compensation - virtually none for short durations
-                double overheadCompensationMs = Math.Min(0.02, milliseconds * 0.001);
-                long overheadTicks = (long)(overheadCompensationMs * StopwatchFrequency);
-                long adjustedTargetTicks = targetTicks - overheadTicks;
+                // Thresholds for different sleep strategies
+                long spinThreshold = PerformanceFrequency / 500;  // 2ms
+                long yieldThreshold = PerformanceFrequency / 100; // 10ms
+                long sleepThreshold = PerformanceFrequency / 25;  // 40ms - yeni eşik
 
-                int iterationCount = 0;
-                
-                while (stopwatch.ElapsedTicks < adjustedTargetTicks)
+                while (true)
                 {
-                    iterationCount++;
-                    
-                    // Process windows messages less frequently to reduce timing impact
-                    if (iterationCount % 10 == 0 && Application.MessageLoop && Application.OpenForms.Count > 0)
-                    {
-                        // Use a more selective message filtering approach
-                        Application.DoEvents();
-                    }
+                    QueryPerformanceCounter(out long currentTime);
+                    long remainingTicks = targetTime - currentTime;
 
-                    // Calculate remaining time 
-                    long remainingTicks = adjustedTargetTicks - stopwatch.ElapsedTicks;
-                    double remainingMs = remainingTicks / StopwatchFrequency;
-                    
-                    // Hyper-optimized sleep strategy
-                    if (remainingMs > 5)
+                    if (remainingTicks <= 0)
+                        break;
+
+                    // Remaining time in milliseconds
+                    if (remainingTicks < spinThreshold)
                     {
-                        // Use sleep(0) which yields to other threads but returns very quickly
+                        // Spin wait for very short durations
+                        Thread.SpinWait(500);
+                    }
+                    // Smaller durations: smaller than yieldThreshold
+                    else if (remainingTicks < yieldThreshold)
+                    {
+                        // Call DoEvents for UI responsiveness
+                        if (remainingTicks > spinThreshold * 3)
+                        {
+                            Thread.Yield();
+                            Application.DoEvents();
+                        }
+                        else
+                        {
+                            // Yield the thread to allow other threads to run
+                            Thread.Yield();
+                        }
+                    }
+                    // Middle durations: between yieldThreshold and sleepThreshold
+                    else if (remainingTicks < sleepThreshold)
+                    {
+                        // More efficient sleep for moderate durations
                         Thread.Sleep(0);
+
+                        // Handle UI responsiveness for longer waits
+                        if (remainingTicks > yieldThreshold * 2)
+                            Application.DoEvents();
                     }
-                    else if (remainingMs > 1)
-                    {
-                        // Use Thread.Yield which is more predictable than Sleep(0) for short durations
-                        Thread.Yield();
-                    }
+                    // Longer durations: greater than sleepThreshold
                     else
                     {
-                        // Below 1ms, use pure busy-waiting with calibrated SpinWait
-                        // Use a hybrid approach based on CPU characteristics
-                        long cpuEstimate = (long)(Stopwatch.Frequency / 1000000.0); // Estimate CPU speed
-                        int spinBase = Math.Max(10, (int)(cpuEstimate / 100)); 
-                        
-                        // Exponential spin-down approach for maximum precision
-                        while (stopwatch.ElapsedTicks < adjustedTargetTicks)
-                        {
-                            // Recalculate with each iteration for highest precision
-                            long microRemainingTicks = adjustedTargetTicks - stopwatch.ElapsedTicks;
-                            double microRemainingMs = microRemainingTicks / StopwatchFrequency;
-                            
-                            if (microRemainingMs <= 0.01)
-                            {
-                                // At terminal approach (10 microseconds) use minimal spin
-                                Thread.SpinWait(1);
-                            }
-                            else if (microRemainingMs <= 0.1)
-                            {
-                                // Under 0.1ms, very fine grained waiting
-                                Thread.SpinWait(spinBase);
-                            }
-                            else if (microRemainingMs <= 0.5)
-                            {
-                                // Under 0.5ms
-                                Thread.SpinWait(spinBase * 5);
-                            }
-                            else
-                            {
-                                // Adapted spin count for current processor
-                                int dynamicSpinCount = (int)(microRemainingMs * 500 * 
-                                    (Environment.ProcessorCount > 4 ? 1.5 : 1.0));
-                                Thread.SpinWait(dynamicSpinCount);
-                            }
-                        }
-                        break; // Exit main loop once busy-wait complete
+                        // More efficient sleep for longer waits
+                        int sleepTimeMs = (int)(remainingTicks * 800 / PerformanceFrequency);
+                        if (sleepTimeMs > 2)
+                            Thread.Sleep(Math.Min(sleepTimeMs - 2, 10)); // Maksimum 10ms sleep ile aşırı uyumayı önle
+                        else
+                            Thread.Sleep(0);
+
+                        Application.DoEvents();
                     }
                 }
             }
             finally
             {
-                // Restore system timer resolution
+                SetThreadExecutionState(previousExecutionState);
+                TimeEndPeriod(1);
+            }
+        }
+
+        /// <summary>
+        /// Releases the currently held time slice and allows other threads to be scheduled
+        /// </summary>
+        public static void SleepPrecise(int milliseconds)
+        {
+            if (milliseconds <= 0) return;
+
+            TimeBeginPeriod(1);
+            try
+            {
+                // For very small durations, use specialized techniques
+                if (milliseconds <= 2)
+                {
+                    // Start timestamp
+                    long start = TimeGetTime();
+                    long target = start + milliseconds;
+
+                    // Busy wait for extremely short durations
+                    while (TimeGetTime() < target)
+                    {
+                        // Minimal yield to avoid 100% CPU usage but maintain precision
+                        Thread.SpinWait(100);
+                    }
+                }
+                else
+                {
+                    // Use standard Sleep for longer durations with compensation
+                    // Sleep typically overshoots by a small amount, so we sleep for slightly less time
+                    Thread.Sleep(milliseconds - 1);
+
+                    // Fine tune the remaining time with spin wait
+                    long start = TimeGetTime();
+                    long target = start + 1; // The remaining 1ms we reserved
+
+                    while (TimeGetTime() < target)
+                    {
+                        Thread.SpinWait(10);
+                    }
+                }
+            }
+            finally
+            {
                 TimeEndPeriod(1);
             }
         }
