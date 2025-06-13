@@ -2752,7 +2752,7 @@ namespace NeoBleeper
                 if (Variables.bpm > 0)
                 {
                     // 60,000 ms / BPM = quarter note duration in milliseconds
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
 
                 // Note length and line length calculators
@@ -2770,7 +2770,7 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        (int)Math.Round(noteLength, 0, MidpointRounding.ToZero)
+                        (int)Math.Truncate(noteLength)
                     );
                 }
 
@@ -2780,7 +2780,7 @@ namespace NeoBleeper
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
                     checkBox_play_note4_played.Checked,
-                    (int)Math.Round(noteLength, 0, MidpointRounding.ToZero),
+                    (int)Math.Truncate(noteLength),
                     nonStopping
                 );
 
@@ -2788,7 +2788,7 @@ namespace NeoBleeper
                 if (silenceDuration > 0 && !nonStopping)
                 {
                     UpdateLabelVisible(false); // Hide the label
-                    NonBlockingSleep.Sleep((int)Math.Round(silenceDuration, 0, MidpointRounding.ToZero));
+                    NonBlockingSleep.Sleep((int)Math.Truncate(silenceDuration));
                 }
 
                 // Select the next line in the ListView
@@ -3006,8 +3006,8 @@ namespace NeoBleeper
             ThreadPool.QueueUserWorkItem(state =>
             {
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                play_metronome_sound(frequency, 30);
-                NotePlayer.play_note(frequency, 30);
+                play_metronome_sound(frequency, 20);
+                NotePlayer.play_note(frequency, 20);
             });
         }
 
@@ -3050,7 +3050,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
-            double interval = 60000.0 / Variables.bpm;
+            double interval = Math.Truncate(60000.0 / Variables.bpm);
             metronomeTimer.Interval = interval;
             metronomeTimer.Start();
         }
@@ -3219,7 +3219,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3235,7 +3235,7 @@ namespace NeoBleeper
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)Math.Round(calculatedNoteLength, 0, MidpointRounding.ToZero));
+                        checkBox_play_note4_played.Checked, (int)Math.Truncate(calculatedNoteLength));
                     });
                 }
                 bool nonStopping;
@@ -3249,7 +3249,7 @@ namespace NeoBleeper
                 }
                 play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
                 checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                (int)Math.Round(calculatedNoteLength, 0, MidpointRounding.ToZero), nonStopping);
+                (int)Math.Truncate(calculatedNoteLength), nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3350,8 +3350,8 @@ namespace NeoBleeper
             // Calculate the total note length
             double result = getNoteLength(baseLength, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor;
-            result = result * silenceRatio; // Should be at least 1 ms
+            result = Math.Truncate(result * articulationFactor);
+            result = Math.Truncate(result * silenceRatio); // Should be at least 1 ms
             return Math.Max(1, result);
         }
 
@@ -3379,7 +3379,7 @@ namespace NeoBleeper
             // Calculate the total line length (without note-silence ratio)
             double result = getNoteLength(quarterNoteMs, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor;
+            result = Math.Truncate(result * articulationFactor);
 
             // Should be at least 1 ms
             return Math.Max(1, result);
@@ -3396,7 +3396,7 @@ namespace NeoBleeper
                 "1/32" => 0.125,     // 1/32 note = 1/8 quarter note
                 _ => 1.0,            // Default: Quarter note
             };
-            return rawNoteLength * noteFraction;
+            return Math.Truncate(rawNoteLength * noteFraction);
         }
         private double getModifiedNoteLength(double noteLength, String modifier)
         {
@@ -3408,7 +3408,7 @@ namespace NeoBleeper
                 else if (modifier.ToLowerInvariant().Contains("tri"))
                     modifierFactor = 1.0 / 3.0; // Triplet: 2/3x length (correct value for triplets)               
             }
-            return noteLength * modifierFactor;
+            return Math.Truncate(noteLength * modifierFactor);
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3614,15 +3614,14 @@ namespace NeoBleeper
                         {
                             if (!string.IsNullOrEmpty(note))
                             {
-                                double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-
                                 // Check elapsed time
                                 if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
                                     stopwatch.Stop();
                                     break;
                                 }
+                                double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
+                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                             }
                         }
                     }
@@ -3640,15 +3639,14 @@ namespace NeoBleeper
                         {
                             if (!string.IsNullOrEmpty(note_series[i]))
                             {
-                                double frequency = (i == 0) ? note1_frequency : note3_frequency;
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-
                                 // Check elapsed time
                                 if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
                                     stopwatch.Stop();
                                     break;
                                 }
+                                double frequency = (i == 0) ? note1_frequency : note3_frequency;
+                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
                             }
                         }
 
@@ -3826,40 +3824,41 @@ namespace NeoBleeper
             int miliseconds_per_whole_note = 0;
             if (Variables.bpm != 0)
             {
-                miliseconds_per_whole_note = (int)Math.Truncate(Convert.ToDouble((240000.0 / Variables.bpm).ToString("0.0")));
+                miliseconds_per_whole_note = (int)Math.Truncate(240000.0 / Variables.bpm);
             }
 
-            int length = Math.Max(1, (int)Math.Truncate(Convert.ToDouble(((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor).ToString("0.0"))));
+            int length = Math.Max(1, (int)Math.Truncate((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor));
 
             // Create a percussion sound
             for (int i = 0; i < 2; i++) // 2 beats
             {
                 if (i % 2 == 0) // Kick 
                 {
-                    NotePlayer.play_note(kickFrequency, length);
+                    NotePlayer.play_note(kickFrequency, length, true);
                 }
                 else // Snare
                 {
-                    NotePlayer.play_note(snareFrequency, length);
+                    NotePlayer.play_note(snareFrequency, length, true);
                 }
             }
             // Add hi-hat sound
-            NotePlayer.play_note(hiHatFrequency, length / 2);
+            NotePlayer.play_note(hiHatFrequency, length / 2, true);
 
             // Percussion sound for MIDI output
             if (Program.MIDIDevices.useMIDIoutput)
             {
                 Task.Run(async () =>
                 {
-                    int midiSnare = 38; // Snare Drum
-                    int midiKick = 35;  // Bass Drum
-                    int midiHiHat = 42; // Closed Hi-Hat
+                    int midiSnare = MIDIIOUtils.FrequencyToMidiNote(snareFrequency); // Snare Drum
+                    int midiKick = MIDIIOUtils.FrequencyToMidiNote(kickFrequency);  // Bass Drum
+                    int midiHiHat = MIDIIOUtils.FrequencyToMidiNote(hiHatFrequency); // Closed Hi-Hat
 
                     await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiKick, length);
                     await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiSnare, length);
                     await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, midiHiHat, length / 2);
                 });
             }
+            NotePlayer.StopAllNotes();
         }
         public static string ConvertDecimalBeatToTraditional(double decimalBeat)
         {
