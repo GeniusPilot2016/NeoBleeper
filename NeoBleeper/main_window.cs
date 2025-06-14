@@ -2738,6 +2738,71 @@ namespace NeoBleeper
             isModified = false;
             UpdateFormTitle();
         }
+        private (int noteSoundDuration, int silenceDuration) CalculateNoteDurations(double baseLength)
+        {
+            // Compute raw double values
+            double noteSound_double = note_length_calculator(baseLength);
+            double totalRhythm_double = line_length_calculator(baseLength);
+
+            // Apply correction factor for 280/303 ratio
+            double correctionFactor = 0.9;
+            noteSound_double *= correctionFactor;
+            totalRhythm_double *= correctionFactor;
+
+            // Snap to nearest value with relative epsilon
+            noteSound_double = SnapToNearest(noteSound_double);
+            totalRhythm_double = SnapToNearest(totalRhythm_double);
+
+            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.AwayFromZero);
+            int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.AwayFromZero);
+            int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
+
+            return (noteSound_int, silence_int);
+        }
+
+        private double SnapToNearest(double value)
+        {
+            double nearest = Math.Round(value, MidpointRounding.AwayFromZero);
+            double relativeEpsilon = Math.Abs(nearest) * 1e-3; // 0.1% relative epsilon
+            if (Math.Abs(value - nearest) <= relativeEpsilon)
+                return nearest;
+            else
+                return value;
+        }
+
+        private void HandleMidiOutput(int noteSoundDuration)
+        {
+            if (Program.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
+            {
+                Task.Run(() =>
+                {
+                    play_note_in_line_from_MIDIOutput(
+                    listViewNotes.SelectedIndices[0],
+                    checkBox_play_note1_played.Checked,
+                    checkBox_play_note2_played.Checked,
+                    checkBox_play_note3_played.Checked,
+                    checkBox_play_note4_played.Checked,
+                    noteSoundDuration
+                );
+                }); 
+            }
+        }
+
+        private void HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
+        {
+            if (listViewNotes.SelectedIndices.Count > 0)
+            {
+                play_note_in_line(
+                    checkBox_play_note1_played.Checked,
+                    checkBox_play_note2_played.Checked,
+                    checkBox_play_note3_played.Checked,
+                    checkBox_play_note4_played.Checked,
+                    noteSoundDuration,
+                    nonStopping
+                );
+            }
+        }
+
         private async void play_music(int startIndex)
         {
             bool nonStopping = false;
@@ -2747,55 +2812,26 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                // Calculating note length and line length based on BPM
                 double baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    // 60,000 ms / BPM = quarter note duration in milliseconds
-                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
+                    baseLength = 60000.0 / (double)Variables.bpm;
                 }
 
-                // Note length and line length calculators
-                double noteLength = note_length_calculator(baseLength);
-                double lineLength = line_length_calculator(baseLength);
-                // Silence duration calculation
-                double silenceDuration = lineLength - noteLength;
+                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
 
-                // Play with MIDI output if enabled
-                if (Program.MIDIDevices.useMIDIoutput)
+                HandleMidiOutput(noteSound_int);
+                HandleStandardNotePlayback(noteSound_int, nonStopping);
+
+                if (!nonStopping && silence_int > 0)
                 {
-                    play_note_in_line_from_MIDIOutput(
-                        listViewNotes.SelectedIndices[0],
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked,
-                        (int)Math.Truncate(noteLength)
-                    );
+                    UpdateLabelVisible(false);
+                    NonBlockingSleep.Sleep(silence_int);
                 }
 
-                // Regular note playing logic
-                play_note_in_line(
-                    checkBox_play_note1_played.Checked,
-                    checkBox_play_note2_played.Checked,
-                    checkBox_play_note3_played.Checked,
-                    checkBox_play_note4_played.Checked,
-                    (int)Math.Truncate(noteLength),
-                    nonStopping
-                );
-
-                // Apply the note length to the selected line in the ListView
-                if (silenceDuration > 0 && !nonStopping)
-                {
-                    UpdateLabelVisible(false); // Hide the label
-                    NonBlockingSleep.Sleep((int)Math.Truncate(silenceDuration));
-                }
-
-                // Select the next line in the ListView
                 await UpdateListViewSelectionSync(startIndex);
             }
 
-            // Clean up after playing
             if (nonStopping)
             {
                 stopAllNotesAfterPlaying();
@@ -3225,19 +3261,9 @@ namespace NeoBleeper
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                double calculatedNoteLength = note_length_calculator(baseLength);
+                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 EnableDisableCommonControls(false);
-                if (Program.MIDIDevices.useMIDIoutput == true)
-                {
-                    Task.Run(() =>
-                    {
-                        play_note_in_line_from_MIDIOutput(listViewNotes.SelectedIndices[0],
-                        checkBox_play_note1_played.Checked,
-                        checkBox_play_note2_played.Checked,
-                        checkBox_play_note3_played.Checked,
-                        checkBox_play_note4_played.Checked, (int)Math.Truncate(calculatedNoteLength));
-                    });
-                }
+                HandleMidiOutput(noteSound_int);
                 bool nonStopping;
                 if (trackBar_note_silence_ratio.Value == 100)
                 {
@@ -3247,9 +3273,7 @@ namespace NeoBleeper
                 {
                     nonStopping = false;
                 }
-                play_note_in_line(checkBox_play_note1_clicked.Checked, checkBox_play_note2_clicked.Checked,
-                checkBox_play_note3_clicked.Checked, checkBox_play_note4_clicked.Checked,
-                (int)Math.Truncate(calculatedNoteLength), nonStopping);
+                HandleStandardNotePlayback(noteSound_int, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3347,11 +3371,13 @@ namespace NeoBleeper
             // Note-silence ratio (from trackBar)
             double silenceRatio = (double)trackBar_note_silence_ratio.Value / 100.0;
 
-            // Calculate the total note length
+            // Calculate the total note length - use precise calculations without truncation
             double result = getNoteLength(baseLength, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = Math.Truncate(result * articulationFactor);
-            result = Math.Truncate(result * silenceRatio); // Should be at least 1 ms
+            result = result * articulationFactor; // Remove truncation
+            result = result * silenceRatio;       // Remove truncation
+
+            // Only round at the very end when converting to integer milliseconds
             return Math.Max(1, result);
         }
 
@@ -3379,7 +3405,7 @@ namespace NeoBleeper
             // Calculate the total line length (without note-silence ratio)
             double result = getNoteLength(quarterNoteMs, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = Math.Truncate(result * articulationFactor);
+            result = result * articulationFactor; // Remove truncation
 
             // Should be at least 1 ms
             return Math.Max(1, result);
@@ -3396,7 +3422,7 @@ namespace NeoBleeper
                 "1/32" => 0.125,     // 1/32 note = 1/8 quarter note
                 _ => 1.0,            // Default: Quarter note
             };
-            return Math.Truncate(rawNoteLength * noteFraction);
+            return rawNoteLength * noteFraction; // Remove truncation here
         }
         private double getModifiedNoteLength(double noteLength, String modifier)
         {
@@ -3406,9 +3432,9 @@ namespace NeoBleeper
                 if (modifier.ToLowerInvariant().Contains("dot"))
                     modifierFactor = 1.5; // Dotted: 1.5x length
                 else if (modifier.ToLowerInvariant().Contains("tri"))
-                    modifierFactor = 1.0 / 3.0; // Triplet: 2/3x length (correct value for triplets)               
+                    modifierFactor = 1.0 / 3.0; // Triplet: 1/3x length
             }
-            return Math.Truncate(noteLength * modifierFactor);
+            return noteLength * modifierFactor; // Remove truncation
         }
         private void stopAllNotesAfterPlaying()
         {
@@ -3634,7 +3660,7 @@ namespace NeoBleeper
                     stopwatch.Start(); 
                     do
                     {
-                        // Tek numaralý sütunlar (Note1 ve Note3)
+                        // Odd numbered columns (Note1 and Note3)
                         for (int i = 0; i < 4; i += 2)
                         {
                             if (!string.IsNullOrEmpty(note_series[i]))
@@ -3650,7 +3676,7 @@ namespace NeoBleeper
                             }
                         }
 
-                        // Çift numaralý sütunlar (Note2 ve Note4)
+                        // Even numbered columns (Note2 and Note4)
                         for (int i = 1; i < 4; i += 2)
                         {
                             if (!string.IsNullOrEmpty(note_series[i]))
@@ -3658,7 +3684,7 @@ namespace NeoBleeper
                                 double frequency = (i == 1) ? note2_frequency : note4_frequency;
                                 NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
 
-                                // Geçen süreyi kontrol et
+                                // Check elapsed time
                                 if (stopwatch.ElapsedMilliseconds >= totalDuration)
                                 {
                                     stopwatch.Stop();
