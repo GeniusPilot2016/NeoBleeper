@@ -44,10 +44,10 @@
             labelPrompt.Anchor = AnchorStyles.None;
             labelPrompt.AutoSize = true;
             labelPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            labelPrompt.Location = new Point(25, 68);
+            labelPrompt.Location = new Point(20, 54);
             labelPrompt.Margin = new Padding(2, 0, 2, 0);
             labelPrompt.Name = "labelPrompt";
-            labelPrompt.Size = new Size(61, 20);
+            labelPrompt.Size = new Size(46, 16);
             labelPrompt.TabIndex = 0;
             labelPrompt.Text = "Prompt";
             // 
@@ -55,10 +55,10 @@
             // 
             textBoxPrompt.Anchor = AnchorStyles.None;
             textBoxPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            textBoxPrompt.Location = new Point(92, 65);
+            textBoxPrompt.Location = new Point(74, 52);
             textBoxPrompt.Margin = new Padding(2);
             textBoxPrompt.Name = "textBoxPrompt";
-            textBoxPrompt.Size = new Size(288, 27);
+            textBoxPrompt.Size = new Size(231, 23);
             textBoxPrompt.TabIndex = 1;
             textBoxPrompt.TextChanged += textBox1_TextChanged;
             // 
@@ -69,10 +69,10 @@
             buttonCreate.Font = new Font("HarmonyOS Sans", 8.999999F);
             buttonCreate.ImageIndex = 1;
             buttonCreate.ImageList = images;
-            buttonCreate.Location = new Point(386, 62);
+            buttonCreate.Location = new Point(309, 50);
             buttonCreate.Margin = new Padding(2);
             buttonCreate.Name = "buttonCreate";
-            buttonCreate.Size = new Size(128, 32);
+            buttonCreate.Size = new Size(102, 26);
             buttonCreate.TabIndex = 2;
             buttonCreate.Text = "Create";
             buttonCreate.TextAlign = ContentAlignment.MiddleRight;
@@ -96,10 +96,10 @@
             labelPoweredByGemini.ImageAlign = ContentAlignment.MiddleLeft;
             labelPoweredByGemini.ImageIndex = 0;
             labelPoweredByGemini.ImageList = images;
-            labelPoweredByGemini.Location = new Point(140, 116);
+            labelPoweredByGemini.Location = new Point(112, 93);
             labelPoweredByGemini.Margin = new Padding(2, 0, 2, 0);
             labelPoweredByGemini.Name = "labelPoweredByGemini";
-            labelPoweredByGemini.Size = new Size(232, 20);
+            labelPoweredByGemini.Size = new Size(182, 16);
             labelPoweredByGemini.TabIndex = 3;
             labelPoweredByGemini.Text = "      Powered by Google Gemini™";
             labelPoweredByGemini.TextAlign = ContentAlignment.MiddleRight;
@@ -110,10 +110,11 @@
             comboBox_ai_model.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox_ai_model.FormattingEnabled = true;
-            comboBox_ai_model.Items.AddRange(new object[] { "Gemini 2.0 Flash", "Gemini 2.0 Flash Lite", "Gemini 1.5 Pro", "Gemini 1.5 Flash", "Gemini 1.5 Flash-8B" });
-            comboBox_ai_model.Location = new Point(92, 22);
+            comboBox_ai_model.Items.AddRange(new object[] { "Gemini 2.5 Flash", "Gemini 2.5 Pro", "Gemini 2.0 Flash", "Gemini 2.0 Flash Lite" });
+            comboBox_ai_model.Location = new Point(74, 18);
+            comboBox_ai_model.Margin = new Padding(2, 2, 2, 2);
             comboBox_ai_model.Name = "comboBox_ai_model";
-            comboBox_ai_model.Size = new Size(288, 28);
+            comboBox_ai_model.Size = new Size(231, 24);
             comboBox_ai_model.TabIndex = 4;
             comboBox_ai_model.SelectedIndexChanged += comboBox_ai_model_SelectedIndexChanged;
             // 
@@ -122,20 +123,20 @@
             label_ai_model.Anchor = AnchorStyles.None;
             label_ai_model.AutoSize = true;
             label_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label_ai_model.Location = new Point(16, 25);
+            label_ai_model.Location = new Point(13, 20);
             label_ai_model.Margin = new Padding(2, 0, 2, 0);
             label_ai_model.Name = "label_ai_model";
-            label_ai_model.Size = new Size(70, 20);
+            label_ai_model.Size = new Size(55, 16);
             label_ai_model.TabIndex = 0;
             label_ai_model.Text = "AI Model";
             // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(539, 157);
+            ClientSize = new Size(431, 126);
             Controls.Add(comboBox_ai_model);
             Controls.Add(labelPoweredByGemini);
             Controls.Add(buttonCreate);

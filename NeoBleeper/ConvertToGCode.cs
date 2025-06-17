@@ -404,7 +404,7 @@ namespace NeoBleeper
             {
                 string generatedGCode = string.Empty;
                 int note_order = 1;
-                int last_note_order = (int)FixRoundingErrors(length / alternate_length);
+                int last_note_order = (int)main_window.SnapToNearest(length / alternate_length);
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };

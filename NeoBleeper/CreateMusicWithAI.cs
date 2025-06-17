@@ -19,7 +19,7 @@ namespace NeoBleeper
     public partial class CreateMusicWithAI : Form
     {
         public string output = "";
-        String AIModel = "models/gemini-2.0-flash";
+        String AIModel = "models/gemini-2.5-flash";
         public CreateMusicWithAI()
         {
             InitializeComponent();
@@ -243,22 +243,19 @@ namespace NeoBleeper
             switch (comboBox_ai_model.SelectedIndex)
             {
                 case 0:
-                    AIModel = "models/gemini-2.0-flash";
+                    AIModel = "models/gemini-2.5-flash";
                     break;
                 case 1:
-                    AIModel = "models/gemini-2.0-flash-lite";
+                    AIModel = "models/gemini-2.5-pro";
                     break;
                 case 2:
-                    AIModel = "models/gemini-1.5-pro";
+                    AIModel = "models/gemini-2.0-flash";
                     break;
                 case 3:
-                    AIModel = "models/gemini-1.5-flash";
-                    break;
-                case 4:
-                    AIModel = "models/gemini-1.5-flash-8b";
+                    AIModel = "models/gemini-2.0-flash-lite";
                     break;
                 default:
-                    AIModel = "models/gemini-2.0-flash";
+                    AIModel = "models/gemini-2.5-flash";
                     break;
             }
         }

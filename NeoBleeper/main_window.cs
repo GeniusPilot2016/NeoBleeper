@@ -2744,30 +2744,28 @@ namespace NeoBleeper
             double noteSound_double = note_length_calculator(baseLength);
             double totalRhythm_double = line_length_calculator(baseLength);
 
-            // Apply correction factor for 280/303 ratio
-            double correctionFactor = 0.9;
-            noteSound_double *= correctionFactor;
-            totalRhythm_double *= correctionFactor;
-
             // Snap to nearest value with relative epsilon
             noteSound_double = SnapToNearest(noteSound_double);
             totalRhythm_double = SnapToNearest(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.AwayFromZero);
-            int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.AwayFromZero);
+            int noteSound_int = (int)Math.Truncate(noteSound_double);
+            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
             int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
         }
 
-        private double SnapToNearest(double value)
+        public static double SnapToNearest(double value)
         {
-            double nearest = Math.Round(value, MidpointRounding.AwayFromZero);
-            double relativeEpsilon = Math.Abs(nearest) * 1e-3; // 0.1% relative epsilon
-            if (Math.Abs(value - nearest) <= relativeEpsilon)
-                return nearest;
-            else
-                return value;
+            // Truncate to integer
+            double truncated = Math.Truncate(value);
+
+            // Add a small epsilon
+            double epsilon = 1E-12;
+            double result = truncated + epsilon;
+
+            // Return the result
+            return result;
         }
 
         private void HandleMidiOutput(int noteSoundDuration)
@@ -2812,10 +2810,10 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                double baseLength = 0;
+                int baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = (int)Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
 
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -3251,11 +3249,11 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                double baseLength = 0;
+                int baseLength = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = Math.Truncate(60000.0 / (double)Variables.bpm);
+                    baseLength = (int)Math.Truncate(60000.0 / (double)Variables.bpm);
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
@@ -3374,8 +3372,8 @@ namespace NeoBleeper
             // Calculate the total note length - use precise calculations without truncation
             double result = getNoteLength(baseLength, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor; // Remove truncation
-            result = result * silenceRatio;       // Remove truncation
+            result = result * articulationFactor; 
+            result = result * silenceRatio;       
 
             // Only round at the very end when converting to integer milliseconds
             return Math.Max(1, result);
@@ -3405,7 +3403,7 @@ namespace NeoBleeper
             // Calculate the total line length (without note-silence ratio)
             double result = getNoteLength(quarterNoteMs, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor; // Remove truncation
+            result = result * articulationFactor; 
 
             // Should be at least 1 ms
             return Math.Max(1, result);
@@ -3708,14 +3706,6 @@ namespace NeoBleeper
                 }
                 return;
             }
-        }
-        public static double FixRoundingErrors(double value)
-        {
-            const double epsilon = 1e-9;
-            double rounded = Math.Round(value, 0, MidpointRounding.ToEven);
-            if (Math.Abs(value - rounded) < epsilon)
-                return rounded;
-            return Math.Round(value, 0, MidpointRounding.ToEven);
         }
         public static bool IsWholeNumber(double value)
         {
