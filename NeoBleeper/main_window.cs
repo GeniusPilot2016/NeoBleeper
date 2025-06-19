@@ -2761,7 +2761,7 @@ namespace NeoBleeper
             double truncated = Math.Truncate(value);
 
             // Add a small epsilon
-            double epsilon = 1E-12;
+            double epsilon = 1E-10;
             double result = truncated + epsilon;
 
             // Return the result
