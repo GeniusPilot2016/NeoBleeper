@@ -2740,14 +2740,13 @@ namespace NeoBleeper
         }
         private (int noteSoundDuration, int silenceDuration) CalculateNoteDurations(double baseLength)
         {
-            // Calculate total rhythm duration first
+            // Compute raw double values
+            double noteSound_double = note_length_calculator(baseLength);
             double totalRhythm_double = line_length_calculator(baseLength);
 
-            // Then calculate note sound duration as a portion of total rhythm
-            double noteSound_double = note_length_calculator(baseLength);
-
-            // Ensure note duration never exceeds total duration
-            noteSound_double = Math.Min(noteSound_double, totalRhythm_double);
+            // Snap to nearest value with relative epsilon
+            noteSound_double = SnapToNearest(noteSound_double);
+            totalRhythm_double = SnapToNearest(totalRhythm_double);
 
             int noteSound_int = (int)Math.Truncate(noteSound_double);
             int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
@@ -3060,21 +3059,17 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
+                SuspendLayout();
                 if (label_beep.InvokeRequired)
                 {
-                    label_beep.Invoke(new Action(() =>
-                    {
-                        SuspendLayout();
-                        label_beep.Visible = visible;
-                        ResumeLayout(performLayout: false); // Avoid triggering layout updates
-                    }));
+                    label_beep.Invoke(new Action(() => label_beep.Visible = visible));
                 }
                 else
                 {
-                    SuspendLayout();
                     label_beep.Visible = visible;
-                    ResumeLayout(performLayout: false); // Avoid triggering layout updates
                 }
+                ResumeLayout(performLayout: true);
+                return;
             });
         }
 
