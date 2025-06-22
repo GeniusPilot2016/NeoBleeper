@@ -2749,8 +2749,8 @@ namespace NeoBleeper
             noteSound_double = FixRoundingErrors(noteSound_double);
             totalRhythm_double = FixRoundingErrors(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Floor(noteSound_double);
-            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
+            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.ToEven);
+            int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.ToEven);
             int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
@@ -2758,8 +2758,8 @@ namespace NeoBleeper
 
         public static double FixRoundingErrors(double value)
         {
-            const double threshold = 0.0001; // Equivalent to [00401838h]
-            const double epsilon = 0.00001;  // Equivalent to [00401830h]
+            const double threshold = 0.0001; 
+            const double epsilon = 0.00001; 
 
             if (value > threshold)
             {
