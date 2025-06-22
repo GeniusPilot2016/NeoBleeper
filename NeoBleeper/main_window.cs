@@ -1,3 +1,4 @@
+using GenerativeAI.Types;
 using NAudio.Midi;
 using System.ComponentModel;
 using System.Data.Common;
@@ -2745,20 +2746,28 @@ namespace NeoBleeper
             double totalRhythm_double = line_length_calculator(baseLength);
 
             // Snap to nearest value with relative epsilon
-            noteSound_double = SnapToNearest(noteSound_double);
-            totalRhythm_double = SnapToNearest(totalRhythm_double);
+            noteSound_double = FixRoundingErrors(noteSound_double);
+            totalRhythm_double = FixRoundingErrors(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Truncate(noteSound_double);
-            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
+            int noteSound_int = (int)Math.Floor(noteSound_double);
+            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
             int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
         }
 
-        public static double SnapToNearest(double value)
+        public static double FixRoundingErrors(double value)
         {
-            // Round to the nearest value with a precision of 0.01
-            return Math.Round(value, 2, MidpointRounding.ToEven);
+            const double threshold = 0.0001; // Equivalent to [00401838h]
+            const double epsilon = 0.00001;  // Equivalent to [00401830h]
+
+            if (value > threshold)
+            {
+                value += epsilon;
+            }
+
+            return value;
+
         }
 
         private void HandleMidiOutput(int noteSoundDuration)
@@ -2803,10 +2812,10 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                int baseLength = 0;
+                double baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    baseLength = (int)Math.Truncate(60000.0 / (double)Variables.bpm);
+                    baseLength = 60000.0 / (double)Variables.bpm;
                 }
 
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -3242,11 +3251,11 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                int baseLength = 0;
+                double baseLength = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = (int)Math.Truncate(60000.0 / (double)Variables.bpm);
+                    baseLength = 60000.0 / (double)Variables.bpm;
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
