@@ -110,6 +110,7 @@ namespace NeoBleeper
             {
                 if (dateTimePicker1.Value.ToUniversalTime() < DateTime.UtcNow)
                 {
+                    Debug.WriteLine("Starting to play music at " + DateTime.Now.ToString("HH:mm:ss"));
                     button_wait.Text = "Stop playing";
                     lbl_waiting.Text = "Playing";
                     lbl_waiting.BackColor = Color.Yellow;
@@ -164,6 +165,7 @@ namespace NeoBleeper
         {
             if (waiting == false)
             {
+                dateTimePicker1.Enabled = false; // Disable the date time picker while waiting
                 waiting = true;
                 if (mainWindow.is_music_playing)
                 {
@@ -182,6 +184,7 @@ namespace NeoBleeper
             }
             else
             {
+                dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting
                 if (is_playing == true || mainWindow.is_music_playing)
                 {
                     mainWindow.stop_playing();
