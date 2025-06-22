@@ -2749,8 +2749,8 @@ namespace NeoBleeper
             noteSound_double = FixRoundingErrors(noteSound_double);
             totalRhythm_double = FixRoundingErrors(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.ToEven);
-            int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.ToEven);
+            int noteSound_int = (int)Math.Truncate(noteSound_double);
+            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
             int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
@@ -2758,16 +2758,18 @@ namespace NeoBleeper
 
         public static double FixRoundingErrors(double value)
         {
-            const double threshold = 0.0001; 
-            const double epsilon = 0.00001; 
+            // Floor the value to avoid floating-point precision issues
+            double flooredValue = Math.Floor(value);
 
-            if (value > threshold)
-            {
-                value += epsilon;
-            }
+            // Round to the nearest integer if the difference is negligible
+            if (Math.Abs(value - flooredValue) < 0.0001)
+                return flooredValue;
+
+            // Add a small epsilon to avoid zero values
+            if (value > 0.0001)
+                value += 0.00001;
 
             return value;
-
         }
 
         private void HandleMidiOutput(int noteSoundDuration)
@@ -2812,10 +2814,10 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                double baseLength = 0;
+                int baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Max(1, (int)Math.Truncate(60000.0 / (double)Variables.bpm));
                 }
 
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -3077,7 +3079,7 @@ namespace NeoBleeper
                 {
                     label_beep.Visible = visible;
                 }
-                ResumeLayout(performLayout: true);
+                ResumeLayout(performLayout: false);
                 return;
             });
         }
