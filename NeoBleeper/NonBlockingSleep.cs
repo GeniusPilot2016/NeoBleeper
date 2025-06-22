@@ -72,7 +72,7 @@ namespace NeoBleeper
                 // Thresholds for different sleep strategies
                 long spinThreshold = PerformanceFrequency / 500;  // 2ms
                 long yieldThreshold = PerformanceFrequency / 100; // 10ms
-                long sleepThreshold = PerformanceFrequency / 25;  // 40ms - yeni eşik
+                long sleepThreshold = PerformanceFrequency / 25;  // 40ms 
 
                 while (true)
                 {
@@ -119,7 +119,7 @@ namespace NeoBleeper
                         // More efficient sleep for longer waits
                         int sleepTimeMs = (int)(remainingTicks * 800 / PerformanceFrequency);
                         if (sleepTimeMs > 2)
-                            Thread.Sleep(Math.Min(sleepTimeMs - 2, 10)); // Maksimum 10ms sleep ile aşırı uyumayı önle
+                            Thread.Sleep(Math.Min(sleepTimeMs - 2, 10)); // Prevent oversleeping by a small margin
                         else
                             Thread.Sleep(0);
 
