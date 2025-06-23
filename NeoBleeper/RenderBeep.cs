@@ -7,8 +7,8 @@ namespace NeoBleeper
 {
     public class RenderBeep
     {
-        public static class BeepClass
-        {
+        public static class BeepClass // Manually drive the system speaker (aka PC speaker) using the inpoutx64.dll library in newer Windows versions
+        { 
             [DllImport("inpoutx64.dll")]
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
@@ -27,12 +27,12 @@ namespace NeoBleeper
                     NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
                 }
             }
-            public static void StopBeep()
+            public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
         }
-        public static class SynthMisc
+        public static class SynthMisc // Use NAudio to synthesize beeps and noises in various forms
         {
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
@@ -56,17 +56,17 @@ namespace NeoBleeper
                 if (currentProvider != signalGenerator)
                 {
                     bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
-                    waveOut.Stop();
+                    waveOut.Stop(); // Stop the current playback if it was playing
                     waveOut.Init(signalGenerator);
                     currentProvider = signalGenerator;
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                waveOut.Play();
+                waveOut.Play(); // Start playing the sound
                 if (!nonStopping)
                 {
                     NonBlockingSleep.Sleep(ms);
-                    waveOut.Stop();
+                    waveOut.Stop(); // Stop the sound after the specified duration
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
                 }
                 else
@@ -96,13 +96,13 @@ namespace NeoBleeper
                 if (currentProvider != bandPassNoise)
                 {
                     bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
-                    waveOut.Stop();
+                    waveOut.Stop(); // Stop the current playback if it was playing
                     waveOut.Init(bandPassNoise);
                     currentProvider = bandPassNoise;;
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                waveOut.Play();
+                waveOut.Play(); // Start playing the filtered noise
 
                 if (!nonStopping)
                 {
