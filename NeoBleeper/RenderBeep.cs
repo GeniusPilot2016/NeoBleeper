@@ -63,11 +63,15 @@ namespace NeoBleeper
                         waveOut.Play();
                 }
                 waveOut.Play();
-                NonBlockingSleep.Sleep(ms);
                 if (!nonStopping)
                 {
+                    NonBlockingSleep.Sleep(ms);
                     waveOut.Stop();
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                }
+                else
+                {
+                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1)); // Sleep without stopping the sound
                 }
             }
 
@@ -99,12 +103,16 @@ namespace NeoBleeper
                         waveOut.Play();
                 }
                 waveOut.Play();
-                NonBlockingSleep.Sleep(ms);
 
                 if (!nonStopping)
                 {
+                    NonBlockingSleep.Sleep(ms);
                     waveOut.Stop();
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                }
+                else
+                {
+                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1)); // Sleep without stopping the sound
                 }
             }
 

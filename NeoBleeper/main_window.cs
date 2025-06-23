@@ -2758,18 +2758,40 @@ namespace NeoBleeper
 
         public static double FixRoundingErrors(double value)
         {
-            // Floor the value to avoid floating-point precision issues
+            // Epsilon for checking if difference is negligible
+            const double EPSILON_NEGLIGIBLE = 0.0001; // Corresponds to 00401838h or similar
+                                                      // Epsilon to add if not negligible
+            const double EPSILON_ADD = 0.00001; // Corresponds to 00401830h
+
             double flooredValue = Math.Floor(value);
 
-            // Round to the nearest integer if the difference is negligible
-            if (Math.Abs(value - flooredValue) < 0.0001)
-                return flooredValue;
+            // If the value is very close to its floored integer (e.g., 5.00009 -> 5.0)
+            if (Math.Abs(value - flooredValue) < EPSILON_NEGLIGIBLE)
+            {
+                return flooredValue; // Round down to the floored integer
+            }
 
-            // Add a small epsilon to avoid zero values
-            if (value > 0.0001)
-                value += 0.00001;
+            // This is the tricky part matching the assembly:
+            // The assembly suggests it *truncates* first, then adds.
+            // If we want to simulate that:
+            double truncatedValue = Math.Truncate(value); // Mimics __vbaFPFix (like VB's Fix function)
 
-            return value;
+            // Then add the small epsilon to prevent it from becoming slightly less than the integer
+            // when stored as a double, and thus ensuring it truncates to the correct integer.
+            // This is intended for cases like 4.999999999 that should be treated as 5
+            // OR values that are just over an integer boundary.
+            // However, if the intent of __vbaFPFix was strict truncation,
+            // then adding epsilon AFTER truncation is what makes it potentially "more" than strict truncation.
+            //
+            // The original assembly might have been doing this to ensure values *stay* at their
+            // current integer level, or slightly above, after truncation, so that they convert
+            // to the *same* integer when eventually cast.
+            if (truncatedValue > 0.0001) // Your original condition for adding epsilon
+            {
+                return truncatedValue + EPSILON_ADD;
+            }
+
+            return value; // Should rarely be hit if value > 0.0001 is common
         }
 
         private void HandleMidiOutput(int noteSoundDuration)
@@ -2817,7 +2839,7 @@ namespace NeoBleeper
                 int baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    baseLength = Math.Max(1, (int)Math.Truncate(60000.0 / (double)Variables.bpm));
+                    baseLength = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
                 }
 
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
