@@ -2979,7 +2979,7 @@ namespace NeoBleeper
             MusicStopped?.Invoke(this, e);
         }
 
-        private async void play_metronome_sound(int frequency, int length)
+        private async void play_metronome_sound_from_midi_output(int frequency, int length)
         {
             if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
             {
@@ -3054,7 +3054,7 @@ namespace NeoBleeper
             ThreadPool.QueueUserWorkItem(state =>
             {
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                play_metronome_sound(frequency, 20);
+                play_metronome_sound_from_midi_output(frequency, 20);
                 NotePlayer.play_note(frequency, 20);
             });
         }
@@ -3098,7 +3098,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
-            double interval = Math.Truncate(60000.0 / Variables.bpm);
+            double interval = Math.Max(1, Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
             metronomeTimer.Interval = interval;
             metronomeTimer.Start();
         }
@@ -3263,11 +3263,11 @@ namespace NeoBleeper
             stop_playing();
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                double baseLength = 0;
+                int baseLength = 0;
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = 60000.0 / (double)Variables.bpm;
+                    baseLength = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {

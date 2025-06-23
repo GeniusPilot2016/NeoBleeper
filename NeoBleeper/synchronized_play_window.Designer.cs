@@ -148,7 +148,7 @@
             // timer_time
             // 
             timer_time.Enabled = true;
-            timer_time.Interval = 60;
+            timer_time.Interval = 1;
             timer_time.Tick += timer1_Tick;
             // 
             // pictureBox1
