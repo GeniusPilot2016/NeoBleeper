@@ -102,7 +102,7 @@ namespace NeoBleeper
             lbl_current_system_time.Text = current_time;
         }
 
-        private void start_playing()
+        private async void start_playing()
         {
             if (waiting == true)
             {
@@ -111,9 +111,9 @@ namespace NeoBleeper
                     is_playing = true;
                     
                     waiting = false; // Set waiting to false after starting to play
-                    this.SuspendLayout();
                     Task.Run(() =>
                     {
+                        this.SuspendLayout();
                         Debug.WriteLine("Starting to play music at " + DateTime.Now.ToString("HH:mm:ss"));
                         if (this.InvokeRequired)
                         {
@@ -131,8 +131,8 @@ namespace NeoBleeper
                             lbl_waiting.BackColor = Color.Yellow;
                         }
                         Debug.WriteLine("Playing music");
+                        this.ResumeLayout();
                     });
-                    this.ResumeLayout();
                     // Call the play function
                     if (radioButton_play_beginning_of_music.Checked)
                     {
@@ -155,7 +155,7 @@ namespace NeoBleeper
             this.Dispose();
         }
 
-        private void stop_playing()
+        private async void stop_playing()
         {
             try
             {
@@ -168,8 +168,8 @@ namespace NeoBleeper
                 }
                 is_playing = false;
                 waiting = false; // Set waiting to false
-                this.SuspendLayout();
                 Task.Run(() => {
+                    this.SuspendLayout();
                     if (this.InvokeRequired)
                     {
                         this.Invoke((MethodInvoker)delegate
@@ -187,15 +187,15 @@ namespace NeoBleeper
                         lbl_waiting.Text = "Currently not waiting";
                         lbl_waiting.BackColor = Color.Red;
                     }
+                    this.ResumeLayout();
                 });
-                this.ResumeLayout();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
             }
         }
-        private void button_wait_Click(object sender, EventArgs e)
+        private async void button_wait_Click(object sender, EventArgs e)
         {
             if (waiting == false)
             {
@@ -211,9 +211,9 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    this.SuspendLayout();
                     Task.Run(() =>
                     {
+                        this.SuspendLayout();
                         Debug.WriteLine("Waiting for " + dateTimePicker1.Value.ToString("HH:mm:ss") + " to start playing music");
                         if (this.InvokeRequired)
                         {
@@ -230,8 +230,8 @@ namespace NeoBleeper
                             lbl_waiting.Text = "Currently waiting";
                             lbl_waiting.BackColor = Color.Lime;
                         }
+                        this.ResumeLayout();
                     });
-                    this.ResumeLayout();
                 }
             }
             else
@@ -242,9 +242,9 @@ namespace NeoBleeper
                     mainWindow.stop_playing();
                 }
                 waiting = false;
-                this.SuspendLayout();
                 Task.Run(() =>
                 {
+                    this.SuspendLayout();
                     Debug.WriteLine("Stopped waiting for music to play");
                     if (this.InvokeRequired)
                     {
@@ -261,8 +261,8 @@ namespace NeoBleeper
                         lbl_waiting.Text = "Currently not waiting";
                         lbl_waiting.BackColor = Color.Red;
                     }
+                    this.ResumeLayout();
                 });
-                this.ResumeLayout();
             }
         }
 

@@ -2749,8 +2749,8 @@ namespace NeoBleeper
             noteSound_double = FixRoundingErrors(noteSound_double);
             totalRhythm_double = FixRoundingErrors(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Truncate(noteSound_double);
-            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
+            int noteSound_int = (int)Math.Floor(noteSound_double);
+            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
             int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
@@ -2827,7 +2827,7 @@ namespace NeoBleeper
                 int baseLength = 0;
                 if (Variables.bpm > 0)
                 {
-                    baseLength = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
+                    baseLength = Math.Max(1, (int)Math.Floor(60000.0 / (double)Variables.bpm));
                 }
 
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -3076,7 +3076,7 @@ namespace NeoBleeper
         }
 
 
-        private void UpdateLabelVisible(bool visible)
+        private async void UpdateLabelVisible(bool visible)
         {
             Task.Run(() =>
             {
