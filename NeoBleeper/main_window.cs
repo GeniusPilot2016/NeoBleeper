@@ -2814,22 +2814,18 @@ namespace NeoBleeper
                 );
             }
         }
-
-        private async void play_music(int startIndex)
+        private void play_music(int startIndex)
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
-
+            nonStopping = trackBar_note_silence_ratio.Value == 100;
+            int baseLength = 0;
+            if (Variables.bpm > 0)
+            {
+                baseLength = Math.Max(1, (int)Math.Floor(60000.0 / (double)Variables.bpm));
+            }
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
-                nonStopping = trackBar_note_silence_ratio.Value == 100;
-
-                int baseLength = 0;
-                if (Variables.bpm > 0)
-                {
-                    baseLength = Math.Max(1, (int)Math.Floor(60000.0 / (double)Variables.bpm));
-                }
-
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
 
                 HandleMidiOutput(noteSound_int);
@@ -2840,8 +2836,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
-
-                await UpdateListViewSelectionSync(startIndex);
+                UpdateListViewSelection(startIndex);
             }
 
             if (nonStopping)
@@ -2853,38 +2848,27 @@ namespace NeoBleeper
         }
 
         // Sync ListView update method
-        private async Task UpdateListViewSelectionSync(int startIndex)
-        {
-            if (listViewNotes.InvokeRequired)
-            {
-                listViewNotes.BeginInvoke(new Action(() =>
-                {
-                    UpdateListViewSelection(startIndex);
-                }));
-            }
-            else
-            {
-                UpdateListViewSelection(startIndex);
-            }
-        }
 
         private void UpdateListViewSelection(int startIndex)
         {
+            if (listViewNotes.Items.Count == 0) return;
+
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 int currentIndex = listViewNotes.SelectedIndices[0];
                 int nextIndex = currentIndex + 1;
+
                 if (nextIndex < listViewNotes.Items.Count)
                 {
-                    if (listViewNotes.Items.Count == 0) return;
+                    listViewNotes.SelectedItems.Clear(); // Clear previous selections
                     listViewNotes.Items[nextIndex].Selected = true;
-                    listViewNotes.EnsureVisible(nextIndex);
+                    EnsureSpecificIndexVisible(nextIndex);
                 }
                 else if (checkBox_loop.Checked)
                 {
-                    if (listViewNotes.Items.Count == 0) return;
+                    listViewNotes.SelectedItems.Clear(); // Clear previous selections
                     listViewNotes.Items[startIndex].Selected = true;
-                    listViewNotes.EnsureVisible(startIndex);
+                    EnsureSpecificIndexVisible(startIndex);
                 }
                 else
                 {
@@ -2892,14 +2876,38 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void EnsureSpecificIndexVisible(int index)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    if (listViewNotes.InvokeRequired)
+                    {
+                        SuspendLayout();
+                        listViewNotes.Invoke(new Action(() => listViewNotes.EnsureVisible(index)));
+                        ResumeLayout(true);
+                    }
+                    else
+                    {
+                        SuspendLayout();
+                        listViewNotes.EnsureVisible(index);
+                        ResumeLayout(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error ensuring index visible: " + ex.Message);
+                }
+            });
+        }
         public void play_all()
         {
             if (listViewNotes.Items.Count > 0)
             {
                 is_music_playing = true;
                 listViewNotes.Items[0].Selected = true;
-                listViewNotes.EnsureVisible(0);
+                EnsureSpecificIndexVisible(0);
                 Debug.WriteLine("Music is playing");
                 play_music(0);
             }
@@ -2912,14 +2920,14 @@ namespace NeoBleeper
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
                     listViewNotes.Items[0].Selected = true;
-                    listViewNotes.EnsureVisible(0);
+                    EnsureSpecificIndexVisible(0);
                     Debug.WriteLine("Music is playing");
                     play_music(0);
                 }
                 else
                 {
                     int index = listViewNotes.SelectedItems[0].Index;
-                    listViewNotes.EnsureVisible(index);
+                    EnsureSpecificIndexVisible(index);
                     Debug.WriteLine("Music is playing");
                     play_music(index);
                 }
@@ -3089,7 +3097,7 @@ namespace NeoBleeper
                 {
                     label_beep.Visible = visible;
                 }
-                ResumeLayout(performLayout: false);
+                ResumeLayout(performLayout: true);
                 return;
             });
         }
