@@ -133,7 +133,7 @@ namespace NeoBleeper
                     $"- Adhere to the XML structure provided.\r\n" +
                     $"- Each <Line> represents a musical event or rest.\r\n" +
                     $"- <Length> defines the duration. Use a variety of durations from the following: Whole, Half, Quarter, 1/8, 1/16, and 1/32. Vary the frequency of each duration\r\n" +
-                    $"- <Note1>, <Note2>, <Note3>, <Note4> hold the notes (e.g., C4, G#5, F6). Use empty tags (e.g., <Note3 />) if no note is played in that voice/slot for that duration. Mix single notes and chords.\r\n" +
+                    $"- <Note1>, <Note2>, <Note3>, <Note4> hold the notes (e.g., C4, G#5, F6). Use empty tags (e.g., <Note3 />) only when creating intentional musical rests. Prioritize filling at least one note channel per line to create musical content.\r\n" +
                     $"- <Mod /> defines the modulation (e.g Dot, Tri). Use empty tags (e.g., <Mod />) if there's no modulation in that voice/slot.\r\n" +
                     $"- <Art /> defines the articulation(e.g Sta, Spi, Fer). Use empty tags (e.g., <Art />) if there's no articulation in that voice/slot.\r\n" +
                     $"- Use the <Settings> provided as context for parameters like BPM and Time Signature, unless the prompt overrides them.\r\n" +
@@ -143,11 +143,14 @@ namespace NeoBleeper
                     $"- Vary the BPM between 40 and 600.\r\n" +
                     $"- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
                     $"- **Note Silence Ratio:**\r\n" +
-                    $"- Randomly vary the `NoteSilenceRatio` between 1 and 100, favoring higher values (more silence).\r\n" +
-                    $"- If the user's prompt contains keywords like 'sparse', 'minimal', 'quiet', or 'ambient', increase the `NoteSilenceRatio` towards 99.\r\n" +
+                    $"- For normal music generation, use NoteSilenceRatio, which is ratio of note and silence in each line, between 5-100 to ensure adequate musical content.\r\n" +
+                    $"- If the user's prompt contains keywords like 'sparse', 'minimal', 'quiet', or 'ambient', increase the `NoteSilenceRatio` towards 70.\r\n" +
+                    $"- If the user's prompt contains keywords like 'dense', 'full', 'rich', or 'continuous', decrease the `NoteSilenceRatio` towards 10.\r\n" +
                     $"- If the user prompt contains a number, use that number to set the `<NoteSilenceRatio>` value.\r\n" +
                     $"- If no number is given, use a default value of 95 for the NoteSilenceRatio.\r\n" +
                     $"- The NoteSilenceRatio value represents the percentage of time that silence occurs, versus a note being played.\r\n" +
+                    $"- Create musical rests (lines with all empty note tags) sparingly, only when musically appropriate.\r\n" +
+                    $"- Ensure most lines contain notes in at least one voice channel to maintain musical flow.\r\n" +
                     $"- Randomly vary the `NoteLength` between 1 and 5.\r\n" +
                     $"- Include single-voice sections in the generated music.\r\n" +
                     $"- Distribute notes randomly across all four voices.\r\n" +
@@ -161,7 +164,7 @@ namespace NeoBleeper
                     $"[because the system speaker (PC Speaker) located on the motherboard of the computer and used to make the computer only beep can only play one note at a time.].**\r\n" +
                     $"--- NeoBleeperProjectFile Template ---" +
                     $"\r\n<NeoBleeperProjectFile>\r\n    <Settings>\r\n        <RandomSettings>\r\n            <KeyboardOctave>5</KeyboardOctave>\r\n            <BPM>120</BPM>\r\n            " +
-                    $"<TimeSignature>4</TimeSignature>\r\n            <NoteSilenceRatio>98</NoteSilenceRatio>\r\n            <NoteLength>3</NoteLength>\r\n            " +
+                    $"<TimeSignature>4</TimeSignature>\r\n            <NoteSilenceRatio>95</NoteSilenceRatio>\r\n            <NoteLength>3</NoteLength>\r\n            " +
                     $"<AlternateTime>5</AlternateTime>\r\n        </RandomSettings>\r\n        <PlaybackSettings>\r\n            <NoteClickPlay>True</NoteClickPlay>\r\n            " +
                     $"<NoteClickAdd>True</NoteClickAdd>\r\n            <AddNote1>False</AddNote1>\r\n            <AddNote2>False</AddNote2>\r\n            <AddNote3>True</AddNote3>\r\n            " +
                     $"<AddNote4>False</AddNote4>\r\n            <NoteReplace>True</NoteReplace>\r\n            <NoteLengthReplace>False</NoteLengthReplace>\r\n        </PlaybackSettings>\r\n        " +
