@@ -63,12 +63,16 @@ namespace NeoBleeper
                         waveOut.Play();
                 }
                 waveOut.Play(); // Start playing the sound
-                NonBlockingSleep.Sleep(ms);
+                
                 if (!nonStopping)
                 {
-
+                    NonBlockingSleep.Sleep(ms);
                     waveOut.Stop(); // Stop the sound after the specified duration
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                }
+                else
+                {
+                    NonBlockingSleep.Sleep(ms == 0 ? 0 : Math.Max(1, ms-1)); 
                 }
             }
 
@@ -99,13 +103,17 @@ namespace NeoBleeper
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                waveOut.Play(); // Start playing the filtered noise
-                NonBlockingSleep.Sleep(ms);
+                waveOut.Play(); // Start playing the sound
+
                 if (!nonStopping)
                 {
-
-                    waveOut.Stop();
+                    NonBlockingSleep.Sleep(ms);
+                    waveOut.Stop(); // Stop the sound after the specified duration
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                }
+                else
+                {
+                    NonBlockingSleep.Sleep(ms == 0 ? 0 : Math.Max(1, ms - 1));
                 }
             }
 

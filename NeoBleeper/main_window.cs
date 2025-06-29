@@ -2860,18 +2860,12 @@ namespace NeoBleeper
 
                 if (nextIndex < listViewNotes.Items.Count)
                 {
-                    if (listViewNotes.Items[nextIndex].Selected == false) // Avoid redundant selection
-                    {
-                        listViewNotes.Items[nextIndex].Selected = true;
-                    }
+                    listViewNotes.Items[nextIndex].Selected = true;
                     EnsureSpecificIndexVisible(nextIndex);
                 }
                 else if (checkBox_loop.Checked)
                 {
-                    if (listViewNotes.Items[startIndex].Selected == false) // Avoid redundant selection
-                    {
-                        listViewNotes.Items[startIndex].Selected = true;
-                    }
+                    listViewNotes.Items[startIndex].Selected = true;
                     EnsureSpecificIndexVisible(startIndex);
                 }
                 else
