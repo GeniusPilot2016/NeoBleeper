@@ -2226,7 +2226,6 @@
         private HelpProvider NeoBleeper_help;
         private ToolTip toolTip1;
         private VScrollBar vScrollBar1;
-        private ListView listViewNotes;
         private ColumnHeader length;
         private ColumnHeader note1;
         private ColumnHeader note2;
@@ -2420,5 +2419,6 @@
         private ToolStripMenuItem openRecentToolStripMenuItem;
         private ToolStripMenuItem createMusicWithAIToolStripMenuItem;
         private ToolStripMenuItem convertToGCodeToolStripMenuItem;
+        public ListView listViewNotes;
     }
 }

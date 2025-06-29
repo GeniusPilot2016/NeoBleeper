@@ -8,7 +8,7 @@ namespace NeoBleeper
     public class RenderBeep
     {
         public static class BeepClass // Manually drive the system speaker (aka PC speaker) using the inpoutx64.dll library in newer Windows versions
-        { 
+        {
             [DllImport("inpoutx64.dll")]
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
@@ -21,7 +21,7 @@ namespace NeoBleeper
                 Out32(0x42, (Byte)(div >> 8));
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
                 NonBlockingSleep.Sleep(ms);
-                if(nonStopping==false) // If nonStopping is true, the beep will not stop
+                if (nonStopping == false) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();
                     NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
@@ -63,15 +63,12 @@ namespace NeoBleeper
                         waveOut.Play();
                 }
                 waveOut.Play(); // Start playing the sound
+                NonBlockingSleep.Sleep(ms);
                 if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(ms);
+
                     waveOut.Stop(); // Stop the sound after the specified duration
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
-                }
-                else
-                {
-                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1)); // Sleep without stopping the sound
                 }
             }
 
@@ -98,21 +95,17 @@ namespace NeoBleeper
                     bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
                     waveOut.Stop(); // Stop the current playback if it was playing
                     waveOut.Init(bandPassNoise);
-                    currentProvider = bandPassNoise;;
+                    currentProvider = bandPassNoise; ;
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
                 waveOut.Play(); // Start playing the filtered noise
-
+                NonBlockingSleep.Sleep(ms);
                 if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(ms);
+
                     waveOut.Stop();
                     NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
-                }
-                else
-                {
-                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1)); // Sleep without stopping the sound
                 }
             }
 

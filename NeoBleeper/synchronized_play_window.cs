@@ -17,6 +17,9 @@ namespace NeoBleeper
             dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
             setFonts();
             set_theme();
+            var preciseTimer = new PreciseTimer(1);
+            preciseTimer.Tick += preciseTimer_Tick;
+            preciseTimer.Start();
         }
         private void setFonts()
         {
@@ -36,7 +39,26 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void preciseTimer_Tick(object sender, EventArgs e)
+        {
+            if (waiting == true)
+            {
+                if (mainWindow.listViewNotes.Items.Count > 0)
+                {
+                    if (is_playing == false)
+                    {
+                        if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
+                        {
+                            start_playing();
+                        }
+                    }
+                }
+                else
+                {
+                    StopWaiting(); // Stop waiting if there are no music notes available
+                }
+            }
+        }
         private void MainWindow_MusicStopped(object sender, EventArgs e)
         {
             stop_playing();
@@ -91,13 +113,6 @@ namespace NeoBleeper
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (waiting == true && is_playing == false)
-            {
-                if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
-                {
-                    start_playing();
-                }
-            }
             Task.Run(() =>
             {
                 if (this.InvokeRequired)
@@ -219,7 +234,7 @@ namespace NeoBleeper
         }
         private async void button_wait_Click(object sender, EventArgs e)
         {
-            if (waiting == false)
+            if (waiting == false && mainWindow.listViewNotes.Items.Count>0)
             {
                 dateTimePicker1.Enabled = false; // Disable the date time picker while waiting
                 waiting = true;
@@ -260,38 +275,41 @@ namespace NeoBleeper
             }
             else
             {
-                dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting
-                if (is_playing == true || mainWindow.is_music_playing)
+                StopWaiting(); // Stop waiting if already waiting or no music is available
+            }
+        }
+        private void StopWaiting()
+        {
+            dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting
+            if (is_playing == true || mainWindow.is_music_playing)
+            {
+                mainWindow.stop_playing();
+            }
+            waiting = false;
+            Task.Run(() =>
+            {
+                Debug.WriteLine("Stopped waiting for music to play");
+                if (this.InvokeRequired)
                 {
-                    mainWindow.stop_playing();
-                }
-                waiting = false;
-                Task.Run(() =>
-                {
-                    Debug.WriteLine("Stopped waiting for music to play");
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            SuspendLayout();
-                            button_wait.Text = "Start waiting";
-                            lbl_waiting.Text = "Currently not waiting";
-                            lbl_waiting.BackColor = Color.Red;
-                            ResumeLayout(performLayout: true);
-                        });
-                    }
-                    else
+                    this.Invoke((MethodInvoker)delegate
                     {
                         SuspendLayout();
                         button_wait.Text = "Start waiting";
                         lbl_waiting.Text = "Currently not waiting";
                         lbl_waiting.BackColor = Color.Red;
                         ResumeLayout(performLayout: true);
-                    }
-                });
-            }
+                    });
+                }
+                else
+                {
+                    SuspendLayout();
+                    button_wait.Text = "Start waiting";
+                    lbl_waiting.Text = "Currently not waiting";
+                    lbl_waiting.BackColor = Color.Red;
+                    ResumeLayout(performLayout: true);
+                }
+            });
         }
-
         private void radioButton_play_beginning_of_music_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_play_beginning_of_music.Checked)

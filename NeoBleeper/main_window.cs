@@ -2862,7 +2862,6 @@ namespace NeoBleeper
                 {
                     if (listViewNotes.Items[nextIndex].Selected == false) // Avoid redundant selection
                     {
-                        listViewNotes.SelectedItems.Clear(); // Clear previous selections
                         listViewNotes.Items[nextIndex].Selected = true;
                     }
                     EnsureSpecificIndexVisible(nextIndex);
@@ -2871,7 +2870,6 @@ namespace NeoBleeper
                 {
                     if (listViewNotes.Items[startIndex].Selected == false) // Avoid redundant selection
                     {
-                        listViewNotes.SelectedItems.Clear(); // Clear previous selections
                         listViewNotes.Items[startIndex].Selected = true;
                     }
                     EnsureSpecificIndexVisible(startIndex);
