@@ -182,9 +182,10 @@ namespace NeoBleeper
                     output = Regex.Replace(output, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*1/2\s*$", "Half", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*1/4\s*$", "Quarter", RegexOptions.IgnoreCase);
-                    output = Regex.Replace(output, @"\s*Eigth\s*$", "1/8", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Eighth\s*$", "1/8", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Db\s*$", "C#", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Eb\s*$", "D#", RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*Gb\s*$", "F#", RegexOptions.IgnoreCase);
