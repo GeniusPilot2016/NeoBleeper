@@ -3654,18 +3654,26 @@ namespace NeoBleeper
                     stopwatch.Start();
                     do
                     {
+                        long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                        if (remainingTime <= 0)
+                        {
+                            break;
+                        }
+
                         foreach (string note in note_series)
                         {
+                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                            if (remainingTime <= 0)
+                            {
+                                break;
+                            }
+
                             if (!string.IsNullOrEmpty(note))
                             {
-                                // Check elapsed time
-                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
-                                {
-                                    stopwatch.Stop();
-                                    break;
-                                }
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
+                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
                             }
                         }
                     }
@@ -3675,39 +3683,47 @@ namespace NeoBleeper
                 else if (radioButtonPlay_alternating_notes2.Checked == true)
                 {
                     string[] note_series = { note1, note2, note3, note4 };
-                    stopwatch.Start(); 
+                    stopwatch.Start();
                     do
                     {
+                        long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                        if (remainingTime <= 0)
+                        {
+                            break;
+                        }
+
                         // Odd numbered columns (Note1 and Note3)
                         for (int i = 0; i < 4; i += 2)
                         {
+                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                            if (remainingTime <= 0)
+                            {
+                                break;
+                            }
                             if (!string.IsNullOrEmpty(note_series[i]))
                             {
-                                // Check elapsed time
-                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
-                                {
-                                    stopwatch.Stop();
-                                    break;
-                                }
                                 double frequency = (i == 0) ? note1_frequency : note3_frequency;
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
+                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
                             }
                         }
+                        if (remainingTime <= 0) break;
 
                         // Even numbered columns (Note2 and Note4)
                         for (int i = 1; i < 4; i += 2)
                         {
+                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                            if (remainingTime <= 0)
+                            {
+                                break;
+                            }
                             if (!string.IsNullOrEmpty(note_series[i]))
                             {
                                 double frequency = (i == 1) ? note2_frequency : note4_frequency;
-                                NotePlayer.play_note(Convert.ToInt32(frequency), Convert.ToInt32(numericUpDown_alternating_notes.Value));
-
-                                // Check elapsed time
-                                if (stopwatch.ElapsedMilliseconds >= totalDuration)
-                                {
-                                    stopwatch.Stop();
-                                    break;
-                                }
+                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
+                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
                             }
                         }
                     }
