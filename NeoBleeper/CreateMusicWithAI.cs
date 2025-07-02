@@ -215,7 +215,7 @@ namespace NeoBleeper
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxPrompt.Text != String.Empty)
+            if (!string.IsNullOrWhiteSpace(textBoxPrompt.Text))
             {
                 buttonCreate.Enabled = true;
             }
