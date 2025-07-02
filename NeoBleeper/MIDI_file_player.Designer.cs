@@ -107,6 +107,10 @@
             label_more_notes = new Label();
             panel2 = new Panel();
             flowLayoutPanel2 = new FlowLayoutPanel();
+            panelLoading = new Panel();
+            progressBar1 = new ProgressBar();
+            pictureBoxIcon = new PictureBox();
+            labelStatus = new Label();
             groupBox1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
@@ -114,6 +118,8 @@
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
+            panelLoading.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).BeginInit();
             SuspendLayout();
             // 
             // textBox1
@@ -284,7 +290,7 @@
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(317, 45);
             trackBar1.TabIndex = 1;
-            trackBar1.TickStyle = TickStyle.None;
+            trackBar1.TickFrequency = 10;
             trackBar1.Scroll += trackBar1_Scroll;
             // 
             // label4
@@ -1273,6 +1279,51 @@
             flowLayoutPanel2.Size = new Size(344, 140);
             flowLayoutPanel2.TabIndex = 31;
             // 
+            // panelLoading
+            // 
+            panelLoading.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panelLoading.Controls.Add(progressBar1);
+            panelLoading.Controls.Add(pictureBoxIcon);
+            panelLoading.Controls.Add(labelStatus);
+            panelLoading.Location = new Point(9, 56);
+            panelLoading.Name = "panelLoading";
+            panelLoading.Size = new Size(329, 107);
+            panelLoading.TabIndex = 29;
+            panelLoading.Visible = false;
+            // 
+            // progressBar1
+            // 
+            progressBar1.Anchor = AnchorStyles.None;
+            progressBar1.Location = new Point(14, 60);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(303, 23);
+            progressBar1.TabIndex = 5;
+            // 
+            // pictureBoxIcon
+            // 
+            pictureBoxIcon.Anchor = AnchorStyles.Top;
+            pictureBoxIcon.Image = Properties.Resources.icons8_wait_96;
+            pictureBoxIcon.Location = new Point(29, 9);
+            pictureBoxIcon.Margin = new Padding(2);
+            pictureBoxIcon.Name = "pictureBoxIcon";
+            pictureBoxIcon.Size = new Size(38, 38);
+            pictureBoxIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxIcon.TabIndex = 4;
+            pictureBoxIcon.TabStop = false;
+            // 
+            // labelStatus
+            // 
+            labelStatus.Anchor = AnchorStyles.Top;
+            labelStatus.AutoSize = true;
+            labelStatus.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelStatus.Location = new Point(90, 20);
+            labelStatus.Margin = new Padding(2, 0, 2, 0);
+            labelStatus.Name = "labelStatus";
+            labelStatus.Size = new Size(177, 16);
+            labelStatus.TabIndex = 3;
+            labelStatus.Text = "Loading MIDI file. Please wait...";
+            labelStatus.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MIDI_file_player
             // 
             AllowDrop = true;
@@ -1303,9 +1354,10 @@
             Controls.Add(checkBox_channel_1);
             Controls.Add(holded_note_label);
             Controls.Add(label4);
-            Controls.Add(groupBox1);
             Controls.Add(label1);
             Controls.Add(textBox1);
+            Controls.Add(panelLoading);
+            Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
@@ -1330,6 +1382,9 @@
             panel2.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
+            panelLoading.ResumeLayout(false);
+            panelLoading.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1413,5 +1468,9 @@
         private Label label_more_notes;
         private Panel panel2;
         private FlowLayoutPanel flowLayoutPanel2;
+        private Panel panelLoading;
+        private PictureBox pictureBoxIcon;
+        private Label labelStatus;
+        private ProgressBar progressBar1;
     }
 }

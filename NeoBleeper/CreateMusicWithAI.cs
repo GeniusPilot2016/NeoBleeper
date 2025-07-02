@@ -20,9 +20,14 @@ namespace NeoBleeper
     {
         public string output = "";
         String AIModel = "models/gemini-2.5-flash";
+        Size NormalWindowSize;
+        double scaleFraction = 75/160; // Scale factor for the window size
+        Size LoadingWindowSize;
         public CreateMusicWithAI()
         {
             InitializeComponent();
+            NormalWindowSize = this.Size;
+            LoadingWindowSize = new Size((int)(NormalWindowSize.Width * scaleFraction), (int)(NormalWindowSize.Height * scaleFraction));
             setFonts();
             set_theme();
             comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
@@ -121,7 +126,7 @@ namespace NeoBleeper
             MusicCreating musicCreating = new MusicCreating();
             try
             {
-                musicCreating.Show();
+                this.Size = LoadingWindowSize;
                 SetControlsEnabled(false);
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
@@ -207,8 +212,8 @@ namespace NeoBleeper
             }
             finally
             {
-                musicCreating.Close();
                 SetControlsEnabled(true);
+                this.Size = NormalWindowSize;
                 this.Close();
             }
         }
@@ -228,6 +233,9 @@ namespace NeoBleeper
         {
             foreach (Control ctrl in Controls)
             {
+                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating)
+                    continue;
+
                 ctrl.Enabled = enabled;
             }
             if (enabled == true)
@@ -262,10 +270,6 @@ namespace NeoBleeper
                     AIModel = "models/gemini-2.5-flash";
                     break;
             }
-        }
-        private void CreateMusicWithAI_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)

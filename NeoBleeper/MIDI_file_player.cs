@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Linq;
 using System.Reflection;
 
 namespace NeoBleeper
 {
     public partial class MIDI_file_player : Form
     {
-        private MIDIFileLoading midiFileLoading;
         bool is_playing = false;
         private List<int> _displayOrder = new List<int>();
         public MIDI_file_player(string filename)
@@ -20,6 +20,7 @@ namespace NeoBleeper
             textBox1.Text = filename;
             LoadMIDI(filename);
         }
+
         private void setFonts()
         {
             UIFonts uiFonts = UIFonts.Instance;
@@ -141,7 +142,7 @@ namespace NeoBleeper
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
             Stop();
             openFileDialog.Filter = "MIDI Files|*.mid";
@@ -150,7 +151,7 @@ namespace NeoBleeper
                 if (IsMidiFile(openFileDialog.FileName))
                 {
                     textBox1.Text = openFileDialog.FileName;
-                    LoadMIDI(openFileDialog.FileName);
+                    await LoadMIDI(openFileDialog.FileName);
                 }
                 else
                 {
@@ -172,7 +173,7 @@ namespace NeoBleeper
             }
         }
 
-        private void MIDI_file_player_DragDrop(object sender, DragEventArgs e)
+        private async void MIDI_file_player_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -184,7 +185,7 @@ namespace NeoBleeper
                     if (IsMidiFile(fileName))
                     {
                         textBox1.Text = fileName;
-                        LoadMIDI(fileName);
+                        await LoadMIDI(fileName);
                     }
                     else
                     {
@@ -228,27 +229,27 @@ namespace NeoBleeper
             Debug.WriteLine($"Enabled channels: {string.Join(", ", _enabledChannels)}");
         }
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
-        public void LoadMIDI(string filename)
+        private async Task LoadMIDI(string filename)
         {
             try
             {
-                new Thread(() =>
-                {
-                    midiFileLoading = new MIDIFileLoading();
-                    midiFileLoading.ShowDialog();
-                }).Start();
-                _currentFileName = filename;
-                // Stop any current playback
-                Stop();
+                panelLoading.Visible = true;
+                labelStatus.Text = "The MIDI file is being loaded...";
+                progressBar1.Value = 0;
+                progressBar1.Maximum = 100;
+                progressBar1.Visible = true;
 
-                // Clear previous channel information
+                _currentFileName = filename;
+                Stop();
                 _noteChannels.Clear();
 
-                // Load the MIDI file using NAudio
+                // Load MIDI file
                 var midiFile = new MidiFile(filename, false);
 
                 // Extract tempo information
                 int microsecondsPerQuarterNote = 500000; // Default 120 BPM
+                int trackCount = midiFile.Events.Tracks;
+                int trackIndex = 0;
                 foreach (var track in midiFile.Events)
                 {
                     foreach (var midiEvent in track)
@@ -259,16 +260,21 @@ namespace NeoBleeper
                             break;
                         }
                     }
+                    // Update progress bar every 10% of tracks processed
+                    int percent = (int)(10 + 10.0 * ++trackIndex / trackCount); // Between %10 and %20
+                    progressBar1.Value = Math.Min(percent, 100);
+                    labelStatus.Text = $"Tempo information is being extracted... ({trackIndex}/{trackCount})";
+                    await Task.Delay(10); // Short delay to update UI
                 }
-                // Calculate timing conversion
+
                 _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
 
-                // Build a list of "frames" - snapshots of which notes are active at each time point
-                _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
-                HashSet<int> currentlyActiveNotes = new HashSet<int>();
-
-                // Create a timeline of all note events sorted by time
+                // Collect MIDI events
+                labelStatus.Text = "MIDI events are being collected...";
+                progressBar1.Value = 30;
                 var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
+                int totalTracks = midiFile.Events.Tracks;
+                int processedTracks = 0;
                 foreach (var track in midiFile.Events)
                 {
                     foreach (var midiEvent in track)
@@ -277,8 +283,6 @@ namespace NeoBleeper
                         {
                             var noteEvent = (NoteOnEvent)midiEvent;
                             allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
-
-                            // Store the channel for this note
                             _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                         }
                         else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
@@ -287,67 +291,71 @@ namespace NeoBleeper
                             allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
                         }
                     }
+                    processedTracks++;
+                    int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between %30 and %50
+                    progressBar1.Value = Math.Min(percent, 100);
+                    labelStatus.Text = $"Olaylar toplanıyor... ({processedTracks}/{totalTracks})";
+                    await Task.Delay(10);
                 }
 
-                // Sort all events by time
+                // Sort events by time
+                labelStatus.Text = "Events are being sorted...";
+                progressBar1.Value = 55;
                 allEvents = allEvents.OrderBy(e => e.Time).ToList();
 
-                // Get unique time points
+                // Take distinct time points
                 var timePoints = allEvents.Select(e => e.Time).Distinct().OrderBy(t => t).ToList();
 
-                // Build frames
-                foreach (var time in timePoints)
+                // Create frames
+                labelStatus.Text = "Frames are being created...";
+                progressBar1.Value = 60;
+                _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                HashSet<int> currentlyActiveNotes = new HashSet<int>();
+                int totalTimePoints = timePoints.Count;
+                for (int i = 0; i < totalTimePoints; i++)
                 {
-                    // Process all events at this time point
+                    var time = timePoints[i];
                     foreach (var evt in allEvents.Where(e => e.Time == time))
                     {
                         if (evt.IsNoteOn)
-                        {
                             currentlyActiveNotes.Add(evt.NoteNumber);
-                        }
                         else
-                        {
                             currentlyActiveNotes.Remove(evt.NoteNumber);
-                        }
                     }
-
-                    // Create a new frame with a copy of currently active notes
                     _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
+
+                    // Update progress bar every 5% of frames processed
+                    if (i % Math.Max(1, totalTimePoints / 20) == 0)
+                    {
+                        int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between %60 and %95
+                        progressBar1.Value = Math.Min(percent, 100);
+                        labelStatus.Text = $"Frames are being created... ({i + 1}/{totalTimePoints})";
+                        await Task.Delay(1);
+                    }
                 }
 
-                // Reset the current frame index
                 _currentFrameIndex = 0;
                 _isPlaying = false;
 
-                // Debug info
-                Debug.WriteLine($"Loaded MIDI file: {filename}");
-                Debug.WriteLine($"Total frames: {_frames.Count}");
-                Debug.WriteLine($"Ticks to Ms: {_ticksToMs}");
-
-                // Initialize the enabled channels based on checkboxes
                 UpdateEnabledChannels();
+
+                progressBar1.Value = 100;
+                labelStatus.Text = "MIDI file loaded successfully.";
+                await Task.Delay(300);
+                progressBar1.Visible = false;
             }
             catch (Exception ex)
             {
+                labelStatus.Text = "An error occurred while loading the MIDI file.";
+                progressBar1.Visible = false;
+                progressBar1.Value = 0;
                 MessageBox.Show($"Error loading MIDI file: {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Debug.WriteLine($"Error loading MIDI file: {ex.Message}");
             }
             finally
             {
-                { 
-                    if (midiFileLoading != null)
-                    {
-                        if (midiFileLoading.InvokeRequired)
-                        {
-                            midiFileLoading.Invoke(new Action(() => midiFileLoading?.Close()));
-                        }
-                        else
-                        {
-                            midiFileLoading?.Close();
-                        }
-                    }
-                }
+                panelLoading.Visible = false;
             }
         }
         public void Play()
@@ -1120,7 +1128,6 @@ namespace NeoBleeper
             try
             {
                 Stop();
-                midiFileLoading.Close();
             }
             catch (Exception ex)
             {
