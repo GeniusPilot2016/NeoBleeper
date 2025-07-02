@@ -836,7 +836,7 @@ namespace NeoBleeper
                                             UnHighlightNoteLabel(frequency);
                                         }
                                     }
-                                    while (stopwatch.ElapsedMilliseconds <= duration);
+                                    while (stopwatch.ElapsedMilliseconds < duration);
                                     stopwatch.Stop();
                                 }
                                 break;
