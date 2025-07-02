@@ -536,7 +536,7 @@
             // 
             // createMusicWithAIToolStripMenuItem
             // 
-            createMusicWithAIToolStripMenuItem.Image = Properties.Resources.icons8_artificial_intelligence_48;
+            createMusicWithAIToolStripMenuItem.Image = Properties.Resources.icons8_ai_48;
             createMusicWithAIToolStripMenuItem.Name = "createMusicWithAIToolStripMenuItem";
             resources.ApplyResources(createMusicWithAIToolStripMenuItem, "createMusicWithAIToolStripMenuItem");
             createMusicWithAIToolStripMenuItem.Click += createMusicWithAIToolStripMenuItem_Click;

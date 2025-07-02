@@ -28,13 +28,13 @@ namespace NeoBleeper
             {
                 if (ctrl.Controls != null)
                 {
-                    if(ctrl is Panel panel)
+                    if (ctrl is Panel panel)
                     {
-                        foreach(Control panelControls in panel.Controls)
+                        foreach (Control panelControls in panel.Controls)
                         {
-                            if(panelControls is Panel childPanel)
+                            if (panelControls is Panel childPanel)
                             {
-                                foreach(Control childPanelCtrl in childPanel.Controls)
+                                foreach (Control childPanelCtrl in childPanel.Controls)
                                 {
                                     childPanelCtrl.Font = uiFonts.SetUIFont(childPanelCtrl.Font.Size, childPanelCtrl.Font.Style);
                                 }
@@ -45,7 +45,7 @@ namespace NeoBleeper
                             }
                         }
                     }
-                    else if(ctrl is GroupBox groupBox)
+                    else if (ctrl is GroupBox groupBox)
                     {
                         ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
                         foreach (Control groupBoxControls in groupBox.Controls)
@@ -243,96 +243,95 @@ namespace NeoBleeper
                 Stop();
                 _noteChannels.Clear();
 
-                // Load MIDI file
-                var midiFile = new MidiFile(filename, false);
-
-                // Extract tempo information
-                int microsecondsPerQuarterNote = 500000; // Default 120 BPM
-                int trackCount = midiFile.Events.Tracks;
-                int trackIndex = 0;
-                foreach (var track in midiFile.Events)
+                // Offload heavy processing to a background thread
+                await Task.Run(() =>
                 {
-                    foreach (var midiEvent in track)
+                    var midiFile = new MidiFile(filename, false);
+
+                    // Extract tempo information
+                    int microsecondsPerQuarterNote = 500000; // Default 120 BPM
+                    int trackCount = midiFile.Events.Tracks;
+                    int trackIndex = 0;
+
+                    foreach (var track in midiFile.Events)
                     {
-                        if (midiEvent is TempoEvent tempoEvent)
+                        foreach (var midiEvent in track)
                         {
-                            microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
-                            break;
+                            if (midiEvent is TempoEvent tempoEvent)
+                            {
+                                microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
+                                break;
+                            }
+                        }
+
+                        // Update progress bar every 10% of tracks processed
+                        int percent = (int)(10 + 10.0 * ++trackIndex / trackCount); // Between %10 and %20
+                        UpdateProgressBar(percent, $"Tempo information is being extracted... ({trackIndex}/{trackCount})");
+                    }
+
+                    _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
+
+                    // Collect MIDI events
+                    UpdateProgressBar(30, "MIDI events are being collected...");
+                    var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
+                    int totalTracks = midiFile.Events.Tracks;
+                    int processedTracks = 0;
+
+                    foreach (var track in midiFile.Events)
+                    {
+                        foreach (var midiEvent in track)
+                        {
+                            if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
+                            {
+                                var noteEvent = (NoteOnEvent)midiEvent;
+                                allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
+                                _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                            }
+                            else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
+                            {
+                                var noteEvent = (NoteEvent)midiEvent;
+                                allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
+                            }
+                        }
+
+                        processedTracks++;
+                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between %30 and %50
+                        UpdateProgressBar(percent, $"Events are being collected... ({processedTracks}/{totalTracks})");
+                    }
+
+                    // Sort events by time
+                    UpdateProgressBar(55, "Events are being sorted...");
+                    allEvents = allEvents.OrderBy(e => e.Time).ToList();
+
+                    // Take distinct time points
+                    var timePoints = allEvents.Select(e => e.Time).Distinct().OrderBy(t => t).ToList();
+
+                    // Create frames
+                    UpdateProgressBar(60, "Frames are being created...");
+                    _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                    HashSet<int> currentlyActiveNotes = new HashSet<int>();
+                    int totalTimePoints = timePoints.Count;
+
+                    for (int i = 0; i < totalTimePoints; i++)
+                    {
+                        var time = timePoints[i];
+                        foreach (var evt in allEvents.Where(e => e.Time == time))
+                        {
+                            if (evt.IsNoteOn)
+                                currentlyActiveNotes.Add(evt.NoteNumber);
+                            else
+                                currentlyActiveNotes.Remove(evt.NoteNumber);
+                        }
+                        _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
+
+                        // Update progress bar every 5% of frames processed
+                        if (i % Math.Max(1, totalTimePoints / 20) == 0)
+                        {
+                            int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between %60 and %95
+                            UpdateProgressBar(percent, $"Frames are being created... ({i + 1}/{totalTimePoints})");
                         }
                     }
-                    // Update progress bar every 10% of tracks processed
-                    int percent = (int)(10 + 10.0 * ++trackIndex / trackCount); // Between %10 and %20
-                    progressBar1.Value = Math.Min(percent, 100);
-                    labelStatus.Text = $"Tempo information is being extracted... ({trackIndex}/{trackCount})";
-                    await Task.Delay(10); // Short delay to update UI
-                }
-
-                _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
-
-                // Collect MIDI events
-                labelStatus.Text = "MIDI events are being collected...";
-                progressBar1.Value = 30;
-                var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
-                int totalTracks = midiFile.Events.Tracks;
-                int processedTracks = 0;
-                foreach (var track in midiFile.Events)
-                {
-                    foreach (var midiEvent in track)
-                    {
-                        if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
-                        {
-                            var noteEvent = (NoteOnEvent)midiEvent;
-                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
-                            _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
-                        }
-                        else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
-                        {
-                            var noteEvent = (NoteEvent)midiEvent;
-                            allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
-                        }
-                    }
-                    processedTracks++;
-                    int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between %30 and %50
-                    progressBar1.Value = Math.Min(percent, 100);
-                    labelStatus.Text = $"Olaylar toplanıyor... ({processedTracks}/{totalTracks})";
-                    await Task.Delay(10);
-                }
-
-                // Sort events by time
-                labelStatus.Text = "Events are being sorted...";
-                progressBar1.Value = 55;
-                allEvents = allEvents.OrderBy(e => e.Time).ToList();
-
-                // Take distinct time points
-                var timePoints = allEvents.Select(e => e.Time).Distinct().OrderBy(t => t).ToList();
-
-                // Create frames
-                labelStatus.Text = "Frames are being created...";
-                progressBar1.Value = 60;
-                _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
-                HashSet<int> currentlyActiveNotes = new HashSet<int>();
-                int totalTimePoints = timePoints.Count;
-                for (int i = 0; i < totalTimePoints; i++)
-                {
-                    var time = timePoints[i];
-                    foreach (var evt in allEvents.Where(e => e.Time == time))
-                    {
-                        if (evt.IsNoteOn)
-                            currentlyActiveNotes.Add(evt.NoteNumber);
-                        else
-                            currentlyActiveNotes.Remove(evt.NoteNumber);
-                    }
-                    _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
-
-                    // Update progress bar every 5% of frames processed
-                    if (i % Math.Max(1, totalTimePoints / 20) == 0)
-                    {
-                        int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between %60 and %95
-                        progressBar1.Value = Math.Min(percent, 100);
-                        labelStatus.Text = $"Frames are being created... ({i + 1}/{totalTimePoints})";
-                        await Task.Delay(1);
-                    }
-                }
+                });
 
                 _currentFrameIndex = 0;
                 _isPlaying = false;
@@ -358,6 +357,24 @@ namespace NeoBleeper
                 panelLoading.Visible = false;
             }
         }
+
+        private void UpdateProgressBar(int value, string status)
+        {
+            if (progressBar1.InvokeRequired)
+            {
+                progressBar1.BeginInvoke(new Action(() =>
+                {
+                    progressBar1.Value = Math.Min(value, 100);
+                    labelStatus.Text = status;
+                }));
+            }
+            else
+            {
+                progressBar1.Value = Math.Min(value, 100);
+                labelStatus.Text = status;
+            }
+        }
+
         public void Play()
         {
             // Debug check
@@ -542,7 +559,7 @@ namespace NeoBleeper
                     int durationMs;
                     if (i < _frames.Count - 1)
                     {
-                        durationMs = (int)Math.Floor((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs);
+                        durationMs = (int)Math.Floor(main_window.FixRoundingErrors((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs));
                     }
                     else
                     {
@@ -550,7 +567,7 @@ namespace NeoBleeper
                     }
 
                     // Ensure minimum duration
-                    durationMs = Math.Max(10, durationMs);
+                    durationMs = Math.Max(0, durationMs);
 
                     // Debug every 100 frames
                     if (i % 100 == 0)
@@ -569,7 +586,7 @@ namespace NeoBleeper
                                 Task.Run(() =>
                                 {
                                     MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
-                                });   
+                                });
                             }
                         }
                         var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
@@ -822,7 +839,7 @@ namespace NeoBleeper
                                         }
                                     }
                                     while (stopwatch.ElapsedMilliseconds < duration);
-                                    stopwatch.Stop(); 
+                                    stopwatch.Stop();
                                     break;
                                 }
                             case false:

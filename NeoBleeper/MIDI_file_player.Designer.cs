@@ -1303,7 +1303,7 @@
             // 
             pictureBoxIcon.Anchor = AnchorStyles.Top;
             pictureBoxIcon.Image = Properties.Resources.icons8_wait_96;
-            pictureBoxIcon.Location = new Point(29, 9);
+            pictureBoxIcon.Location = new Point(14, 9);
             pictureBoxIcon.Margin = new Padding(2);
             pictureBoxIcon.Name = "pictureBoxIcon";
             pictureBoxIcon.Size = new Size(38, 38);
@@ -1316,7 +1316,7 @@
             labelStatus.Anchor = AnchorStyles.Top;
             labelStatus.AutoSize = true;
             labelStatus.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelStatus.Location = new Point(90, 20);
+            labelStatus.Location = new Point(67, 20);
             labelStatus.Margin = new Padding(2, 0, 2, 0);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(177, 16);

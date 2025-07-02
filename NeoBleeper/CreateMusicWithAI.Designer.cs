@@ -144,6 +144,7 @@
             progressBarCreating.Size = new Size(409, 12);
             progressBarCreating.Style = ProgressBarStyle.Marquee;
             progressBarCreating.TabIndex = 7;
+            progressBarCreating.Visible = false;
             // 
             // pictureBoxCreating
             // 
@@ -156,6 +157,7 @@
             pictureBoxCreating.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCreating.TabIndex = 6;
             pictureBoxCreating.TabStop = false;
+            pictureBoxCreating.Visible = false;
             // 
             // labelCreating
             // 
@@ -169,6 +171,7 @@
             labelCreating.TabIndex = 5;
             labelCreating.Text = "Music is being created by AI. Please wait...";
             labelCreating.TextAlign = ContentAlignment.MiddleCenter;
+            labelCreating.Visible = false;
             // 
             // CreateMusicWithAI
             // 
@@ -176,7 +179,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(431, 121);
+            ClientSize = new Size(431, 126);
             Controls.Add(progressBarCreating);
             Controls.Add(pictureBoxCreating);
             Controls.Add(labelCreating);
