@@ -21,13 +21,13 @@ namespace NeoBleeper
         public string output = "";
         String AIModel = "models/gemini-2.5-flash";
         Size NormalWindowSize;
-        double scaleFraction = 75/160; // Scale factor for the window size
+        double scaleFraction = 0.425; // Scale factor for the window size
         Size LoadingWindowSize;
         public CreateMusicWithAI()
         {
             InitializeComponent();
             NormalWindowSize = this.Size;
-            LoadingWindowSize = new Size((int)(NormalWindowSize.Width * scaleFraction), (int)(NormalWindowSize.Height * scaleFraction));
+            LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height+(NormalWindowSize.Height * scaleFraction)));
             setFonts();
             set_theme();
             comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
@@ -123,11 +123,9 @@ namespace NeoBleeper
         }
         private async void button1_Click(object sender, EventArgs e)
         {
-            MusicCreating musicCreating = new MusicCreating();
             try
             {
-                this.Size = LoadingWindowSize;
-                SetControlsEnabled(false);
+                SetControlsEnabledAndMakeLoadingVisible(false);
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
                 var googleModel = googleAI.CreateGenerativeModel(AIModel);
@@ -212,8 +210,7 @@ namespace NeoBleeper
             }
             finally
             {
-                SetControlsEnabled(true);
-                this.Size = NormalWindowSize;
+                SetControlsEnabledAndMakeLoadingVisible(true);
                 this.Close();
             }
         }
@@ -229,11 +226,22 @@ namespace NeoBleeper
                 buttonCreate.Enabled = false;
             }
         }
-        private void SetControlsEnabled(bool enabled)
+        private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)
         {
+            if (enabled)
+            {
+                this.Size = NormalWindowSize;
+            }
+            else
+            {
+                this.Size = LoadingWindowSize;
+            }
+            pictureBoxCreating.Visible = !enabled;
+            labelCreating.Visible = !enabled;
+            progressBarCreating.Visible = !enabled;
             foreach (Control ctrl in Controls)
             {
-                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating)
+                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating || ctrl == labelPoweredByGemini)
                     continue;
 
                 ctrl.Enabled = enabled;
