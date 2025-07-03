@@ -3672,8 +3672,14 @@ namespace NeoBleeper
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                 int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
+                                if (remainingTime < alternatingNoteDuration)
+                                {
+                                    NonBlockingSleep.Sleep((int)remainingTime);
+                                }
+                                else
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                }
                             }
                         }
                     }
@@ -3704,8 +3710,14 @@ namespace NeoBleeper
                             {
                                 double frequency = (i == 0) ? note1_frequency : note3_frequency;
                                 int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
+                                if(remainingTime < alternatingNoteDuration)
+                                {
+                                    NonBlockingSleep.Sleep((int)remainingTime);
+                                }
+                                else
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                }
                             }
                         }
                         if (remainingTime <= 0) break;
@@ -3722,8 +3734,14 @@ namespace NeoBleeper
                             {
                                 double frequency = (i == 1) ? note2_frequency : note4_frequency;
                                 int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                int durationToPlay = (int)Math.Min(alternatingNoteDuration, remainingTime);
-                                NotePlayer.play_note(Convert.ToInt32(frequency), durationToPlay);
+                                if (remainingTime < alternatingNoteDuration)
+                                {
+                                    NonBlockingSleep.Sleep((int)remainingTime);
+                                }
+                                else
+                                {
+                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                }
                             }
                         }
                     }
