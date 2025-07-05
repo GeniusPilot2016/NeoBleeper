@@ -10,40 +10,6 @@ namespace NeoBleeper
         ///  The main entry point for the application.
         /// </summary>
         /// 
-        public static class eligability_of_create_beep_from_system_speaker
-        {
-            public static bool is_system_speaker_present;
-            public static int device_type; // 0 = unknown, 1 = modular computers, 2 = compact computers
-        }
-        public static class creating_sounds
-        {
-            public static bool create_beep_with_soundcard;
-            public static int soundcard_beep_waveform = 0; // 0 = square, 1 = sine, 2 = triangle, 3 = noise
-            public static bool permanently_enabled;
-            public static bool is_system_speaker_muted = false;
-        }
-        public static class MIDIDevices
-        {
-            public static bool useMIDIinput = false;
-            public static bool useMIDIoutput = false;
-            public static int MIDIOutputDevice=0;
-            public static int MIDIOutputInstrument = 0; // Grand Piano
-            public static int MIDIOutputDeviceChannel=0;
-            public static int MIDIInputDevice=0;
-            public static event EventHandler MidiStatusChanged;
-
-            // Add this method to raise the event
-            public static void NotifyMidiStatusChanged()
-            {
-                MidiStatusChanged?.Invoke(null, EventArgs.Empty);
-            }
-        }
-        public static class BeatTypes
-        {
-            public static int beat_type = 0; // 0 = Play beat sound on all beats (for music with slow tempo)
-            // 1 = Play beat sound on odd-numbered beats (for music with fast tempo)
-            // 2 = Play beat sound on even-numbered beats (for music with fast tempo)
-        }
         [STAThread]
         static void Main()
         {
@@ -119,16 +85,16 @@ namespace NeoBleeper
                             string query2 = "SELECT * FROM Win32_SystemEnclosure";
                             ManagementObjectSearcher searcher1 = new ManagementObjectSearcher(query1);
                             ManagementObjectCollection number_of_system_speaker_devices = searcher1.Get();
-                            eligability_of_create_beep_from_system_speaker.is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
+                            TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
                             try
                             {
-                                switch (eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
+                                switch (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
                                 {
                                     case false:
                                         {
-                                            creating_sounds.create_beep_with_soundcard = true;
-                                            creating_sounds.permanently_enabled = true;
-                                            creating_sounds.is_system_speaker_muted = true;
+                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                            TemporarySettings.creating_sounds.permanently_enabled = true;
+                                            TemporarySettings.creating_sounds.is_system_speaker_muted = true;
                                             throw new IOException("I/O Exception: NeoBleeper Smart System Speaker Sensor has detected that your computer has no system speaker output or non-standard system speaker output.");
                                         }
 
@@ -153,8 +119,8 @@ namespace NeoBleeper
                                                     case 22:
                                                     case 23:
                                                         {
-                                                            creating_sounds.create_beep_with_soundcard = false;
-                                                            eligability_of_create_beep_from_system_speaker.device_type = 1;
+                                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                                             Application.Run(new main_window());
                                                             Debug.WriteLine("NeoBleeper is started.");
                                                             break;
@@ -172,9 +138,9 @@ namespace NeoBleeper
                                                     case 31:
                                                     case 32:
                                                         {
-                                                            creating_sounds.create_beep_with_soundcard = true;
-                                                            creating_sounds.permanently_enabled = false;
-                                                            eligability_of_create_beep_from_system_speaker.device_type = 2;
+                                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                            TemporarySettings.creating_sounds.permanently_enabled = false;
+                                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
                                                             DialogResult result = compact_computer_warning.ShowDialog();
                                                             switch (result)
                                                             {
@@ -192,9 +158,9 @@ namespace NeoBleeper
                                                         }
                                                     default:
                                                         {
-                                                            creating_sounds.create_beep_with_soundcard = true;
-                                                            creating_sounds.permanently_enabled = false;
-                                                            eligability_of_create_beep_from_system_speaker.device_type = 0;
+                                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                            TemporarySettings.creating_sounds.permanently_enabled = false;
+                                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                                             DialogResult result = unknown_type_of_computer_warning.ShowDialog();
                                                             switch (result)
                                                             {
@@ -215,9 +181,9 @@ namespace NeoBleeper
                                             }
                                             else
                                             {
-                                                creating_sounds.create_beep_with_soundcard = true;
-                                                creating_sounds.permanently_enabled = false;
-                                                eligability_of_create_beep_from_system_speaker.device_type = 0;
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                TemporarySettings.creating_sounds.permanently_enabled = false;
+                                                TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                                 DialogResult result = unknown_type_of_computer_warning.ShowDialog();
                                                 switch (result)
                                                 {

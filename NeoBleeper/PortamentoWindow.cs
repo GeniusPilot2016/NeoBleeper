@@ -16,6 +16,7 @@ namespace NeoBleeper
         public PortamentoWindow(main_window main_Window)
         {
             InitializeComponent();
+            setLabelsToMiddle();
             setFonts();
             set_theme();
         }
@@ -117,10 +118,15 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void setLabelsToMiddle()
+        {
+            labelLength.Location = new Point((int)((groupBox1.Width - labelLength.Width) / 2), (labelLength.Location.Y));
+            label2.Location = new Point((int)((this.Width - label2.Width) / 2), (label2.Location.Y));
+        }
         private void trackBarLength_Scroll(object sender, EventArgs e)
         {
             labelLength.Text = trackBarLength.Value.ToString() + " mS";
+            setLabelsToMiddle();
         }
     }
 }

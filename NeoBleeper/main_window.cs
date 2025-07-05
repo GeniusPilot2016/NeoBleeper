@@ -54,9 +54,9 @@ namespace NeoBleeper
             {
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
-                checkBox_mute_system_speaker.Checked = Program.creating_sounds.is_system_speaker_muted;
+                checkBox_mute_system_speaker.Checked = TemporarySettings.creating_sounds.is_system_speaker_muted;
                 checkBox_mute_system_speaker.Enabled = false;
             }
             main_window_refresh();
@@ -67,10 +67,10 @@ namespace NeoBleeper
             Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
             initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
-            Program.MIDIDevices.MidiStatusChanged += MidiDevices_StatusChanged;
+            TemporarySettings.MIDIDevices.MidiStatusChanged += MidiDevices_StatusChanged;
 
             // Initialize MIDI input if it's enabled
-            if (Program.MIDIDevices.useMIDIinput)
+            if (TemporarySettings.MIDIDevices.useMIDIinput)
             {
                 InitializeMidiInput();
             }
@@ -672,10 +672,10 @@ namespace NeoBleeper
         int note_frequency;
         private async void play_note_when_key_is_clicked(int frequency)
         {
-            if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
+            if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
             {
-                MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-                            Program.MIDIDevices.MIDIOutputDeviceChannel);
+                MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument,
+                            TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
                 await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, frequency, 100);
             }
             NotePlayer.play_note(frequency, 100);
@@ -2784,7 +2784,7 @@ namespace NeoBleeper
 
         private void HandleMidiOutput(int noteSoundDuration)
         {
-            if (Program.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
+            if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
             {
                 Task.Run(() =>
                 {
@@ -2987,7 +2987,7 @@ namespace NeoBleeper
 
         private async void play_metronome_sound_from_midi_output(int frequency, int length)
         {
-            if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
+            if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
             {
                 await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, frequency, length);
             }
@@ -3861,18 +3861,18 @@ namespace NeoBleeper
                 });
                 if (checkBox_play_beat_sound.Checked == true && clicked == false && IsWholeNumber(beat_number))
                 {
-                    switch (Program.BeatTypes.beat_type)
+                    switch (TemporarySettings.BeatTypes.beatType)
                     {
-                        case 0:
+                        case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
                             play_beat_sound();
                             break;
-                        case 1:
+                        case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
                             if (beat_number % 2 != 0)
                             {
                                 play_beat_sound();
                             }
                             break;
-                        case 2:
+                        case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
                             if (beat_number % 2 == 0)
                             {
                                 play_beat_sound();
@@ -3915,7 +3915,7 @@ namespace NeoBleeper
             NotePlayer.play_note(hiHatFrequency, length / 2, true);
 
             // Percussion sound for MIDI output
-            if (Program.MIDIDevices.useMIDIoutput)
+            if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
                 Task.Run(async () =>
                 {
@@ -4165,8 +4165,8 @@ namespace NeoBleeper
 
         private void stop_system_speaker_beep()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && Program.creating_sounds.is_system_speaker_muted == false &&
-                Program.creating_sounds.create_beep_with_soundcard == false)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && TemporarySettings.creating_sounds.is_system_speaker_muted == false &&
+                TemporarySettings.creating_sounds.create_beep_with_soundcard == false)
             {
                 RenderBeep.BeepClass.StopBeep();
             }
@@ -4253,15 +4253,15 @@ namespace NeoBleeper
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
         {
-            if (Program.creating_sounds.is_system_speaker_muted == false && checkBox_mute_system_speaker.Checked == false)
+            if (TemporarySettings.creating_sounds.is_system_speaker_muted == false && checkBox_mute_system_speaker.Checked == false)
             {
-                if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+                if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
                 {
                     RenderBeep.BeepClass.StopBeep();
                 }
             }
-            Program.creating_sounds.is_system_speaker_muted = checkBox_mute_system_speaker.Checked;
-            Debug.WriteLine("System speaker is muted: " + Program.creating_sounds.is_system_speaker_muted);
+            TemporarySettings.creating_sounds.is_system_speaker_muted = checkBox_mute_system_speaker.Checked;
+            Debug.WriteLine("System speaker is muted: " + TemporarySettings.creating_sounds.is_system_speaker_muted);
         }
         private void show_keyboard_keys_shortcut()
         {
@@ -5213,7 +5213,7 @@ namespace NeoBleeper
             keyCharNum = pressedKeys.Distinct().ToArray();
             UpdateLabelVisible(true);
 
-            if (Program.MIDIDevices.useMIDIoutput)
+            if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
                 foreach (int key in keyCharNum)
                 {
@@ -5563,7 +5563,7 @@ namespace NeoBleeper
         }
         private void InitializeMidiInput()
         {
-            if (!Program.MIDIDevices.useMIDIinput || MIDIIOUtils._midiIn == null)
+            if (!TemporarySettings.MIDIDevices.useMIDIinput || MIDIIOUtils._midiIn == null)
                 return;
 
             // Set up event handler for MIDI input
@@ -5593,10 +5593,10 @@ namespace NeoBleeper
                 }
 
                 // If MIDI input is enabled, try to re-initialize it with a fresh device instance
-                if (Program.MIDIDevices.useMIDIinput)
+                if (TemporarySettings.MIDIDevices.useMIDIinput)
                 {
                     // Force reinitialize the MIDI device with the current device index
-                    MIDIIOUtils.ChangeInputDevice(Program.MIDIDevices.MIDIInputDevice);
+                    MIDIIOUtils.ChangeInputDevice(TemporarySettings.MIDIDevices.MIDIInputDevice);
 
                     // Only proceed if we successfully created a new device instance
                     if (MIDIIOUtils._midiIn != null)
@@ -5655,7 +5655,7 @@ namespace NeoBleeper
                         {
                             activeMidiNotes.Add(noteNumber);
                             UpdateLabelVisible(true);
-                            if(Program.MIDIDevices.useMIDIoutput)
+                            if(TemporarySettings.MIDIDevices.useMIDIoutput)
                             {
                                 foreach(int note in activeMidiNotes)
                                 {
@@ -5747,7 +5747,7 @@ namespace NeoBleeper
             MIDIIOUtils.ChangeInputDevice(deviceNumber);
 
             // Set up the new connection if MIDI input is enabled
-            if (Program.MIDIDevices.useMIDIinput && MIDIIOUtils._midiIn != null)
+            if (TemporarySettings.MIDIDevices.useMIDIinput && MIDIIOUtils._midiIn != null)
             {
                 MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
                 MIDIIOUtils._midiIn.Start();

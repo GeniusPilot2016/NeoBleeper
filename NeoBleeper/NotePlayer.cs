@@ -5,11 +5,11 @@ namespace NeoBleeper
     {
         public static void play_note(int frequency, int length, bool nonStopping = false) // Create a beep with the specified frequency and length
         {
-            switch (Program.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
+            switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
             {
                 case false: // System speaker
                     {
-                        switch (Program.creating_sounds.is_system_speaker_muted) // Mute the system speaker
+                        switch (TemporarySettings.creating_sounds.is_system_speaker_muted) // Mute the system speaker
                         {
                             case false: // If the system speaker is not muted, create a beep with the system speaker
                                 {
@@ -33,24 +33,24 @@ namespace NeoBleeper
                     }
                 case true: // Soundcard
                     {
-                        switch (Program.creating_sounds.soundcard_beep_waveform)
+                        switch (TemporarySettings.creating_sounds.soundDeviceBeepWaveform)
                         {
-                            case 0: // Square wave
+                            case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square: // Square wave
                                 {
                                     RenderBeep.SynthMisc.SquareWave(frequency, length, nonStopping);
                                     break;
                                 }
-                            case 1: // Sine wave
+                            case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine: // Sine wave
                                 {
                                     RenderBeep.SynthMisc.SineWave(frequency, length, nonStopping);
                                     break;
                                 }
-                            case 2: // Triangle wave
+                            case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle: // Triangle wave
                                 {
                                     RenderBeep.SynthMisc.TriangleWave(frequency, length, nonStopping);
                                     break;
                                 }
-                            case 3: // Noise
+                            case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise: // Noise
                                 {
                                     RenderBeep.SynthMisc.Noise(frequency, length, nonStopping);
                                     break;
@@ -62,7 +62,7 @@ namespace NeoBleeper
         }
         public static void StopAllNotes() // Stop all notes
         {
-            switch (Program.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
+            switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
             {
                 case false: // System speaker
                     {
@@ -78,7 +78,7 @@ namespace NeoBleeper
         }
         public static void PlayOnlySystemSpeakerBeep(int frequency, int length) // Play only the system speaker beep
         {
-            if(Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if(TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 RenderBeep.BeepClass.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
             }

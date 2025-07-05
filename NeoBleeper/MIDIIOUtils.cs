@@ -19,7 +19,7 @@ namespace NeoBleeper
             {
                 try
                 {
-                    _midiOut = new MidiOut(Program.MIDIDevices.MIDIOutputDevice);
+                    _midiOut = new MidiOut(TemporarySettings.MIDIDevices.MIDIOutputDevice);
                     return; // Break out of the loop if successful
                 }
                 catch (MmException ex)
@@ -118,11 +118,11 @@ namespace NeoBleeper
         {
             if (_midiOut == null) return;
 
-            _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length); // Use Task.Delay
             if (!nonStopping)
             {
-                _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                _midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
         }
         public static int FrequencyToMidiNote(double frequency)
@@ -138,11 +138,11 @@ namespace NeoBleeper
         public static async Task PlayMidiNote(MidiOut midiOut, double frequency, int length, bool nonStopping = false)
         {
             int note = FrequencyToMidiNote(frequency);
-            midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+            midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await Task.Delay(length);
             if (!nonStopping)
             {
-                midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
         }
 
@@ -152,7 +152,7 @@ namespace NeoBleeper
             {
                 for (int note = 0; note < 128; note++)
                 {
-                    _midiOut.Send(MidiMessage.StopNote(note, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                    _midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
                 }
             }
             else
@@ -165,7 +165,7 @@ namespace NeoBleeper
         {
             if (_midiOut != null)
             {
-                _midiOut.Send(MidiMessage.StopNote(midiNote, 0, Program.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                _midiOut.Send(MidiMessage.StopNote(midiNote, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
             else
             {

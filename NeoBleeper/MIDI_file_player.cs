@@ -579,7 +579,7 @@ namespace NeoBleeper
                     // Play active notes or silence
                     if (notesCount > 0)
                     {
-                        if (MIDIIOUtils._midiOut != null && Program.MIDIDevices.useMIDIoutput == true)
+                        if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
                         {
                             foreach (var note in filteredNotes)
                             {

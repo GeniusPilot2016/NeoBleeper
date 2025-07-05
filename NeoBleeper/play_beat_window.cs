@@ -18,23 +18,23 @@ namespace NeoBleeper
             InitializeComponent();
             setFonts();
             set_theme();
-            switch (Program.BeatTypes.beat_type)
+            switch (TemporarySettings.BeatTypes.beatType)
             {
-                case 0:
+                case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
                     {
                         radioButton_play_sound_on_all_beats.Checked = true;
                         radioButton_play_sound_on_odd_beats.Checked = false;
                         radioButton_play_sound_on_even_beats.Checked = false;
                         break;
                     }
-                case 1:
+                case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
                     {
                         radioButton_play_sound_on_all_beats.Checked = false;
                         radioButton_play_sound_on_odd_beats.Checked = true;
                         radioButton_play_sound_on_even_beats.Checked = false;
                         break;
                     }
-                case 2:
+                case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
                     {
                         radioButton_play_sound_on_all_beats.Checked = false;
                         radioButton_play_sound_on_even_beats.Checked = true;
@@ -102,15 +102,15 @@ namespace NeoBleeper
         {
             if (radioButton_play_sound_on_all_beats.Checked == true)
             {
-                Program.BeatTypes.beat_type = 0;
+                TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats;
             }
             else if (radioButton_play_sound_on_odd_beats.Checked == true)
             {
-                Program.BeatTypes.beat_type = 1;
+                TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats;
             }
             else if (radioButton_play_sound_on_even_beats.Checked == true)
             {
-                Program.BeatTypes.beat_type = 2;
+                TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats;
             }
         }
 

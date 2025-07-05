@@ -15,33 +15,33 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
-            switch (Program.creating_sounds.soundcard_beep_waveform)
+            switch (TemporarySettings.creating_sounds.soundDeviceBeepWaveform)
             {
-                case 0:
+                case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square:
                     radioButton_square.Checked = true;
                     break;
-                case 1:
+                case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine:
                     radioButton_sine.Checked = true;
                     break;
-                case 2:
+                case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle:
                     radioButton_triangle.Checked = true;
                     break;
-                case 3:
+                case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise:
                     radioButton_noise.Checked = true;
                     break;
                 default:
                     radioButton_square.Checked = true;
                     break;
             }
-            if (Program.creating_sounds.create_beep_with_soundcard == true)
+            if (TemporarySettings.creating_sounds.create_beep_with_soundcard == true)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = true;
             }
-            else if (Program.creating_sounds.create_beep_with_soundcard == false)
+            else if (TemporarySettings.creating_sounds.create_beep_with_soundcard == false)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = false;
             }
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 label_test_system_speaker_message_2.Visible = true;
                 label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
@@ -49,15 +49,15 @@ namespace NeoBleeper
             }
             else
             {
-                if (Program.eligability_of_create_beep_from_system_speaker.device_type == 0 ||
-                    Program.eligability_of_create_beep_from_system_speaker.device_type == 2)
+                if (TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                    TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
                 {
                     label_test_system_speaker_message_3.Visible = true;
                     label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
                     button_show_reason.Visible = true;
                 }
             }
-            if (Program.creating_sounds.permanently_enabled == true)
+            if (TemporarySettings.creating_sounds.permanently_enabled == true)
             {
                 checkBox_enable_create_beep_from_soundcard.Enabled = false;
                 groupBox_system_speaker_test.Enabled = false;
@@ -74,8 +74,8 @@ namespace NeoBleeper
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color;
             comboBox_theme.SelectedIndex = Settings1.Default.theme;
-            checkBox_use_midi_input.Checked = Program.MIDIDevices.useMIDIinput;
-            checkBox_use_midi_output.Checked = Program.MIDIDevices.useMIDIoutput;
+            checkBox_use_midi_input.Checked = TemporarySettings.MIDIDevices.useMIDIinput;
+            checkBox_use_midi_output.Checked = TemporarySettings.MIDIDevices.useMIDIoutput;
             checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
             setFonts();
             set_theme();
@@ -301,7 +301,7 @@ namespace NeoBleeper
         }
         private void system_speaker_test_tune()
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 Random rnd = new Random();
                 int tune_number = rnd.Next(1, 24); // Random number between 1 and 23
@@ -383,7 +383,7 @@ namespace NeoBleeper
 
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 RenderBeep.BeepClass.StopBeep();
             }
@@ -419,8 +419,8 @@ namespace NeoBleeper
 
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
-            if (Program.eligability_of_create_beep_from_system_speaker.device_type == 0 ||
-                Program.eligability_of_create_beep_from_system_speaker.device_type == 2)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {
@@ -429,13 +429,13 @@ namespace NeoBleeper
                     switch (result)
                     {
                         case DialogResult.Yes:
-                            Program.creating_sounds.create_beep_with_soundcard = false;
+                            TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
                             Debug.WriteLine("User chose to disable beep creation from sound card.");
                             Debug.WriteLine("Beep creation from sound card disabled.");
                             break;
                         case DialogResult.No:
                             checkBox_enable_create_beep_from_soundcard.Checked = true;
-                            Program.creating_sounds.create_beep_with_soundcard = true;
+                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                             Debug.WriteLine("User chose to keep beep creation from sound card enabled.");
                             Debug.WriteLine("Beep creation from sound card enabled.");
                             break;
@@ -443,7 +443,7 @@ namespace NeoBleeper
                 }
                 else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
                 {
-                    Program.creating_sounds.create_beep_with_soundcard = true;
+                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                     Debug.WriteLine("Beep creation from sound card enabled.");
                 }
             }
@@ -452,11 +452,11 @@ namespace NeoBleeper
                 switch (checkBox_enable_create_beep_from_soundcard.Checked)
                 {
                     case true:
-                        Program.creating_sounds.create_beep_with_soundcard = true;
+                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                         Debug.WriteLine("Beep creation from sound card enabled.");
                         break;
                     case false:
-                        Program.creating_sounds.create_beep_with_soundcard = false;
+                        TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
                         Debug.WriteLine("Beep creation from sound card disabled.");
                         break;
                 }
@@ -1052,7 +1052,7 @@ namespace NeoBleeper
             if (comboBox_midi_input_devices.Items.Count > 0)
             {
                 label_midi_input_device.Enabled = true;
-                comboBox_midi_input_devices.SelectedIndex = Program.MIDIDevices.MIDIInputDevice;
+                comboBox_midi_input_devices.SelectedIndex = TemporarySettings.MIDIDevices.MIDIInputDevice;
                 comboBox_midi_input_devices.Enabled = true;
                 checkBox_use_midi_input.Enabled = true;
             }
@@ -1077,13 +1077,13 @@ namespace NeoBleeper
             if (comboBox_midi_output_devices.Items.Count > 0)
             {
                 label_midi_output_device.Enabled = true;
-                if (Program.MIDIDevices.MIDIOutputDevice >= 0 && Program.MIDIDevices.MIDIOutputDevice < comboBox_midi_output_devices.Items.Count)
+                if (TemporarySettings.MIDIDevices.MIDIOutputDevice >= 0 && TemporarySettings.MIDIDevices.MIDIOutputDevice < comboBox_midi_output_devices.Items.Count)
                 {
-                    comboBox_midi_output_devices.SelectedIndex = Program.MIDIDevices.MIDIOutputDevice;
+                    comboBox_midi_output_devices.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputDevice;
                     comboBox_midi_output_devices.Enabled = true;
                     checkBox_use_midi_output.Enabled = true;
                 }
-                else if (Program.MIDIDevices.MIDIOutputDevice >= 0)
+                else if (TemporarySettings.MIDIDevices.MIDIOutputDevice >= 0)
                 {
                     comboBox_midi_output_devices.SelectedIndex = 0;
                     comboBox_midi_output_devices.Enabled = true;
@@ -1111,7 +1111,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_channel.Items.Count > 0)
             {
                 label_channel.Enabled = true;
-                comboBox_midi_output_channel.SelectedIndex = Program.MIDIDevices.MIDIOutputDeviceChannel;
+                comboBox_midi_output_channel.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
                 comboBox_midi_output_channel.Enabled = true;
             }
             else
@@ -1154,7 +1154,7 @@ namespace NeoBleeper
             if (comboBox_midi_output_instrument.Items.Count > 0)
             {
                 label_instrument.Enabled = true;
-                comboBox_midi_output_instrument.SelectedIndex = Program.MIDIDevices.MIDIOutputInstrument;
+                comboBox_midi_output_instrument.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
                 comboBox_midi_output_instrument.Enabled = true;
             }
             else
@@ -1184,22 +1184,22 @@ namespace NeoBleeper
         {
             if (radioButton_square.Checked == true)
             {
-                Program.creating_sounds.soundcard_beep_waveform = 0;
+                TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square;
                 Debug.WriteLine("Square waveform selected.");
             }
             else if (radioButton_sine.Checked == true)
             {
-                Program.creating_sounds.soundcard_beep_waveform = 1;
+                TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine;
                 Debug.WriteLine("Sine waveform selected.");
             }
             else if (radioButton_triangle.Checked == true)
             {
-                Program.creating_sounds.soundcard_beep_waveform = 2;
+                TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle;
                 Debug.WriteLine("Triangle waveform selected.");
             }
             else if (radioButton_noise.Checked == true)
             {
-                Program.creating_sounds.soundcard_beep_waveform = 3;
+                TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise;
                 Debug.WriteLine("Noise waveform selected.");
             }
         }
@@ -1208,34 +1208,34 @@ namespace NeoBleeper
         {
             if (checkBox_use_midi_output.Checked == true)
             {
-                Program.MIDIDevices.useMIDIoutput = true;
+                TemporarySettings.MIDIDevices.useMIDIoutput = true;
                 Debug.WriteLine("MIDI output device enabled");
             }
             else
             {
-                Program.MIDIDevices.useMIDIoutput = false;
+                TemporarySettings.MIDIDevices.useMIDIoutput = false;
                 Debug.WriteLine("MIDI output device disabled");
             }
         }
 
         private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
-            MIDIIOUtils.ChangeOutputDevice(Program.MIDIDevices.MIDIOutputDevice);
+            TemporarySettings.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
+            MIDIIOUtils.ChangeOutputDevice(TemporarySettings.MIDIDevices.MIDIOutputDevice);
             Debug.WriteLine("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString());
         }
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
+            TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
             Debug.WriteLine("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString());
         }
 
         private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.MIDIDevices.MIDIOutputInstrument = comboBox_midi_output_instrument.SelectedIndex;
-            MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, Program.MIDIDevices.MIDIOutputInstrument,
-            Program.MIDIDevices.MIDIOutputDeviceChannel);
+            TemporarySettings.MIDIDevices.MIDIOutputInstrument = comboBox_midi_output_instrument.SelectedIndex;
+            MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument,
+            TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
             Debug.WriteLine("MIDI output instrument selected: " + comboBox_midi_output_instrument.SelectedItem.ToString());
         }
 
@@ -1243,32 +1243,32 @@ namespace NeoBleeper
         {
             if (checkBox_use_midi_input.Checked == true)
             {
-                Program.MIDIDevices.useMIDIinput = true;
+                TemporarySettings.MIDIDevices.useMIDIinput = true;
                 Debug.WriteLine("MIDI input device enabled");
             }
             else
             {
-                Program.MIDIDevices.useMIDIinput = false;
+                TemporarySettings.MIDIDevices.useMIDIinput = false;
                 Debug.WriteLine("MIDI input device disabled");
             }
 
             // Notify that MIDI status has changed
-            Program.MIDIDevices.NotifyMidiStatusChanged();
+            TemporarySettings.MIDIDevices.NotifyMidiStatusChanged();
         }
 
         private void comboBox_midi_input_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedDeviceIndex = comboBox_midi_input_devices.SelectedIndex;
-            Program.MIDIDevices.MIDIInputDevice = selectedDeviceIndex;
+            TemporarySettings.MIDIDevices.MIDIInputDevice = selectedDeviceIndex;
 
             // Update the MIDI input device in the main window
             if (mainWindow != null)
             {
-                mainWindow.UpdateMidiInputDevice(Program.MIDIDevices.MIDIInputDevice);
+                mainWindow.UpdateMidiInputDevice(TemporarySettings.MIDIDevices.MIDIInputDevice);
             }
 
             // Notify other components about the MIDI device change
-            Program.MIDIDevices.NotifyMidiStatusChanged();
+            TemporarySettings.MIDIDevices.NotifyMidiStatusChanged();
         }
         private void checkBox_use_motor_speed_mod_CheckedChanged(object sender, EventArgs e)
         {
