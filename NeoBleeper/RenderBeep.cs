@@ -19,12 +19,15 @@ namespace NeoBleeper
                 int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
+                if (!nonStopping) 
+                {
+                    NonBlockingSleep.Sleep(5); // Small delay to ensure the timer is set before starting the beep
+                }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
                 NonBlockingSleep.Sleep(ms);
-                if (nonStopping == false) // If nonStopping is true, the beep will not stop
+                if (!nonStopping) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound stops
                 }
             }
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
@@ -49,6 +52,7 @@ namespace NeoBleeper
 
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
+                int delay = nonStopping ? (ms == 0 ? 0 : Math.Max(1, ms - 1)) : ms;
                 signalGenerator.Frequency = freq;
                 signalGenerator.Type = type;
 
@@ -62,22 +66,21 @@ namespace NeoBleeper
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                waveOut.Play(); // Start playing the sound
-                
-                if (!nonStopping)
+                if(!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(ms);
-                    waveOut.Stop(); // Stop the sound after the specified duration
-                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
                 }
-                else
-                {
-                    NonBlockingSleep.Sleep(ms == 0 ? 0 : Math.Max(1, ms-1)); 
+                waveOut.Play(); // Start playing the sound
+                NonBlockingSleep.Sleep(delay);
+                if (!nonStopping)
+                {    
+                    waveOut.Stop(); // Stop the sound after the specified duration if nonStopping is false
                 }
             }
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
+                int delay = nonStopping ? (ms == 0 ? 0 : Math.Max(1, ms - 1)) : ms;
                 if (bandPassNoise == null)
                 {
                     var whiteNoise = new SignalGenerator()
@@ -103,17 +106,15 @@ namespace NeoBleeper
                     if (wasPlaying) // Restart if it was playing before
                         waveOut.Play();
                 }
-                waveOut.Play(); // Start playing the sound
-
                 if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(ms);
-                    waveOut.Stop(); // Stop the sound after the specified duration
-                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound stops
+                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
                 }
-                else
+                waveOut.Play(); // Start playing the sound
+                NonBlockingSleep.Sleep(delay);
+                if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(ms == 0 ? 0 : Math.Max(1, ms - 1));
+                    waveOut.Stop(); // Stop the sound after the specified duration if nonStopping is false
                 }
             }
 
