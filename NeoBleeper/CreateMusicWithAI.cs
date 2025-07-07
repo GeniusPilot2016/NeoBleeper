@@ -209,6 +209,7 @@ namespace NeoBleeper
                     // If the output is not valid, show an error message
                     AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
                     errorForm.ShowDialog();
+                    output = String.Empty; // Clear the output if it's invalid
                 }
             }
         }
@@ -266,6 +267,9 @@ namespace NeoBleeper
         }
         private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)
         {
+            pictureBoxCreating.Visible = !enabled;
+            labelCreating.Visible = !enabled;
+            progressBarCreating.Visible = !enabled;
             if (enabled)
             {
                 this.Size = NormalWindowSize;
@@ -274,9 +278,6 @@ namespace NeoBleeper
             {
                 this.Size = LoadingWindowSize;
             }
-            pictureBoxCreating.Visible = !enabled;
-            labelCreating.Visible = !enabled;
-            progressBarCreating.Visible = !enabled;
             foreach (Control ctrl in Controls)
             {
                 if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating || ctrl == labelPoweredByGemini)

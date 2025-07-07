@@ -62,5 +62,10 @@ namespace NeoBleeper
             button1.BackColor = Color.Transparent;
             button1.ForeColor = SystemColors.ControlText;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
