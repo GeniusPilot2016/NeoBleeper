@@ -3086,17 +3086,24 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-                SuspendLayout();
-                if (label_beep.InvokeRequired)
+                try
                 {
-                    label_beep.Invoke(new Action(() => label_beep.Visible = visible));
+                    SuspendLayout();
+                    if (label_beep.InvokeRequired)
+                    {
+                        label_beep.Invoke(new Action(() => label_beep.Visible = visible));
+                    }
+                    else
+                    {
+                        label_beep.Visible = visible;
+                    }
+                    ResumeLayout(performLayout: true);
+                    return;
                 }
-                else
+                catch
                 {
-                    label_beep.Visible = visible;
+                    return;
                 }
-                ResumeLayout(performLayout: true);
-                return;
             });
         }
 
@@ -3280,7 +3287,6 @@ namespace NeoBleeper
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                EnableDisableCommonControls(false);
                 HandleMidiOutput(noteSound_int);
                 bool nonStopping;
                 if (trackBar_note_silence_ratio.Value == 100)
@@ -3301,7 +3307,6 @@ namespace NeoBleeper
                      $" Note 2: {GetOrDefault(listViewNotes.FocusedItem.SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.FocusedItem.SubItems[3].Text.ToString())}" +
                      $" Note 4: {GetOrDefault(listViewNotes.FocusedItem.SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.FocusedItem.SubItems[5].Text.ToString())}" +
                      $" Articulation: {GetOrDefault(listViewNotes.FocusedItem.SubItems[6].Text.ToString())}");
-                EnableDisableCommonControls(true);
             }
         }
         private string GetOrDefault(string value)
@@ -3461,7 +3466,10 @@ namespace NeoBleeper
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
         {
-            if (cancellationTokenSource.Token.IsCancellationRequested) return;
+            if (!is_music_playing)
+            {
+                EnableDisableCommonControls(false);
+            }
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
@@ -3596,169 +3604,144 @@ namespace NeoBleeper
                     stopAllNotesAfterPlaying();
                 }
                 NonBlockingSleep.Sleep(Math.Max(1, length));
-                return;
-            }
-            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note1_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-                return;
-            }
-            else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note2_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-                return;
-            }
-
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note3_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-                return;
-            }
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
-            {
-                UpdateLabelVisible(true);
-                NotePlayer.play_note(Convert.ToInt32(note4_frequency), length, nonStopping);
-                if (nonStopping == false)
-                {
-                    UpdateLabelVisible(false);
-                }
-                return;
             }
             else
             {
-                if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
+                if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    UpdateLabelVisible(true);
+                    PlayBeepWithLabel(Convert.ToInt32(note1_frequency), length, nonStopping);
                 }
-                Stopwatch stopwatch = new Stopwatch();
-                double totalDuration = length; // Total playing duration of loop
-
-                if (radioButtonPlay_alternating_notes1.Checked == true)
+                else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    string[] note_series = { note1, note2, note3, note4 };
-                    stopwatch.Start();
-                    do
-                    {
-                        long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
-                        if (remainingTime <= 0)
-                        {
-                            break;
-                        }
+                    PlayBeepWithLabel(Convert.ToInt32(note2_frequency), length, nonStopping);
+                }
+                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
+                {
+                    PlayBeepWithLabel(Convert.ToInt32(note3_frequency), length, nonStopping);
+                }
+                else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
+                {
+                    PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
+                }
+                else
+                {
+                    Stopwatch stopwatch = new Stopwatch();
+                    double totalDuration = length; // Total playing duration of loop
 
-                        foreach (string note in note_series)
+                    if (radioButtonPlay_alternating_notes1.Checked == true)
+                    {
+                        string[] note_series = { note1, note2, note3, note4 };
+                        stopwatch.Start();
+                        do
                         {
-                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                            long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
                             if (remainingTime <= 0)
                             {
                                 break;
                             }
 
-                            if (!string.IsNullOrEmpty(note))
+                            foreach (string note in note_series)
                             {
-                                double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
-                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                if (remainingTime < alternatingNoteDuration)
+                                remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                                if (remainingTime <= 0)
                                 {
-                                    NonBlockingSleep.Sleep((int)remainingTime);
+                                    break;
                                 }
-                                else
+
+                                if (!string.IsNullOrEmpty(note))
                                 {
-                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                    double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
+                                    int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                    if (remainingTime < alternatingNoteDuration)
+                                    {
+                                        NonBlockingSleep.Sleep((int)remainingTime);
+                                    }
+                                    else
+                                    {
+                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                    }
                                 }
                             }
                         }
+                        while (stopwatch.ElapsedMilliseconds < totalDuration);
+                        stopwatch.Stop(); // Stop the stopwatch after the loop ends
                     }
-                    while (stopwatch.ElapsedMilliseconds < totalDuration);
-                    stopwatch.Stop(); // Stop the stopwatch after the loop ends
-                }
-                else if (radioButtonPlay_alternating_notes2.Checked == true)
-                {
-                    string[] note_series = { note1, note2, note3, note4 };
-                    stopwatch.Start();
-                    do
+                    else if (radioButtonPlay_alternating_notes2.Checked == true)
                     {
-                        long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
-                        if (remainingTime <= 0)
+                        string[] note_series = { note1, note2, note3, note4 };
+                        stopwatch.Start();
+                        do
                         {
-                            break;
-                        }
-
-                        // Odd numbered columns (Note1 and Note3)
-                        for (int i = 0; i < 4; i += 2)
-                        {
-                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                            long remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
                             if (remainingTime <= 0)
                             {
                                 break;
                             }
-                            if (!string.IsNullOrEmpty(note_series[i]))
+
+                            // Odd numbered columns (Note1 and Note3)
+                            for (int i = 0; i < 4; i += 2)
                             {
-                                double frequency = (i == 0) ? note1_frequency : note3_frequency;
-                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                if(remainingTime < alternatingNoteDuration)
+                                remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                                if (remainingTime <= 0)
                                 {
-                                    NonBlockingSleep.Sleep((int)remainingTime);
+                                    break;
                                 }
-                                else
+                                if (!string.IsNullOrEmpty(note_series[i]))
                                 {
-                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                    double frequency = (i == 0) ? note1_frequency : note3_frequency;
+                                    int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                    if (remainingTime < alternatingNoteDuration)
+                                    {
+                                        NonBlockingSleep.Sleep((int)remainingTime);
+                                    }
+                                    else
+                                    {
+                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                    }
+                                }
+                            }
+                            if (remainingTime <= 0) break;
+
+                            // Even numbered columns (Note2 and Note4)
+                            for (int i = 1; i < 4; i += 2)
+                            {
+                                remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
+                                if (remainingTime <= 0)
+                                {
+                                    break;
+                                }
+                                if (!string.IsNullOrEmpty(note_series[i]))
+                                {
+                                    double frequency = (i == 1) ? note2_frequency : note4_frequency;
+                                    int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                                    if (remainingTime < alternatingNoteDuration)
+                                    {
+                                        NonBlockingSleep.Sleep((int)remainingTime);
+                                    }
+                                    else
+                                    {
+                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                    }
                                 }
                             }
                         }
-                        if (remainingTime <= 0) break;
-
-                        // Even numbered columns (Note2 and Note4)
-                        for (int i = 1; i < 4; i += 2)
-                        {
-                            remainingTime = (long)totalDuration - stopwatch.ElapsedMilliseconds;
-                            if (remainingTime <= 0)
-                            {
-                                break;
-                            }
-                            if (!string.IsNullOrEmpty(note_series[i]))
-                            {
-                                double frequency = (i == 1) ? note2_frequency : note4_frequency;
-                                int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                if (remainingTime < alternatingNoteDuration)
-                                {
-                                    NonBlockingSleep.Sleep((int)remainingTime);
-                                }
-                                else
-                                {
-                                    NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
-                                }
-                            }
-                        }
-                    }
-                    while (stopwatch.ElapsedMilliseconds < totalDuration);
-                    stopwatch.Stop(); // Stop the stopwatch after the loop ends
-                }
-
-                if (cancellationTokenSource.Token.IsCancellationRequested) return;
-                if (play_note1 == true || play_note2 == true || play_note3 == true || play_note4 == true)
-                {
-                    if (nonStopping == false)
-                    {
-                        UpdateLabelVisible(false);
-                        //NonBlockingSleep.Sleep(10);
+                        while (stopwatch.ElapsedMilliseconds < totalDuration);
+                        stopwatch.Stop(); // Stop the stopwatch after the loop ends
                     }
                 }
-                return;
+            }
+            if (!is_music_playing)
+            {
+                EnableDisableCommonControls(true);
+            }
+        }
+        private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)
+        {
+            UpdateLabelVisible(true);
+            NotePlayer.play_note(frequency, length, nonStopping);
+            if (!nonStopping)
+            {
+                UpdateLabelVisible(false);
             }
         }
         public static bool IsWholeNumber(double value)
@@ -5214,8 +5197,6 @@ namespace NeoBleeper
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
             keyCharNum = pressedKeys.Distinct().ToArray();
-            UpdateLabelVisible(true);
-
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
                 foreach (int key in keyCharNum)
@@ -5243,14 +5224,14 @@ namespace NeoBleeper
                     {
                         foreach (int key in keyCharNum)
                         {
-                            NotePlayer.play_note(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
+                            PlayBeepWithLabel(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
                             if (!isAlternatingPlayingRegularKeyboard)
                             {
                                 if (keyCharNum.Length == 0)
                                     return;
                                 int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(keyCharNum[0]));
                                 singleNote = midiNote;
-                                NotePlayer.play_note(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                                PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
                             }
                         }
                     }
@@ -5263,7 +5244,7 @@ namespace NeoBleeper
                 if (singleNote != midiNote)
                 {
                     singleNote = midiNote;
-                    NotePlayer.play_note(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                    PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
                 }
             }
         }
@@ -5657,7 +5638,6 @@ namespace NeoBleeper
                         if (!activeMidiNotes.Contains(noteNumber))
                         {
                             activeMidiNotes.Add(noteNumber);
-                            UpdateLabelVisible(true);
                             if(TemporarySettings.MIDIDevices.useMIDIoutput)
                             {
                                 foreach(int note in activeMidiNotes)
@@ -5677,7 +5657,7 @@ namespace NeoBleeper
                             {
                                 // Single note mode - play directly without alternating
                                 int frequency = MIDIIOUtils.MidiNoteToFrequency(noteNumber);
-                                NotePlayer.play_note(frequency, 0, true); // Continue until note off
+                                PlayBeepWithLabel(frequency, 0, true); // Continue until note off
                             }
                             else if (activeMidiNotes.Count > 1 && !isAlternatingPlaying)
                             {
@@ -5731,7 +5711,7 @@ namespace NeoBleeper
 
                     foreach (int note in notesCopy)
                     {
-                        NotePlayer.play_note(MIDIIOUtils.MidiNoteToFrequency(note), Variables.alternating_note_length);
+                        PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(note), Variables.alternating_note_length);
                     }
                 }
                 while (isAlternatingPlaying == true);
