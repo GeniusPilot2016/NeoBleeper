@@ -3397,10 +3397,6 @@ namespace NeoBleeper
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
         {
-            if (!is_music_playing)
-            {
-                EnableDisableCommonControls(false);
-            }
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
@@ -3530,9 +3526,17 @@ namespace NeoBleeper
             }
             if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
             {
+                if (!is_music_playing)
+                {
+                    EnableDisableCommonControls(false);
+                }
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
+                }
+                if(!is_music_playing)
+                {
+                    EnableDisableCommonControls(true);
                 }
                 NonBlockingSleep.Sleep(Math.Max(1, length));
             }
@@ -3540,22 +3544,26 @@ namespace NeoBleeper
             {
                 if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note1_frequency), length, nonStopping);
+                    PlayBeepWithLabelAndEnableDisableControls(Convert.ToInt32(note1_frequency), length, nonStopping);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note2_frequency), length, nonStopping);
+                    PlayBeepWithLabelAndEnableDisableControls(Convert.ToInt32(note2_frequency), length, nonStopping);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note3_frequency), length, nonStopping);
+                    PlayBeepWithLabelAndEnableDisableControls(Convert.ToInt32(note3_frequency), length, nonStopping);
                 }
                 else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
+                    PlayBeepWithLabelAndEnableDisableControls(Convert.ToInt32(note4_frequency), length, nonStopping);
                 }
                 else
                 {
+                    if(!is_music_playing)
+                    {
+                        EnableDisableCommonControls(false);
+                    }
                     Stopwatch stopwatch = new Stopwatch();
                     double totalDuration = length; // Total playing duration of loop
 
@@ -3659,11 +3667,24 @@ namespace NeoBleeper
                         while (stopwatch.ElapsedMilliseconds < totalDuration);
                         stopwatch.Stop(); // Stop the stopwatch after the loop ends
                     }
+                    if(!is_music_playing)
+                    {
+                        EnableDisableCommonControls(true);
+                    }
                 }
             }
+        }
+        private void PlayBeepWithLabelAndEnableDisableControls(int frequency, int length, bool nonStopping = false)
+        {
+            if (!is_music_playing)
+            {
+                EnableDisableCommonControls(false);
+            }
+            PlayBeepWithLabel(frequency, length, nonStopping);
             if (!is_music_playing)
             {
                 EnableDisableCommonControls(true);
+
             }
         }
         private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)

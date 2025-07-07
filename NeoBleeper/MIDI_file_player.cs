@@ -526,12 +526,6 @@ namespace NeoBleeper
                     // Ensure minimum duration
                     durationMs = Math.Max(0, durationMs);
 
-                    // Debug every 100 frames
-                    if (i % 100 == 0)
-                    {
-                        Debug.WriteLine($"Playing frame {i}, notes: {notesCount}, duration: {durationMs}ms");
-                    }
-
                     stopwatch.Restart();
                     // Play active notes or silence
                     if (notesCount > 0)
@@ -644,10 +638,8 @@ namespace NeoBleeper
 
         // Play multiple notes alternating
         private void PlayMultipleNotes(int[] frequencies, int duration)
-        {
-            // Convert frequencies to note numbers for highlighting
+        { // Convert frequencies to note numbers for highlighting
             var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
-
             Stopwatch totalStopwatch = new Stopwatch();
             totalStopwatch.Start();
 
@@ -805,8 +797,8 @@ namespace NeoBleeper
                                             }
                                         }
                                     }
+                                    break;
                                 }
-                                break;
                         }
                         break;
                     }
@@ -898,6 +890,7 @@ namespace NeoBleeper
             }
             totalStopwatch.Stop();
         }
+
         private int FrequencyToNoteNumber(int frequency)
         {
             // Convert frequency to MIDI note number using A4 = 440Hz as reference (MIDI note 69)
