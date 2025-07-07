@@ -7,20 +7,8 @@ namespace NeoBleeper
         public disable_create_beep_from_sound_card_warning()
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
-        }
-
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
-            }
         }
         private void set_theme()
         {

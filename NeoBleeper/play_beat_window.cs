@@ -16,7 +16,7 @@ namespace NeoBleeper
         public play_beat_window(main_window main_window)
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             switch (TemporarySettings.BeatTypes.beatType)
             {
@@ -41,17 +41,6 @@ namespace NeoBleeper
                         radioButton_play_sound_on_odd_beats.Checked = false;
                         break;
                     }
-            }
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
             }
         }
         public void set_theme()

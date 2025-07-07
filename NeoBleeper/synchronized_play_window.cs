@@ -15,29 +15,11 @@ namespace NeoBleeper
             this.mainWindow = mainWindow;
             this.mainWindow.MusicStopped += MainWindow_MusicStopped;
             dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             var preciseTimer = new PreciseTimer(1);
             preciseTimer.Tick += preciseTimer_Tick;
             preciseTimer.Start();
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                    if (ctrl is GroupBox groupBox)
-                    {
-                        foreach (Control groupedCtrl in groupBox.Controls)
-                        {
-                            groupedCtrl.Font = uiFonts.SetUIFont(groupedCtrl.Font.Size, groupedCtrl.Font.Style);
-                        }
-                    }
-                }
-            }
         }
         private void preciseTimer_Tick(object sender, EventArgs e)
         {

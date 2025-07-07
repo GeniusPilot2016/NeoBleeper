@@ -27,24 +27,13 @@ namespace NeoBleeper
         public ConvertToGCode(String musicFile)
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             MusicString = musicFile;
             comboBox_component_note1.SelectedIndex = 0;
             comboBox_component_note2.SelectedIndex = 0;
             comboBox_component_note3.SelectedIndex = 0;
             comboBox_component_note4.SelectedIndex = 0;
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach(Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
-            }
         }
         public class NoteInfo
         {

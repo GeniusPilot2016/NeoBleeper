@@ -15,53 +15,10 @@ namespace NeoBleeper
         public MIDI_file_player(string filename)
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             textBox1.Text = filename;
             LoadMIDI(filename);
-        }
-
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    if (ctrl is Panel panel)
-                    {
-                        foreach (Control panelControls in panel.Controls)
-                        {
-                            if (panelControls is Panel childPanel)
-                            {
-                                foreach (Control childPanelCtrl in childPanel.Controls)
-                                {
-                                    childPanelCtrl.Font = uiFonts.SetUIFont(childPanelCtrl.Font.Size, childPanelCtrl.Font.Style);
-                                }
-                            }
-                            else
-                            {
-                                panelControls.Font = uiFonts.SetUIFont(panel.Font.Size, panel.Font.Style);
-                            }
-                        }
-                    }
-                    else if (ctrl is GroupBox groupBox)
-                    {
-                        ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                        foreach (Control groupBoxControls in groupBox.Controls)
-                        {
-                            groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
-                            if (groupBoxControls is Panel groupedPanel)
-                            {
-                                foreach (Control groupedPanelCtrl in groupedPanel.Controls)
-                                {
-                                    groupedPanelCtrl.Font = uiFonts.SetUIFont(groupedPanelCtrl.Font.Size, groupedPanelCtrl.Font.Style);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
         private void set_theme()
         {
@@ -686,12 +643,14 @@ namespace NeoBleeper
         }
 
         // Play multiple notes alternating
-
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
             // Convert frequencies to note numbers for highlighting
             var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
-            
+
+            Stopwatch totalStopwatch = new Stopwatch();
+            totalStopwatch.Start();
+
             switch (checkBox_play_each_note.Checked)
             {
                 case true:
@@ -701,127 +660,151 @@ namespace NeoBleeper
                             case true:
                                 {
                                     int interval = 30;
-                                    Stopwatch stopwatch = new Stopwatch();
-                                    stopwatch.Start();
 
                                     if (frequencies.Length >= (duration / interval))
                                     {
                                         // More notes than cycles - play each note once in each cycle
                                         int noteIndex = 0;
-                                        do
+                                        int notesPerCycle = frequencies.Length;
+                                        double timePerNote = (double)interval / notesPerCycle;
+
+                                        while (totalStopwatch.ElapsedMilliseconds < duration)
                                         {
-                                            long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                            if (remainingTime <= 0) break;
+                                            long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                            double expectedNoteStartTime = noteIndex * timePerNote;
+                                            double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                            if (absoluteNoteStartTime > duration) break;
 
                                             int alternatingTime = Math.Min(15, Math.Max(1, interval / frequencies.Length));
-                                            
+
+                                            // Play the note
+                                            Stopwatch noteStopwatch = new Stopwatch();
+                                            noteStopwatch.Start();
+
                                             HighlightNoteLabel(noteNumbers[noteIndex]);
-                                            if (remainingTime < alternatingTime)
-                                            {
-                                                NonBlockingSleep.Sleep((int)remainingTime);
-                                            }
-                                            else
-                                            {
-                                                NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
-                                            }
+                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
                                             UnHighlightNoteLabel(noteNumbers[noteIndex]);
-                                            
+
+                                            noteStopwatch.Stop();
+                                            long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                            // Calculate the time to sleep to maintain the rhythm
+                                            double timeToNextNote = timePerNote - noteElapsed;
+                                            if (timeToNextNote > 0)
+                                            {
+                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            }
+
                                             noteIndex = (noteIndex + 1) % frequencies.Length;
                                         }
-                                        while (stopwatch.ElapsedMilliseconds < duration);
                                     }
                                     else
                                     {
                                         // Fewer notes than cycles - play each note once then wait
+                                        double timePerNote = (double)duration / frequencies.Length;
+
                                         for (int i = 0; i < frequencies.Length; i++)
                                         {
-                                            long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                            if (remainingTime <= 0) break;
+                                            long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                            double expectedNoteStartTime = i * timePerNote;
+                                            double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                            if (absoluteNoteStartTime > duration) break;
 
                                             int alternatingTime = Math.Min(15, Math.Max(1, interval / frequencies.Length));
-                                            
-                                            HighlightNoteLabel(noteNumbers[i]);
-                                            if (remainingTime < alternatingTime)
-                                            {
-                                                NonBlockingSleep.Sleep((int)remainingTime);
-                                            }
-                                            else
-                                            {
-                                                NotePlayer.play_note(frequencies[i], alternatingTime);
-                                            }
-                                            UnHighlightNoteLabel(noteNumbers[i]);
-                                        }
 
-                                        // Wait remaining time
-                                        int elapsedMs = (int)stopwatch.ElapsedMilliseconds;
-                                        if (elapsedMs < duration)
-                                        {
-                                            UpdateNoteLabels(new HashSet<int>());
-                                            NonBlockingSleep.Sleep(duration - elapsedMs);
+                                            Stopwatch noteStopwatch = new Stopwatch();
+                                            noteStopwatch.Start();
+
+                                            HighlightNoteLabel(noteNumbers[i]);
+                                            NotePlayer.play_note(frequencies[i], alternatingTime);
+                                            UnHighlightNoteLabel(noteNumbers[i]);
+
+                                            noteStopwatch.Stop();
+                                            long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                            double timeToNextNote = timePerNote - noteElapsed;
+                                            if (timeToNextNote > 0)
+                                            {
+                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            }
                                         }
                                     }
-                                    stopwatch.Stop();
                                     break;
                                 }
                             case false:
                                 {
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    Stopwatch stopwatch = new Stopwatch();
-                                    stopwatch.Start();
-                                    
+
+                                    // Ensure interval is at least 1 ms
+                                    interval = Math.Max(1, interval);
+
                                     if (frequencies.Length >= (duration / interval))
                                     {
                                         // More notes than cycles - cycle through notes
                                         int noteIndex = 0;
-                                        do
+                                        int notesPerCycle = frequencies.Length;
+                                        double timePerNote = (double)interval / notesPerCycle;
+
+                                        while (totalStopwatch.ElapsedMilliseconds < duration)
                                         {
-                                            long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                            if (remainingTime <= 0) break;
+                                            long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                            double expectedNoteStartTime = noteIndex * timePerNote;
+                                            double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                            if (absoluteNoteStartTime > duration) break;
+
+                                            Stopwatch noteStopwatch = new Stopwatch();
+                                            noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteNumbers[noteIndex]);
-                                            if (remainingTime < interval)
-                                            {
-                                                NonBlockingSleep.Sleep((int)remainingTime);
-                                            }
-                                            else
-                                            {
-                                                NotePlayer.play_note(frequencies[noteIndex], interval);
-                                            }
+                                            NotePlayer.play_note(frequencies[noteIndex], interval);
                                             UnHighlightNoteLabel(noteNumbers[noteIndex]);
-                                            
+
+                                            noteStopwatch.Stop();
+                                            long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                            // Calculate the time to sleep to maintain the rhythm
+                                            double timeToNextNote = timePerNote - noteElapsed;
+                                            if (timeToNextNote > 0)
+                                            {
+                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            }
+
                                             noteIndex = (noteIndex + 1) % frequencies.Length;
                                         }
-                                        while (stopwatch.ElapsedMilliseconds < duration);
                                     }
                                     else
                                     {
                                         // Fewer notes than cycles - play each note once then wait
+                                        double timePerNote = (double)duration / frequencies.Length;
+
                                         for (int i = 0; i < frequencies.Length; i++)
                                         {
-                                            long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                            if (remainingTime <= 0) break;
+                                            long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                            double expectedNoteStartTime = i * timePerNote;
+                                            double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                            if (absoluteNoteStartTime > duration) break;
+
+                                            Stopwatch noteStopwatch = new Stopwatch();
+                                            noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteNumbers[i]);
-                                            if (remainingTime < interval)
-                                            {
-                                                NonBlockingSleep.Sleep((int)remainingTime);
-                                            }
-                                            else
-                                            {
-                                                NotePlayer.play_note(frequencies[i], interval);
-                                            }
+                                            NotePlayer.play_note(frequencies[i], interval);
                                             UnHighlightNoteLabel(noteNumbers[i]);
-                                        }
-                                        
-                                        // Wait remaining time
-                                        int remainingMs = duration - (interval * frequencies.Length);
-                                        if (remainingMs > 0)
-                                        {
-                                            UpdateNoteLabels(new HashSet<int>());
-                                            NonBlockingSleep.Sleep(remainingMs);
+
+                                            noteStopwatch.Stop();
+                                            long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                            double timeToNextNote = timePerNote - noteElapsed;
+                                            if (timeToNextNote > 0)
+                                            {
+                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            }
                                         }
                                     }
-                                    stopwatch.Stop();
                                 }
                                 break;
                         }
@@ -834,71 +817,87 @@ namespace NeoBleeper
                             case true:
                                 {
                                     int interval = 30;
-                                    Stopwatch stopwatch = new Stopwatch();
-                                    stopwatch.Start();
-                                    
+                                    int notesPerCycle = frequencies.Length;
+                                    double timePerNote = (double)interval / notesPerCycle;
+
                                     int noteIndex = 0;
-                                    do
+                                    while (totalStopwatch.ElapsedMilliseconds < duration)
                                     {
-                                        long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                        if (remainingTime <= 0) break;
+                                        long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                        double expectedNoteStartTime = noteIndex * timePerNote;
+                                        double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                        if (absoluteNoteStartTime > duration) break;
 
                                         int alternatingTime = Math.Min(15, Math.Max(1, interval / frequencies.Length));
-                                        
+
+                                        Stopwatch noteStopwatch = new Stopwatch();
+                                        noteStopwatch.Start();
+
                                         HighlightNoteLabel(noteNumbers[noteIndex]);
-                                        if (remainingTime < alternatingTime)
-                                        {
-                                            NonBlockingSleep.Sleep((int)remainingTime);
-                                        }
-                                        else
-                                        {
-                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
-                                        }
+                                        NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
                                         UnHighlightNoteLabel(noteNumbers[noteIndex]);
-                                        
+
+                                        noteStopwatch.Stop();
+                                        long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                        // Calculate the time to sleep to maintain the rhythm
+                                        double timeToNextNote = timePerNote - noteElapsed;
+                                        if (timeToNextNote > 0)
+                                        {
+                                            NonBlockingSleep.Sleep((int)timeToNextNote);
+                                        }
+
                                         noteIndex = (noteIndex + 1) % frequencies.Length;
                                     }
-                                    while (stopwatch.ElapsedMilliseconds < duration);
-                                    
-                                    stopwatch.Stop();
                                     break;
                                 }
                             case false:
                                 {
+                                    // Kullanıcı ayarından alınan alternatif not süresi
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-                                    Stopwatch stopwatch = new Stopwatch();
-                                    stopwatch.Start();
-                                    
+
+                                    // En az 1 ms olmasını sağlayın
+                                    interval = Math.Max(1, interval);
+                                    int notesPerCycle = frequencies.Length;
+                                    double timePerNote = (double)interval / notesPerCycle;
+
                                     int noteIndex = 0;
-                                    do
+                                    while (totalStopwatch.ElapsedMilliseconds < duration)
                                     {
-                                        long remainingTime = (long)duration - stopwatch.ElapsedMilliseconds;
-                                        if (remainingTime <= 0) break;
+                                        long currentTotalElapsed = totalStopwatch.ElapsedMilliseconds;
+                                        double expectedNoteStartTime = noteIndex * timePerNote;
+                                        double absoluteNoteStartTime = expectedNoteStartTime;
+
+                                        if (absoluteNoteStartTime > duration) break;
+
+                                        Stopwatch noteStopwatch = new Stopwatch();
+                                        noteStopwatch.Start();
 
                                         HighlightNoteLabel(noteNumbers[noteIndex]);
-                                        if (remainingTime < interval)
-                                        {
-                                            NonBlockingSleep.Sleep((int)remainingTime);
-                                        }
-                                        else
-                                        {
-                                            NotePlayer.play_note(frequencies[noteIndex], interval);
-                                        }
+                                        NotePlayer.play_note(frequencies[noteIndex], interval);
                                         UnHighlightNoteLabel(noteNumbers[noteIndex]);
-                                        
+
+                                        noteStopwatch.Stop();
+                                        long noteElapsed = noteStopwatch.ElapsedMilliseconds;
+
+                                        // Calculate the time to sleep to maintain the rhythm
+                                        double timeToNextNote = timePerNote - noteElapsed;
+                                        if (timeToNextNote > 0)
+                                        {
+                                            NonBlockingSleep.Sleep((int)timeToNextNote);
+                                        }
+
                                         noteIndex = (noteIndex + 1) % frequencies.Length;
                                     }
-                                    while (stopwatch.ElapsedMilliseconds < duration);
-                                    
-                                    stopwatch.Stop();
                                 }
                                 break;
                         }
                         break;
                     }
             }
+            totalStopwatch.Stop();
         }
-
         private int FrequencyToNoteNumber(int frequency)
         {
             // Convert frequency to MIDI note number using A4 = 440Hz as reference (MIDI note 69)

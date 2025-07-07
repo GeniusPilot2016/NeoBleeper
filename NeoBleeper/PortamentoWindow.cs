@@ -17,26 +17,8 @@ namespace NeoBleeper
         {
             InitializeComponent();
             setLabelsToMiddle();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
-                foreach (Control childCtrl in groupBox1.Controls)
-                {
-                    if (childCtrl.Controls != null)
-                    {
-                        childCtrl.Font = uiFonts.SetUIFont(childCtrl.Font.Size, childCtrl.Font.Style);
-                    }
-                }
-            }
         }
         private void set_theme()
         {
