@@ -200,10 +200,59 @@ namespace NeoBleeper
             finally
             {
                 SetControlsEnabledAndMakeLoadingVisible(true);
-                this.Close();
+                if(checkIfOutputIsValidNBPML(output))
+                {
+                    this.Close();
+                }
+                else
+                {
+                    // If the output is not valid, show an error message
+                    AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
+                    errorForm.ShowDialog();
+                }
             }
         }
-
+        private bool checkIfOutputIsValidNBPML(String output)
+        {
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return false;
+            }
+            bool isValidXml = false;
+            bool isValidNBPML = false;
+            // Check if the output is valid XML
+            try
+            {
+                var xmlDoc = new System.Xml.XmlDocument();
+                xmlDoc.LoadXml(output);
+                isValidXml = true;
+            }
+            catch (System.Xml.XmlException)
+            {
+                isValidXml = false;
+            }
+            // Check if the output starts with <NeoBleeperProjectFile> and ends with </NeoBleeperProjectFile>
+            if (!output.StartsWith("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase) ||
+                !output.EndsWith("</NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
+            {
+                isValidNBPML = false;
+            }
+            else
+            {
+                isValidNBPML = true;
+            }
+            // Check for the presence of <LineList> and <Line> elements
+            if (!output.Contains("<LineList>") || !output.Contains("<Line>"))
+            {
+                isValidNBPML = false;
+            }
+            else
+            {
+                isValidNBPML = true;
+            }
+            // Additional checks can be added here as needed
+            return isValidNBPML && isValidXml;
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(textBoxPrompt.Text))

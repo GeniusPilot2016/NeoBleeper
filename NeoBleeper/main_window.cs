@@ -3205,6 +3205,7 @@ namespace NeoBleeper
         private void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
             stop_playing();
+            EnableDisableCommonControls(false);
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
                 int baseLength = 0;
@@ -3233,6 +3234,7 @@ namespace NeoBleeper
                 {
                     stopAllNotesAfterPlaying();
                 }
+                EnableDisableCommonControls(true);
                 Debug.WriteLine($"Selected line: {listViewNotes.FocusedItem.Index} Length: " +
                      $"{listViewNotes.FocusedItem.SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.FocusedItem.SubItems[1].Text.ToString())}" +
                      $" Note 2: {GetOrDefault(listViewNotes.FocusedItem.SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.FocusedItem.SubItems[3].Text.ToString())}" +
@@ -3397,10 +3399,6 @@ namespace NeoBleeper
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
         {
-            if (!is_music_playing)
-            {
-                EnableDisableCommonControls(false);
-            }
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
@@ -3660,10 +3658,6 @@ namespace NeoBleeper
                         stopwatch.Stop(); // Stop the stopwatch after the loop ends
                     }
                 }
-            }
-            if (!is_music_playing)
-            {
-                EnableDisableCommonControls(true);
             }
         }
         private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)
