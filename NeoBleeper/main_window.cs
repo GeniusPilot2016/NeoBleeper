@@ -4294,7 +4294,10 @@ namespace NeoBleeper
                 hide_keyboard_keys_shortcut();
                 KeyPressed = false; // Reset the KeyPressed flag when the checkbox is unchecked
             }
-            enableDisableTabStop(this, !checkBox_use_keyboard_as_piano.Checked);
+            foreach (Control control in this.Controls)
+            {
+                enableDisableTabStop(control, !checkBox_use_keyboard_as_piano.Checked);
+            }
         }
         private void enableDisableTabStop(Control parent, bool enabled)
         {
