@@ -3589,14 +3589,8 @@ namespace NeoBleeper
                                 {
                                     double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                    if (remainingTime < alternatingNoteDuration)
-                                    {
-                                        NonBlockingSleep.Sleep((int)remainingTime);
-                                    }
-                                    else
-                                    {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
-                                    }
+                                    int duration = remainingTime < alternatingNoteDuration ? (int)remainingTime : alternatingNoteDuration;
+                                    PlayBeepWithLabel(Convert.ToInt32(frequency), Math.Max(0, duration - 5));
                                 }
                             }
                         }
@@ -3627,14 +3621,8 @@ namespace NeoBleeper
                                 {
                                     double frequency = (i == 0) ? note1_frequency : note3_frequency;
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                    if (remainingTime < alternatingNoteDuration)
-                                    {
-                                        NonBlockingSleep.Sleep((int)remainingTime);
-                                    }
-                                    else
-                                    {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
-                                    }
+                                    int duration = remainingTime < alternatingNoteDuration ? (int)remainingTime : alternatingNoteDuration;
+                                    PlayBeepWithLabel(Convert.ToInt32(frequency), Math.Max(0, duration - 5));
                                 }
                             }
                             if (remainingTime <= 0) break;
@@ -3651,14 +3639,8 @@ namespace NeoBleeper
                                 {
                                     double frequency = (i == 1) ? note2_frequency : note4_frequency;
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                                    if (remainingTime < alternatingNoteDuration)
-                                    {
-                                        NonBlockingSleep.Sleep((int)remainingTime);
-                                    }
-                                    else
-                                    {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
-                                    }
+                                    int duration = remainingTime < alternatingNoteDuration ? (int)remainingTime : alternatingNoteDuration;
+                                    PlayBeepWithLabel(Convert.ToInt32(frequency), Math.Max(0, duration-5));
                                 }
                             }
                         }
