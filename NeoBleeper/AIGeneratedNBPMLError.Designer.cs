@@ -103,6 +103,7 @@
             Controls.Add(pictureBox1);
             Controls.Add(richTextBox1);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AIGeneratedNBPMLError";
