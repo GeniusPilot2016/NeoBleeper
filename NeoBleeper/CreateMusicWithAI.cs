@@ -28,7 +28,7 @@ namespace NeoBleeper
             InitializeComponent();
             NormalWindowSize = this.Size;
             LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height+(NormalWindowSize.Height * scaleFraction)));
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
             ApplyAIModelChanges();
@@ -43,17 +43,6 @@ namespace NeoBleeper
                 Debug.WriteLine("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.");
                 MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-            }
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach(Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
             }
         }
         private void set_theme()

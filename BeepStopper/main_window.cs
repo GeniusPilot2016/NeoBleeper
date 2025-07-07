@@ -10,19 +10,9 @@ namespace BeepStopper
         public main_window()
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
         }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
-            }
-        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             // Stop the beeping without force-shutdown

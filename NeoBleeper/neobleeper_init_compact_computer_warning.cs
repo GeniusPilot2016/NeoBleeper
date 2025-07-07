@@ -7,19 +7,8 @@ namespace NeoBleeper
         public neobleeper_init_compact_computer_warning()
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                }
-            }
         }
         private void set_theme()
         {

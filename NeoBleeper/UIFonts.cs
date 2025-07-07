@@ -1,10 +1,12 @@
 ﻿using NeoBleeper.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace NeoBleeper
 {
@@ -121,7 +123,31 @@ namespace NeoBleeper
                 disposed = true;
             }
         }
+        public static void setFonts(Form form)
+        {
+            UIFonts uiFonts = UIFonts.Instance;
+            SetFontsRecursive(form, uiFonts);
+        }
 
+        private static void SetFontsRecursive(Control parent, UIFonts uiFonts)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                try
+                {
+                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error setting font for control {ctrl.Name}: {ex.Message}");
+                }
+
+                if (ctrl.HasChildren)
+                {
+                    SetFontsRecursive(ctrl, uiFonts);
+                }
+            }
+        }
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

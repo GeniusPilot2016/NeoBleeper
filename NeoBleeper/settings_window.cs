@@ -77,7 +77,7 @@ namespace NeoBleeper
             checkBox_use_midi_input.Checked = TemporarySettings.MIDIDevices.useMIDIinput;
             checkBox_use_midi_output.Checked = TemporarySettings.MIDIDevices.useMIDIoutput;
             checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
@@ -85,45 +85,6 @@ namespace NeoBleeper
             if (Settings1.Default.geminiAPIKey != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
-            }
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                    if (ctrl is TabControl tabControl)
-                    {
-                        foreach (Control tabControlControls in tabControl.Controls)
-                        {
-                            tabControlControls.Font = uiFonts.SetUIFont(tabControlControls.Font.Size, tabControlControls.Font.Style);
-                            if (tabControlControls is TabPage tabPage)
-                            {
-                                foreach (Control tabPageControls in tabPage.Controls)
-                                {
-                                    if (tabPageControls is GroupBox groupBox)
-                                    {
-                                        tabPageControls.Font = uiFonts.SetUIFont(tabPageControls.Font.Size, tabPageControls.Font.Style);
-                                        foreach (Control groupBoxControls in groupBox.Controls)
-                                        {
-                                            groupBoxControls.Font = uiFonts.SetUIFont(groupBoxControls.Font.Size, groupBoxControls.Font.Style);
-                                            if (groupBoxControls is GroupBox childGroupBox)
-                                            {
-                                                foreach (Control childGroupBoxControls in childGroupBox.Controls)
-                                                {
-                                                    childGroupBox.Font = uiFonts.SetUIFont(childGroupBox.Font.Size, childGroupBox.Font.Style);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
         private void dark_theme()

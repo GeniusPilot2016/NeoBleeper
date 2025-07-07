@@ -16,29 +16,9 @@ namespace NeoBleeper
         public about_neobleeper()
         {
             InitializeComponent();
-            setFonts();
+            UIFonts.setFonts(this);
             set_theme();
-        }
-        private void setFonts()
-        {
-            UIFonts uiFonts = UIFonts.Instance;
-            foreach(Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    ctrl.Font = uiFonts.SetUIFont(ctrl.Font.Size, ctrl.Font.Style);
-                    if(ctrl is ListView)
-                    {
-                        ListView listView = (ListView)ctrl;
-                        foreach (ListViewItem item in listView.Items)
-                        {
-                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
-                        }
-                    }
-                }
-            }
-
-        }
+        }    
         private void set_theme()
         {
             switch (Settings1.Default.theme)
