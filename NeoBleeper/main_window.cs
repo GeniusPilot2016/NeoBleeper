@@ -3528,9 +3528,17 @@ namespace NeoBleeper
             }
             if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
             {
+                if (!is_music_playing)
+                {
+                    EnableDisableCommonControls(false);
+                }
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
+                }
+                if(!is_music_playing)
+                {
+                    EnableDisableCommonControls(true);
                 }
                 NonBlockingSleep.Sleep(Math.Max(1, length));
             }
