@@ -133,7 +133,7 @@
     <value>HarmonyOS Sans, 15.749998pt, style=Bold</value>
   </data>
   <data name="lbl_current_system_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 63</value>
+    <value>268, 65</value>
   </data>
   <data name="lbl_current_system_time.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 28</value>
@@ -169,7 +169,7 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_current_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>276, 47</value>
+    <value>276, 49</value>
   </data>
   <data name="lbl_current_time.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 16</value>
@@ -238,7 +238,7 @@
     <value>HarmonyOS Sans, 9pt, style=Bold</value>
   </data>
   <data name="lbl_hour_minute_second.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 47</value>
+    <value>57, 49</value>
   </data>
   <data name="lbl_hour_minute_second.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 16</value>
@@ -271,7 +271,7 @@
     <value>HarmonyOS Sans, 11.249998pt</value>
   </data>
   <data name="dateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 66</value>
+    <value>43, 68</value>
   </data>
   <data name="dateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 27</value>
@@ -298,7 +298,7 @@
     <value>10, 62</value>
   </data>
   <data name="groupBox_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 99</value>
+    <value>423, 103</value>
   </data>
   <data name="groupBox_time.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -341,7 +341,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA1AgAAAJNU0Z0AUkBTAIBAQMB
-        AAHYAQAB2AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHgAQAB4AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAf8cAAJnAVkB70QAAWABKAHbAf8BYAEoAdsB/wFgASgB2wH/bAAB/wFmATMC/wFmATMC
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAcgBcAEDAf8ByAFwAQMB
@@ -374,7 +374,7 @@
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAdkBgwEIAf8B2QGDAQgB/wHZAYMB
         CAH/RAABdQE2Ae0B/wF1ATYB7QH/AU0BGwHKAf8BTgEbAcsB/1wAAZkB/wEAAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8cAAHZAYMBCAH/Ay0B
-        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAYcB+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
+        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAYYB+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
         AAEBAQABAQUAAYAXAAP/AQAG/wIAAeABBwH3Af8B/AF/AgAB8AEHAfEB/wH4AT8CAAHwAQ8B8AH/AcAB
         AQIAAfABDwHwAT8B+AE/AgAB8AEPAfABDwHAAQECAAH4AQ8B8AEHAcABAQIAAfwBHwHwAQMB/wE/AgAB
         +AEPAfABAwHAAQECAAHwAQ8B8AEPAf8BPwIAAfABDwHwAR8B/wE/AgAB8AEPAfABfwHAAQECAAHwAQcB
@@ -451,10 +451,10 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="groupBox_position.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 179</value>
+    <value>10, 183</value>
   </data>
   <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 70</value>
+    <value>310, 70</value>
   </data>
   <data name="groupBox_position.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -484,7 +484,7 @@
     <value>0</value>
   </data>
   <data name="button_wait.Location" type="System.Drawing.Point, System.Drawing">
-    <value>329, 179</value>
+    <value>329, 171</value>
   </data>
   <data name="button_wait.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 36</value>
@@ -516,17 +516,20 @@
   <data name="lbl_waiting.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
   </data>
+  <data name="lbl_waiting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbl_waiting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 221</value>
+    <value>331, 213</value>
   </data>
   <data name="lbl_waiting.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>100, 40</value>
   </data>
   <data name="lbl_waiting.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>100, 40</value>
   </data>
   <data name="lbl_waiting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 40</value>
+    <value>100, 40</value>
   </data>
   <data name="lbl_waiting.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -619,7 +622,7 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>443, 273</value>
+    <value>443, 265</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>
@@ -943,6 +946,9 @@
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRTTTXVVFNNNdVUU0011VRT
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Synchronized Play Settings</value>

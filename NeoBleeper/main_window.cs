@@ -2791,13 +2791,19 @@ namespace NeoBleeper
 
                 if (nextIndex < listViewNotes.Items.Count)
                 {
-                    listViewNotes.Items[nextIndex].Selected = true;
-                    EnsureSpecificIndexVisible(nextIndex);
+                    if (!listViewNotes.Items[nextIndex].Selected)
+                    {
+                        listViewNotes.Items[nextIndex].Selected = true;
+                        EnsureSpecificIndexVisible(nextIndex);
+                    } 
                 }
                 else if (checkBox_loop.Checked)
                 {
-                    listViewNotes.Items[startIndex].Selected = true;
-                    EnsureSpecificIndexVisible(startIndex);
+                    if (!listViewNotes.Items[startIndex].Selected)
+                    {
+                        listViewNotes.Items[startIndex].Selected = true;
+                        EnsureSpecificIndexVisible(startIndex);
+                    } 
                 }
                 else
                 {
@@ -2811,18 +2817,16 @@ namespace NeoBleeper
             {
                 try
                 {
+                    SuspendLayout();
                     if (listViewNotes.InvokeRequired)
                     {
-                        SuspendLayout();
                         listViewNotes.Invoke(new Action(() => listViewNotes.EnsureVisible(index)));
-                        ResumeLayout(true);
                     }
                     else
                     {
-                        SuspendLayout();
                         listViewNotes.EnsureVisible(index);
-                        ResumeLayout(true);
                     }
+                    ResumeLayout(true);
                 }
                 catch (Exception ex)
                 {

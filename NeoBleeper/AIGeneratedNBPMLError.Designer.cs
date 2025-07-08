@@ -58,6 +58,7 @@
             richTextBox1.ForeColor = Color.White;
             richTextBox1.Location = new Point(12, 75);
             richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(425, 182);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
@@ -78,11 +79,11 @@
             button1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ImageIndex = 0;
             button1.ImageList = icons;
-            button1.Location = new Point(186, 267);
+            button1.Location = new Point(174, 267);
             button1.Name = "button1";
-            button1.Size = new Size(75, 28);
+            button1.Size = new Size(87, 28);
             button1.TabIndex = 3;
-            button1.Text = "OK";
+            button1.Text = "Close";
             button1.TextAlign = ContentAlignment.MiddleRight;
             button1.TextImageRelation = TextImageRelation.ImageBeforeText;
             button1.UseVisualStyleBackColor = true;
@@ -93,7 +94,7 @@
             icons.ColorDepth = ColorDepth.Depth32Bit;
             icons.ImageStream = (ImageListStreamer)resources.GetObject("icons.ImageStream");
             icons.TransparentColor = Color.Transparent;
-            icons.Images.SetKeyName(0, "icons8-ok-48.png");
+            icons.Images.SetKeyName(0, "icons8-close-48 (1).png");
             // 
             // AIGeneratedNBPMLError
             // 
