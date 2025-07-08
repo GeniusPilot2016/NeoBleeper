@@ -185,6 +185,7 @@ namespace NeoBleeper
                     output = Regex.Replace(output, @"\s*Bb\s*$", "A#", RegexOptions.IgnoreCase);
                     // Trim leading/trailing whitespace
                     output = output.Trim();
+                    output = RewriteOutput(output).Trim();
                 }
                 else
                 {
@@ -233,8 +234,8 @@ namespace NeoBleeper
                 isValidXml = false;
             }
             // Check if the output starts with <NeoBleeperProjectFile> and ends with </NeoBleeperProjectFile>
-            if (!output.StartsWith("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase) ||
-                !output.EndsWith("</NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
+            if (!output.StartsWith("<NeoBleeperProjectFile>") ||
+                !output.EndsWith("</NeoBleeperProjectFile>"))
             {
                 isValidNBPML = false;
             }
@@ -263,6 +264,136 @@ namespace NeoBleeper
             else
             {
                 buttonCreate.Enabled = false;
+            }
+        }
+        private string RewriteOutput(string output)
+        {
+            // Apply additional transformations to ensure NBPM format compliance
+            output = Regex.Replace(output, @"<AlternateTime>\d+</AlternateTime>", "<AlternateTime>5</AlternateTime>", RegexOptions.IgnoreCase);
+            output = Regex.Replace(output, @"<NoteSilenceRatio>\d+</NoteSilenceRatio>", "<NoteSilenceRatio>95</NoteSilenceRatio>", RegexOptions.IgnoreCase);
+
+            // Ensure <NeoBleeperProjectFile> starts and ends correctly
+            if (!output.StartsWith("<NeoBleeperProjectFile>"))
+            {
+                output = "<NeoBleeperProjectFile>\r\n" + output;
+            }
+            if (!output.EndsWith("</NeoBleeperProjectFile>"))
+            {
+                output += "\r\n</NeoBleeperProjectFile>";
+            }
+
+            // Ensure <LineList> section exists
+            if (!output.Contains("<LineList>"))
+            {
+                output = output.Replace("</Settings>", "</Settings>\r\n<LineList>\r\n</LineList>");
+            }
+
+            // Trim leading/trailing whitespace
+            output = FixParameterNames(output);
+            output = SynchronizeLengths(output);
+            // Remove XML declaration
+            output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
+            output = output.Trim();
+
+            return output;
+        }
+        private string FixParameterNames(string xmlContent)
+        {
+            // Fix all parameter names according to Clementi Sonatina No. 3, Op 36.NBPML syntax
+            xmlContent = Regex.Replace(xmlContent, @"<length>", "<Length>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</length>", "</Length>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note1>", "<Note1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</note1>", "</Note1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note2>", "<Note2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</note2>", "</Note2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note3>", "<Note3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</note3>", "</Note3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note4>", "<Note4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</note4>", "</Note4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<mod>", "<Mod>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</mod>", "</Mod>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<art>", "<Art>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</art>", "</Art>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave>", "<KeyboardOctave>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</keyboardoctave>", "</KeyboardOctave>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<bpm>", "<BPM>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</bpm>", "</BPM>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<timesignature>", "<TimeSignature>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</timesignature>", "</TimeSignature>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio>", "<NoteSilenceRatio>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</notesilenceratio>", "</NoteSilenceRatio>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelength>", "<NoteLength>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</notelength>", "</NoteLength>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<alternatetime>", "<AlternateTime>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</alternatetime>", "</AlternateTime>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay>", "<NoteClickPlay>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</noteclickplay>", "</NoteClickPlay>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd>", "<NoteClickAdd>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</noteclickadd>", "</NoteClickAdd>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote1>", "<AddNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</addnote1>", "</AddNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote2>", "<AddNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</addnote2>", "</AddNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote3>", "<AddNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</addnote3>", "</AddNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote4>", "<AddNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</addnote4>", "</AddNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notereplace>", "<NoteReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</notereplace>", "</NoteReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>", "<NoteLengthReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</notelengthreplace>", "</NoteLengthReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1>", "<ClickPlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote1>", "</ClickPlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2>", "<ClickPlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote2>", "</ClickPlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3>", "<ClickPlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote3>", "</ClickPlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4>", "<ClickPlayNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote4>", "</ClickPlayNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote1>", "<PlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</playnote1>", "</PlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote2>", "<PlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</playnote2>", "</PlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote3>", "<PlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</playnote3>", "</PlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote4>", "<PlayNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"</playnote4>", "</PlayNote4>", RegexOptions.IgnoreCase);
+
+            return xmlContent;
+        }
+        private string SynchronizeLengths(string xmlContent)
+        {
+            var xmlDoc = new System.Xml.XmlDocument();
+            xmlDoc.LoadXml(xmlContent);
+
+            var lineNodes = xmlDoc.SelectNodes("//Line[@Length]");
+            foreach (System.Xml.XmlNode lineNode in lineNodes)
+            {
+                var lengthAttribute = lineNode.Attributes["Length"];
+                if (lengthAttribute != null)
+                {
+                    var lengthValue = lengthAttribute.Value;
+                    var lengthElement = lineNode.SelectSingleNode("Length");
+
+                    if (lengthElement != null)
+                    {
+                        // Update the <Length> tag to match the Length attribute
+                        lengthElement.InnerText = lengthValue;
+                    }
+                    else
+                    {
+                        // Create a new <Length> tag if it doesn't exist
+                        var newLengthElement = xmlDoc.CreateElement("Length");
+                        newLengthElement.InnerText = lengthValue;
+                        lineNode.AppendChild(newLengthElement);
+                    }
+                }
+            }
+
+            using (var stringWriter = new System.IO.StringWriter())
+            {
+                xmlDoc.Save(stringWriter);
+                return stringWriter.ToString();
             }
         }
         private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)

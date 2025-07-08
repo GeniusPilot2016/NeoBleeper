@@ -66,7 +66,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Top;
             pictureBox1.Image = Properties.Resources.icons8_error_48;
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(23, 14);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(50, 50);
             pictureBox1.TabIndex = 2;
