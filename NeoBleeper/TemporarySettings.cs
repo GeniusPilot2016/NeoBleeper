@@ -63,5 +63,16 @@ namespace NeoBleeper
                 PlayOnEvenBeats
             }
         }
+        public static class PortamentoSettings
+        {
+            public static int length = 250;
+            public static int pitchChangeSpeed = 12000;
+            public static PortamentoType portamentoType = PortamentoType.ProduceSoundForLength;
+            public enum PortamentoType
+            {
+                AlwaysProduceSound,
+                ProduceSoundForLength,
+            }
+        }
     }
 }

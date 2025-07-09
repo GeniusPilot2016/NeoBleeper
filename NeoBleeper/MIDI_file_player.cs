@@ -21,6 +21,7 @@ namespace NeoBleeper
             textBox1.Text = filename;
             LoadMIDI(filename);
         }
+
         private void set_theme()
         {
             switch (Settings1.Default.theme)
@@ -375,7 +376,7 @@ namespace NeoBleeper
                 _cancellationTokenSource?.Cancel();
 
                 // Wait a moment for cancellation to take effect
-                Thread.Sleep(50);
+                NonBlockingSleep.Sleep(50);
 
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
@@ -449,138 +450,82 @@ namespace NeoBleeper
         private async Task PlayFromPosition(int startIndex, CancellationToken cancellationToken)
         {
             Debug.WriteLine($"Starting playback from frame {startIndex} of {_frames.Count}");
-            Stopwatch stopwatch = new Stopwatch();
-
-            // Keep track of which notes were active in the previous frame
-            HashSet<int> previousActiveNotes = new HashSet<int>();
-
             try
             {
-                // Start playing from the specified index
                 for (int i = startIndex; i < _frames.Count; i++)
                 {
-                    // Check for cancellation
                     if (cancellationToken.IsCancellationRequested)
                     {
-                        Debug.WriteLine("Playback cancelled");
-                        // Hide all labels when playback is cancelled
                         UpdateNoteLabels(new HashSet<int>());
                         return;
                     }
 
-                    // Update the current position
                     _currentFrameIndex = i;
-                    UpdateTrackBarPosition(i);
-                    UpdateTimeAndPercentPosition(i);
                     var currentFrame = _frames[i];
 
-                    // Filter notes by channel
+                    // Filter notes - optimize dictionary lookup
                     HashSet<int> filteredNotes = new HashSet<int>();
                     foreach (var note in currentFrame.ActiveNotes)
                     {
-                        // Only include notes from enabled channels
                         if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
-                        {
                             filteredNotes.Add(note);
-                        }
                     }
 
-                    // Update note labels based on filtered active notes
-                    if (!checkBox_dont_update_grid.Checked)
-                    {
-                        UpdateNoteLabels(filteredNotes);
-                    }
-
-                    int notesCount = filteredNotes.Count;
-
-                    // Update label
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            SuspendLayout();
-                            if (holded_note_label.InvokeRequired)
-                            {
-                                holded_note_label.BeginInvoke(new Action(() =>
-                                {
-                                    holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
-                                }));
-                            }
-                            else
-                            {
-                                holded_note_label.Text = $"Notes which are currently being held on: ({notesCount})";
-                            }
-                            ResumeLayout(true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"Error updating label: {ex.Message}");
-                        }
-                    });
-                    
-
-                    // Calculate duration to next frame
-                    int durationMs;
-                    if (i < _frames.Count - 1)
-                    {
-                        durationMs = (int)Math.Floor(main_window.FixRoundingErrors((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs));
-                    }
-                    else
-                    {
-                        durationMs = 500; // Default duration for last frame
-                    }
-
-                    // Ensure minimum duration
+                    // Timing calculation - do this early
+                    int durationMs = (i < _frames.Count - 1)
+                        ? (int)Math.Floor(((_frames[i + 1].Time - currentFrame.Time) * _ticksToMs))
+                        : 500;
                     durationMs = Math.Max(0, durationMs);
 
-                    stopwatch.Restart();
-                    // Play active notes or silence
-                    if (notesCount > 0)
+                    // Single UI update call to minimize thread switching
+                    if (!checkBox_dont_update_grid.Checked)
                     {
+                        UpdateAllUI(i, filteredNotes);
+                    }
+
+                    var frameStart = Stopwatch.GetTimestamp();
+
+                    // Note playing - minimize async overhead
+                    if (filteredNotes.Count > 0)
+                    {
+                        // Start MIDI output without awaiting
                         if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
                         {
+                            // Fire and forget MIDI notes
                             foreach (var note in filteredNotes)
                             {
-                                Task.Run(() =>
-                                {
-                                    MIDIIOUtils.PlayMidiNoteAsync(note, durationMs).Wait();
-                                });
+                                _ = MIDIIOUtils.PlayMidiNoteAsync(note, durationMs);
                             }
                         }
+
                         var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
 
                         if (frequencies.Length == 1)
                         {
-                            // Single note - play directly
-                            HighlightNoteLabel(filteredNotes.First());
+                            var noteNumber = filteredNotes.First();
+                            HighlightNoteLabelSync(noteNumber);
                             NotePlayer.play_note(frequencies[0], durationMs);
-                            UnHighlightNoteLabel(filteredNotes.First());
+                            UnHighlightNoteLabelSync(noteNumber);
                         }
                         else
                         {
                             PlayMultipleNotes(frequencies, durationMs);
                         }
                     }
-                    else
-                    {
-                        // Silence - just wait
-                        NonBlockingSleep.Sleep(durationMs);
-                    }
 
-                    stopwatch.Stop();
-                    int elapsedTime = (int)stopwatch.ElapsedMilliseconds;
-                    int remainingTime = durationMs - elapsedTime;
+                    // Precise timing control
+                    var frameEnd = Stopwatch.GetTimestamp();
+                    var elapsedMs = (frameEnd - frameStart) * 1000 / Stopwatch.Frequency;
+                    var remainingMs = durationMs - elapsedMs;
 
-                    if (remainingTime > 0)
-                    {
-                        NonBlockingSleep.Sleep(remainingTime);
-                    }
+                    if (remainingMs > 0)
+                        NonBlockingSleep.Sleep((int)remainingMs);
                 }
 
                 // Finished playing
                 if (checkBox_loop.Checked)
                 {
-                    UpdateTimeAndPercentPosition(100);
+                    UpdateTimeAndPercentPositionDirect(100);
                     Rewind();
                 }
                 else
@@ -588,46 +533,35 @@ namespace NeoBleeper
                     Stop();
                     trackBar1.Value = 0;
                     SetPosition(trackBar1.Value / 10);
-                    UpdateTimeAndPercentPosition(trackBar1.Value / 10);
+                    UpdateTimeAndPercentPositionDirect(trackBar1.Value / 10);
                 }
 
                 // Hide all note labels when playback completes
                 UpdateNoteLabels(new HashSet<int>());
-
                 Debug.WriteLine("Playback completed successfully");
 
-                // Reset label
-                Task.Run(() =>
+                // Reset label directly
+                if (holded_note_label.InvokeRequired)
                 {
-                    SuspendLayout();
-                    if (holded_note_label.InvokeRequired)
-                    {
-                        holded_note_label.BeginInvoke(new Action(() =>
-                        {
-                            holded_note_label.Text = "Notes which are currently being held on: (0)";
-                        }));
-                    }
-                    else
+                    holded_note_label.BeginInvoke(new Action(() =>
                     {
                         holded_note_label.Text = "Notes which are currently being held on: (0)";
-                    }
-                    ResumeLayout(true);
-                });
+                    }));
+                }
+                else
+                {
+                    holded_note_label.Text = "Notes which are currently being held on: (0)";
+                }
             }
             catch (TaskCanceledException)
             {
-                // Hide all labels when playback is cancelled
                 UpdateNoteLabels(new HashSet<int>());
-                // Task was canceled, do nothing
                 Debug.WriteLine("Task was canceled");
             }
             catch (Exception ex)
             {
-                // Handle any exceptions
                 Debug.WriteLine($"Error during playback: {ex.Message}");
                 MessageBox.Show($"Error during playback: {ex.Message}");
-
-                // Hide all labels in case of error
                 UpdateNoteLabels(new HashSet<int>());
             }
             finally
@@ -635,11 +569,115 @@ namespace NeoBleeper
                 _isPlaying = false;
             }
         }
+
+        // Optimized single UI update method
+        private void UpdateAllUI(int frameIndex, HashSet<int> filteredNotes)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    // Update trackbar
+                    trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+                    
+                    // Update percentage
+                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                    
+                    // Update position
+                    label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                    
+                    // Update note labels
+                    UpdateNoteLabelsSync(filteredNotes);
+                    
+                    // Update held notes count
+                    holded_note_label.Text = $"Notes which are currently being held on: ({filteredNotes.Count})";
+                }));
+            }
+            else
+            {
+                // Update trackbar
+                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
+                
+                // Update percentage
+                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                
+                // Update position
+                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                
+                // Update note labels
+                UpdateNoteLabelsSync(filteredNotes);
+                
+                // Update held notes count
+                holded_note_label.Text = $"Notes which are currently being held on: ({filteredNotes.Count})";
+            }
+        }
+
+        // Update note labels with synchronization
+        private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
+        {
+            try
+            {
+                var sortedNotes = activeNotes.OrderBy(note => note).ToList();
+                
+                // Reset all labels
+                foreach (var label in _noteLabels)
+                {
+                    label.Visible = false;
+                    label.BackColor = _originalLabelColors[label];
+                }
+
+                // Process active notes
+                for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
+                {
+                    int noteNumber = sortedNotes[i];
+                    Label label = _noteLabels[i];
+
+                    string noteName = MidiNoteToName(noteNumber);
+                    label.Visible = true;
+                    label.Text = noteName;
+                    label.BackColor = _highlightColor;
+                }
+
+                // Update more notes label if necessary
+                if (sortedNotes.Count > _noteLabels.Length)
+                {
+                    label_more_notes.Visible = true;
+                    label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                }
+                else
+                {
+                    label_more_notes.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error updating note labels: {ex.Message}");
+            }
+        }
+
+        // Percentage update
+        private void UpdateTimeAndPercentPositionDirect(int frameIndex)
+        {
+            if (label_percentage.InvokeRequired)
+            {
+                label_percentage.BeginInvoke(new Action(() =>
+                {
+                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                    label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                }));
+            }
+            else
+            {
+                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+            }
+        }
+
         private void checkBox_channel_CheckedChanged(object sender, EventArgs e)
         {
             UpdateEnabledChannels();
 
-            // If we're currently playing, restart from current position to apply the channel change
+            // If it is playing, update the position immediately
             if (_isPlaying)
             {
                 double currentPositionPercent = (double)_currentFrameIndex / _frames.Count * 100;
@@ -858,10 +896,10 @@ namespace NeoBleeper
                                 }
                             case false:
                                 {
-                                    // Kullanıcı ayarından alınan alternatif not süresi
+                                    // Alternating notes with a custom interval
                                     int interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
 
-                                    // En az 1 ms olmasını sağlayın
+                                    // Ensure interval is at least 1 ms
                                     interval = Math.Max(1, interval);
                                     int notesPerCycle = frequencies.Length;
                                     double timePerNote = (double)interval / notesPerCycle;
@@ -980,73 +1018,79 @@ namespace NeoBleeper
                 return;
             }
         }
+        private void HighlightNoteLabelSync(int noteNumber)
+        {
+            try
+            {
+                string noteName = MidiNoteToName(noteNumber);
+                foreach (Label label in _noteLabels)
+                {
+                    if (label.Text.Contains(noteName))
+                    {
+                        if (label.InvokeRequired)
+                        {
+                            label.BeginInvoke(new Action(() => label.BackColor = _highlightColor));
+                        }
+                        else
+                        {
+                            label.BackColor = _highlightColor;
+                        }
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error highlighting note label: {ex.Message}");
+            }
+        }
+
+        private void UnHighlightNoteLabelSync(int noteNumber)
+        {
+            try
+            {
+                string noteName = MidiNoteToName(noteNumber);
+                foreach (Label label in _noteLabels)
+                {
+                    if (label.Text.Contains(noteName))
+                    {
+                        if (label.InvokeRequired)
+                        {
+                            label.BeginInvoke(new Action(() => label.BackColor = _originalLabelColors[label]));
+                        }
+                        else
+                        {
+                            label.BackColor = _originalLabelColors[label];
+                        }
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error unhighlighting note label: {ex.Message}");
+            }
+        }
         private int NoteToFrequency(int noteNumber)
         {
             // MIDI note number to frequency conversion
             return (int)(880.0 * Math.Pow(2.0, (noteNumber - 69) / 12.0));
         }
-        private void UpdateTrackBarPosition(int frameIndex)
-        {
-            Task.Run(() =>
-            {
-                SuspendLayout();
-                if (trackBar1.InvokeRequired)
-                {
-                    trackBar1.BeginInvoke(new Action(() =>
-                    {
-                        trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                    }));
-                }
-                else
-                {
-                    trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-
-                }
-                ResumeLayout(true);
-            });
-        }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
-            Task.Run(() =>
+            if (label_percentage.InvokeRequired)
             {
-                SuspendLayout();
-                if (label_percentage.InvokeRequired)
-                {
-                    label_percentage.BeginInvoke(new Action(() =>
-                    {
-                        label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                    }));
-                }
-                else
+                label_percentage.BeginInvoke(new Action(() =>
                 {
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                }
-                ResumeLayout(true);
-            });
-            CalculatePosition(frameIndex);
-        }
-        private void CalculatePosition(int frameIndex)
-        {
-            Task.Run(() =>
-            {
-                if (_frames == null || _frames.Count == 0)
-                    return;
-                SuspendLayout();
-                if (label_percentage.InvokeRequired)
-                {
-                    label_percentage.BeginInvoke(new Action(() =>
-                    {
-
-                        label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                        ;
-                    }));
-                }
-                else
-                {
                     label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                }
-                ResumeLayout(true);
-            });
+                }));
+            }
+            else
+            {
+                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+            }
         }
 
         private string UpdateTimeLabel(int frameIndex)
@@ -1100,68 +1144,48 @@ namespace NeoBleeper
         {
             try
             {
-
-                Task.Run(() =>
-                { // Sort notes to ensure consistent order
-                    var sortedNotes = activeNotes.OrderBy(note => note).ToList();
-
-                    Action updateAction = () =>
+                // Sort notes once, outside the UI update action
+                var sortedNotes = activeNotes.OrderBy(note => note).ToList();
+                Action updateAction = () =>
+                {
+                    // Reset all labels
+                    foreach (var label in _noteLabels)
                     {
-                        // Reset all labels
-                        foreach (var label in _noteLabels)
-                        {
-                            label.Visible = false;
-                            label.BackColor = _originalLabelColors[label];
-                        }
+                        label.Visible = false;
+                        label.BackColor = _originalLabelColors[label];
+                    }
 
-                        // Process active notes with better mapping
-                        for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
-                        {
-                            int noteNumber = sortedNotes[i];
-                            Label label = _noteLabels[i];
+                    // Process active notes with better mapping
+                    for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
+                    {
+                        int noteNumber = sortedNotes[i];
+                        Label label = _noteLabels[i];
 
-                            // Convert note number to note name
-                            string noteName = MidiNoteToName(noteNumber);
+                        // Convert note number to note name
+                        string noteName = MidiNoteToName(noteNumber);
 
-                            label.Visible = true;
-                            label.Text = noteName;
-                            label.BackColor = _highlightColor; // Highlight the label
+                        label.Visible = true;
+                        label.Text = noteName;
+                        label.BackColor = _highlightColor;
+                    }
 
-                            // Create a timer to unhighlight this specific label
-                            var timer = new System.Windows.Forms.Timer();
-                            timer.Tag = label; // Store the label with the timer
-                            timer.Interval = 100; // Short unhighlighting delay
-                            timer.Tick += (s, e) =>
-                            {
-                                var timerLabel = (Label)((System.Windows.Forms.Timer)s).Tag;
-                                if (timerLabel != null)
-                                {
-                                    timerLabel.BackColor = _originalLabelColors[timerLabel];
-                                }
-                                ((System.Windows.Forms.Timer)s).Stop();
-                                ((System.Windows.Forms.Timer)s).Dispose();
-                            };
-                            timer.Start();
-                        }
-
-                        // Update more notes label if necessary
-                        if (sortedNotes.Count > _noteLabels.Length)
-                        {
-                            label_more_notes.Visible = true;
-                            label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
-                        }
-                        else
-                        {
-                            label_more_notes.Visible = false;
-                        }
-                    };
-
-                    // Ensure UI update happens on the UI thread
-                    if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
-                        _noteLabels[0].BeginInvoke(updateAction);
+                    // Update more notes label if necessary
+                    if (sortedNotes.Count > _noteLabels.Length)
+                    {
+                        label_more_notes.Visible = true;
+                        label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                    }
                     else
-                        updateAction();
-                });
+                    {
+                        label_more_notes.Visible = false;
+                    }
+                };
+
+                // Ensure UI update happens on the UI thread
+                if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
+                    _noteLabels[0].BeginInvoke(updateAction);
+                else
+                    updateAction();
             }
             catch (Exception ex)
             {
@@ -1241,10 +1265,8 @@ namespace NeoBleeper
                     null, label, new object[] { true });
             }
             // Create a mapping from MIDI note numbers to label indices
-            // This assumes you want to map certain MIDI notes to your 32 labels
+            // This mapping assumes MIDI notes 60-91 (C1 to B10) correspond to labels 1-32
             _noteToLabelMap = new Dictionary<int, int>();
-
-            // Example mapping (you'll need to adjust this based on your needs)
             // Maps MIDI notes 60-91 (C1 to B10) to labels 1-32
             for (int i = 24; i <= 128; i++)
             {
