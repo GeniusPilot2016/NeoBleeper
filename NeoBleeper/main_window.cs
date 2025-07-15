@@ -47,6 +47,7 @@ namespace NeoBleeper
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
             listViewNotes.DoubleBuffering(true);
+            label_beep.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (listViewNotes.Columns.Count > 0)
