@@ -1163,7 +1163,6 @@
             // updatePlaybackPositionTimer
             // 
             updatePlaybackPositionTimer.Interval = 1;
-            updatePlaybackPositionTimer.Tick += updatePlaybackPositionTimer_Tick;
             // 
             // label_alternating_note
             // 
