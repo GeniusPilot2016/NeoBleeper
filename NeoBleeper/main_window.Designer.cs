@@ -2163,6 +2163,7 @@
             MaximizeBox = false;
             Name = "main_window";
             NeoBleeper_help.SetShowHelp(this, (bool)resources.GetObject("$this.ShowHelp"));
+            Deactivate += main_window_Deactivate;
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
             Load += main_window_Load;
