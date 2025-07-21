@@ -349,6 +349,7 @@ namespace NeoBleeper
                 var token = _cancellationTokenSource.Token;
 
                 _isPlaying = true;
+                updatePlaybackPositionTimer.Enabled = true;
 
                 // Start playing in a separate task and store the task
                 _playbackTask = Task.Run(() => PlayFromPosition(_currentFrameIndex, token), token);
@@ -361,6 +362,7 @@ namespace NeoBleeper
             {
                 MessageBox.Show($"Error starting playback: {ex.Message}");
                 _isPlaying = false;
+                updatePlaybackPositionTimer.Enabled = false;
             }
         }
         public void Stop()
@@ -381,6 +383,7 @@ namespace NeoBleeper
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
                 _isPlaying = false;
+                updatePlaybackPositionTimer.Enabled = false;
 
                 // Reset label safely using BeginInvoke
                 if (holded_note_label.InvokeRequired)
@@ -577,15 +580,6 @@ namespace NeoBleeper
             {
                 BeginInvoke(new Action(() =>
                 {
-                    // Update trackbar
-                    trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                    
-                    // Update percentage
-                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                    
-                    // Update position
-                    label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                    
                     // Update note labels
                     UpdateNoteLabelsSync(filteredNotes);
                     
@@ -595,15 +589,6 @@ namespace NeoBleeper
             }
             else
             {
-                // Update trackbar
-                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
-                
-                // Update percentage
-                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                
-                // Update position
-                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
-                
                 // Update note labels
                 UpdateNoteLabelsSync(filteredNotes);
                 
@@ -1082,12 +1067,14 @@ namespace NeoBleeper
             {
                 label_percentage.BeginInvoke(new Action(() =>
                 {
+                    trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
                     label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                     label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
                 }));
             }
             else
             {
+                trackBar1.Value = (int)(10 * (double)frameIndex / _frames.Count * 100);
                 label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
                 label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
             }
@@ -1124,7 +1111,7 @@ namespace NeoBleeper
         }
         private string MidiNoteToName(int noteNumber)
         {
-            // Define note names (C, C#, D, etc.)
+            // Define note names (C, C#, D, D#, E, F, F#, G, G#, A, A#, B)
             string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
             // Calculate the octave (MIDI note 60 is middle C, which is C4)
@@ -1232,10 +1219,10 @@ namespace NeoBleeper
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private async void trackBar1_Scroll(object sender, EventArgs e)
         {
             int positionPercent = trackBar1.Value / 10;
-            SetPosition(positionPercent);
+            await SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
         }
 
@@ -1291,9 +1278,12 @@ namespace NeoBleeper
             }
         }
         private int _highlightDuration;
-        private void resetHighlightTimer_Tick(object sender, EventArgs e)
+        private void updatePlaybackPositionTimer_Tick(object sender, EventArgs e)
         {
-
+            if (_isPlaying && _frames != null && _frames.Count > 0)
+            {
+                UpdateTimeAndPercentPosition(_currentFrameIndex);
+            }
         }
 
         private void checkBox_loop_CheckedChanged(object sender, EventArgs e)
