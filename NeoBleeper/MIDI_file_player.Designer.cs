@@ -99,7 +99,7 @@
             checkBox_dont_update_grid = new CheckBox();
             openFileDialog = new OpenFileDialog();
             toolTip1 = new ToolTip(components);
-            updatePlaybackPositionTimer = new System.Windows.Forms.Timer(components);
+            playbackTimer = new System.Windows.Forms.Timer(components);
             label_alternating_note = new Label();
             numericUpDown_alternating_note = new NumericUpDown();
             label_ms = new Label();
@@ -1160,9 +1160,10 @@
             checkBox_dont_update_grid.UseVisualStyleBackColor = true;
             checkBox_dont_update_grid.CheckedChanged += checkBox_dont_update_grid_CheckedChanged;
             // 
-            // updatePlaybackPositionTimer
+            // playbackTimer
             // 
-            updatePlaybackPositionTimer.Interval = 1;
+            playbackTimer.Interval = 1;
+            playbackTimer.Tick += playbackTimer_Tick;
             // 
             // label_alternating_note
             // 
@@ -1473,5 +1474,6 @@
         private Label labelStatus;
         private ProgressBar progressBar1;
         private System.Windows.Forms.Timer updatePlaybackPositionTimer;
+        private System.Windows.Forms.Timer playbackTimer;
     }
 }
