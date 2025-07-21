@@ -1407,7 +1407,7 @@ namespace NeoBleeper
         }
 
 
-        private void play_note_in_line_from_MIDIOutput(int index, bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length)
+        private async void play_note_in_line_from_MIDIOutput(int index, bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length)
         {
 
             String note1 = listViewNotes.Items[index].SubItems[1].Text;
@@ -1424,10 +1424,10 @@ namespace NeoBleeper
 
             if (MIDIIOUtils._midiOut != null) // Check if initialized
             {
-                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[0], length));
-                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[1], length));
-                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[2], length));
-                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) Task.Run(() => MIDIIOUtils.PlayMidiNote(notes[3], length));
+                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[0], length);
+                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[1], length);
+                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[2], length);
+                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
             }
         }
 
@@ -2718,17 +2718,13 @@ namespace NeoBleeper
         {
             if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
             {
-                Task.Run(() =>
-                {
-                    play_note_in_line_from_MIDIOutput(
+                play_note_in_line_from_MIDIOutput(
                     listViewNotes.SelectedIndices[0],
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
                     checkBox_play_note4_played.Checked,
-                    noteSoundDuration
-                );
-                });
+                    noteSoundDuration);
             }
         }
 
@@ -2781,7 +2777,7 @@ namespace NeoBleeper
 
         // Sync ListView update method
 
-        private void UpdateListViewSelection(int startIndex)
+        private async void UpdateListViewSelection(int startIndex)
         {
             if (listViewNotes.Items.Count == 0) return;
 
@@ -2812,7 +2808,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private void EnsureSpecificIndexVisible(int index)
+        private async void EnsureSpecificIndexVisible(int index)
         {
             Task.Run(() =>
             {
