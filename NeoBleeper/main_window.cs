@@ -98,7 +98,7 @@ namespace NeoBleeper
                 return;
             }
         }
-        
+
         private async void dark_theme()
         {
             try
@@ -2692,7 +2692,7 @@ namespace NeoBleeper
         {
             // Epsilon for checking if difference is negligible
             const double EPSILON_NEGLIGIBLE = 0.0001;
-                                                      // Epsilon to add if not negligible
+            // Epsilon to add if not negligible
             const double EPSILON_ADD = 0.00001;
 
             double flooredValue = Math.Floor(value);
@@ -2706,7 +2706,7 @@ namespace NeoBleeper
             double truncatedValue = Math.Truncate(value); // Truncate the value to its integer part
 
             // If the truncated value is greater than a small threshold, add a small epsilon
-            if (truncatedValue > 0.0001) 
+            if (truncatedValue > 0.0001)
             {
                 return truncatedValue + EPSILON_ADD;
             }
@@ -2728,7 +2728,7 @@ namespace NeoBleeper
                     checkBox_play_note4_played.Checked,
                     noteSoundDuration
                 );
-                }); 
+                });
             }
         }
 
@@ -2796,7 +2796,7 @@ namespace NeoBleeper
                     {
                         listViewNotes.Items[nextIndex].Selected = true;
                         EnsureSpecificIndexVisible(nextIndex);
-                    } 
+                    }
                 }
                 else if (checkBox_loop.Checked)
                 {
@@ -2804,7 +2804,7 @@ namespace NeoBleeper
                     {
                         listViewNotes.Items[startIndex].Selected = true;
                         EnsureSpecificIndexVisible(startIndex);
-                    } 
+                    }
                 }
                 else
                 {
@@ -3335,8 +3335,8 @@ namespace NeoBleeper
             // Calculate the total note length - use precise calculations without truncation
             double result = getNoteLength(baseLength, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor; 
-            result = result * silenceRatio;       
+            result = result * articulationFactor;
+            result = result * silenceRatio;
 
             // Only round at the very end when converting to integer milliseconds
             return Math.Max(1, result);
@@ -3366,7 +3366,7 @@ namespace NeoBleeper
             // Calculate the total line length (without note-silence ratio)
             double result = getNoteLength(quarterNoteMs, noteType);
             result = getModifiedNoteLength(result, modifier);
-            result = result * articulationFactor; 
+            result = result * articulationFactor;
 
             // Should be at least 1 ms
             return Math.Max(1, result);
@@ -3541,7 +3541,7 @@ namespace NeoBleeper
                 {
                     stopAllNotesAfterPlaying();
                 }
-                if(!is_music_playing)
+                if (!is_music_playing)
                 {
                     EnableDisableCommonControls(true);
                 }
@@ -4237,7 +4237,7 @@ namespace NeoBleeper
             else if (checkBox_use_keyboard_as_piano.Checked == false)
             {
                 hide_keyboard_keys_shortcut();
-                KeyPressed = false; // Reset the KeyPressed flag when the checkbox is unchecked
+                StopAllSounds();
             }
             foreach (Control control in this.Controls)
             {
@@ -5033,9 +5033,10 @@ namespace NeoBleeper
             // Check if the key is one we want to use for piano playing
             if (IsKeyboardPianoKey(e.KeyCode))
             {
+                e.Handled = true; // Prevent the key press from being processed further
                 HashSet<int> currentlyPressedKeys = new HashSet<int>();
                 currentlyPressedKeys.Add((int)e.KeyCode);
-                if(currentlyPressedKeys == pressedKeys)
+                if (currentlyPressedKeys == pressedKeys)
                 {
                     // If the key is already pressed, do nothing
                     e.Handled = true;
@@ -5073,7 +5074,7 @@ namespace NeoBleeper
             }
             else
             {
-                if(pressedKeys.Count != 1)
+                if (pressedKeys.Count != 1)
                 {
                     singleNote = 0; // Reset singleNote to ensure no lingering playback
                 }
@@ -5154,7 +5155,7 @@ namespace NeoBleeper
         private HashSet<int> activeMidiInNotes = new HashSet<int>();
         private int singleNote = 0; // Variable to store the single note being played
         private bool isAlternatingPlayingRegularKeyboard = false;
-        private void playWithRegularKeyboard() // Play notes with regular keyboard (the keyboard of the computer, not MIDI keyboard)
+        private async void playWithRegularKeyboard() // Play notes with regular keyboard (the keyboard of the computer, not MIDI keyboard)
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
@@ -5168,10 +5169,7 @@ namespace NeoBleeper
                     if (!activeMidiNotes.Contains(midiNote))
                     {
                         activeMidiNotes.Add(midiNote);
-                        Task.Run(() =>
-                        {
-                            MIDIIOUtils.PlayMidiNote(midiNote, 1, true);
-                        });
+                        MIDIIOUtils.PlayMidiNoteAsync(midiNote, 1, true);
                     }
                 }
                 RemoveUnpressedKeys();
@@ -5187,7 +5185,7 @@ namespace NeoBleeper
                         foreach (int key in keyCharNum)
                         {
                             PlayBeepWithLabel(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
-                            if (!isAlternatingPlayingRegularKeyboard)
+                            if (!isAlternatingPlayingRegularKeyboard && checkBox_use_keyboard_as_piano.Checked)
                             {
                                 if (keyCharNum.Length == 0)
                                     return;
@@ -5212,7 +5210,7 @@ namespace NeoBleeper
         }
         private void MarkupTheKeyWhenKeyIsPressed(int keyCode)
         {
-            if(!checkBox_use_keyboard_as_piano.Checked)
+            if (!checkBox_use_keyboard_as_piano.Checked)
                 return;
             Color markdownColor = Settings1.Default.markup_color; // Get the markdown color from settings
 
@@ -5600,9 +5598,9 @@ namespace NeoBleeper
                         if (!activeMidiNotes.Contains(noteNumber))
                         {
                             activeMidiNotes.Add(noteNumber);
-                            if(TemporarySettings.MIDIDevices.useMIDIoutput)
+                            if (TemporarySettings.MIDIDevices.useMIDIoutput)
                             {
-                                foreach(int note in activeMidiNotes)
+                                foreach (int note in activeMidiNotes)
                                 {
                                     MIDIIOUtils.PlayMidiNote(note, 1, true); // Play with sustain
                                 }
@@ -5705,6 +5703,22 @@ namespace NeoBleeper
                 isAlternatingPlaying = false;
             }
             activeMidiInNotes.Clear();
+        }
+        private void StopAllSounds()
+        {
+            // Stop alternating playback and reset flags
+            isAlternatingPlayingRegularKeyboard = false;
+            KeyPressed = false;
+            singleNote = 0; // Reset singleNote to ensure no lingering playback
+            UnmarkAllButtons(); // Unmark all buttons when a key is released
+            stopAllNotesAfterPlaying(); // Stop all notes only when no keys remain
+        }
+        private void main_window_Deactivate(object sender, EventArgs e)
+        {
+            if (checkBox_use_keyboard_as_piano.Checked)
+            {
+                StopAllSounds();
+            }
         }
     }
 }
