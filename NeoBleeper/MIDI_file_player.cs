@@ -1318,8 +1318,7 @@ namespace NeoBleeper
         }
 
         private void playbackTimer_Tick(object sender, EventArgs e)
-        {playbackTimer.Interval = Math.Max(1, Math.Min(remainingTimeMs, 25)); // 50ms yerine 25ms
-    
+        {
             if (!_isPlaying || _frames == null || _currentFrameIndex >= _frames.Count)
             {
                 // Playback tamamlandı
