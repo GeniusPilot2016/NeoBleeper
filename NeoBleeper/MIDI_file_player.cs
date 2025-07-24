@@ -224,16 +224,22 @@ namespace NeoBleeper
                             if (midiEvent is TempoEvent tempoEvent)
                             {
                                 microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
-                                break;
+                                Debug.WriteLine($"Found tempo: {60000000.0 / microsecondsPerQuarterNote:F1} BPM");
+                                break; // İlk tempo event'i al ve döngüden çık
                             }
                         }
+                        if (microsecondsPerQuarterNote != 500000) break; // Tempo bulunduysa dur
 
                         // Update progress bar every 10% of tracks processed
                         int percent = (int)(10 + 10.0 * ++trackIndex / trackCount); // Between %10 and %20
                         UpdateProgressBar(percent, $"Tempo information is being extracted... ({trackIndex}/{trackCount})");
                     }
 
-                    _ticksToMs = microsecondsPerQuarterNote / (midiFile.DeltaTicksPerQuarterNote * 1000.0);
+                    _ticksToMs = (double)microsecondsPerQuarterNote / (double)(midiFile.DeltaTicksPerQuarterNote * 1000);
+
+                    Debug.WriteLine($"Tempo calculation: {microsecondsPerQuarterNote} μs/quarter, {midiFile.DeltaTicksPerQuarterNote} ticks/quarter");
+                    Debug.WriteLine($"Calculated _ticksToMs: {_ticksToMs}");
+                    Debug.WriteLine($"Effective BPM: {60000000.0 / microsecondsPerQuarterNote:F1}");
 
                     // Collect MIDI events
                     UpdateProgressBar(30, "MIDI events are being collected...");
@@ -1126,11 +1132,25 @@ namespace NeoBleeper
                     filteredNotes.Add(note);
             }
 
-            // Calculate duration
-            int durationMs = (_currentFrameIndex < _frames.Count - 1)
-                ? (int)Math.Floor(((_frames[_currentFrameIndex + 1].Time - currentFrame.Time) * _ticksToMs))
-                : 500;
-            durationMs = Math.Max(10, durationMs); // Minimum 10ms
+            // Calculate duration - daha kesin hesaplama
+            double durationMs;
+            if (_currentFrameIndex < _frames.Count - 1)
+            {
+                var nextFrame = _frames[_currentFrameIndex + 1];
+                durationMs = (nextFrame.Time - currentFrame.Time) * _ticksToMs;
+            }
+            else
+            {
+                durationMs = 500; // Son frame için varsayılan
+            }
+            
+            int durationMsInt = Math.Max(10, (int)Math.Round(durationMs)); // Minimum 10ms
+
+            // Debug - uzun duration'ları logla
+            if (durationMs > 1000)
+            {
+                Debug.WriteLine($"Warning: Long duration detected at frame {_currentFrameIndex}: {durationMs:F2}ms");
+            }
 
             if (!checkBox_dont_update_grid.Checked)
             {
@@ -1145,7 +1165,7 @@ namespace NeoBleeper
                 {
                     foreach (var note in filteredNotes)
                     {
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(note, durationMs);
+                        _ = MIDIIOUtils.PlayMidiNoteAsync(note, durationMsInt);
                     }
                 }
 
@@ -1156,20 +1176,20 @@ namespace NeoBleeper
                 {
                     var noteNumber = filteredNotes.First();
                     HighlightNoteLabel(noteNumber);
-                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMs));
+                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt));
                     UnHighlightNoteLabel(noteNumber);
                 }
                 else
                 {
-                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMs));
+                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt));
                 }
             }
             else
             {
-                // Silence playback
-                if (durationMs > 0)
+                // Silence playback - daha kesin bekleme
+                if (durationMsInt > 0)
                 {
-                    await WaitPrecise(durationMs);
+                    await WaitPrecise(durationMsInt);
                 }
             }
         }
