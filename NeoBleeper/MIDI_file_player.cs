@@ -14,10 +14,12 @@ namespace NeoBleeper
         private bool _isAlternatingPlayback = false;
         bool is_playing = false;
         private List<int> _displayOrder = new List<int>();
+        private List<(long time, double cumulativeMs)> _precomputedTempoTimes;
         private long _playbackStartTime;
         private long _nextFrameTime;
         private bool _isStopping = false;
         private bool _isUpdatingLabels = false;
+        private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
         public MIDI_file_player(string filename)
         {
@@ -215,6 +217,7 @@ namespace NeoBleeper
                 await Task.Run(() =>
                 {
                     var midiFile = new MidiFile(filename, false);
+                    _midiFile = midiFile;
                     _ticksPerQuarterNote = midiFile.DeltaTicksPerQuarterNote;
                     _tempoEvents = new List<(long time, int tempo)>();
 
@@ -315,6 +318,7 @@ namespace NeoBleeper
                 labelStatus.Text = "MIDI file loaded successfully.";
                 await Task.Delay(300);
                 progressBar1.Visible = false;
+                PrecomputeTempoTimes();
             }
             catch (Exception ex)
             {
@@ -821,18 +825,31 @@ namespace NeoBleeper
         }
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
+            if (_frames == null || _frames.Count == 0)
+                return;
+
+            long lastTick = _midiFile.Events
+                .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
+                .Max();
+            double totalDurationMs = TicksToMilliseconds(lastTick);
+
+            double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
+            double percent = (currentTimeMs / totalDurationMs) * 100.0;
+
+            string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff");
+
             if (label_percentage.InvokeRequired)
             {
                 label_percentage.BeginInvoke(new Action(() =>
                 {
-                    label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                    label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                    label_percentage.Text = percent.ToString("0.00") + "%";
+                    label_position.Text = $"Position: {timeStr}";
                 }));
             }
             else
             {
-                label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
-                label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+                label_percentage.Text = percent.ToString("0.00") + "%";
+                label_position.Text = $"Position: {timeStr}";
             }
         }
 
@@ -1063,23 +1080,28 @@ namespace NeoBleeper
 
         private double TicksToMilliseconds(long ticks)
         {
-            double milliseconds = 0;
+            var lastTempoEvent = _precomputedTempoTimes.LastOrDefault(e => e.time <= ticks);
+            double cumulativeMs = lastTempoEvent.cumulativeMs;
+            long lastTicks = lastTempoEvent.time;
+            int lastTempo = _tempoEvents.FirstOrDefault(e => e.time == lastTicks).tempo;
+
+            cumulativeMs += (double)(ticks - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
+            return cumulativeMs;
+        }
+        private void PrecomputeTempoTimes()
+        {
+            _precomputedTempoTimes = new List<(long time, double cumulativeMs)>();
+            double cumulativeMs = 0;
             long lastTicks = 0;
-            int lastTempo = _tempoEvents[0].tempo;
+            int lastTempo = 500000; // Default tempo
 
             foreach (var tempoEvent in _tempoEvents)
             {
-                if (tempoEvent.time >= ticks)
-                {
-                    break;
-                }
-                milliseconds += (double)(tempoEvent.time - lastTicks) * lastTempo / (_ticksPerQuarterNote * 1000.0);
+                cumulativeMs += (double)(tempoEvent.time - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
+                _precomputedTempoTimes.Add((tempoEvent.time, cumulativeMs));
                 lastTicks = tempoEvent.time;
                 lastTempo = tempoEvent.tempo;
             }
-
-            milliseconds += (double)(ticks - lastTicks) * lastTempo / (_ticksPerQuarterNote * 1000.0);
-            return milliseconds;
         }
         private async void playbackTimer_Tick(object sender, EventArgs e)
         {
@@ -1167,7 +1189,12 @@ namespace NeoBleeper
             }
             else
             {
-                durationMs = 500; // Default for the last frame
+                // Find greatest tick in MIDI file
+                long lastTick = _midiFile.Events
+                .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
+                .Max();
+                double totalDurationMs = TicksToMilliseconds(lastTick);
+                durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
 
             int durationMsInt = Math.Max(1, (int)Math.Round(durationMs)); // Minimum 1ms
