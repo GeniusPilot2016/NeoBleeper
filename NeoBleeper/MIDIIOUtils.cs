@@ -119,7 +119,7 @@ namespace NeoBleeper
             if (_midiOut == null) return;
 
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
-            await Task.Delay(length); // Use Task.Delay
+            await Task.Run(() => NonBlockingSleep.Sleep(length));
             if (!nonStopping)
             {
                 _midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);

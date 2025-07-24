@@ -16,6 +16,8 @@ namespace NeoBleeper
         private List<int> _displayOrder = new List<int>();
         private long _playbackStartTime;
         private long _nextFrameTime;
+        private bool _isStopping = false;
+        private bool _isUpdatingLabels = false;
         private Stopwatch _playbackStopwatch;
         public MIDI_file_player(string filename)
         {
@@ -193,6 +195,8 @@ namespace NeoBleeper
             Debug.WriteLine($"Enabled channels: {string.Join(", ", _enabledChannels)}");
         }
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
+        private List<(long time, int tempo)> _tempoEvents;
+        private int _ticksPerQuarterNote;
         private async Task LoadMIDI(string filename)
         {
             try
@@ -211,6 +215,8 @@ namespace NeoBleeper
                 await Task.Run(() =>
                 {
                     var midiFile = new MidiFile(filename, false);
+                    _ticksPerQuarterNote = midiFile.DeltaTicksPerQuarterNote;
+                    _tempoEvents = new List<(long time, int tempo)>();
 
                     // Extract tempo information
                     int microsecondsPerQuarterNote = 500000; // Default 120 BPM
@@ -223,23 +229,20 @@ namespace NeoBleeper
                         {
                             if (midiEvent is TempoEvent tempoEvent)
                             {
-                                microsecondsPerQuarterNote = tempoEvent.MicrosecondsPerQuarterNote;
-                                Debug.WriteLine($"Found tempo: {60000000.0 / microsecondsPerQuarterNote:F1} BPM");
-                                break; // İlk tempo event'i al ve döngüden çık
+                                _tempoEvents.Add((tempoEvent.AbsoluteTime, tempoEvent.MicrosecondsPerQuarterNote));
                             }
                         }
-                        if (microsecondsPerQuarterNote != 500000) break; // Tempo bulunduysa dur
-
-                        // Update progress bar every 10% of tracks processed
-                        int percent = (int)(10 + 10.0 * ++trackIndex / trackCount); // Between %10 and %20
-                        UpdateProgressBar(percent, $"Tempo information is being extracted... ({trackIndex}/{trackCount})");
+                    }
+                    // Sort tempo events by time and add a default if none are found
+                    if (!_tempoEvents.Any())
+                    {
+                        _tempoEvents.Add((0, 500000)); // Default to 120 BPM
+                    }
+                    else
+                    {
+                        _tempoEvents = _tempoEvents.OrderBy(t => t.time).ToList();
                     }
 
-                    _ticksToMs = (double)microsecondsPerQuarterNote / (double)(midiFile.DeltaTicksPerQuarterNote * 1000);
-
-                    Debug.WriteLine($"Tempo calculation: {microsecondsPerQuarterNote} μs/quarter, {midiFile.DeltaTicksPerQuarterNote} ticks/quarter");
-                    Debug.WriteLine($"Calculated _ticksToMs: {_ticksToMs}");
-                    Debug.WriteLine($"Effective BPM: {60000000.0 / microsecondsPerQuarterNote:F1}");
 
                     // Collect MIDI events
                     UpdateProgressBar(30, "MIDI events are being collected...");
@@ -345,6 +348,7 @@ namespace NeoBleeper
             }
         }
 
+        private double _playbackStartOffsetMs = 0;
         public void Play()
         {
             Debug.WriteLine($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}");
@@ -355,19 +359,20 @@ namespace NeoBleeper
             try
             {
                 _isPlaying = true;
+                // Reinitialize the cancellation token source
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = new CancellationTokenSource();
 
-                // Timer tabanlı playback başlat
-                _playbackStopwatch.Reset();
-                _playbackStopwatch.Start();
+
                 if (_currentFrameIndex < _frames.Count)
                 {
-                    _playbackStartTime = _frames[_currentFrameIndex].Time;
+                    _playbackStartOffsetMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
                 }
                 else
                 {
-                    _playbackStartTime = 0;
+                    _playbackStartOffsetMs = 0;
                 }
-                _nextFrameTime = _playbackStartTime;
+                _playbackStopwatch.Restart();
 
                 playbackTimer.Start();
 
@@ -381,43 +386,46 @@ namespace NeoBleeper
                 _isPlaying = false;
             }
         }
-        public void Stop()
+        public async void Stop()
         {
             Debug.WriteLine($"Stop called. IsPlaying: {_isPlaying}");
 
             if (!_isPlaying)
                 return;
 
+            _isStopping = true;
             try
             {
                 playbackTimer.Stop();
                 _playbackStopwatch?.Stop();
                 _isPlaying = false;
+                _isAlternatingPlayback = false;
 
-                // Update UI elements
-                if (holded_note_label.InvokeRequired)
+                // Cancel the playback task
+                _cancellationTokenSource?.Cancel();
+
+                // Wait for the playback task to complete asynchronously
+                if (_playbackTask != null && !_playbackTask.IsCompleted)
                 {
-                    holded_note_label.BeginInvoke(new Action(() =>
-                    {
-                        holded_note_label.Text = "Notes which are currently being held on: (0)";
-                    }));
-                }
-                else
-                {
-                    holded_note_label.Text = "Notes which are currently being held on: (0)";
+                    await _playbackTask;
                 }
 
+                // Reset UI elements
                 button_play.Enabled = true;
                 button_stop.Enabled = false;
-
-                // Clear the current frame index
                 UpdateNoteLabels(new HashSet<int>());
-
-                Debug.WriteLine("Timer-based playback stopped successfully");
+                holded_note_label.Text = "Notes which are currently being held on: (0)";
+                label_more_notes.Visible = false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error stopping playback: {ex.Message}");
+            }
+            finally
+            {
+                _isStopping = false;
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
             }
         }
         // Add this field to track the current playback task
@@ -515,7 +523,7 @@ namespace NeoBleeper
 
         // Play multiple notes alternating
         private void PlayMultipleNotes(int[] frequencies, int duration)
-        { 
+        {
             _isAlternatingPlayback = true;
             // Convert frequencies to note numbers for highlighting
             var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
@@ -777,75 +785,39 @@ namespace NeoBleeper
             return (int)Math.Round(69 + 12 * Math.Log2(frequency / 440.0));
         }
 
-        private async Task HighlightNoteLabel(int noteNumber)
+        private void HighlightNoteLabel(int noteNumber)
         {
-            try
+            if (this.InvokeRequired)
             {
-                string noteName = MidiNoteToName(noteNumber);
-
-                foreach (Label label in _noteLabels)
-                {
-                    if (label.Text.Contains(noteName))
-                    {
-                        Task.Run(() =>
-                        {
-                            Color originalColor = _originalLabelColors[label];
-                            SuspendLayout();
-                            // Highlight immediately
-                            if (label.InvokeRequired)
-                            {
-                                label.BeginInvoke(new Action(() =>
-                                {
-                                    label.BackColor = _highlightColor;
-                                }));
-                            }
-                            else
-                            {
-                                label.BackColor = _highlightColor;
-                            }
-                            ResumeLayout(true);
-                            return;
-                        });
-                    }
-                }
-            }
-            catch (Win32Exception)
-            {
+                this.BeginInvoke(new Action(() => HighlightNoteLabel(noteNumber)));
                 return;
+            }
+            string noteName = MidiNoteToName(noteNumber);
+            foreach (Label label in _noteLabels)
+            {
+                if (label.Text.Contains(noteName))
+                {
+                    label.BackColor = _highlightColor;
+                    break;
+                }
             }
         }
-        private async Task UnHighlightNoteLabel(int noteNumber)
+
+        private void UnHighlightNoteLabel(int noteNumber)
         {
-            try
+            if (this.InvokeRequired)
             {
-                string noteName = MidiNoteToName(noteNumber);
-                foreach (Label label in _noteLabels)
-                {
-                    if (label.Text.Contains(noteName))
-                    {
-                        Task.Run(() =>
-                        {
-                            SuspendLayout();
-                            if (label.InvokeRequired)
-                            {
-                                label.BeginInvoke(new Action(() =>
-                                {
-                                    label.BackColor = _originalLabelColors[label];
-                                }));
-                            }
-                            else
-                            {
-                                label.BackColor = _originalLabelColors[label];
-                            }
-                            ResumeLayout(true);
-                        });
-                        return;
-                    }
-                }
-            }
-            catch (Win32Exception)
-            {
+                this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteNumber)));
                 return;
+            }
+            string noteName = MidiNoteToName(noteNumber);
+            foreach (Label label in _noteLabels)
+            {
+                if (label.Text.Contains(noteName))
+                {
+                    label.BackColor = _originalLabelColors[label];
+                    break;
+                }
             }
         }
         private int NoteToFrequency(int noteNumber)
@@ -875,11 +847,8 @@ namespace NeoBleeper
             if (_frames == null || _frames.Count == 0)
                 return "00:00.00";
 
-            // Calculate total duration
-            double totalTimeMs = _frames[_frames.Count - 1].Time * _ticksToMs;
-
             // Calculate current duration
-            double currentTimeMs = _frames[frameIndex].Time * _ticksToMs;
+            double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
 
             // Convert time to minute:seconds.(miliseconds/10) format
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(currentTimeMs);
@@ -919,6 +888,9 @@ namespace NeoBleeper
 
         private void UpdateNoteLabels(HashSet<int> activeNotes)
         {
+            if (_isUpdatingLabels)
+                return;
+            _isUpdatingLabels = true;
             try
             {
                 // Sort notes once, outside the UI update action
@@ -967,6 +939,10 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error updating note labels: {ex.Message}");
+            }
+            finally
+            {
+                _isUpdatingLabels = false;
             }
         }
         private void button_play_Click(object sender, EventArgs e)
@@ -1091,37 +1067,93 @@ namespace NeoBleeper
             Debug.WriteLine("Play each note checkbox changed.");
         }
 
+        private double TicksToMilliseconds(long ticks)
+        {
+            double milliseconds = 0;
+            long lastTicks = 0;
+            int lastTempo = _tempoEvents[0].tempo;
+
+            foreach (var tempoEvent in _tempoEvents)
+            {
+                if (tempoEvent.time >= ticks)
+                {
+                    break;
+                }
+                milliseconds += (double)(tempoEvent.time - lastTicks) * lastTempo / (_ticksPerQuarterNote * 1000.0);
+                lastTicks = tempoEvent.time;
+                lastTempo = tempoEvent.tempo;
+            }
+
+            milliseconds += (double)(ticks - lastTicks) * lastTempo / (_ticksPerQuarterNote * 1000.0);
+            return milliseconds;
+        }
         private async void playbackTimer_Tick(object sender, EventArgs e)
         {
-            if (!_isPlaying || _frames == null || _currentFrameIndex >= _frames.Count || !_playbackTask.IsCompleted)
+            if (_isStopping || !_isPlaying || _frames == null)
+                return;
+
+            if (_currentFrameIndex >= _frames.Count)
             {
-                if (_currentFrameIndex >= _frames.Count)
-                {
-                    HandlePlaybackComplete();
-                }
+                HandlePlaybackComplete();
                 return;
             }
 
-            try
+            // Prevent re-entrancy. If the last task is still running, skip this tick.
+            if (!_playbackTask.IsCompleted)
             {
-                var elapsedMs = _playbackStopwatch.ElapsedMilliseconds;
-                var currentFrame = _frames[_currentFrameIndex];
-                var targetTimeMs = (currentFrame.Time - _playbackStartTime) * _ticksToMs;
+                return;
+            }
 
-                if (elapsedMs >= targetTimeMs)
-                {
-                    _playbackTask = ProcessCurrentFrame();
-                    _currentFrameIndex++;
-                }
-            }
-            catch (Exception ex)
+            // Start a new task to process all due frames.
+            _playbackTask = Task.Run(async () =>
             {
-                Debug.WriteLine($"Error in timer tick: {ex.Message}");
-                Stop();
-            }
+                try
+                {
+                    var token = _cancellationTokenSource.Token;
+                    token.ThrowIfCancellationRequested();
+                    var elapsedMs = _playbackStopwatch.ElapsedMilliseconds;
+                    var songTimeMs = _playbackStartOffsetMs + elapsedMs;
+
+                    // Loop through all frames that should have been played by now
+                    while (_currentFrameIndex < _frames.Count)
+                    {
+                        var currentFrame = _frames[_currentFrameIndex];
+                        var targetTimeMs = TicksToMilliseconds(currentFrame.Time);
+
+                        if (targetTimeMs <= songTimeMs)
+                        {
+                            // This frame is due. Process it.
+                            await ProcessCurrentFrame();
+                            _currentFrameIndex++;
+                        }
+                        else
+                        {
+                            // This frame is in the future. We've caught up.
+                            break;
+                        }
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    Debug.WriteLine("Playback task was canceled.");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error in playback task: {ex.Message}");
+                    if (IsHandleCreated)
+                    {
+                        this.BeginInvoke((Action)Stop);
+                    }
+                }
+            }, _cancellationTokenSource.Token);
         }
         private async Task ProcessCurrentFrame()
         {
+            var token = _cancellationTokenSource.Token;
+
+            // Example of cancellation check
+            token.ThrowIfCancellationRequested();
+
             var currentFrame = _frames[_currentFrameIndex];
 
             // Filter active notes based on enabled channels
@@ -1132,65 +1164,53 @@ namespace NeoBleeper
                     filteredNotes.Add(note);
             }
 
-            // Calculate duration - daha kesin hesaplama
+            // Calculate duration
             double durationMs;
             if (_currentFrameIndex < _frames.Count - 1)
             {
                 var nextFrame = _frames[_currentFrameIndex + 1];
-                durationMs = (nextFrame.Time - currentFrame.Time) * _ticksToMs;
+                durationMs = TicksToMilliseconds(nextFrame.Time) - TicksToMilliseconds(currentFrame.Time);
             }
             else
             {
-                durationMs = 500; // Son frame için varsayılan
-            }
-            
-            int durationMsInt = Math.Max(10, (int)Math.Round(durationMs)); // Minimum 10ms
-
-            // Debug - uzun duration'ları logla
-            if (durationMs > 1000)
-            {
-                Debug.WriteLine($"Warning: Long duration detected at frame {_currentFrameIndex}: {durationMs:F2}ms");
+                durationMs = 500; // Default for the last frame
             }
 
+            int durationMsInt = Math.Max(1, (int)Math.Round(durationMs)); // Minimum 1ms
+
+            // Update UI
             if (!checkBox_dont_update_grid.Checked)
             {
                 UpdateAllUISync(_currentFrameIndex, filteredNotes);
             }
 
-            // Play notes and wait
+            // Play notes
             if (filteredNotes.Count > 0)
             {
-                // MIDI output
-                if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
+                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+                if (TemporarySettings.MIDIDevices.useMIDIoutput)
                 {
-                    foreach (var note in filteredNotes)
+                    foreach (int frequency in frequencies)
                     {
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(note, durationMsInt);
+                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency), durationMsInt);
                     }
                 }
-
-                // Beep player
-                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-
                 if (frequencies.Length == 1)
                 {
                     var noteNumber = filteredNotes.First();
                     HighlightNoteLabel(noteNumber);
-                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt));
+                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
                     UnHighlightNoteLabel(noteNumber);
                 }
                 else
                 {
-                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt));
+                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
                 }
             }
             else
             {
-                // Silence playback - daha kesin bekleme
-                if (durationMsInt > 0)
-                {
-                    await WaitPrecise(durationMsInt);
-                }
+                // Silence playback
+                await WaitPrecise(durationMsInt);
             }
         }
         private async Task WaitPrecise(int milliseconds)
@@ -1199,13 +1219,21 @@ namespace NeoBleeper
         }
         private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
         {
-            if (_isAlternatingPlayback)
-                return; // Animasyon sırasında grid güncellenmesin
+            if (this.InvokeRequired)
+            {
+                // Use BeginInvoke for fire-and-forget to avoid blocking the playback thread.
+                this.BeginInvoke(new Action(() => UpdateAllUISync(frameIndex, filteredNotes)));
+                return;
+            }
 
             // Update trackbar position
             if (_frames.Count > 0)
             {
-                trackBar1.Value = (int)(1000.0 * frameIndex / _frames.Count);
+                int trackbarValue = (int)(1000.0 * frameIndex / _frames.Count);
+                if (trackbarValue <= trackBar1.Maximum)
+                {
+                    trackBar1.Value = trackbarValue;
+                }
             }
 
             // Update percentage label
