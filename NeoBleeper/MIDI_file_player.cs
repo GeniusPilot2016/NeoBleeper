@@ -478,39 +478,50 @@ namespace NeoBleeper
         }
 
         // Update note labels with synchronization
+        private HashSet<int> _lastDrawnNotes = new HashSet<int>();
         private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
         {
-            // Tüm label'ları kesin olarak sıfırla
-            for (int i = 0; i < _noteLabels.Length; i++)
-            {
-                _noteLabels[i].Visible = false;
-                _noteLabels[i].BackColor = _originalLabelColors[_noteLabels[i]];
-                _noteLabels[i].Text = "";
-            }
+            if (_lastDrawnNotes.SetEquals(activeNotes))
+                return;
 
-            // Aktif notaları MIDI numarasına göre sırala ve soldan sağa ata
+            _lastDrawnNotes = new HashSet<int>(activeNotes);
+            panel1.SuspendLayout();
+
+            // Update only the labels that are currently active
             var sortedNotes = activeNotes.OrderBy(note => note).ToList();
-            for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
+            int i = 0;
+            for (; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
             {
                 int noteNumber = sortedNotes[i];
                 Label label = _noteLabels[i];
                 string noteName = MidiNoteToName(noteNumber);
 
-                label.Visible = true;
-                label.Text = noteName;
-                label.BackColor = _highlightColor;
+                if (!label.Visible) label.Visible = true;
+                if (label.Text != noteName) label.Text = noteName;
+                if (label.BackColor != _highlightColor) label.BackColor = _highlightColor;
+            }
+            // Reset remaining labels if any
+            for (; i < _noteLabels.Length; i++)
+            {
+                Label label = _noteLabels[i];
+                if (label.Visible) label.Visible = false;
+                if (label.BackColor != _originalLabelColors[label]) label.BackColor = _originalLabelColors[label];
+                if (!string.IsNullOrEmpty(label.Text)) label.Text = "";
             }
 
-            // Fazla nota varsa
+            // If there's more notes
             if (sortedNotes.Count > _noteLabels.Length)
             {
-                label_more_notes.Visible = true;
-                label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                if (!label_more_notes.Visible) label_more_notes.Visible = true;
+                string moreText = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                if (label_more_notes.Text != moreText) label_more_notes.Text = moreText;
             }
             else
             {
-                label_more_notes.Visible = false;
+                if (label_more_notes.Visible) label_more_notes.Visible = false;
             }
+
+            panel1.ResumeLayout();
         }
         private void checkBox_channel_CheckedChanged(object sender, EventArgs e)
         {
@@ -533,7 +544,6 @@ namespace NeoBleeper
             var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
             Stopwatch totalStopwatch = new Stopwatch();
             totalStopwatch.Start();
-
             switch (checkBox_play_each_note.Checked)
             {
                 case true:
@@ -899,22 +909,13 @@ namespace NeoBleeper
 
         private void UpdateNoteLabels(HashSet<int> activeNotes)
         {
-            if (_isUpdatingLabels)
-                return;
-            _isUpdatingLabels = true;
-            try
-            {
-                // Sort notes once, outside the UI update action
+            if (_isUpdatingLabels) return; _isUpdatingLabels = true; try
+            { // Sort notes once, outside the UI update action
                 var sortedNotes = activeNotes.OrderBy(note => note).ToList();
                 Action updateAction = () =>
-                {
-                    // Reset all labels
+                { // Reset all labels
                     foreach (var label in _noteLabels)
-                    {
-                        label.Visible = false;
-                        label.BackColor = _originalLabelColors[label];
-                    }
-
+                    { label.Visible = false; label.BackColor = _originalLabelColors[label]; }
                     // Process active notes with better mapping
                     for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
                     {
@@ -956,6 +957,7 @@ namespace NeoBleeper
                 _isUpdatingLabels = false;
             }
         }
+
         private void button_play_Click(object sender, EventArgs e)
         {
             Play();
@@ -1007,7 +1009,7 @@ namespace NeoBleeper
         private Dictionary<int, int> _noteToLabelMap;
         private Dictionary<Label, Color> _originalLabelColors = new Dictionary<Label, Color>();
 
-        // Initialize in your constructor or Form_Load
+        // Initializes the note labels and their properties
         private void InitializeNoteLabels()
         {
             // Collect all labels
@@ -1080,7 +1082,20 @@ namespace NeoBleeper
 
         private double TicksToMilliseconds(long ticks)
         {
-            var lastTempoEvent = _precomputedTempoTimes.LastOrDefault(e => e.time <= ticks);
+            // Find the last tempo event that occurred before or at the given ticks
+            int index = _precomputedTempoTimes.BinarySearch((ticks, 0), Comparer<(long, double)>.Create((x, y) => x.Item1.CompareTo(y.Item1)));
+            if (index < 0)
+            {
+                index = ~index - 1;
+            }
+
+            // Use the default tempo (120 BPM) if no tempo events are found
+            if (index < 0)
+            {
+                return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
+            }
+
+            var lastTempoEvent = _precomputedTempoTimes[index];
             double cumulativeMs = lastTempoEvent.cumulativeMs;
             long lastTicks = lastTempoEvent.time;
             int lastTempo = _tempoEvents.FirstOrDefault(e => e.time == lastTicks).tempo;
@@ -1091,16 +1106,35 @@ namespace NeoBleeper
         private void PrecomputeTempoTimes()
         {
             _precomputedTempoTimes = new List<(long time, double cumulativeMs)>();
+            if (_tempoEvents == null || !_tempoEvents.Any())
+            {
+                return;
+            }
+
             double cumulativeMs = 0;
             long lastTicks = 0;
-            int lastTempo = 500000; // Default tempo
 
-            foreach (var tempoEvent in _tempoEvents)
+            // Calculate the cumulative milliseconds for each tempo event
+            var firstTempoEvent = _tempoEvents[0];
+            if (firstTempoEvent.time > 0)
             {
-                cumulativeMs += (double)(tempoEvent.time - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
-                _precomputedTempoTimes.Add((tempoEvent.time, cumulativeMs));
-                lastTicks = tempoEvent.time;
-                lastTempo = tempoEvent.tempo;
+                int defaultTempo = 500000; // Default tempo (120 BPM) in microseconds per quarter note
+                cumulativeMs += (double)(firstTempoEvent.time - lastTicks) * defaultTempo / _ticksPerQuarterNote / 1000.0;
+            }
+
+            _precomputedTempoTimes.Add((firstTempoEvent.time, cumulativeMs));
+            lastTicks = firstTempoEvent.time;
+
+            // Calculate cumulative milliseconds for each segment between tempo events
+            for (int i = 0; i < _tempoEvents.Count - 1; i++)
+            {
+                var currentTempoEvent = _tempoEvents[i];
+                var nextTempoEvent = _tempoEvents[i + 1];
+                int tempoForSegment = currentTempoEvent.tempo;
+
+                cumulativeMs += (double)(nextTempoEvent.time - lastTicks) * tempoForSegment / _ticksPerQuarterNote / 1000.0;
+                _precomputedTempoTimes.Add((nextTempoEvent.time, cumulativeMs));
+                lastTicks = nextTempoEvent.time;
             }
         }
         private async void playbackTimer_Tick(object sender, EventArgs e)
@@ -1200,10 +1234,7 @@ namespace NeoBleeper
             int durationMsInt = Math.Max(1, (int)Math.Round(durationMs)); // Minimum 1ms
 
             // Update UI
-            if (!checkBox_dont_update_grid.Checked)
-            {
-                UpdateAllUISync(_currentFrameIndex, filteredNotes);
-            }
+            UpdateAllUISync(_currentFrameIndex, filteredNotes);
 
             // Play notes
             if (filteredNotes.Count > 0)
@@ -1247,7 +1278,6 @@ namespace NeoBleeper
                 this.BeginInvoke(new Action(() => UpdateAllUISync(frameIndex, filteredNotes)));
                 return;
             }
-
             // Update trackbar position
             if (_frames.Count > 0)
             {
@@ -1264,8 +1294,11 @@ namespace NeoBleeper
             // Update position label
             label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
 
-            // Update note labels
-            UpdateNoteLabelsSync(filteredNotes);
+            if (!checkBox_dont_update_grid.Checked)
+            {
+                // Update note labels
+                UpdateNoteLabelsSync(filteredNotes);
+            }
 
             // Update holded note label
             holded_note_label.Text = $"Notes which are currently being held on: ({filteredNotes.Count})";
