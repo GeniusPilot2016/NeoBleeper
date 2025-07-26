@@ -59,5 +59,11 @@
     <Setting Name="markup_color" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">LightBlue</Value>
     </Setting>
+    <Setting Name="dont_show_system_speaker_warnings_again" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="dont_show_disable_create_beep_from_soundcard_warnings_again" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

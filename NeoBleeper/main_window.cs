@@ -54,11 +54,6 @@ namespace NeoBleeper
             {
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
-            {
-                checkBox_mute_system_speaker.Checked = TemporarySettings.creating_sounds.is_system_speaker_muted;
-                checkBox_mute_system_speaker.Enabled = false;
-            }
             main_window_refresh();
             comboBox_note_length.SelectedItem = comboBox_note_length.Items[3];
             comboBox_note_length.SelectedValue = comboBox_note_length.Items[3];
@@ -141,7 +136,7 @@ namespace NeoBleeper
                 checkBox_staccato.ForeColor = Color.White;
                 checkBox_spiccato.ForeColor = Color.White;
                 checkBox_fermata.ForeColor = Color.White;
-                checkBox_mute_system_speaker.ForeColor = Color.White;
+                checkBox_mute_playback.ForeColor = Color.White;
                 notes_list_right_click.BackColor = Color.Black;
                 notes_list_right_click.ForeColor = Color.White;
             }
@@ -194,7 +189,7 @@ namespace NeoBleeper
                 checkBox_staccato.ForeColor = SystemColors.ControlText;
                 checkBox_spiccato.ForeColor = SystemColors.ControlText;
                 checkBox_fermata.ForeColor = SystemColors.ControlText;
-                checkBox_mute_system_speaker.ForeColor = SystemColors.ControlText;
+                checkBox_mute_playback.ForeColor = SystemColors.ControlText;
                 notes_list_right_click.BackColor = SystemColors.Window;
                 notes_list_right_click.ForeColor = SystemColors.WindowText;
             }
@@ -401,6 +396,7 @@ namespace NeoBleeper
         private void aboutNeoBleeperToolStripMenuItem_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            closeAllOpenWindows();
             about_neobleeper about = new about_neobleeper();
             about.ShowDialog();
             Debug.WriteLine("About window is opened");
@@ -409,14 +405,7 @@ namespace NeoBleeper
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            if (checkBox_synchronized_play.Checked == true)
-            {
-                checkBox_synchronized_play.Checked = false;
-            }
-            if (checkBox_play_beat_sound.Checked == true)
-            {
-                checkBox_play_beat_sound.Checked = false;
-            }
+            closeAllOpenWindows();
             settings_window settings = new settings_window(this); // Pass reference to main_window
             settings.ColorsAndThemeChanged += refresh_main_window_elements_color;
             settings.ColorsAndThemeChanged += (s, args) =>
@@ -434,6 +423,21 @@ namespace NeoBleeper
             };
             settings.ShowDialog();
             Debug.WriteLine("Settings window is opened");
+        }
+        private void closeAllOpenWindows()
+        {
+            if (checkBox_synchronized_play.Checked == true)
+            {
+                checkBox_synchronized_play.Checked = false;
+            }
+            if (checkBox_play_beat_sound.Checked == true)
+            {
+                checkBox_play_beat_sound.Checked = false;
+            }
+            if(checkBox_bleeper_portamento.Checked == true)
+            {
+                checkBox_bleeper_portamento.Checked = false;
+            }
         }
         private void refresh_main_window_elements_color(object sender, EventArgs e)
         {
@@ -2536,6 +2540,10 @@ namespace NeoBleeper
             }
             KeyPressed = false;
             NotePlayer.StopAllNotes(); // Stop all notes
+            if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
+            {
+                NotePlayer.StopMicrocontrollerSound(); // Stop the sound from the microcontroller
+            }
             RemoveUnpressedKeys();
             singleNote = 0; // Reset the single note variable
             UnmarkAllButtons(); // Unmark all buttons
@@ -3396,6 +3404,10 @@ namespace NeoBleeper
         private void stopAllNotesAfterPlaying()
         {
             NotePlayer.StopAllNotes();
+            if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
+            {
+                NotePlayer.StopMicrocontrollerSound();
+            }
             UpdateLabelVisible(false);
         }
         private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
@@ -3796,7 +3808,7 @@ namespace NeoBleeper
                 Task.Run(() =>
                 {
                     lbl_measure_value.Text = measure.ToString();
-                    lbl_beat_value.Text = FormatNumber(beat_number);
+                    lbl_beat_value.Text = Math.Round(beat_number, 4).ToString();
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                 });
@@ -4104,12 +4116,12 @@ namespace NeoBleeper
 
         }
 
-        private void stop_system_speaker_beep()
+        private void stop_all_sounds_before_closing()
         {
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && TemporarySettings.creating_sounds.is_system_speaker_muted == false &&
-                TemporarySettings.creating_sounds.create_beep_with_soundcard == false)
+            NotePlayer.StopAllNotes();
+            if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
-                RenderBeep.BeepClass.StopBeep();
+                NotePlayer.StopMicrocontrollerSound();
             }
         }
 
@@ -4119,7 +4131,7 @@ namespace NeoBleeper
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
-            stop_system_speaker_beep();
+            stop_all_sounds_before_closing();
         }
 
         private void main_window_FormClosed(object sender, FormClosedEventArgs e)
@@ -4128,7 +4140,7 @@ namespace NeoBleeper
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
-            stop_system_speaker_beep();
+            stop_all_sounds_before_closing();
         }
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -4194,15 +4206,12 @@ namespace NeoBleeper
 
         private void checkBox_mute_system_speaker_CheckedChanged(object sender, EventArgs e)
         {
-            if (TemporarySettings.creating_sounds.is_system_speaker_muted == false && checkBox_mute_system_speaker.Checked == false)
+            if (TemporarySettings.creating_sounds.is_playback_muted == false && checkBox_mute_playback.Checked == false)
             {
-                if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
-                {
-                    RenderBeep.BeepClass.StopBeep();
-                }
+                NotePlayer.StopAllNotes(); // Stop all sounds if playback is not muted
             }
-            TemporarySettings.creating_sounds.is_system_speaker_muted = checkBox_mute_system_speaker.Checked;
-            Debug.WriteLine("System speaker is muted: " + TemporarySettings.creating_sounds.is_system_speaker_muted);
+            TemporarySettings.creating_sounds.is_playback_muted = checkBox_mute_playback.Checked;
+            Debug.WriteLine($"Playback muted: {TemporarySettings.creating_sounds.is_playback_muted}");
         }
         private void show_keyboard_keys_shortcut()
         {

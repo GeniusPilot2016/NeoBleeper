@@ -56,12 +56,36 @@ namespace NeoBleeper
                     label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
                     button_show_reason.Visible = true;
                 }
+                else
+                {
+                    flowLayoutPanelGeneralSettings.Controls.RemoveAt(flowLayoutPanelGeneralSettings.Controls.IndexOf(panelSystemSpeakerWarnings));
+                    group_beep_creation_from_sound_card_settings.Controls.Remove(flowLayoutPanelSoundDeviceBeepEnabledInfo);
+                    group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
+                }
             }
             if (TemporarySettings.creating_sounds.permanently_enabled == true)
             {
                 checkBox_enable_create_beep_from_soundcard.Enabled = false;
                 groupBox_system_speaker_test.Enabled = false;
             }
+            if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
+            {
+                checkBox_use_microcontroller.Checked = true;
+            }
+            else
+            {
+                checkBox_use_microcontroller.Checked = false;
+            }
+            switch (TemporarySettings.MicrocontrollerSettings.deviceType)
+            {
+                case TemporarySettings.MicrocontrollerSettings.DeviceType.Motor:
+                    radioButtonMotor.Checked = true;
+                    break;
+                case TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer:
+                    radioButtonBuzzer.Checked = true;
+                    break;
+            }
+            trackBar_motor_octave.Value = TemporarySettings.MicrocontrollerSettings.motorOctave;
             first_octave_color.BackColor = Settings1.Default.first_octave_color;
             second_octave_color.BackColor = Settings1.Default.second_octave_color;
             third_octave_color.BackColor = Settings1.Default.third_octave_color;
@@ -385,21 +409,29 @@ namespace NeoBleeper
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {
-                    disable_create_beep_from_sound_card_warning disable_Create_Beep_From_Sound_Card_Warning = new disable_create_beep_from_sound_card_warning();
-                    DialogResult result = disable_Create_Beep_From_Sound_Card_Warning.ShowDialog();
-                    switch (result)
+                    if (!Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again)
                     {
-                        case DialogResult.Yes:
-                            TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                            Debug.WriteLine("User chose to disable beep creation from sound card.");
-                            Debug.WriteLine("Beep creation from sound card disabled.");
-                            break;
-                        case DialogResult.No:
-                            checkBox_enable_create_beep_from_soundcard.Checked = true;
-                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                            Debug.WriteLine("User chose to keep beep creation from sound card enabled.");
-                            Debug.WriteLine("Beep creation from sound card enabled.");
-                            break;
+                        disable_create_beep_from_sound_card_warning disable_Create_Beep_From_Sound_Card_Warning = new disable_create_beep_from_sound_card_warning();
+                        DialogResult result = disable_Create_Beep_From_Sound_Card_Warning.ShowDialog();
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                                Debug.WriteLine("User chose to disable beep creation from sound card.");
+                                Debug.WriteLine("Beep creation from sound card disabled.");
+                                break;
+                            case DialogResult.No:
+                                checkBox_enable_create_beep_from_soundcard.Checked = true;
+                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                Debug.WriteLine("User chose to keep beep creation from sound card enabled.");
+                                Debug.WriteLine("Beep creation from sound card enabled.");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                        Debug.WriteLine("Beep creation from sound card enabled.");
                     }
                 }
                 else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
@@ -1233,12 +1265,20 @@ namespace NeoBleeper
         }
         private void checkBox_use_motor_speed_mod_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("Motor speed or buzzer tone modulation enabled");
+            TemporarySettings.MicrocontrollerSettings.useMicrocontroller = checkBox_use_microcontroller.Checked;
+            if (checkBox_use_microcontroller.Checked == true)
+            {
+                Debug.WriteLine("Microcontroller modulation is enabled.");
+            }
+            else
+            {
+                Debug.WriteLine("Microcontroller modulation is disabled.");
+            }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked == true)
+            if (radioButtonMotor.Checked == true)
             {
                 Debug.WriteLine("Modulation type: Motor");
             }
@@ -1246,7 +1286,7 @@ namespace NeoBleeper
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton2.Checked == true)
+            if (radioButtonBuzzer.Checked == true)
             {
                 Debug.WriteLine("Modulation type: Buzzer");
             }
@@ -1254,6 +1294,7 @@ namespace NeoBleeper
 
         private void trackBar_motor_octave_Scroll(object sender, EventArgs e)
         {
+            TemporarySettings.MicrocontrollerSettings.motorOctave = trackBar_motor_octave.Value;
             Debug.WriteLine("Motor speed modulation octave: " + trackBar_motor_octave.Value);
         }
 
@@ -1363,6 +1404,25 @@ namespace NeoBleeper
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
                 Debug.WriteLine("Keyboard markup color changed to: " + colorDialog1.Color.ToString());
+            }
+        }
+
+        private void flowLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void deviceTypeRadioButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonMotor.Checked)
+            {
+                TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Motor;
+                Debug.WriteLine("Device type set to Motor.");
+            }
+            else if (radioButtonBuzzer.Checked)
+            {
+                TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer;
+                Debug.WriteLine("Device type set to Buzzer.");
             }
         }
     }

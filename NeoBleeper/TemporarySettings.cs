@@ -34,7 +34,7 @@ namespace NeoBleeper
                 Noise
             }
             public static bool permanently_enabled;
-            public static bool is_system_speaker_muted = false;
+            public static bool is_playback_muted = false;
         }
 
         public static class MIDIDevices
@@ -73,6 +73,17 @@ namespace NeoBleeper
                 AlwaysProduceSound,
                 ProduceSoundForLength,
             }
+        }
+        public static class MicrocontrollerSettings
+        {
+            public static bool useMicrocontroller = false;
+            public static DeviceType deviceType = DeviceType.Motor;
+            public enum DeviceType
+            {
+                Motor,
+                Buzzer,
+            }
+            public static int motorOctave = 2; // Default octave for motor
         }
     }
 }

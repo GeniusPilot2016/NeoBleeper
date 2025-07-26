@@ -1217,19 +1217,19 @@
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>52</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="checkBox_mute_playback.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="checkBox_mute_system_speaker.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBox_mute_playback.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="checkBox_mute_playback.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
-  <data name="checkBox_mute_system_speaker.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="checkBox_mute_playback.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="checkBox_mute_system_speaker.ImageIndex" type="System.Int32, mscorlib">
+  <data name="checkBox_mute_playback.ImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <metadata name="imageList_main_window.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -1240,7 +1240,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAGoASABqAEgARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAEQASEBEAEhARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -1450,43 +1450,43 @@
         wAEBAfEBxwHgAcMC4wL/AfEBxwHEAecB4AEHAv8B8QHHAY4B/wH4AQ8BwAEBAfEBxwGfD/8L
 </value>
   </data>
-  <data name="checkBox_mute_system_speaker.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBox_mute_playback.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="checkBox_mute_playback.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 667</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="checkBox_mute_playback.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_mute_system_speaker.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="checkBox_mute_playback.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 20</value>
+  <data name="checkBox_mute_playback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 20</value>
   </data>
-  <data name="checkBox_mute_system_speaker.TabIndex" type="System.Int32, mscorlib">
+  <data name="checkBox_mute_playback.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
   </data>
-  <data name="checkBox_mute_system_speaker.Text" xml:space="preserve">
-    <value>Mute system speaker</value>
+  <data name="checkBox_mute_playback.Text" xml:space="preserve">
+    <value>Mute playback</value>
   </data>
-  <data name="checkBox_mute_system_speaker.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+  <data name="checkBox_mute_playback.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
   </data>
-  <data name="checkBox_mute_system_speaker.ToolTip" xml:space="preserve">
+  <data name="checkBox_mute_playback.ToolTip" xml:space="preserve">
     <value>You can use this option when using MIDI output</value>
   </data>
-  <data name="&gt;&gt;checkBox_mute_system_speaker.Name" xml:space="preserve">
-    <value>checkBox_mute_system_speaker</value>
+  <data name="&gt;&gt;checkBox_mute_playback.Name" xml:space="preserve">
+    <value>checkBox_mute_playback</value>
   </data>
-  <data name="&gt;&gt;checkBox_mute_system_speaker.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBox_mute_playback.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBox_mute_system_speaker.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBox_mute_playback.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;checkBox_mute_system_speaker.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;checkBox_mute_playback.ZOrder" xml:space="preserve">
     <value>45</value>
   </data>
   <data name="numericUpDown_alternating_notes.AutoSize" type="System.Boolean, mscorlib">
@@ -6510,7 +6510,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        UAEgAVABIAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        uAEgAbgBIAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

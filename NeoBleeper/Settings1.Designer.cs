@@ -249,5 +249,29 @@ namespace NeoBleeper {
                 this["markup_color"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool dont_show_system_speaker_warnings_again {
+            get {
+                return ((bool)(this["dont_show_system_speaker_warnings_again"]));
+            }
+            set {
+                this["dont_show_system_speaker_warnings_again"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool dont_show_disable_create_beep_from_soundcard_warnings_again {
+            get {
+                return ((bool)(this["dont_show_disable_create_beep_from_soundcard_warnings_again"]));
+            }
+            set {
+                this["dont_show_disable_create_beep_from_soundcard_warnings_again"] = value;
+            }
+        }
     }
 }

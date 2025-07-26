@@ -37,6 +37,7 @@
             label_compact_computer_warning_result = new Label();
             button_no = new Button();
             label1 = new Label();
+            checkBoxDontShowAgain = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_compact_computer_warning;
-            button_yes.Location = new Point(71, 276);
+            button_yes.Location = new Point(71, 296);
             button_yes.Margin = new Padding(2);
             button_yes.Name = "button_yes";
             button_yes.Size = new Size(75, 26);
@@ -93,7 +94,7 @@
             // 
             // label_compact_computer_warning_result
             // 
-            label_compact_computer_warning_result.Anchor = AnchorStyles.None;
+            label_compact_computer_warning_result.Anchor = AnchorStyles.Top;
             label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label_compact_computer_warning_result.Location = new Point(6, 151);
             label_compact_computer_warning_result.Margin = new Padding(2, 0, 2, 0);
@@ -111,7 +112,7 @@
             button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_compact_computer_warning;
-            button_no.Location = new Point(201, 276);
+            button_no.Location = new Point(201, 296);
             button_no.Margin = new Padding(2);
             button_no.Name = "button_no";
             button_no.Size = new Size(75, 26);
@@ -124,9 +125,9 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.None;
+            label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label1.Location = new Point(10, 101);
+            label1.Location = new Point(6, 101);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.MinimumSize = new Size(343, 40);
             label1.Name = "label1";
@@ -134,13 +135,26 @@
             label1.TabIndex = 6;
             label1.Text = "Despite this, do you want to continue using the NeoBleeper application?\r\n";
             // 
+            // checkBoxDontShowAgain
+            // 
+            checkBoxDontShowAgain.Anchor = AnchorStyles.Bottom;
+            checkBoxDontShowAgain.AutoSize = true;
+            checkBoxDontShowAgain.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxDontShowAgain.Location = new Point(115, 271);
+            checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
+            checkBoxDontShowAgain.Size = new Size(119, 20);
+            checkBoxDontShowAgain.TabIndex = 14;
+            checkBoxDontShowAgain.Text = "Don't show again";
+            checkBoxDontShowAgain.UseVisualStyleBackColor = true;
+            // 
             // neobleeper_init_compact_computer_warning
             // 
             AcceptButton = button_yes;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(358, 306);
+            ClientSize = new Size(358, 326);
+            Controls.Add(checkBoxDontShowAgain);
             Controls.Add(button_yes);
             Controls.Add(label_compact_computer_warning);
             Controls.Add(pictureBox1);
@@ -169,5 +183,6 @@
         private Label label_compact_computer_warning_result;
         private Button button_no;
         private Label label1;
+        private CheckBox checkBoxDontShowAgain;
     }
 }

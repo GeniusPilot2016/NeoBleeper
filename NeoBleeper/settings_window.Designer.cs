@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings_window));
             tabControl_settings = new TabControl();
             general_settings = new TabPage();
+            flowLayoutPanelGeneralSettings = new FlowLayoutPanel();
+            groupBox_appearance = new GroupBox();
+            checkBoxClassicBleeperMode = new CheckBox();
+            lbl_theme = new Label();
+            comboBox_theme = new ComboBox();
             groupBoxCreateMusicWithAI = new GroupBox();
             buttonResetAPIKey = new Button();
             imageList_settings = new ImageList(components);
@@ -43,31 +48,31 @@
             groupBox_system_speaker_test = new GroupBox();
             btn_test_system_speaker = new Button();
             label_test_system_speaker_message = new Label();
-            groupBox_appearance = new GroupBox();
-            checkBoxClassicBleeperMode = new CheckBox();
-            lbl_theme = new Label();
-            comboBox_theme = new ComboBox();
+            panelSystemSpeakerWarnings = new Panel();
             label_test_system_speaker_message_2 = new Label();
             label_test_system_speaker_message_3 = new Label();
             creating_sound_settings = new TabPage();
+            flowLayoutPanelCreatingSoundSettings = new FlowLayoutPanel();
+            checkBox_enable_create_beep_from_soundcard = new CheckBox();
             group_beep_creation_from_sound_card_settings = new GroupBox();
-            label_create_beep_from_soundcard_automatically_activated_message_2 = new Label();
+            flowLayoutPanelSoundDeviceBeepEnabledInfo = new FlowLayoutPanel();
+            panel1 = new Panel();
             label_create_beep_from_soundcard_automatically_activated_message_1 = new Label();
+            label_create_beep_from_soundcard_automatically_activated_message_2 = new Label();
             button_show_reason = new Button();
             group_tone_waveform = new GroupBox();
             radioButton_noise = new RadioButton();
             radioButton_triangle = new RadioButton();
             radioButton_sine = new RadioButton();
             radioButton_square = new RadioButton();
-            checkBox_enable_create_beep_from_soundcard = new CheckBox();
             devices_settings = new TabPage();
-            groupBox_other_devices = new GroupBox();
-            trackBar_motor_octave = new TrackBar();
-            label_motor_speed_mod = new Label();
-            groupBox_type_of_device = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
-            checkBox_use_motor_speed_mod = new CheckBox();
+            flowLayoutPanelDevicesSettings = new FlowLayoutPanel();
+            checkBox_use_midi_input = new CheckBox();
+            group_midi_input_devices = new GroupBox();
+            refresh_midi_input_button = new Button();
+            comboBox_midi_input_devices = new ComboBox();
+            label_midi_input_device = new Label();
+            checkBox_use_midi_output = new CheckBox();
             group_midi_output_devices = new GroupBox();
             comboBox_midi_output_instrument = new ComboBox();
             comboBox_midi_output_channel = new ComboBox();
@@ -76,21 +81,25 @@
             refresh_midi_output_button = new Button();
             comboBox_midi_output_devices = new ComboBox();
             label_midi_output_device = new Label();
-            checkBox_use_midi_output = new CheckBox();
-            group_midi_input_devices = new GroupBox();
-            refresh_midi_input_button = new Button();
-            comboBox_midi_input_devices = new ComboBox();
-            label_midi_input_device = new Label();
-            checkBox_use_midi_input = new CheckBox();
+            groupBox_other_devices = new GroupBox();
+            trackBar_motor_octave = new TrackBar();
+            label_motor_speed_mod = new Label();
+            groupBox_type_of_device = new GroupBox();
+            radioButtonBuzzer = new RadioButton();
+            radioButtonMotor = new RadioButton();
+            checkBox_use_microcontroller = new CheckBox();
             appearance = new TabPage();
-            reset_colors = new Button();
-            group_indicator_colors = new GroupBox();
-            note_indicator_color_change = new Button();
-            label11 = new Label();
-            beep_indicator_color_change = new Button();
-            label12 = new Label();
-            beep_indicator_color = new Panel();
-            note_indicator_color = new Panel();
+            flowLayoutPanelAppearanceSettings = new FlowLayoutPanel();
+            group_keyboard_colors = new GroupBox();
+            third_octave_color_change = new Button();
+            second_octave_color_change = new Button();
+            first_octave_color_change = new Button();
+            third_octave_color = new Panel();
+            second_octave_color = new Panel();
+            first_octave_color = new Panel();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             group_buttons_and_controls_colors = new GroupBox();
             markup_color_change = new Button();
             metronome_color_change = new Button();
@@ -113,36 +122,43 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
-            group_keyboard_colors = new GroupBox();
-            third_octave_color_change = new Button();
-            second_octave_color_change = new Button();
-            first_octave_color_change = new Button();
-            third_octave_color = new Panel();
-            second_octave_color = new Panel();
-            first_octave_color = new Panel();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
+            group_indicator_colors = new GroupBox();
+            note_indicator_color_change = new Button();
+            label11 = new Label();
+            beep_indicator_color_change = new Button();
+            label12 = new Label();
+            beep_indicator_color = new Panel();
+            note_indicator_color = new Panel();
+            panel2 = new Panel();
+            reset_colors = new Button();
             toolTip1 = new ToolTip(components);
             colorDialog1 = new ColorDialog();
             tabControl_settings.SuspendLayout();
             general_settings.SuspendLayout();
+            flowLayoutPanelGeneralSettings.SuspendLayout();
+            groupBox_appearance.SuspendLayout();
             groupBoxCreateMusicWithAI.SuspendLayout();
             groupBox_system_speaker_test.SuspendLayout();
-            groupBox_appearance.SuspendLayout();
+            panelSystemSpeakerWarnings.SuspendLayout();
             creating_sound_settings.SuspendLayout();
+            flowLayoutPanelCreatingSoundSettings.SuspendLayout();
             group_beep_creation_from_sound_card_settings.SuspendLayout();
+            flowLayoutPanelSoundDeviceBeepEnabledInfo.SuspendLayout();
+            panel1.SuspendLayout();
             group_tone_waveform.SuspendLayout();
             devices_settings.SuspendLayout();
+            flowLayoutPanelDevicesSettings.SuspendLayout();
+            group_midi_input_devices.SuspendLayout();
+            group_midi_output_devices.SuspendLayout();
             groupBox_other_devices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).BeginInit();
             groupBox_type_of_device.SuspendLayout();
-            group_midi_output_devices.SuspendLayout();
-            group_midi_input_devices.SuspendLayout();
             appearance.SuspendLayout();
-            group_indicator_colors.SuspendLayout();
-            group_buttons_and_controls_colors.SuspendLayout();
+            flowLayoutPanelAppearanceSettings.SuspendLayout();
             group_keyboard_colors.SuspendLayout();
+            group_buttons_and_controls_colors.SuspendLayout();
+            group_indicator_colors.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl_settings
@@ -159,15 +175,52 @@
             // 
             // general_settings
             // 
-            general_settings.Controls.Add(groupBoxCreateMusicWithAI);
-            general_settings.Controls.Add(groupBox_system_speaker_test);
-            general_settings.Controls.Add(groupBox_appearance);
-            general_settings.Controls.Add(label_test_system_speaker_message_2);
-            general_settings.Controls.Add(label_test_system_speaker_message_3);
+            general_settings.Controls.Add(flowLayoutPanelGeneralSettings);
             resources.ApplyResources(general_settings, "general_settings");
             general_settings.Name = "general_settings";
             general_settings.UseVisualStyleBackColor = true;
             general_settings.Click += general_settings_Click;
+            // 
+            // flowLayoutPanelGeneralSettings
+            // 
+            flowLayoutPanelGeneralSettings.Controls.Add(groupBox_appearance);
+            flowLayoutPanelGeneralSettings.Controls.Add(groupBoxCreateMusicWithAI);
+            flowLayoutPanelGeneralSettings.Controls.Add(groupBox_system_speaker_test);
+            flowLayoutPanelGeneralSettings.Controls.Add(panelSystemSpeakerWarnings);
+            resources.ApplyResources(flowLayoutPanelGeneralSettings, "flowLayoutPanelGeneralSettings");
+            flowLayoutPanelGeneralSettings.Name = "flowLayoutPanelGeneralSettings";
+            // 
+            // groupBox_appearance
+            // 
+            resources.ApplyResources(groupBox_appearance, "groupBox_appearance");
+            groupBox_appearance.Controls.Add(checkBoxClassicBleeperMode);
+            groupBox_appearance.Controls.Add(lbl_theme);
+            groupBox_appearance.Controls.Add(comboBox_theme);
+            groupBox_appearance.Name = "groupBox_appearance";
+            groupBox_appearance.TabStop = false;
+            // 
+            // checkBoxClassicBleeperMode
+            // 
+            resources.ApplyResources(checkBoxClassicBleeperMode, "checkBoxClassicBleeperMode");
+            checkBoxClassicBleeperMode.Name = "checkBoxClassicBleeperMode";
+            checkBoxClassicBleeperMode.UseVisualStyleBackColor = true;
+            checkBoxClassicBleeperMode.CheckedChanged += checkBoxClassicBleeperMode_CheckedChanged;
+            // 
+            // lbl_theme
+            // 
+            resources.ApplyResources(lbl_theme, "lbl_theme");
+            lbl_theme.Name = "lbl_theme";
+            lbl_theme.Click += lbl_theme_Click;
+            // 
+            // comboBox_theme
+            // 
+            resources.ApplyResources(comboBox_theme, "comboBox_theme");
+            comboBox_theme.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_theme.FormattingEnabled = true;
+            comboBox_theme.Items.AddRange(new object[] { resources.GetString("comboBox_theme.Items"), resources.GetString("comboBox_theme.Items1"), resources.GetString("comboBox_theme.Items2") });
+            comboBox_theme.Name = "comboBox_theme";
+            toolTip1.SetToolTip(comboBox_theme, resources.GetString("comboBox_theme.ToolTip"));
+            comboBox_theme.SelectedIndexChanged += comboBox_theme_SelectedIndexChanged;
             // 
             // groupBoxCreateMusicWithAI
             // 
@@ -246,9 +299,9 @@
             // 
             // groupBox_system_speaker_test
             // 
-            resources.ApplyResources(groupBox_system_speaker_test, "groupBox_system_speaker_test");
             groupBox_system_speaker_test.Controls.Add(btn_test_system_speaker);
             groupBox_system_speaker_test.Controls.Add(label_test_system_speaker_message);
+            resources.ApplyResources(groupBox_system_speaker_test, "groupBox_system_speaker_test");
             groupBox_system_speaker_test.Name = "groupBox_system_speaker_test";
             groupBox_system_speaker_test.TabStop = false;
             groupBox_system_speaker_test.Enter += groupBox_system_speaker_test_Enter;
@@ -267,37 +320,12 @@
             resources.ApplyResources(label_test_system_speaker_message, "label_test_system_speaker_message");
             label_test_system_speaker_message.Name = "label_test_system_speaker_message";
             // 
-            // groupBox_appearance
+            // panelSystemSpeakerWarnings
             // 
-            resources.ApplyResources(groupBox_appearance, "groupBox_appearance");
-            groupBox_appearance.Controls.Add(checkBoxClassicBleeperMode);
-            groupBox_appearance.Controls.Add(lbl_theme);
-            groupBox_appearance.Controls.Add(comboBox_theme);
-            groupBox_appearance.Name = "groupBox_appearance";
-            groupBox_appearance.TabStop = false;
-            // 
-            // checkBoxClassicBleeperMode
-            // 
-            resources.ApplyResources(checkBoxClassicBleeperMode, "checkBoxClassicBleeperMode");
-            checkBoxClassicBleeperMode.Name = "checkBoxClassicBleeperMode";
-            checkBoxClassicBleeperMode.UseVisualStyleBackColor = true;
-            checkBoxClassicBleeperMode.CheckedChanged += checkBoxClassicBleeperMode_CheckedChanged;
-            // 
-            // lbl_theme
-            // 
-            resources.ApplyResources(lbl_theme, "lbl_theme");
-            lbl_theme.Name = "lbl_theme";
-            lbl_theme.Click += lbl_theme_Click;
-            // 
-            // comboBox_theme
-            // 
-            resources.ApplyResources(comboBox_theme, "comboBox_theme");
-            comboBox_theme.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_theme.FormattingEnabled = true;
-            comboBox_theme.Items.AddRange(new object[] { resources.GetString("comboBox_theme.Items"), resources.GetString("comboBox_theme.Items1"), resources.GetString("comboBox_theme.Items2") });
-            comboBox_theme.Name = "comboBox_theme";
-            toolTip1.SetToolTip(comboBox_theme, resources.GetString("comboBox_theme.ToolTip"));
-            comboBox_theme.SelectedIndexChanged += comboBox_theme_SelectedIndexChanged;
+            panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_2);
+            panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
+            resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
+            panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             // 
             // label_test_system_speaker_message_2
             // 
@@ -313,31 +341,59 @@
             // 
             // creating_sound_settings
             // 
-            creating_sound_settings.Controls.Add(group_beep_creation_from_sound_card_settings);
-            creating_sound_settings.Controls.Add(checkBox_enable_create_beep_from_soundcard);
+            creating_sound_settings.Controls.Add(flowLayoutPanelCreatingSoundSettings);
             resources.ApplyResources(creating_sound_settings, "creating_sound_settings");
             creating_sound_settings.Name = "creating_sound_settings";
             creating_sound_settings.UseVisualStyleBackColor = true;
             // 
+            // flowLayoutPanelCreatingSoundSettings
+            // 
+            flowLayoutPanelCreatingSoundSettings.Controls.Add(checkBox_enable_create_beep_from_soundcard);
+            flowLayoutPanelCreatingSoundSettings.Controls.Add(group_beep_creation_from_sound_card_settings);
+            resources.ApplyResources(flowLayoutPanelCreatingSoundSettings, "flowLayoutPanelCreatingSoundSettings");
+            flowLayoutPanelCreatingSoundSettings.Name = "flowLayoutPanelCreatingSoundSettings";
+            flowLayoutPanelCreatingSoundSettings.Paint += flowLayoutPanel3_Paint;
+            // 
+            // checkBox_enable_create_beep_from_soundcard
+            // 
+            resources.ApplyResources(checkBox_enable_create_beep_from_soundcard, "checkBox_enable_create_beep_from_soundcard");
+            checkBox_enable_create_beep_from_soundcard.ImageList = imageList_settings;
+            checkBox_enable_create_beep_from_soundcard.Name = "checkBox_enable_create_beep_from_soundcard";
+            toolTip1.SetToolTip(checkBox_enable_create_beep_from_soundcard, resources.GetString("checkBox_enable_create_beep_from_soundcard.ToolTip"));
+            checkBox_enable_create_beep_from_soundcard.UseVisualStyleBackColor = true;
+            checkBox_enable_create_beep_from_soundcard.CheckedChanged += checkBox_enable_create_beep_from_soundcard_CheckedChanged;
+            // 
             // group_beep_creation_from_sound_card_settings
             // 
             resources.ApplyResources(group_beep_creation_from_sound_card_settings, "group_beep_creation_from_sound_card_settings");
-            group_beep_creation_from_sound_card_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
-            group_beep_creation_from_sound_card_settings.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
-            group_beep_creation_from_sound_card_settings.Controls.Add(button_show_reason);
+            group_beep_creation_from_sound_card_settings.Controls.Add(flowLayoutPanelSoundDeviceBeepEnabledInfo);
             group_beep_creation_from_sound_card_settings.Controls.Add(group_tone_waveform);
             group_beep_creation_from_sound_card_settings.Name = "group_beep_creation_from_sound_card_settings";
             group_beep_creation_from_sound_card_settings.TabStop = false;
             // 
-            // label_create_beep_from_soundcard_automatically_activated_message_2
+            // flowLayoutPanelSoundDeviceBeepEnabledInfo
             // 
-            resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_2, "label_create_beep_from_soundcard_automatically_activated_message_2");
-            label_create_beep_from_soundcard_automatically_activated_message_2.Name = "label_create_beep_from_soundcard_automatically_activated_message_2";
+            resources.ApplyResources(flowLayoutPanelSoundDeviceBeepEnabledInfo, "flowLayoutPanelSoundDeviceBeepEnabledInfo");
+            flowLayoutPanelSoundDeviceBeepEnabledInfo.Controls.Add(panel1);
+            flowLayoutPanelSoundDeviceBeepEnabledInfo.Controls.Add(button_show_reason);
+            flowLayoutPanelSoundDeviceBeepEnabledInfo.Name = "flowLayoutPanelSoundDeviceBeepEnabledInfo";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
+            panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Name = "panel1";
             // 
             // label_create_beep_from_soundcard_automatically_activated_message_1
             // 
             resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_1, "label_create_beep_from_soundcard_automatically_activated_message_1");
             label_create_beep_from_soundcard_automatically_activated_message_1.Name = "label_create_beep_from_soundcard_automatically_activated_message_1";
+            // 
+            // label_create_beep_from_soundcard_automatically_activated_message_2
+            // 
+            resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_2, "label_create_beep_from_soundcard_automatically_activated_message_2");
+            label_create_beep_from_soundcard_automatically_activated_message_2.Name = "label_create_beep_from_soundcard_automatically_activated_message_2";
             // 
             // button_show_reason
             // 
@@ -386,81 +442,68 @@
             radioButton_square.UseVisualStyleBackColor = true;
             radioButton_square.CheckedChanged += soundcard_beep_waveform_selection;
             // 
-            // checkBox_enable_create_beep_from_soundcard
-            // 
-            resources.ApplyResources(checkBox_enable_create_beep_from_soundcard, "checkBox_enable_create_beep_from_soundcard");
-            checkBox_enable_create_beep_from_soundcard.ImageList = imageList_settings;
-            checkBox_enable_create_beep_from_soundcard.Name = "checkBox_enable_create_beep_from_soundcard";
-            toolTip1.SetToolTip(checkBox_enable_create_beep_from_soundcard, resources.GetString("checkBox_enable_create_beep_from_soundcard.ToolTip"));
-            checkBox_enable_create_beep_from_soundcard.UseVisualStyleBackColor = true;
-            checkBox_enable_create_beep_from_soundcard.CheckedChanged += checkBox_enable_create_beep_from_soundcard_CheckedChanged;
-            // 
             // devices_settings
             // 
-            devices_settings.Controls.Add(groupBox_other_devices);
-            devices_settings.Controls.Add(group_midi_output_devices);
-            devices_settings.Controls.Add(checkBox_use_midi_output);
-            devices_settings.Controls.Add(group_midi_input_devices);
-            devices_settings.Controls.Add(checkBox_use_midi_input);
+            devices_settings.Controls.Add(flowLayoutPanelDevicesSettings);
             resources.ApplyResources(devices_settings, "devices_settings");
             devices_settings.Name = "devices_settings";
             devices_settings.UseVisualStyleBackColor = true;
             // 
-            // groupBox_other_devices
+            // flowLayoutPanelDevicesSettings
             // 
-            resources.ApplyResources(groupBox_other_devices, "groupBox_other_devices");
-            groupBox_other_devices.Controls.Add(trackBar_motor_octave);
-            groupBox_other_devices.Controls.Add(label_motor_speed_mod);
-            groupBox_other_devices.Controls.Add(groupBox_type_of_device);
-            groupBox_other_devices.Controls.Add(checkBox_use_motor_speed_mod);
-            groupBox_other_devices.Name = "groupBox_other_devices";
-            groupBox_other_devices.TabStop = false;
+            flowLayoutPanelDevicesSettings.Controls.Add(checkBox_use_midi_input);
+            flowLayoutPanelDevicesSettings.Controls.Add(group_midi_input_devices);
+            flowLayoutPanelDevicesSettings.Controls.Add(checkBox_use_midi_output);
+            flowLayoutPanelDevicesSettings.Controls.Add(group_midi_output_devices);
+            flowLayoutPanelDevicesSettings.Controls.Add(groupBox_other_devices);
+            resources.ApplyResources(flowLayoutPanelDevicesSettings, "flowLayoutPanelDevicesSettings");
+            flowLayoutPanelDevicesSettings.Name = "flowLayoutPanelDevicesSettings";
             // 
-            // trackBar_motor_octave
+            // checkBox_use_midi_input
             // 
-            resources.ApplyResources(trackBar_motor_octave, "trackBar_motor_octave");
-            trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
-            trackBar_motor_octave.Maximum = 5;
-            trackBar_motor_octave.Name = "trackBar_motor_octave";
-            trackBar_motor_octave.Value = 2;
-            trackBar_motor_octave.Scroll += trackBar_motor_octave_Scroll;
+            resources.ApplyResources(checkBox_use_midi_input, "checkBox_use_midi_input");
+            checkBox_use_midi_input.ImageList = imageList_settings;
+            checkBox_use_midi_input.Name = "checkBox_use_midi_input";
+            checkBox_use_midi_input.UseVisualStyleBackColor = true;
+            checkBox_use_midi_input.CheckedChanged += checkBox_use_midi_input_CheckedChanged;
             // 
-            // label_motor_speed_mod
+            // group_midi_input_devices
             // 
-            resources.ApplyResources(label_motor_speed_mod, "label_motor_speed_mod");
-            label_motor_speed_mod.Name = "label_motor_speed_mod";
+            resources.ApplyResources(group_midi_input_devices, "group_midi_input_devices");
+            group_midi_input_devices.Controls.Add(refresh_midi_input_button);
+            group_midi_input_devices.Controls.Add(comboBox_midi_input_devices);
+            group_midi_input_devices.Controls.Add(label_midi_input_device);
+            group_midi_input_devices.Name = "group_midi_input_devices";
+            group_midi_input_devices.TabStop = false;
             // 
-            // groupBox_type_of_device
+            // refresh_midi_input_button
             // 
-            resources.ApplyResources(groupBox_type_of_device, "groupBox_type_of_device");
-            groupBox_type_of_device.Controls.Add(radioButton2);
-            groupBox_type_of_device.Controls.Add(radioButton1);
-            groupBox_type_of_device.Name = "groupBox_type_of_device";
-            groupBox_type_of_device.TabStop = false;
+            resources.ApplyResources(refresh_midi_input_button, "refresh_midi_input_button");
+            refresh_midi_input_button.ImageList = imageList_settings;
+            refresh_midi_input_button.Name = "refresh_midi_input_button";
+            refresh_midi_input_button.UseVisualStyleBackColor = true;
+            refresh_midi_input_button.Click += refresh_midi_input_button_Click;
             // 
-            // radioButton2
+            // comboBox_midi_input_devices
             // 
-            resources.ApplyResources(radioButton2, "radioButton2");
-            radioButton2.Name = "radioButton2";
-            radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
+            resources.ApplyResources(comboBox_midi_input_devices, "comboBox_midi_input_devices");
+            comboBox_midi_input_devices.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_midi_input_devices.FormattingEnabled = true;
+            comboBox_midi_input_devices.Name = "comboBox_midi_input_devices";
+            comboBox_midi_input_devices.SelectedIndexChanged += comboBox_midi_input_devices_SelectedIndexChanged;
             // 
-            // radioButton1
+            // label_midi_input_device
             // 
-            resources.ApplyResources(radioButton1, "radioButton1");
-            radioButton1.Checked = true;
-            radioButton1.Name = "radioButton1";
-            radioButton1.TabStop = true;
-            radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
+            resources.ApplyResources(label_midi_input_device, "label_midi_input_device");
+            label_midi_input_device.Name = "label_midi_input_device";
             // 
-            // checkBox_use_motor_speed_mod
+            // checkBox_use_midi_output
             // 
-            resources.ApplyResources(checkBox_use_motor_speed_mod, "checkBox_use_motor_speed_mod");
-            checkBox_use_motor_speed_mod.ImageList = imageList_settings;
-            checkBox_use_motor_speed_mod.Name = "checkBox_use_motor_speed_mod";
-            checkBox_use_motor_speed_mod.UseVisualStyleBackColor = true;
-            checkBox_use_motor_speed_mod.CheckedChanged += checkBox_use_motor_speed_mod_CheckedChanged;
+            resources.ApplyResources(checkBox_use_midi_output, "checkBox_use_midi_output");
+            checkBox_use_midi_output.ImageList = imageList_settings;
+            checkBox_use_midi_output.Name = "checkBox_use_midi_output";
+            checkBox_use_midi_output.UseVisualStyleBackColor = true;
+            checkBox_use_midi_output.CheckedChanged += checkBox_use_midi_output_CheckedChanged;
             // 
             // group_midi_output_devices
             // 
@@ -522,122 +565,153 @@
             resources.ApplyResources(label_midi_output_device, "label_midi_output_device");
             label_midi_output_device.Name = "label_midi_output_device";
             // 
-            // checkBox_use_midi_output
+            // groupBox_other_devices
             // 
-            resources.ApplyResources(checkBox_use_midi_output, "checkBox_use_midi_output");
-            checkBox_use_midi_output.ImageList = imageList_settings;
-            checkBox_use_midi_output.Name = "checkBox_use_midi_output";
-            checkBox_use_midi_output.UseVisualStyleBackColor = true;
-            checkBox_use_midi_output.CheckedChanged += checkBox_use_midi_output_CheckedChanged;
+            resources.ApplyResources(groupBox_other_devices, "groupBox_other_devices");
+            groupBox_other_devices.Controls.Add(trackBar_motor_octave);
+            groupBox_other_devices.Controls.Add(label_motor_speed_mod);
+            groupBox_other_devices.Controls.Add(groupBox_type_of_device);
+            groupBox_other_devices.Controls.Add(checkBox_use_microcontroller);
+            groupBox_other_devices.Name = "groupBox_other_devices";
+            groupBox_other_devices.TabStop = false;
             // 
-            // group_midi_input_devices
+            // trackBar_motor_octave
             // 
-            resources.ApplyResources(group_midi_input_devices, "group_midi_input_devices");
-            group_midi_input_devices.Controls.Add(refresh_midi_input_button);
-            group_midi_input_devices.Controls.Add(comboBox_midi_input_devices);
-            group_midi_input_devices.Controls.Add(label_midi_input_device);
-            group_midi_input_devices.Name = "group_midi_input_devices";
-            group_midi_input_devices.TabStop = false;
+            resources.ApplyResources(trackBar_motor_octave, "trackBar_motor_octave");
+            trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
+            trackBar_motor_octave.Maximum = 5;
+            trackBar_motor_octave.Name = "trackBar_motor_octave";
+            trackBar_motor_octave.Value = 2;
+            trackBar_motor_octave.Scroll += trackBar_motor_octave_Scroll;
             // 
-            // refresh_midi_input_button
+            // label_motor_speed_mod
             // 
-            resources.ApplyResources(refresh_midi_input_button, "refresh_midi_input_button");
-            refresh_midi_input_button.ImageList = imageList_settings;
-            refresh_midi_input_button.Name = "refresh_midi_input_button";
-            refresh_midi_input_button.UseVisualStyleBackColor = true;
-            refresh_midi_input_button.Click += refresh_midi_input_button_Click;
+            resources.ApplyResources(label_motor_speed_mod, "label_motor_speed_mod");
+            label_motor_speed_mod.Name = "label_motor_speed_mod";
             // 
-            // comboBox_midi_input_devices
+            // groupBox_type_of_device
             // 
-            resources.ApplyResources(comboBox_midi_input_devices, "comboBox_midi_input_devices");
-            comboBox_midi_input_devices.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_midi_input_devices.FormattingEnabled = true;
-            comboBox_midi_input_devices.Name = "comboBox_midi_input_devices";
-            comboBox_midi_input_devices.SelectedIndexChanged += comboBox_midi_input_devices_SelectedIndexChanged;
+            resources.ApplyResources(groupBox_type_of_device, "groupBox_type_of_device");
+            groupBox_type_of_device.Controls.Add(radioButtonBuzzer);
+            groupBox_type_of_device.Controls.Add(radioButtonMotor);
+            groupBox_type_of_device.Name = "groupBox_type_of_device";
+            groupBox_type_of_device.TabStop = false;
             // 
-            // label_midi_input_device
+            // radioButtonBuzzer
             // 
-            resources.ApplyResources(label_midi_input_device, "label_midi_input_device");
-            label_midi_input_device.Name = "label_midi_input_device";
+            resources.ApplyResources(radioButtonBuzzer, "radioButtonBuzzer");
+            radioButtonBuzzer.Name = "radioButtonBuzzer";
+            radioButtonBuzzer.UseVisualStyleBackColor = true;
+            radioButtonBuzzer.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
             // 
-            // checkBox_use_midi_input
+            // radioButtonMotor
             // 
-            resources.ApplyResources(checkBox_use_midi_input, "checkBox_use_midi_input");
-            checkBox_use_midi_input.ImageList = imageList_settings;
-            checkBox_use_midi_input.Name = "checkBox_use_midi_input";
-            checkBox_use_midi_input.UseVisualStyleBackColor = true;
-            checkBox_use_midi_input.CheckedChanged += checkBox_use_midi_input_CheckedChanged;
+            resources.ApplyResources(radioButtonMotor, "radioButtonMotor");
+            radioButtonMotor.Checked = true;
+            radioButtonMotor.Name = "radioButtonMotor";
+            radioButtonMotor.TabStop = true;
+            radioButtonMotor.UseVisualStyleBackColor = true;
+            radioButtonMotor.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
+            // 
+            // checkBox_use_microcontroller
+            // 
+            resources.ApplyResources(checkBox_use_microcontroller, "checkBox_use_microcontroller");
+            checkBox_use_microcontroller.ImageList = imageList_settings;
+            checkBox_use_microcontroller.Name = "checkBox_use_microcontroller";
+            checkBox_use_microcontroller.UseVisualStyleBackColor = true;
+            checkBox_use_microcontroller.CheckedChanged += checkBox_use_motor_speed_mod_CheckedChanged;
             // 
             // appearance
             // 
-            appearance.Controls.Add(reset_colors);
-            appearance.Controls.Add(group_indicator_colors);
-            appearance.Controls.Add(group_buttons_and_controls_colors);
-            appearance.Controls.Add(group_keyboard_colors);
+            appearance.Controls.Add(flowLayoutPanelAppearanceSettings);
             resources.ApplyResources(appearance, "appearance");
             appearance.Name = "appearance";
             appearance.UseVisualStyleBackColor = true;
             appearance.Click += appearance_Click;
             // 
-            // reset_colors
+            // flowLayoutPanelAppearanceSettings
             // 
-            resources.ApplyResources(reset_colors, "reset_colors");
-            reset_colors.ImageList = imageList_settings;
-            reset_colors.Name = "reset_colors";
-            reset_colors.UseVisualStyleBackColor = true;
-            reset_colors.Click += reset_colors_Click;
+            flowLayoutPanelAppearanceSettings.Controls.Add(group_keyboard_colors);
+            flowLayoutPanelAppearanceSettings.Controls.Add(group_buttons_and_controls_colors);
+            flowLayoutPanelAppearanceSettings.Controls.Add(group_indicator_colors);
+            flowLayoutPanelAppearanceSettings.Controls.Add(panel2);
+            resources.ApplyResources(flowLayoutPanelAppearanceSettings, "flowLayoutPanelAppearanceSettings");
+            flowLayoutPanelAppearanceSettings.Name = "flowLayoutPanelAppearanceSettings";
             // 
-            // group_indicator_colors
+            // group_keyboard_colors
             // 
-            resources.ApplyResources(group_indicator_colors, "group_indicator_colors");
-            group_indicator_colors.Controls.Add(note_indicator_color_change);
-            group_indicator_colors.Controls.Add(label11);
-            group_indicator_colors.Controls.Add(beep_indicator_color_change);
-            group_indicator_colors.Controls.Add(label12);
-            group_indicator_colors.Controls.Add(beep_indicator_color);
-            group_indicator_colors.Controls.Add(note_indicator_color);
-            group_indicator_colors.Name = "group_indicator_colors";
-            group_indicator_colors.TabStop = false;
+            resources.ApplyResources(group_keyboard_colors, "group_keyboard_colors");
+            group_keyboard_colors.Controls.Add(third_octave_color_change);
+            group_keyboard_colors.Controls.Add(second_octave_color_change);
+            group_keyboard_colors.Controls.Add(first_octave_color_change);
+            group_keyboard_colors.Controls.Add(third_octave_color);
+            group_keyboard_colors.Controls.Add(second_octave_color);
+            group_keyboard_colors.Controls.Add(first_octave_color);
+            group_keyboard_colors.Controls.Add(label4);
+            group_keyboard_colors.Controls.Add(label3);
+            group_keyboard_colors.Controls.Add(label2);
+            group_keyboard_colors.Name = "group_keyboard_colors";
+            group_keyboard_colors.TabStop = false;
             // 
-            // note_indicator_color_change
+            // third_octave_color_change
             // 
-            resources.ApplyResources(note_indicator_color_change, "note_indicator_color_change");
-            note_indicator_color_change.Name = "note_indicator_color_change";
-            toolTip1.SetToolTip(note_indicator_color_change, resources.GetString("note_indicator_color_change.ToolTip"));
-            note_indicator_color_change.UseVisualStyleBackColor = true;
-            note_indicator_color_change.Click += note_indicator_color_change_Click;
+            resources.ApplyResources(third_octave_color_change, "third_octave_color_change");
+            third_octave_color_change.Name = "third_octave_color_change";
+            toolTip1.SetToolTip(third_octave_color_change, resources.GetString("third_octave_color_change.ToolTip"));
+            third_octave_color_change.UseVisualStyleBackColor = true;
+            third_octave_color_change.Click += third_octave_color_change_Click;
             // 
-            // label11
+            // second_octave_color_change
             // 
-            resources.ApplyResources(label11, "label11");
-            label11.Name = "label11";
+            resources.ApplyResources(second_octave_color_change, "second_octave_color_change");
+            second_octave_color_change.Name = "second_octave_color_change";
+            toolTip1.SetToolTip(second_octave_color_change, resources.GetString("second_octave_color_change.ToolTip"));
+            second_octave_color_change.UseVisualStyleBackColor = true;
+            second_octave_color_change.Click += second_octave_color_change_Click;
             // 
-            // beep_indicator_color_change
+            // first_octave_color_change
             // 
-            resources.ApplyResources(beep_indicator_color_change, "beep_indicator_color_change");
-            beep_indicator_color_change.Name = "beep_indicator_color_change";
-            toolTip1.SetToolTip(beep_indicator_color_change, resources.GetString("beep_indicator_color_change.ToolTip"));
-            beep_indicator_color_change.UseVisualStyleBackColor = true;
-            beep_indicator_color_change.Click += beep_indicator_color_change_Click;
+            resources.ApplyResources(first_octave_color_change, "first_octave_color_change");
+            first_octave_color_change.Name = "first_octave_color_change";
+            toolTip1.SetToolTip(first_octave_color_change, resources.GetString("first_octave_color_change.ToolTip"));
+            first_octave_color_change.UseVisualStyleBackColor = true;
+            first_octave_color_change.Click += first_octave_color_change_Click;
             // 
-            // label12
+            // third_octave_color
             // 
-            resources.ApplyResources(label12, "label12");
-            label12.Name = "label12";
+            resources.ApplyResources(third_octave_color, "third_octave_color");
+            third_octave_color.BackColor = Color.FromArgb(192, 255, 192);
+            third_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            third_octave_color.Name = "third_octave_color";
             // 
-            // beep_indicator_color
+            // second_octave_color
             // 
-            resources.ApplyResources(beep_indicator_color, "beep_indicator_color");
-            beep_indicator_color.BackColor = Color.Red;
-            beep_indicator_color.BorderStyle = BorderStyle.FixedSingle;
-            beep_indicator_color.Name = "beep_indicator_color";
+            resources.ApplyResources(second_octave_color, "second_octave_color");
+            second_octave_color.BackColor = Color.FromArgb(192, 192, 255);
+            second_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            second_octave_color.Name = "second_octave_color";
             // 
-            // note_indicator_color
+            // first_octave_color
             // 
-            resources.ApplyResources(note_indicator_color, "note_indicator_color");
-            note_indicator_color.BackColor = Color.Red;
-            note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
-            note_indicator_color.Name = "note_indicator_color";
+            resources.ApplyResources(first_octave_color, "first_octave_color");
+            first_octave_color.BackColor = Color.FromArgb(255, 224, 192);
+            first_octave_color.BorderStyle = BorderStyle.FixedSingle;
+            first_octave_color.Name = "first_octave_color";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(label4, "label4");
+            label4.Name = "label4";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(label3, "label3");
+            label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
             // 
             // group_buttons_and_controls_colors
             // 
@@ -806,80 +880,71 @@
             resources.ApplyResources(label7, "label7");
             label7.Name = "label7";
             // 
-            // group_keyboard_colors
+            // group_indicator_colors
             // 
-            resources.ApplyResources(group_keyboard_colors, "group_keyboard_colors");
-            group_keyboard_colors.Controls.Add(third_octave_color_change);
-            group_keyboard_colors.Controls.Add(second_octave_color_change);
-            group_keyboard_colors.Controls.Add(first_octave_color_change);
-            group_keyboard_colors.Controls.Add(third_octave_color);
-            group_keyboard_colors.Controls.Add(second_octave_color);
-            group_keyboard_colors.Controls.Add(first_octave_color);
-            group_keyboard_colors.Controls.Add(label4);
-            group_keyboard_colors.Controls.Add(label3);
-            group_keyboard_colors.Controls.Add(label2);
-            group_keyboard_colors.Name = "group_keyboard_colors";
-            group_keyboard_colors.TabStop = false;
+            resources.ApplyResources(group_indicator_colors, "group_indicator_colors");
+            group_indicator_colors.Controls.Add(note_indicator_color_change);
+            group_indicator_colors.Controls.Add(label11);
+            group_indicator_colors.Controls.Add(beep_indicator_color_change);
+            group_indicator_colors.Controls.Add(label12);
+            group_indicator_colors.Controls.Add(beep_indicator_color);
+            group_indicator_colors.Controls.Add(note_indicator_color);
+            group_indicator_colors.Name = "group_indicator_colors";
+            group_indicator_colors.TabStop = false;
             // 
-            // third_octave_color_change
+            // note_indicator_color_change
             // 
-            resources.ApplyResources(third_octave_color_change, "third_octave_color_change");
-            third_octave_color_change.Name = "third_octave_color_change";
-            toolTip1.SetToolTip(third_octave_color_change, resources.GetString("third_octave_color_change.ToolTip"));
-            third_octave_color_change.UseVisualStyleBackColor = true;
-            third_octave_color_change.Click += third_octave_color_change_Click;
+            resources.ApplyResources(note_indicator_color_change, "note_indicator_color_change");
+            note_indicator_color_change.Name = "note_indicator_color_change";
+            toolTip1.SetToolTip(note_indicator_color_change, resources.GetString("note_indicator_color_change.ToolTip"));
+            note_indicator_color_change.UseVisualStyleBackColor = true;
+            note_indicator_color_change.Click += note_indicator_color_change_Click;
             // 
-            // second_octave_color_change
+            // label11
             // 
-            resources.ApplyResources(second_octave_color_change, "second_octave_color_change");
-            second_octave_color_change.Name = "second_octave_color_change";
-            toolTip1.SetToolTip(second_octave_color_change, resources.GetString("second_octave_color_change.ToolTip"));
-            second_octave_color_change.UseVisualStyleBackColor = true;
-            second_octave_color_change.Click += second_octave_color_change_Click;
+            resources.ApplyResources(label11, "label11");
+            label11.Name = "label11";
             // 
-            // first_octave_color_change
+            // beep_indicator_color_change
             // 
-            resources.ApplyResources(first_octave_color_change, "first_octave_color_change");
-            first_octave_color_change.Name = "first_octave_color_change";
-            toolTip1.SetToolTip(first_octave_color_change, resources.GetString("first_octave_color_change.ToolTip"));
-            first_octave_color_change.UseVisualStyleBackColor = true;
-            first_octave_color_change.Click += first_octave_color_change_Click;
+            resources.ApplyResources(beep_indicator_color_change, "beep_indicator_color_change");
+            beep_indicator_color_change.Name = "beep_indicator_color_change";
+            toolTip1.SetToolTip(beep_indicator_color_change, resources.GetString("beep_indicator_color_change.ToolTip"));
+            beep_indicator_color_change.UseVisualStyleBackColor = true;
+            beep_indicator_color_change.Click += beep_indicator_color_change_Click;
             // 
-            // third_octave_color
+            // label12
             // 
-            resources.ApplyResources(third_octave_color, "third_octave_color");
-            third_octave_color.BackColor = Color.FromArgb(192, 255, 192);
-            third_octave_color.BorderStyle = BorderStyle.FixedSingle;
-            third_octave_color.Name = "third_octave_color";
+            resources.ApplyResources(label12, "label12");
+            label12.Name = "label12";
             // 
-            // second_octave_color
+            // beep_indicator_color
             // 
-            resources.ApplyResources(second_octave_color, "second_octave_color");
-            second_octave_color.BackColor = Color.FromArgb(192, 192, 255);
-            second_octave_color.BorderStyle = BorderStyle.FixedSingle;
-            second_octave_color.Name = "second_octave_color";
+            resources.ApplyResources(beep_indicator_color, "beep_indicator_color");
+            beep_indicator_color.BackColor = Color.Red;
+            beep_indicator_color.BorderStyle = BorderStyle.FixedSingle;
+            beep_indicator_color.Name = "beep_indicator_color";
             // 
-            // first_octave_color
+            // note_indicator_color
             // 
-            resources.ApplyResources(first_octave_color, "first_octave_color");
-            first_octave_color.BackColor = Color.FromArgb(255, 224, 192);
-            first_octave_color.BorderStyle = BorderStyle.FixedSingle;
-            first_octave_color.Name = "first_octave_color";
+            resources.ApplyResources(note_indicator_color, "note_indicator_color");
+            note_indicator_color.BackColor = Color.Red;
+            note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
+            note_indicator_color.Name = "note_indicator_color";
             // 
-            // label4
+            // panel2
             // 
-            resources.ApplyResources(label4, "label4");
-            label4.Name = "label4";
+            resources.ApplyResources(panel2, "panel2");
+            panel2.Controls.Add(reset_colors);
+            panel2.Name = "panel2";
             // 
-            // label3
+            // reset_colors
             // 
-            resources.ApplyResources(label3, "label3");
-            label3.Name = "label3";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(label2, "label2");
-            label2.Name = "label2";
+            resources.ApplyResources(reset_colors, "reset_colors");
+            reset_colors.ImageList = imageList_settings;
+            reset_colors.Name = "reset_colors";
+            reset_colors.UseVisualStyleBackColor = true;
+            reset_colors.Click += reset_colors_Click;
             // 
             // colorDialog1
             // 
@@ -900,36 +965,43 @@
             Load += settings_window_Load;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);
-            general_settings.PerformLayout();
+            flowLayoutPanelGeneralSettings.ResumeLayout(false);
+            groupBox_appearance.ResumeLayout(false);
+            groupBox_appearance.PerformLayout();
             groupBoxCreateMusicWithAI.ResumeLayout(false);
             groupBoxCreateMusicWithAI.PerformLayout();
             groupBox_system_speaker_test.ResumeLayout(false);
             groupBox_system_speaker_test.PerformLayout();
-            groupBox_appearance.ResumeLayout(false);
-            groupBox_appearance.PerformLayout();
+            panelSystemSpeakerWarnings.ResumeLayout(false);
             creating_sound_settings.ResumeLayout(false);
-            creating_sound_settings.PerformLayout();
+            flowLayoutPanelCreatingSoundSettings.ResumeLayout(false);
+            flowLayoutPanelCreatingSoundSettings.PerformLayout();
             group_beep_creation_from_sound_card_settings.ResumeLayout(false);
+            flowLayoutPanelSoundDeviceBeepEnabledInfo.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             group_tone_waveform.ResumeLayout(false);
             group_tone_waveform.PerformLayout();
             devices_settings.ResumeLayout(false);
-            devices_settings.PerformLayout();
+            flowLayoutPanelDevicesSettings.ResumeLayout(false);
+            flowLayoutPanelDevicesSettings.PerformLayout();
+            group_midi_input_devices.ResumeLayout(false);
+            group_midi_input_devices.PerformLayout();
+            group_midi_output_devices.ResumeLayout(false);
+            group_midi_output_devices.PerformLayout();
             groupBox_other_devices.ResumeLayout(false);
             groupBox_other_devices.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).EndInit();
             groupBox_type_of_device.ResumeLayout(false);
             groupBox_type_of_device.PerformLayout();
-            group_midi_output_devices.ResumeLayout(false);
-            group_midi_output_devices.PerformLayout();
-            group_midi_input_devices.ResumeLayout(false);
-            group_midi_input_devices.PerformLayout();
             appearance.ResumeLayout(false);
-            group_indicator_colors.ResumeLayout(false);
-            group_indicator_colors.PerformLayout();
-            group_buttons_and_controls_colors.ResumeLayout(false);
-            group_buttons_and_controls_colors.PerformLayout();
+            flowLayoutPanelAppearanceSettings.ResumeLayout(false);
             group_keyboard_colors.ResumeLayout(false);
             group_keyboard_colors.PerformLayout();
+            group_buttons_and_controls_colors.ResumeLayout(false);
+            group_buttons_and_controls_colors.PerformLayout();
+            group_indicator_colors.ResumeLayout(false);
+            group_indicator_colors.PerformLayout();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -942,12 +1014,6 @@
         private ComboBox comboBox_theme;
         private Label lbl_theme;
         private CheckBox checkBox_use_midi_input;
-        private GroupBox group_beep_creation_from_sound_card_settings;
-        private GroupBox group_tone_waveform;
-        private RadioButton radioButton_square;
-        private RadioButton radioButton_noise;
-        private RadioButton radioButton_triangle;
-        private RadioButton radioButton_sine;
         private GroupBox group_midi_input_devices;
         private ComboBox comboBox_midi_input_devices;
         private Label label_midi_input_device;
@@ -957,15 +1023,11 @@
         private Label label_midi_output_device;
         private ToolTip toolTip1;
         private GroupBox groupBox_appearance;
-        public CheckBox checkBox_enable_create_beep_from_soundcard;
         public Label label_test_system_speaker_message;
         public Label label_test_system_speaker_message_2;
         public GroupBox groupBox_system_speaker_test;
-        public Label label_create_beep_from_soundcard_automatically_activated_message_1;
-        public Button button_show_reason;
         private Button btn_test_system_speaker;
         private ImageList imageList_settings;
-        public Label label_create_beep_from_soundcard_automatically_activated_message_2;
         public Label label_test_system_speaker_message_3;
         private TabPage appearance;
         private GroupBox group_keyboard_colors;
@@ -1015,20 +1077,38 @@
         private GroupBox groupBox_other_devices;
         private Label label_motor_speed_mod;
         private GroupBox groupBox_type_of_device;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private CheckBox checkBox_use_motor_speed_mod;
+        private RadioButton radioButtonBuzzer;
+        private RadioButton radioButtonMotor;
+        private CheckBox checkBox_use_microcontroller;
         private TrackBar trackBar_motor_octave;
-        private GroupBox groupBoxCreateMusicWithAI;
-        private Label labelAPIKeyWarning;
-        private Label labelAPIKey;
-        private TextBox textBoxAPIKey;
-        private Button buttonShowHide;
-        private Button buttonUpdateAPIKey;
-        private Button buttonResetAPIKey;
         private CheckBox checkBoxClassicBleeperMode;
         private Button markup_color_change;
         private Panel markup_color;
         private Label label1;
+        private FlowLayoutPanel flowLayoutPanelGeneralSettings;
+        private Panel panelSystemSpeakerWarnings;
+        private GroupBox groupBoxCreateMusicWithAI;
+        private Button buttonResetAPIKey;
+        private Button buttonUpdateAPIKey;
+        private Button buttonShowHide;
+        private Label labelAPIKeyWarning;
+        private Label labelAPIKey;
+        private TextBox textBoxAPIKey;
+        private FlowLayoutPanel flowLayoutPanelDevicesSettings;
+        private FlowLayoutPanel flowLayoutPanelAppearanceSettings;
+        private FlowLayoutPanel flowLayoutPanelCreatingSoundSettings;
+        public CheckBox checkBox_enable_create_beep_from_soundcard;
+        private GroupBox group_beep_creation_from_sound_card_settings;
+        private FlowLayoutPanel flowLayoutPanelSoundDeviceBeepEnabledInfo;
+        private Panel panel1;
+        public Label label_create_beep_from_soundcard_automatically_activated_message_2;
+        public Label label_create_beep_from_soundcard_automatically_activated_message_1;
+        public Button button_show_reason;
+        private GroupBox group_tone_waveform;
+        private RadioButton radioButton_noise;
+        private RadioButton radioButton_triangle;
+        private RadioButton radioButton_sine;
+        private RadioButton radioButton_square;
+        private Panel panel2;
     }
 }

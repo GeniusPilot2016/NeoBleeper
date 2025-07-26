@@ -36,6 +36,7 @@
             label_unknown_type_of_computer_warning = new Label();
             pictureBox1 = new PictureBox();
             label1 = new Label();
+            checkBoxDontShowAgain = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_disable_create_beep_from_sound_device_warning;
-            button_yes.Location = new Point(71, 194);
+            button_yes.Location = new Point(71, 214);
             button_yes.Margin = new Padding(2);
             button_yes.Name = "button_yes";
             button_yes.Size = new Size(75, 26);
@@ -75,7 +76,7 @@
             button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_disable_create_beep_from_sound_device_warning;
-            button_no.Location = new Point(213, 194);
+            button_no.Location = new Point(213, 214);
             button_no.Margin = new Padding(2);
             button_no.Name = "button_no";
             button_no.Size = new Size(75, 26);
@@ -121,13 +122,26 @@
             label1.TabIndex = 18;
             label1.Text = "Despite this, do you want to disable \"Use sound device to create beeps\" option?";
             // 
+            // checkBoxDontShowAgain
+            // 
+            checkBoxDontShowAgain.Anchor = AnchorStyles.Bottom;
+            checkBoxDontShowAgain.AutoSize = true;
+            checkBoxDontShowAgain.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxDontShowAgain.Location = new Point(115, 189);
+            checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
+            checkBoxDontShowAgain.Size = new Size(119, 20);
+            checkBoxDontShowAgain.TabIndex = 23;
+            checkBoxDontShowAgain.Text = "Don't show again";
+            checkBoxDontShowAgain.UseVisualStyleBackColor = true;
+            // 
             // disable_create_beep_from_sound_card_warning
             // 
             AcceptButton = button_yes;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(362, 225);
+            ClientSize = new Size(362, 245);
+            Controls.Add(checkBoxDontShowAgain);
             Controls.Add(button_yes);
             Controls.Add(button_no);
             Controls.Add(label_unknown_type_of_computer_warning);
@@ -153,5 +167,6 @@
         private Label label_unknown_type_of_computer_warning;
         private PictureBox pictureBox1;
         private Label label1;
+        private CheckBox checkBoxDontShowAgain;
     }
 }

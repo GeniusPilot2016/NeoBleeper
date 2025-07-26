@@ -37,6 +37,7 @@
             label_system_speaker_warning_result = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
+            checkBoxDontShowAgain = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             button_yes.Font = new Font("HarmonyOS Sans", 9F);
             button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_system_speaker_warning;
-            button_yes.Location = new Point(71, 201);
+            button_yes.Location = new Point(71, 221);
             button_yes.Name = "button_yes";
             button_yes.Size = new Size(75, 26);
             button_yes.TabIndex = 1;
@@ -86,7 +87,7 @@
             button_no.Font = new Font("HarmonyOS Sans", 9F);
             button_no.ImageIndex = 0;
             button_no.ImageList = imageList_system_speaker_warning;
-            button_no.Location = new Point(201, 201);
+            button_no.Location = new Point(201, 221);
             button_no.Name = "button_no";
             button_no.Size = new Size(75, 26);
             button_no.TabIndex = 2;
@@ -98,7 +99,7 @@
             // 
             // label_system_speaker_warning_result
             // 
-            label_system_speaker_warning_result.Anchor = AnchorStyles.None;
+            label_system_speaker_warning_result.Anchor = AnchorStyles.Top;
             label_system_speaker_warning_result.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Bold);
             label_system_speaker_warning_result.Location = new Point(9, 128);
             label_system_speaker_warning_result.MinimumSize = new Size(340, 64);
@@ -109,7 +110,7 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.None;
+            label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("HarmonyOS Sans", 9F);
             label1.Location = new Point(8, 86);
             label1.MinimumSize = new Size(340, 32);
@@ -128,13 +129,26 @@
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
             // 
+            // checkBoxDontShowAgain
+            // 
+            checkBoxDontShowAgain.Anchor = AnchorStyles.Bottom;
+            checkBoxDontShowAgain.AutoSize = true;
+            checkBoxDontShowAgain.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxDontShowAgain.Location = new Point(115, 195);
+            checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
+            checkBoxDontShowAgain.Size = new Size(119, 20);
+            checkBoxDontShowAgain.TabIndex = 13;
+            checkBoxDontShowAgain.Text = "Don't show again";
+            checkBoxDontShowAgain.UseVisualStyleBackColor = true;
+            // 
             // neobleeper_init_system_speaker_warning
             // 
             AcceptButton = button_yes;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(358, 231);
+            ClientSize = new Size(358, 251);
+            Controls.Add(checkBoxDontShowAgain);
             Controls.Add(pictureBox1);
             Controls.Add(label_system_speaker_warning_result);
             Controls.Add(button_no);
@@ -162,5 +176,6 @@
         private Label label1;
         private PictureBox pictureBox1;
         private ImageList imageList_system_speaker_warning;
+        private CheckBox checkBoxDontShowAgain;
     }
 }
