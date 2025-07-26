@@ -68,7 +68,7 @@
             aboutNeoBleeperToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             NeoBleeper_help = new HelpProvider();
-            checkBox_mute_system_speaker = new CheckBox();
+            checkBox_mute_playback = new CheckBox();
             imageList_main_window = new ImageList(components);
             numericUpDown_alternating_notes = new NumericUpDown();
             button_blank_line = new Button();
@@ -592,15 +592,15 @@
             resources.ApplyResources(helpToolStripMenuItem, "helpToolStripMenuItem");
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             // 
-            // checkBox_mute_system_speaker
+            // checkBox_mute_playback
             // 
-            resources.ApplyResources(checkBox_mute_system_speaker, "checkBox_mute_system_speaker");
-            checkBox_mute_system_speaker.ImageList = imageList_main_window;
-            checkBox_mute_system_speaker.Name = "checkBox_mute_system_speaker";
-            NeoBleeper_help.SetShowHelp(checkBox_mute_system_speaker, (bool)resources.GetObject("checkBox_mute_system_speaker.ShowHelp"));
-            toolTip1.SetToolTip(checkBox_mute_system_speaker, resources.GetString("checkBox_mute_system_speaker.ToolTip"));
-            checkBox_mute_system_speaker.UseVisualStyleBackColor = true;
-            checkBox_mute_system_speaker.CheckedChanged += checkBox_mute_system_speaker_CheckedChanged;
+            resources.ApplyResources(checkBox_mute_playback, "checkBox_mute_playback");
+            checkBox_mute_playback.ImageList = imageList_main_window;
+            checkBox_mute_playback.Name = "checkBox_mute_playback";
+            NeoBleeper_help.SetShowHelp(checkBox_mute_playback, (bool)resources.GetObject("checkBox_mute_playback.ShowHelp"));
+            toolTip1.SetToolTip(checkBox_mute_playback, resources.GetString("checkBox_mute_playback.ToolTip"));
+            checkBox_mute_playback.UseVisualStyleBackColor = true;
+            checkBox_mute_playback.CheckedChanged += checkBox_mute_system_speaker_CheckedChanged;
             // 
             // imageList_main_window
             // 
@@ -2147,7 +2147,7 @@
             Controls.Add(label_silence);
             Controls.Add(label_note_silence_ratio);
             Controls.Add(trackBar_note_silence_ratio);
-            Controls.Add(checkBox_mute_system_speaker);
+            Controls.Add(checkBox_mute_playback);
             Controls.Add(listViewNotes);
             Controls.Add(group_key_is_clicked);
             Controls.Add(label_time_signature);
@@ -2346,7 +2346,7 @@
         private RadioButton add_as_note1;
         private CheckBox checkBox_add_note_to_list;
         private CheckBox checkbox_play_note;
-        public CheckBox checkBox_mute_system_speaker;
+        public CheckBox checkBox_mute_playback;
         private Button button_g5;
         private Label lbl_f5;
         private Button button_g4;

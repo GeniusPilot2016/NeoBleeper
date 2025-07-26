@@ -61,6 +61,11 @@ namespace NeoBleeper
         private void button_yes_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
+            if (checkBoxDontShowAgain.Checked)
+            {
+                Settings1.Default.dont_show_system_speaker_warnings_again = true;
+                Settings1.Default.Save();
+            }
             this.Dispose();
         }
 

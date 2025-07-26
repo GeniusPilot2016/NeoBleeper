@@ -61,6 +61,11 @@ namespace NeoBleeper
         private void button_yes_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
+            if (checkBoxDontShowAgain.Checked)
+            {
+                Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again = true;
+                Settings1.Default.Save();
+            }
             this.Dispose();
         }
         private void button_no_Click(object sender, EventArgs e)

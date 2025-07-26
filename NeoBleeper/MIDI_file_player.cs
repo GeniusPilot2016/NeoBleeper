@@ -476,7 +476,6 @@ namespace NeoBleeper
                 Play();
             }
         }
-
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
         private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
@@ -578,7 +577,6 @@ namespace NeoBleeper
                                             HighlightNoteLabel(noteIndex);
                                             NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
                                             UnHighlightNoteLabel(noteIndex);
-
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
 
@@ -654,7 +652,6 @@ namespace NeoBleeper
                                             HighlightNoteLabel(noteIndex);
                                             NotePlayer.play_note(frequencies[noteIndex], interval);
                                             UnHighlightNoteLabel(noteIndex);
-
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
 
@@ -862,25 +859,6 @@ namespace NeoBleeper
                 label_position.Text = $"Position: {timeStr}";
             }
         }
-
-        private string UpdateTimeLabel(int frameIndex)
-        {
-            if (_frames == null || _frames.Count == 0)
-                return "00:00.00";
-
-            // Calculate current duration
-            double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
-
-            // Convert time to minute:seconds.(miliseconds/10) format
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(currentTimeMs);
-            int minutes = timeSpan.Minutes;
-            int seconds = timeSpan.Seconds;
-            int milliseconds = timeSpan.Milliseconds / 10; // miliseconds/10
-
-            // Update label_percentage
-            return $"{minutes:D2}:{seconds:D2}.{milliseconds:D2}";
-        }
-
         private void Rewind()
         {
             trackBar1.Value = 0;
@@ -1142,7 +1120,7 @@ namespace NeoBleeper
             if (_isStopping || !_isPlaying || _frames == null)
                 return;
 
-            if (_currentFrameIndex >= _frames.Count)
+            if (_currentFrameIndex >= _frames.Count-1)
             {
                 HandlePlaybackComplete();
                 return;
@@ -1244,7 +1222,7 @@ namespace NeoBleeper
                 {
                     foreach (int frequency in frequencies)
                     {
-                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency), durationMsInt);
+                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency/2), durationMsInt);
                     }
                 }
                 if (frequencies.Length == 1)
@@ -1252,8 +1230,38 @@ namespace NeoBleeper
                     var noteNumber = filteredNotes.First();
                     int noteIndex = _noteToLabelMap[noteNumber];
                     HighlightNoteLabel(noteIndex);
-                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
-                    UnHighlightNoteLabel(noteIndex);
+                    if (checkBox_play_each_note.Checked)
+                    {
+                        if (checkBox_make_each_cycle_last_30ms.Checked)
+                        {
+                            int length = Math.Min(15, durationMsInt);
+                            int remainingTime = durationMsInt - length;
+                            await Task.Run(() => { NotePlayer.play_note(frequencies[0], length);
+                                UnHighlightNoteLabel(noteIndex);
+                                if (remainingTime > 0) {
+                                    NonBlockingSleep.Sleep(remainingTime); 
+                                }
+                            }, token);
+                        }
+                        else
+                        {
+                            int length = Math.Min((int)numericUpDown_alternating_note.Value, durationMsInt);
+                            int remainingTime = durationMsInt - length;
+                            await Task.Run(() => {
+                                NotePlayer.play_note(frequencies[0], length);
+                                UnHighlightNoteLabel(noteIndex);
+                                if (remainingTime > 0)
+                                {
+                                    NonBlockingSleep.Sleep(remainingTime);
+                                }
+                            }, token);
+                        }
+                    }
+                    else
+                    {
+                        await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
+                        UnHighlightNoteLabel(noteIndex);
+                    }       
                 }
                 else
                 {
@@ -1292,7 +1300,7 @@ namespace NeoBleeper
             label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
 
             // Update position label
-            label_position.Text = $"Position: {UpdateTimeLabel(frameIndex)}";
+            UpdatePositionLabel();
 
             if (!checkBox_dont_update_grid.Checked)
             {
@@ -1303,29 +1311,68 @@ namespace NeoBleeper
             // Update holded note label
             holded_note_label.Text = $"Notes which are currently being held on: ({filteredNotes.Count})";
         }
+        private void UpdatePositionLabel()
+        {
+            if (!_isPlaying) return;
+
+            // Gerçek çalma süresi (başlangıç ofseti + geçen süre)
+            double songTimeMs = _playbackStartOffsetMs + _playbackStopwatch.ElapsedMilliseconds;
+
+            // Zamanı dakika:saniye:salise formatında göster
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(songTimeMs);
+            int minutes = timeSpan.Minutes;
+            int seconds = timeSpan.Seconds;
+            int milliseconds = timeSpan.Milliseconds / 10;
+
+            string timeStr = $"{minutes:D2}:{seconds:D2}.{milliseconds:D2}";
+
+            if (label_position.InvokeRequired)
+            {
+                label_position.BeginInvoke(new Action(() =>
+                {
+                    label_position.Text = $"Position: {timeStr}";
+                }));
+            }
+            else
+            {
+                label_position.Text = $"Position: {timeStr}";
+            }
+        }
 
         // Playback complete handler
         private void HandlePlaybackComplete()
         {
-            if (!_isPlaying) return; // Don't process if not playing
-
-            playbackTimer.Stop();
-
-            if (checkBox_loop.Checked)
+            try
             {
-                Debug.WriteLine("Playback loop enabled. Rewinding.");
-                // Rewind 
-                Rewind();
+                // Process the completion of playback if the player is still playing
+                if (!_isPlaying) return;
+
+                playbackTimer.Stop();
+
+                if (checkBox_loop.Checked)
+                {
+                    Debug.WriteLine("Playback loop enabled. Rewinding.");
+                    Rewind();
+                    // Restart playback if looping is enabled
+                    Play();
+                }
+                else
+                {
+                    Debug.WriteLine("Playback finished.");
+                    Stop();
+                    Rewind();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Debug.WriteLine("Playback finished.");
-                // Stop playback
+                Debug.WriteLine($"An error occurred in HandlePlaybackComplete: {ex.Message}");
+                // Stop playback if an error occurs
                 Stop();
-                Rewind();
             }
-
-            Debug.WriteLine("Timer-based playback completed");
+            finally
+            {
+                Debug.WriteLine("Timer-based playback completed");
+            }
         }
     }
 }
