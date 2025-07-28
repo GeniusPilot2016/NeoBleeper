@@ -107,5 +107,10 @@ namespace NeoBleeper
         {
 
         }
+
+        private void play_beat_window_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

@@ -155,7 +155,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(451, 252);
+            ClientSize = new Size(447, 248);
             ControlBox = false;
             Controls.Add(label2);
             Controls.Add(trackBarPitchChangeSpeed);
@@ -167,6 +167,7 @@
             Name = "PortamentoWindow";
             ShowIcon = false;
             Text = "Bleeper Portamento";
+            SystemColorsChanged += PortamentoWindow_SystemColorsChanged;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarLength).EndInit();

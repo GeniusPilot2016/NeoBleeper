@@ -110,6 +110,7 @@
             MinimizeBox = false;
             Name = "AIGeneratedNBPMLError";
             ShowIcon = false;
+            SystemColorsChanged += AIGeneratedNBPMLError_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

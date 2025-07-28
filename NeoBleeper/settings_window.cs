@@ -1301,14 +1301,14 @@ namespace NeoBleeper
 
         private void buttonShowHide_Click(object sender, EventArgs e)
         {
-            if (buttonShowHide.Text == "Show")
+            if (buttonShowHide.Text == Properties.Resources.TextShow)
             {
-                buttonShowHide.Text = "Hide";
+                buttonShowHide.Text = Properties.Resources.TextHide;
                 buttonShowHide.ImageIndex = 13;
             }
             else
             {
-                buttonShowHide.Text = "Show";
+                buttonShowHide.Text = Properties.Resources.TextShow;
                 buttonShowHide.ImageIndex = 12;
             }
             if (textBoxAPIKey.UseSystemPasswordChar == false)
@@ -1425,6 +1425,11 @@ namespace NeoBleeper
                 TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer;
                 Debug.WriteLine("Device type set to Buzzer.");
             }
+        }
+
+        private void settings_window_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

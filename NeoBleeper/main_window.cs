@@ -1,5 +1,6 @@
 using GenerativeAI.Types;
 using NAudio.Midi;
+using NeoBleeper.Properties;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Diagnostics;
@@ -434,7 +435,7 @@ namespace NeoBleeper
             {
                 checkBox_play_beat_sound.Checked = false;
             }
-            if(checkBox_bleeper_portamento.Checked == true)
+            if (checkBox_bleeper_portamento.Checked == true)
             {
                 checkBox_bleeper_portamento.Checked = false;
             }
@@ -1615,7 +1616,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine($"AI music creation failed: {ex.Message}");
-                MessageBox.Show("AI music creation failed: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void FileParser(string filename)
@@ -1857,8 +1858,7 @@ namespace NeoBleeper
                         catch (Exception ex)
                         {
                             Debug.WriteLine("Error opening Bleeper Music Maker file: " + ex.Message);
-                            DialogResult dialogResult = MessageBox.Show("This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. \n\n" +
-                                "Do you want to open this file anyway?", string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardBleeperMusicMakerFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
                                 Debug.WriteLine("User chose not to open the file");
@@ -2037,8 +2037,7 @@ namespace NeoBleeper
                         catch (Exception ex)
                         {
                             Debug.WriteLine("Error opening NeoBleeper file: " + ex.Message);
-                            DialogResult dialogResult = MessageBox.Show("This NeoBleeper file contains invalid elements that do not comply with the syntax of NeoBleeper file format. \n\n" +
-                                "Do you want to open this file anyway?", string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardNeoBleeperFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
                                 Debug.WriteLine("User chose not to open the file");
@@ -2057,7 +2056,7 @@ namespace NeoBleeper
                     {
                         is_file_valid = false;
                         Debug.WriteLine("Invalid or corrupted music file");
-                        MessageBox.Show("Invalid or corrupted music file", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.MessageInvalidOrCorruptedMusicFile, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
             }
@@ -2227,7 +2226,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine("Error saving NeoBleeper file: " + ex.Message);
-                MessageBox.Show("Error saving NeoBleeper file: " + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageErrorSavingFile + " " + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3893,11 +3892,11 @@ namespace NeoBleeper
                 if (thirtyseconds > 16)
                 {
                     int wholeNumber = (int)Math.Truncate(thirtyseconds / 16);
-                    return (wholeNumber + 1) + " (Error)";
+                    return (wholeNumber + 1) + " " + Properties.Resources.TextBeatError;
                 }
                 else
                 {
-                    return "1 (Error)";
+                    return $"1 {Properties.Resources.TextBeatError}";
                 }
             }
 
@@ -3957,7 +3956,7 @@ namespace NeoBleeper
             else
             {
                 int wholeNumber = (int)Math.Truncate(thirtyseconds / 32);
-                return (wholeNumber + 1) + " (Error)";
+                return (wholeNumber + 1) + " " + Properties.Resources.TextBeatError;
             }
         }
 
@@ -4178,7 +4177,7 @@ namespace NeoBleeper
             }
             if (initialMemento == null)
             {
-                MessageBox.Show("No saved version to rewind to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageNoSavedVersion, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -4200,7 +4199,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error rewinding: {ex.Message}");
-                MessageBox.Show($"Error rewinding to saved version: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Resources.MessageErrorRewinding} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -4297,13 +4296,13 @@ namespace NeoBleeper
                     else
                     {
                         Debug.WriteLine("The file you dragged is not supported by NeoBleeper or is corrupted.");
-                        MessageBox.Show("The file you dragged is not supported by NeoBleeper or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.MessageNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
                     Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
-                    MessageBox.Show("The file you dragged is corrupted or the file is in use by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -4346,7 +4345,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageBox.Show("This file is not a valid MIDI file, or it is corrupted or is being used by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
                 }
             }
@@ -4526,41 +4525,31 @@ namespace NeoBleeper
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show("This feature allows you to synchronize the playback of multiple instances of NeoBleeper. \n" +
-                "It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. Therefore, it is recommended to synchronize your clock before using this feature.\n" +
-                "You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings > Time & Language > Date & Time. \n\n" +
-                "When you enable this feature, a new window will open, showing the synchronized playback controls. \n" +
-                "You can then use this window to control the playback of all instances of NeoBleeper on your computer.", "Synchronized Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.SynchronizedPlayHelp, Resources.SynchronizedPlayHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_play_beat_sound_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show("This feature allows you to play beat like sounds from system speaker/sound device \n\n" +
-                "You can choose the sound to play by clicking the 'Change Beat Sound' button.", "Play a Beat Sound", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.PlayBeatSoundHelp, Resources.PlayBeatSoundHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_bleeper_portamento_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show("Only for the case where music is played in real time on the keyboard. \n\n" +
-                "This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.", "Bleeper Portamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.PortamentoHelp, Resources.PortamentoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_use_keyboard_as_piano_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show("This feature allows you to use your computer keyboard as a piano keyboard. \n" +
-                "When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. \n\n" +
-                "You can see the key mappings in the buttons on the right side of the window.", "Use Keyboard As Piano", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.UseKeyboardAsPianoHelp, Resources.UseKeyboardAsPianoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_do_not_update_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show("This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. \n" +
-                "When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. \n\n" +
-                "If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.", "Do Not Update Beat Indicators", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.DoNotUpdateHelp, Resources.DoNotUpdateHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4600,7 +4589,7 @@ namespace NeoBleeper
 
                     if (!File.Exists(filePath))
                     {
-                        item.Text += " (Not Found)"; // Add "(Not Found)" if the file does not exist
+                        item.Text += " " + Resources.TextNotFound; // Add "(Not Found)" if the file does not exist
                         item.Enabled = false; // Disable the item if the file is not found
                     }
 
@@ -4630,7 +4619,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageBox.Show("The file is not found: " + filePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageFileNotFoundError + " " + filePath, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Settings1.Default.RecentFiles.Remove(filePath);
                     Settings1.Default.Save();
                     UpdateRecentFilesMenu();
@@ -4643,7 +4632,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error opening recent file: {ex.Message}");
-                MessageBox.Show($"Error opening file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void main_window_Load(object sender, EventArgs e)
@@ -4974,7 +4963,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Debug.WriteLine("Error converting to GCode: " + ex.Message);
-                MessageBox.Show("Error converting to GCode: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageConvertToGCodeError + " " + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -5585,8 +5574,8 @@ namespace NeoBleeper
                         {
                             Debug.WriteLine($"Failed to start MIDI input: {ex.Message}");
                             // Update UI or show a message to the user that MIDI input is unavailable
-                            MessageBox.Show($"Cannot start MIDI input device: {ex.Message}\nTry refreshing the device list.",
-                                "MIDI Device Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show($"{Resources.MessageStartMIDIInputDeviceError} {ex.Message}\n {Resources.MessageStartMIDIInputDeviceErrorPart2}",
+                                Resources.MIDIDeviceErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                             // Reset the MIDI device reference
                             MIDIIOUtils._midiIn = null;
@@ -5757,7 +5746,8 @@ namespace NeoBleeper
                         UpdateLabelVisible(false);
                     }
                 }
-            }, token).ContinueWith(t => {
+            }, token).ContinueWith(t =>
+            {
                 if (t.IsCanceled)
                 {
                     UpdateLabelVisible(false);
@@ -5826,6 +5816,11 @@ namespace NeoBleeper
             {
                 StopAllSounds();
             }
+        }
+
+        private void main_window_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

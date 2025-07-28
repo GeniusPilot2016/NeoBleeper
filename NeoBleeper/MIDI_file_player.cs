@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using NeoBleeper.Properties;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -123,7 +124,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageBox.Show("This file is not a valid MIDI file or the file is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Debug.WriteLine("This file is not a valid MIDI file or the file is corrupted.");
                 }
             }
@@ -158,13 +159,13 @@ namespace NeoBleeper
                     else
                     {
                         Debug.WriteLine("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.");
-                        MessageBox.Show("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.MessageMIDIFilePlayerNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
                     Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
-                    MessageBox.Show("The file you dragged is corrupted or the file is in use by another process.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -204,7 +205,7 @@ namespace NeoBleeper
             try
             {
                 panelLoading.Visible = true;
-                labelStatus.Text = "The MIDI file is being loaded...";
+                labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
                 progressBar1.Value = 0;
                 progressBar1.Maximum = 100;
                 progressBar1.Visible = true;
@@ -248,7 +249,7 @@ namespace NeoBleeper
 
 
                     // Collect MIDI events
-                    UpdateProgressBar(30, "MIDI events are being collected...");
+                    UpdateProgressBar(30, Resources.TextMIDIEventsAreBeingCollected);
                     var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
                     int totalTracks = midiFile.Events.Tracks;
                     int processedTracks = 0;
@@ -272,18 +273,18 @@ namespace NeoBleeper
 
                         processedTracks++;
                         int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between %30 and %50
-                        UpdateProgressBar(percent, $"Events are being collected... ({processedTracks}/{totalTracks})");
+                        UpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})");
                     }
 
                     // Sort events by time
-                    UpdateProgressBar(55, "Events are being sorted...");
+                    UpdateProgressBar(55, Resources.TextEventsAreBeingSorted);
                     allEvents = allEvents.OrderBy(e => e.Time).ToList();
 
                     // Take distinct time points
                     var timePoints = allEvents.Select(e => e.Time).Distinct().OrderBy(t => t).ToList();
 
                     // Create frames
-                    UpdateProgressBar(60, "Frames are being created...");
+                    UpdateProgressBar(60, Resources.TextFramesAreBeingCreated);
                     _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                     HashSet<int> currentlyActiveNotes = new HashSet<int>();
                     int totalTimePoints = timePoints.Count;
@@ -304,7 +305,7 @@ namespace NeoBleeper
                         if (i % Math.Max(1, totalTimePoints / 20) == 0)
                         {
                             int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between %60 and %95
-                            UpdateProgressBar(percent, $"Frames are being created... ({i + 1}/{totalTimePoints})");
+                            UpdateProgressBar(percent, $"{Resources.TextFramesAreBeingCreated} ({i + 1}/{totalTimePoints})");
                         }
                     }
                 });
@@ -315,17 +316,17 @@ namespace NeoBleeper
                 UpdateEnabledChannels();
 
                 progressBar1.Value = 100;
-                labelStatus.Text = "MIDI file loaded successfully.";
+                labelStatus.Text = Resources.TextMIDIFileLoaded;
                 await Task.Delay(300);
                 progressBar1.Visible = false;
                 PrecomputeTempoTimes();
             }
             catch (Exception ex)
             {
-                labelStatus.Text = "An error occurred while loading the MIDI file.";
+                labelStatus.Text = Resources.TextMIDIFileLoadingError;
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
-                MessageBox.Show($"Error loading MIDI file: {ex.Message}");
+                MessageBox.Show($"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Debug.WriteLine($"Error loading MIDI file: {ex.Message}");
             }
@@ -386,7 +387,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error starting playback: {ex.Message}");
+                MessageBox.Show($"{Resources.MessagePlaybackStartingError} {ex.Message}");
                 _isPlaying = false;
             }
         }
@@ -418,7 +419,7 @@ namespace NeoBleeper
                 button_play.Enabled = true;
                 button_stop.Enabled = false;
                 UpdateNoteLabels(new HashSet<int>());
-                holded_note_label.Text = "Notes which are currently being held on: (0)";
+                holded_note_label.Text = $"{Properties.Resources.TextHoldedNotes} (0)";
                 label_more_notes.Visible = false;
             }
             catch (Exception ex)
@@ -850,13 +851,13 @@ namespace NeoBleeper
                 label_percentage.BeginInvoke(new Action(() =>
                 {
                     label_percentage.Text = percent.ToString("0.00") + "%";
-                    label_position.Text = $"Position: {timeStr}";
+                    label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                 }));
             }
             else
             {
                 label_percentage.Text = percent.ToString("0.00") + "%";
-                label_position.Text = $"Position: {timeStr}";
+                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
         private void Rewind()
@@ -958,7 +959,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error closing the form: {ex.Message}");
+                MessageBox.Show($"{Resources.MessageErrorClosingForm} {ex.Message}");
             }
         }
 
@@ -1120,7 +1121,7 @@ namespace NeoBleeper
             if (_isStopping || !_isPlaying || _frames == null)
                 return;
 
-            if (_currentFrameIndex >= _frames.Count-1)
+            if (_currentFrameIndex >= _frames.Count - 1)
             {
                 HandlePlaybackComplete();
                 return;
@@ -1222,7 +1223,7 @@ namespace NeoBleeper
                 {
                     foreach (int frequency in frequencies)
                     {
-                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency/2), durationMsInt);
+                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency / 2), durationMsInt);
                     }
                 }
                 if (frequencies.Length == 1)
@@ -1236,10 +1237,13 @@ namespace NeoBleeper
                         {
                             int length = Math.Min(15, durationMsInt);
                             int remainingTime = durationMsInt - length;
-                            await Task.Run(() => { NotePlayer.play_note(frequencies[0], length);
+                            await Task.Run(() =>
+                            {
+                                NotePlayer.play_note(frequencies[0], length);
                                 UnHighlightNoteLabel(noteIndex);
-                                if (remainingTime > 0) {
-                                    NonBlockingSleep.Sleep(remainingTime); 
+                                if (remainingTime > 0)
+                                {
+                                    NonBlockingSleep.Sleep(remainingTime);
                                 }
                             }, token);
                         }
@@ -1247,7 +1251,8 @@ namespace NeoBleeper
                         {
                             int length = Math.Min((int)numericUpDown_alternating_note.Value, durationMsInt);
                             int remainingTime = durationMsInt - length;
-                            await Task.Run(() => {
+                            await Task.Run(() =>
+                            {
                                 NotePlayer.play_note(frequencies[0], length);
                                 UnHighlightNoteLabel(noteIndex);
                                 if (remainingTime > 0)
@@ -1261,7 +1266,7 @@ namespace NeoBleeper
                     {
                         await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
                         UnHighlightNoteLabel(noteIndex);
-                    }       
+                    }
                 }
                 else
                 {
@@ -1309,7 +1314,7 @@ namespace NeoBleeper
             }
 
             // Update holded note label
-            holded_note_label.Text = $"Notes which are currently being held on: ({filteredNotes.Count})";
+            holded_note_label.Text = $"{Properties.Resources.TextHoldedNotes} ({filteredNotes.Count})";
         }
         private void UpdatePositionLabel()
         {
@@ -1330,12 +1335,12 @@ namespace NeoBleeper
             {
                 label_position.BeginInvoke(new Action(() =>
                 {
-                    label_position.Text = $"Position: {timeStr}";
+                    label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                 }));
             }
             else
             {
-                label_position.Text = $"Position: {timeStr}";
+                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
 
@@ -1373,6 +1378,11 @@ namespace NeoBleeper
             {
                 Debug.WriteLine("Timer-based playback completed");
             }
+        }
+
+        private void MIDI_file_player_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

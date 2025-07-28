@@ -60,7 +60,7 @@ namespace NeoBleeper
         private void button_yes_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
-            if(checkBoxDontShowAgain.Checked)
+            if (checkBoxDontShowAgain.Checked)
             {
                 Settings1.Default.dont_show_system_speaker_warnings_again = true;
                 Settings1.Default.Save();
@@ -72,6 +72,11 @@ namespace NeoBleeper
         {
             this.DialogResult = DialogResult.No;
             this.Dispose();
+        }
+
+        private void neobleeper_init_unknown_type_of_computer_warning_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

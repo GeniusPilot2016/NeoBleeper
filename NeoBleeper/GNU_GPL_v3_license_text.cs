@@ -72,5 +72,10 @@ namespace NeoBleeper
         {
             this.Close();
         }
+
+        private void GNU_GPL_v3_license_text_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

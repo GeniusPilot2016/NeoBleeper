@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Drawing.Text;
 
 namespace NeoBleeper
@@ -124,7 +125,7 @@ namespace NeoBleeper
                 if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
                 {
                     is_playing = true;
-                    
+
                     waiting = false; // Set waiting to false after starting to play
                     Task.Run(() =>
                     {
@@ -134,8 +135,8 @@ namespace NeoBleeper
                             this.Invoke((MethodInvoker)delegate
                             {
                                 SuspendLayout();
-                                button_wait.Text = "Stop playing";
-                                lbl_waiting.Text = "Playing";
+                                button_wait.Text = Resources.TextStopPlaying;
+                                lbl_waiting.Text = Resources.TextPlaying;
                                 lbl_waiting.BackColor = Color.Yellow;
                                 ResumeLayout(performLayout: true);
                             });
@@ -143,8 +144,8 @@ namespace NeoBleeper
                         else
                         {
                             SuspendLayout();
-                            button_wait.Text = "Stop playing";
-                            lbl_waiting.Text = "Playing";
+                            button_wait.Text = Resources.TextStopPlaying;
+                            lbl_waiting.Text = Resources.TextPlaying;
                             lbl_waiting.BackColor = Color.Yellow;
                             ResumeLayout(performLayout: true);
                         }
@@ -185,15 +186,16 @@ namespace NeoBleeper
                 }
                 is_playing = false;
                 waiting = false; // Set waiting to false
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     if (this.InvokeRequired)
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
                             SuspendLayout();
                             dateTimePicker1.Enabled = true; // Enable the date time picker
-                            button_wait.Text = "Start waiting";
-                            lbl_waiting.Text = "Currently not waiting";
+                            button_wait.Text = Resources.TextStartWaiting;
+                            lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
                             lbl_waiting.BackColor = Color.Red;
                             ResumeLayout(performLayout: true);
                         });
@@ -202,8 +204,8 @@ namespace NeoBleeper
                     {
                         SuspendLayout();
                         dateTimePicker1.Enabled = true; // Enable the date time picker
-                        button_wait.Text = "Start waiting";
-                        lbl_waiting.Text = "Currently not waiting";
+                        button_wait.Text = Resources.TextStartWaiting;
+                        lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
                         lbl_waiting.BackColor = Color.Red;
                         ResumeLayout(performLayout: true);
                     }
@@ -216,7 +218,7 @@ namespace NeoBleeper
         }
         private async void button_wait_Click(object sender, EventArgs e)
         {
-            if (waiting == false && mainWindow.listViewNotes.Items.Count>0)
+            if (waiting == false && mainWindow.listViewNotes.Items.Count > 0)
             {
                 dateTimePicker1.Enabled = false; // Disable the date time picker while waiting
                 waiting = true;
@@ -238,8 +240,8 @@ namespace NeoBleeper
                             this.Invoke((MethodInvoker)delegate
                             {
                                 SuspendLayout();
-                                button_wait.Text = "Stop waiting";
-                                lbl_waiting.Text = "Currently waiting";
+                                button_wait.Text = Properties.Resources.TextStopWaiting;
+                                lbl_waiting.Text = Properties.Resources.TextCurrentlyWaiting;
                                 lbl_waiting.BackColor = Color.Lime;
                                 ResumeLayout(performLayout: true);
                             });
@@ -247,8 +249,8 @@ namespace NeoBleeper
                         else
                         {
                             SuspendLayout();
-                            button_wait.Text = "Stop waiting";
-                            lbl_waiting.Text = "Currently waiting";
+                            button_wait.Text = Properties.Resources.TextStopWaiting;
+                            lbl_waiting.Text = Properties.Resources.TextCurrentlyWaiting;
                             lbl_waiting.BackColor = Color.Lime;
                             ResumeLayout(performLayout: true);
                         }
@@ -276,8 +278,8 @@ namespace NeoBleeper
                     this.Invoke((MethodInvoker)delegate
                     {
                         SuspendLayout();
-                        button_wait.Text = "Start waiting";
-                        lbl_waiting.Text = "Currently not waiting";
+                        button_wait.Text = Resources.TextStartWaiting;
+                        lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
                         lbl_waiting.BackColor = Color.Red;
                         ResumeLayout(performLayout: true);
                     });
@@ -285,8 +287,8 @@ namespace NeoBleeper
                 else
                 {
                     SuspendLayout();
-                    button_wait.Text = "Start waiting";
-                    lbl_waiting.Text = "Currently not waiting";
+                    button_wait.Text = Resources.TextStartWaiting;
+                    lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
                     lbl_waiting.BackColor = Color.Red;
                     ResumeLayout(performLayout: true);
                 }
@@ -311,6 +313,11 @@ namespace NeoBleeper
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             Debug.WriteLine($"Date time picker value changed to {dateTimePicker1.Value}");
+        }
+
+        private void synchronized_play_window_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

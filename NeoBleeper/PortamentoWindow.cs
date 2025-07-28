@@ -158,5 +158,10 @@ namespace NeoBleeper
         {
             needToStopSound = true; // Set the flag to stop the sound
         }
+
+        private void PortamentoWindow_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

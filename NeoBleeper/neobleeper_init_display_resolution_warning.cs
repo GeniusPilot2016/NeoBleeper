@@ -62,5 +62,10 @@ namespace NeoBleeper
             this.DialogResult = DialogResult.Abort;
             this.Dispose();
         }
+
+        private void neobleeper_init_display_resolution_warning_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

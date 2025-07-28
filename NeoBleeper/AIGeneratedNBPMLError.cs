@@ -67,5 +67,10 @@ namespace NeoBleeper
         {
             this.Close();
         }
+
+        private void AIGeneratedNBPMLError_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

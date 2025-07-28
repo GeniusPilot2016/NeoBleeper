@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoBleeper.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -267,12 +268,12 @@ namespace NeoBleeper
                         writer.WriteLine(notes);
                         writer.Close();
                     }
-                    MessageBox.Show("GCode file exported successfully!", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Empty note list cannot be exported.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -292,7 +293,7 @@ namespace NeoBleeper
         }
         private string GenerateGCodeForBuzzerNote(double frequency, int length)
         {
-            return $"M300 S{frequency} P{length}"; 
+            return $"M300 S{frequency} P{length}";
         }
         private string GenerateGCodeForMotorNote(int frequency, int length)
         {
@@ -329,10 +330,10 @@ namespace NeoBleeper
                 switch (comboBox_component_note1.SelectedIndex)
                 {
                     case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length)); 
+                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
                         break;
                     case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length)); 
+                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
                         break;
                 }
                 return;
@@ -404,7 +405,7 @@ namespace NeoBleeper
                             if (!string.IsNullOrEmpty(note))
                             {
                                 double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
-                                switch (note_order) 
+                                switch (note_order)
                                 {
                                     case 1: // Note 1
                                         switch (comboBox_component_note1.SelectedIndex)
@@ -461,7 +462,7 @@ namespace NeoBleeper
                         }
 
                     }
-                    while (note_order <= last_note_order); 
+                    while (note_order <= last_note_order);
                     return;
                 }
 
@@ -545,7 +546,7 @@ namespace NeoBleeper
                 }
             }
         }
-        
+
         private int CalculateNoteLength(string noteType, string modifier = "", string articulation = "")
         {
             int milisecondsPerBeat = (int)Math.Truncate(60000D / bpm);
@@ -559,7 +560,7 @@ namespace NeoBleeper
                 "1/32" => milisecondsPerBeat / 8,
                 _ => milisecondsPerBeat
             };
-            switch(modifier)
+            switch (modifier)
             {
                 case "Dot":
                     baseLength = (int)(baseLength * 1.5);
@@ -613,6 +614,11 @@ namespace NeoBleeper
                 baseLength *= 2;
             }
             return baseLength;
+        }
+
+        private void ConvertToGCode_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

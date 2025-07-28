@@ -61,6 +61,28 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. 
+        ///
+        ///When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. 
+        ///
+        ///If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string DoNotUpdateHelp {
+            get {
+                return ResourceManager.GetString("DoNotUpdateHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Do Not Update Beat Indicators benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string DoNotUpdateHelpTitle {
+            get {
+                return ResourceManager.GetString("DoNotUpdateHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static byte[] HarmonyOS_Sans_Black {
@@ -541,12 +563,514 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   AI music creation failed: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAIMusicCreationFailed {
+            get {
+                return ResourceManager.GetString("MessageAIMusicCreationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   AI response is null or empty. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAIResponseNullOrEmpty {
+            get {
+                return ResourceManager.GetString("MessageAIResponseNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error occurred: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAnErrorOccured {
+            get {
+                return ResourceManager.GetString("MessageAnErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API key is not set. Please set the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAPIKeyIsNotSet {
+            get {
+                return ResourceManager.GetString("MessageAPIKeyIsNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error converting to GCode: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageConvertToGCodeError {
+            get {
+                return ResourceManager.GetString("MessageConvertToGCodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file you dragged is corrupted or the file is in use by another process. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageCorruptedOrCurrentlyUsedFile {
+            get {
+                return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error closing the form:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageErrorClosingForm {
+            get {
+                return ResourceManager.GetString("MessageErrorClosingForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error opening file: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageErrorFileOpening {
+            get {
+                return ResourceManager.GetString("MessageErrorFileOpening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error rewinding to saved version: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageErrorRewinding {
+            get {
+                return ResourceManager.GetString("MessageErrorRewinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error saving NeoBleeper file: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageErrorSavingFile {
+            get {
+                return ResourceManager.GetString("MessageErrorSavingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file is not found: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFileNotFoundError {
+            get {
+                return ResourceManager.GetString("MessageFileNotFoundError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Empty note list cannot be exported. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageGCodeEmptyNoteList {
+            get {
+                return ResourceManager.GetString("MessageGCodeEmptyNoteList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   GCode file exported successfully! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageGCodeExported {
+            get {
+                return ResourceManager.GetString("MessageGCodeExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Invalid or corrupted music file benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageInvalidOrCorruptedMusicFile {
+            get {
+                return ResourceManager.GetString("MessageInvalidOrCorruptedMusicFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error loading MIDI file: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageMIDIFileLoadingError {
+            get {
+                return ResourceManager.GetString("MessageMIDIFileLoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file you dragged is not supported by NeoBleeper MIDI player or is corrupted. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageMIDIFilePlayerNonSupportedFile {
+            get {
+                return ResourceManager.GetString("MessageMIDIFilePlayerNonSupportedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Internet connection is not available. Please check your connection. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNoInternet {
+            get {
+                return ResourceManager.GetString("MessageNoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. 
+        ///
+        ///Do you want to open this file anyway? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNonStandardBleeperMusicMakerFile {
+            get {
+                return ResourceManager.GetString("MessageNonStandardBleeperMusicMakerFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This NeoBleeper file contains invalid elements that do not comply with the syntax of NeoBleeper file format.
+        ///
+        ///Do you want to open this file anyway? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNonStandardNeoBleeperFile {
+            get {
+                return ResourceManager.GetString("MessageNonStandardNeoBleeperFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file you dragged is not supported by NeoBleeper or is corrupted. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNonSupportedFile {
+            get {
+                return ResourceManager.GetString("MessageNonSupportedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This file is not a valid MIDI file, or it is corrupted or is being used by another process. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNonValidMIDIFile {
+            get {
+                return ResourceManager.GetString("MessageNonValidMIDIFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No saved version to rewind to. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNoSavedVersion {
+            get {
+                return ResourceManager.GetString("MessageNoSavedVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error starting playback: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessagePlaybackStartingError {
+            get {
+                return ResourceManager.GetString("MessagePlaybackStartingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cannot start MIDI input device: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageStartMIDIInputDeviceError {
+            get {
+                return ResourceManager.GetString("MessageStartMIDIInputDeviceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Try refreshing the device list. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageStartMIDIInputDeviceErrorPart2 {
+            get {
+                return ResourceManager.GetString("MessageStartMIDIInputDeviceErrorPart2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MIDI Device Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MIDIDeviceErrorTitle {
+            get {
+                return ResourceManager.GetString("MIDIDeviceErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static System.Drawing.Bitmap neobleeper_icon {
             get {
                 object obj = ResourceManager.GetObject("neobleeper_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   This feature allows you to play beat like sounds from system speaker/sound device. 
+        ///
+        ///You can choose the sound to play by clicking the &apos;Change Beat Sound&apos; button. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PlayBeatSoundHelp {
+            get {
+                return ResourceManager.GetString("PlayBeatSoundHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Play a Beat Sound benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PlayBeatSoundHelpTitle {
+            get {
+                return ResourceManager.GetString("PlayBeatSoundHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Only for the case where music is played in real time on the keyboard. 
+        ///
+        ///This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PortamentoHelp {
+            get {
+                return ResourceManager.GetString("PortamentoHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Bleeper Portamento benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PortamentoHelpTitle {
+            get {
+                return ResourceManager.GetString("PortamentoHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This feature allows you to synchronize the playback of multiple instances of NeoBleeper. 
+        ///It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. 
+        ///
+        ///Therefore, it is recommended to synchronize your clock before using this feature. You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings &gt; Time &amp; Language &gt; Date &amp; Time. 
+        /// [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SynchronizedPlayHelp {
+            get {
+                return ResourceManager.GetString("SynchronizedPlayHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Synchronized Play benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SynchronizedPlayHelpTitle {
+            get {
+                return ResourceManager.GetString("SynchronizedPlayHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   (Error) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextBeatError {
+            get {
+                return ResourceManager.GetString("TextBeatError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Currently not waiting benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextCurrentlyNotWaiting {
+            get {
+                return ResourceManager.GetString("TextCurrentlyNotWaiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Currently waiting benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextCurrentlyWaiting {
+            get {
+                return ResourceManager.GetString("TextCurrentlyWaiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextError {
+            get {
+                return ResourceManager.GetString("TextError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Events are being collected... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextEventsAreBeingCollected {
+            get {
+                return ResourceManager.GetString("TextEventsAreBeingCollected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Events are being sorted... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextEventsAreBeingSorted {
+            get {
+                return ResourceManager.GetString("TextEventsAreBeingSorted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Frames are being created... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextFramesAreBeingCreated {
+            get {
+                return ResourceManager.GetString("TextFramesAreBeingCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hide benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextHide {
+            get {
+                return ResourceManager.GetString("TextHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notes which are currently being held on: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextHoldedNotes {
+            get {
+                return ResourceManager.GetString("TextHoldedNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MIDI events are being collected... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextMIDIEventsAreBeingCollected {
+            get {
+                return ResourceManager.GetString("TextMIDIEventsAreBeingCollected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MIDI file loaded successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextMIDIFileLoaded {
+            get {
+                return ResourceManager.GetString("TextMIDIFileLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error occurred while loading the MIDI file. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextMIDIFileLoadingError {
+            get {
+                return ResourceManager.GetString("TextMIDIFileLoadingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   (Not Found) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextNotFound {
+            get {
+                return ResourceManager.GetString("TextNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Playing benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextPlaying {
+            get {
+                return ResourceManager.GetString("TextPlaying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Position: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextPosition {
+            get {
+                return ResourceManager.GetString("TextPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextShow {
+            get {
+                return ResourceManager.GetString("TextShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start waiting benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextStartWaiting {
+            get {
+                return ResourceManager.GetString("TextStartWaiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Stop playing benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextStopPlaying {
+            get {
+                return ResourceManager.GetString("TextStopPlaying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Stop waiting benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextStopWaiting {
+            get {
+                return ResourceManager.GetString("TextStopWaiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The MIDI file is being loaded... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextTheMIDIFileIsBeingLoaded {
+            get {
+                return ResourceManager.GetString("TextTheMIDIFileIsBeingLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This feature allows you to use your computer keyboard as a piano keyboard. 
+        ///
+        ///When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. 
+        ///
+        ///You can see the key mappings in the buttons in the top of the window. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string UseKeyboardAsPianoHelp {
+            get {
+                return ResourceManager.GetString("UseKeyboardAsPianoHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use Keyboard As Piano benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string UseKeyboardAsPianoHelpTitle {
+            get {
+                return ResourceManager.GetString("UseKeyboardAsPianoHelpTitle", resourceCulture);
             }
         }
     }

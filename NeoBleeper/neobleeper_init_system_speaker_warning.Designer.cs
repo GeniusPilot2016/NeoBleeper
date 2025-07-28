@@ -162,6 +162,7 @@
             Name = "neobleeper_init_system_speaker_warning";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
+            SystemColorsChanged += neobleeper_init_system_speaker_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

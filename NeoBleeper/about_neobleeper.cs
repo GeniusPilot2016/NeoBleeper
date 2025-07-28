@@ -18,7 +18,7 @@ namespace NeoBleeper
             InitializeComponent();
             UIFonts.setFonts(this);
             set_theme();
-        }    
+        }
         private void set_theme()
         {
             switch (Settings1.Default.theme)
@@ -118,6 +118,11 @@ namespace NeoBleeper
         private void button_fork_me_on_github_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper") { UseShellExecute = true });
+        }
+
+        private void about_neobleeper_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

@@ -74,5 +74,10 @@ namespace NeoBleeper
             this.DialogResult = DialogResult.No;
             this.Dispose();
         }
+
+        private void neobleeper_init_system_speaker_warning_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace NeoBleeper
             Application.DoEvents();
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
-            button_yes.BackColor = Color.FromArgb(32, 32, 32); 
+            button_yes.BackColor = Color.FromArgb(32, 32, 32);
             button_no.BackColor = Color.FromArgb(32, 32, 32);
             this.Refresh();
         }
@@ -73,6 +73,11 @@ namespace NeoBleeper
         {
             this.DialogResult = DialogResult.No;
             this.Dispose();
+        }
+
+        private void neobleeper_init_compact_computer_warning_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }

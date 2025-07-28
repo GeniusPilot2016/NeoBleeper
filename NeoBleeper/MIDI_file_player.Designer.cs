@@ -1371,6 +1371,7 @@
             Load += MIDI_file_player_Load;
             DragDrop += MIDI_file_player_DragDrop;
             DragEnter += MIDI_file_player_DragEnter;
+            SystemColorsChanged += MIDI_file_player_SystemColorsChanged;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             flowLayoutPanel1.ResumeLayout(false);

@@ -2171,6 +2171,7 @@
             DragEnter += main_window_DragEnter;
             KeyDown += main_window_KeyDown;
             KeyUp += main_window_KeyUp;
+            SystemColorsChanged += main_window_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

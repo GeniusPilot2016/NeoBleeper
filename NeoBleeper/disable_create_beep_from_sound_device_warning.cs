@@ -73,5 +73,10 @@ namespace NeoBleeper
             this.DialogResult = DialogResult.No;
             this.Dispose();
         }
+
+        private void disable_create_beep_from_sound_card_warning_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
+        }
     }
 }

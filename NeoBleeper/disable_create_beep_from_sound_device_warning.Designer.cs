@@ -154,6 +154,7 @@
             MinimizeBox = false;
             Name = "disable_create_beep_from_sound_card_warning";
             StartPosition = FormStartPosition.CenterScreen;
+            SystemColorsChanged += disable_create_beep_from_sound_card_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

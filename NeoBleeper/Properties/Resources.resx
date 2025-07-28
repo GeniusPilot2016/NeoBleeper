@@ -265,4 +265,194 @@
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TextHoldedNotes" xml:space="preserve">
+    <value>Notes which are currently being held on:</value>
+  </data>
+  <data name="TextPosition" xml:space="preserve">
+    <value>Position:</value>
+  </data>
+  <data name="TextBeatError" xml:space="preserve">
+    <value>(Error)</value>
+  </data>
+  <data name="TextShow" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="TextHide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="TextStopPlaying" xml:space="preserve">
+    <value>Stop playing</value>
+  </data>
+  <data name="TextStartWaiting" xml:space="preserve">
+    <value>Start waiting</value>
+  </data>
+  <data name="TextStopWaiting" xml:space="preserve">
+    <value>Stop waiting</value>
+  </data>
+  <data name="TextCurrentlyWaiting" xml:space="preserve">
+    <value>Currently waiting</value>
+  </data>
+  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
+    <value>Currently not waiting</value>
+  </data>
+  <data name="TextPlaying" xml:space="preserve">
+    <value>Playing</value>
+  </data>
+  <data name="SynchronizedPlayHelp" xml:space="preserve">
+    <value>This feature allows you to synchronize the playback of multiple instances of NeoBleeper. 
+It can also run on multiple computers and still start playing at the same time, as long as all of their clocks are set correctly. 
+
+Therefore, it is recommended to synchronize your clock before using this feature. You can synchronize the clocks of multiple computers using the Set time zone automatically, Set time automatically, and Sync now buttons, which are available in Settings &gt; Time &amp; Language &gt; Date &amp; Time. 
+When you enable this feature, a new window will open, showing the synchronized playback controls. 
+
+You can then use this window to control the playback of all instances of NeoBleeper on your computer.</value>
+  </data>
+  <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
+    <value>Synchronized Play</value>
+  </data>
+  <data name="PlayBeatSoundHelp" xml:space="preserve">
+    <value>This feature allows you to play beat like sounds from system speaker/sound device. 
+
+You can choose the sound to play by clicking the 'Change Beat Sound' button.</value>
+  </data>
+  <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
+    <value>Play a Beat Sound</value>
+  </data>
+  <data name="PortamentoHelp" xml:space="preserve">
+    <value>Only for the case where music is played in real time on the keyboard. 
+
+This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.</value>
+  </data>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Bleeper Portamento</value>
+  </data>
+  <data name="UseKeyboardAsPianoHelp" xml:space="preserve">
+    <value>This feature allows you to use your computer keyboard as a piano keyboard. 
+
+When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. 
+
+You can see the key mappings in the buttons in the top of the window.</value>
+  </data>
+  <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
+    <value>Use Keyboard As Piano</value>
+  </data>
+  <data name="DoNotUpdateHelp" xml:space="preserve">
+    <value>This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. 
+
+When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. 
+
+If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.</value>
+  </data>
+  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
+    <value>Do Not Update Beat Indicators</value>
+  </data>
+  <data name="TextNotFound" xml:space="preserve">
+    <value>(Not Found)</value>
+  </data>
+  <data name="TextError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MessageFileNotFoundError" xml:space="preserve">
+    <value>The file is not found:</value>
+  </data>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Error opening file:</value>
+  </data>
+  <data name="MessageConvertToGCodeError" xml:space="preserve">
+    <value>Error converting to GCode:</value>
+  </data>
+  <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
+    <value>Cannot start MIDI input device:</value>
+  </data>
+  <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
+    <value>Try refreshing the device list.</value>
+  </data>
+  <data name="MIDIDeviceErrorTitle" xml:space="preserve">
+    <value>MIDI Device Error</value>
+  </data>
+  <data name="MessageAIMusicCreationFailed" xml:space="preserve">
+    <value>AI music creation failed:</value>
+  </data>
+  <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
+    <value>This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. 
+
+Do you want to open this file anyway?</value>
+  </data>
+  <data name="MessageNonStandardNeoBleeperFile" xml:space="preserve">
+    <value>This NeoBleeper file contains invalid elements that do not comply with the syntax of NeoBleeper file format.
+
+Do you want to open this file anyway?</value>
+  </data>
+  <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
+    <value>Invalid or corrupted music file</value>
+  </data>
+  <data name="MessageErrorSavingFile" xml:space="preserve">
+    <value>Error saving NeoBleeper file:</value>
+  </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>No saved version to rewind to.</value>
+  </data>
+  <data name="MessageErrorRewinding" xml:space="preserve">
+    <value>Error rewinding to saved version:</value>
+  </data>
+  <data name="MessageNonSupportedFile" xml:space="preserve">
+    <value>The file you dragged is not supported by NeoBleeper or is corrupted.</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedFile" xml:space="preserve">
+    <value>The file you dragged is corrupted or the file is in use by another process.</value>
+  </data>
+  <data name="MessageNonValidMIDIFile" xml:space="preserve">
+    <value>This file is not a valid MIDI file, or it is corrupted or is being used by another process.</value>
+  </data>
+  <data name="MessageGCodeExported" xml:space="preserve">
+    <value>GCode file exported successfully!</value>
+  </data>
+  <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
+    <value>Empty note list cannot be exported.</value>
+  </data>
+  <data name="MessageNoInternet" xml:space="preserve">
+    <value>Internet connection is not available. Please check your connection.</value>
+  </data>
+  <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
+    <value>Google Gemini™ API key is not set. Please set the API key in the "General" tab in settings.</value>
+  </data>
+  <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
+    <value>AI response is null or empty.</value>
+  </data>
+  <data name="MessageAnErrorOccured" xml:space="preserve">
+    <value>An error occurred:</value>
+  </data>
+  <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
+    <value>The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.</value>
+  </data>
+  <data name="TextMIDIFileLoadingError" xml:space="preserve">
+    <value>An error occurred while loading the MIDI file.</value>
+  </data>
+  <data name="MessageMIDIFileLoadingError" xml:space="preserve">
+    <value>Error loading MIDI file:</value>
+  </data>
+  <data name="TextMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI file loaded successfully.</value>
+  </data>
+  <data name="TextFramesAreBeingCreated" xml:space="preserve">
+    <value>Frames are being created...</value>
+  </data>
+  <data name="TextEventsAreBeingSorted" xml:space="preserve">
+    <value>Events are being sorted...</value>
+  </data>
+  <data name="TextEventsAreBeingCollected" xml:space="preserve">
+    <value>Events are being collected...</value>
+  </data>
+  <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
+    <value>MIDI events are being collected...</value>
+  </data>
+  <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
+    <value>The MIDI file is being loaded...</value>
+  </data>
+  <data name="MessagePlaybackStartingError" xml:space="preserve">
+    <value>Error starting playback:</value>
+  </data>
+  <data name="MessageErrorClosingForm" xml:space="preserve">
+    <value>Error closing the form: </value>
+  </data>
 </root>

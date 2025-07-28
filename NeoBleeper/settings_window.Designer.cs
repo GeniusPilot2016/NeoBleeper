@@ -963,6 +963,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             Load += settings_window_Load;
+            SystemColorsChanged += settings_window_SystemColorsChanged;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);
             flowLayoutPanelGeneralSettings.ResumeLayout(false);

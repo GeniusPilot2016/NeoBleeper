@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using NeoBleeper.Properties;
 
 namespace NeoBleeper
 {
@@ -27,7 +28,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             NormalWindowSize = this.Size;
-            LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height+(NormalWindowSize.Height * scaleFraction)));
+            LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height + (NormalWindowSize.Height * scaleFraction)));
             UIFonts.setFonts(this);
             set_theme();
             comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
@@ -35,13 +36,13 @@ namespace NeoBleeper
             if (!IsInternetAvailable())
             {
                 Debug.WriteLine("Internet connection is not available. Please check your connection.");
-                MessageBox.Show("Internet connection is not available. Please check your connection.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageNoInternet, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Debug.WriteLine("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.");
-                MessageBox.Show("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
         }
@@ -190,18 +191,18 @@ namespace NeoBleeper
                 else
                 {
                     Debug.WriteLine("AI response is null or empty.");
-                    MessageBox.Show("AI response is null or empty.");
+                    MessageBox.Show(Resources.MessageAIResponseNullOrEmpty);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error: {ex.Message}");
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}");
             }
             finally
             {
                 SetControlsEnabledAndMakeLoadingVisible(true);
-                if(checkIfOutputIsValidNBPML(output))
+                if (checkIfOutputIsValidNBPML(output))
                 {
                     this.Close();
                 }
@@ -452,12 +453,17 @@ namespace NeoBleeper
 
         private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox_ai_model.SelectedIndex != Settings1.Default.preferredAIModel)
+            if (comboBox_ai_model.SelectedIndex != Settings1.Default.preferredAIModel)
             {
                 Settings1.Default.preferredAIModel = comboBox_ai_model.SelectedIndex;
                 Settings1.Default.Save();
                 ApplyAIModelChanges();
             }
+        }
+
+        private void CreateMusicWithAI_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme();
         }
     }
 }
