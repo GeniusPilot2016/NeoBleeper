@@ -5189,14 +5189,31 @@ namespace NeoBleeper
                     {
                         foreach (int key in keyCharNum)
                         {
-                            PlayBeepWithLabel(GetFrequencyFromKeyCode(key), Variables.alternating_note_length);
+                            int frequency = GetFrequencyFromKeyCode(key);
+                            if (checkBox_bleeper_portamento.Checked)
+                            {
+                                PlayPortamento(frequency);
+                                await Task.Delay(TemporarySettings.PortamentoSettings.length);
+                            }
+                            else
+                            {
+                                PlayBeepWithLabel(frequency, Variables.alternating_note_length);
+                            }
+
                             if (!isAlternatingPlayingRegularKeyboard && checkBox_use_keyboard_as_piano.Checked)
                             {
                                 if (keyCharNum.Length == 0)
                                     return;
                                 int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(keyCharNum[0]));
                                 singleNote = midiNote;
-                                PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                                if (checkBox_bleeper_portamento.Checked)
+                                {
+                                    PlayPortamento(MIDIIOUtils.MidiNoteToFrequency(midiNote));
+                                }
+                                else
+                                {
+                                    PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                                }
                             }
                         }
                     }
@@ -5209,7 +5226,15 @@ namespace NeoBleeper
                 if (singleNote != midiNote)
                 {
                     singleNote = midiNote;
-                    PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                    int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
+                    if (checkBox_bleeper_portamento.Checked)
+                    {
+                        PlayPortamento(frequency);
+                    }
+                    else
+                    {
+                        PlayBeepWithLabel(frequency, 1, true);
+                    }
                 }
             }
         }
@@ -5578,6 +5603,8 @@ namespace NeoBleeper
         // Store active MIDI notes for alternating playback
         private List<int> activeMidiNotes = new List<int>();
         private bool isAlternatingPlaying = false;
+        private int lastFrequency = 0;
+        private CancellationTokenSource portamentoCts = new CancellationTokenSource();
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
@@ -5622,7 +5649,14 @@ namespace NeoBleeper
                             {
                                 // Single note mode - play directly without alternating
                                 int frequency = MIDIIOUtils.MidiNoteToFrequency(noteNumber);
-                                PlayBeepWithLabel(frequency, 0, true); // Continue until note off
+                                if (checkBox_bleeper_portamento.Checked)
+                                {
+                                    PlayPortamento(frequency);
+                                }
+                                else
+                                {
+                                    PlayBeepWithLabel(frequency, 0, true); // Continue until note off
+                                }
                             }
                             else if (activeMidiNotes.Count > 1 && !isAlternatingPlaying)
                             {
@@ -5644,9 +5678,19 @@ namespace NeoBleeper
                             if (activeMidiNotes.Count == 0)
                             {
                                 isAlternatingPlaying = false;
-                                NotePlayer.StopAllNotes();
+                                portamentoCts.Cancel(); // Stop any running portamento
                                 MIDIIOUtils.StopAllNotes(); // Stop all MIDI notes
-                                UpdateLabelVisible(false);
+
+                                // Only stop the sound if not in "Always Produce Sound" mode
+                                if (!checkBox_bleeper_portamento.Checked ||
+                                    TemporarySettings.PortamentoSettings.portamentoType != TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
+                                {
+                                    NotePlayer.StopAllNotes();
+                                    UpdateLabelVisible(false);
+                                }
+                                // In "Always Produce Sound" mode, the sound sustains.
+                                // We only reset the frequency tracking for the next portamento.
+                                lastFrequency = 0;
                             }
                             // If we now have exactly one note and were in alternating mode
                             else if (activeMidiNotes.Count == 1 && isAlternatingPlaying)
@@ -5655,12 +5699,70 @@ namespace NeoBleeper
                                 isAlternatingPlaying = false;
                                 int remainingNote = activeMidiNotes[0];
                                 int frequency = MIDIIOUtils.MidiNoteToFrequency(remainingNote);
-                                NotePlayer.StopAllNotes();
+                                if (checkBox_bleeper_portamento.Checked)
+                                {
+                                    PlayPortamento(frequency);
+                                }
+                                else
+                                {
+                                    PlayBeepWithLabel(frequency, 0, true);
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+        private void PlayPortamento(int targetFrequency)
+        {
+            // Cancel any ongoing portamento
+            portamentoCts.Cancel();
+            portamentoCts = new CancellationTokenSource();
+            var token = portamentoCts.Token;
+
+            Task.Run(async () =>
+            {
+                int startFrequency = (lastFrequency == 0) ? targetFrequency : lastFrequency;
+                lastFrequency = targetFrequency;
+
+                int steps = TemporarySettings.PortamentoSettings.pitchChangeSpeed / 100;
+                if (steps == 0) steps = 1;
+                int totalDuration = TemporarySettings.PortamentoSettings.length;
+                int stepDuration = Math.Max(1, totalDuration / steps);
+
+                for (int i = 0; i <= steps; i++)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    double progress = (double)i / steps;
+                    int currentFrequency = (int)(startFrequency + (targetFrequency - startFrequency) * progress);
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(currentFrequency, stepDuration, true);
+                    await Task.Delay(stepDuration, token);
+                }
+
+                if (TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
+                {
+                    UpdateLabelVisible(true);
+                    NotePlayer.play_note(targetFrequency, 1, true);
+                }
+                else
+                {
+                    if (!token.IsCancellationRequested)
+                    {
+                        NotePlayer.StopAllNotes();
+                        UpdateLabelVisible(false);
+                    }
+                }
+            }, token).ContinueWith(t => {
+                if (t.IsCanceled)
+                {
+                    UpdateLabelVisible(false);
+                }
+            });
         }
         private void playAlternatingNotes()
         {
