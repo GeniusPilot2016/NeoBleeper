@@ -203,6 +203,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Hide the API key in the API key field.
+        ///Click again to show it. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string HideAPIKeyToolTip {
+            get {
+                return ResourceManager.GetString("HideAPIKeyToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static System.Drawing.Bitmap icons8_1_48 {
@@ -847,6 +857,16 @@ namespace NeoBleeper.Properties {
         public static string PortamentoHelpTitle {
             get {
                 return ResourceManager.GetString("PortamentoHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show the API key in the API key field.
+        ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ShowAPIKeyToolTip {
+            get {
+                return ResourceManager.GetString("ShowAPIKeyToolTip", resourceCulture);
             }
         }
         

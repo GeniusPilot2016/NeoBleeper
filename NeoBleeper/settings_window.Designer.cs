@@ -203,6 +203,7 @@
             // 
             resources.ApplyResources(checkBoxClassicBleeperMode, "checkBoxClassicBleeperMode");
             checkBoxClassicBleeperMode.Name = "checkBoxClassicBleeperMode";
+            toolTip1.SetToolTip(checkBoxClassicBleeperMode, resources.GetString("checkBoxClassicBleeperMode.ToolTip"));
             checkBoxClassicBleeperMode.UseVisualStyleBackColor = true;
             checkBoxClassicBleeperMode.CheckedChanged += checkBoxClassicBleeperMode_CheckedChanged;
             // 
@@ -239,6 +240,7 @@
             resources.ApplyResources(buttonResetAPIKey, "buttonResetAPIKey");
             buttonResetAPIKey.ImageList = imageList_settings;
             buttonResetAPIKey.Name = "buttonResetAPIKey";
+            toolTip1.SetToolTip(buttonResetAPIKey, resources.GetString("buttonResetAPIKey.ToolTip"));
             buttonResetAPIKey.UseVisualStyleBackColor = true;
             buttonResetAPIKey.Click += buttonResetAPIKey_Click;
             // 
@@ -268,6 +270,7 @@
             resources.ApplyResources(buttonUpdateAPIKey, "buttonUpdateAPIKey");
             buttonUpdateAPIKey.ImageList = imageList_settings;
             buttonUpdateAPIKey.Name = "buttonUpdateAPIKey";
+            toolTip1.SetToolTip(buttonUpdateAPIKey, resources.GetString("buttonUpdateAPIKey.ToolTip"));
             buttonUpdateAPIKey.UseVisualStyleBackColor = true;
             buttonUpdateAPIKey.Click += buttonUpdateAPIKey_Click;
             // 
@@ -276,6 +279,7 @@
             resources.ApplyResources(buttonShowHide, "buttonShowHide");
             buttonShowHide.ImageList = imageList_settings;
             buttonShowHide.Name = "buttonShowHide";
+            toolTip1.SetToolTip(buttonShowHide, resources.GetString("buttonShowHide.ToolTip"));
             buttonShowHide.UseVisualStyleBackColor = true;
             buttonShowHide.Click += buttonShowHide_Click;
             // 
@@ -294,6 +298,7 @@
             // 
             resources.ApplyResources(textBoxAPIKey, "textBoxAPIKey");
             textBoxAPIKey.Name = "textBoxAPIKey";
+            toolTip1.SetToolTip(textBoxAPIKey, resources.GetString("textBoxAPIKey.ToolTip"));
             textBoxAPIKey.UseSystemPasswordChar = true;
             textBoxAPIKey.TextChanged += textBoxAPIKey_TextChanged;
             // 
@@ -464,6 +469,7 @@
             resources.ApplyResources(checkBox_use_midi_input, "checkBox_use_midi_input");
             checkBox_use_midi_input.ImageList = imageList_settings;
             checkBox_use_midi_input.Name = "checkBox_use_midi_input";
+            toolTip1.SetToolTip(checkBox_use_midi_input, resources.GetString("checkBox_use_midi_input.ToolTip"));
             checkBox_use_midi_input.UseVisualStyleBackColor = true;
             checkBox_use_midi_input.CheckedChanged += checkBox_use_midi_input_CheckedChanged;
             // 
@@ -481,6 +487,7 @@
             resources.ApplyResources(refresh_midi_input_button, "refresh_midi_input_button");
             refresh_midi_input_button.ImageList = imageList_settings;
             refresh_midi_input_button.Name = "refresh_midi_input_button";
+            toolTip1.SetToolTip(refresh_midi_input_button, resources.GetString("refresh_midi_input_button.ToolTip"));
             refresh_midi_input_button.UseVisualStyleBackColor = true;
             refresh_midi_input_button.Click += refresh_midi_input_button_Click;
             // 
@@ -490,6 +497,7 @@
             comboBox_midi_input_devices.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_input_devices.FormattingEnabled = true;
             comboBox_midi_input_devices.Name = "comboBox_midi_input_devices";
+            toolTip1.SetToolTip(comboBox_midi_input_devices, resources.GetString("comboBox_midi_input_devices.ToolTip"));
             comboBox_midi_input_devices.SelectedIndexChanged += comboBox_midi_input_devices_SelectedIndexChanged;
             // 
             // label_midi_input_device
@@ -502,6 +510,7 @@
             resources.ApplyResources(checkBox_use_midi_output, "checkBox_use_midi_output");
             checkBox_use_midi_output.ImageList = imageList_settings;
             checkBox_use_midi_output.Name = "checkBox_use_midi_output";
+            toolTip1.SetToolTip(checkBox_use_midi_output, resources.GetString("checkBox_use_midi_output.ToolTip"));
             checkBox_use_midi_output.UseVisualStyleBackColor = true;
             checkBox_use_midi_output.CheckedChanged += checkBox_use_midi_output_CheckedChanged;
             // 
@@ -524,6 +533,7 @@
             comboBox_midi_output_instrument.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_instrument.FormattingEnabled = true;
             comboBox_midi_output_instrument.Name = "comboBox_midi_output_instrument";
+            toolTip1.SetToolTip(comboBox_midi_output_instrument, resources.GetString("comboBox_midi_output_instrument.ToolTip"));
             comboBox_midi_output_instrument.SelectedIndexChanged += comboBox_midi_output_instrument_SelectedIndexChanged;
             // 
             // comboBox_midi_output_channel
@@ -532,6 +542,7 @@
             comboBox_midi_output_channel.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_channel.FormattingEnabled = true;
             comboBox_midi_output_channel.Name = "comboBox_midi_output_channel";
+            toolTip1.SetToolTip(comboBox_midi_output_channel, resources.GetString("comboBox_midi_output_channel.ToolTip"));
             comboBox_midi_output_channel.SelectedIndexChanged += comboBox_midi_output_channel_SelectedIndexChanged;
             // 
             // label_instrument
@@ -549,6 +560,7 @@
             resources.ApplyResources(refresh_midi_output_button, "refresh_midi_output_button");
             refresh_midi_output_button.ImageList = imageList_settings;
             refresh_midi_output_button.Name = "refresh_midi_output_button";
+            toolTip1.SetToolTip(refresh_midi_output_button, resources.GetString("refresh_midi_output_button.ToolTip"));
             refresh_midi_output_button.UseVisualStyleBackColor = true;
             refresh_midi_output_button.Click += refresh_midi_output_button_Click;
             // 
@@ -558,6 +570,7 @@
             comboBox_midi_output_devices.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_devices.FormattingEnabled = true;
             comboBox_midi_output_devices.Name = "comboBox_midi_output_devices";
+            toolTip1.SetToolTip(comboBox_midi_output_devices, resources.GetString("comboBox_midi_output_devices.ToolTip"));
             comboBox_midi_output_devices.SelectedIndexChanged += comboBox_midi_output_devices_SelectedIndexChanged;
             // 
             // label_midi_output_device
@@ -581,6 +594,7 @@
             trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
             trackBar_motor_octave.Maximum = 5;
             trackBar_motor_octave.Name = "trackBar_motor_octave";
+            toolTip1.SetToolTip(trackBar_motor_octave, resources.GetString("trackBar_motor_octave.ToolTip"));
             trackBar_motor_octave.Value = 2;
             trackBar_motor_octave.Scroll += trackBar_motor_octave_Scroll;
             // 
@@ -601,6 +615,7 @@
             // 
             resources.ApplyResources(radioButtonBuzzer, "radioButtonBuzzer");
             radioButtonBuzzer.Name = "radioButtonBuzzer";
+            toolTip1.SetToolTip(radioButtonBuzzer, resources.GetString("radioButtonBuzzer.ToolTip"));
             radioButtonBuzzer.UseVisualStyleBackColor = true;
             radioButtonBuzzer.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
             // 
@@ -610,6 +625,7 @@
             radioButtonMotor.Checked = true;
             radioButtonMotor.Name = "radioButtonMotor";
             radioButtonMotor.TabStop = true;
+            toolTip1.SetToolTip(radioButtonMotor, resources.GetString("radioButtonMotor.ToolTip"));
             radioButtonMotor.UseVisualStyleBackColor = true;
             radioButtonMotor.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
             // 
@@ -618,6 +634,7 @@
             resources.ApplyResources(checkBox_use_microcontroller, "checkBox_use_microcontroller");
             checkBox_use_microcontroller.ImageList = imageList_settings;
             checkBox_use_microcontroller.Name = "checkBox_use_microcontroller";
+            toolTip1.SetToolTip(checkBox_use_microcontroller, resources.GetString("checkBox_use_microcontroller.ToolTip"));
             checkBox_use_microcontroller.UseVisualStyleBackColor = true;
             checkBox_use_microcontroller.CheckedChanged += checkBox_use_motor_speed_mod_CheckedChanged;
             // 
@@ -943,6 +960,7 @@
             resources.ApplyResources(reset_colors, "reset_colors");
             reset_colors.ImageList = imageList_settings;
             reset_colors.Name = "reset_colors";
+            toolTip1.SetToolTip(reset_colors, resources.GetString("reset_colors.ToolTip"));
             reset_colors.UseVisualStyleBackColor = true;
             reset_colors.Click += reset_colors_Click;
             // 

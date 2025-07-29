@@ -1304,11 +1304,13 @@ namespace NeoBleeper
             if (buttonShowHide.Text == Properties.Resources.TextShow)
             {
                 buttonShowHide.Text = Properties.Resources.TextHide;
+                toolTip1.SetToolTip(buttonShowHide, Properties.Resources.HideAPIKeyToolTip);
                 buttonShowHide.ImageIndex = 13;
             }
             else
             {
                 buttonShowHide.Text = Properties.Resources.TextShow;
+                toolTip1.SetToolTip(buttonShowHide, Properties.Resources.ShowAPIKeyToolTip);
                 buttonShowHide.ImageIndex = 12;
             }
             if (textBoxAPIKey.UseSystemPasswordChar == false)
