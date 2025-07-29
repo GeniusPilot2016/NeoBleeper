@@ -3580,6 +3580,7 @@ namespace NeoBleeper
                     if (radioButtonPlay_alternating_notes1.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
+                        UpdateLabelVisible(true);
                         stopwatch.Start();
                         do
                         {
@@ -3603,18 +3604,19 @@ namespace NeoBleeper
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                                     if (remainingTime >= alternatingNoteDuration)
                                     {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                        NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
                                         isAnyNotePlayed = true;
                                     }
                                     else
                                     {
                                         if (isAnyNotePlayed)
                                         {
+                                            UpdateLabelVisible(false);
                                             NonBlockingSleep.Sleep((int)remainingTime);
                                         }
                                         else
                                         {
-                                            PlayBeepWithLabel(Convert.ToInt32(frequency), (int)remainingTime);
+                                            NotePlayer.play_note(Convert.ToInt32(frequency), (int)remainingTime);
                                         }
                                     }
                                 }
@@ -3622,10 +3624,12 @@ namespace NeoBleeper
                         }
                         while (stopwatch.ElapsedMilliseconds < totalDuration);
                         stopwatch.Stop(); // Stop the stopwatch after the loop ends
+                        UpdateLabelVisible(false);
                     }
                     else if (radioButtonPlay_alternating_notes2.Checked == true)
                     {
                         string[] note_series = { note1, note2, note3, note4 };
+                        UpdateLabelVisible(true);
                         stopwatch.Start();
                         do
                         {
@@ -3649,18 +3653,19 @@ namespace NeoBleeper
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                                     if (remainingTime >= alternatingNoteDuration)
                                     {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                        NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
                                         isAnyNotePlayed = true;
                                     }
                                     else
                                     {
                                         if (isAnyNotePlayed)
                                         {
+                                            UpdateLabelVisible(false);
                                             NonBlockingSleep.Sleep((int)remainingTime);
                                         }
                                         else
                                         {
-                                            PlayBeepWithLabel(Convert.ToInt32(frequency), (int)remainingTime);
+                                            NotePlayer.play_note(Convert.ToInt32(frequency), (int)remainingTime);
                                         }
                                     }
                                 }
@@ -3681,18 +3686,19 @@ namespace NeoBleeper
                                     int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                                     if (remainingTime >= alternatingNoteDuration)
                                     {
-                                        PlayBeepWithLabel(Convert.ToInt32(frequency), alternatingNoteDuration);
+                                        NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
                                         isAnyNotePlayed = true;
                                     }
                                     else
                                     {
                                         if (isAnyNotePlayed)
                                         {
+                                            UpdateLabelVisible(false);
                                             NonBlockingSleep.Sleep((int)remainingTime);
                                         }
                                         else
                                         {
-                                            PlayBeepWithLabel(Convert.ToInt32(frequency), (int)remainingTime);
+                                            NotePlayer.play_note(Convert.ToInt32(frequency), (int)remainingTime);
                                         }
                                     }
                                 }
@@ -3700,6 +3706,7 @@ namespace NeoBleeper
                         }
                         while (stopwatch.ElapsedMilliseconds < totalDuration);
                         stopwatch.Stop(); // Stop the stopwatch after the loop ends
+                        UpdateLabelVisible(false);
                     }
                 }
             }
