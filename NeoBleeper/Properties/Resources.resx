@@ -455,4 +455,11 @@ Do you want to open this file anyway?</value>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Error closing the form: </value>
   </data>
+  <data name="ShowAPIKeyToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HideAPIKeyToolTip" xml:space="preserve">
+    <value>Hide the API key in the API key field.
+Click again to show it.</value>
+  </data>
 </root>
