@@ -142,6 +142,38 @@ namespace NeoBleeper
                     Debug.WriteLine($"Error setting font for control {ctrl.Name}: {ex.Message}");
                 }
 
+                // Special Handling for MenuStrip and ToolStrip
+                if (ctrl is MenuStrip menuStrip)
+                {
+                    foreach (ToolStripItem item in menuStrip.Items)
+                    {
+                        try
+                        {
+                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error setting font for menu item {item.Name}: {ex.Message}");
+                        }
+                    }
+                }
+
+                // Other ToolStrip types
+                if (ctrl is ToolStrip toolStrip)
+                {
+                    foreach (ToolStripItem item in toolStrip.Items)
+                    {
+                        try
+                        {
+                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error setting font for toolstrip item {item.Name}: {ex.Message}");
+                        }
+                    }
+                }
+
                 if (ctrl.HasChildren)
                 {
                     SetFontsRecursive(ctrl, uiFonts);
