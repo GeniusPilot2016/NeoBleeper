@@ -3374,7 +3374,7 @@ namespace NeoBleeper
             // Should be at least 1 ms
             return Math.Max(1, result);
         }
-        private double getNoteLength(double rawNoteLength, String lengthName)
+        public static double getNoteLength(double rawNoteLength, String lengthName)
         {
             double noteFraction = lengthName switch
             {
@@ -3388,7 +3388,7 @@ namespace NeoBleeper
             };
             return rawNoteLength * noteFraction; // Remove truncation here
         }
-        private double getModifiedNoteLength(double noteLength, String modifier)
+        public static double getModifiedNoteLength(double noteLength, String modifier)
         {
             double modifierFactor = 1.0;
             if (!string.IsNullOrEmpty(modifier))

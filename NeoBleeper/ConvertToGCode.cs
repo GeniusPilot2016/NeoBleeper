@@ -175,14 +175,15 @@ namespace NeoBleeper
 
             foreach (var note in notes)
             {
-                int note_length = (int)Math.Truncate(CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100D));
+                int note_length = (int)Math.Floor(FixRoundingErrors(CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0)));
+                int line_length = (int)Math.Floor(FixRoundingErrors(CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))));
                 insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
                     checkBox_play_note1.Checked, checkBox_play_note2.Checked,
                     checkBox_play_note3.Checked, checkBox_play_note4.Checked,
                     note_length);
-                if (CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100)) > 0)
+                if (line_length > 0)
                 {
-                    gcodeBuilder.AppendLine($"G4 P{CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))}");
+                    gcodeBuilder.AppendLine($"G4 P{line_length}");
                 }
             }
             string gcode = gcodeBuilder.ToString();
@@ -307,162 +308,170 @@ namespace NeoBleeper
             bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
         {
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
-
+            String[] notes = { note1, note2, note3, note4 };
+            notes = notes.Distinct().ToArray(); // Remove duplicates
             // Calculate frequencies from note names
-            if (!string.IsNullOrEmpty(note1))
+            if (notes.Contains(note1))
                 note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
-            if (!string.IsNullOrEmpty(note2))
+            if (notes.Contains(note2))
                 note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
 
-            if (!string.IsNullOrEmpty(note3))
+            if (notes.Contains(note3))
                 note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
 
-            if (!string.IsNullOrEmpty(note4))
+            if (notes.Contains(note4))
                 note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
-            if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
+            if (notes.Length == 1)
             {
-                gcodeBuilder.AppendLine($"G4 P{length}");
-                return;
-            }
-            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-            {
-                switch (comboBox_component_note1.SelectedIndex)
+                if (string.IsNullOrWhiteSpace(notes[0]))
                 {
-                    case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
-                        break;
-                    case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
-                        break;
+                    gcodeBuilder.AppendLine($"G4 P{length}");
+                    return;
                 }
-                return;
-            }
-            if ((note1 != string.Empty || note1 != null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-            {
-                switch (comboBox_component_note1.SelectedIndex)
+                else
                 {
-                    case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
-                        break;
-                    case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
-                        break;
-                }
-                return;
-            }
-            else if ((note1 == string.Empty || note1 == null) && (note2 != string.Empty || note2 != null) && (note3 == string.Empty || note3 == null) && (note4 == string.Empty || note4 == null))
-            {
-                switch (comboBox_component_note2.SelectedIndex)
-                {
-                    case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note2_frequency, length));
-                        break;
-                    case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note2_frequency, length));
-                        break;
-                }
-                return;
-            }
-
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 != string.Empty || note3 != null) && (note4 == string.Empty || note4 == null))
-            {
-                switch (comboBox_component_note3.SelectedIndex)
-                {
-                    case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note3_frequency, length));
-                        break;
-                    case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note3_frequency, length));
-                        break;
-                }
-                return;
-            }
-            else if ((note1 == string.Empty || note1 == null) && (note2 == string.Empty || note2 == null) && (note3 == string.Empty || note3 == null) && (note4 != string.Empty || note4 != null))
-            {
-                switch (comboBox_component_note4.SelectedIndex)
-                {
-                    case 0:
-                        gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note4_frequency, length));
-                        break;
-                    case 1:
-                        gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note4_frequency, length));
-                        break;
+                    if (notes[0] == note1)
+                    {
+                        gcodeBuilder.AppendLine($"G4 P{5}");
+                        switch (comboBox_component_note1.SelectedIndex)
+                        {
+                            case 0:
+                                gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
+                                break;
+                            case 1:
+                                gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
+                                break;
+                        }
+                        return;
+                    }
+                    else if (notes[0] == note2)
+                    {
+                        gcodeBuilder.AppendLine($"G4 P{5}");
+                        switch (comboBox_component_note1.SelectedIndex)
+                        {
+                            case 0:
+                                gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
+                                break;
+                            case 1:
+                                gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
+                                break;
+                        }
+                        return;
+                    }
+                    else if (notes[0] == note3)
+                    {
+                        gcodeBuilder.AppendLine($"G4 P{5}");
+                        switch (comboBox_component_note1.SelectedIndex)
+                        {
+                            case 0:
+                                gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note3_frequency, length));
+                                break;
+                            case 1:
+                                gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note3_frequency, length));
+                                break;
+                        }
+                        return;
+                    }
+                    else if (notes[0] == note4)
+                    {
+                        gcodeBuilder.AppendLine($"G4 P{5}");
+                        switch (comboBox_component_note1.SelectedIndex)
+                        {
+                            case 0:
+                                gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note4_frequency, length));
+                                break;
+                            case 1:
+                                gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note4_frequency, length));
+                                break;
+                        }
+                        return;
+                    }
                 }
             }
-            else
+            else if(notes.Length > 1)
             {
                 string generatedGCode = string.Empty;
                 int note_order = 1;
-                int last_note_order = (int)main_window.FixRoundingErrors(length / alternate_length);
+                int remainingLength = length;
+                bool isWritten = false;
                 if (radioButtonPlay_alternating_notes1.Checked == true)
                 {
-                    string[] note_series = { note1, note2, note3, note4 };
                     do
                     {
-                        foreach (string note in note_series)
+                        foreach (string note in notes)
                         {
-                            if (!string.IsNullOrEmpty(note))
+                            if (!string.IsNullOrWhiteSpace(note))
                             {
-                                double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
-                                switch (note_order)
+                                if(remainingLength >= length || isWritten == false)
                                 {
-                                    case 1: // Note 1
-                                        switch (comboBox_component_note1.SelectedIndex)
-                                        {
-                                            case 0: // Motor
-                                                generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length);
-                                                break;
-                                            case 1: // Buzzer
-                                                generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length);
-                                                break;
-                                        }
-                                        break;
+                                    int alternate_length_to_write = isWritten ? alternate_length : remainingLength;
+                                    isWritten = true;
+                                    double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
+                                    generatedGCode += $"\nG4 P{remainingLength}";
+                                    switch (note_order)
+                                    {
+                                        case 1: // Note 1
+                                            switch (comboBox_component_note1.SelectedIndex)
+                                            {
+                                                case 0: // Motor
+                                                    generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                                case 1: // Buzzer
+                                                    generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                            }
+                                            break;
 
-                                    case 2: // Note 2
-                                        switch (comboBox_component_note2.SelectedIndex)
-                                        {
-                                            case 0: // Motor
-                                                generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length);
-                                                break;
-                                            case 1: // Buzzer
-                                                generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length);
-                                                break;
-                                        }
-                                        break;
+                                        case 2: // Note 2
+                                            switch (comboBox_component_note2.SelectedIndex)
+                                            {
+                                                case 0: // Motor
+                                                    generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                                case 1: // Buzzer
+                                                    generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                            }
+                                            break;
 
-                                    case 3: // Note 3
-                                        switch (comboBox_component_note3.SelectedIndex)
-                                        {
-                                            case 0: // Motor
-                                                generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length);
-                                                break;
-                                            case 1: // Buzzer
-                                                generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length);
-                                                break;
-                                        }
-                                        break;
+                                        case 3: // Note 3
+                                            switch (comboBox_component_note3.SelectedIndex)
+                                            {
+                                                case 0: // Motor
+                                                    generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                                case 1: // Buzzer
+                                                    generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                            }
+                                            break;
 
-                                    case 4: // Note 4
-                                        switch (comboBox_component_note4.SelectedIndex)
-                                        {
-                                            case 0: // Motor
-                                                generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length);
-                                                break;
-                                            case 1: // Buzzer
-                                                generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length);
-                                                break;
-                                        }
-                                        break;
+                                        case 4: // Note 4
+                                            switch (comboBox_component_note4.SelectedIndex)
+                                            {
+                                                case 0: // Motor
+                                                    generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                                case 1: // Buzzer
+                                                    generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                    note_order++;
+                                }
+                                else
+                                {
+                                    generatedGCode = $"G4 P{remainingLength}";
+                                    break;
                                 }
                                 gcodeBuilder.Append(generatedGCode + Environment.NewLine);
-
-                                note_order++;
+                                remainingLength -= (alternate_length + 5); // Subtract the length of the note and the delay
                             }
                         }
-
                     }
-                    while (note_order <= last_note_order);
+                    while (remainingLength > 0);
                     return;
                 }
 
@@ -474,6 +483,7 @@ namespace NeoBleeper
                         // Odd number columns first (Note1 and Note3)
                         for (int i = 0; i < 4; i += 2)
                         {
+                            generatedGCode = $"G4 P{remainingLength}";
                             if (note_series[i] != string.Empty)
                             {
                                 if (i == 0)
@@ -481,10 +491,10 @@ namespace NeoBleeper
                                     switch (comboBox_component_note1.SelectedIndex)
                                     {
                                         case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)note1_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForMotorNote((int)note1_frequency, alternate_length);
                                             break;
                                         case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote(note1_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForBuzzerNote(note1_frequency, alternate_length);
                                             break;
                                     }
                                     break;
@@ -494,10 +504,10 @@ namespace NeoBleeper
                                     switch (comboBox_component_note1.SelectedIndex)
                                     {
                                         case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)note3_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForMotorNote((int)note3_frequency, alternate_length);
                                             break;
                                         case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote(note3_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForBuzzerNote(note3_frequency, alternate_length);
                                             break;
                                     }
                                     break;
@@ -508,6 +518,7 @@ namespace NeoBleeper
                         // Even number columns then (Note2 and Note4)
                         for (int i = 1; i < 4; i += 2)
                         {
+                            gcodeBuilder.AppendLine($"G4 P{5}");
                             if (note_series[i] != string.Empty)
                             {
                                 if (i == 1)
@@ -515,10 +526,10 @@ namespace NeoBleeper
                                     switch (comboBox_component_note1.SelectedIndex)
                                     {
                                         case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)note2_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForMotorNote((int)note2_frequency, alternate_length);
                                             break;
                                         case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote(note2_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForBuzzerNote(note2_frequency, alternate_length);
                                             break;
                                     }
                                     break;
@@ -528,10 +539,10 @@ namespace NeoBleeper
                                     switch (comboBox_component_note1.SelectedIndex)
                                     {
                                         case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)note4_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForMotorNote((int)note4_frequency, alternate_length);
                                             break;
                                         case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote(note4_frequency, alternate_length);
+                                            generatedGCode += "\n" + GenerateGCodeForBuzzerNote(note4_frequency, alternate_length);
                                             break;
                                     }
                                     break;
@@ -541,15 +552,15 @@ namespace NeoBleeper
                         }
                         gcodeBuilder.Append(generatedGCode + Environment.NewLine);
                     }
-                    while (note_order <= last_note_order);
+                    while (remainingLength > 0);
                     return;
                 }
             }
         }
 
-        private int CalculateNoteLength(string noteType, string modifier = "", string articulation = "")
+        private double CalculateNoteLength(string noteType, string modifier = "", string articulation = "")
         {
-            int milisecondsPerBeat = (int)Math.Truncate(60000D / bpm);
+            int milisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
             int baseLength = noteType switch
             {
                 "Whole" => milisecondsPerBeat * 4,
@@ -587,9 +598,9 @@ namespace NeoBleeper
             }
             return baseLength;
         }
-        private int CalculateLineLength(string noteType, string modifier = "", string articulation = "")
+        private double CalculateLineLength(string noteType, string modifier = "", string articulation = "")
         {
-            int milisecondsPerBeat = (int)Math.Truncate(60000D / bpm);
+            int milisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
             int baseLength = noteType switch
             {
                 "Whole" => milisecondsPerBeat * 4,
