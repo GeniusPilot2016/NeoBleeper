@@ -279,7 +279,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3D4AAAJNU0Z0AUkBTAIBAQ8B
-        AAHYAQUB2AEFARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
+        AAHgAQUB4AEFARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
         AM8AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewB
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsB
@@ -1279,13 +1279,13 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
     <value>6, 77</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 20</value>
+    <value>206, 20</value>
   </data>
   <data name="radioButton_noise.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="radioButton_noise.Text" xml:space="preserve">
-    <value>Noise (for playing sound effects)</value>
+    <value>Noise (for creating sound effects)</value>
   </data>
   <data name="&gt;&gt;radioButton_noise.Name" xml:space="preserve">
     <value>radioButton_noise</value>
