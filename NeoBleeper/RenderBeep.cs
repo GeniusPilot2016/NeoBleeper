@@ -68,7 +68,7 @@ namespace NeoBleeper
                 }
                 if(!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound starts cleanly
+                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
                 }
                 waveOut.Play(); // Start playing the sound
                 NonBlockingSleep.Sleep(delay);
@@ -108,7 +108,7 @@ namespace NeoBleeper
                 }
                 if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the sound starts cleanly
+                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
                 }
                 waveOut.Play(); // Start playing the sound
                 NonBlockingSleep.Sleep(delay);
