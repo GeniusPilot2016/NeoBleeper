@@ -2817,16 +2817,26 @@ namespace NeoBleeper
         }
         private void EnsureSpecificIndexVisible(int index)
         {
-            try
+            Task.Run(() =>
             {
-                SuspendLayout();
-                listViewNotes.EnsureVisible(index);
-                ResumeLayout(true);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error ensuring index visible: " + ex.Message);
-            }
+                try
+                {
+                    SuspendLayout();
+                    if(listViewNotes.InvokeRequired)
+                    {
+                        listViewNotes.Invoke(new Action(() => listViewNotes.EnsureVisible(index)));
+                    }
+                    else
+                    {
+                        listViewNotes.EnsureVisible(index);
+                    }
+                    ResumeLayout(true);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error ensuring index visible: " + ex.Message);
+                }
+            });
         }
         public void play_all()
         {
