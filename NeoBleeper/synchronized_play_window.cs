@@ -9,6 +9,7 @@ namespace NeoBleeper
         bool waiting = false;
         bool is_playing = false;
         private main_window mainWindow;
+        private PreciseTimer preciseTimer;
 
         public synchronized_play_window(main_window mainWindow)
         {
@@ -16,11 +17,21 @@ namespace NeoBleeper
             this.mainWindow = mainWindow;
             this.mainWindow.MusicStopped += MainWindow_MusicStopped;
             dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
+            lbl_current_system_time.Text = DateTime.Now.ToString("HH:mm:ss");
             UIFonts.setFonts(this);
             set_theme();
-            var preciseTimer = new PreciseTimer(1);
+            preciseTimer = new PreciseTimer(1); // Store as field
             preciseTimer.Tick += preciseTimer_Tick;
             preciseTimer.Start();
+        }
+
+        private void synchronized_play_window_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop and dispose the timer before closing
+            preciseTimer?.Stop();
+            preciseTimer?.Dispose();
+            preciseTimer = null;
+            this.Dispose();
         }
         private void preciseTimer_Tick(object sender, EventArgs e)
         {
@@ -30,15 +41,21 @@ namespace NeoBleeper
                 {
                     if (is_playing == false)
                     {
-                        if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
+                        var targetTime = dateTimePicker1.Value.ToUniversalTime();
+                        var currentTime = DateTime.UtcNow;
+
+                        // Hedef zaman geldi veya geçti mi? Anında başlat!
+                        if (targetTime <= currentTime)
                         {
+                            Debug.WriteLine($"Target time reached! Starting music immediately.");
+                            Debug.WriteLine($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}");
                             start_playing();
                         }
                     }
                 }
                 else
                 {
-                    StopWaiting(); // Stop waiting if there are no music notes available
+                    StopWaiting();
                 }
             }
         }
@@ -122,55 +139,54 @@ namespace NeoBleeper
         {
             if (waiting == true)
             {
-                if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
-                {
-                    is_playing = true;
+                var targetTime = dateTimePicker1.Value.ToUniversalTime();
+                var actualStartTime = DateTime.UtcNow;
+                var startDelay = (actualStartTime - targetTime).TotalMilliseconds;
 
-                    waiting = false; // Set waiting to false after starting to play
-                    Task.Run(() =>
+                Debug.WriteLine($"Music started at {actualStartTime:HH:mm:ss.fff}");
+                Debug.WriteLine($"Target was {targetTime:HH:mm:ss.fff}");
+                Debug.WriteLine($"Start delay: {startDelay}ms");
+
+                is_playing = true;
+                waiting = false;
+
+                // Geri kalan kod aynı...
+                Task.Run(() =>
+                {
+                    if (this.InvokeRequired)
                     {
-                        Debug.WriteLine("Starting to play music at " + DateTime.Now.ToString("HH:mm:ss"));
-                        if (this.InvokeRequired)
-                        {
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                SuspendLayout();
-                                button_wait.Text = Resources.TextStopPlaying;
-                                lbl_waiting.Text = Resources.TextPlaying;
-                                lbl_waiting.BackColor = Color.Yellow;
-                                ResumeLayout(performLayout: true);
-                            });
-                        }
-                        else
+                        this.Invoke((MethodInvoker)delegate
                         {
                             SuspendLayout();
                             button_wait.Text = Resources.TextStopPlaying;
                             lbl_waiting.Text = Resources.TextPlaying;
                             lbl_waiting.BackColor = Color.Yellow;
                             ResumeLayout(performLayout: true);
-                        }
-                        Debug.WriteLine("Playing music");
-                    });
-                    // Call the play function
-                    if (radioButton_play_beginning_of_music.Checked)
-                    {
-                        mainWindow.play_all();
+                        });
                     }
-                    else if (radioButton_play_currently_selected_line.Checked)
+                    else
                     {
-                        mainWindow.play_from_selected_line();
+                        SuspendLayout();
+                        button_wait.Text = Resources.TextStopPlaying;
+                        lbl_waiting.Text = Resources.TextPlaying;
+                        lbl_waiting.BackColor = Color.Yellow;
+                        ResumeLayout(performLayout: true);
                     }
+                });
+
+                if (radioButton_play_beginning_of_music.Checked)
+                {
+                    mainWindow.play_all();
+                }
+                else if (radioButton_play_currently_selected_line.Checked)
+                {
+                    mainWindow.play_from_selected_line();
                 }
             }
         }
         private void synchronized_play_window_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void synchronized_play_window_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.Dispose();
         }
 
         private async void stop_playing()

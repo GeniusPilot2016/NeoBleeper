@@ -1,6 +1,7 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using NAudio.CoreAudioApi;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -43,6 +44,7 @@ namespace NeoBleeper
             private static readonly SignalGenerator whiteNoiseGenerator = new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.5 };
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
+            private static readonly object lockObject = new object();
 
             static SynthMisc()
             {
@@ -54,50 +56,62 @@ namespace NeoBleeper
 
             private static void SetCurrentProvider(ISampleProvider provider)
             {
-                if (currentProvider != provider)
+                lock (lockObject)
                 {
-                    bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
-                    waveOut.Stop();
-                    waveOut.Init(provider);
-                    currentProvider = provider;
-                    if (wasPlaying)
+                    if (currentProvider != provider)
                     {
-                        waveOut.Play();
+                        waveOut.Stop();
+                        waveOut.Init(provider);
+                        currentProvider = provider;
                     }
                 }
             }
 
             private static void PlaySound(int ms, bool nonStopping)
             {
-                var stopwatch = Stopwatch.StartNew();
-
-                if (!nonStopping)
+                lock (lockObject)
                 {
-                    NonBlockingSleep.Sleep(5); 
-                }
-                waveOut.Play(); 
+                    if (!nonStopping)
+                    {
+                        NonBlockingSleep.Sleep(5);
+                    }
 
-                stopwatch.Stop();
-                var elapsedMicroseconds = stopwatch.ElapsedTicks * 1000000 / Stopwatch.Frequency;
-                var targetMicroseconds = (long)ms * 1000;
-                var remainingMicroseconds = targetMicroseconds - elapsedMicroseconds;
+                    waveOut.Play();
 
-                if (ms > 0 && remainingMicroseconds > 0)
-                {
-                    NonBlockingSleep.SleepMicroseconds(remainingMicroseconds);
+                    if (ms > 0)
+                    {
+                        
+                    }
                 }
 
-                if (!nonStopping)
+                if (ms > 0)
                 {
-                    waveOut.Stop(); 
+                    NonBlockingSleep.Sleep(ms);
+                }
+
+                lock (lockObject)
+                {
+                    if (!nonStopping && waveOut.PlaybackState == PlaybackState.Playing)
+                    {
+                        waveOut.Stop();
+                    }
                 }
             }
 
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
-                SetCurrentProvider(signalGenerator);
-                signalGenerator.Frequency = freq;
-                signalGenerator.Type = type;
+                if (currentProvider != signalGenerator)
+                {
+                    SetCurrentProvider(signalGenerator);
+                }
+                if (signalGenerator.Frequency != freq)
+                {
+                    signalGenerator.Frequency = freq;
+                }
+                if (signalGenerator.Type != type)
+                {
+                    signalGenerator.Type = type;
+                }
                 PlaySound(ms, nonStopping);
             }
 
@@ -112,7 +126,10 @@ namespace NeoBleeper
                     bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
                 }
 
-                SetCurrentProvider(bandPassNoise);
+                if (currentProvider != bandPassNoise)
+                {
+                    SetCurrentProvider(bandPassNoise);
+                }
                 PlaySound(ms, nonStopping);
             }
 
@@ -136,7 +153,6 @@ namespace NeoBleeper
                 PlayFilteredNoise(freq, ms, nonStopping);
             }
         }
-
         public class BandPassNoiseGenerator : ISampleProvider
         {
             private readonly ISampleProvider noiseGenerator;
