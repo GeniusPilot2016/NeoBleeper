@@ -1,6 +1,7 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace NeoBleeper
@@ -19,7 +20,7 @@ namespace NeoBleeper
                 int div = 0x1234dc / freq;
                 Out32(0x42, (Byte)(div & 0xFF));
                 Out32(0x42, (Byte)(div >> 8));
-                if (!nonStopping) 
+                if (!nonStopping)
                 {
                     NonBlockingSleep.Sleep(5); // Small delay to ensure the timer is set before starting the beep
                 }
@@ -39,6 +40,7 @@ namespace NeoBleeper
         {
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
+            private static readonly SignalGenerator whiteNoiseGenerator = new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.5 };
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
 
@@ -50,72 +52,68 @@ namespace NeoBleeper
                 waveOut.Init(signalGenerator);
             }
 
-            public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
+            private static void SetCurrentProvider(ISampleProvider provider)
             {
-                int delay = nonStopping ? (ms == 0 ? 0 : Math.Max(1, ms - 1)) : ms;
-                signalGenerator.Frequency = freq;
-                signalGenerator.Type = type;
-
-                // Change the provider to signalGenerator if it's not already set
-                if (currentProvider != signalGenerator)
+                if (currentProvider != provider)
                 {
                     bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
-                    waveOut.Stop(); // Stop the current playback if it was playing
-                    waveOut.Init(signalGenerator);
-                    currentProvider = signalGenerator;
-                    if (wasPlaying) // Restart if it was playing before
+                    waveOut.Stop();
+                    waveOut.Init(provider);
+                    currentProvider = provider;
+                    if (wasPlaying)
+                    {
                         waveOut.Play();
+                    }
                 }
-                if(!nonStopping)
-                {
-                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
-                }
-                waveOut.Play(); // Start playing the sound
-                NonBlockingSleep.Sleep(delay);
+            }
+
+            private static void PlaySound(int ms, bool nonStopping)
+            {
+                var stopwatch = Stopwatch.StartNew();
+
                 if (!nonStopping)
-                {    
-                    waveOut.Stop(); // Stop the sound after the specified duration if nonStopping is false
+                {
+                    NonBlockingSleep.Sleep(5); 
                 }
+                waveOut.Play(); 
+
+                stopwatch.Stop();
+                var elapsedMicroseconds = stopwatch.ElapsedTicks * 1000000 / Stopwatch.Frequency;
+                var targetMicroseconds = (long)ms * 1000;
+                var remainingMicroseconds = targetMicroseconds - elapsedMicroseconds;
+
+                if (ms > 0 && remainingMicroseconds > 0)
+                {
+                    NonBlockingSleep.SleepMicroseconds(remainingMicroseconds);
+                }
+
+                if (!nonStopping)
+                {
+                    waveOut.Stop(); 
+                }
+            }
+
+            public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
+            {
+                SetCurrentProvider(signalGenerator);
+                signalGenerator.Frequency = freq;
+                signalGenerator.Type = type;
+                PlaySound(ms, nonStopping);
             }
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
-                int delay = nonStopping ? (ms == 0 ? 0 : Math.Max(1, ms - 1)) : ms;
                 if (bandPassNoise == null)
                 {
-                    var whiteNoise = new SignalGenerator()
-                    {
-                        Type = SignalGeneratorType.Pink,
-                        Gain = 0.5
-                    };
-
-                    bandPassNoise = new BandPassNoiseGenerator(whiteNoise, 44100, freq, 1.0f);
+                    bandPassNoise = new BandPassNoiseGenerator(whiteNoiseGenerator, 44100, freq, 1.0f);
                 }
                 else
                 {
                     bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
                 }
 
-                // Change the provider to bandPassNoise if it's not already set
-                if (currentProvider != bandPassNoise)
-                {
-                    bool wasPlaying = waveOut.PlaybackState == PlaybackState.Playing;
-                    waveOut.Stop(); // Stop the current playback if it was playing
-                    waveOut.Init(bandPassNoise);
-                    currentProvider = bandPassNoise; ;
-                    if (wasPlaying) // Restart if it was playing before
-                        waveOut.Play();
-                }
-                if (!nonStopping)
-                {
-                    NonBlockingSleep.Sleep(4); // Small delay to ensure the sound starts cleanly
-                }
-                waveOut.Play(); // Start playing the sound
-                NonBlockingSleep.Sleep(delay);
-                if (!nonStopping)
-                {
-                    waveOut.Stop(); // Stop the sound after the specified duration if nonStopping is false
-                }
+                SetCurrentProvider(bandPassNoise);
+                PlaySound(ms, nonStopping);
             }
 
             public static void SquareWave(int freq, int ms, bool nonStopping)
