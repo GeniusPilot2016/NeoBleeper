@@ -236,13 +236,13 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>181, 96</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 25</value>
+    <value>189, 25</value>
   </data>
   <data name="lbl_version.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="lbl_version.Text" xml:space="preserve">
-    <value>Version 0.15.0</value>
+    <value>Version 0.15.0 Alpha</value>
   </data>
   <data name="&gt;&gt;lbl_version.Name" xml:space="preserve">
     <value>lbl_version</value>
@@ -264,7 +264,7 @@ Google Gemini™ is a trademark of Google LLC</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAGwAQEBsAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAG4AQEBuAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
