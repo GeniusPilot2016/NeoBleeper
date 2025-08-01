@@ -2678,7 +2678,7 @@ namespace NeoBleeper
             isModified = false;
             UpdateFormTitle();
         }
-        private (int noteSoundDuration, int silenceDuration) CalculateNoteDurations(double baseLength)
+        private (int noteSound_int, int silence_int) CalculateNoteDurations(double baseLength)
         {
             // Compute raw double values
             double noteSound_double = note_length_calculator(baseLength);
@@ -2688,9 +2688,14 @@ namespace NeoBleeper
             noteSound_double = FixRoundingErrors(noteSound_double);
             totalRhythm_double = FixRoundingErrors(totalRhythm_double);
 
-            int noteSound_int = (int)Math.Floor(noteSound_double);
-            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
-            int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
+            // Calculate durations
+            double noteSound = noteSound_double;
+            double totalRhythm = totalRhythm_double;
+            double silence = Math.Max(0, totalRhythm - noteSound);
+
+            // Convert to integers
+            int noteSound_int = (int)Math.Floor(noteSound);
+            int silence_int = (int)Math.Floor(silence);
 
             return (noteSound_int, silence_int);
         }
@@ -3050,7 +3055,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
-            double interval = Math.Max(1, Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
+            double interval = Math.Max(1, Math.Floor(60000.0 / (double)Variables.bpm));
             metronomeTimer.Interval = interval;
             metronomeTimer.Start();
         }
@@ -3220,7 +3225,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = Math.Max(1, (int)Math.Truncate(FixRoundingErrors(60000.0 / (double)Variables.bpm)));
+                    baseLength = Math.Max(1, (int)Math.Floor(60000.0 / (double)Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
