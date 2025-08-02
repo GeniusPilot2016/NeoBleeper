@@ -71,33 +71,29 @@ namespace NeoBleeper
             {
                 lock (lockObject)
                 {
+                    // Prevent multiple initializations
                     if (!nonStopping)
                     {
-                        NonBlockingSleep.Sleep(5);
+                        NonBlockingSleep.Sleep(5); // Initial delay to ensure the sound is ready before playing
                     }
 
+                    // Start playing the sound
                     waveOut.Play();
-
-                    if (ms > 0)
-                    {
-                        
-                    }
                 }
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(ms);
+                    NonBlockingSleep.Sleep(ms); // Play the sound for the specified duration
                 }
 
                 lock (lockObject)
                 {
                     if (!nonStopping && waveOut.PlaybackState == PlaybackState.Playing)
                     {
-                        waveOut.Stop();
+                        waveOut.Stop(); // Stop the sound if nonStopping is false
                     }
                 }
             }
-
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
                 if (currentProvider != signalGenerator)
