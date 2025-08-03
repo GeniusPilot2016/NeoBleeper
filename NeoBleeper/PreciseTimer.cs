@@ -70,7 +70,14 @@ namespace NeoBleeper
 
                 if (_syncContext != null)
                 {
-                    _syncContext.Post(_ => Tick?.Invoke(this, args), null);
+                    try
+                    {
+                        _syncContext.Post(_ => Tick?.Invoke(this, args), null);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Exception during Tick event: {ex}");
+                    }
                 }
                 else
                 {
@@ -82,6 +89,8 @@ namespace NeoBleeper
         public void Dispose()
         {
             Stop();
+            // Detach the event handler to prevent calls during shutdown.
+            Tick = null;
             _timer?.Dispose();
         }
     }
