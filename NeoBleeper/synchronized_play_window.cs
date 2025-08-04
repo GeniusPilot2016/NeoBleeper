@@ -43,7 +43,7 @@ namespace NeoBleeper
                     var currentTime = DateTime.UtcNow;
 
                     // Check if the target time has been reached or exceeded
-                    if (targetTime <= currentTime)
+                    if (isCurrentTimeIsEqualOrGreaterThan())
                     {
                         Debug.WriteLine($"Target time reached! Starting music immediately.");
                         Debug.WriteLine($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}");
@@ -192,6 +192,18 @@ namespace NeoBleeper
                 lbl_waiting.BackColor = Color.Yellow;
                 ResumeLayout(performLayout: true);
             }
+        }
+        private bool isCurrentTimeIsEqualOrGreaterThan()
+        {
+            int Hour = dateTimePicker1.Value.Hour;
+            int Minute = dateTimePicker1.Value.Minute;
+            int Second = dateTimePicker1.Value.Second;
+            int currentHour = DateTime.Now.Hour;
+            int currentMinute = DateTime.Now.Minute;
+            int currentSecond = DateTime.Now.Second;
+            return (Hour < currentHour) ||
+                   (Hour == currentHour && Minute < currentMinute) ||
+                   (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
         }
         private void synchronized_play_window_Load(object sender, EventArgs e)
         {

@@ -49,8 +49,8 @@ namespace NeoBleeper
             static SynthMisc()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50;
-                waveOut.NumberOfBuffers = 5;
+                waveOut.DesiredLatency = 50; // Increase latency to 100ms
+                waveOut.NumberOfBuffers = 5; // Use more buffers
                 waveOut.Init(signalGenerator);
             }
 
@@ -61,7 +61,7 @@ namespace NeoBleeper
                     if (currentProvider != provider)
                     {
                         waveOut.Stop();
-                        waveOut.Init(provider);
+                        waveOut.Init(provider); // Restart the provider if only changed
                         currentProvider = provider;
                     }
                 }
@@ -71,60 +71,69 @@ namespace NeoBleeper
             {
                 lock (lockObject)
                 {
-                    // Prevent multiple initializations
                     if (!nonStopping)
                     {
-                        NonBlockingSleep.Sleep(5); // Initial delay to ensure the sound is ready before playing
+                        NonBlockingSleep.Sleep(5);
                     }
 
-                    // Start playing the sound
-                    waveOut.Play();
+                    // Ensure waveOut is not already playing
+                    if (waveOut.PlaybackState != PlaybackState.Playing)
+                    {
+                        Task.Run(() =>
+                        {
+                            waveOut.Play();
+                        });
+                    }
                 }
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(ms); // Play the sound for the specified duration
+                    NonBlockingSleep.Sleep(ms);
                 }
 
                 lock (lockObject)
                 {
+                    // Stop playback only if nonStopping is false and waveOut is still playing
                     if (!nonStopping && waveOut.PlaybackState == PlaybackState.Playing)
                     {
-                        waveOut.Stop(); // Stop the sound if nonStopping is false
+                        waveOut.Stop();
                     }
                 }
             }
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
-                if (currentProvider != signalGenerator)
+                lock (lockObject)
                 {
-                    SetCurrentProvider(signalGenerator);
-                }
-                if (signalGenerator.Frequency != freq)
-                {
-                    signalGenerator.Frequency = freq;
-                }
-                if (signalGenerator.Type != type)
-                {
-                    signalGenerator.Type = type;
+                    if (currentProvider != signalGenerator)
+                    {
+                        SetCurrentProvider(signalGenerator);
+                    }
+                    if (signalGenerator.Frequency != freq || signalGenerator.Type != type)
+                    {
+                        signalGenerator.Frequency = freq;
+                        signalGenerator.Type = type;
+                    }
                 }
                 PlaySound(ms, nonStopping);
             }
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
-                if (bandPassNoise == null)
+                lock (lockObject)
                 {
-                    bandPassNoise = new BandPassNoiseGenerator(whiteNoiseGenerator, 44100, freq, 1.0f);
-                }
-                else
-                {
-                    bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
-                }
+                    if (bandPassNoise == null)
+                    {
+                        bandPassNoise = new BandPassNoiseGenerator(whiteNoiseGenerator, 44100, freq, 1.0f);
+                    }
+                    else
+                    {
+                        bandPassNoise.UpdateFrequency(freq, 44100, 1.0f);
+                    }
 
-                if (currentProvider != bandPassNoise)
-                {
-                    SetCurrentProvider(bandPassNoise);
+                    if (currentProvider != bandPassNoise)
+                    {
+                        SetCurrentProvider(bandPassNoise);
+                    }
                 }
                 PlaySound(ms, nonStopping);
             }

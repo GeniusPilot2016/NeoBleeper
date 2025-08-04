@@ -45,27 +45,22 @@ namespace NeoBleeper
             long targetTicks = (CachedFrequency * microseconds) / 1000000;
             var stopwatch = Stopwatch.StartNew();
             
-            // Adaptive waiting strategy for better precision
-            const long spinThreshold = 15000; // ~15ms in ticks (adjust based on system)
+            // Adaptive waiting strategy for better precisio
             long remainingTicks = targetTicks;
             
             while (remainingTicks > 0)
             {
                 long elapsedTicks = stopwatch.ElapsedTicks;
                 remainingTicks = targetTicks - elapsedTicks;
-                
-                if (remainingTicks > spinThreshold)
+                if(remainingTicks <= 0)
                 {
-                    // For longer waits, use DoEvents to prevent UI blocking
-                    Application.DoEvents();
-                    // Add a very small Thread.Yield() to improve cooperative multitasking
-                    Thread.Yield();
+                    break; // Exit if the target time has been reached
                 }
-                else if (remainingTicks > 0)
+                // Use Application.DoEvents to allow the UI to remain responsive
+                if (Application.MessageLoop && Application.OpenForms.Count > 0)
                 {
-                    // For the final precision phase, use tight spinning
-                    // This provides sub-millisecond accuracy
-                    continue;
+                    Application.DoEvents();
+                    Thread.Yield();
                 }
             }
             
