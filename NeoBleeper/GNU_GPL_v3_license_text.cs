@@ -4,6 +4,7 @@ namespace NeoBleeper
 {
     public partial class GNU_GPL_v3_license_text : Form
     {
+        bool darkTheme = false;
         public GNU_GPL_v3_license_text()
         {
             InitializeComponent();
@@ -41,16 +42,19 @@ namespace NeoBleeper
         private void dark_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             richTextBox1.BackColor = Color.Black;
             richTextBox1.ForeColor = Color.White;
             close_button.BackColor = Color.FromArgb(32, 32, 32);
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
 
         private void light_theme()
         {
+            darkTheme = false;
             foreach (Control ctrl in Controls)
             {
                 Application.DoEvents();
@@ -61,6 +65,7 @@ namespace NeoBleeper
                 close_button.BackColor = Color.Transparent;
                 this.Refresh();
             }
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)

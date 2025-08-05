@@ -13,6 +13,7 @@ namespace NeoBleeper
 {
     public partial class play_beat_window : Form
     {
+        bool darkTheme = false;
         public play_beat_window(main_window main_window)
         {
             InitializeComponent();
@@ -75,15 +76,19 @@ namespace NeoBleeper
         private void dark_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
         private void light_theme()
         {
             Application.DoEvents();
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
 

@@ -19,6 +19,7 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
+        bool darkTheme = false;
         public string output = "";
         String AIModel = "models/gemini-2.5-flash";
         Size NormalWindowSize;
@@ -76,6 +77,7 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.ForeColor = Color.White;
@@ -84,9 +86,11 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = Color.Black;
             comboBox_ai_model.ForeColor = Color.White;
             this.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             buttonCreate.BackColor = Color.Transparent;
             buttonCreate.ForeColor = SystemColors.ControlText;
@@ -95,6 +99,7 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = SystemColors.Window;
             comboBox_ai_model.ForeColor = SystemColors.WindowText;
             this.ForeColor = SystemColors.ControlText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private bool IsInternetAvailable()
         {

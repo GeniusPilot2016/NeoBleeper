@@ -16,6 +16,7 @@ namespace NeoBleeper
 {
     public partial class main_window : Form
     {
+        bool darkTheme = false;
         private play_beat_window play_Beat_Window;
         private PortamentoWindow portamentoWindow;
         private bool isModified = false;
@@ -95,109 +96,99 @@ namespace NeoBleeper
             }
         }
 
-        private async void dark_theme()
+        private void dark_theme()
         {
-            try
+            darkTheme = true;
+            menuStrip1.BackColor = Color.Black;
+            menuStrip1.ForeColor = Color.White;
+            listViewNotes.BackColor = Color.Black;
+            listViewNotes.ForeColor = Color.White;
+            foreach (ListViewItem item in listViewNotes.Items)
             {
-                menuStrip1.BackColor = Color.Black;
-                menuStrip1.ForeColor = Color.White;
-                listViewNotes.BackColor = Color.Black;
-                listViewNotes.ForeColor = Color.White;
-                foreach (ListViewItem item in listViewNotes.Items)
-                {
-                    item.BackColor = Color.Black;
-                    item.ForeColor = Color.White;
-                }
-                this.BackColor = Color.FromArgb(32, 32, 32);
-                this.ForeColor = Color.White;
-                numericUpDown_alternating_notes.BackColor = Color.Black;
-                numericUpDown_alternating_notes.ForeColor = Color.White;
-                numericUpDown_bpm.BackColor = Color.Black;
-                numericUpDown_bpm.ForeColor = Color.White;
-                comboBox_note_length.BackColor = Color.Black;
-                comboBox_note_length.ForeColor = Color.White;
-                group_key_is_clicked.ForeColor = Color.White;
-                group_adding_note.ForeColor = Color.White;
-                group_notes.ForeColor = Color.White;
-                group_line_clicked.ForeColor = Color.White;
-                group_music_played.ForeColor = Color.White;
-                btn_octave_increase.BackColor = Color.FromArgb(32, 32, 32);
-                btn_octave_decrease.BackColor = Color.FromArgb(32, 32, 32);
-                btn_octave_decrease.ForeColor = Color.White;
-                btn_octave_increase.ForeColor = Color.White;
-                checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_dotted.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_triplet.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_staccato.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_spiccato.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_fermata.BackColor = Color.FromArgb(32, 32, 32);
-                checkBox_metronome.ForeColor = Color.White;
-                checkBox_dotted.ForeColor = Color.White;
-                checkBox_triplet.ForeColor = Color.White;
-                checkBox_staccato.ForeColor = Color.White;
-                checkBox_spiccato.ForeColor = Color.White;
-                checkBox_fermata.ForeColor = Color.White;
-                checkBox_mute_playback.ForeColor = Color.White;
-                notes_list_right_click.BackColor = Color.Black;
-                notes_list_right_click.ForeColor = Color.White;
+                item.BackColor = Color.Black;
+                item.ForeColor = Color.White;
             }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            numericUpDown_alternating_notes.BackColor = Color.Black;
+            numericUpDown_alternating_notes.ForeColor = Color.White;
+            numericUpDown_bpm.BackColor = Color.Black;
+            numericUpDown_bpm.ForeColor = Color.White;
+            comboBox_note_length.BackColor = Color.Black;
+            comboBox_note_length.ForeColor = Color.White;
+            group_key_is_clicked.ForeColor = Color.White;
+            group_adding_note.ForeColor = Color.White;
+            group_notes.ForeColor = Color.White;
+            group_line_clicked.ForeColor = Color.White;
+            group_music_played.ForeColor = Color.White;
+            btn_octave_increase.BackColor = Color.FromArgb(32, 32, 32);
+            btn_octave_decrease.BackColor = Color.FromArgb(32, 32, 32);
+            btn_octave_decrease.ForeColor = Color.White;
+            btn_octave_increase.ForeColor = Color.White;
+            checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_dotted.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_triplet.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_staccato.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_spiccato.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_fermata.BackColor = Color.FromArgb(32, 32, 32);
+            checkBox_metronome.ForeColor = Color.White;
+            checkBox_dotted.ForeColor = Color.White;
+            checkBox_triplet.ForeColor = Color.White;
+            checkBox_staccato.ForeColor = Color.White;
+            checkBox_spiccato.ForeColor = Color.White;
+            checkBox_fermata.ForeColor = Color.White;
+            checkBox_mute_playback.ForeColor = Color.White;
+            notes_list_right_click.BackColor = Color.Black;
+            notes_list_right_click.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
 
-        private async void light_theme()
+        private void light_theme()
         {
-            try
+            darkTheme = false;
+            menuStrip1.BackColor = SystemColors.ControlLightLight;
+            menuStrip1.ForeColor = SystemColors.ControlText;
+            listViewNotes.BackColor = SystemColors.Window;
+            listViewNotes.ForeColor = SystemColors.WindowText;
+            foreach (ListViewItem item in listViewNotes.Items)
             {
-                menuStrip1.BackColor = SystemColors.ControlLightLight;
-                menuStrip1.ForeColor = SystemColors.ControlText;
-                listViewNotes.BackColor = SystemColors.Window;
-                listViewNotes.ForeColor = SystemColors.WindowText;
-                foreach (ListViewItem item in listViewNotes.Items)
-                {
-                    item.BackColor = SystemColors.Window;
-                    item.ForeColor = SystemColors.WindowText;
-                }
-                this.BackColor = SystemColors.Control;
-                this.ForeColor = SystemColors.ControlText;
-                numericUpDown_alternating_notes.BackColor = SystemColors.Window;
-                numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
-                numericUpDown_bpm.BackColor = SystemColors.Window;
-                numericUpDown_bpm.ForeColor = SystemColors.WindowText;
-                comboBox_note_length.BackColor = SystemColors.Window;
-                comboBox_note_length.ForeColor = SystemColors.WindowText;
-                group_key_is_clicked.ForeColor = SystemColors.ControlText;
-                group_adding_note.ForeColor = SystemColors.ControlText;
-                group_notes.ForeColor = SystemColors.ControlText;
-                group_line_clicked.ForeColor = SystemColors.ControlText;
-                group_music_played.ForeColor = SystemColors.ControlText;
-                btn_octave_increase.BackColor = Color.Transparent;
-                btn_octave_decrease.BackColor = Color.Transparent;
-                btn_octave_decrease.ForeColor = SystemColors.ControlText;
-                btn_octave_increase.ForeColor = SystemColors.ControlText;
-                checkBox_metronome.BackColor = Color.Transparent;
-                checkBox_dotted.BackColor = Color.Transparent;
-                checkBox_triplet.BackColor = Color.Transparent;
-                checkBox_staccato.BackColor = Color.Transparent;
-                checkBox_spiccato.BackColor = Color.Transparent;
-                checkBox_fermata.BackColor = Color.Transparent;
-                checkBox_metronome.ForeColor = SystemColors.ControlText;
-                checkBox_dotted.ForeColor = SystemColors.ControlText;
-                checkBox_triplet.ForeColor = SystemColors.ControlText;
-                checkBox_staccato.ForeColor = SystemColors.ControlText;
-                checkBox_spiccato.ForeColor = SystemColors.ControlText;
-                checkBox_fermata.ForeColor = SystemColors.ControlText;
-                checkBox_mute_playback.ForeColor = SystemColors.ControlText;
-                notes_list_right_click.BackColor = SystemColors.Window;
-                notes_list_right_click.ForeColor = SystemColors.WindowText;
+                item.BackColor = SystemColors.Window;
+                item.ForeColor = SystemColors.WindowText;
             }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            numericUpDown_alternating_notes.BackColor = SystemColors.Window;
+            numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
+            numericUpDown_bpm.BackColor = SystemColors.Window;
+            numericUpDown_bpm.ForeColor = SystemColors.WindowText;
+            comboBox_note_length.BackColor = SystemColors.Window;
+            comboBox_note_length.ForeColor = SystemColors.WindowText;
+            group_key_is_clicked.ForeColor = SystemColors.ControlText;
+            group_adding_note.ForeColor = SystemColors.ControlText;
+            group_notes.ForeColor = SystemColors.ControlText;
+            group_line_clicked.ForeColor = SystemColors.ControlText;
+            group_music_played.ForeColor = SystemColors.ControlText;
+            btn_octave_increase.BackColor = Color.Transparent;
+            btn_octave_decrease.BackColor = Color.Transparent;
+            btn_octave_decrease.ForeColor = SystemColors.ControlText;
+            btn_octave_increase.ForeColor = SystemColors.ControlText;
+            checkBox_metronome.BackColor = Color.Transparent;
+            checkBox_dotted.BackColor = Color.Transparent;
+            checkBox_triplet.BackColor = Color.Transparent;
+            checkBox_staccato.BackColor = Color.Transparent;
+            checkBox_spiccato.BackColor = Color.Transparent;
+            checkBox_fermata.BackColor = Color.Transparent;
+            checkBox_metronome.ForeColor = SystemColors.ControlText;
+            checkBox_dotted.ForeColor = SystemColors.ControlText;
+            checkBox_triplet.ForeColor = SystemColors.ControlText;
+            checkBox_staccato.ForeColor = SystemColors.ControlText;
+            checkBox_spiccato.ForeColor = SystemColors.ControlText;
+            checkBox_fermata.ForeColor = SystemColors.ControlText;
+            checkBox_mute_playback.ForeColor = SystemColors.ControlText;
+            notes_list_right_click.BackColor = SystemColors.Window;
+            notes_list_right_click.ForeColor = SystemColors.WindowText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void set_theme()

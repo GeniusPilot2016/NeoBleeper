@@ -8,6 +8,7 @@ namespace NeoBleeper
 {
     public partial class settings_window : Form
     {
+        bool darkTheme = false;
         private main_window mainWindow;
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
@@ -114,6 +115,7 @@ namespace NeoBleeper
         private void dark_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = Color.Black;
             this.ForeColor = Color.White;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -174,11 +176,13 @@ namespace NeoBleeper
             buttonResetAPIKey.ForeColor = Color.White;
             groupBoxCreateMusicWithAI.ForeColor = Color.White;
             markup_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
         private void light_theme()
         {
             Application.DoEvents();
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -237,6 +241,7 @@ namespace NeoBleeper
             buttonResetAPIKey.ForeColor = SystemColors.ControlText;
             groupBoxCreateMusicWithAI.ForeColor = SystemColors.ControlText;
             markup_color_change.BackColor = Color.Transparent;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
 
@@ -267,6 +272,7 @@ namespace NeoBleeper
                         break;
                     }
             }
+            TitleBarHelper.ApplyToAllOpenForms(darkTheme);
         }
 
 

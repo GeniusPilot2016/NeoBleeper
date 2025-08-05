@@ -10,6 +10,7 @@ namespace NeoBleeper
         ///  The main entry point for the application.
         /// </summary>
         /// 
+        public static bool isAnySoundDeviceExist = RenderBeep.SynthMisc.checkIfAnySoundDeviceExistAndEnabled();
         [STAThread]
         static void Main()
         {
@@ -91,11 +92,8 @@ namespace NeoBleeper
 
                 case true:
                     {
-                        string query1 = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
-                        string query2 = "SELECT * FROM Win32_SystemEnclosure";
-                        ManagementObjectSearcher searcher1 = new ManagementObjectSearcher(query1);
-                        ManagementObjectCollection number_of_system_speaker_devices = searcher1.Get();
-                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
+                        string query = "SELECT * FROM Win32_SystemEnclosure";
+                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = RenderBeep.BeepClass.isSystemSpeakerExist();
                         switch (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
                         {
                             case false:
@@ -128,7 +126,7 @@ namespace NeoBleeper
                                 }
                             case true:
                                 int chassis_type;
-                                ManagementObjectSearcher searcher2 = new ManagementObjectSearcher(query2);
+                                ManagementObjectSearcher searcher2 = new ManagementObjectSearcher(query);
                                 foreach (ManagementObject queryObj in searcher2.Get())
                                 {
                                     var chassisTypes = (UInt16[])(queryObj["ChassisTypes"]);

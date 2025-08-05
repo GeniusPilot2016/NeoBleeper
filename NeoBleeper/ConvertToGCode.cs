@@ -17,6 +17,7 @@ namespace NeoBleeper
 {
     public partial class ConvertToGCode : Form
     {
+        bool darkTheme = false;
         int note1_component = 0;
         int note2_component = 0;
         int note3_component = 0;
@@ -59,6 +60,7 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             label_note1.ForeColor = Color.White;
@@ -74,9 +76,11 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = Color.White;
             comboBox_component_note3.ForeColor = Color.White;
             comboBox_component_note4.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             label_note1.ForeColor = SystemColors.ControlText;
@@ -92,6 +96,7 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = SystemColors.WindowText;
             comboBox_component_note3.ForeColor = SystemColors.WindowText;
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void set_theme()
         {

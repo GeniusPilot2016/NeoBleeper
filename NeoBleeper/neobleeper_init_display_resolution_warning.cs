@@ -4,6 +4,7 @@ namespace NeoBleeper
 {
     public partial class neobleeper_init_display_resolution_warning : Form
     {
+        bool darkTheme = false;
         public neobleeper_init_display_resolution_warning()
         {
             InitializeComponent();
@@ -42,18 +43,22 @@ namespace NeoBleeper
         private void dark_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             button_close.BackColor = Color.FromArgb(32, 32, 32);
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
 
         private void light_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             button_close.BackColor = Color.Transparent;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
 
