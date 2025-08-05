@@ -1200,7 +1200,7 @@ namespace NeoBleeper
             else if (radioButton_noise.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise;
-                RenderBeep.SynthMisc.PlayFilteredNoise(0, 0,false);
+                RenderBeep.SynthMisc.PlayFilteredNoise(0, 0,false); // Dummy beep for prevent unintended delay just before playing the beep
                 Debug.WriteLine("Noise waveform selected.");
             }
         }

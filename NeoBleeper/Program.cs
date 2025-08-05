@@ -26,7 +26,7 @@ namespace NeoBleeper
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            var dummyWaveOut = RenderBeep.SynthMisc.waveOut; 
+            var dummyWaveOut = RenderBeep.SynthMisc.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
             if (Settings1.Default.ClassicBleeperMode)
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
