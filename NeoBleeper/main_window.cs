@@ -1377,7 +1377,7 @@ namespace NeoBleeper
         { "G#", 8 }, { "A", 9 }, { "A#", 10 }, { "B", 11 }
     };
 
-            if (string.IsNullOrEmpty(noteName) || noteName.Length < 2)
+            if (string.IsNullOrWhiteSpace(noteName) || noteName.Length < 2)
             {
                 return -1;
             }
@@ -1420,10 +1420,10 @@ namespace NeoBleeper
 
             if (MIDIIOUtils._midiOut != null) // Check if initialized
             {
-                if (play_note1 && !string.IsNullOrEmpty(note1) && notes[0] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[0], length);
-                if (play_note2 && !string.IsNullOrEmpty(note2) && notes[1] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[1], length);
-                if (play_note3 && !string.IsNullOrEmpty(note3) && notes[2] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[2], length);
-                if (play_note4 && !string.IsNullOrEmpty(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
+                if (play_note1 && !string.IsNullOrWhiteSpace(note1) && notes[0] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[0], length);
+                if (play_note2 && !string.IsNullOrWhiteSpace(note2) && notes[1] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[1], length);
+                if (play_note3 && !string.IsNullOrWhiteSpace(note3) && notes[2] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[2], length);
+                if (play_note4 && !string.IsNullOrWhiteSpace(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
             }
         }
 
@@ -1455,7 +1455,15 @@ namespace NeoBleeper
                 NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXMLFromString(createdMusic);
                 if (projectFile != null)
                 {
-                    Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
+                    {
+                        Variables.octave = 4; // Default value
+                        Debug.WriteLine("Keyboard octave not found, defaulting to 4");
+                    }
+                    else
+                    {
+                        Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                    }
                     Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                     numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
                     trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
@@ -1488,94 +1496,94 @@ namespace NeoBleeper
                         add_as_note1.Checked = true;
                     }
                     // Assign default values if no time signature is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.TimeSignature))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
                     {
                         trackBar_time_signature.Value = 4; // Default value
                         lbl_time_signature.Text = "4";
                         Debug.WriteLine("Time signature not found, defaulting to 4");
                     }
                     // Assign default values if no note silence ratio is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                     {
                         Variables.note_silence_ratio = 0.5; // Default value
                         lbl_note_silence_ratio.Text = "50%";
                         Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
                     }
                     // Assign default values if no note length is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteLength))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                     {
                         comboBox_note_length.SelectedIndex = 0; // Default value
                         Debug.WriteLine("Note length not found, defaulting to Whole");
                     }
                     // Assign default values if no alternating note length is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
                     {
                         Variables.alternating_note_length = 30; // Default value
                         numericUpDown_alternating_notes.Value = 30;
                         Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
                     }
                     // Assign default values if no note click play is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickPlay))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
                     {
                         checkbox_play_note.Checked = true; // Default value
                         Debug.WriteLine("Note click play not found, defaulting to true");
                     }
                     // Assign default values if no note click add is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickAdd))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
                     {
                         checkBox_add_note_to_list.Checked = true; // Default value
                         Debug.WriteLine("Note click add not found, defaulting to true");
                     }
                     // Assign default values if no note replace is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteReplace))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
                     {
                         checkBox_replace.Checked = false; // Default value
                         Debug.WriteLine("Note replace not found, defaulting to false");
                     }
                     // Assign default values if no note length replace is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
                     {
                         checkBox_replace_length.Checked = false; // Default value
                         Debug.WriteLine("Note length replace not found, defaulting to false");
                     }
                     // Assign default values if no click play note is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
                     {
                         checkBox_play_note1_clicked.Checked = true; // Default value
                         Debug.WriteLine("Click play note 1 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
                     {
                         checkBox_play_note2_clicked.Checked = true; // Default value
                         Debug.WriteLine("Click play note 2 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
                     {
                         checkBox_play_note3_clicked.Checked = true; // Default value
                         Debug.WriteLine("Click play note 3 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                     {
                         checkBox_play_note3_clicked.Checked = true; // Default value
                         Debug.WriteLine("Click play note 4 not found, defaulting to true");
                     }
                     // Assign default values if no play note is found
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote1))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
                     {
                         checkBox_play_note1_played.Checked = true; // Default value
                         Debug.WriteLine("Play note 1 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote2))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
                     {
                         checkBox_play_note2_played.Checked = true; // Default value
                         Debug.WriteLine("Play note 2 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote3))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
                     {
                         checkBox_play_note3_played.Checked = true; // Default value
                         Debug.WriteLine("Play note 3 not found, defaulting to true");
                     }
-                    if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote4))
+                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
                     {
                         checkBox_play_note4_played.Checked = true; // Default value
                         Debug.WriteLine("Play note 4 not found, defaulting to true");
@@ -1699,6 +1707,11 @@ namespace NeoBleeper
                                             continue;
                                     }
                                 }
+                            }
+                            if (!lines.Any(line => line.StartsWith("KeyboardOctave")))
+                            {
+                                Variables.octave = 4; // Default value
+                                Debug.WriteLine("Keyboard octave not found, defaulting to 4");
                             }
                             // Assign default values if none of the radiobuttons are checked
                             if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
@@ -1871,7 +1884,15 @@ namespace NeoBleeper
                             saveAsToolStripMenuItem.Enabled = true;
                             NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
                             {
-                                Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
+                                {
+                                    Variables.octave = 4; // Default value
+                                    Debug.WriteLine("Keyboard octave not found, defaulting to 4");
+                                }
+                                else
+                                {
+                                    Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave); Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                                }
                                 Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                                 numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
                                 trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
@@ -1904,94 +1925,94 @@ namespace NeoBleeper
                                     add_as_note1.Checked = true;
                                 }
                                 // Assign default values if no time signature is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.TimeSignature))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
                                 {
                                     trackBar_time_signature.Value = 4; // Default value
                                     lbl_time_signature.Text = "4";
                                     Debug.WriteLine("Time signature not found, defaulting to 4");
                                 }
                                 // Assign default values if no note silence ratio is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                                 {
                                     Variables.note_silence_ratio = 0.5; // Default value
                                     lbl_note_silence_ratio.Text = "50%";
                                     Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
                                 }
                                 // Assign default values if no note length is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteLength))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                                 {
                                     comboBox_note_length.SelectedIndex = 0; // Default value
                                     Debug.WriteLine("Note length not found, defaulting to Whole");
                                 }
                                 // Assign default values if no alternating note length is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
                                 {
                                     Variables.alternating_note_length = 30; // Default value
                                     numericUpDown_alternating_notes.Value = 30;
                                     Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
                                 }
                                 // Assign default values if no note click play is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickPlay))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
                                 {
                                     checkbox_play_note.Checked = true; // Default value
                                     Debug.WriteLine("Note click play not found, defaulting to true");
                                 }
                                 // Assign default values if no note click add is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteClickAdd))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
                                 {
                                     checkBox_add_note_to_list.Checked = true; // Default value
                                     Debug.WriteLine("Note click add not found, defaulting to true");
                                 }
                                 // Assign default values if no note replace is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteReplace))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
                                 {
                                     checkBox_replace.Checked = false; // Default value
                                     Debug.WriteLine("Note replace not found, defaulting to false");
                                 }
                                 // Assign default values if no note length replace is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
                                 {
                                     checkBox_replace_length.Checked = false; // Default value
                                     Debug.WriteLine("Note length replace not found, defaulting to false");
                                 }
                                 // Assign default values if no click play note is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
                                 {
                                     checkBox_play_note1_clicked.Checked = true; // Default value
                                     Debug.WriteLine("Click play note 1 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
                                 {
                                     checkBox_play_note2_clicked.Checked = true; // Default value
                                     Debug.WriteLine("Click play note 2 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
                                 {
                                     checkBox_play_note3_clicked.Checked = true; // Default value
                                     Debug.WriteLine("Click play note 3 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                                 {
                                     checkBox_play_note3_clicked.Checked = true; // Default value
                                     Debug.WriteLine("Click play note 4 not found, defaulting to true");
                                 }
                                 // Assign default values if no play note is found
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote1))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
                                 {
                                     checkBox_play_note1_played.Checked = true; // Default value
                                     Debug.WriteLine("Play note 1 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote2))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
                                 {
                                     checkBox_play_note2_played.Checked = true; // Default value
                                     Debug.WriteLine("Play note 2 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote3))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
                                 {
                                     checkBox_play_note3_played.Checked = true; // Default value
                                     Debug.WriteLine("Play note 3 not found, defaulting to true");
                                 }
-                                if (string.IsNullOrEmpty(projectFile.Settings.PlayNotes.PlayNote4))
+                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
                                 {
                                     checkBox_play_note4_played.Checked = true; // Default value
                                     Debug.WriteLine("Play note 4 not found, defaulting to true");
@@ -2111,7 +2132,7 @@ namespace NeoBleeper
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
+            if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
             {
                 SaveToNBPML(currentFilePath);
 
@@ -3248,7 +3269,7 @@ namespace NeoBleeper
         }
         private string GetOrDefault(string value)
         {
-            return string.IsNullOrEmpty(value) ? "None" : value;
+            return string.IsNullOrWhiteSpace(value) ? "None" : value;
         }
         private void numericUpDown_bpm_ValueChanged(object sender, EventArgs e)
         {
@@ -3318,7 +3339,7 @@ namespace NeoBleeper
 
             // Articulation factor
             double articulationFactor = 1.0;
-            if (!string.IsNullOrEmpty(articulation))
+            if (!string.IsNullOrWhiteSpace(articulation))
             {
                 if (articulation.ToLowerInvariant().Contains("sta"))
                     articulationFactor = 0.5;    // Staccato: 0.5x length
@@ -3356,7 +3377,7 @@ namespace NeoBleeper
 
             // Articulation factor - only fermata affects line length
             double articulationFactor = 1.0;
-            if (!string.IsNullOrEmpty(articulation) && articulation.ToLowerInvariant().Contains("fer"))
+            if (!string.IsNullOrWhiteSpace(articulation) && articulation.ToLowerInvariant().Contains("fer"))
             {
                 articulationFactor = 2.0; // Fermata: 2x length
             }
@@ -3387,7 +3408,7 @@ namespace NeoBleeper
         public static double getModifiedNoteLength(double noteLength, String modifier)
         {
             double modifierFactor = 1.0;
-            if (!string.IsNullOrEmpty(modifier))
+            if (!string.IsNullOrWhiteSpace(modifier))
             {
                 if (modifier.ToLowerInvariant().Contains("dot"))
                     modifierFactor = 1.5; // Dotted: 1.5x length
@@ -4599,7 +4620,7 @@ namespace NeoBleeper
             string title = System.AppDomain.CurrentDomain.FriendlyName;
 
             // Add the current file path if it exists
-            if (!string.IsNullOrEmpty(currentFilePath))
+            if (!string.IsNullOrWhiteSpace(currentFilePath))
             {
                 title += " - " + currentFilePath;
             }
@@ -4609,7 +4630,7 @@ namespace NeoBleeper
             }
 
             // Add an asterisk if the file is modified
-            if (isModified && !string.IsNullOrEmpty(currentFilePath))
+            if (isModified && !string.IsNullOrWhiteSpace(currentFilePath))
             {
                 title += "*";
             }

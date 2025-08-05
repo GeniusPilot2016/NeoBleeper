@@ -127,6 +127,10 @@ namespace NeoBleeper
                 var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[{textBoxPrompt.Text}]**\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
                     $"Based on the User Prompt above, generate a sequence of <Line> elements to replace the placeholder section within the <LineList> below.\r\n" +
+                    $"- ‼️ CRITICAL REQUIREMENT: DO NOT MODIFY THESE VALUES ‼️\r\n" +
+                    $"  - MUST USE: <NoteSilenceRatio>95</NoteSilenceRatio>\r\n" +
+                    $"  - MUST USE: <AlternateTime>5</AlternateTime>\r\n" +
+                    $"- ‼️ DO NOT ADD ANY COMMENTS, LABELS OR SECTION MARKERS TO THE XML ‼️\r\n" +
                     $"- PRIORITY 1: Ensure the output is a complete and valid <NeoBleeperProjectFile> XML structure. Do not include any additional text, code block markers (```xml), or explanations. Use UTF-8 encoding.\r\n" +
                     $"- Adhere to the XML structure provided.\r\n" +
                     $"- Each <Line> represents a musical event or rest.\r\n" +
