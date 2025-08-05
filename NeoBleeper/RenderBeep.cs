@@ -39,7 +39,7 @@ namespace NeoBleeper
             }
             public static bool isSystemSpeakerExist()
             {
-                string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%' AND Status = 'OK' AND Availability = 3";
+                string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                 using (var searcher = new ManagementObjectSearcher(query))
                 {
                     var devices = searcher.Get();
