@@ -60,8 +60,8 @@ namespace NeoBleeper
             static SynthMisc()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50; // Reverted to a safer latency setting
-                waveOut.NumberOfBuffers = 4; // Reverted to a safer buffer setting
+                waveOut.DesiredLatency = 50; 
+                waveOut.NumberOfBuffers = 4;
                 waveOut.Init(signalGenerator);
             }
             public static bool checkIfAnySoundDeviceExistAndEnabled()
@@ -116,7 +116,7 @@ namespace NeoBleeper
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1));
+                    NonBlockingSleep.Sleep(nonStopping ? ms : Math.Max(1, ms - 1));
                 }
 
                 // Stop playback asynchronously to avoid blocking the current thread
