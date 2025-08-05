@@ -1185,16 +1185,19 @@ namespace NeoBleeper
             if (radioButton_square.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square;
+                RenderBeep.SynthMisc.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Debug.WriteLine("Square waveform selected.");
             }
             else if (radioButton_sine.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine;
+                RenderBeep.SynthMisc.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Debug.WriteLine("Sine waveform selected.");
             }
             else if (radioButton_triangle.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle;
+                RenderBeep.SynthMisc.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Debug.WriteLine("Triangle waveform selected.");
             }
             else if (radioButton_noise.Checked == true)

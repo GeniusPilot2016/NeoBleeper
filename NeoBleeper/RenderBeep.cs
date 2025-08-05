@@ -5,6 +5,7 @@ using NAudio.Wave.SampleProviders;
 using System.Diagnostics;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
@@ -59,8 +60,8 @@ namespace NeoBleeper
             static SynthMisc()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50; // Increase latency to 100ms
-                waveOut.NumberOfBuffers = 5; // Use more buffers
+                waveOut.DesiredLatency = 50; // Reverted to a safer latency setting
+                waveOut.NumberOfBuffers = 4; // Reverted to a safer buffer setting
                 waveOut.Init(signalGenerator);
             }
             public static bool checkIfAnySoundDeviceExistAndEnabled()
@@ -90,12 +91,9 @@ namespace NeoBleeper
                 {
                     if (currentProvider != provider)
                     {
-                        Task.Run(() =>
-                        {
-                            waveOut.Stop();
-                            waveOut.Init(provider); // Restart the provider if only changed
-                            currentProvider = provider;
-                        });
+                        waveOut.Stop();
+                        waveOut.Init(provider); // Restart the provider if only changed
+                        currentProvider = provider;
                     }
                 }
             }
@@ -112,25 +110,29 @@ namespace NeoBleeper
                     // Ensure waveOut is not already playing
                     if (waveOut.PlaybackState != PlaybackState.Playing)
                     {
-                        Task.Run(() =>
-                        {
-                            waveOut.Play();
-                        });
+                        waveOut.Play();
                     }
                 }
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(ms);
+                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1));
                 }
 
-                lock (lockObject)
+                // Stop playback asynchronously to avoid blocking the current thread
+                if (!nonStopping)
                 {
-                    // Stop playback only if nonStopping is false and waveOut is still playing
-                    if (!nonStopping && waveOut.PlaybackState == PlaybackState.Playing)
+                    Task.Run(() =>
                     {
-                        waveOut.Stop();
-                    }
+                        lock (lockObject)
+                        {
+                            if (waveOut.PlaybackState == PlaybackState.Playing)
+                            {
+                                waveOut.Stop();
+                            }
+                        }
+                    });
+                    NonBlockingSleep.Sleep(1); // Add a minimal delay to prevent race conditions with the next note.
                 }
             }
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
@@ -143,11 +145,9 @@ namespace NeoBleeper
                     }
                     if (signalGenerator.Frequency != freq || signalGenerator.Type != type)
                     {
-                        Task.Run(() =>
-                        {
-                            signalGenerator.Frequency = freq;
-                            signalGenerator.Type = type;
-                        });
+                        // Removed Task.Run to prevent race conditions. Settings are now applied synchronously.
+                        signalGenerator.Frequency = freq;
+                        signalGenerator.Type = type;
                     }
                 }
                 PlaySound(ms, nonStopping);

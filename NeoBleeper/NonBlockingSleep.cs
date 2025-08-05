@@ -22,7 +22,7 @@ namespace NeoBleeper
         
         // Cache the frequency to avoid repeated system calls
         private static readonly long CachedFrequency = Stopwatch.Frequency;
-        
+        private static readonly object lockObject = new object();
         public static void Sleep(int milliseconds)
         {
             if (milliseconds <= 0)
@@ -59,8 +59,11 @@ namespace NeoBleeper
                 // Use Application.DoEvents to allow the UI to remain responsive
                 if (Application.MessageLoop && Application.OpenForms.Count > 0)
                 {
-                    Application.DoEvents();
-                    Thread.Yield();
+                    lock (lockObject)
+                    {
+                        Application.DoEvents();
+                        Thread.Yield();
+                    }
                 }
             }
             
