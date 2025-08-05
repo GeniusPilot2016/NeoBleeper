@@ -33,6 +33,7 @@ public static class TitleBarHelper
         FormBorderStyle originalBorderStyle = form.FormBorderStyle;
         if (!(form.IsDisposed || form.Disposing))
         {
+
             // Set title bar color
             var colorRef = ColorTranslator.ToWin32(color);
             DwmSetWindowAttribute(form.Handle, 35, ref colorRef, 4); // DWMWA_CAPTION_COLOR
