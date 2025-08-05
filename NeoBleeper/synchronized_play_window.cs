@@ -361,5 +361,10 @@ namespace NeoBleeper
         {
             set_theme();
         }
+
+        private void synchronized_play_window_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainWindow.checkBox_synchronized_play.Checked = false;
+        }
     }
 }

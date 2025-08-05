@@ -54,7 +54,7 @@
             groupBox1.Margin = new Padding(2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(2);
-            groupBox1.Size = new Size(432, 163);
+            groupBox1.Size = new Size(429, 163);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Length of sound";
@@ -64,7 +64,7 @@
             labelLength.Anchor = AnchorStyles.None;
             labelLength.AutoSize = true;
             labelLength.Font = new Font("HarmonyOS Sans", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLength.Location = new Point(192, 130);
+            labelLength.Location = new Point(190, 130);
             labelLength.Margin = new Padding(2, 0, 2, 0);
             labelLength.Name = "labelLength";
             labelLength.Size = new Size(67, 21);
@@ -80,7 +80,7 @@
             trackBarLength.Maximum = 1000;
             trackBarLength.Minimum = 50;
             trackBarLength.Name = "trackBarLength";
-            trackBarLength.Size = new Size(401, 45);
+            trackBarLength.Size = new Size(398, 45);
             trackBarLength.TabIndex = 1;
             trackBarLength.TickFrequency = 50;
             trackBarLength.Value = 250;
@@ -125,7 +125,7 @@
             trackBarPitchChangeSpeed.Maximum = 18000;
             trackBarPitchChangeSpeed.Minimum = 50;
             trackBarPitchChangeSpeed.Name = "trackBarPitchChangeSpeed";
-            trackBarPitchChangeSpeed.Size = new Size(432, 45);
+            trackBarPitchChangeSpeed.Size = new Size(429, 45);
             trackBarPitchChangeSpeed.TabIndex = 1;
             trackBarPitchChangeSpeed.TickFrequency = 400;
             trackBarPitchChangeSpeed.Value = 12000;
@@ -136,7 +136,7 @@
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(171, 189);
+            label2.Location = new Point(176, 189);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(130, 16);
@@ -155,7 +155,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(447, 248);
+            ClientSize = new Size(452, 244);
             ControlBox = false;
             Controls.Add(label2);
             Controls.Add(trackBarPitchChangeSpeed);

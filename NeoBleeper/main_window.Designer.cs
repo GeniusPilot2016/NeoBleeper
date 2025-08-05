@@ -2250,7 +2250,6 @@
         private Button button_play_from_selected_line;
         private Button button_stop_playing;
         private Label label_mods;
-        private CheckBox checkBox_play_beat_sound;
         private ToolStripMenuItem saveAsToolStripMenuItem;
         private ToolStripMenuItem playMIDIFileToolStripMenuItem;
         private CheckBox checkBox_dotted;
@@ -2304,7 +2303,6 @@
         private Label lbl_measure_value;
         private Label lbl_beat_value;
         private Label lbl_beat_traditional_value;
-        private CheckBox checkBox_synchronized_play;
         private Button button_a5;
         private Button button_f5;
         private Button button_e5;
@@ -2357,7 +2355,6 @@
         private Panel panel4;
         private Panel panel3;
         private CheckBox checkBox_loop;
-        private CheckBox checkBox_bleeper_portamento;
         private System.Windows.Forms.Timer alternating_note_timer;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private ToolStripMenuItem dosyaToolStripMenuItem;
@@ -2422,5 +2419,8 @@
         private ToolStripMenuItem createMusicWithAIToolStripMenuItem;
         private ToolStripMenuItem convertToGCodeToolStripMenuItem;
         public ListView listViewNotes;
+        public CheckBox checkBox_play_beat_sound;
+        public CheckBox checkBox_synchronized_play;
+        public CheckBox checkBox_bleeper_portamento;
     }
 }

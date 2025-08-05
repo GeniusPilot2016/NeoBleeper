@@ -175,6 +175,7 @@
             Name = "synchronized_play_window";
             ShowIcon = false;
             FormClosing += synchronized_play_window_FormClosing;
+            FormClosed += synchronized_play_window_FormClosed;
             Load += synchronized_play_window_Load;
             SystemColorsChanged += synchronized_play_window_SystemColorsChanged;
             groupBox_time.ResumeLayout(false);

@@ -117,5 +117,11 @@ namespace NeoBleeper
         {
             set_theme();
         }
+
+        private void play_beat_window_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            main_window mainWindow = new main_window();
+            mainWindow.checkBox_play_beat_sound.Checked = false;
+        }
     }
 }

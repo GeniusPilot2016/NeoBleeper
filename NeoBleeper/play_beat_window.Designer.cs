@@ -41,7 +41,7 @@
             radioButton_play_sound_on_all_beats.Checked = true;
             radioButton_play_sound_on_all_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             radioButton_play_sound_on_all_beats.Location = new Point(18, 22);
-            radioButton_play_sound_on_all_beats.Margin = new Padding(2, 2, 2, 2);
+            radioButton_play_sound_on_all_beats.Margin = new Padding(2);
             radioButton_play_sound_on_all_beats.Name = "radioButton_play_sound_on_all_beats";
             radioButton_play_sound_on_all_beats.Size = new Size(329, 20);
             radioButton_play_sound_on_all_beats.TabIndex = 0;
@@ -56,7 +56,7 @@
             radioButton_play_sound_on_odd_beats.AutoSize = true;
             radioButton_play_sound_on_odd_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             radioButton_play_sound_on_odd_beats.Location = new Point(18, 46);
-            radioButton_play_sound_on_odd_beats.Margin = new Padding(2, 2, 2, 2);
+            radioButton_play_sound_on_odd_beats.Margin = new Padding(2);
             radioButton_play_sound_on_odd_beats.Name = "radioButton_play_sound_on_odd_beats";
             radioButton_play_sound_on_odd_beats.Size = new Size(395, 20);
             radioButton_play_sound_on_odd_beats.TabIndex = 0;
@@ -70,7 +70,7 @@
             radioButton_play_sound_on_even_beats.AutoSize = true;
             radioButton_play_sound_on_even_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             radioButton_play_sound_on_even_beats.Location = new Point(18, 70);
-            radioButton_play_sound_on_even_beats.Margin = new Padding(2, 2, 2, 2);
+            radioButton_play_sound_on_even_beats.Margin = new Padding(2);
             radioButton_play_sound_on_even_beats.Name = "radioButton_play_sound_on_even_beats";
             radioButton_play_sound_on_even_beats.Size = new Size(254, 20);
             radioButton_play_sound_on_even_beats.TabIndex = 0;
@@ -96,19 +96,20 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(434, 157);
+            ClientSize = new Size(430, 153);
             ControlBox = false;
             Controls.Add(label_uncheck_do_not_update);
             Controls.Add(radioButton_play_sound_on_even_beats);
             Controls.Add(radioButton_play_sound_on_odd_beats);
             Controls.Add(radioButton_play_sound_on_all_beats);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "play_beat_window";
             ShowIcon = false;
             Text = "Beat Settings";
+            FormClosed += play_beat_window_FormClosed;
             Load += play_beat_window_Load;
             SystemColorsChanged += play_beat_window_SystemColorsChanged;
             ResumeLayout(false);

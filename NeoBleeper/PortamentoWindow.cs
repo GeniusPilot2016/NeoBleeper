@@ -168,5 +168,11 @@ namespace NeoBleeper
         {
             set_theme();
         }
+
+        private void PortamentoWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            main_window mainWindow = new main_window();
+            mainWindow.checkBox_bleeper_portamento.Checked = false;
+        }
     }
 }
