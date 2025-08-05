@@ -4875,28 +4875,32 @@ namespace NeoBleeper
             keyCharNum = pressedKeys.ToArray();
             keyCharNum = keyCharNum.Distinct().ToArray();
 
-            // Stop alternating playback and reset flags
             isAlternatingPlayingRegularKeyboard = false;
-            UnmarkAllButtons(); // Unmark all buttons when a key is released
-            stopAllNotesAfterPlaying(); // Stop all notes only when no keys remain
-            // Stop all notes if no keys are pressed
+            UnmarkAllButtons();
+
+            // Portamento tipi AlwaysProduceSound ise notalarý durdurma!
+            if (!(checkBox_bleeper_portamento.Checked &&
+                  TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound))
+            {
+                stopAllNotesAfterPlaying();
+            }
+
             if (pressedKeys.Count == 0)
             {
                 KeyPressed = false;
-                singleNote = 0; // Reset singleNote to ensure no lingering playback
+                singleNote = 0;
             }
             else
             {
                 if (pressedKeys.Count != 1)
                 {
-                    singleNote = 0; // Reset singleNote to ensure no lingering playback
+                    singleNote = 0;
                 }
-                // Continue playing notes for remaining pressed keys
                 foreach (int key in keyCharNum)
                 {
                     MarkupTheKeyWhenKeyIsPressed(key);
                 }
-                playWithRegularKeyboard(); // Trigger playback for remaining notes
+                playWithRegularKeyboard();
             }
         }
         private int GetFrequencyFromKeyCode(int keyCode)
