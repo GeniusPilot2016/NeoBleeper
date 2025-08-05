@@ -1,8 +1,9 @@
-﻿using NAudio.Dsp;
+﻿using NAudio.CoreAudioApi;
+using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using NAudio.CoreAudioApi;
 using System.Diagnostics;
+using System.Management;
 using System.Runtime.InteropServices;
 
 namespace NeoBleeper
@@ -36,6 +37,15 @@ namespace NeoBleeper
             {
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
+            public static bool isSystemSpeakerExist()
+            {
+                string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%' AND Status = 'OK' AND Availability = 3";
+                using (var searcher = new ManagementObjectSearcher(query))
+                {
+                    var devices = searcher.Get();
+                    return devices.Count > 0;
+                }
+            }
         }
         public static class SynthMisc // Use NAudio to synthesize beeps and noises in various forms
         {
@@ -53,16 +63,39 @@ namespace NeoBleeper
                 waveOut.NumberOfBuffers = 5; // Use more buffers
                 waveOut.Init(signalGenerator);
             }
-
+            public static bool checkIfAnySoundDeviceExistAndEnabled()
+            {
+                using (var enumerator = new MMDeviceEnumerator())
+                {
+                    try
+                    {
+                        var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+                        bool status = device.AudioEndpointVolume.MasterVolumeLevelScalar >= 0.0f;
+                        string query = "SELECT * FROM Win32_SoundDevice where Status = 'OK' and Availability = 3"; // Query for enabled sound devices
+                        using (var searcher = new System.Management.ManagementObjectSearcher(query))
+                        {
+                            var devices = searcher.Get();
+                            return devices.Count > 0; // Return true if any enabled sound device is found
+                        }
+                    }
+                    catch (COMException)
+                    {
+                        return false;
+                    }
+                }
+            }
             private static void SetCurrentProvider(ISampleProvider provider)
             {
                 lock (lockObject)
                 {
                     if (currentProvider != provider)
                     {
-                        waveOut.Stop();
-                        waveOut.Init(provider); // Restart the provider if only changed
-                        currentProvider = provider;
+                        Task.Run(() =>
+                        {
+                            waveOut.Stop();
+                            waveOut.Init(provider); // Restart the provider if only changed
+                            currentProvider = provider;
+                        });
                     }
                 }
             }
@@ -110,8 +143,11 @@ namespace NeoBleeper
                     }
                     if (signalGenerator.Frequency != freq || signalGenerator.Type != type)
                     {
-                        signalGenerator.Frequency = freq;
-                        signalGenerator.Type = type;
+                        Task.Run(() =>
+                        {
+                            signalGenerator.Frequency = freq;
+                            signalGenerator.Type = type;
+                        });
                     }
                 }
                 PlaySound(ms, nonStopping);

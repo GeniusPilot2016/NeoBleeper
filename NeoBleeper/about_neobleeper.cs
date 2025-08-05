@@ -13,6 +13,7 @@ namespace NeoBleeper
 {
     public partial class about_neobleeper : Form
     {
+        bool darkTheme = false;
         public about_neobleeper()
         {
             InitializeComponent();
@@ -50,6 +51,7 @@ namespace NeoBleeper
 
         private void dark_theme()
         {
+            darkTheme = true;
             Application.DoEvents();
             BackColor = Color.FromArgb(32, 32, 32);
             ForeColor = Color.White;
@@ -66,11 +68,13 @@ namespace NeoBleeper
                 item.BackColor = Color.Black;
                 item.ForeColor = Color.White;
             }
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
 
         private void light_theme()
         {
+            darkTheme = false;
             Application.DoEvents();
             BackColor = SystemColors.Control;
             ForeColor = SystemColors.ControlText;
@@ -87,6 +91,7 @@ namespace NeoBleeper
                 item.BackColor = SystemColors.Window;
                 item.ForeColor = SystemColors.WindowText;
             }
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
         private void about_neobleeper_Load(object sender, EventArgs e)

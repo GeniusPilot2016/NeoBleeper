@@ -12,6 +12,7 @@ namespace NeoBleeper
 {
     public partial class MIDI_file_player : Form
     {
+        bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
         bool is_playing = false;
         private List<int> _displayOrder = new List<int>();
@@ -63,6 +64,7 @@ namespace NeoBleeper
         private void dark_theme()
         {
             Application.DoEvents();
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             textBox1.BackColor = Color.Black;
@@ -71,12 +73,14 @@ namespace NeoBleeper
             button_browse_file.BackColor = Color.FromArgb(32, 32, 32);
             numericUpDown_alternating_note.BackColor = Color.Black;
             numericUpDown_alternating_note.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
 
         private void light_theme()
         {
             Application.DoEvents();
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             textBox1.BackColor = SystemColors.Window;
@@ -85,6 +89,7 @@ namespace NeoBleeper
             button_browse_file.BackColor = Color.Transparent;
             numericUpDown_alternating_note.BackColor = SystemColors.Window;
             numericUpDown_alternating_note.ForeColor = SystemColors.WindowText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
         private bool IsMidiFile(string filePath)

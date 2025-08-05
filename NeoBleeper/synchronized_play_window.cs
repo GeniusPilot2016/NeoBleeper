@@ -6,6 +6,7 @@ namespace NeoBleeper
 {
     public partial class synchronized_play_window : Form
     {
+        bool darkTheme = false;
         bool waiting = false;
         bool is_playing = false;
         private main_window mainWindow;
@@ -101,20 +102,24 @@ namespace NeoBleeper
 
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             groupBox_time.ForeColor = Color.White;
             groupBox_position.ForeColor = Color.White;
             button_wait.BackColor = Color.FromArgb(32, 32, 32);
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.Refresh();
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             groupBox_time.ForeColor = SystemColors.ControlText;
             groupBox_position.ForeColor = SystemColors.ControlText;
             button_wait.BackColor = Color.Transparent;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
         private void timer1_Tick(object sender, EventArgs e)

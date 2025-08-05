@@ -12,6 +12,7 @@ namespace NeoBleeper
 {
     public partial class AIGeneratedNBPMLError : Form
     {
+        bool darkTheme = false;
         public AIGeneratedNBPMLError(String text)
         {
             InitializeComponent();
@@ -50,17 +51,21 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             label1.ForeColor = Color.White;
             button1.BackColor = Color.FromArgb(32, 32, 32);
             button1.ForeColor = Color.White;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             label1.ForeColor = SystemColors.ControlText;
             button1.BackColor = Color.Transparent;
             button1.ForeColor = SystemColors.ControlText;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void button1_Click(object sender, EventArgs e)

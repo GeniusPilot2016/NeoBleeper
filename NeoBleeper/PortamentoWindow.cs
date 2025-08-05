@@ -14,6 +14,7 @@ namespace NeoBleeper
 {
     public partial class PortamentoWindow : Form
     {
+        bool darkTheme = false;
         public long wantedPitch;
         public bool needToStopSound;
         public PortamentoWindow(main_window main_Window)
@@ -65,6 +66,7 @@ namespace NeoBleeper
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             foreach (Control ctrl in Controls)
@@ -88,9 +90,11 @@ namespace NeoBleeper
                     }
                 }
             }
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             foreach (Control ctrl in Controls)
@@ -114,6 +118,7 @@ namespace NeoBleeper
                     }
                 }
             }
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void setLabelsToMiddle()
         {
