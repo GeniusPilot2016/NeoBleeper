@@ -195,8 +195,7 @@ namespace NeoBleeper
                 var checkBox = Controls.Find($"checkBox_channel_{i}", true).FirstOrDefault() as CheckBox;
                 if (checkBox != null && checkBox.Checked)
                 {
-                    // Channels in MIDI are 0-based, but our UI is 1-based
-                    _enabledChannels.Add(i - 1);
+                    _enabledChannels.Add(i);
                 }
             }
 
