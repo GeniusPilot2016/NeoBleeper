@@ -173,6 +173,7 @@ namespace NeoBleeper
                 {
                     mainWindow.play_from_selected_line();
                 }
+                stop_playing(); // Stop any previous playback if necessary
             }
         }
 
@@ -228,21 +229,20 @@ namespace NeoBleeper
                 }
                 is_playing = false;
                 waiting = false; // Set waiting to false
-                Task.Run(() =>
+                UpdateUIForStopped(); // Update the UI to reflect that music has stopped
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
+            }
+        }
+        private async void UpdateUIForStopped()
+        {
+            Task.Run(() =>
+            {
+                if (this.InvokeRequired)
                 {
-                    if (this.InvokeRequired)
-                    {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            SuspendLayout();
-                            dateTimePicker1.Enabled = true; // Enable the date time picker
-                            button_wait.Text = Resources.TextStartWaiting;
-                            lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
-                            lbl_waiting.BackColor = Color.Red;
-                            ResumeLayout(performLayout: true);
-                        });
-                    }
-                    else
+                    this.Invoke((MethodInvoker)delegate
                     {
                         SuspendLayout();
                         dateTimePicker1.Enabled = true; // Enable the date time picker
@@ -250,13 +250,18 @@ namespace NeoBleeper
                         lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
                         lbl_waiting.BackColor = Color.Red;
                         ResumeLayout(performLayout: true);
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
-            }
+                    });
+                }
+                else
+                {
+                    SuspendLayout();
+                    dateTimePicker1.Enabled = true; // Enable the date time picker
+                    button_wait.Text = Resources.TextStartWaiting;
+                    lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
+                    lbl_waiting.BackColor = Color.Red;
+                    ResumeLayout(performLayout: true);
+                }
+            });
         }
         private async void button_wait_Click(object sender, EventArgs e)
         {

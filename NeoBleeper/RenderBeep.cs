@@ -116,7 +116,7 @@ namespace NeoBleeper
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(nonStopping ? ms : Math.Max(1, ms - 1));
+                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1));
                 }
 
                 // Stop playback asynchronously to avoid blocking the current thread

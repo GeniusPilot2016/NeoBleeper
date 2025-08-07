@@ -1,4 +1,7 @@
 ﻿
+using System.Diagnostics;
+using System.Threading.Tasks;
+
 namespace NeoBleeper
 {
     public static class NotePlayer
@@ -64,7 +67,7 @@ namespace NeoBleeper
                     }
             }
         }
-        public static void StopAllNotes() // Stop all notes
+        public static async Task StopAllNotes() // Stop all notes
         {
             switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
             {
@@ -75,7 +78,8 @@ namespace NeoBleeper
                     }
                 case true: // Soundcard
                     {
-                        RenderBeep.SynthMisc.waveOut.Stop(); // Stop the beep from the sound device
+                        Task.Run(() => RenderBeep.SynthMisc.waveOut.Stop()); // Stop the beep from the sound device); // Stop the sound from the soundcard
+                        NonBlockingSleep.Sleep(1); // Wait for the sound to stop
                         break;
                     }
             }
@@ -127,7 +131,7 @@ namespace NeoBleeper
             }
             catch (Exception ex) // If an error occurs, log it
             {
-                Console.WriteLine($"Error creating sound with microcontroller: {ex.Message}"); // Log the error message
+                Debug.WriteLine($"Error creating sound with microcontroller: {ex.Message}"); // Log the error message
             }
         }
     }
