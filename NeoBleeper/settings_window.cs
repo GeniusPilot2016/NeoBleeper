@@ -388,12 +388,15 @@ namespace NeoBleeper
 
         private void comboBox_theme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
-            Settings1.Default.theme = comboBox_theme.SelectedIndex;
-            Settings1.Default.Save();
-            set_theme();
-            Debug.WriteLine("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex]);
-            ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+            if(comboBox_theme.SelectedIndex != Settings1.Default.theme)
+            {
+                string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
+                Settings1.Default.theme = comboBox_theme.SelectedIndex;
+                Settings1.Default.Save();
+                set_theme();
+                Debug.WriteLine("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex]);
+                ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+            }
         }
 
         private void general_settings_Click(object sender, EventArgs e)

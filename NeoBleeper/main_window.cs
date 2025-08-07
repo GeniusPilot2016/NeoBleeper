@@ -2706,50 +2706,36 @@ namespace NeoBleeper
             double silence = Math.Max(0, totalRhythm - noteSound);
 
             // Convert to integers
-            int noteSound_int = SafeDoubleToInt(noteSound);
-            int silence_int = SafeDoubleToInt(silence);
+            int totalRhythm_int = (int)Math.Floor(totalRhythm);
+            int noteSound_int = (int)Math.Floor(noteSound);
+            int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
 
             return (noteSound_int, silence_int);
         }
-        public static int SafeDoubleToInt(double value, int minValue = 1)
+        public static double ULP(double x)
         {
-            double corrected = FixRoundingErrors(value);
-            int result = (int)corrected;
-            return Math.Max(minValue, result);
+            if (double.IsNaN(x)) return double.NaN;
+            if (double.IsInfinity(x)) return double.PositiveInfinity;
+
+            long bits = BitConverter.DoubleToInt64Bits(x);
+            long nextBits = (x >= 0) ? bits + 1 : bits - 1;
+            double next = BitConverter.Int64BitsToDouble(nextBits);
+            return Math.Abs(next - x);
         }
-        public static unsafe double FixRoundingErrors(double value)
+        public static double FixRoundingErrors(double value, int decimalPlaces = 8, double epsilon = 1e-10)
         {
-            double* pValue = &value;
-            double flooredValue;
-            double truncatedValue;
-            double epsilon = 0.0001;
-            double minValue = 4.9E-324d;
-            double adjustment = 1E-05d;
+            double ulp = ULP(value);
+            double flooredValue = Math.Floor(value);
+            double ceiledValue = Math.Ceiling(value);
 
-            flooredValue = Math.Floor(*pValue);
-
-            if (*pValue < minValue)
-            {
-                return *pValue;
-            }
-
-            double difference = *pValue - flooredValue;
-            if (difference < 0.0) difference = -difference; 
-
-            if (difference < epsilon)
-            {
+            // Use ULP and epsilon for comparison
+            if (Math.Abs(value - flooredValue) < Math.Min(ulp, epsilon))
                 return flooredValue;
-            }
+            if (Math.Abs(value - ceiledValue) < Math.Min(ulp, epsilon))
+                return ceiledValue;
 
-            truncatedValue = Math.Truncate(*pValue);
-
-            if (truncatedValue > epsilon)
-            {
-                return truncatedValue + adjustment;
-            }
-
-            return *pValue;
-
+            // Round to the specified number of decimal places
+            return Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
@@ -2787,7 +2773,7 @@ namespace NeoBleeper
             int baseLength = 0;
             if (Variables.bpm > 0)
             {
-                baseLength = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+                baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
             }
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
@@ -2958,7 +2944,7 @@ namespace NeoBleeper
         {
             if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
             {
-                await MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, frequency, length);
+                MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, frequency, length);
             }
         }
         private void InitializeMetronome()
@@ -3029,8 +3015,8 @@ namespace NeoBleeper
             ThreadPool.QueueUserWorkItem(state =>
             {
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                play_metronome_sound_from_midi_output(frequency, 20);
-                NotePlayer.play_note(frequency, 20);
+                play_metronome_sound_from_midi_output(frequency, 15);
+                NotePlayer.play_note(frequency, 15);
             });
         }
 
@@ -3080,7 +3066,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
-            double interval = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+            double interval = Math.Max(1, 60000.0 / (double)Variables.bpm);
             metronomeTimer.Interval = interval;
             metronomeTimer.Start();
         }
@@ -3250,7 +3236,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
