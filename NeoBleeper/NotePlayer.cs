@@ -78,8 +78,7 @@ namespace NeoBleeper
                     }
                 case true: // Soundcard
                     {
-                        Task.Run(() => RenderBeep.SynthMisc.waveOut.Stop()); // Stop the beep from the sound device); // Stop the sound from the soundcard
-                        NonBlockingSleep.Sleep(1); // Wait for the sound to stop
+                        RenderBeep.SynthMisc.StopSynth(); 
                         break;
                     }
             }

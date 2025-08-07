@@ -2706,51 +2706,38 @@ namespace NeoBleeper
             double silence = Math.Max(0, totalRhythm - noteSound);
 
             // Convert to integers
-            int noteSound_int = SafeDoubleToInt(noteSound);
-            int silence_int = SafeDoubleToInt(silence);
+            int noteSound_int = (int)noteSound;
+            int silence_int = (int)silence;
 
             return (noteSound_int, silence_int);
         }
-        public static int SafeDoubleToInt(double value, int minValue = 1)
+
+        public static double FixRoundingErrors(double value)
         {
-            double corrected = FixRoundingErrors(value);
-            int result = (int)corrected;
-            return Math.Max(minValue, result);
+            // Epsilon for checking if difference is negligible
+            const double EPSILON_NEGLIGIBLE = 0.0001;
+            // Epsilon to add if not negligible
+            const double EPSILON_ADD = 0.00001;
+
+            double flooredValue = Math.Floor(value);
+
+            // If the value is very close to its floored integer (e.g., 5.00001 -> 5.0)
+            if (Math.Abs(value - flooredValue) < EPSILON_NEGLIGIBLE)
+            {
+                return flooredValue; // Round down to the floored integer
+            }
+            // If the value is very close to its ceiled integer (e.g., 5.99991 -> 6.0)
+            double truncatedValue = Math.Truncate(value); // Truncate the value to its integer part
+
+            // If the truncated value is greater than a small threshold, add a small epsilon
+            if (truncatedValue > 0.0001)
+            {
+                return truncatedValue + EPSILON_ADD;
+            }
+
+            return value; // If no conditions matched, return the original value
         }
-        public static unsafe double FixRoundingErrors(double value)
-        {
-            double* pValue = &value;
-            double flooredValue;
-            double truncatedValue;
-            double epsilon = 0.0001;
-            double minValue = 4.9E-324d;
-            double adjustment = 1E-05d;
 
-            flooredValue = Math.Floor(*pValue);
-
-            if (*pValue < minValue)
-            {
-                return *pValue;
-            }
-
-            double difference = *pValue - flooredValue;
-            if (difference < 0.0) difference = -difference; 
-
-            if (difference < epsilon)
-            {
-                return flooredValue;
-            }
-
-            truncatedValue = Math.Truncate(*pValue);
-
-            if (truncatedValue > epsilon)
-            {
-                return truncatedValue + adjustment;
-            }
-
-            return *pValue;
-
-        }
         private void HandleMidiOutput(int noteSoundDuration)
         {
             if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
@@ -2787,7 +2774,7 @@ namespace NeoBleeper
             int baseLength = 0;
             if (Variables.bpm > 0)
             {
-                baseLength = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+                baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
             }
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
@@ -3080,7 +3067,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
-            double interval = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+            double interval = Math.Max(1, 60000.0 / (double)Variables.bpm);
             metronomeTimer.Interval = interval;
             metronomeTimer.Start();
         }
@@ -3250,7 +3237,7 @@ namespace NeoBleeper
                 Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                 if (Variables.bpm != 0)
                 {
-                    baseLength = SafeDoubleToInt(60000.0 / (double)Variables.bpm);
+                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {

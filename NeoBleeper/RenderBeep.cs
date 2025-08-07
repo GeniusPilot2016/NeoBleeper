@@ -60,7 +60,7 @@ namespace NeoBleeper
             static SynthMisc()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50; 
+                waveOut.DesiredLatency = 50;
                 waveOut.NumberOfBuffers = 4;
                 waveOut.Init(signalGenerator);
             }
@@ -116,23 +116,30 @@ namespace NeoBleeper
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(Math.Max(1, ms - 1));
+                    NonBlockingSleep.Sleep(ms);
                 }
 
-                // Stop playback asynchronously to avoid blocking the current thread
+                // Stop playback by silencing the source
                 if (!nonStopping)
                 {
-                    Task.Run(() =>
+                    StopSynth();
+                }
+            }
+
+            public static void StopSynth()
+            {
+                lock (lockObject)
+                {
+                    // Instead of stopping waveOut, we just silence the output.
+                    // This is much faster and avoids the latency of stopping/starting the device.
+                    if (currentProvider == signalGenerator)
                     {
-                        lock (lockObject)
-                        {
-                            if (waveOut.PlaybackState == PlaybackState.Playing)
-                            {
-                                waveOut.Stop();
-                            }
-                        }
-                    });
-                    NonBlockingSleep.Sleep(1); // Add a minimal delay to prevent race conditions with the next note.
+                        signalGenerator.Gain = 0;
+                    }
+                    else if (currentProvider == bandPassNoise)
+                    {
+                        whiteNoiseGenerator.Gain = 0;
+                    }
                 }
             }
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
@@ -143,11 +150,12 @@ namespace NeoBleeper
                     {
                         SetCurrentProvider(signalGenerator);
                     }
-                    if (signalGenerator.Frequency != freq || signalGenerator.Type != type)
+                    if (signalGenerator.Frequency != freq || signalGenerator.Type != type || signalGenerator.Gain == 0)
                     {
                         // Removed Task.Run to prevent race conditions. Settings are now applied synchronously.
                         signalGenerator.Frequency = freq;
                         signalGenerator.Type = type;
+                        signalGenerator.Gain = 0.15; // Restore gain
                     }
                 }
                 PlaySound(ms, nonStopping);
@@ -169,6 +177,10 @@ namespace NeoBleeper
                     if (currentProvider != bandPassNoise)
                     {
                         SetCurrentProvider(bandPassNoise);
+                    }
+                    if (whiteNoiseGenerator.Gain == 0)
+                    {
+                        whiteNoiseGenerator.Gain = 0.5; // Restore gain
                     }
                 }
                 PlaySound(ms, nonStopping);
