@@ -27,9 +27,11 @@ public static class TitleBarHelper
     private const uint SWP_NOMOVE = 0x0002;
     private const uint SWP_NOSIZE = 0x0001;
 
+    private static int cachedColorRef = -1;
+    private static Color cachedColor;
+
     public static void ApplyCustomTitleBar(Form form, Color color, bool darkMode = false)
     {
-        FormBorderStyle originalBorderStyle = form.FormBorderStyle;
         if (!(form.IsDisposed || form.Disposing))
         {
             // Suspend layout to prevent flickering
@@ -38,8 +40,13 @@ public static class TitleBarHelper
             try
             {
                 // Set title bar color
-                var colorRef = ColorTranslator.ToWin32(color);
-                DwmSetWindowAttribute(form.Handle, 35, ref colorRef, 4); // DWMWA_CAPTION_COLOR
+                if (cachedColorRef == -1 || cachedColor != color)
+                {
+                    cachedColor = color;
+                    cachedColorRef = ColorTranslator.ToWin32(color);
+                }
+
+                DwmSetWindowAttribute(form.Handle, 35, ref cachedColorRef, 4); // DWMWA_CAPTION_COLOR
 
                 // Enable dark mode (if desired)
                 if (darkMode)
@@ -47,7 +54,7 @@ public static class TitleBarHelper
                     if (Environment.OSVersion.Version < new Version(10, 0, 18362))
                     {
                         var useImmersiveDarkMode = DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_9586;
-                        DwmSetWindowAttribute(form.Handle, useImmersiveDarkMode, ref colorRef, 4);
+                        DwmSetWindowAttribute(form.Handle, useImmersiveDarkMode, ref cachedColorRef, 4);
                     }
                     else
                     {
