@@ -63,19 +63,10 @@ public static class TitleBarHelper
                         DwmSetWindowAttribute(form.Handle, useImmersiveDarkMode, ref value, 4);
                     }
                 }
-
-                LockWindowUpdate(form.Handle);
-
-                try
-                {
-                    //Update the window to reflect changes
-                    SetWindowPos(form.Handle, IntPtr.Zero, 0, 0, 0, 0,
-                        SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
-                }
-                finally
-                {
-                    LockWindowUpdate(IntPtr.Zero);
-                }
+                
+                //Update the window to reflect changes
+                SetWindowPos(form.Handle, IntPtr.Zero, 0, 0, 0, 0,
+                    SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
             }
             finally
             {
