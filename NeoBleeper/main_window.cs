@@ -2705,35 +2705,39 @@ namespace NeoBleeper
             double totalRhythm = totalRhythm_double;
             double silence = Math.Max(0, totalRhythm - noteSound);
 
-            // Convert to integers with proper rounding
-            int noteSound_int = (int)Math.Round(noteSound);
-            int silence_int = (int)Math.Round(silence);
+            // Convert to integers
+            int noteSound_int = (int)Math.Floor(noteSound);
+            int silence_int = (int)Math.Floor(silence);
 
             return (noteSound_int, silence_int);
         }
+
         public static double FixRoundingErrors(double value)
         {
             // Epsilon for checking if difference is negligible
-            const double EPSILON_NEGLIGIBLE = 0.005;
-            // Epsilon to add or subtract
+            const double EPSILON_NEGLIGIBLE = 0.0001;
+            // Epsilon to add if not negligible
             const double EPSILON_ADD = 0.00001;
 
             double flooredValue = Math.Floor(value);
-            double ceiledValue = Math.Ceiling(value);
 
-            // If the value is very close to its floored integer
+            // If the value is very close to its floored integer (e.g., 5.00001 -> 5.0)
             if (Math.Abs(value - flooredValue) < EPSILON_NEGLIGIBLE)
             {
                 return flooredValue; // Round down to the floored integer
             }
-            // If the value is very close to its ceiled integer
-            if (Math.Abs(value - ceiledValue) < EPSILON_NEGLIGIBLE)
+            // If the value is very close to its ceiled integer (e.g., 5.99991 -> 6.0)
+            double truncatedValue = Math.Truncate(value); // Truncate the value to its integer part
+
+            // If the truncated value is greater than a small threshold, add a small epsilon
+            if (truncatedValue > 0.0001)
             {
-                return ceiledValue; // Round up to the ceiled integer
+                return truncatedValue + EPSILON_ADD;
             }
 
             return value; // If no conditions matched, return the original value
         }
+
         private void HandleMidiOutput(int noteSoundDuration)
         {
             if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
@@ -2835,7 +2839,7 @@ namespace NeoBleeper
                 try
                 {
                     SuspendLayout();
-                    if(listViewNotes.InvokeRequired)
+                    if (listViewNotes.InvokeRequired)
                     {
                         listViewNotes.Invoke(new Action(() => listViewNotes.EnsureVisible(index)));
                     }
@@ -3459,7 +3463,7 @@ namespace NeoBleeper
                 notes = new string[] { note1, note3, note2, note4 };
             }
             notes = notes.Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToArray(); // Remove empty notes and duplicates
-            if(notes.Length == 1)
+            if (notes.Length == 1)
             {
                 if (notes[0].Contains(note1) && !string.IsNullOrWhiteSpace(note1))
                 {
@@ -3478,7 +3482,7 @@ namespace NeoBleeper
                     PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
                 }
             }
-            else if(notes.Length > 1)
+            else if (notes.Length > 1)
             {
                 Stopwatch stopwatch = new Stopwatch();
                 double totalDuration = length; // Total playing duration of loop
