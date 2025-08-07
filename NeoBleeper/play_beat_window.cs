@@ -14,11 +14,13 @@ namespace NeoBleeper
     public partial class play_beat_window : Form
     {
         bool darkTheme = false;
-        public play_beat_window(main_window main_window)
+        private main_window mainWindow;
+        public play_beat_window(main_window mainWindow)
         {
             InitializeComponent();
             UIFonts.setFonts(this);
             set_theme();
+            this.mainWindow = mainWindow;
             switch (TemporarySettings.BeatTypes.beatType)
             {
                 case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
@@ -120,7 +122,6 @@ namespace NeoBleeper
 
         private void play_beat_window_FormClosed(object sender, FormClosedEventArgs e)
         {
-            main_window mainWindow = new main_window();
             mainWindow.checkBox_play_beat_sound.Checked = false;
         }
     }
