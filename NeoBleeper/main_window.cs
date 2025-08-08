@@ -2724,24 +2724,23 @@ namespace NeoBleeper
         }
         public static double FixRoundingErrors(double value, int decimalPlaces = 10)
         {
-            double epsilon = Math.Max(1e-6, Math.Abs(value) * 1e-10);
+            double fixedValue = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
 
-            double flooredValue = Math.Floor(value);
-            double ceiledValue = Math.Ceiling(value);
+            double ulp = ULP(value);
 
-            // Tam sayýya çok yakýnsa, doðrudan tam sayýya döndür
-            if (Math.Abs(value - flooredValue) < epsilon)
-                return flooredValue;
-            if (Math.Abs(value - ceiledValue) < epsilon)
-                return ceiledValue;
+            double epsilon = Math.Max(2 * ulp, 1e-6);
+            const double offset = 1e-8;
 
-            // Yuvarlama sonrasý tekrar tam sayý kontrolü
-            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
-            if (Math.Abs(rounded - Math.Round(rounded)) < epsilon)
-                return Math.Round(rounded);
+            if (Math.Abs(value - fixedValue) < epsilon)
+            {
+                return fixedValue;
+            }
+            else
+            {
+                fixedValue += offset;
+            }
 
-            // En az 1 ms döndür
-            return Math.Max(1, rounded);
+            return Math.Max(1, fixedValue);
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
