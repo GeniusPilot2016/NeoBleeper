@@ -2722,20 +2722,26 @@ namespace NeoBleeper
             double next = BitConverter.Int64BitsToDouble(nextBits);
             return Math.Abs(next - x);
         }
-        public static double FixRoundingErrors(double value, int decimalPlaces = 8, double epsilon = 1e-10)
+        public static double FixRoundingErrors(double value, int decimalPlaces = 10)
         {
-            double ulp = ULP(value);
+            double epsilon = Math.Max(1e-6, Math.Abs(value) * 1e-10);
+
             double flooredValue = Math.Floor(value);
             double ceiledValue = Math.Ceiling(value);
 
-            // Use ULP and epsilon for comparison
-            if (Math.Abs(value - flooredValue) < Math.Min(ulp, epsilon))
+            // Tam sayýya çok yakýnsa, doðrudan tam sayýya döndür
+            if (Math.Abs(value - flooredValue) < epsilon)
                 return flooredValue;
-            if (Math.Abs(value - ceiledValue) < Math.Min(ulp, epsilon))
+            if (Math.Abs(value - ceiledValue) < epsilon)
                 return ceiledValue;
 
-            // Round to the specified number of decimal places
-            return Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
+            // Yuvarlama sonrasý tekrar tam sayý kontrolü
+            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
+            if (Math.Abs(rounded - Math.Round(rounded)) < epsilon)
+                return Math.Round(rounded);
+
+            // En az 1 ms döndür
+            return Math.Max(1, rounded);
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
