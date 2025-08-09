@@ -2703,12 +2703,11 @@ namespace NeoBleeper
             // Calculate durations
             double noteSound = noteSound_double;
             double totalRhythm = totalRhythm_double;
-            double silence = Math.Max(0, totalRhythm - noteSound);
 
             // Convert to integers
             int totalRhythm_int = (int)Math.Floor(totalRhythm);
-            int noteSound_int = (int)Math.Floor(noteSound);
-            int silence_int = Math.Max(0, totalRhythm_int - noteSound_int);
+            int noteSound_int = Math.Min((int)Math.Floor(noteSound), totalRhythm_int);
+            int silence_int = totalRhythm_int - noteSound_int;
 
             return (noteSound_int, silence_int);
         }
@@ -2724,23 +2723,16 @@ namespace NeoBleeper
         }
         public static double FixRoundingErrors(double value, int decimalPlaces = 10)
         {
-            double fixedValue = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
-
+            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.ToZero);
             double ulp = ULP(value);
-
             double epsilon = Math.Max(2 * ulp, 1e-6);
-            const double offset = 1e-8;
 
-            if (Math.Abs(value - fixedValue) < epsilon)
+            if (Math.Abs(value - rounded) < epsilon)
             {
-                return fixedValue;
-            }
-            else
-            {
-                fixedValue += offset;
+                return rounded;
             }
 
-            return Math.Max(1, fixedValue);
+            return Math.Max(1, Math.Round(value));
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
