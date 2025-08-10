@@ -2723,16 +2723,37 @@ namespace NeoBleeper
         }
         public static double FixRoundingErrors(double value, int decimalPlaces = 10)
         {
-            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.ToZero);
+            if (double.IsNaN(value) || double.IsInfinity(value))
+                return value;
+
             double ulp = ULP(value);
-            double epsilon = Math.Max(2 * ulp, 1e-6);
+            double absTolerance = Math.Pow(10, -decimalPlaces - 2);
+            double relTolerance = Math.Abs(value) * absTolerance;
+            double epsilon = Math.Max(Math.Max(absTolerance, relTolerance), 10 * ulp);
+
+            if (Math.Abs(value) < epsilon)
+                return 0.0;
+
+            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
+
+            if (Math.Abs(value - 1.0) < epsilon)
+                return 1.0;
+            if (Math.Abs(value + 1.0) < epsilon)
+                return -1.0;
 
             if (Math.Abs(value - rounded) < epsilon)
-            {
                 return rounded;
-            }
 
-            return Math.Max(1, Math.Round(value));
+            try
+            {
+                decimal dec = (decimal)value;
+                decimal decRounded = Math.Round(dec, decimalPlaces, MidpointRounding.AwayFromZero);
+                if (Math.Abs((double)(dec - decRounded)) < epsilon) // <-- DÜZELTÝLDÝ: epsilon artýk double
+                    return (double)decRounded;
+            }
+            catch { /* ignore decimal overflow */ }
+
+            return value;
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {

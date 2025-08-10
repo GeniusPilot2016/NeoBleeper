@@ -19,7 +19,18 @@ namespace NeoBleeper
         
         [DllImport("kernel32.dll")]
         private static extern bool QueryPerformanceFrequency(out long lpFrequency);
-        
+        [DllImport("kernel32.dll")]
+        private static extern uint SetThreadExecutionState(uint esFlags);
+
+
+        private const uint ES_CONTINUOUS = 0x80000000;
+        private const uint ES_SYSTEM_REQUIRED = 0x00000001;
+        private const uint ES_AWAYMODE_REQUIRED = 0x00000040;
+
+        public static void PreventSleep()
+        {
+            SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED);
+        }
         // Cache the frequency to avoid repeated system calls
         private static readonly long CachedFrequency = Stopwatch.Frequency;
         public static void Sleep(int milliseconds)
@@ -32,26 +43,33 @@ namespace NeoBleeper
             // Use microsecond precision for better accuracy
             SleepMicroseconds(milliseconds * 1000);
         }
-        
+
         public static void SleepMicroseconds(long microseconds)
         {
             if (microseconds <= 0)
             {
                 return;
             }
-            
-            // Calculate target ticks with higher precision
-            long targetTicks = (CachedFrequency * microseconds) / 1000000;
+            PreventSleep();
+
+            // Dynamically query the frequency
+            if (!QueryPerformanceFrequency(out long dynamicFrequency) || dynamicFrequency <= 0)
+            {
+                throw new InvalidOperationException("Unable to query performance frequency.");
+            }
+
+            // Calculate target ticks using the dynamic frequency
+            long targetTicks = (dynamicFrequency * microseconds) / 1000000;
             var stopwatch = Stopwatch.StartNew();
-            
-            // Adaptive waiting strategy for better precisio
+
+            // Adaptive waiting strategy for better precision
             long remainingTicks = targetTicks;
-            
+
             while (remainingTicks > 0)
             {
                 long elapsedTicks = stopwatch.ElapsedTicks;
                 remainingTicks = targetTicks - elapsedTicks;
-                if(remainingTicks <= 0)
+                if (remainingTicks <= 0)
                 {
                     break; // Exit if the target time has been reached
                 }
@@ -62,11 +80,11 @@ namespace NeoBleeper
                 }
                 Thread.Yield(); // Yield to allow other threads to run
             }
-            
+
             stopwatch.Stop();
             return;
         }
-        
+
         // High precision sleep for very short durations
         public static void SleepNanoseconds(long nanoseconds)
         {
