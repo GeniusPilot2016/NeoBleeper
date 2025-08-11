@@ -2721,39 +2721,20 @@ namespace NeoBleeper
             double next = BitConverter.Int64BitsToDouble(nextBits);
             return Math.Abs(next - x);
         }
-        public static double FixRoundingErrors(double value, int decimalPlaces = 10)
+        public static double FixRoundingErrors(double inputValue)
         {
-            if (double.IsNaN(value) || double.IsInfinity(value))
-                return value;
+            // Define the threshold and adjustment values based on the assembly constants
+            const double threshold = 1e-7; 
+            const double adjustment = 1e-10; 
 
-            double ulp = ULP(value);
-            double absTolerance = Math.Pow(10, -decimalPlaces - 2);
-            double relTolerance = Math.Abs(value) * absTolerance;
-            double epsilon = Math.Max(Math.Max(absTolerance, relTolerance), 10 * ulp);
-
-            if (Math.Abs(value) < epsilon)
-                return 0.0;
-
-            double rounded = Math.Round(value, decimalPlaces, MidpointRounding.AwayFromZero);
-
-            if (Math.Abs(value - 1.0) < epsilon)
-                return 1.0;
-            if (Math.Abs(value + 1.0) < epsilon)
-                return -1.0;
-
-            if (Math.Abs(value - rounded) < epsilon)
-                return rounded;
-
-            try
+            // Check if the input value exceeds the threshold
+            if (inputValue > threshold)
             {
-                decimal dec = (decimal)value;
-                decimal decRounded = Math.Round(dec, decimalPlaces, MidpointRounding.AwayFromZero);
-                if (Math.Abs((double)(dec - decRounded)) < epsilon) 
-                    return (double)decRounded;
+                inputValue += adjustment;
             }
-            catch { /* ignore decimal overflow */ }
 
-            return value;
+            // Return the corrected value
+            return inputValue;
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
