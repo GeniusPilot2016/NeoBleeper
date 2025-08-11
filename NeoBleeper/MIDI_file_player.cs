@@ -274,7 +274,7 @@ namespace NeoBleeper
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
                                 if (!_noteChannels.ContainsKey(noteEvent.NoteNumber))
                                 {
-                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // veya 0
+                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // or 0
                                 }
                             }
                         }
@@ -443,13 +443,18 @@ namespace NeoBleeper
         }
         // Add this field to track the current playback task
         private Task _playbackTask = Task.CompletedTask;
+        private bool _wasPlayingBeforeScroll = false;
 
         public async Task SetPosition(double positionPercent)
         {
             if (_frames == null || _frames.Count == 0)
                 return;
 
-            bool wasPlaying = _isPlaying;
+            // Store playing state before any changes
+            if (!_wasPlayingBeforeScroll) // Only store if not already stored
+            {
+                _wasPlayingBeforeScroll = _isPlaying;
+            }
 
             // Stop current playback if any
             if (_isPlaying)
@@ -461,7 +466,6 @@ namespace NeoBleeper
                 {
                     try
                     {
-                        // Time out after 1 second to prevent hanging
                         await Task.WhenAny(_playbackTask, Task.Delay(1000));
                     }
                     catch (Exception ex)
@@ -479,11 +483,8 @@ namespace NeoBleeper
 
             Debug.WriteLine($"Position set to {positionPercent}% (frame {_currentFrameIndex} of {_frames.Count})");
 
-            // Resume playing if it was playing before
-            if (wasPlaying)
-            {
-                Play();
-            }
+            // Don't restart playback immediately if trackbar is being dragged
+            // The timer in trackBar1_Scroll will handle restart after user stops dragging
         }
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
@@ -964,6 +965,8 @@ namespace NeoBleeper
             try
             {
                 Stop();
+                _playbackRestartTimer?.Stop();
+                _playbackRestartTimer?.Dispose();
             }
             catch (Exception ex)
             {
@@ -985,11 +988,77 @@ namespace NeoBleeper
             }
         }
 
+        private bool _isTrackBarBeingDragged = false;
+        private DateTime _lastTrackBarScrollTime = DateTime.MinValue;
+        private System.Timers.Timer _playbackRestartTimer;
+
+        private bool _isUserScrolling = false; // To seperate user scroll from program scroll
+
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            // It's not user scrol if updating by the program
+            if (!_isUserScrolling)
+            {
+                _isUserScrolling = true;
+                return;
+            }
+
+            _lastTrackBarScrollTime = DateTime.Now;
+            _isTrackBarBeingDragged = true;
+
+            // Save state in first scroll
+            if (!_wasPlayingBeforeScroll && _isPlaying)
+            {
+                _wasPlayingBeforeScroll = true;
+            }
+
             int positionPercent = trackBar1.Value / 10;
-            SetPosition(positionPercent);
-            UpdateTimeAndPercentPosition(positionPercent);
+
+            // Stop current restart timer
+            _playbackRestartTimer?.Stop();
+            _playbackRestartTimer?.Dispose();
+
+            // Set position, but don't restart
+            _ = Task.Run(async () =>
+            {
+                await SetPosition(positionPercent);
+
+                // Update the UI in main thread
+                this.BeginInvoke(new Action(() =>
+                {
+                    UpdateTimeAndPercentPosition(positionPercent);
+                }));
+            });
+
+            // Timer for restarting after scrolling by user
+            _playbackRestartTimer = new System.Timers.Timer(300); // 300ms latency
+            _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
+            _playbackRestartTimer.AutoReset = false;
+            _playbackRestartTimer.Start();
+        }
+
+        private void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            _playbackRestartTimer?.Stop();
+            _playbackRestartTimer?.Dispose();
+            _playbackRestartTimer = null;
+
+            this.BeginInvoke(new Action(() =>
+            {
+                _isTrackBarBeingDragged = false;
+                _isUserScrolling = false;
+
+                // Restart if was playing before scrolling
+                if (_wasPlayingBeforeScroll && !_isPlaying)
+                {
+                    _wasPlayingBeforeScroll = false; // Reset the flag
+                    Play();
+                }
+                else
+                {
+                    _wasPlayingBeforeScroll = false; // Reset in any condition
+                }
+            }));
         }
 
         private Label[] _noteLabels;
@@ -1141,19 +1210,38 @@ namespace NeoBleeper
                 return;
             }
 
+            // More robust null check for _cancellationTokenSource
+            if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
+            {
+                Debug.WriteLine("CancellationTokenSource is null or canceled, stopping playback");
+                Stop();
+                return;
+            }
+
             // Start a new task to process all due frames.
             _playbackTask = Task.Run(async () =>
             {
                 try
                 {
-                    var token = _cancellationTokenSource.Token;
-                    token.ThrowIfCancellationRequested();
+                    var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
+                    if (_cancellationTokenSource != null)
+                    {
+                        token.ThrowIfCancellationRequested();
+                    }
+
                     var elapsedMs = _playbackStopwatch.ElapsedMilliseconds;
                     var songTimeMs = _playbackStartOffsetMs + elapsedMs;
 
                     // Loop through all frames that should have been played by now
                     while (_currentFrameIndex < _frames.Count)
                     {
+                        // Check if we're still playing and token is valid
+                        if (!_isPlaying || _cancellationTokenSource == null)
+                        {
+                            Debug.WriteLine("Playback stopped or token cancelled during frame processing");
+                            break;
+                        }
+
                         var currentFrame = _frames[_currentFrameIndex];
                         var targetTimeMs = TicksToMilliseconds(currentFrame.Time);
 
@@ -1182,14 +1270,17 @@ namespace NeoBleeper
                         this.BeginInvoke((Action)Stop);
                     }
                 }
-            }, _cancellationTokenSource.Token);
+            }, _cancellationTokenSource?.Token ?? CancellationToken.None);
         }
         private async Task ProcessCurrentFrame()
         {
-            var token = _cancellationTokenSource.Token;
+            var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
 
-            // Example of cancellation check
-            token.ThrowIfCancellationRequested();
+            // Cancellation check with null safety
+            if (_cancellationTokenSource != null)
+            {
+                token.ThrowIfCancellationRequested();
+            }
 
             var currentFrame = _frames[_currentFrameIndex];
 
@@ -1223,11 +1314,12 @@ namespace NeoBleeper
             // Update UI
             UpdateAllUISync(_currentFrameIndex, filteredNotes);
 
-            // Handle silent frames
+            // Handle silent frames with better cancellation handling
             if (filteredNotes.Count == 0)
             {
-                await WaitPrecise(durationMsInt); // Optionally wait for the duration of the silent frame
-                return; // Skip playback for this frame
+                // Use a more robust waiting mechanism for silent frames
+                await WaitPreciseWithCancellation(durationMsInt, token);
+                return; // Skip note playback for this frame
             }
 
             // Play notes
@@ -1286,51 +1378,64 @@ namespace NeoBleeper
                 await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
             }
         }
-        private async Task WaitPrecise(int milliseconds)
+        private async Task WaitPreciseWithCancellation(int milliseconds, CancellationToken cancellationToken)
         {
-            await Task.Run(() => NonBlockingSleep.Sleep(milliseconds));
+            try
+            {
+                await Task.Delay(milliseconds, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.WriteLine($"Silent frame wait was canceled after {milliseconds}ms");
+                throw;
+            }
         }
         private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
         {
             if (this.InvokeRequired)
             {
-                // Use BeginInvoke for fire-and-forget to avoid blocking the playback thread.
                 this.BeginInvoke(new Action(() => UpdateAllUISync(frameIndex, filteredNotes)));
                 return;
             }
-            // Update trackbar position
-            if (_frames.Count > 0)
+
+            // Prevent the conflict during trackBar update
+            if (!_isTrackBarBeingDragged)
             {
-                int trackbarValue = (int)(1000.0 * frameIndex / _frames.Count);
-                if (trackbarValue <= trackBar1.Maximum)
+                // Update the position of trackBar
+                if (_frames.Count > 0)
                 {
-                    trackBar1.Value = trackbarValue;
+                    int trackbarValue = (int)(1000.0 * frameIndex / _frames.Count);
+                    if (trackbarValue <= trackBar1.Maximum && trackbarValue != trackBar1.Value)
+                    {
+                        _isUserScrolling = false; // State that it's a program update
+                        trackBar1.Value = trackbarValue;
+                    }
                 }
             }
 
-            // Update percentage label
+            // Update the percentage labeş
             label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
 
-            // Update position label
+            // Update the position label
             UpdatePositionLabel();
 
             if (!checkBox_dont_update_grid.Checked)
             {
-                // Update note labels
+                // Not labellarını güncelle
                 UpdateNoteLabelsSync(filteredNotes);
             }
 
-            // Update holded note label
+            // Update the label of notes that being held on
             holded_note_label.Text = $"{Properties.Resources.TextHoldedNotes} ({filteredNotes.Count})";
         }
         private void UpdatePositionLabel()
         {
             if (!_isPlaying) return;
 
-            // Gerçek çalma süresi (başlangıç ofseti + geçen süre)
+            // Actual playing duration (starting offset + elapsed time)
             double songTimeMs = _playbackStartOffsetMs + _playbackStopwatch.ElapsedMilliseconds;
 
-            // Zamanı dakika:saniye:salise formatında göster
+            // Show the time as minute:seconds:split seconds format
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(songTimeMs);
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
