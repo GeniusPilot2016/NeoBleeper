@@ -2748,7 +2748,7 @@ namespace NeoBleeper
             {
                 decimal dec = (decimal)value;
                 decimal decRounded = Math.Round(dec, decimalPlaces, MidpointRounding.AwayFromZero);
-                if (Math.Abs((double)(dec - decRounded)) < epsilon) // <-- DÜZELTÝLDÝ: epsilon artýk double
+                if (Math.Abs((double)(dec - decRounded)) < epsilon) 
                     return (double)decRounded;
             }
             catch { /* ignore decimal overflow */ }
