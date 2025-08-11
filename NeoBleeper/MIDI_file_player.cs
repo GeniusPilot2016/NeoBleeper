@@ -1212,8 +1212,8 @@ namespace NeoBleeper
             {
                 // Find greatest tick in MIDI file
                 long lastTick = _midiFile.Events
-                .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
-                .Max();
+                    .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
+                    .Max();
                 double totalDurationMs = TicksToMilliseconds(lastTick);
                 durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
@@ -1223,68 +1223,67 @@ namespace NeoBleeper
             // Update UI
             UpdateAllUISync(_currentFrameIndex, filteredNotes);
 
-            // Play notes
-            if (filteredNotes.Count > 0)
+            // Handle silent frames
+            if (filteredNotes.Count == 0)
             {
-                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-                if (TemporarySettings.MIDIDevices.useMIDIoutput)
+                await WaitPrecise(durationMsInt); // Optionally wait for the duration of the silent frame
+                return; // Skip playback for this frame
+            }
+
+            // Play notes
+            var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+            if (TemporarySettings.MIDIDevices.useMIDIoutput)
+            {
+                foreach (int frequency in frequencies)
                 {
-                    foreach (int frequency in frequencies)
-                    {
-                        MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency / 2), durationMsInt);
-                    }
+                    MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency / 2), durationMsInt);
                 }
-                if (frequencies.Length == 1)
+            }
+            if (frequencies.Length == 1)
+            {
+                var noteNumber = filteredNotes.First();
+                int noteIndex = _noteToLabelMap[noteNumber];
+                HighlightNoteLabel(noteIndex);
+                if (checkBox_play_each_note.Checked)
                 {
-                    var noteNumber = filteredNotes.First();
-                    int noteIndex = _noteToLabelMap[noteNumber];
-                    HighlightNoteLabel(noteIndex);
-                    if (checkBox_play_each_note.Checked)
+                    if (checkBox_make_each_cycle_last_30ms.Checked)
                     {
-                        if (checkBox_make_each_cycle_last_30ms.Checked)
+                        int length = Math.Min(15, durationMsInt);
+                        int remainingTime = durationMsInt - length;
+                        await Task.Run(() =>
                         {
-                            int length = Math.Min(15, durationMsInt);
-                            int remainingTime = durationMsInt - length;
-                            await Task.Run(() =>
+                            NotePlayer.play_note(frequencies[0], length);
+                            UnHighlightNoteLabel(noteIndex);
+                            if (remainingTime > 0)
                             {
-                                NotePlayer.play_note(frequencies[0], length);
-                                UnHighlightNoteLabel(noteIndex);
-                                if (remainingTime > 0)
-                                {
-                                    NonBlockingSleep.Sleep(remainingTime);
-                                }
-                            }, token);
-                        }
-                        else
-                        {
-                            int length = Math.Min((int)numericUpDown_alternating_note.Value, durationMsInt);
-                            int remainingTime = durationMsInt - length;
-                            await Task.Run(() =>
-                            {
-                                NotePlayer.play_note(frequencies[0], length);
-                                UnHighlightNoteLabel(noteIndex);
-                                if (remainingTime > 0)
-                                {
-                                    NonBlockingSleep.Sleep(remainingTime);
-                                }
-                            }, token);
-                        }
+                                NonBlockingSleep.Sleep(remainingTime);
+                            }
+                        }, token);
                     }
                     else
                     {
-                        await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
-                        UnHighlightNoteLabel(noteIndex);
+                        int length = Math.Min((int)numericUpDown_alternating_note.Value, durationMsInt);
+                        int remainingTime = durationMsInt - length;
+                        await Task.Run(() =>
+                        {
+                            NotePlayer.play_note(frequencies[0], length);
+                            UnHighlightNoteLabel(noteIndex);
+                            if (remainingTime > 0)
+                            {
+                                NonBlockingSleep.Sleep(remainingTime);
+                            }
+                        }, token);
                     }
                 }
                 else
                 {
-                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
+                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
+                    UnHighlightNoteLabel(noteIndex);
                 }
             }
             else
             {
-                // Silence playback
-                await WaitPrecise(durationMsInt);
+                await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
             }
         }
         private async Task WaitPrecise(int milliseconds)
