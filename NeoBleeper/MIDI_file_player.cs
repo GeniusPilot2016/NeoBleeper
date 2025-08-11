@@ -1018,10 +1018,10 @@ namespace NeoBleeper
                     null, label, new object[] { true });
             }
             // Create a mapping from MIDI note numbers to label indices
-            // This mapping assumes MIDI notes 60-91 (C1 to B10) correspond to labels 1-32
+            // This mapping assumes MIDI notes 0-128 correspond to labels 1-32
             _noteToLabelMap = new Dictionary<int, int>();
-            // Maps MIDI notes 60-91 (C1 to B10) to labels 1-32
-            for (int i = 0; i <= 128; i++) // 0'dan başlatabilirsiniz
+            // Maps MIDI notes 0-128 to labels 1-32
+            for (int i = 0; i <= 128; i++) 
             {
                 _noteToLabelMap[i] = i - 60;
             }
