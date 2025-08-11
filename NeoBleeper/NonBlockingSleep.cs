@@ -52,17 +52,10 @@ namespace NeoBleeper
             }
             PreventSleep();
 
-            // Dynamically query the frequency
-            if (!QueryPerformanceFrequency(out long dynamicFrequency) || dynamicFrequency <= 0)
-            {
-                throw new InvalidOperationException("Unable to query performance frequency.");
-            }
-
-            // Calculate target ticks using the dynamic frequency
-            long targetTicks = (dynamicFrequency * microseconds) / 1000000;
+            // CachedFrequency kullanımı
+            long targetTicks = (CachedFrequency * microseconds) / 1000000;
             var stopwatch = Stopwatch.StartNew();
 
-            // Adaptive waiting strategy for better precision
             long remainingTicks = targetTicks;
 
             while (remainingTicks > 0)
@@ -71,18 +64,16 @@ namespace NeoBleeper
                 remainingTicks = targetTicks - elapsedTicks;
                 if (remainingTicks <= 0)
                 {
-                    break; // Exit if the target time has been reached
+                    break;
                 }
-                // Use Application.DoEvents to allow the UI to remain responsive
                 if (Application.MessageLoop && Application.OpenForms.Count > 0)
                 {
                     Application.DoEvents();
                 }
-                Thread.Yield(); // Yield to allow other threads to run
+                Thread.Yield();
             }
 
             stopwatch.Stop();
-            return;
         }
 
         // High precision sleep for very short durations

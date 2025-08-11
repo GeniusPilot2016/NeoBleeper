@@ -272,6 +272,10 @@ namespace NeoBleeper
                             {
                                 var noteEvent = (NoteEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
+                                if (!_noteChannels.ContainsKey(noteEvent.NoteNumber))
+                                {
+                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // veya 0
+                                }
                             }
                         }
 
@@ -1017,7 +1021,7 @@ namespace NeoBleeper
             // This mapping assumes MIDI notes 60-91 (C1 to B10) correspond to labels 1-32
             _noteToLabelMap = new Dictionary<int, int>();
             // Maps MIDI notes 60-91 (C1 to B10) to labels 1-32
-            for (int i = 24; i <= 128; i++)
+            for (int i = 0; i <= 128; i++) // 0'dan başlatabilirsiniz
             {
                 _noteToLabelMap[i] = i - 60;
             }
