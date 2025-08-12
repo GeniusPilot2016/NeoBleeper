@@ -2753,8 +2753,6 @@ namespace NeoBleeper
             nonStopping = trackBar_note_silence_ratio.Value == 100;
             int baseLength = 0;
 
-            double cumulativeError = 0.0; // Track fractional milliseconds
-
             if (Variables.bpm > 0)
             {
                 baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
@@ -2770,15 +2768,7 @@ namespace NeoBleeper
                 if (!nonStopping && silence_int > 0)
                 {
                     UpdateLabelVisible(false);
-
-                    // Add any fractional error to current silence period
-                    double exactSilence = silence_int + cumulativeError;
-                    int adjustedSilence = (int)Math.Round(exactSilence);
-
-                    // Track the rounding error for next iteration
-                    cumulativeError = exactSilence - adjustedSilence;
-
-                    NonBlockingSleep.Sleep(adjustedSilence);
+                    NonBlockingSleep.Sleep(silence_int);
                 }
 
                 UpdateListViewSelection(startIndex);
