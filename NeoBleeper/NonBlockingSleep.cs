@@ -62,10 +62,6 @@ namespace NeoBleeper
             {
                 long elapsedTicks = stopwatch.ElapsedTicks;
                 remainingTicks = targetTicks - elapsedTicks;
-                if (remainingTicks <= 0)
-                {
-                    break;
-                }
                 if (Application.MessageLoop && Application.OpenForms.Count > 0)
                 {
                     Application.DoEvents();

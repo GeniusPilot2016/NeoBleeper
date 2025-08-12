@@ -1,4 +1,4 @@
-using GenerativeAI.Types;
+ï»¿using GenerativeAI.Types;
 using NAudio.Midi;
 using NeoBleeper.Properties;
 using System.ComponentModel;
@@ -375,7 +375,7 @@ namespace NeoBleeper
 
         }
 
-        private void ýmportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Ä±mportToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
@@ -2696,30 +2696,12 @@ namespace NeoBleeper
             double noteSound_double = note_length_calculator(baseLength);
             double totalRhythm_double = line_length_calculator(baseLength);
 
-            // Snap to nearest value with relative epsilon
-            noteSound_double = FixRoundingErrors(noteSound_double);
-            totalRhythm_double = FixRoundingErrors(totalRhythm_double);
-
-            // Calculate durations
-            double noteSound = noteSound_double;
-            double totalRhythm = totalRhythm_double;
-
             // Convert to integers
-            int totalRhythm_int = (int)Math.Floor(totalRhythm);
-            int noteSound_int = Math.Min((int)Math.Floor(noteSound), totalRhythm_int);
+            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
+            int noteSound_int = Math.Min((int)Math.Floor(noteSound_double), totalRhythm_int);
             int silence_int = totalRhythm_int - noteSound_int;
 
             return (noteSound_int, silence_int);
-        }
-        public static double ULP(double x)
-        {
-            if (double.IsNaN(x)) return double.NaN;
-            if (double.IsInfinity(x)) return double.PositiveInfinity;
-
-            long bits = BitConverter.DoubleToInt64Bits(x);
-            long nextBits = (x >= 0) ? bits + 1 : bits - 1;
-            double next = BitConverter.Int64BitsToDouble(nextBits);
-            return Math.Abs(next - x);
         }
         public static double FixRoundingErrors(double inputValue)
         {
@@ -2770,10 +2752,14 @@ namespace NeoBleeper
             EnableDisableCommonControls(false);
             nonStopping = trackBar_note_silence_ratio.Value == 100;
             int baseLength = 0;
+
+            double cumulativeError = 0.0; // Track fractional milliseconds
+
             if (Variables.bpm > 0)
             {
                 baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
             }
+
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -2784,8 +2770,17 @@ namespace NeoBleeper
                 if (!nonStopping && silence_int > 0)
                 {
                     UpdateLabelVisible(false);
-                    NonBlockingSleep.Sleep(silence_int);
+
+                    // Add any fractional error to current silence period
+                    double exactSilence = silence_int + cumulativeError;
+                    int adjustedSilence = (int)Math.Round(exactSilence);
+
+                    // Track the rounding error for next iteration
+                    cumulativeError = exactSilence - adjustedSilence;
+
+                    NonBlockingSleep.Sleep(adjustedSilence);
                 }
+
                 UpdateListViewSelection(startIndex);
             }
 
@@ -2793,7 +2788,6 @@ namespace NeoBleeper
             {
                 stopAllNotesAfterPlaying();
             }
-
             EnableDisableCommonControls(true);
         }
 
@@ -3893,7 +3887,7 @@ namespace NeoBleeper
         }
         public static string FormatNumber(double number)
         {
-            string numberString = number.ToString("G17", System.Globalization.CultureInfo.InvariantCulture); // Maksimum hassasiyetle string'e çevir
+            string numberString = number.ToString("G17", System.Globalization.CultureInfo.InvariantCulture); // Maksimum hassasiyetle string'e Ã§evir
             int decimalIndex = numberString.IndexOf('.');
 
             if (decimalIndex == -1)
@@ -4773,7 +4767,7 @@ namespace NeoBleeper
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
                     XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-                    namespaces.Add(string.Empty, string.Empty); // Namespace'i kaldýr
+                    namespaces.Add(string.Empty, string.Empty); // Namespace'i kaldÄ±r
                     serializer.Serialize(stringWriter, projectFile, namespaces);
                     return stringWriter.ToString();
                 }
@@ -4897,7 +4891,7 @@ namespace NeoBleeper
             isAlternatingPlayingRegularKeyboard = false;
             UnmarkAllButtons();
 
-            // Portamento tipi AlwaysProduceSound ise notalarý durdurma!
+            // Portamento tipi AlwaysProduceSound ise notalarÄ± durdurma!
             if (!(checkBox_bleeper_portamento.Checked &&
                   TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound))
             {
