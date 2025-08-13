@@ -131,7 +131,6 @@ namespace NeoBleeper
         {
             List<NoteInfo> notes = new List<NoteInfo>();
             gcodeBuilder.Clear();
-
             // Prepare the music string for parsing
             using (StringReader stringReader = new StringReader(musicString))
             {
@@ -177,11 +176,20 @@ namespace NeoBleeper
             {
                 return string.Empty; // Return empty string if no notes are found
             }
-
+            double remainder = 0.0;
             foreach (var note in notes)
             {
-                int note_length = (int)Math.Floor(FixRoundingErrors(CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0)));
-                int silence = (int)Math.Floor(FixRoundingErrors(CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))));
+                double raw_note_length = CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0);
+                int note_length = (int)Math.Truncate(FixRoundingErrors(CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0)));
+                int silence = (int)Math.Truncate(FixRoundingErrors(CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))));
+                double difference = RemoveWholeNumber(raw_note_length - (note_length + silence));
+                remainder += difference;
+                int roundedReminder = (int)Math.Round(remainder, MidpointRounding.ToEven);
+                if (roundedReminder >= 1.0 || roundedReminder <= -1.0)
+                {
+                    note_length -= roundedReminder;
+                    remainder -= remainder;
+                }
                 insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
                     checkBox_play_note1.Checked, checkBox_play_note2.Checked,
                     checkBox_play_note3.Checked, checkBox_play_note4.Checked,

@@ -2693,12 +2693,12 @@ namespace NeoBleeper
         private (int noteSound_int, int silence_int) CalculateNoteDurations(double baseLength)
         {
             // Compute raw double values
-            double noteSound_double = note_length_calculator(baseLength);
-            double totalRhythm_double = line_length_calculator(baseLength);
+            double noteSound_double = FixRoundingErrors(note_length_calculator(baseLength));
+            double totalRhythm_double = FixRoundingErrors(line_length_calculator(baseLength));
 
             // Convert to integers
-            int totalRhythm_int = (int)Math.Floor(totalRhythm_double);
-            int noteSound_int = Math.Min((int)Math.Floor(noteSound_double), totalRhythm_int);
+            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
+            int noteSound_int = Math.Min((int)Math.Truncate(noteSound_double), totalRhythm_int);
             int silence_int = totalRhythm_int - noteSound_int;
 
             return (noteSound_int, silence_int);
@@ -2710,13 +2710,22 @@ namespace NeoBleeper
             const double adjustment = 1e-10; 
 
             // Check if the input value exceeds the threshold
-            if (inputValue > threshold)
+            if(inputValue >= 0)
             {
-                inputValue += adjustment;
+                if (inputValue > threshold)
+                {
+                    inputValue += adjustment;
+                }
             }
-
-            // Return the corrected value
-            return inputValue;
+            else
+            {
+                if (inputValue < (threshold * -1))
+                {
+                    inputValue -= adjustment;
+                }
+            }
+                // Return the corrected value
+                return inputValue;
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
@@ -2746,13 +2755,17 @@ namespace NeoBleeper
                 );
             }
         }
+        public static double RemoveWholeNumber(double number)
+        {
+            return number - Math.Truncate(number);
+        }
         private void play_music(int startIndex)
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
             nonStopping = trackBar_note_silence_ratio.Value == 100;
             int baseLength = 0;
-
+            double remainder = 0.0;
             if (Variables.bpm > 0)
             {
                 baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
@@ -2762,6 +2775,14 @@ namespace NeoBleeper
             {
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
 
+                double difference = RemoveWholeNumber((note_length_calculator(baseLength) + line_length_calculator(baseLength) - (noteSound_int + silence_int))); 
+                remainder += difference;
+                int roundedReminder = (int)Math.Round(remainder, MidpointRounding.ToEven);
+                if (roundedReminder >= 1.0 || roundedReminder <= -1.0)
+                {
+                    noteSound_int -= roundedReminder;
+                    remainder -= remainder;
+                }
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
 
@@ -2770,7 +2791,10 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
-
+                if (listViewNotes.SelectedIndices[0] == listViewNotes.Items.Count - 1)
+                {
+                    remainder = 0.0; // Reset remainder when reaching the end of the list
+                }
                 UpdateListViewSelection(startIndex);
             }
 
