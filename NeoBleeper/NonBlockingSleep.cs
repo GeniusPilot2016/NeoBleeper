@@ -61,7 +61,7 @@ namespace NeoBleeper
 
                 // Yield the thread for longer intervals, but still check for messages
                 Application.DoEvents();
-                Thread.Sleep(0); // Yield to allow other threads to run
+                Thread.Sleep(0);
             }
         }
 

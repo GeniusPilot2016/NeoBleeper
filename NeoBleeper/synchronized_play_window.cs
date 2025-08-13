@@ -173,7 +173,6 @@ namespace NeoBleeper
                 {
                     mainWindow.play_from_selected_line();
                 }
-                stop_playing(); // Stop any previous playback if necessary
             }
         }
 
