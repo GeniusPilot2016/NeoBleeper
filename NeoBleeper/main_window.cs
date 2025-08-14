@@ -2791,10 +2791,6 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
-                if (listViewNotes.SelectedIndices[0] == listViewNotes.Items.Count - 1)
-                {
-                    remainder = 0.0; // Reset remainder when reaching the end of the list
-                }
                 UpdateListViewSelection(startIndex);
             }
 

@@ -42,39 +42,26 @@ namespace NeoBleeper
                 return;
             }
 
-            // Increase timer resolution
-            TimeBeginPeriod(1);
-            try
-            {
-                SleepMicroseconds(milliseconds * 1000);
-            }
-            finally
-            {
-                // Restore timer resolution
-                TimeEndPeriod(1);
-            }
+            SleepMicroseconds(milliseconds * 1000);
         }
         public static void SleepMicroseconds(long microseconds)
         {
             if (microseconds <= 0)
-            {
                 return;
-            }
 
             PreventSleep();
 
+            long currentFrequency = Stopwatch.Frequency;
             long startTicks = Stopwatch.GetTimestamp();
-            long targetTicks = startTicks + (microseconds * CachedFrequency) / 1000000;
-            long spinWaitThresholdTicks = CachedFrequency / 10000; // 100 microseconds
+            long targetTicks = startTicks + (microseconds * currentFrequency) / 1000000;
+
             while (Stopwatch.GetTimestamp() < targetTicks)
             {
-                if (Stopwatch.GetTimestamp() > targetTicks)
+                currentFrequency = Stopwatch.Frequency;
+                if(Stopwatch.GetTimestamp() >= targetTicks)
                 {
                     break;
                 }
-                long remainingTicks = targetTicks - Stopwatch.GetTimestamp();
-
-                // Yield the thread for longer intervals, but still check for messages
                 Application.DoEvents();
                 Thread.Sleep(0);
             }

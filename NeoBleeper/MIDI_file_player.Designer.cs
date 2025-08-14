@@ -1286,16 +1286,16 @@
             panelLoading.Controls.Add(progressBar1);
             panelLoading.Controls.Add(pictureBoxIcon);
             panelLoading.Controls.Add(labelStatus);
-            panelLoading.Location = new Point(9, 56);
+            panelLoading.Location = new Point(9, 54);
             panelLoading.Name = "panelLoading";
-            panelLoading.Size = new Size(329, 107);
+            panelLoading.Size = new Size(329, 109);
             panelLoading.TabIndex = 29;
             panelLoading.Visible = false;
             // 
             // progressBar1
             // 
             progressBar1.Anchor = AnchorStyles.None;
-            progressBar1.Location = new Point(14, 60);
+            progressBar1.Location = new Point(14, 61);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(303, 23);
             progressBar1.TabIndex = 5;

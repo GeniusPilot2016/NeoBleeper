@@ -869,12 +869,18 @@ namespace NeoBleeper
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
-        private void Rewind()
+        private async void Rewind()
         {
             trackBar1.Value = 0;
             int positionPercent = trackBar1.Value / 10;
-            SetPosition(positionPercent);
+            await SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
+
+            if (_wasPlayingBeforeScroll)
+            {
+                Play();
+                _wasPlayingBeforeScroll = false;
+            }
             Debug.WriteLine("Rewind completed");
         }
         private string MidiNoteToName(int noteNumber)
