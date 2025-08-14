@@ -130,8 +130,6 @@ namespace NeoBleeper
             {
                 lock (lockObject)
                 {
-                    // Instead of stopping waveOut, we just silence the output.
-                    // This is much faster and avoids the latency of stopping/starting the device.
                     if (currentProvider == signalGenerator)
                     {
                         signalGenerator.Gain = 0;
@@ -152,10 +150,9 @@ namespace NeoBleeper
                     }
                     if (signalGenerator.Frequency != freq || signalGenerator.Type != type || signalGenerator.Gain == 0)
                     {
-                        // Removed Task.Run to prevent race conditions. Settings are now applied synchronously.
                         signalGenerator.Frequency = freq;
                         signalGenerator.Type = type;
-                        signalGenerator.Gain = 0.15; // Restore gain
+                        signalGenerator.Gain = 0.15; 
                     }
                 }
                 PlaySound(ms, nonStopping);

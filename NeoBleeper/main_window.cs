@@ -2763,7 +2763,6 @@ namespace NeoBleeper
         {
             bool nonStopping = false;
             EnableDisableCommonControls(false);
-            nonStopping = trackBar_note_silence_ratio.Value == 100;
             int baseLength = 0;
             double remainder = 0.0;
             if (Variables.bpm > 0)
@@ -2771,18 +2770,17 @@ namespace NeoBleeper
                 baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
             }
             NonBlockingSleep.Sleep(1);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            double expectedTime = 0.0;
+
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
+                nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
+                int noteDuration = noteSound_int + silence_int;
+                expectedTime += noteDuration;
 
-                double difference = RemoveWholeNumber((note_length_calculator(baseLength) + line_length_calculator(baseLength) - (noteSound_int + silence_int))); 
-                remainder += difference;
-                int roundedReminder = (int)Math.Round(remainder, MidpointRounding.ToEven);
-                if (roundedReminder >= 1.0 || roundedReminder <= -1.0)
-                {
-                    noteSound_int -= roundedReminder;
-                    remainder -= remainder;
-                }
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
 
@@ -2791,6 +2789,13 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
+
+                long actualElapsed = stopwatch.ElapsedMilliseconds;
+                double drift = actualElapsed - expectedTime;
+
+                // Apply drift correction to next note
+                noteSound_int = Math.Max(1, noteSound_int + (int)Math.Round(drift));
+
                 UpdateListViewSelection(startIndex);
             }
 
@@ -2801,7 +2806,7 @@ namespace NeoBleeper
             EnableDisableCommonControls(true);
         }
 
-        // Sync ListView update method
+        // Async ListView update method
 
         private async void UpdateListViewSelection(int startIndex)
         {
