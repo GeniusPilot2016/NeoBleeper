@@ -137,7 +137,7 @@ namespace NeoBleeper
                     $"- Adhere to the XML structure provided.\r\n" +
                     $"- Each <Line> represents a musical event or rest.\r\n" +
                     $"- <Length> defines the duration. Use a variety of durations from the following: Whole, Half, Quarter, 1/8, 1/16, and 1/32. Vary the frequency of each duration\r\n" +
-                    $"- For each <Line>, include only a single <Mod /> and a single <Art /> tag. Do not use numbered tags like <Mod1 />, <Mod2 />, <Art1 />, <Art2 />. If there is no modulation or articulation, use empty tags (<Mod /> and <Art />).\r\n\r\n" +
+                    $"- For each <Line>, include only a single <Mod /> and a single <Art /> tag. Do not use numbered tags like <Mod1 />, <Mod2 />, <Art1 />, <Art2 />. Use ONLY \"Dot\" (dotted) and \"Tri\" (triplet) values for <Mod /> tag. Don't use any other modifier name values such as \"Vib\", \"Arp\", \"Gliss\", \"Port\", \"Trem\". If there is no modulation or articulation, use empty tags (<Mod /> and <Art />).\r\n\r\n" +
                     $"- <Art /> defines the articulation(e.g Sta, Spi, Fer). Use empty tags (e.g., <Art />) if there's no articulation in that voice/slot.\r\n" +
                     $"- Use the <Settings> provided as context for parameters like BPM and Time Signature, unless the prompt overrides them.\r\n" +
                     $"- Use only valid XML characters and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
