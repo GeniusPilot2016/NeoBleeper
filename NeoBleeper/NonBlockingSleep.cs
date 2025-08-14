@@ -9,6 +9,12 @@ namespace NeoBleeper
 {
     public class NonBlockingSleep
     {
+        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod")]
+        private static extern int TimeBeginPeriod(uint uMilliseconds);
+
+        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod")]
+        private static extern int TimeEndPeriod(uint uMilliseconds);
+
         [DllImport("kernel32.dll")]
         private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
 
@@ -36,9 +42,18 @@ namespace NeoBleeper
                 return;
             }
 
-            SleepMicroseconds(milliseconds * 1000);
+            // Increase timer resolution
+            TimeBeginPeriod(1);
+            try
+            {
+                SleepMicroseconds(milliseconds * 1000);
+            }
+            finally
+            {
+                // Restore timer resolution
+                TimeEndPeriod(1);
+            }
         }
-
         public static void SleepMicroseconds(long microseconds)
         {
             if (microseconds <= 0)

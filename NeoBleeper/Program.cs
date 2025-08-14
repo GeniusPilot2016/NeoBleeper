@@ -14,12 +14,6 @@ namespace NeoBleeper
         [STAThread]
         static void Main()
         {
-            // P-Invoke to set the system timer resolution to 1 ms
-            [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-            static extern uint timeBeginPeriod(uint uPeriod);
-            [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-            static extern uint timeEndPeriod(uint uPeriod);
-            timeBeginPeriod(1); // Set the system timer resolution to 1 ms for better timing accuracy
             Debug.WriteLine("\r\n  _   _            ____  _                           \r\n | \\ | |          |  _ \\| |                          \r\n |  \\| | ___  ___ | |_) | | ___  ___ _ __   ___ _ __ \r\n | . ` |/ _ \\/ _ \\|  _ <| |/ _ \\/ _ \\ '_ \\ / _ \\ '__|\r\n | |\\  |  __/ (_) | |_) | |  __/  __/ |_) |  __/ |   \r\n |_| \\_|\\___|\\___/|____/|_|\\___|\\___| .__/ \\___|_|   \r\n                                    | |              \r\n                                    |_|              \r\n");
             Debug.WriteLine("From Something Unreal to Open Sound – Reviving the Legacy, One Note at a Time. \r\n");
             Debug.WriteLine("https://github.com/GeniusPilot2016/NeoBleeper \r\n");
@@ -249,7 +243,6 @@ namespace NeoBleeper
                         break;
                     }
             }
-            timeEndPeriod(1); // Reset the system timer resolution to default
             MIDIIOUtils.DisposeMidiOutput();
         }
     }
