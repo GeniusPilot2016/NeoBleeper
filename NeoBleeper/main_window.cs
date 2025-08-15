@@ -2765,11 +2765,12 @@ namespace NeoBleeper
             EnableDisableCommonControls(false);
             int baseLength = 0;
             double remainder = 0.0;
+            double drift = 0;
             if (Variables.bpm > 0)
             {
                 baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
             }
-            NonBlockingSleep.Sleep(1);
+            NonBlockingSleep.Sleep(1); // Sleep to prevent sound issues
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             double expectedTime = 0.0;
@@ -2778,9 +2779,16 @@ namespace NeoBleeper
             {
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                int noteDuration = noteSound_int + silence_int;
+                int noteDuration = (int)Math.Round(line_length_calculator(baseLength), MidpointRounding.AwayFromZero);
+                if (Math.Round(drift) >= 1)
+                {
+                    int driftCorrection = (int)Math.Round(drift);
+                    noteSound_int = Math.Max(1, noteSound_int - driftCorrection);
+                    drift -= driftCorrection; // Subtract the integer part of the drift, but keep the remainder
+                }
                 expectedTime += noteDuration;
-
+                // Apply drift correction to note
+                
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
 
@@ -2791,11 +2799,7 @@ namespace NeoBleeper
                 }
 
                 long actualElapsed = stopwatch.ElapsedMilliseconds;
-                double drift = actualElapsed - expectedTime;
-
-                // Apply drift correction to next note
-                noteSound_int = Math.Max(1, noteSound_int + (int)Math.Round(drift));
-
+                drift += actualElapsed - expectedTime;
                 UpdateListViewSelection(startIndex);
             }
 
