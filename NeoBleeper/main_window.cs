@@ -2877,7 +2877,7 @@ namespace NeoBleeper
                 listViewNotes.Items[0].Selected = true;
                 EnsureSpecificIndexVisible(0);
                 Debug.WriteLine("Music is playing");
-                play_music(0);
+                Task.Run(() => play_music(0)); 
             }
         }
         public void play_from_selected_line()
@@ -2890,14 +2890,14 @@ namespace NeoBleeper
                     listViewNotes.Items[0].Selected = true;
                     EnsureSpecificIndexVisible(0);
                     Debug.WriteLine("Music is playing");
-                    play_music(0);
+                    Task.Run(() => play_music(0));
                 }
                 else
                 {
                     int index = listViewNotes.SelectedItems[0].Index;
                     EnsureSpecificIndexVisible(index);
                     Debug.WriteLine("Music is playing");
-                    play_music(index);
+                    Task.Run(() => play_music(index));
                 }
             }
         }
@@ -4050,7 +4050,7 @@ namespace NeoBleeper
                 // Reset changes
                 isModified = false;
                 UpdateFormTitle();
-
+                setThemeOfListViewItems(); // Set theme of list view items after rewinding if theme when rewinding is different
                 // Log states of variables
                 Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
             }
@@ -4367,6 +4367,7 @@ namespace NeoBleeper
                 stop_playing();
             }
             commandManager.Undo();
+            setThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
             Debug.WriteLine("Undo is executed.");
         }
 
@@ -4377,7 +4378,47 @@ namespace NeoBleeper
                 stop_playing();
             }
             commandManager.Redo();
+            setThemeOfListViewItems(); // Set theme of list view items after redoing if theme when redoing is different
             Debug.WriteLine("Redo is executed.");
+        }
+        private void setThemeOfListViewItems()
+        {
+            if(listViewNotes.Items.Count > 0)
+            {
+                switch (darkTheme)
+                {
+                    case true:
+                        if (listViewNotes.Items[0].BackColor != Color.Black)
+                        {
+                            foreach (ListViewItem items in listViewNotes.Items)
+                            {
+                                items.BackColor = Color.Black;
+                                items.ForeColor = Color.White;
+                                foreach (ListViewItem.ListViewSubItem subItem in items.SubItems)
+                                {
+                                    subItem.BackColor = Color.Black;
+                                    subItem.ForeColor = Color.White;
+                                }
+                            }
+                        }
+                        break;
+                    case false:
+                        if (listViewNotes.Items[0].BackColor != SystemColors.Window)
+                        {
+                            foreach (ListViewItem items in listViewNotes.Items)
+                            {
+                                items.BackColor = SystemColors.Window;
+                                items.ForeColor = SystemColors.WindowText;
+                                foreach (ListViewItem.ListViewSubItem subItem in items.SubItems)
+                                {
+                                    subItem.BackColor = SystemColors.Window;
+                                    subItem.ForeColor = SystemColors.WindowText;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
         }
 
         private void button_synchronized_play_help_Click(object sender, EventArgs e)

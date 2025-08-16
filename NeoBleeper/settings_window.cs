@@ -292,8 +292,10 @@ namespace NeoBleeper
         }
         private void system_speaker_test_tune()
         {
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
+            // Debounce check to prevent multiple clicks to test the system speaker
             {
+                isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
                 Random rnd = new Random();
                 int tune_number = rnd.Next(1, 24); // Random number between 1 and 23
 
@@ -369,6 +371,7 @@ namespace NeoBleeper
                         PlayMinuetInG();
                         break;
                 }
+                isTestingSystemSpeaker = false; // Reset the flag after the tune is played
             }
         }
 
@@ -379,7 +382,7 @@ namespace NeoBleeper
                 RenderBeep.BeepClass.StopBeep();
             }
         }
-
+        bool isTestingSystemSpeaker = false;
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("Testing system speaker...");

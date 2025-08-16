@@ -178,25 +178,28 @@ namespace NeoBleeper
 
         private void UpdateUIForPlaying()
         {
-            if (this.InvokeRequired)
+            Task.Run(() =>
             {
-                this.Invoke((MethodInvoker)delegate
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        SuspendLayout();
+                        button_wait.Text = Resources.TextStopPlaying;
+                        lbl_waiting.Text = Resources.TextPlaying;
+                        lbl_waiting.BackColor = Color.Yellow;
+                        ResumeLayout(performLayout: true);
+                    });
+                }
+                else
                 {
                     SuspendLayout();
                     button_wait.Text = Resources.TextStopPlaying;
                     lbl_waiting.Text = Resources.TextPlaying;
                     lbl_waiting.BackColor = Color.Yellow;
                     ResumeLayout(performLayout: true);
-                });
-            }
-            else
-            {
-                SuspendLayout();
-                button_wait.Text = Resources.TextStopPlaying;
-                lbl_waiting.Text = Resources.TextPlaying;
-                lbl_waiting.BackColor = Color.Yellow;
-                ResumeLayout(performLayout: true);
-            }
+                }
+            });
         }
         private bool isCurrentTimeIsEqualOrGreaterThan()
         {
