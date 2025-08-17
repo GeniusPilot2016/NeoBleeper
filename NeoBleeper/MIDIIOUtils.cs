@@ -125,6 +125,16 @@ namespace NeoBleeper
                 _midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
         }
+        public static async Task PlayMidiNoteAsync(int note, int length, int instrument, bool nonStopping = false, int? channel = null)
+        {
+            if (_midiOut == null) return;
+            
+            int midiChannel = channel ?? TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
+            int originalInstrument = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
+            ChangeInstrument(_midiOut, instrument, midiChannel);
+            await PlayMidiNoteAsync(note, length, nonStopping);
+            ChangeInstrument(_midiOut, originalInstrument, midiChannel);
+        }
         public static int FrequencyToMidiNote(double frequency)
         {
             double note = 69 + 12 * Math.Log(frequency / 440.0, 2);

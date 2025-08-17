@@ -4142,7 +4142,7 @@ namespace NeoBleeper
                     string first_line = File.ReadLines(fileName).First();
                     if (MIDIFileValidator.IsMidiFile(fileName))
                     {
-                        MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
+                        MIDI_file_player midi_file_player = new MIDI_file_player(fileName, this);
                         midi_file_player.ShowDialog();
 
                     }
@@ -4197,7 +4197,7 @@ namespace NeoBleeper
             {
                 if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName);
+                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
                     midi_file_player.ShowDialog();
                     Debug.WriteLine("MIDI file is opened.");
                 }

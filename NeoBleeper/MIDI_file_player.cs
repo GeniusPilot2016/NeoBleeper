@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace NeoBleeper
@@ -23,8 +24,10 @@ namespace NeoBleeper
         private bool _isUpdatingLabels = false;
         private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
-        public MIDI_file_player(string filename)
+        private main_window mainWindow;
+        public MIDI_file_player(string filename, main_window mainWindow)
         {
+            this.mainWindow = mainWindow;
             InitializeComponent();
             UIFonts.setFonts(this);
             set_theme();
@@ -306,6 +309,7 @@ namespace NeoBleeper
                 await Task.Delay(300);
                 progressBar1.Visible = false;
                 PrecomputeTempoTimes();
+                AssignInstrumentsToNotes(_midiFile);
             }
             catch (Exception ex)
             {
@@ -567,7 +571,14 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteIndex);
-                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
+                                            if (!mainWindow.checkBox_mute_playback.Checked)
+                                            {
+                                                NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
+                                            }
+                                            else
+                                            {
+                                                NonBlockingSleep.Sleep(alternatingTime);
+                                            }
                                             UnHighlightNoteLabel(noteIndex);
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
@@ -601,7 +612,14 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(i);
-                                            NotePlayer.play_note(frequencies[i], alternatingTime);
+                                            if(!mainWindow.checkBox_mute_playback.Checked)
+                                            {
+                                                NotePlayer.play_note(frequencies[i], alternatingTime);
+                                            }
+                                            else
+                                            {
+                                                NonBlockingSleep.Sleep(alternatingTime);
+                                            }
                                             UnHighlightNoteLabel(i);
 
                                             noteStopwatch.Stop();
@@ -642,7 +660,14 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteIndex);
-                                            NotePlayer.play_note(frequencies[noteIndex], interval);
+                                            if (!mainWindow.checkBox_mute_playback.Checked)
+                                            {
+                                                NotePlayer.play_note(frequencies[noteIndex], interval);
+                                            }
+                                            else
+                                            {
+                                                NonBlockingSleep.Sleep(interval);
+                                            }
                                             UnHighlightNoteLabel(noteIndex);
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
@@ -674,7 +699,14 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(i);
-                                            NotePlayer.play_note(frequencies[i], interval);
+                                            if (!mainWindow.checkBox_mute_playback.Checked)
+                                            {
+                                                NotePlayer.play_note(frequencies[i], interval);
+                                            }
+                                            else
+                                            {
+                                                NonBlockingSleep.Sleep(interval);
+                                            }
                                             UnHighlightNoteLabel(i);
 
                                             noteStopwatch.Stop();
@@ -717,7 +749,14 @@ namespace NeoBleeper
                                         noteStopwatch.Start();
 
                                         HighlightNoteLabel(noteIndex);
-                                        NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
+                                        if (!mainWindow.checkBox_mute_playback.Checked)
+                                        {
+                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
+                                        }
+                                        else
+                                        {
+                                            NonBlockingSleep.Sleep(alternatingTime);
+                                        }
                                         UnHighlightNoteLabel(noteIndex);
 
                                         noteStopwatch.Stop();
@@ -757,7 +796,14 @@ namespace NeoBleeper
                                         noteStopwatch.Start();
 
                                         HighlightNoteLabel(noteIndex);
-                                        NotePlayer.play_note(frequencies[noteIndex], interval);
+                                        if (!mainWindow.checkBox_mute_playback.Checked)
+                                        {
+                                            NotePlayer.play_note(frequencies[noteIndex], interval);
+                                        }
+                                        else
+                                        {
+                                            NonBlockingSleep.Sleep(interval);
+                                        }
                                         UnHighlightNoteLabel(noteIndex);
 
                                         noteStopwatch.Stop();
@@ -1314,9 +1360,11 @@ namespace NeoBleeper
             var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
-                foreach (int frequency in frequencies)
+                foreach (var noteNumber in filteredNotes)
                 {
-                    MIDIIOUtils.PlayMidiNoteAsync(MIDIIOUtils.FrequencyToMidiNote(frequency / 2), durationMsInt);
+                    int instrument = 0;
+                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
+                    MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument, checkBox_play_each_note.Checked);
                 }
             }
             if (frequencies.Length == 1)
@@ -1332,7 +1380,14 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
-                            NotePlayer.play_note(frequencies[0], length);
+                            if (!mainWindow.checkBox_mute_playback.Checked)
+                            {
+                                NotePlayer.play_note(frequencies[0], length);
+                            }
+                            else
+                            {
+                                NonBlockingSleep.Sleep(length);
+                            }
                             UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
@@ -1346,8 +1401,15 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
-                            NotePlayer.play_note(frequencies[0], length);
-                            UnHighlightNoteLabel(noteIndex);
+                            if (!mainWindow.checkBox_mute_playback.Checked)
+                            {
+                                NotePlayer.play_note(frequencies[0], length);
+                            }
+                            else
+                            {
+                                NonBlockingSleep.Sleep(length);
+                            }
+                             UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
                                 NonBlockingSleep.Sleep(remainingTime);
@@ -1357,7 +1419,16 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
+                    await Task.Run(() => {
+                        if (!mainWindow.checkBox_mute_playback.Checked)
+                        {
+                            NotePlayer.play_note(frequencies[0], durationMsInt);
+                        }
+                        else
+                        {
+                            NonBlockingSleep.Sleep(durationMsInt);
+                        }
+                    }, token);
                     UnHighlightNoteLabel(noteIndex);
                 }
             }
@@ -1483,6 +1554,50 @@ namespace NeoBleeper
         private void MIDI_file_player_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();
+        }
+        private Dictionary<int, int> _channelInstruments = new();
+
+        private void ParseChannelInstruments(MidiFile midiFile)
+        {
+            foreach (var track in midiFile.Events)
+            {
+                foreach (var midiEvent in track)
+                {
+                    if (midiEvent.CommandCode == MidiCommandCode.PatchChange)
+                    {
+                        var patch = (PatchChangeEvent)midiEvent;
+                        _channelInstruments[patch.Channel] = patch.Patch;
+                    }
+                }
+            }
+        }
+        private Dictionary<(int note, long time), int> _noteInstruments = new();
+
+        private void AssignInstrumentsToNotes(MidiFile midiFile)
+        {
+            var lastPatchPerChannel = new Dictionary<int, int>();
+
+            foreach (var track in midiFile.Events)
+            {
+                foreach (var midiEvent in track)
+                {
+                    if (midiEvent.CommandCode == MidiCommandCode.PatchChange)
+                    {
+                        var patch = (PatchChangeEvent)midiEvent;
+                        lastPatchPerChannel[patch.Channel] = patch.Patch;
+                    }
+                    else if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
+                    {
+                        var noteEvent = (NoteOnEvent)midiEvent;
+                        int instrument;
+                        if (noteEvent.Channel == 9) // Kanal 10 (perküsyon)
+                            instrument = -1; // Perküsyon için özel işaret
+                        else
+                            instrument = lastPatchPerChannel.TryGetValue(noteEvent.Channel, out var patch) ? patch : 0;
+                        _noteInstruments[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = instrument;
+                    }
+                }
+            }
         }
     }
 }

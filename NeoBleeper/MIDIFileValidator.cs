@@ -57,6 +57,8 @@ namespace NeoBleeper
                         // Validate track data
                         long trackStartPosition = br.BaseStream.Position;
                         long trackEndPosition = trackStartPosition + trackLength;
+                        byte lastCommand = 0;
+                        byte lastChannel = 0;
 
                         while (br.BaseStream.Position < trackEndPosition)
                         {
@@ -88,10 +90,33 @@ namespace NeoBleeper
                                     return false; // Unknown system event
                                 }
                             }
-                            else // MIDI event
+                            else // MIDI event or running status
                             {
-                                int channel = eventType & 0x0F;
-                                int command = eventType & 0xF0;
+                                byte command;
+                                int channel;
+
+                                if ((eventType & 0x80) == 0) // Running status
+                                {
+                                    // Use the previous command and the current byte as the data
+                                    if (lastCommand == 0)
+                                    {
+                                        return false; // No previous command to use
+                                    }
+                                    command = lastCommand;
+                                    channel = lastChannel;
+
+                                    //Rewind one byte, so the switch statement can consume the eventType
+                                    br.BaseStream.Seek(-1, SeekOrigin.Current);
+                                }
+                                else // New MIDI event
+                                {
+                                    command = (byte)(eventType & 0xF0);
+                                    channel = eventType & 0x0F;
+
+                                    // Remember the last command and channel
+                                    lastCommand = command;
+                                    lastChannel = (byte)channel;
+                                }
 
                                 // Validate MIDI event data
                                 switch (command)
