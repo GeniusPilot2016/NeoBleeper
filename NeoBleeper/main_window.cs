@@ -4140,7 +4140,7 @@ namespace NeoBleeper
                     string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                     string fileName = files[0];
                     string first_line = File.ReadLines(fileName).First();
-                    if (IsMidiFile(fileName))
+                    if (MIDIFileValidator.IsMidiFile(fileName))
                     {
                         MIDI_file_player midi_file_player = new MIDI_file_player(fileName);
                         midi_file_player.ShowDialog();
@@ -4195,7 +4195,7 @@ namespace NeoBleeper
             openFileDialog.Filter = "MIDI Files|*.mid";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                if (IsMidiFile(openFileDialog.FileName))
+                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
                 {
                     MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName);
                     midi_file_player.ShowDialog();
@@ -4206,30 +4206,6 @@ namespace NeoBleeper
                     MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
                 }
-            }
-        }
-
-        private bool IsMidiFile(string filePath)
-        {
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    return false;
-                }
-
-                byte[] header = new byte[4];
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    fs.Read(header, 0, 4);
-                }
-
-                // MIDI files start with the header "MThd"
-                return header[0] == 'M' && header[1] == 'T' && header[2] == 'h' && header[3] == 'd';
-            }
-            catch (Exception)
-            {
-                return false;
             }
         }
 
