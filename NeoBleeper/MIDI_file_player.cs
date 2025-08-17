@@ -1419,8 +1419,8 @@ namespace NeoBleeper
                 }
             }
 
-            // Update the percentage labeş
-            label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+            // Update the percentage label
+            label_percentage.Text = ((double)frameIndex / (_frames.Count-1) * 100).ToString("0.00") + "%";
 
             // Update the position label
             UpdatePositionLabel();
