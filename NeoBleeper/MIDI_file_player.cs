@@ -1402,7 +1402,7 @@ namespace NeoBleeper
             }
 
             // Update the percentage label
-            label_percentage.Text = ((double)frameIndex / (_frames.Count-1) * 100).ToString("0.00") + "%";
+            label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
 
             // Update the position label
             UpdatePositionLabel();
@@ -1453,7 +1453,7 @@ namespace NeoBleeper
                 if (!_isPlaying) return;
 
                 playbackTimer.Stop();
-
+                _wasPlayingBeforeScroll = false;
                 if (checkBox_loop.Checked)
                 {
                     Debug.WriteLine("Playback loop enabled. Rewinding.");
@@ -1462,7 +1462,7 @@ namespace NeoBleeper
                     Play();
                 }
                 else
-                {
+                { 
                     Debug.WriteLine("Playback finished.");
                     Stop();
                     Rewind();
