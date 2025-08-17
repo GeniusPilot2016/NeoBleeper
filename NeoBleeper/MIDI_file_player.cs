@@ -92,29 +92,6 @@ namespace NeoBleeper
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
-        private bool IsMidiFile(string filePath)
-        {
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    return false;
-                }
-
-                byte[] header = new byte[4];
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    fs.Read(header, 0, 4);
-                }
-
-                // MIDI files always start with the header MThd
-                return header[0] == 'M' && header[1] == 'T' && header[2] == 'h' && header[3] == 'd';
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
 
         private async void button4_Click(object sender, EventArgs e)
         {
@@ -122,7 +99,7 @@ namespace NeoBleeper
             openFileDialog.Filter = "MIDI Files|*.mid";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                if (IsMidiFile(openFileDialog.FileName))
+                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
                 {
                     textBox1.Text = openFileDialog.FileName;
                     await LoadMIDI(openFileDialog.FileName);
@@ -156,7 +133,7 @@ namespace NeoBleeper
                     string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                     string fileName = files[0];
                     string first_line = File.ReadLines(fileName).First();
-                    if (IsMidiFile(fileName))
+                    if (MIDIFileValidator.IsMidiFile(fileName))
                     {
                         textBox1.Text = fileName;
                         await LoadMIDI(fileName);
@@ -201,6 +178,7 @@ namespace NeoBleeper
 
             Debug.WriteLine($"Enabled channels: {string.Join(", ", _enabledChannels)}");
         }
+
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
@@ -532,15 +510,19 @@ namespace NeoBleeper
 
             panel1.ResumeLayout();
         }
-        private void checkBox_channel_CheckedChanged(object sender, EventArgs e)
+        private async void checkBox_channel_CheckedChanged(object sender, EventArgs e)
         {
             UpdateEnabledChannels();
 
-            // If it is playing, update the position immediately
             if (_isPlaying)
             {
                 double currentPositionPercent = (double)_currentFrameIndex / _frames.Count * 100;
-                SetPosition(currentPositionPercent);
+                bool wasPlaying = _isPlaying;
+                await SetPosition(currentPositionPercent);
+                if (wasPlaying && !_isPlaying)
+                {
+                    Play();
+                }
             }
             Debug.WriteLine("Channel checkboxes changed");
         }
