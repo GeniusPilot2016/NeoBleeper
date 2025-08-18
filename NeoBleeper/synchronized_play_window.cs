@@ -213,10 +213,6 @@ namespace NeoBleeper
                    (Hour == currentHour && Minute < currentMinute) ||
                    (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
         }
-        private void synchronized_play_window_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private async void stop_playing()
         {

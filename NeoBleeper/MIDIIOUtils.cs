@@ -131,9 +131,19 @@ namespace NeoBleeper
             
             int midiChannel = channel ?? TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
             int originalInstrument = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
-            ChangeInstrument(_midiOut, instrument, midiChannel);
-            await PlayMidiNoteAsync(note, length, nonStopping);
-            ChangeInstrument(_midiOut, originalInstrument, midiChannel);
+            if (midiChannel == 9) // Channel 10 (percussion)
+            {
+                _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), midiChannel + 1).RawData);
+                await Task.Run(() => NonBlockingSleep.Sleep(length));
+                if (!nonStopping)
+                    _midiOut.Send(MidiMessage.StopNote(note, 0, midiChannel + 1).RawData);
+            }
+            else
+            {
+                ChangeInstrument(_midiOut, instrument, midiChannel);
+                await PlayMidiNoteAsync(note, length, nonStopping);
+                ChangeInstrument(_midiOut, originalInstrument, midiChannel);
+            }
         }
         public static int FrequencyToMidiNote(double frequency)
         {

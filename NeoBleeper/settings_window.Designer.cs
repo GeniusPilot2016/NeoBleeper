@@ -179,7 +179,6 @@
             resources.ApplyResources(general_settings, "general_settings");
             general_settings.Name = "general_settings";
             general_settings.UseVisualStyleBackColor = true;
-            general_settings.Click += general_settings_Click;
             // 
             // flowLayoutPanelGeneralSettings
             // 
@@ -211,7 +210,6 @@
             // 
             resources.ApplyResources(lbl_theme, "lbl_theme");
             lbl_theme.Name = "lbl_theme";
-            lbl_theme.Click += lbl_theme_Click;
             // 
             // comboBox_theme
             // 
@@ -309,7 +307,6 @@
             resources.ApplyResources(groupBox_system_speaker_test, "groupBox_system_speaker_test");
             groupBox_system_speaker_test.Name = "groupBox_system_speaker_test";
             groupBox_system_speaker_test.TabStop = false;
-            groupBox_system_speaker_test.Enter += groupBox_system_speaker_test_Enter;
             // 
             // btn_test_system_speaker
             // 
@@ -357,7 +354,6 @@
             flowLayoutPanelCreatingSoundSettings.Controls.Add(group_beep_creation_from_sound_card_settings);
             resources.ApplyResources(flowLayoutPanelCreatingSoundSettings, "flowLayoutPanelCreatingSoundSettings");
             flowLayoutPanelCreatingSoundSettings.Name = "flowLayoutPanelCreatingSoundSettings";
-            flowLayoutPanelCreatingSoundSettings.Paint += flowLayoutPanel3_Paint;
             // 
             // checkBox_enable_create_beep_from_soundcard
             // 
@@ -405,7 +401,6 @@
             resources.ApplyResources(button_show_reason, "button_show_reason");
             button_show_reason.Name = "button_show_reason";
             button_show_reason.UseVisualStyleBackColor = true;
-            button_show_reason.Click += button1_Click;
             // 
             // group_tone_waveform
             // 
@@ -644,7 +639,6 @@
             resources.ApplyResources(appearance, "appearance");
             appearance.Name = "appearance";
             appearance.UseVisualStyleBackColor = true;
-            appearance.Click += appearance_Click;
             // 
             // flowLayoutPanelAppearanceSettings
             // 
@@ -980,7 +974,6 @@
             Name = "settings_window";
             ShowIcon = false;
             ShowInTaskbar = false;
-            Load += settings_window_Load;
             SystemColorsChanged += settings_window_SystemColorsChanged;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);

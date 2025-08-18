@@ -117,7 +117,6 @@
             ShowIcon = false;
             Text = "Beat Settings";
             FormClosed += play_beat_window_FormClosed;
-            Load += play_beat_window_Load;
             SystemColorsChanged += play_beat_window_SystemColorsChanged;
             ResumeLayout(false);
             PerformLayout();

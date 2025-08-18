@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace NeoBleeper
+﻿namespace NeoBleeper
 {
     public partial class about_neobleeper : Form
     {
@@ -94,27 +83,13 @@ namespace NeoBleeper
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.Refresh();
         }
-        private void about_neobleeper_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        private void about_neobleeper_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
-        private void about_neobleeper_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
 
         private void button_view_license_text_Click(object sender, EventArgs e)
         {
             GNU_GPL_v3_license_text gnu_gpl_v3_license_text = new GNU_GPL_v3_license_text();
             gnu_gpl_v3_license_text.ShowDialog();
         }
-
         private void button_visit_icons8_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://icons8.com/") { UseShellExecute = true });

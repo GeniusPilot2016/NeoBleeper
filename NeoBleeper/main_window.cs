@@ -309,25 +309,6 @@ namespace NeoBleeper
             set_beep_label_color();
             this.Refresh();
         }
-        private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_time_signature_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -352,34 +333,6 @@ namespace NeoBleeper
             string[] note_lengths = { "Whole", "Half", "Quarter", "1/8", "1/16", "1/32" };
             Debug.WriteLine($"Selected note length is changed to: {note_lengths[comboBox_note_length.SelectedIndex]}");
         }
-
-        private void group_key_is_clicked_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void label_alternating_notes_switch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void ımportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenSaveAsDialog();
@@ -1426,13 +1379,6 @@ namespace NeoBleeper
                 if (play_note4 && !string.IsNullOrWhiteSpace(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
             }
         }
-
-
-
-        private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
         private static NBPML_File.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
@@ -2123,11 +2069,6 @@ namespace NeoBleeper
                     UpdateRecentFilesMenu();
                 }
             }
-        }
-
-        private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3957,22 +3898,6 @@ namespace NeoBleeper
                 Debug.WriteLine("Synchronized play window is closed.");
             }
         }
-
-        private void trackBar_note_silence_ratio_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar_time_signature_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_note_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void stop_all_sounds_before_closing()
         {
             NotePlayer.StopAllNotes();
@@ -3999,34 +3924,6 @@ namespace NeoBleeper
             isClosing = true;
             stop_all_sounds_before_closing();
         }
-
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
-        private void lbl_f3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_g3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lbl_a3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lbl_b3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void group_adding_note_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void rewindToSavedVersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (is_music_playing == true)
@@ -4142,9 +4039,7 @@ namespace NeoBleeper
                     string first_line = File.ReadLines(fileName).First();
                     if (MIDIFileValidator.IsMidiFile(fileName))
                     {
-                        MIDI_file_player midi_file_player = new MIDI_file_player(fileName, this);
-                        midi_file_player.ShowDialog();
-
+                        openMIDIFilePlayer(fileName);
                     }
                     else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
                         first_line == "<NeoBleeperProjectFile>")
@@ -4162,6 +4057,28 @@ namespace NeoBleeper
                     Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
                     MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+        private void openMIDIFilePlayer(string fileName)
+        {
+            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
+            {
+                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
+                {
+                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
+                    midi_file_player.ShowDialog();
+                    Debug.WriteLine("MIDI file is opened.");
+                }
+                else
+                {
+                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.");
+                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private static void SerializeXML(string filePath, NBPML_File.NeoBleeperProjectFile projectFile)
@@ -4192,20 +4109,17 @@ namespace NeoBleeper
             {
                 checkBox_synchronized_play.Checked = false;
             }
-            openFileDialog.Filter = "MIDI Files|*.mid";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
             {
-                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
+                openFileDialog.Filter = "MIDI Files|*.mid";
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
-                    midi_file_player.ShowDialog();
-                    Debug.WriteLine("MIDI file is opened.");
+                    openMIDIFilePlayer(openFileDialog.FileName);
                 }
-                else
-                {
-                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
-                }
+            }
+            else
+            {
+                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

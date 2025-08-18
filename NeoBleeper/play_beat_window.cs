@@ -109,12 +109,6 @@ namespace NeoBleeper
                 TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats;
             }
         }
-
-        private void play_beat_window_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void play_beat_window_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();

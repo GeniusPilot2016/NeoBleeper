@@ -143,9 +143,6 @@
             Name = "about_neobleeper";
             ShowIcon = false;
             ShowInTaskbar = false;
-            FormClosing += about_neobleeper_FormClosing;
-            FormClosed += about_neobleeper_FormClosed;
-            Load += about_neobleeper_Load;
             SystemColorsChanged += about_neobleeper_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

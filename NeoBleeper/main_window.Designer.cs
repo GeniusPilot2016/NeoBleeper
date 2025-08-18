@@ -462,14 +462,12 @@
             toolTip1.SetToolTip(trackBar_time_signature, resources.GetString("trackBar_time_signature.ToolTip"));
             trackBar_time_signature.Value = 4;
             trackBar_time_signature.Scroll += trackBar_time_signature_Scroll;
-            trackBar_time_signature.ValueChanged += trackBar_time_signature_ValueChanged;
             // 
             // label_time_signature
             // 
             resources.ApplyResources(label_time_signature, "label_time_signature");
             label_time_signature.Name = "label_time_signature";
             NeoBleeper_help.SetShowHelp(label_time_signature, (bool)resources.GetObject("label_time_signature.ShowHelp"));
-            label_time_signature.Click += label_time_signature_Click;
             // 
             // menuStrip1
             // 
@@ -964,7 +962,6 @@
             toolTip1.SetToolTip(trackBar_note_silence_ratio, resources.GetString("trackBar_note_silence_ratio.ToolTip"));
             trackBar_note_silence_ratio.Value = 50;
             trackBar_note_silence_ratio.Scroll += trackBar_note_silence_ratio_Scroll;
-            trackBar_note_silence_ratio.ValueChanged += trackBar_note_silence_ratio_ValueChanged;
             // 
             // label_note_silence_ratio
             // 
@@ -985,14 +982,12 @@
             label_note.BackColor = Color.Transparent;
             label_note.Name = "label_note";
             NeoBleeper_help.SetShowHelp(label_note, (bool)resources.GetObject("label_note.ShowHelp"));
-            label_note.Click += label_note_Click;
             // 
             // label_alternating_notes_switch
             // 
             resources.ApplyResources(label_alternating_notes_switch, "label_alternating_notes_switch");
             label_alternating_notes_switch.Name = "label_alternating_notes_switch";
             NeoBleeper_help.SetShowHelp(label_alternating_notes_switch, (bool)resources.GetObject("label_alternating_notes_switch.ShowHelp"));
-            label_alternating_notes_switch.Click += label_alternating_notes_switch_Click;
             // 
             // label_mods
             // 
@@ -1079,7 +1074,6 @@
             lbl_f3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_f3.Name = "lbl_f3";
             NeoBleeper_help.SetShowHelp(lbl_f3, (bool)resources.GetObject("lbl_f3.ShowHelp"));
-            lbl_f3.Click += lbl_f3_Click;
             // 
             // lbl_g3
             // 
@@ -1087,7 +1081,6 @@
             lbl_g3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_g3.Name = "lbl_g3";
             NeoBleeper_help.SetShowHelp(lbl_g3, (bool)resources.GetObject("lbl_g3.ShowHelp"));
-            lbl_g3.Click += lbl_g3_Click;
             // 
             // lbl_a3
             // 
@@ -1095,7 +1088,6 @@
             lbl_a3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_a3.Name = "lbl_a3";
             NeoBleeper_help.SetShowHelp(lbl_a3, (bool)resources.GetObject("lbl_a3.ShowHelp"));
-            lbl_a3.Click += lbl_a3_Click;
             // 
             // lbl_b3
             // 
@@ -1103,7 +1095,6 @@
             lbl_b3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_b3.Name = "lbl_b3";
             NeoBleeper_help.SetShowHelp(lbl_b3, (bool)resources.GetObject("lbl_b3.ShowHelp"));
-            lbl_b3.Click += lbl_b3_Click;
             // 
             // lbl_b4
             // 
@@ -1572,7 +1563,6 @@
             group_adding_note.Name = "group_adding_note";
             NeoBleeper_help.SetShowHelp(group_adding_note, (bool)resources.GetObject("group_adding_note.ShowHelp"));
             group_adding_note.TabStop = false;
-            group_adding_note.Enter += group_adding_note_Enter;
             // 
             // add_as_note4
             // 
@@ -1645,7 +1635,6 @@
             group_key_is_clicked.Name = "group_key_is_clicked";
             NeoBleeper_help.SetShowHelp(group_key_is_clicked, (bool)resources.GetObject("group_key_is_clicked.ShowHelp"));
             group_key_is_clicked.TabStop = false;
-            group_key_is_clicked.Enter += group_key_is_clicked_Enter;
             // 
             // group_line_clicked
             // 
@@ -1757,7 +1746,6 @@
             group_notes.Name = "group_notes";
             NeoBleeper_help.SetShowHelp(group_notes, (bool)resources.GetObject("group_notes.ShowHelp"));
             group_notes.TabStop = false;
-            group_notes.Enter += groupBox1_Enter;
             // 
             // button_g5
             // 
@@ -2009,10 +1997,6 @@
             button_do_not_update_help.UseVisualStyleBackColor = true;
             button_do_not_update_help.Click += button_do_not_update_help_Click;
             // 
-            // toolTip1
-            // 
-            toolTip1.Popup += toolTip1_Popup;
-            // 
             // radioButtonPlay_alternating_notes1
             // 
             resources.ApplyResources(radioButtonPlay_alternating_notes1, "radioButtonPlay_alternating_notes1");
@@ -2062,10 +2046,6 @@
             checkBox_do_not_update.UseVisualStyleBackColor = true;
             checkBox_do_not_update.CheckedChanged += checkBox_do_not_update_CheckedChanged;
             // 
-            // openFileDialog
-            // 
-            openFileDialog.FileOk += openFileDialog_FileOk;
-            // 
             // lbl_note_silence_ratio
             // 
             resources.ApplyResources(lbl_note_silence_ratio, "lbl_note_silence_ratio");
@@ -2093,10 +2073,6 @@
             // alternating_note_timer
             // 
             alternating_note_timer.Interval = 30;
-            // 
-            // backgroundWorker1
-            // 
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             // 
             // main_window
             // 

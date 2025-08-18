@@ -1364,7 +1364,14 @@ namespace NeoBleeper
                 {
                     int instrument = 0;
                     _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
-                    MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument, checkBox_play_each_note.Checked);
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
+                    {
+                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument);
+                    }
+                    else
+                    {
+                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, -1, false, 9); // Kanal 10, doğru note numarası
+                    }
                 }
             }
             if (frequencies.Length == 1)
@@ -1556,21 +1563,6 @@ namespace NeoBleeper
             set_theme();
         }
         private Dictionary<int, int> _channelInstruments = new();
-
-        private void ParseChannelInstruments(MidiFile midiFile)
-        {
-            foreach (var track in midiFile.Events)
-            {
-                foreach (var midiEvent in track)
-                {
-                    if (midiEvent.CommandCode == MidiCommandCode.PatchChange)
-                    {
-                        var patch = (PatchChangeEvent)midiEvent;
-                        _channelInstruments[patch.Channel] = patch.Patch;
-                    }
-                }
-            }
-        }
         private Dictionary<(int note, long time), int> _noteInstruments = new();
 
         private void AssignInstrumentsToNotes(MidiFile midiFile)

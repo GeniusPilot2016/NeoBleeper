@@ -274,22 +274,6 @@ namespace NeoBleeper
             }
             TitleBarHelper.ApplyToAllOpenForms(darkTheme);
         }
-
-
-        private void checkBox_test_system_speaker_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void settings_window_Load(object sender, EventArgs e)
-        {
-
-        }
         private void system_speaker_test_tune()
         {
             if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
@@ -400,18 +384,6 @@ namespace NeoBleeper
                 Debug.WriteLine("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex]);
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
             }
-        }
-
-        private void general_settings_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lbl_theme_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void groupBox_system_speaker_test_Enter(object sender, EventArgs e)
-        {
         }
 
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
@@ -1181,11 +1153,6 @@ namespace NeoBleeper
             refresh_midi_output();
         }
 
-        private void appearance_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void soundcard_beep_waveform_selection(object sender, EventArgs e)
         {
             if (radioButton_square.Checked == true)
@@ -1424,11 +1391,6 @@ namespace NeoBleeper
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
                 Debug.WriteLine("Keyboard markup color changed to: " + colorDialog1.Color.ToString());
             }
-        }
-
-        private void flowLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void deviceTypeRadioButtons_CheckedChanged(object sender, EventArgs e)
