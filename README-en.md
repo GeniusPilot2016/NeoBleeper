@@ -62,8 +62,8 @@ This project is **still in development** and some features and components are st
 
     ![image](https://github.com/user-attachments/assets/fb04b436-18e1-4b68-9f3e-26f3efaa226b)
     
-  - #### More precise position indicator
-    NeoBleeper offers a position indicator that compatible with 1/32 note length.
+  - #### More precise position display
+    NeoBleeper offers a position display that compatible with 1/32 note length.
     
     ![image](https://github.com/user-attachments/assets/213b8caa-2559-436b-a4ae-4d8ec6ba9de8)
 
