@@ -124,54 +124,73 @@ namespace NeoBleeper
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
                 var googleModel = googleAI.CreateGenerativeModel(AIModel);
-                var googleResponse = await googleModel.GenerateContentAsync($"**User Prompt:\r\n[{textBoxPrompt.Text}]**\r\n\r\n" +
+                var googleResponse = await googleModel.GenerateContentAsync(
+                    $"**User Prompt:**\r\n[{textBoxPrompt.Text}]\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
-                    $"Based on the User Prompt above, generate a sequence of <Line> elements to replace the placeholder section within the <LineList> below.\r\n" +
-                    $"- ‼️ CRITICAL REQUIREMENT: DO NOT MODIFY THESE VALUES ‼️\r\n" +
-                    $"- ‼️ DO NOT ADD ANY COMMENTS, LABELS OR SECTION MARKERS TO THE XML. ONLY OUTPUT VALID XML ‼️\r\n" +
-                    $"- Ensure the XML is complete and all tags are properly closed.\r\n" +
-                    $"- The output must start with <NeoBleeperProjectFile> and end with </NeoBleeperProjectFile>.\r\n" +
-                    $"- Do not include any text outside the XML structure." +
-                    $"- <Note1>, <Note2>, <Note3>, <Note4> should be only used in <Line> section. <PlayNote1>, <PlayNote2>, <PlayNote3>, <PlayNote4> should be used in <PlayNotes> section. Don't confuse these tags!\r\n" +
-                    $"- PRIORITY 1: Ensure the output is a complete and valid <NeoBleeperProjectFile> XML structure. Do not include any additional text, code block markers (```xml), or explanations. Use UTF-8 encoding.\r\n" +
-                    $"- Adhere to the XML structure provided.\r\n" +
-                    $"- Each <Line> represents a musical event or rest.\r\n" +
-                    $"- <Length> defines the duration. Use a variety of durations from the following: Whole, Half, Quarter, 1/8, 1/16, and 1/32. Vary the frequency of each duration\r\n" +
-                    $"- For each <Line>, include only a single <Mod /> and a single <Art /> tag. Do not use numbered tags like <Mod1 />, <Mod2 />, <Art1 />, <Art2 />. Use ONLY \"Dot\" (dotted) and \"Tri\" (triplet) values for <Mod /> tag. Don't use any other modifier name values such as \"Vib\", \"Arp\", \"Gliss\", \"Port\", \"Trem\". If there is no modulation or articulation, use empty tags (<Mod /> and <Art />).\r\n\r\n" +
-                    $"- <Art /> defines the articulation(e.g Sta, Spi, Fer). Use empty tags (e.g., <Art />) if there's no articulation in that voice/slot.\r\n" +
-                    $"- Use the <Settings> provided as context for parameters like BPM and Time Signature, unless the prompt overrides them.\r\n" +
-                    $"- Use only valid XML characters and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
-                    $"- Generate music with a duration between 10 and 180 seconds.\r\n" +
-                    $"- Introduce more variations in melody, harmony, and rhythm.\r\n" +
-                    $"- Vary the BPM between 40 and 600.\r\n" +
-                    $"- Use different time signatures (e.g., 3/4, 6/8, 4/4) randomly.\r\n" +
-                    $"- **Note Silence Ratio:**\r\n" +
-                    $"- For normal music generation, use NoteSilenceRatio, which is ratio of note and silence in each line, between 40-95 to ensure adequate musical content.\r\n" +
-                    $"- Prefer higher NoteSilenceRatio values (e.g. 60-95) unless the user prompt specifically requests dense or full music.\r\n" +
-                    $"- The NoteSilenceRatio value represents the percentage of time that silence occurs, versus a note being played.\r\n" +
-                    $"- Create musical rests (lines with all empty note tags) sparingly, only when musically appropriate.\r\n" +
-                    $"- Ensure most lines contain notes in at least one voice channel to maintain musical flow.\r\n" +
-                    $"- Randomly vary the `NoteLength` between 1 and 5.\r\n" +
-                    $"- Include single-voice sections in the generated music.\r\n" +
-                    $"- Distribute notes randomly across all four voices.\r\n" +
-                    $"- Vary the combinations of voices used in chords.\r\n" +
-                    $"- Use Note 1, Note 2, Note 3 and Note 4 channels randomly.\r\n" +
-                    $"- Limit the range of note durations to avoid extreme variations.\r\n" +
-                    $"- Control the randomness of note selection to create more coherent melodies.\r\n" +
-                    $"- **Ensure the generated XML includes a randomly chosen <AlternateTime> value (e.g., between 5 and 200) within the <RandomSettings> section for alternating notes that switches " +
-                    $"between Note 1, Note 2, Note 3 and Note 4, and " +
-                    $"<AlternateTime> should be shorter as possible to achieve polyphony in system speaker by fitting the context of the music " +
-                    $"[because the system speaker (PC Speaker) located on the motherboard of the computer and used to make the computer only beep can only play one note at a time.].**\r\n" +
-                    $"--- NeoBleeperProjectFile Template ---" +
-                    $"\r\n<NeoBleeperProjectFile>\r\n    <Settings>\r\n        <RandomSettings>\r\n            <KeyboardOctave>5</KeyboardOctave>\r\n            <BPM>120</BPM>\r\n            " +
-                    $"<TimeSignature>4</TimeSignature>\r\n            <NoteSilenceRatio>95</NoteSilenceRatio>\r\n            <NoteLength>3</NoteLength>\r\n            " +
-                    $"<AlternateTime>5</AlternateTime>\r\n        </RandomSettings>\r\n        <PlaybackSettings>\r\n            <NoteClickPlay>True</NoteClickPlay>\r\n            " +
-                    $"<NoteClickAdd>True</NoteClickAdd>\r\n            <AddNote1>False</AddNote1>\r\n            <AddNote2>False</AddNote2>\r\n            <AddNote3>True</AddNote3>\r\n            " +
-                    $"<AddNote4>False</AddNote4>\r\n            <NoteReplace>True</NoteReplace>\r\n            <NoteLengthReplace>False</NoteLengthReplace>\r\n        </PlaybackSettings>\r\n        " +
-                    $"<ClickPlayNotes>\r\n            <ClickPlayNote1>True</ClickPlayNote1>\r\n            <ClickPlayNote2>True</ClickPlayNote2>\r\n            <ClickPlayNote3>True</ClickPlayNote3>\r\n            " +
-                    $"<ClickPlayNote4>True</ClickPlayNote4>\r\n        </ClickPlayNotes>\r\n        <PlayNotes>\r\n            <PlayNote1>True</PlayNote1>\r\n            <PlayNote2>True</PlayNote2>\r\n            " +
-                    $"<PlayNote3>True</PlayNote3>\r\n            <PlayNote4>True</PlayNote4>\r\n        </PlayNotes>\r\n    </Settings>\r\n    <LineList>\r\n    </LineList>\r\n</NeoBleeperProjectFile>\r\n\r\n" +
-                    $"--- END OF MUSIC GENERATION TEMPLATE ---");
+                    $"Generate a valid XML structure for a NeoBleeper project file based on the user prompt. Follow these rules strictly:\r\n" +
+                    $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile>.\r\n" +
+                    $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +
+                    $"- Use UTF-8 encoding and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
+                    $"- Ensure all tags are properly closed and formatted.\r\n" +
+                    $"- Use the provided <Settings> as context for parameters like BPM and Time Signature unless overridden by the user prompt.\r\n" +
+                    $"- Populate the <LineList> section with <Line> elements representing musical events or rests.\r\n" +
+                    $"- Each <Line> must include:\r\n" +
+                    $"  - A <Length> tag with one of the following values: Whole, Half, Quarter, 1/8, 1/16, or 1/32.\r\n" +
+                    $"  - A single <Mod /> tag with values \"Dot\" or \"Tri\" (use empty tags if no modulation).\r\n" +
+                    $"  - A single <Art /> tag with articulation values (e.g., Sta, Spi, Fer) or empty tags if none.\r\n" +
+                    $"- Notes must follow these rules:\r\n" +
+                    $"  - Represent notes as letters (A-G).\r\n" +
+                    $"  - Include sharps (#) if applicable (e.g., C#, F#).\r\n" +
+                    $"  - Specify the octave number (1-10) after the note (e.g., A4, C#5).\r\n" +
+                    $"  - Do not use flat notes (e.g., Db). Convert them to their sharp equivalents (e.g., C#).\r\n" +
+                    $"- For rests, leave all <Note1>, <Note2>, <Note3>, and <Note4> tags blank (e.g., <Note1></Note1>). Do not write 'rest' or any other text inside the tags.\r\n" +
+                    $"- Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
+                    $"- Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
+                    $"- Use <PlayNote1>, <PlayNote2>, <PlayNote3>, and <PlayNote4> tags in the <PlayNotes> section.\r\n" +
+                    $"- Ensure the <RandomSettings> section includes chosen <AlternateTime> value (5-200) by context of music to enable pseudo-polyphony on system speakers (aka PC speaker) (5-30 is for better pseudo-polyphony effect).\r\n" +
+                    $"- Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
+                    $"- Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
+                    $"- Maintain a NoteSilenceRatio between 40-95 to balance notes and rests.\r\n" +
+                    $"- Avoid extreme variations in note durations and ensure coherent melodies.\r\n"+
+                    $"- Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
+                    $"- Ensure the output adheres to the NeoBleeper XML structure template below:\r\n\r\n" +
+                    $"<NeoBleeperProjectFile>\r\n" +
+                    $"    <Settings>\r\n" +
+                    $"        <RandomSettings>\r\n" +
+                    $"            <KeyboardOctave>5</KeyboardOctave>\r\n" +
+                    $"            <BPM>120</BPM>\r\n" +
+                    $"            <TimeSignature>4</TimeSignature>\r\n" +
+                    $"            <NoteSilenceRatio>95</NoteSilenceRatio>\r\n" +
+                    $"            <NoteLength>3</NoteLength>\r\n" +
+                    $"            <AlternateTime>5</AlternateTime>\r\n" +
+                    $"        </RandomSettings>\r\n" +
+                    $"        <PlaybackSettings>\r\n" +
+                    $"            <NoteClickPlay>True</NoteClickPlay>\r\n" +
+                    $"            <NoteClickAdd>True</NoteClickAdd>\r\n" +
+                    $"            <AddNote1>False</AddNote1>\r\n" +
+                    $"            <AddNote2>False</AddNote2>\r\n" +
+                    $"            <AddNote3>True</AddNote3>\r\n" +
+                    $"            <AddNote4>False</AddNote4>\r\n" +
+                    $"            <NoteReplace>True</NoteReplace>\r\n" +
+                    $"            <NoteLengthReplace>False</NoteLengthReplace>\r\n" +
+                    $"        </PlaybackSettings>\r\n" +
+                    $"        <ClickPlayNotes>\r\n" +
+                    $"            <ClickPlayNote1>True</ClickPlayNote1>\r\n" +
+                    $"            <ClickPlayNote2>True</ClickPlayNote2>\r\n" +
+                    $"            <ClickPlayNote3>True</ClickPlayNote3>\r\n" +
+                    $"            <ClickPlayNote4>True</ClickPlayNote4>\r\n" +
+                    $"        </ClickPlayNotes>\r\n" +
+                    $"        <PlayNotes>\r\n" +
+                    $"            <PlayNote1>True</PlayNote1>\r\n" +
+                    $"            <PlayNote2>True</PlayNote2>\r\n" +
+                    $"            <PlayNote3>True</PlayNote3>\r\n" +
+                    $"            <PlayNote4>True</PlayNote4>\r\n" +
+                    $"        </PlayNotes>\r\n" +
+                    $"    </Settings>\r\n" +
+                    $"    <LineList>\r\n" +
+                    $"    </LineList>\r\n" +
+                    $"</NeoBleeperProjectFile>\r\n"
+                );
                 if (googleResponse != null)
                 {
                     output = googleResponse.Text();
@@ -197,6 +216,7 @@ namespace NeoBleeper
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                     output = RewriteOutput(output).Trim();
+                    Debug.WriteLine(output);
                 }
                 else
                 {
@@ -375,13 +395,31 @@ namespace NeoBleeper
                 output = output.Replace("</Settings>", "</Settings>\r\n<LineList>\r\n</LineList>");
             }
 
+            // Ensure all tags are properly closed and formatted
+            output = Regex.Replace(output, @"(?<!<)(NeoBleeperProjectFile>.*?</NeoBleeperProjectFile>)", "<$1", RegexOptions.IgnoreCase);
+
+            // Remove any characters before the root element
+            output = Regex.Replace(output, @"^[^\S\r\n]*", ""); // Remove leading whitespace
+
             // Trim leading/trailing whitespace
-            output = FixParameterNames(output);
-            output = SynchronizeLengths(output);
-            // Remove XML declaration
-            output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
             output = output.Trim();
 
+            // Ensure <NeoBleeperProjectFile> starts and ends correctly
+            if (!output.StartsWith("<NeoBleeperProjectFile>"))
+            {
+                throw new Exception("Invalid XML: Root element is missing or incorrect.");
+            }
+
+            // Additional transformations for NBPML compliance
+            output = FixParameterNames(output);
+            output = output.Trim();
+            output = SynchronizeLengths(output);
+            output = output.Trim();
+
+            // Remove XML declaration if present
+            output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
+
+            output = output.Trim();
             return output;
         }
         private string FixParameterNames(string xmlContent)
