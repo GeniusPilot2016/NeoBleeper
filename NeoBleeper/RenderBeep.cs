@@ -38,6 +38,18 @@ namespace NeoBleeper
             {
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
+            public static bool isSystemSpeakerBeepStuck()
+            {
+                try
+                {
+                    // Check if the system speaker is currently beeping by reading the status of the speaker port
+                    return (Inp32(0x61) & 0x03) == 0x03;
+                }
+                catch (Exception)
+                {
+                    return false; // If an error occurs, assume the speaker is not stuck
+                }
+            }
             public static bool isSystemSpeakerExist()
             {
                 string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";

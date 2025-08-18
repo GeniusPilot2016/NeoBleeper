@@ -1,3 +1,4 @@
+using BeepStopper.Properties;
 using NeoBleeper;
 using System.Drawing.Text;
 using static NBPML_File;
@@ -11,6 +12,7 @@ namespace BeepStopper
         {
             InitializeComponent();
             UIFonts.setFonts(this);
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -18,14 +20,21 @@ namespace BeepStopper
             // Stop the beeping without force-shutdown
             try
             {
-                RenderBeep.BeepClass.StopBeep();
-                MessageBox.Show("Beep is successfully stopped!", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                if (RenderBeep.BeepClass.isSystemSpeakerBeepStuck())
+                {
+                    RenderBeep.BeepClass.StopBeep();
+                    MessageBox.Show(Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(Resources.SystemSpeakerIsNotStuckMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
                 // Show the error message
-                MessageBox.Show("An error occurred: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.AnErrorOccuredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

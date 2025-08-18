@@ -1,3 +1,4 @@
+using BeepStopper.Properties;
 using System.Management;
 
 namespace BeepStopper
@@ -24,7 +25,7 @@ namespace BeepStopper
             }
             else
             {
-                MessageBox.Show("System speaker is not present. Therefore, stopping the beep is not possible.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.SystemSpeakerNotPresentMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

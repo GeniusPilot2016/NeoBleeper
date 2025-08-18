@@ -61,9 +61,9 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   This feature disables the automatic updating of the measure and beat indicators when selecting notes. However, it will continue to update during editing. 
+        ///   This feature disables the automatic updating of the position table when selecting notes. However, it will continue to update during editing. 
         ///
-        ///When enabled, the indicators will not update when you select notes, allowing you to make changes without affecting the playback position. 
+        ///When enabled, the position table will not update when you select notes, allowing you to make changes without affecting the playback position. 
         ///
         ///If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>

@@ -61,12 +61,49 @@ namespace BeepStopper.Properties {
         }
         
         /// <summary>
+        ///   An error occurred:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnErrorOccuredMessage {
+            get {
+                return ResourceManager.GetString("AnErrorOccuredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Beep is successfully stopped! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string BeepStoppedMessage {
+            get {
+                return ResourceManager.GetString("BeepStoppedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap icons8_warning_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-warning-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker is not beeping or the system speaker is beeping in a different way. 
+        ///No action taken. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SystemSpeakerIsNotStuckMessage {
+            get {
+                return ResourceManager.GetString("SystemSpeakerIsNotStuckMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker is not present. Therefore, stopping the beep is not possible. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SystemSpeakerNotPresentMessage {
+            get {
+                return ResourceManager.GetString("SystemSpeakerNotPresentMessage", resourceCulture);
             }
         }
     }
