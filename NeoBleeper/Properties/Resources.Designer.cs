@@ -811,6 +811,17 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The MIDI file player cannot be opened when &quot;Mute playback&quot; checkbox is checked and &quot;Use MIDI output&quot; checkbox is unchecked.
+        ///
+        ///Please check &quot;Use MIDI output&quot; checkbox from &quot;Devices&quot; tab in settings or uncheck &quot;Mute playback&quot; checkbox to use this feature. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MIDIFilePlayerMutedError {
+            get {
+                return ResourceManager.GetString("MIDIFilePlayerMutedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static System.Drawing.Bitmap neobleeper_icon {

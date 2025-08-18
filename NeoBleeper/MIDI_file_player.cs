@@ -1364,7 +1364,14 @@ namespace NeoBleeper
                 {
                     int instrument = 0;
                     _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
-                    MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument, checkBox_play_each_note.Checked);
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
+                    {
+                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument);
+                    }
+                    else
+                    {
+                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, -1, false, 9); // Kanal 10, doğru note numarası
+                    }
                 }
             }
             if (frequencies.Length == 1)

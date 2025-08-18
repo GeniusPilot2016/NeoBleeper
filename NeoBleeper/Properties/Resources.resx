@@ -463,4 +463,9 @@ Click again to hide it.</value>
     <value>Hide the API key in the API key field.
 Click again to show it.</value>
   </data>
+  <data name="MIDIFilePlayerMutedError" xml:space="preserve">
+    <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked and "Use MIDI output" checkbox is unchecked.
+
+Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox to use this feature.</value>
+  </data>
 </root>

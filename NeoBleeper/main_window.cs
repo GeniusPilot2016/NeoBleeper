@@ -4142,9 +4142,7 @@ namespace NeoBleeper
                     string first_line = File.ReadLines(fileName).First();
                     if (MIDIFileValidator.IsMidiFile(fileName))
                     {
-                        MIDI_file_player midi_file_player = new MIDI_file_player(fileName, this);
-                        midi_file_player.ShowDialog();
-
+                        openMIDIFilePlayer(fileName);
                     }
                     else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
                         first_line == "<NeoBleeperProjectFile>")
@@ -4162,6 +4160,28 @@ namespace NeoBleeper
                     Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
                     MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+        private void openMIDIFilePlayer(string fileName)
+        {
+            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
+            {
+                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
+                {
+                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
+                    midi_file_player.ShowDialog();
+                    Debug.WriteLine("MIDI file is opened.");
+                }
+                else
+                {
+                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.");
+                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private static void SerializeXML(string filePath, NBPML_File.NeoBleeperProjectFile projectFile)
@@ -4192,20 +4212,17 @@ namespace NeoBleeper
             {
                 checkBox_synchronized_play.Checked = false;
             }
-            openFileDialog.Filter = "MIDI Files|*.mid";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
             {
-                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
+                openFileDialog.Filter = "MIDI Files|*.mid";
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
-                    midi_file_player.ShowDialog();
-                    Debug.WriteLine("MIDI file is opened.");
+                    openMIDIFilePlayer(openFileDialog.FileName);
                 }
-                else
-                {
-                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
-                }
+            }
+            else
+            {
+                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
