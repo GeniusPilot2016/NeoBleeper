@@ -1,6 +1,6 @@
 # NeoBleeper
 
-NeoBleeper is an AI-enabled tune creation software using the system speaker on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶
+NeoBleeper is an AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/d68cc402-aa77-44d3-b9de-b48b65408955)
 
@@ -76,12 +76,12 @@ This project is **still in development** and some features and components are st
   - #### You can personalize as you wish
     You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only     
     limit to this feature is your imagination. Also, you can enable the "Classic Bleeper mode" to make the program resemble the nostalgic user interface of Bleeper Music Maker.
-  
-    ![image](https://github.com/user-attachments/assets/60435ce2-c02b-43db-bd4c-d0c0e2948f7e)
+
+    ![image](https://github.com/user-attachments/assets/b70a1399-1aae-4027-981d-3400cd431c78)
 
     ![image](https://github.com/user-attachments/assets/c1c8f841-a536-4e7e-b8d7-3747da77b1c3)
 
-    ![image](https://github.com/user-attachments/assets/fa3cdf5f-7c59-47ae-99c5-d83e35ad1c1e)
+    ![image](https://github.com/user-attachments/assets/35c86011-97ba-4a4e-a1e4-e5b745b4fc12)
 
   - #### Detects system speaker for you
     If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
