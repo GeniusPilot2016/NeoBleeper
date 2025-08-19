@@ -209,7 +209,7 @@ namespace NeoBleeper
             int currentHour = DateTime.Now.Hour;
             int currentMinute = DateTime.Now.Minute;
             int currentSecond = DateTime.Now.Second;
-            if (currentHour < 12)
+            if (currentHour <= 12)
             {
                 return (Hour < currentHour) ||
                        (Hour == currentHour && Minute < currentMinute) ||
