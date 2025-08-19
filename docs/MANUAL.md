@@ -110,16 +110,22 @@
 
 - ## Time Signature and Position Displays
 
-  NeoBleeper provides "Time Signature" setting, located in the left of the BPM setting. It defines the number of beats per measure. This setting affects metronome sound and position display behavior but does not alter playback sound.
+  NeoBleeper provides "Time Signature" setting, located in the left of the BPM setting. It defines the number of beats per measure. This setting affects metronome  sound and position display behavior but does not alter playback sound.
+
+  ![image](https://github.com/user-attachments/assets/7c206e6b-875e-467d-87e9-af5b634d38ed)
   
-  Three green position displays in the bottom-right corner show the current position in the music. The top display shows the measure, the middle shows the beat within the measure, and the bottom shows a traditional representation using whole, quarter, eighth, or sixteenth notes.
+  Three position displays in the bottom-right corner show the current position in the music. The top display shows the measure, the middle shows the beat within    the measure, and the bottom shows a traditional representation using whole, half (1/2), quarter (1/4), 1/8, 1/16 or 1/32 notes.
   
+  ![image](https://github.com/user-attachments/assets/8a864acd-a228-447c-a81c-d126ba8c992f)
+
   Lower time signatures result in faster changes in the top display. The middle display resets to 1 at the start of each new measure.
   
-  The bottom display cannot represent positions more accurate than sixteenth notes. It shows "(ERR)" with a red background for unsupported positions, such as those created by dotted sixteenth notes (3/32). Once the position becomes divisible by a sixteenth note again, the display resumes normal operation.
+  The bottom display cannot represent positions more accurate than 1/32 notes. It shows "(Error)" with a red text for unsupported positions, such as those created  by dotted sixteenth notes (3/64). Once the position becomes divisible by a 1/32 note again, the display resumes normal operation.
+
+  ![image](https://github.com/user-attachments/assets/db64f8b6-af9e-463a-8913-33b1fb5d3533)
+
+  Triplet notes also affect display accuracy. After three triplet notes of the same length are entered, the position becomes divisible by a 1/32 note, restoring    display functionality.
   
-  Triplet notes also affect display accuracy. After three triplet notes of the same length are entered, the position becomes divisible by a sixteenth note, restoring display functionality.
+  Triplet playback near the end of a long music list may require significant CPU resources. If performance issues occur, enable the "Do not update" checkbox below  the position displays to disable updates during playback. Editing mode updates remain active.
   
-  Triplet playback near the end of a long music list may require significant CPU resources. If performance issues occur, enable the "Do not update" checkbox below the position displays to disable updates during playback. Editing mode updates remain active.
-  
-  Files created with versions prior to revision 127 default to a time signature of 4 when opened in newer versions. Changing and saving the time signature in the new version preserves the setting. Opening such files in older versions retains playback functionality but reverts the metronome to 4-beat. Saving in older versions discards the time signature setting.
+  Older BMM files created with versions prior to revision 127 of Bleeper Music Maker default to a time signature of 4 when opened in NeoBleeper. Changing and saving the time signature in .NBPML files preserves the setting.
