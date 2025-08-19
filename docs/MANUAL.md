@@ -150,9 +150,9 @@
 
     This mod enables NeoBleeper to begin playback at a specified system time. It is designed for synchronizing multiple instances of NeoBleeper, particularly when using separate NBPML or BMM files for different sections of a composition. By configuring each instance to start at the same time, synchronized playback across instances can be achieved.
     
-    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command (Play all or Play from selected line) when the target time is reached.
+    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command ("Play all or "Play from selected line) when the target time is reached.
 
-    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to Stop waiting. If the program is not in a waiting state when the target time arrives, no playback will occur.
+    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to "Stop waiting. If the program is not in a waiting state when the target time arrives, no playback will occur.
 
     The checkbox of "Synchronized Play" is unchecked window is closed. To reopen the window, Disabling this option will cancel any active waiting state.
 
@@ -183,7 +183,7 @@
 When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
 
 - ## Settings
-  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the apps configuration
+  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app's configuration
   
   - ### General Settings
     This tab focuses on foundational preferences and system-level integration:
@@ -191,7 +191,7 @@ When enabled, pressing a key will immediately trigger the associated note using 
     ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
     
     - #### General Appearance
-      **Theme Selector:** Lets you choose between NeoBleepers custom themes or default to your operating systems look.
+      **Theme Selector:** Lets you choose between NeoBleeper's custom themes or default to your operating system's look.
       
       **Classic Bleeper Mode:** A legacy toggle for users who prefer the original interface or behavior.
       
@@ -208,12 +208,12 @@ When enabled, pressing a key will immediately trigger the associated note using 
       **Fallback Message:** Suggests using an alternative sound device if no sound is heard from system speaker.
   
   - ### Creating Sounds Settings
-    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your systems sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
+    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your system's sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
 
     ![image](https://github.com/user-attachments/assets/f35e02a4-c1e3-4d03-9b02-bc4db01f6cdd)
     
     - #### Use sound device to create beep:
-      A checkbox that enables or disables the use of your systems sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
+      A checkbox that enables or disables the use of your system's sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
     
     - #### Beep Creation from Sound Device Settings
       - ##### Tone Waveform Selection
@@ -245,14 +245,14 @@ When enabled, pressing a key will immediately trigger the associated note using 
       
       **Select MIDI Output Device:** Choose where NeoBleeper sends its MIDI signals. The default option is typically a general-purpose synth like Microsoft GS Wavetable Synth.
       
-      **Channel:** Selects the MIDI channel (116) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
+      **Channel:** Selects the MIDI channel (1/16) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
       
       **Instrument:** Defines the General MIDI instrument used for playback. Options range from pianos and strings to synths and percussion, giving you control over the timbre of the output.
       
       **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
 
   - ### Appearance Settings
-    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. Its organized into three intuitive sections:
+    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It's organized into three intuitive sections:
     
     ![image](https://github.com/user-attachments/assets/eb7a2939-a106-4ec5-8f5e-af32fb5d8ed0)
 
@@ -344,9 +344,3 @@ When enabled, pressing a key will immediately trigger the associated note using 
       When activated, the system generates GCode that triggers the assigned components in accordance with the selected note pattern. Timing and modulation are determined by the playback logic.
 
       Use the "Export As GCode" button to save the output. Ensure compatibility with your target machine before execution.
-
-
-
-
-
-
