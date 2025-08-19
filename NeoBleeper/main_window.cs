@@ -2649,11 +2649,11 @@ namespace NeoBleeper
         public static double FixRoundingErrors(double inputValue)
         {
             // Define the threshold and adjustment values based on the assembly constants
-            const double threshold = 1e-7; 
-            const double adjustment = 1e-10; 
+            const double threshold = 1e-7;
+            const double adjustment = 1e-10;
 
             // Check if the input value exceeds the threshold
-            if(inputValue >= 0)
+            if (inputValue >= 0)
             {
                 if (inputValue > threshold)
                 {
@@ -2667,8 +2667,8 @@ namespace NeoBleeper
                     inputValue -= adjustment;
                 }
             }
-                // Return the corrected value
-                return inputValue;
+            // Return the corrected value
+            return inputValue;
         }
         private void HandleMidiOutput(int noteSoundDuration)
         {
@@ -2820,7 +2820,7 @@ namespace NeoBleeper
                 listViewNotes.Items[0].Selected = true;
                 EnsureSpecificIndexVisible(0);
                 Debug.WriteLine("Music is playing");
-                Task.Run(() => play_music(0)); 
+                Task.Run(() => play_music(0));
             }
         }
         public void play_from_selected_line()
@@ -3200,7 +3200,7 @@ namespace NeoBleeper
                 {
                     updateIndicators(listViewNotes.SelectedIndices[0]);
                 }
-                NonBlockingSleep.Sleep(1); 
+                NonBlockingSleep.Sleep(1);
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 HandleMidiOutput(noteSound_int);
                 bool nonStopping;
@@ -3226,7 +3226,7 @@ namespace NeoBleeper
                      $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())}" +
                      $" Articulation: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())}");
                 }
-                
+
             }
         }
         private string GetOrDefault(string value)
@@ -4279,7 +4279,7 @@ namespace NeoBleeper
             }
             commandManager.Undo();
             setThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
-            if(listViewNotes.Items.Count > 0)
+            if (listViewNotes.Items.Count > 0)
             {
                 listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
             }
@@ -4302,7 +4302,7 @@ namespace NeoBleeper
         }
         private void setThemeOfListViewItems()
         {
-            if(listViewNotes.Items.Count > 0)
+            if (listViewNotes.Items.Count > 0)
             {
                 switch (darkTheme)
                 {
@@ -5644,6 +5644,11 @@ namespace NeoBleeper
         private void main_window_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md") { UseShellExecute = true });
         }
     }
 }

@@ -145,12 +145,6 @@
   <data name="button_c_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <metadata name="NeoBleeper_help.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>569, 32</value>
-  </metadata>
-  <data name="button_c_s3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_c_s3.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -202,9 +196,6 @@
   <data name="button_d_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_d_s3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_d_s3.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -252,9 +243,6 @@
   </data>
   <data name="button_f_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_f_s3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_f_s3.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -304,9 +292,6 @@
   <data name="button_g_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_g_s3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_g_s3.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -354,9 +339,6 @@
   </data>
   <data name="button_a_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_a_s3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_a_s3.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -406,9 +388,6 @@
   <data name="button_a_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_a_s4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_a_s4.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -456,9 +435,6 @@
   </data>
   <data name="button_g_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_g_s4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_g_s4.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -508,9 +484,6 @@
   <data name="button_f_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_f_s4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_f_s4.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -558,9 +531,6 @@
   </data>
   <data name="button_d_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_d_s4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_d_s4.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -610,9 +580,6 @@
   <data name="button_c_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_c_s4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_c_s4.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -660,9 +627,6 @@
   </data>
   <data name="button_a_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_a_s5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_a_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -712,9 +676,6 @@
   <data name="button_g_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_g_s5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_g_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -762,9 +723,6 @@
   </data>
   <data name="button_f_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_f_s5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_f_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
@@ -814,9 +772,6 @@
   <data name="button_d_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_d_s5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_d_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -849,9 +804,6 @@
   </data>
   <data name="red_felt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="red_felt.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="red_felt.Size" type="System.Drawing.Size, System.Drawing">
     <value>947, 10</value>
@@ -886,9 +838,6 @@
   <data name="label_bpm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="label_bpm.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_bpm.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 16</value>
   </data>
@@ -918,9 +867,6 @@
   </data>
   <data name="trackBar_time_signature.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="trackBar_time_signature.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="trackBar_time_signature.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 45</value>
@@ -957,9 +903,6 @@
   </data>
   <data name="label_time_signature.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label_time_signature.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="label_time_signature.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 16</value>
@@ -1193,9 +1136,6 @@
   <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 3, 0, 3</value>
   </data>
-  <data name="menuStrip1.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1022, 26</value>
   </data>
@@ -1240,7 +1180,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAxjAAAAJNU0Z0AUkBTAIBAREB
-        AAEgASIBIAEiARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAFIASIBSAEiARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHi5AAB4wGdARwB/wHiAZoB
         GQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlNgAAeUB
         pAEgAf8B5AGgAR4B/wHjAZ0BHAH/AeIBmgEZAf8B4AGXARcB/wHXAY8BFAH/Ad4BkQETAf8B3QGOAREB
@@ -1459,9 +1399,6 @@
   <data name="checkBox_mute_playback.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_mute_playback.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_mute_playback.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 20</value>
   </data>
@@ -1504,9 +1441,6 @@
   <data name="numericUpDown_alternating_notes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="numericUpDown_alternating_notes.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="numericUpDown_alternating_notes.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 23</value>
   </data>
@@ -1545,9 +1479,6 @@
   </data>
   <data name="button_blank_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="button_blank_line.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_blank_line.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 25</value>
@@ -1594,9 +1525,6 @@
   <data name="button_clear_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="button_clear_note1.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_clear_note1.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 25</value>
   </data>
@@ -1641,9 +1569,6 @@
   </data>
   <data name="button_clear_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="button_clear_note2.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_clear_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 25</value>
@@ -1690,9 +1615,6 @@
   <data name="button_unselect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="button_unselect.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_unselect.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 25</value>
   </data>
@@ -1738,9 +1660,6 @@
   <data name="button_erase_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="button_erase_line.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_erase_line.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 25</value>
   </data>
@@ -1785,9 +1704,6 @@
   </data>
   <data name="button_play_all.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="button_play_all.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_play_all.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 25</value>
@@ -1837,9 +1753,6 @@
   <data name="button_play_from_selected_line.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="button_play_from_selected_line.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_play_from_selected_line.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 25</value>
   </data>
@@ -1888,9 +1801,6 @@
   <data name="button_stop_playing.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="button_stop_playing.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_stop_playing.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 25</value>
   </data>
@@ -1935,9 +1845,6 @@
   </data>
   <data name="numericUpDown_bpm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="numericUpDown_bpm.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="numericUpDown_bpm.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 23</value>
@@ -1993,9 +1900,6 @@
   <data name="comboBox_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="comboBox_note_length.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="comboBox_note_length.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 24</value>
   </data>
@@ -2037,9 +1941,6 @@
   </data>
   <data name="checkBox_metronome.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_metronome.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_metronome.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 26</value>
@@ -2089,9 +1990,6 @@
   <data name="checkBox_dotted.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_dotted.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 26</value>
   </data>
@@ -2136,9 +2034,6 @@
   </data>
   <data name="checkBox_triplet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_triplet.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_triplet.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 26</value>
@@ -2368,9 +2263,6 @@
   <data name="listViewNotes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="listViewNotes.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
     <value>377, 334</value>
   </data>
@@ -2404,9 +2296,6 @@
   <data name="label_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="label_note_length.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_note_length.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 16</value>
   </data>
@@ -2436,9 +2325,6 @@
   </data>
   <data name="trackBar_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="trackBar_note_silence_ratio.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="trackBar_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 45</value>
@@ -2476,9 +2362,6 @@
   <data name="label_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="label_note_silence_ratio.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 16</value>
   </data>
@@ -2515,9 +2398,6 @@
   <data name="label_silence.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="label_silence.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 16</value>
   </data>
@@ -2553,9 +2433,6 @@
   </data>
   <data name="label_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label_note.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="label_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>34, 16</value>
@@ -2596,9 +2473,6 @@
   <data name="label_alternating_notes_switch.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>142, 32</value>
   </data>
-  <data name="label_alternating_notes_switch.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_alternating_notes_switch.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 32</value>
   </data>
@@ -2638,9 +2512,6 @@
   <data name="label_mods.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="label_mods.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 16</value>
   </data>
@@ -2679,9 +2550,6 @@
   </data>
   <data name="checkBox_synchronized_play.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_synchronized_play.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_synchronized_play.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
@@ -2728,9 +2596,6 @@
   <data name="checkBox_play_beat_sound.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_beat_sound.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_beat_sound.Size" type="System.Drawing.Size, System.Drawing">
     <value>139, 20</value>
   </data>
@@ -2776,9 +2641,6 @@
   <data name="checkBox_staccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_staccato.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_staccato.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 26</value>
   </data>
@@ -2820,9 +2682,6 @@
   </data>
   <data name="label_beep.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label_beep.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="label_beep.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 25</value>
@@ -2875,9 +2734,6 @@
   <data name="checkBox_fermata.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_fermata.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_fermata.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 26</value>
   </data>
@@ -2926,9 +2782,6 @@
   <data name="lbl_alternating_note_options.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>150, 32</value>
   </data>
-  <data name="lbl_alternating_note_options.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 32</value>
   </data>
@@ -2971,9 +2824,6 @@
   <data name="lbl_d3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_d3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_d3.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
   </data>
@@ -3012,9 +2862,6 @@
   </data>
   <data name="lbl_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_e3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_e3.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
@@ -3055,9 +2902,6 @@
   <data name="lbl_f3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_f3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_f3.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 18</value>
   </data>
@@ -3096,9 +2940,6 @@
   </data>
   <data name="lbl_g3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_g3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_g3.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
@@ -3139,9 +2980,6 @@
   <data name="lbl_a3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_a3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_a3.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
   </data>
@@ -3180,9 +3018,6 @@
   </data>
   <data name="lbl_b3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_b3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_b3.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
@@ -3223,9 +3058,6 @@
   <data name="lbl_b4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_b4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_b4.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
   </data>
@@ -3264,9 +3096,6 @@
   </data>
   <data name="lbl_a4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_a4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_a4.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
@@ -3307,9 +3136,6 @@
   <data name="lbl_g4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_g4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_g4.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
   </data>
@@ -3348,9 +3174,6 @@
   </data>
   <data name="lbl_f4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_f4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_f4.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 18</value>
@@ -3391,9 +3214,6 @@
   <data name="lbl_e4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_e4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_e4.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
   </data>
@@ -3433,9 +3253,6 @@
   <data name="lbl_d4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_d4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_d4.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
   </data>
@@ -3474,9 +3291,6 @@
   </data>
   <data name="lbl_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_c4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_c4.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
@@ -3519,9 +3333,6 @@
   </data>
   <data name="lbl_g5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
-  </data>
-  <data name="lbl_g5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_g5.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
@@ -3568,9 +3379,6 @@
   <data name="lbl_e5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
-  <data name="lbl_e5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_e5.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
   </data>
@@ -3615,9 +3423,6 @@
   </data>
   <data name="lbl_d5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
-  </data>
-  <data name="lbl_d5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_d5.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
@@ -3664,9 +3469,6 @@
   <data name="lbl_c5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
-  <data name="lbl_c5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_c5.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
   </data>
@@ -3708,9 +3510,6 @@
   </data>
   <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="button_clear_note4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_clear_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 25</value>
@@ -3757,9 +3556,6 @@
   </data>
   <data name="button_clear_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="button_clear_note3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_clear_note3.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 25</value>
@@ -3810,9 +3606,6 @@
   <data name="checkBox_spiccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_spiccato.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_spiccato.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 26</value>
   </data>
@@ -3855,9 +3648,6 @@
   <data name="lbl_beat.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_beat.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
     <value>34, 16</value>
   </data>
@@ -3893,9 +3683,6 @@
   </data>
   <data name="lbl_beat_traditional.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>78, 32</value>
-  </data>
-  <data name="lbl_beat_traditional.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 32</value>
@@ -3933,9 +3720,6 @@
   </data>
   <data name="lbl_measure_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_measure_value.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_measure_value.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 16</value>
@@ -3976,9 +3760,6 @@
   <data name="lbl_beat_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lbl_beat_value.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_beat_value.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 16</value>
   </data>
@@ -4017,9 +3798,6 @@
   </data>
   <data name="lbl_beat_traditional_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="lbl_beat_traditional_value.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_beat_traditional_value.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 16</value>
@@ -4069,9 +3847,6 @@
   <data name="button_c3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_c3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_c3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4119,9 +3894,6 @@
   </data>
   <data name="button_d3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_d3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_d3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4171,9 +3943,6 @@
   <data name="button_e3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_e3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_e3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4221,9 +3990,6 @@
   </data>
   <data name="button_f3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_f3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_f3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4273,9 +4039,6 @@
   <data name="button_g3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_g3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_g3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4323,9 +4086,6 @@
   </data>
   <data name="button_a3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_a3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_a3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4375,9 +4135,6 @@
   <data name="button_b3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_b3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_b3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4425,9 +4182,6 @@
   </data>
   <data name="button_c4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_c4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_c4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4477,9 +4231,6 @@
   <data name="button_d4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_d4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_d4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4527,9 +4278,6 @@
   </data>
   <data name="button_e4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_e4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_e4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4579,9 +4327,6 @@
   <data name="button_a4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_a4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_a4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4629,9 +4374,6 @@
   </data>
   <data name="button_b4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_b4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_b4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4681,9 +4423,6 @@
   <data name="button_c5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_c5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_c5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4731,9 +4470,6 @@
   </data>
   <data name="button_d5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_d5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_d5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4783,9 +4519,6 @@
   <data name="button_e5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_e5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_e5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4833,9 +4566,6 @@
   </data>
   <data name="button_f5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_f5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_f5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -4885,9 +4615,6 @@
   <data name="button_a5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_a5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_a5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -4933,9 +4660,6 @@
   <data name="lbl_b5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
-  <data name="lbl_b5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lbl_b5.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 18</value>
   </data>
@@ -4980,9 +4704,6 @@
   </data>
   <data name="lbl_a5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
-  </data>
-  <data name="lbl_a5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_a5.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 18</value>
@@ -5032,9 +4753,6 @@
   <data name="button_b5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_b5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_b5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -5083,9 +4801,6 @@
   <data name="button_c_s5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 20</value>
   </data>
-  <data name="button_c_s5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_c_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
@@ -5121,9 +4836,6 @@
   </data>
   <data name="checkbox_play_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkbox_play_note.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkbox_play_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 20</value>
@@ -5161,9 +4873,6 @@
   <data name="add_as_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="add_as_note4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
   </data>
@@ -5199,9 +4908,6 @@
   </data>
   <data name="add_as_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="add_as_note3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
@@ -5242,9 +4948,6 @@
   <data name="checkBox_replace_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_replace_length.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_replace_length.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 20</value>
   </data>
@@ -5281,9 +4984,6 @@
   <data name="checkBox_replace.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_replace.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 20</value>
   </data>
@@ -5319,9 +5019,6 @@
   </data>
   <data name="add_as_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="add_as_note2.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
@@ -5362,9 +5059,6 @@
   <data name="add_as_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="add_as_note1.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
   </data>
@@ -5401,9 +5095,6 @@
   <data name="checkBox_add_note_to_list.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_add_note_to_list.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 20</value>
   </data>
@@ -5433,9 +5124,6 @@
   </data>
   <data name="group_adding_note.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="group_adding_note.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 160</value>
@@ -5472,9 +5160,6 @@
   </data>
   <data name="group_key_is_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="group_key_is_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="group_key_is_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 208</value>
@@ -5515,9 +5200,6 @@
   <data name="checkBox_play_note4_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note4_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5553,9 +5235,6 @@
   </data>
   <data name="checkBox_play_note3_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_play_note3_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
@@ -5593,9 +5272,6 @@
   <data name="checkBox_play_note2_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note2_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5632,9 +5308,6 @@
   <data name="checkBox_play_note1_clicked.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note1_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5664,9 +5337,6 @@
   </data>
   <data name="group_line_clicked.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="group_line_clicked.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 102</value>
@@ -5707,9 +5377,6 @@
   <data name="checkBox_play_note4_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note4_played.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5745,9 +5412,6 @@
   </data>
   <data name="checkBox_play_note1_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_play_note1_played.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
@@ -5785,9 +5449,6 @@
   <data name="checkBox_play_note3_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note3_played.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5824,9 +5485,6 @@
   <data name="checkBox_play_note2_played.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="checkBox_play_note2_played.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
   </data>
@@ -5856,9 +5514,6 @@
   </data>
   <data name="group_music_played.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="group_music_played.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 102</value>
@@ -5895,9 +5550,6 @@
   </data>
   <data name="group_notes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="group_notes.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="group_notes.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 226</value>
@@ -5944,9 +5596,6 @@
   <data name="button_g5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_g5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_g5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -5991,9 +5640,6 @@
   </data>
   <data name="lbl_f5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
-  </data>
-  <data name="lbl_f5.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="lbl_f5.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 18</value>
@@ -6043,9 +5689,6 @@
   <data name="button_g4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
   </data>
-  <data name="button_g4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_g4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
@@ -6093,9 +5736,6 @@
   </data>
   <data name="button_f4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
-  </data>
-  <data name="button_f4.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_f4.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -6163,9 +5803,6 @@
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>41, 40</value>
   </data>
-  <data name="panel2.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 27</value>
   </data>
@@ -6189,9 +5826,6 @@
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>815, 237</value>
-  </data>
-  <data name="panel3.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 42</value>
@@ -6268,9 +5902,6 @@
   <data name="position_table.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="position_table.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 77</value>
   </data>
@@ -6312,9 +5943,6 @@
   </data>
   <data name="checkBox_bleeper_portamento.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="checkBox_bleeper_portamento.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="checkBox_bleeper_portamento.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 20</value>
@@ -6358,9 +5986,6 @@
   <data name="btn_octave_decrease.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="btn_octave_decrease.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="btn_octave_decrease.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 80</value>
   </data>
@@ -6399,9 +6024,6 @@
   </data>
   <data name="btn_octave_increase.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
-  </data>
-  <data name="btn_octave_increase.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="btn_octave_increase.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 80</value>
@@ -6475,9 +6097,6 @@
   <data name="keyboard_panel.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 32</value>
   </data>
-  <data name="keyboard_panel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="keyboard_panel.Size" type="System.Drawing.Size, System.Drawing">
     <value>952, 194</value>
   </data>
@@ -6510,7 +6129,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        yAEhAcgBIQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        8AEhAfABIQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -6552,9 +6171,6 @@
   <data name="button_synchronized_play_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 541</value>
   </data>
-  <data name="button_synchronized_play_help.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_synchronized_play_help.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 20</value>
   </data>
@@ -6584,9 +6200,6 @@
   </data>
   <data name="button_play_beat_sound_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 561</value>
-  </data>
-  <data name="button_play_beat_sound_help.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_play_beat_sound_help.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 20</value>
@@ -6618,9 +6231,6 @@
   <data name="button_bleeper_portamento_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 581</value>
   </data>
-  <data name="button_bleeper_portamento_help.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_bleeper_portamento_help.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 20</value>
   </data>
@@ -6651,9 +6261,6 @@
   <data name="button_use_keyboard_as_piano_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 602</value>
   </data>
-  <data name="button_use_keyboard_as_piano_help.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="button_use_keyboard_as_piano_help.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 20</value>
   </data>
@@ -6683,9 +6290,6 @@
   </data>
   <data name="button_do_not_update_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>988, 635</value>
-  </data>
-  <data name="button_do_not_update_help.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="button_do_not_update_help.Size" type="System.Drawing.Size, System.Drawing">
     <value>20, 20</value>
@@ -7376,9 +6980,6 @@
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
-  <data name="$this.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
@@ -7492,12 +7093,6 @@
   </data>
   <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NeoBleeper_help.Name" xml:space="preserve">
-    <value>NeoBleeper_help</value>
-  </data>
-  <data name="&gt;&gt;NeoBleeper_help.Type" xml:space="preserve">
-    <value>System.Windows.Forms.HelpProvider, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;imageList_main_window.Name" xml:space="preserve">
     <value>imageList_main_window</value>

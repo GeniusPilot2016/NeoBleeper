@@ -67,7 +67,6 @@
             settingsToolStripMenuItem = new ToolStripMenuItem();
             aboutNeoBleeperToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
-            NeoBleeper_help = new HelpProvider();
             checkBox_mute_playback = new CheckBox();
             imageList_main_window = new ImageList(components);
             numericUpDown_alternating_notes = new NumericUpDown();
@@ -249,7 +248,6 @@
             button_c_s3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c_s3.ForeColor = Color.DarkGray;
             button_c_s3.Name = "button_c_s3";
-            NeoBleeper_help.SetShowHelp(button_c_s3, (bool)resources.GetObject("button_c_s3.ShowHelp"));
             button_c_s3.TabStop = false;
             toolTip1.SetToolTip(button_c_s3, resources.GetString("button_c_s3.ToolTip"));
             button_c_s3.UseVisualStyleBackColor = false;
@@ -263,7 +261,6 @@
             button_d_s3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d_s3.ForeColor = Color.DarkGray;
             button_d_s3.Name = "button_d_s3";
-            NeoBleeper_help.SetShowHelp(button_d_s3, (bool)resources.GetObject("button_d_s3.ShowHelp"));
             button_d_s3.TabStop = false;
             toolTip1.SetToolTip(button_d_s3, resources.GetString("button_d_s3.ToolTip"));
             button_d_s3.UseVisualStyleBackColor = false;
@@ -277,7 +274,6 @@
             button_f_s3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f_s3.ForeColor = Color.DarkGray;
             button_f_s3.Name = "button_f_s3";
-            NeoBleeper_help.SetShowHelp(button_f_s3, (bool)resources.GetObject("button_f_s3.ShowHelp"));
             button_f_s3.TabStop = false;
             toolTip1.SetToolTip(button_f_s3, resources.GetString("button_f_s3.ToolTip"));
             button_f_s3.UseVisualStyleBackColor = false;
@@ -291,7 +287,6 @@
             button_g_s3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g_s3.ForeColor = Color.DarkGray;
             button_g_s3.Name = "button_g_s3";
-            NeoBleeper_help.SetShowHelp(button_g_s3, (bool)resources.GetObject("button_g_s3.ShowHelp"));
             button_g_s3.TabStop = false;
             toolTip1.SetToolTip(button_g_s3, resources.GetString("button_g_s3.ToolTip"));
             button_g_s3.UseVisualStyleBackColor = false;
@@ -305,7 +300,6 @@
             button_a_s3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a_s3.ForeColor = Color.DarkGray;
             button_a_s3.Name = "button_a_s3";
-            NeoBleeper_help.SetShowHelp(button_a_s3, (bool)resources.GetObject("button_a_s3.ShowHelp"));
             button_a_s3.TabStop = false;
             toolTip1.SetToolTip(button_a_s3, resources.GetString("button_a_s3.ToolTip"));
             button_a_s3.UseVisualStyleBackColor = false;
@@ -319,7 +313,6 @@
             button_a_s4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a_s4.ForeColor = Color.DarkGray;
             button_a_s4.Name = "button_a_s4";
-            NeoBleeper_help.SetShowHelp(button_a_s4, (bool)resources.GetObject("button_a_s4.ShowHelp"));
             button_a_s4.TabStop = false;
             toolTip1.SetToolTip(button_a_s4, resources.GetString("button_a_s4.ToolTip"));
             button_a_s4.UseVisualStyleBackColor = false;
@@ -333,7 +326,6 @@
             button_g_s4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g_s4.ForeColor = Color.DarkGray;
             button_g_s4.Name = "button_g_s4";
-            NeoBleeper_help.SetShowHelp(button_g_s4, (bool)resources.GetObject("button_g_s4.ShowHelp"));
             button_g_s4.TabStop = false;
             toolTip1.SetToolTip(button_g_s4, resources.GetString("button_g_s4.ToolTip"));
             button_g_s4.UseVisualStyleBackColor = false;
@@ -347,7 +339,6 @@
             button_f_s4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f_s4.ForeColor = Color.DarkGray;
             button_f_s4.Name = "button_f_s4";
-            NeoBleeper_help.SetShowHelp(button_f_s4, (bool)resources.GetObject("button_f_s4.ShowHelp"));
             button_f_s4.TabStop = false;
             toolTip1.SetToolTip(button_f_s4, resources.GetString("button_f_s4.ToolTip"));
             button_f_s4.UseVisualStyleBackColor = false;
@@ -361,7 +352,6 @@
             button_d_s4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d_s4.ForeColor = Color.DarkGray;
             button_d_s4.Name = "button_d_s4";
-            NeoBleeper_help.SetShowHelp(button_d_s4, (bool)resources.GetObject("button_d_s4.ShowHelp"));
             button_d_s4.TabStop = false;
             toolTip1.SetToolTip(button_d_s4, resources.GetString("button_d_s4.ToolTip"));
             button_d_s4.UseVisualStyleBackColor = false;
@@ -375,7 +365,6 @@
             button_c_s4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c_s4.ForeColor = Color.DarkGray;
             button_c_s4.Name = "button_c_s4";
-            NeoBleeper_help.SetShowHelp(button_c_s4, (bool)resources.GetObject("button_c_s4.ShowHelp"));
             button_c_s4.TabStop = false;
             toolTip1.SetToolTip(button_c_s4, resources.GetString("button_c_s4.ToolTip"));
             button_c_s4.UseVisualStyleBackColor = false;
@@ -389,7 +378,6 @@
             button_a_s5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a_s5.ForeColor = Color.DarkGray;
             button_a_s5.Name = "button_a_s5";
-            NeoBleeper_help.SetShowHelp(button_a_s5, (bool)resources.GetObject("button_a_s5.ShowHelp"));
             button_a_s5.TabStop = false;
             toolTip1.SetToolTip(button_a_s5, resources.GetString("button_a_s5.ToolTip"));
             button_a_s5.UseVisualStyleBackColor = false;
@@ -403,7 +391,6 @@
             button_g_s5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g_s5.ForeColor = Color.DarkGray;
             button_g_s5.Name = "button_g_s5";
-            NeoBleeper_help.SetShowHelp(button_g_s5, (bool)resources.GetObject("button_g_s5.ShowHelp"));
             button_g_s5.TabStop = false;
             toolTip1.SetToolTip(button_g_s5, resources.GetString("button_g_s5.ToolTip"));
             button_g_s5.UseVisualStyleBackColor = false;
@@ -417,7 +404,6 @@
             button_f_s5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f_s5.ForeColor = Color.DarkGray;
             button_f_s5.Name = "button_f_s5";
-            NeoBleeper_help.SetShowHelp(button_f_s5, (bool)resources.GetObject("button_f_s5.ShowHelp"));
             button_f_s5.TabStop = false;
             toolTip1.SetToolTip(button_f_s5, resources.GetString("button_f_s5.ToolTip"));
             button_f_s5.UseVisualStyleBackColor = false;
@@ -431,7 +417,6 @@
             button_d_s5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d_s5.ForeColor = Color.DarkGray;
             button_d_s5.Name = "button_d_s5";
-            NeoBleeper_help.SetShowHelp(button_d_s5, (bool)resources.GetObject("button_d_s5.ShowHelp"));
             button_d_s5.TabStop = false;
             toolTip1.SetToolTip(button_d_s5, resources.GetString("button_d_s5.ToolTip"));
             button_d_s5.UseVisualStyleBackColor = false;
@@ -442,13 +427,11 @@
             resources.ApplyResources(red_felt, "red_felt");
             red_felt.BackColor = Color.DarkRed;
             red_felt.Name = "red_felt";
-            NeoBleeper_help.SetShowHelp(red_felt, (bool)resources.GetObject("red_felt.ShowHelp"));
             // 
             // label_bpm
             // 
             resources.ApplyResources(label_bpm, "label_bpm");
             label_bpm.Name = "label_bpm";
-            NeoBleeper_help.SetShowHelp(label_bpm, (bool)resources.GetObject("label_bpm.ShowHelp"));
             // 
             // trackBar_time_signature
             // 
@@ -457,7 +440,6 @@
             trackBar_time_signature.Maximum = 32;
             trackBar_time_signature.Minimum = 1;
             trackBar_time_signature.Name = "trackBar_time_signature";
-            NeoBleeper_help.SetShowHelp(trackBar_time_signature, (bool)resources.GetObject("trackBar_time_signature.ShowHelp"));
             trackBar_time_signature.TickFrequency = 4;
             toolTip1.SetToolTip(trackBar_time_signature, resources.GetString("trackBar_time_signature.ToolTip"));
             trackBar_time_signature.Value = 4;
@@ -467,7 +449,6 @@
             // 
             resources.ApplyResources(label_time_signature, "label_time_signature");
             label_time_signature.Name = "label_time_signature";
-            NeoBleeper_help.SetShowHelp(label_time_signature, (bool)resources.GetObject("label_time_signature.ShowHelp"));
             // 
             // menuStrip1
             // 
@@ -476,7 +457,6 @@
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, settingsToolStripMenuItem, aboutNeoBleeperToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Name = "menuStrip1";
-            NeoBleeper_help.SetShowHelp(menuStrip1, (bool)resources.GetObject("menuStrip1.ShowHelp"));
             // 
             // fileToolStripMenuItem
             // 
@@ -589,13 +569,13 @@
             // 
             resources.ApplyResources(helpToolStripMenuItem, "helpToolStripMenuItem");
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
             // 
             // checkBox_mute_playback
             // 
             resources.ApplyResources(checkBox_mute_playback, "checkBox_mute_playback");
             checkBox_mute_playback.ImageList = imageList_main_window;
             checkBox_mute_playback.Name = "checkBox_mute_playback";
-            NeoBleeper_help.SetShowHelp(checkBox_mute_playback, (bool)resources.GetObject("checkBox_mute_playback.ShowHelp"));
             toolTip1.SetToolTip(checkBox_mute_playback, resources.GetString("checkBox_mute_playback.ToolTip"));
             checkBox_mute_playback.UseVisualStyleBackColor = true;
             checkBox_mute_playback.CheckedChanged += checkBox_mute_system_speaker_CheckedChanged;
@@ -631,7 +611,6 @@
             numericUpDown_alternating_notes.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numericUpDown_alternating_notes.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_alternating_notes.Name = "numericUpDown_alternating_notes";
-            NeoBleeper_help.SetShowHelp(numericUpDown_alternating_notes, (bool)resources.GetObject("numericUpDown_alternating_notes.ShowHelp"));
             toolTip1.SetToolTip(numericUpDown_alternating_notes, resources.GetString("numericUpDown_alternating_notes.ToolTip"));
             numericUpDown_alternating_notes.Value = new decimal(new int[] { 30, 0, 0, 0 });
             numericUpDown_alternating_notes.ValueChanged += numericUpDown_alternating_notes_ValueChanged;
@@ -643,7 +622,6 @@
             button_blank_line.FlatAppearance.BorderSize = 0;
             button_blank_line.ImageList = imageList_main_window;
             button_blank_line.Name = "button_blank_line";
-            NeoBleeper_help.SetShowHelp(button_blank_line, (bool)resources.GetObject("button_blank_line.ShowHelp"));
             toolTip1.SetToolTip(button_blank_line, resources.GetString("button_blank_line.ToolTip"));
             button_blank_line.UseVisualStyleBackColor = false;
             button_blank_line.Click += button_blank_line_Click;
@@ -655,7 +633,6 @@
             button_clear_note1.FlatAppearance.BorderSize = 0;
             button_clear_note1.ImageList = imageList_main_window;
             button_clear_note1.Name = "button_clear_note1";
-            NeoBleeper_help.SetShowHelp(button_clear_note1, (bool)resources.GetObject("button_clear_note1.ShowHelp"));
             toolTip1.SetToolTip(button_clear_note1, resources.GetString("button_clear_note1.ToolTip"));
             button_clear_note1.UseVisualStyleBackColor = false;
             button_clear_note1.Click += button_clear_note1_Click;
@@ -667,7 +644,6 @@
             button_clear_note2.FlatAppearance.BorderSize = 0;
             button_clear_note2.ImageList = imageList_main_window;
             button_clear_note2.Name = "button_clear_note2";
-            NeoBleeper_help.SetShowHelp(button_clear_note2, (bool)resources.GetObject("button_clear_note2.ShowHelp"));
             toolTip1.SetToolTip(button_clear_note2, resources.GetString("button_clear_note2.ToolTip"));
             button_clear_note2.UseVisualStyleBackColor = false;
             button_clear_note2.Click += button_clear_note2_Click;
@@ -679,7 +655,6 @@
             button_unselect.FlatAppearance.BorderSize = 0;
             button_unselect.ImageList = imageList_main_window;
             button_unselect.Name = "button_unselect";
-            NeoBleeper_help.SetShowHelp(button_unselect, (bool)resources.GetObject("button_unselect.ShowHelp"));
             toolTip1.SetToolTip(button_unselect, resources.GetString("button_unselect.ToolTip"));
             button_unselect.UseVisualStyleBackColor = false;
             button_unselect.Click += button_unselect_Click;
@@ -691,7 +666,6 @@
             button_erase_line.FlatAppearance.BorderSize = 0;
             button_erase_line.ImageList = imageList_main_window;
             button_erase_line.Name = "button_erase_line";
-            NeoBleeper_help.SetShowHelp(button_erase_line, (bool)resources.GetObject("button_erase_line.ShowHelp"));
             toolTip1.SetToolTip(button_erase_line, resources.GetString("button_erase_line.ToolTip"));
             button_erase_line.UseVisualStyleBackColor = false;
             button_erase_line.Click += button_erase_line_Click;
@@ -703,7 +677,6 @@
             button_play_all.FlatAppearance.BorderSize = 0;
             button_play_all.ImageList = imageList_main_window;
             button_play_all.Name = "button_play_all";
-            NeoBleeper_help.SetShowHelp(button_play_all, (bool)resources.GetObject("button_play_all.ShowHelp"));
             toolTip1.SetToolTip(button_play_all, resources.GetString("button_play_all.ToolTip"));
             button_play_all.UseVisualStyleBackColor = false;
             button_play_all.Click += button_play_all_Click;
@@ -715,7 +688,6 @@
             button_play_from_selected_line.FlatAppearance.BorderSize = 0;
             button_play_from_selected_line.ImageList = imageList_main_window;
             button_play_from_selected_line.Name = "button_play_from_selected_line";
-            NeoBleeper_help.SetShowHelp(button_play_from_selected_line, (bool)resources.GetObject("button_play_from_selected_line.ShowHelp"));
             toolTip1.SetToolTip(button_play_from_selected_line, resources.GetString("button_play_from_selected_line.ToolTip"));
             button_play_from_selected_line.UseVisualStyleBackColor = false;
             button_play_from_selected_line.Click += button_play_from_selected_line_Click;
@@ -727,7 +699,6 @@
             button_stop_playing.FlatAppearance.BorderSize = 0;
             button_stop_playing.ImageList = imageList_main_window;
             button_stop_playing.Name = "button_stop_playing";
-            NeoBleeper_help.SetShowHelp(button_stop_playing, (bool)resources.GetObject("button_stop_playing.ShowHelp"));
             toolTip1.SetToolTip(button_stop_playing, resources.GetString("button_stop_playing.ToolTip"));
             button_stop_playing.UseVisualStyleBackColor = false;
             button_stop_playing.Click += button_stop_playing_Click;
@@ -740,7 +711,6 @@
             numericUpDown_bpm.Maximum = new decimal(new int[] { 600, 0, 0, 0 });
             numericUpDown_bpm.Minimum = new decimal(new int[] { 40, 0, 0, 0 });
             numericUpDown_bpm.Name = "numericUpDown_bpm";
-            NeoBleeper_help.SetShowHelp(numericUpDown_bpm, (bool)resources.GetObject("numericUpDown_bpm.ShowHelp"));
             toolTip1.SetToolTip(numericUpDown_bpm, resources.GetString("numericUpDown_bpm.ToolTip"));
             numericUpDown_bpm.Value = new decimal(new int[] { 140, 0, 0, 0 });
             numericUpDown_bpm.ValueChanged += numericUpDown_bpm_ValueChanged;
@@ -753,7 +723,6 @@
             comboBox_note_length.FormattingEnabled = true;
             comboBox_note_length.Items.AddRange(new object[] { resources.GetString("comboBox_note_length.Items"), resources.GetString("comboBox_note_length.Items1"), resources.GetString("comboBox_note_length.Items2"), resources.GetString("comboBox_note_length.Items3"), resources.GetString("comboBox_note_length.Items4"), resources.GetString("comboBox_note_length.Items5") });
             comboBox_note_length.Name = "comboBox_note_length";
-            NeoBleeper_help.SetShowHelp(comboBox_note_length, (bool)resources.GetObject("comboBox_note_length.ShowHelp"));
             toolTip1.SetToolTip(comboBox_note_length, resources.GetString("comboBox_note_length.ToolTip"));
             comboBox_note_length.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -764,7 +733,6 @@
             checkBox_metronome.FlatAppearance.BorderSize = 0;
             checkBox_metronome.ImageList = imageList_main_window;
             checkBox_metronome.Name = "checkBox_metronome";
-            NeoBleeper_help.SetShowHelp(checkBox_metronome, (bool)resources.GetObject("checkBox_metronome.ShowHelp"));
             toolTip1.SetToolTip(checkBox_metronome, resources.GetString("checkBox_metronome.ToolTip"));
             checkBox_metronome.UseVisualStyleBackColor = false;
             checkBox_metronome.CheckedChanged += checkBox_metronome_CheckedChanged;
@@ -775,7 +743,6 @@
             checkBox_dotted.BackColor = Color.Transparent;
             checkBox_dotted.FlatAppearance.BorderSize = 0;
             checkBox_dotted.Name = "checkBox_dotted";
-            NeoBleeper_help.SetShowHelp(checkBox_dotted, (bool)resources.GetObject("checkBox_dotted.ShowHelp"));
             toolTip1.SetToolTip(checkBox_dotted, resources.GetString("checkBox_dotted.ToolTip"));
             checkBox_dotted.UseVisualStyleBackColor = false;
             checkBox_dotted.CheckedChanged += checkBox_dotted_CheckedChanged;
@@ -787,7 +754,6 @@
             checkBox_triplet.BackColor = Color.Transparent;
             checkBox_triplet.FlatAppearance.BorderSize = 0;
             checkBox_triplet.Name = "checkBox_triplet";
-            NeoBleeper_help.SetShowHelp(checkBox_triplet, (bool)resources.GetObject("checkBox_triplet.ShowHelp"));
             toolTip1.SetToolTip(checkBox_triplet, resources.GetString("checkBox_triplet.ToolTip"));
             checkBox_triplet.UseVisualStyleBackColor = false;
             checkBox_triplet.CheckedChanged += checkBox_triplet_CheckedChanged;
@@ -802,7 +768,6 @@
             listViewNotes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listViewNotes.MultiSelect = false;
             listViewNotes.Name = "listViewNotes";
-            NeoBleeper_help.SetShowHelp(listViewNotes, (bool)resources.GetObject("listViewNotes.ShowHelp"));
             listViewNotes.UseCompatibleStateImageBehavior = false;
             listViewNotes.View = View.Details;
             listViewNotes.SelectedIndexChanged += listViewNotes_SelectedIndexChanged;
@@ -949,7 +914,6 @@
             // 
             resources.ApplyResources(label_note_length, "label_note_length");
             label_note_length.Name = "label_note_length";
-            NeoBleeper_help.SetShowHelp(label_note_length, (bool)resources.GetObject("label_note_length.ShowHelp"));
             // 
             // trackBar_note_silence_ratio
             // 
@@ -957,7 +921,6 @@
             trackBar_note_silence_ratio.Maximum = 100;
             trackBar_note_silence_ratio.Minimum = 5;
             trackBar_note_silence_ratio.Name = "trackBar_note_silence_ratio";
-            NeoBleeper_help.SetShowHelp(trackBar_note_silence_ratio, (bool)resources.GetObject("trackBar_note_silence_ratio.ShowHelp"));
             trackBar_note_silence_ratio.TickFrequency = 5;
             toolTip1.SetToolTip(trackBar_note_silence_ratio, resources.GetString("trackBar_note_silence_ratio.ToolTip"));
             trackBar_note_silence_ratio.Value = 50;
@@ -967,40 +930,34 @@
             // 
             resources.ApplyResources(label_note_silence_ratio, "label_note_silence_ratio");
             label_note_silence_ratio.Name = "label_note_silence_ratio";
-            NeoBleeper_help.SetShowHelp(label_note_silence_ratio, (bool)resources.GetObject("label_note_silence_ratio.ShowHelp"));
             // 
             // label_silence
             // 
             resources.ApplyResources(label_silence, "label_silence");
             label_silence.BackColor = Color.Transparent;
             label_silence.Name = "label_silence";
-            NeoBleeper_help.SetShowHelp(label_silence, (bool)resources.GetObject("label_silence.ShowHelp"));
             // 
             // label_note
             // 
             resources.ApplyResources(label_note, "label_note");
             label_note.BackColor = Color.Transparent;
             label_note.Name = "label_note";
-            NeoBleeper_help.SetShowHelp(label_note, (bool)resources.GetObject("label_note.ShowHelp"));
             // 
             // label_alternating_notes_switch
             // 
             resources.ApplyResources(label_alternating_notes_switch, "label_alternating_notes_switch");
             label_alternating_notes_switch.Name = "label_alternating_notes_switch";
-            NeoBleeper_help.SetShowHelp(label_alternating_notes_switch, (bool)resources.GetObject("label_alternating_notes_switch.ShowHelp"));
             // 
             // label_mods
             // 
             resources.ApplyResources(label_mods, "label_mods");
             label_mods.Name = "label_mods";
-            NeoBleeper_help.SetShowHelp(label_mods, (bool)resources.GetObject("label_mods.ShowHelp"));
             // 
             // checkBox_synchronized_play
             // 
             resources.ApplyResources(checkBox_synchronized_play, "checkBox_synchronized_play");
             checkBox_synchronized_play.ImageList = imageList_main_window;
             checkBox_synchronized_play.Name = "checkBox_synchronized_play";
-            NeoBleeper_help.SetShowHelp(checkBox_synchronized_play, (bool)resources.GetObject("checkBox_synchronized_play.ShowHelp"));
             toolTip1.SetToolTip(checkBox_synchronized_play, resources.GetString("checkBox_synchronized_play.ToolTip"));
             checkBox_synchronized_play.UseVisualStyleBackColor = true;
             checkBox_synchronized_play.CheckedChanged += checkBox_synchronized_play_CheckedChanged;
@@ -1010,7 +967,6 @@
             resources.ApplyResources(checkBox_play_beat_sound, "checkBox_play_beat_sound");
             checkBox_play_beat_sound.ImageList = imageList_main_window;
             checkBox_play_beat_sound.Name = "checkBox_play_beat_sound";
-            NeoBleeper_help.SetShowHelp(checkBox_play_beat_sound, (bool)resources.GetObject("checkBox_play_beat_sound.ShowHelp"));
             toolTip1.SetToolTip(checkBox_play_beat_sound, resources.GetString("checkBox_play_beat_sound.ToolTip"));
             checkBox_play_beat_sound.UseVisualStyleBackColor = true;
             checkBox_play_beat_sound.CheckedChanged += checkBox_play_beat_sound_CheckedChanged;
@@ -1021,7 +977,6 @@
             checkBox_staccato.BackColor = Color.Transparent;
             checkBox_staccato.FlatAppearance.BorderSize = 0;
             checkBox_staccato.Name = "checkBox_staccato";
-            NeoBleeper_help.SetShowHelp(checkBox_staccato, (bool)resources.GetObject("checkBox_staccato.ShowHelp"));
             toolTip1.SetToolTip(checkBox_staccato, resources.GetString("checkBox_staccato.ToolTip"));
             checkBox_staccato.UseVisualStyleBackColor = false;
             checkBox_staccato.CheckedChanged += checkBox_staccato_CheckedChanged;
@@ -1033,7 +988,6 @@
             label_beep.BackColor = Color.Red;
             label_beep.FlatStyle = FlatStyle.System;
             label_beep.Name = "label_beep";
-            NeoBleeper_help.SetShowHelp(label_beep, (bool)resources.GetObject("label_beep.ShowHelp"));
             toolTip1.SetToolTip(label_beep, resources.GetString("label_beep.ToolTip"));
             // 
             // checkBox_fermata
@@ -1042,7 +996,6 @@
             checkBox_fermata.BackColor = Color.Transparent;
             checkBox_fermata.FlatAppearance.BorderSize = 0;
             checkBox_fermata.Name = "checkBox_fermata";
-            NeoBleeper_help.SetShowHelp(checkBox_fermata, (bool)resources.GetObject("checkBox_fermata.ShowHelp"));
             toolTip1.SetToolTip(checkBox_fermata, resources.GetString("checkBox_fermata.ToolTip"));
             checkBox_fermata.UseVisualStyleBackColor = false;
             checkBox_fermata.CheckedChanged += checkBox_fermata_CheckedChanged;
@@ -1052,126 +1005,108 @@
             // 
             resources.ApplyResources(lbl_alternating_note_options, "lbl_alternating_note_options");
             lbl_alternating_note_options.Name = "lbl_alternating_note_options";
-            NeoBleeper_help.SetShowHelp(lbl_alternating_note_options, (bool)resources.GetObject("lbl_alternating_note_options.ShowHelp"));
             // 
             // lbl_d3
             // 
             resources.ApplyResources(lbl_d3, "lbl_d3");
             lbl_d3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_d3.Name = "lbl_d3";
-            NeoBleeper_help.SetShowHelp(lbl_d3, (bool)resources.GetObject("lbl_d3.ShowHelp"));
             // 
             // lbl_e3
             // 
             resources.ApplyResources(lbl_e3, "lbl_e3");
             lbl_e3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_e3.Name = "lbl_e3";
-            NeoBleeper_help.SetShowHelp(lbl_e3, (bool)resources.GetObject("lbl_e3.ShowHelp"));
             // 
             // lbl_f3
             // 
             resources.ApplyResources(lbl_f3, "lbl_f3");
             lbl_f3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_f3.Name = "lbl_f3";
-            NeoBleeper_help.SetShowHelp(lbl_f3, (bool)resources.GetObject("lbl_f3.ShowHelp"));
             // 
             // lbl_g3
             // 
             resources.ApplyResources(lbl_g3, "lbl_g3");
             lbl_g3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_g3.Name = "lbl_g3";
-            NeoBleeper_help.SetShowHelp(lbl_g3, (bool)resources.GetObject("lbl_g3.ShowHelp"));
             // 
             // lbl_a3
             // 
             resources.ApplyResources(lbl_a3, "lbl_a3");
             lbl_a3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_a3.Name = "lbl_a3";
-            NeoBleeper_help.SetShowHelp(lbl_a3, (bool)resources.GetObject("lbl_a3.ShowHelp"));
             // 
             // lbl_b3
             // 
             resources.ApplyResources(lbl_b3, "lbl_b3");
             lbl_b3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_b3.Name = "lbl_b3";
-            NeoBleeper_help.SetShowHelp(lbl_b3, (bool)resources.GetObject("lbl_b3.ShowHelp"));
             // 
             // lbl_b4
             // 
             resources.ApplyResources(lbl_b4, "lbl_b4");
             lbl_b4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_b4.Name = "lbl_b4";
-            NeoBleeper_help.SetShowHelp(lbl_b4, (bool)resources.GetObject("lbl_b4.ShowHelp"));
             // 
             // lbl_a4
             // 
             resources.ApplyResources(lbl_a4, "lbl_a4");
             lbl_a4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_a4.Name = "lbl_a4";
-            NeoBleeper_help.SetShowHelp(lbl_a4, (bool)resources.GetObject("lbl_a4.ShowHelp"));
             // 
             // lbl_g4
             // 
             resources.ApplyResources(lbl_g4, "lbl_g4");
             lbl_g4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_g4.Name = "lbl_g4";
-            NeoBleeper_help.SetShowHelp(lbl_g4, (bool)resources.GetObject("lbl_g4.ShowHelp"));
             // 
             // lbl_f4
             // 
             resources.ApplyResources(lbl_f4, "lbl_f4");
             lbl_f4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_f4.Name = "lbl_f4";
-            NeoBleeper_help.SetShowHelp(lbl_f4, (bool)resources.GetObject("lbl_f4.ShowHelp"));
             // 
             // lbl_e4
             // 
             resources.ApplyResources(lbl_e4, "lbl_e4");
             lbl_e4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_e4.Name = "lbl_e4";
-            NeoBleeper_help.SetShowHelp(lbl_e4, (bool)resources.GetObject("lbl_e4.ShowHelp"));
             // 
             // lbl_d4
             // 
             resources.ApplyResources(lbl_d4, "lbl_d4");
             lbl_d4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_d4.Name = "lbl_d4";
-            NeoBleeper_help.SetShowHelp(lbl_d4, (bool)resources.GetObject("lbl_d4.ShowHelp"));
             // 
             // lbl_c4
             // 
             resources.ApplyResources(lbl_c4, "lbl_c4");
             lbl_c4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_c4.Name = "lbl_c4";
-            NeoBleeper_help.SetShowHelp(lbl_c4, (bool)resources.GetObject("lbl_c4.ShowHelp"));
             // 
             // lbl_g5
             // 
             resources.ApplyResources(lbl_g5, "lbl_g5");
             lbl_g5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_g5.Name = "lbl_g5";
-            NeoBleeper_help.SetShowHelp(lbl_g5, (bool)resources.GetObject("lbl_g5.ShowHelp"));
             // 
             // lbl_e5
             // 
             resources.ApplyResources(lbl_e5, "lbl_e5");
             lbl_e5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_e5.Name = "lbl_e5";
-            NeoBleeper_help.SetShowHelp(lbl_e5, (bool)resources.GetObject("lbl_e5.ShowHelp"));
             // 
             // lbl_d5
             // 
             resources.ApplyResources(lbl_d5, "lbl_d5");
             lbl_d5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_d5.Name = "lbl_d5";
-            NeoBleeper_help.SetShowHelp(lbl_d5, (bool)resources.GetObject("lbl_d5.ShowHelp"));
             // 
             // lbl_c5
             // 
             resources.ApplyResources(lbl_c5, "lbl_c5");
             lbl_c5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_c5.Name = "lbl_c5";
-            NeoBleeper_help.SetShowHelp(lbl_c5, (bool)resources.GetObject("lbl_c5.ShowHelp"));
             // 
             // button_clear_note4
             // 
@@ -1180,7 +1115,6 @@
             button_clear_note4.FlatAppearance.BorderSize = 0;
             button_clear_note4.ImageList = imageList_main_window;
             button_clear_note4.Name = "button_clear_note4";
-            NeoBleeper_help.SetShowHelp(button_clear_note4, (bool)resources.GetObject("button_clear_note4.ShowHelp"));
             toolTip1.SetToolTip(button_clear_note4, resources.GetString("button_clear_note4.ToolTip"));
             button_clear_note4.UseVisualStyleBackColor = false;
             button_clear_note4.Click += button_clear_note4_Click;
@@ -1192,7 +1126,6 @@
             button_clear_note3.FlatAppearance.BorderSize = 0;
             button_clear_note3.ImageList = imageList_main_window;
             button_clear_note3.Name = "button_clear_note3";
-            NeoBleeper_help.SetShowHelp(button_clear_note3, (bool)resources.GetObject("button_clear_note3.ShowHelp"));
             toolTip1.SetToolTip(button_clear_note3, resources.GetString("button_clear_note3.ToolTip"));
             button_clear_note3.UseVisualStyleBackColor = false;
             button_clear_note3.Click += button_clear_note3_Click;
@@ -1203,7 +1136,6 @@
             checkBox_spiccato.BackColor = Color.Transparent;
             checkBox_spiccato.FlatAppearance.BorderSize = 0;
             checkBox_spiccato.Name = "checkBox_spiccato";
-            NeoBleeper_help.SetShowHelp(checkBox_spiccato, (bool)resources.GetObject("checkBox_spiccato.ShowHelp"));
             toolTip1.SetToolTip(checkBox_spiccato, resources.GetString("checkBox_spiccato.ToolTip"));
             checkBox_spiccato.UseVisualStyleBackColor = false;
             checkBox_spiccato.CheckedChanged += checkBox_spiccato_CheckedChanged;
@@ -1213,34 +1145,29 @@
             // 
             resources.ApplyResources(lbl_beat, "lbl_beat");
             lbl_beat.Name = "lbl_beat";
-            NeoBleeper_help.SetShowHelp(lbl_beat, (bool)resources.GetObject("lbl_beat.ShowHelp"));
             // 
             // lbl_beat_traditional
             // 
             resources.ApplyResources(lbl_beat_traditional, "lbl_beat_traditional");
             lbl_beat_traditional.Name = "lbl_beat_traditional";
-            NeoBleeper_help.SetShowHelp(lbl_beat_traditional, (bool)resources.GetObject("lbl_beat_traditional.ShowHelp"));
             // 
             // lbl_measure_value
             // 
             resources.ApplyResources(lbl_measure_value, "lbl_measure_value");
             lbl_measure_value.ForeColor = Color.Green;
             lbl_measure_value.Name = "lbl_measure_value";
-            NeoBleeper_help.SetShowHelp(lbl_measure_value, (bool)resources.GetObject("lbl_measure_value.ShowHelp"));
             // 
             // lbl_beat_value
             // 
             resources.ApplyResources(lbl_beat_value, "lbl_beat_value");
             lbl_beat_value.ForeColor = Color.Green;
             lbl_beat_value.Name = "lbl_beat_value";
-            NeoBleeper_help.SetShowHelp(lbl_beat_value, (bool)resources.GetObject("lbl_beat_value.ShowHelp"));
             // 
             // lbl_beat_traditional_value
             // 
             resources.ApplyResources(lbl_beat_traditional_value, "lbl_beat_traditional_value");
             lbl_beat_traditional_value.ForeColor = Color.Green;
             lbl_beat_traditional_value.Name = "lbl_beat_traditional_value";
-            NeoBleeper_help.SetShowHelp(lbl_beat_traditional_value, (bool)resources.GetObject("lbl_beat_traditional_value.ShowHelp"));
             // 
             // button_c3
             // 
@@ -1251,7 +1178,6 @@
             button_c3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c3.ForeColor = Color.DarkGray;
             button_c3.Name = "button_c3";
-            NeoBleeper_help.SetShowHelp(button_c3, (bool)resources.GetObject("button_c3.ShowHelp"));
             button_c3.TabStop = false;
             toolTip1.SetToolTip(button_c3, resources.GetString("button_c3.ToolTip"));
             button_c3.UseVisualStyleBackColor = false;
@@ -1266,7 +1192,6 @@
             button_d3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d3.ForeColor = Color.DarkGray;
             button_d3.Name = "button_d3";
-            NeoBleeper_help.SetShowHelp(button_d3, (bool)resources.GetObject("button_d3.ShowHelp"));
             button_d3.TabStop = false;
             toolTip1.SetToolTip(button_d3, resources.GetString("button_d3.ToolTip"));
             button_d3.UseVisualStyleBackColor = false;
@@ -1281,7 +1206,6 @@
             button_e3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_e3.ForeColor = Color.DarkGray;
             button_e3.Name = "button_e3";
-            NeoBleeper_help.SetShowHelp(button_e3, (bool)resources.GetObject("button_e3.ShowHelp"));
             button_e3.TabStop = false;
             toolTip1.SetToolTip(button_e3, resources.GetString("button_e3.ToolTip"));
             button_e3.UseVisualStyleBackColor = false;
@@ -1296,7 +1220,6 @@
             button_f3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f3.ForeColor = Color.DarkGray;
             button_f3.Name = "button_f3";
-            NeoBleeper_help.SetShowHelp(button_f3, (bool)resources.GetObject("button_f3.ShowHelp"));
             button_f3.TabStop = false;
             toolTip1.SetToolTip(button_f3, resources.GetString("button_f3.ToolTip"));
             button_f3.UseVisualStyleBackColor = false;
@@ -1311,7 +1234,6 @@
             button_g3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g3.ForeColor = Color.DarkGray;
             button_g3.Name = "button_g3";
-            NeoBleeper_help.SetShowHelp(button_g3, (bool)resources.GetObject("button_g3.ShowHelp"));
             button_g3.TabStop = false;
             toolTip1.SetToolTip(button_g3, resources.GetString("button_g3.ToolTip"));
             button_g3.UseVisualStyleBackColor = false;
@@ -1326,7 +1248,6 @@
             button_a3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a3.ForeColor = Color.DarkGray;
             button_a3.Name = "button_a3";
-            NeoBleeper_help.SetShowHelp(button_a3, (bool)resources.GetObject("button_a3.ShowHelp"));
             button_a3.TabStop = false;
             toolTip1.SetToolTip(button_a3, resources.GetString("button_a3.ToolTip"));
             button_a3.UseVisualStyleBackColor = false;
@@ -1341,7 +1262,6 @@
             button_b3.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_b3.ForeColor = Color.DarkGray;
             button_b3.Name = "button_b3";
-            NeoBleeper_help.SetShowHelp(button_b3, (bool)resources.GetObject("button_b3.ShowHelp"));
             button_b3.TabStop = false;
             toolTip1.SetToolTip(button_b3, resources.GetString("button_b3.ToolTip"));
             button_b3.UseVisualStyleBackColor = false;
@@ -1356,7 +1276,6 @@
             button_c4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c4.ForeColor = Color.DarkGray;
             button_c4.Name = "button_c4";
-            NeoBleeper_help.SetShowHelp(button_c4, (bool)resources.GetObject("button_c4.ShowHelp"));
             button_c4.TabStop = false;
             toolTip1.SetToolTip(button_c4, resources.GetString("button_c4.ToolTip"));
             button_c4.UseVisualStyleBackColor = false;
@@ -1371,7 +1290,6 @@
             button_d4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d4.ForeColor = Color.DarkGray;
             button_d4.Name = "button_d4";
-            NeoBleeper_help.SetShowHelp(button_d4, (bool)resources.GetObject("button_d4.ShowHelp"));
             button_d4.TabStop = false;
             toolTip1.SetToolTip(button_d4, resources.GetString("button_d4.ToolTip"));
             button_d4.UseVisualStyleBackColor = false;
@@ -1386,7 +1304,6 @@
             button_e4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_e4.ForeColor = Color.DarkGray;
             button_e4.Name = "button_e4";
-            NeoBleeper_help.SetShowHelp(button_e4, (bool)resources.GetObject("button_e4.ShowHelp"));
             button_e4.TabStop = false;
             toolTip1.SetToolTip(button_e4, resources.GetString("button_e4.ToolTip"));
             button_e4.UseVisualStyleBackColor = false;
@@ -1401,7 +1318,6 @@
             button_a4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a4.ForeColor = Color.DarkGray;
             button_a4.Name = "button_a4";
-            NeoBleeper_help.SetShowHelp(button_a4, (bool)resources.GetObject("button_a4.ShowHelp"));
             button_a4.TabStop = false;
             toolTip1.SetToolTip(button_a4, resources.GetString("button_a4.ToolTip"));
             button_a4.UseVisualStyleBackColor = false;
@@ -1416,7 +1332,6 @@
             button_b4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_b4.ForeColor = Color.DarkGray;
             button_b4.Name = "button_b4";
-            NeoBleeper_help.SetShowHelp(button_b4, (bool)resources.GetObject("button_b4.ShowHelp"));
             button_b4.TabStop = false;
             toolTip1.SetToolTip(button_b4, resources.GetString("button_b4.ToolTip"));
             button_b4.UseVisualStyleBackColor = false;
@@ -1431,7 +1346,6 @@
             button_c5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c5.ForeColor = Color.DarkGray;
             button_c5.Name = "button_c5";
-            NeoBleeper_help.SetShowHelp(button_c5, (bool)resources.GetObject("button_c5.ShowHelp"));
             button_c5.TabStop = false;
             toolTip1.SetToolTip(button_c5, resources.GetString("button_c5.ToolTip"));
             button_c5.UseVisualStyleBackColor = false;
@@ -1446,7 +1360,6 @@
             button_d5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_d5.ForeColor = Color.DarkGray;
             button_d5.Name = "button_d5";
-            NeoBleeper_help.SetShowHelp(button_d5, (bool)resources.GetObject("button_d5.ShowHelp"));
             button_d5.TabStop = false;
             toolTip1.SetToolTip(button_d5, resources.GetString("button_d5.ToolTip"));
             button_d5.UseVisualStyleBackColor = false;
@@ -1461,7 +1374,6 @@
             button_e5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_e5.ForeColor = Color.DarkGray;
             button_e5.Name = "button_e5";
-            NeoBleeper_help.SetShowHelp(button_e5, (bool)resources.GetObject("button_e5.ShowHelp"));
             button_e5.TabStop = false;
             toolTip1.SetToolTip(button_e5, resources.GetString("button_e5.ToolTip"));
             button_e5.UseVisualStyleBackColor = false;
@@ -1476,7 +1388,6 @@
             button_f5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f5.ForeColor = Color.DarkGray;
             button_f5.Name = "button_f5";
-            NeoBleeper_help.SetShowHelp(button_f5, (bool)resources.GetObject("button_f5.ShowHelp"));
             button_f5.TabStop = false;
             toolTip1.SetToolTip(button_f5, resources.GetString("button_f5.ToolTip"));
             button_f5.UseVisualStyleBackColor = false;
@@ -1491,7 +1402,6 @@
             button_a5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_a5.ForeColor = Color.DarkGray;
             button_a5.Name = "button_a5";
-            NeoBleeper_help.SetShowHelp(button_a5, (bool)resources.GetObject("button_a5.ShowHelp"));
             button_a5.TabStop = false;
             toolTip1.SetToolTip(button_a5, resources.GetString("button_a5.ToolTip"));
             button_a5.UseVisualStyleBackColor = false;
@@ -1502,14 +1412,12 @@
             resources.ApplyResources(lbl_b5, "lbl_b5");
             lbl_b5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_b5.Name = "lbl_b5";
-            NeoBleeper_help.SetShowHelp(lbl_b5, (bool)resources.GetObject("lbl_b5.ShowHelp"));
             // 
             // lbl_a5
             // 
             resources.ApplyResources(lbl_a5, "lbl_a5");
             lbl_a5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_a5.Name = "lbl_a5";
-            NeoBleeper_help.SetShowHelp(lbl_a5, (bool)resources.GetObject("lbl_a5.ShowHelp"));
             // 
             // button_b5
             // 
@@ -1520,7 +1428,6 @@
             button_b5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_b5.ForeColor = Color.DarkGray;
             button_b5.Name = "button_b5";
-            NeoBleeper_help.SetShowHelp(button_b5, (bool)resources.GetObject("button_b5.ShowHelp"));
             button_b5.TabStop = false;
             toolTip1.SetToolTip(button_b5, resources.GetString("button_b5.ToolTip"));
             button_b5.UseVisualStyleBackColor = false;
@@ -1534,7 +1441,6 @@
             button_c_s5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_c_s5.ForeColor = Color.DarkGray;
             button_c_s5.Name = "button_c_s5";
-            NeoBleeper_help.SetShowHelp(button_c_s5, (bool)resources.GetObject("button_c_s5.ShowHelp"));
             button_c_s5.TabStop = false;
             toolTip1.SetToolTip(button_c_s5, resources.GetString("button_c_s5.ToolTip"));
             button_c_s5.UseVisualStyleBackColor = false;
@@ -1546,7 +1452,6 @@
             checkbox_play_note.Checked = true;
             checkbox_play_note.CheckState = CheckState.Checked;
             checkbox_play_note.Name = "checkbox_play_note";
-            NeoBleeper_help.SetShowHelp(checkbox_play_note, (bool)resources.GetObject("checkbox_play_note.ShowHelp"));
             checkbox_play_note.UseVisualStyleBackColor = true;
             checkbox_play_note.CheckedChanged += checkBox1_CheckedChanged;
             // 
@@ -1561,14 +1466,12 @@
             group_adding_note.Controls.Add(checkBox_add_note_to_list);
             resources.ApplyResources(group_adding_note, "group_adding_note");
             group_adding_note.Name = "group_adding_note";
-            NeoBleeper_help.SetShowHelp(group_adding_note, (bool)resources.GetObject("group_adding_note.ShowHelp"));
             group_adding_note.TabStop = false;
             // 
             // add_as_note4
             // 
             resources.ApplyResources(add_as_note4, "add_as_note4");
             add_as_note4.Name = "add_as_note4";
-            NeoBleeper_help.SetShowHelp(add_as_note4, (bool)resources.GetObject("add_as_note4.ShowHelp"));
             add_as_note4.TabStop = true;
             add_as_note4.UseVisualStyleBackColor = true;
             add_as_note4.CheckedChanged += add_as_note4_CheckedChanged;
@@ -1577,7 +1480,6 @@
             // 
             resources.ApplyResources(add_as_note3, "add_as_note3");
             add_as_note3.Name = "add_as_note3";
-            NeoBleeper_help.SetShowHelp(add_as_note3, (bool)resources.GetObject("add_as_note3.ShowHelp"));
             add_as_note3.TabStop = true;
             add_as_note3.UseVisualStyleBackColor = true;
             add_as_note3.CheckedChanged += add_as_note3_CheckedChanged;
@@ -1586,7 +1488,6 @@
             // 
             resources.ApplyResources(checkBox_replace_length, "checkBox_replace_length");
             checkBox_replace_length.Name = "checkBox_replace_length";
-            NeoBleeper_help.SetShowHelp(checkBox_replace_length, (bool)resources.GetObject("checkBox_replace_length.ShowHelp"));
             checkBox_replace_length.UseVisualStyleBackColor = true;
             checkBox_replace_length.CheckedChanged += checkBox_replace_length_CheckedChanged;
             // 
@@ -1594,7 +1495,6 @@
             // 
             resources.ApplyResources(checkBox_replace, "checkBox_replace");
             checkBox_replace.Name = "checkBox_replace";
-            NeoBleeper_help.SetShowHelp(checkBox_replace, (bool)resources.GetObject("checkBox_replace.ShowHelp"));
             checkBox_replace.UseVisualStyleBackColor = true;
             checkBox_replace.CheckedChanged += checkBox1_CheckedChanged_1;
             // 
@@ -1602,7 +1502,6 @@
             // 
             resources.ApplyResources(add_as_note2, "add_as_note2");
             add_as_note2.Name = "add_as_note2";
-            NeoBleeper_help.SetShowHelp(add_as_note2, (bool)resources.GetObject("add_as_note2.ShowHelp"));
             add_as_note2.TabStop = true;
             add_as_note2.UseVisualStyleBackColor = true;
             add_as_note2.CheckedChanged += add_as_note2_CheckedChanged;
@@ -1612,7 +1511,6 @@
             resources.ApplyResources(add_as_note1, "add_as_note1");
             add_as_note1.Checked = true;
             add_as_note1.Name = "add_as_note1";
-            NeoBleeper_help.SetShowHelp(add_as_note1, (bool)resources.GetObject("add_as_note1.ShowHelp"));
             add_as_note1.TabStop = true;
             add_as_note1.UseVisualStyleBackColor = true;
             add_as_note1.CheckedChanged += add_as_note1_CheckedChanged;
@@ -1623,7 +1521,6 @@
             checkBox_add_note_to_list.Checked = true;
             checkBox_add_note_to_list.CheckState = CheckState.Checked;
             checkBox_add_note_to_list.Name = "checkBox_add_note_to_list";
-            NeoBleeper_help.SetShowHelp(checkBox_add_note_to_list, (bool)resources.GetObject("checkBox_add_note_to_list.ShowHelp"));
             checkBox_add_note_to_list.UseVisualStyleBackColor = true;
             checkBox_add_note_to_list.CheckedChanged += checkBox_add_note_to_list_CheckedChanged;
             // 
@@ -1633,7 +1530,6 @@
             group_key_is_clicked.Controls.Add(group_adding_note);
             group_key_is_clicked.Controls.Add(checkbox_play_note);
             group_key_is_clicked.Name = "group_key_is_clicked";
-            NeoBleeper_help.SetShowHelp(group_key_is_clicked, (bool)resources.GetObject("group_key_is_clicked.ShowHelp"));
             group_key_is_clicked.TabStop = false;
             // 
             // group_line_clicked
@@ -1644,7 +1540,6 @@
             group_line_clicked.Controls.Add(checkBox_play_note2_clicked);
             group_line_clicked.Controls.Add(checkBox_play_note1_clicked);
             group_line_clicked.Name = "group_line_clicked";
-            NeoBleeper_help.SetShowHelp(group_line_clicked, (bool)resources.GetObject("group_line_clicked.ShowHelp"));
             group_line_clicked.TabStop = false;
             // 
             // checkBox_play_note4_clicked
@@ -1653,7 +1548,6 @@
             checkBox_play_note4_clicked.Checked = true;
             checkBox_play_note4_clicked.CheckState = CheckState.Checked;
             checkBox_play_note4_clicked.Name = "checkBox_play_note4_clicked";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note4_clicked, (bool)resources.GetObject("checkBox_play_note4_clicked.ShowHelp"));
             checkBox_play_note4_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note4_clicked.CheckedChanged += checkBox_play_note4_clicked_CheckedChanged;
             // 
@@ -1663,7 +1557,6 @@
             checkBox_play_note3_clicked.Checked = true;
             checkBox_play_note3_clicked.CheckState = CheckState.Checked;
             checkBox_play_note3_clicked.Name = "checkBox_play_note3_clicked";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note3_clicked, (bool)resources.GetObject("checkBox_play_note3_clicked.ShowHelp"));
             checkBox_play_note3_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note3_clicked.CheckedChanged += checkBox_play_note3_clicked_CheckedChanged;
             // 
@@ -1673,7 +1566,6 @@
             checkBox_play_note2_clicked.Checked = true;
             checkBox_play_note2_clicked.CheckState = CheckState.Checked;
             checkBox_play_note2_clicked.Name = "checkBox_play_note2_clicked";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note2_clicked, (bool)resources.GetObject("checkBox_play_note2_clicked.ShowHelp"));
             checkBox_play_note2_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note2_clicked.CheckedChanged += checkBox_play_note2_clicked_CheckedChanged;
             // 
@@ -1683,7 +1575,6 @@
             checkBox_play_note1_clicked.Checked = true;
             checkBox_play_note1_clicked.CheckState = CheckState.Checked;
             checkBox_play_note1_clicked.Name = "checkBox_play_note1_clicked";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note1_clicked, (bool)resources.GetObject("checkBox_play_note1_clicked.ShowHelp"));
             checkBox_play_note1_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note1_clicked.CheckedChanged += checkBox_play_note1_clicked_CheckedChanged;
             // 
@@ -1695,7 +1586,6 @@
             group_music_played.Controls.Add(checkBox_play_note3_played);
             group_music_played.Controls.Add(checkBox_play_note2_played);
             group_music_played.Name = "group_music_played";
-            NeoBleeper_help.SetShowHelp(group_music_played, (bool)resources.GetObject("group_music_played.ShowHelp"));
             group_music_played.TabStop = false;
             // 
             // checkBox_play_note4_played
@@ -1704,7 +1594,6 @@
             checkBox_play_note4_played.Checked = true;
             checkBox_play_note4_played.CheckState = CheckState.Checked;
             checkBox_play_note4_played.Name = "checkBox_play_note4_played";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note4_played, (bool)resources.GetObject("checkBox_play_note4_played.ShowHelp"));
             checkBox_play_note4_played.UseVisualStyleBackColor = true;
             checkBox_play_note4_played.CheckedChanged += checkBox_play_note4_played_CheckedChanged;
             // 
@@ -1714,7 +1603,6 @@
             checkBox_play_note1_played.Checked = true;
             checkBox_play_note1_played.CheckState = CheckState.Checked;
             checkBox_play_note1_played.Name = "checkBox_play_note1_played";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note1_played, (bool)resources.GetObject("checkBox_play_note1_played.ShowHelp"));
             checkBox_play_note1_played.UseVisualStyleBackColor = true;
             checkBox_play_note1_played.CheckedChanged += checkBox_play_note1_played_CheckedChanged;
             // 
@@ -1724,7 +1612,6 @@
             checkBox_play_note3_played.Checked = true;
             checkBox_play_note3_played.CheckState = CheckState.Checked;
             checkBox_play_note3_played.Name = "checkBox_play_note3_played";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note3_played, (bool)resources.GetObject("checkBox_play_note3_played.ShowHelp"));
             checkBox_play_note3_played.UseVisualStyleBackColor = true;
             checkBox_play_note3_played.CheckedChanged += checkBox_play_note3_played_CheckedChanged;
             // 
@@ -1734,7 +1621,6 @@
             checkBox_play_note2_played.Checked = true;
             checkBox_play_note2_played.CheckState = CheckState.Checked;
             checkBox_play_note2_played.Name = "checkBox_play_note2_played";
-            NeoBleeper_help.SetShowHelp(checkBox_play_note2_played, (bool)resources.GetObject("checkBox_play_note2_played.ShowHelp"));
             checkBox_play_note2_played.UseVisualStyleBackColor = true;
             checkBox_play_note2_played.CheckedChanged += checkBox_play_note2_played_CheckedChanged;
             // 
@@ -1744,7 +1630,6 @@
             group_notes.Controls.Add(group_music_played);
             group_notes.Controls.Add(group_line_clicked);
             group_notes.Name = "group_notes";
-            NeoBleeper_help.SetShowHelp(group_notes, (bool)resources.GetObject("group_notes.ShowHelp"));
             group_notes.TabStop = false;
             // 
             // button_g5
@@ -1756,7 +1641,6 @@
             button_g5.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g5.ForeColor = Color.DarkGray;
             button_g5.Name = "button_g5";
-            NeoBleeper_help.SetShowHelp(button_g5, (bool)resources.GetObject("button_g5.ShowHelp"));
             button_g5.TabStop = false;
             toolTip1.SetToolTip(button_g5, resources.GetString("button_g5.ToolTip"));
             button_g5.UseVisualStyleBackColor = false;
@@ -1767,7 +1651,6 @@
             resources.ApplyResources(lbl_f5, "lbl_f5");
             lbl_f5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_f5.Name = "lbl_f5";
-            NeoBleeper_help.SetShowHelp(lbl_f5, (bool)resources.GetObject("lbl_f5.ShowHelp"));
             // 
             // button_g4
             // 
@@ -1778,7 +1661,6 @@
             button_g4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_g4.ForeColor = Color.DarkGray;
             button_g4.Name = "button_g4";
-            NeoBleeper_help.SetShowHelp(button_g4, (bool)resources.GetObject("button_g4.ShowHelp"));
             button_g4.TabStop = false;
             toolTip1.SetToolTip(button_g4, resources.GetString("button_g4.ToolTip"));
             button_g4.UseVisualStyleBackColor = false;
@@ -1793,7 +1675,6 @@
             button_f4.FlatAppearance.MouseOverBackColor = Color.Gray;
             button_f4.ForeColor = Color.DarkGray;
             button_f4.Name = "button_f4";
-            NeoBleeper_help.SetShowHelp(button_f4, (bool)resources.GetObject("button_f4.ShowHelp"));
             button_f4.TabStop = false;
             toolTip1.SetToolTip(button_f4, resources.GetString("button_f4.ToolTip"));
             button_f4.UseVisualStyleBackColor = false;
@@ -1805,7 +1686,6 @@
             panel2.Controls.Add(numericUpDown_alternating_notes);
             resources.ApplyResources(panel2, "panel2");
             panel2.Name = "panel2";
-            NeoBleeper_help.SetShowHelp(panel2, (bool)resources.GetObject("panel2.ShowHelp"));
             // 
             // lbl_ms
             // 
@@ -1818,7 +1698,6 @@
             panel3.Controls.Add(label_bpm);
             panel3.Controls.Add(numericUpDown_bpm);
             panel3.Name = "panel3";
-            NeoBleeper_help.SetShowHelp(panel3, (bool)resources.GetObject("panel3.ShowHelp"));
             // 
             // position_table
             // 
@@ -1830,7 +1709,6 @@
             position_table.Controls.Add(lbl_beat_traditional_value, 3, 2);
             position_table.Controls.Add(lbl_beat_traditional, 2, 2);
             position_table.Name = "position_table";
-            NeoBleeper_help.SetShowHelp(position_table, (bool)resources.GetObject("position_table.ShowHelp"));
             // 
             // lbl_measure
             // 
@@ -1842,7 +1720,6 @@
             resources.ApplyResources(checkBox_bleeper_portamento, "checkBox_bleeper_portamento");
             checkBox_bleeper_portamento.ImageList = imageList_main_window;
             checkBox_bleeper_portamento.Name = "checkBox_bleeper_portamento";
-            NeoBleeper_help.SetShowHelp(checkBox_bleeper_portamento, (bool)resources.GetObject("checkBox_bleeper_portamento.ShowHelp"));
             toolTip1.SetToolTip(checkBox_bleeper_portamento, resources.GetString("checkBox_bleeper_portamento.ToolTip"));
             checkBox_bleeper_portamento.UseVisualStyleBackColor = true;
             checkBox_bleeper_portamento.CheckedChanged += checkBox_bleeper_portamento_CheckedChanged;
@@ -1853,7 +1730,6 @@
             btn_octave_decrease.BackColor = Color.Transparent;
             btn_octave_decrease.FlatAppearance.BorderSize = 0;
             btn_octave_decrease.Name = "btn_octave_decrease";
-            NeoBleeper_help.SetShowHelp(btn_octave_decrease, (bool)resources.GetObject("btn_octave_decrease.ShowHelp"));
             toolTip1.SetToolTip(btn_octave_decrease, resources.GetString("btn_octave_decrease.ToolTip"));
             btn_octave_decrease.UseVisualStyleBackColor = false;
             btn_octave_decrease.Click += btn_octave_decrease_Click;
@@ -1864,7 +1740,6 @@
             btn_octave_increase.BackColor = Color.Transparent;
             btn_octave_increase.FlatAppearance.BorderSize = 0;
             btn_octave_increase.Name = "btn_octave_increase";
-            NeoBleeper_help.SetShowHelp(btn_octave_increase, (bool)resources.GetObject("btn_octave_increase.ShowHelp"));
             toolTip1.SetToolTip(btn_octave_increase, resources.GetString("btn_octave_increase.ToolTip"));
             btn_octave_increase.UseVisualStyleBackColor = false;
             btn_octave_increase.Click += btn_octave_increase_Click;
@@ -1932,7 +1807,6 @@
             keyboard_panel.Controls.Add(button_b5);
             keyboard_panel.Controls.Add(button_g5);
             keyboard_panel.Name = "keyboard_panel";
-            NeoBleeper_help.SetShowHelp(keyboard_panel, (bool)resources.GetObject("keyboard_panel.ShowHelp"));
             // 
             // lbl_c3
             // 
@@ -1946,7 +1820,6 @@
             resources.ApplyResources(button_synchronized_play_help, "button_synchronized_play_help");
             button_synchronized_play_help.ImageList = help_icon;
             button_synchronized_play_help.Name = "button_synchronized_play_help";
-            NeoBleeper_help.SetShowHelp(button_synchronized_play_help, (bool)resources.GetObject("button_synchronized_play_help.ShowHelp"));
             button_synchronized_play_help.UseVisualStyleBackColor = true;
             button_synchronized_play_help.Click += button_synchronized_play_help_Click;
             // 
@@ -1963,7 +1836,6 @@
             resources.ApplyResources(button_play_beat_sound_help, "button_play_beat_sound_help");
             button_play_beat_sound_help.ImageList = help_icon;
             button_play_beat_sound_help.Name = "button_play_beat_sound_help";
-            NeoBleeper_help.SetShowHelp(button_play_beat_sound_help, (bool)resources.GetObject("button_play_beat_sound_help.ShowHelp"));
             button_play_beat_sound_help.UseVisualStyleBackColor = true;
             button_play_beat_sound_help.Click += button_play_beat_sound_help_Click;
             // 
@@ -1973,7 +1845,6 @@
             resources.ApplyResources(button_bleeper_portamento_help, "button_bleeper_portamento_help");
             button_bleeper_portamento_help.ImageList = help_icon;
             button_bleeper_portamento_help.Name = "button_bleeper_portamento_help";
-            NeoBleeper_help.SetShowHelp(button_bleeper_portamento_help, (bool)resources.GetObject("button_bleeper_portamento_help.ShowHelp"));
             button_bleeper_portamento_help.UseVisualStyleBackColor = true;
             button_bleeper_portamento_help.Click += button_bleeper_portamento_help_Click;
             // 
@@ -1983,7 +1854,6 @@
             resources.ApplyResources(button_use_keyboard_as_piano_help, "button_use_keyboard_as_piano_help");
             button_use_keyboard_as_piano_help.ImageList = help_icon;
             button_use_keyboard_as_piano_help.Name = "button_use_keyboard_as_piano_help";
-            NeoBleeper_help.SetShowHelp(button_use_keyboard_as_piano_help, (bool)resources.GetObject("button_use_keyboard_as_piano_help.ShowHelp"));
             button_use_keyboard_as_piano_help.UseVisualStyleBackColor = true;
             button_use_keyboard_as_piano_help.Click += button_use_keyboard_as_piano_help_Click;
             // 
@@ -1993,7 +1863,6 @@
             resources.ApplyResources(button_do_not_update_help, "button_do_not_update_help");
             button_do_not_update_help.ImageList = help_icon;
             button_do_not_update_help.Name = "button_do_not_update_help";
-            NeoBleeper_help.SetShowHelp(button_do_not_update_help, (bool)resources.GetObject("button_do_not_update_help.ShowHelp"));
             button_do_not_update_help.UseVisualStyleBackColor = true;
             button_do_not_update_help.Click += button_do_not_update_help_Click;
             // 
@@ -2138,7 +2007,6 @@
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "main_window";
-            NeoBleeper_help.SetShowHelp(this, (bool)resources.GetObject("$this.ShowHelp"));
             Deactivate += main_window_Deactivate;
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
@@ -2201,7 +2069,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem settingsToolStripMenuItem;
-        private HelpProvider NeoBleeper_help;
         private ToolTip toolTip1;
         private VScrollBar vScrollBar1;
         private ColumnHeader length;
