@@ -401,6 +401,7 @@
             resources.ApplyResources(button_show_reason, "button_show_reason");
             button_show_reason.Name = "button_show_reason";
             button_show_reason.UseVisualStyleBackColor = true;
+            button_show_reason.Click += button_show_reason_Click;
             // 
             // group_tone_waveform
             // 

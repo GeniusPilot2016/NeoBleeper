@@ -1419,5 +1419,10 @@ namespace NeoBleeper
                 e.Cancel = true; // Prevent closing while testing system speaker
             }
         }
+
+        private void button_show_reason_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md") { UseShellExecute = true });
+        }
     }
 }
