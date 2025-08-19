@@ -296,7 +296,7 @@ When enabled, pressing a key will immediately trigger the associated note using 
       These indicators flash or highlight during playback or input, helping you monitor activity at a glance.
     
     - #### Reset Option
-      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaultsperfect for undoing experiments or starting fresh.
+      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaults, perfect for undoing experiments or starting fresh.
       
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
@@ -333,7 +333,7 @@ When enabled, pressing a key will immediately trigger the associated note using 
 
     - ### Convert to GCode - `Ctrl + Shift + G`
 
-      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequencesperfect for experimental art or educational tools.
+      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences, perfect for experimental art or educational tools.
 
       ![image](https://github.com/user-attachments/assets/544a1664-56ee-4b67-9cde-cdf5dfbda767)
 
