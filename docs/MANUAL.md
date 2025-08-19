@@ -150,9 +150,9 @@
 
     This mod enables NeoBleeper to begin playback at a specified system time. It is designed for synchronizing multiple instances of NeoBleeper, particularly when using separate NBPML or BMM files for different sections of a composition. By configuring each instance to start at the same time, synchronized playback across instances can be achieved.
     
-    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command (“Play all” or “Play from selected line”) when the target time is reached.
+    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command (Â“Play allÂ” or Â“Play from selected lineÂ”) when the target time is reached.
 
-    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to “Stop waiting.” If the program is not in a waiting state when the target time arrives, no playback will occur.
+    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to Â“Stop waiting.Â” If the program is not in a waiting state when the target time arrives, no playback will occur.
 
     The checkbox of "Synchronized Play" is unchecked window is closed. To reopen the window, Disabling this option will cancel any active waiting state.
 
@@ -183,7 +183,7 @@
 When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
 
 - ## Settings
-  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app’s configuration
+  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the appÂ’s configuration
   
   - ### General Settings
     This tab focuses on foundational preferences and system-level integration:
@@ -191,12 +191,12 @@ When enabled, pressing a key will immediately trigger the associated note using 
     ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
     
     - #### General Appearance
-      **Theme Selector:** Lets you choose between NeoBleeper’s custom themes or default to your operating system’s look.
+      **Theme Selector:** Lets you choose between NeoBleeperÂ’s custom themes or default to your operating systemÂ’s look.
       
       **Classic Bleeper Mode:** A legacy toggle for users who prefer the original interface or behavior.
       
     - #### Create Music With AI
-      **Google Gemini™ API Key Field:**  Secure input for enabling AI-generated music features.
+      **Google GeminiÂ™ API Key Field:**  Secure input for enabling AI-generated music features.
       
       **Security Warning:** Advises users not to share their API key.
       
@@ -208,12 +208,12 @@ When enabled, pressing a key will immediately trigger the associated note using 
       **Fallback Message:** Suggests using an alternative sound device if no sound is heard from system speaker.
   
   - ### Creating Sounds Settings
-    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your system’s sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
+    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your systemÂ’s sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
 
     ![image](https://github.com/user-attachments/assets/f35e02a4-c1e3-4d03-9b02-bc4db01f6cdd)
     
     - #### Use sound device to create beep:
-      A checkbox that enables or disables the use of your system’s sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
+      A checkbox that enables or disables the use of your systemÂ’s sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
     
     - #### Beep Creation from Sound Device Settings
       - ##### Tone Waveform Selection
@@ -245,14 +245,14 @@ When enabled, pressing a key will immediately trigger the associated note using 
       
       **Select MIDI Output Device:** Choose where NeoBleeper sends its MIDI signals. The default option is typically a general-purpose synth like Microsoft GS Wavetable Synth.
       
-      **Channel:** Selects the MIDI channel (1–16) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
+      **Channel:** Selects the MIDI channel (1Â–16) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
       
       **Instrument:** Defines the General MIDI instrument used for playback. Options range from pianos and strings to synths and percussion, giving you control over the timbre of the output.
       
       **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
 
   - ### Appearance Settings
-    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It’s organized into three intuitive sections:
+    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. ItÂ’s organized into three intuitive sections:
     
     ![image](https://github.com/user-attachments/assets/eb7a2939-a106-4ec5-8f5e-af32fb5d8ed0)
 
@@ -296,14 +296,14 @@ When enabled, pressing a key will immediately trigger the associated note using 
       These indicators flash or highlight during playback or input, helping you monitor activity at a glance.
     
     - #### Reset Option
-      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaults—perfect for undoing experiments or starting fresh.
+      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaultsÂ—perfect for undoing experiments or starting fresh.
       
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
     
     ![image](https://github.com/user-attachments/assets/745efab0-c7c7-4731-ae57-bde327243e6c)
 
-    - ### Play MIDI File — `Ctrl + M`
+    - ### Play MIDI File - `Ctrl + M`
       Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external sequences into your workflow.
       
       ![image](https://github.com/user-attachments/assets/57e9e124-63a5-42fe-a1fe-ecb0974808c2)
@@ -324,16 +324,16 @@ When enabled, pressing a key will immediately trigger the associated note using 
 
       If the "Try to make each cycle last 30 mS (with max alternating time capped to 15mS per note)" checkbox is ticked, the alternate length is automatically adjusted to meet this timing behavior. This checkbox is enabled by default.
 
-    - ### Create Music with AI — `Ctrl + Alt + A`
+    - ### Create Music with AI - `Ctrl + Alt + A`
       Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions to kickstart your creativity.
    
       ![image](https://github.com/user-attachments/assets/5668346d-e216-4d73-80aa-a3b532a24d02)
 
-      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google Gemini™. No manual note input is required.
+      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google GeminiÂ™. No manual note input is required.
 
-    - ### Convert to GCode — `Ctrl + Shift + G`
+    - ### Convert to GCode - `Ctrl + Shift + G`
 
-      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences—perfect for experimental art or educational tools.
+      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequencesÂ—perfect for experimental art or educational tools.
 
       ![image](https://github.com/user-attachments/assets/544a1664-56ee-4b67-9cde-cdf5dfbda767)
 
