@@ -129,3 +129,137 @@
   Triplet playback near the end of a long music list may require significant CPU resources. If performance issues occur, enable the "Do not update" checkbox below  the position displays to disable updates during playback. Editing mode updates remain active.
   
   Older BMM files created with versions prior to revision 127 of Bleeper Music Maker default to a time signature of 4 when opened in NeoBleeper. Changing and saving the time signature in .NBPML files preserves the setting.
+
+- ## Debug Logging
+
+  The program is debugged by launching it directly from Visual Studio. Logging and diagnostics are handled internally using Visual Studio's built-in tools, including the Output window, breakpoints, and diagnostic panels.
+
+  External trigger files such as "logenable" and log files like "debuglog.txt" are no longer used. All relevant debugging information is displayed within the Visual Studio environment during development and testing.
+
+- ## Mods
+
+  The program includes several modifications that alter its behavior from the original design. These modifications are listed near the bottom-left of the screen, adjacent to the music list. Each mod has a checkbox to enable or disable it. If a checkbox cannot be unticked, closing the mod's window will disable the mod and untick the checkbox.
+
+  Click the question-mark button next to a mod's checkbox to view a brief description of its function (available for most mods).
+
+  ![image](https://github.com/user-attachments/assets/1df56aa4-d264-4d21-aeab-148fed995c1e)
+
+- ## Settings
+  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app’s configuration
+  
+  - ### General Settings
+    This tab focuses on foundational preferences and system-level integration:
+    
+    ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
+    
+    - #### General Appearance
+      **Theme Selector:** Lets you choose between NeoBleeper’s custom themes or default to your operating system’s look.
+      
+      **Classic Bleeper Mode:** A legacy toggle for users who prefer the original interface or behavior.
+      
+    - #### Create Music With AI
+      **Google Gemini™ API Key Field:**  Secure input for enabling AI-generated music features.
+      
+      **Security Warning:** Advises users not to share their API key.
+      
+      **Update/Reset Buttons:** Manage the API key lifecycle. The update button is disabled, likely pending valid input.
+      
+    - #### Testing System Speaker
+      **Test Button:** Plays a beep to confirm speaker functionality.
+      
+      **Fallback Message:** Suggests using an alternative sound device if no sound is heard from system speaker.
+  
+  - ### Creating Sounds Settings
+    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your system’s sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
+
+    ![image](https://github.com/user-attachments/assets/f35e02a4-c1e3-4d03-9b02-bc4db01f6cdd)
+    
+    - #### Use sound device to create beep:
+      A checkbox that enables or disables the use of your system’s sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
+    
+    - #### Beep Creation from Sound Device Settings
+      - ##### Tone Waveform Selection
+        **Choose the shape of the waveform used to generate beeps. Each option affects the timbre and character of the sound:**
+        
+        **Square (Default):** Produces a sharp, buzzy tone. Ideal for classic digital beeps and retro-style alerts.
+        
+        **Sine:** Smooth and pure tone. Great for subtle notifications or musical applications.
+        
+        **Triangle:** Softer than square, with a slightly hollow sound. Balanced between sharpness and smoothness.
+        
+        **Noise:** Generates random signal bursts, useful for sound effects like static, bursts, or percussion-like textures. 
+
+  - ### Devices Settings
+    
+    This tab allows you to configure how NeoBleeper interacts with external MIDI hardware and virtual instruments. Whether you're integrating live input or routing output to a synth, this is where you define your signal flow
+    
+    ![image](https://github.com/user-attachments/assets/2cd17fd7-3c78-4f90-9e2e-2bc64e4eae85)
+
+    - #### MIDI Input Devices
+       **Use live MIDI input:** Enables real-time MIDI signal reception from external controllers or software. When checked, NeoBleeper listens for incoming MIDI messages to trigger sounds or actions.
+  
+       **Select MIDI Input Device:** A dropdown menu listing available MIDI input sources. Choose your preferred device to begin receiving MIDI data.
+  
+       **Refresh:** Updates the list of available input devices, useful when connecting new hardware or launching virtual MIDI ports.
+
+    - #### MIDI Output Devices
+      **Use MIDI output:** Activates MIDI transmission from NeoBleeper to external devices or virtual instruments.
+      
+      **Select MIDI Output Device:** Choose where NeoBleeper sends its MIDI signals. The default option is typically a general-purpose synth like Microsoft GS Wavetable Synth.
+      
+      **Channel:** Selects the MIDI channel (1–16) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
+      
+      **Instrument:** Defines the General MIDI instrument used for playback. Options range from pianos and strings to synths and percussion, giving you control over the timbre of the output.
+      
+      **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
+
+  - ### Appearance Settings
+    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It’s organized into three intuitive sections:
+    
+    ![image](https://github.com/user-attachments/assets/eb7a2939-a106-4ec5-8f5e-af32fb5d8ed0)
+
+    - #### Keyboard Colors
+      **Define the color scheme for different octaves on the virtual keyboard:**
+      
+      **First Octave Color:** Light orange
+      
+      **Second Octave Color:** Light blue
+      
+      **Third Octave Color:** Light green
+
+      These settings help visually distinguish pitch ranges, aiding both performance and composition.
+
+    - #### Buttons and Controls Colors
+      **Customize the look of interactive elements across the interface:**
+      
+      **Blank Line Color:** Light orange
+      
+      **Clear Notes Color:** Blue
+      
+      **Un-select Line Color:** Light cyan
+      
+      **Erase Whole Line Color:** Red
+      
+      **Playback Buttons Color:** Light green
+      
+      **Metronome Color:** Light blue
+      
+      **Keyboard Markup Color:** Light gray
+      
+      These color assignments enhance usability by making actions and states visually intuitive.
+    
+    - #### Indicator Colors
+      **Set the colors for real-time feedback indicators:**
+      
+      **Beep Indicator Color:** Red
+      
+      **Note Indicator Color:** Red
+      
+      These indicators flash or highlight during playback or input, helping you monitor activity at a glance.
+    
+    - #### Reset Option
+      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaults—perfect for undoing experiments or starting fresh.
+
+
+
+
