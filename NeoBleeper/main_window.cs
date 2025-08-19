@@ -4265,7 +4265,7 @@ namespace NeoBleeper
                     UpdateFormTitle();
                     if (listViewNotes.Items.Count > 0)
                     {
-                        listViewNotes.EnsureVisible(insertIndex);
+                        listViewNotes.EnsureVisible(insertIndex != -1 ? insertIndex : listViewNotes.Items.Count - 1);
                     }
                     Debug.WriteLine("Paste is executed.");
                 }
