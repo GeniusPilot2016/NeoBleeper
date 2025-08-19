@@ -150,9 +150,9 @@
 
     This mod enables NeoBleeper to begin playback at a specified system time. It is designed for synchronizing multiple instances of NeoBleeper, particularly when using separate NBPML or BMM files for different sections of a composition. By configuring each instance to start at the same time, synchronized playback across instances can be achieved.
     
-    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command ("Play all or "Play from selected line) when the target time is reached.
+    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command ("Play all" or "Play from selected line") when the target time is reached.
 
-    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to "Stop waiting. If the program is not in a waiting state when the target time arrives, no playback will occur.
+    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to "Stop waiting." If the program is not in a waiting state when the target time arrives, no playback will occur.
 
     The checkbox of "Synchronized Play" is unchecked window is closed. To reopen the window, Disabling this option will cancel any active waiting state.
 
@@ -196,7 +196,7 @@ When enabled, pressing a key will immediately trigger the associated note using 
       **Classic Bleeper Mode:** A legacy toggle for users who prefer the original interface or behavior.
       
     - #### Create Music With AI
-      **Google Gemini API Key Field:**  Secure input for enabling AI-generated music features.
+      **Google Gemini™ API Key Field:**  Secure input for enabling AI-generated music features.
       
       **Security Warning:** Advises users not to share their API key.
       
@@ -329,7 +329,7 @@ When enabled, pressing a key will immediately trigger the associated note using 
    
       ![image](https://github.com/user-attachments/assets/5668346d-e216-4d73-80aa-a3b532a24d02)
 
-      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google Gemini. No manual note input is required.
+      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google Gemini™. No manual note input is required.
 
     - ### Convert to GCode - `Ctrl + Shift + G`
 
