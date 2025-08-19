@@ -209,9 +209,17 @@ namespace NeoBleeper
             int currentHour = DateTime.Now.Hour;
             int currentMinute = DateTime.Now.Minute;
             int currentSecond = DateTime.Now.Second;
-            return (Hour < currentHour) ||
-                   (Hour == currentHour && Minute < currentMinute) ||
-                   (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
+            if (currentHour < 12)
+            {
+                return (Hour < currentHour) ||
+                       (Hour == currentHour && Minute < currentMinute) ||
+                       (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
+            }
+            else
+            {
+                return (Hour == currentHour && Minute < currentMinute) ||
+                       (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
+            }
         }
 
         private async void stop_playing()
