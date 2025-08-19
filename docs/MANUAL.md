@@ -110,16 +110,243 @@
 
 - ## Time Signature and Position Displays
 
-  NeoBleeper provides "Time Signature" setting, located in the left of the BPM setting. It defines the number of beats per measure. This setting affects metronome sound and position display behavior but does not alter playback sound.
+  NeoBleeper provides "Time Signature" setting, located in the left of the BPM setting. It defines the number of beats per measure. This setting affects metronome  sound and position display behavior but does not alter playback sound.
+
+  ![image](https://github.com/user-attachments/assets/7c206e6b-875e-467d-87e9-af5b634d38ed)
   
-  Three green position displays in the bottom-right corner show the current position in the music. The top display shows the measure, the middle shows the beat within the measure, and the bottom shows a traditional representation using whole, quarter, eighth, or sixteenth notes.
+  Three position displays in the bottom-right corner show the current position in the music. The top display shows the measure, the middle shows the beat within    the measure, and the bottom shows a traditional representation using whole, half (1/2), quarter (1/4), 1/8, 1/16 or 1/32 notes.
   
+  ![image](https://github.com/user-attachments/assets/8a864acd-a228-447c-a81c-d126ba8c992f)
+
   Lower time signatures result in faster changes in the top display. The middle display resets to 1 at the start of each new measure.
   
-  The bottom display cannot represent positions more accurate than sixteenth notes. It shows "(ERR)" with a red background for unsupported positions, such as those created by dotted sixteenth notes (3/32). Once the position becomes divisible by a sixteenth note again, the display resumes normal operation.
+  The bottom display cannot represent positions more accurate than 1/32 notes. It shows "(Error)" with a red text for unsupported positions, such as those created  by dotted sixteenth notes (3/64). Once the position becomes divisible by a 1/32 note again, the display resumes normal operation.
+
+  ![image](https://github.com/user-attachments/assets/db64f8b6-af9e-463a-8913-33b1fb5d3533)
+
+  Triplet notes also affect display accuracy. After three triplet notes of the same length are entered, the position becomes divisible by a 1/32 note, restoring    display functionality.
   
-  Triplet notes also affect display accuracy. After three triplet notes of the same length are entered, the position becomes divisible by a sixteenth note, restoring display functionality.
+  Triplet playback near the end of a long music list may require significant CPU resources. If performance issues occur, enable the "Do not update" checkbox below  the position displays to disable updates during playback. Editing mode updates remain active.
   
-  Triplet playback near the end of a long music list may require significant CPU resources. If performance issues occur, enable the "Do not update" checkbox below the position displays to disable updates during playback. Editing mode updates remain active.
+  Older BMM files created with versions prior to revision 127 of Bleeper Music Maker default to a time signature of 4 when opened in NeoBleeper. Changing and saving the time signature in .NBPML files preserves the setting.
+
+- ## Debug Logging
+
+  The program is debugged by launching it directly from Visual Studio. Logging and diagnostics are handled internally using Visual Studio's built-in tools, including the Output window, breakpoints, and diagnostic panels.
+
+  External trigger files such as "logenable" and log files like "debuglog.txt" are no longer used. All relevant debugging information is displayed within the Visual Studio environment during development and testing.
+
+- ## Mods
+
+  The program includes several modifications that alter its behavior from the original design. These modifications are listed near the bottom-left of the screen, adjacent to the music list. Each mod has a checkbox to enable or disable it. If a checkbox cannot be unticked, closing the mod's window will disable the mod and untick the checkbox.
+
+  Click the question-mark button next to a mod's checkbox to view a brief description of its function (available for most mods).
+
+  ![image](https://github.com/user-attachments/assets/1df56aa4-d264-4d21-aeab-148fed995c1e)
   
-  Files created with versions prior to revision 127 default to a time signature of 4 when opened in newer versions. Changing and saving the time signature in the new version preserves the setting. Opening such files in older versions retains playback functionality but reverts the metronome to 4-beat. Saving in older versions discards the time signature setting.
+  - ### Synchronized Play Mod
+    
+    ![image](https://github.com/user-attachments/assets/58b19aec-1f6e-4ad4-b608-1c699bfa7d24)
+
+    This mod enables NeoBleeper to begin playback at a specified system time. It is designed for synchronizing multiple instances of NeoBleeper, particularly when using separate NBPML or BMM files for different sections of a composition. By configuring each instance to start at the same time, synchronized playback across instances can be achieved.
+    
+    Activating the mod opens a configuration window. This window allows users to input a target start time (hour, minute, second) based on the system clock. The current system time is displayed for reference. By default, the target time is set to one minute ahead of the current time, but this value can be adjusted manually. Users can also specify whether playback should begin from the beginning of the music or from the currently selected line in the music list. The program will execute the corresponding playback command (“Play all” or “Play from selected line”) when the target time is reached.
+
+    A control button is provided to initiate the waiting state. Once activated, the interface indicates that the program is waiting, and the button label changes to “Stop waiting.” If the program is not in a waiting state when the target time arrives, no playback will occur.
+
+    The checkbox of "Synchronized Play" is unchecked window is closed. To reopen the window, Disabling this option will cancel any active waiting state.
+
+    Playback should be stopped before initiating the waiting state. Starting the waiting process while music is already playing may result in unexpected behavior. If this occurs, stopping the waiting state is recommended.
+
+    Synchronization across multiple computers is possible if all system clocks are precisely aligned. It is recommended to synchronize system clocks before using this feature across devices.
+
+  - ### Play Beat Sound Mod
+    
+    ![image](https://github.com/user-attachments/assets/fd702244-279f-4cea-bb54-abae02960ded)
+
+    This modification ensures the system speaker/sound device to emit a beat sound on every beat or on every other beat, depending on the selected configuration. The sound resembles a techno-style beat due to the electronic nature of the system speaker/sound device. When the "Play a beat sound" checkbox is selected, a configuration window appears. This window allows users to choose whether the beat sound plays on every beat or on every odd-numbered beat. The latter option effectively halves the tempo of the beat sounds.
+
+    To demonstrate the tempo change, users can start the program, add four quarter-notes to the music list, enable the "Play a beat sound" option, and toggle between the two beat sound settings. The difference in tempo should be audible. The "Play beat sound" checkbox is unchecked when the configuration window is closed.
+    
+  - ### Bleeper Portamento Mod
+
+    ![image](https://github.com/user-attachments/assets/850bedb0-1486-4306-95dc-f2b2491b3720)
+
+    This modification causes the tone of the system speaker/sound device to transition gradually from the previous note to the current note. When the "Bleeper Portamento" checkbox is selected, a settings window appears. This window allows users to adjust the transition speed between notes, ranging from nearly instantaneous to extended durations. Users can also configure the note duration when clicked or set the note to continue playing indefinitely.
+
+  - ### Use Keyboard As Piano Mod
+ 
+    ![image](https://github.com/user-attachments/assets/7199d366-4655-4469-921c-ce5246260fd9)
+
+    This feature maps the computer keyboard to musical notes, allowing direct playback using key presses without any MIDI input devices. Each key corresponds to a specific note on the virtual piano. The mapping follows a predefined layout, typically aligned with the visible keyboard labels.
+    
+When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
+
+- ## Settings
+  The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app’s configuration
+  
+  - ### General Settings
+    This tab focuses on foundational preferences and system-level integration:
+    
+    ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
+    
+    - #### General Appearance
+      **Theme Selector:** Lets you choose between NeoBleeper’s custom themes or default to your operating system’s look.
+      
+      **Classic Bleeper Mode:** A legacy toggle for users who prefer the original interface or behavior.
+      
+    - #### Create Music With AI
+      **Google Gemini™ API Key Field:**  Secure input for enabling AI-generated music features.
+      
+      **Security Warning:** Advises users not to share their API key.
+      
+      **Update/Reset Buttons:** Manage the API key lifecycle. The update button is disabled, likely pending valid input.
+      
+    - #### Testing System Speaker
+      **Test Button:** Plays a beep to confirm speaker functionality.
+      
+      **Fallback Message:** Suggests using an alternative sound device if no sound is heard from system speaker.
+  
+  - ### Creating Sounds Settings
+    This tab is dedicated to configuring how NeoBleeper generates audio beeps using your system’s sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
+
+    ![image](https://github.com/user-attachments/assets/f35e02a4-c1e3-4d03-9b02-bc4db01f6cdd)
+    
+    - #### Use sound device to create beep:
+      A checkbox that enables or disables the use of your system’s sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
+    
+    - #### Beep Creation from Sound Device Settings
+      - ##### Tone Waveform Selection
+        **Choose the shape of the waveform used to generate beeps. Each option affects the timbre and character of the sound:**
+        
+        **Square (Default):** Produces a sharp, buzzy tone. Ideal for classic digital beeps and retro-style alerts.
+        
+        **Sine:** Smooth and pure tone. Great for subtle notifications or musical applications.
+        
+        **Triangle:** Softer than square, with a slightly hollow sound. Balanced between sharpness and smoothness.
+        
+        **Noise:** Generates random signal bursts, useful for sound effects like static, bursts, or percussion-like textures. 
+
+  - ### Devices Settings
+    
+    This tab allows you to configure how NeoBleeper interacts with external MIDI hardware and virtual instruments. Whether you're integrating live input or routing output to a synth, this is where you define your signal flow
+    
+    ![image](https://github.com/user-attachments/assets/2cd17fd7-3c78-4f90-9e2e-2bc64e4eae85)
+
+    - #### MIDI Input Devices
+      **Use live MIDI input:** Enables real-time MIDI signal reception from external controllers or software. When checked, NeoBleeper listens for incoming MIDI messages to trigger sounds or actions.
+  
+      **Select MIDI Input Device:** A dropdown menu listing available MIDI input sources. Choose your preferred device to begin receiving MIDI data.
+  
+      **Refresh:** Updates the list of available input devices, useful when connecting new hardware or launching virtual MIDI ports.
+
+    - #### MIDI Output Devices
+      **Use MIDI output:** Activates MIDI transmission from NeoBleeper to external devices or virtual instruments.
+      
+      **Select MIDI Output Device:** Choose where NeoBleeper sends its MIDI signals. The default option is typically a general-purpose synth like Microsoft GS Wavetable Synth.
+      
+      **Channel:** Selects the MIDI channel (1–16) used for output. This allows routing to specific instruments or tracks in multi-channel setups.
+      
+      **Instrument:** Defines the General MIDI instrument used for playback. Options range from pianos and strings to synths and percussion, giving you control over the timbre of the output.
+      
+      **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
+
+  - ### Appearance Settings
+    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It’s organized into three intuitive sections:
+    
+    ![image](https://github.com/user-attachments/assets/eb7a2939-a106-4ec5-8f5e-af32fb5d8ed0)
+
+    - #### Keyboard Colors
+      **Define the color scheme for different octaves on the virtual keyboard:**
+      
+      **First Octave Color:** Light orange
+      
+      **Second Octave Color:** Light blue
+      
+      **Third Octave Color:** Light green
+
+      These settings help visually distinguish pitch ranges, aiding both performance and composition.
+
+    - #### Buttons and Controls Colors
+      **Customize the look of interactive elements across the interface:**
+      
+      **Blank Line Color:** Light orange
+      
+      **Clear Notes Color:** Blue
+      
+      **Un-select Line Color:** Light cyan
+      
+      **Erase Whole Line Color:** Red
+      
+      **Playback Buttons Color:** Light green
+      
+      **Metronome Color:** Light blue
+      
+      **Keyboard Markup Color:** Light gray
+      
+      These color assignments enhance usability by making actions and states visually intuitive.
+    
+    - #### Indicator Colors
+      **Set the colors for real-time feedback indicators:**
+      
+      **Beep Indicator Color:** Red
+      
+      **Note Indicator Color:** Red
+      
+      These indicators flash or highlight during playback or input, helping you monitor activity at a glance.
+    
+    - #### Reset Option
+      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaults—perfect for undoing experiments or starting fresh.
+      
+  - ## Tools
+    These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
+    
+    ![image](https://github.com/user-attachments/assets/745efab0-c7c7-4731-ae57-bde327243e6c)
+
+    - ### Play MIDI File — `Ctrl + M`
+      Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external sequences into your workflow.
+      
+      ![image](https://github.com/user-attachments/assets/57e9e124-63a5-42fe-a1fe-ecb0974808c2)
+
+      You choose the MIDI file by clicking "Browse File" on the "MIDI File Playback Settings" window. The selected MIDI file appears in the text box to the left of the button.
+
+      Time is shown as "00:00.00" (minutes, seconds, hundredths of a second). It updates only when playback timer is tick and MIDI messages are played at the correct times, provided the tempo remains unchanged.
+      Percentage indicates the proportion of MIDI messages that have been processed. For example, if the first half contains few messages and the second half is dense, the percentage may not reach 50% or may exceed 50% by the midpoint. The slider operates on the same principle, jumping to the most recent frame before the selected percentage.
+      The three buttons below the slider, from left to right, are for rewinding (jumping to the beginning of the MIDI file), playing (from the current position), and stopping (without rewinding). A checkbox enables looping playback, causing it to restart from the beginning when it reaches the end.
+
+      In this window, users can select specific channels for input. Channels not selected will be ignored. Users can tick or untick the checkboxes, and changes take effect immediately. When a checkbox is unticked, any currently playing notes on that channel are stopped. This prevents notes from continuing indefinitely due to missing "note off" messages.
+    
+      At the bottom of the "Play MIDI File" window, a grid of rectangles displays held notes. Each rectangle represents one note being held. Up to 32 rectangles can be shown simultaneously. If more than 32 notes are held, the display shows "(x more)", where "x" is the number of additional notes. As the program cycles through each held note, the rectangle corresponding to the currently played note lights up in bright red. Rectangles for notes not currently played are shown in dark red which can be customized from "Appearance" tab in "Settings".
+  
+      Modifying the "Switch between notes every ... mS" setting in the "Play MIDI File" window affects the cycling speed of notes received from MIDI input.
+
+      If the "Only play each note once (don't keep alternating)" checkbox is ticked, each note is played once for the duration specified by the "Switch between notes every ... mS" setting. This produces short, percussive sounds rather than continuous tones.
+
+      If the "Try to make each cycle last 30 mS (with max alternating time capped to 15mS per note)" checkbox is ticked, the alternate length is automatically adjusted to meet this timing behavior. This checkbox is enabled by default.
+
+    - ### Create Music with AI — `Ctrl + Alt + A`
+      Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions to kickstart your creativity.
+   
+      ![image](https://github.com/user-attachments/assets/5668346d-e216-4d73-80aa-a3b532a24d02)
+
+      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google Gemini™. No manual note input is required.
+
+    - ### Convert to GCode — `Ctrl + Shift + G`
+
+      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences—perfect for experimental art or educational tools.
+
+      ![image](https://github.com/user-attachments/assets/544a1664-56ee-4b67-9cde-cdf5dfbda767)
+
+      This feature converts selected musical note configurations into GCode instructions for use with CNC machines or 3D printers. Up to four notes can be defined, each assigned to a component type (M3/M4 motor and M300 for buzzer). Notes can be toggled individually.
+      
+      Playback order can be configured to alternate notes sequentially or by column parity (odd-numbered columns first, then even-numbered).
+
+      When activated, the system generates GCode that triggers the assigned components in accordance with the selected note pattern. Timing and modulation are determined by the playback logic.
+
+      Use the "Export As GCode" button to save the output. Ensure compatibility with your target machine before execution.
+
+
+
+
+
+
