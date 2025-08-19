@@ -974,6 +974,7 @@
             Name = "settings_window";
             ShowIcon = false;
             ShowInTaskbar = false;
+            FormClosing += settings_window_FormClosing;
             SystemColorsChanged += settings_window_SystemColorsChanged;
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);

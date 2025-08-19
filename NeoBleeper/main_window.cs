@@ -2708,10 +2708,6 @@ namespace NeoBleeper
             double drift = 0;
             double smoothedDrift = 0; // Initialize smoothed drift
             double driftSmoothingFactor = 0.1; // Adjust this value (0 to 1)
-            if (Variables.bpm > 0)
-            {
-                baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
-            }
             NonBlockingSleep.Sleep(1); // Sleep to prevent sound issues
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -2719,6 +2715,10 @@ namespace NeoBleeper
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
+                if (Variables.bpm > 0)
+                {
+                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
+                }
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 double noteDuration = line_length_calculator(baseLength); // Keep as double
@@ -3216,11 +3216,15 @@ namespace NeoBleeper
                     stopAllNotesAfterPlaying();
                 }
                 EnableDisableCommonControls(true);
-                Debug.WriteLine($"Selected line: {listViewNotes.FocusedItem.Index} Length: " +
-                     $"{listViewNotes.FocusedItem.SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.FocusedItem.SubItems[1].Text.ToString())}" +
-                     $" Note 2: {GetOrDefault(listViewNotes.FocusedItem.SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.FocusedItem.SubItems[3].Text.ToString())}" +
-                     $" Note 4: {GetOrDefault(listViewNotes.FocusedItem.SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.FocusedItem.SubItems[5].Text.ToString())}" +
-                     $" Articulation: {GetOrDefault(listViewNotes.FocusedItem.SubItems[6].Text.ToString())}");
+                if (!(listViewNotes.SelectedItems == null))
+                {
+                    Debug.WriteLine($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
+                     $"{listViewNotes.SelectedItems[0].SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
+                     $" Note 2: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[3].Text.ToString())}" +
+                     $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())}" +
+                     $" Articulation: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())}");
+                }
+                
             }
         }
         private string GetOrDefault(string value)
@@ -3433,7 +3437,7 @@ namespace NeoBleeper
                 {
                     PlayBeepWithLabel(Convert.ToInt32(note3_frequency), length, nonStopping);
                 }
-                else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note1)))
+                else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note4)))
                 {
                     PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
                 }
