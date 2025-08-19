@@ -2708,10 +2708,6 @@ namespace NeoBleeper
             double drift = 0;
             double smoothedDrift = 0; // Initialize smoothed drift
             double driftSmoothingFactor = 0.1; // Adjust this value (0 to 1)
-            if (Variables.bpm > 0)
-            {
-                baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
-            }
             NonBlockingSleep.Sleep(1); // Sleep to prevent sound issues
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -2719,6 +2715,10 @@ namespace NeoBleeper
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
+                if (Variables.bpm > 0)
+                {
+                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
+                }
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 double noteDuration = line_length_calculator(baseLength); // Keep as double
@@ -3433,7 +3433,7 @@ namespace NeoBleeper
                 {
                     PlayBeepWithLabel(Convert.ToInt32(note3_frequency), length, nonStopping);
                 }
-                else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note1)))
+                else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note4)))
                 {
                     PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
                 }

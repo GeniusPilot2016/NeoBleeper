@@ -380,10 +380,10 @@ namespace NeoBleeper
                     switch (comboBox_component_note1.SelectedIndex)
                     {
                         case 0:
-                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
+                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note2_frequency, length));
                             break;
                         case 1:
-                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
+                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note2_frequency, length));
                             break;
                     }
                     return;
