@@ -180,7 +180,7 @@
 
     This feature maps the computer keyboard to musical notes, allowing direct playback using key presses without any MIDI input devices. Each key corresponds to a specific note on the virtual piano. The mapping follows a predefined layout, typically aligned with the visible keyboard labels.
     
-When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
+  When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
 
 - ## Settings
   The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app's configuration
