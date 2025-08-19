@@ -434,6 +434,7 @@ namespace NeoBleeper
                 var addNoteCommand = new AddNoteCommand(listViewNotes, listViewItem);
                 commandManager.ExecuteCommand(addNoteCommand);
             }
+            listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
             isModified = true;
             UpdateFormTitle();
         }
@@ -486,6 +487,7 @@ namespace NeoBleeper
                 {
                     listViewNotes.Items[selectedLine].Selected = false;
                 }
+                listViewNotes.EnsureVisible(selectedLine);
             }
             else
             {
@@ -3952,6 +3954,10 @@ namespace NeoBleeper
                 isModified = false;
                 UpdateFormTitle();
                 setThemeOfListViewItems(); // Set theme of list view items after rewinding if theme when rewinding is different
+                if (listViewNotes.Items.Count > 0)
+                {
+                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                }
                 // Log states of variables
                 Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
             }
@@ -4262,6 +4268,10 @@ namespace NeoBleeper
             }
             commandManager.Undo();
             setThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
+            if(listViewNotes.Items.Count > 0)
+            {
+                listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+            }
             Debug.WriteLine("Undo is executed.");
         }
 
@@ -4273,6 +4283,10 @@ namespace NeoBleeper
             }
             commandManager.Redo();
             setThemeOfListViewItems(); // Set theme of list view items after redoing if theme when redoing is different
+            if (listViewNotes.Items.Count > 0)
+            {
+                listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+            }
             Debug.WriteLine("Redo is executed.");
         }
         private void setThemeOfListViewItems()
