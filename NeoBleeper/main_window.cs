@@ -4208,6 +4208,10 @@ namespace NeoBleeper
 
         private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CopyToClipboard();
+        }
+        private void CopyToClipboard()
+        {
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listViewNotes.SelectedItems[0];
@@ -4232,6 +4236,10 @@ namespace NeoBleeper
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PasteFromClipboard();
+        }
+        private void PasteFromClipboard()
+        {
             if (Clipboard.ContainsText())
             {
                 string clipboardText = Clipboard.GetText();
@@ -4255,11 +4263,14 @@ namespace NeoBleeper
                     commandManager.ExecuteCommand(pasteCommand);
                     isModified = true;
                     UpdateFormTitle();
+                    if (listViewNotes.Items.Count > 0)
+                    {
+                        listViewNotes.EnsureVisible(insertIndex);
+                    }
                     Debug.WriteLine("Paste is executed.");
                 }
             }
         }
-
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (is_music_playing == true)
@@ -4360,6 +4371,10 @@ namespace NeoBleeper
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CutToClipboard();
+        }
+        private void CutToClipboard()
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
