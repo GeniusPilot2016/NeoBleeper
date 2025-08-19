@@ -216,7 +216,6 @@ namespace NeoBleeper
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                     output = RewriteOutput(output).Trim();
-                    Debug.WriteLine(output);
                 }
                 else
                 {
@@ -488,6 +487,11 @@ namespace NeoBleeper
         }
         private string SynchronizeLengths(string xmlContent)
         {
+            xmlContent = xmlContent.TrimStart();
+
+            xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                xmlContent, @"<\?xml.*?\?>", string.Empty, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
 
@@ -502,12 +506,10 @@ namespace NeoBleeper
 
                     if (lengthElement != null)
                     {
-                        // Update the <Length> tag to match the Length attribute
                         lengthElement.InnerText = lengthValue;
                     }
                     else
                     {
-                        // Create a new <Length> tag if it doesn't exist
                         var newLengthElement = xmlDoc.CreateElement("Length");
                         newLengthElement.InnerText = lengthValue;
                         lineNode.AppendChild(newLengthElement);
