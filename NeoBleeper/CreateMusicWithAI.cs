@@ -196,6 +196,7 @@ namespace NeoBleeper
                     output = googleResponse.Text();
 
                     // Remove ```xml and any surrounding text
+                    output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"\s*```\s*$", String.Empty);
                     output = Regex.Replace(output, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);

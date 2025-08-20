@@ -567,7 +567,7 @@ namespace NeoBleeper
         {
             if (checkBox_add_note_to_list.Checked == true)
             {
-                updateIndicators(listViewNotes.Items.Count - 1, true);
+                updateDisplays(listViewNotes.Items.Count - 1, true);
             }
         }
         private void button_c3_Click(object sender, EventArgs e)
@@ -2729,7 +2729,7 @@ namespace NeoBleeper
                 double correctedNoteSoundDouble = noteSound_int - smoothedDrift;
                 noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSoundDouble));
 
-                expectedTime += noteDuration;
+                expectedTime += noteDuration + beat_length;
 
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
@@ -3198,7 +3198,7 @@ namespace NeoBleeper
                 }
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    updateIndicators(listViewNotes.SelectedIndices[0]);
+                    updateDisplays(listViewNotes.SelectedIndices[0]);
                 }
                 NonBlockingSleep.Sleep(1);
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
@@ -3579,7 +3579,7 @@ namespace NeoBleeper
                     }
                     if (checkBox_do_not_update.Checked == false && is_music_playing == true)
                     {
-                        updateIndicators(selectedLine);
+                        updateDisplays(selectedLine);
                     }
                 }
             }
@@ -3588,7 +3588,8 @@ namespace NeoBleeper
                 return;
             }
         }
-        private void updateIndicators(int Line, bool clicked = false)
+        int beat_length = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
+        private void updateDisplays(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
             {
@@ -3621,25 +3622,37 @@ namespace NeoBleeper
                     switch (TemporarySettings.BeatTypes.beatType)
                     {
                         case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
-                            play_beat_sound();
+                            beat_length = play_beat_sound();
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
                             if (beat_number % 2 != 0)
                             {
-                                play_beat_sound();
+                                beat_length = play_beat_sound();
                             }
-                            break;
+                            else
+                            {
+                                beat_length = 0; // Reset beat length if not playing on odd beats
+                            }
+                                break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
                             if (beat_number % 2 == 0)
                             {
-                                play_beat_sound();
+                                beat_length = play_beat_sound();
+                            }
+                            else
+                            {
+                                beat_length = 0; // Reset beat length if not playing on odd beats
                             }
                             break;
                     }
                 }
+                else
+                {
+                    beat_length = 0; // Reset beat length if not playing beat sound
+                }
             }
         }
-        private void play_beat_sound()
+        private int play_beat_sound()
         {
             // Basic frequencies
             int snareFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("D2"));
@@ -3686,6 +3699,7 @@ namespace NeoBleeper
                 });
             }
             NotePlayer.StopAllNotes();
+            return (length * 2) + (length / 2); // Total length of the beat sound
         }
         public static string ConvertDecimalBeatToTraditional(double decimalBeat)
         {
