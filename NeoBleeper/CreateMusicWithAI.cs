@@ -191,7 +191,7 @@ namespace NeoBleeper
                     $"    </LineList>\r\n" +
                     $"</NeoBleeperProjectFile>\r\n"
                 );
-                if (googleResponse != null)
+                if (googleResponse != null || string.IsNullOrWhiteSpace(googleResponse.Text))
                 {
                     output = googleResponse.Text();
 
@@ -489,7 +489,7 @@ namespace NeoBleeper
         private string SynchronizeLengths(string xmlContent)
         {
             xmlContent = xmlContent.TrimStart();
-
+            xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = System.Text.RegularExpressions.Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
