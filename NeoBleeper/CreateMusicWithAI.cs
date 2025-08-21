@@ -191,7 +191,7 @@ namespace NeoBleeper
                     $"    </LineList>\r\n" +
                     $"</NeoBleeperProjectFile>\r\n"
                 );
-                if (googleResponse != null || string.IsNullOrWhiteSpace(googleResponse.Text))
+                if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text))
                 {
                     output = googleResponse.Text();
 
