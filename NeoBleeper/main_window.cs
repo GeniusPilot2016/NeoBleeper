@@ -2707,10 +2707,14 @@ namespace NeoBleeper
             bool nonStopping = false;
             EnableDisableCommonControls(false);
             int baseLength = 0;
-            double drift = 0;
-            double smoothedDrift = 0; // Initialize smoothed drift
-            double driftSmoothingFactor = 0.1; // Adjust this value (0 to 1)
-            NonBlockingSleep.Sleep(1); // Sleep to prevent sound issues
+
+            // Predictive correction parameters
+            double driftVelocity = 0; // Rate of drift change
+            double previousDrift = 0;
+            const double VELOCITY_SMOOTHING = 0.3;
+            const double PREDICTION_FACTOR = 0.5; // How much to predict ahead
+
+            NonBlockingSleep.Sleep(1);
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             double expectedTime = 0.0;
@@ -2721,15 +2725,32 @@ namespace NeoBleeper
                 {
                     baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
                 }
+
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                double noteDuration = line_length_calculator(baseLength); // Keep as double
+                double noteDuration = line_length_calculator(baseLength);
 
-                // Apply drift correction to noteSound_int BEFORE rounding
-                double correctedNoteSoundDouble = noteSound_int - smoothedDrift;
-                noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSoundDouble));
+                // Calculate drift and its velocity
+                long actualElapsed = stopwatch.ElapsedMilliseconds;
+                double currentDrift = actualElapsed - expectedTime;
+
+                // Calculate drift velocity (how fast drift is changing)
+                double newDriftVelocity = currentDrift - previousDrift;
+                driftVelocity = VELOCITY_SMOOTHING * newDriftVelocity + (1 - VELOCITY_SMOOTHING) * driftVelocity;
+
+                // Predict future drift and apply gentle correction
+                double predictedDrift = currentDrift + (driftVelocity * PREDICTION_FACTOR);
+                double correctionToApply = predictedDrift * 0.1; // Very gentle correction
+
+                // Only apply correction if it's significant enough
+                if (Math.Abs(correctionToApply) > 0.5)
+                {
+                    double correctedNoteSoundDouble = noteSound_int - correctionToApply;
+                    noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSoundDouble));
+                }
 
                 expectedTime += noteDuration + beat_length;
+                previousDrift = currentDrift;
 
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
@@ -2739,12 +2760,6 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
-
-                long actualElapsed = stopwatch.ElapsedMilliseconds;
-                drift = actualElapsed - expectedTime;
-
-                // Apply low-pass filter to drift
-                smoothedDrift = driftSmoothingFactor * drift + (1 - driftSmoothingFactor) * smoothedDrift;
 
                 UpdateListViewSelection(startIndex);
             }
