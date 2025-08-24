@@ -2799,12 +2799,26 @@ namespace NeoBleeper
 
                 // Only apply correction if it's significant enough and not too large
                 // Also avoid corrections in the first few notes when timing is unstable
+                // ... existing code ...
                 if (notesPlayed >= TIMING_STABILIZATION_NOTES &&
                     Math.Abs(correctionToApply) > 0.5 &&
                     Math.Abs(correctionToApply) < 20)
                 {
-                    double correctedNoteSoundDouble = noteSound_int - correctionToApply;
-                    noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSoundDouble));
+                    double totalDuration = noteSound_int + silence_int;
+                    if (totalDuration > 0)
+                    {
+                        double noteProportion = (double)noteSound_int / totalDuration;
+                        double silenceProportion = (double)silence_int / totalDuration;
+
+                        double noteCorrection = correctionToApply * noteProportion;
+                        double silenceCorrection = correctionToApply * silenceProportion;
+
+                        double correctedNoteSound = noteSound_int - noteCorrection;
+                        double correctedSilence = silence_int - silenceCorrection;
+
+                        noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSound));
+                        silence_int = Math.Max(0, (int)Math.Round(correctedSilence));
+                    }
                 }
 
                 // Update expected time BEFORE playing the note to maintain accuracy
@@ -4940,6 +4954,8 @@ namespace NeoBleeper
             {
                 closePortamentoWindow();
                 Logger.Log("Bleeper portamento window is closed.", Logger.LogTypes.Info);
+                NotePlayer.StopAllNotes();
+                UpdateLabelVisible(false);
             }
         }
         private readonly Dictionary<Button, string> buttonShortcuts = new Dictionary<Button, string>();

@@ -67,7 +67,7 @@ namespace NeoBleeper
                     }
             }
         }
-        public static async Task StopAllNotes() // Stop all notes
+        public static void StopAllNotes() // Stop all notes
         {
             switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
             {
