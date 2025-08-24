@@ -1,5 +1,7 @@
-using System.Management;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Management;
+using static NeoBleeper.Logger;
 
 namespace NeoBleeper
 {
@@ -21,9 +23,7 @@ namespace NeoBleeper
             [System.Runtime.InteropServices.DllImport("kernel32.dll")]
             static extern uint timeEndPeriod(uint uPeriod);
             timeBeginPeriod(1); // Set the system timer resolution to 1 ms for better timing accuracy
-            Debug.WriteLine("\r\n  _   _            ____  _                           \r\n | \\ | |          |  _ \\| |                          \r\n |  \\| | ___  ___ | |_) | | ___  ___ _ __   ___ _ __ \r\n | . ` |/ _ \\/ _ \\|  _ <| |/ _ \\/ _ \\ '_ \\ / _ \\ '__|\r\n | |\\  |  __/ (_) | |_) | |  __/  __/ |_) |  __/ |   \r\n |_| \\_|\\___|\\___/|____/|_|\\___|\\___| .__/ \\___|_|   \r\n                                    | |              \r\n                                    |_|              \r\n");
-            Debug.WriteLine("From Something Unreal to Open Sound – Reviving the Legacy, One Note at a Time. \r\n");
-            Debug.WriteLine("https://github.com/GeniusPilot2016/NeoBleeper \r\n");
+            Logger.Log("NeoBleeper is starting up.", LogTypes.Info);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
@@ -31,12 +31,12 @@ namespace NeoBleeper
             if (Settings1.Default.ClassicBleeperMode)
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
-                Debug.WriteLine("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.");
+                Logger.Log("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.", LogTypes.Info);
             }
             else
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
-                Debug.WriteLine("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.");
+                Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
             }
             MIDIIOUtils.InitializeMidi();
             neobleeper_init_system_speaker_warning system_speaker_warning = new neobleeper_init_system_speaker_warning();
@@ -53,7 +53,7 @@ namespace NeoBleeper
                 Settings1.Default.Save();
                 EncryptionHelper.ChangeKeyAndIV();
                 MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.");
+                Logger.Log("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", LogTypes.Error);
             }
             // Clear any previously shown warnings
             bool apiKeyWarningShown = false;
@@ -65,12 +65,12 @@ namespace NeoBleeper
                 {
                     // Try to decrypt the API key
                     string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-                    Debug.WriteLine("API key validation successful");
+                    Logger.Log("API key validation successful", LogTypes.Info);
                 }
                 catch (Exception ex)
                 {
                     // If decryption fails, reset the key and show warning
-                    Debug.WriteLine("API key validation failed: " + ex.Message);
+                    Logger.Log("API key validation failed: " + ex.Message, LogTypes.Error);
                     Settings1.Default.geminiAPIKey = String.Empty;
                     Settings1.Default.Save();
                     EncryptionHelper.ChangeKeyAndIV();
@@ -86,7 +86,7 @@ namespace NeoBleeper
                         DialogResult result = display_resolution_warning.ShowDialog();
                         if (result == DialogResult.Abort)
                         {
-                            Debug.WriteLine("NeoBleeper is exited.");
+                            Logger.Log("NeoBleeper is exited.", LogTypes.Info);
                             Application.Exit();
                         }
                         break;
@@ -102,19 +102,19 @@ namespace NeoBleeper
                                 {
                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                     TemporarySettings.creating_sounds.permanently_enabled = true;
-                                    Debug.WriteLine("System speaker output is not present. NeoBleeper will use sound card to create beeps.");
+                                    Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
                                     if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                     {
                                         DialogResult result = system_speaker_warning.ShowDialog();
                                         switch (result)
                                         {
                                             case DialogResult.Yes:
-                                                Debug.WriteLine("User has chosen to continue with NeoBleeper.");
+                                                Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
                                                 Application.Run(new main_window());
-                                                Debug.WriteLine("NeoBleeper is started.");
+                                                Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                 break;
                                             case DialogResult.No:
-                                                Debug.WriteLine("User has chosen to exit NeoBleeper.");
+                                                Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
                                                 Application.Exit();
                                                 break;
                                         }
@@ -122,7 +122,7 @@ namespace NeoBleeper
                                     else
                                     {
                                         Application.Run(new main_window());
-                                        Debug.WriteLine("NeoBleeper is started without system speaker warning.");
+                                        Logger.Log("NeoBleeper is started without system speaker warning.", LogTypes.Info);
                                     }
                                     break;
                                 }
@@ -150,7 +150,7 @@ namespace NeoBleeper
                                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
                                                     TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                                     Application.Run(new main_window());
-                                                    Debug.WriteLine("NeoBleeper is started.");
+                                                    Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                     break;
                                                 }
                                             case 8:
@@ -169,19 +169,19 @@ namespace NeoBleeper
                                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                                     TemporarySettings.creating_sounds.permanently_enabled = false;
                                                     TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
-                                                    Debug.WriteLine("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.");
+                                                    Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
                                                     if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                                     {
                                                         DialogResult result = compact_computer_warning.ShowDialog();
                                                         switch (result)
                                                         {
                                                             case DialogResult.Yes:
-                                                                Debug.WriteLine("User has chosen to continue with NeoBleeper.");
+                                                                Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
                                                                 Application.Run(new main_window());
-                                                                Debug.WriteLine("NeoBleeper is started.");
+                                                                Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                                 break;
                                                             case DialogResult.No:
-                                                                Debug.WriteLine("User has chosen to exit NeoBleeper.");
+                                                                Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
                                                                 Application.Exit();
                                                                 break;
                                                         }
@@ -189,7 +189,7 @@ namespace NeoBleeper
                                                     else
                                                     {
                                                         Application.Run(new main_window());
-                                                        Debug.WriteLine("NeoBleeper is started without compact computer warning.");
+                                                        Logger.Log("NeoBleeper is started without compact computer warning.", LogTypes.Info);
                                                     }
                                                     break;
                                                 }
@@ -198,17 +198,17 @@ namespace NeoBleeper
                                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                                     TemporarySettings.creating_sounds.permanently_enabled = false;
                                                     TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
-                                                    Debug.WriteLine("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.");
+                                                    Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
                                                     DialogResult result = unknown_type_of_computer_warning.ShowDialog();
                                                     switch (result)
                                                     {
                                                         case DialogResult.Yes:
-                                                            Debug.WriteLine("User has chosen to continue with NeoBleeper.");
+                                                            Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
                                                             Application.Run(new main_window());
-                                                            Debug.WriteLine("NeoBleeper is started.");
+                                                            Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                             break;
                                                         case DialogResult.No:
-                                                            Debug.WriteLine("User has chosen to exit NeoBleeper.");
+                                                            Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
                                                             Application.Exit();
                                                             break;
                                                     }
@@ -228,12 +228,12 @@ namespace NeoBleeper
                                             switch (result)
                                             {
                                                 case DialogResult.Yes:
-                                                    Debug.WriteLine("User has chosen to continue with NeoBleeper.");
+                                                    Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
                                                     Application.Run(new main_window());
-                                                    Debug.WriteLine("NeoBleeper is started.");
+                                                    Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                     break;
                                                 case DialogResult.No:
-                                                    Debug.WriteLine("User has chosen to exit NeoBleeper.");
+                                                    Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
                                                     Application.Exit();
                                                     break;
                                             }
@@ -241,7 +241,7 @@ namespace NeoBleeper
                                         else
                                         {
                                             Application.Run(new main_window());
-                                            Debug.WriteLine("NeoBleeper is started without unknown type of computer warning.");
+                                            Logger.Log("NeoBleeper is started without unknown type of computer warning.", LogTypes.Info);
                                         }
                                     }
                                 }

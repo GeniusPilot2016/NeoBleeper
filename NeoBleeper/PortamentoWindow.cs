@@ -131,7 +131,7 @@ namespace NeoBleeper
             finishTimer.Interval = TemporarySettings.PortamentoSettings.length;
             labelLength.Text = trackBarLength.Value.ToString() + " mS";
             setLabelsToMiddle();
-            Debug.WriteLine("Portamento length set to " + trackBarLength.Value.ToString() + " mS");
+            Logger.Log("Portamento length set to " + trackBarLength.Value.ToString() + " mS", Logger.LogTypes.Info);
         }
 
         private void radioButtons_Checked_Changed(object sender, EventArgs e)
@@ -143,20 +143,20 @@ namespace NeoBleeper
                 {
                     NotePlayer.play_note((int)wantedPitch, 1, true); // Play the note immediately if the wanted pitch is valid
                 }
-                Debug.WriteLine("Portamento type set to \"System speaker/sound device always produces sound\"");
+                Logger.Log("Portamento type set to \"System speaker/sound device always produces sound\"", Logger.LogTypes.Info);
             }
             else if (radioButtonProduceSoundForManyMilliseconds.Checked)
             {
                 NotePlayer.StopAllNotes(); // Stop all notes when switching to this mode
                 TemporarySettings.PortamentoSettings.portamentoType = TemporarySettings.PortamentoSettings.PortamentoType.ProduceSoundForLength;
-                Debug.WriteLine("Portamento type set to \"System speaker/sound produces sound for roughly this many milliseconds\"");
+                Logger.Log("Portamento type set to \"System speaker/sound produces sound for roughly this many milliseconds\"", Logger.LogTypes.Info);
             }
         }
 
         private void trackBarPitchChangeSpeed_Scroll(object sender, EventArgs e)
         {
             TemporarySettings.PortamentoSettings.pitchChangeSpeed = trackBarPitchChangeSpeed.Value;
-            Debug.WriteLine("Portamento pitch change speed set to " + trackBarPitchChangeSpeed.Value.ToString());
+            Logger.Log("Portamento pitch change speed set to " + trackBarPitchChangeSpeed.Value.ToString(), Logger.LogTypes.Info);
         }
 
         private void finishTimer_Tick(object sender, EventArgs e)

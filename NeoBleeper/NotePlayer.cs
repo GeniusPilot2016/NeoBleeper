@@ -110,7 +110,7 @@ namespace NeoBleeper
             }
             catch (Exception ex) // If an error occurs, log it
             {
-                Console.WriteLine($"Error stopping microcontroller sound: {ex.Message}"); // Log the error message
+                Logger.Log($"Error stopping microcontroller sound: {ex.Message}", Logger.LogTypes.Error); // Log the error message
             }
         }
         private static async Task CreateSoundWithMicroController(int frequency, int length, bool nonStopping = false) // Create a sound with the microcontroller
@@ -130,7 +130,7 @@ namespace NeoBleeper
             }
             catch (Exception ex) // If an error occurs, log it
             {
-                Debug.WriteLine($"Error creating sound with microcontroller: {ex.Message}"); // Log the error message
+                Logger.Log($"Error creating sound with microcontroller: {ex.Message}", Logger.LogTypes.Error); // Log the error message
             }
         }
     }

@@ -46,8 +46,8 @@ namespace NeoBleeper
                     // Check if the target time has been reached or exceeded
                     if (isCurrentTimeIsEqualOrGreaterThan())
                     {
-                        Debug.WriteLine($"Target time reached! Starting music immediately.");
-                        Debug.WriteLine($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}");
+                        Logger.Log($"Target time reached! Starting music immediately.", Logger.LogTypes.Info);
+                        Logger.Log($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
 
                         // Start playing music and update the UI
                         if (this.InvokeRequired)
@@ -154,9 +154,9 @@ namespace NeoBleeper
                 var actualStartTime = DateTime.UtcNow;
                 var startDelay = (actualStartTime - targetTime).TotalMilliseconds;
 
-                Debug.WriteLine($"Music started at {actualStartTime:HH:mm:ss.fff}");
-                Debug.WriteLine($"Target was {targetTime:HH:mm:ss.fff}");
-                Debug.WriteLine($"Start delay: {startDelay}ms");
+                Logger.Log($"Music started at {actualStartTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
+                Logger.Log($"Target was {targetTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
+                Logger.Log($"Start delay: {startDelay}ms", Logger.LogTypes.Info);
 
                 is_playing = true;
                 waiting = false;
@@ -287,7 +287,7 @@ namespace NeoBleeper
                 {
                     Task.Run(() =>
                     {
-                        Debug.WriteLine("Waiting for " + dateTimePicker1.Value.ToString("HH:mm:ss") + " to start playing music");
+                        Logger.Log("Waiting for " + dateTimePicker1.Value.ToString("HH:mm:ss") + " to start playing music", Logger.LogTypes.Info);
                         if (this.InvokeRequired)
                         {
                             this.Invoke((MethodInvoker)delegate
@@ -325,7 +325,7 @@ namespace NeoBleeper
             waiting = false;
             Task.Run(() =>
             {
-                Debug.WriteLine("Stopped waiting for music to play");
+                Logger.Log("Stopped waiting for music to play", Logger.LogTypes.Info);
                 if (this.InvokeRequired)
                 {
                     this.Invoke((MethodInvoker)delegate
@@ -351,7 +351,7 @@ namespace NeoBleeper
         {
             if (radioButton_play_beginning_of_music.Checked)
             {
-                Debug.WriteLine("Playing from beginning of music is checked");
+                Logger.Log("Playing from beginning of music is checked", Logger.LogTypes.Info);
             }
         }
 
@@ -359,13 +359,13 @@ namespace NeoBleeper
         {
             if (radioButton_play_currently_selected_line.Checked)
             {
-                Debug.WriteLine("Playing from currently selected line is checked");
+                Logger.Log("Playing from currently selected line is checked", Logger.LogTypes.Info);
             }
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Date time picker value changed to {dateTimePicker1.Value}");
+            Logger.Log($"Date time picker value changed to {dateTimePicker1.Value}", Logger.LogTypes.Info);
         }
 
         private void synchronized_play_window_SystemColorsChanged(object sender, EventArgs e)

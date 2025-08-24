@@ -139,7 +139,7 @@ namespace NeoBleeper
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Error setting font for control {ctrl.Name}: {ex.Message}");
+                    Logger.Log($"Error setting font for control {ctrl.Name}: {ex.Message}", Logger.LogTypes.Error);
                 }
 
                 // Special Handling for MenuStrip and ToolStrip
@@ -153,7 +153,7 @@ namespace NeoBleeper
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"Error setting font for menu item {item.Name}: {ex.Message}");
+                            Logger.Log($"Error setting font for menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
                         }
                     }
                 }
@@ -169,7 +169,7 @@ namespace NeoBleeper
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"Error setting font for toolstrip item {item.Name}: {ex.Message}");
+                            Logger.Log($"Error setting font for toolstrip item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
                         }
                     }
                 }

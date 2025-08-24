@@ -103,7 +103,10 @@ namespace NeoBleeper
                 {
                     if (currentProvider != provider)
                     {
-                        waveOut.Stop();
+                        if (waveOut.PlaybackState == PlaybackState.Playing)
+                        {
+                            waveOut.Stop();
+                        }
                         waveOut.Init(provider); // Restart the provider if only changed
                         currentProvider = provider;
                     }

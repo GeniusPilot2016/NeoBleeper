@@ -36,13 +36,13 @@ namespace NeoBleeper
             ApplyAIModelChanges();
             if (!IsInternetAvailable())
             {
-                Debug.WriteLine("Internet connection is not available. Please check your connection.");
+                Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageNoInternet, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
-                Debug.WriteLine("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.");
+                Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
@@ -220,13 +220,13 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    Debug.WriteLine("AI response is null or empty.");
+                    Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
                     MessageBox.Show(Resources.MessageAIResponseNullOrEmpty);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error: {ex.Message}");
+                Logger.Log($"Error: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}");
             }
             finally

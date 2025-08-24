@@ -369,7 +369,7 @@ namespace NeoBleeper
         bool isTestingSystemSpeaker = false;
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Testing system speaker...");
+            Logger.Log("Testing system speaker...", Logger.LogTypes.Info);
             system_speaker_test_tune();
         }
 
@@ -381,7 +381,7 @@ namespace NeoBleeper
                 Settings1.Default.theme = comboBox_theme.SelectedIndex;
                 Settings1.Default.Save();
                 set_theme();
-                Debug.WriteLine("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex]);
+                Logger.Log("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex], Logger.LogTypes.Info);
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
             }
         }
@@ -395,34 +395,34 @@ namespace NeoBleeper
                 {
                     if (!Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again)
                     {
-                        Debug.WriteLine("User is trying to disable \"Use Sound Device to Create Beep\" feature in system that's a compact computer or unknown type of computer.");
+                        Logger.Log("User is trying to disable \"Use Sound Device to Create Beep\" feature in system that's a compact computer or unknown type of computer.", Logger.LogTypes.Warning);
                         disable_create_beep_from_sound_card_warning disable_Create_Beep_From_Sound_Card_Warning = new disable_create_beep_from_sound_card_warning();
                         DialogResult result = disable_Create_Beep_From_Sound_Card_Warning.ShowDialog();
                         switch (result)
                         {
                             case DialogResult.Yes:
                                 TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                                Debug.WriteLine("User chose to disable beep creation from sound card.");
-                                Debug.WriteLine("Beep creation from sound card disabled.");
+                                Logger.Log("User chose to disable beep creation from sound card.", Logger.LogTypes.Info);
+                                Logger.Log("Beep creation from sound card disabled.", Logger.LogTypes.Info);
                                 break;
                             case DialogResult.No:
                                 checkBox_enable_create_beep_from_soundcard.Checked = true;
                                 TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                Debug.WriteLine("User chose to keep beep creation from sound card enabled.");
-                                Debug.WriteLine("Beep creation from sound card enabled.");
+                                Logger.Log("User chose to keep beep creation from sound card enabled.", Logger.LogTypes.Info);
+                                Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                                 break;
                         }
                     }
                     else
                     {
                         TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                        Debug.WriteLine("Beep creation from sound card enabled.");
+                        Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                     }
                 }
                 else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
                 {
                     TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                    Debug.WriteLine("Beep creation from sound card enabled.");
+                    Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                 }
             }
             else
@@ -431,11 +431,11 @@ namespace NeoBleeper
                 {
                     case true:
                         TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                        Debug.WriteLine("Beep creation from sound card enabled.");
+                        Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                         break;
                     case false:
                         TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                        Debug.WriteLine("Beep creation from sound card disabled.");
+                        Logger.Log("Beep creation from sound card disabled.", Logger.LogTypes.Info);
                         break;
                 }
             }
@@ -856,7 +856,7 @@ namespace NeoBleeper
                 Settings1.Default.first_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("First octave color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("First octave color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -870,7 +870,7 @@ namespace NeoBleeper
                 Settings1.Default.second_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Second octave color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Second octave color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -884,7 +884,7 @@ namespace NeoBleeper
                 Settings1.Default.third_octave_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Third octave color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Third octave color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -898,7 +898,7 @@ namespace NeoBleeper
                 Settings1.Default.blank_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Blank line color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Blank line color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -912,7 +912,7 @@ namespace NeoBleeper
                 Settings1.Default.clear_notes_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Clear notes color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Clear notes color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -926,7 +926,7 @@ namespace NeoBleeper
                 Settings1.Default.unselect_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Unselect line color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Unselect line color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -940,7 +940,7 @@ namespace NeoBleeper
                 Settings1.Default.erase_whole_line_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Erase whole line color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Erase whole line color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -954,7 +954,7 @@ namespace NeoBleeper
                 Settings1.Default.playback_buttons_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Playback buttons color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Playback buttons color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -968,7 +968,7 @@ namespace NeoBleeper
                 Settings1.Default.metronome_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Metronome color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Metronome color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -982,7 +982,7 @@ namespace NeoBleeper
                 Settings1.Default.beep_indicator_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Beep indicator color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Beep indicator color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -996,7 +996,7 @@ namespace NeoBleeper
                 Settings1.Default.note_indicator_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Note indicator color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Note indicator color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -1016,7 +1016,7 @@ namespace NeoBleeper
             markup_color.BackColor = Settings1.Default.markup_color = Color.LightBlue;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-            Debug.WriteLine("Colors reset to default.");
+            Logger.Log("Colors reset to default.", Logger.LogTypes.Info);
         }
 
         private void refresh_midi_input()
@@ -1041,7 +1041,7 @@ namespace NeoBleeper
                 checkBox_use_midi_input.Enabled = false;
                 checkBox_use_midi_input.Checked = false;
             }
-            Debug.WriteLine("MIDI input devices refreshed.");
+            Logger.Log("MIDI input devices refreshed.", Logger.LogTypes.Info);
         }
 
         private void refresh_midi_output()
@@ -1140,7 +1140,7 @@ namespace NeoBleeper
                 label_instrument.Enabled = false;
                 comboBox_midi_output_instrument.Enabled = false;
             }
-            Debug.WriteLine("MIDI output devices refreshed.");
+            Logger.Log("MIDI output devices refreshed.", Logger.LogTypes.Info);
         }
 
         private void refresh_midi_input_button_Click(object sender, EventArgs e)
@@ -1159,25 +1159,25 @@ namespace NeoBleeper
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square;
                 RenderBeep.SynthMisc.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
-                Debug.WriteLine("Square waveform selected.");
+                Logger.Log("Square waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_sine.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine;
                 RenderBeep.SynthMisc.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
-                Debug.WriteLine("Sine waveform selected.");
+                Logger.Log("Sine waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_triangle.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle;
                 RenderBeep.SynthMisc.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
-                Debug.WriteLine("Triangle waveform selected.");
+                Logger.Log("Triangle waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_noise.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise;
                 RenderBeep.SynthMisc.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
-                Debug.WriteLine("Noise waveform selected.");
+                Logger.Log("Noise waveform selected.", Logger.LogTypes.Info);
             }
         }
 
@@ -1186,12 +1186,12 @@ namespace NeoBleeper
             if (checkBox_use_midi_output.Checked == true)
             {
                 TemporarySettings.MIDIDevices.useMIDIoutput = true;
-                Debug.WriteLine("MIDI output device enabled");
+                Logger.Log("MIDI output device enabled", Logger.LogTypes.Info);
             }
             else
             {
                 TemporarySettings.MIDIDevices.useMIDIoutput = false;
-                Debug.WriteLine("MIDI output device disabled");
+                Logger.Log("MIDI output device disabled", Logger.LogTypes.Info);
             }
         }
 
@@ -1199,13 +1199,13 @@ namespace NeoBleeper
         {
             TemporarySettings.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
             MIDIIOUtils.ChangeOutputDevice(TemporarySettings.MIDIDevices.MIDIOutputDevice);
-            Debug.WriteLine("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString());
+            Logger.Log("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString(), Logger.LogTypes.Info);
         }
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
             TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
-            Debug.WriteLine("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString());
+            Logger.Log("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString(), Logger.LogTypes.Info);
         }
 
         private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
@@ -1213,7 +1213,7 @@ namespace NeoBleeper
             TemporarySettings.MIDIDevices.MIDIOutputInstrument = comboBox_midi_output_instrument.SelectedIndex;
             MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument,
             TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
-            Debug.WriteLine("MIDI output instrument selected: " + comboBox_midi_output_instrument.SelectedItem.ToString());
+            Logger.Log("MIDI output instrument selected: " + comboBox_midi_output_instrument.SelectedItem.ToString(), Logger.LogTypes.Info);
         }
 
         private void checkBox_use_midi_input_CheckedChanged(object sender, EventArgs e)
@@ -1221,12 +1221,12 @@ namespace NeoBleeper
             if (checkBox_use_midi_input.Checked == true)
             {
                 TemporarySettings.MIDIDevices.useMIDIinput = true;
-                Debug.WriteLine("MIDI input device enabled");
+                Logger.Log("MIDI input device enabled", Logger.LogTypes.Info);
             }
             else
             {
                 TemporarySettings.MIDIDevices.useMIDIinput = false;
-                Debug.WriteLine("MIDI input device disabled");
+                Logger.Log("MIDI input device disabled", Logger.LogTypes.Info);
             }
 
             // Notify that MIDI status has changed
@@ -1252,11 +1252,11 @@ namespace NeoBleeper
             TemporarySettings.MicrocontrollerSettings.useMicrocontroller = checkBox_use_microcontroller.Checked;
             if (checkBox_use_microcontroller.Checked == true)
             {
-                Debug.WriteLine("Microcontroller modulation is enabled.");
+                Logger.Log("Microcontroller modulation is enabled.", Logger.LogTypes.Info);
             }
             else
             {
-                Debug.WriteLine("Microcontroller modulation is disabled.");
+                Logger.Log("Microcontroller modulation is disabled.", Logger.LogTypes.Info);
             }
         }
 
@@ -1264,7 +1264,7 @@ namespace NeoBleeper
         {
             if (radioButtonMotor.Checked == true)
             {
-                Debug.WriteLine("Modulation type: Motor");
+                Logger.Log("Modulation type: Motor", Logger.LogTypes.Info);
             }
         }
 
@@ -1272,14 +1272,14 @@ namespace NeoBleeper
         {
             if (radioButtonBuzzer.Checked == true)
             {
-                Debug.WriteLine("Modulation type: Buzzer");
+                Logger.Log("Modulation type: Buzzer", Logger.LogTypes.Info);
             }
         }
 
         private void trackBar_motor_octave_Scroll(object sender, EventArgs e)
         {
             TemporarySettings.MicrocontrollerSettings.motorOctave = trackBar_motor_octave.Value;
-            Debug.WriteLine("Motor speed modulation octave: " + trackBar_motor_octave.Value);
+            Logger.Log("Motor speed modulation octave: " + trackBar_motor_octave.Value, Logger.LogTypes.Info);
         }
 
         private void buttonShowHide_Click(object sender, EventArgs e)
@@ -1321,11 +1321,11 @@ namespace NeoBleeper
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = true;
                 MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Debug.WriteLine("API key saved successfully with new encryption keys");
+                Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error saving API key: " + ex.Message);
+                Logger.Log("Error saving API key: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show("Error saving API key: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1353,12 +1353,12 @@ namespace NeoBleeper
                 textBoxAPIKey.Text = string.Empty;
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
-                Debug.WriteLine("Google Gemini™ API key reset successfully.");
+                Logger.Log("Google Gemini™ API key reset successfully.", Logger.LogTypes.Info);
                 MessageBox.Show("Google Gemini™ API key reset successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error resetting API key: " + ex.Message);
+                Logger.Log("Error resetting API key: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show("Error resetting API key: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1370,12 +1370,12 @@ namespace NeoBleeper
             if (Settings1.Default.ClassicBleeperMode == true)
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
-                Debug.WriteLine("Classic Bleeper Mode enabled.");
+                Logger.Log("Classic Bleeper Mode enabled.", Logger.LogTypes.Info);
             }
             else
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
-                Debug.WriteLine("Classic Bleeper Mode disabled.");
+                Logger.Log("Classic Bleeper Mode disabled.", Logger.LogTypes.Info);
             }
         }
 
@@ -1389,7 +1389,7 @@ namespace NeoBleeper
                 Settings1.Default.markup_color = colorDialog1.Color;
                 Settings1.Default.Save();
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-                Debug.WriteLine("Keyboard markup color changed to: " + colorDialog1.Color.ToString());
+                Logger.Log("Keyboard markup color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -1398,12 +1398,12 @@ namespace NeoBleeper
             if (radioButtonMotor.Checked)
             {
                 TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Motor;
-                Debug.WriteLine("Device type set to Motor.");
+                Logger.Log("Device type set to Motor.", Logger.LogTypes.Info);
             }
             else if (radioButtonBuzzer.Checked)
             {
                 TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer;
-                Debug.WriteLine("Device type set to Buzzer.");
+                Logger.Log("Device type set to Buzzer.", Logger.LogTypes.Info);
             }
         }
 

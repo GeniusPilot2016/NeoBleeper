@@ -1,4 +1,5 @@
 ﻿using GenerativeAI.Types;
+using Microsoft.VisualBasic.Logging;
 using NAudio.Midi;
 using NeoBleeper.Properties;
 using System.ComponentModel;
@@ -312,7 +313,7 @@ namespace NeoBleeper
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note when key is clicked is changed to: {checkbox_play_note.Checked}");
+            Logger.Log($"Checked state of play note when key is clicked is changed to: {checkbox_play_note.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
@@ -325,13 +326,13 @@ namespace NeoBleeper
             {
                 checkBox_replace_length.Enabled = false;
             }
-            Debug.WriteLine($"Checked state of replace is changed to: {checkBox_replace.Checked}");
+            Logger.Log($"Checked state of replace is changed to: {checkBox_replace.Checked}", Logger.LogTypes.Info);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] note_lengths = { "Whole", "Half", "Quarter", "1/8", "1/16", "1/32" };
-            Debug.WriteLine($"Selected note length is changed to: {note_lengths[comboBox_note_length.SelectedIndex]}");
+            Logger.Log($"Selected note length is changed to: {note_lengths[comboBox_note_length.SelectedIndex]}", Logger.LogTypes.Info);
         }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -344,7 +345,7 @@ namespace NeoBleeper
             closeAllOpenWindows();
             about_neobleeper about = new about_neobleeper();
             about.ShowDialog();
-            Debug.WriteLine("About window is opened");
+            Logger.Log("About window is opened", Logger.LogTypes.Info);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -367,7 +368,7 @@ namespace NeoBleeper
                 }
             };
             settings.ShowDialog();
-            Debug.WriteLine("Settings window is opened");
+            Logger.Log("Settings window is opened", Logger.LogTypes.Info);
         }
         private void closeAllOpenWindows()
         {
@@ -588,7 +589,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C{Variables.octave - 1} is clicked");
+            Logger.Log($"Key C{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_d3_Click(object sender, EventArgs e)
@@ -609,7 +610,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D{Variables.octave - 1} is clicked");
+            Logger.Log($"Key D{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
         private void button_e3_Click(object sender, EventArgs e)
         {
@@ -629,7 +630,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key E{Variables.octave - 1} is clicked");
+            Logger.Log($"Key E{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_f3_Click(object sender, EventArgs e)
@@ -650,7 +651,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F{Variables.octave - 1} is clicked");
+            Logger.Log($"Key F{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_g3_Click(object sender, EventArgs e)
@@ -671,7 +672,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G{Variables.octave - 1} is clicked");
+            Logger.Log($"Key G{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a3_Click(object sender, EventArgs e)
@@ -692,7 +693,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A{Variables.octave - 1} is clicked");
+            Logger.Log($"Key A{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_b3_Click(object sender, EventArgs e)
@@ -713,7 +714,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key B{Variables.octave - 1} is clicked");
+            Logger.Log($"Key B{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
         private void button_c4_Click(object sender, EventArgs e)
         {
@@ -733,7 +734,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C{Variables.octave} is clicked");
+            Logger.Log($"Key C{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_d4_Click(object sender, EventArgs e)
@@ -754,7 +755,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D{Variables.octave} is clicked");
+            Logger.Log($"Key D{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_e4_Click(object sender, EventArgs e)
@@ -775,7 +776,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key E{Variables.octave} is clicked");
+            Logger.Log($"Key E{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_f4_Click(object sender, EventArgs e)
@@ -796,7 +797,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F{Variables.octave} is clicked");
+            Logger.Log($"Key F{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_g4_Click(object sender, EventArgs e)
@@ -817,7 +818,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G{Variables.octave} is clicked");
+            Logger.Log($"Key G{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a4_Click(object sender, EventArgs e)
@@ -838,7 +839,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A{Variables.octave} is clicked");
+            Logger.Log($"Key A{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_b4_Click(object sender, EventArgs e)
@@ -859,7 +860,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key B{Variables.octave} is clicked");
+            Logger.Log($"Key B{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
         private void button_c5_Click(object sender, EventArgs e)
         {
@@ -879,7 +880,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C{Variables.octave + 1} is clicked");
+            Logger.Log($"Key C{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_d5_Click(object sender, EventArgs e)
@@ -900,7 +901,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D{Variables.octave + 1} is clicked");
+            Logger.Log($"Key D{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_e5_Click(object sender, EventArgs e)
@@ -921,7 +922,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key E{Variables.octave + 1} is clicked");
+            Logger.Log($"Key E{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_f5_Click(object sender, EventArgs e)
@@ -942,7 +943,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F{Variables.octave + 1} is clicked"); ;
+            Logger.Log($"Key F{Variables.octave + 1} is clicked", Logger.LogTypes.Info); ;
         }
 
         private void button_g5_Click(object sender, EventArgs e)
@@ -963,7 +964,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G{Variables.octave + 1} is clicked");
+            Logger.Log($"Key G{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a5_Click(object sender, EventArgs e)
@@ -984,7 +985,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A{Variables.octave + 1} is clicked");
+            Logger.Log($"Key A{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_b5_Click(object sender, EventArgs e)
@@ -1005,7 +1006,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key B{Variables.octave + 1} is clicked");
+            Logger.Log($"Key B{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
         private void button_c_s3_Click(object sender, EventArgs e)
         {
@@ -1025,7 +1026,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C#{Variables.octave - 1} is clicked");
+            Logger.Log($"Key C#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
         private void button_d_s3_Click(object sender, EventArgs e)
         {
@@ -1045,7 +1046,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D#{Variables.octave - 1} is clicked");
+            Logger.Log($"Key D#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
 
@@ -1067,7 +1068,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F#{Variables.octave - 1} is clicked");
+            Logger.Log($"Key F#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_g_s3_Click(object sender, EventArgs e)
@@ -1088,7 +1089,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G#{Variables.octave - 1} is clicked");
+            Logger.Log($"Key G#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a_s3_Click(object sender, EventArgs e)
@@ -1109,7 +1110,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 5))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A#{Variables.octave - 1} is clicked");
+            Logger.Log($"Key A#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_c_s4_Click(object sender, EventArgs e)
@@ -1130,7 +1131,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C#{Variables.octave} is clicked");
+            Logger.Log($"Key C#{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_d_s4_Click(object sender, EventArgs e)
@@ -1151,7 +1152,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D#{Variables.octave} is clicked");
+            Logger.Log($"Key D#{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_f_s4_Click(object sender, EventArgs e)
@@ -1172,7 +1173,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F#{Variables.octave} is clicked");
+            Logger.Log($"Key F#{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_g_s4_Click(object sender, EventArgs e)
@@ -1193,7 +1194,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G#{Variables.octave} is clicked");
+            Logger.Log($"Key G#{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a_s4_Click(object sender, EventArgs e)
@@ -1214,7 +1215,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 4))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A#{Variables.octave} is clicked");
+            Logger.Log($"Key A#{Variables.octave} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_c_s5_Click(object sender, EventArgs e)
@@ -1235,7 +1236,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key C#{Variables.octave + 1} is clicked");
+            Logger.Log($"Key C#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_d_s5_Click(object sender, EventArgs e)
@@ -1257,7 +1258,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key D#{Variables.octave + 1} is clicked");
+            Logger.Log($"Key D#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_f_s5_Click(object sender, EventArgs e)
@@ -1278,7 +1279,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key F#{Variables.octave + 1} is clicked");
+            Logger.Log($"Key F#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_g_s5_Click(object sender, EventArgs e)
@@ -1299,7 +1300,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key G#{Variables.octave + 1} is clicked");
+            Logger.Log($"Key G#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
 
         private void button_a_s5_Click(object sender, EventArgs e)
@@ -1320,7 +1321,7 @@ namespace NeoBleeper
                 note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 3))));
                 play_note_when_key_is_clicked(note_frequency);
             }
-            Debug.WriteLine($"Key A#{Variables.octave + 1} is clicked");
+            Logger.Log($"Key A#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
         private int note_name_to_MIDI_number(string noteName)
         {
@@ -1406,7 +1407,7 @@ namespace NeoBleeper
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
                     {
                         Variables.octave = 4; // Default value
-                        Debug.WriteLine("Keyboard octave not found, defaulting to 4");
+                        Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                     }
                     else
                     {
@@ -1448,93 +1449,93 @@ namespace NeoBleeper
                     {
                         trackBar_time_signature.Value = 4; // Default value
                         lbl_time_signature.Text = "4";
-                        Debug.WriteLine("Time signature not found, defaulting to 4");
+                        Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note silence ratio is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                     {
                         Variables.note_silence_ratio = 0.5; // Default value
                         lbl_note_silence_ratio.Text = "50%";
-                        Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                        Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note length is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                     {
                         comboBox_note_length.SelectedIndex = 0; // Default value
-                        Debug.WriteLine("Note length not found, defaulting to Whole");
+                        Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
                     }
                     // Assign default values if no alternating note length is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
                     {
                         Variables.alternating_note_length = 30; // Default value
                         numericUpDown_alternating_notes.Value = 30;
-                        Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                        Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note click play is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
                     {
                         checkbox_play_note.Checked = true; // Default value
-                        Debug.WriteLine("Note click play not found, defaulting to true");
+                        Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note click add is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
                     {
                         checkBox_add_note_to_list.Checked = true; // Default value
-                        Debug.WriteLine("Note click add not found, defaulting to true");
+                        Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note replace is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
                     {
                         checkBox_replace.Checked = false; // Default value
-                        Debug.WriteLine("Note replace not found, defaulting to false");
+                        Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
                     }
                     // Assign default values if no note length replace is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
                     {
                         checkBox_replace_length.Checked = false; // Default value
-                        Debug.WriteLine("Note length replace not found, defaulting to false");
+                        Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
                     }
                     // Assign default values if no click play note is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
                     {
                         checkBox_play_note1_clicked.Checked = true; // Default value
-                        Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                        Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
                     {
                         checkBox_play_note2_clicked.Checked = true; // Default value
-                        Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                        Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
                     {
                         checkBox_play_note3_clicked.Checked = true; // Default value
-                        Debug.WriteLine("Click play note 3 not found, defaulting to true");
+                        Logger.Log("Click play note 3 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                     {
                         checkBox_play_note3_clicked.Checked = true; // Default value
-                        Debug.WriteLine("Click play note 4 not found, defaulting to true");
+                        Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     // Assign default values if no play note is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
                     {
                         checkBox_play_note1_played.Checked = true; // Default value
-                        Debug.WriteLine("Play note 1 not found, defaulting to true");
+                        Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
                     {
                         checkBox_play_note2_played.Checked = true; // Default value
-                        Debug.WriteLine("Play note 2 not found, defaulting to true");
+                        Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
                     {
                         checkBox_play_note3_played.Checked = true; // Default value
-                        Debug.WriteLine("Play note 3 not found, defaulting to true");
+                        Logger.Log("Play note 3 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
                     {
                         checkBox_play_note4_played.Checked = true; // Default value
-                        Debug.WriteLine("Play note 4 not found, defaulting to true");
+                        Logger.Log("Play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     noteLabelsUpdate();
                     if (Variables.octave == 9)
@@ -1558,11 +1559,11 @@ namespace NeoBleeper
                     isModified = false;
                     UpdateFormTitle();
                 }
-                Debug.WriteLine("File is succesfully created by AI");
+                Logger.Log("File is succesfully created by AI", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"AI music creation failed: {ex.Message}");
+                Logger.Log($"AI music creation failed: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1659,86 +1660,86 @@ namespace NeoBleeper
                             if (!lines.Any(line => line.StartsWith("KeyboardOctave")))
                             {
                                 Variables.octave = 4; // Default value
-                                Debug.WriteLine("Keyboard octave not found, defaulting to 4");
+                                Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                             }
                             // Assign default values if none of the radiobuttons are checked
                             if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
                             {
                                 add_as_note1.Checked = true;
-                                Debug.WriteLine("No note type selected, defaulting to Note 1");
+                                Logger.Log("No note type selected, defaulting to Note 1", Logger.LogTypes.Info);
                             }
                             // Assign default values if no time signature is found
                             if (!lines.Any(line => line.StartsWith("TimeSig")))
                             {
                                 trackBar_time_signature.Value = 4; // Default value
                                 lbl_time_signature.Text = "4";
-                                Debug.WriteLine("Time signature not found, defaulting to 4");
+                                Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note silence ratio is found
                             if (!lines.Any(line => line.StartsWith("NoteSilenceRatio")))
                             {
                                 Variables.note_silence_ratio = 0.5; // Default value
                                 lbl_note_silence_ratio.Text = "50%";
-                                Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                                Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note length is found
                             if (!lines.Any(line => line.StartsWith("NoteLength")))
                             {
                                 comboBox_note_length.SelectedIndex = 0; // Default value
-                                Debug.WriteLine("Note length not found, defaulting to Whole");
+                                Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
                             }
                             // Assign default values if no alternating note length is found
                             if (!lines.Any(line => line.StartsWith("AlternateTime")))
                             {
                                 Variables.alternating_note_length = 30; // Default value
                                 numericUpDown_alternating_notes.Value = 30;
-                                Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                                Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note click play is found
                             if (!lines.Any(line => line.StartsWith("NoteClickPlay")))
                             {
                                 checkbox_play_note.Checked = true; // Default value
-                                Debug.WriteLine("Note click play not found, defaulting to true");
+                                Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note click add is found
                             if (!lines.Any(line => line.StartsWith("NoteClickAdd")))
                             {
                                 checkBox_add_note_to_list.Checked = true; // Default value
-                                Debug.WriteLine("Note click add not found, defaulting to true");
+                                Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note replace is found
                             if (!lines.Any(line => line.StartsWith("NoteReplace")))
                             {
                                 checkBox_replace.Checked = false; // Default value
-                                Debug.WriteLine("Note replace not found, defaulting to false");
+                                Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
                             }
                             // Assign default values if no note length replace is found
                             if (!lines.Any(line => line.StartsWith("NoteLengthReplace")))
                             {
                                 checkBox_replace_length.Checked = false; // Default value
-                                Debug.WriteLine("Note length replace not found, defaulting to false");
+                                Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
                             }
                             // Assign default values if no click play note is found
                             if (!lines.Any(line => line.StartsWith("ClickPlayNote1")))
                             {
                                 checkBox_play_note1_clicked.Checked = true; // Default value
-                                Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                                Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             if (!lines.Any(line => line.StartsWith("ClickPlayNote2")))
                             {
                                 checkBox_play_note2_clicked.Checked = true; // Default value
-                                Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                                Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             // Assign default values if no play note is found
                             if (!lines.Any(line => line.StartsWith("PlayNote1")))
                             {
                                 checkBox_play_note1_played.Checked = true; // Default value
-                                Debug.WriteLine("Play note 1 not found, defaulting to true");
+                                Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             if (!lines.Any(line => line.StartsWith("PlayNote2")))
                             {
                                 checkBox_play_note2_played.Checked = true; // Default value
-                                Debug.WriteLine("Play note 2 not found, defaulting to true");
+                                Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                             }
                             noteLabelsUpdate();
                             if (Variables.octave == 9)
@@ -1805,20 +1806,20 @@ namespace NeoBleeper
                                     listViewNotes.Items.Add(item);
                                 }
                             }
-                            Debug.WriteLine("Bleeper Music Maker file opened successfully");
+                            Logger.Log("Bleeper Music Maker file opened successfully", Logger.LogTypes.Info);
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Error opening Bleeper Music Maker file: " + ex.Message);
+                            Logger.Log("Error opening Bleeper Music Maker file: " + ex.Message, Logger.LogTypes.Error);
                             DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardBleeperMusicMakerFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
-                                Debug.WriteLine("User chose not to open the file");
+                                Logger.Log("User chose not to open the file", Logger.LogTypes.Info);
                                 createNewFile();
                             }
                             else
                             {
-                                Debug.WriteLine("User chose to open the file anyway");
+                                Logger.Log("User chose to open the file anyway", Logger.LogTypes.Info);
                             }
                         }
                         break;
@@ -1835,7 +1836,7 @@ namespace NeoBleeper
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
                                 {
                                     Variables.octave = 4; // Default value
-                                    Debug.WriteLine("Keyboard octave not found, defaulting to 4");
+                                    Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                                 }
                                 else
                                 {
@@ -1877,93 +1878,93 @@ namespace NeoBleeper
                                 {
                                     trackBar_time_signature.Value = 4; // Default value
                                     lbl_time_signature.Text = "4";
-                                    Debug.WriteLine("Time signature not found, defaulting to 4");
+                                    Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note silence ratio is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                                 {
                                     Variables.note_silence_ratio = 0.5; // Default value
                                     lbl_note_silence_ratio.Text = "50%";
-                                    Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                                    Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note length is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                                 {
                                     comboBox_note_length.SelectedIndex = 0; // Default value
-                                    Debug.WriteLine("Note length not found, defaulting to Whole");
+                                    Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no alternating note length is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
                                 {
                                     Variables.alternating_note_length = 30; // Default value
                                     numericUpDown_alternating_notes.Value = 30;
-                                    Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                                    Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note click play is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
                                 {
                                     checkbox_play_note.Checked = true; // Default value
-                                    Debug.WriteLine("Note click play not found, defaulting to true");
+                                    Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note click add is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
                                 {
                                     checkBox_add_note_to_list.Checked = true; // Default value
-                                    Debug.WriteLine("Note click add not found, defaulting to true");
+                                    Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note replace is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
                                 {
                                     checkBox_replace.Checked = false; // Default value
-                                    Debug.WriteLine("Note replace not found, defaulting to false");
+                                    Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no note length replace is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
                                 {
                                     checkBox_replace_length.Checked = false; // Default value
-                                    Debug.WriteLine("Note length replace not found, defaulting to false");
+                                    Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no click play note is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
                                 {
                                     checkBox_play_note1_clicked.Checked = true; // Default value
-                                    Debug.WriteLine("Click play note 1 not found, defaulting to true");
+                                    Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
                                 {
                                     checkBox_play_note2_clicked.Checked = true; // Default value
-                                    Debug.WriteLine("Click play note 2 not found, defaulting to true");
+                                    Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
                                 {
                                     checkBox_play_note3_clicked.Checked = true; // Default value
-                                    Debug.WriteLine("Click play note 3 not found, defaulting to true");
+                                    Logger.Log("Click play note 3 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                                 {
                                     checkBox_play_note3_clicked.Checked = true; // Default value
-                                    Debug.WriteLine("Click play note 4 not found, defaulting to true");
+                                    Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no play note is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
                                 {
                                     checkBox_play_note1_played.Checked = true; // Default value
-                                    Debug.WriteLine("Play note 1 not found, defaulting to true");
+                                    Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
                                 {
                                     checkBox_play_note2_played.Checked = true; // Default value
-                                    Debug.WriteLine("Play note 2 not found, defaulting to true");
+                                    Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
                                 {
                                     checkBox_play_note3_played.Checked = true; // Default value
-                                    Debug.WriteLine("Play note 3 not found, defaulting to true");
+                                    Logger.Log("Play note 3 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
                                 {
                                     checkBox_play_note4_played.Checked = true; // Default value
-                                    Debug.WriteLine("Play note 4 not found, defaulting to true");
+                                    Logger.Log("Play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 noteLabelsUpdate();
                                 if (Variables.octave == 9)
@@ -1990,24 +1991,24 @@ namespace NeoBleeper
                                 }
                                 // Leave empty if no lines are found
                             }
-                            Debug.WriteLine("NeoBleeper file opened successfully");
+                            Logger.Log("NeoBleeper file opened successfully", Logger.LogTypes.Info);
                             isModified = false;
                             UpdateFormTitle();
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Error opening NeoBleeper file: " + ex.Message);
+                            Logger.Log("Error opening NeoBleeper file: " + ex.Message, Logger.LogTypes.Error);
                             DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardNeoBleeperFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
-                                Debug.WriteLine("User chose not to open the file");
+                                Logger.Log("User chose not to open the file", Logger.LogTypes.Info);
                                 createNewFile();
                             }
                             else
                             {
                                 isModified = false;
                                 UpdateFormTitle();
-                                Debug.WriteLine("User chose to open the file anyway");
+                                Logger.Log("User chose to open the file anyway", Logger.LogTypes.Info);
                             }
                         }
                         break;
@@ -2015,7 +2016,7 @@ namespace NeoBleeper
                 default:
                     {
                         is_file_valid = false;
-                        Debug.WriteLine("Invalid or corrupted music file");
+                        Logger.Log("Invalid or corrupted music file", Logger.LogTypes.Error);
                         MessageBox.Show(Resources.MessageInvalidOrCorruptedMusicFile, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
@@ -2176,11 +2177,11 @@ namespace NeoBleeper
                 SerializeXML(filename, projectFile); isModified = false;
                 currentFilePath = filename;
                 UpdateFormTitle();
-                Debug.WriteLine("NeoBleeper file saved successfully");
+                Logger.Log("NeoBleeper file saved successfully", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error saving NeoBleeper file: " + ex.Message);
+                Logger.Log("Error saving NeoBleeper file: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageErrorSavingFile + " " + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -2189,13 +2190,13 @@ namespace NeoBleeper
         {
             Variables.note_silence_ratio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
             lbl_note_silence_ratio.Text = trackBar_note_silence_ratio.Value.ToString() + "%";
-            Debug.WriteLine($"Note silence ratio is set to {trackBar_note_silence_ratio.Value}%");
+            Logger.Log($"Note silence ratio is set to {trackBar_note_silence_ratio.Value}%", Logger.LogTypes.Info);
         }
 
         private void trackBar_time_signature_Scroll(object sender, EventArgs e)
         {
             lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
-            Debug.WriteLine($"Time signature is set to {trackBar_time_signature.Value}");
+            Logger.Log($"Time signature is set to {trackBar_time_signature.Value}", Logger.LogTypes.Info);
         }
 
         private async void noteLabelsUpdate()
@@ -2469,7 +2470,7 @@ namespace NeoBleeper
                 commandManager.ExecuteCommand(removeNoteCommand);
                 isModified = true;
                 UpdateFormTitle();
-                Debug.WriteLine("Line erased");
+                Logger.Log("Line erased", Logger.LogTypes.Info);
             }
         }
         private void button_erase_line_Click(object sender, EventArgs e)
@@ -2484,7 +2485,7 @@ namespace NeoBleeper
             commandManager.ClearHistory(); // Reset the history
             isModified = true;
             UpdateFormTitle();
-            Debug.WriteLine("New file created");
+            Logger.Log("New file created", Logger.LogTypes.Info);
         }
         private void stopPlayingAllSounds()
         {
@@ -2502,7 +2503,7 @@ namespace NeoBleeper
             singleNote = 0; // Reset the single note variable
             UnmarkAllButtons(); // Unmark all buttons
             isAlternatingPlayingRegularKeyboard = false; // Reset the alternating playing state
-            Debug.WriteLine("All sounds stopped");
+            Logger.Log("All sounds stopped", Logger.LogTypes.Info);
         }
         private void createNewFile()
         {
@@ -2891,7 +2892,7 @@ namespace NeoBleeper
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Error ensuring index visible: " + ex.Message);
+                    Logger.Log("Error ensuring index visible: " + ex.Message, Logger.LogTypes.Error);
                 }
             });
         }
@@ -2902,7 +2903,7 @@ namespace NeoBleeper
                 is_music_playing = true;
                 listViewNotes.Items[0].Selected = true;
                 EnsureSpecificIndexVisible(0);
-                Debug.WriteLine("Music is playing");
+                Logger.Log("Music is playing", Logger.LogTypes.Info);
                 Task.Run(() => play_music(0));
             }
         }
@@ -2915,14 +2916,14 @@ namespace NeoBleeper
                 {
                     listViewNotes.Items[0].Selected = true;
                     EnsureSpecificIndexVisible(0);
-                    Debug.WriteLine("Music is playing");
+                    Logger.Log("Music is playing", Logger.LogTypes.Info);
                     Task.Run(() => play_music(0));
                 }
                 else
                 {
                     int index = listViewNotes.SelectedItems[0].Index;
                     EnsureSpecificIndexVisible(index);
-                    Debug.WriteLine("Music is playing");
+                    Logger.Log("Music is playing", Logger.LogTypes.Info);
                     Task.Run(() => play_music(index));
                 }
             }
@@ -2955,17 +2956,17 @@ namespace NeoBleeper
             switch (enable)
             {
                 case true:
-                    Debug.WriteLine("Controls enabled");
+                    Logger.Log("Controls enabled", Logger.LogTypes.Info);
                     break;
                 case false:
-                    Debug.WriteLine("Controls disabled");
+                    Logger.Log("Controls disabled", Logger.LogTypes.Info);
                     break;
             }
         }
         public void stop_playing()
         {
             is_music_playing = false;
-            Debug.WriteLine("Music stopped");
+            Logger.Log("Music stopped", Logger.LogTypes.Info);
             OnMusicStopped(EventArgs.Empty);
         }
         private System.Timers.Timer metronomeTimer;
@@ -2999,7 +3000,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error initializing sounds: " + ex.Message);
+                Logger.Log("Error initializing sounds: " + ex.Message, Logger.LogTypes.Error);
             }
 
             metronomeTimer = new System.Timers.Timer();
@@ -3040,7 +3041,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Metronome error: " + ex.Message);
+                Logger.Log("Metronome error: " + ex.Message, Logger.LogTypes.Error);
             }
         }
 
@@ -3139,7 +3140,7 @@ namespace NeoBleeper
                         }
                 }
                 StartMetronome();
-                Debug.WriteLine("Metronome started");
+                Logger.Log("Metronome started", Logger.LogTypes.Info);
             }
             else
             {
@@ -3171,7 +3172,7 @@ namespace NeoBleeper
                         }
                 }
                 StopMetronome();
-                Debug.WriteLine("Metronome stopped");
+                Logger.Log("Metronome stopped", Logger.LogTypes.Info);
             }
         }
 
@@ -3191,7 +3192,7 @@ namespace NeoBleeper
             {
                 add_notes_to_column(String.Empty);
             }
-            Debug.WriteLine("Blank line added");
+            Logger.Log("Blank line added", Logger.LogTypes.Info );
         }
         private void clear_note_1()
         {
@@ -3199,7 +3200,7 @@ namespace NeoBleeper
             commandManager.ExecuteCommand(clearNoteCommand);
             isModified = true;
             UpdateFormTitle();
-            Debug.WriteLine("Note 1 cleared");
+            Logger.Log("Note 1 cleared", Logger.LogTypes.Info);
         }
         private void clear_note_2()
         {
@@ -3207,7 +3208,7 @@ namespace NeoBleeper
             commandManager.ExecuteCommand(clearNoteCommand);
             isModified = true;
             UpdateFormTitle();
-            Debug.WriteLine("Note 2 cleared");
+            Logger.Log("Note 2 cleared", Logger.LogTypes.Info);
         }
         private void clear_note_3()
         {
@@ -3215,7 +3216,7 @@ namespace NeoBleeper
             commandManager.ExecuteCommand(clearNoteCommand);
             isModified = true;
             UpdateFormTitle();
-            Debug.WriteLine("Note 3 cleared");
+            Logger.Log("Note 3 cleared", Logger.LogTypes.Info);
         }
         private void clear_note_4()
         {
@@ -3223,7 +3224,7 @@ namespace NeoBleeper
             commandManager.ExecuteCommand(clearNoteCommand);
             isModified = true;
             UpdateFormTitle();
-            Debug.WriteLine("Note 4 cleared");
+            Logger.Log("Note 4 cleared", Logger.LogTypes.Info);
         }
         private void unselect_line()
         {
@@ -3235,7 +3236,7 @@ namespace NeoBleeper
                     i--;
                 }
             }
-            Debug.WriteLine("Line unselected");
+            Logger.Log("Line unselected", Logger.LogTypes.Info);
         }
         private void button_blank_line_Click(object sender, EventArgs e)
         {
@@ -3303,11 +3304,11 @@ namespace NeoBleeper
                 EnableDisableCommonControls(true);
                 if (!(listViewNotes.SelectedItems == null))
                 {
-                    Debug.WriteLine($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
+                    Logger.Log($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
                      $"{listViewNotes.SelectedItems[0].SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
                      $" Note 2: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[3].Text.ToString())}" +
                      $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())}" +
-                     $" Articulation: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())}");
+                     $" Articulation: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())}", Logger.LogTypes.Info);
                 }
 
             }
@@ -3340,7 +3341,7 @@ namespace NeoBleeper
                 UpdateFormTitle();
             }
 
-            Debug.WriteLine($"BPM: {Variables.bpm}");
+            Logger.Log($"BPM: {Variables.bpm}", Logger.LogTypes.Info);
         }
 
         private void numericUpDown_alternating_notes_ValueChanged(object sender, EventArgs e)
@@ -3367,7 +3368,7 @@ namespace NeoBleeper
                 UpdateFormTitle();
             }
 
-            Debug.WriteLine($"Alternating note length: {Variables.alternating_note_length}");
+            Logger.Log($"Alternating note length: {Variables.alternating_note_length}", Logger.LogTypes.Info);
         }
         private double note_length_calculator(double baseLength)
         {
@@ -3993,12 +3994,12 @@ namespace NeoBleeper
             if (checkBox_synchronized_play.Checked == true)
             {
                 openSynchronizedPlayWindow();
-                Debug.WriteLine("Synchronized play window is opened.");
+                Logger.Log("Synchronized play window is opened.", Logger.LogTypes.Info);
             }
             else if (checkBox_synchronized_play.Checked == false)
             {
                 closeSynchronizedPlayWindow();
-                Debug.WriteLine("Synchronized play window is closed.");
+                Logger.Log("Synchronized play window is closed.", Logger.LogTypes.Info);
             }
         }
         private void stop_all_sounds_before_closing()
@@ -4064,11 +4065,11 @@ namespace NeoBleeper
                     }
                 }
                 // Log states of variables
-                Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
+                Logger.Log($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error rewinding: {ex.Message}");
+                Logger.Log($"Error rewinding: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show($"{Resources.MessageErrorRewinding} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4080,7 +4081,7 @@ namespace NeoBleeper
                 NotePlayer.StopAllNotes(); // Stop all sounds if playback is not muted
             }
             TemporarySettings.creating_sounds.is_playback_muted = checkBox_mute_playback.Checked;
-            Debug.WriteLine($"Playback muted: {TemporarySettings.creating_sounds.is_playback_muted}");
+            Logger.Log($"Playback muted: {TemporarySettings.creating_sounds.is_playback_muted}", Logger.LogTypes.Info);
         }
         private void show_keyboard_keys_shortcut()
         {
@@ -4163,13 +4164,13 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        Debug.WriteLine("The file you dragged is not supported by NeoBleeper or is corrupted.");
+                        Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
                         MessageBox.Show(Resources.MessageNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
-                    Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
+                    Logger.Log("The file you dragged is corrupted or the file is in use by another process.", Logger.LogTypes.Error);
                     MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -4182,17 +4183,17 @@ namespace NeoBleeper
                 {
                     MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
                     midi_file_player.ShowDialog();
-                    Debug.WriteLine("MIDI file is opened.");
+                    Logger.Log("MIDI file is opened.", Logger.LogTypes.Info);
                 }
                 else
                 {
                     MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Debug.WriteLine("This file is not a valid MIDI file, or it is corrupted or is being used by another process.");
+                    Logger.Log("This file is not a valid MIDI file, or it is corrupted or is being used by another process.", Logger.LogTypes.Error);
                 }
             }
             else
             {
-                Debug.WriteLine("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.");
+                Logger.Log("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4234,6 +4235,7 @@ namespace NeoBleeper
             }
             else
             {
+                Logger.Log("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4275,40 +4277,40 @@ namespace NeoBleeper
 
         private void checkBox_play_note1_clicked_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 1 when clicked is changed to: {checkBox_play_note1_clicked.Checked}");
+            Logger.Log($"Checked state of play note 1 when clicked is changed to: {checkBox_play_note1_clicked.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_note2_clicked_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 2 when clicked is changed to: {checkBox_play_note2_clicked.Checked}");
+            Logger.Log($"Checked state of play note 2 when clicked is changed to: {checkBox_play_note2_clicked.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_note3_clicked_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 3 when clicked is changed to: {checkBox_play_note3_clicked.Checked}");
+            Logger.Log($"Checked state of play note 3 when clicked is changed to: {checkBox_play_note3_clicked.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_note4_clicked_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 4 when clicked is changed to: {checkBox_play_note4_clicked.Checked}");
+            Logger.Log($"Checked state of play note 4 when clicked is changed to: {checkBox_play_note4_clicked.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_note1_played_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 1 when played is changed to: {checkBox_play_note1_played.Checked}");
+            Logger.Log($"Checked state of play note 1 when played is changed to: {checkBox_play_note1_played.Checked}", Logger.LogTypes.Info);
         }
         private void checkBox_play_note2_played_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 2 when played is changed to: {checkBox_play_note2_played.Checked}");
+            Logger.Log($"Checked state of play note 2 when played is changed to: {checkBox_play_note2_played.Checked}", Logger.LogTypes.Info);
         }
         private void checkBox_play_note3_played_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 3 when played is changed to: {checkBox_play_note3_played.Checked}");
+            Logger.Log($"Checked state of play note 3 when played is changed to: {checkBox_play_note3_played.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_note4_played_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of play note 4 when played is changed to: {checkBox_play_note4_played.Checked}");
+            Logger.Log($"Checked state of play note 4 when played is changed to: {checkBox_play_note4_played.Checked}", Logger.LogTypes.Info);
         }
 
         private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4335,7 +4337,7 @@ namespace NeoBleeper
 
                 // Copy to clipboard
                 Clipboard.SetText(clipboardText.ToString());
-                Debug.WriteLine("Copy to clipboard is executed.");
+                Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
             }
         }
 
@@ -4379,7 +4381,7 @@ namespace NeoBleeper
                             listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                         }
                     }
-                    Debug.WriteLine("Paste is executed.");
+                    Logger.Log("Paste is executed.", Logger.LogTypes.Info);
                 }
             }
         }
@@ -4403,7 +4405,7 @@ namespace NeoBleeper
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
             }
-            Debug.WriteLine("Undo is executed.");
+            Logger.Log("Undo is executed.", Logger.LogTypes.Info);
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4426,7 +4428,7 @@ namespace NeoBleeper
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
             }
-            Debug.WriteLine("Redo is executed.");
+            Logger.Log("Redo is executed.", Logger.LogTypes.Info);
         }
         private void setThemeOfListViewItems()
         {
@@ -4535,7 +4537,7 @@ namespace NeoBleeper
                         listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                     }
                 }
-                Debug.WriteLine("Cut is executed.");
+                Logger.Log("Cut is executed.", Logger.LogTypes.Info);
             }
         }
         private void UpdateRecentFilesMenu()
@@ -4581,6 +4583,7 @@ namespace NeoBleeper
                 }
                 else
                 {
+                    Logger.Log("The recent file you are trying to open is not found.", Logger.LogTypes.Error);
                     MessageBox.Show(Resources.MessageFileNotFoundError + " " + filePath, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Settings1.Default.RecentFiles.Remove(filePath);
                     Settings1.Default.Save();
@@ -4593,7 +4596,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error opening recent file: {ex.Message}");
+                Logger.Log($"Error opening recent file: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4605,14 +4608,14 @@ namespace NeoBleeper
 
         private void checkBox_add_note_to_list_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of add note to list is changed to: {checkBox_add_note_to_list.Checked}");
+            Logger.Log($"Checked state of add note to list is changed to: {checkBox_add_note_to_list.Checked}", Logger.LogTypes.Info);
         }
 
         private void add_as_note1_CheckedChanged(object sender, EventArgs e)
         {
             if (add_as_note1.Checked == true)
             {
-                Debug.WriteLine("Add as note 1 is checked");
+                Logger.Log("Add as note 1 is checked", Logger.LogTypes.Info);
             }
         }
 
@@ -4620,7 +4623,7 @@ namespace NeoBleeper
         {
             if (add_as_note2.Checked == true)
             {
-                Debug.WriteLine("Add as note 2 is checked");
+                Logger.Log("Add as note 2 is checked", Logger.LogTypes.Info);
             }
         }
 
@@ -4628,7 +4631,7 @@ namespace NeoBleeper
         {
             if (add_as_note3.Checked == true)
             {
-                Debug.WriteLine("Add as note 3 is checked");
+                Logger.Log("Add as note 3 is checked", Logger.LogTypes.Info);
             }
         }
 
@@ -4636,20 +4639,20 @@ namespace NeoBleeper
         {
             if (add_as_note4.Checked == true)
             {
-                Debug.WriteLine("Add as note 4 is checked");
+                Logger.Log("Add as note 4 is checked", Logger.LogTypes.Info);
             }
         }
 
         private void checkBox_replace_length_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of replace length is changed to: {checkBox_replace_length.Checked}");
+            Logger.Log($"Checked state of replace length is changed to: {checkBox_replace_length.Checked}", Logger.LogTypes.Info);
         }
 
         private void radioButtonPlay_alternating_notes1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonPlay_alternating_notes1.Checked == true)
             {
-                Debug.WriteLine("Play alternating notes in order is checked");
+                Logger.Log("Play alternating notes in order is checked", Logger.LogTypes.Info);
             }
         }
 
@@ -4657,13 +4660,13 @@ namespace NeoBleeper
         {
             if (radioButtonPlay_alternating_notes2.Checked == true)
             {
-                Debug.WriteLine("Play alternating notes in odd-even order is checked");
+                Logger.Log("Play alternating notes in odd-even order is checked", Logger.LogTypes.Info);
             }
         }
 
         private void checkBox_loop_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of loop is changed to: {checkBox_loop.Checked}");
+            Logger.Log($"Checked state of loop is changed to: {checkBox_loop.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_do_not_update_CheckedChanged(object sender, EventArgs e)
@@ -4680,32 +4683,32 @@ namespace NeoBleeper
                     play_Beat_Window.label_uncheck_do_not_update.Visible = false;
                 }
             }
-            Debug.WriteLine($"Checked state of do not update is changed to: {checkBox_do_not_update.Checked}");
+            Logger.Log($"Checked state of do not update is changed to: {checkBox_do_not_update.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_dotted_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of dotted is changed to: {checkBox_dotted.Checked}");
+            Logger.Log($"Checked state of dotted is changed to: {checkBox_dotted.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_triplet_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of triplet is changed to: {checkBox_triplet.Checked}");
+            Logger.Log($"Checked state of triplet is changed to: {checkBox_triplet.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_staccato_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of staccato is changed to: {checkBox_staccato.Checked}");
+            Logger.Log($"Checked state of staccato is changed to: {checkBox_staccato.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_spiccato_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of spiccato is changed to: {checkBox_spiccato.Checked}");
+            Logger.Log($"Checked state of spiccato is changed to: {checkBox_spiccato.Checked}", Logger.LogTypes.Info);
         }
 
         private void checkBox_fermata_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Checked state of fermata is changed to: {checkBox_fermata.Checked}");
+            Logger.Log($"Checked state of fermata is changed to: {checkBox_fermata.Checked}", Logger.LogTypes.Info);
         }
 
         private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4771,11 +4774,11 @@ namespace NeoBleeper
                 numericUpDown_alternating_notes.Value = alternatingNoteLength;
                 Variables.alternating_note_length = alternatingNoteLength;
 
-                Debug.WriteLine($"Values restored: BPM={bpmValue}, Alt Notes={alternatingNoteLength}");
+                Logger.Log($"Values restored: BPM={bpmValue}, Alt Notes={alternatingNoteLength}", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error restoring values: {ex.Message}");
+                Logger.Log($"Error restoring values: {ex.Message}", Logger.LogTypes.Error);
             }
             finally
             {
@@ -4822,12 +4825,12 @@ namespace NeoBleeper
                     checkBox_do_not_update.Checked = false;
                 }
                 openPlayBeatSoundWindow();
-                Debug.WriteLine("Play a beat sound window is opened.");
+                Logger.Log("Play a beat sound window is opened.", Logger.LogTypes.Info);
             }
             else if (checkBox_play_beat_sound.Checked == false)
             {
                 closePlayBeatSoundWindow();
-                Debug.WriteLine("Play a beat sound window is closed.");
+                Logger.Log("Play a beat sound window is closed.", Logger.LogTypes.Info);
             }
         }
         private String ConvertToNBPMLString()
@@ -4901,7 +4904,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error converting to NBPML string: " + ex.Message);
+                Logger.Log("Error converting to NBPML string: " + ex.Message, Logger.LogTypes.Error);
                 return string.Empty; // Return empty string in case of error
             }
         }
@@ -4921,7 +4924,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error converting to GCode: " + ex.Message);
+                Logger.Log("Error converting to GCode: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageConvertToGCodeError + " " + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4931,12 +4934,12 @@ namespace NeoBleeper
             if (checkBox_bleeper_portamento.Checked == true)
             {
                 openBleeperPortamentoWindow();
-                Debug.WriteLine("Bleeper portamento window is opened.");
+                Logger.Log("Bleeper portamento window is opened.", Logger.LogTypes.Info);
             }
             else if (checkBox_play_beat_sound.Checked == false)
             {
                 closePortamentoWindow();
-                Debug.WriteLine("Bleeper portamento window is closed.");
+                Logger.Log("Bleeper portamento window is closed.", Logger.LogTypes.Info);
             }
         }
         private readonly Dictionary<Button, string> buttonShortcuts = new Dictionary<Button, string>();
@@ -5496,7 +5499,7 @@ namespace NeoBleeper
             MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
             MIDIIOUtils._midiIn.Start(); // Start listening for MIDI input
 
-            Debug.WriteLine("MIDI input initialized and listening");
+            Logger.Log("MIDI input initialized and listening", Logger.LogTypes.Info);
         }
         // Handle MIDI device status changes
         private void MidiDevices_StatusChanged(object sender, EventArgs e)
@@ -5514,7 +5517,7 @@ namespace NeoBleeper
                     catch (NAudio.MmException)
                     {
                         // Device might already be disconnected, ignore this error
-                        Debug.WriteLine("MIDI input device already disconnected");
+                        Logger.Log("MIDI input device already disconnected", Logger.LogTypes.Error);
                     }
                 }
 
@@ -5531,11 +5534,11 @@ namespace NeoBleeper
                         try
                         {
                             MIDIIOUtils._midiIn.Start();
-                            Debug.WriteLine("MIDI input reinitialized and listening");
+                            Logger.Log("MIDI input reinitialized and listening", Logger.LogTypes.Info);
                         }
                         catch (NAudio.MmException ex)
                         {
-                            Debug.WriteLine($"Failed to start MIDI input: {ex.Message}");
+                            Logger.Log($"Failed to start MIDI input: {ex.Message}", Logger.LogTypes.Error);
                             // Update UI or show a message to the user that MIDI input is unavailable
                             MessageBox.Show($"{Resources.MessageStartMIDIInputDeviceError} {ex.Message}\n {Resources.MessageStartMIDIInputDeviceErrorPart2}",
                                 Resources.MIDIDeviceErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -5548,7 +5551,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error handling MIDI status change: {ex.Message}");
+                Logger.Log($"Error handling MIDI status change: {ex.Message}", Logger.LogTypes.Error);
             }
         }
 
@@ -5754,7 +5757,7 @@ namespace NeoBleeper
             {
                 MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
                 MIDIIOUtils._midiIn.Start();
-                Debug.WriteLine($"MIDI input device changed to device #{deviceNumber}");
+                Logger.Log($"MIDI input device changed to device #{deviceNumber}", Logger.LogTypes.Info);
             }
 
             // Stop any active alternating notes playback
