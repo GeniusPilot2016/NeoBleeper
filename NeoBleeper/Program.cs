@@ -14,6 +14,7 @@ namespace NeoBleeper
         [STAThread]
         static void Main()
         {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
             // P-Invoke to set the system timer resolution to 1 ms
             [System.Runtime.InteropServices.DllImport("kernel32.dll")]
             static extern uint timeBeginPeriod(uint uPeriod);

@@ -2709,15 +2709,21 @@ namespace NeoBleeper
             int baseLength = 0;
 
             // Predictive correction parameters
-            double driftVelocity = 0; // Rate of drift change
+            double driftVelocity = 0;
             double previousDrift = 0;
             const double VELOCITY_SMOOTHING = 0.3;
-            const double PREDICTION_FACTOR = 0.5; // How much to predict ahead
+            const double PREDICTION_FACTOR = 0.5;
 
-            NonBlockingSleep.Sleep(1);
+            // Skip threshold - skip notes if it's behind by more than this amount
+            const double SKIP_THRESHOLD_MS = 200; // Threshold to avoid false positives
+            const int TIMING_STABILIZATION_NOTES = 3; // Don't check for lag in first few notes
+
+            NonBlockingSleep.Sleep(1); // Sleep briefly to ensure UI updates
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             double expectedTime = 0.0;
+            int currentNoteIndex = startIndex;
+            int notesPlayed = 0; // Track number of notes for stabilization
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
@@ -2734,23 +2740,76 @@ namespace NeoBleeper
                 long actualElapsed = stopwatch.ElapsedMilliseconds;
                 double currentDrift = actualElapsed - expectedTime;
 
+                // Only check for lag after timing has stabilized and if drift is consistently high
+                bool shouldCheckForSkipping = notesPlayed >= TIMING_STABILIZATION_NOTES &&
+                                            currentDrift > SKIP_THRESHOLD_MS &&
+                                            Math.Abs(driftVelocity) < 50; // Avoid skipping during rapid timing changes
+
+                // Check if it needs to skip notes due to large lag
+                if (shouldCheckForSkipping)
+                {
+                    // Calculate how many notes it should skip
+                    double totalNoteDuration = noteDuration + beat_length;
+                    int notesToSkip = (int)Math.Floor(currentDrift / totalNoteDuration);
+
+                    if (notesToSkip > 0)
+                    {
+                        // Skip the calculated number of notes
+                        for (int i = 0; i < notesToSkip && currentNoteIndex < listViewNotes.Items.Count; i++)
+                        {
+                            expectedTime += totalNoteDuration;
+                            currentNoteIndex++;
+                        }
+
+                        // Update the list view selection to reflect the skipped notes
+                        UpdateListViewSelectionToIndex(currentNoteIndex);
+
+                        // Recalculate drift after skipping
+                        currentDrift = actualElapsed - expectedTime;
+                    }
+                }
+
+                // Handle end of music - check for looping or exit
+                if (currentNoteIndex >= listViewNotes.Items.Count)
+                {
+                    if (checkBox_loop.Checked)
+                    {
+                        // Reset to start for looping
+                        currentNoteIndex = startIndex;
+                        expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[startIndex].Selected = true;
+                        EnsureSpecificIndexVisible(startIndex);
+                        continue; // Continue with the loop iteration
+                    }
+                    else
+                    {
+                        break; // Exit the loop
+                    }
+                }
+
                 // Calculate drift velocity (how fast drift is changing)
                 double newDriftVelocity = currentDrift - previousDrift;
                 driftVelocity = VELOCITY_SMOOTHING * newDriftVelocity + (1 - VELOCITY_SMOOTHING) * driftVelocity;
 
-                // Predict future drift and apply gentle correction
+                // Predict future drift and apply gentle correction (only for small adjustments now)
                 double predictedDrift = currentDrift + (driftVelocity * PREDICTION_FACTOR);
-                double correctionToApply = predictedDrift * 0.1; // Very gentle correction
+                double correctionToApply = predictedDrift * 0.1;
 
-                // Only apply correction if it's significant enough
-                if (Math.Abs(correctionToApply) > 0.5)
+                // Only apply correction if it's significant enough and not too large
+                // Also avoid corrections in the first few notes when timing is unstable
+                if (notesPlayed >= TIMING_STABILIZATION_NOTES &&
+                    Math.Abs(correctionToApply) > 0.5 &&
+                    Math.Abs(correctionToApply) < 20)
                 {
                     double correctedNoteSoundDouble = noteSound_int - correctionToApply;
                     noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSoundDouble));
                 }
 
+                // Update expected time BEFORE playing the note to maintain accuracy
                 expectedTime += noteDuration + beat_length;
                 previousDrift = currentDrift;
+                notesPlayed++;
 
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
@@ -2761,7 +2820,29 @@ namespace NeoBleeper
                     NonBlockingSleep.Sleep(silence_int);
                 }
 
-                UpdateListViewSelection(startIndex);
+                currentNoteIndex++;
+
+                // Check if it's reached the end and handle looping
+                if (currentNoteIndex >= listViewNotes.Items.Count)
+                {
+                    if (checkBox_loop.Checked)
+                    {
+                        currentNoteIndex = startIndex;
+                        expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
+                        notesPlayed = 0; // Reset stabilization counter
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[startIndex].Selected = true;
+                        EnsureSpecificIndexVisible(startIndex);
+                    }
+                    // If not looping, the while condition will handle exit on next iteration
+                }
+                else
+                {
+                    // Normal progression - update selection to current note
+                    listViewNotes.SelectedItems.Clear();
+                    listViewNotes.Items[currentNoteIndex].Selected = true;
+                    EnsureSpecificIndexVisible(currentNoteIndex);
+                }
             }
 
             if (nonStopping)
@@ -2773,37 +2854,24 @@ namespace NeoBleeper
 
         // Async ListView update method
 
-        private async void UpdateListViewSelection(int startIndex)
+        private void UpdateListViewSelectionToIndex(int targetIndex)
         {
-            if (listViewNotes.Items.Count == 0) return;
+            if (listViewNotes.Items.Count == 0 || targetIndex >= listViewNotes.Items.Count) return;
 
+            // Clear current selection
             if (listViewNotes.SelectedItems.Count > 0)
             {
-                int currentIndex = listViewNotes.SelectedIndices[0];
-                int nextIndex = currentIndex + 1;
+                listViewNotes.SelectedItems.Clear();
+            }
 
-                if (nextIndex < listViewNotes.Items.Count)
-                {
-                    if (!listViewNotes.Items[nextIndex].Selected)
-                    {
-                        listViewNotes.Items[nextIndex].Selected = true;
-                        EnsureSpecificIndexVisible(nextIndex);
-                    }
-                }
-                else if (checkBox_loop.Checked)
-                {
-                    if (!listViewNotes.Items[startIndex].Selected)
-                    {
-                        listViewNotes.Items[startIndex].Selected = true;
-                        EnsureSpecificIndexVisible(startIndex);
-                    }
-                }
-                else
-                {
-                    stop_playing();
-                }
+            // Select the target index
+            if (targetIndex >= 0 && targetIndex < listViewNotes.Items.Count)
+            {
+                listViewNotes.Items[targetIndex].Selected = true;
+                EnsureSpecificIndexVisible(targetIndex);
             }
         }
+
         private void EnsureSpecificIndexVisible(int index)
         {
             Task.Run(() =>
@@ -3965,6 +4033,7 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
             if (initialMemento == null)
             {
                 MessageBox.Show(Resources.MessageNoSavedVersion, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3985,7 +4054,14 @@ namespace NeoBleeper
                 setThemeOfListViewItems(); // Set theme of list view items after rewinding if theme when rewinding is different
                 if (listViewNotes.Items.Count > 0)
                 {
-                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                    if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                    {
+                        listViewNotes.EnsureVisible(selectedLine);
+                    }
+                    else
+                    {
+                        listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                    }
                 }
                 // Log states of variables
                 Debug.WriteLine($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternating_note_length}");
@@ -4292,25 +4368,40 @@ namespace NeoBleeper
                     commandManager.ExecuteCommand(pasteCommand);
                     isModified = true;
                     UpdateFormTitle();
-                    if (listViewNotes.Items.Count > 0)
+                    if(listViewNotes.Items.Count > 0)
                     {
-                        listViewNotes.EnsureVisible(insertIndex != -1 ? insertIndex : listViewNotes.Items.Count - 1);
+                        if (insertIndex != -1 && insertIndex < listViewNotes.Items.Count)
+                        {
+                            listViewNotes.EnsureVisible(insertIndex);
+                        }
+                        else
+                        {
+                            listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                        }
                     }
                     Debug.WriteLine("Paste is executed.");
                 }
             }
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {;
             if (is_music_playing == true)
             {
                 stop_playing();
             }
+            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
             commandManager.Undo();
             setThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
             if (listViewNotes.Items.Count > 0)
             {
-                listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                if(selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                {
+                    listViewNotes.EnsureVisible(selectedLine);
+                }
+                else
+                {
+                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                }
             }
             Debug.WriteLine("Undo is executed.");
         }
@@ -4321,11 +4412,19 @@ namespace NeoBleeper
             {
                 stop_playing();
             }
+            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
             commandManager.Redo();
             setThemeOfListViewItems(); // Set theme of list view items after redoing if theme when redoing is different
             if (listViewNotes.Items.Count > 0)
             {
-                listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                {
+                    listViewNotes.EnsureVisible(selectedLine);
+                }
+                else
+                {
+                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                }
             }
             Debug.WriteLine("Redo is executed.");
         }
@@ -4407,6 +4506,7 @@ namespace NeoBleeper
         {
             if (listViewNotes.SelectedItems.Count > 0)
             {
+                int selectedIndex = listViewNotes.SelectedIndices[0];
                 ListViewItem selectedItem = listViewNotes.SelectedItems[0];
                 StringBuilder clipboardText = new StringBuilder();
 
@@ -4424,6 +4524,17 @@ namespace NeoBleeper
                 // Copy to clipboard
                 Clipboard.SetText(clipboardText.ToString());
                 erase_line();
+                if (listViewNotes.Items.Count > 0)
+                {
+                    if (selectedIndex < listViewNotes.Items.Count)
+                    {
+                        listViewNotes.EnsureVisible(selectedIndex);
+                    }
+                    else
+                    {
+                        listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                    }
+                }
                 Debug.WriteLine("Cut is executed.");
             }
         }

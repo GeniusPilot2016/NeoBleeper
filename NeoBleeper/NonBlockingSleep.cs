@@ -9,18 +9,6 @@ namespace NeoBleeper
 {
     public class NonBlockingSleep
     {
-        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod")]
-        private static extern int TimeBeginPeriod(uint uMilliseconds);
-
-        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod")]
-        private static extern int TimeEndPeriod(uint uMilliseconds);
-
-        [DllImport("kernel32.dll")]
-        private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
-
-        [DllImport("kernel32.dll")]
-        private static extern bool QueryPerformanceFrequency(out long lpFrequency);
-
         [DllImport("kernel32.dll")]
         private static extern uint SetThreadExecutionState(uint esFlags);
 
