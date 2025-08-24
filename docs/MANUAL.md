@@ -132,9 +132,13 @@
 
 - ## Debug Logging
 
-  The program is debugged by launching it directly from Visual Studio. Logging and diagnostics are handled internally using Visual Studio's built-in tools, including the Output window, breakpoints, and diagnostic panels.
+  From version 0.18.0 Alpha, NeoBleeper uses the `Logger` class for handling all logging and diagnostics. Logging output is saved to a file named `DebugLog.txt` located in the application's root directory. 
 
-  External trigger files such as "logenable" and log files like "debuglog.txt" are no longer used. All relevant debugging information is displayed within the Visual Studio environment during development and testing.
+  The `Logger` class provides detailed runtime information, including errors, warnings, and general debug messages. This log file is automatically created and updated during the application's execution. 
+
+  For advanced debugging, you can still launch NeoBleeper directly from Visual Studio to utilize its built-in tools, such as breakpoints and the Output window. However, the `DebugLog.txt` file ensures that logging is consistently available even outside of the Visual Studio development environment.
+
+  External trigger files such as `logenable` and older diagnostic methods are no longer supported. All relevant information is now centralized in the `DebugLog.txt` file for ease of access and review.
 
 - ## Mods
 
