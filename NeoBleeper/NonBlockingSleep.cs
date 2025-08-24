@@ -36,28 +36,35 @@ namespace NeoBleeper
         {
             if (microseconds <= 0)
                 return;
-
+            long cachedFrequency = CachedFrequency;
             PreventSleep();
 
             long currentFrequency = Stopwatch.Frequency;
             long startTicks = Stopwatch.GetTimestamp();
             long targetTicks = startTicks + (microseconds * currentFrequency) / 1000000;
-
             // Coarse delay: Sleep until close to the target time
             long coarseTargetTicks = targetTicks - (currentFrequency / 1000000 * 50); // 50 microseconds before target
-            while (Stopwatch.GetTimestamp() < coarseTargetTicks)
+            int doEventsCounter = 0;
+            long now = Stopwatch.GetTimestamp();
+            while (now < coarseTargetTicks)
             {
-                if (Application.MessageLoop)
+                long ticksLeft = coarseTargetTicks - now;
+                double microsecondsLeft = (double)ticksLeft * 1_000_000 / cachedFrequency;
+
+                Thread.SpinWait(1);
+
+                if (++doEventsCounter >= 100)
                 {
-                    Application.DoEvents(); // Keep UI responsive
+                    if (Application.MessageLoop)
+                        Application.DoEvents();
+                    doEventsCounter = 0;
                 }
-                Thread.Sleep(0); // Yield CPU without significant delay
+                now = Stopwatch.GetTimestamp();
             }
 
             // Fine-tuning: Tight loop for the final microseconds
             while (Stopwatch.GetTimestamp() < targetTicks)
             {
-                // Tight loop for precision
             }
         }
         public static void SleepNanoseconds(long nanoseconds)

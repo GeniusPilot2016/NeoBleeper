@@ -105,10 +105,10 @@ namespace NeoBleeper
             string[] funFacts = new string[]
             {
                 "The system speaker was introduced in 1981 as part of the original IBM PC.",
-                "It is monophonic, meaning it can only play one note at a time.",
+                "The system speaker can only play one note at a time (monophonic).",
                 "Early PC games used the system speaker to create iconic 8-bit soundtracks.",
                 "The speaker's sound is controlled by sending specific frequencies to the hardware.",
-                "Despite being largely obsolete, it is still used for diagnostic beeps in modern PCs.",
+                "Despite being largely obsolete, the system speaker is still used for diagnostic beeps in modern PCs.",
                 "Music and mathematics are deeply connected through harmonic frequencies.",
                 "The oldest known musical instrument is over 40,000 years old.",
                 "Music is often called the 'universal language' for its emotional resonance.",
@@ -118,6 +118,8 @@ namespace NeoBleeper
                 "Some early software used the system speaker to play Morse code for communication.",
                 "Beep codes emitted by the system speaker help diagnose hardware issues during boot.",
                 "Hobbyists have created entire songs using sequences of system speaker beeps.",
+                "Robbi-985 (aka SomethingUnreal) was a pioneer in composing music for the IBM PC's system speaker and he created music from Windows XP and 98 sounds.",
+                "https://www.youtube.com/watch?v=dsU3B0W3TMs, which is work by Robbi-985.",
                 "Listening to music stimulates almost every part of the brain.",
                 "The tempo of music can influence your heart rate and mood.",
                 "Astronauts play music in space to boost morale and stay connected to Earth.",
@@ -136,8 +138,8 @@ namespace NeoBleeper
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n"; 
-            Debug.WriteLine(LogText); 
-            File.WriteAllText("DebugLog.txt", LogText.TrimEnd());
+            Debug.WriteLine(LogText);
+            WriteLogToFile(LogText.TrimEnd());
         }
         public enum LogTypes
         {
@@ -165,8 +167,26 @@ namespace NeoBleeper
             }
             string logMessage = $"[{DateTime.Now:HH:mm:ss}] - [{LoggingType}] {message}";
             LogText += logMessage + "\r\n";
-            File.WriteAllText("DebugLog.txt", LogText);
+            WriteLogToFile(LogText);
             Debug.WriteLine(logMessage);
+        }
+
+        private static void WriteLogToFile(string content)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream("DebugLog.txt", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.Write(content);
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine($"File access error: {ex.Message}");
+            }
         }
     }
 }
