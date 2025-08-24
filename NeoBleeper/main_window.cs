@@ -2799,7 +2799,6 @@ namespace NeoBleeper
 
                 // Only apply correction if it's significant enough and not too large
                 // Also avoid corrections in the first few notes when timing is unstable
-                // ... existing code ...
                 if (notesPlayed >= TIMING_STABILIZATION_NOTES &&
                     Math.Abs(correctionToApply) > 0.5 &&
                     Math.Abs(correctionToApply) < 20)
