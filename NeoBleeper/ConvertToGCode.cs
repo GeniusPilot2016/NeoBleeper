@@ -145,12 +145,12 @@ namespace NeoBleeper
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                     {
                         note_silence_ratio = 50; // Default value
-                        Debug.WriteLine("Note silence ratio not found, defaulting to 50%");
+                        Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                     }
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
                     {
                         alternate_length = 30; // Default value
-                        Debug.WriteLine("Alternating note length not found, defaulting to 30 ms");
+                        Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                     }
 
                     notes.Clear();
@@ -282,11 +282,13 @@ namespace NeoBleeper
                         writer.WriteLine(notes);
                         writer.Close();
                     }
+                    Logger.Log("GCode exported to " + filePath, Logger.LogTypes.Info);
                     MessageBox.Show(Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
+                Logger.Log("No notes found to convert to GCode.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -53,7 +53,7 @@ public class RewindCommand : ICommand
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error in RewindCommand.Execute: {ex.Message}");
+            Logger.Log($"Error in RewindCommand.Execute: {ex.Message}", Logger.LogTypes.Error);
             throw;
         }
     }
@@ -67,7 +67,7 @@ public class RewindCommand : ICommand
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error in RewindCommand.Undo: {ex.Message}");
+            Logger.Log($"Error in RewindCommand.Undo: {ex.Message}", Logger.LogTypes.Error);
             throw;
         }
     }

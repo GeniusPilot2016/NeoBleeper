@@ -76,7 +76,7 @@ namespace NeoBleeper
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"Exception during Tick event: {ex}");
+                        Logger.Log($"Exception during Tick event: {ex}", Logger.LogTypes.Error);
                     }
                 }
                 else

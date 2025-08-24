@@ -99,14 +99,17 @@ namespace NeoBleeper
             if (radioButton_play_sound_on_all_beats.Checked == true)
             {
                 TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats;
+                Logger.Log("Set to play sound on all beats.", Logger.LogTypes.Info);
             }
             else if (radioButton_play_sound_on_odd_beats.Checked == true)
             {
                 TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats;
+                Logger.Log("Set to play sound on odd beats.", Logger.LogTypes.Info);
             }
             else if (radioButton_play_sound_on_even_beats.Checked == true)
             {
                 TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats;
+                Logger.Log("Set to play sound on even beats.", Logger.LogTypes.Info);
             }
         }
         private void play_beat_window_SystemColorsChanged(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace NeoBleeper
                 }
                 catch (MmException ex)
                 {
-                    Debug.WriteLine($"Error initializing MIDI device (attempt {i + 1}): {ex.Message}");
+                    Logger.Log($"Error initializing MIDI device (attempt {i + 1}): {ex.Message}", Logger.LogTypes.Error);
                     _midiOut = null;
 
                     if (i < retryCount - 1)
@@ -33,7 +33,7 @@ namespace NeoBleeper
                     }
                 }
             }
-            Debug.WriteLine("Failed to initialize MIDI device after multiple attempts");
+            Logger.Log("Failed to initialize MIDI device after multiple attempts", Logger.LogTypes.Error);
         }
         public static void DisposeMidiOutput()
         {
@@ -62,7 +62,7 @@ namespace NeoBleeper
             }
             catch (MmException ex)
             {
-                Debug.WriteLine($"Error changing MIDI input device: {ex.Message}");
+                Logger.Log($"Error changing MIDI input device: {ex.Message}", Logger.LogTypes.Error);
                 _midiIn = null;
             }
         }
@@ -77,7 +77,7 @@ namespace NeoBleeper
             }
             catch (MmException ex)
             {
-                Debug.WriteLine($"Error changing MIDI output device: {ex.Message}");
+                Logger.Log($"Error changing MIDI output device: {ex.Message}", Logger.LogTypes.Error);
                 _midiOut = null;
             }
         }
@@ -89,7 +89,7 @@ namespace NeoBleeper
             }
             catch (MmException)
             {
-                Debug.WriteLine("MIDI output device not found.");
+                Logger.Log("MIDI output device not found.", Logger.LogTypes.Error);
             }
         }
         public static int DynamicVelocity()
@@ -109,7 +109,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error playing MIDI note: {ex.Message}");
+                Logger.Log($"Error playing MIDI note: {ex.Message}", Logger.LogTypes.Error);
             }
 
         }
@@ -177,7 +177,7 @@ namespace NeoBleeper
             }
             else
             {
-                Debug.WriteLine("MIDI output device not initialized.");
+                Logger.Log("MIDI output device not initialized.", Logger.LogTypes.Error);
             }
         }
 
@@ -189,7 +189,7 @@ namespace NeoBleeper
             }
             else
             {
-                Debug.WriteLine("MIDI output device not initialized.");
+                Logger.Log("MIDI output device not initialized.", Logger.LogTypes.Error);
             }
         }
     }

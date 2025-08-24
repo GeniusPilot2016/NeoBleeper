@@ -110,7 +110,7 @@ namespace NeoBleeper
                 else
                 {
                     MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Debug.WriteLine("This file is not a valid MIDI file or the file is corrupted.");
+                    Logger.Log("This file is not a valid MIDI file or the file is corrupted.", Logger.LogTypes.Error);
                 }
             }
         }
@@ -143,13 +143,13 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        Debug.WriteLine("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.");
+                        Logger.Log("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.", Logger.LogTypes.Error);
                         MessageBox.Show(Resources.MessageMIDIFilePlayerNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
-                    Debug.WriteLine("The file you dragged is corrupted or the file is in use by another process.");
+                    Logger.Log("The file you dragged is corrupted or the file is in use by another process.", Logger.LogTypes.Error);
                     MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -179,7 +179,7 @@ namespace NeoBleeper
                 }
             }
 
-            Debug.WriteLine($"Enabled channels: {string.Join(", ", _enabledChannels)}");
+            Logger.Log($"Enabled channels: {string.Join(", ", _enabledChannels)}", Logger.LogTypes.Info);
         }
 
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
@@ -318,7 +318,7 @@ namespace NeoBleeper
                 progressBar1.Value = 0;
                 MessageBox.Show($"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
-                Debug.WriteLine($"Error loading MIDI file: {ex.Message}");
+                Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
             }
             finally
             {
@@ -346,7 +346,7 @@ namespace NeoBleeper
         private double _playbackStartOffsetMs = 0;
         public void Play()
         {
-            Debug.WriteLine($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}");
+            Logger.Log($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}", Logger.LogTypes.Info);
 
             if (_isPlaying || _frames == null || _frames.Count == 0)
                 return;
@@ -371,7 +371,7 @@ namespace NeoBleeper
 
                 playbackTimer.Start();
 
-                Debug.WriteLine("Timer-based playback started successfully");
+                Logger.Log("Timer-based playback started successfully", Logger.LogTypes.Info);
                 button_play.Enabled = false;
                 button_stop.Enabled = true;
             }
@@ -383,7 +383,7 @@ namespace NeoBleeper
         }
         public async void Stop()
         {
-            Debug.WriteLine($"Stop called. IsPlaying: {_isPlaying}");
+            Logger.Log($"Stop called. IsPlaying: {_isPlaying}", Logger.LogTypes.Info);
 
             if (!_isPlaying)
                 return;
@@ -414,7 +414,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error stopping playback: {ex.Message}");
+                Logger.Log($"Error stopping playback: {ex.Message}", Logger.LogTypes.Error);
             }
             finally
             {
@@ -452,7 +452,7 @@ namespace NeoBleeper
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"Error waiting for playback task: {ex.Message}");
+                        Logger.Log($"Error waiting for playback task: {ex.Message}", Logger.LogTypes.Error);
                     }
                 }
             }
@@ -463,7 +463,7 @@ namespace NeoBleeper
             // Clamp the index to valid range
             _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
 
-            Debug.WriteLine($"Position set to {positionPercent}% (frame {_currentFrameIndex} of {_frames.Count})");
+            Logger.Log($"Position set to {positionPercent}% (frame {_currentFrameIndex} of {_frames.Count})", Logger.LogTypes.Info);
 
             // Don't restart playback immediately if trackbar is being dragged
             // The timer in trackBar1_Scroll will handle restart after user stops dragging
@@ -528,7 +528,7 @@ namespace NeoBleeper
                     Play();
                 }
             }
-            Debug.WriteLine("Channel checkboxes changed");
+            Logger.Log("Channel checkboxes changed", Logger.LogTypes.Info);
         }
 
         // Play multiple notes alternating
@@ -909,7 +909,7 @@ namespace NeoBleeper
                 Play();
                 _wasPlayingBeforeScroll = false;
             }
-            Debug.WriteLine("Rewind completed");
+            Logger.Log("Rewind completed", Logger.LogTypes.Info);
         }
         private string MidiNoteToName(int noteNumber)
         {
@@ -972,7 +972,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error updating note labels: {ex.Message}");
+                Logger.Log($"Error updating note labels: {ex.Message}", Logger.LogTypes.Error);
             }
             finally
             {
@@ -1013,12 +1013,12 @@ namespace NeoBleeper
             if (checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true)
             {
                 panel1.Enabled = false;
-                Debug.WriteLine("Play each note or make each cycle last 30 ms checkbox is checked. Disabling the panel.");
+                Logger.Log("Play each note or make each cycle last 30 ms checkbox is checked. Disabling the panel.", Logger.LogTypes.Info);
             }
             else
             {
                 panel1.Enabled = true;
-                Debug.WriteLine("Play each note or make each cycle last 30 ms checkbox is not checked. Enabling the panel.");
+                Logger.Log("Play each note or make each cycle last 30 ms checkbox is not checked. Enabling the panel.", Logger.LogTypes.Info);
             }
         }
 
@@ -1139,11 +1139,11 @@ namespace NeoBleeper
             if (checkBox_dont_update_grid.Checked == true)
             {
                 UpdateNoteLabels(new HashSet<int>());
-                Debug.WriteLine("Don't update grid checkbox is checked. Hiding all labels.");
+                Logger.Log("Don't update grid checkbox is checked. Hiding all labels.", Logger.LogTypes.Info);
             }
             else
             {
-                Debug.WriteLine("Don't update grid checkbox is not checked. Showing all labels.");
+                Logger.Log("Don't update grid checkbox is not checked. Showing all labels.", Logger.LogTypes.Info);
             }
         }
         private int _highlightDuration;
@@ -1152,22 +1152,22 @@ namespace NeoBleeper
         {
             if (checkBox_loop.Checked == true)
             {
-                Debug.WriteLine("Loop is enabled.");
+                Logger.Log("Loop is enabled.", Logger.LogTypes.Info);
             }
             else
             {
-                Debug.WriteLine("Loop is disabled.");
+                Logger.Log("Loop is disabled.", Logger.LogTypes.Info);
             }
         }
 
         private void numericUpDown_alternating_note_ValueChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Alternating note duration changed to {numericUpDown_alternating_note.Value} ms.");
+            Logger.Log($"Alternating note duration changed to {numericUpDown_alternating_note.Value} ms.", Logger.LogTypes.Info);
         }
 
         private void checkBox_play_each_note_CheckedChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("Play each note checkbox changed.");
+            Logger.Log("Play each note checkbox changed.", Logger.LogTypes.Info);
         }
 
         private double TicksToMilliseconds(long ticks)
@@ -1247,7 +1247,7 @@ namespace NeoBleeper
             // More robust null check for _cancellationTokenSource
             if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
             {
-                Debug.WriteLine("CancellationTokenSource is null or canceled, stopping playback");
+                Logger.Log("CancellationTokenSource is null or canceled, stopping playback", Logger.LogTypes.Info);
                 Stop();
                 return;
             }
@@ -1272,7 +1272,7 @@ namespace NeoBleeper
                         // Check if we're still playing and token is valid
                         if (!_isPlaying || _cancellationTokenSource == null)
                         {
-                            Debug.WriteLine("Playback stopped or token cancelled during frame processing");
+                            Logger.Log("Playback stopped or token cancelled during frame processing", Logger.LogTypes.Info);
                             break;
                         }
 
@@ -1294,11 +1294,11 @@ namespace NeoBleeper
                 }
                 catch (OperationCanceledException)
                 {
-                    Debug.WriteLine("Playback task was canceled.");
+                    Logger.Log("Playback task was canceled.", Logger.LogTypes.Info);
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Error in playback task: {ex.Message}");
+                    Logger.Log($"Error in playback task: {ex.Message}", Logger.LogTypes.Error);
                     if (IsHandleCreated)
                     {
                         this.BeginInvoke((Action)Stop);
@@ -1452,7 +1452,7 @@ namespace NeoBleeper
             }
             catch (OperationCanceledException)
             {
-                Debug.WriteLine($"Silent frame wait was canceled after {milliseconds}ms");
+                Logger.Log($"Silent frame wait was canceled after {milliseconds}ms", Logger.LogTypes.Info);
                 throw;
             }
         }
@@ -1534,27 +1534,27 @@ namespace NeoBleeper
                 _wasPlayingBeforeScroll = false;
                 if (checkBox_loop.Checked)
                 {
-                    Debug.WriteLine("Playback loop enabled. Rewinding.");
+                    Logger.Log("Playback loop enabled. Rewinding.", Logger.LogTypes.Info);
                     Rewind();
                     // Restart playback if looping is enabled
                     Play();
                 }
                 else
                 { 
-                    Debug.WriteLine("Playback finished.");
+                    Logger.Log("Playback finished.", Logger.LogTypes.Info);
                     Stop();
                     Rewind();
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"An error occurred in HandlePlaybackComplete: {ex.Message}");
+                Logger.Log($"An error occurred in HandlePlaybackComplete: {ex.Message}", Logger.LogTypes.Error);
                 // Stop playback if an error occurs
                 Stop();
             }
             finally
             {
-                Debug.WriteLine("Timer-based playback completed");
+                Logger.Log("Timer-based playback completed", Logger.LogTypes.Info);
             }
         }
 

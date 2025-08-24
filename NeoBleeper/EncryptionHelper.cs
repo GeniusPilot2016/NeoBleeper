@@ -87,7 +87,7 @@ public class EncryptionHelper
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Encryption error: " + ex.Message);
+            Logger.Log("Encryption error: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
     }
@@ -127,7 +127,7 @@ public class EncryptionHelper
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Decryption error: " + ex.Message);
+            Logger.Log("Decryption error: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
     }
@@ -155,12 +155,12 @@ public class EncryptionHelper
                 _key = null;
                 _iv = null;
 
-                System.Diagnostics.Debug.WriteLine("Generated new encryption key and IV");
+                Logger.Log("Generated new encryption key and IV", Logger.LogTypes.Info);
             }
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Error changing encryption key and IV: " + ex.Message);
+            Logger.Log("Error changing encryption key and IV: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
     }

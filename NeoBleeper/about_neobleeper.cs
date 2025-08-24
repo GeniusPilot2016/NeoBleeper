@@ -7,6 +7,21 @@
         {
             InitializeComponent();
             UIFonts.setFonts(this);
+            int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
+            int MinorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor;
+            int PatchVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build;
+
+            string version = $"{MajorVersion}.{MinorVersion}.{PatchVersion}";
+
+            // Extract the status (e.g., "alpha") and capitalize the first letter
+            string status = System.Reflection.Assembly.GetExecutingAssembly()
+                .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+                .Cast<System.Reflection.AssemblyInformationalVersionAttribute>()
+                .FirstOrDefault()?.InformationalVersion?.Split('-').Skip(1).FirstOrDefault()?.Split('+')[0] ?? "Release";
+
+            status = char.ToUpper(status[0]) + status.Substring(1);
+
+            lbl_version.Text = $"Version {version} {status}";
             set_theme();
         }
         private void set_theme()
