@@ -135,9 +135,9 @@ namespace NeoBleeper
                 "Some musicians today intentionally use 1-bit audio (like system speaker output) as an artistic choice for its raw, digital aesthetic."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
-            LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n";
-            Debug.WriteLine(LogText);
-            File.WriteAllText("DebugLog.txt", LogText);
+            LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n"; 
+            Debug.WriteLine(LogText); 
+            File.WriteAllText("DebugLog.txt", LogText.TrimEnd());
         }
         public enum LogTypes
         {
