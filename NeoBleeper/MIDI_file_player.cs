@@ -1370,7 +1370,7 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, -1, false, 9); // Kanal 10, doğru note numarası
+                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, -1, false, 9); // Channel 10
                     }
                 }
             }
@@ -1582,8 +1582,8 @@ namespace NeoBleeper
                     {
                         var noteEvent = (NoteOnEvent)midiEvent;
                         int instrument;
-                        if (noteEvent.Channel == 9) // Kanal 10 (perküsyon)
-                            instrument = -1; // Perküsyon için özel işaret
+                        if (noteEvent.Channel == 9) // Channel 10 (percussion)
+                            instrument = -1; 
                         else
                             instrument = lastPatchPerChannel.TryGetValue(noteEvent.Channel, out var patch) ? patch : 0;
                         _noteInstruments[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = instrument;

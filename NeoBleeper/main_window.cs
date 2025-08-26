@@ -2714,10 +2714,7 @@ namespace NeoBleeper
             double previousDrift = 0;
             const double VELOCITY_SMOOTHING = 0.3;
             const double PREDICTION_FACTOR = 0.5;
-
-            // Skip threshold - skip notes if it's behind by more than this amount
-            const double SKIP_THRESHOLD_MS = 200; // Threshold to avoid false positives
-            const int TIMING_STABILIZATION_NOTES = 3; // Don't check for lag in first few notes
+            const double LAG_THRESHOLD = 200;
 
             NonBlockingSleep.Sleep(1); // Sleep briefly to ensure UI updates
             Stopwatch stopwatch = new Stopwatch();
@@ -2737,71 +2734,52 @@ namespace NeoBleeper
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 double noteDuration = line_length_calculator(baseLength);
 
-                // Calculate drift and its velocity
                 long actualElapsed = stopwatch.ElapsedMilliseconds;
                 double currentDrift = actualElapsed - expectedTime;
 
-                // Only check for lag after timing has stabilized and if drift is consistently high
-                bool shouldCheckForSkipping = notesPlayed >= TIMING_STABILIZATION_NOTES &&
-                                            currentDrift > SKIP_THRESHOLD_MS &&
-                                            Math.Abs(driftVelocity) < 50; // Avoid skipping during rapid timing changes
-
-                // Check if it needs to skip notes due to large lag
-                if (shouldCheckForSkipping)
+                // Handle freeze and resume
+                if (currentDrift > LAG_THRESHOLD)
                 {
-                    // Calculate how many notes it should skip
-                    double totalNoteDuration = noteDuration + beat_length;
-                    int notesToSkip = (int)Math.Floor(currentDrift / totalNoteDuration);
+                    // Calculate how many notes to skip
+                    int notesToSkip = (int)(currentDrift / (noteDuration + silence_int));
+                    currentNoteIndex += notesToSkip;
+                    expectedTime += notesToSkip * (noteDuration + silence_int);
 
-                    if (notesToSkip > 0)
+                    // Ensure we don't exceed the list bounds
+                    if (currentNoteIndex >= listViewNotes.Items.Count)
                     {
-                        // Skip the calculated number of notes
-                        for (int i = 0; i < notesToSkip && currentNoteIndex < listViewNotes.Items.Count; i++)
+                        if (checkBox_loop.Checked)
                         {
-                            expectedTime += totalNoteDuration;
-                            currentNoteIndex++;
+                            currentNoteIndex = startIndex;
+                            expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
+                            notesPlayed = 0; // Reset stabilization counter
+                            listViewNotes.SelectedItems.Clear();
+                            listViewNotes.Items[startIndex].Selected = true;
+                            EnsureSpecificIndexVisible(startIndex);
                         }
-
-                        // Update the list view selection to reflect the skipped notes
-                        UpdateListViewSelectionToIndex(currentNoteIndex);
-
-                        // Recalculate drift after skipping
-                        currentDrift = actualElapsed - expectedTime;
+                        else
+                        {
+                            break; // Exit the loop if not looping
+                        }
                     }
+                    continue; // Skip to the next iteration
                 }
 
-                // Handle end of music - check for looping or exit
-                if (currentNoteIndex >= listViewNotes.Items.Count)
+                if (notesPlayed == 0)
                 {
-                    if (checkBox_loop.Checked)
-                    {
-                        // Reset to start for looping
-                        currentNoteIndex = startIndex;
-                        expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference
-                        listViewNotes.SelectedItems.Clear();
-                        listViewNotes.Items[startIndex].Selected = true;
-                        EnsureSpecificIndexVisible(startIndex);
-                        continue; // Continue with the loop iteration
-                    }
-                    else
-                    {
-                        break; // Exit the loop
-                    }
+                    previousDrift = currentDrift;
+                    driftVelocity = 0;
+                    expectedTime = actualElapsed;
                 }
 
-                // Calculate drift velocity (how fast drift is changing)
                 double newDriftVelocity = currentDrift - previousDrift;
                 driftVelocity = VELOCITY_SMOOTHING * newDriftVelocity + (1 - VELOCITY_SMOOTHING) * driftVelocity;
 
-                // Predict future drift and apply gentle correction (only for small adjustments now)
+                double correctionFactor = notesPlayed < 5 ? 0.3 : 0.1;
                 double predictedDrift = currentDrift + (driftVelocity * PREDICTION_FACTOR);
-                double correctionToApply = predictedDrift * 0.1;
+                double correctionToApply = predictedDrift * correctionFactor;
 
-                // Only apply correction if it's significant enough and not too large
-                // Also avoid corrections in the first few notes when timing is unstable
-                if (notesPlayed >= TIMING_STABILIZATION_NOTES &&
-                    Math.Abs(correctionToApply) > 0.5 &&
-                    Math.Abs(correctionToApply) < 20)
+                if (Math.Abs(correctionToApply) > 0.1 && Math.Abs(correctionToApply) < 20)
                 {
                     double totalDuration = noteSound_int + silence_int;
                     if (totalDuration > 0)
@@ -2820,7 +2798,6 @@ namespace NeoBleeper
                     }
                 }
 
-                // Update expected time BEFORE playing the note to maintain accuracy
                 expectedTime += noteDuration + beat_length;
                 previousDrift = currentDrift;
                 notesPlayed++;

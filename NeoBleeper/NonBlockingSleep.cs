@@ -29,58 +29,31 @@ namespace NeoBleeper
             {
                 return;
             }
-
-            SleepMicroseconds(milliseconds * 1000);
-        }
-        public static void SleepMicroseconds(long microseconds)
-        {
-            if (microseconds <= 0)
-                return;
             long cachedFrequency = CachedFrequency;
             PreventSleep();
-
             long currentFrequency = Stopwatch.Frequency;
             long startTicks = Stopwatch.GetTimestamp();
-            long targetTicks = startTicks + (microseconds * currentFrequency) / 1000000;
-            // Coarse delay: Sleep until close to the target time
+            long targetTicks = startTicks + (milliseconds * currentFrequency) / 1000;
             long coarseTargetTicks = targetTicks - (currentFrequency / 1000000 * 50); // 50 microseconds before target
             int doEventsCounter = 0;
             long now = Stopwatch.GetTimestamp();
             while (now < coarseTargetTicks)
             {
+                if(coarseTargetTicks >= now)
+                {
+                    break;
+                }
                 long ticksLeft = coarseTargetTicks - now;
                 double microsecondsLeft = (double)ticksLeft * 1_000_000 / cachedFrequency;
-
-                Thread.SpinWait(1);
-
-                if (++doEventsCounter >= 100)
-                {
-                    if (Application.MessageLoop)
-                        Application.DoEvents();
-                    doEventsCounter = 0;
-                }
+                if (Application.MessageLoop)
+                    Application.DoEvents();
                 now = Stopwatch.GetTimestamp();
             }
 
             // Fine-tuning: Tight loop for the final microseconds
             while (Stopwatch.GetTimestamp() < targetTicks)
             {
-            }
-        }
-        public static void SleepNanoseconds(long nanoseconds)
-        {
-            if (nanoseconds <= 0)
-            {
-                return;
-            }
-
-            long startTicks = Stopwatch.GetTimestamp();
-            long targetTicks = startTicks + (nanoseconds * CachedFrequency) / 1000000000;
-
-            // Pure spinning for nanosecond precision (use sparingly!)
-            while (Stopwatch.GetTimestamp() < targetTicks)
-            {
-                // Tight loop for maximum precision
+                Thread.SpinWait(1);
             }
         }
     }
