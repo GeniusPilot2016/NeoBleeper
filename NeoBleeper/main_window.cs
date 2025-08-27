@@ -2821,10 +2821,8 @@ namespace NeoBleeper
                         currentNoteIndex = startIndex;
                         expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
                         notesPlayed = 0; // Reset stabilization counter
-                        listViewNotes.Invoke(new Action(() => {
-                            listViewNotes.SelectedItems.Clear();
-                            listViewNotes.Items[startIndex].Selected = true;
-                        }));
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[startIndex].Selected = true;
                         EnsureSpecificIndexVisible(startIndex);
                     }
                     // If not looping, the while condition will handle exit on next iteration
@@ -2832,10 +2830,8 @@ namespace NeoBleeper
                 else
                 {
                     // Normal progression - update selection to current note
-                    listViewNotes.Invoke(new Action(() => {
-                        listViewNotes.SelectedItems.Clear();
-                        listViewNotes.Items[currentNoteIndex].Selected = true;
-                    }));
+                    listViewNotes.SelectedItems.Clear();
+                    listViewNotes.Items[currentNoteIndex].Selected = true;
                     EnsureSpecificIndexVisible(currentNoteIndex);
                 }
             }
@@ -2850,26 +2846,23 @@ namespace NeoBleeper
         // Async ListView update method
         private void EnsureSpecificIndexVisible(int index)
         {
-            Task.Run(() =>
+            if (listViewNotes.InvokeRequired)
             {
-                try
+                listViewNotes.Invoke(new Action(() =>
                 {
-                    SuspendLayout();
-                    if (listViewNotes.InvokeRequired)
-                    {
-                        listViewNotes.Invoke(new Action(() => listViewNotes.EnsureVisible(index)));
-                    }
-                    else
+                    if (listViewNotes.TopItem == null || Math.Abs(listViewNotes.TopItem.Index - index) > 10)
                     {
                         listViewNotes.EnsureVisible(index);
                     }
-                    ResumeLayout(true);
-                }
-                catch (Exception ex)
+                }));
+            }
+            else
+            {
+                if (listViewNotes.TopItem == null || Math.Abs(listViewNotes.TopItem.Index - index) > 10)
                 {
-                    Logger.Log("Error ensuring index visible: " + ex.Message, Logger.LogTypes.Error);
+                    listViewNotes.EnsureVisible(index);
                 }
-            });
+            }
         }
         public void play_all()
         {
