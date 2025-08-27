@@ -2732,7 +2732,7 @@ namespace NeoBleeper
 
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                double noteDuration = line_length_calculator(baseLength);
+                double noteDuration = line_length_calculator(baseLength) + beat_length;
 
                 long actualElapsed = stopwatch.ElapsedMilliseconds;
                 double currentDrift = actualElapsed - expectedTime;
@@ -2741,9 +2741,9 @@ namespace NeoBleeper
                 if (currentDrift > LAG_THRESHOLD)
                 {
                     // Calculate how many notes to skip
-                    int notesToSkip = (int)(currentDrift / (noteDuration + silence_int));
+                    int notesToSkip = (int)(currentDrift / (noteDuration + silence_int + beat_length));
                     currentNoteIndex += notesToSkip;
-                    expectedTime += notesToSkip * (noteDuration + silence_int);
+                    expectedTime += notesToSkip * (noteDuration + silence_int + beat_length);
 
                     // Ensure we don't exceed the list bounds
                     if (currentNoteIndex >= listViewNotes.Items.Count)
@@ -2821,8 +2821,10 @@ namespace NeoBleeper
                         currentNoteIndex = startIndex;
                         expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
                         notesPlayed = 0; // Reset stabilization counter
-                        listViewNotes.SelectedItems.Clear();
-                        listViewNotes.Items[startIndex].Selected = true;
+                        listViewNotes.Invoke(new Action(() => {
+                            listViewNotes.SelectedItems.Clear();
+                            listViewNotes.Items[startIndex].Selected = true;
+                        }));
                         EnsureSpecificIndexVisible(startIndex);
                     }
                     // If not looping, the while condition will handle exit on next iteration
@@ -2830,8 +2832,10 @@ namespace NeoBleeper
                 else
                 {
                     // Normal progression - update selection to current note
-                    listViewNotes.SelectedItems.Clear();
-                    listViewNotes.Items[currentNoteIndex].Selected = true;
+                    listViewNotes.Invoke(new Action(() => {
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[currentNoteIndex].Selected = true;
+                    }));
                     EnsureSpecificIndexVisible(currentNoteIndex);
                 }
             }
@@ -2844,25 +2848,6 @@ namespace NeoBleeper
         }
 
         // Async ListView update method
-
-        private void UpdateListViewSelectionToIndex(int targetIndex)
-        {
-            if (listViewNotes.Items.Count == 0 || targetIndex >= listViewNotes.Items.Count) return;
-
-            // Clear current selection
-            if (listViewNotes.SelectedItems.Count > 0)
-            {
-                listViewNotes.SelectedItems.Clear();
-            }
-
-            // Select the target index
-            if (targetIndex >= 0 && targetIndex < listViewNotes.Items.Count)
-            {
-                listViewNotes.Items[targetIndex].Selected = true;
-                EnsureSpecificIndexVisible(targetIndex);
-            }
-        }
-
         private void EnsureSpecificIndexVisible(int index)
         {
             Task.Run(() =>

@@ -22,86 +22,8 @@ namespace NeoBleeper
                 "                                    |_|              \r\n";
             LogText += "\nFrom Something Unreal to Open Sound – Reviving the Legacy, One Note at a Time. \r\n";
             LogText += "\nhttps://github.com/GeniusPilot2016/NeoBleeper \r\n\n";
-            int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
-            int MinorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor;
-            int PatchVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build;
-
-            string version = $"{MajorVersion}.{MinorVersion}.{PatchVersion}";
-
-            // Extract the status (e.g., "alpha") and capitalize the first letter
-            string status = System.Reflection.Assembly.GetExecutingAssembly()
-                .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
-                .Cast<System.Reflection.AssemblyInformationalVersionAttribute>()
-                .FirstOrDefault()?.InformationalVersion?.Split('-').Skip(1).FirstOrDefault()?.Split('+')[0] ?? "Release";
-
-            status = char.ToUpper(status[0]) + status.Substring(1);
-
-            LogText += $"NeoBleeper Version {version} {status}\r\n";
-            String osVersion = System.Environment.OSVersion.VersionString;
-            LogText += $"\r\nOperating System: {osVersion}\r\n";
-            string processorSpeed = "Unknown";
-            try
-            {
-                using (var searcher = new System.Management.ManagementObjectSearcher("select MaxClockSpeed from Win32_Processor"))
-                {
-                    foreach (var item in searcher.Get())
-                    {
-                        processorSpeed = item["MaxClockSpeed"] + " MHz";
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-                processorSpeed = "Unavailable";
-            }
-            string deviceModel = "Unknown";
-            try
-            {
-                using (var searcher = new System.Management.ManagementObjectSearcher("select Model from Win32_ComputerSystem"))
-                {
-                    foreach (var item in searcher.Get())
-                    {
-                        deviceModel = item["Model"]?.ToString() ?? "Unknown";
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-                deviceModel = "Unavailable";
-            }
-            string deviceManufacturer = "Unknown";
-            try
-            {
-                using (var searcher = new System.Management.ManagementObjectSearcher("select Manufacturer from Win32_ComputerSystem"))
-                {
-                    foreach (var item in searcher.Get())
-                    {
-                        deviceManufacturer = item["Manufacturer"]?.ToString() ?? "Unknown";
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-                deviceManufacturer = "Unavailable";
-            }
-            string powerStatus = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline ? "On battery power" : SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online ? "Plugged in" : "Unknown";
-            String systemProperties = $"64-bit OS: {Environment.Is64BitOperatingSystem}\r\n" +
-                $"64-bit Process: {Environment.Is64BitProcess}\r\n" +
-                $"Device Manufacturer: {deviceManufacturer}\r\n" +
-                $"Device Model: {deviceModel}\r\n" +
-                $"Processor Count: {Environment.ProcessorCount}\r\n" +
-                $"Processor Speed: {processorSpeed}\r\n" +
-                $"Processor Identifier: {Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")}\r\n" +
-                $"Processor Revision: {Environment.GetEnvironmentVariable("PROCESSOR_REVISION")}\r\n" +
-                $"Total Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024}\r\n" +
-                $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
-                $"Power Status: {powerStatus}\r\n" +
-                $"System Directory: {Environment.SystemDirectory}\r\n" +
-                $".NET Version: {Environment.Version}\r\n";
-            LogText += systemProperties;
+            LogText += $"NeoBleeper Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
+            LogText += GetInformations.getSystemInfo();
             string[] funFacts = new string[]
             {
                 "The system speaker was introduced in 1981 as part of the original IBM PC.",
@@ -137,7 +59,18 @@ namespace NeoBleeper
                 "Chiptune artists often use hardware limitations as creative constraints, similar to how poets use meter and rhyme.",
                 "The Commodore 64's SID chip could produce three-voice polyphony and became legendary in the chiptune community.",
                 "Modern DAWs can simulate the exact sound characteristics of vintage computer speakers and sound chips.",
-                "Some musicians today intentionally use 1-bit audio (like system speaker output) as an artistic choice for its raw, digital aesthetic."
+                "Some musicians today intentionally use 1-bit audio (like system speaker output) as an artistic choice for its raw, digital aesthetic.",
+                "The system speaker's simple design has made it a favorite among hobbyists and retro computing enthusiasts for DIY projects.",
+                "The system speaker is often overlooked in favor of more advanced audio hardware, but it remains a nostalgic symbol of early personal computing.",
+                "The system speaker can produce a surprisingly wide range of sounds, from simple beeps to complex melodies, despite its basic design.",
+                "The system speaker's sound is generated by rapidly turning the speaker on and off at specific frequencies, creating square waveforms.",
+                "The system speaker was a key feature in early IBM PCs, helping to establish the foundation for computer audio.",
+                "The system speaker's legacy lives on in modern computing, where its influence can be seen in the design of sound cards and audio software.",
+                "The system speaker is a testament to the ingenuity of early computer engineers, who found ways to create engaging audio experiences with limited resources.",
+                "The system speaker's distinctive sound has become an iconic part of computing history, evoking nostalgia for the early days of personal computers.",
+                "The system speaker's simplicity has made it a popular choice for educational purposes, helping students understand the basics of sound generation and audio programming.",
+                "The system speaker's sound can be modified by changing the duty cycle of the square wave, allowing for different timbres and effects.",
+                "SomethingUnreal's BaWaMI is a MIDI synthesizer that allows users to create music using the system speaker, showcasing the creative potential of this humble hardware component."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n"; 
