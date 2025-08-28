@@ -2850,18 +2850,12 @@ namespace NeoBleeper
             {
                 listViewNotes.Invoke(new Action(() =>
                 {
-                    if (listViewNotes.TopItem == null || Math.Abs(listViewNotes.TopItem.Index - index) > 10)
-                    {
-                        listViewNotes.EnsureVisible(index);
-                    }
+                    listViewNotes.EnsureVisible(index);
                 }));
             }
             else
             {
-                if (listViewNotes.TopItem == null || Math.Abs(listViewNotes.TopItem.Index - index) > 10)
-                {
-                    listViewNotes.EnsureVisible(index);
-                }
+                listViewNotes.EnsureVisible(index);
             }
         }
         public void play_all()
