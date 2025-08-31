@@ -2706,22 +2706,18 @@ namespace NeoBleeper
         private void play_music(int startIndex)
         {
             bool nonStopping = false;
-            EnableDisableCommonControls(false);
+            int currentNoteIndex = startIndex;
             int baseLength = 0;
 
-            // Predictive correction parameters
-            double driftVelocity = 0;
-            double previousDrift = 0;
-            const double VELOCITY_SMOOTHING = 0.3;
-            const double PREDICTION_FACTOR = 0.5;
-            const double LAG_THRESHOLD = 200;
+            EnableDisableCommonControls(false);
 
-            NonBlockingSleep.Sleep(1); // Sleep briefly to ensure UI updates
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            double expectedTime = 0.0;
-            int currentNoteIndex = startIndex;
-            int notesPlayed = 0; // Track number of notes for stabilization
+            // Use a single, high-resolution timer for the entire playback duration
+            NonBlockingSleep.Sleep(1); // Sleep briefly to ensure accurate timing
+            Stopwatch globalStopwatch = new Stopwatch();
+            globalStopwatch.Start();
+
+            // Store the total elapsed time of all previous notes
+            double totalElapsedNoteDuration = 0.0;
 
             while (listViewNotes.SelectedItems.Count > 0 && is_music_playing)
             {
@@ -2732,84 +2728,72 @@ namespace NeoBleeper
 
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                double noteDuration = line_length_calculator(baseLength) + beat_length;
+                double noteDuration = line_length_calculator(baseLength); // + beat_length;
 
-                long actualElapsed = stopwatch.ElapsedMilliseconds;
-                double currentDrift = actualElapsed - expectedTime;
+                // Calculate the expected end time for the current note
+                double expectedEndTime = totalElapsedNoteDuration + noteDuration;
 
-                // Handle freeze and resume
-                if (currentDrift > LAG_THRESHOLD)
+                // Get the current elapsed time from the global stopwatch
+                double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
+
+                // Calculate the drift
+                double drift = currentTime - totalElapsedNoteDuration;
+
+                if(drift > 0) // Handle positive drift
                 {
-                    // Calculate how many notes to skip
-                    int notesToSkip = (int)(currentDrift / (noteDuration + silence_int + beat_length));
-                    currentNoteIndex += notesToSkip;
-                    expectedTime += notesToSkip * (noteDuration + silence_int + beat_length);
-
-                    // Ensure we don't exceed the list bounds
-                    if (currentNoteIndex >= listViewNotes.Items.Count)
+                    if(drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
                     {
-                        if (checkBox_loop.Checked)
+                        int cachedNoteDuration = noteSound_int;
+                        // Adjust the note sound duration to compensate for drift
+                        noteSound_int = Math.Max(1, noteSound_int - (int)drift);
+                        if (drift - cachedNoteDuration > 0) // If drift exceeds the original note duration, adjust silence accordingly
                         {
-                            currentNoteIndex = startIndex;
-                            expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
-                            notesPlayed = 0; // Reset stabilization counter
-                            listViewNotes.SelectedItems.Clear();
-                            listViewNotes.Items[startIndex].Selected = true;
-                            EnsureSpecificIndexVisible(startIndex);
+                            silence_int = (Math.Max(0, (int)(drift - cachedNoteDuration)));
                         }
-                        else
-                        {
-                            break; // Exit the loop if not looping
-                        }
+                        drift -= drift; // Reset drift after adjustment
                     }
-                    continue; // Skip to the next iteration
-                }
-
-                if (notesPlayed == 0)
-                {
-                    previousDrift = currentDrift;
-                    driftVelocity = 0;
-                    expectedTime = actualElapsed;
-                }
-
-                double newDriftVelocity = currentDrift - previousDrift;
-                driftVelocity = VELOCITY_SMOOTHING * newDriftVelocity + (1 - VELOCITY_SMOOTHING) * driftVelocity;
-
-                double correctionFactor = notesPlayed < 5 ? 0.3 : 0.1;
-                double predictedDrift = currentDrift + (driftVelocity * PREDICTION_FACTOR);
-                double correctionToApply = predictedDrift * correctionFactor;
-
-                if (Math.Abs(correctionToApply) > 0.1 && Math.Abs(correctionToApply) < 20)
-                {
-                    double totalDuration = noteSound_int + silence_int;
-                    if (totalDuration > 0)
+                    else // If drift exceeds the note duration, skip to the next note
                     {
-                        double noteProportion = (double)noteSound_int / totalDuration;
-                        double silenceProportion = (double)silence_int / totalDuration;
-
-                        double noteCorrection = correctionToApply * noteProportion;
-                        double silenceCorrection = correctionToApply * silenceProportion;
-
-                        double correctedNoteSound = noteSound_int - noteCorrection;
-                        double correctedSilence = silence_int - silenceCorrection;
-
-                        noteSound_int = Math.Max(1, (int)Math.Round(correctedNoteSound));
-                        silence_int = Math.Max(0, (int)Math.Round(correctedSilence));
+                        currentNoteIndex++;
+                        if(currentNoteIndex > (listViewNotes.Items.Count-1))
+                        {
+                            int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
+                            int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
+                            if (checkBox_loop.Checked)
+                            {
+                                // Looping enabled - wrap around to the start
+                                currentNoteIndex = startIndex + indexOverflow;
+                            }
+                            else
+                            {
+                                // End of list reached and not looping - stop playback
+                                listViewNotes.SelectedItems.Clear();
+                                is_music_playing = false;
+                                break;
+                            }
+                        }
+                        UpdateListViewSelection(currentNoteIndex);
+                        drift -= noteDuration;
+                        totalElapsedNoteDuration += noteDuration;
+                        continue; // Skip to the next note if drift exceeds note duration
                     }
                 }
-
-                expectedTime += noteDuration + beat_length;
-                previousDrift = currentDrift;
-                notesPlayed++;
-
+                // Normal playing flow
                 HandleMidiOutput(noteSound_int);
                 HandleStandardNotePlayback(noteSound_int, nonStopping);
 
-                if (!nonStopping && silence_int > 0)
+                if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
                 {
                     UpdateLabelVisible(false);
                     NonBlockingSleep.Sleep(silence_int);
                 }
+                if(drift < 0) // Handle negative drift
+                {
+                    NonBlockingSleep.Sleep(Math.Abs((int)drift));
+                    drift -= drift;
+                }
+                // Update the total elapsed note duration for the next loop iteration
+                totalElapsedNoteDuration += noteDuration;
 
                 currentNoteIndex++;
 
@@ -2818,21 +2802,21 @@ namespace NeoBleeper
                 {
                     if (checkBox_loop.Checked)
                     {
+                        UpdateListViewSelection(startIndex);
                         currentNoteIndex = startIndex;
-                        expectedTime = stopwatch.ElapsedMilliseconds; // Reset timing reference for new loop
-                        notesPlayed = 0; // Reset stabilization counter
-                        listViewNotes.SelectedItems.Clear();
-                        listViewNotes.Items[startIndex].Selected = true;
-                        EnsureSpecificIndexVisible(startIndex);
                     }
-                    // If not looping, the while condition will handle exit on next iteration
+                    else
+                    {
+                        // End of list reached and not looping - stop playback
+                        listViewNotes.SelectedItems.Clear();
+                        is_music_playing = false;
+                        break;
+                    }
                 }
                 else
                 {
                     // Normal progression - update selection to current note
-                    listViewNotes.SelectedItems.Clear();
-                    listViewNotes.Items[currentNoteIndex].Selected = true;
-                    EnsureSpecificIndexVisible(currentNoteIndex);
+                    UpdateListViewSelection(currentNoteIndex);
                 }
             }
 
@@ -2843,7 +2827,35 @@ namespace NeoBleeper
             EnableDisableCommonControls(true);
         }
 
-        // Async ListView update method
+        // ListView update method
+        private void UpdateListViewSelection(int index)
+        {
+            if (listViewNotes.InvokeRequired)
+            {
+                listViewNotes.Invoke(new Action(() =>
+                {
+                    listViewNotes.SelectedItems.Clear();
+                    if (index >= 0 && index < listViewNotes.Items.Count)
+                    {
+                        listViewNotes.SelectedItems.Clear();
+                        listViewNotes.Items[index].Selected = true;
+                    }
+                }));
+            }
+            else
+            {
+                listViewNotes.SelectedItems.Clear();
+                if (index >= 0 && index < listViewNotes.Items.Count)
+                {
+                    listViewNotes.SelectedItems.Clear();
+                    listViewNotes.Items[index].Selected = true;
+                }
+            }
+            if (index >= 0 && index < listViewNotes.Items.Count)
+            {
+                EnsureSpecificIndexVisible(index);
+            }
+        }
         private void EnsureSpecificIndexVisible(int index)
         {
             if (listViewNotes.InvokeRequired)
@@ -2866,7 +2878,7 @@ namespace NeoBleeper
                 listViewNotes.Items[0].Selected = true;
                 EnsureSpecificIndexVisible(0);
                 Logger.Log("Music is playing", Logger.LogTypes.Info);
-                Task.Run(() => play_music(0));
+                play_music(0);
             }
         }
         public void play_from_selected_line()
@@ -2879,14 +2891,14 @@ namespace NeoBleeper
                     listViewNotes.Items[0].Selected = true;
                     EnsureSpecificIndexVisible(0);
                     Logger.Log("Music is playing", Logger.LogTypes.Info);
-                    Task.Run(() => play_music(0));
+                    play_music(0);
                 }
                 else
                 {
                     int index = listViewNotes.SelectedItems[0].Index;
                     EnsureSpecificIndexVisible(index);
                     Logger.Log("Music is playing", Logger.LogTypes.Info);
-                    Task.Run(() => play_music(index));
+                    play_music(index);
                 }
             }
         }
