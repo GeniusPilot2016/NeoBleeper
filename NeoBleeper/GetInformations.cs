@@ -26,6 +26,66 @@ namespace NeoBleeper
             status = char.ToUpper(status[0]) + status.Substring(1);
             return (version, status);
         }
+        public static string getFullTypeOfComputer()
+        {
+            string[] chassisTypes = new string[]
+            {
+                "Other",
+                "Unknown", 
+                "Desktop", 
+                "Low Profile Desktop", 
+                "Pizza Box", 
+                "Mini Tower", 
+                "Tower", 
+                "Portable", 
+                "Laptop", 
+                "Notebook", 
+                "Hand Held", 
+                "Docking Station", 
+                "All in One", 
+                "Sub Notebook", 
+                "Space-Saving", 
+                "Lunch Box", 
+                "Main System Chassis", 
+                "Expansion Chassis", 
+                "SubChassis", 
+                "Bus Expansion Chassis", 
+                "Peripheral Chassis", 
+                "Storage Chassis", 
+                "Rack Mount Chassis", 
+                "Sealed-Case PC", 
+                "Tablet",
+                "Convertible",
+                "Detachable",
+            };
+            try
+            {
+                using (var searcher = new System.Management.ManagementObjectSearcher("select ChassisTypes from Win32_SystemEnclosure"))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        var types = (ushort[])item["ChassisTypes"];
+                        if (types != null && types.Length > 0)
+                        {
+                            List<string> typeNames = new List<string>();
+                            foreach (var type in types)
+                            {
+                                if (type < chassisTypes.Length)
+                                {
+                                    typeNames.Add(chassisTypes[type-1]);
+                                }
+                            }
+                            return string.Join(", ", typeNames.Distinct());
+                        }
+                    }
+                }
+                return "Unknown";
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
         public static string getSystemInfo() 
         {
             string systemInfo = "";
@@ -79,11 +139,13 @@ namespace NeoBleeper
             {
                 deviceManufacturer = "Unavailable";
             }
+            string computerType = getFullTypeOfComputer();
             string powerStatus = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline ? "On battery power" : SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online ? "Plugged in" : "Unknown";
             String systemProperties = $"64-bit OS: {Environment.Is64BitOperatingSystem}\r\n" +
                 $"64-bit Process: {Environment.Is64BitProcess}\r\n" +
                 $"Device Manufacturer: {deviceManufacturer}\r\n" +
                 $"Device Model: {deviceModel}\r\n" +
+                $"Computer Type: {computerType}\r\n" +
                 $"Processor Count: {Environment.ProcessorCount}\r\n" +
                 $"Processor Speed: {processorSpeed}\r\n" +
                 $"Processor Identifier: {Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")}\r\n" +
