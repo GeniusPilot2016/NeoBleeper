@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using NeoBleeper.Properties;
 using System.Diagnostics;
 using System.Management;
 using static NeoBleeper.Logger;
@@ -16,6 +17,7 @@ namespace NeoBleeper
         [STAThread]
         static void Main()
         {
+            bool shouldRun = false;
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             // P-Invoke to set the system timer resolution to 1 ms
             [System.Runtime.InteropServices.DllImport("kernel32.dll")]
@@ -52,7 +54,7 @@ namespace NeoBleeper
                 Settings1.Default.geminiAPIKey = String.Empty;
                 Settings1.Default.Save();
                 EncryptionHelper.ChangeKeyAndIV();
-                MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.MessageAPIKeyIsCorrupted, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Log("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", LogTypes.Error);
             }
             // Clear any previously shown warnings
@@ -74,7 +76,7 @@ namespace NeoBleeper
                     Settings1.Default.geminiAPIKey = String.Empty;
                     Settings1.Default.Save();
                     EncryptionHelper.ChangeKeyAndIV();
-                    MessageBox.Show("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.",
+                    MessageBox.Show(Resources.MessageAPIKeyIsCorrupted,
                         String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     apiKeyWarningShown = true;
                 }
@@ -86,8 +88,7 @@ namespace NeoBleeper
                         DialogResult result = display_resolution_warning.ShowDialog();
                         if (result == DialogResult.Abort)
                         {
-                            Logger.Log("NeoBleeper is exited.", LogTypes.Info);
-                            Application.Exit();
+                            shouldRun = false;
                         }
                         break;
                     }
@@ -110,19 +111,18 @@ namespace NeoBleeper
                                         {
                                             case DialogResult.Yes:
                                                 Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                Application.Run(new main_window());
-                                                Logger.Log("NeoBleeper is started.", LogTypes.Info);
+                                                shouldRun = true;
                                                 break;
                                             case DialogResult.No:
                                                 Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                Application.Exit();
+                                                shouldRun = false;
                                                 break;
                                         }
                                     }
                                     else
                                     {
-                                        Application.Run(new main_window());
-                                        Logger.Log("NeoBleeper is started without system speaker warning.", LogTypes.Info);
+                                        shouldRun = true;
+                                        Logger.Log("NeoBleeper is starting without system speaker warning.", LogTypes.Info);
                                     }
                                     break;
                                 }
@@ -149,8 +149,7 @@ namespace NeoBleeper
                                                 {
                                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
                                                     TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
-                                                    Application.Run(new main_window());
-                                                    Logger.Log("NeoBleeper is started.", LogTypes.Info);
+                                                    shouldRun = true;
                                                     break;
                                                 }
                                             case 8:
@@ -177,19 +176,18 @@ namespace NeoBleeper
                                                         {
                                                             case DialogResult.Yes:
                                                                 Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                                Application.Run(new main_window());
-                                                                Logger.Log("NeoBleeper is started.", LogTypes.Info);
+                                                                shouldRun = true;
                                                                 break;
                                                             case DialogResult.No:
                                                                 Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                                Application.Exit();
+                                                                shouldRun = false;
                                                                 break;
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        Application.Run(new main_window());
-                                                        Logger.Log("NeoBleeper is started without compact computer warning.", LogTypes.Info);
+                                                        shouldRun = true;
+                                                        Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
                                                     }
                                                     break;
                                                 }
@@ -204,12 +202,12 @@ namespace NeoBleeper
                                                     {
                                                         case DialogResult.Yes:
                                                             Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                            Application.Run(new main_window());
+                                                            shouldRun = true;
                                                             Logger.Log("NeoBleeper is started.", LogTypes.Info);
                                                             break;
                                                         case DialogResult.No:
                                                             Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                            Application.Exit();
+                                                            shouldRun = false;
                                                             break;
                                                     }
                                                     break;
@@ -229,19 +227,18 @@ namespace NeoBleeper
                                             {
                                                 case DialogResult.Yes:
                                                     Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                    Application.Run(new main_window());
-                                                    Logger.Log("NeoBleeper is started.", LogTypes.Info);
+                                                    shouldRun = true;
                                                     break;
                                                 case DialogResult.No:
                                                     Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                    Application.Exit();
+                                                    shouldRun = false;
                                                     break;
                                             }
                                         }
                                         else
                                         {
-                                            Application.Run(new main_window());
-                                            Logger.Log("NeoBleeper is started without unknown type of computer warning.", LogTypes.Info);
+                                            shouldRun = true;
+                                            Logger.Log("NeoBleeper is starting without unknown type of computer warning.", LogTypes.Info);
                                         }
                                     }
                                 }
@@ -249,6 +246,22 @@ namespace NeoBleeper
                         }
                         break;
                     }
+            }
+            if (shouldRun)
+            {
+                try
+                {
+                    Application.Run(new main_window());
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
+                    MessageBox.Show(Resources.AnErrorOccuredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                Logger.Log("NeoBleeper is exited.", LogTypes.Info);
             }
             timeEndPeriod(1); // Reset the system timer resolution to default
             MIDIIOUtils.DisposeMidiOutput();

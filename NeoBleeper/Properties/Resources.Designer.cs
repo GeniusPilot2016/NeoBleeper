@@ -61,6 +61,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   An error occurred while running the application:
+        /// benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AnErrorOccuredWhileRunningApplication {
+            get {
+                return ResourceManager.GetString("AnErrorOccuredWhileRunningApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature disables the automatic updating of the position table when selecting notes. However, it will continue to update during editing. 
         ///
         ///When enabled, the position table will not update when you select notes, allowing you to make changes without affecting the playback position. 
@@ -596,6 +606,15 @@ namespace NeoBleeper.Properties {
         public static string MessageAnErrorOccured {
             get {
                 return ResourceManager.GetString("MessageAnErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAPIKeyIsCorrupted {
+            get {
+                return ResourceManager.GetString("MessageAPIKeyIsCorrupted", resourceCulture);
             }
         }
         

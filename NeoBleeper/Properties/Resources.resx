@@ -468,4 +468,11 @@ Click again to show it.</value>
 
 Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox to use this feature.</value>
   </data>
+  <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
+    <value>NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.</value>
+  </data>
+  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
+    <value>An error occurred while running the application:
+</value>
+  </data>
 </root>
