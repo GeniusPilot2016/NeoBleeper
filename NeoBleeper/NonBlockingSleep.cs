@@ -10,7 +10,7 @@ namespace NeoBleeper
 {
     public class NonBlockingSleep // Class for non-async sleep that blocks the thread, but still processes UI messages
     {
-        // Aktif timer'ları takip etmek için
+        // To keep track of active timers for cleanup during shutdown
         private static readonly ConcurrentBag<MultimediaTimer> _activeTimers = new ConcurrentBag<MultimediaTimer>();
         private static bool _shutdownInitialized = false;
 
@@ -36,13 +36,13 @@ namespace NeoBleeper
 
             try
             {
-                // Application shutdown event'leri
+                // Application shutdown events
                 Application.ApplicationExit += OnApplicationExit;
 
-                // Process exit event'i
+                // Process exit event
                 AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
 
-                // Unhandled exception event'i
+                // Unhandled exception event
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
                 _shutdownInitialized = true;
@@ -89,7 +89,7 @@ namespace NeoBleeper
                     }
                     catch
                     {
-                        // Timer zaten dispose edilmiş olabilir
+                        // Timer may already be disposed or in an invalid state
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace NeoBleeper
 
             using (var timer = new MultimediaTimer { Interval = milliseconds })
             {
-                // Timer'ı aktif timer listesine ekle
+                // Add timer to active list for potential cleanup
                 _activeTimers.Add(timer);
 
                 using (var mre = new ManualResetEvent(false))
@@ -149,7 +149,7 @@ namespace NeoBleeper
                                 Application.DoEvents();
                             }
 
-                            // Shutdown kontrolü
+                            // Shutdown check
                             if (Environment.HasShutdownStarted)
                             {
                                 break;
@@ -165,7 +165,7 @@ namespace NeoBleeper
                         timer.Stop();
                         timer.Tick -= handler;
 
-                        // Timer'ı aktif listeden çıkarmaya çalış (best effort)
+                        // Try to remove from active timers
                         try
                         {
                             var tempList = new List<MultimediaTimer>();
