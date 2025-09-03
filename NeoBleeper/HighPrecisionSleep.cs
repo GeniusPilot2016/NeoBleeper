@@ -17,7 +17,7 @@ namespace NeoBleeper
 
             using (var timer = new MultimediaTimer { Interval = milliseconds })
             {
-                using (var mre = new ManualResetEvent(false))
+                using (var mre = new ManualResetEventSlim(false))
                 {
                     EventHandler? tickHandler = null;
                     tickHandler = (s, e) =>
@@ -28,7 +28,7 @@ namespace NeoBleeper
 
                     timer.Tick += tickHandler;
                     timer.Start();
-                    mre.WaitOne();
+                    mre.Wait();
                     timer.Stop();
                 }
             }
