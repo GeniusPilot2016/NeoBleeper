@@ -14,6 +14,7 @@ using System.Drawing.Text;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using NeoBleeper.Properties;
+using GenerativeAI.Types.RagEngine;
 
 namespace NeoBleeper
 {
@@ -21,10 +22,11 @@ namespace NeoBleeper
     {
         bool darkTheme = false;
         public string output = "";
-        String AIModel = "models/gemini-2.5-flash";
+        String AIModel = "models/gemini-2.5-flash"; // Default AI model
         Size NormalWindowSize;
         double scaleFraction = 0.425; // Scale factor for the window size
         Size LoadingWindowSize;
+        CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
         public CreateMusicWithAI()
         {
             InitializeComponent();
@@ -32,18 +34,35 @@ namespace NeoBleeper
             LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height + (NormalWindowSize.Height * scaleFraction)));
             UIFonts.setFonts(this);
             set_theme();
-            comboBox_ai_model.SelectedIndex = Settings1.Default.preferredAIModel;
+            int preferredAIModel = (Settings1.Default.preferredAIModel + 1 % comboBox_ai_model.Items.Count) - 1; // Adjusted to prevent out-of-range error
+            comboBox_ai_model.SelectedIndex = preferredAIModel;
             ApplyAIModelChanges();
-            if (!IsInternetAvailable())
+            if (!IsAvailableInCountry())
             {
-                Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageNoInternet, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
+                MessageBox.Show(Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else if (!IsInternetAvailable())
+            {
+                ShowNoInternetMessage();
+                this.Close();
+            }
+            else if (!IsServerUp())
+            {
+                ShowServerDownMessage();
                 this.Close();
             }
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
+            {
+                Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
+                MessageBox.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
         }
@@ -101,13 +120,17 @@ namespace NeoBleeper
             this.ForeColor = SystemColors.ControlText;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
+
+        // Check internet connectivity and server status
         private bool IsInternetAvailable()
         {
             try
             {
                 using (var ping = new Ping())
                 {
-                    var reply = ping.Send("www.google.com");
+                    var reply = ping.Send("info.cern.ch"); // Check internet connectivity by pinging the first website ever
+                    // Fun fact: info.cern.ch was the first website ever created, launched in 1991 by Tim Berners-Lee at CERN.
+                    // It is still online today as a historical site.
                     return reply.Status == IPStatus.Success;
                 }
             }
@@ -116,14 +139,274 @@ namespace NeoBleeper
                 return false;
             }
         }
+        private bool IsServerUp()
+        {
+            try
+            {
+                using (var ping = new Ping())
+                {
+                    var reply = ping.Send("generativelanguage.googleapis.com"); // Check server status by pinging the Google API server
+                    return reply.Status == IPStatus.Success;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool isAPIKeyValidFormat(string APIKey)
+        {
+            // Google API anahtarı: "AIzaSy" ile başlar ve toplam 39 karakter uzunluğundadır
+            if (string.IsNullOrWhiteSpace(APIKey))
+                return false;
+
+            // Sadece harf, rakam, tire ve alt çizgiye izin verilir
+            var regex = new Regex(@"AIzaSy[A-Za-z0-9_\-]{33}$");
+            return regex.IsMatch(APIKey);
+        }
+
+        // Check country availability for Google Gemini™ API (according to https://ai.google.dev/gemini-api/docs/available-regions)
+        public static bool IsAvailableInCountry()
+        {
+            String[] supportedCountries =
+            {
+              "AL",
+              "DZ",
+              "AS",
+              "AO",
+              "AI",
+              "AQ",
+              "AG",
+              "AR",
+              "AM",
+              "AW",
+              "AU",
+              "AT",
+              "AZ",
+              "BS",
+              "BH",
+              "BD",
+              "BB",
+              "BE",
+              "BZ",
+              "BJ",
+              "BM",
+              "BT",
+              "BO",
+              "BA",
+              "BW",
+              "BR",
+              "IO",
+              "VG",
+              "BN",
+              "BG",
+              "BF",
+              "BI",
+              "CV",
+              "KH",
+              "CM",
+              "CA",
+              "BQ",
+              "KY",
+              "CF",
+              "TD",
+              "CL",
+              "CX",
+              "CC",
+              "CO",
+              "KM",
+              "CK",
+              "CI",
+              "CR",
+              "HR",
+              "CW",
+              "CZ",
+              "CD",
+              "DK",
+              "DJ",
+              "DM",
+              "DO",
+              "EC",
+              "EG",
+              "SV",
+              "GQ",
+              "ER",
+              "EE",
+              "SZ",
+              "ET",
+              "FK",
+              "FO",
+              "FJ",
+              "FI",
+              "FR",
+              "GA",
+              "GM",
+              "GE",
+              "DE",
+              "GH",
+              "GI",
+              "GR",
+              "GL",
+              "GD",
+              "GU",
+              "GT",
+              "GG",
+              "GN",
+              "GW",
+              "GY",
+              "HT",
+              "HM",
+              "BA",
+              "HN",
+              "HU",
+              "IS",
+              "IN",
+              "ID",
+              "IQ",
+              "IE",
+              "IM",
+              "IL",
+              "IT",
+              "JM",
+              "JP",
+              "JE",
+              "JO",
+              "KZ",
+              "KE",
+              "KI",
+              "XK",
+              "KG",
+              "KW",
+              "LA",
+              "LV",
+              "LB",
+              "LS",
+              "LR",
+              "LY",
+              "LI",
+              "LT",
+              "LU",
+              "MG",
+              "MW",
+              "MY",
+              "MV",
+              "ML",
+              "MT",
+              "MH",
+              "MR",
+              "MU",
+              "MX",
+              "FM",
+              "MN",
+              "ME",
+              "MS",
+              "MA",
+              "MZ",
+              "NA",
+              "NR",
+              "NP",
+              "NL",
+              "NC",
+              "NZ",
+              "NI",
+              "NE",
+              "NG",
+              "NU",
+              "NF",
+              "MK",
+              "MP",
+              "NO",
+              "OM",
+              "PK",
+              "PW",
+              "PS",
+              "PA",
+              "PG",
+              "PY",
+              "PE",
+              "PH",
+              "PN",
+              "PL",
+              "PT",
+              "PR",
+              "QA",
+              "CY",
+              "CG",
+              "RO",
+              "RW",
+              "BL",
+              "KN",
+              "LC",
+              "PM",
+              "VC",
+              "SH",
+              "WS",
+              "ST",
+              "SA",
+              "SN",
+              "RS",
+              "SC",
+              "SL",
+              "SG",
+              "SK",
+              "SI",
+              "SB",
+              "SO",
+              "ZA",
+              "GS",
+              "KR",
+              "SS",
+              "ES",
+              "LK",
+              "SD",
+              "SR",
+              "SE",
+              "CH",
+              "TW",
+              "TJ",
+              "TZ",
+              "TH",
+              "TL",
+              "TG",
+              "TK",
+              "TO",
+              "TT",
+              "TN",
+              "TR",
+              "TM",
+              "TC",
+              "TV",
+              "UG",
+              "UA",
+              "GB",
+              "AE",
+              "US",
+              "UM",
+              "VI",
+              "UY",
+              "UZ",
+              "VU",
+              "VE",
+              "VN",
+              "WF",
+              "EH",
+              "YE",
+              "ZM",
+              "ZW"
+            };
+            var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
+            return supportedCountries.Contains(countryCode);
+        }
         private async void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                connectionCheckTimer.Start();
                 SetControlsEnabledAndMakeLoadingVisible(false);
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                 var googleAI = new GoogleAi(apiKey);
                 var googleModel = googleAI.CreateGenerativeModel(AIModel);
+                // System prompt and user prompt for generating NBPML content with strict rules and format
                 var googleResponse = await googleModel.GenerateContentAsync(
                     $"**User Prompt:**\r\n[{textBoxPrompt.Text}]\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
@@ -151,7 +434,7 @@ namespace NeoBleeper
                     $"- Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
                     $"- Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
                     $"- Maintain a NoteSilenceRatio between 40-95 to balance notes and rests.\r\n" +
-                    $"- Avoid extreme variations in note durations and ensure coherent melodies.\r\n"+
+                    $"- Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +
                     $"- Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
                     $"- Ensure the output adheres to the NeoBleeper XML structure template below:\r\n\r\n" +
                     $"<NeoBleeperProjectFile>\r\n" +
@@ -190,9 +473,10 @@ namespace NeoBleeper
                     $"    <LineList>\r\n" +
                     $"    </LineList>\r\n" +
                     $"</NeoBleeperProjectFile>\r\n"
-                );
+                , cts.Token);
                 if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text))
                 {
+                    // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
                     output = googleResponse.Text();
 
                     // Remove ```xml and any surrounding text
@@ -220,17 +504,21 @@ namespace NeoBleeper
                 }
                 else
                 {
+                    // AI response is null or empty - show an error message and log the error
                     Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
-                    MessageBox.Show(Resources.MessageAIResponseNullOrEmpty);
+                    MessageBox.Show(Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
+                // Show a generic error message and log the exception details
                 Logger.Log($"Error: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}");
+                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
+                // Stop the timer, re-enable controls, and handle the output
+                connectionCheckTimer.Stop();
                 SetControlsEnabledAndMakeLoadingVisible(true);
                 if (checkIfOutputIsValidNBPML(output))
                 {
@@ -238,9 +526,12 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    // If the output is not valid, show an error message
-                    AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
-                    errorForm.ShowDialog();
+                    // If the output is not valid, show an error message if there is any output
+                    if (!string.IsNullOrWhiteSpace(output))
+                    {
+                        AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
+                        errorForm.ShowDialog();
+                    }
                     output = String.Empty; // Clear the output if it's invalid
                 }
             }
@@ -556,6 +847,7 @@ namespace NeoBleeper
                 }
             }
         }
+        // Apply AI model changes based on user selection
         private void ApplyAIModelChanges()
         {
             switch (comboBox_ai_model.SelectedIndex)
@@ -591,6 +883,36 @@ namespace NeoBleeper
         private void CreateMusicWithAI_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();
+        }
+
+        private void connectionCheckTimer_Tick(object sender, EventArgs e)
+        {
+            if (!IsInternetAvailable())
+            {
+                cts.Cancel();
+                connectionCheckTimer.Stop();
+                SetControlsEnabledAndMakeLoadingVisible(true);
+                ShowNoInternetMessage();
+                this.Close();
+            }
+            else if (!IsServerUp())
+            {
+                cts.Cancel();
+                connectionCheckTimer.Stop();
+                SetControlsEnabledAndMakeLoadingVisible(true);
+                ShowServerDownMessage();
+                this.Close();
+            }
+        }
+        private void ShowNoInternetMessage()
+        {
+            Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
+            MessageBox.Show(Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private void ShowServerDownMessage()
+        {
+            Logger.Log("Google Gemini server is not reachable. Please try again later.", Logger.LogTypes.Error);
+            MessageBox.Show(Resources.GoogleGeminiServerDown, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -93,6 +93,69 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Error resetting API key:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ErrorResettingAPIKey {
+            get {
+                return ResourceManager.GetString("ErrorResettingAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error saving API key:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ErrorSavingAPIKey {
+            get {
+                return ResourceManager.GetString("ErrorSavingAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string GoogleGeminiAPIIsNotSupportedInYourCountry {
+            get {
+                return ResourceManager.GetString("GoogleGeminiAPIIsNotSupportedInYourCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The API key format is invalid. Please check and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string GoogleGeminiAPIKeyFormatInvalid {
+            get {
+                return ResourceManager.GetString("GoogleGeminiAPIKeyFormatInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API key reset successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string GoogleGeminiAPIKeyReset {
+            get {
+                return ResourceManager.GetString("GoogleGeminiAPIKeyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API key saved successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string GoogleGeminiAPIKeySaved {
+            get {
+                return ResourceManager.GetString("GoogleGeminiAPIKeySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ server is currently unreachable. Please try again later. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string GoogleGeminiServerDown {
+            get {
+                return ResourceManager.GetString("GoogleGeminiServerDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static byte[] HarmonyOS_Sans_Black {
@@ -709,6 +772,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Google Gemini™ API key format is invalid. Please re-enter the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageGoogleGeminiAPIKeyFormatIsInvalid {
+            get {
+                return ResourceManager.GetString("MessageGoogleGeminiAPIKeyFormatIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Invalid or corrupted music file benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageInvalidOrCorruptedMusicFile {
@@ -846,6 +918,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap neobleeper_icon {
             get {
                 object obj = ResourceManager.GetObject("neobleeper_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap neobleeper_pattern {
+            get {
+                object obj = ResourceManager.GetObject("neobleeper_pattern", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

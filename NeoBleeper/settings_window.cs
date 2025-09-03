@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using NeoBleeper.Properties;
 using System.Diagnostics;
 using System.Drawing.Text;
 using System.Windows.Forms;
@@ -106,6 +107,11 @@ namespace NeoBleeper
             set_theme();
             refresh_midi_input();
             refresh_midi_output();
+            if (!CreateMusicWithAI.IsAvailableInCountry())
+            {
+                groupBoxCreateMusicWithAI.Visible = false; // Hide the group box if the feature is not available in the user's country
+                Logger.Log("Create Music with AI feature is not available in this country. Hiding the settings.", Logger.LogTypes.Info);
+            }
             textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
             if (Settings1.Default.geminiAPIKey != String.Empty)
             {
@@ -274,7 +280,7 @@ namespace NeoBleeper
             }
             TitleBarHelper.ApplyToAllOpenForms(darkTheme);
         }
-        private void system_speaker_test_tune()
+        private async Task system_speaker_test_tune()
         {
             if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
             // Debounce check to prevent multiple clicks to test the system speaker
@@ -282,79 +288,81 @@ namespace NeoBleeper
                 isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
                 Random rnd = new Random();
                 int tune_number = rnd.Next(1, 24); // Random number between 1 and 23
-
-                switch (tune_number)
+                await Task.Run(() =>
                 {
-                    case 1:
-                        PlaySimpleBeepSequence();
-                        break;
-                    case 2:
-                        PlayScale();
-                        break;
-                    case 3:
-                        PlayTwinkleTwinkle();
-                        break;
-                    case 4:
-                        PlayBeethovenFifth();
-                        break;
-                    case 5:
-                        PlayHappyBirthday();
-                        break;
-                    case 6:
-                        PlayRandomBeeps();
-                        break;
-                    case 7:
-                        PlayAscendingBeeps();
-                        break;
-                    case 8:
-                        PlayDescendingBeeps();
-                        break;
-                    case 9:
-                        PlayMajorChord();
-                        break;
-                    case 10:
-                        PlayMinorChord();
-                        break;
-                    case 11:
-                        PlayFrereJacques();
-                        break;
-                    case 12:
-                        PlayYankeeDoodle();
-                        break;
-                    case 13:
-                        PlayOdeToJoy();
-                        break;
-                    case 14:
-                        PlayMaryHadALittleLamb();
-                        break;
-                    case 15:
-                        PlayJingleBells();
-                        break;
-                    case 16:
-                        PlayFurElise();
-                        break;
-                    case 17:
-                        PlayTetrisTheme();
-                        break;
-                    case 18:
-                        PlayCanonInD();
-                        break;
-                    case 19:
-                        PlaySuperMarioTheme();
-                        break;
-                    case 20:
-                        PlayTheEntertainer();
-                        break;
-                    case 21:
-                        PlayGreensleeves();
-                        break;
-                    case 22:
-                        PlayRowRowRowYourBoat();
-                        break;
-                    case 23:
-                        PlayMinuetInG();
-                        break;
-                }
+                    switch (tune_number)
+                    {
+                        case 1:
+                            PlaySimpleBeepSequence();
+                            break;
+                        case 2:
+                            PlayScale();
+                            break;
+                        case 3:
+                            PlayTwinkleTwinkle();
+                            break;
+                        case 4:
+                            PlayBeethovenFifth();
+                            break;
+                        case 5:
+                            PlayHappyBirthday();
+                            break;
+                        case 6:
+                            PlayRandomBeeps();
+                            break;
+                        case 7:
+                            PlayAscendingBeeps();
+                            break;
+                        case 8:
+                            PlayDescendingBeeps();
+                            break;
+                        case 9:
+                            PlayMajorChord();
+                            break;
+                        case 10:
+                            PlayMinorChord();
+                            break;
+                        case 11:
+                            PlayFrereJacques();
+                            break;
+                        case 12:
+                            PlayYankeeDoodle();
+                            break;
+                        case 13:
+                            PlayOdeToJoy();
+                            break;
+                        case 14:
+                            PlayMaryHadALittleLamb();
+                            break;
+                        case 15:
+                            PlayJingleBells();
+                            break;
+                        case 16:
+                            PlayFurElise();
+                            break;
+                        case 17:
+                            PlayTetrisTheme();
+                            break;
+                        case 18:
+                            PlayCanonInD();
+                            break;
+                        case 19:
+                            PlaySuperMarioTheme();
+                            break;
+                        case 20:
+                            PlayTheEntertainer();
+                            break;
+                        case 21:
+                            PlayGreensleeves();
+                            break;
+                        case 22:
+                            PlayRowRowRowYourBoat();
+                            break;
+                        case 23:
+                            PlayMinuetInG();
+                            break;
+                    }
+                });
                 isTestingSystemSpeaker = false; // Reset the flag after the tune is played
             }
         }
@@ -367,10 +375,10 @@ namespace NeoBleeper
             }
         }
         bool isTestingSystemSpeaker = false;
-        private void btn_test_system_speaker_Click(object sender, EventArgs e)
+        private async void btn_test_system_speaker_Click(object sender, EventArgs e)
         {
             Logger.Log("Testing system speaker...", Logger.LogTypes.Info);
-            system_speaker_test_tune();
+            await system_speaker_test_tune();
         }
 
         private void comboBox_theme_SelectedIndexChanged(object sender, EventArgs e)
@@ -1311,22 +1319,30 @@ namespace NeoBleeper
         {
             try
             {
-                // Generate new encryption keys first
-                EncryptionHelper.ChangeKeyAndIV();
+                if (CreateMusicWithAI.isAPIKeyValidFormat(textBoxAPIKey.Text))
+                {
+                    // Generate new encryption keys first
+                    EncryptionHelper.ChangeKeyAndIV();
 
-                // Now encrypt and save the API key with the new keys
-                Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
-                Settings1.Default.Save();
+                    // Now encrypt and save the API key with the new keys
+                    Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
+                    Settings1.Default.Save();
 
-                buttonUpdateAPIKey.Enabled = false;
-                buttonResetAPIKey.Enabled = true;
-                MessageBox.Show("Google Gemini™ API key saved successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
+                    buttonUpdateAPIKey.Enabled = false;
+                    buttonResetAPIKey.Enabled = true;
+                    MessageBox.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
+                }
+                else
+                {
+                    Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
+                    MessageBox.Show(Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
                 Logger.Log("Error saving API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show("Error saving API key: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.ErrorSavingAPIKey + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1354,12 +1370,12 @@ namespace NeoBleeper
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
                 Logger.Log("Google Gemini™ API key reset successfully.", Logger.LogTypes.Info);
-                MessageBox.Show("Google Gemini™ API key reset successfully.", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 Logger.Log("Error resetting API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show("Error resetting API key: " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.ErrorResettingAPIKey + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 10</value>
+    <value>52, 28</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 125</value>
@@ -142,13 +142,13 @@
     <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>2</value>
   </data>
   <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Top, Bottom</value>
   </data>
   <data name="lbl_credit.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -157,7 +157,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 150</value>
+    <value>52, 200</value>
   </data>
   <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>398, 0</value>
@@ -188,7 +188,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_credit.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="lbl_name.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -200,7 +200,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>HarmonyOS Sans, 35.999996pt, style=Bold</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 31</value>
+    <value>161, 47</value>
   </data>
   <data name="lbl_name.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 64</value>
@@ -218,10 +218,10 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_name.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;lbl_name.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>0</value>
   </data>
   <data name="lbl_version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -233,7 +233,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>HarmonyOS Sans, 13.8pt</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 96</value>
+    <value>170, 111</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 25</value>
@@ -251,10 +251,10 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbl_version.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;lbl_version.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>1</value>
   </data>
   <metadata name="imageList_about.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -264,7 +264,7 @@ Google Gemini™ is a trademark of Google LLC</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAH4AQEB+AEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEoAQIBKAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -310,7 +310,7 @@ Google Gemini™ is a trademark of Google LLC</value>
 </value>
   </data>
   <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>Name</value>
@@ -372,7 +372,7 @@ Google Gemini™ is a trademark of Google LLC</value>
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 317</value>
+    <value>10, 367</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>486, 155</value>
@@ -393,7 +393,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>4</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
+    <value>Top</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -402,7 +402,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 293</value>
+    <value>214, 343</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 16</value>
@@ -426,7 +426,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>3</value>
   </data>
   <data name="button_visit_icons8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Top, Bottom</value>
   </data>
   <data name="button_visit_icons8.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -435,7 +435,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>0</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 250</value>
+    <value>48, 300</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button_visit_icons8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -469,7 +469,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>2</value>
   </data>
   <data name="button_view_license_text.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Top, Bottom</value>
   </data>
   <data name="button_view_license_text.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -481,7 +481,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>NoControl</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 250</value>
+    <value>178, 300</value>
   </data>
   <data name="button_view_license_text.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -514,7 +514,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>1</value>
   </data>
   <data name="button_fork_me_on_github.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Top, Bottom</value>
   </data>
   <data name="button_fork_me_on_github.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -523,7 +523,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>2</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 250</value>
+    <value>314, 300</value>
   </data>
   <data name="button_fork_me_on_github.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -555,6 +555,33 @@ Google Gemini™ is a trademark of Google LLC</value>
   <data name="&gt;&gt;button_fork_me_on_github.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>506, 183</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -562,7 +589,7 @@ Google Gemini™ is a trademark of Google LLC</value>
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>506, 480</value>
+    <value>506, 530</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9pt</value>

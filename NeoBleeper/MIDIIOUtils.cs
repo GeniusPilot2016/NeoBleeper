@@ -119,7 +119,7 @@ namespace NeoBleeper
             if (_midiOut == null) return;
 
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
-            await Task.Run(() => NonBlockingSleep.Sleep(length));
+            await HighPrecisionSleep.SleepAsync(length);
             if (!nonStopping)
             {
                 _midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
@@ -134,7 +134,7 @@ namespace NeoBleeper
             if (midiChannel == 9) // Channel 10 (percussion)
             {
                 _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), midiChannel + 1).RawData);
-                await Task.Run(() => NonBlockingSleep.Sleep(length));
+                await HighPrecisionSleep.SleepAsync(length);
                 if (!nonStopping)
                     _midiOut.Send(MidiMessage.StopNote(note, 0, midiChannel + 1).RawData);
             }
@@ -159,7 +159,7 @@ namespace NeoBleeper
         {
             int note = FrequencyToMidiNote(frequency);
             midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
-            await Task.Delay(length);
+            await HighPrecisionSleep.SleepAsync(length);
             if (!nonStopping)
             {
                 midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);

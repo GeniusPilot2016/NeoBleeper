@@ -25,10 +25,10 @@ namespace NeoBleeper
                 Out32(0x42, (Byte)(div >> 8));
                 if (!nonStopping)
                 {
-                    NonBlockingSleep.Sleep(5); // Small delay to ensure the timer is set before starting the beep
+                    HighPrecisionSleep.Sleep(5); // Small delay to ensure the timer is set before starting the beep
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
-                NonBlockingSleep.Sleep(ms);
+                HighPrecisionSleep.Sleep(ms);
                 if (!nonStopping) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();
@@ -119,7 +119,7 @@ namespace NeoBleeper
                 {
                     if (!nonStopping)
                     {
-                        NonBlockingSleep.Sleep(5);
+                        HighPrecisionSleep.Sleep(5);
                     }
 
                     // Ensure waveOut is not already playing
@@ -131,7 +131,7 @@ namespace NeoBleeper
 
                 if (ms > 0)
                 {
-                    NonBlockingSleep.Sleep(ms);
+                    HighPrecisionSleep.Sleep(ms);
                 }
 
                 // Stop playback by silencing the source

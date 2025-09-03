@@ -42,12 +42,15 @@
             button_visit_icons8 = new Button();
             button_view_license_text = new Button();
             button_fork_me_on_github = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
@@ -60,11 +63,13 @@
             // lbl_name
             // 
             resources.ApplyResources(lbl_name, "lbl_name");
+            lbl_name.BackColor = Color.Transparent;
             lbl_name.Name = "lbl_name";
             // 
             // lbl_version
             // 
             resources.ApplyResources(lbl_version, "lbl_version");
+            lbl_version.BackColor = Color.Transparent;
             lbl_version.Name = "lbl_version";
             // 
             // imageList_about
@@ -124,6 +129,15 @@
             button_fork_me_on_github.UseVisualStyleBackColor = true;
             button_fork_me_on_github.Click += button_fork_me_on_github_Click;
             // 
+            // panel1
+            // 
+            panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Controls.Add(lbl_name);
+            panel1.Controls.Add(lbl_version);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Name = "panel1";
+            // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
@@ -133,10 +147,8 @@
             Controls.Add(button_visit_icons8);
             Controls.Add(label1);
             Controls.Add(listView1);
-            Controls.Add(lbl_version);
-            Controls.Add(lbl_name);
             Controls.Add(lbl_credit);
-            Controls.Add(pictureBox1);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -145,6 +157,8 @@
             ShowInTaskbar = false;
             SystemColorsChanged += about_neobleeper_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -163,5 +177,6 @@
         private Button button_visit_icons8;
         private Button button_view_license_text;
         private Button button_fork_me_on_github;
+        private Panel panel1;
     }
 }

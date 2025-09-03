@@ -571,14 +571,7 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteIndex);
-                                            if (!mainWindow.checkBox_mute_playback.Checked)
-                                            {
-                                                NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
-                                            }
-                                            else
-                                            {
-                                                NonBlockingSleep.Sleep(alternatingTime);
-                                            }
+                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
                                             UnHighlightNoteLabel(noteIndex);
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
@@ -587,7 +580,7 @@ namespace NeoBleeper
                                             double timeToNextNote = timePerNote - noteElapsed;
                                             if (timeToNextNote > 0)
                                             {
-                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                                HighPrecisionSleep.Sleep((int)timeToNextNote);
                                             }
 
                                             noteIndex = (noteIndex + 1) % frequencies.Length;
@@ -612,14 +605,7 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(i);
-                                            if(!mainWindow.checkBox_mute_playback.Checked)
-                                            {
-                                                NotePlayer.play_note(frequencies[i], alternatingTime);
-                                            }
-                                            else
-                                            {
-                                                NonBlockingSleep.Sleep(alternatingTime);
-                                            }
+                                            NotePlayer.play_note(frequencies[i], alternatingTime);
                                             UnHighlightNoteLabel(i);
 
                                             noteStopwatch.Stop();
@@ -628,7 +614,7 @@ namespace NeoBleeper
                                             double timeToNextNote = timePerNote - noteElapsed;
                                             if (timeToNextNote > 0)
                                             {
-                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                                HighPrecisionSleep.Sleep((int)timeToNextNote);
                                             }
                                         }
                                     }
@@ -660,14 +646,7 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(noteIndex);
-                                            if (!mainWindow.checkBox_mute_playback.Checked)
-                                            {
-                                                NotePlayer.play_note(frequencies[noteIndex], interval);
-                                            }
-                                            else
-                                            {
-                                                NonBlockingSleep.Sleep(interval);
-                                            }
+                                            NotePlayer.play_note(frequencies[noteIndex], interval);
                                             UnHighlightNoteLabel(noteIndex);
                                             noteStopwatch.Stop();
                                             long noteElapsed = noteStopwatch.ElapsedMilliseconds;
@@ -676,7 +655,7 @@ namespace NeoBleeper
                                             double timeToNextNote = timePerNote - noteElapsed;
                                             if (timeToNextNote > 0)
                                             {
-                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                                HighPrecisionSleep.Sleep((int)timeToNextNote);
                                             }
 
                                             noteIndex = (noteIndex + 1) % frequencies.Length;
@@ -699,14 +678,7 @@ namespace NeoBleeper
                                             noteStopwatch.Start();
 
                                             HighlightNoteLabel(i);
-                                            if (!mainWindow.checkBox_mute_playback.Checked)
-                                            {
-                                                NotePlayer.play_note(frequencies[i], interval);
-                                            }
-                                            else
-                                            {
-                                                NonBlockingSleep.Sleep(interval);
-                                            }
+                                            NotePlayer.play_note(frequencies[i], interval);
                                             UnHighlightNoteLabel(i);
 
                                             noteStopwatch.Stop();
@@ -715,7 +687,7 @@ namespace NeoBleeper
                                             double timeToNextNote = timePerNote - noteElapsed;
                                             if (timeToNextNote > 0)
                                             {
-                                                NonBlockingSleep.Sleep((int)timeToNextNote);
+                                                HighPrecisionSleep.Sleep((int)timeToNextNote);
                                             }
                                         }
                                     }
@@ -749,14 +721,7 @@ namespace NeoBleeper
                                         noteStopwatch.Start();
 
                                         HighlightNoteLabel(noteIndex);
-                                        if (!mainWindow.checkBox_mute_playback.Checked)
-                                        {
-                                            NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
-                                        }
-                                        else
-                                        {
-                                            NonBlockingSleep.Sleep(alternatingTime);
-                                        }
+                                        NotePlayer.play_note(frequencies[noteIndex], alternatingTime);
                                         UnHighlightNoteLabel(noteIndex);
 
                                         noteStopwatch.Stop();
@@ -766,7 +731,7 @@ namespace NeoBleeper
                                         double timeToNextNote = timePerNote - noteElapsed;
                                         if (timeToNextNote > 0)
                                         {
-                                            NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            HighPrecisionSleep.Sleep((int)timeToNextNote);
                                         }
 
                                         noteIndex = (noteIndex + 1) % frequencies.Length;
@@ -796,14 +761,7 @@ namespace NeoBleeper
                                         noteStopwatch.Start();
 
                                         HighlightNoteLabel(noteIndex);
-                                        if (!mainWindow.checkBox_mute_playback.Checked)
-                                        {
-                                            NotePlayer.play_note(frequencies[noteIndex], interval);
-                                        }
-                                        else
-                                        {
-                                            NonBlockingSleep.Sleep(interval);
-                                        }
+                                        NotePlayer.play_note(frequencies[noteIndex], interval);
                                         UnHighlightNoteLabel(noteIndex);
 
                                         noteStopwatch.Stop();
@@ -813,7 +771,7 @@ namespace NeoBleeper
                                         double timeToNextNote = timePerNote - noteElapsed;
                                         if (timeToNextNote > 0)
                                         {
-                                            NonBlockingSleep.Sleep((int)timeToNextNote);
+                                            HighPrecisionSleep.Sleep((int)timeToNextNote);
                                         }
 
                                         noteIndex = (noteIndex + 1) % frequencies.Length;
@@ -1387,18 +1345,11 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
-                            if (!mainWindow.checkBox_mute_playback.Checked)
-                            {
-                                NotePlayer.play_note(frequencies[0], length);
-                            }
-                            else
-                            {
-                                NonBlockingSleep.Sleep(length);
-                            }
+                            NotePlayer.play_note(frequencies[0], length);
                             UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
-                                NonBlockingSleep.Sleep(remainingTime);
+                                HighPrecisionSleep.Sleep(remainingTime);
                             }
                         }, token);
                     }
@@ -1408,18 +1359,11 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
-                            if (!mainWindow.checkBox_mute_playback.Checked)
-                            {
-                                NotePlayer.play_note(frequencies[0], length);
-                            }
-                            else
-                            {
-                                NonBlockingSleep.Sleep(length);
-                            }
-                             UnHighlightNoteLabel(noteIndex);
+                            NotePlayer.play_note(frequencies[0], length);
+                            UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
-                                NonBlockingSleep.Sleep(remainingTime);
+                                HighPrecisionSleep.Sleep(remainingTime);
                             }
                         }, token);
                     }
@@ -1427,14 +1371,7 @@ namespace NeoBleeper
                 else
                 {
                     await Task.Run(() => {
-                        if (!mainWindow.checkBox_mute_playback.Checked)
-                        {
-                            NotePlayer.play_note(frequencies[0], durationMsInt);
-                        }
-                        else
-                        {
-                            NonBlockingSleep.Sleep(durationMsInt);
-                        }
+                        NotePlayer.play_note(frequencies[0], durationMsInt);
                     }, token);
                     UnHighlightNoteLabel(noteIndex);
                 }

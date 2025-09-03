@@ -26,7 +26,7 @@ namespace NeoBleeper
                                     }
                                     else // If the frequency is out of range, sleep for the length of the note
                                     {
-                                        NonBlockingSleep.Sleep(length); // Sleep for the length of the note
+                                        HighPrecisionSleep.Sleep(length); // Sleep for the length of the note
                                     }
                                     break;
                                 }
@@ -62,7 +62,7 @@ namespace NeoBleeper
                     }
                 case true: // If the system speaker is muted, sleep for the length of the note
                     {
-                        NonBlockingSleep.Sleep(length); // Sleep for the length of the note
+                        HighPrecisionSleep.Sleep(length); // Sleep for the length of the note
                         break;
                     }
             }
