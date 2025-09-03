@@ -46,8 +46,8 @@
             Application.DoEvents();
             BackColor = Color.FromArgb(32, 32, 32);
             ForeColor = Color.White;
-            lbl_name.ForeColor = Color.White;
-            lbl_version.ForeColor = Color.White;
+            lbl_name.ForeColor = SystemColors.ControlText;
+            lbl_version.ForeColor = SystemColors.ControlText;
             label1.ForeColor = Color.White;
             button_visit_icons8.BackColor = Color.FromArgb(32, 32, 32);
             button_view_license_text.BackColor = Color.FromArgb(32, 32, 32);

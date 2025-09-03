@@ -40,6 +40,7 @@
             progressBarCreating = new ProgressBar();
             pictureBoxCreating = new PictureBox();
             labelCreating = new Label();
+            connectionCheckTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).BeginInit();
             SuspendLayout();
             // 
@@ -173,6 +174,11 @@
             labelCreating.TextAlign = ContentAlignment.MiddleCenter;
             labelCreating.Visible = false;
             // 
+            // connectionCheckTimer
+            // 
+            connectionCheckTimer.Interval = 5000;
+            connectionCheckTimer.Tick += connectionCheckTimer_Tick;
+            // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
@@ -215,5 +221,6 @@
         private ProgressBar progressBarCreating;
         private PictureBox pictureBoxCreating;
         private Label labelCreating;
+        private System.Windows.Forms.Timer connectionCheckTimer;
     }
 }

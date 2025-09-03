@@ -303,7 +303,6 @@ namespace NeoBleeper
         }
         private async void main_window_refresh()
         {
-            Application.DoEvents();
             set_theme();
             set_keyboard_colors();
             set_buttons_colors();
@@ -2203,7 +2202,6 @@ namespace NeoBleeper
         {
             try
             {
-                Application.DoEvents();
                 lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
                 lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
                 lbl_e3.Text = "E" + (Variables.octave - 1).ToString();
@@ -2685,25 +2683,28 @@ namespace NeoBleeper
             }
         }
 
-        private void HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
+        private async Task HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
         {
             if (listViewNotes.SelectedIndices.Count > 0)
             {
-                play_note_in_line(
-                    checkBox_play_note1_played.Checked,
-                    checkBox_play_note2_played.Checked,
-                    checkBox_play_note3_played.Checked,
-                    checkBox_play_note4_played.Checked,
-                    noteSoundDuration,
-                    nonStopping
-                );
+                await Task.Run(()=>
+                {
+                    play_note_in_line(
+                     checkBox_play_note1_played.Checked,
+                     checkBox_play_note2_played.Checked,
+                     checkBox_play_note3_played.Checked,
+                     checkBox_play_note4_played.Checked,
+                     noteSoundDuration,
+                     nonStopping
+                 );
+                });
             }
         }
         public static double RemoveWholeNumber(double number)
         {
             return number - Math.Truncate(number);
         }
-        private void play_music(int startIndex)
+        private async void play_music(int startIndex)
         {
             bool nonStopping = false;
             int currentNoteIndex = startIndex;
@@ -2712,7 +2713,7 @@ namespace NeoBleeper
             EnableDisableCommonControls(false);
 
             // Use a single, high-resolution timer for the entire playback duration
-            NonBlockingSleep.Sleep(1); // Sleep briefly to ensure accurate timing
+            await HighPrecisionSleep.SleepAsync(1); // Sleep briefly to ensure accurate timing
             Stopwatch globalStopwatch = new Stopwatch();
             globalStopwatch.Start();
 
@@ -2780,16 +2781,16 @@ namespace NeoBleeper
                 }
                 // Normal playing flow
                 HandleMidiOutput(noteSound_int);
-                HandleStandardNotePlayback(noteSound_int, nonStopping);
+                await HandleStandardNotePlayback(noteSound_int, nonStopping);
 
                 if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
                 {
                     UpdateLabelVisible(false);
-                    NonBlockingSleep.Sleep(silence_int);
+                    await HighPrecisionSleep.SleepAsync(silence_int);
                 }
                 if(drift < 0) // Handle negative drift
                 {
-                    NonBlockingSleep.Sleep(Math.Abs((int)drift));
+                    await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
                     drift -= drift;
                 }
                 // Update the total elapsed note duration for the next loop iteration
@@ -2834,7 +2835,6 @@ namespace NeoBleeper
             {
                 listViewNotes.Invoke(new Action(() =>
                 {
-                    listViewNotes.SelectedItems.Clear();
                     if (index >= 0 && index < listViewNotes.Items.Count)
                     {
                         listViewNotes.SelectedItems.Clear();
@@ -2843,8 +2843,7 @@ namespace NeoBleeper
                 }));
             }
             else
-            {
-                listViewNotes.SelectedItems.Clear();
+            {;
                 if (index >= 0 && index < listViewNotes.Items.Count)
                 {
                     listViewNotes.SelectedItems.Clear();
@@ -3242,7 +3241,7 @@ namespace NeoBleeper
             unselect_line();
         }
         bool is_clicked = false;
-        private void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
+        private async void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
             stop_playing();
             EnableDisableCommonControls(false);
@@ -3258,7 +3257,7 @@ namespace NeoBleeper
                 {
                     updateDisplays(listViewNotes.SelectedIndices[0]);
                 }
-                NonBlockingSleep.Sleep(1);
+                HighPrecisionSleep.Sleep(1);
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 HandleMidiOutput(noteSound_int);
                 bool nonStopping;
@@ -3537,7 +3536,7 @@ namespace NeoBleeper
                             if (isAnyNotePlayed)
                             {
                                 UpdateLabelVisible(false);
-                                NonBlockingSleep.Sleep((int)remainingTime);
+                                HighPrecisionSleep.Sleep((int)remainingTime);
                             }
                             else
                             {
@@ -3564,7 +3563,7 @@ namespace NeoBleeper
                 {
                     EnableDisableCommonControls(true);
                 }
-                NonBlockingSleep.Sleep(Math.Max(1, length));
+                HighPrecisionSleep.Sleep(Math.Max(1, length));
             }
         }
         private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)
@@ -4997,7 +4996,7 @@ namespace NeoBleeper
             isAlternatingPlayingRegularKeyboard = false;
             UnmarkAllButtons();
 
-            // Portamento tipi AlwaysProduceSound ise notaları durdurma!
+            // Don't stop all notes if portamento is enabled and set to always produce sound
             if (!(checkBox_bleeper_portamento.Checked &&
                   TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound))
             {
@@ -5124,7 +5123,7 @@ namespace NeoBleeper
                             if (checkBox_bleeper_portamento.Checked)
                             {
                                 PlayPortamento(frequency);
-                                await Task.Delay(TemporarySettings.PortamentoSettings.length);
+                                await HighPrecisionSleep.SleepAsync(TemporarySettings.PortamentoSettings.length);
                             }
                             else
                             {
