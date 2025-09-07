@@ -156,11 +156,11 @@ namespace NeoBleeper
         }
         public static bool isAPIKeyValidFormat(string APIKey)
         {
-            // Google API anahtarı: "AIzaSy" ile başlar ve toplam 39 karakter uzunluğundadır
+            // Google API keys typically start with "AIzaSy" followed by 33 alphanumeric characters, underscores, or hyphens
             if (string.IsNullOrWhiteSpace(APIKey))
                 return false;
 
-            // Sadece harf, rakam, tire ve alt çizgiye izin verilir
+            // Regex pattern to match the Google API key format
             var regex = new Regex(@"AIzaSy[A-Za-z0-9_\-]{33}$");
             return regex.IsMatch(APIKey);
         }
