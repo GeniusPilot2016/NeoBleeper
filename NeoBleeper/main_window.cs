@@ -3268,7 +3268,7 @@ namespace NeoBleeper
                 {
                     nonStopping = false;
                 }
-                HandleStandardNotePlayback(noteSound_int, nonStopping);
+                await HandleStandardNotePlayback(noteSound_int, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
