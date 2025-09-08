@@ -43,7 +43,6 @@
         private void dark_theme()
         {
             darkTheme = true;
-            Application.DoEvents();
             BackColor = Color.FromArgb(32, 32, 32);
             ForeColor = Color.White;
             lbl_name.ForeColor = SystemColors.ControlText;
@@ -60,13 +59,11 @@
                 item.ForeColor = Color.White;
             }
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
-            this.Refresh();
         }
 
         private void light_theme()
         {
             darkTheme = false;
-            Application.DoEvents();
             BackColor = SystemColors.Control;
             ForeColor = SystemColors.ControlText;
             lbl_name.ForeColor = SystemColors.ControlText;
@@ -83,7 +80,6 @@
                 item.ForeColor = SystemColors.WindowText;
             }
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
-            this.Refresh();
         }
 
 

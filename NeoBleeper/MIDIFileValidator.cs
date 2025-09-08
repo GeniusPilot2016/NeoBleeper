@@ -6,7 +6,8 @@ namespace NeoBleeper
 {
     public class MIDIFileValidator
     {
-        public static bool IsMidiFile(string filePath)
+        public static bool IsMidiFile(string filePath) // Validates if the file at filePath is a valid MIDI file 
+        // For example, if a file such as a .mid file is actually a text, image, or other file renamed to .mid or the file is corrupted, this function will return false.
         {
             try
             {

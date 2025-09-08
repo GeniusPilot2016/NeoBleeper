@@ -71,7 +71,6 @@ public static class TitleBarHelper
             finally
             {
                 form.ResumeLayout(false);
-                form.Refresh();
             }
         }
     }

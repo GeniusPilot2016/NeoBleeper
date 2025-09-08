@@ -29,7 +29,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logger.Log($"Error checking system theme: {ex.Message}", Logger.LogTypes.Error);
             }
 
             return false;

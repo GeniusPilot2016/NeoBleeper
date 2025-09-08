@@ -41,7 +41,6 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
-            Application.DoEvents();
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
@@ -49,7 +48,6 @@ namespace NeoBleeper
             richTextBox1.ForeColor = Color.White;
             close_button.BackColor = Color.FromArgb(32, 32, 32);
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
-            this.Refresh();
         }
 
         private void light_theme()
@@ -57,13 +55,11 @@ namespace NeoBleeper
             darkTheme = false;
             foreach (Control ctrl in Controls)
             {
-                Application.DoEvents();
                 ctrl.BackColor = SystemColors.Control;
                 ctrl.ForeColor = SystemColors.ControlText;
                 richTextBox1.BackColor = SystemColors.Window;
                 richTextBox1.ForeColor = SystemColors.WindowText;
                 close_button.BackColor = Color.Transparent;
-                this.Refresh();
             }
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }

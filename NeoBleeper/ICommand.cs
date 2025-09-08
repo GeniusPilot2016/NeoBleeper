@@ -91,27 +91,14 @@ public class RemoveNoteCommand : ICommand
         this.item = item;
     }
 
-    public async void Execute()
+    public void Execute()
     {
-        try
-        {
-            listView.Items.Remove(item);
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
-        }
+
+        listView.Items.Remove(item);
     }
 
-    public async void Undo()
+    public void Undo()
     {
-        try
-        {
-            listView.Items.Add(item);
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
-        }
+        listView.Items.Add(item);
     }
 }

@@ -19,32 +19,26 @@ namespace NeoBleeper
         {
             bool shouldRun = false;
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
-            // P-Invoke to set the system timer resolution to 1 ms
-            [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-            static extern uint timeBeginPeriod(uint uPeriod);
-            [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-            static extern uint timeEndPeriod(uint uPeriod);
-            timeBeginPeriod(1); // Set the system timer resolution to 1 ms for better timing accuracy
             Logger.Log("NeoBleeper is starting up.", LogTypes.Info);
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+
+            // Configure application before ApplicationConfiguration.Initialize()
+            ConfigureApplication();
+
+            // Initialize application configuration
             ApplicationConfiguration.Initialize();
+
+            // Initialize audio after application configuration
             var dummyWaveOut = RenderBeep.SynthMisc.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
-            if (Settings1.Default.ClassicBleeperMode)
-            {
-                Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
-                Logger.Log("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.", LogTypes.Info);
-            }
-            else
-            {
-                Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
-                Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
-            }
+
             MIDIIOUtils.InitializeMidi();
+
+            // Rest of your initialization code...
             neobleeper_init_system_speaker_warning system_speaker_warning = new neobleeper_init_system_speaker_warning();
             neobleeper_init_display_resolution_warning display_resolution_warning = new neobleeper_init_display_resolution_warning();
             neobleeper_init_compact_computer_warning compact_computer_warning = new neobleeper_init_compact_computer_warning();
             neobleeper_init_unknown_type_of_computer_warning unknown_type_of_computer_warning = new neobleeper_init_unknown_type_of_computer_warning();
+
+            // API key validation...
             try
             {
                 EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
@@ -57,6 +51,7 @@ namespace NeoBleeper
                 MessageBox.Show(Resources.MessageAPIKeyIsCorrupted, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Log("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", LogTypes.Error);
             }
+
             // Clear any previously shown warnings
             bool apiKeyWarningShown = false;
 
@@ -81,6 +76,8 @@ namespace NeoBleeper
                     apiKeyWarningShown = true;
                 }
             }
+
+            // Rest of your existing logic remains the same...
             switch (Screen.PrimaryScreen.Bounds.Width >= 1024 || Screen.PrimaryScreen.Bounds.Height >= 768)
             {
                 case false:
@@ -247,6 +244,7 @@ namespace NeoBleeper
                         break;
                     }
             }
+
             if (shouldRun)
             {
                 try
@@ -263,8 +261,22 @@ namespace NeoBleeper
             {
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info);
             }
-            timeEndPeriod(1); // Reset the system timer resolution to default
             MIDIIOUtils.DisposeMidiOutput();
+        }
+
+        private static void ConfigureApplication()
+        {
+            switch(Settings1.Default.ClassicBleeperMode)
+            {
+                case true:
+                    Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
+                    Logger.Log("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.", LogTypes.Info);
+                    break;
+                case false:
+                    Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
+                    Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
+                    break;
+            }
         }
     }
 }

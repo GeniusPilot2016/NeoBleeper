@@ -307,7 +307,6 @@ namespace NeoBleeper
             set_keyboard_colors();
             set_buttons_colors();
             set_beep_label_color();
-            this.Refresh();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

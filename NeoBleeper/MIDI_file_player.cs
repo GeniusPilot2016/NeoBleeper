@@ -66,7 +66,6 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
-            Application.DoEvents();
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
@@ -77,12 +76,10 @@ namespace NeoBleeper
             numericUpDown_alternating_note.BackColor = Color.Black;
             numericUpDown_alternating_note.ForeColor = Color.White;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
-            this.Refresh();
         }
 
         private void light_theme()
         {
-            Application.DoEvents();
             darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
@@ -93,7 +90,6 @@ namespace NeoBleeper
             numericUpDown_alternating_note.BackColor = SystemColors.Window;
             numericUpDown_alternating_note.ForeColor = SystemColors.WindowText;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
-            this.Refresh();
         }
 
         private async void button4_Click(object sender, EventArgs e)

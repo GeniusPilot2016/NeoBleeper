@@ -13,18 +13,11 @@ public class ClearNoteCommand : ICommand
         this.previousItems = listView.SelectedItems.Cast<ListViewItem>().Select(item => (ListViewItem)item.Clone()).ToList();
     }
 
-    public async void Execute()
+    public void Execute()
     {
-        try
+        foreach (ListViewItem item in listView.SelectedItems)
         {
-            foreach (ListViewItem item in listView.SelectedItems)
-            {
-                item.SubItems[noteIndex].Text = string.Empty;
-            }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            item.SubItems[noteIndex].Text = string.Empty;
         }
     }
 

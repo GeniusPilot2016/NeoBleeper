@@ -13,33 +13,19 @@ public class ReplaceLengthCommand : ICommand
         this.previousLengths = listView.SelectedItems.Cast<ListViewItem>().Select(item => item.SubItems[0].Text).ToList();
     }
 
-    public async void Execute()
+    public void Execute()
     {
-        try
+        foreach (ListViewItem item in listView.SelectedItems)
         {
-            foreach (ListViewItem item in listView.SelectedItems)
-            {
-                item.SubItems[0].Text = newLength;
-            }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            item.SubItems[0].Text = newLength;
         }
     }
 
-    public async void Undo()
+    public void Undo()
     {
-        try
+        for (int i = 0; i < listView.SelectedItems.Count; i++)
         {
-            for (int i = 0; i < listView.SelectedItems.Count; i++)
-            {
-                listView.SelectedItems[i].SubItems[0].Text = previousLengths[i];
-            }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            listView.SelectedItems[i].SubItems[0].Text = previousLengths[i];
         }
     }
 }

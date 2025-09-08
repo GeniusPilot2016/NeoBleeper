@@ -27,15 +27,42 @@ namespace NeoBleeper
 
         public int Interval { get; set; } = 1; // ms
 
+        // timeBeginPeriod management across multiple instances
+        private static int _globalPeriodRefCount = 0;
+        private static readonly object _globalLock = new();
+
         public void Start()
         {
             if (_timerId != 0) return;
 
-            timeBeginPeriod(1);
+            // timeBeginPeriod(1) should be called only once per application
+            lock (_globalLock)
+            {
+                if (_globalPeriodRefCount == 0)
+                {
+                    timeBeginPeriod(1);
+                }
+                _globalPeriodRefCount++;
+            }
+
             _handler = TimerCallback;
             _timerId = timeSetEvent((uint)Interval, 0, _handler, UIntPtr.Zero, 1); // TIME_PERIODIC = 1
+
             if (_timerId == 0)
-                throw new InvalidOperationException("Multimedia timer could not be started.");
+            {
+                // Catch the error code to provide more context
+                int err = Marshal.GetLastWin32Error();
+                // De-clean the global period count if timer setup fails
+                lock (_globalLock)
+                {
+                    _globalPeriodRefCount--;
+                    if (_globalPeriodRefCount == 0)
+                    {
+                        timeEndPeriod(1);
+                    }
+                }
+                throw new InvalidOperationException($"Multimedia timer could not be started. timeSetEvent returned 0. Win32Error={err}");
+            }
         }
 
         public void Stop()
@@ -44,7 +71,15 @@ namespace NeoBleeper
             {
                 timeKillEvent(_timerId);
                 _timerId = 0;
-                timeEndPeriod(1);
+
+                lock (_globalLock)
+                {
+                    _globalPeriodRefCount--;
+                    if (_globalPeriodRefCount == 0)
+                    {
+                        timeEndPeriod(1);
+                    }
+                }
             }
         }
 

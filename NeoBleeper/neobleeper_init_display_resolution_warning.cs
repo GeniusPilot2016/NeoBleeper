@@ -42,24 +42,20 @@ namespace NeoBleeper
 
         private void dark_theme()
         {
-            Application.DoEvents();
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             button_close.BackColor = Color.FromArgb(32, 32, 32);
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
-            this.Refresh();
         }
 
         private void light_theme()
         {
-            Application.DoEvents();
             darkTheme = true;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             button_close.BackColor = Color.Transparent;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
-            this.Refresh();
         }
 
         private void button_close_the_program_Click(object sender, EventArgs e)

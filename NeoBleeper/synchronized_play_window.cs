@@ -109,7 +109,6 @@ namespace NeoBleeper
             groupBox_position.ForeColor = Color.White;
             button_wait.BackColor = Color.FromArgb(32, 32, 32);
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
-            this.Refresh();
         }
         private void light_theme()
         {
@@ -120,7 +119,6 @@ namespace NeoBleeper
             groupBox_position.ForeColor = SystemColors.ControlText;
             button_wait.BackColor = Color.Transparent;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
-            this.Refresh();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

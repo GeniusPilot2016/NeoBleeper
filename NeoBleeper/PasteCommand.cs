@@ -13,34 +13,20 @@ public class PasteCommand : ICommand
         this.insertIndex = insertIndex;
     }
 
-    public async void Execute()
+    public void Execute()
     {
-        try
+        if (insertIndex >= 0 && insertIndex < listView.Items.Count)
         {
-            if (insertIndex >= 0 && insertIndex < listView.Items.Count)
-            {
-                listView.Items.Insert(insertIndex, newItem);
-            }
-            else
-            {
-                listView.Items.Add(newItem);
-            }
+            listView.Items.Insert(insertIndex, newItem);
         }
-        catch (InvalidAsynchronousStateException)
+        else
         {
-            return;
+            listView.Items.Add(newItem);
         }
     }
 
     public async void Undo()
     {
-        try
-        {
-            listView.Items.Remove(newItem);
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
-        }
+        listView.Items.Remove(newItem);
     }
 }
