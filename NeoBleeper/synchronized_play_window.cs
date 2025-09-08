@@ -98,6 +98,7 @@ namespace NeoBleeper
                         break;
                     }
             }
+            this.Refresh();
         }
 
         private void dark_theme()

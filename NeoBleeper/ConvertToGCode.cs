@@ -125,6 +125,7 @@ namespace NeoBleeper
                         break;
                     }
             }
+            this.Refresh();
         }
         StringBuilder gcodeBuilder = new StringBuilder();
         private String ExtractNotes(string musicString)
