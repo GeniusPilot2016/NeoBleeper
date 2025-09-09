@@ -36,6 +36,13 @@ The system speaker is controlled at a low hardware/software level. If the applic
     **Beep is successfully stopped!**  
     This message confirms that the Beep Stopper utility detected a stuck beep and was able to stop it successfully. No further action is required.
 
+  ![image3](https://github.com/user-attachments/assets/4f02f8e0-ac3b-4c9b-bed7-6835872a84e4)
+  
+    **System speaker is not present. Therefore, stopping the beep is not possible.**  
+    This message is shown when the Beep Stopper utility is started and detects that your system does not have a system (PC) speaker. In this case, the tool cannot attempt to stop a stuck beep, as there is no speaker hardware to control.
+
+    - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, and any beeping or buzzing you hear must be coming from another audio device. Use your standard sound device settings to address sound issues.
+
 - **Restart your computer:**  
   If the Beep Stopper does not resolve the issue, a system restart will reset the speaker hardware.
 
