@@ -1,6 +1,6 @@
 # NeoBleeper Troubleshooting Guide
 
-This guide provides solutions for common issues encountered when using NeoBleeper, especially those related to system speaker behavior, sound output, hardware compatibility, and persistent system beeps.
+This guide provides solutions for common issues encountered when using NeoBleeper, especially those related to system speaker behavior, sound output, hardware compatibility, and persistent system beeping.
 
 ---
 
@@ -21,6 +21,21 @@ The system speaker is controlled at a low hardware/software level. If the applic
   - Launch this tool and press the **Stop Beep** button to stop the stuck beep from the system speaker.
   - Only use this utility when the beep continues after a crash or force quit.
 
+  #### Beep Stopper Messages and Their Meanings
+
+  When you use the Beep Stopper utility, you may see the following messages:
+
+  ![image1](https://github.com/user-attachments/assets/a703c888-c4eb-4387-b713-a18b3c6e213c)
+    
+    **System speaker is not beeping or the system speaker is beeping in a different way. No action taken.**  
+    This message appears when the utility checks the system speaker and determines that it is either not producing a beep, or is beeping in a manner that cannot be controlled by the tool. In this case, the Beep Stopper will not take any further action.  
+    - *Tip:* If you still hear a persistent beep, try restarting your computer.
+
+  ![image2](https://github.com/user-attachments/assets/7ecf60b1-6c6e-464a-9f36-df0e821c2ae9)
+    
+    **Beep is successfully stopped!**  
+    This message confirms that the Beep Stopper utility detected a stuck beep and was able to stop it successfully. No further action is required.
+
 - **Restart your computer:**  
   If the Beep Stopper does not resolve the issue, a system restart will reset the speaker hardware.
 
@@ -31,14 +46,14 @@ The system speaker is controlled at a low hardware/software level. If the applic
 
 ## 2. System Speaker Detection & Compatibility
 
-NeoBleeper includes detection logic to check whether your system has a standard PC speaker output. If your hardware does not support it, or the output is non-standard, you may see warning messages or limited options.
+NeoBleeper includes detection logic to check whether your system has a standard PC speaker output. If your hardware does not support it, or the output is non-standard, you may see warning messages or limited options in the settings dialog.
 
 ### Example Warning (Image 1):
 
 ![image1](https://github.com/user-attachments/assets/a419367f-39ab-44c5-8d66-036f031b3dd3)
 
 > **Explanation:**  
-> Your computer's motherboard either does not have a system speaker output, or the output is non-standard. In this case, NeoBleeper will switch to using your regular sound device (like speakers or headphones) to generate beeps.
+> Your computer's motherboard either does not have a system speaker output, or the output is non-standard. In this case, NeoBleeper will switch to using your regular sound device (like speakers or headphones).
 
 ### Settings Dialogs (Images 2 and 3):
 
@@ -52,7 +67,7 @@ NeoBleeper includes detection logic to check whether your system has a standard 
   If the system speaker is missing or non-standard, you cannot disable this feature.
 
 #### What does "non-standard system speaker output" mean?
-Some modern computers, laptops, or virtual machines do not have a true PC speaker, or the signal routing is non-standard. NeoBleeper can only use the system speaker (aka  PC speaker) if it is directly accessible.
+Some modern computers, laptops, or virtual machines do not have a true PC speaker, or the signal routing is non-standard. NeoBleeper can only use the system speaker (aka  PC speaker) if it is directly accessible by the hardware.
 
 ---
 
@@ -96,9 +111,9 @@ Some modern computers, laptops, or virtual machines do not have a true PC speake
 
 ## 6. Getting Help
 
-- **Provide computer and environment details:** When reporting hardware detection or sound issues, please include details about your computer (desktop/laptop, manufacturer/model, operating system) and any relevant peripherals.
+- **Provide computer and environment details:** When reporting hardware detection or sound issues, please include details about your computer (desktop/laptop, manufacturer/model, operating system) and any relevant hardware.
 - **Attach screenshots or error dialogs:** Screenshots of error or warning dialogs are very helpful. Specify exactly when the problem occurs.
-- **Include the log file:** Starting with newer versions, NeoBleeper creates a detailed log file called `DebugLog.txt` in the program folder. Please attach this file when seeking help, as it contains valuable diagnostic information about your system, NeoBleeper’s operation, and any errors encountered.
+- **Include the log file:** Starting with newer versions, NeoBleeper creates a detailed log file called `DebugLog.txt` in the program folder. Please attach this file when seeking help, as it contains helpful diagnostic information.
 - **Describe the steps to reproduce the issue:** Clearly outline what you were doing when the problem happened.
 - **Open an issue on GitHub:** For further assistance, open an issue on GitHub and include all the above details for the best support.
 
