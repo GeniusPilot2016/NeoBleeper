@@ -96,9 +96,10 @@ Some modern computers, laptops, or virtual machines do not have a true PC speake
 
 ## 6. Getting Help
 
-- Please provide details of your computer (desktop/laptop, manufacturer/model, operating system) if reporting hardware detection issues.
-- Attach screenshots of any error or warning dialogs, and specify when the problem occurs.
-
----
+- **Provide computer and environment details:** When reporting hardware detection or sound issues, please include details about your computer (desktop/laptop, manufacturer/model, operating system) and any relevant peripherals.
+- **Attach screenshots or error dialogs:** Screenshots of error or warning dialogs are very helpful. Specify exactly when the problem occurs.
+- **Include the log file:** Starting with newer versions, NeoBleeper creates a detailed log file called `DebugLog.txt` in the program folder. Please attach this file when seeking help, as it contains valuable diagnostic information about your system, NeoBleeper’s operation, and any errors encountered.
+- **Describe the steps to reproduce the issue:** Clearly outline what you were doing when the problem happened.
+- **Open an issue on GitHub:** For further assistance, open an issue on GitHub and include all the above details for the best support.
 
 _This guide is updated as new issues and solutions are discovered. For further assistance, please open an issue on GitHub with detailed information about your setup and the problem encountered._
