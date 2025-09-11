@@ -367,7 +367,7 @@ namespace NeoBleeper
         {
             if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
-                RenderBeep.BeepClass.StopBeep();
+                RenderBeep.SystemSpeakerBeepEngine.StopBeep();
             }
         }
         bool isTestingSystemSpeaker = false;

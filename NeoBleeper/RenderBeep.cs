@@ -11,24 +11,50 @@ namespace NeoBleeper
 {
     public class RenderBeep
     {
-        public static class BeepClass // Manually drive the system speaker (aka PC speaker) using the inpoutx64.dll library in newer Windows versions
+        public static class SystemSpeakerBeepEngine // System speaker (aka PC speaker) beep engine by manually driving the hardware timer and system speaker port
         {
+            static SystemSpeakerBeepEngine()
+            {
+                // Safe stop to avoid stuck beeps on exit or crash
+                void SafeStop()
+                {
+                    try
+                    {
+                        StopBeep();
+                    }
+                    catch
+                    {
+                        // Ignore exceptions to avoid crashing the application
+                    }
+                }
+
+                // Regular exit situations
+                AppDomain.CurrentDomain.ProcessExit += (s, e) => SafeStop();
+                System.Windows.Forms.Application.ApplicationExit += (s, e) => SafeStop();
+                Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */ };
+
+                // Unhandled exceptions (dispose as possible)
+                // The BSoD or power outage scenarios, which are full system crashes, cannot be handled here.
+                AppDomain.CurrentDomain.UnhandledException += (s, e) => SafeStop();
+                TaskScheduler.UnobservedTaskException += (s, e) => { SafeStop(); e.SetObserved(); };
+            }
+
             [DllImport("inpoutx64.dll")]
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                Out32(0x43, 0xB6);
-                int div = 0x1234dc / freq;
-                Out32(0x42, (Byte)(div & 0xFF));
-                Out32(0x42, (Byte)(div >> 8));
+                Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
+                int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
+                Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
+                Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
                 if (!nonStopping)
                 {
-                    HighPrecisionSleep.Sleep(5); // Small delay to ensure the timer is set before starting the beep
+                    HighPrecisionSleep.Sleep(5); // Small delay if not nonStopping to ensure the PIT is set up before enabling the speaker
                 }
-                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
-                HighPrecisionSleep.Sleep(ms);
+                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
+                HighPrecisionSleep.Sleep(ms); // Wait for the specified duration
                 if (!nonStopping) // If nonStopping is true, the beep will not stop
                 {
                     StopBeep();

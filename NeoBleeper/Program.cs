@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using NeoBleeper.Properties;
 using System.Diagnostics;
 using System.Management;
+using System.Security.Cryptography;
 using static NeoBleeper.Logger;
 
 namespace NeoBleeper
@@ -13,6 +14,7 @@ namespace NeoBleeper
         ///  The main entry point for the application.
         /// </summary>
         /// 
+
         public static bool isAnySoundDeviceExist = RenderBeep.SynthMisc.checkIfAnySoundDeviceExistAndEnabled();
         [STAThread]
         static void Main()
@@ -32,68 +34,39 @@ namespace NeoBleeper
 
             MIDIIOUtils.InitializeMidi();
 
-            // Rest of your initialization code...
-            neobleeper_init_system_speaker_warning system_speaker_warning = new neobleeper_init_system_speaker_warning();
-            neobleeper_init_display_resolution_warning display_resolution_warning = new neobleeper_init_display_resolution_warning();
-            neobleeper_init_compact_computer_warning compact_computer_warning = new neobleeper_init_compact_computer_warning();
-            neobleeper_init_unknown_type_of_computer_warning unknown_type_of_computer_warning = new neobleeper_init_unknown_type_of_computer_warning();
-
-            // API key validation...
-            try
-            {
-                EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-            }
-            catch (Exception ex)
-            {
-                Settings1.Default.geminiAPIKey = String.Empty;
-                Settings1.Default.Save();
-                EncryptionHelper.ChangeKeyAndIV();
-                MessageBox.Show(Resources.MessageAPIKeyIsCorrupted, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Logger.Log("NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.", LogTypes.Error);
-            }
-
-            // Clear any previously shown warnings
-            bool apiKeyWarningShown = false;
-
-            // Check if we have an API key to verify
+            // Check if it has an API key to verify
             if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 try
                 {
-                    // Try to decrypt the API key
                     string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     Logger.Log("API key validation successful", LogTypes.Info);
                 }
-                catch (Exception ex)
+                catch (CryptographicException ex)
                 {
-                    // If decryption fails, reset the key and show warning
-                    Logger.Log("API key validation failed: " + ex.Message, LogTypes.Error);
-                    Settings1.Default.geminiAPIKey = String.Empty;
-                    Settings1.Default.Save();
-                    EncryptionHelper.ChangeKeyAndIV();
+                    Logger.Log($"API key validation failed: {ex.Message}\nThis may be due to a corrupted API key or a change in encryption keys. The API key has been reset.", LogTypes.Error);
+                    if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                    {
+                        Settings1.Default.geminiAPIKey = String.Empty;
+                        Settings1.Default.Save(); // Save the settings after clearing the API key
+                        EncryptionHelper.ChangeKeyAndIV();
+                    }
                     MessageBox.Show(Resources.MessageAPIKeyIsCorrupted,
                         String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    apiKeyWarningShown = true;
                 }
             }
 
-            // Rest of your existing logic remains the same...
-            switch (Screen.PrimaryScreen.Bounds.Width >= 1024 || Screen.PrimaryScreen.Bounds.Height >= 768)
+            switch (GetInformations.isResolutionSupported())
             {
                 case false:
                     {
-                        DialogResult result = display_resolution_warning.ShowDialog();
-                        if (result == DialogResult.Abort)
-                        {
-                            shouldRun = false;
-                        }
+                        ShowCentralizedWarning(WarningType.DisplayResolution);
                         break;
                     }
 
                 case true:
                     {
-                        string query = "SELECT * FROM Win32_SystemEnclosure";
-                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = RenderBeep.BeepClass.isSystemSpeakerExist();
+                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = RenderBeep.SystemSpeakerBeepEngine.isSystemSpeakerExist();
                         switch (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
                         {
                             case false:
@@ -103,18 +76,7 @@ namespace NeoBleeper
                                     Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
                                     if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                     {
-                                        DialogResult result = system_speaker_warning.ShowDialog();
-                                        switch (result)
-                                        {
-                                            case DialogResult.Yes:
-                                                Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                shouldRun = true;
-                                                break;
-                                            case DialogResult.No:
-                                                Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                shouldRun = false;
-                                                break;
-                                        }
+                                        shouldRun = ShowCentralizedWarning(WarningType.SystemSpeaker);
                                     }
                                     else
                                     {
@@ -124,120 +86,50 @@ namespace NeoBleeper
                                     break;
                                 }
                             case true:
-                                int chassis_type;
-                                ManagementObjectSearcher searcher2 = new ManagementObjectSearcher(query);
-                                foreach (ManagementObject queryObj in searcher2.Get())
+                                switch (GetInformations.getTypeOfComputer())
                                 {
-                                    var chassisTypes = (UInt16[])(queryObj["ChassisTypes"]);
-                                    if (chassisTypes != null && chassisTypes.Length > 0)
-                                    {
-                                        chassis_type = chassisTypes[0];
-                                        switch (chassis_type)
+                                    case GetInformations.computerTypes.ModularComputer:
                                         {
-                                            case 3:
-                                            case 4:
-                                            case 5:
-                                            case 6:
-                                            case 7:
-                                            case 17:
-                                            case 18:
-                                            case 22:
-                                            case 23:
-                                                {
-                                                    TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                                                    TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
-                                                    shouldRun = true;
-                                                    break;
-                                                }
-                                            case 8:
-                                            case 9:
-                                            case 10:
-                                            case 11:
-                                            case 13:
-                                            case 14:
-                                            case 15:
-                                            case 16:
-                                            case 24:
-                                            case 30:
-                                            case 31:
-                                            case 32:
-                                                {
-                                                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                                    TemporarySettings.creating_sounds.permanently_enabled = false;
-                                                    TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
-                                                    Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
-                                                    if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                                    {
-                                                        DialogResult result = compact_computer_warning.ShowDialog();
-                                                        switch (result)
-                                                        {
-                                                            case DialogResult.Yes:
-                                                                Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                                shouldRun = true;
-                                                                break;
-                                                            case DialogResult.No:
-                                                                Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                                shouldRun = false;
-                                                                break;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        shouldRun = true;
-                                                        Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
-                                                    }
-                                                    break;
-                                                }
-                                            default:
-                                                {
-                                                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                                    TemporarySettings.creating_sounds.permanently_enabled = false;
-                                                    TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
-                                                    Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
-                                                    DialogResult result = unknown_type_of_computer_warning.ShowDialog();
-                                                    switch (result)
-                                                    {
-                                                        case DialogResult.Yes:
-                                                            Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                            shouldRun = true;
-                                                            Logger.Log("NeoBleeper is started.", LogTypes.Info);
-                                                            break;
-                                                        case DialogResult.No:
-                                                            Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                            shouldRun = false;
-                                                            break;
-                                                    }
-                                                    break;
-                                                }
-
-                                        }
-                                    }
-                                    else
-                                    {
-                                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                        TemporarySettings.creating_sounds.permanently_enabled = false;
-                                        TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
-                                        if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                        {
-                                            DialogResult result = unknown_type_of_computer_warning.ShowDialog();
-                                            switch (result)
-                                            {
-                                                case DialogResult.Yes:
-                                                    Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
-                                                    shouldRun = true;
-                                                    break;
-                                                case DialogResult.No:
-                                                    Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
-                                                    shouldRun = false;
-                                                    break;
-                                            }
-                                        }
-                                        else
-                                        {
+                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                             shouldRun = true;
-                                            Logger.Log("NeoBleeper is starting without unknown type of computer warning.", LogTypes.Info);
+                                            break;
                                         }
-                                    }
+                                    case GetInformations.computerTypes.CompactComputer:
+                                        {
+                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                            TemporarySettings.creating_sounds.permanently_enabled = false;
+                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
+                                            Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
+                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                            {
+                                                shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
+                                            }
+                                            else
+                                            {
+                                                shouldRun = true;
+                                                Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                            TemporarySettings.creating_sounds.permanently_enabled = false;
+                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
+                                            Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
+                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                            {
+                                                shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
+                                            }
+                                            else
+                                            {
+                                                shouldRun = true;
+                                                Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                            }
+                                            break;
+                                        }
+
                                 }
                                 break;
                         }
@@ -256,14 +148,61 @@ namespace NeoBleeper
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
                     MessageBox.Show(Resources.AnErrorOccuredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit when both normal exit and fatal error
             }
             else
             {
-                Logger.Log("NeoBleeper is exited.", LogTypes.Info);
+                Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit due to user choice or resolution issue
             }
             MIDIIOUtils.DisposeMidiOutput();
         }
+        enum WarningType
+        {
+            DisplayResolution,
+            SystemSpeaker,
+            CompactComputer,
+            UnknownComputer
+        }
 
+        static bool ShowCentralizedWarning(WarningType type)
+        {
+            Form warningForm = null;
+            switch (type)
+            {
+                case WarningType.DisplayResolution:
+                    warningForm = new neobleeper_init_display_resolution_warning();
+                    break;
+                case WarningType.SystemSpeaker:
+                    warningForm = new neobleeper_init_system_speaker_warning();
+                    break;
+                case WarningType.CompactComputer:
+                    warningForm = new neobleeper_init_compact_computer_warning();
+                    break;
+                case WarningType.UnknownComputer:
+                    warningForm = new neobleeper_init_unknown_type_of_computer_warning();
+                    break;
+            }
+            if (warningForm != null)
+            {
+                return ShowWarningAndGetUserDecision(warningForm);
+            }
+            return true;
+        }
+        private static bool ShowWarningAndGetUserDecision(Form warningForm)
+        {
+            DialogResult result = warningForm.ShowDialog();
+            if (result == DialogResult.Yes)
+            {
+                Logger.Log("User has chosen to continue with NeoBleeper.", LogTypes.Info);
+                return true;
+            }
+            else if (result == DialogResult.No)
+            {
+                Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
+                return false;
+            }
+                return false;
+        }
         private static void ConfigureApplication()
         {
             switch(Settings1.Default.ClassicBleeperMode)

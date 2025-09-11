@@ -20,9 +20,9 @@ namespace BeepStopper
             // Stop the beeping without force-shutdown
             try
             {
-                if (RenderBeep.BeepClass.isSystemSpeakerBeepStuck())
+                if (RenderBeep.SystemSpeakerBeepEngine.isSystemSpeakerBeepStuck())
                 {
-                    RenderBeep.BeepClass.StopBeep();
+                    RenderBeep.SystemSpeakerBeepEngine.StopBeep();
                     MessageBox.Show(Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

@@ -26,6 +26,71 @@ namespace NeoBleeper
             status = char.ToUpper(status[0]) + status.Substring(1);
             return (version, status);
         }
+        public enum computerTypes
+        {
+            ModularComputer,
+            CompactComputer,
+            Unknown,
+        }
+        public static Enum ComputerType = computerTypes.Unknown;
+        public static Enum getTypeOfComputer()
+        {
+            try
+            {
+                using (var searcher = new System.Management.ManagementObjectSearcher("select ChassisTypes from Win32_SystemEnclosure"))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        var types = (ushort[])item["ChassisTypes"];
+                        if (types != null && types.Length > 0)
+                        {
+                            foreach (var type in types)
+                            {
+                                switch (type)
+                                {
+                                    case 3:
+                                    case 4:
+                                    case 5:
+                                    case 6:
+                                    case 7:
+                                    case 17:
+                                    case 18:
+                                    case 22:
+                                    case 23:
+                                        return computerTypes.ModularComputer;
+                                    case 8:
+                                    case 9:
+                                    case 10:
+                                    case 11:
+                                    case 13:
+                                    case 14:
+                                    case 15:
+                                    case 16:
+                                    case 24:
+                                    case 30:
+                                    case 31:
+                                    case 32:
+                                        return computerTypes.CompactComputer;
+                                    default:
+                                        return computerTypes.Unknown;
+                                }
+                            }
+                        }
+                    }
+                }
+                return computerTypes.Unknown;
+            }
+            catch
+            {
+                return computerTypes.Unknown;
+            }
+        }
+        public static bool isResolutionSupported()
+        {
+            int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            return width >= 1024 && height >= 768;
+        }
         public static string getFullTypeOfComputer()
         {
             string[] chassisTypes = new string[]
@@ -153,7 +218,7 @@ namespace NeoBleeper
                 $"Total Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024}\r\n" +
                 $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
                 $"Power Status: {powerStatus}\r\n" +
-                $"Presence of a system speaker: {(RenderBeep.BeepClass.isSystemSpeakerExist() == true ? "Yes" : "No")}\r\n" +
+                $"Presence of a system speaker: {(RenderBeep.SystemSpeakerBeepEngine.isSystemSpeakerExist() == true ? "Yes" : "No")}\r\n" +
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;

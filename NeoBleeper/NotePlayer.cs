@@ -22,7 +22,7 @@ namespace NeoBleeper
                                 {
                                     if (frequency >= 37 && frequency <= 32767) // If the frequency is in range, create a beep with the system speaker
                                     {
-                                        RenderBeep.BeepClass.Beep(frequency, length, nonStopping); // Create a beep with the system speaker (aka PC speaker)
+                                        RenderBeep.SystemSpeakerBeepEngine.Beep(frequency, length, nonStopping); // Create a beep with the system speaker (aka PC speaker)
                                     }
                                     else // If the frequency is out of range, sleep for the length of the note
                                     {
@@ -73,7 +73,7 @@ namespace NeoBleeper
             {
                 case false: // System speaker
                     {
-                        RenderBeep.BeepClass.StopBeep(); // Stop the beep from the system speaker (aka PC speaker)
+                        RenderBeep.SystemSpeakerBeepEngine.StopBeep(); // Stop the beep from the system speaker (aka PC speaker)
                         break;
                     }
                 case true: // Soundcard
@@ -87,7 +87,7 @@ namespace NeoBleeper
         {
             if(TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
-                RenderBeep.BeepClass.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
+                RenderBeep.SystemSpeakerBeepEngine.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
             }
             else
             {
