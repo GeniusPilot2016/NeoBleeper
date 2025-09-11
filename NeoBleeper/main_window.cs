@@ -219,6 +219,7 @@ namespace NeoBleeper
                         break;
                     }
             }
+            this.Refresh();
         }
         private async void set_keyboard_colors()
         {

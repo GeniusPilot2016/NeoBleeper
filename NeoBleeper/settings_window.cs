@@ -275,6 +275,7 @@ namespace NeoBleeper
                     }
             }
             TitleBarHelper.ApplyToAllOpenForms(darkTheme);
+            this.Refresh();
         }
         private async Task system_speaker_test_tune()
         {
