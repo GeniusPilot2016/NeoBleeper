@@ -111,6 +111,7 @@
             progressBar1 = new ProgressBar();
             pictureBoxIcon = new PictureBox();
             labelStatus = new Label();
+            checkBoxShowLyrics = new CheckBox();
             groupBox1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
@@ -1325,12 +1326,25 @@
             labelStatus.Text = "Loading MIDI file. Please wait...";
             labelStatus.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // checkBoxShowLyrics
+            // 
+            checkBoxShowLyrics.AutoSize = true;
+            checkBoxShowLyrics.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxShowLyrics.Location = new Point(9, 596);
+            checkBoxShowLyrics.Name = "checkBoxShowLyrics";
+            checkBoxShowLyrics.Size = new Size(86, 20);
+            checkBoxShowLyrics.TabIndex = 32;
+            checkBoxShowLyrics.Text = "Show lyrics";
+            checkBoxShowLyrics.UseVisualStyleBackColor = true;
+            checkBoxShowLyrics.CheckedChanged += checkBoxShowLyrics_CheckedChanged;
+            // 
             // MIDI_file_player
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(348, 598);
+            ClientSize = new Size(348, 624);
+            Controls.Add(checkBoxShowLyrics);
             Controls.Add(flowLayoutPanel2);
             Controls.Add(panel1);
             Controls.Add(button_browse_file);
@@ -1476,5 +1490,6 @@
         private ProgressBar progressBar1;
         private System.Windows.Forms.Timer updatePlaybackPositionTimer;
         private System.Windows.Forms.Timer playbackTimer;
+        private CheckBox checkBoxShowLyrics;
     }
 }

@@ -1079,7 +1079,7 @@ namespace NeoBleeper
             // This mapping assumes MIDI notes 0-128 correspond to labels 1-32
             _noteToLabelMap = new Dictionary<int, int>();
             // Maps MIDI notes 0-128 to labels 1-32
-            for (int i = 0; i <= 128; i++) 
+            for (int i = 0; i <= 128; i++)
             {
                 _noteToLabelMap[i] = i - 60;
             }
@@ -1310,7 +1310,31 @@ namespace NeoBleeper
                 await WaitPreciseWithCancellation(durationMsInt, token);
                 return; // Skip note playback for this frame
             }
-
+            // Show lyrics if enabled
+            if (checkBoxShowLyrics.Checked)
+            {
+                // Check for lyrics in all tracks at the current time
+                foreach (var track in _midiFile.Events)
+                {
+                    foreach (var midiEvent in track)
+                    {
+                        if (midiEvent.AbsoluteTime == currentFrame.Time &&
+                            midiEvent.CommandCode == MidiCommandCode.MetaEvent)
+                        {
+                            var metaEvent = (MetaEvent)midiEvent;
+                            if (metaEvent.MetaEventType == MetaEventType.Lyric || metaEvent.MetaEventType == MetaEventType.TextEvent)
+                            {
+                                string lyrics = metaEvent is TextEvent textEvent ? textEvent.Text : "";
+                                if (!string.IsNullOrWhiteSpace(lyrics))
+                                {
+                                    // Show lyrics asynchronously
+                                    PrintLyricsAsync(lyrics, durationMsInt);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             // Play notes
             var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
@@ -1367,7 +1391,8 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    await Task.Run(() => {
+                    await Task.Run(() =>
+                    {
                         NotePlayer.play_note(frequencies[0], durationMsInt);
                     }, token);
                     UnHighlightNoteLabel(noteIndex);
@@ -1474,7 +1499,7 @@ namespace NeoBleeper
                     Play();
                 }
                 else
-                { 
+                {
                     Logger.Log("Playback finished.", Logger.LogTypes.Info);
                     Stop();
                     Rewind();
@@ -1517,12 +1542,155 @@ namespace NeoBleeper
                         var noteEvent = (NoteOnEvent)midiEvent;
                         int instrument;
                         if (noteEvent.Channel == 9) // Channel 10 (percussion)
-                            instrument = -1; 
+                            instrument = -1;
                         else
                             instrument = lastPatchPerChannel.TryGetValue(noteEvent.Channel, out var patch) ? patch : 0;
                         _noteInstruments[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = instrument;
                     }
                 }
+            }
+        }
+
+        // Eklemeniz gereken P/Invoke ve metotları sınıf içinde mevcut PrintLyrics/PrintLyricsAsync yerine yapıştırın:
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr GetDesktopWindow();
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hWnd);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        private Bitmap _lastLyricsBackground;
+        private Rectangle _lastLyricsRect;
+        private void PrintLyrics(string lyrics, int duration)
+        {
+            if (!checkBoxShowLyrics.Checked) return;
+            if (string.IsNullOrWhiteSpace(lyrics)) return;
+
+            IntPtr desktopHwnd = GetDesktopWindow();
+            IntPtr hdc = GetDC(desktopHwnd);
+            if (hdc == IntPtr.Zero) return;
+
+            Rectangle rect = Rectangle.Empty;
+            try
+            {
+                using (Graphics g = Graphics.FromHdc(hdc))
+                {
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+                    UIFonts uiFonts = UIFonts.Instance;
+                    using (Font font = uiFonts.SetUIFont(32f, FontStyle.Regular))
+                    {
+                        Color textColor = Color.Black;
+                        Color backColor = Color.White;
+
+                        switch (Settings1.Default.theme)
+                        {
+                            case 0:
+                                textColor = check_system_theme.IsDarkTheme() ? Color.White : Color.Black;
+                                backColor = check_system_theme.IsDarkTheme() ? Color.FromArgb(40, 40, 40) : Color.White;
+                                break;
+                            case 1:
+                                textColor = Color.Black;
+                                backColor = Color.White;
+                                break;
+                            case 2:
+                                textColor = Color.White;
+                                backColor = Color.FromArgb(40, 40, 40);
+                                break;
+                        }
+
+                        var screenBounds = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+                        SizeF textSize = g.MeasureString(lyrics, font);
+
+                        int padding = 15;
+                        rect = new Rectangle(
+                            screenBounds.X + (screenBounds.Width - (int)textSize.Width - padding * 2) / 2,
+                            screenBounds.Y + (screenBounds.Height - (int)textSize.Height - padding * 2) / 2,
+                            (int)textSize.Width + padding * 2,
+                            (int)textSize.Height + padding * 2);
+                        _lastLyricsRect = rect;
+                        _lastLyricsBackground?.Dispose();
+                        _lastLyricsBackground = new Bitmap(rect.Width, rect.Height);
+                        using (Graphics bg = Graphics.FromImage(_lastLyricsBackground))
+                        {
+                            bg.CopyFromScreen(rect.Location, Point.Empty, rect.Size);
+                        }
+
+                        // Draw background rectangle
+                        using (Brush backBrush = new SolidBrush(backColor))
+                        {
+                            g.FillRectangle(backBrush, rect);
+                        }
+
+                        // Draw the text
+                        using (Brush textBrush = new SolidBrush(textColor))
+                        {
+                            g.DrawString(lyrics, font, textBrush, rect.X + padding, rect.Y + padding);
+                        }
+
+                        // Wait for the specified duration
+                        HighPrecisionSleep.Sleep(duration);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"PrintLyrics (desktop) error: {ex.Message}", Logger.LogTypes.Error);
+            }
+            finally
+            {
+                ReleaseDC(desktopHwnd, hdc);
+
+                // Clear the lyrics from the desktop
+                if (!rect.IsEmpty)
+                {
+                    ClearLyricsFromDesktop(rect);
+                }
+            }
+        }
+
+        private void ClearLyricsFromDesktop(Rectangle rect)
+        {
+            try
+            {
+                if (_lastLyricsBackground != null && rect == _lastLyricsRect)
+                {
+                    using (Graphics g = Graphics.FromHwnd(GetDesktopWindow()))
+                    {
+                        g.DrawImage(_lastLyricsBackground, rect.Location);
+                    }
+                }
+                // Refresh the area to remove any residual artifacts
+                InvalidateRect(GetDesktopWindow(), ref rect, true);
+                UpdateWindow(GetDesktopWindow());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"ClearLyricsFromDesktop error: {ex.Message}", Logger.LogTypes.Error);
+            }
+        }
+
+        // Additional P/Invoke declarations to refresh the desktop area
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool InvalidateRect(IntPtr hWnd, ref Rectangle lpRect, bool bErase);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool UpdateWindow(IntPtr hWnd);
+
+        private async Task PrintLyricsAsync(string lyrics, int duration) // Async wrapper
+        {
+            // Run the blocking PrintLyrics method in a separate task to avoid UI blocking
+            await Task.Run(() => PrintLyrics(lyrics, duration));
+        }
+        private void checkBoxShowLyrics_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowLyrics.Checked)
+            {
+                Logger.Log("Show lyrics is enabled.", Logger.LogTypes.Info);
+            }
+            else
+            {
+                Logger.Log("Show lyrics is disabled.", Logger.LogTypes.Info); 
             }
         }
     }
