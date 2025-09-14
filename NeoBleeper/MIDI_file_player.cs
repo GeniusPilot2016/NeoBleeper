@@ -420,6 +420,10 @@ namespace NeoBleeper
                 _isPlaying = false;
                 _isAlternatingPlayback = false;
 
+                // Reset lyric state
+                _lastLyricTime = DateTime.MinValue;
+                _isInLyricSection = false;
+
                 // Cancel the playback task
                 _cancellationTokenSource?.Cancel();
 
@@ -882,6 +886,9 @@ namespace NeoBleeper
         }
         private async void Rewind()
         {
+            // Reset lyric state
+            _lastLyricTime = DateTime.MinValue;
+            _isInLyricSection = false;
             ClearLyrics();
             trackBar1.Value = 0;
             int positionPercent = trackBar1.Value / 10;
@@ -985,7 +992,7 @@ namespace NeoBleeper
                 Stop();
                 _playbackRestartTimer?.Stop();
                 _playbackRestartTimer?.Dispose();
-                lyricsOverlay.Dispose();
+                lyricsOverlay?.Dispose();
             }
             catch (Exception ex)
             {
@@ -1293,6 +1300,9 @@ namespace NeoBleeper
                 }
             }, _cancellationTokenSource?.Token ?? CancellationToken.None);
         }
+        private DateTime _lastLyricTime = DateTime.MinValue;
+        private bool _isInLyricSection = false;
+
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
@@ -1344,48 +1354,9 @@ namespace NeoBleeper
             }
 
             // Show lyrics if enabled — use pre-collected meta events for fast lookup
-            if (checkBoxShowLyrics.Checked)
+            if (checkBox_show_lyrics_or_text_events.Checked)
             {
-                if (_metaEventsByTime != null && _metaEventsByTime.TryGetValue(currentFrame.Time, out var metas))
-                {
-                    foreach (var metaEvent in metas)
-                    {
-                        string lyrics = null;
-                        if (metaEvent is TextEvent textEvent) lyrics = textEvent.Text;
-                        else
-                        {
-                            var prop = metaEvent.GetType().GetProperty("Text");
-                            if (prop != null)
-                            {
-                                lyrics = prop.GetValue(metaEvent)?.ToString();
-                            }
-                        }
-                        if (!string.IsNullOrEmpty(lyrics))
-                        {
-                            if (lyrics.Contains("\n") || lyrics.Contains("\\") || lyrics.Contains("/")||
-                                lyrics.Contains("\r") || lyrics.Contains("\t") || lyrics.Contains("\0") ||
-                                lyrics.Contains("\f") || lyrics.Contains("\v"))
-                            {
-                                lyricRow = string.Empty; // Clear previous lyrics if there's a newline
-                            }
-                            lyricRow += lyrics;
-                            lyricRow = lyricRow = lyricRow
-                         .Replace("\n", string.Empty)
-                        .Replace("\r", string.Empty)
-                        .Replace("\\", string.Empty)
-                        .Replace("/", string.Empty)
-                        .Replace("\t", string.Empty)
-                        .Replace("\0", string.Empty)
-                        .Replace("\f", string.Empty)
-                        .Replace("\v", string.Empty);
-                            PrintLyrics(lyricRow);
-                        }
-                        else
-                        {
-                            ClearLyrics();
-                        }
-                    }
-                }
+                HandleLyricsDisplay(currentFrame.Time);
             }
 
             // Play notes
@@ -1455,6 +1426,137 @@ namespace NeoBleeper
             {
                 await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
             }
+        }
+        private int GetCurrentTempo(long currentTime)
+        {
+            // Last tempo event before or at currentTime
+            var lastTempoEvent = _tempoEvents
+                .Where(t => t.time <= currentTime)
+                .LastOrDefault();
+
+            return lastTempoEvent.tempo != 0 ? lastTempoEvent.tempo : 500000; // Default 120 BPM
+        }
+
+        private (int lyricGapThreshold, int melodySectionThreshold) CalculateDynamicThresholds(long currentTime)
+        {
+            int currentTempo = GetCurrentTempo(currentTime);
+
+            // Calculate BPM from microseconds per quarter note
+            double bpm = 60000000.0 / currentTempo;
+
+            // Base threshold values at 120 BPM
+            const double baseBpm = 120.0;
+            const int baseLyricGap = 1250;      // 1.25 seconds
+            const int baseMelodySection = 2000; // 2 seconds
+
+            // Set thresholds based on tempo ratio
+            // If the tempo is higher, thresholds decrease, and vice versa
+            double tempoRatio = baseBpm / bpm;
+
+            int lyricGapThreshold = (int)(baseLyricGap * tempoRatio);
+            int melodySectionThreshold = (int)(baseMelodySection * tempoRatio);
+
+            // Add bounds to thresholds
+            lyricGapThreshold = Math.Max(500, Math.Min(5000, lyricGapThreshold));    // 0.5-5 saniye arası
+            melodySectionThreshold = Math.Max(1000, Math.Min(10000, melodySectionThreshold)); // 1-10 saniye arası
+
+            return (lyricGapThreshold, melodySectionThreshold);
+        }
+
+        private void HandleLyricsDisplay(long currentTime)
+        {
+            bool hasLyrics = false;
+            DateTime currentDateTime = DateTime.Now;
+
+            // Calculate dynamic thresholds based on current tempo
+            var (lyricGapThreshold, melodySectionThreshold) = CalculateDynamicThresholds(currentTime);
+
+            // Check if that frame has lyric
+            if (_metaEventsByTime != null && _metaEventsByTime.TryGetValue(currentTime, out var metas))
+            {
+                foreach (var metaEvent in metas)
+                {
+                    string lyrics = ExtractLyricsFromMetaEvent(metaEvent);
+                    if (!string.IsNullOrEmpty(lyrics))
+                    {
+                        hasLyrics = true;
+                        _lastLyricTime = currentDateTime;
+                        _isInLyricSection = true;
+
+                        // Process lyric
+                        ProcessLyricText(lyrics);
+                        break;
+                    }
+                }
+            }
+
+            // Specify type of delay if it hasn't any lyric
+            if (!hasLyrics)
+            {
+                double timeSinceLastLyric = (currentDateTime - _lastLyricTime).TotalMilliseconds;
+
+                if (_isInLyricSection)
+                {
+                    // Use dynamic threshold
+                    if (timeSinceLastLyric > lyricGapThreshold)
+                    {
+                        // Longer delay 
+                        _isInLyricSection = false;
+                        ClearLyrics();
+                    }
+                    // Shorter delay
+                }
+                else
+                {
+                    // The lyric is already cleaned
+                    if (timeSinceLastLyric > melodySectionThreshold)
+                    {
+                        // Do nothing, if there isn't any lyric
+                    }
+                }
+            }
+        }
+        private string ExtractLyricsFromMetaEvent(MetaEvent metaEvent)
+        {
+            string lyrics = null;
+            if (metaEvent is TextEvent textEvent)
+            {
+                lyrics = textEvent.Text;
+            }
+            else
+            {
+                var prop = metaEvent.GetType().GetProperty("Text");
+                if (prop != null)
+                {
+                    lyrics = prop.GetValue(metaEvent)?.ToString();
+                }
+            }
+            return lyrics;
+        }
+
+        // Process and display lyric text
+        private void ProcessLyricText(string lyrics)
+        {
+            if (lyrics.Contains("\n") || lyrics.Contains("\\") || lyrics.Contains("/") ||
+                lyrics.Contains("\r") || lyrics.Contains("\t") || lyrics.Contains("\0") ||
+                lyrics.Contains("\f") || lyrics.Contains("\v") || lyrics.Contains("|"))
+            {
+                lyricRow = string.Empty; // Clear previous lyrics if there's a newline
+            }
+
+            lyricRow += lyrics;
+            lyricRow = lyricRow
+                .Replace("\n", string.Empty)
+                .Replace("\r", string.Empty)
+                .Replace("\\", string.Empty)
+                .Replace("/", string.Empty)
+                .Replace("\t", string.Empty)
+                .Replace("\0", string.Empty)
+                .Replace("\f", string.Empty)
+                .Replace("\v", string.Empty)
+                .Replace("|", string.Empty);
+
+            PrintLyrics(lyricRow.Trim());
         }
         private async Task WaitPreciseWithCancellation(int milliseconds, CancellationToken cancellationToken)
         {
@@ -1614,11 +1716,18 @@ namespace NeoBleeper
         }
         private void ShowLyricsOverlay()
         {
-            if(lyricsOverlay == null || lyricsOverlay.IsDisposed)
+            if (lyricsOverlay == null || lyricsOverlay.IsDisposed)
             {
-                lyricsOverlay = new LyricsOverlay(); 
+                lyricsOverlay = new LyricsOverlay();
+                lyricsOverlay.Owner = this;
             }
-            lyricsOverlay.Show();
+
+            if (!lyricsOverlay.Visible)
+            {
+                lyricsOverlay.Show(this); 
+            }
+
+            BeginInvoke((Action)(() => this.Activate()));
         }
         private void HideLyricsOverlay()
         {
@@ -1627,9 +1736,9 @@ namespace NeoBleeper
                 lyricsOverlay.Hide();
             }
         }
-        private void checkBoxShowLyrics_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_show_lyrics_or_text_events_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxShowLyrics.Checked)
+            if (checkBox_show_lyrics_or_text_events.Checked)
             {
                 Logger.Log("Show lyrics is enabled.", Logger.LogTypes.Info);
                 ShowLyricsOverlay();
