@@ -2,7 +2,7 @@
 
 NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet. 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/d68cc402-aa77-44d3-b9de-b48b65408955)
+![image](https://github.com/user-attachments/assets/6d97daca-3dae-44e4-894c-c272864af8ee)
 
 ## Status
 
@@ -14,25 +14,25 @@ Dieses Projekt befindet sich **noch in der Entwicklung**. Einige Funktionen und 
   
 NeoBleeper bietet eine benutzerfreundliche, vertraute, ergonomischere und natürlichere Oberfläche, die mit hochauflösenden Displays kompatibel ist und die Eingewöhnung für ehemalige Bleeper Music Maker-Nutzer beschleunigt.
 
-  ![image](https://github.com/user-attachments/assets/9923f1f5-a2b1-4470-87d9-cf057fc3759b5)
+  ![image](https://github.com/user-attachments/assets/7f254095-cc6e-4f63-aa09-a6bbffad569a)
 
-  ![image](https://github.com/user-attachments/assets/d3738e08-14a1-4306-9e03-916ccd7b79f4)
+  ![image](https://github.com/user-attachments/assets/2f551791-e967-4157-b429-fe5f6de1bb25)
 
-  ![image](https://github.com/user-attachments/assets/9dc01810-8807-4a5d-934f-52a7da88ae0e)
+  ![image](https://github.com/user-attachments/assets/d9b14163-6393-41f1-8af3-240c710c1751)
+
+  ![image](https://github.com/user-attachments/assets/7614a924-c501-4982-a23c-6afc9b6542ca)
+
+  ![image](https://github.com/user-attachments/assets/6844b9b3-b2b2-45b7-9a52-ac3624093202)
   
-  ![image](https://github.com/user-attachments/assets/329bbfef-9989-44c0-ad38-2e5d83022031)
+  ![image](https://github.com/user-attachments/assets/7c75b019-6870-4cd7-b4e7-ed0a3ba34555)
 
-  ![image](https://github.com/user-attachments/assets/8b10bc62-18fa-4a68-8f19-00b8076110e6)
-  
-  ![image](https://github.com/user-attachments/assets/f3d4cc85-050f-4371-9bc8-946cfbeb246d)
-
-  ![image](https://github.com/user-attachments/assets/a1a87bdd-dd2a-4741-865f-38f99db753dc)
+  ![image](https://github.com/user-attachments/assets/4a1540ca-fc07-4f93-8e05-8dc60731ffd3)
 
 - ### Notizen hinzufügen und bearbeiten
   
 Mit NeoBleeper können Nutzer einfach und schnell Notizen hinzufügen. Dank der benutzerfreundlichen, vertrauten und intuitiven Oberfläche können Sie Ihrer Musik kreativ Notizen hinzufügen oder Notizen darin bearbeiten.
 
-  ![image](https://github.com/user-attachments/assets/6f50ff57-f842-4793-92f2-20acd4ee752e)
+  ![image](https://github.com/user-attachments/assets/de05e69e-423f-4fee-a2e7-9c09ab11a936)
   
   ![image](https://github.com/user-attachments/assets/f0df9458-3abf-42db-9e9d-ff7a384e5814)
 
@@ -42,7 +42,7 @@ Mit NeoBleeper können Nutzer einfach und schnell Notizen hinzufügen. Dank der 
   
 NeoBleeper ermöglicht es Nutzern, die Taktart von Musik anzupassen und den Rhythmus mithilfe eines Metronoms zu bearbeiten. Dank der benutzerfreundlichen, vertrauten und intuitiven Oberfläche können Sie mit Taktartanpassungen und Metronomnutzung präzisere und konsistentere Musik erstellen.
   
-  ![image](https://github.com/user-attachments/assets/c99a938f-6ec2-4c71-8a7f-ed5f54f07e09)
+   ![image](https://github.com/user-attachments/assets/b22877c0-7f9f-498b-8bd5-60564c399630)
 
 - ### Einfache Noteneingabe mit virtueller Tastatur
   
@@ -54,7 +54,7 @@ NeoBleeper ermöglicht Ihnen die schnelle und einfache Noteneingabe mit einer vi
   
 NeoBleeper unterstützt sein eigenes Dateiformat (.NBPML) sowie das Dateiformat des Bleeper Music Maker (.BMM), von dem es inspiriert wurde.
 
-  ![image](https://github.com/user-attachments/assets/fd969e88-691e-4f2d-9d40-908ddddc9798)
+  ![image](https://github.com/user-attachments/assets/759cd4f1-6997-4514-b4b7-413654989af6)
 
 - ### Mehr als ein Remake
 
@@ -64,9 +64,9 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
     
     Dank der KI-gestützten Musikerstellungsfunktion von Google Gemini™ im NeoBleeper-Programm können Sie Musik mit KI erstellen und über den Systemlautsprecher oder ein MIDI-Ausgabegerät abspielen.
 
-    ![image](https://github.com/user-attachments/assets/af751eee-8446-46f8-849f-d5fee4d97f27)
-    
-    ![image](https://github.com/user-attachments/assets/fb04b436-18e1-4b68-9f3e-26f3efaa226b)
+    ![image](https://github.com/user-attachments/assets/83f4d4d8-c00b-4530-b3bb-e3814827443c)
+
+    ![image](https://github.com/user-attachments/assets/32d8af99-e737-43af-a854-a6c07e4006e2)
     
   - #### Präzisere Positionsanzeige
   - 
@@ -78,17 +78,17 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
 
     NeoBleeper verwandelt Ihr normales Keyboard in ein Klavier und ermöglicht Ihnen das einfache Spielen von Noten ohne MIDI-Eingabegerät.
 
-    ![image](https://github.com/user-attachments/assets/811c94af-d72e-4432-b92a-3143933e2da9)
+    ![image](https://github.com/user-attachments/assets/a825dba3-ab9e-4fc3-8d93-437ee030f7dc)
     
   - #### Personalisierung nach Wunsch
     
     Sie können NeoBleeper personalisieren, indem Sie die Oktavfarben, die Farben einiger Schaltflächen und Anzeigen in Millionen von Farben ändern und zwischen dunklen und hellen Designs wählen. Ihrer Fantasie sind dabei keine Grenzen gesetzt. Aktivieren Sie außerdem den „Klassischen Bleeper-Modus“, um die Benutzeroberfläche des Programms an die nostalgische Benutzeroberfläche des Bleeper Music Maker anzupassen.
 
-    ![image](https://github.com/user-attachments/assets/b70a1399-1aae-4027-981d-3400cd431c78)
+    ![image](https://github.com/user-attachments/assets/da29c212-c1b0-4142-95e3-7a6eee973cd9)
 
-    ![image](https://github.com/user-attachments/assets/c1c8f841-a536-4e7e-b8d7-3747da77b1c3)
+    ![image](https://github.com/user-attachments/assets/e536aa0f-733f-44a3-9878-95ec4f88710c)
 
-    ![image](https://github.com/user-attachments/assets/35c86011-97ba-4a4e-a1e4-e5b745b4fc12)
+    ![image](https://github.com/user-attachments/assets/f4e860e1-b894-4c0e-8e16-27571888508b)
 
   - #### Erkennt den Systemlautsprecher
   - 
