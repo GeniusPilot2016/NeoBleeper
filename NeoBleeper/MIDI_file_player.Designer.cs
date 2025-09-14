@@ -1328,6 +1328,7 @@
             // 
             // checkBoxShowLyrics
             // 
+            checkBoxShowLyrics.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBoxShowLyrics.AutoSize = true;
             checkBoxShowLyrics.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBoxShowLyrics.Location = new Point(9, 596);
