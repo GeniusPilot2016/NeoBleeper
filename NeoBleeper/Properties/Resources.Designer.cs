@@ -915,6 +915,26 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap neobleeper_background_dark {
+            get {
+                object obj = ResourceManager.GetObject("neobleeper_background_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap neobleeper_background_light {
+            get {
+                object obj = ResourceManager.GetObject("neobleeper_background_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap neobleeper_icon {
             get {
                 object obj = ResourceManager.GetObject("neobleeper_icon", resourceCulture);

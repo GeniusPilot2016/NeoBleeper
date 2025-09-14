@@ -574,10 +574,11 @@
             // checkBox_mute_playback
             // 
             resources.ApplyResources(checkBox_mute_playback, "checkBox_mute_playback");
+            checkBox_mute_playback.BackColor = Color.Transparent;
             checkBox_mute_playback.ImageList = imageList_main_window;
             checkBox_mute_playback.Name = "checkBox_mute_playback";
             toolTip1.SetToolTip(checkBox_mute_playback, resources.GetString("checkBox_mute_playback.ToolTip"));
-            checkBox_mute_playback.UseVisualStyleBackColor = true;
+            checkBox_mute_playback.UseVisualStyleBackColor = false;
             checkBox_mute_playback.CheckedChanged += checkBox_mute_system_speaker_CheckedChanged;
             // 
             // imageList_main_window
@@ -951,24 +952,27 @@
             // label_mods
             // 
             resources.ApplyResources(label_mods, "label_mods");
+            label_mods.BackColor = Color.Transparent;
             label_mods.Name = "label_mods";
             // 
             // checkBox_synchronized_play
             // 
             resources.ApplyResources(checkBox_synchronized_play, "checkBox_synchronized_play");
+            checkBox_synchronized_play.BackColor = Color.Transparent;
             checkBox_synchronized_play.ImageList = imageList_main_window;
             checkBox_synchronized_play.Name = "checkBox_synchronized_play";
             toolTip1.SetToolTip(checkBox_synchronized_play, resources.GetString("checkBox_synchronized_play.ToolTip"));
-            checkBox_synchronized_play.UseVisualStyleBackColor = true;
+            checkBox_synchronized_play.UseVisualStyleBackColor = false;
             checkBox_synchronized_play.CheckedChanged += checkBox_synchronized_play_CheckedChanged;
             // 
             // checkBox_play_beat_sound
             // 
             resources.ApplyResources(checkBox_play_beat_sound, "checkBox_play_beat_sound");
+            checkBox_play_beat_sound.BackColor = Color.Transparent;
             checkBox_play_beat_sound.ImageList = imageList_main_window;
             checkBox_play_beat_sound.Name = "checkBox_play_beat_sound";
             toolTip1.SetToolTip(checkBox_play_beat_sound, resources.GetString("checkBox_play_beat_sound.ToolTip"));
-            checkBox_play_beat_sound.UseVisualStyleBackColor = true;
+            checkBox_play_beat_sound.UseVisualStyleBackColor = false;
             checkBox_play_beat_sound.CheckedChanged += checkBox_play_beat_sound_CheckedChanged;
             // 
             // checkBox_staccato
@@ -1004,6 +1008,7 @@
             // lbl_alternating_note_options
             // 
             resources.ApplyResources(lbl_alternating_note_options, "lbl_alternating_note_options");
+            lbl_alternating_note_options.BackColor = Color.Transparent;
             lbl_alternating_note_options.Name = "lbl_alternating_note_options";
             // 
             // lbl_d3
@@ -1457,6 +1462,7 @@
             // 
             // group_adding_note
             // 
+            group_adding_note.BackColor = Color.Transparent;
             group_adding_note.Controls.Add(add_as_note4);
             group_adding_note.Controls.Add(add_as_note3);
             group_adding_note.Controls.Add(checkBox_replace_length);
@@ -1527,6 +1533,7 @@
             // group_key_is_clicked
             // 
             resources.ApplyResources(group_key_is_clicked, "group_key_is_clicked");
+            group_key_is_clicked.BackColor = Color.Transparent;
             group_key_is_clicked.Controls.Add(group_adding_note);
             group_key_is_clicked.Controls.Add(checkbox_play_note);
             group_key_is_clicked.Name = "group_key_is_clicked";
@@ -1535,6 +1542,7 @@
             // group_line_clicked
             // 
             resources.ApplyResources(group_line_clicked, "group_line_clicked");
+            group_line_clicked.BackColor = Color.Transparent;
             group_line_clicked.Controls.Add(checkBox_play_note4_clicked);
             group_line_clicked.Controls.Add(checkBox_play_note3_clicked);
             group_line_clicked.Controls.Add(checkBox_play_note2_clicked);
@@ -1627,6 +1635,7 @@
             // group_notes
             // 
             resources.ApplyResources(group_notes, "group_notes");
+            group_notes.BackColor = Color.Transparent;
             group_notes.Controls.Add(group_music_played);
             group_notes.Controls.Add(group_line_clicked);
             group_notes.Name = "group_notes";
@@ -1682,6 +1691,7 @@
             // 
             // panel2
             // 
+            panel2.BackColor = Color.Transparent;
             panel2.Controls.Add(lbl_ms);
             panel2.Controls.Add(numericUpDown_alternating_notes);
             resources.ApplyResources(panel2, "panel2");
@@ -1690,6 +1700,7 @@
             // lbl_ms
             // 
             resources.ApplyResources(lbl_ms, "lbl_ms");
+            lbl_ms.BackColor = Color.Transparent;
             lbl_ms.Name = "lbl_ms";
             // 
             // panel3
@@ -1702,6 +1713,7 @@
             // position_table
             // 
             resources.ApplyResources(position_table, "position_table");
+            position_table.BackColor = Color.Transparent;
             position_table.Controls.Add(lbl_measure, 2, 0);
             position_table.Controls.Add(lbl_beat, 2, 1);
             position_table.Controls.Add(lbl_measure_value, 3, 0);
@@ -1718,10 +1730,11 @@
             // checkBox_bleeper_portamento
             // 
             resources.ApplyResources(checkBox_bleeper_portamento, "checkBox_bleeper_portamento");
+            checkBox_bleeper_portamento.BackColor = Color.Transparent;
             checkBox_bleeper_portamento.ImageList = imageList_main_window;
             checkBox_bleeper_portamento.Name = "checkBox_bleeper_portamento";
             toolTip1.SetToolTip(checkBox_bleeper_portamento, resources.GetString("checkBox_bleeper_portamento.ToolTip"));
-            checkBox_bleeper_portamento.UseVisualStyleBackColor = true;
+            checkBox_bleeper_portamento.UseVisualStyleBackColor = false;
             checkBox_bleeper_portamento.CheckedChanged += checkBox_bleeper_portamento_CheckedChanged;
             // 
             // btn_octave_decrease
@@ -1816,11 +1829,12 @@
             // 
             // button_synchronized_play_help
             // 
+            button_synchronized_play_help.BackColor = Color.Transparent;
             button_synchronized_play_help.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(button_synchronized_play_help, "button_synchronized_play_help");
             button_synchronized_play_help.ImageList = help_icon;
             button_synchronized_play_help.Name = "button_synchronized_play_help";
-            button_synchronized_play_help.UseVisualStyleBackColor = true;
+            button_synchronized_play_help.UseVisualStyleBackColor = false;
             button_synchronized_play_help.Click += button_synchronized_play_help_Click;
             // 
             // help_icon
@@ -1832,87 +1846,96 @@
             // 
             // button_play_beat_sound_help
             // 
+            button_play_beat_sound_help.BackColor = Color.Transparent;
             button_play_beat_sound_help.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(button_play_beat_sound_help, "button_play_beat_sound_help");
             button_play_beat_sound_help.ImageList = help_icon;
             button_play_beat_sound_help.Name = "button_play_beat_sound_help";
-            button_play_beat_sound_help.UseVisualStyleBackColor = true;
+            button_play_beat_sound_help.UseVisualStyleBackColor = false;
             button_play_beat_sound_help.Click += button_play_beat_sound_help_Click;
             // 
             // button_bleeper_portamento_help
             // 
+            button_bleeper_portamento_help.BackColor = Color.Transparent;
             button_bleeper_portamento_help.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(button_bleeper_portamento_help, "button_bleeper_portamento_help");
             button_bleeper_portamento_help.ImageList = help_icon;
             button_bleeper_portamento_help.Name = "button_bleeper_portamento_help";
-            button_bleeper_portamento_help.UseVisualStyleBackColor = true;
+            button_bleeper_portamento_help.UseVisualStyleBackColor = false;
             button_bleeper_portamento_help.Click += button_bleeper_portamento_help_Click;
             // 
             // button_use_keyboard_as_piano_help
             // 
+            button_use_keyboard_as_piano_help.BackColor = Color.Transparent;
             button_use_keyboard_as_piano_help.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(button_use_keyboard_as_piano_help, "button_use_keyboard_as_piano_help");
             button_use_keyboard_as_piano_help.ImageList = help_icon;
             button_use_keyboard_as_piano_help.Name = "button_use_keyboard_as_piano_help";
-            button_use_keyboard_as_piano_help.UseVisualStyleBackColor = true;
+            button_use_keyboard_as_piano_help.UseVisualStyleBackColor = false;
             button_use_keyboard_as_piano_help.Click += button_use_keyboard_as_piano_help_Click;
             // 
             // button_do_not_update_help
             // 
+            button_do_not_update_help.BackColor = Color.Transparent;
             button_do_not_update_help.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(button_do_not_update_help, "button_do_not_update_help");
             button_do_not_update_help.ImageList = help_icon;
             button_do_not_update_help.Name = "button_do_not_update_help";
-            button_do_not_update_help.UseVisualStyleBackColor = true;
+            button_do_not_update_help.UseVisualStyleBackColor = false;
             button_do_not_update_help.Click += button_do_not_update_help_Click;
             // 
             // radioButtonPlay_alternating_notes1
             // 
             resources.ApplyResources(radioButtonPlay_alternating_notes1, "radioButtonPlay_alternating_notes1");
             radioButtonPlay_alternating_notes1.AutoEllipsis = true;
+            radioButtonPlay_alternating_notes1.BackColor = Color.Transparent;
             radioButtonPlay_alternating_notes1.Checked = true;
             radioButtonPlay_alternating_notes1.Name = "radioButtonPlay_alternating_notes1";
             radioButtonPlay_alternating_notes1.TabStop = true;
             toolTip1.SetToolTip(radioButtonPlay_alternating_notes1, resources.GetString("radioButtonPlay_alternating_notes1.ToolTip"));
-            radioButtonPlay_alternating_notes1.UseVisualStyleBackColor = true;
+            radioButtonPlay_alternating_notes1.UseVisualStyleBackColor = false;
             radioButtonPlay_alternating_notes1.CheckedChanged += radioButtonPlay_alternating_notes1_CheckedChanged;
             // 
             // radioButtonPlay_alternating_notes2
             // 
             resources.ApplyResources(radioButtonPlay_alternating_notes2, "radioButtonPlay_alternating_notes2");
+            radioButtonPlay_alternating_notes2.BackColor = Color.Transparent;
             radioButtonPlay_alternating_notes2.Name = "radioButtonPlay_alternating_notes2";
             toolTip1.SetToolTip(radioButtonPlay_alternating_notes2, resources.GetString("radioButtonPlay_alternating_notes2.ToolTip"));
-            radioButtonPlay_alternating_notes2.UseVisualStyleBackColor = true;
+            radioButtonPlay_alternating_notes2.UseVisualStyleBackColor = false;
             radioButtonPlay_alternating_notes2.CheckedChanged += radioButtonPlay_alternating_notes2_CheckedChanged;
             // 
             // checkBox_loop
             // 
             resources.ApplyResources(checkBox_loop, "checkBox_loop");
+            checkBox_loop.BackColor = Color.Transparent;
             checkBox_loop.Checked = true;
             checkBox_loop.CheckState = CheckState.Checked;
             checkBox_loop.ImageList = imageList_main_window;
             checkBox_loop.Name = "checkBox_loop";
             toolTip1.SetToolTip(checkBox_loop, resources.GetString("checkBox_loop.ToolTip"));
-            checkBox_loop.UseVisualStyleBackColor = true;
+            checkBox_loop.UseVisualStyleBackColor = false;
             checkBox_loop.CheckedChanged += checkBox_loop_CheckedChanged;
             // 
             // checkBox_use_keyboard_as_piano
             // 
             resources.ApplyResources(checkBox_use_keyboard_as_piano, "checkBox_use_keyboard_as_piano");
+            checkBox_use_keyboard_as_piano.BackColor = Color.Transparent;
             checkBox_use_keyboard_as_piano.ImageList = imageList_main_window;
             checkBox_use_keyboard_as_piano.Name = "checkBox_use_keyboard_as_piano";
             toolTip1.SetToolTip(checkBox_use_keyboard_as_piano, resources.GetString("checkBox_use_keyboard_as_piano.ToolTip"));
-            checkBox_use_keyboard_as_piano.UseVisualStyleBackColor = true;
+            checkBox_use_keyboard_as_piano.UseVisualStyleBackColor = false;
             checkBox_use_keyboard_as_piano.CheckedChanged += checkBox_use_keyboard_as_piano_CheckedChanged;
             // 
             // checkBox_do_not_update
             // 
             resources.ApplyResources(checkBox_do_not_update, "checkBox_do_not_update");
+            checkBox_do_not_update.BackColor = Color.Transparent;
             checkBox_do_not_update.Checked = true;
             checkBox_do_not_update.CheckState = CheckState.Checked;
             checkBox_do_not_update.Name = "checkBox_do_not_update";
             toolTip1.SetToolTip(checkBox_do_not_update, resources.GetString("checkBox_do_not_update.ToolTip"));
-            checkBox_do_not_update.UseVisualStyleBackColor = true;
+            checkBox_do_not_update.UseVisualStyleBackColor = false;
             checkBox_do_not_update.CheckedChanged += checkBox_do_not_update_CheckedChanged;
             // 
             // lbl_note_silence_ratio
@@ -1928,6 +1951,7 @@
             // panel1
             // 
             resources.ApplyResources(panel1, "panel1");
+            panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(label_alternating_notes_switch);
             panel1.Name = "panel1";
@@ -1935,6 +1959,7 @@
             // panel4
             // 
             resources.ApplyResources(panel4, "panel4");
+            panel4.BackColor = Color.Transparent;
             panel4.Controls.Add(label_note_length);
             panel4.Controls.Add(comboBox_note_length);
             panel4.Name = "panel4";
@@ -1948,6 +1973,7 @@
             AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            BackgroundImage = Properties.Resources.neobleeper_background_light;
             Controls.Add(button_do_not_update_help);
             Controls.Add(button_use_keyboard_as_piano_help);
             Controls.Add(button_bleeper_portamento_help);

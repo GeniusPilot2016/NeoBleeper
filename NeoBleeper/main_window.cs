@@ -110,6 +110,7 @@ namespace NeoBleeper
                 item.ForeColor = Color.White;
             }
             this.BackColor = Color.FromArgb(32, 32, 32);
+            this.BackgroundImage = Resources.neobleeper_background_dark;
             this.ForeColor = Color.White;
             numericUpDown_alternating_notes.BackColor = Color.Black;
             numericUpDown_alternating_notes.ForeColor = Color.White;
@@ -158,6 +159,7 @@ namespace NeoBleeper
                 item.ForeColor = SystemColors.WindowText;
             }
             this.BackColor = SystemColors.Control;
+            this.BackgroundImage = Resources.neobleeper_background_light;
             this.ForeColor = SystemColors.ControlText;
             numericUpDown_alternating_notes.BackColor = SystemColors.Window;
             numericUpDown_alternating_notes.ForeColor = SystemColors.WindowText;
