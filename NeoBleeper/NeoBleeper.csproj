@@ -17,7 +17,7 @@
     <Version>0.20.0-alpha</Version>
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Platforms>x64</Platforms>
+    <Platforms>AnyCPU;x64</Platforms>
     <Copyright>NeoBleeper is licensed under the GNU GPL v3</Copyright>
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
