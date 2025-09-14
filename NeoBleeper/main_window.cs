@@ -5129,7 +5129,7 @@ namespace NeoBleeper
                             }
                             else
                             {
-                                PlayBeepWithLabel(frequency, Variables.alternating_note_length);
+                                await PlayBeepWithLabelAsync(frequency, Variables.alternating_note_length);
                             }
 
                             if (!isAlternatingPlayingRegularKeyboard && checkBox_use_keyboard_as_piano.Checked)
@@ -5144,7 +5144,7 @@ namespace NeoBleeper
                                 }
                                 else
                                 {
-                                    PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
+                                    await PlayBeepWithLabelAsync(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
                                 }
                             }
                         }
@@ -5165,10 +5165,14 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        PlayBeepWithLabel(frequency, 1, true);
+                        await PlayBeepWithLabelAsync(frequency, 1, true);
                     }
                 }
             }
+        }
+        private async Task PlayBeepWithLabelAsync(int frequency, int duration, bool nonStopping = false)
+        {
+            await Task.Run(() => PlayBeepWithLabel(frequency, duration, nonStopping));
         }
         private void MarkupTheKeyWhenKeyIsPressed(int keyCode)
         {
