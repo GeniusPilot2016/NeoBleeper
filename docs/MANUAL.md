@@ -19,8 +19,8 @@
   
   To switch between inserting a note or replacing the currently selected note, and to choose which of the two note columns a note is inserted into or replaces, use the options box under the left side of the keyboard titled "When key is clicked."
   This box also includes the option to play notes without inserting or replacing them.
-  
-  ![image](https://github.com/user-attachments/assets/e44a644d-e946-4c11-9c35-6a2228835274)
+
+  ![image](https://github.com/user-attachments/assets/a1f3ff74-7a0b-4d5d-8e06-7e0b838524fb)
 
   To change the length of the inserted note, adjust the "Note length" value located under the middle of the keyboard.
   This drop-down menu allows selection of whole, 1/2 (half), 1/4 (quarter), 1/8, 1/16, or 1/32 notes.
@@ -84,7 +84,7 @@
   Clicking a line in the music list plays that line by default. To modify this behavior or restrict playback to one note column, adjust the checkboxes in the "When a line is clicked" box under "Which notes in list to play" in the bottom-left of the main window.
   Similar checkboxes under "When the music is being played" control playback behavior during automatic playback.
 
-  ![image](https://github.com/user-attachments/assets/52e7e563-040b-4723-9a9f-8d6b87d97406)
+  ![image](https://github.com/user-attachments/assets/046f03b9-61d3-44b2-bc4a-fabd90d42c28)
 
 - ## Length Modifiers and Articulations
 
@@ -146,7 +146,7 @@
 
   Click the question-mark button next to a mod's checkbox to view a brief description of its function (available for most mods).
 
-  ![image](https://github.com/user-attachments/assets/1df56aa4-d264-4d21-aeab-148fed995c1e)
+  ![image](https://github.com/user-attachments/assets/394f7d98-de36-40f5-8d73-e8143dca7046)
   
   - ### Synchronized Play Mod
     
@@ -179,8 +179,8 @@
     This modification causes the tone of the system speaker/sound device to transition gradually from the previous note to the current note. When the "Bleeper Portamento" checkbox is selected, a settings window appears. This window allows users to adjust the transition speed between notes, ranging from nearly instantaneous to extended durations. Users can also configure the note duration when clicked or set the note to continue playing indefinitely.
 
   - ### Use Keyboard As Piano Mod
- 
-    ![image](https://github.com/user-attachments/assets/7199d366-4655-4469-921c-ce5246260fd9)
+
+    ![image](https://github.com/user-attachments/assets/340ef0a7-1c2a-41c6-b913-845bffcc16e5)
 
     This feature maps the computer keyboard to musical notes, allowing direct playback using key presses without any MIDI input devices. Each key corresponds to a specific note on the virtual piano. The mapping follows a predefined layout, typically aligned with the visible keyboard labels.
     
@@ -309,8 +309,8 @@
 
     - ### Play MIDI File - `Ctrl + M`
       Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external sequences into your workflow.
-      
-      ![image](https://github.com/user-attachments/assets/57e9e124-63a5-42fe-a1fe-ecb0974808c2)
+
+      ![image](https://github.com/user-attachments/assets/c5845de3-5d04-48d6-87af-6f8620be3e73)
 
       You choose the MIDI file by clicking "Browse File" on the "MIDI File Playback Settings" window. The selected MIDI file appears in the text box to the left of the button.
 
