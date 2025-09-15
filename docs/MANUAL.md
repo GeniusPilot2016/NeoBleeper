@@ -308,25 +308,37 @@
     ![image](https://github.com/user-attachments/assets/745efab0-c7c7-4731-ae57-bde327243e6c)
 
     - ### Play MIDI File - `Ctrl + M`
-      Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external sequences into your workflow.
+      Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external MIDI data into your workflow.
 
       ![image](https://github.com/user-attachments/assets/c5845de3-5d04-48d6-87af-6f8620be3e73)
 
       You choose the MIDI file by clicking "Browse File" on the "MIDI File Playback Settings" window. The selected MIDI file appears in the text box to the left of the button.
 
       Time is shown as "00:00.00" (minutes, seconds, hundredths of a second). It updates only when playback timer is tick and MIDI messages are played at the correct times, provided the tempo remains unchanged.
-      Percentage indicates the proportion of MIDI messages that have been processed. For example, if the first half contains few messages and the second half is dense, the percentage may not reach 50% or may exceed 50% by the midpoint. The slider operates on the same principle, jumping to the most recent frame before the selected percentage.
-      The three buttons below the slider, from left to right, are for rewinding (jumping to the beginning of the MIDI file), playing (from the current position), and stopping (without rewinding). A checkbox enables looping playback, causing it to restart from the beginning when it reaches the end.
+      Percentage indicates the proportion of MIDI messages that have been processed. For example, if the first half contains few messages and the second half is dense, the percentage may not reach 50% until late in the playback. A "Loop" checkbox allows the MIDI file to restart automatically when finished.
+      The three buttons below the slider, from left to right, are for rewinding (jumping to the beginning of the MIDI file), playing (from the current position), and stopping (without rewinding). A checkbox below these controls enables looping playback.
 
-      In this window, users can select specific channels for input. Channels not selected will be ignored. Users can tick or untick the checkboxes, and changes take effect immediately. When a checkbox is unticked, any currently playing notes on that channel are stopped. This prevents notes from continuing indefinitely due to missing "note off" messages.
+      In this window, users can select specific channels for input. Channels not selected will be ignored. Users can tick or untick the checkboxes, and changes take effect immediately. When a checkbox is selected, the corresponding channel's notes will be processed during playback.
     
-      At the bottom of the "Play MIDI File" window, a grid of rectangles displays held notes. Each rectangle represents one note being held. Up to 32 rectangles can be shown simultaneously. If more than 32 notes are held, the display shows "(x more)", where "x" is the number of additional notes. As the program cycles through each held note, the rectangle corresponding to the currently played note lights up in bright red. Rectangles for notes not currently played are shown in dark red which can be customized from "Appearance" tab in "Settings".
+      At the bottom of the "Play MIDI File" window, a grid of rectangles displays held notes. Each rectangle represents one note being held. Up to 32 rectangles can be shown simultaneously. If more than 32 notes are held, only the first 32 are displayed.
   
       Modifying the "Switch between notes every ... mS" setting in the "Play MIDI File" window affects the cycling speed of notes received from MIDI input.
 
-      If the "Only play each note once (don't keep alternating)" checkbox is ticked, each note is played once for the duration specified by the "Switch between notes every ... mS" setting. This produces short, percussive sounds rather than continuous tones.
+      If the "Only play each note once (don't keep alternating)" checkbox is ticked, each note is played once for the duration specified by the "Switch between notes every ... mS" setting. This produces a more staccato effect.
 
-      If the "Try to make each cycle last 30 mS (with max alternating time capped to 15mS per note)" checkbox is ticked, the alternate length is automatically adjusted to meet this timing behavior. This checkbox is enabled by default.
+      If the "Try to make each cycle last 30 mS (with max alternating time capped to 15mS per note)" checkbox is ticked, the alternate length is automatically adjusted to meet this timing behavior. This helps to maintain precise timing when multiple notes are played in rapid succession.
+
+      #### Displaying Lyrics and Text Events
+
+      NeoBleeper's MIDI file player includes a feature to show lyrics or text events embedded in MIDI files, providing real-time visual feedback of vocal lines or cues for karaoke and performance applications.
+
+      ![image1](https://github.com/user-attachments/assets/5c483b50-bf94-4314-9299-e077c481d8bc)
+
+      When the "Show lyrics or text events" checkbox is enabled in the "Play MIDI File" window, any lyric or text events embedded within the currently playing MIDI file are displayed prominently at the bottom of the application window. These events appear as large, clear text overlays, updating in synchronization with the song's progression.
+
+      This feature is particularly useful for following along with vocal parts, cueing live performers, or simply enjoying karaoke-style playback. If the MIDI file contains no lyric or text events, the overlay remains hidden.
+
+      The lyrics/text display updates automatically as new events are encountered during playback and will disappear when playback is stopped or when a new file is loaded.
 
     - ### Create Music with AI - `Ctrl + Alt + A`
       Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions to kickstart your creativity.
