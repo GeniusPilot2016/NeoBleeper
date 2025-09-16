@@ -273,5 +273,17 @@ namespace NeoBleeper {
                 this["dont_show_disable_create_beep_from_soundcard_warnings_again"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("English")]
+        public string preferredLanguage {
+            get {
+                return ((string)(this["preferredLanguage"]));
+            }
+            set {
+                this["preferredLanguage"] = value;
+            }
+        }
     }
 }

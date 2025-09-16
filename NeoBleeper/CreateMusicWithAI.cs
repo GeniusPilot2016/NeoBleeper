@@ -26,7 +26,9 @@ namespace NeoBleeper
         Size NormalWindowSize;
         double scaleFraction = 0.425; // Scale factor for the window size
         Size LoadingWindowSize;
+        string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
+        bool isErrorMessageShown = false; // Flag to prevent invalid NBPML error message when JSON error message is shown
         public CreateMusicWithAI()
         {
             InitializeComponent();
@@ -65,6 +67,45 @@ namespace NeoBleeper
                 MessageBox.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+        }
+        private string selectedLanguageToLanguageName(string languageName)
+        {
+            string language = "English";
+            switch (languageName)
+            {
+                case "English":
+                    language = "English";
+                    break;
+                case "Deutsch":
+                    language = "German";
+                    break;
+                case "Español":
+                    language = "Spanish";
+                    break;
+                case "Français":
+                    language = "French";
+                    break;
+                case "Italiano":
+                    language = "Italian";
+                    break;
+                case "Türkçe":
+                    language = "Turkish";
+                    break;
+                case "Русский":
+                    language = "Russian";
+                    break;
+                case "українська":
+                    language = "Ukrainian";
+                    break;
+                case "Tiếng Việt":
+                    language = "Vietnamese";
+                    break;
+                default:
+                    Logger.Log("Selected language is not supported. Defaulting to English.", Logger.LogTypes.Warning);
+                    language = "English";
+                    break;
+            }
+            return language;
         }
         private void set_theme()
         {
@@ -129,30 +170,59 @@ namespace NeoBleeper
             {
                 using (var ping = new Ping())
                 {
-                    var reply = ping.Send("info.cern.ch"); // Check internet connectivity by pinging the first website ever
-                    // Fun fact: info.cern.ch was the first website ever created, launched in 1991 by Tim Berners-Lee at CERN.
-                    // It is still online today as a historical site.
-                    return reply.Status == IPStatus.Success;
+                    var reply = ping.Send("info.cern.ch"); // Pinging the first website ever
+                    // Fun fact: info.cern.ch is the first website ever created, launched on August 6, 1991, by Tim Berners-Lee at CERN.
+                    // It was originally used to provide information about the World Wide Web project.
+                    // Today, it serves as a historical site and a tribute to the origins of the web.
+                    // Pinging this site is a nod to the history of the internet.
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        if (reply.RoundtripTime > 500) // 500 ms and above is considered slow
+                        {
+                            Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        Logger.Log("Internet connection failed.", Logger.LogTypes.Error);
+                        return true; // Return true in all cases
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                Logger.Log($"Internet connection check error: {ex.Message}", Logger.LogTypes.Error);
+                return false; // Return false
             }
         }
+
         private bool IsServerUp()
         {
             try
             {
                 using (var ping = new Ping())
                 {
-                    var reply = ping.Send("generativelanguage.googleapis.com"); // Check server status by pinging the Google API server
-                    return reply.Status == IPStatus.Success;
+                    var reply = ping.Send("generativelanguage.googleapis.com");
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        if (reply.RoundtripTime > 500)
+                        {
+                            Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        Logger.Log("Access to server failed.", Logger.LogTypes.Error);
+                        return true; // Return true in all cases
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                Logger.Log($"Error checking server status: {ex.Message}", Logger.LogTypes.Error);
+                return false; // Return false
             }
         }
         public static bool isAPIKeyValidFormat(string APIKey)
@@ -411,7 +481,23 @@ namespace NeoBleeper
                 var googleResponse = await googleModel.GenerateContentAsync(
                     $"**User Prompt:**\r\n[{textBoxPrompt.Text}]\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
-                    $"Generate a valid XML structure for a NeoBleeper project file based on the user prompt. Follow these rules strictly:\r\n" +
+                    $"You are an expert music composition AI. " +
+                    $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even just a single word), treat it as a music composition request. " +
+                    $"If the user prompt contains words like 'create', 'generate', 'compose', 'make', or 'write' followed by music-related content, treat it as a music composition request. " +
+                    $"If the user prompt is clearly NOT about music (like weather, mathematics, cooking, etc.), or if the prompt contains offensive, inappropriate, or harmful content (such as hate speech, violence, adult content, or discrimination), " +
+                    $"return ONLY the following JSON error message in {selectedLanguageToLanguageName(selectedLanguage)}. " +
+                    $"IMPORTANT: Always assume music-related intent unless the prompt is clearly about a completely different topic or is offensive. " +
+                    $"Examples of VALID music requests that should generate XML:\r\n" +
+                    $"- \"Yesterday\" → generate music\r\n" +
+                    $"- \"Beatles\" → generate music\r\n" +
+                    $"- \"Beethoven\" → generate music\r\n" +
+                    $"- \"classical\" → generate music\r\n" +
+                    $"- \"rock song\" → generate music\r\n" +
+                    $"- \"create Yesterday\" → generate music\r\n" +
+                    $"Examples of NON-music requests that should return error:\r\n" +
+                    $"- \"What is the weather?\" → return error\r\n" +
+                    $"- \"How to cook pasta?\" → return error\r\n" +
+                    $"- \"Calculate 2+2\" → return error\r\n" +
                     $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile>.\r\n" +
                     $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +
                     $"- Use UTF-8 encoding and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
@@ -422,21 +508,21 @@ namespace NeoBleeper
                     $"  - A <Length> tag with one of the following values: Whole, Half, Quarter, 1/8, 1/16, or 1/32.\r\n" +
                     $"  - A single <Mod /> tag with values \"Dot\" or \"Tri\" (use empty tags if no modulation).\r\n" +
                     $"  - A single <Art /> tag with articulation values (e.g., Sta, Spi, Fer) or empty tags if none.\r\n" +
-                    $"- Notes must follow these rules:\r\n" +
+                    $"  - Notes must follow these rules:\r\n" +
                     $"  - Represent notes as letters (A-G).\r\n" +
                     $"  - Include sharps (#) if applicable (e.g., C#, F#).\r\n" +
                     $"  - Specify the octave number (1-10) after the note (e.g., A4, C#5).\r\n" +
                     $"  - Do not use flat notes (e.g., Db). Convert them to their sharp equivalents (e.g., C#).\r\n" +
-                    $"- For rests, leave all <Note1>, <Note2>, <Note3>, and <Note4> tags blank (e.g., <Note1></Note1>). Do not write 'rest' or any other text inside the tags.\r\n" +
-                    $"- Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
-                    $"- Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
-                    $"- Use <PlayNote1>, <PlayNote2>, <PlayNote3>, and <PlayNote4> tags in the <PlayNotes> section.\r\n" +
-                    $"- Ensure the <RandomSettings> section includes chosen <AlternateTime> value (5-200) by context of music to enable pseudo-polyphony on system speakers (aka PC speaker) (5-30 is for better pseudo-polyphony effect).\r\n" +
-                    $"- Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
-                    $"- Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
-                    $"- Maintain a NoteSilenceRatio between 40-95 to balance notes and rests.\r\n" +
-                    $"- Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +
-                    $"- Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
+                    $"  - For rests, leave all <Note1>, <Note2>, <Note3>, and <Note4> tags blank (e.g., <Note1></Note1>). Do not write 'rest' or any other text inside the tags.\r\n" +
+                    $"  - Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
+                    $"  - Use <PlayNote1>, <PlayNote2>, <PlayNote3>, and <PlayNote4> tags in the <PlayNotes> section.\r\n" +
+                    $"  - Ensure the <RandomSettings> section includes chosen <AlternateTime> value (5-200) by context of music to enable pseudo-polyphony on system speakers (aka PC speaker) (5-30 is for better pseudo-polyphony effect).\r\n" +
+                    $"  - Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
+                    $"  - Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
+                    $"  - Maintain a NoteSilenceRatio between 40-95 to balance notes and rests.\r\n" +
+                    $"  - Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +
+                    $"  - Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
+                    $"  - Do not include any explanations, apologies, or disclaimers in the output.\r\n" +
                     $"- Ensure the output adheres to the NeoBleeper XML structure template below:\r\n\r\n" +
                     $"<NeoBleeperProjectFile>\r\n" +
                     $"    <Settings>\r\n" +
@@ -474,12 +560,25 @@ namespace NeoBleeper
                     $"    <LineList>\r\n" +
                     $"    </LineList>\r\n" +
                     $"</NeoBleeperProjectFile>\r\n"
-                , cts.Token);
+                , cts.Token); 
                 if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text))
                 {
                     // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
                     output = googleResponse.Text();
-
+                    output = output.Trim();
+                    string JSONText = string.Empty;
+                    // Parse JSON blocks
+                    var jsonMatch = Regex.Match(output, @"\{[\s\S]*?\}");
+                    if (jsonMatch.Success)
+                    {
+                        JSONText = jsonMatch.Value;
+                    }
+                    if (checkIfOutputIsJSONErrorMessage(JSONText))
+                    {
+                        TurnJSONErrorIntoMessageBoxAndLog(JSONText);
+                        output = String.Empty; // Clear the output if it's an error message
+                        this.Close(); // Close the form after handling the error message
+                    }
                     // Remove ```xml and any surrounding text
                     output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -527,14 +626,74 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    // If the output is not valid, show an error message if there is any output
-                    if (!string.IsNullOrWhiteSpace(output))
+                    // If the output is not valid NBPML, show an error form and log the error
+                    if (!string.IsNullOrWhiteSpace(output) && !isErrorMessageShown)
                     {
+                        Logger.Log("Generated output is not valid NBPML.", Logger.LogTypes.Error);
                         AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
                         errorForm.ShowDialog();
                     }
                     output = String.Empty; // Clear the output if it's invalid
+                    this.Close(); // Close the form after handling the invalid output
                 }
+            }
+        }
+        private bool checkIfOutputIsJSONErrorMessage(String output)
+        {
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return false;
+            }
+            bool isValidJson = false;
+            // Check if the output is valid JSON
+            try
+            {
+                var jsonObj = System.Text.Json.JsonDocument.Parse(output);
+                isValidJson = true;
+            }
+            catch (System.Text.Json.JsonException)
+            {
+                isValidJson = false;
+            }
+            // Check for the presence of error-related properties
+            if (isValidJson)
+            {
+                var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
+                // Check for both formats: new format (title + errorMessage) and old format (error)
+                if ((jsonDoc.RootElement.TryGetProperty("title", out var titleProp) &&
+                     jsonDoc.RootElement.TryGetProperty("errorMessage", out var errorMessageProp)) ||
+                    jsonDoc.RootElement.TryGetProperty("error", out var errorProp))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void TurnJSONErrorIntoMessageBoxAndLog(String output)
+        {
+            if (checkIfOutputIsJSONErrorMessage(output))
+            {
+                isErrorMessageShown = true; // Set the flag to true to indicate an error message has been shown
+                var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
+
+                string title = "Error";
+                string errorMessage = "";
+
+                // Check for new format first (title + errorMessage)
+                if (jsonDoc.RootElement.TryGetProperty("title", out var titleProp) &&
+                    jsonDoc.RootElement.TryGetProperty("errorMessage", out var errorMessageProp))
+                {
+                    title = titleProp.GetString();
+                    errorMessage = errorMessageProp.GetString();
+                }
+                // Check for old format (error)
+                else if (jsonDoc.RootElement.TryGetProperty("error", out var errorProp))
+                {
+                    errorMessage = errorProp.GetString();
+                }
+
+                Logger.Log($"AI Error - {title}: {errorMessage}", Logger.LogTypes.Error);
+                MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private bool checkIfOutputIsValidNBPML(String output)
@@ -891,6 +1050,7 @@ namespace NeoBleeper
             if (!IsInternetAvailable())
             {
                 cts.Cancel();
+                output = String.Empty; // Clear output on internet failure
                 connectionCheckTimer.Stop();
                 SetControlsEnabledAndMakeLoadingVisible(true);
                 ShowNoInternetMessage();
@@ -898,7 +1058,8 @@ namespace NeoBleeper
             }
             else if (!IsServerUp())
             {
-                cts.Cancel();
+                cts.Cancel(); 
+                output = String.Empty; // Clear output on server failure
                 connectionCheckTimer.Stop();
                 SetControlsEnabledAndMakeLoadingVisible(true);
                 ShowServerDownMessage();

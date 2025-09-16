@@ -55,7 +55,7 @@ namespace NeoBleeper
 
         public static class BeatTypes
         {
-            public static BeatType beatType = BeatType.PlayOnAllBeats;  
+            public static BeatType beatType = BeatType.PlayOnAllBeats;
             public enum BeatType
             {
                 PlayOnAllBeats,
@@ -84,6 +84,62 @@ namespace NeoBleeper
                 Buzzer,
             }
             public static int motorOctave = 2; // Default octave for motor
+        }
+        public static class VoiceInternalSettings
+        {
+            // Formant volumes (60%-100%)
+            public static int Formant1Volume = 100;
+            public static int Formant2Volume = 100;
+            public static int Formant3Volume = 100;
+            public static int Formant4Volume = 100;
+
+            // Formant frequencies (in Hz)
+            public static int Formant1Frequency = 700;
+            public static int Formant2Frequency = 1220;
+            public static int Formant3Frequency = 2600;
+            public static int Formant4Frequency = 3500;
+
+            // Voice Volume (1-400)
+            public static int VoiceVolume = 400;
+
+            // Saw volume (1-1000)
+            public static int SawVolume = 1000;
+
+            // Noise volume (1-1000)
+            public static int NoiseVolume = 1000;
+
+            // Cutoff frequency (in Hz)
+            public static int CutoffFrequency = 5000;
+
+            // Sybillance ranges (0.2-1.5)
+            public static double Sybillance1Range = 0.2;
+            public static double Sybillance2Range = 0.2;
+            public static double Sybillance3Range = 0.2;
+            public static double Sybillance4Range = 0.2;
+
+            // Sybillance volumes (0x-1x)
+            public static double Sybillance1Volume = 1;
+            public static double Sybillance2Volume = 1;
+            public static double Sybillance3Volume = 1;
+            public static double Sybillance4Volume = 1;
+
+            // Sybillance frequencies (in Hz)
+            public static int Sybillance1Frequency = 200;
+            public static int Sybillance2Frequency = 200;
+            public static int Sybillance3Frequency = 200;
+            public static int Sybillance4Frequency = 200;
+
+            // Pitch 
+            public static int Pitch = 100;
+            public static int Range = 12;
+
+            // Output device indexes
+            // 0 = Voice system
+            // 1 = System speaker/Sound device beep
+            public static int Note1OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static int Note2OutputDeviceIndex = 0; // Default to voice system
+            public static int Note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static int Note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
         }
     }
 }

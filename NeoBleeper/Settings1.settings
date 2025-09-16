@@ -65,5 +65,8 @@
     <Setting Name="dont_show_disable_create_beep_from_soundcard_warnings_again" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="preferredLanguage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">English</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

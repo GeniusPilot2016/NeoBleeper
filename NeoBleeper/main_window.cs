@@ -20,6 +20,7 @@ namespace NeoBleeper
         bool darkTheme = false;
         private play_beat_window play_Beat_Window;
         private PortamentoWindow portamentoWindow;
+        private VoiceInternalsWindow voiceInternalsWindow;
         private bool isModified = false;
         private CommandManager commandManager;
         private Originator originator;
@@ -2689,7 +2690,7 @@ namespace NeoBleeper
         {
             if (listViewNotes.SelectedIndices.Count > 0)
             {
-                await Task.Run(()=>
+                await Task.Run(() =>
                 {
                     play_note_in_line(
                      checkBox_play_note1_played.Checked,
@@ -2742,9 +2743,9 @@ namespace NeoBleeper
                 // Calculate the drift
                 double drift = currentTime - totalElapsedNoteDuration;
 
-                if(drift > 0) // Handle positive drift
+                if (drift > 0) // Handle positive drift
                 {
-                    if(drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
+                    if (drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
                     {
                         int cachedNoteDuration = noteSound_int;
                         // Adjust the note sound duration to compensate for drift
@@ -2758,7 +2759,7 @@ namespace NeoBleeper
                     else // If drift exceeds the note duration, skip to the next note
                     {
                         currentNoteIndex++;
-                        if(currentNoteIndex > (listViewNotes.Items.Count-1))
+                        if (currentNoteIndex > (listViewNotes.Items.Count - 1))
                         {
                             int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
                             int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
@@ -2790,7 +2791,7 @@ namespace NeoBleeper
                     UpdateLabelVisible(false);
                     await HighPrecisionSleep.SleepAsync(silence_int);
                 }
-                if(drift < 0) // Handle negative drift
+                if (drift < 0) // Handle negative drift
                 {
                     await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
                     drift -= drift;
@@ -2845,7 +2846,8 @@ namespace NeoBleeper
                 }));
             }
             else
-            {;
+            {
+                ;
                 if (index >= 0 && index < listViewNotes.Items.Count)
                 {
                     listViewNotes.SelectedItems.Clear();
@@ -3167,7 +3169,7 @@ namespace NeoBleeper
             {
                 add_notes_to_column(String.Empty);
             }
-            Logger.Log("Blank line added", Logger.LogTypes.Info );
+            Logger.Log("Blank line added", Logger.LogTypes.Info);
         }
         private void clear_note_1()
         {
@@ -3692,7 +3694,7 @@ namespace NeoBleeper
                             {
                                 beat_length = 0; // Reset beat length if not playing on odd beats
                             }
-                                break;
+                            break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
                             if (beat_number % 2 == 0)
                             {
@@ -4345,7 +4347,7 @@ namespace NeoBleeper
                     commandManager.ExecuteCommand(pasteCommand);
                     isModified = true;
                     UpdateFormTitle();
-                    if(listViewNotes.Items.Count > 0)
+                    if (listViewNotes.Items.Count > 0)
                     {
                         if (insertIndex != -1 && insertIndex < listViewNotes.Items.Count)
                         {
@@ -4361,7 +4363,8 @@ namespace NeoBleeper
             }
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-        {;
+        {
+            ;
             if (is_music_playing == true)
             {
                 stop_playing();
@@ -4371,7 +4374,7 @@ namespace NeoBleeper
             setThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
             if (listViewNotes.Items.Count > 0)
             {
-                if(selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
                 {
                     listViewNotes.EnsureVisible(selectedLine);
                 }
@@ -4781,6 +4784,15 @@ namespace NeoBleeper
             portamentoWindow.Show();
             checkBox_bleeper_portamento.Tag = portamentoWindow;
         }
+        private void openVoiceInternalsWindow()
+        {
+            if (voiceInternalsWindow == null || voiceInternalsWindow.IsDisposed)
+            {
+                voiceInternalsWindow = new VoiceInternalsWindow(this);
+            }
+            voiceInternalsWindow.Show();
+            checkBox_use_voice_system.Tag = voiceInternalsWindow;
+        }
         private void closePlayBeatSoundWindow()
         {
             play_beat_window play_Beat_Window = checkBox_play_beat_sound.Tag as play_beat_window;
@@ -4790,6 +4802,11 @@ namespace NeoBleeper
         {
             PortamentoWindow portamentoWindow = checkBox_bleeper_portamento.Tag as PortamentoWindow;
             portamentoWindow.Close();
+        }
+        private void closeVoiceInternalsWindow()
+        {
+            VoiceInternalsWindow voiceInternalsWindow = checkBox_use_voice_system.Tag as VoiceInternalsWindow;
+            voiceInternalsWindow.Close();
         }
         private void checkBox_play_beat_sound_CheckedChanged(object sender, EventArgs e)
         {
@@ -5773,6 +5790,26 @@ namespace NeoBleeper
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md") { UseShellExecute = true });
+        }
+
+        private void button_use_voice_system_help_Click(object sender, EventArgs e)
+        {
+            stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            MessageBox.Show(Resources.UseVoiceSystemHelp, Resources.UseVoiceSystemHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void checkBox_use_voice_system_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_use_voice_system.Checked == true)
+            {
+                openVoiceInternalsWindow();
+                Logger.Log("Voice internals window is opened.", Logger.LogTypes.Info);
+            }
+            else if (checkBox_use_voice_system.Checked == false)
+            {
+                closeVoiceInternalsWindow();
+                Logger.Log("Voice internals window is closed", Logger.LogTypes.Info);
+            }
         }
     }
 }

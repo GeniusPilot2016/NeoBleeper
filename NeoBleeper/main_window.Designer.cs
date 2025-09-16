@@ -213,6 +213,7 @@
             checkBox_loop = new CheckBox();
             checkBox_use_keyboard_as_piano = new CheckBox();
             checkBox_do_not_update = new CheckBox();
+            checkBox_use_voice_system = new CheckBox();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
             lbl_note_silence_ratio = new Label();
@@ -221,6 +222,7 @@
             panel4 = new Panel();
             alternating_note_timer = new System.Windows.Forms.Timer(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            button_use_voice_system_help = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).BeginInit();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_notes).BeginInit();
@@ -603,6 +605,7 @@
             imageList_main_window.Images.SetKeyName(14, "icons8-keyboard-48.png");
             imageList_main_window.Images.SetKeyName(15, "icons8-countdown-48.png");
             imageList_main_window.Images.SetKeyName(16, "");
+            imageList_main_window.Images.SetKeyName(17, "icons8-speaker-48.png");
             // 
             // numericUpDown_alternating_notes
             // 
@@ -1938,6 +1941,16 @@
             checkBox_do_not_update.UseVisualStyleBackColor = false;
             checkBox_do_not_update.CheckedChanged += checkBox_do_not_update_CheckedChanged;
             // 
+            // checkBox_use_voice_system
+            // 
+            resources.ApplyResources(checkBox_use_voice_system, "checkBox_use_voice_system");
+            checkBox_use_voice_system.BackColor = Color.Transparent;
+            checkBox_use_voice_system.ImageList = imageList_main_window;
+            checkBox_use_voice_system.Name = "checkBox_use_voice_system";
+            toolTip1.SetToolTip(checkBox_use_voice_system, resources.GetString("checkBox_use_voice_system.ToolTip"));
+            checkBox_use_voice_system.UseVisualStyleBackColor = false;
+            checkBox_use_voice_system.CheckedChanged += checkBox_use_voice_system_CheckedChanged;
+            // 
             // lbl_note_silence_ratio
             // 
             resources.ApplyResources(lbl_note_silence_ratio, "lbl_note_silence_ratio");
@@ -1968,6 +1981,16 @@
             // 
             alternating_note_timer.Interval = 30;
             // 
+            // button_use_voice_system_help
+            // 
+            button_use_voice_system_help.BackColor = Color.Transparent;
+            button_use_voice_system_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_use_voice_system_help, "button_use_voice_system_help");
+            button_use_voice_system_help.ImageList = help_icon;
+            button_use_voice_system_help.Name = "button_use_voice_system_help";
+            button_use_voice_system_help.UseVisualStyleBackColor = false;
+            button_use_voice_system_help.Click += button_use_voice_system_help_Click;
+            // 
             // main_window
             // 
             AllowDrop = true;
@@ -1975,10 +1998,12 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             BackgroundImage = Properties.Resources.neobleeper_background_light;
             Controls.Add(button_do_not_update_help);
+            Controls.Add(button_use_voice_system_help);
             Controls.Add(button_use_keyboard_as_piano_help);
             Controls.Add(button_bleeper_portamento_help);
             Controls.Add(button_play_beat_sound_help);
             Controls.Add(button_synchronized_play_help);
+            Controls.Add(checkBox_use_voice_system);
             Controls.Add(checkBox_use_keyboard_as_piano);
             Controls.Add(keyboard_panel);
             Controls.Add(checkBox_loop);
@@ -2291,5 +2316,7 @@
         public CheckBox checkBox_play_beat_sound;
         public CheckBox checkBox_synchronized_play;
         public CheckBox checkBox_bleeper_portamento;
+        private Button button_use_voice_system_help;
+        public CheckBox checkBox_use_voice_system;
     }
 }

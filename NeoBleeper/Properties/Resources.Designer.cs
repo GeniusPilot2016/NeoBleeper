@@ -1225,5 +1225,23 @@ namespace NeoBleeper.Properties {
                 return ResourceManager.GetString("UseKeyboardAsPianoHelpTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   This feauture makes the program use voice system to mimic speech formants to make selected notes mimic &quot;singing&quot;. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string UseVoiceSystemHelp {
+            get {
+                return ResourceManager.GetString("UseVoiceSystemHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use Voice System benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string UseVoiceSystemHelpTitle {
+            get {
+                return ResourceManager.GetString("UseVoiceSystemHelpTitle", resourceCulture);
+            }
+        }
     }
 }
