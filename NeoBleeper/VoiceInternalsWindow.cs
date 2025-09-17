@@ -14,10 +14,13 @@ namespace NeoBleeper
     public partial class VoiceInternalsWindow : Form
     {
         main_window main_Window;
+        bool darkTheme = false;
         public VoiceInternalsWindow(main_window main_Window)
         {
             this.main_Window = main_Window;
             InitializeComponent();
+            UIFonts.setFonts(this);
+            set_theme();
             trackBarFormant1Vol.Value = setReverseTrackBarValue(trackBarFormant1Vol, TemporarySettings.VoiceInternalSettings.Formant1Volume);
             trackBarFormant2Vol.Value = setReverseTrackBarValue(trackBarFormant2Vol, TemporarySettings.VoiceInternalSettings.Formant2Volume);
             trackBarFormant3Vol.Value = setReverseTrackBarValue(trackBarFormant3Vol, TemporarySettings.VoiceInternalSettings.Formant3Volume);
@@ -72,6 +75,102 @@ namespace NeoBleeper
             trackBarRange.Value = TemporarySettings.VoiceInternalSettings.Range;
             trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
+        }
+        private void set_theme()
+        {
+            switch (Settings1.Default.theme)
+            {
+                case 0: // System theme
+                    {
+                        switch (check_system_theme.IsDarkTheme())
+                        {
+                            case true:
+                                {
+                                    dark_theme();
+                                    break;
+                                }
+                            case false:
+                                {
+                                    light_theme();
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case 1: // Light
+                    {
+                        light_theme();
+                        break;
+                    }
+                case 2: // Dark
+                    {
+                        dark_theme();
+                        break;
+                    }
+            }
+            
+        }
+        private void dark_theme()
+        {
+            darkTheme = true; 
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            labelFormantControl.ForeColor = SystemColors.ControlText;
+            labelF1.ForeColor = SystemColors.ControlText;
+            labelF2.ForeColor = SystemColors.ControlText;
+            labelF3.ForeColor = SystemColors.ControlText;
+            labelF4.ForeColor = SystemColors.ControlText;
+            labelS1.ForeColor = SystemColors.ControlText;
+            labelS2.ForeColor = SystemColors.ControlText;
+            labelS3.ForeColor = SystemColors.ControlText;
+            labelS4.ForeColor = SystemColors.ControlText;
+            labelSybillance.ForeColor = SystemColors.ControlText;
+            labelVoice.ForeColor = SystemColors.ControlText;
+            labelSaw.ForeColor = SystemColors.ControlText;
+            labelNoise.ForeColor = SystemColors.ControlText;
+            labelOscillator.ForeColor = SystemColors.ControlText;
+            labelSybillanceMasking.ForeColor = SystemColors.ControlText;
+            labelCutoff.ForeColor = SystemColors.ControlText;
+            comboBoxNote1Option.ForeColor = Color.White;
+            comboBoxNote2Option.ForeColor = Color.White;
+            comboBoxNote3Option.ForeColor = Color.White;
+            comboBoxNote4Option.ForeColor = Color.White;
+            comboBoxNote1Option.BackColor = Color.Black;
+            comboBoxNote2Option.BackColor = Color.Black;
+            comboBoxNote3Option.BackColor = Color.Black;
+            comboBoxNote4Option.BackColor = Color.Black;
+            groupBoxRandomVariationsOfFormants.ForeColor = Color.White;
+            groupBoxOutputOptions.ForeColor = Color.White;
+            groupBoxKey.ForeColor = Color.White;
+            buttonOpenVowel.BackColor = Color.FromArgb(32, 32, 32);
+            buttonOpenBack.BackColor = Color.FromArgb(32, 32, 32);
+            buttonMidFront.BackColor = Color.FromArgb(32, 32, 32);
+            buttonCloseBack.BackColor = Color.FromArgb(32, 32, 32);
+            buttonCloseFront.BackColor = Color.FromArgb(32, 32, 32);
+        }
+        private void light_theme()
+        {
+            darkTheme = false;
+            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            comboBoxNote1Option.BackColor = SystemColors.Window;
+            comboBoxNote2Option.BackColor = SystemColors.Window;
+            comboBoxNote3Option.BackColor = SystemColors.Window;
+            comboBoxNote4Option.BackColor = SystemColors.Window;
+            comboBoxNote1Option.ForeColor = SystemColors.WindowText;
+            comboBoxNote2Option.ForeColor = SystemColors.WindowText;
+            comboBoxNote3Option.ForeColor = SystemColors.WindowText;
+            comboBoxNote4Option.ForeColor = SystemColors.WindowText;
+            groupBoxRandomVariationsOfFormants.ForeColor = SystemColors.ControlText;
+            groupBoxOutputOptions.ForeColor = SystemColors.ControlText;
+            groupBoxKey.ForeColor = SystemColors.ControlText;
+            buttonOpenVowel.BackColor = Color.Transparent;
+            buttonOpenBack.BackColor = Color.Transparent;
+            buttonMidFront.BackColor = Color.Transparent;
+            buttonCloseBack.BackColor = Color.Transparent;
+            buttonCloseFront.BackColor = Color.Transparent;
         }
         private int getTrackBarReverseValue(TrackBar trackBar) // Because TrackBar control does not support reversed direction natively
         {
@@ -386,30 +485,57 @@ namespace NeoBleeper
                 Logger.Log("Cutoff Frequency set to " + TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
         }
-
+        private void SetPresets(int FormantVol1, int FormantVol2, int FormantVol3, int FormantVol4,
+            int Formant1Freq, int Formant2Freq, int Formant3Freq, int Formant4Freq)
+        {
+            trackBarFormant1Vol.Value = setReverseTrackBarValue(trackBarFormant1Vol, FormantVol1);
+            trackBarFormant2Vol.Value = setReverseTrackBarValue(trackBarFormant2Vol, FormantVol2);
+            trackBarFormant3Vol.Value = setReverseTrackBarValue(trackBarFormant3Vol, FormantVol3);
+            trackBarFormant4Vol.Value = setReverseTrackBarValue(trackBarFormant4Vol, FormantVol4);
+            trackBarFormant1Hz.Value = setReverseTrackBarValue(trackBarFormant1Hz, Formant1Freq);
+            trackBarFormant2Hz.Value = setReverseTrackBarValue(trackBarFormant2Hz, Formant2Freq);
+            trackBarFormant3Hz.Value = setReverseTrackBarValue(trackBarFormant3Hz, Formant3Freq);
+            trackBarFormant4Hz.Value = setReverseTrackBarValue(trackBarFormant4Hz, Formant4Freq);
+            TemporarySettings.VoiceInternalSettings.Formant1Volume = getTrackBarReverseValue(trackBarFormant1Vol);
+            TemporarySettings.VoiceInternalSettings.Formant2Volume = getTrackBarReverseValue(trackBarFormant2Vol);
+            TemporarySettings.VoiceInternalSettings.Formant3Volume = getTrackBarReverseValue(trackBarFormant3Vol);
+            TemporarySettings.VoiceInternalSettings.Formant4Volume = getTrackBarReverseValue(trackBarFormant4Vol);
+            TemporarySettings.VoiceInternalSettings.Formant1Frequency = getTrackBarReverseValue(trackBarFormant1Hz);
+            TemporarySettings.VoiceInternalSettings.Formant2Frequency = getTrackBarReverseValue(trackBarFormant2Hz);
+            TemporarySettings.VoiceInternalSettings.Formant3Frequency = getTrackBarReverseValue(trackBarFormant3Hz);
+            TemporarySettings.VoiceInternalSettings.Formant4Frequency = getTrackBarReverseValue(trackBarFormant4Hz);
+            labelFormant1Hz.Text = TemporarySettings.VoiceInternalSettings.Formant1Frequency.ToString() + " Hz";
+            labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
+            labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
+            labelFormant4Hz.Text = TemporarySettings.VoiceInternalSettings.Formant4Frequency.ToString() + " Hz";
+            labelFormant1Vol.Text = TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%";
+            labelFormant2Vol.Text = TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%";
+            labelFormant3Vol.Text = TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%";
+            labelFormant4Vol.Text = TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%";
+        }
         private void buttonOpenVowel_Click(object sender, EventArgs e)
         {
-
+            SetPresets(92, 100, 90, 60, 3355, 2558, 1675, 1180);
         }
 
         private void buttonCloseFront_Click(object sender, EventArgs e)
         {
-
+            SetPresets(65, 94, 80, 70, 4001, 2989, 2537, 426);
         }
 
         private void buttonCloseBack_Click(object sender, EventArgs e)
         {
-
+            SetPresets(60, 90, 90, 70, 3742, 2429, 2429, 512);
         }
 
         private void buttonMidFront_Click(object sender, EventArgs e)
         {
-
+            SetPresets(96, 100, 98, 65, 3829, 2623, 1934, 814);
         }
 
         private void buttonOpenBack_Click(object sender, EventArgs e)
         {
-
+            SetPresets(87, 88, 88, 60, 3355, 2258, 1158, 900);
         }
 
         private void VoiceInternalsWindow_FormClosed(object sender, FormClosedEventArgs e)

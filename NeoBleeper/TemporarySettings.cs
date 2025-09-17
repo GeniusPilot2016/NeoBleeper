@@ -88,25 +88,25 @@ namespace NeoBleeper
         public static class VoiceInternalSettings
         {
             // Formant volumes (60%-100%)
-            public static int Formant1Volume = 100;
+            public static int Formant1Volume = 92;
             public static int Formant2Volume = 100;
-            public static int Formant3Volume = 100;
-            public static int Formant4Volume = 100;
+            public static int Formant3Volume = 90;
+            public static int Formant4Volume = 60;
 
             // Formant frequencies (in Hz)
-            public static int Formant1Frequency = 700;
-            public static int Formant2Frequency = 1220;
-            public static int Formant3Frequency = 2600;
-            public static int Formant4Frequency = 3500;
+            public static int Formant1Frequency = 3355;
+            public static int Formant2Frequency = 2558;
+            public static int Formant3Frequency = 1675;
+            public static int Formant4Frequency = 1180;
 
             // Voice Volume (1-400)
-            public static int VoiceVolume = 400;
+            public static int VoiceVolume = 300;
 
             // Saw volume (1-1000)
             public static int SawVolume = 1000;
 
             // Noise volume (1-1000)
-            public static int NoiseVolume = 1000;
+            public static int NoiseVolume = 100;
 
             // Cutoff frequency (in Hz)
             public static int CutoffFrequency = 5000;
@@ -130,8 +130,8 @@ namespace NeoBleeper
             public static int Sybillance4Frequency = 200;
 
             // Pitch 
-            public static int Pitch = 100;
-            public static int Range = 12;
+            public static int Pitch = 350;
+            public static int Range = 100;
 
             // Output device indexes
             // 0 = Voice system

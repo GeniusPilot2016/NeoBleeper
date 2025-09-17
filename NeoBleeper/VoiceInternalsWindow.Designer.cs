@@ -37,7 +37,7 @@
             label62 = new Label();
             label63 = new Label();
             label64 = new Label();
-            groupBox3 = new GroupBox();
+            groupBoxKey = new GroupBox();
             label55 = new Label();
             label56 = new Label();
             label57 = new Label();
@@ -46,16 +46,16 @@
             comboBoxNote2Option = new ComboBox();
             comboBoxNote3Option = new ComboBox();
             comboBoxNote4Option = new ComboBox();
-            groupBox2 = new GroupBox();
+            groupBoxOutputOptions = new GroupBox();
             label53 = new Label();
             trackBarPitch = new TrackBar();
             label54 = new Label();
             trackBarRange = new TrackBar();
-            groupBox1 = new GroupBox();
-            label52 = new Label();
+            groupBoxRandomVariationsOfFormants = new GroupBox();
+            labelSybillance = new Label();
             panel26 = new Panel();
             panel16 = new Panel();
-            label9 = new Label();
+            labelSybillanceMasking = new Label();
             panel17 = new Panel();
             panel20 = new Panel();
             labelSybillance4Hz = new Label();
@@ -73,7 +73,7 @@
             trackBarSybillance3Ra = new TrackBar();
             trackBarSybillance3Vol = new TrackBar();
             label38 = new Label();
-            label39 = new Label();
+            labelS4 = new Label();
             panel18 = new Panel();
             labelSybillance2Hz = new Label();
             labelSybillance2Ra = new Label();
@@ -82,7 +82,7 @@
             trackBarSybillance2Ra = new TrackBar();
             trackBarSybillance2Vol = new TrackBar();
             label15 = new Label();
-            label16 = new Label();
+            labelS3 = new Label();
             panel21 = new Panel();
             labelSybillance1Hz = new Label();
             labelSybillance1Ra = new Label();
@@ -91,32 +91,32 @@
             trackBarSybillance1Ra = new TrackBar();
             trackBarSybillance1Vol = new TrackBar();
             label42 = new Label();
-            label11 = new Label();
-            label43 = new Label();
+            labelS2 = new Label();
+            labelS1 = new Label();
             panel22 = new Panel();
-            label48 = new Label();
+            labelCutoff = new Label();
             panel23 = new Panel();
             panel24 = new Panel();
             label49 = new Label();
             labelCutoffHz = new Label();
             trackBarCutoffHz = new TrackBar();
-            label51 = new Label();
+            labelOscillator = new Label();
             panel25 = new Panel();
             panel2 = new Panel();
-            label3 = new Label();
+            labelSaw = new Label();
             panel3 = new Panel();
             panel4 = new Panel();
             label4 = new Label();
             labelSawVol = new Label();
             trackBarSawVol = new TrackBar();
             panel5 = new Panel();
-            label6 = new Label();
+            labelNoise = new Label();
             panel14 = new Panel();
             panel15 = new Panel();
             label7 = new Label();
             labelNoiseVol = new Label();
             trackBarNoiseVol = new TrackBar();
-            label2 = new Label();
+            labelVoice = new Label();
             panel1 = new Panel();
             panel6 = new Panel();
             panel8 = new Panel();
@@ -128,21 +128,21 @@
             buttonOpenVowel = new Button();
             buttonMidFront = new Button();
             panel9 = new Panel();
-            label17 = new Label();
+            labelF4 = new Label();
             panel10 = new Panel();
             labelFormant4Hz = new Label();
             label19 = new Label();
             labelFormant4Vol = new Label();
             trackBarFormant4Vol = new TrackBar();
             trackBarFormant4Hz = new TrackBar();
-            label21 = new Label();
+            labelF3 = new Label();
             panel11 = new Panel();
             labelFormant3Hz = new Label();
             label25 = new Label();
             labelFormant3Vol = new Label();
             trackBarFormant3Vol = new TrackBar();
             trackBarFormant3Hz = new TrackBar();
-            label27 = new Label();
+            labelF2 = new Label();
             panel12 = new Panel();
             labelFormant2Hz = new Label();
             label29 = new Label();
@@ -155,16 +155,16 @@
             trackBarFormant1Hz = new TrackBar();
             trackBarFormant1Vol = new TrackBar();
             label33 = new Label();
-            label34 = new Label();
+            labelF1 = new Label();
             buttonOpenBack = new Button();
-            label1 = new Label();
+            labelFormantControl = new Label();
             panel7 = new Panel();
             panel30 = new Panel();
-            groupBox3.SuspendLayout();
-            groupBox2.SuspendLayout();
+            groupBoxKey.SuspendLayout();
+            groupBoxOutputOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRange).BeginInit();
-            groupBox1.SuspendLayout();
+            groupBoxRandomVariationsOfFormants.SuspendLayout();
             panel26.SuspendLayout();
             panel16.SuspendLayout();
             panel17.SuspendLayout();
@@ -298,24 +298,24 @@
             label64.TabIndex = 1;
             label64.Text = "Hz = Frequency (Hertz)";
             // 
-            // groupBox3
+            // groupBoxKey
             // 
-            groupBox3.Controls.Add(label64);
-            groupBox3.Controls.Add(label63);
-            groupBox3.Controls.Add(label62);
-            groupBox3.Controls.Add(label61);
-            groupBox3.Controls.Add(label60);
-            groupBox3.Controls.Add(label59);
-            groupBox3.Controls.Add(panel29);
-            groupBox3.Controls.Add(panel28);
-            groupBox3.Controls.Add(panel27);
-            groupBox3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox3.Location = new Point(661, 12);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(287, 280);
-            groupBox3.TabIndex = 6;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Key";
+            groupBoxKey.Controls.Add(label64);
+            groupBoxKey.Controls.Add(label63);
+            groupBoxKey.Controls.Add(label62);
+            groupBoxKey.Controls.Add(label61);
+            groupBoxKey.Controls.Add(label60);
+            groupBoxKey.Controls.Add(label59);
+            groupBoxKey.Controls.Add(panel29);
+            groupBoxKey.Controls.Add(panel28);
+            groupBoxKey.Controls.Add(panel27);
+            groupBoxKey.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupBoxKey.Location = new Point(661, 12);
+            groupBoxKey.Name = "groupBoxKey";
+            groupBoxKey.Size = new Size(287, 280);
+            groupBoxKey.TabIndex = 6;
+            groupBoxKey.TabStop = false;
+            groupBoxKey.Text = "Key";
             // 
             // label55
             // 
@@ -370,7 +370,7 @@
             comboBoxNote1Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote1Option.Location = new Point(65, 24);
             comboBoxNote1Option.Name = "comboBoxNote1Option";
-            comboBoxNote1Option.Size = new Size(233, 24);
+            comboBoxNote1Option.Size = new Size(238, 24);
             comboBoxNote1Option.TabIndex = 1;
             comboBoxNote1Option.SelectedIndexChanged += comboBoxNote1Option_SelectedIndexChanged;
             // 
@@ -383,7 +383,7 @@
             comboBoxNote2Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote2Option.Location = new Point(65, 53);
             comboBoxNote2Option.Name = "comboBoxNote2Option";
-            comboBoxNote2Option.Size = new Size(233, 24);
+            comboBoxNote2Option.Size = new Size(238, 24);
             comboBoxNote2Option.TabIndex = 1;
             comboBoxNote2Option.SelectedIndexChanged += comboBoxNote2Option_SelectedIndexChanged;
             // 
@@ -396,7 +396,7 @@
             comboBoxNote3Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote3Option.Location = new Point(65, 82);
             comboBoxNote3Option.Name = "comboBoxNote3Option";
-            comboBoxNote3Option.Size = new Size(233, 24);
+            comboBoxNote3Option.Size = new Size(238, 24);
             comboBoxNote3Option.TabIndex = 1;
             comboBoxNote3Option.SelectedIndexChanged += comboBoxNote3Option_SelectedIndexChanged;
             // 
@@ -409,34 +409,34 @@
             comboBoxNote4Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote4Option.Location = new Point(65, 111);
             comboBoxNote4Option.Name = "comboBoxNote4Option";
-            comboBoxNote4Option.Size = new Size(233, 24);
+            comboBoxNote4Option.Size = new Size(238, 24);
             comboBoxNote4Option.TabIndex = 1;
             comboBoxNote4Option.SelectedIndexChanged += comboBoxNote4Option_SelectedIndexChanged;
             // 
-            // groupBox2
+            // groupBoxOutputOptions
             // 
-            groupBox2.Controls.Add(comboBoxNote4Option);
-            groupBox2.Controls.Add(comboBoxNote3Option);
-            groupBox2.Controls.Add(comboBoxNote2Option);
-            groupBox2.Controls.Add(comboBoxNote1Option);
-            groupBox2.Controls.Add(label58);
-            groupBox2.Controls.Add(label57);
-            groupBox2.Controls.Add(label56);
-            groupBox2.Controls.Add(label55);
-            groupBox2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox2.Location = new Point(634, 435);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(314, 143);
-            groupBox2.TabIndex = 5;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Output options";
+            groupBoxOutputOptions.Controls.Add(comboBoxNote4Option);
+            groupBoxOutputOptions.Controls.Add(comboBoxNote3Option);
+            groupBoxOutputOptions.Controls.Add(comboBoxNote2Option);
+            groupBoxOutputOptions.Controls.Add(comboBoxNote1Option);
+            groupBoxOutputOptions.Controls.Add(label58);
+            groupBoxOutputOptions.Controls.Add(label57);
+            groupBoxOutputOptions.Controls.Add(label56);
+            groupBoxOutputOptions.Controls.Add(label55);
+            groupBoxOutputOptions.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupBoxOutputOptions.Location = new Point(629, 435);
+            groupBoxOutputOptions.Name = "groupBoxOutputOptions";
+            groupBoxOutputOptions.Size = new Size(319, 143);
+            groupBoxOutputOptions.TabIndex = 5;
+            groupBoxOutputOptions.TabStop = false;
+            groupBoxOutputOptions.Text = "Output options";
             // 
             // label53
             // 
             label53.Anchor = AnchorStyles.None;
             label53.AutoSize = true;
             label53.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label53.Location = new Point(135, 25);
+            label53.Location = new Point(137, 25);
             label53.Name = "label53";
             label53.Size = new Size(34, 16);
             label53.TabIndex = 0;
@@ -446,7 +446,7 @@
             // 
             trackBarPitch.Anchor = AnchorStyles.None;
             trackBarPitch.AutoSize = false;
-            trackBarPitch.Location = new Point(43, 44);
+            trackBarPitch.Location = new Point(45, 44);
             trackBarPitch.Maximum = 1000;
             trackBarPitch.Name = "trackBarPitch";
             trackBarPitch.Size = new Size(228, 25);
@@ -459,7 +459,7 @@
             label54.Anchor = AnchorStyles.None;
             label54.AutoSize = true;
             label54.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label54.Location = new Point(132, 77);
+            label54.Location = new Point(134, 77);
             label54.Name = "label54";
             label54.Size = new Size(43, 16);
             label54.TabIndex = 2;
@@ -469,44 +469,45 @@
             // 
             trackBarRange.Anchor = AnchorStyles.None;
             trackBarRange.AutoSize = false;
-            trackBarRange.Location = new Point(43, 96);
+            trackBarRange.Location = new Point(45, 96);
             trackBarRange.Maximum = 1000;
             trackBarRange.Name = "trackBarRange";
             trackBarRange.Size = new Size(228, 25);
             trackBarRange.TabIndex = 3;
             trackBarRange.TickFrequency = 50;
+            trackBarRange.Value = 100;
             trackBarRange.Scroll += trackBarRange_Scroll;
             // 
-            // groupBox1
+            // groupBoxRandomVariationsOfFormants
             // 
-            groupBox1.Controls.Add(trackBarRange);
-            groupBox1.Controls.Add(label54);
-            groupBox1.Controls.Add(trackBarPitch);
-            groupBox1.Controls.Add(label53);
-            groupBox1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(634, 298);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(314, 131);
-            groupBox1.TabIndex = 4;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Random variations of formants";
+            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarRange);
+            groupBoxRandomVariationsOfFormants.Controls.Add(label54);
+            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarPitch);
+            groupBoxRandomVariationsOfFormants.Controls.Add(label53);
+            groupBoxRandomVariationsOfFormants.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupBoxRandomVariationsOfFormants.Location = new Point(629, 298);
+            groupBoxRandomVariationsOfFormants.Name = "groupBoxRandomVariationsOfFormants";
+            groupBoxRandomVariationsOfFormants.Size = new Size(319, 131);
+            groupBoxRandomVariationsOfFormants.TabIndex = 4;
+            groupBoxRandomVariationsOfFormants.TabStop = false;
+            groupBoxRandomVariationsOfFormants.Text = "Random variations of formants";
             // 
-            // label52
+            // labelSybillance
             // 
-            label52.Anchor = AnchorStyles.Top;
-            label52.AutoSize = true;
-            label52.BackColor = Color.Yellow;
-            label52.BorderStyle = BorderStyle.FixedSingle;
-            label52.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label52.Location = new Point(246, 7);
-            label52.Name = "label52";
-            label52.Size = new Size(81, 22);
-            label52.TabIndex = 4;
-            label52.Text = "Sybillance";
+            labelSybillance.Anchor = AnchorStyles.Top;
+            labelSybillance.AutoSize = true;
+            labelSybillance.BackColor = Color.Yellow;
+            labelSybillance.BorderStyle = BorderStyle.FixedSingle;
+            labelSybillance.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelSybillance.Location = new Point(270, 7);
+            labelSybillance.Name = "labelSybillance";
+            labelSybillance.Size = new Size(81, 22);
+            labelSybillance.TabIndex = 4;
+            labelSybillance.Text = "Sybillance";
             // 
             // panel26
             // 
-            panel26.Controls.Add(label52);
+            panel26.Controls.Add(labelSybillance);
             panel26.Controls.Add(panel16);
             panel26.Controls.Add(panel22);
             panel26.Location = new Point(12, 298);
@@ -518,25 +519,25 @@
             // 
             panel16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel16.BorderStyle = BorderStyle.FixedSingle;
-            panel16.Controls.Add(label9);
+            panel16.Controls.Add(labelSybillanceMasking);
             panel16.Controls.Add(panel17);
             panel16.Location = new Point(3, 33);
             panel16.Name = "panel16";
             panel16.Size = new Size(528, 242);
             panel16.TabIndex = 1;
             // 
-            // label9
+            // labelSybillanceMasking
             // 
-            label9.Anchor = AnchorStyles.Top;
-            label9.AutoSize = true;
-            label9.BackColor = Color.Cyan;
-            label9.BorderStyle = BorderStyle.FixedSingle;
-            label9.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(194, 7);
-            label9.Name = "label9";
-            label9.Size = new Size(143, 22);
-            label9.TabIndex = 3;
-            label9.Text = "Sybillance Masking";
+            labelSybillanceMasking.Anchor = AnchorStyles.Top;
+            labelSybillanceMasking.AutoSize = true;
+            labelSybillanceMasking.BackColor = Color.Cyan;
+            labelSybillanceMasking.BorderStyle = BorderStyle.FixedSingle;
+            labelSybillanceMasking.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelSybillanceMasking.Location = new Point(194, 7);
+            labelSybillanceMasking.Name = "labelSybillanceMasking";
+            labelSybillanceMasking.Size = new Size(143, 22);
+            labelSybillanceMasking.TabIndex = 3;
+            labelSybillanceMasking.Text = "Sybillance Masking";
             // 
             // panel17
             // 
@@ -544,12 +545,12 @@
             panel17.BorderStyle = BorderStyle.FixedSingle;
             panel17.Controls.Add(panel20);
             panel17.Controls.Add(panel19);
-            panel17.Controls.Add(label39);
+            panel17.Controls.Add(labelS4);
             panel17.Controls.Add(panel18);
-            panel17.Controls.Add(label16);
+            panel17.Controls.Add(labelS3);
             panel17.Controls.Add(panel21);
-            panel17.Controls.Add(label11);
-            panel17.Controls.Add(label43);
+            panel17.Controls.Add(labelS2);
+            panel17.Controls.Add(labelS1);
             panel17.Location = new Point(3, 32);
             panel17.Name = "panel17";
             panel17.Size = new Size(520, 205);
@@ -753,18 +754,18 @@
             label38.TabIndex = 0;
             label38.Text = "Ra/Vol/Hz";
             // 
-            // label39
+            // labelS4
             // 
-            label39.Anchor = AnchorStyles.Top;
-            label39.AutoSize = true;
-            label39.BackColor = Color.Cyan;
-            label39.BorderStyle = BorderStyle.FixedSingle;
-            label39.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label39.Location = new Point(437, 13);
-            label39.Name = "label39";
-            label39.Size = new Size(19, 21);
-            label39.TabIndex = 2;
-            label39.Text = "4";
+            labelS4.Anchor = AnchorStyles.Top;
+            labelS4.AutoSize = true;
+            labelS4.BackColor = Color.Cyan;
+            labelS4.BorderStyle = BorderStyle.FixedSingle;
+            labelS4.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelS4.Location = new Point(437, 13);
+            labelS4.Name = "labelS4";
+            labelS4.Size = new Size(19, 21);
+            labelS4.TabIndex = 2;
+            labelS4.Text = "4";
             // 
             // panel18
             // 
@@ -865,18 +866,18 @@
             label15.TabIndex = 0;
             label15.Text = "Ra/Vol/Hz";
             // 
-            // label16
+            // labelS3
             // 
-            label16.Anchor = AnchorStyles.Top;
-            label16.AutoSize = true;
-            label16.BackColor = Color.Cyan;
-            label16.BorderStyle = BorderStyle.FixedSingle;
-            label16.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label16.Location = new Point(310, 13);
-            label16.Name = "label16";
-            label16.Size = new Size(19, 21);
-            label16.TabIndex = 2;
-            label16.Text = "3";
+            labelS3.Anchor = AnchorStyles.Top;
+            labelS3.AutoSize = true;
+            labelS3.BackColor = Color.Cyan;
+            labelS3.BorderStyle = BorderStyle.FixedSingle;
+            labelS3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelS3.Location = new Point(310, 13);
+            labelS3.Name = "labelS3";
+            labelS3.Size = new Size(19, 21);
+            labelS3.TabIndex = 2;
+            labelS3.Text = "3";
             // 
             // panel21
             // 
@@ -977,54 +978,54 @@
             label42.TabIndex = 0;
             label42.Text = "Ra/Vol/Hz";
             // 
-            // label11
+            // labelS2
             // 
-            label11.Anchor = AnchorStyles.Top;
-            label11.AutoSize = true;
-            label11.BackColor = Color.Cyan;
-            label11.BorderStyle = BorderStyle.FixedSingle;
-            label11.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(184, 13);
-            label11.Name = "label11";
-            label11.Size = new Size(19, 21);
-            label11.TabIndex = 2;
-            label11.Text = "2";
+            labelS2.Anchor = AnchorStyles.Top;
+            labelS2.AutoSize = true;
+            labelS2.BackColor = Color.Cyan;
+            labelS2.BorderStyle = BorderStyle.FixedSingle;
+            labelS2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelS2.Location = new Point(184, 13);
+            labelS2.Name = "labelS2";
+            labelS2.Size = new Size(19, 21);
+            labelS2.TabIndex = 2;
+            labelS2.Text = "2";
             // 
-            // label43
+            // labelS1
             // 
-            label43.Anchor = AnchorStyles.Top;
-            label43.AutoSize = true;
-            label43.BackColor = Color.Cyan;
-            label43.BorderStyle = BorderStyle.FixedSingle;
-            label43.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label43.Location = new Point(55, 13);
-            label43.Name = "label43";
-            label43.Size = new Size(19, 21);
-            label43.TabIndex = 2;
-            label43.Text = "1";
+            labelS1.Anchor = AnchorStyles.Top;
+            labelS1.AutoSize = true;
+            labelS1.BackColor = Color.Cyan;
+            labelS1.BorderStyle = BorderStyle.FixedSingle;
+            labelS1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelS1.Location = new Point(56, 13);
+            labelS1.Name = "labelS1";
+            labelS1.Size = new Size(19, 21);
+            labelS1.TabIndex = 2;
+            labelS1.Text = "1";
             // 
             // panel22
             // 
             panel22.BorderStyle = BorderStyle.FixedSingle;
-            panel22.Controls.Add(label48);
+            panel22.Controls.Add(labelCutoff);
             panel22.Controls.Add(panel23);
             panel22.Location = new Point(530, 33);
             panel22.Name = "panel22";
             panel22.Size = new Size(78, 242);
             panel22.TabIndex = 2;
             // 
-            // label48
+            // labelCutoff
             // 
-            label48.Anchor = AnchorStyles.Top;
-            label48.AutoSize = true;
-            label48.BackColor = Color.FromArgb(0, 192, 192);
-            label48.BorderStyle = BorderStyle.FixedSingle;
-            label48.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label48.Location = new Point(9, 7);
-            label48.Name = "label48";
-            label48.Size = new Size(55, 22);
-            label48.TabIndex = 4;
-            label48.Text = "Cutoff";
+            labelCutoff.Anchor = AnchorStyles.Top;
+            labelCutoff.AutoSize = true;
+            labelCutoff.BackColor = Color.FromArgb(0, 192, 192);
+            labelCutoff.BorderStyle = BorderStyle.FixedSingle;
+            labelCutoff.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelCutoff.Location = new Point(10, 7);
+            labelCutoff.Name = "labelCutoff";
+            labelCutoff.Size = new Size(55, 22);
+            labelCutoff.TabIndex = 4;
+            labelCutoff.Text = "Cutoff";
             // 
             // panel23
             // 
@@ -1083,22 +1084,22 @@
             trackBarCutoffHz.Value = 5000;
             trackBarCutoffHz.Scroll += trackBarCutoffHz_Scroll;
             // 
-            // label51
+            // labelOscillator
             // 
-            label51.Anchor = AnchorStyles.Top;
-            label51.AutoSize = true;
-            label51.BackColor = Color.Red;
-            label51.BorderStyle = BorderStyle.FixedSingle;
-            label51.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label51.Location = new Point(39, 7);
-            label51.Name = "label51";
-            label51.Size = new Size(77, 22);
-            label51.TabIndex = 4;
-            label51.Text = "Oscillator";
+            labelOscillator.Anchor = AnchorStyles.Top;
+            labelOscillator.AutoSize = true;
+            labelOscillator.BackColor = Color.Red;
+            labelOscillator.BorderStyle = BorderStyle.FixedSingle;
+            labelOscillator.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelOscillator.Location = new Point(39, 7);
+            labelOscillator.Name = "labelOscillator";
+            labelOscillator.Size = new Size(77, 22);
+            labelOscillator.TabIndex = 4;
+            labelOscillator.Text = "Oscillator";
             // 
             // panel25
             // 
-            panel25.Controls.Add(label51);
+            panel25.Controls.Add(labelOscillator);
             panel25.Controls.Add(panel2);
             panel25.Controls.Add(panel5);
             panel25.Location = new Point(500, 12);
@@ -1110,25 +1111,25 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(label3);
+            panel2.Controls.Add(labelSaw);
             panel2.Controls.Add(panel3);
             panel2.Location = new Point(3, 36);
             panel2.Name = "panel2";
             panel2.Size = new Size(70, 241);
             panel2.TabIndex = 2;
             // 
-            // label3
+            // labelSaw
             // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.BackColor = Color.Yellow;
-            label3.BorderStyle = BorderStyle.FixedSingle;
-            label3.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(14, 7);
-            label3.Name = "label3";
-            label3.Size = new Size(40, 22);
-            label3.TabIndex = 4;
-            label3.Text = "Saw";
+            labelSaw.Anchor = AnchorStyles.Top;
+            labelSaw.AutoSize = true;
+            labelSaw.BackColor = Color.Yellow;
+            labelSaw.BorderStyle = BorderStyle.FixedSingle;
+            labelSaw.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelSaw.Location = new Point(14, 7);
+            labelSaw.Name = "labelSaw";
+            labelSaw.Size = new Size(40, 22);
+            labelSaw.TabIndex = 4;
+            labelSaw.Text = "Saw";
             // 
             // panel3
             // 
@@ -1191,25 +1192,25 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.BorderStyle = BorderStyle.FixedSingle;
-            panel5.Controls.Add(label6);
+            panel5.Controls.Add(labelNoise);
             panel5.Controls.Add(panel14);
             panel5.Location = new Point(72, 36);
             panel5.Name = "panel5";
             panel5.Size = new Size(78, 241);
             panel5.TabIndex = 2;
             // 
-            // label6
+            // labelNoise
             // 
-            label6.Anchor = AnchorStyles.Top;
-            label6.AutoSize = true;
-            label6.BackColor = Color.Yellow;
-            label6.BorderStyle = BorderStyle.FixedSingle;
-            label6.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(13, 7);
-            label6.Name = "label6";
-            label6.Size = new Size(50, 22);
-            label6.TabIndex = 4;
-            label6.Text = "Noise";
+            labelNoise.Anchor = AnchorStyles.Top;
+            labelNoise.AutoSize = true;
+            labelNoise.BackColor = Color.Yellow;
+            labelNoise.BorderStyle = BorderStyle.FixedSingle;
+            labelNoise.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNoise.Location = new Point(13, 7);
+            labelNoise.Name = "labelNoise";
+            labelNoise.Size = new Size(50, 22);
+            labelNoise.TabIndex = 4;
+            labelNoise.Text = "Noise";
             // 
             // panel14
             // 
@@ -1268,22 +1269,22 @@
             trackBarNoiseVol.Value = 1;
             trackBarNoiseVol.Scroll += trackBarNoiseVol_Scroll;
             // 
-            // label2
+            // labelVoice
             // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.BackColor = Color.Yellow;
-            label2.BorderStyle = BorderStyle.FixedSingle;
-            label2.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(5, 7);
-            label2.Name = "label2";
-            label2.Size = new Size(48, 22);
-            label2.TabIndex = 4;
-            label2.Text = "Voice";
+            labelVoice.Anchor = AnchorStyles.Top;
+            labelVoice.AutoSize = true;
+            labelVoice.BackColor = Color.Yellow;
+            labelVoice.BorderStyle = BorderStyle.FixedSingle;
+            labelVoice.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelVoice.Location = new Point(5, 7);
+            labelVoice.Name = "labelVoice";
+            labelVoice.Size = new Size(48, 22);
+            labelVoice.TabIndex = 4;
+            labelVoice.Text = "Voice";
             // 
             // panel1
             // 
-            panel1.Controls.Add(label2);
+            panel1.Controls.Add(labelVoice);
             panel1.Controls.Add(panel6);
             panel1.Location = new Point(442, 12);
             panel1.Name = "panel1";
@@ -1399,31 +1400,31 @@
             // 
             panel9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Controls.Add(label17);
+            panel9.Controls.Add(labelF4);
             panel9.Controls.Add(panel10);
-            panel9.Controls.Add(label21);
+            panel9.Controls.Add(labelF3);
             panel9.Controls.Add(panel11);
-            panel9.Controls.Add(label27);
+            panel9.Controls.Add(labelF2);
             panel9.Controls.Add(panel12);
             panel9.Controls.Add(panel13);
-            panel9.Controls.Add(label34);
+            panel9.Controls.Add(labelF1);
             panel9.Location = new Point(7, 32);
             panel9.Name = "panel9";
             panel9.Size = new Size(418, 205);
             panel9.TabIndex = 0;
             // 
-            // label17
+            // labelF4
             // 
-            label17.Anchor = AnchorStyles.Top;
-            label17.AutoSize = true;
-            label17.BackColor = Color.Cyan;
-            label17.BorderStyle = BorderStyle.FixedSingle;
-            label17.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label17.Location = new Point(350, 10);
-            label17.Name = "label17";
-            label17.Size = new Size(19, 21);
-            label17.TabIndex = 11;
-            label17.Text = "4";
+            labelF4.Anchor = AnchorStyles.Top;
+            labelF4.AutoSize = true;
+            labelF4.BackColor = Color.Cyan;
+            labelF4.BorderStyle = BorderStyle.FixedSingle;
+            labelF4.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelF4.Location = new Point(349, 10);
+            labelF4.Name = "labelF4";
+            labelF4.Size = new Size(19, 21);
+            labelF4.TabIndex = 11;
+            labelF4.Text = "4";
             // 
             // panel10
             // 
@@ -1499,18 +1500,18 @@
             trackBarFormant4Hz.Value = 7500;
             trackBarFormant4Hz.Scroll += trackBarFormant4Hz_Scroll;
             // 
-            // label21
+            // labelF3
             // 
-            label21.Anchor = AnchorStyles.Top;
-            label21.AutoSize = true;
-            label21.BackColor = Color.Cyan;
-            label21.BorderStyle = BorderStyle.FixedSingle;
-            label21.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label21.Location = new Point(246, 10);
-            label21.Name = "label21";
-            label21.Size = new Size(19, 21);
-            label21.TabIndex = 11;
-            label21.Text = "3";
+            labelF3.Anchor = AnchorStyles.Top;
+            labelF3.AutoSize = true;
+            labelF3.BackColor = Color.Cyan;
+            labelF3.BorderStyle = BorderStyle.FixedSingle;
+            labelF3.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelF3.Location = new Point(246, 10);
+            labelF3.Name = "labelF3";
+            labelF3.Size = new Size(19, 21);
+            labelF3.TabIndex = 11;
+            labelF3.Text = "3";
             // 
             // panel11
             // 
@@ -1586,18 +1587,18 @@
             trackBarFormant3Hz.Value = 7500;
             trackBarFormant3Hz.Scroll += trackBarFormant3Hz_Scroll;
             // 
-            // label27
+            // labelF2
             // 
-            label27.Anchor = AnchorStyles.Top;
-            label27.AutoSize = true;
-            label27.BackColor = Color.Cyan;
-            label27.BorderStyle = BorderStyle.FixedSingle;
-            label27.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label27.Location = new Point(144, 10);
-            label27.Name = "label27";
-            label27.Size = new Size(19, 21);
-            label27.TabIndex = 11;
-            label27.Text = "2";
+            labelF2.Anchor = AnchorStyles.Top;
+            labelF2.AutoSize = true;
+            labelF2.BackColor = Color.Cyan;
+            labelF2.BorderStyle = BorderStyle.FixedSingle;
+            labelF2.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelF2.Location = new Point(144, 10);
+            labelF2.Name = "labelF2";
+            labelF2.Size = new Size(19, 21);
+            labelF2.TabIndex = 11;
+            labelF2.Text = "2";
             // 
             // panel12
             // 
@@ -1747,18 +1748,18 @@
             label33.TabIndex = 0;
             label33.Text = "Vol/Hz";
             // 
-            // label34
+            // labelF1
             // 
-            label34.Anchor = AnchorStyles.Top;
-            label34.AutoSize = true;
-            label34.BackColor = Color.Cyan;
-            label34.BorderStyle = BorderStyle.FixedSingle;
-            label34.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label34.Location = new Point(42, 10);
-            label34.Name = "label34";
-            label34.Size = new Size(19, 21);
-            label34.TabIndex = 2;
-            label34.Text = "1";
+            labelF1.Anchor = AnchorStyles.Top;
+            labelF1.AutoSize = true;
+            labelF1.BackColor = Color.Cyan;
+            labelF1.BorderStyle = BorderStyle.FixedSingle;
+            labelF1.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelF1.Location = new Point(42, 10);
+            labelF1.Name = "labelF1";
+            labelF1.Size = new Size(19, 21);
+            labelF1.TabIndex = 2;
+            labelF1.Text = "1";
             // 
             // buttonOpenBack
             // 
@@ -1772,22 +1773,22 @@
             buttonOpenBack.UseVisualStyleBackColor = true;
             buttonOpenBack.Click += buttonOpenBack_Click;
             // 
-            // label1
+            // labelFormantControl
             // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.BackColor = Color.Cyan;
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(147, 7);
-            label1.Name = "label1";
-            label1.Size = new Size(127, 22);
-            label1.TabIndex = 3;
-            label1.Text = "Formant Control";
+            labelFormantControl.Anchor = AnchorStyles.Top;
+            labelFormantControl.AutoSize = true;
+            labelFormantControl.BackColor = Color.Cyan;
+            labelFormantControl.BorderStyle = BorderStyle.FixedSingle;
+            labelFormantControl.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelFormantControl.Location = new Point(147, 7);
+            labelFormantControl.Name = "labelFormantControl";
+            labelFormantControl.Size = new Size(127, 22);
+            labelFormantControl.TabIndex = 3;
+            labelFormantControl.Text = "Formant Control";
             // 
             // panel7
             // 
-            panel7.Controls.Add(label1);
+            panel7.Controls.Add(labelFormantControl);
             panel7.Controls.Add(buttonOpenBack);
             panel7.Controls.Add(panel9);
             panel7.Controls.Add(buttonMidFront);
@@ -1801,7 +1802,7 @@
             // 
             // panel30
             // 
-            panel30.Location = new Point(931, 569);
+            panel30.Location = new Point(930, 561);
             panel30.Name = "panel30";
             panel30.Size = new Size(30, 28);
             panel30.TabIndex = 7;
@@ -1811,11 +1812,11 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(960, 598);
+            ClientSize = new Size(960, 589);
             ControlBox = false;
-            Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(groupBoxKey);
+            Controls.Add(groupBoxOutputOptions);
+            Controls.Add(groupBoxRandomVariationsOfFormants);
             Controls.Add(panel26);
             Controls.Add(panel30);
             Controls.Add(panel25);
@@ -1826,14 +1827,14 @@
             ShowIcon = false;
             Text = "Voice Internals";
             FormClosed += VoiceInternalsWindow_FormClosed;
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            groupBoxKey.ResumeLayout(false);
+            groupBoxKey.PerformLayout();
+            groupBoxOutputOptions.ResumeLayout(false);
+            groupBoxOutputOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRange).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            groupBoxRandomVariationsOfFormants.ResumeLayout(false);
+            groupBoxRandomVariationsOfFormants.PerformLayout();
             panel26.ResumeLayout(false);
             panel26.PerformLayout();
             panel16.ResumeLayout(false);
@@ -1923,7 +1924,7 @@
         private Label label62;
         private Label label63;
         private Label label64;
-        private GroupBox groupBox3;
+        private GroupBox groupBoxKey;
         private Label label55;
         private Label label56;
         private Label label57;
@@ -1932,12 +1933,12 @@
         private ComboBox comboBoxNote2Option;
         private ComboBox comboBoxNote3Option;
         private ComboBox comboBoxNote4Option;
-        private GroupBox groupBox2;
+        private GroupBox groupBoxOutputOptions;
         private Label label53;
         private TrackBar trackBarPitch;
         private Label label54;
         private TrackBar trackBarRange;
-        private GroupBox groupBox1;
+        private GroupBox groupBoxRandomVariationsOfFormants;
         private Label label52;
         private Panel panel26;
         private Panel panel16;
@@ -2046,5 +2047,21 @@
         private Label label1;
         private Panel panel7;
         private Panel panel30;
+        private Label labelFormantControl;
+        private Label labelSybillance;
+        private Label labelSybillanceMasking;
+        private Label labelS4;
+        private Label labelS3;
+        private Label labelS2;
+        private Label labelS1;
+        private Label labelCutoff;
+        private Label labelF4;
+        private Label labelF3;
+        private Label labelF2;
+        private Label labelF1;
+        private Label labelOscillator;
+        private Label labelSaw;
+        private Label labelNoise;
+        private Label labelVoice;
     }
 }

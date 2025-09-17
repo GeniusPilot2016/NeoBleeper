@@ -386,6 +386,10 @@ namespace NeoBleeper
             {
                 checkBox_bleeper_portamento.Checked = false;
             }
+            if(checkBox_use_voice_system.Checked == true)
+            {
+                checkBox_use_voice_system.Checked = false;
+            }
         }
         private void refresh_main_window_elements_color(object sender, EventArgs e)
         {
