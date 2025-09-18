@@ -71,8 +71,11 @@ namespace NeoBleeper
             labelSybillance2Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance2Frequency.ToString() + " Hz";
             labelSybillance3Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz";
             labelSybillance4Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz";
-            trackBarPitch.Value = TemporarySettings.VoiceInternalSettings.Pitch;
-            trackBarRange.Value = TemporarySettings.VoiceInternalSettings.Range;
+            double minPitch = -24.0, maxPitch = 24.0;
+            trackBarPitch.Value = (int)(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * 1000);
+
+            double minRange = 0.0, maxRange = 24.0;
+            trackBarRange.Value = (int)(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * 1000);
             trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
         }
@@ -424,18 +427,23 @@ namespace NeoBleeper
 
         private void trackBarPitch_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Pitch != trackBarPitch.Value)
+            double minPitch = -24.0;
+            double maxPitch = 24.0;
+            double value = minPitch + (trackBarPitch.Value / trackBarPitch.Maximum) * (maxPitch - minPitch);
+            if (TemporarySettings.VoiceInternalSettings.Pitch != value)
             {
-                TemporarySettings.VoiceInternalSettings.Pitch = trackBarPitch.Value;
+                TemporarySettings.VoiceInternalSettings.Pitch = value;
                 Logger.Log("Pitch set to " + TemporarySettings.VoiceInternalSettings.Pitch.ToString(), Logger.LogTypes.Info);
             }
         }
 
         private void trackBarRange_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Range != trackBarRange.Value)
+            double minRange = 0.0, maxRange = 24.0;
+            double value = minRange + (trackBarRange.Value / trackBarRange.Maximum) * (maxRange - minRange);
+            if (TemporarySettings.VoiceInternalSettings.Range != value)
             {
-                TemporarySettings.VoiceInternalSettings.Range = trackBarRange.Value;
+                TemporarySettings.VoiceInternalSettings.Range = value;
                 Logger.Log("Range set to " + TemporarySettings.VoiceInternalSettings.Range.ToString(), Logger.LogTypes.Info);
             }
         }

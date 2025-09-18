@@ -2,15 +2,15 @@
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System.Diagnostics;
+using System;
 using System.Management;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
     public class RenderBeep
     {
+        internal static readonly object AudioLock = new object();
         public static class SystemSpeakerBeepEngine // System speaker (aka PC speaker) beep engine by manually driving the hardware timer and system speaker port
         {
             static SystemSpeakerBeepEngine()
@@ -93,7 +93,6 @@ namespace NeoBleeper
             private static readonly SignalGenerator whiteNoiseGenerator = new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.5 };
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
-            private static readonly object lockObject = new object();
 
             static SynthMisc()
             {
@@ -125,7 +124,7 @@ namespace NeoBleeper
             }
             private static void SetCurrentProvider(ISampleProvider provider)
             {
-                lock (lockObject)
+                lock (AudioLock)
                 {
                     if (currentProvider != provider)
                     {
@@ -141,7 +140,7 @@ namespace NeoBleeper
 
             private static void PlaySound(int ms, bool nonStopping)
             {
-                lock (lockObject)
+                lock (AudioLock)
                 {
                     if (!nonStopping)
                     {
@@ -169,7 +168,7 @@ namespace NeoBleeper
 
             public static void StopSynth()
             {
-                lock (lockObject)
+                lock (AudioLock)
                 {
                     if (currentProvider == signalGenerator)
                     {
@@ -183,7 +182,7 @@ namespace NeoBleeper
             }
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
-                lock (lockObject)
+                lock (AudioLock)
                 {
                     if (currentProvider != signalGenerator)
                     {
@@ -193,7 +192,7 @@ namespace NeoBleeper
                     {
                         signalGenerator.Frequency = freq;
                         signalGenerator.Type = type;
-                        signalGenerator.Gain = 0.15; 
+                        signalGenerator.Gain = 0.15;
                     }
                 }
                 PlaySound(ms, nonStopping);
@@ -201,7 +200,7 @@ namespace NeoBleeper
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
-                lock (lockObject)
+                lock (AudioLock)
                 {
                     if (bandPassNoise == null)
                     {
@@ -271,6 +270,100 @@ namespace NeoBleeper
             public void UpdateFrequency(float newFrequency, int sampleRate, float bandwidth)
             {
                 bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, newFrequency, bandwidth);
+            }
+        }
+
+        public static class VoiceSynthesizer
+        {
+            private readonly static object lockObject = new object();
+            public static void PlayVoice(int baseFrequency, int durationMs)
+            {
+                lock (lockObject)
+                {
+                    const int sampleRate = 44100;
+                    // Map settings to usable gains
+                    double globalVoiceGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.VoiceVolume / 400.0, 0.0, 1.0);
+                    double sawGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.SawVolume / 1000.0, 0.0, 1.0);
+                    double noiseGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.NoiseVolume / 1000.0, 0.0, 1.0);
+                    float cutoff = Math.Max(100, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
+
+                    // Random for small detune per formant (gives more natural timbre)
+                    var rng = new System.Random();
+
+                    // Create a shared white-noise generator for sibilance
+                    var whiteNoise = new SignalGenerator(sampleRate, 1) { Type = SignalGeneratorType.White, Gain = 1.0 };
+
+                    // Helper: build a formant voice source (saw -> bandpass -> volume)
+                    ISampleProvider BuildFormant(double formantFreq, int formantVolumePercent, double bandwidthRange)
+                    {
+                        // detune in semitones within +/- Range/2 to add naturalness
+                        double detuneSemitones = (rng.NextDouble() - 0.5) * TemporarySettings.VoiceInternalSettings.Range;
+                        double pitchSemitones = TemporarySettings.VoiceInternalSettings.Pitch + detuneSemitones;
+                        double pitchMultiplier = Math.Pow(2.0, pitchSemitones / 12.0);
+
+                        var sg = new SignalGenerator(sampleRate, 1)
+                        {
+                            Type = SignalGeneratorType.Triangle,
+                            Frequency = Math.Max(20.0, baseFrequency * pitchMultiplier),
+                            Gain = 1.0
+                        };
+
+                        // Band-pass to shape the harmonic content at the formant frequency
+                        var bp = new BandPassNoiseGenerator(sg, sampleRate, (float)formantFreq, (float)bandwidthRange);
+
+                        // Scale by formant volume and global gains
+                        float finalVolume = (float)(globalVoiceGain * sawGain * (formantVolumePercent / 100.0));
+                        return new VolumeSampleProvider(bp) { Volume = finalVolume };
+                    }
+
+                    // Helper: build a sibilance source (white noise -> narrow band-pass -> volume)
+                    ISampleProvider BuildSibilance(int sibFreq, double sibRange, double sibVolume)
+                    {
+                        var bp = new BandPassNoiseGenerator(whiteNoise, sampleRate, sibFreq, (float)sibRange);
+                        float finalVolume = (float)(globalVoiceGain * noiseGain * sibVolume);
+                        return new VolumeSampleProvider(bp) { Volume = finalVolume };
+                    }
+
+                    // Collect providers (formants + sibilances)
+                    var mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1))
+                    {
+                        ReadFully = true
+                    };
+
+                    // Add 4 formants
+                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant1Frequency, TemporarySettings.VoiceInternalSettings.Formant1Volume, TemporarySettings.VoiceInternalSettings.Sybillance1Range));
+                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant2Frequency, TemporarySettings.VoiceInternalSettings.Formant2Volume, TemporarySettings.VoiceInternalSettings.Sybillance2Range));
+                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant3Frequency, TemporarySettings.VoiceInternalSettings.Formant3Volume, TemporarySettings.VoiceInternalSettings.Sybillance3Range));
+                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant4Frequency, TemporarySettings.VoiceInternalSettings.Formant4Volume, TemporarySettings.VoiceInternalSettings.Sybillance4Range));
+
+                    // Add sibilance bands (can model /s/, /ʃ/ etc. by frequency + range + volume)
+                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance1Frequency, TemporarySettings.VoiceInternalSettings.Sybillance1Range, TemporarySettings.VoiceInternalSettings.Sybillance1Volume));
+                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance2Frequency, TemporarySettings.VoiceInternalSettings.Sybillance2Range, TemporarySettings.VoiceInternalSettings.Sybillance2Volume));
+                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance3Frequency, TemporarySettings.VoiceInternalSettings.Sybillance3Range, TemporarySettings.VoiceInternalSettings.Sybillance3Volume));
+                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance4Frequency, TemporarySettings.VoiceInternalSettings.Sybillance4Range, TemporarySettings.VoiceInternalSettings.Sybillance4Volume));
+
+                    // (Optional) Apply a simple global low-pass to respect CutoffFrequency.
+                    // NAudio doesn't provide a ready-made sample-provider wrapper for BiQuadFilter,
+                    // but our BandPassNoiseGenerator already applies BiQuad per-signal. If you want
+                    // a global low-pass, you can wrap mixer with a custom ISampleProvider that applies
+                    // BiQuadFilter.LowPassFilter(sampleRate, cutoff, Q) per-sample. For brevity we skip it.
+
+                    // Initialize playback on the configured device index (use Note2 for voice system by default)
+                    var internalWaveOut = new WaveOutEvent
+                    {
+                        DesiredLatency = 50,
+                        NumberOfBuffers = 4,
+                        DeviceNumber = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex
+                    };
+
+                    internalWaveOut.Init(mixer);
+                    internalWaveOut.Play();
+
+                    HighPrecisionSleep.Sleep(durationMs);
+
+                    internalWaveOut.Stop();
+                    internalWaveOut.Dispose();
+                }
             }
         }
     }

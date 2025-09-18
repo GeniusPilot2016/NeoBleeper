@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using static NBPML_File;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NeoBleeper
 {
@@ -386,7 +388,7 @@ namespace NeoBleeper
             {
                 checkBox_bleeper_portamento.Checked = false;
             }
-            if(checkBox_use_voice_system.Checked == true)
+            if (checkBox_use_voice_system.Checked == true)
             {
                 checkBox_use_voice_system.Checked = false;
             }
@@ -1374,11 +1376,11 @@ namespace NeoBleeper
             String note4 = listViewNotes.Items[index].SubItems[4].Text;
 
             int[] notes = {
-        note_name_to_MIDI_number(note1),
-        note_name_to_MIDI_number(note2),
-        note_name_to_MIDI_number(note3),
-        note_name_to_MIDI_number(note4)
-    };
+            note_name_to_MIDI_number(note1),
+            note_name_to_MIDI_number(note2),
+            note_name_to_MIDI_number(note3),
+            note_name_to_MIDI_number(note4)
+        };
 
             if (MIDIIOUtils._midiOut != null) // Check if initialized
             {
@@ -2690,22 +2692,107 @@ namespace NeoBleeper
             }
         }
 
-        private async Task HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
+        private async Task HandleStandardNotePlayback(int noteSoundDuration, int rawNoteDuration, bool nonStopping = false)
         {
             if (listViewNotes.SelectedIndices.Count > 0)
             {
-                await Task.Run(() =>
+                if (checkBox_use_voice_system.Checked)
                 {
-                    play_note_in_line(
-                     checkBox_play_note1_played.Checked,
-                     checkBox_play_note2_played.Checked,
-                     checkBox_play_note3_played.Checked,
-                     checkBox_play_note4_played.Checked,
-                     noteSoundDuration,
-                     nonStopping
-                 );
-                });
+                    play_note_in_line_with_voice(
+                        checkBox_play_note1_played.Checked,
+                        checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked,
+                        checkBox_play_note4_played.Checked,
+                        noteSoundDuration, rawNoteDuration,
+                        nonStopping
+                    );
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        play_note_in_line(
+                         checkBox_play_note1_played.Checked,
+                         checkBox_play_note2_played.Checked,
+                         checkBox_play_note3_played.Checked,
+                         checkBox_play_note4_played.Checked,
+                         noteSoundDuration,
+                         nonStopping
+                     );
+                    });
+                }
             }
+        }
+        private async void play_note_in_line_with_voice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
+        {
+            // System speaker notes
+            bool systemSpeakerNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 1 && play_note1;
+            bool systemSpeakerNote2 = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 1 && play_note2;
+            bool systemSpeakerNote3 = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 1 && play_note3;
+            bool systemSpeakerNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 1 && play_note4;
+
+            // Voice system notes
+            bool voiceSystemNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 && play_note1;
+            bool voiceSystemNote2 = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 && play_note2;
+            bool voiceSystemNote3 = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 && play_note3;
+            bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 && play_note4;
+
+            // Play voice
+            PlayVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, length, nonStopping);
+
+            // Play system speaker notes
+            await Task.Run(() =>
+            {
+                play_note_in_line(
+                 systemSpeakerNote1,
+                 systemSpeakerNote2,
+                 systemSpeakerNote3,
+                 systemSpeakerNote4,
+                 rawLength,
+                 nonStopping
+                );
+            });
+        }
+        private async Task PlayVoice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false)
+        {
+            await Task.Run(() =>
+            {
+                string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
+                double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+                String[] notes = new string[4];
+                if (listViewNotes.SelectedItems.Count > 0)
+                {
+                    int selected_line = listViewNotes.SelectedIndices[0];
+
+                    // Take music note names from the selected line
+                    note1 = play_note1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
+                    note2 = play_note2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
+                    note3 = play_note3 ? listViewNotes.Items[selected_line].SubItems[3].Text : string.Empty;
+                    note4 = play_note4 ? listViewNotes.Items[selected_line].SubItems[4].Text : string.Empty;
+                    // Calculate frequencies from note names
+                    if (!string.IsNullOrWhiteSpace(note1))
+                    {
+                        note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
+                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note1_frequency, length);
+                    }
+                    if (!string.IsNullOrWhiteSpace(note2))
+                    {
+                        note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
+                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note2_frequency, length);
+                    }
+                    if (!string.IsNullOrWhiteSpace(note3))
+                    {
+                        note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
+                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note3_frequency, length);
+                    }
+                    if (!string.IsNullOrWhiteSpace(note4))
+                    {
+                        note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
+                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note4_frequency, length);
+                    }
+                }
+
+            });
         }
         public static double RemoveWholeNumber(double number)
         {
@@ -2737,6 +2824,7 @@ namespace NeoBleeper
                 nonStopping = trackBar_note_silence_ratio.Value == 100;
                 var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 double noteDuration = line_length_calculator(baseLength); // + beat_length;
+                int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(raw_note_length_calculator(baseLength))); // Note length calculator without note-silence ratio
 
                 // Calculate the expected end time for the current note
                 double expectedEndTime = totalElapsedNoteDuration + noteDuration;
@@ -2749,6 +2837,7 @@ namespace NeoBleeper
 
                 if (drift > 0) // Handle positive drift
                 {
+                    rawNoteDuration = (int)Math.Max(0, rawNoteDuration - drift);
                     if (drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
                     {
                         int cachedNoteDuration = noteSound_int;
@@ -2765,6 +2854,11 @@ namespace NeoBleeper
                         currentNoteIndex++;
                         if (currentNoteIndex > (listViewNotes.Items.Count - 1))
                         {
+                            if (listViewNotes.Items.Count == 0)
+                            {
+                                EnableDisableCommonControls(true);
+                                return;
+                            }
                             int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
                             int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
                             if (checkBox_loop.Checked)
@@ -2788,7 +2882,7 @@ namespace NeoBleeper
                 }
                 // Normal playing flow
                 HandleMidiOutput(noteSound_int);
-                await HandleStandardNotePlayback(noteSound_int, nonStopping);
+                await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
 
                 if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
                 {
@@ -3266,7 +3360,8 @@ namespace NeoBleeper
                     updateDisplays(listViewNotes.SelectedIndices[0]);
                 }
                 HighPrecisionSleep.Sleep(1);
-                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
+                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength); 
+                int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(raw_note_length_calculator(baseLength))); // Note length calculator without note-silence ratio
                 HandleMidiOutput(noteSound_int);
                 bool nonStopping;
                 if (trackBar_note_silence_ratio.Value == 100)
@@ -3277,7 +3372,7 @@ namespace NeoBleeper
                 {
                     nonStopping = false;
                 }
-                await HandleStandardNotePlayback(noteSound_int, nonStopping);
+                await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3351,7 +3446,7 @@ namespace NeoBleeper
 
             Logger.Log($"Alternating note length: {Variables.alternating_note_length}", Logger.LogTypes.Info);
         }
-        private double note_length_calculator(double baseLength)
+        private double raw_note_length_calculator(double baseLength)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
                 listViewNotes.Items == null || listViewNotes.Items.Count == 0)
@@ -3383,6 +3478,23 @@ namespace NeoBleeper
             double result = getNoteLength(baseLength, noteType);
             result = getModifiedNoteLength(result, modifier);
             result = result * articulationFactor;
+
+            // Only round at the very end when converting to integer milliseconds
+            return Math.Max(1, result);
+        }
+        private double note_length_calculator(double baseLength)
+        {
+            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
+                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
+            {
+                return 0;
+            }
+
+            // Note-silence ratio (from trackBar)
+            double silenceRatio = (double)trackBar_note_silence_ratio.Value / 100.0;
+
+            // Calculate the total note length - use precise calculations without truncation
+            double result = raw_note_length_calculator(baseLength);
             result = result * silenceRatio;
 
             // Only round at the very end when converting to integer milliseconds

@@ -452,6 +452,7 @@
             trackBarPitch.Size = new Size(228, 25);
             trackBarPitch.TabIndex = 1;
             trackBarPitch.TickFrequency = 50;
+            trackBarPitch.Value = 350;
             trackBarPitch.Scroll += trackBarPitch_Scroll;
             // 
             // label54
