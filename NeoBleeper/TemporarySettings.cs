@@ -130,8 +130,8 @@ namespace NeoBleeper
             public static int Sybillance4Frequency = 200;
 
             // Pitch 
-            public static double Pitch = -7.2;
-            public static double Range = 2.4;
+            public static double Pitch = -0.35;
+            public static double Range = 1.1395;
 
             // Output device indexes
             // 0 = Voice system

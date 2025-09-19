@@ -5,6 +5,7 @@ using NAudio.Wave.SampleProviders;
 using System;
 using System.Management;
 using System.Runtime.InteropServices;
+using static NeoBleeper.TemporarySettings;
 
 namespace NeoBleeper
 {
@@ -99,6 +100,7 @@ namespace NeoBleeper
                 currentProvider = signalGenerator;
                 waveOut.DesiredLatency = 50;
                 waveOut.NumberOfBuffers = 4;
+                waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
                 waveOut.Init(signalGenerator);
             }
             public static bool checkIfAnySoundDeviceExistAndEnabled()
@@ -272,97 +274,208 @@ namespace NeoBleeper
                 bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, newFrequency, bandwidth);
             }
         }
+        public class FilteredWaveProvider : ISampleProvider
+        {
+            private readonly ISampleProvider source;
+            private readonly BiQuadFilter filter;
+            private readonly double gain;
 
+            public FilteredWaveProvider(ISampleProvider source, BiQuadFilter filter, double gain)
+            {
+                this.source = source;
+                this.filter = filter;
+                this.gain = gain;
+            }
+
+            public WaveFormat WaveFormat => source.WaveFormat;
+
+            public int Read(float[] buffer, int offset, int count)
+            {
+                int samplesRead = source.Read(buffer, offset, count);
+                for (int i = 0; i < samplesRead; i++)
+                {
+                    buffer[offset + i] = (float)(filter.Transform(buffer[offset + i]) * gain);
+                }
+                return samplesRead;
+            }
+        }
+        public class CachedSound
+        {
+            public readonly float[] AudioData;
+            public readonly WaveFormat WaveFormat;
+            public CachedSound(float[] audioData, WaveFormat waveFormat)
+            {
+                AudioData = audioData;
+                WaveFormat = waveFormat;
+            }
+        }
+
+        public class CachedSoundSampleProvider : ISampleProvider
+        {
+            private readonly CachedSound cached;
+            private long position;
+            public bool Loop { get; set; } = true;
+            public CachedSoundSampleProvider(CachedSound cached, bool loop = true)
+            {
+                this.cached = cached;
+                Loop = loop;
+                position = 0;
+            }
+            public WaveFormat WaveFormat => cached.WaveFormat;
+            public int Read(float[] buffer, int offset, int count)
+            {
+                int written = 0;
+                while (written < count)
+                {
+                    int available = cached.AudioData.Length - (int)position;
+                    if (available <= 0)
+                    {
+                        if (!Loop) break;
+                        position = 0;
+                        available = cached.AudioData.Length;
+                    }
+                    int toCopy = Math.Min(available, count - written);
+                    Array.Copy(cached.AudioData, position, buffer, offset + written, toCopy);
+                    position += toCopy;
+                    written += toCopy;
+                }
+                return written;
+            }
+        }
         public static class VoiceSynthesizer
         {
-            private readonly static object lockObject = new object();
-            public static void PlayVoice(int baseFrequency, int durationMs)
+            private static readonly Dictionary<int, (WaveOutEvent waveOut, ISampleProvider provider)> channels = new();
+            public static void StartVoice(int channelId, int baseFrequency)
             {
-                lock (lockObject)
+                const int sampleRate = 44100;
+                double normalizedPitch = VoiceInternalSettings.Pitch;
+                // Semitone-based pitch conversion (2^(semitones/12)) — önceki versiyon yanlış ölçeklendiriyordu
+                double modulatedFrequency = baseFrequency * Math.Pow(2.0, VoiceInternalSettings.Pitch) * (VoiceInternalSettings.Range);
+                double masterVolume = VoiceInternalSettings.VoiceVolume / 400.0;
+
+                // Tek periyodik kaynak oluştur (saw) ve önceden render ederek cache'e koy
+                SignalGenerator renderSource = new SignalGenerator()
                 {
-                    const int sampleRate = 44100;
-                    // Map settings to usable gains
-                    double globalVoiceGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.VoiceVolume / 400.0, 0.0, 1.0);
-                    double sawGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.SawVolume / 1000.0, 0.0, 1.0);
-                    double noiseGain = Math.Clamp(TemporarySettings.VoiceInternalSettings.NoiseVolume / 1000.0, 0.0, 1.0);
-                    float cutoff = Math.Max(100, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
+                    Type = SignalGeneratorType.SawTooth,
+                    Frequency = modulatedFrequency,
+                    // Saw kazancını biraz azaltarak yüksek harmonikleri kısıyoruz
+                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1200.0)
+                };
 
-                    // Random for small detune per formant (gives more natural timbre)
-                    var rng = new System.Random();
+                int renderSeconds = 2; // 2s'lik döngü buffer'ı
+                WaveFormat wf = WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1);
+                int totalSamples = sampleRate * renderSeconds;
+                float[] renderBuffer = new float[totalSamples];
+                int read = 0;
+                while (read < totalSamples)
+                {
+                    int r = renderSource.Read(renderBuffer, read, totalSamples - read);
+                    if (r == 0) break;
+                    read += r;
+                }
+                if (read < totalSamples)
+                {
+                    Array.Clear(renderBuffer, read, totalSamples - read);
+                }
+                var cachedVoiced = new CachedSound(renderBuffer, wf);
 
-                    // Create a shared white-noise generator for sibilance
-                    var whiteNoise = new SignalGenerator(sampleRate, 1) { Type = SignalGeneratorType.White, Gain = 1.0 };
+                // White noise cached (sibilance / formant noise)
+                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = masterVolume * (VoiceInternalSettings.NoiseVolume / 800.0) };
+                float[] noiseBuffer = new float[totalSamples];
+                read = 0;
+                while (read < totalSamples)
+                {
+                    int r = noiseGen.Read(noiseBuffer, read, totalSamples - read);
+                    if (r == 0) break;
+                    read += r;
+                }
+                if (read < totalSamples) Array.Clear(noiseBuffer, read, totalSamples - read);
+                var cachedNoise = new CachedSound(noiseBuffer, wf);
 
-                    // Helper: build a formant voice source (saw -> bandpass -> volume)
-                    ISampleProvider BuildFormant(double formantFreq, int formantVolumePercent, double bandwidthRange)
-                    {
-                        // detune in semitones within +/- Range/2 to add naturalness
-                        double detuneSemitones = (rng.NextDouble() - 0.5) * TemporarySettings.VoiceInternalSettings.Range;
-                        double pitchSemitones = TemporarySettings.VoiceInternalSettings.Pitch + detuneSemitones;
-                        double pitchMultiplier = Math.Pow(2.0, pitchSemitones / 12.0);
+                float BaseFormantQ(int bf) => bf < 2000 ? 2.0f : 1.0f;
+                BiQuadFilter MakeBP(int sr, double center, float q) => BiQuadFilter.BandPassFilterConstantPeakGain(sr, (float)center, q);
 
-                        var sg = new SignalGenerator(sampleRate, 1)
-                        {
-                            Type = SignalGeneratorType.Triangle,
-                            Frequency = Math.Max(20.0, baseFrequency * pitchMultiplier),
-                            Gain = 1.0
-                        };
+                double[] formantFreqs = new double[] {
+        VoiceInternalSettings.Formant1Frequency,
+        VoiceInternalSettings.Formant2Frequency,
+        VoiceInternalSettings.Formant3Frequency,
+        VoiceInternalSettings.Formant4Frequency
+    };
+                double[] formantVols = new double[] {
+        VoiceInternalSettings.Formant1Volume / 100.0,
+        VoiceInternalSettings.Formant2Volume / 100.0,
+        VoiceInternalSettings.Formant3Volume / 100.0,
+        VoiceInternalSettings.Formant4Volume / 100.0
+    };
+                // Gürültü ölçeğini artırdık — formant içi breathiness artar
+                double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 1000.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
 
-                        // Band-pass to shape the harmonic content at the formant frequency
-                        var bp = new BandPassNoiseGenerator(sg, sampleRate, (float)formantFreq, (float)bandwidthRange);
+                var lowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.CutoffFrequency, 1.0f);
 
-                        // Scale by formant volume and global gains
-                        float finalVolume = (float)(globalVoiceGain * sawGain * (formantVolumePercent / 100.0));
-                        return new VolumeSampleProvider(bp) { Volume = finalVolume };
-                    }
+                double syb1Vol = VoiceInternalSettings.Sybillance1Volume * 0.18;
+                double syb2Vol = VoiceInternalSettings.Sybillance2Volume * 0.15;
+                double syb3Vol = VoiceInternalSettings.Sybillance3Volume * 0.12;
+                double syb4Vol = VoiceInternalSettings.Sybillance4Volume * 0.10;
 
-                    // Helper: build a sibilance source (white noise -> narrow band-pass -> volume)
-                    ISampleProvider BuildSibilance(int sibFreq, double sibRange, double sibVolume)
-                    {
-                        var bp = new BandPassNoiseGenerator(whiteNoise, sampleRate, sibFreq, (float)sibRange);
-                        float finalVolume = (float)(globalVoiceGain * noiseGain * sibVolume);
-                        return new VolumeSampleProvider(bp) { Volume = finalVolume };
-                    }
+                var providers = new List<ISampleProvider>();
 
-                    // Collect providers (formants + sibilances)
-                    var mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1))
-                    {
-                        ReadFully = true
-                    };
+                // Aynı cached voiced source'dan bağımsız okuyucular kullanılır
+                for (int i = 0; i < 4; i++)
+                {
+                    double fCenter = formantFreqs[i];
+                    double fVol = formantVols[i];
+                    // Q'yu azaltıyoruz — çok dar Q'lar korna benzeri rezonansa neden oluyordu
+                    float dynamicQ = (float)(0.5f + (i * 0.3f)) * BaseFormantQ(baseFrequency) * 1.6f;
+                    var filter = MakeBP(sampleRate, fCenter, dynamicQ);
+                    var voicedReader = new CachedSoundSampleProvider(cachedVoiced, loop: true);
+                    // Formant kazancını makul seviyeye çekiyoruz
+                    providers.Add(new FilteredWaveProvider(voicedReader, filter, Math.Min(fVol * 1.0, 2.0)));
 
-                    // Add 4 formants
-                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant1Frequency, TemporarySettings.VoiceInternalSettings.Formant1Volume, TemporarySettings.VoiceInternalSettings.Sybillance1Range));
-                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant2Frequency, TemporarySettings.VoiceInternalSettings.Formant2Volume, TemporarySettings.VoiceInternalSettings.Sybillance2Range));
-                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant3Frequency, TemporarySettings.VoiceInternalSettings.Formant3Volume, TemporarySettings.VoiceInternalSettings.Sybillance3Range));
-                    mixer.AddMixerInput(BuildFormant(TemporarySettings.VoiceInternalSettings.Formant4Frequency, TemporarySettings.VoiceInternalSettings.Formant4Volume, TemporarySettings.VoiceInternalSettings.Sybillance4Range));
+                    // formant içi gürültü (breathy component)
+                    var noiseFilter = MakeBP(sampleRate, fCenter, dynamicQ * 1.1f);
+                    var noiseReader = new CachedSoundSampleProvider(cachedNoise, loop: true);
+                    providers.Add(new FilteredWaveProvider(noiseReader, noiseFilter, noiseToFormantScale * fVol * 1.2));
+                }
 
-                    // Add sibilance bands (can model /s/, /ʃ/ etc. by frequency + range + volume)
-                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance1Frequency, TemporarySettings.VoiceInternalSettings.Sybillance1Range, TemporarySettings.VoiceInternalSettings.Sybillance1Volume));
-                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance2Frequency, TemporarySettings.VoiceInternalSettings.Sybillance2Range, TemporarySettings.VoiceInternalSettings.Sybillance2Volume));
-                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance3Frequency, TemporarySettings.VoiceInternalSettings.Sybillance3Range, TemporarySettings.VoiceInternalSettings.Sybillance3Volume));
-                    mixer.AddMixerInput(BuildSibilance(TemporarySettings.VoiceInternalSettings.Sybillance4Frequency, TemporarySettings.VoiceInternalSettings.Sybillance4Range, TemporarySettings.VoiceInternalSettings.Sybillance4Volume));
+                // sibilance: ayrı cached noise okuyucuları kullan
+                var sibilanceFilter1 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance1Frequency, (float)VoiceInternalSettings.Sybillance1Range * 1.5f);
+                var sibilanceFilter2 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance2Frequency, (float)VoiceInternalSettings.Sybillance2Range * 1.5f);
+                var sibilanceFilter3 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance3Frequency, (float)VoiceInternalSettings.Sybillance3Range * 1.5f);
+                var sibilanceFilter4 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance4Frequency, (float)VoiceInternalSettings.Sybillance4Range * 1.5f);
 
-                    // (Optional) Apply a simple global low-pass to respect CutoffFrequency.
-                    // NAudio doesn't provide a ready-made sample-provider wrapper for BiQuadFilter,
-                    // but our BandPassNoiseGenerator already applies BiQuad per-signal. If you want
-                    // a global low-pass, you can wrap mixer with a custom ISampleProvider that applies
-                    // BiQuadFilter.LowPassFilter(sampleRate, cutoff, Q) per-sample. For brevity we skip it.
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter1, syb1Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter2, syb2Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter3, syb3Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter4, syb4Vol));
 
-                    // Initialize playback on the configured device index (use Note2 for voice system by default)
-                    var internalWaveOut = new WaveOutEvent
-                    {
-                        DesiredLatency = 50,
-                        NumberOfBuffers = 4,
-                        DeviceNumber = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex
-                    };
+                var mixed = new MixingSampleProvider(providers) { ReadFully = true };
+                var finalFiltered = new FilteredWaveProvider(mixed, lowPass, 1.0);
+                var volumeControlled = new VolumeSampleProvider(finalFiltered) { Volume = 1.0f };
 
-                    internalWaveOut.Init(mixer);
-                    internalWaveOut.Play();
+                if (channels.TryGetValue(channelId, out var tuple))
+                {
+                    tuple.waveOut.Stop();
+                    tuple.waveOut.Dispose();
+                }
 
-                    HighPrecisionSleep.Sleep(durationMs);
+                var waveOut = new WaveOutEvent
+                {
+                    DesiredLatency = 50,
+                    NumberOfBuffers = 4,
+                    Volume = 1.0f
+                };
+                waveOut.Init(volumeControlled);
+                waveOut.Play();
 
-                    internalWaveOut.Stop();
-                    internalWaveOut.Dispose();
+                channels[channelId] = (waveOut, volumeControlled);
+            }
+            public static void StopVoice(int channelId)
+            {
+                if (channels.TryGetValue(channelId, out var tuple))
+                {
+                    tuple.waveOut.Stop();
+                    tuple.waveOut.Dispose();
+                    channels.Remove(channelId);
                 }
             }
         }

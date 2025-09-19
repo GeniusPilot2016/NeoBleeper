@@ -451,8 +451,8 @@
             trackBarPitch.Name = "trackBarPitch";
             trackBarPitch.Size = new Size(228, 25);
             trackBarPitch.TabIndex = 1;
-            trackBarPitch.TickFrequency = 50;
-            trackBarPitch.Value = 350;
+            trackBarPitch.TickStyle = TickStyle.None;
+            trackBarPitch.Value = 325;
             trackBarPitch.Scroll += trackBarPitch_Scroll;
             // 
             // label54
@@ -475,8 +475,8 @@
             trackBarRange.Name = "trackBarRange";
             trackBarRange.Size = new Size(228, 25);
             trackBarRange.TabIndex = 3;
-            trackBarRange.TickFrequency = 50;
-            trackBarRange.Value = 100;
+            trackBarRange.TickStyle = TickStyle.None;
+            trackBarRange.Value = 105;
             trackBarRange.Scroll += trackBarRange_Scroll;
             // 
             // groupBoxRandomVariationsOfFormants

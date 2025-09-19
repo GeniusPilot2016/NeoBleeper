@@ -71,11 +71,13 @@ namespace NeoBleeper
             labelSybillance2Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance2Frequency.ToString() + " Hz";
             labelSybillance3Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz";
             labelSybillance4Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz";
-            double minPitch = -24.0, maxPitch = 24.0;
-            trackBarPitch.Value = (int)(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * 1000);
+            double minPitch = -1.0, maxPitch = 1.0;
+            int pitchSpan = trackBarPitch.Maximum - trackBarPitch.Minimum;
+            trackBarPitch.Value = trackBarPitch.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * (pitchSpan > 0 ? pitchSpan : 1));
 
-            double minRange = 0.0, maxRange = 24.0;
-            trackBarRange.Value = (int)(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * 1000);
+            double minRange = 0.1, maxRange = 10.0;
+            int rangeSpan = trackBarRange.Maximum - trackBarRange.Minimum;
+            trackBarRange.Value = trackBarRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
             trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
         }
@@ -427,10 +429,12 @@ namespace NeoBleeper
 
         private void trackBarPitch_Scroll(object sender, EventArgs e)
         {
-            double minPitch = -24.0;
-            double maxPitch = 24.0;
-            double value = minPitch + (trackBarPitch.Value / trackBarPitch.Maximum) * (maxPitch - minPitch);
-            if (TemporarySettings.VoiceInternalSettings.Pitch != value)
+            double minPitch = -1.0;
+            double maxPitch = 1.0;
+            int span = trackBarPitch.Maximum - trackBarPitch.Minimum;
+            double normalized = span > 0 ? (trackBarPitch.Value - trackBarPitch.Minimum) / (double)span : 0.0;
+            double value = minPitch + normalized * (maxPitch - minPitch);
+            if (Math.Abs(TemporarySettings.VoiceInternalSettings.Pitch - value) > 1e-9)
             {
                 TemporarySettings.VoiceInternalSettings.Pitch = value;
                 Logger.Log("Pitch set to " + TemporarySettings.VoiceInternalSettings.Pitch.ToString(), Logger.LogTypes.Info);
@@ -439,9 +443,11 @@ namespace NeoBleeper
 
         private void trackBarRange_Scroll(object sender, EventArgs e)
         {
-            double minRange = 0.0, maxRange = 24.0;
-            double value = minRange + (trackBarRange.Value / trackBarRange.Maximum) * (maxRange - minRange);
-            if (TemporarySettings.VoiceInternalSettings.Range != value)
+            double minRange = 0.1, maxRange = 10.0;
+            int span = trackBarRange.Maximum - trackBarRange.Minimum;
+            double normalized = span > 0 ? (trackBarRange.Value - trackBarRange.Minimum) / (double)span : 0.0;
+            double value = minRange + normalized * (maxRange - minRange);
+            if (Math.Abs(TemporarySettings.VoiceInternalSettings.Range - value) > 1e-9)
             {
                 TemporarySettings.VoiceInternalSettings.Range = value;
                 Logger.Log("Range set to " + TemporarySettings.VoiceInternalSettings.Range.ToString(), Logger.LogTypes.Info);
@@ -452,6 +458,10 @@ namespace NeoBleeper
         {
             if (comboBoxNote1Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex)
             {
+                if(comboBoxNote1Option.SelectedIndex == 1)
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(0);
+                }
                 TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex = comboBoxNote1Option.SelectedIndex;
                 Logger.Log("Note 1 Output Device set to index " + (TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
@@ -461,6 +471,10 @@ namespace NeoBleeper
         {
             if (comboBoxNote2Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex)
             {
+                if (comboBoxNote2Option.SelectedIndex == 1)
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(1);
+                }
                 TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex = comboBoxNote2Option.SelectedIndex;
                 Logger.Log("Note 2 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
@@ -470,6 +484,10 @@ namespace NeoBleeper
         {
             if (comboBoxNote3Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex)
             {
+                if (comboBoxNote3Option.SelectedIndex == 1)
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(2);
+                }
                 TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex = comboBoxNote3Option.SelectedIndex;
                 Logger.Log("Note 3 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
@@ -479,6 +497,10 @@ namespace NeoBleeper
         {
             if (comboBoxNote4Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex)
             {
+                if (comboBoxNote4Option.SelectedIndex == 1)
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(3);
+                }
                 TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex = comboBoxNote4Option.SelectedIndex;
                 Logger.Log("Note 4 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }

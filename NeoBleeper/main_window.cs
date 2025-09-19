@@ -2494,7 +2494,7 @@ namespace NeoBleeper
             UpdateFormTitle();
             Logger.Log("New file created", Logger.LogTypes.Info);
         }
-        private void stopPlayingAllSounds()
+        private async void stopPlayingAllSounds()
         {
             if (is_music_playing == true)
             {
@@ -2502,6 +2502,7 @@ namespace NeoBleeper
             }
             KeyPressed = false;
             NotePlayer.StopAllNotes(); // Stop all notes
+            await StopAllVoices(); // Stop all voices if using voice system
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
                 NotePlayer.StopMicrocontrollerSound(); // Stop the sound from the microcontroller
@@ -2698,7 +2699,7 @@ namespace NeoBleeper
             {
                 if (checkBox_use_voice_system.Checked)
                 {
-                    play_note_in_line_with_voice(
+                    await play_note_in_line_with_voice(
                         checkBox_play_note1_played.Checked,
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
@@ -2723,7 +2724,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private async void play_note_in_line_with_voice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
+        private async Task play_note_in_line_with_voice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
         {
             // System speaker notes
             bool systemSpeakerNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 1 && play_note1;
@@ -2738,7 +2739,7 @@ namespace NeoBleeper
             bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 && play_note4;
 
             // Play voice
-            PlayVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, length, nonStopping);
+            StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, length, nonStopping);
 
             // Play system speaker notes
             await Task.Run(() =>
@@ -2753,45 +2754,74 @@ namespace NeoBleeper
                 );
             });
         }
-        private async Task PlayVoice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false)
+        private async Task StartVoice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false)
+        {
+            string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
+            double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+            String[] notes = new string[4];
+            if (listViewNotes.SelectedItems.Count > 0)
+            {
+                int selected_line = listViewNotes.SelectedIndices[0];
+
+                // Take music note names from the selected line
+                note1 = play_note1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
+                note2 = play_note2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
+                note3 = play_note3 ? listViewNotes.Items[selected_line].SubItems[3].Text : string.Empty;
+                note4 = play_note4 ? listViewNotes.Items[selected_line].SubItems[4].Text : string.Empty;
+                // Calculate frequencies from note names
+                await StopSelectedVoicesThatEmpty(note1, note2, note3, note4);
+                if (!string.IsNullOrWhiteSpace(note1))
+                {
+                    note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
+                    RenderBeep.VoiceSynthesizer.StartVoice(0, (int)note1_frequency);
+                }
+                if (!string.IsNullOrWhiteSpace(note2))
+                {
+                    note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
+                    RenderBeep.VoiceSynthesizer.StartVoice(1, (int)note2_frequency);
+                }
+                if (!string.IsNullOrWhiteSpace(note3))
+                {
+                    note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
+                    RenderBeep.VoiceSynthesizer.StartVoice(2, (int)note3_frequency);
+                }
+                if (!string.IsNullOrWhiteSpace(note4))
+                {
+                    note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
+                    RenderBeep.VoiceSynthesizer.StartVoice(3, (int)note4_frequency);
+                }
+            }
+        }
+        private async Task StopAllVoices()
         {
             await Task.Run(() =>
             {
-                string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
-                double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
-                String[] notes = new string[4];
-                if (listViewNotes.SelectedItems.Count > 0)
+                for(int i = 0; i < 4; i++)
                 {
-                    int selected_line = listViewNotes.SelectedIndices[0];
-
-                    // Take music note names from the selected line
-                    note1 = play_note1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
-                    note2 = play_note2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
-                    note3 = play_note3 ? listViewNotes.Items[selected_line].SubItems[3].Text : string.Empty;
-                    note4 = play_note4 ? listViewNotes.Items[selected_line].SubItems[4].Text : string.Empty;
-                    // Calculate frequencies from note names
-                    if (!string.IsNullOrWhiteSpace(note1))
-                    {
-                        note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
-                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note1_frequency, length);
-                    }
-                    if (!string.IsNullOrWhiteSpace(note2))
-                    {
-                        note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
-                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note2_frequency, length);
-                    }
-                    if (!string.IsNullOrWhiteSpace(note3))
-                    {
-                        note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
-                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note3_frequency, length);
-                    }
-                    if (!string.IsNullOrWhiteSpace(note4))
-                    {
-                        note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
-                        RenderBeep.VoiceSynthesizer.PlayVoice((int)note4_frequency, length);
-                    }
+                    RenderBeep.VoiceSynthesizer.StopVoice(i);
                 }
-
+            });
+        }
+        private async Task StopSelectedVoicesThatEmpty(string note1, string note2, string note3, string note4)
+        {
+            await Task.Run(() =>
+            {
+                if (string.IsNullOrWhiteSpace(note1))
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(0);
+                }
+                if (string.IsNullOrWhiteSpace(note2))
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(1);
+                }
+                if (string.IsNullOrWhiteSpace(note3))
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(2);
+                }
+                if (string.IsNullOrWhiteSpace(note4))
+                {
+                    RenderBeep.VoiceSynthesizer.StopVoice(3);
+                }
             });
         }
         public static double RemoveWholeNumber(double number)
@@ -2926,6 +2956,7 @@ namespace NeoBleeper
             {
                 stopAllNotesAfterPlaying();
             }
+            await StopAllVoices();
             EnableDisableCommonControls(true);
         }
 
@@ -3373,6 +3404,7 @@ namespace NeoBleeper
                     nonStopping = false;
                 }
                 await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
+                await StopAllVoices(); // Stop all voices if using voice system
                 if (nonStopping == true)
                 {
                     stopAllNotesAfterPlaying();
@@ -3556,9 +3588,10 @@ namespace NeoBleeper
             }
             return noteLength * modifierFactor; // Remove truncation
         }
-        private void stopAllNotesAfterPlaying()
+        private async void stopAllNotesAfterPlaying()
         {
             NotePlayer.StopAllNotes();
+            await StopAllVoices(); // Stop all voices if using voice system
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
                 NotePlayer.StopMicrocontrollerSound();
@@ -4095,9 +4128,10 @@ namespace NeoBleeper
                 Logger.Log("Synchronized play window is closed.", Logger.LogTypes.Info);
             }
         }
-        private void stop_all_sounds_before_closing()
+        private async void stop_all_sounds_before_closing()
         {
             NotePlayer.StopAllNotes();
+            await StopAllVoices(); // Stop all voices if using voice system
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
                 NotePlayer.StopMicrocontrollerSound();
@@ -5914,7 +5948,7 @@ namespace NeoBleeper
             MessageBox.Show(Resources.UseVoiceSystemHelp, Resources.UseVoiceSystemHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void checkBox_use_voice_system_CheckedChanged(object sender, EventArgs e)
+        private async void checkBox_use_voice_system_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_use_voice_system.Checked == true)
             {
@@ -5923,6 +5957,7 @@ namespace NeoBleeper
             }
             else if (checkBox_use_voice_system.Checked == false)
             {
+                await StopAllVoices();
                 closeVoiceInternalsWindow();
                 Logger.Log("Voice internals window is closed", Logger.LogTypes.Info);
             }
