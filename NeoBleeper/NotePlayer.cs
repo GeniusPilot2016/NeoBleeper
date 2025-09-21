@@ -22,7 +22,7 @@ namespace NeoBleeper
                                 {
                                     if (frequency >= 37 && frequency <= 32767) // If the frequency is in range, create a beep with the system speaker
                                     {
-                                        RenderBeep.SystemSpeakerBeepEngine.Beep(frequency, length, nonStopping); // Create a beep with the system speaker (aka PC speaker)
+                                        SoundRenderingEngine.SystemSpeakerBeepEngine.Beep(frequency, length, nonStopping); // Create a beep with the system speaker (aka PC speaker)
                                     }
                                     else // If the frequency is out of range, sleep for the length of the note
                                     {
@@ -36,22 +36,22 @@ namespace NeoBleeper
                                     {
                                         case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square: // Square wave
                                             {
-                                                RenderBeep.SynthMisc.SquareWave(frequency, length, nonStopping);
+                                                SoundRenderingEngine.WaveSynthEngine.SquareWave(frequency, length, nonStopping);
                                                 break;
                                             }
                                         case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine: // Sine wave
                                             {
-                                                RenderBeep.SynthMisc.SineWave(frequency, length, nonStopping);
+                                                SoundRenderingEngine.WaveSynthEngine.SineWave(frequency, length, nonStopping);
                                                 break;
                                             }
                                         case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle: // Triangle wave
                                             {
-                                                RenderBeep.SynthMisc.TriangleWave(frequency, length, nonStopping);
+                                                SoundRenderingEngine.WaveSynthEngine.TriangleWave(frequency, length, nonStopping);
                                                 break;
                                             }
                                         case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise: // Noise
                                             {
-                                                RenderBeep.SynthMisc.Noise(frequency, length, nonStopping);
+                                                SoundRenderingEngine.WaveSynthEngine.Noise(frequency, length, nonStopping);
                                                 break;
                                             }
                                     }
@@ -73,12 +73,12 @@ namespace NeoBleeper
             {
                 case false: // System speaker
                     {
-                        RenderBeep.SystemSpeakerBeepEngine.StopBeep(); // Stop the beep from the system speaker (aka PC speaker)
+                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Stop the beep from the system speaker (aka PC speaker)
                         break;
                     }
                 case true: // Soundcard
                     {
-                        RenderBeep.SynthMisc.StopSynth(); 
+                        SoundRenderingEngine.WaveSynthEngine.StopSynth(); 
                         break;
                     }
             }
@@ -87,7 +87,7 @@ namespace NeoBleeper
         {
             if(TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
-                RenderBeep.SystemSpeakerBeepEngine.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
+                SoundRenderingEngine.SystemSpeakerBeepEngine.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
             }
             else
             {

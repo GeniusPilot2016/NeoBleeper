@@ -13,6 +13,7 @@ namespace NeoBleeper
         private main_window mainWindow;
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
+        LyricsOverlay lyricsOverlay = new LyricsOverlay();
         public settings_window(main_window mainWindow)
         {
             InitializeComponent();
@@ -170,7 +171,7 @@ namespace NeoBleeper
             metronome_color_change.BackColor = Color.FromArgb(32, 32, 32);
             beep_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
             note_indicator_color_change.BackColor = Color.FromArgb(32, 32, 32);
-            reset_colors.BackColor = Color.FromArgb(32, 32, 32);
+            reset_appearance_settings.BackColor = Color.FromArgb(32, 32, 32);
             buttonUpdateAPIKey.BackColor = Color.FromArgb(32, 32, 32);
             buttonUpdateAPIKey.ForeColor = Color.White;
             textBoxAPIKey.BackColor = Color.Black;
@@ -181,6 +182,11 @@ namespace NeoBleeper
             buttonResetAPIKey.ForeColor = Color.White;
             groupBoxCreateMusicWithAI.ForeColor = Color.White;
             markup_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            group_lyrics_size_settings.ForeColor = Color.White;
+            numericUpDownLyricsSize.BackColor = Color.Black;
+            numericUpDownLyricsSize.ForeColor = Color.White;
+            buttonPreviewLyrics.BackColor = Color.FromArgb(32, 32, 32);
+            buttonPreviewLyrics.ForeColor = Color.White;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
@@ -233,7 +239,7 @@ namespace NeoBleeper
             metronome_color_change.BackColor = Color.Transparent;
             beep_indicator_color_change.BackColor = Color.Transparent;
             note_indicator_color_change.BackColor = Color.Transparent;
-            reset_colors.BackColor = Color.Transparent;
+            reset_appearance_settings.BackColor = Color.Transparent;
             buttonUpdateAPIKey.BackColor = Color.Transparent;
             buttonUpdateAPIKey.ForeColor = SystemColors.ControlText;
             textBoxAPIKey.BackColor = SystemColors.Window;
@@ -244,6 +250,11 @@ namespace NeoBleeper
             buttonResetAPIKey.ForeColor = SystemColors.ControlText;
             groupBoxCreateMusicWithAI.ForeColor = SystemColors.ControlText;
             markup_color_change.BackColor = Color.Transparent;
+            group_lyrics_size_settings.ForeColor = SystemColors.Control;
+            numericUpDownLyricsSize.BackColor = SystemColors.Window;
+            numericUpDownLyricsSize.ForeColor = SystemColors.WindowText;
+            buttonPreviewLyrics.BackColor = Color.Transparent;
+            buttonPreviewLyrics.ForeColor = SystemColors.ControlText;
             TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
@@ -368,7 +379,7 @@ namespace NeoBleeper
         {
             if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
-                RenderBeep.SystemSpeakerBeepEngine.StopBeep();
+                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
             }
         }
         bool isTestingSystemSpeaker = false;
@@ -1005,7 +1016,7 @@ namespace NeoBleeper
             }
         }
 
-        private void reset_colors_Click(object sender, EventArgs e)
+        private void reset_appearance_settings_Click(object sender, EventArgs e) // Reset to default values
         {
             first_octave_color.BackColor = Settings1.Default.first_octave_color = Color.FromArgb(255, 224, 192);
             second_octave_color.BackColor = Settings1.Default.second_octave_color = Color.FromArgb(192, 192, 255);
@@ -1019,6 +1030,8 @@ namespace NeoBleeper
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color = Color.Red;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
             markup_color.BackColor = Settings1.Default.markup_color = Color.LightBlue;
+            Settings1.Default.lyricsSize = 32;
+            numericUpDownLyricsSize.Value = 32;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
             Logger.Log("Colors reset to default.", Logger.LogTypes.Info);
@@ -1163,25 +1176,25 @@ namespace NeoBleeper
             if (radioButton_square.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square;
-                RenderBeep.SynthMisc.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Square waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_sine.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine;
-                RenderBeep.SynthMisc.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Sine waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_triangle.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle;
-                RenderBeep.SynthMisc.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Triangle waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_noise.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise;
-                RenderBeep.SynthMisc.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Noise waveform selected.", Logger.LogTypes.Info);
             }
         }
@@ -1431,11 +1444,55 @@ namespace NeoBleeper
             {
                 e.Cancel = true; // Prevent closing while testing system speaker
             }
+            if(lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
+            {
+                lyricsOverlay.Close();
+                lyricsOverlay.Dispose();
+            }
         }
 
         private void button_show_reason_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md") { UseShellExecute = true });
+        }
+
+        private void numericUpDownLyricsSize_ValueChanged(object sender, EventArgs e)
+        {
+            if ((float)numericUpDownLyricsSize.Value != Settings1.Default.lyricsSize)
+            {
+                try
+                {
+                    Settings1.Default.lyricsSize = (float)numericUpDownLyricsSize.Value;
+                    Settings1.Default.Save();
+                    Logger.Log($"Lyrics/Text events size is changed to {Settings1.Default.lyricsSize} pt", Logger.LogTypes.Info);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"An error occured while lyrics/text event size is changing: {ex.Message}", Logger.LogTypes.Error);
+                    MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async void buttonPreviewLyrics_Click(object sender, EventArgs e) // Preview lyrics/text events
+        {
+            try
+            {
+                Logger.Log("Previewing lyrics/text events...", Logger.LogTypes.Info);
+                if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
+                {
+                    lyricsOverlay.Show();
+                    this.BringToFront();
+                    lyricsOverlay.PrintLyrics(Resources.LyricsExampleText);
+                    await HighPrecisionSleep.SleepAsync(1000);
+                    lyricsOverlay.Hide();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"An error occured while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
+                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

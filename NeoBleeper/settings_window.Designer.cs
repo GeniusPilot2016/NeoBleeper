@@ -129,8 +129,13 @@
             label12 = new Label();
             beep_indicator_color = new Panel();
             note_indicator_color = new Panel();
+            group_lyrics_size_settings = new GroupBox();
+            buttonPreviewLyrics = new Button();
+            labelPt = new Label();
+            numericUpDownLyricsSize = new NumericUpDown();
+            label13 = new Label();
             panel2 = new Panel();
-            reset_colors = new Button();
+            reset_appearance_settings = new Button();
             toolTip1 = new ToolTip(components);
             colorDialog1 = new ColorDialog();
             tabControl_settings.SuspendLayout();
@@ -158,6 +163,8 @@
             group_keyboard_colors.SuspendLayout();
             group_buttons_and_controls_colors.SuspendLayout();
             group_indicator_colors.SuspendLayout();
+            group_lyrics_size_settings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownLyricsSize).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -262,6 +269,7 @@
             imageList_settings.Images.SetKeyName(12, "icons8-mark-view-as-non-hidden-48.png");
             imageList_settings.Images.SetKeyName(13, "icons8-mark-view-as-hidden-48.png");
             imageList_settings.Images.SetKeyName(14, "icons8-update-48.png");
+            imageList_settings.Images.SetKeyName(15, "icons8-preview-48.png");
             // 
             // buttonUpdateAPIKey
             // 
@@ -646,6 +654,7 @@
             flowLayoutPanelAppearanceSettings.Controls.Add(group_keyboard_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_buttons_and_controls_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_indicator_colors);
+            flowLayoutPanelAppearanceSettings.Controls.Add(group_lyrics_size_settings);
             flowLayoutPanelAppearanceSettings.Controls.Add(panel2);
             resources.ApplyResources(flowLayoutPanelAppearanceSettings, "flowLayoutPanelAppearanceSettings");
             flowLayoutPanelAppearanceSettings.Name = "flowLayoutPanelAppearanceSettings";
@@ -944,20 +953,58 @@
             note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
             note_indicator_color.Name = "note_indicator_color";
             // 
+            // group_lyrics_size_settings
+            // 
+            resources.ApplyResources(group_lyrics_size_settings, "group_lyrics_size_settings");
+            group_lyrics_size_settings.Controls.Add(buttonPreviewLyrics);
+            group_lyrics_size_settings.Controls.Add(labelPt);
+            group_lyrics_size_settings.Controls.Add(numericUpDownLyricsSize);
+            group_lyrics_size_settings.Controls.Add(label13);
+            group_lyrics_size_settings.Name = "group_lyrics_size_settings";
+            group_lyrics_size_settings.TabStop = false;
+            // 
+            // buttonPreviewLyrics
+            // 
+            resources.ApplyResources(buttonPreviewLyrics, "buttonPreviewLyrics");
+            buttonPreviewLyrics.ImageList = imageList_settings;
+            buttonPreviewLyrics.Name = "buttonPreviewLyrics";
+            buttonPreviewLyrics.UseVisualStyleBackColor = true;
+            buttonPreviewLyrics.Click += buttonPreviewLyrics_Click;
+            // 
+            // labelPt
+            // 
+            resources.ApplyResources(labelPt, "labelPt");
+            labelPt.Name = "labelPt";
+            // 
+            // numericUpDownLyricsSize
+            // 
+            resources.ApplyResources(numericUpDownLyricsSize, "numericUpDownLyricsSize");
+            numericUpDownLyricsSize.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            numericUpDownLyricsSize.Maximum = new decimal(new int[] { 160, 0, 0, 0 });
+            numericUpDownLyricsSize.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
+            numericUpDownLyricsSize.Name = "numericUpDownLyricsSize";
+            numericUpDownLyricsSize.Value = new decimal(new int[] { 32, 0, 0, 0 });
+            numericUpDownLyricsSize.ValueChanged += numericUpDownLyricsSize_ValueChanged;
+            // 
+            // label13
+            // 
+            resources.ApplyResources(label13, "label13");
+            label13.Name = "label13";
+            // 
             // panel2
             // 
             resources.ApplyResources(panel2, "panel2");
-            panel2.Controls.Add(reset_colors);
+            panel2.Controls.Add(reset_appearance_settings);
             panel2.Name = "panel2";
             // 
-            // reset_colors
+            // reset_appearance_settings
             // 
-            resources.ApplyResources(reset_colors, "reset_colors");
-            reset_colors.ImageList = imageList_settings;
-            reset_colors.Name = "reset_colors";
-            toolTip1.SetToolTip(reset_colors, resources.GetString("reset_colors.ToolTip"));
-            reset_colors.UseVisualStyleBackColor = true;
-            reset_colors.Click += reset_colors_Click;
+            resources.ApplyResources(reset_appearance_settings, "reset_appearance_settings");
+            reset_appearance_settings.ImageList = imageList_settings;
+            reset_appearance_settings.Name = "reset_appearance_settings";
+            toolTip1.SetToolTip(reset_appearance_settings, resources.GetString("reset_appearance_settings.ToolTip"));
+            reset_appearance_settings.UseVisualStyleBackColor = true;
+            reset_appearance_settings.Click += reset_appearance_settings_Click;
             // 
             // colorDialog1
             // 
@@ -1015,6 +1062,9 @@
             group_buttons_and_controls_colors.PerformLayout();
             group_indicator_colors.ResumeLayout(false);
             group_indicator_colors.PerformLayout();
+            group_lyrics_size_settings.ResumeLayout(false);
+            group_lyrics_size_settings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownLyricsSize).EndInit();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1081,7 +1131,7 @@
         private Panel beep_indicator_color;
         private Panel note_indicator_color;
         private ColorDialog colorDialog1;
-        private Button reset_colors;
+        private Button reset_appearance_settings;
         private Button refresh_midi_input_button;
         private Button refresh_midi_output_button;
         private ComboBox comboBox_midi_output_channel;
@@ -1124,5 +1174,10 @@
         private RadioButton radioButton_sine;
         private RadioButton radioButton_square;
         private Panel panel2;
+        private GroupBox group_lyrics_size_settings;
+        private Label label13;
+        private NumericUpDown numericUpDownLyricsSize;
+        private Label labelPt;
+        private Button buttonPreviewLyrics;
     }
 }

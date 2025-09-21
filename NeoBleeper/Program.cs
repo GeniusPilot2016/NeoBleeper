@@ -15,7 +15,7 @@ namespace NeoBleeper
         /// </summary>
         /// 
 
-        public static bool isAnySoundDeviceExist = RenderBeep.SynthMisc.checkIfAnySoundDeviceExistAndEnabled();
+        public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
         [STAThread]
         static void Main()
         {
@@ -30,7 +30,7 @@ namespace NeoBleeper
             ApplicationConfiguration.Initialize();
 
             // Initialize audio after application configuration
-            var dummyWaveOut = RenderBeep.SynthMisc.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
+            var dummyWaveOut = SoundRenderingEngine.WaveSynthEngine.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
 
             MIDIIOUtils.InitializeMidi();
 
@@ -66,7 +66,7 @@ namespace NeoBleeper
 
                 case true:
                     {
-                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = RenderBeep.SystemSpeakerBeepEngine.isSystemSpeakerExist();
+                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
                         switch (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
                         {
                             case false:

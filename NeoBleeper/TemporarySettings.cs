@@ -109,7 +109,7 @@ namespace NeoBleeper
             public static int NoiseVolume = 100;
 
             // Cutoff frequency (in Hz)
-            public static int CutoffFrequency = 5000;
+            public static int CutoffFrequency = 8000;
 
             // Sybillance ranges (0.2-1.5)
             public static double Sybillance1Range = 0.2;
@@ -129,9 +129,10 @@ namespace NeoBleeper
             public static int Sybillance3Frequency = 200;
             public static int Sybillance4Frequency = 200;
 
-            // Pitch 
-            public static double Pitch = -0.35;
-            public static double Range = 1.1395;
+            // Pitch (between 0.5 and 2.0)
+            public static double Pitch = 0.9875;
+            // Range (between 0 and 1.0)
+            public static double Range = 0.105;
 
             // Output device indexes
             // 0 = Voice system

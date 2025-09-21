@@ -68,5 +68,8 @@
     <Setting Name="preferredLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">English</Value>
     </Setting>
+    <Setting Name="lyricsSize" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">32</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

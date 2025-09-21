@@ -20,6 +20,7 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
+        bool isCreatedAnything = false; // Flag to indicate if anything was created by AI
         bool darkTheme = false;
         public string output = "";
         String AIModel = "models/gemini-2.5-flash"; // Default AI model
@@ -482,11 +483,17 @@ namespace NeoBleeper
                     $"**User Prompt:**\r\n[{textBoxPrompt.Text}]\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
                     $"You are an expert music composition AI. " +
-                    $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even just a single word), treat it as a music composition request. " +
+                    $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
                     $"If the user prompt contains words like 'create', 'generate', 'compose', 'make', or 'write' followed by music-related content, treat it as a music composition request. " +
-                    $"If the user prompt is clearly NOT about music (like weather, mathematics, cooking, etc.), or if the prompt contains offensive, inappropriate, or harmful content (such as hate speech, violence, adult content, or discrimination), " +
-                    $"return ONLY the following JSON error message in {selectedLanguageToLanguageName(selectedLanguage)}. " +
-                    $"IMPORTANT: Always assume music-related intent unless the prompt is clearly about a completely different topic or is offensive. " +
+                    $"If the user prompt is clearly NOT about music (weather, mathematics, cooking, etc.), or if the prompt contains offensive, inappropriate, violent, explosive, weapon-related, or harmful content (hate speech, violence, adult content, discrimination), " +
+                    $"return ONLY the JSON error (no XML) in {selectedLanguageToLanguageName(selectedLanguage)}.\r\n" +
+                    $"ADDITIONAL SAFETY RULES:\r\n" +
+                    $"- Treat as OFFENSIVE any prompt that uses local / phonetic word games, spoonerisms, spaced syllables, intentional misspellings, digit/asterisk substitutions (e.g. f*ck, f#ck, f@ck, f-ck) that conceal profanity, sexual, violent, or extremist terms.\r\n" +
+                    $"- Examples (DO NOT OUTPUT THEM): \"Fenasi Kerim\" (a spaced phonetic construction forming a vulgar phrase phonetically). If such detected: respond ONLY with JSON error (no XML).\r\n" +
+                    $"- To decide, internally normalize the user prompt by: lowercasing, removing diacritics, removing spaces and punctuation; compare against known offensive phonetic composites. If matched → JSON error.\r\n" +
+                    $"- If the prompt includes or disguises violent / weapon / explosive terms (e.g., bomb, b*mb, b0mb, b o m b, grenade, explosive, terror...), produce ONLY JSON error.\r\n" +
+                    $"- Normalize internally: lowercase, strip diacritics, remove spaces/punctuation to detect hidden forms.\r\n" +
+                    $"- If such content detected → respond ONLY with JSON error (no explanation, no XML).\r\n" +
                     $"Examples of VALID music requests that should generate XML:\r\n" +
                     $"- \"Yesterday\" → generate music\r\n" +
                     $"- \"Beatles\" → generate music\r\n" +
@@ -494,11 +501,16 @@ namespace NeoBleeper
                     $"- \"classical\" → generate music\r\n" +
                     $"- \"rock song\" → generate music\r\n" +
                     $"- \"create Yesterday\" → generate music\r\n" +
-                    $"Examples of NON-music requests that should return error:\r\n" +
-                    $"- \"What is the weather?\" → return error\r\n" +
-                    $"- \"How to cook pasta?\" → return error\r\n" +
-                    $"- \"Calculate 2+2\" → return error\r\n" +
-                    $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile>.\r\n" +
+                    $"Examples of NON-music or disallowed requests that should return error:\r\n" +
+                    $"- \"What is the weather?\" → error\r\n" +
+                    $"- \"How to cook pasta?\" → error\r\n" +
+                    $"- \"Calculate 2+2\" → error\r\n" +
+                    $"- Any violent / weapon / explosive / phonetic disguised vulgar request → error\r\n" +
+                    $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
+                    $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
+                    $"- The output should be a new composition inspired by the specified song. \r\n" +
+                    $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
+                    $"- Do not include text outside XML. Escape special characters properly.\r\n" +
                     $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +
                     $"- Use UTF-8 encoding and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
                     $"- Ensure all tags are properly closed and formatted.\r\n" +
@@ -560,7 +572,7 @@ namespace NeoBleeper
                     $"    <LineList>\r\n" +
                     $"    </LineList>\r\n" +
                     $"</NeoBleeperProjectFile>\r\n"
-                , cts.Token); 
+                , cts.Token);
                 if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text))
                 {
                     // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
@@ -601,6 +613,7 @@ namespace NeoBleeper
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                     output = RewriteOutput(output).Trim();
+                    isCreatedAnything = true; // Set the flag to true
                 }
                 else
                 {
@@ -1058,7 +1071,7 @@ namespace NeoBleeper
             }
             else if (!IsServerUp())
             {
-                cts.Cancel(); 
+                cts.Cancel();
                 output = String.Empty; // Clear output on server failure
                 connectionCheckTimer.Stop();
                 SetControlsEnabledAndMakeLoadingVisible(true);
@@ -1075,6 +1088,18 @@ namespace NeoBleeper
         {
             Logger.Log("Google Gemini server is not reachable. Please try again later.", Logger.LogTypes.Error);
             MessageBox.Show(Resources.GoogleGeminiServerDown, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!isCreatedAnything)
+            {
+                if (!cts.IsCancellationRequested)
+                { 
+                    cts.Cancel(); // Cancel any ongoing AI requests
+                }
+                output = String.Empty; // Clear output if the form is closed if anything aren't created properly
+            }
         }
     }
 }

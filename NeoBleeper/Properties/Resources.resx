@@ -514,4 +514,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="UseVoiceSystemHelp" xml:space="preserve">
     <value>This feauture makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
   </data>
+  <data name="LyricsExampleText" xml:space="preserve">
+    <value>Example text</value>
+  </data>
 </root>

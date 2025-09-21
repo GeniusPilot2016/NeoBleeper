@@ -646,6 +646,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Example text benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string LyricsExampleText {
+            get {
+                return ResourceManager.GetString("LyricsExampleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   AI music creation failed: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIMusicCreationFailed {

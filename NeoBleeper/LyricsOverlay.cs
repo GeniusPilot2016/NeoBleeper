@@ -51,7 +51,7 @@ namespace NeoBleeper
                 var g = e.Graphics;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-                using var font = uiFonts.SetUIFont(32f, FontStyle.Regular);
+                using var font = uiFonts.SetUIFont(Settings1.Default.lyricsSize, FontStyle.Regular);
                 Color textColor = SystemColors.ControlText;
                 Color backColor = SystemColors.ControlLight;
                 Color borderColor = Color.LightGray;

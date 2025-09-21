@@ -285,5 +285,17 @@ namespace NeoBleeper {
                 this["preferredLanguage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("32")]
+        public float lyricsSize {
+            get {
+                return ((float)(this["lyricsSize"]));
+            }
+            set {
+                this["lyricsSize"] = value;
+            }
+        }
     }
 }

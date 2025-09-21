@@ -71,15 +71,16 @@ namespace NeoBleeper
             labelSybillance2Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance2Frequency.ToString() + " Hz";
             labelSybillance3Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz";
             labelSybillance4Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz";
-            double minPitch = -1.0, maxPitch = 1.0;
+            double minPitch = 0.5, maxPitch = 2.0;
             int pitchSpan = trackBarPitch.Maximum - trackBarPitch.Minimum;
             trackBarPitch.Value = trackBarPitch.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * (pitchSpan > 0 ? pitchSpan : 1));
 
-            double minRange = 0.1, maxRange = 10.0;
+            double minRange = 0, maxRange = 1.0;
             int rangeSpan = trackBarRange.Maximum - trackBarRange.Minimum;
             trackBarRange.Value = trackBarRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
             trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
+            BringToFront();
         }
         private void set_theme()
         {
@@ -429,8 +430,8 @@ namespace NeoBleeper
 
         private void trackBarPitch_Scroll(object sender, EventArgs e)
         {
-            double minPitch = -1.0;
-            double maxPitch = 1.0;
+            double minPitch = 0.5;
+            double maxPitch = 2.0;
             int span = trackBarPitch.Maximum - trackBarPitch.Minimum;
             double normalized = span > 0 ? (trackBarPitch.Value - trackBarPitch.Minimum) / (double)span : 0.0;
             double value = minPitch + normalized * (maxPitch - minPitch);
@@ -443,7 +444,7 @@ namespace NeoBleeper
 
         private void trackBarRange_Scroll(object sender, EventArgs e)
         {
-            double minRange = 0.1, maxRange = 10.0;
+            double minRange = 0, maxRange = 1.0;
             int span = trackBarRange.Maximum - trackBarRange.Minimum;
             double normalized = span > 0 ? (trackBarRange.Value - trackBarRange.Minimum) / (double)span : 0.0;
             double value = minRange + normalized * (maxRange - minRange);
@@ -460,7 +461,7 @@ namespace NeoBleeper
             {
                 if(comboBoxNote1Option.SelectedIndex == 1)
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(0);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(0);
                 }
                 TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex = comboBoxNote1Option.SelectedIndex;
                 Logger.Log("Note 1 Output Device set to index " + (TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
@@ -473,7 +474,7 @@ namespace NeoBleeper
             {
                 if (comboBoxNote2Option.SelectedIndex == 1)
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(1);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(1);
                 }
                 TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex = comboBoxNote2Option.SelectedIndex;
                 Logger.Log("Note 2 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
@@ -486,7 +487,7 @@ namespace NeoBleeper
             {
                 if (comboBoxNote3Option.SelectedIndex == 1)
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(2);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(2);
                 }
                 TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex = comboBoxNote3Option.SelectedIndex;
                 Logger.Log("Note 3 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
@@ -499,7 +500,7 @@ namespace NeoBleeper
             {
                 if (comboBoxNote4Option.SelectedIndex == 1)
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(3);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(3);
                 }
                 TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex = comboBoxNote4Option.SelectedIndex;
                 Logger.Log("Note 4 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
@@ -543,27 +544,27 @@ namespace NeoBleeper
             labelFormant3Vol.Text = TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%";
             labelFormant4Vol.Text = TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%";
         }
-        private void buttonOpenVowel_Click(object sender, EventArgs e)
+        private void buttonOpenVowel_Click(object sender, EventArgs e) // Open vowel preset (A)
         {
             SetPresets(92, 100, 90, 60, 3355, 2558, 1675, 1180);
         }
 
-        private void buttonCloseFront_Click(object sender, EventArgs e)
+        private void buttonCloseFront_Click(object sender, EventArgs e) // Close front preset (I)
         {
             SetPresets(65, 94, 80, 70, 4001, 2989, 2537, 426);
         }
 
-        private void buttonCloseBack_Click(object sender, EventArgs e)
+        private void buttonCloseBack_Click(object sender, EventArgs e) // Close back preset (U)
         {
             SetPresets(60, 90, 90, 70, 3742, 2429, 2429, 512);
         }
 
-        private void buttonMidFront_Click(object sender, EventArgs e)
+        private void buttonMidFront_Click(object sender, EventArgs e) // Mid front preset (E)
         {
             SetPresets(96, 100, 98, 65, 3829, 2623, 1934, 814);
         }
 
-        private void buttonOpenBack_Click(object sender, EventArgs e)
+        private void buttonOpenBack_Click(object sender, EventArgs e) // Open back preset (O)
         {
             SetPresets(87, 88, 88, 60, 3355, 2258, 1158, 900);
         }

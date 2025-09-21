@@ -117,22 +117,606 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="general_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="general_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="general_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 568</value>
+  </data>
+  <data name="general_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Name" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;general_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;general_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelCreatingSoundSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Parent" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="creating_sound_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="creating_sound_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="creating_sound_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 568</value>
+  </data>
+  <data name="creating_sound_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Creating Sounds</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Name" xml:space="preserve">
+    <value>creating_sound_settings</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;creating_sound_settings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Parent" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="devices_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="devices_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="devices_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 568</value>
+  </data>
+  <data name="devices_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Name" xml:space="preserve">
+    <value>devices_settings</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;devices_settings.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="appearance.ImageIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="appearance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 31</value>
+  </data>
+  <data name="appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 568</value>
+  </data>
+  <data name="appearance.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="&gt;&gt;appearance.Name" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;appearance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;appearance.Parent" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;appearance.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabControl_settings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControl_settings.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <metadata name="imageList_settings.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>120, 21</value>
+  </metadata>
+  <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/EQAAAJNU0Z0AUkBTAIBARAB
+        AAFIAQYBSAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        Zf8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AJAADHgErAzUBVQM1AVUD
+        NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8DRAF7DAADHQEoAecBqgEkAf8BuQFnAQMB/wHAAWsBAwH/AcUB
+        bwEDAf8BxgFvAQMB/wHHAXABAwH/AcgBcAEDAf8BxwFwAQMB/wHGAW8BAwH/AcMBbgEDAf8BvgFqAQMB
+        /wG1AWUBAwH/AecBqQEjAf8QAAIxATABTAHlAaIBHwH/AeQBoAEdAf8B4wGeARwB/wHiAZwBGwH/AeEB
+        mgEZAf8B4QGYARgB/wHgAZYBFgH/Ad8BlAEVAf8B3gGSARMB/wHdAZABEgH/AdwBjQEQAf8B3AGMAQ8B
+        /wHbAYoBDQH/EAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
+        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
+        mwEaAf8BoQGbARoB/wgAAxsBJgHpAa4BJgH/AeoBrwEoAf8BuQFnAQMB/wHAAWsBAwH/AcUBbwEDAf8B
+        xgFvAQMB/wHHAXABAwH/AcgBcAEDAf8BxwFwAQMB/wHGAW8BAwH/AcMBbgEDAf8BvgFqAQMB/wG1AWUB
+        AwH/AekBrgEnAf8CZQFgAeMMAAM1AVUB5gGkASEB/wHlAaIBHwH/AeQBoAEdAf8B4wGeARwB/wHiAZwB
+        GwH/AeEBmgEZAf8B4QGYARgB/wHgAZYBFgH/Ad8BlAEVAf8B3gGSARMB/wHdAZABEgH/AdwBjgEQAf8B
+        3AGMAQ8B/xAAAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGxAawBWgH/AcsB
+        yAGyAf8B0wHRAcoB/wHDAb4BlgH/AagBowE4Af8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
+        /wGhAZsBGgH/DAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AbEBrAFaAf8B
+        ywHIAbIB/wHTAdEBygH/AcMBvgGWAf8BpAGfAT0B/wEyASIB4gH/AYgBgAFGAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8IAAJUAVIBqAHrAbMBKwH/AewBtgEsAf8IAAQBAx4BKwwAAyUBNwwAAesBtQEsAf8B
+        6wGyASoB/wwAAzUBVQHmAaYBIgH/AeYBpAEhAf8B5QGiAR8B/wHkAaABHQH/AeMBngEcAf8B4gGcARsB
+        /wHhAZoBGQH/AeEBmAEYAf8B4AGWARYB/wHfAZQBFQH/Ad4BkgETAf8B3QGQARIB/wHcAY4BEAH/EAAB
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wHPAc0ByQH/Ad8B3QHbAf8B5gHAAW0B/wHlAagB
+        KQH/AeMB0wG1Af8B2wHZAdcB/wGyAa4BYwH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8M
+        AAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/Ac8BzQHJAf8B3wHdAdsB/wHmAcABbQH/AeUB
+        qAEpAf8B4wHTAbUB/wEzASQB5QH/AYsBgwGLAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
+        /wgAAkgBRwGDAe0BuQEvAf8CXAFZAcMEAAMkATUBiwGCAXgB/wGJAX8BdQH/AzsBYwQAA14B0gGAAXUB
+        aQH/A4AB/gQCBAAB7gG6ATAB/wHtAbgBLgH/DAADNQFVAecBqAEjAf8B5gGmASIB/wHmAaUBIQH/AeUB
+        ogEfAf8B2wGaAR0B/wHMAZ8BSQH/AcoBpwFmAf8BzgGTAScB/wHfAZcBGAH/AeABlgEWAf8B3wGUARUB
+        /wHeAZIBEwH/Ad0BkAESAf8QAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGyAa0BXQH/Ad8B3QHbAf8B
+        6gG2ATkB/wHDAZMBJwH/AW4BVwEmAf8B4QGiASAB/wHkAcEBfgH/AdkB1wHVAf8BowGdASAB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/wwAAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AbIBrQFdAf8B3wHdAdsB
+        /wHqAbYBOQH/AcMBkwEnAf8BbgFXASYB/wFBASwB0wH/AZ4BgwGmAf8B2QHXAdUB/wGjAZ0BIAH/AaEB
+        mwEaAf8BoQGbARoB/wGhAZsBGgH/GAADOwFiAY0BhAF6Af8BiwGCAXgB/wGJAX8BdQH/AYcBfQFyAf8B
+        hAF6AW8B/wGBAXcBawH/AYABdQFpAf8DBgEIGAADNQFVAegBqwElAf8B5wGoASMB/wHmAaYBIgH/Ac0B
+        sgF7Af8B2QHXAdUB/wHhAdoBzQH/AeIBzgGmAf8B3wHcAdkB/wHVAdAByQH/AdEBkwEiAf8B4AGWARYB
+        /wHfAZQBFQH/Ad4BkgETAf8QAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wHAAb0BiwH/AeQB4gHhAf8B
+        7AG1ASwB/wMzAf8DMAH/AUoBPwEqAf8B5QGoASoB/wHgAd4B3QH/AagBogE0Af8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wHAAb0BiwH/AeQB4gHhAf8B7AG1ASwB
+        /wIyATgB/wEvASAB4QH/AUMBNQFyAf8B5QGoASoB/wHgAd4B3QH/AagBogE0Af8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8YAAM7AWMBjgGFAXwB/wOAAf4B6wLqAf8D9AH/Ad4B2wHZAf8BiQGAAXUB/wGBAXcB
+        awH/AwYBCBgAAzUBVQHpAawBJgH/AegBqwElAf8B1gGoAUcB/wHbAdkB1wH/AegBwAFnAf8B5AGpASUB
+        /wHKAZUBIwH/AeUBpAEgAf8B4wHWAbwB/wHUAdIBzwH/AdwBlQEYAf8B4AGWARYB/wHfAZQBFQH/EAAB
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BsAGsAUwB/wHlAeMB4gH/Ae0BuQEvAf8DPQH/AzoB/wFbAU4B
+        MAH/AecBrQEwAf8B4gHgAd8B/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/DAABoQGbARoB
+        /wGhAZsBGgH/AaEBmwEaAf8BsAGsAUwB/wHlAeMB4gH/Ae0BuQEvAf8BMAEhAeIB/wE3ATIBbgH/AVsB
+        TgEwAf8B5wGtATAB/wHiAeAB3wH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8UAAMEAQUB
+        kQGIAYAB/wGSAYsBggH9A+QB/wHAAZ8BewH/AZIBVgEVAf8B6AHhAdoB/wL1AfQB/wGEAXoBbwH/A1wB
+        vhgAAzUBVQHqAa8BKAH/AekBrAEmAf8B0AG7AYwB/wHkAeIB4QH/AesBtAErAf8DLwH/Ay0B/wF3AV0B
+        JgH/AeUBqwE1Af8B3wHdAdsB/wHXAZwBMgH/AeEBmAEYAf8B4AGWARYB/xAAAaEBmwEaAf8BoQGbARoB
+        /wGhAZsBGgH/AaEBmwEaAf8ByQHHAZMB/wHtAcMBTQH/AdwBrgEyAf8BtQGQATMB/wHrAbcBOwH/AeYB
+        zwGdAf8BqgGlATcB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/DAABoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/wHJAccBkwH/AUEBLwHWAf8BmwF4AXcB/wG1AZABMwH/AesBtwE7Af8B
+        5gHPAZ0B/wGqAaUBNwH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8QAANNApMBiwGDAf8B
+        kgGKAYEB/wLWAdUB/wHGAakBiAH/AZ4BWwEQAf8BmAFZARIB/wGSAVUBFAH/A/QB/wGOAYQBQAH9AYQB
+        egFvAf8BgQF3AWsB/xQAAzUBVQHrAbEBKgH/AeoBrwEoAf8B1gG1AWwB/wHlAeMB4gH/Ae0BuAEuAf8D
+        OgH/AzgB/wE+AToBMAH/AeYBqQEnAf8B4gHgAd8B/wHaAZkBIgH/AeEBmgEZAf8B4QGYARgB/xAAAaEB
+        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGmAaABKAH/Ac4BtwFLAf8B1AGwAS0B
+        /wG/AbMBVAH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/DAAB
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BnQGXASAB/wEyASMB4QH/AXkBbwFyAf8BzgG3AUsB/wHUAbAB
+        LQH/Ab8BswFUAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8Q
+        AANWAbABlAGMAYQB/wGTAYsBgwH/A9QB/wG7AZIBYgH/AaMBXwEOAf8BngFbARAB/wGYAVkBEgH/A+8B
+        /wGaAZIBigH9AYcBfQFyAf8BhAF6AW8B/xQAAzUBVQHrAbIBKwH/AesBsQEqAf8B5QGsASkB/wHjAd4B
+        1wH/Ae4BvQE3Af8BmgF/ATgB/wFeAVQBOwH/Ae0BwQFdAf8B5wG+AWQB/wHZAb8BjgH/AeMBngEcAf8B
+        4gGcARsB/wHhAZoBGQH/EAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
+        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
+        /wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wE9AS4BzgH/AYABdgFVAf8B
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/xAAAykBPgN+AfwBlAGMAYQB/wGtAagBpAH/A9QB/wGmAWEBDwH/AaMB
+        XwEOAf8BuAGNAVwB/wPqAf8BiwGCAXgB/wGJAX8BdQH/A2kB6BQAAzUBVQHsAbUBLAH/AesBsgErAf8B
+        6wGxASoB/wHoAa4BKAH/AdwBwAGDAf8B7wG8ATUB/wHtAbgBLgH/AekBwgFlAf8B1gGiAToB/wHlAaIB
+        HwH/AeQBoAEdAf8B4wGfARwB/wHiAZwBGwH/EAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
+        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
+        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
+        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
+        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/xgAA2EBzwGUAYwBhAH/Ab8BvAG6Af8D1AH/A9oB
+        /wPfAf8DgAH+AY0BhAF6Af8DMgFPGAADNQFVAe0BtwEuAf8B7AG1ASwB/wHrAbIBKwH/AesBsQEqAf8B
+        6gGvASgB/wHoAawBJgH/AeYBqgElAf8B5wGpASQB/wHmAaYBIgH/AeYBpQEhAf8B5QGiAR8B/wHkAaAB
+        HgH/AeMBnwEcAf8QAAHQAXYBAQH/AcwBcwEBAf8ByQFxAQIB/wHGAXABAwH/AcIBbQEEAf8BvwFrAQQB
+        /wG8AWoBBQH/AbkBZwEGAf8BtQFlAQcB/wGzAWMBBwH/Aa8BYQEIAf8BrAFfAQkB/wG1AW4BEQH/AbgB
+        dQEVAf8BogFZAQsB/wwAAdABdgEBAf8BzAFzAQEB/wHJAXEBAgH/AcYBcAEDAf8BwgFtAQQB/wG/AWsB
+        BAH/AbwBagEFAf8BuQFnAQYB/wG1AWUBBwH/AbMBYwEHAf8BrwFhAQgB/wGsAV8BCQH/AbUBbgERAf8B
+        uAF1ARUB/wGiAVkBCwH/GAADMQFNAZUBjQGFAf8BlAGMAYQB/wGUAYwBgwH/A4AB/gGRAYgBgAH/AY8B
+        hwF+Af8BjgGFAXwB/xwAAzUBVQHuAbkBLwH/Ae0BtwEuAf8B7AG1ASwB/wHrAbIBKwH/AesBsQEqAf8B
+        6gGvASgB/wHpAawBJgH/AegBqwElAf8B5wGpASQB/wHmAaYBIgH/AeYBpQEhAf8B5QGiAR8B/wHkAaAB
+        HgH/EAAB0AF2AQAB/wHNAXQBAQH/AckBcgECAf8BxwFwAQMB/wHDAW4BAwH/AcABawEEAf8BvQFqAQUB
+        /wG6AWgBBgH/AbYBZQEGAf8BswFkAQcB/wGwAWIBCAH/AawBXwEJAf8BqgFeAQkB/wGmAVwBCgH/AWUC
+        XQHsDAAB0AF2AQAB/wHNAXQBAQH/AckBcgECAf8BxwFwAQMB/wHDAW4BAwH/AcABawEEAf8BvQFqAQUB
+        /wG6AWgBBgH/AbYBZQEGAf8BswFkAQcB/wGwAWIBCAH/AawBXwEJAf8BqgFeAQkB/wGmAVwBCgH/AWUC
+        XQHsGAADSQGIAZUBjgGGAf8BlQGNAYUB/wGUAYwBhAH/AZMBiwGDAf8BkgGKAYEB/wGRAYgBgAH/AY8B
+        hwF+Af8DEwEZGAADNQFVAe8BuwExAf8B7gG5AS8B/wHtAbcBLgH/AewBtQEsAf8B6wGzASsB/wHrAbEB
+        KgH/AeoBrwEoAf8B6QGsASYB/wHoAasBJQH/AecBqQEkAf8B5gGmASIB/wHmAaUBIQH/AeUBogEfAf+w
+        AAMrAUEDXgHSAwgBCgQAAyYBOANWAbADDAEPHAADBgEIAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
+        VQM1AVUDNQFVAzUBVQM1AVUDNQFVAjEBMAFM/wD/AP8AywADKwFCAlkBVwG8AWsBZwFaAfIBXwFeASEB
+        +wFhAl0BzwM+AWoDBwEJYAADWwHkA08B/wNPAf8DTgH/A04B/wNNAf8DTQH/A0wB/wNLAf8DSwH/A0oB
+        /wNJAf8DSQH/A0gB/wNIAf8DRwH/A0kBhggAAVsCYQHeAQABwQH6Af8BAAG0AfcB/wEAAacB9AH/AV0C
+        XwHJAxoBJDwAA4AB/gHGAXkBEQH/AbUBVwEAAf8BvwFfAQAB/wHEAWMBAAH/AcYBZQEAAf8BxgFkAQAB
+        /wHDAWIBAAH/A0kBhxwAA1IBoAJcAVoBxAwAAzUBVQHLAXgBAAH/AcgBdgECAf8CcAFlAfEcAANgAfMB
+        FwGpAd0B/wEJAb0B/gH/AQkBvQH+Af8BCQG8Af4B/wEIAbwB/gH/AQgBuwH+Af8BCAG7Af4B/wEHAbsB
+        /gH/AQcBugH+Af8BBwG6Af4B/wEGAbkB/gH/AQYBuQH+Af8BBgG4Af4B/wEGAbgB/gH/ATgBZAF1Af8D
+        TgGWCAADBwEJAQABwQH6Af8BAAG0AfcB/wEAAacB9AH/AQABmwHxAf8BAQGOAe4B/wFNAn0B+gFAAkEB
+        cCwAAwQBBQG+AakBQAH9AdABhwEWAf8BuwFbAQAB/wJjAVoB6QNEAXsCOQE4AV0CUQFQAZ0BzwFsAQAB
+        /wHNAWsBAAH/AcoBaAEAAf8CWgFXAcIUAANNAZIB6QGtASYB/wHoAa0BJgH/AlkBVwG8CAADNQFVAcsB
+        eAEAAf8BxgFzAQAB/wG/AW0BAAH/AeoBtQEtAf8COwE6AWIUAAMrAUEBTQFbAWAB/wELAcAB/gH/AQsB
+        wAH+Af8BCgG/Af4B/wEKAb8B/gH/AQoBvgH+Af8BFwGAAaYB/wEpAS0BLwH/AQsBsgHvAf8BCQG8Af4B
+        /wEIAbwB/gH/AQgBvAH+Af8BCAG7Af4B/wEKAbUB9QH/A4AB/hAAAz4BagEAAbQB9wH/AQABpwH0Af8B
+        AAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wFBAkIBcyQAAwMBBAHpAa8BJwH/AekBrQEnAf8B
+        fAJcAfgDGwEmFAACUAFPAZsB0AFuAQAB/wHMAWoBAAH/A0kBhwwAAk0BTAGRAekBrwEnAf8B6QGuAScB
+        /wHpAa4BJwH/AekBrgEnAf8CXAFaAcQIAAMGAQgDOgFgAmoBXgHtAbgBZgEAAf8B7gG6ATAB/wMjATIU
+        AANdAdwBJgGZAb8B/wEMAcIB/gH/AQwBwQH+Af8BCwHBAf4B/wELAcAB/gH/ARUBlwHDAf8BKAFJAVQB
+        /wELAbsB+AH/AQoBvwH+Af8BCgG+Af4B/wEJAb4B/gH/AQkBvQH+Af8BTAFOAU8B/wMyAU8VAAG0AfcB
+        /wEAAacB9AH/AQABmwHxAf8BAQGOAe4B/wEBAYIB6wH/AQEBdQHoAf8BAQFpAeUB/yQAA0QBeAHqAbAB
+        KQH/Ac0BgQEUAf8DCwEOHAADTwGZAdEBbgEAAf8BywFpAQAB/wMHAQkQAAHqAbABKAH/AekBrwEoAf8c
+        AAG4AWUBAAH/Ae0BuAEvAf8CawFaAfIUAAMWAR4DVgH/AQ8BxAH8Af8BDgHEAf4B/wENAcQB/gH/AQ0B
+        wwH+Af8BEQG0AekB/wEhAXYBkgH/AQwBwgH+Af8BDAHBAf4B/wEMAcEB/gH/AQsBwAH+Af8BIAGeAcoB
+        /wNOAf8YAAFXAloBwgEAAacB9AH/AQABmwHxAf8BAQGOAe4B/wEBAYIB6wH/AQEBdQHoAf8BAQFpAeUB
+        /yQAA4AB/gHrAbIBKgH/A0sBjCQAAdIBbwEAAf8BzgFsAQAB/wM+AWoQAAHqAbEBKQH/AeoBsQEpAf8c
+        AAMJAQwB7AG3AS0B/wHtAbcBLgH/GAADWQHDATwBgQGWAf8BDwHHAf4B/wEPAccB/gH/AQ8BxgH+Af8B
+        GwGcAcMB/wM3Af8BDgHFAf4B/wEOAcQB/gH/AQ0BxAH+Af8BDQHDAf4B/wFQAVIBUwH/Aw8BFBgAAykB
+        PQEAAacB9AH/AQABmwHxAf8BAQGOAe4B/wEBAYIB6wH/AQEBdQHoAf8BAQFpAeUB/yQAAesBtAErAf8B
+        6wGzASsB/wMeASskAAJRAVABnQHQAW0BAAH/Al8BWwHQEAAB6wGyASoB/wHrAbIBKgH/IAAB7AG2AS0B
+        /wHsAbYBLQH/HAADWAH8ARYBwAHyAf8BEAHIAf4B/wEQAcgB/gH/AR8BmgG+Af8DOwH/AQ8BxwH+Af8B
+        DwHGAf4B/wEPAcYB/gH/ATcBgAGXAf8DVwHCIAABWQJnAe8BAAGbAfEB/wEBAY4B7gH/AQEBggHrAf8B
+        AQF1AegB/wFeAmoB7QMEAQUgAAHsAbYBLQH/AewBtQEsAf8DBQEGJAADOQFeAdABbgEAAf8BfQJNAfoQ
+        AAHrAbQBKwH/AesBtAErAf8gAAHrAbQBKwH/AesBtAEsAf8cAANJAYcBTQFsAXUB/wESAcsC/wESAcsC
+        /wEkAZUBtQH/Az4B/wESAcgB/AH/AREByQL/AREByQL/A1QB/wQBIAADBgEHAVkCXAG+AQEBjgHuAf8B
+        AQGCAesB/wFAAYwB2QH/AcIBtwGuAf8BuQGwAacB/QMyAU8cAAHtAbcBLgH/AewBtwEtAf8DDgESQAAB
+        7AG2ASwB/wHsAbUBLAH/AwQBBRwAAesBswEqAf8B6wGzASsB/yAAA14B+wEfAbwB5QH/ARQBzgL/ASoB
+        jgGpAf8DQQH/ARUBxQH1Af8BEwHMAv8BTwFlAWsB/wNKAYk0AANsAesByQG+AbUB/wHCAbcBrgH/AboB
+        sAGoAf8DSwGNGAAB7QG5AS8B/wHtAbgBLgH/AzMBUkAAAewBtwEtAf8B7AG2AS0B/wIxATABTBwAAeoB
+        sQEpAf8B6gGyASoB/yAAAy0BRANcAf8BFgHQAf4B/wEjAagBygH/ATIBcQGAAf8BFQHKAfkB/wEiAbcB
+        3wH/A1gB/wMCAQM4AAK+AbwB/QHJAb4BtQH/AcIBtwGuAf8BugGwAagB/wFlAWABZQHjFAADVgGwAe4B
+        ugEvAf8DgAH+QAAB6gG0ASwB/wHtAbgBLgH/AmUBYAHjHAAB6gGwASgB/wHqAbABKQH/JAADXgH/ATUB
+        oQG6Af8BFwHSAv8BFwHSAv8BFgHRAv8BWgJeAf8DLQFFPAADHAEnAdEBxgG8Af8ByQG+AbUB/wFtAWEB
+        zQH/AT0BLgHpAf8CTQF9AfoDFAEbDAADEAEVAe4BuwExAf8B7gG6ATAB/wJdAVoBxxQAAmMBSAH2A1YB
+        sAMaASQcAAMSARcB7gG5AS8B/wHGAXsBDQH/Al8BWwHQAwYBCAwAAl8BXQHJAekBrgEnAf8B6QGuAScB
+        /wHpAa8BJwH/AekBrwEoAf8B6QGvASgB/xwAAwkBDANfAf8BGQHUAf4B/wEYAdUC/wE1AaEBugH/A18B
+        5UQAAz4BaQF8AXAB1AH/AUsBPwHuAf8BRAE3AewB/wJbAV4BzRQAAj4BPQFpAe8BvAExAf8B7gG7ATAB
+        /wOAAf4DMwFSAw8BEwQCAxgBIQJXAVYBtQHsAbYBLQH/AewBtQEsAf8DTgGWHAADTgGUAeUBrQEoAf8B
+        vQFrAQAB/wHEAXEBAAH/AcoBdwEAAf8CYQFcAdYIAAJjAV0B3wHpAa0BJgH/AekBrgEnAf8B6QGuAScB
+        /wMcAScgAANYAbgBTAGCAY4B/wEaAdcC/wFdAmEB/wMhATBIAANeAdIBUgFGAfEB/wJbAV4BzRwAAj4B
+        PQFpAe8BvQEyAf8B7gG8ATEB/wHuAbsBMAH/Ae4BugEwAf8B7QG5AS8B/wHtAbgBLwH/Ae0BuAEuAf8B
+        7QG3AS4B/wHsAbYBLQH/AxIBFyAAAzMBUAHmAa0BKQH/AcQBcQEAAf8BygF3AQAB/wHOAXsBAAH/DAAC
+        YwFdAd8B6AGsASUB/wMDAQQoAANhAf8BTQGDAY4B/wNfAc5QAANSAaAkAAMRARYDVgGwAe8BvQEyAf8B
+        7gG8ATEB/wHuAbsBMQH/Ae4BugEwAf8CagFBAfkDRQF8Ae0BuAEuAf8sAAMqAT8DMwFRAysBQRAAAxEB
+        FiwAA0QBeQNjAf8DEAEVmAADPgFq/wD/AP8ARwADFgEdAy4BSAM0AVMDKAE8AwcBCXwAAxYBHQMuAUgD
+        NAFTAygBPAMHAQl0AAMcAScBiQF/AXUB/wGHAX0BcgH/AYUBewFwAf8BgwF5AW0B/wGBAXYBagH/AX8B
+        dQFpAf8CZwFmAeoEAWwAAxwBJwGJAX8BdQH/AYcBfQFyAf8BhQF7AXAB/wGDAXkBbQH/AYEBdgFqAf8B
+        fwF1AWkB/wJnAWYB6gQBMAADFwEfAb4BMAGSAf8BvgEwAZIB/wG9ATABkQH/Ab0BMAGRAf8BZgFgAWYB
+        4CAAA00BkwGMAYMBeQH/An0BdgH6AzEBTQMMAQ8EAgMYASEDRgF+AX8BdQFpAf8DXwH7AxsBJhAAA1IB
+        pAHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B
+        7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB
+        /xQAA00BkwGMAYMBeQH/An0BdgH6AzEBTQMMAQ8EAgMYASEDRgF+AX8BdQFpAf8DXwH7AxsBJiwAAx4B
+        KwG+ATABkgH/DAABvQEwAZEB/xwAAzkBXQGOAYYBfAH/A1IBoBgABAEDZQHsAX0BcQFlAfwEAQwAA1UB
+        qgHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB
+        5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB5wHlAf8B6QHnAeUB
+        /xAAAzkBXQGOAYYBfAH/A1IBoBgABAEDZQHsAX0BcQFlAfwEASgAAx4BKwG+ATABkgH/DAABvQEwAZEB
+        /xgAAwMBBAGQAYgBfwH/A18BySAABAEBfwF1AWkB/wJsAWQB6wwAA1UBqgHlAeMB4AH/AX0CfAH/AXMC
+        cgH/AcIBwQG/Af8DXQH/AeUB4wHgAf8DXQH/AeUB4wHgAf8B5QHjAeAB/wHCAcEBvwH/A10B/wHlAeMB
+        4AH/A10B/wHlAeMB4AH/AeUB4wHgAf8MAAMDAQQBkAGIAX8B/wNfAckgAAQBAX8BdQFpAf8CbAFkAeso
+        AAMeASsBvgEwAZIB/wwAAb4BMAGSAf8YAAM8AWUBkgGKAYEB/wMPARQEAAGOAYYBfQH/AxIBFwNMAY4B
+        iwGCAXgB/wMEAQUDXAHBAYUBewFwAf8EAANGAn8BdQFpAf8DCAEKCAADVQGqAeAB3gHbAf8DVwH/A1cB
+        /wGzAbEBrwH/A1cB/wHgAd4B2wH/A1cB/wHgAd4B2wH/AeAB3gHbAf8BswGxAa8B/wNXAf8B4AHeAdsB
+        /wNXAf8B4AHeAdsB/wHgAd4B2wH/DAADPAFlAZIBigGBAf8DDwEUBAABjgGGAX0B/wMSARcDTAGOAYsB
+        ggF4Af8DBAEFA1wBwQGFAXsBcAH/BAADRgJ/AXUBaQH/AwgBCiQAAx4BKwG+ATABkgH/DAABvgEwAZIB
+        /xgAA2EBzwGTAYoBggH/CAABjwGHAX4B/wMSARcBjQGEAXsB/wNkAdsDMwFQA1wBwQGHAX0BcgH/BAAD
+        GAEhAYEBdwFrAf8DKAE8CAADVQGqAdwB2QHVAf8DTQH/A00B/wGsAaoBqAH/A00B/wHcAdkB1QH/A00B
+        /wHcAdkB1QH/AdwB2QHVAf8BrAGqAagB/wNNAf8B3AHZAdUB/wNNAf8B3AHZAdUB/wHcAdkB1QH/DAAD
+        YQHPAZMBigGCAf8IAAGPAYcBfgH/AxIBFwGNAYQBewH/A2QB2wMzAVADXAHBAYcBfQFyAf8EAAMYASEB
+        gQF3AWsB/wMoATwIAAFfATIBXwH7Ab8BMgGTAf8BvwExAZMB/wG/ATEBkwH/Ab0BQAGSAf0IAAMeASsB
+        vgExAZIB/wwAAb4BMAGSAf8BvgEwAZIB/wG+ATABkgH/Ab0BMAGRAf8BUgFRAVIBoQNlAeMBlQGNAYUB
+        /wGUAY0BhQH/AZQBjAGEAf8IAAGRAYgBfwH/AysBQQGOAYYBfQH/AwYBBwNiAeEDXAHBAYkBgAF1Af8E
+        AAQCAYMBeQFtAf8BgQF3AWsB/wF/AXUBaQH/BAADVQGqAdgB1QHQAf8DQgH/A0IB/wGmAaQBoQH/A0IB
+        /wHYAdUB0AH/A0IB/wHYAdUB0AH/AdgB1QHQAf8BpgGkAaEB/wNCAf8B2AHVAdAB/wNCAf8B2AHVAdAB
+        /wHYAdUB0AH/BAADZQHjAZUBjQGFAf8BlAGNAYUB/wGUAYwBhAH/CAABkQGIAX8B/wMrAUEBjgGGAX0B
+        /wMGAQcDYgHhA1wBwQGJAYABdQH/BAAEAgGDAXkBbQH/AYEBdwFrAf8BfwF1AWkB/xQAAb8BMQGTAf8I
+        AAMeASsBvgExAZIB/yAAAxMBGQM1AVUDbAHrAZQBjQGFAf8IAAGSAYoBgQH/A18BywNgAc4EAANqAfkD
+        WwHAAYsBggF4Af8EAAMMAQ8BhQF8AXAB/wNIAYMDMwFSBAADVQGqAYUBfAFwAf8BhQF8AXAB/wGFAXwB
+        cAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8B
+        hQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwBcAH/BAADEwEZAzUBVQNsAesBlAGNAYUB
+        /wgAAZIBigGBAf8DXwHLA2ABzgQAA2oB+QNbAcABiwGCAXgB/wQAAwwBDwGFAXwBcAH/A0gBgwMzAVIU
+        AAG/ATEBkwH/CAADHgErAb4BMQGSAf8oAANNAZMBlQGNAYUB/wQCBAABkwGLAYIB/wNqAfkDMwFSBAAD
+        VgGuAn0BegH6AYwBgwF5Af8EAAMxAU0BhwF9AXIB/wMWAR0IAANVAaoBiAF/AXQB/wGIAX8BdAH/AYgB
+        fwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB
+        /wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgBfwF0Af8MAANNAZMBlQGNAYUB/wQCBAAB
+        kwGLAYIB/wNqAfkDMwFSBAADVgGuAn0BegH6AYwBgwF5Af8EAAMxAU0BhwF9AXIB/wMWAR0YAAG/ATIB
+        kwH/CAADHgErAb4BMQGSAf8oAAMbASYBlQGOAYYB/wM8AWUEAAGUAYwBhAH/AZMBiwGCAf8IAAMTARoB
+        jgGGAX0B/wGNAYQBewH/BAACfQF2AfoBiQGAAXUB/wwAA1UBqgGLAYIBeAH/AYsBggF4Af8BiwGCAXgB
+        /wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsB
+        ggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB/wwAAxsBJgGVAY4BhgH/AzwBZQQAAZQB
+        jAGEAf8BkwGLAYIB/wgAAxMBGgGOAYYBfQH/AY0BhAF7Af8EAAJ9AXYB+gGJAYABdQH/HAABvwEyAZMB
+        /wgAAx4BKwG+ATEBkgH/LAADZQHdAZUBjgGGAf8DHAEnHAADUgGhAYwBgwF5Af8DGwEmDAADVQGqAY4B
+        hgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB
+        /wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/EAAD
+        ZQHdAZUBjgGGAf8DHAEnHAADUgGhAYwBgwF5Af8DGwEmHAADgAH+Ab8BMgGTAf8BvwEyAZMB/wG/ATEB
+        kwH/AW8BYAFvAfMwAANsAesBlQGOAYYB/wM8AWUEAgwAAw8BFANfAckBjgGGAX0B/wNNAZMQAANSAaQB
+        kAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkB
+        gAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8U
+        AANsAesBlQGOAYYB/wM8AWUEAgwAAw8BFANfAckBjgGGAX0B/wNNAZNoAANiAdwBlQGOAYYB/wGVAY0B
+        hQH/AZQBjQGFAf8BlAGMAYQB/wGTAYsBggH/AZIBigGBAf8BkQGIAX8B/wM5AV1sAANiAdwBlQGOAYYB
+        /wGVAY0BhQH/AZQBjQGFAf8BlAGMAYQB/wGTAYsBggH/AZIBigGBAf8BkQGIAX8B/wM5AV1wAAMbASYD
+        TQGRA2UB5wN+AfwDYQHPAzwBZAMDAQR0AAMbASYDTQGRA2UB5wN+AfwDYQHPAzwBZAMDAQT/AP8AzgAB
+        WwFdAVsBxQFNAZABEAH/AUoBjAENAf8BRwGIAQwB/wFdAWEBXQHUBAGYAAMHAQkDVQGsA28B9wNNAZFM
+        AANVAaoBcwFuAWcB/wFzAW4BZwH/AXMBbgFnAf8CVQFTAaoBUwGYARUB/wFQAZQBEwH/AVUBlQEbAf8B
+        SgGMAQ0B/wFHAYgBDAH/AV0BYQFdAdQUAAHUAXgBAAH/GAAB1AF4AQAB/wM1AVVgAANjAfYBugGyAaoB
+        /wHyAvEB/wG4AbABqAH/A2cB70gAA1UBqgFkAV8BWQH/AWQBXwFZAf8BZAFfAVkB/wFaAaABGgH/AVcB
+        nAEXAf8BzgHiAbwB/wH9Af4B/AH/AU0BkAEQAf8BSgGMAQ0B/wFHAYgBDAH/FAAB1AF4AQAB/xgAAdQB
+        eAEAAf8DNQFVYAABswGqAaEB/wPeAf8BmwFeARoB/wLyAfEB/wGzAaoBoQH/QAADQAFvAYkBggF7Af8B
+        iQGCAXsB/wGJAYIBewH/AYkBggF7Af8BiQGCAXsB/wFdAaQBHAH/AX4BtQFLAf8BmAHCAXEB/wFgAaAB
+        JgH/AfwB/QH8Af8BVwGWAR0B/wFKAYwBDQH/DAACVQFTAaoEAAHUAXgBAAH/EAADNgFXAzUBVgHUAXgB
+        AAH/AzUBVRgAAd8BwQFdAf8B3gHAAVsB/wHcAb4BWAH/AdoBvAFVAf8B2QG6AVMB/wHXAbgBUQH/AdUB
+        tgFOAf8B1AG1AUsB/wHSAbMBSQH/AdEBsQFGAf8B0AGwAUUB/wHQAbABRQH/AdABsAFFAf8B0AGwAUUB
+        /wJqAUUB+QwAAbMBqgGhAf8C0QHQAf8BugGSAWIB/wHgAd4B3AH/AbMBqgGhAf8DYQHPPAABigGDAX0B
+        /wGKAYMBfQH/AYoBgwF9Af8BigGDAX0B/wGKAYMBfQH/AYoBgwF9Af8BYAGoAR4B/wFdAaQBHAH/AVoB
+        oAEaAf8BVwGcARcB/wFUAZkBFgH/Ac8B4gG+Af8BTQGQARAB/wwAAdQBeAEAAf8EAAHUAXgBAAH/BAAD
+        LgFHCAACVQFTAaoCVQFTAaoB1AF4AQAB/wM1AVUDPgFrFAAB4QHEAWEB/wHgAcIBXgH/Ad4BwAFcAf8B
+        3QG+AVkB/wHbAbwBVwH/AdoBuwFUAf8B2AG5AVIB/wHWAbcBTwH/AdUBtQFNAf8B0wGzAUoB/wHRAbEB
+        RwH/AdABsAFFAf8B0AGwAUUB/wHQAbABRQH/AdABsAFFAf8MAANLAY0BswGqAaEB/wGzAaoBoQH/AbMB
+        qgGhAf8BsgGpAaAB/wGvAacBngH/A2QB2zgAAY0BhgF/Af8BjQGGAX8B/wGNAYYBfwH/AY0BhgF/Af8B
+        jQGGAX8B/wGNAYYBfwH/AXYBmgFLAf8BYAGoAR4B/wFdAaQBHAH/AVoBoAEaAf8BVwGcARcB/wFTAZgB
+        FQH/AVsBXQFbAcUMAAHUAXgBAAH/BAAB1AF4AQAB/wQAAdQBeAEAAf8IAAJVAVMBqgJVAVMBqgHUAXgB
+        AAH/AzUBVQHUAXgBAAH/FAAB5AHHAWUB/wHiAcUBYgH/AdQBeAEAAf8B1AF4AQAB/wHUAXgBAAH/AdQB
+        eAEAAf8B1AF4AQAB/wHUAXgBAAH/AdQBeAEAAf8B1gG2AU4B/wHUAbMBSwH/AYUBUAEYAf8B0QGxAUYB
+        /wHQAbABRQH/AdABsAFFAf8QAAMfASwDTgGVAbIBqQGgAf8BrwGnAZ4B/wGrAaMBmgH/AaYBngGVAf8D
+        ZAHbNAABjwGIAYEB/wGPAYgBgQH/AY8BiAGBAf8BjwGIAYEB/wGPAYgBgQH/AY8BiAGBAf8BjwGIAYAB
+        /wF3AZwBTAH/AWABqAEeAf8BXQGkARwB/wFaAaABGgH/AlUBUwGqCAABfAF4AVwB+AQAAdQBeAEAAf8E
+        AAHUAXgBAAH/BAAB1AF4AQAB/wgAAlUBUwGqAlUBUwGqAdQBeAEAAf8DNQFVAdQBeAEAAf8EAAMaASQM
+        AAHmAckBaAH/AeUByAFmAf8B3gGsAUIB/wHdAasBQQH/AdwBqQE/Af8B2wGoAT4B/wHaAacBPAH/AdkB
+        pgE6Af8B2AGlATgB/wHYAbkBUQH/AcEBmwFAAf8BwQGbAT8B/wGKAVYBGwH/AdIBsgFHAf8B0AGwAUUB
+        /xgAA0sBigGrAaMBmgH/AaYBngGVAf8BmwGUAYwB/wGPAYkBggH/A2IB1wNhAdkDagH5A1YBsAMbASUg
+        AAGRAYoBggH/AZEBigGCAf8BkQGKAYIB/wGRAYoBggH/AZEBigGCAf8BkQGKAYIB/wGRAYoBggH/AZEB
+        igGCAf8BkQGKAYIB/xQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wQAAdQBeAEAAf8DLgFIAmEB
+        XAHWAlUBUwGqAlUBUwGqAdQBeAEAAf8DNQFVAdQBeAEAAf8EAAHUAXgBAAH/DAAB6AHMAWwB/wHnAcoB
+        aQH/AeUByAFnAf8B5AHGAWQB/wHiAcQBYgH/AeEBwwFfAf8B3wHBAV0B/wHdAb8BWgH/AdwBvQFYAf8B
+        2gG7AVUB/wHYAbkBUgH/AdcBuAFQAf8ByAGkAUUB/wHTAbQBSwH/AdIBsgFIAf8cAANNAZIBmwGUAYwB
+        /wGPAYkBggH/AagBoAGXAf8BpgGeAZYB/wGkAZ0BlQH/AaMBmwGTAf8BoQGZAZEB/wGfAZgBkAH/AzwB
+        ZhwAAZMBjAGEAf8BkwGMAYQB/wGTAYwBhAH/AZMBjAGEAf8BkwGMAYQB/wGTAYwBhAH/AZMBjAGEAf8B
+        kwGMAYQB/wGTAYwBhAH/FAAB1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wM1AVUB
+        1AF4AQAB/wJVAVMBqgJVAVMBqgHUAXgBAAH/AzUBVQHUAXgBAAH/BAAB1AF4AQAB/wwAAesBzwFwAf8B
+        6QHNAW0B/wHnAcsBagH/AeYByQFoAf8B5AHHAWYB/wHjAcUBYwH/AeEBxAFhAf8B4AHCAV4B/wHeAcAB
+        WwH/Ad0BvgFZAf8B2wG8AVYB/wHZAboBUwH/AdgBuQFRAf8B1gG3AU8B/wHUAbUBTAH/IAADSwGKAZwB
+        lgGNAf8BqQGhAZkB/wGoAaABlwH/AaYBngGWAf8BpAGdAZUB/wGjAZsBkwH/AaEBmQGRAf8BnwGYAZAB
+        /wMbASUYAAGVAY4BhwH/AZUBjgGHAf8BlQGOAYcB/wGVAY4BhwH/AZUBjgGHAf8BlQGOAYcB/wGVAY4B
+        hwH/AZUBjgGHAf8BlQGOAYcB/xQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wQAAdQBeAEAAf8D
+        NQFVAdQBeAEAAf8CVQFTAaoCVQFTAaoB1AF4AQAB/wM1AVUB1AF4AQAB/wQAAdQBeAEAAf8MAAHtAdEB
+        cwH/AewB0AFxAf8B1AF4AQAB/wHUAXgBAAH/AdQBeAEAAf8B1AF4AQAB/wHUAXgBAAH/AdQBeAEAAf8B
+        1AF4AQAB/wHfAcEBXAH/AbYBjgE9Af8BhQFPARgB/wHHAaMBRwH/AdkBugFSAf8B1wG4AVAB/yQAAa0B
+        pAGcAf8BqwGjAZoB/wGpAaEBmQH/AagBoAGXAf8DaAHwA18B2AGjAZsBkwH/AaEBmQGRAf8DVgGuGAAD
+        ZQHiAZcBkAGIAf8BlwGQAYgB/wGXAZABiAH/AZcBkAGIAf8BlwGQAYgB/wGXAZABiAH/AZcBkAGIAf8D
+        SQGGFAAB1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wgAAlUBUwGqAlUBUwGqAdQB
+        eAEAAf8DNQFVAdQBeAEAAf8EAAJaAVgBtwwAAe8B1AF3Af8B7QHSAXUB/wHsAdABcgH/AeoBzgFvAf8B
+        6QHMAW0B/wHnAcsBawH/AeYByQFoAf8B5AHHAWUB/wHjAcUBYwH/AeEBwwFgAf8B3wHAAVwB/wHdAb8B
+        WgH/AYsBVwEdAf8B2QG6AVQB/wHZAboBVAH/JAABrwGmAZ0B/wGtAaQBnAH/AasBowGaAf8DXwHLCAAD
+        HQEpAaMBmwGTAf8DawHyHAADzAH/A8wB/wPMAf8DzAH/A8wB/wPMAf8DzAH/IAAB1AF4AQAB/wQAAdQB
+        eAEAAf8EAAHUAXgBAAH/CAACVQFTAaoCVQFTAaoB1AF4AQAB/wM1AVUB1AF4AQAB/xQAAfIB1wF7Af8B
+        8AHVAXgB/wHuAdMBdQH/Ae0B0QF0Af8B6wHPAXEB/wHpAc0BbgH/AegBzAFsAf8B5gHKAWkB/wHlAcgB
+        ZgH/AeMBxgFkAf8B4gHEAWEB/wHgAcIBXgH/Ad8BwQFdAf8B3QG/AVoB/wHbAb0BVwH/JAABsAGnAZ4B
+        /wGvAaYBnQH/Aa0BpAGcAf8DMwFSDAADHQEpA18B0xwAA8wB/wPMAf8DzAH/A8wB/wPMAf8DzAH/A8wB
+        /yAAAdQBeAEAAf8EAAHUAXgBAAH/BAACYwFbAeQIAAJVAVMBqgJVAVMBqgHUAXgBAAH/AzUBVQJjAUgB
+        9hQAAfMB2AF9Af8B8wHYAXwB/wHxAdYBegH/Ae8B1AF3Af8B7gHSAXQB/wHsAdABcgH/AeoBzgFvAf8B
+        6QHNAW0B/wHnAcsBagH/AeUByQFnAf8B5AHHAWUB/wHiAcUBYwH/AeEBwwFgAf8B3wHCAV0B/wHeAcAB
+        WwH/JAADYwHpAbABpwGeAf8BrwGmAZ0B/wNWAbAwAAPMAf8DZgH/A4gB/wPMAf8DZgH/A2YB/wPMAf8g
+        AAHUAXgBAAH/BAAB1AF4AQAB/xAAAlEBUAGdAlEBUAGdAdQBeAEAAf8DNQFVGAAB0AF2AQAB/wHMAXMB
+        AQH/AckBcQECAf8BxgFwAQMB/wHDAW0BBAH/Ab8BawEEAf8BvAFqAQUB/wG5AWcBBgH/AbYBZQEHAf8B
+        swFkAQcB/wGvAWEBCAH/AawBXwEJAf8BqQFdAQkB/wGlAVsBCgH/AaIBWQELAf8kAAMTARoBsgGpAaAB
+        /wGwAacBngH/Aa8BpgGdAf8DRgF9LAADzAH/A8wB/wPMAf8DzAH/A8wB/wPMAf8DzAH/KAAB1AF4AQAB
+        /xgAAdQBeAEAAf8DNQFVGAACZQFdAewBzQF0AQEB/wHKAXIBAgH/AccBcAEDAf8BwwFuAQMB/wHAAWwB
+        BAH/Ab0BagEFAf8BugFoAQYB/wG2AWYBBgH/AbMBZAEHAf8BsAFiAQgB/wGtAV8BCQH/AaoBXgEJAf8B
+        pgFcAQoB/wNFAXwoAAMVARwDaQHoAbABpwGeAf8BrwGmAZ0B/wM+AWooAAPMAf8DzAH/A8wB/wPMAf8D
+        zAH/A8wB/wPMAf8oAAHUAXgBAAH/GAAB1AF4AQAB/wM1AVW4AANVAaoDVQGqA1UBqgNVAaoDVQGqA1UB
+        qgNHAYIoAAJRAVABnRgAAkgBRwGDAx4BK/8AeQABQgFNAT4HAAE+AwABKAMAAUgDAAFaAwABAQEAAQEF
+        AAE4AQQWAAP/2QAJ/wMABP8B/gEAAR8C/wMAAcABAAFwAQABHAEAAQ8BAAEDAwABwAEAAXABAAEYAQAB
+        BwEAAQMDAAHAAQABcAEAARgBzgHnAQABAwMAAcABAAFwAQABGAGEAScBAAEDAwABwAEAAXABAAEfAYAB
+        PwEAAQMDAAHAAQABcAEAAR8BgAE/AQABAwMAAcABAAFwAQABHwEAAT8BAAEDAwABwAEAAXABAAEeAQAB
+        HwEAAQMDAAHAAQABcAEAAR4BAAEfAQABAwMAAcABAAFwAQABHgEAAR8BAAEDAwABwAEAAXABAAEfAYAB
+        PwEAAQMDAAHAAQABcAEAAR8BgAF/AQABAwMAAcABAAFwAQABHwGAAT8BAAEDAwAF/wHEAX8BAAEDAwAJ
+        /wMACf8DAAn/AwAD/wEBAv8B/gUAAcAB/wH+AQAB/gFwAf4FAAHAAT8B+AEAAXwBMAE+AQABAQMAAeAB
+        HwHwAXwBOAEYAR8BAAEBAwAB8AEfAfAB/gEeAX8BHwEAAQMDAAHwAR8B8QH/AR4BfwEfAYABAwMAAfAB
+        HwHxAf8BHgF/AZ8BwAEHAwAB+AEPAfEB/wEeAX8BnwHAAQcDAAH4AQcB8QH/Af4BPwGfAeABDwMAAf8B
+        gwHxAf8B/gE/AZ8B4AEPAwAB/wHBAfEB/wH+AT8BnwHwAR8DAAH/AcABcAH4Af4BDgEHAfABPwMAAf8B
+        4AH4AQABfwEDAQcB+AE/AwAB/wHxAfwBAAF/AYMBjwH8AX8DAAH/AfsB/gEAAf8B4wHfAfwBfwMAA/8B
+        /gX/AwAJ/wMACf8DAAP/AYMD/wH4AT8DAAL/Af4BAAP/AeABDwMAAf8BAwH8AQABeAEAAQcBwAEHAwAB
+        /wE7AfgB/AE4AQABBwGPAcMDAAH/ATsB8QH+ATgBAAEHAR8B4wMAAf8BOwHxAQEBGAEAAQcBEAERAwAB
+        /wE7AfMBAQEYAQABBwEwAREDAAGDATgBAwEBAQgBAAEEATABEAMAAfsBPwHDAREBCAEAAQQBMQEQAwAB
+        +wE/AfEBEQEYAQABBwIRAwAB+wE/AfEBMQE4AQABBwITAwAB+wE/AfgB/gE4AQABBwGPAeMDAAH4AT8B
+        /AE4AXgBAAEHAcMBhwMAAv8B/gEAA/8B4AEPAwAD/wEBA/8B8AEfAwAJ/wMACf8DAAP/AfwBDwT/AwAB
+        wwL/AYABDwG/AT8C/wMAAcEC/wGAAQ8BvwE/Av8DAAHBAf8B/gEAAQ4BvAE/AQABAQMAAcAB/wH+AQAB
+        DgGsAR8BAAEBAwABwAF/Af4BAAEOAawBHwEAAQEDAAHgAT8B/gEAARoBrAEXAQABAQMAAfgBAQH+AQAB
+        +gGgARcBAAEBAwAB/AEAAf4BAAH6AaABFwEAAQEDAAH+AQABfgEAAfoBoAEXAQABAQMAAf8BAAF+AQAB
+        +gGsARcBAAEBAwAB/wEMAX8BAQH+AawBHwEAAQEDAAH/AQ4BfwEBAf4BrAEfAQABAQMAAf8BDwH/AQEB
+        /gG8AT8BAAEBAwAB/wEHAf8BAQH/Ab8BPwEAAQEDAAH/AYMB/wEBAf8BvwE/Av8DAAP/AQEB/wG/AT8C
+        /wMACf8DAAs=
+</value>
+  </data>
+  <data name="tabControl_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="tabControl_settings.Padding" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>324, 603</value>
+  </data>
+  <data name="tabControl_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Name" xml:space="preserve">
+    <value>tabControl_settings</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl_settings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Name" xml:space="preserve">
+    <value>groupBox_appearance</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.Parent" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_appearance.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Name" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Parent" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Name" xml:space="preserve">
+    <value>groupBox_system_speaker_test</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Parent" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Name" xml:space="preserve">
+    <value>panelSystemSpeakerWarnings</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Parent" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 558</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Parent" xml:space="preserve">
+    <value>general_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="groupBox_appearance.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="checkBoxClassicBleeperMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="checkBoxClassicBleeperMode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="checkBoxClassicBleeperMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 58</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="checkBoxClassicBleeperMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
@@ -145,9 +729,6 @@
   <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
     <value>Classic Bleeper mode</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
     <value>Enable or disable classic Bleeper mode</value>
   </data>
@@ -262,6 +843,102 @@
   <data name="groupBoxCreateMusicWithAI.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
+  <data name="&gt;&gt;buttonResetAPIKey.Name" xml:space="preserve">
+    <value>buttonResetAPIKey</value>
+  </data>
+  <data name="&gt;&gt;buttonResetAPIKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonResetAPIKey.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;buttonResetAPIKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateAPIKey.Name" xml:space="preserve">
+    <value>buttonUpdateAPIKey</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateAPIKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateAPIKey.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateAPIKey.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonShowHide.Name" xml:space="preserve">
+    <value>buttonShowHide</value>
+  </data>
+  <data name="&gt;&gt;buttonShowHide.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonShowHide.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;buttonShowHide.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKeyWarning.Name" xml:space="preserve">
+    <value>labelAPIKeyWarning</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKeyWarning.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKeyWarning.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKeyWarning.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKey.Name" xml:space="preserve">
+    <value>labelAPIKey</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKey.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;labelAPIKey.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBoxAPIKey.Name" xml:space="preserve">
+    <value>textBoxAPIKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxAPIKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxAPIKey.Parent" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;textBoxAPIKey.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 91</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 179</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Create Music With AI</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Name" xml:space="preserve">
+    <value>groupBoxCreateMusicWithAI</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Parent" xml:space="preserve">
+    <value>flowLayoutPanelGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCreateMusicWithAI.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="buttonResetAPIKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -270,284 +947,6 @@
   </data>
   <data name="buttonResetAPIKey.ImageIndex" type="System.Int32, mscorlib">
     <value>9</value>
-  </data>
-  <metadata name="imageList_settings.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>120, 21</value>
-  </metadata>
-  <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3D4AAAJNU0Z0AUkBTAIBAQ8B
-        AAEIAQYBCAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAUgDAAEBAQABIAYAAVH/
-        AM8AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewB
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAx0BKAHnAaoBJAH/AbkB
-        ZwEDAf8BwAFrAQMB/wHFAW8BAwH/AcYBbwEDAf8BxwFwAQMB/wHIAXABAwH/AccBcAEDAf8BxgFvAQMB
-        /wHDAW4BAwH/Ab4BagEDAf8BtQFlAQMB/wHnAakBIwH/WAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
-        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wgAAxsBJgHpAa4BJgH/AeoBrwEoAf8B
-        uQFnAQMB/wHAAWsBAwH/AcUBbwEDAf8BxgFvAQMB/wHHAXABAwH/AcgBcAEDAf8BxwFwAQMB/wHGAW8B
-        AwH/AcMBbgEDAf8BvgFqAQMB/wG1AWUBAwH/AekBrgEnAf8CZQFgAeNUAAGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BsQGsAVoB/wHLAcgBsgH/AdMB0QHKAf8BwwG+AZYB/wGoAaMB
-        OAH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wwAAaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGxAawBWgH/AcsByAGyAf8B0wHRAcoB/wHDAb4BlgH/AaQB
-        nwE9Af8BMgEiAeIB/wGIAYABRgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/CAACVAFSAagB6wGzASsB
-        /wHsAbYBLAH/CAAEAQMeASsMAAMlATcMAAHrAbUBLAH/AesBsgEqAf9UAAGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/Ac8BzQHJAf8B3wHdAdsB/wHmAcABbQH/AeUBqAEpAf8B4wHTAbUB/wHbAdkB
-        1wH/AbIBrgFjAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wwAAaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8BzwHNAckB/wHfAd0B2wH/AeYBwAFtAf8B5QGoASkB/wHjAdMBtQH/ATMB
-        JAHlAf8BiwGDAYsB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/CAACSAFHAYMB7QG5AS8B
-        /wJcAVkBwwQAAyQBNQGLAYIBeAH/AYkBfwF1Af8DOwFjBAADXgHSAYABdQFpAf8DgAH+BAIEAAHuAboB
-        MAH/Ae0BuAEuAf9UAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGyAa0BXQH/Ad8B3QHbAf8B6gG2ATkB
-        /wHDAZMBJwH/AW4BVwEmAf8B4QGiASAB/wHkAcEBfgH/AdkB1wHVAf8BowGdASAB/wGhAZsBGgH/AaEB
-        mwEaAf8BoQGbARoB/wwAAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AbIBrQFdAf8B3wHdAdsB/wHqAbYB
-        OQH/AcMBkwEnAf8BbgFXASYB/wFBASwB0wH/AZ4BgwGmAf8B2QHXAdUB/wGjAZ0BIAH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/GAADOwFiAY0BhAF6Af8BiwGCAXgB/wGJAX8BdQH/AYcBfQFyAf8BhAF6AW8B
-        /wGBAXcBawH/AYABdQFpAf8DBgEIYAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BwAG9AYsB/wHkAeIB
-        4QH/AewBtQEsAf8DMwH/AzAB/wFKAT8BKgH/AeUBqAEqAf8B4AHeAd0B/wGoAaIBNAH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/DAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BwAG9AYsB/wHkAeIB4QH/AewB
-        tQEsAf8CMgE4Af8BLwEgAeEB/wFDATUBcgH/AeUBqAEqAf8B4AHeAd0B/wGoAaIBNAH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/GAADOwFjAY4BhQF8Af8DgAH+AesC6gH/A/QB/wHeAdsB2QH/AYkBgAF1Af8B
-        gQF3AWsB/wMGAQhgAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGwAawBTAH/AeUB4wHiAf8B7QG5AS8B
-        /wM9Af8DOgH/AVsBTgEwAf8B5wGtATAB/wHiAeAB3wH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
-        mwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGwAawBTAH/AeUB4wHiAf8B7QG5AS8B/wEwASEB
-        4gH/ATcBMgFuAf8BWwFOATAB/wHnAa0BMAH/AeIB4AHfAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/xQAAwQBBQGRAYgBgAH/AZIBiwGCAf0D5AH/AcABnwF7Af8BkgFWARUB/wHoAeEB2gH/AvUB
-        9AH/AYQBegFvAf8DXAG+YAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wHJAccBkwH/Ae0B
-        wwFNAf8B3AGuATIB/wG1AZABMwH/AesBtwE7Af8B5gHPAZ0B/wGqAaUBNwH/AaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AckBxwGTAf8B
-        QQEvAdYB/wGbAXgBdwH/AbUBkAEzAf8B6wG3ATsB/wHmAc8BnQH/AaoBpQE3Af8BoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/xAAA00CkwGLAYMB/wGSAYoBgQH/AtYB1QH/AcYBqQGIAf8BngFbARAB
-        /wGYAVkBEgH/AZIBVQEUAf8D9AH/AY4BhAFAAf0BhAF6AW8B/wGBAXcBawH/XAABoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaYBoAEoAf8BzgG3AUsB/wHUAbABLQH/Ab8BswFUAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEB
-        mwEaAf8BoQGbARoB/wGdAZcBIAH/ATIBIwHhAf8BeQFvAXIB/wHOAbcBSwH/AdQBsAEtAf8BvwGzAVQB
-        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/xAAA1YBsAGUAYwB
-        hAH/AZMBiwGDAf8D1AH/AbsBkgFiAf8BowFfAQ4B/wGeAVsBEAH/AZgBWQESAf8D7wH/AZoBkgGKAf0B
-        hwF9AXIB/wGEAXoBbwH/XAABoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
-        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8MAAGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wE9AS4BzgH/AYABdgFVAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/xAAAykBPgN+AfwBlAGMAYQB/wGtAagBpAH/A9QB/wGmAWEBDwH/AaMB
-        XwEOAf8BuAGNAVwB/wPqAf8BiwGCAXgB/wGJAX8BdQH/A2kB6FwAAaEBmwEaAf8BoQGbARoB/wGhAZsB
-        GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
-        oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/DAABoQGbARoB/wGhAZsBGgH/AaEB
-        mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
-        /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8YAANhAc8BlAGMAYQB/wG/AbwB
-        ugH/A9QB/wPaAf8D3wH/A4AB/gGNAYQBegH/AzIBT2AAAdABdgEBAf8BzAFzAQEB/wHJAXEBAgH/AcYB
-        cAEDAf8BwgFtAQQB/wG/AWsBBAH/AbwBagEFAf8BuQFnAQYB/wG1AWUBBwH/AbMBYwEHAf8BrwFhAQgB
-        /wGsAV8BCQH/AbUBbgERAf8BuAF1ARUB/wGiAVkBCwH/DAAB0AF2AQEB/wHMAXMBAQH/AckBcQECAf8B
-        xgFwAQMB/wHCAW0BBAH/Ab8BawEEAf8BvAFqAQUB/wG5AWcBBgH/AbUBZQEHAf8BswFjAQcB/wGvAWEB
-        CAH/AawBXwEJAf8BtQFuAREB/wG4AXUBFQH/AaIBWQELAf8YAAMxAU0BlQGNAYUB/wGUAYwBhAH/AZQB
-        jAGDAf8DgAH+AZEBiAGAAf8BjwGHAX4B/wGOAYUBfAH/ZAAB0AF2AQAB/wHNAXQBAQH/AckBcgECAf8B
-        xwFwAQMB/wHDAW4BAwH/AcABawEEAf8BvQFqAQUB/wG6AWgBBgH/AbYBZQEGAf8BswFkAQcB/wGwAWIB
-        CAH/AawBXwEJAf8BqgFeAQkB/wGmAVwBCgH/AWUCXQHsDAAB0AF2AQAB/wHNAXQBAQH/AckBcgECAf8B
-        xwFwAQMB/wHDAW4BAwH/AcABawEEAf8BvQFqAQUB/wG6AWgBBgH/AbYBZQEGAf8BswFkAQcB/wGwAWIB
-        CAH/AawBXwEJAf8BqgFeAQkB/wGmAVwBCgH/AWUCXQHsGAADSQGIAZUBjgGGAf8BlQGNAYUB/wGUAYwB
-        hAH/AZMBiwGDAf8BkgGKAYEB/wGRAYgBgAH/AY8BhwF+Af8DEwEZ/wABAAMrAUEDXgHSAwgBCgQAAyYB
-        OANWAbADDAEP/wD/AP8A/wAgAAMrAUICWQFXAbwBawFnAVoB8gFfAV4BIQH7AWECXQHPAz4BagMHAQlg
-        AANbAeQDTwH/A08B/wNOAf8DTgH/A00B/wNNAf8DTAH/A0sB/wNLAf8DSgH/A0kB/wNJAf8DSAH/A0gB
-        /wNHAf8DSQGGCAABWwJhAd4BAAHBAfoB/wEAAbQB9wH/AQABpwH0Af8BXQJfAckDGgEkPAADgAH+AcYB
-        eQERAf8BtQFXAQAB/wG/AV8BAAH/AcQBYwEAAf8BxgFlAQAB/wHGAWQBAAH/AcMBYgEAAf8DSQGHHAAD
-        UgGgAlwBWgHEDAADNQFVAcsBeAEAAf8ByAF2AQIB/wJwAWUB8RwAA2AB8wEXAakB3QH/AQkBvQH+Af8B
-        CQG9Af4B/wEJAbwB/gH/AQgBvAH+Af8BCAG7Af4B/wEIAbsB/gH/AQcBuwH+Af8BBwG6Af4B/wEHAboB
-        /gH/AQYBuQH+Af8BBgG5Af4B/wEGAbgB/gH/AQYBuAH+Af8BOAFkAXUB/wNOAZYIAAMHAQkBAAHBAfoB
-        /wEAAbQB9wH/AQABpwH0Af8BAAGbAfEB/wEBAY4B7gH/AU0CfQH6AUACQQFwLAADBAEFAb4BqQFAAf0B
-        0AGHARYB/wG7AVsBAAH/AmMBWgHpA0QBewI5ATgBXQJRAVABnQHPAWwBAAH/Ac0BawEAAf8BygFoAQAB
-        /wJaAVcBwhQAA00BkgHpAa0BJgH/AegBrQEmAf8CWQFXAbwIAAM1AVUBywF4AQAB/wHGAXMBAAH/Ab8B
-        bQEAAf8B6gG1AS0B/wI7AToBYhQAAysBQQFNAVsBYAH/AQsBwAH+Af8BCwHAAf4B/wEKAb8B/gH/AQoB
-        vwH+Af8BCgG+Af4B/wEXAYABpgH/ASkBLQEvAf8BCwGyAe8B/wEJAbwB/gH/AQgBvAH+Af8BCAG8Af4B
-        /wEIAbsB/gH/AQoBtQH1Af8DgAH+EAADPgFqAQABtAH3Af8BAAGnAfQB/wEAAZsB8QH/AQEBjgHuAf8B
-        AQGCAesB/wEBAXUB6AH/AUECQgFzJAADAwEEAekBrwEnAf8B6QGtAScB/wF8AlwB+AMbASYUAAJQAU8B
-        mwHQAW4BAAH/AcwBagEAAf8DSQGHDAACTQFMAZEB6QGvAScB/wHpAa4BJwH/AekBrgEnAf8B6QGuAScB
-        /wJcAVoBxAgAAwYBCAM6AWACagFeAe0BuAFmAQAB/wHuAboBMAH/AyMBMhQAA10B3AEmAZkBvwH/AQwB
-        wgH+Af8BDAHBAf4B/wELAcEB/gH/AQsBwAH+Af8BFQGXAcMB/wEoAUkBVAH/AQsBuwH4Af8BCgG/Af4B
-        /wEKAb4B/gH/AQkBvgH+Af8BCQG9Af4B/wFMAU4BTwH/AzIBTxUAAbQB9wH/AQABpwH0Af8BAAGbAfEB
-        /wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAADRAF4AeoBsAEpAf8BzQGBARQB/wMLAQ4c
-        AANPAZkB0QFuAQAB/wHLAWkBAAH/AwcBCRAAAeoBsAEoAf8B6QGvASgB/xwAAbgBZQEAAf8B7QG4AS8B
-        /wJrAVoB8hQAAxYBHgNWAf8BDwHEAfwB/wEOAcQB/gH/AQ0BxAH+Af8BDQHDAf4B/wERAbQB6QH/ASEB
-        dgGSAf8BDAHCAf4B/wEMAcEB/gH/AQwBwQH+Af8BCwHAAf4B/wEgAZ4BygH/A04B/xgAAVcCWgHCAQAB
-        pwH0Af8BAAGbAfEB/wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAADgAH+AesBsgEqAf8D
-        SwGMJAAB0gFvAQAB/wHOAWwBAAH/Az4BahAAAeoBsQEpAf8B6gGxASkB/xwAAwkBDAHsAbcBLQH/Ae0B
-        twEuAf8YAANZAcMBPAGBAZYB/wEPAccB/gH/AQ8BxwH+Af8BDwHGAf4B/wEbAZwBwwH/AzcB/wEOAcUB
-        /gH/AQ4BxAH+Af8BDQHEAf4B/wENAcMB/gH/AVABUgFTAf8DDwEUGAADKQE9AQABpwH0Af8BAAGbAfEB
-        /wEBAY4B7gH/AQEBggHrAf8BAQF1AegB/wEBAWkB5QH/JAAB6wG0ASsB/wHrAbMBKwH/Ax4BKyQAAlEB
-        UAGdAdABbQEAAf8CXwFbAdAQAAHrAbIBKgH/AesBsgEqAf8gAAHsAbYBLQH/AewBtgEtAf8cAANYAfwB
-        FgHAAfIB/wEQAcgB/gH/ARAByAH+Af8BHwGaAb4B/wM7Af8BDwHHAf4B/wEPAcYB/gH/AQ8BxgH+Af8B
-        NwGAAZcB/wNXAcIgAAFZAmcB7wEAAZsB8QH/AQEBjgHuAf8BAQGCAesB/wEBAXUB6AH/AV4CagHtAwQB
-        BSAAAewBtgEtAf8B7AG1ASwB/wMFAQYkAAM5AV4B0AFuAQAB/wF9Ak0B+hAAAesBtAErAf8B6wG0ASsB
-        /yAAAesBtAErAf8B6wG0ASwB/xwAA0kBhwFNAWwBdQH/ARIBywL/ARIBywL/ASQBlQG1Af8DPgH/ARIB
-        yAH8Af8BEQHJAv8BEQHJAv8DVAH/BAEgAAMGAQcBWQJcAb4BAQGOAe4B/wEBAYIB6wH/AUABjAHZAf8B
-        wgG3Aa4B/wG5AbABpwH9AzIBTxwAAe0BtwEuAf8B7AG3AS0B/wMOARJAAAHsAbYBLAH/AewBtQEsAf8D
-        BAEFHAAB6wGzASoB/wHrAbMBKwH/IAADXgH7AR8BvAHlAf8BFAHOAv8BKgGOAakB/wNBAf8BFQHFAfUB
-        /wETAcwC/wFPAWUBawH/A0oBiTQAA2wB6wHJAb4BtQH/AcIBtwGuAf8BugGwAagB/wNLAY0YAAHtAbkB
-        LwH/Ae0BuAEuAf8DMwFSQAAB7AG3AS0B/wHsAbYBLQH/AjEBMAFMHAAB6gGxASkB/wHqAbIBKgH/IAAD
-        LQFEA1wB/wEWAdAB/gH/ASMBqAHKAf8BMgFxAYAB/wEVAcoB+QH/ASIBtwHfAf8DWAH/AwIBAzgAAr4B
-        vAH9AckBvgG1Af8BwgG3Aa4B/wG6AbABqAH/AWUBYAFlAeMUAANWAbAB7gG6AS8B/wOAAf5AAAHqAbQB
-        LAH/Ae0BuAEuAf8CZQFgAeMcAAHqAbABKAH/AeoBsAEpAf8kAANeAf8BNQGhAboB/wEXAdIC/wEXAdIC
-        /wEWAdEC/wFaAl4B/wMtAUU8AAMcAScB0QHGAbwB/wHJAb4BtQH/AW0BYQHNAf8BPQEuAekB/wJNAX0B
-        +gMUARsMAAMQARUB7gG7ATEB/wHuAboBMAH/Al0BWgHHFAACYwFIAfYDVgGwAxoBJBwAAxIBFwHuAbkB
-        LwH/AcYBewENAf8CXwFbAdADBgEIDAACXwFdAckB6QGuAScB/wHpAa4BJwH/AekBrwEnAf8B6QGvASgB
-        /wHpAa8BKAH/HAADCQEMA18B/wEZAdQB/gH/ARgB1QL/ATUBoQG6Af8DXwHlRAADPgFpAXwBcAHUAf8B
-        SwE/Ae4B/wFEATcB7AH/AlsBXgHNFAACPgE9AWkB7wG8ATEB/wHuAbsBMAH/A4AB/gMzAVIDDwETBAID
-        GAEhAlcBVgG1AewBtgEtAf8B7AG1ASwB/wNOAZYcAANOAZQB5QGtASgB/wG9AWsBAAH/AcQBcQEAAf8B
-        ygF3AQAB/wJhAVwB1ggAAmMBXQHfAekBrQEmAf8B6QGuAScB/wHpAa4BJwH/AxwBJyAAA1gBuAFMAYIB
-        jgH/ARoB1wL/AV0CYQH/AyEBMEgAA14B0gFSAUYB8QH/AlsBXgHNHAACPgE9AWkB7wG9ATIB/wHuAbwB
-        MQH/Ae4BuwEwAf8B7gG6ATAB/wHtAbkBLwH/Ae0BuAEvAf8B7QG4AS4B/wHtAbcBLgH/AewBtgEtAf8D
-        EgEXIAADMwFQAeYBrQEpAf8BxAFxAQAB/wHKAXcBAAH/Ac4BewEAAf8MAAJjAV0B3wHoAawBJQH/AwMB
-        BCgAA2EB/wFNAYMBjgH/A18BzlAAA1IBoCQAAxEBFgNWAbAB7wG9ATIB/wHuAbwBMQH/Ae4BuwExAf8B
-        7gG6ATAB/wJqAUEB+QNFAXwB7QG4AS4B/ywAAyoBPwMzAVEDKwFBEAADEQEWLAADRAF5A2MB/wMQARWY
-        AAM+AWr/AP8A/wBHAAMWAR0DLgFIAzQBUwMoATwDBwEJfAADFgEdAy4BSAM0AVMDKAE8AwcBCXQAAxwB
-        JwGJAX8BdQH/AYcBfQFyAf8BhQF7AXAB/wGDAXkBbQH/AYEBdgFqAf8BfwF1AWkB/wJnAWYB6gQBbAAD
-        HAEnAYkBfwF1Af8BhwF9AXIB/wGFAXsBcAH/AYMBeQFtAf8BgQF2AWoB/wF/AXUBaQH/AmcBZgHqBAEw
-        AAMXAR8BvgEwAZIB/wG+ATABkgH/Ab0BMAGRAf8BvQEwAZEB/wFmAWABZgHgIAADTQGTAYwBgwF5Af8C
-        fQF2AfoDMQFNAwwBDwQCAxgBIQNGAX4BfwF1AWkB/wNfAfsDGwEmEAADUgGkAe0B7AHrAf8B7QHsAesB
-        /wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B
-        7AHrAf8B7QHsAesB/wHtAewB6wH/Ae0B7AHrAf8B7QHsAesB/wHtAewB6wH/FAADTQGTAYwBgwF5Af8C
-        fQF2AfoDMQFNAwwBDwQCAxgBIQNGAX4BfwF1AWkB/wNfAfsDGwEmLAADHgErAb4BMAGSAf8MAAG9ATAB
-        kQH/HAADOQFdAY4BhgF8Af8DUgGgGAAEAQNlAewBfQFxAWUB/AQBDAADVQGqAekB5wHlAf8B6QHnAeUB
-        /wHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB
-        5wHlAf8B6QHnAeUB/wHpAecB5QH/AekB5wHlAf8B6QHnAeUB/wHpAecB5QH/EAADOQFdAY4BhgF8Af8D
-        UgGgGAAEAQNlAewBfQFxAWUB/AQBKAADHgErAb4BMAGSAf8MAAG9ATABkQH/GAADAwEEAZABiAF/Af8D
-        XwHJIAAEAQF/AXUBaQH/AmwBZAHrDAADVQGqAeUB4wHgAf8BfQJ8Af8BcwJyAf8BwgHBAb8B/wNdAf8B
-        5QHjAeAB/wNdAf8B5QHjAeAB/wHlAeMB4AH/AcIBwQG/Af8DXQH/AeUB4wHgAf8DXQH/AeUB4wHgAf8B
-        5QHjAeAB/wwAAwMBBAGQAYgBfwH/A18BySAABAEBfwF1AWkB/wJsAWQB6ygAAx4BKwG+ATABkgH/DAAB
-        vgEwAZIB/xgAAzwBZQGSAYoBgQH/Aw8BFAQAAY4BhgF9Af8DEgEXA0wBjgGLAYIBeAH/AwQBBQNcAcEB
-        hQF7AXAB/wQAA0YCfwF1AWkB/wMIAQoIAANVAaoB4AHeAdsB/wNXAf8DVwH/AbMBsQGvAf8DVwH/AeAB
-        3gHbAf8DVwH/AeAB3gHbAf8B4AHeAdsB/wGzAbEBrwH/A1cB/wHgAd4B2wH/A1cB/wHgAd4B2wH/AeAB
-        3gHbAf8MAAM8AWUBkgGKAYEB/wMPARQEAAGOAYYBfQH/AxIBFwNMAY4BiwGCAXgB/wMEAQUDXAHBAYUB
-        ewFwAf8EAANGAn8BdQFpAf8DCAEKJAADHgErAb4BMAGSAf8MAAG+ATABkgH/GAADYQHPAZMBigGCAf8I
-        AAGPAYcBfgH/AxIBFwGNAYQBewH/A2QB2wMzAVADXAHBAYcBfQFyAf8EAAMYASEBgQF3AWsB/wMoATwI
-        AANVAaoB3AHZAdUB/wNNAf8DTQH/AawBqgGoAf8DTQH/AdwB2QHVAf8DTQH/AdwB2QHVAf8B3AHZAdUB
-        /wGsAaoBqAH/A00B/wHcAdkB1QH/A00B/wHcAdkB1QH/AdwB2QHVAf8MAANhAc8BkwGKAYIB/wgAAY8B
-        hwF+Af8DEgEXAY0BhAF7Af8DZAHbAzMBUANcAcEBhwF9AXIB/wQAAxgBIQGBAXcBawH/AygBPAgAAV8B
-        MgFfAfsBvwEyAZMB/wG/ATEBkwH/Ab8BMQGTAf8BvQFAAZIB/QgAAx4BKwG+ATEBkgH/DAABvgEwAZIB
-        /wG+ATABkgH/Ab4BMAGSAf8BvQEwAZEB/wFSAVEBUgGhA2UB4wGVAY0BhQH/AZQBjQGFAf8BlAGMAYQB
-        /wgAAZEBiAF/Af8DKwFBAY4BhgF9Af8DBgEHA2IB4QNcAcEBiQGAAXUB/wQABAIBgwF5AW0B/wGBAXcB
-        awH/AX8BdQFpAf8EAANVAaoB2AHVAdAB/wNCAf8DQgH/AaYBpAGhAf8DQgH/AdgB1QHQAf8DQgH/AdgB
-        1QHQAf8B2AHVAdAB/wGmAaQBoQH/A0IB/wHYAdUB0AH/A0IB/wHYAdUB0AH/AdgB1QHQAf8EAANlAeMB
-        lQGNAYUB/wGUAY0BhQH/AZQBjAGEAf8IAAGRAYgBfwH/AysBQQGOAYYBfQH/AwYBBwNiAeEDXAHBAYkB
-        gAF1Af8EAAQCAYMBeQFtAf8BgQF3AWsB/wF/AXUBaQH/FAABvwExAZMB/wgAAx4BKwG+ATEBkgH/IAAD
-        EwEZAzUBVQNsAesBlAGNAYUB/wgAAZIBigGBAf8DXwHLA2ABzgQAA2oB+QNbAcABiwGCAXgB/wQAAwwB
-        DwGFAXwBcAH/A0gBgwMzAVIEAANVAaoBhQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwB
-        cAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8BhQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8B
-        hQF8AXAB/wGFAXwBcAH/AYUBfAFwAf8EAAMTARkDNQFVA2wB6wGUAY0BhQH/CAABkgGKAYEB/wNfAcsD
-        YAHOBAADagH5A1sBwAGLAYIBeAH/BAADDAEPAYUBfAFwAf8DSAGDAzMBUhQAAb8BMQGTAf8IAAMeASsB
-        vgExAZIB/ygAA00BkwGVAY0BhQH/BAIEAAGTAYsBggH/A2oB+QMzAVIEAANWAa4CfQF6AfoBjAGDAXkB
-        /wQAAzEBTQGHAX0BcgH/AxYBHQgAA1UBqgGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgB
-        fwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB/wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB
-        /wGIAX8BdAH/AYgBfwF0Af8BiAF/AXQB/wwAA00BkwGVAY0BhQH/BAIEAAGTAYsBggH/A2oB+QMzAVIE
-        AANWAa4CfQF6AfoBjAGDAXkB/wQAAzEBTQGHAX0BcgH/AxYBHRgAAb8BMgGTAf8IAAMeASsBvgExAZIB
-        /ygAAxsBJgGVAY4BhgH/AzwBZQQAAZQBjAGEAf8BkwGLAYIB/wgAAxMBGgGOAYYBfQH/AY0BhAF7Af8E
-        AAJ9AXYB+gGJAYABdQH/DAADVQGqAYsBggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB
-        /wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsBggF4Af8BiwGCAXgB/wGLAYIBeAH/AYsB
-        ggF4Af8BiwGCAXgB/wGLAYIBeAH/DAADGwEmAZUBjgGGAf8DPAFlBAABlAGMAYQB/wGTAYsBggH/CAAD
-        EwEaAY4BhgF9Af8BjQGEAXsB/wQAAn0BdgH6AYkBgAF1Af8cAAG/ATIBkwH/CAADHgErAb4BMQGSAf8s
-        AANlAd0BlQGOAYYB/wMcASccAANSAaEBjAGDAXkB/wMbASYMAANVAaoBjgGGAXwB/wGOAYYBfAH/AY4B
-        hgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB
-        /wGOAYYBfAH/AY4BhgF8Af8BjgGGAXwB/wGOAYYBfAH/AY4BhgF8Af8QAANlAd0BlQGOAYYB/wMcAScc
-        AANSAaEBjAGDAXkB/wMbASYcAAOAAf4BvwEyAZMB/wG/ATIBkwH/Ab8BMQGTAf8BbwFgAW8B8zAAA2wB
-        6wGVAY4BhgH/AzwBZQQCDAADDwEUA18ByQGOAYYBfQH/A00BkxAAA1IBpAGQAYkBgAH/AZABiQGAAf8B
-        kAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/wGQAYkB
-        gAH/AZABiQGAAf8BkAGJAYAB/wGQAYkBgAH/AZABiQGAAf8BkAGJAYAB/xQAA2wB6wGVAY4BhgH/AzwB
-        ZQQCDAADDwEUA18ByQGOAYYBfQH/A00Bk2gAA2IB3AGVAY4BhgH/AZUBjQGFAf8BlAGNAYUB/wGUAYwB
-        hAH/AZMBiwGCAf8BkgGKAYEB/wGRAYgBfwH/AzkBXWwAA2IB3AGVAY4BhgH/AZUBjQGFAf8BlAGNAYUB
-        /wGUAYwBhAH/AZMBiwGCAf8BkgGKAYEB/wGRAYgBfwH/AzkBXXAAAxsBJgNNAZEDZQHnA34B/ANhAc8D
-        PAFkAwMBBHQAAxsBJgNNAZEDZQHnA34B/ANhAc8DPAFkAwMBBP8A/wDOAAFbAV0BWwHFAU0BkAEQAf8B
-        SgGMAQ0B/wFHAYgBDAH/AV0BYQFdAdQEAZgAAwcBCQNVAawDbwH3A00BkUwAA1UBqgFzAW4BZwH/AXMB
-        bgFnAf8BcwFuAWcB/wJVAVMBqgFTAZgBFQH/AVABlAETAf8BVQGVARsB/wFKAYwBDQH/AUcBiAEMAf8B
-        XQFhAV0B1BQAAdQBeAEAAf8YAAHUAXgBAAH/AzUBVWAAA2MB9gG6AbIBqgH/AfIC8QH/AbgBsAGoAf8D
-        ZwHvSAADVQGqAWQBXwFZAf8BZAFfAVkB/wFkAV8BWQH/AVoBoAEaAf8BVwGcARcB/wHOAeIBvAH/Af0B
-        /gH8Af8BTQGQARAB/wFKAYwBDQH/AUcBiAEMAf8UAAHUAXgBAAH/GAAB1AF4AQAB/wM1AVVgAAGzAaoB
-        oQH/A94B/wGbAV4BGgH/AvIB8QH/AbMBqgGhAf9AAANAAW8BiQGCAXsB/wGJAYIBewH/AYkBggF7Af8B
-        iQGCAXsB/wGJAYIBewH/AV0BpAEcAf8BfgG1AUsB/wGYAcIBcQH/AWABoAEmAf8B/AH9AfwB/wFXAZYB
-        HQH/AUoBjAENAf8MAAJVAVMBqgQAAdQBeAEAAf8QAAM2AVcDNQFWAdQBeAEAAf8DNQFVGAAB3wHBAV0B
-        /wHeAcABWwH/AdwBvgFYAf8B2gG8AVUB/wHZAboBUwH/AdcBuAFRAf8B1QG2AU4B/wHUAbUBSwH/AdIB
-        swFJAf8B0QGxAUYB/wHQAbABRQH/AdABsAFFAf8B0AGwAUUB/wHQAbABRQH/AmoBRQH5DAABswGqAaEB
-        /wLRAdAB/wG6AZIBYgH/AeAB3gHcAf8BswGqAaEB/wNhAc88AAGKAYMBfQH/AYoBgwF9Af8BigGDAX0B
-        /wGKAYMBfQH/AYoBgwF9Af8BigGDAX0B/wFgAagBHgH/AV0BpAEcAf8BWgGgARoB/wFXAZwBFwH/AVQB
-        mQEWAf8BzwHiAb4B/wFNAZABEAH/DAAB1AF4AQAB/wQAAdQBeAEAAf8EAAMuAUcIAAJVAVMBqgJVAVMB
-        qgHUAXgBAAH/AzUBVQM+AWsUAAHhAcQBYQH/AeABwgFeAf8B3gHAAVwB/wHdAb4BWQH/AdsBvAFXAf8B
-        2gG7AVQB/wHYAbkBUgH/AdYBtwFPAf8B1QG1AU0B/wHTAbMBSgH/AdEBsQFHAf8B0AGwAUUB/wHQAbAB
-        RQH/AdABsAFFAf8B0AGwAUUB/wwAA0sBjQGzAaoBoQH/AbMBqgGhAf8BswGqAaEB/wGyAakBoAH/Aa8B
-        pwGeAf8DZAHbOAABjQGGAX8B/wGNAYYBfwH/AY0BhgF/Af8BjQGGAX8B/wGNAYYBfwH/AY0BhgF/Af8B
-        dgGaAUsB/wFgAagBHgH/AV0BpAEcAf8BWgGgARoB/wFXAZwBFwH/AVMBmAEVAf8BWwFdAVsBxQwAAdQB
-        eAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wgAAlUBUwGqAlUBUwGqAdQBeAEAAf8DNQFVAdQBeAEAAf8U
-        AAHkAccBZQH/AeIBxQFiAf8B1AF4AQAB/wHUAXgBAAH/AdQBeAEAAf8B1AF4AQAB/wHUAXgBAAH/AdQB
-        eAEAAf8B1AF4AQAB/wHWAbYBTgH/AdQBswFLAf8BhQFQARgB/wHRAbEBRgH/AdABsAFFAf8B0AGwAUUB
-        /xAAAx8BLANOAZUBsgGpAaAB/wGvAacBngH/AasBowGaAf8BpgGeAZUB/wNkAds0AAGPAYgBgQH/AY8B
-        iAGBAf8BjwGIAYEB/wGPAYgBgQH/AY8BiAGBAf8BjwGIAYEB/wGPAYgBgAH/AXcBnAFMAf8BYAGoAR4B
-        /wFdAaQBHAH/AVoBoAEaAf8CVQFTAaoIAAF8AXgBXAH4BAAB1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgB
-        AAH/CAACVQFTAaoCVQFTAaoB1AF4AQAB/wM1AVUB1AF4AQAB/wQAAxoBJAwAAeYByQFoAf8B5QHIAWYB
-        /wHeAawBQgH/Ad0BqwFBAf8B3AGpAT8B/wHbAagBPgH/AdoBpwE8Af8B2QGmAToB/wHYAaUBOAH/AdgB
-        uQFRAf8BwQGbAUAB/wHBAZsBPwH/AYoBVgEbAf8B0gGyAUcB/wHQAbABRQH/GAADSwGKAasBowGaAf8B
-        pgGeAZUB/wGbAZQBjAH/AY8BiQGCAf8DYgHXA2EB2QNqAfkDVgGwAxsBJSAAAZEBigGCAf8BkQGKAYIB
-        /wGRAYoBggH/AZEBigGCAf8BkQGKAYIB/wGRAYoBggH/AZEBigGCAf8BkQGKAYIB/wGRAYoBggH/FAAB
-        1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wMuAUgCYQFcAdYCVQFTAaoCVQFTAaoB
-        1AF4AQAB/wM1AVUB1AF4AQAB/wQAAdQBeAEAAf8MAAHoAcwBbAH/AecBygFpAf8B5QHIAWcB/wHkAcYB
-        ZAH/AeIBxAFiAf8B4QHDAV8B/wHfAcEBXQH/Ad0BvwFaAf8B3AG9AVgB/wHaAbsBVQH/AdgBuQFSAf8B
-        1wG4AVAB/wHIAaQBRQH/AdMBtAFLAf8B0gGyAUgB/xwAA00BkgGbAZQBjAH/AY8BiQGCAf8BqAGgAZcB
-        /wGmAZ4BlgH/AaQBnQGVAf8BowGbAZMB/wGhAZkBkQH/AZ8BmAGQAf8DPAFmHAABkwGMAYQB/wGTAYwB
-        hAH/AZMBjAGEAf8BkwGMAYQB/wGTAYwBhAH/AZMBjAGEAf8BkwGMAYQB/wGTAYwBhAH/AZMBjAGEAf8U
-        AAHUAXgBAAH/BAAB1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/AzUBVQHUAXgBAAH/AlUBUwGqAlUB
-        UwGqAdQBeAEAAf8DNQFVAdQBeAEAAf8EAAHUAXgBAAH/DAAB6wHPAXAB/wHpAc0BbQH/AecBywFqAf8B
-        5gHJAWgB/wHkAccBZgH/AeMBxQFjAf8B4QHEAWEB/wHgAcIBXgH/Ad4BwAFbAf8B3QG+AVkB/wHbAbwB
-        VgH/AdkBugFTAf8B2AG5AVEB/wHWAbcBTwH/AdQBtQFMAf8gAANLAYoBnAGWAY0B/wGpAaEBmQH/AagB
-        oAGXAf8BpgGeAZYB/wGkAZ0BlQH/AaMBmwGTAf8BoQGZAZEB/wGfAZgBkAH/AxsBJRgAAZUBjgGHAf8B
-        lQGOAYcB/wGVAY4BhwH/AZUBjgGHAf8BlQGOAYcB/wGVAY4BhwH/AZUBjgGHAf8BlQGOAYcB/wGVAY4B
-        hwH/FAAB1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/BAAB1AF4AQAB/wM1AVUB1AF4AQAB/wJVAVMB
-        qgJVAVMBqgHUAXgBAAH/AzUBVQHUAXgBAAH/BAAB1AF4AQAB/wwAAe0B0QFzAf8B7AHQAXEB/wHUAXgB
-        AAH/AdQBeAEAAf8B1AF4AQAB/wHUAXgBAAH/AdQBeAEAAf8B1AF4AQAB/wHUAXgBAAH/Ad8BwQFcAf8B
-        tgGOAT0B/wGFAU8BGAH/AccBowFHAf8B2QG6AVIB/wHXAbgBUAH/JAABrQGkAZwB/wGrAaMBmgH/AakB
-        oQGZAf8BqAGgAZcB/wNoAfADXwHYAaMBmwGTAf8BoQGZAZEB/wNWAa4YAANlAeIBlwGQAYgB/wGXAZAB
-        iAH/AZcBkAGIAf8BlwGQAYgB/wGXAZABiAH/AZcBkAGIAf8BlwGQAYgB/wNJAYYUAAHUAXgBAAH/BAAB
-        1AF4AQAB/wQAAdQBeAEAAf8EAAHUAXgBAAH/CAACVQFTAaoCVQFTAaoB1AF4AQAB/wM1AVUB1AF4AQAB
-        /wQAAloBWAG3DAAB7wHUAXcB/wHtAdIBdQH/AewB0AFyAf8B6gHOAW8B/wHpAcwBbQH/AecBywFrAf8B
-        5gHJAWgB/wHkAccBZQH/AeMBxQFjAf8B4QHDAWAB/wHfAcABXAH/Ad0BvwFaAf8BiwFXAR0B/wHZAboB
-        VAH/AdkBugFUAf8kAAGvAaYBnQH/Aa0BpAGcAf8BqwGjAZoB/wNfAcsIAAMdASkBowGbAZMB/wNrAfIc
-        AAPMAf8DzAH/A8wB/wPMAf8DzAH/A8wB/wPMAf8gAAHUAXgBAAH/BAAB1AF4AQAB/wQAAdQBeAEAAf8I
-        AAJVAVMBqgJVAVMBqgHUAXgBAAH/AzUBVQHUAXgBAAH/FAAB8gHXAXsB/wHwAdUBeAH/Ae4B0wF1Af8B
-        7QHRAXQB/wHrAc8BcQH/AekBzQFuAf8B6AHMAWwB/wHmAcoBaQH/AeUByAFmAf8B4wHGAWQB/wHiAcQB
-        YQH/AeABwgFeAf8B3wHBAV0B/wHdAb8BWgH/AdsBvQFXAf8kAAGwAacBngH/Aa8BpgGdAf8BrQGkAZwB
-        /wMzAVIMAAMdASkDXwHTHAADzAH/A8wB/wPMAf8DzAH/A8wB/wPMAf8DzAH/IAAB1AF4AQAB/wQAAdQB
-        eAEAAf8EAAJjAVsB5AgAAlUBUwGqAlUBUwGqAdQBeAEAAf8DNQFVAmMBSAH2FAAB8wHYAX0B/wHzAdgB
-        fAH/AfEB1gF6Af8B7wHUAXcB/wHuAdIBdAH/AewB0AFyAf8B6gHOAW8B/wHpAc0BbQH/AecBywFqAf8B
-        5QHJAWcB/wHkAccBZQH/AeIBxQFjAf8B4QHDAWAB/wHfAcIBXQH/Ad4BwAFbAf8kAANjAekBsAGnAZ4B
-        /wGvAaYBnQH/A1YBsDAAA8wB/wNmAf8DiAH/A8wB/wNmAf8DZgH/A8wB/yAAAdQBeAEAAf8EAAHUAXgB
-        AAH/EAACUQFQAZ0CUQFQAZ0B1AF4AQAB/wM1AVUYAAHQAXYBAAH/AcwBcwEBAf8ByQFxAQIB/wHGAXAB
-        AwH/AcMBbQEEAf8BvwFrAQQB/wG8AWoBBQH/AbkBZwEGAf8BtgFlAQcB/wGzAWQBBwH/Aa8BYQEIAf8B
-        rAFfAQkB/wGpAV0BCQH/AaUBWwEKAf8BogFZAQsB/yQAAxMBGgGyAakBoAH/AbABpwGeAf8BrwGmAZ0B
-        /wNGAX0sAAPMAf8DzAH/A8wB/wPMAf8DzAH/A8wB/wPMAf8oAAHUAXgBAAH/GAAB1AF4AQAB/wM1AVUY
-        AAJlAV0B7AHNAXQBAQH/AcoBcgECAf8BxwFwAQMB/wHDAW4BAwH/AcABbAEEAf8BvQFqAQUB/wG6AWgB
-        BgH/AbYBZgEGAf8BswFkAQcB/wGwAWIBCAH/Aa0BXwEJAf8BqgFeAQkB/wGmAVwBCgH/A0UBfCgAAxUB
-        HANpAegBsAGnAZ4B/wGvAaYBnQH/Az4BaigAA8wB/wPMAf8DzAH/A8wB/wPMAf8DzAH/A8wB/ygAAdQB
-        eAEAAf8YAAHUAXgBAAH/AzUBVbgAA1UBqgNVAaoDVQGqA1UBqgNVAaoDVQGqA0cBgigAAlEBUAGdGAAC
-        SAFHAYMDHgEr/wB5AAFCAU0BPgcAAT4DAAEoAwABSAMAAUgDAAEBAQABAQUAAWABAxYAA/8BAAb/AfwF
-        AAT/Af4BAAEcBQABwAEAAXABAAEcAQABDAUAAcABAAFwAQABGAEAAQQFAAHAAQABcAEAARgBzgHkBQAB
-        wAEAAXABAAEYAYQBJAUAAcABAAFwAQABHwGAATwFAAHAAQABcAEAAR8BgAE8BQABwAEAAXABAAEfAQAB
-        PAUAAcABAAFwAQABHgEAARwFAAHAAQABcAEAAR4BAAEcBQABwAEAAXABAAEeAQABHAUAAcABAAFwAQAB
-        HwGAATwFAAHAAQABcAEAAR8BgAF8BQABwAEAAXABAAEfAYABPAUABf8BxAF8BQAG/wH8BQAG/wH8BQAJ
-        /wMAA/8BAQL/Af4FAAHAAf8B/gEAAf4BcAH+BQABwAE/AfgBAAF8ATABPgEAAQEDAAHgAR8B8AF8ATgB
-        GAEfAQABAQMAAfABHwHwAf4BHgF/AR8BAAEDAwAB8AEfAfEB/wEeAX8BHwGAAQMDAAHwAR8B8QH/AR4B
-        fwGfAcABBwMAAfgBDwHxAf8BHgF/AZ8BwAEHAwAB+AEHAfEB/wH+AT8BnwHgAQ8DAAH/AYMB8QH/Af4B
-        PwGfAeABDwMAAf8BwQHxAf8B/gE/AZ8B8AEfAwAB/wHAAXAB+AH+AQ4BBwHwAT8DAAH/AeAB+AEAAX8B
-        AwEHAfgBPwMAAf8B8QH8AQABfwGDAY8B/AF/AwAB/wH7Af4BAAH/AeMB3wH8AX8DAAP/Af4F/wMACf8D
-        AAn/AwAD/wGDA/8B+AE/AwAC/wH+AQAD/wHgAQ8DAAH/AQMB/AEAAXgBAAEHAcABBwMAAf8BOwH4AfwB
-        OAEAAQcBjwHDAwAB/wE7AfEB/gE4AQABBwEfAeMDAAH/ATsB8QEBARgBAAEHARABEQMAAf8BOwHzAQEB
-        GAEAAQcBMAERAwABgwE4AQMBAQEIAQABBAEwARADAAH7AT8BwwERAQgBAAEEATEBEAMAAfsBPwHxAREB
-        GAEAAQcCEQMAAfsBPwHxATEBOAEAAQcCEwMAAfsBPwH4Af4BOAEAAQcBjwHjAwAB+AE/AfwBOAF4AQAB
-        BwHDAYcDAAL/Af4BAAP/AeABDwMAA/8BAQP/AfABHwMACf8DAAn/AwAD/wH8AQ8E/wMAAcMC/wGAAQ8B
-        vwE/Av8DAAHBAv8BgAEPAb8BPwL/AwABwQH/Af4BAAEOAbwBPwEAAQEDAAHAAf8B/gEAAQ4BrAEfAQAB
-        AQMAAcABfwH+AQABDgGsAR8BAAEBAwAB4AE/Af4BAAEaAawBFwEAAQEDAAH4AQEB/gEAAfoBoAEXAQAB
-        AQMAAfwBAAH+AQAB+gGgARcBAAEBAwAB/gEAAX4BAAH6AaABFwEAAQEDAAH/AQABfgEAAfoBrAEXAQAB
-        AQMAAf8BDAF/AQEB/gGsAR8BAAEBAwAB/wEOAX8BAQH+AawBHwEAAQEDAAH/AQ8B/wEBAf4BvAE/AQAB
-        AQMAAf8BBwH/AQEB/wG/AT8BAAEBAwAB/wGDAf8BAQH/Ab8BPwL/AwAD/wEBAf8BvwE/Av8DAAn/AwAL
-</value>
   </data>
   <data name="buttonResetAPIKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -573,6 +972,9 @@
   <data name="buttonResetAPIKey.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="buttonResetAPIKey.ToolTip" xml:space="preserve">
     <value>Reset the API key to clear the current key and allow you to enter a new one.</value>
   </data>
@@ -798,29 +1200,53 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;textBoxAPIKey.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 91</value>
+  <data name="&gt;&gt;btn_test_system_speaker.Name" xml:space="preserve">
+    <value>btn_test_system_speaker</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 179</value>
+  <data name="&gt;&gt;btn_test_system_speaker.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="&gt;&gt;btn_test_system_speaker.Parent" xml:space="preserve">
+    <value>groupBox_system_speaker_test</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Create Music With AI</value>
+  <data name="&gt;&gt;btn_test_system_speaker.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Name" xml:space="preserve">
-    <value>groupBoxCreateMusicWithAI</value>
+  <data name="&gt;&gt;label_test_system_speaker_message.Name" xml:space="preserve">
+    <value>label_test_system_speaker_message</value>
   </data>
-  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Type" xml:space="preserve">
+  <data name="&gt;&gt;label_test_system_speaker_message.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message.Parent" xml:space="preserve">
+    <value>groupBox_system_speaker_test</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 276</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 98</value>
+  </data>
+  <data name="groupBox_system_speaker_test.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Testing System Speaker</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Name" xml:space="preserve">
+    <value>groupBox_system_speaker_test</value>
+  </data>
+  <data name="&gt;&gt;groupBox_system_speaker_test.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBoxCreateMusicWithAI.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBox_system_speaker_test.Parent" xml:space="preserve">
     <value>flowLayoutPanelGeneralSettings</value>
   </data>
-  <data name="&gt;&gt;groupBoxCreateMusicWithAI.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;groupBox_system_speaker_test.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="btn_test_system_speaker.ImageIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -894,29 +1320,53 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;label_test_system_speaker_message.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 276</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Name" xml:space="preserve">
+    <value>label_test_system_speaker_message_2</value>
   </data>
-  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 98</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBox_system_speaker_test.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.Parent" xml:space="preserve">
+    <value>panelSystemSpeakerWarnings</value>
   </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Testing System Speaker</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;groupBox_system_speaker_test.Name" xml:space="preserve">
-    <value>groupBox_system_speaker_test</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Name" xml:space="preserve">
+    <value>label_test_system_speaker_message_3</value>
   </data>
-  <data name="&gt;&gt;groupBox_system_speaker_test.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox_system_speaker_test.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label_test_system_speaker_message_3.Parent" xml:space="preserve">
+    <value>panelSystemSpeakerWarnings</value>
+  </data>
+  <data name="&gt;&gt;label_test_system_speaker_message_3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 380</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 126</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Name" xml:space="preserve">
+    <value>panelSystemSpeakerWarnings</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.Parent" xml:space="preserve">
     <value>flowLayoutPanelGeneralSettings</value>
   </data>
-  <data name="&gt;&gt;groupBox_system_speaker_test.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;panelSystemSpeakerWarnings.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="label_test_system_speaker_message_2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -987,85 +1437,55 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;label_test_system_speaker_message_3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 380</value>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Name" xml:space="preserve">
+    <value>checkBox_enable_create_beep_from_soundcard</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 126</value>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.Parent" xml:space="preserve">
+    <value>flowLayoutPanelCreatingSoundSettings</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;checkBox_enable_create_beep_from_soundcard.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;panelSystemSpeakerWarnings.Name" xml:space="preserve">
-    <value>panelSystemSpeakerWarnings</value>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
   </data>
-  <data name="&gt;&gt;panelSystemSpeakerWarnings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelSystemSpeakerWarnings.Parent" xml:space="preserve">
-    <value>flowLayoutPanelGeneralSettings</value>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
+    <value>flowLayoutPanelCreatingSoundSettings</value>
   </data>
-  <data name="&gt;&gt;panelSystemSpeakerWarnings.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="flowLayoutPanelCreatingSoundSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+  <data name="flowLayoutPanelCreatingSoundSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
     <value>TopDown</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="flowLayoutPanelCreatingSoundSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 5</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 511</value>
+  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 558</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="flowLayoutPanelCreatingSoundSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Name" xml:space="preserve">
-    <value>flowLayoutPanelGeneralSettings</value>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelCreatingSoundSettings</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Type" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.Parent" xml:space="preserve">
-    <value>general_settings</value>
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Parent" xml:space="preserve">
+    <value>creating_sound_settings</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelGeneralSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="general_settings.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="general_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 31</value>
-  </data>
-  <data name="general_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 521</value>
-  </data>
-  <data name="general_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Name" xml:space="preserve">
-    <value>general_settings</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;general_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;general_settings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.AutoSize" type="System.Boolean, mscorlib">
@@ -1110,8 +1530,152 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="group_beep_creation_from_sound_card_settings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Name" xml:space="preserve">
+    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 255</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Beep Creation from Sound Device Settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
+    <value>flowLayoutPanelCreatingSoundSettings</value>
+  </data>
+  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Name" xml:space="preserve">
+    <value>button_show_reason</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.Parent" xml:space="preserve">
+    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
+  </data>
+  <data name="&gt;&gt;button_show_reason.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 130</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 122</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Name" xml:space="preserve">
+    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Name" xml:space="preserve">
+    <value>label_create_beep_from_soundcard_automatically_activated_message_1</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Name" xml:space="preserve">
+    <value>label_create_beep_from_soundcard_automatically_activated_message_2</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="panel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 78</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1185,30 +1749,6 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;label_create_beep_from_soundcard_automatically_activated_message_2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="panel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 78</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="button_show_reason.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -1239,32 +1779,80 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;button_show_reason.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
-    <value>TopDown</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 130</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 122</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Name" xml:space="preserve">
-    <value>flowLayoutPanelSoundDeviceBeepEnabledInfo</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.Parent" xml:space="preserve">
-    <value>group_beep_creation_from_sound_card_settings</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelSoundDeviceBeepEnabledInfo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="group_tone_waveform.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.Name" xml:space="preserve">
+    <value>radioButton_noise</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_noise.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Name" xml:space="preserve">
+    <value>radioButton_triangle</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_triangle.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Name" xml:space="preserve">
+    <value>radioButton_sine</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_sine.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Name" xml:space="preserve">
+    <value>radioButton_square</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.Parent" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;radioButton_square.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 102</value>
+  </data>
+  <data name="group_tone_waveform.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Tone Waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
+    <value>group_tone_waveform</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
+    <value>group_beep_creation_from_sound_card_settings</value>
+  </data>
+  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="radioButton_noise.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1398,110 +1986,92 @@ You can get your API key from https://aistudio.google.com/app/apikey.</value>
   <data name="&gt;&gt;radioButton_square.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
+  <data name="&gt;&gt;checkBox_use_midi_input.Name" xml:space="preserve">
+    <value>checkBox_use_midi_input</value>
   </data>
-  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 102</value>
+  <data name="&gt;&gt;checkBox_use_midi_input.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="group_tone_waveform.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;checkBox_use_midi_input.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_midi_input.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Tone Waveform</value>
+  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
+    <value>group_midi_input_devices</value>
   </data>
-  <data name="&gt;&gt;group_tone_waveform.Name" xml:space="preserve">
-    <value>group_tone_waveform</value>
-  </data>
-  <data name="&gt;&gt;group_tone_waveform.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;group_tone_waveform.Parent" xml:space="preserve">
-    <value>group_beep_creation_from_sound_card_settings</value>
+  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
   </data>
-  <data name="&gt;&gt;group_tone_waveform.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 29</value>
+  <data name="&gt;&gt;checkBox_use_midi_output.Name" xml:space="preserve">
+    <value>checkBox_use_midi_output</value>
   </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 255</value>
+  <data name="&gt;&gt;checkBox_use_midi_output.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="group_beep_creation_from_sound_card_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;checkBox_use_midi_output.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
   </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Beep Creation from Sound Device Settings</value>
+  <data name="&gt;&gt;checkBox_use_midi_output.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Name" xml:space="preserve">
-    <value>group_beep_creation_from_sound_card_settings</value>
+  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
+    <value>group_midi_output_devices</value>
   </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.Parent" xml:space="preserve">
-    <value>flowLayoutPanelCreatingSoundSettings</value>
+  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
   </data>
-  <data name="&gt;&gt;group_beep_creation_from_sound_card_settings.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="flowLayoutPanelDevicesSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+  <data name="flowLayoutPanelDevicesSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
     <value>TopDown</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="flowLayoutPanelDevicesSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 5</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 511</value>
+  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 558</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="flowLayoutPanelDevicesSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>125</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Name" xml:space="preserve">
-    <value>flowLayoutPanelCreatingSoundSettings</value>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Type" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.Parent" xml:space="preserve">
-    <value>creating_sound_settings</value>
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Parent" xml:space="preserve">
+    <value>devices_settings</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanelCreatingSoundSettings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="creating_sound_settings.ImageIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="creating_sound_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 31</value>
-  </data>
-  <data name="creating_sound_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 521</value>
-  </data>
-  <data name="creating_sound_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Creating Sounds</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Name" xml:space="preserve">
-    <value>creating_sound_settings</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;creating_sound_settings.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="checkBox_use_midi_input.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1545,6 +2115,66 @@ If you have a MIDI keyboard, you can use it to play notes on the NeoBleeper.</va
   </data>
   <data name="group_midi_input_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Name" xml:space="preserve">
+    <value>refresh_midi_input_button</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_input_button.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Name" xml:space="preserve">
+    <value>comboBox_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_input_devices.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Name" xml:space="preserve">
+    <value>label_midi_input_device</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.Parent" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;label_midi_input_device.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="group_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
+  </data>
+  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 82</value>
+  </data>
+  <data name="group_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>MIDI Input Devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
+    <value>group_midi_input_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="refresh_midi_input_button.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -1649,30 +2279,6 @@ If you have multiple devices, select the one you want to use for input.</value>
   <data name="&gt;&gt;label_midi_input_device.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="group_midi_input_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 29</value>
-  </data>
-  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 82</value>
-  </data>
-  <data name="group_midi_input_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>MIDI Input Devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Name" xml:space="preserve">
-    <value>group_midi_input_devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.Parent" xml:space="preserve">
-    <value>flowLayoutPanelDevicesSettings</value>
-  </data>
-  <data name="&gt;&gt;group_midi_input_devices.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="checkBox_use_midi_output.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1715,6 +2321,114 @@ This will allow you to use external MIDI devices or software synthesizers.</valu
   </data>
   <data name="group_midi_output_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Name" xml:space="preserve">
+    <value>comboBox_midi_output_instrument</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_instrument.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Name" xml:space="preserve">
+    <value>comboBox_midi_output_channel</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_channel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Name" xml:space="preserve">
+    <value>label_instrument</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_instrument.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Name" xml:space="preserve">
+    <value>label_channel</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_channel.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_channel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Name" xml:space="preserve">
+    <value>refresh_midi_output_button</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;refresh_midi_output_button.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Name" xml:space="preserve">
+    <value>comboBox_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;comboBox_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Name" xml:space="preserve">
+    <value>label_midi_output_device</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.Parent" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;label_midi_output_device.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="group_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 143</value>
+  </data>
+  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 144</value>
+  </data>
+  <data name="group_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>MIDI Output Devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
+    <value>group_midi_output_devices</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="comboBox_midi_output_instrument.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -1968,32 +2682,86 @@ If you have a MIDI device connected, it should appear here.</value>
   <data name="&gt;&gt;label_midi_output_device.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="group_midi_output_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 143</value>
-  </data>
-  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 144</value>
-  </data>
-  <data name="group_midi_output_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>MIDI Output Devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Name" xml:space="preserve">
-    <value>group_midi_output_devices</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.Parent" xml:space="preserve">
-    <value>flowLayoutPanelDevicesSettings</value>
-  </data>
-  <data name="&gt;&gt;group_midi_output_devices.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="groupBox_other_devices.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Name" xml:space="preserve">
+    <value>trackBar_motor_octave</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;trackBar_motor_octave.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Name" xml:space="preserve">
+    <value>label_motor_speed_mod</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;label_motor_speed_mod.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_microcontroller.Name" xml:space="preserve">
+    <value>checkBox_use_microcontroller</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_microcontroller.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_microcontroller.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;checkBox_use_microcontroller.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBox_other_devices.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="groupBox_other_devices.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 293</value>
+  </data>
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 194</value>
+  </data>
+  <data name="groupBox_other_devices.TabIndex" type="System.Int32, mscorlib">
+    <value>124</value>
+  </data>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Other Devices</value>
+  </data>
+  <data name="groupBox_other_devices.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
+    <value>flowLayoutPanelDevicesSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="trackBar_motor_octave.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -2062,6 +2830,60 @@ The motor will run at a speed corresponding to the selected octave.
   </data>
   <data name="groupBox_type_of_device.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBuzzer.Name" xml:space="preserve">
+    <value>radioButtonBuzzer</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBuzzer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBuzzer.Parent" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;radioButtonBuzzer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonMotor.Name" xml:space="preserve">
+    <value>radioButtonMotor</value>
+  </data>
+  <data name="&gt;&gt;radioButtonMotor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonMotor.Parent" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;radioButtonMotor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 58</value>
+  </data>
+  <data name="groupBox_type_of_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBox_type_of_device.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 62</value>
+  </data>
+  <data name="groupBox_type_of_device.TabIndex" type="System.Int32, mscorlib">
+    <value>124</value>
+  </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Type of Device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
+    <value>groupBox_type_of_device</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
+    <value>groupBox_other_devices</value>
+  </data>
+  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="radioButtonBuzzer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2139,36 +2961,6 @@ It is often used in alarms, timers, and other devices that require sound output.
   <data name="&gt;&gt;radioButtonMotor.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 58</value>
-  </data>
-  <data name="groupBox_type_of_device.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBox_type_of_device.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 62</value>
-  </data>
-  <data name="groupBox_type_of_device.TabIndex" type="System.Int32, mscorlib">
-    <value>124</value>
-  </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Type of Device</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Name" xml:space="preserve">
-    <value>groupBox_type_of_device</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.Parent" xml:space="preserve">
-    <value>groupBox_other_devices</value>
-  </data>
-  <data name="&gt;&gt;groupBox_type_of_device.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="checkBox_use_microcontroller.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -2218,95 +3010,233 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
   <data name="&gt;&gt;checkBox_use_microcontroller.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="groupBox_other_devices.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;group_keyboard_colors.Name" xml:space="preserve">
+    <value>group_keyboard_colors</value>
   </data>
-  <data name="groupBox_other_devices.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 293</value>
-  </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 194</value>
-  </data>
-  <data name="groupBox_other_devices.TabIndex" type="System.Int32, mscorlib">
-    <value>124</value>
-  </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Other Devices</value>
-  </data>
-  <data name="groupBox_other_devices.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.Name" xml:space="preserve">
-    <value>groupBox_other_devices</value>
-  </data>
-  <data name="&gt;&gt;groupBox_other_devices.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_keyboard_colors.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox_other_devices.Parent" xml:space="preserve">
-    <value>flowLayoutPanelDevicesSettings</value>
+  <data name="&gt;&gt;group_keyboard_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
   </data>
-  <data name="&gt;&gt;groupBox_other_devices.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
-    <value>TopDown</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 511</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>125</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Name" xml:space="preserve">
-    <value>flowLayoutPanelDevicesSettings</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.Parent" xml:space="preserve">
-    <value>devices_settings</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelDevicesSettings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_keyboard_colors.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="devices_settings.ImageIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Name" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="devices_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 31</value>
+  <data name="&gt;&gt;group_indicator_colors.Name" xml:space="preserve">
+    <value>group_indicator_colors</value>
   </data>
-  <data name="devices_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+  <data name="&gt;&gt;group_indicator_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 521</value>
+  <data name="&gt;&gt;group_indicator_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
   </data>
-  <data name="devices_settings.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;group_indicator_colors.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Devices</value>
+  <data name="&gt;&gt;group_lyrics_size_settings.Name" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
   </data>
-  <data name="&gt;&gt;devices_settings.Name" xml:space="preserve">
-    <value>devices_settings</value>
+  <data name="&gt;&gt;group_lyrics_size_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;devices_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;group_lyrics_size_settings.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
   </data>
-  <data name="&gt;&gt;devices_settings.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
+  <data name="&gt;&gt;group_lyrics_size_settings.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;devices_settings.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 558</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>126</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Name" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Parent" xml:space="preserve">
+    <value>appearance</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="group_keyboard_colors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Name" xml:space="preserve">
+    <value>third_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Name" xml:space="preserve">
+    <value>second_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color_change.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Name" xml:space="preserve">
+    <value>first_octave_color_change</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Name" xml:space="preserve">
+    <value>third_octave_color</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;third_octave_color.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Name" xml:space="preserve">
+    <value>second_octave_color</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;second_octave_color.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Name" xml:space="preserve">
+    <value>first_octave_color</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;first_octave_color.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 2</value>
+  </data>
+  <data name="group_keyboard_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_keyboard_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 103</value>
+  </data>
+  <data name="group_keyboard_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Keyboard Colors</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Name" xml:space="preserve">
+    <value>group_keyboard_colors</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;group_keyboard_colors.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="third_octave_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2599,38 +3529,290 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 2</value>
-  </data>
-  <data name="group_keyboard_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="group_keyboard_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 103</value>
-  </data>
-  <data name="group_keyboard_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Keyboard Colors</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Name" xml:space="preserve">
-    <value>group_keyboard_colors</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.Parent" xml:space="preserve">
-    <value>flowLayoutPanelAppearanceSettings</value>
-  </data>
-  <data name="&gt;&gt;group_keyboard_colors.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="group_buttons_and_controls_colors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;markup_color_change.Name" xml:space="preserve">
+    <value>markup_color_change</value>
+  </data>
+  <data name="&gt;&gt;markup_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;markup_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;markup_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Name" xml:space="preserve">
+    <value>metronome_color_change</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;metronome_color_change.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Name" xml:space="preserve">
+    <value>playback_buttons_color_change</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Name" xml:space="preserve">
+    <value>erase_whole_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color_change.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Name" xml:space="preserve">
+    <value>unselect_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color_change.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Name" xml:space="preserve">
+    <value>clear_notes_color_change</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color_change.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Name" xml:space="preserve">
+    <value>blank_line_color_change</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color_change.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;markup_color.Name" xml:space="preserve">
+    <value>markup_color</value>
+  </data>
+  <data name="&gt;&gt;markup_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;markup_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;markup_color.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Name" xml:space="preserve">
+    <value>metronome_color</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;metronome_color.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Name" xml:space="preserve">
+    <value>playback_buttons_color</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;playback_buttons_color.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Name" xml:space="preserve">
+    <value>erase_whole_line_color</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;erase_whole_line_color.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Name" xml:space="preserve">
+    <value>unselect_line_color</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;unselect_line_color.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Name" xml:space="preserve">
+    <value>clear_notes_color</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;clear_notes_color.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Name" xml:space="preserve">
+    <value>blank_line_color</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;blank_line_color.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 109</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 196</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Buttons and Controls Colors</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Name" xml:space="preserve">
+    <value>group_buttons_and_controls_colors</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;group_buttons_and_controls_colors.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="markup_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3325,38 +4507,110 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 109</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 196</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Buttons and Controls Colors</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Name" xml:space="preserve">
-    <value>group_buttons_and_controls_colors</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.Parent" xml:space="preserve">
-    <value>flowLayoutPanelAppearanceSettings</value>
-  </data>
-  <data name="&gt;&gt;group_buttons_and_controls_colors.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="group_indicator_colors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Name" xml:space="preserve">
+    <value>note_indicator_color_change</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color_change.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Name" xml:space="preserve">
+    <value>beep_indicator_color_change</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color_change.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Name" xml:space="preserve">
+    <value>beep_indicator_color</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;beep_indicator_color.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Name" xml:space="preserve">
+    <value>note_indicator_color</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.Parent" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;note_indicator_color.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 309</value>
+  </data>
+  <data name="group_indicator_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_indicator_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 80</value>
+  </data>
+  <data name="group_indicator_colors.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Indicator Colors</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Name" xml:space="preserve">
+    <value>group_indicator_colors</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.Parent" xml:space="preserve">
+    <value>flowLayoutPanelAppearanceSettings</value>
+  </data>
+  <data name="&gt;&gt;group_indicator_colors.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="note_indicator_color_change.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3556,83 +4810,230 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
   <data name="&gt;&gt;note_indicator_color.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 309</value>
+  <data name="group_lyrics_size_settings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
-  <data name="group_indicator_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="&gt;&gt;buttonPreviewLyrics.Name" xml:space="preserve">
+    <value>buttonPreviewLyrics</value>
   </data>
-  <data name="group_indicator_colors.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="&gt;&gt;buttonPreviewLyrics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 80</value>
+  <data name="&gt;&gt;buttonPreviewLyrics.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
   </data>
-  <data name="group_indicator_colors.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;buttonPreviewLyrics.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Name" xml:space="preserve">
+    <value>labelPt</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;labelPt.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Indicator Colors</value>
+  <data name="&gt;&gt;numericUpDownLyricsSize.Name" xml:space="preserve">
+    <value>numericUpDownLyricsSize</value>
   </data>
-  <data name="&gt;&gt;group_indicator_colors.Name" xml:space="preserve">
-    <value>group_indicator_colors</value>
+  <data name="&gt;&gt;numericUpDownLyricsSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;group_indicator_colors.Type" xml:space="preserve">
+  <data name="&gt;&gt;numericUpDownLyricsSize.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownLyricsSize.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="group_lyrics_size_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 393</value>
+  </data>
+  <data name="group_lyrics_size_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_lyrics_size_settings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 88</value>
+  </data>
+  <data name="group_lyrics_size_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>128</value>
+  </data>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Lyrics/Text Events</value>
+  </data>
+  <data name="&gt;&gt;group_lyrics_size_settings.Name" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;group_lyrics_size_settings.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;group_indicator_colors.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_lyrics_size_settings.Parent" xml:space="preserve">
     <value>flowLayoutPanelAppearanceSettings</value>
   </data>
-  <data name="&gt;&gt;group_indicator_colors.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_lyrics_size_settings.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonPreviewLyrics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="buttonPreviewLyrics.ImageIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 57</value>
+  </data>
+  <data name="buttonPreviewLyrics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 26</value>
+  </data>
+  <data name="buttonPreviewLyrics.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonPreviewLyrics.Text" xml:space="preserve">
+    <value>Preview Lyrics/Text Event Settings</value>
+  </data>
+  <data name="buttonPreviewLyrics.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="buttonPreviewLyrics.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;buttonPreviewLyrics.Name" xml:space="preserve">
+    <value>buttonPreviewLyrics</value>
+  </data>
+  <data name="&gt;&gt;buttonPreviewLyrics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPreviewLyrics.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;buttonPreviewLyrics.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelPt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="labelPt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelPt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>207, 27</value>
+  </data>
+  <data name="labelPt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 16</value>
+  </data>
+  <data name="labelPt.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="labelPt.Text" xml:space="preserve">
+    <value>pt</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Name" xml:space="preserve">
+    <value>labelPt</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPt.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;labelPt.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownLyricsSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="numericUpDownLyricsSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 24</value>
+  </data>
+  <data name="numericUpDownLyricsSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 23</value>
+  </data>
+  <data name="numericUpDownLyricsSize.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownLyricsSize.Name" xml:space="preserve">
+    <value>numericUpDownLyricsSize</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownLyricsSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownLyricsSize.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownLyricsSize.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 27</value>
+  </data>
+  <data name="label13.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 16</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Lyrics/Text Events Size</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>group_lyrics_size_settings</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="reset_colors.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+  <data name="&gt;&gt;reset_appearance_settings.Name" xml:space="preserve">
+    <value>reset_appearance_settings</value>
   </data>
-  <data name="reset_colors.ImageIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="reset_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 2</value>
-  </data>
-  <data name="reset_colors.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="reset_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 26</value>
-  </data>
-  <data name="reset_colors.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="reset_colors.Text" xml:space="preserve">
-    <value>Reset Colors to Default Values</value>
-  </data>
-  <data name="reset_colors.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="reset_colors.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="reset_colors.ToolTip" xml:space="preserve">
-    <value>Reset all colors to default values</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.Name" xml:space="preserve">
-    <value>reset_colors</value>
-  </data>
-  <data name="&gt;&gt;reset_colors.Type" xml:space="preserve">
+  <data name="&gt;&gt;reset_appearance_settings.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;reset_colors.Parent" xml:space="preserve">
+  <data name="&gt;&gt;reset_appearance_settings.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;reset_colors.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;reset_appearance_settings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 394</value>
+    <value>3, 486</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 33</value>
@@ -3650,96 +5051,51 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
     <value>flowLayoutPanelAppearanceSettings</value>
   </data>
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="reset_appearance_settings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
-    <value>TopDown</value>
+  <data name="reset_appearance_settings.ImageIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
+  <data name="reset_appearance_settings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 511</value>
+  <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 2</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>126</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Name" xml:space="preserve">
-    <value>flowLayoutPanelAppearanceSettings</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.Parent" xml:space="preserve">
-    <value>appearance</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanelAppearanceSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="appearance.ImageIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="appearance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 31</value>
-  </data>
-  <data name="appearance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="reset_appearance_settings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="appearance.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+  <data name="reset_appearance_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 26</value>
   </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 521</value>
+  <data name="reset_appearance_settings.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="appearance.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="reset_appearance_settings.Text" xml:space="preserve">
+    <value>Reset Appearance Settings to Default Values</value>
   </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Appearance</value>
+  <data name="reset_appearance_settings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;appearance.Name" xml:space="preserve">
-    <value>appearance</value>
+  <data name="reset_appearance_settings.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
   </data>
-  <data name="&gt;&gt;appearance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
+    <value>Reset all appearance settings to default values</value>
   </data>
-  <data name="&gt;&gt;appearance.Parent" xml:space="preserve">
-    <value>tabControl_settings</value>
+  <data name="&gt;&gt;reset_appearance_settings.Name" xml:space="preserve">
+    <value>reset_appearance_settings</value>
   </data>
-  <data name="&gt;&gt;appearance.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;reset_appearance_settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabControl_settings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;reset_appearance_settings.Parent" xml:space="preserve">
+    <value>panel2</value>
   </data>
-  <data name="tabControl_settings.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="tabControl_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="tabControl_settings.Padding" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 556</value>
-  </data>
-  <data name="tabControl_settings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Name" xml:space="preserve">
-    <value>tabControl_settings</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl_settings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;reset_appearance_settings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -3755,7 +5111,7 @@ If you use motor, you can control speed of it with motor speed mod slider.</valu
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>332, 564</value>
+    <value>332, 611</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

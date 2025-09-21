@@ -9,21 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeepStopper", "BeepStopper\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
-		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|x64.ActiveCfg = Debug|x64
-		{27F27829-E914-435C-A974-C1A01DAA5018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|x64.Build.0 = Debug|x64
 		{27F27829-E914-435C-A974-C1A01DAA5018}.Release|x64.ActiveCfg = Release|x64
-		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.ActiveCfg = Debug|x64
-		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.Build.0 = Debug|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
