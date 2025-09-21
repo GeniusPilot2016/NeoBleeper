@@ -270,6 +270,7 @@
             imageList_settings.Images.SetKeyName(13, "icons8-mark-view-as-hidden-48.png");
             imageList_settings.Images.SetKeyName(14, "icons8-update-48.png");
             imageList_settings.Images.SetKeyName(15, "icons8-preview-48.png");
+            imageList_settings.Images.SetKeyName(16, "icons8-manual-48.png");
             // 
             // buttonUpdateAPIKey
             // 
@@ -407,6 +408,7 @@
             // button_show_reason
             // 
             resources.ApplyResources(button_show_reason, "button_show_reason");
+            button_show_reason.ImageList = imageList_settings;
             button_show_reason.Name = "button_show_reason";
             button_show_reason.UseVisualStyleBackColor = true;
             button_show_reason.Click += button_show_reason_Click;
