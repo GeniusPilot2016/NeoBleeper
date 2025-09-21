@@ -2773,22 +2773,22 @@ namespace NeoBleeper
                 if (!string.IsNullOrWhiteSpace(note1))
                 {
                     note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
-                    RenderBeep.VoiceSynthesizer.StartVoice(0, (int)note1_frequency);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StartVoice(0, (int)note1_frequency);
                 }
                 if (!string.IsNullOrWhiteSpace(note2))
                 {
                     note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
-                    RenderBeep.VoiceSynthesizer.StartVoice(1, (int)note2_frequency);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StartVoice(1, (int)note2_frequency);
                 }
                 if (!string.IsNullOrWhiteSpace(note3))
                 {
                     note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
-                    RenderBeep.VoiceSynthesizer.StartVoice(2, (int)note3_frequency);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StartVoice(2, (int)note3_frequency);
                 }
                 if (!string.IsNullOrWhiteSpace(note4))
                 {
                     note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
-                    RenderBeep.VoiceSynthesizer.StartVoice(3, (int)note4_frequency);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StartVoice(3, (int)note4_frequency);
                 }
             }
         }
@@ -2798,7 +2798,7 @@ namespace NeoBleeper
             {
                 for(int i = 0; i < 4; i++)
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(i);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(i);
                 }
             });
         }
@@ -2808,19 +2808,19 @@ namespace NeoBleeper
             {
                 if (string.IsNullOrWhiteSpace(note1))
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(0);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(0);
                 }
                 if (string.IsNullOrWhiteSpace(note2))
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(1);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(1);
                 }
                 if (string.IsNullOrWhiteSpace(note3))
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(2);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(2);
                 }
                 if (string.IsNullOrWhiteSpace(note4))
                 {
-                    RenderBeep.VoiceSynthesizer.StopVoice(3);
+                    SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(3);
                 }
             });
         }

@@ -218,7 +218,7 @@ namespace NeoBleeper
                 $"Total Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024}\r\n" +
                 $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
                 $"Power Status: {powerStatus}\r\n" +
-                $"Presence of a system speaker: {(RenderBeep.SystemSpeakerBeepEngine.isSystemSpeakerExist() == true ? "Yes" : "No")}\r\n" +
+                $"Presence of a system speaker: {(SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist() == true ? "Yes" : "No")}\r\n" +
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;

@@ -9,10 +9,11 @@ using static NeoBleeper.TemporarySettings;
 
 namespace NeoBleeper
 {
-    public class RenderBeep
+    public class SoundRenderingEngine
     {
         internal static readonly object AudioLock = new object();
-        public static class SystemSpeakerBeepEngine // System speaker (aka PC speaker) beep engine by manually driving the hardware timer and system speaker port
+        public static class SystemSpeakerBeepEngine // Drive the system speaker (aka PC speaker) directly by emulating beep.sys using inpoutx64.dll in modern Windows (Windows 7 and above)
+                                                    // Note: This will not work in virtual machines or computers without a physical system speaker output
         {
             static SystemSpeakerBeepEngine()
             {
@@ -87,7 +88,7 @@ namespace NeoBleeper
                 }
             }
         }
-        public static class SynthMisc // Use NAudio to synthesize beeps and noises in various forms
+        public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD that is used in Bleeper Music Maker using NAudio
         {
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
@@ -95,7 +96,7 @@ namespace NeoBleeper
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
 
-            static SynthMisc()
+            static WaveSynthEngine()
             {
                 currentProvider = signalGenerator;
                 waveOut.DesiredLatency = 50;
@@ -342,7 +343,7 @@ namespace NeoBleeper
                 return written;
             }
         }
-        public static class VoiceSynthesizer
+        public static class VoiceSynthesisEngine // Voice synthesis by emulating FMOD that is used in Bleeper Music Maker using NAudio
         {
             private static readonly object synthLock = new();
             // Tek master mixer ve tek WaveOutEvent — cihaz yeniden başlatılmaz, kesinti azalır
@@ -350,7 +351,7 @@ namespace NeoBleeper
             private static readonly WaveOutEvent masterWaveOut;
             private static readonly Dictionary<int, (RemovableSampleProvider removable, ISampleProvider provider)> channels = new();
 
-            static VoiceSynthesizer()
+            static VoiceSynthesisEngine()
             {
                 const int sampleRate = 44100;
                 masterMixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1)) { ReadFully = true };
@@ -364,7 +365,6 @@ namespace NeoBleeper
                 masterWaveOut.Play();
             }
 
-            // Sarmalayıcı: kaldırıldığında sıfır döner (mixer'den fiziksel olarak kaldırmak her NAudio sürümünde kolay olmayabilir)
             private class RemovableSampleProvider : ISampleProvider
             {
                 private readonly ISampleProvider inner;
@@ -383,18 +383,27 @@ namespace NeoBleeper
                 }
             }
 
-            public static void StartVoice(int channelId, int baseFrequency)
+            public static void StartVoice(int channelId, int baseFrequency) 
             {
                 const int sampleRate = 44100;
-                double normalizedPitch = VoiceInternalSettings.Pitch;
-                double modulatedFrequency = baseFrequency * Math.Pow(2.0, VoiceInternalSettings.Pitch) * (VoiceInternalSettings.Range);
+
+                double rawPitch = VoiceInternalSettings.Pitch;
+                rawPitch = Math.Clamp(rawPitch, 0.1, 8.0);
+
+                double normalizedRange = Math.Clamp(VoiceInternalSettings.Range, 0.0, 1.0);
+                double finalPitchMultiplier = (1.0 + (rawPitch - 1.0) * normalizedRange)/2;
+
+                if (finalPitchMultiplier < 0.001) finalPitchMultiplier = 0.001;
+
+                double modulatedFrequency = (baseFrequency * finalPitchMultiplier);
+
                 double masterVolume = VoiceInternalSettings.VoiceVolume / 400.0;
 
                 SignalGenerator renderSource = new SignalGenerator()
                 {
                     Type = SignalGeneratorType.SawTooth,
                     Frequency = modulatedFrequency,
-                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1200.0)
+                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0)
                 };
 
                 int renderSeconds = 2;
@@ -427,18 +436,18 @@ namespace NeoBleeper
                 BiQuadFilter MakeBP(int sr, double center, float q) => BiQuadFilter.BandPassFilterConstantPeakGain(sr, (float)center, q);
 
                 double[] formantFreqs = new double[] {
-                    VoiceInternalSettings.Formant1Frequency,
-                    VoiceInternalSettings.Formant2Frequency,
-                    VoiceInternalSettings.Formant3Frequency,
-                    VoiceInternalSettings.Formant4Frequency
-                };
+        VoiceInternalSettings.Formant1Frequency,
+        VoiceInternalSettings.Formant2Frequency,
+        VoiceInternalSettings.Formant3Frequency,
+        VoiceInternalSettings.Formant4Frequency
+    };
                 double[] formantVols = new double[] {
-                    VoiceInternalSettings.Formant1Volume / 100.0,
-                    VoiceInternalSettings.Formant2Volume / 100.0,
-                    VoiceInternalSettings.Formant3Volume / 100.0,
-                    VoiceInternalSettings.Formant4Volume / 100.0
-                };
-                double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 1000.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
+        VoiceInternalSettings.Formant1Volume / 100.0,
+        VoiceInternalSettings.Formant2Volume / 100.0,
+        VoiceInternalSettings.Formant3Volume / 100.0,
+        VoiceInternalSettings.Formant4Volume / 100.0
+    };
+                double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 100.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
 
                 var lowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.CutoffFrequency, 1.0f);
 
@@ -481,6 +490,14 @@ namespace NeoBleeper
                 {
                     if (channels.TryGetValue(channelId, out var existing))
                     {
+                        try
+                        {
+                            masterMixer.RemoveMixerInput(existing.removable);
+                        }
+                        catch
+                        {
+                            // Swallow exceptions to ensure safe removal
+                        }
                         existing.removable.Remove();
                         channels.Remove(channelId);
                     }
@@ -497,6 +514,14 @@ namespace NeoBleeper
                 {
                     if (channels.TryGetValue(channelId, out var tuple))
                     {
+                        try
+                        {
+                            masterMixer.RemoveMixerInput(tuple.removable);
+                        }
+                        catch
+                        {
+                            // Swallow exceptions to ensure safe removal
+                        }
                         tuple.removable.Remove();
                         channels.Remove(channelId);
                     }

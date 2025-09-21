@@ -203,6 +203,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Create Music with AI";
+            FormClosed += CreateMusicWithAI_FormClosed;
             SystemColorsChanged += CreateMusicWithAI_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).EndInit();
             ResumeLayout(false);

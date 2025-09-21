@@ -451,7 +451,7 @@
             trackBarPitch.Name = "trackBarPitch";
             trackBarPitch.Size = new Size(228, 25);
             trackBarPitch.TabIndex = 1;
-            trackBarPitch.TickStyle = TickStyle.None;
+            trackBarPitch.TickFrequency = 50;
             trackBarPitch.Value = 325;
             trackBarPitch.Scroll += trackBarPitch_Scroll;
             // 
@@ -475,7 +475,7 @@
             trackBarRange.Name = "trackBarRange";
             trackBarRange.Size = new Size(228, 25);
             trackBarRange.TabIndex = 3;
-            trackBarRange.TickStyle = TickStyle.None;
+            trackBarRange.TickFrequency = 50;
             trackBarRange.Value = 105;
             trackBarRange.Scroll += trackBarRange_Scroll;
             // 
@@ -1826,6 +1826,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VoiceInternalsWindow";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Voice Internals";
             FormClosed += VoiceInternalsWindow_FormClosed;
             groupBoxKey.ResumeLayout(false);

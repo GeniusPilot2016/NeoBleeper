@@ -368,7 +368,7 @@ namespace NeoBleeper
         {
             if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
-                RenderBeep.SystemSpeakerBeepEngine.StopBeep();
+                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
             }
         }
         bool isTestingSystemSpeaker = false;
@@ -1163,25 +1163,25 @@ namespace NeoBleeper
             if (radioButton_square.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square;
-                RenderBeep.SynthMisc.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.SquareWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Square waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_sine.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine;
-                RenderBeep.SynthMisc.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.SineWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Sine waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_triangle.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle;
-                RenderBeep.SynthMisc.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.TriangleWave(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Triangle waveform selected.", Logger.LogTypes.Info);
             }
             else if (radioButton_noise.Checked == true)
             {
                 TemporarySettings.creating_sounds.soundDeviceBeepWaveform = TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise;
-                RenderBeep.SynthMisc.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Noise waveform selected.", Logger.LogTypes.Info);
             }
         }
