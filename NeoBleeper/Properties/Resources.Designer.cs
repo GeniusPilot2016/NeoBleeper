@@ -111,6 +111,96 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Create a classical music piece in the style of Beethoven benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt1 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a folk tune with acoustic guitar benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt10 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a rock song inspired by The Beatles benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt2 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a jazz melody with a swing rhythm benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt3 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Write a relaxing piano solo benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt4 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Make an electronic dance track with a fast tempo benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt5 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a lullaby for children benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt6 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a soundtrack for a fantasy game benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt7 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create a pop song with catchy melodies benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt8 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Write a blues progression in E major benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt9 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Google Gemini™ API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string GoogleGeminiAPIIsNotSupportedInYourCountry {

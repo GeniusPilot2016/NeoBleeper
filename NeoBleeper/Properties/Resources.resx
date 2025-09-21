@@ -517,4 +517,34 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="LyricsExampleText" xml:space="preserve">
     <value>Example text</value>
   </data>
+  <data name="ExamplePrompt1" xml:space="preserve">
+    <value>Create a classical music piece in the style of Beethoven</value>
+  </data>
+  <data name="ExamplePrompt2" xml:space="preserve">
+    <value>Generate a rock song inspired by The Beatles</value>
+  </data>
+  <data name="ExamplePrompt3" xml:space="preserve">
+    <value>Compose a jazz melody with a swing rhythm</value>
+  </data>
+  <data name="ExamplePrompt4" xml:space="preserve">
+    <value>Write a relaxing piano solo</value>
+  </data>
+  <data name="ExamplePrompt5" xml:space="preserve">
+    <value>Make an electronic dance track with a fast tempo</value>
+  </data>
+  <data name="ExamplePrompt6" xml:space="preserve">
+    <value>Generate a lullaby for children</value>
+  </data>
+  <data name="ExamplePrompt7" xml:space="preserve">
+    <value>Compose a soundtrack for a fantasy game</value>
+  </data>
+  <data name="ExamplePrompt8" xml:space="preserve">
+    <value>Create a pop song with catchy melodies</value>
+  </data>
+  <data name="ExamplePrompt9" xml:space="preserve">
+    <value>Write a blues progression in E major</value>
+  </data>
+  <data name="ExamplePrompt10" xml:space="preserve">
+    <value>Generate a folk tune with acoustic guitar</value>
+  </data>
 </root>

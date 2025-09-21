@@ -20,12 +20,25 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
+        string[] examplePrompts =         {
+            Resources.ExamplePrompt1,
+            Resources.ExamplePrompt2,
+            Resources.ExamplePrompt3,
+            Resources.ExamplePrompt4,
+            Resources.ExamplePrompt5,
+            Resources.ExamplePrompt6,
+            Resources.ExamplePrompt7,
+            Resources.ExamplePrompt8,
+            Resources.ExamplePrompt9,
+            Resources.ExamplePrompt10
+        };
+        string examplePrompt = "";
         bool isCreatedAnything = false; // Flag to indicate if anything was created by AI
         bool darkTheme = false;
         public string output = "";
         String AIModel = "models/gemini-2.5-flash"; // Default AI model
         Size NormalWindowSize;
-        double scaleFraction = 0.425; // Scale factor for the window size
+        double scaleFraction = 0.325; // Scale factor for the window size
         Size LoadingWindowSize;
         string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
@@ -40,6 +53,8 @@ namespace NeoBleeper
             int preferredAIModel = (Settings1.Default.preferredAIModel + 1 % comboBox_ai_model.Items.Count) - 1; // Adjusted to prevent out-of-range error
             comboBox_ai_model.SelectedIndex = preferredAIModel;
             ApplyAIModelChanges();
+            examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
+            textBoxPrompt.PlaceholderText = examplePrompt;
             if (!IsAvailableInCountry())
             {
                 Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
@@ -469,10 +484,11 @@ namespace NeoBleeper
             var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
             return supportedCountries.Contains(countryCode);
         }
-        private async void button1_Click(object sender, EventArgs e)
+        private async void buttonCreate_Click(object sender, EventArgs e)
         {
             try
             {
+                string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
                 connectionCheckTimer.Start();
                 SetControlsEnabledAndMakeLoadingVisible(false);
                 var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
@@ -480,7 +496,7 @@ namespace NeoBleeper
                 var googleModel = googleAI.CreateGenerativeModel(AIModel);
                 // System prompt and user prompt for generating NBPML content with strict rules and format
                 var googleResponse = await googleModel.GenerateContentAsync(
-                    $"**User Prompt:**\r\n[{textBoxPrompt.Text}]\r\n\r\n" +
+                    $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
                     $"--- AI Instructions ---\r\n" +
                     $"You are an expert music composition AI. " +
                     $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
@@ -705,7 +721,7 @@ namespace NeoBleeper
                     errorMessage = errorProp.GetString();
                 }
 
-                Logger.Log($"AI Error - {title}: {errorMessage}", Logger.LogTypes.Error);
+                Logger.Log($"AI Error - {errorMessage}", Logger.LogTypes.Error);
                 MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -749,17 +765,6 @@ namespace NeoBleeper
             }
             // Additional checks can be added here as needed
             return isValidNBPML && isValidXml;
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(textBoxPrompt.Text))
-            {
-                buttonCreate.Enabled = true;
-            }
-            else
-            {
-                buttonCreate.Enabled = false;
-            }
         }
         private string RewriteOutput(string output)
         {
@@ -1003,7 +1008,8 @@ namespace NeoBleeper
             }
             foreach (Control ctrl in Controls)
             {
-                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating || ctrl == labelPoweredByGemini)
+                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating || 
+                    ctrl == labelPoweredByGemini || ctrl == labelWarning)
                     continue;
 
                 ctrl.Enabled = enabled;
