@@ -980,7 +980,7 @@
             // 
             resources.ApplyResources(numericUpDownLyricsSize, "numericUpDownLyricsSize");
             numericUpDownLyricsSize.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            numericUpDownLyricsSize.Maximum = new decimal(new int[] { 160, 0, 0, 0 });
+            numericUpDownLyricsSize.Maximum = new decimal(new int[] { 105, 0, 0, 0 });
             numericUpDownLyricsSize.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericUpDownLyricsSize.Name = "numericUpDownLyricsSize";
             numericUpDownLyricsSize.Value = new decimal(new int[] { 32, 0, 0, 0 });
