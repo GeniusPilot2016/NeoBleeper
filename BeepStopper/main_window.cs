@@ -12,7 +12,7 @@ namespace BeepStopper
         {
             InitializeComponent();
             UIFonts.setFonts(this);
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White);
+            UIHelper.ApplyCustomTitleBar(this, Color.White);
         }
 
         private void button1_Click(object sender, EventArgs e)

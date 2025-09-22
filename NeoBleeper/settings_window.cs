@@ -122,6 +122,7 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.Black;
             this.ForeColor = Color.White;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -187,11 +188,11 @@ namespace NeoBleeper
             numericUpDownLyricsSize.ForeColor = Color.White;
             buttonPreviewLyrics.BackColor = Color.FromArgb(32, 32, 32);
             buttonPreviewLyrics.ForeColor = Color.White;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -255,16 +256,19 @@ namespace NeoBleeper
             numericUpDownLyricsSize.ForeColor = SystemColors.WindowText;
             buttonPreviewLyrics.BackColor = Color.Transparent;
             buttonPreviewLyrics.ForeColor = SystemColors.ControlText;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0:
-                    {
-                        if (check_system_theme.IsDarkTheme() == true)
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -273,20 +277,20 @@ namespace NeoBleeper
                             light_theme();
                         }
                         break;
-                    }
-                case 1:
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2:
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            TitleBarHelper.ApplyToAllOpenForms(darkTheme);
-            this.Refresh();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
         private async Task system_speaker_test_tune()
         {

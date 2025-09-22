@@ -61,6 +61,7 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             label_note1.ForeColor = Color.White;
@@ -76,11 +77,11 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = Color.White;
             comboBox_component_note3.ForeColor = Color.White;
             comboBox_component_note4.ForeColor = Color.White;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             label_note1.ForeColor = SystemColors.ControlText;
@@ -96,15 +97,18 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = SystemColors.WindowText;
             comboBox_component_note3.ForeColor = SystemColors.WindowText;
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0:
-                    {
-                        if (check_system_theme.IsDarkTheme() == true)
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -113,20 +117,22 @@ namespace NeoBleeper
                             light_theme();
                         }
                         break;
-                    }
-                case 1:
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2:
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            this.Refresh();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
+
         StringBuilder gcodeBuilder = new StringBuilder();
         private String ExtractNotes(string musicString)
         {

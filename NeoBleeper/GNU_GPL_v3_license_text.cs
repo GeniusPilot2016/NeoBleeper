@@ -13,11 +13,15 @@ namespace NeoBleeper
         }
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0:
-                    {
-                        if (check_system_theme.IsDarkTheme() == true)
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -26,34 +30,36 @@ namespace NeoBleeper
                             light_theme();
                         }
                         break;
-                    }
-                case 1:
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2:
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            this.Refresh();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
         private void dark_theme()
         {
             darkTheme = true;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             richTextBox1.BackColor = Color.Black;
             richTextBox1.ForeColor = Color.White;
             close_button.BackColor = Color.FromArgb(32, 32, 32);
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
         private void light_theme()
         {
             darkTheme = false;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             foreach (Control ctrl in Controls)
             {
                 ctrl.BackColor = SystemColors.Control;
@@ -62,7 +68,6 @@ namespace NeoBleeper
                 richTextBox1.ForeColor = SystemColors.WindowText;
                 close_button.BackColor = Color.Transparent;
             }
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)

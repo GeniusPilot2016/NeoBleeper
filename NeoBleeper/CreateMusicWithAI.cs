@@ -125,11 +125,15 @@ namespace NeoBleeper
         }
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0:
-                    {
-                        if (check_system_theme.IsDarkTheme() == true)
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -138,23 +142,25 @@ namespace NeoBleeper
                             light_theme();
                         }
                         break;
-                    }
-                case 1:
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2:
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            this.Refresh();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
         private void dark_theme()
         {
             darkTheme = true;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.ForeColor = Color.White;
@@ -163,11 +169,11 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = Color.Black;
             comboBox_ai_model.ForeColor = Color.White;
             this.ForeColor = Color.White;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             buttonCreate.BackColor = Color.Transparent;
             buttonCreate.ForeColor = SystemColors.ControlText;
@@ -176,7 +182,6 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = SystemColors.Window;
             comboBox_ai_model.ForeColor = SystemColors.WindowText;
             this.ForeColor = SystemColors.ControlText;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         // Check internet connectivity and server status

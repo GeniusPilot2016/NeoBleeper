@@ -103,6 +103,7 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             menuStrip1.BackColor = Color.Black;
             menuStrip1.ForeColor = Color.White;
             listViewNotes.BackColor = Color.Black;
@@ -145,13 +146,13 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = Color.White;
             notes_list_right_click.BackColor = Color.Black;
             notes_list_right_click.ForeColor = Color.White;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
 
         private void light_theme()
         {
             darkTheme = false;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             menuStrip1.BackColor = SystemColors.ControlLightLight;
             menuStrip1.ForeColor = SystemColors.ControlText;
             listViewNotes.BackColor = SystemColors.Window;
@@ -194,16 +195,19 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = SystemColors.ControlText;
             notes_list_right_click.BackColor = SystemColors.Window;
             notes_list_right_click.ForeColor = SystemColors.WindowText;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0:
-                    {
-                        if (check_system_theme.IsDarkTheme() == true)
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -212,19 +216,20 @@ namespace NeoBleeper
                             light_theme();
                         }
                         break;
-                    }
-                case 1:
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2:
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            this.Refresh();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
         private async void set_keyboard_colors()
         {

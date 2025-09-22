@@ -84,42 +84,42 @@ namespace NeoBleeper
         }
         private void set_theme()
         {
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0: // System theme
-                    {
-                        switch (check_system_theme.IsDarkTheme())
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (check_system_theme.IsDarkTheme())
                         {
-                            case true:
-                                {
-                                    dark_theme();
-                                    break;
-                                }
-                            case false:
-                                {
-                                    light_theme();
-                                    break;
-                                }
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
                         }
                         break;
-                    }
-                case 1: // Light
-                    {
+
+                    case 1:
                         light_theme();
                         break;
-                    }
-                case 2: // Dark
-                    {
+
+                    case 2:
                         dark_theme();
                         break;
-                    }
+                }
             }
-            
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+            }
         }
         private void dark_theme()
         {
             darkTheme = true; 
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             labelFormantControl.ForeColor = SystemColors.ControlText;
@@ -158,7 +158,7 @@ namespace NeoBleeper
         private void light_theme()
         {
             darkTheme = false;
-            TitleBarHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             comboBoxNote1Option.BackColor = SystemColors.Window;
