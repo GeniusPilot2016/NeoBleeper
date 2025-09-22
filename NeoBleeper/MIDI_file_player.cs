@@ -1717,7 +1717,10 @@ namespace NeoBleeper
         private void ClearLyrics()
         {
             lyricRow = string.Empty;
-            lyricsOverlay.ClearLyrics();
+            if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
+            { 
+                lyricsOverlay.ClearLyrics(); 
+            }
         }
         private void ShowLyricsOverlay()
         {
