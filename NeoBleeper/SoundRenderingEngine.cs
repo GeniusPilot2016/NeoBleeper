@@ -472,15 +472,15 @@ namespace NeoBleeper
                     providers.Add(new FilteredWaveProvider(noiseReader, noiseFilter, noiseToFormantScale * fVol * 1.2));
                 }
 
-                var sibilanceFilter1 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance1Frequency, (float)VoiceInternalSettings.Sybillance1Range * 1.5f);
-                var sibilanceFilter2 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance2Frequency, (float)VoiceInternalSettings.Sybillance2Range * 1.5f);
-                var sibilanceFilter3 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance3Frequency, (float)VoiceInternalSettings.Sybillance3Range * 1.5f);
-                var sibilanceFilter4 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance4Frequency, (float)VoiceInternalSettings.Sybillance4Range * 1.5f);
+                var sybillanceFilter1 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance1Frequency, (float)VoiceInternalSettings.Sybillance1Range * 1.5f);
+                var sybillanceFilter2 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance2Frequency, (float)VoiceInternalSettings.Sybillance2Range * 1.5f);
+                var sybillanceFilter3 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance3Frequency, (float)VoiceInternalSettings.Sybillance3Range * 1.5f);
+                var sybillanceFilter4 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance4Frequency, (float)VoiceInternalSettings.Sybillance4Range * 1.5f);
 
-                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter1, syb1Vol));
-                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter2, syb2Vol));
-                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter3, syb3Vol));
-                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sibilanceFilter4, syb4Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter1, syb1Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter2, syb2Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter3, syb3Vol));
+                providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter4, syb4Vol));
 
                 var mixed = new MixingSampleProvider(providers) { ReadFully = true };
                 var finalFiltered = new FilteredWaveProvider(mixed, lowPass, 1.0);
