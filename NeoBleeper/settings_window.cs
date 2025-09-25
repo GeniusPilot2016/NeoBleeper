@@ -251,7 +251,7 @@ namespace NeoBleeper
             buttonResetAPIKey.ForeColor = SystemColors.ControlText;
             groupBoxCreateMusicWithAI.ForeColor = SystemColors.ControlText;
             markup_color_change.BackColor = Color.Transparent;
-            group_lyrics_size_settings.ForeColor = SystemColors.Control;
+            group_lyrics_size_settings.ForeColor = SystemColors.ControlText;
             numericUpDownLyricsSize.BackColor = SystemColors.Window;
             numericUpDownLyricsSize.ForeColor = SystemColors.WindowText;
             buttonPreviewLyrics.BackColor = Color.Transparent;
