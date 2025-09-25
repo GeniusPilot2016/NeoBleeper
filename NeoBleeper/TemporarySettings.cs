@@ -60,7 +60,8 @@ namespace NeoBleeper
             {
                 PlayOnAllBeats,
                 PlayOnOddBeats,
-                PlayOnEvenBeats
+                PlayOnEvenBeats,
+                PlayOnCheckedLines
             }
         }
         public static class PortamentoSettings
@@ -141,6 +142,12 @@ namespace NeoBleeper
             public static int Note2OutputDeviceIndex = 0; // Default to voice system
             public static int Note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static int Note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static PlayingVoiceOnLineOptions playingVoiceOnLineOptions = PlayingVoiceOnLineOptions.PlayVoiceOnAllLines;
+            public enum PlayingVoiceOnLineOptions
+            {
+                PlayVoiceOnAllLines,
+                PlayVoiceOnCheckedLines
+            }
         }
     }
 }

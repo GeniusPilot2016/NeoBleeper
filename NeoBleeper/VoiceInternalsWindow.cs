@@ -74,7 +74,7 @@ namespace NeoBleeper
             double minPitch = 0.5, maxPitch = 2.0;
             int pitchSpan = trackBarPitch.Maximum - trackBarPitch.Minimum;
             trackBarPitch.Value = trackBarPitch.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * (pitchSpan > 0 ? pitchSpan : 1));
-
+            comboBoxPlayNoteOnLineOption.SelectedIndex = TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions == TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines ? 1 : 0;
             double minRange = 0, maxRange = 1.0;
             int rangeSpan = trackBarRange.Maximum - trackBarRange.Minimum;
             trackBarRange.Value = trackBarRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
@@ -118,7 +118,7 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
-            darkTheme = true; 
+            darkTheme = true;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
@@ -154,6 +154,9 @@ namespace NeoBleeper
             buttonMidFront.BackColor = Color.FromArgb(32, 32, 32);
             buttonCloseBack.BackColor = Color.FromArgb(32, 32, 32);
             buttonCloseFront.BackColor = Color.FromArgb(32, 32, 32);
+            groupBoxPlayVoiceOnLineSettings.ForeColor = Color.White;
+            comboBoxPlayNoteOnLineOption.BackColor = Color.Black;
+            comboBoxPlayNoteOnLineOption.ForeColor = Color.White;
         }
         private void light_theme()
         {
@@ -177,6 +180,9 @@ namespace NeoBleeper
             buttonMidFront.BackColor = Color.Transparent;
             buttonCloseBack.BackColor = Color.Transparent;
             buttonCloseFront.BackColor = Color.Transparent;
+            groupBoxPlayVoiceOnLineSettings.ForeColor = SystemColors.ControlText;
+            comboBoxPlayNoteOnLineOption.BackColor = SystemColors.Window;
+            comboBoxPlayNoteOnLineOption.ForeColor = SystemColors.WindowText;
         }
         private int getTrackBarReverseValue(TrackBar trackBar) // Because TrackBar control does not support reversed direction natively
         {
@@ -381,7 +387,7 @@ namespace NeoBleeper
             if (TemporarySettings.VoiceInternalSettings.Sybillance3Volume != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance3Volume = value;
-                labelSybillance3Vol.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Volume.ToString("0.##", CultureInfo.InvariantCulture) +"x";
+                labelSybillance3Vol.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Volume.ToString("0.##", CultureInfo.InvariantCulture) + "x";
                 Logger.Log("Sybillance 3 Volume set to " + TemporarySettings.VoiceInternalSettings.Sybillance3Volume.ToString("0.##", CultureInfo.InvariantCulture) + "x", Logger.LogTypes.Info);
             }
         }
@@ -459,7 +465,7 @@ namespace NeoBleeper
         {
             if (comboBoxNote1Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex)
             {
-                if(comboBoxNote1Option.SelectedIndex == 1)
+                if (comboBoxNote1Option.SelectedIndex == 1)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(0);
                 }
@@ -572,6 +578,24 @@ namespace NeoBleeper
         private void VoiceInternalsWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             main_Window.checkBox_use_voice_system.Checked = false;
+        }
+
+        private async void comboBoxPlayNoteOnLineOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxPlayNoteOnLineOption.SelectedIndex != (TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions == TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnAllLines ? 0 : 1))
+            {
+                if (comboBoxPlayNoteOnLineOption.SelectedIndex == 0)
+                {
+                    TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions = TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnAllLines;
+                    Logger.Log("Set to play voice on all lines", Logger.LogTypes.Info);
+                }
+                else
+                {
+                    await main_Window.StopAllVoices(); // Stop all voices when switching to this mode
+                    TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions = TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines;
+                    Logger.Log("Set to play voice on checked lines only", Logger.LogTypes.Info);
+                }
+            }
         }
     }
 }

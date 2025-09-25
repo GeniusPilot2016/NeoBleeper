@@ -14,6 +14,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using static NBPML_File;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace NeoBleeper
 {
@@ -49,6 +50,7 @@ namespace NeoBleeper
             InitializeComponent();
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
+            UIFonts.setFonts(this);
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
@@ -58,6 +60,7 @@ namespace NeoBleeper
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (listViewNotes.Columns.Count > 0)
             {
+                listViewNotes.Columns[0].Width = listViewNotes.Columns[0].Width + 25;
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
             main_window_refresh();
@@ -2470,19 +2473,47 @@ namespace NeoBleeper
 
         private void erase_line()
         {
+            // If there's any checked item, remove all checked items
+            if (listViewNotes.CheckedItems.Count > 0)
+            {
+                // Store the index of the first checked item
+                int minCheckedIndex = listViewNotes.CheckedItems.Cast<ListViewItem>().Min(i => i.Index);
+
+                var removeNoteCommand = new RemoveNoteCommand(listViewNotes, Target.Checked);
+                commandManager.ExecuteCommand(removeNoteCommand);
+
+                // Select the item that was below the last removed item, or the last item if it removed the last one
+                if (listViewNotes.Items.Count > 0)
+                {
+                    int sel = Math.Min(minCheckedIndex, listViewNotes.Items.Count - 1);
+                    listViewNotes.SelectedItems.Clear();
+                    listViewNotes.Items[sel].Selected = true;
+                    listViewNotes.EnsureVisible(sel);
+                }
+                isModified = true;
+                UpdateFormTitle();
+                Logger.Log("Checked lines erased", Logger.LogTypes.Info);
+                return;
+            }
+
+            // Erase the selected item if no checked items are found
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 int index = listViewNotes.SelectedIndices[0];
                 var selectedItem = listViewNotes.SelectedItems[0];
                 var removeNoteCommand = new RemoveNoteCommand(listViewNotes, selectedItem);
+
+                // If there's an item below the selected item, select it after removal
                 if (index < listViewNotes.Items.Count - 1)
                 {
                     listViewNotes.Items[index + 1].Selected = true;
                 }
+
                 commandManager.ExecuteCommand(removeNoteCommand);
+
                 isModified = true;
                 UpdateFormTitle();
-                Logger.Log("Line erased", Logger.LogTypes.Info);
+                Logger.Log("Selected line erased", Logger.LogTypes.Info);
             }
         }
         private void button_erase_line_Click(object sender, EventArgs e)
@@ -2715,41 +2746,43 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    await Task.Run(() =>
-                    {
-                        play_note_in_line(
-                         checkBox_play_note1_played.Checked,
-                         checkBox_play_note2_played.Checked,
-                         checkBox_play_note3_played.Checked,
-                         checkBox_play_note4_played.Checked,
-                         noteSoundDuration,
-                         nonStopping
-                     );
-                    });
+                    await play_note_in_line(
+                        checkBox_play_note1_played.Checked,
+                        checkBox_play_note2_played.Checked,
+                        checkBox_play_note3_played.Checked,
+                        checkBox_play_note4_played.Checked,
+                        noteSoundDuration,
+                        nonStopping);
                 }
             }
+        }
+        private bool IsSelectedNoteChecked()
+        {
+            return listViewNotes.SelectedIndices.Count > 0 && listViewNotes.SelectedItems[0].Checked;
+        }
+        private bool IsPlayVoiceOnCheckedLineEnabled()
+        {
+            return TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions == TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines;
         }
         private async Task play_note_in_line_with_voice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
         {
             // System speaker notes
-            bool systemSpeakerNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 1 && play_note1;
-            bool systemSpeakerNote2 = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 1 && play_note2;
-            bool systemSpeakerNote3 = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 1 && play_note3;
-            bool systemSpeakerNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 1 && play_note4;
+            bool systemSpeakerNote1 = (TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && play_note1;
+            bool systemSpeakerNote2 = (TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && play_note2;
+            bool systemSpeakerNote3 = (TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && play_note3;
+            bool systemSpeakerNote4 = (TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && play_note4;
 
             // Voice system notes
-            bool voiceSystemNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 && play_note1;
-            bool voiceSystemNote2 = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 && play_note2;
-            bool voiceSystemNote3 = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 && play_note3;
-            bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 && play_note4;
+            bool voiceSystemNote1 = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && play_note1;
+            bool voiceSystemNote2 = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && play_note2;
+            bool voiceSystemNote3 = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && play_note3;
+            bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && play_note4;
 
             // Play voice
             StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, length, nonStopping);
 
             // Play system speaker notes
-            await Task.Run(() =>
-            {
-                play_note_in_line(
+            await play_note_in_line(
                  systemSpeakerNote1,
                  systemSpeakerNote2,
                  systemSpeakerNote3,
@@ -2757,7 +2790,6 @@ namespace NeoBleeper
                  rawLength,
                  nonStopping
                 );
-            });
         }
         private async Task StartVoice(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false)
         {
@@ -2797,11 +2829,11 @@ namespace NeoBleeper
                 }
             }
         }
-        private async Task StopAllVoices()
+        public async Task StopAllVoices()
         {
             await Task.Run(() =>
             {
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(i);
                 }
@@ -3131,10 +3163,9 @@ namespace NeoBleeper
 
         private void MetronomeTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            metronomeTimer.Stop(); // Temporarily stop to prevent overlapping
-
             try
             {
+                metronomeTimer.Stop(); // Temporarily stop to prevent overlapping
                 if (!checkBox_metronome.Checked)
                     return;
 
@@ -3144,8 +3175,19 @@ namespace NeoBleeper
                 // Then update the UI (which is less time-critical)
                 ShowMetronomeBeatLabel();
 
+                // Get time signature value safely from UI thread
+                int timeSignatureValue;
+                if (trackBar_time_signature.InvokeRequired)
+                {
+                    timeSignatureValue = (int)trackBar_time_signature.Invoke(
+                        new Func<int>(() => trackBar_time_signature.Value));
+                }
+                else
+                {
+                    timeSignatureValue = trackBar_time_signature.Value;
+                }
                 // Update beat counter
-                beatCount = (beatCount + 1) % trackBar_time_signature.Value;
+                beatCount = (beatCount + 1) % timeSignatureValue;
 
                 // Schedule the next beat
                 metronomeTimer.Start();
@@ -3158,10 +3200,6 @@ namespace NeoBleeper
 
         private void PlayMetronomeBeat(bool isAccent)
         {
-            // Option 1: Use pre-loaded SoundPlayer if implemented
-            // (isAccent ? accentBeatSound : normalBeatSound).Play();
-
-            // Option 2: Use your NotePlayer but optimize for immediate playback
             int frequency = isAccent ? 1000 : 500;
 
             // Important: Play sound on high-priority thread
@@ -3190,11 +3228,28 @@ namespace NeoBleeper
         }
 
 
-        private async void UpdateLabelVisible(bool visible)
+        private void UpdateLabelVisible(bool visible)
         {
-            Task.Run(() =>
+            try
             {
-                try
+                if (label_beep.InvokeRequired)
+                {
+                    label_beep.BeginInvoke(() =>
+                    {
+                        SuspendLayout();
+                        if (label_beep.InvokeRequired)
+                        {
+                            label_beep.Invoke(new Action(() => label_beep.Visible = visible));
+                        }
+                        else
+                        {
+                            label_beep.Visible = visible;
+                        }
+                        ResumeLayout(performLayout: true);
+                        return;
+                    });
+                }
+                else
                 {
                     SuspendLayout();
                     if (label_beep.InvokeRequired)
@@ -3208,11 +3263,11 @@ namespace NeoBleeper
                     ResumeLayout(performLayout: true);
                     return;
                 }
-                catch
-                {
-                    return;
-                }
-            });
+            }
+            catch
+            {
+                return;
+            }
         }
 
 
@@ -3381,6 +3436,13 @@ namespace NeoBleeper
         bool is_clicked = false;
         private async void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
+            var mousePoint = listViewNotes.PointToClient(Control.MousePosition);
+            var hit = listViewNotes.HitTest(mousePoint);
+            if (hit.Location == ListViewHitTestLocations.StateImage)
+            {
+                return;
+            }
+
             stop_playing();
             EnableDisableCommonControls(false);
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
@@ -3396,7 +3458,7 @@ namespace NeoBleeper
                     updateDisplays(listViewNotes.SelectedIndices[0]);
                 }
                 HighPrecisionSleep.Sleep(1);
-                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength); 
+                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
                 int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(raw_note_length_calculator(baseLength))); // Note length calculator without note-silence ratio
                 HandleMidiOutput(noteSound_int);
                 bool nonStopping;
@@ -3603,7 +3665,7 @@ namespace NeoBleeper
             }
             UpdateLabelVisible(false);
         }
-        private void play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
+        private async Task play_note_in_line(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
         {
             Variables.alternating_note_length = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
@@ -3644,19 +3706,19 @@ namespace NeoBleeper
             {
                 if (notes[0].Contains(note1) && !string.IsNullOrWhiteSpace(note1))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note1_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note1_frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note2) && !string.IsNullOrWhiteSpace(note2))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note2_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note2_frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note3) && !string.IsNullOrWhiteSpace(note3))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note3_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note3_frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note4)))
                 {
-                    PlayBeepWithLabel(Convert.ToInt32(note4_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note4_frequency), length, nonStopping);
                 }
             }
             else if (notes.Length > 1)
@@ -3686,7 +3748,7 @@ namespace NeoBleeper
                         int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                         if (remainingTime >= alternatingNoteDuration)
                         {
-                            NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration);
+                            await Task.Run(() => { NotePlayer.play_note(Convert.ToInt32(frequency), alternatingNoteDuration); });
                             isAnyNotePlayed = true;
                         }
                         else
@@ -3698,7 +3760,7 @@ namespace NeoBleeper
                             }
                             else
                             {
-                                NotePlayer.play_note(Convert.ToInt32(frequency), (int)remainingTime);
+                                await Task.Run(() => { NotePlayer.play_note(Convert.ToInt32(frequency), (int)remainingTime); });
                             }
                         }
                     }
@@ -3721,7 +3783,7 @@ namespace NeoBleeper
                 {
                     EnableDisableCommonControls(true);
                 }
-                HighPrecisionSleep.Sleep(Math.Max(1, length));
+                await HighPrecisionSleep.SleepAsync(Math.Max(1, length));
             }
         }
         private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)
@@ -3741,66 +3803,59 @@ namespace NeoBleeper
 
         private void listViewNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (listViewNotes.SelectedItems.Count > 0)
             {
-                if (listViewNotes.SelectedItems.Count > 0)
+                int selectedLine = listViewNotes.SelectedIndices[0];
+                if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
                 {
-                    int selectedLine = listViewNotes.SelectedIndices[0];
-                    if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
+                    checkBox_dotted.Checked = true;
+                }
+                if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Tri" && checkBox_fermata.Checked == false)
+                {
+                    checkBox_triplet.Checked = true;
+                }
+                if (listViewNotes.Items[selectedLine].SubItems[5].Text == String.Empty)
+                {
+                    if (checkBox_dotted.Checked == true)
                     {
-                        checkBox_dotted.Checked = true;
+                        checkBox_dotted.Checked = false;
                     }
-                    if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Tri" && checkBox_fermata.Checked == false)
+                    if (checkBox_triplet.Checked == true)
                     {
-                        checkBox_triplet.Checked = true;
-                    }
-                    if (listViewNotes.Items[selectedLine].SubItems[5].Text == String.Empty)
-                    {
-                        if (checkBox_dotted.Checked == true)
-                        {
-                            checkBox_dotted.Checked = false;
-                        }
-                        if (checkBox_triplet.Checked == true)
-                        {
-                            checkBox_triplet.Checked = false;
-                        }
-                    }
-                    if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Sta" && checkBox_staccato.Checked == false)
-                    {
-                        checkBox_staccato.Checked = true;
-                    }
-                    if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Fer" && checkBox_fermata.Checked == false)
-                    {
-                        checkBox_fermata.Checked = true;
-                    }
-                    if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Spi" && checkBox_spiccato.Checked == false)
-                    {
-                        checkBox_spiccato.Checked = true;
-                    }
-                    if (listViewNotes.Items[selectedLine].SubItems[6].Text == String.Empty)
-                    {
-                        if (checkBox_staccato.Checked == true)
-                        {
-                            checkBox_staccato.Checked = false;
-                        }
-                        if (checkBox_fermata.Checked == true)
-                        {
-                            checkBox_fermata.Checked = false;
-                        }
-                        if (checkBox_spiccato.Checked == true)
-                        {
-                            checkBox_spiccato.Checked = false;
-                        }
-                    }
-                    if (checkBox_do_not_update.Checked == false && is_music_playing == true)
-                    {
-                        updateDisplays(selectedLine);
+                        checkBox_triplet.Checked = false;
                     }
                 }
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Sta" && checkBox_staccato.Checked == false)
+                {
+                    checkBox_staccato.Checked = true;
+                }
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Fer" && checkBox_fermata.Checked == false)
+                {
+                    checkBox_fermata.Checked = true;
+                }
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Spi" && checkBox_spiccato.Checked == false)
+                {
+                    checkBox_spiccato.Checked = true;
+                }
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == String.Empty)
+                {
+                    if (checkBox_staccato.Checked == true)
+                    {
+                        checkBox_staccato.Checked = false;
+                    }
+                    if (checkBox_fermata.Checked == true)
+                    {
+                        checkBox_fermata.Checked = false;
+                    }
+                    if (checkBox_spiccato.Checked == true)
+                    {
+                        checkBox_spiccato.Checked = false;
+                    }
+                }
+                if (checkBox_do_not_update.Checked == false && is_music_playing == true)
+                {
+                    updateDisplays(selectedLine);
+                }
             }
         }
         int beat_length = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
@@ -3832,15 +3887,18 @@ namespace NeoBleeper
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
                 });
-                if (checkBox_play_beat_sound.Checked == true && clicked == false && IsWholeNumber(beat_number))
+                if (checkBox_play_beat_sound.Checked == true && clicked == false)
                 {
                     switch (TemporarySettings.BeatTypes.beatType)
                     {
                         case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
-                            beat_length = play_beat_sound();
+                            if (IsWholeNumber(beat_number))
+                            {
+                                beat_length = play_beat_sound();
+                            }
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
-                            if (beat_number % 2 != 0)
+                            if (beat_number % 2 != 0 && IsWholeNumber(beat_number))
                             {
                                 beat_length = play_beat_sound();
                             }
@@ -3850,13 +3908,23 @@ namespace NeoBleeper
                             }
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
-                            if (beat_number % 2 == 0)
+                            if (beat_number % 2 == 0 && IsWholeNumber(beat_number))
                             {
                                 beat_length = play_beat_sound();
                             }
                             else
                             {
                                 beat_length = 0; // Reset beat length if not playing on odd beats
+                            }
+                            break;
+                        case TemporarySettings.BeatTypes.BeatType.PlayOnCheckedLines:
+                            if (listViewNotes.Items[Line].Checked == true)
+                            {
+                                beat_length = play_beat_sound();
+                            }
+                            else
+                            {
+                                beat_length = 0; // Reset beat length if not playing on checked lines
                             }
                             break;
                     }
@@ -4217,13 +4285,17 @@ namespace NeoBleeper
         }
         private void show_keyboard_keys_shortcut()
         {
-            Task.Run(() =>
+            foreach (var entry in buttonShortcuts)
             {
-                foreach (var entry in buttonShortcuts)
+                if (entry.Key.InvokeRequired)
                 {
-                    entry.Key.Text = entry.Value; // Set the shortcut text
+                    entry.Key.Invoke(new Action(() => entry.Key.Text = entry.Value));
                 }
-            });
+                else
+                {
+                    entry.Key.Text = entry.Value;
+                }
+            }
         }
         private void hide_keyboard_keys_shortcut()
         {
@@ -4231,7 +4303,14 @@ namespace NeoBleeper
             {
                 foreach (var entry in buttonShortcuts)
                 {
-                    entry.Key.Text = string.Empty; // Clear the shortcut text
+                    if (entry.Key.InvokeRequired)
+                    {
+                        entry.Key.Invoke(new Action(() => entry.Key.Text = string.Empty));
+                    }
+                    else
+                    {
+                        entry.Key.Text = string.Empty;
+                    }
                 }
             });
         }
@@ -4451,17 +4530,26 @@ namespace NeoBleeper
         }
         private void CopyToClipboard()
         {
-            if (listViewNotes.SelectedItems.Count > 0)
+            // Combine selected and checked items into a single collection
+            var itemsToCopy = listViewNotes.SelectedItems.Cast<ListViewItem>()
+                .Union(listViewNotes.CheckedItems.Cast<ListViewItem>())
+                .Distinct();
+
+            if (itemsToCopy.Any())
             {
-                ListViewItem selectedItem = listViewNotes.SelectedItems[0];
                 StringBuilder clipboardText = new StringBuilder();
 
-                foreach (ListViewItem.ListViewSubItem subItem in selectedItem.SubItems)
+                foreach (ListViewItem item in itemsToCopy)
                 {
-                    clipboardText.Append(subItem.Text + "\t"); // Combine the text with a tab character
+                    foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                    {
+                        clipboardText.Append(subItem.Text + "\t"); // Combine the text with a tab character
+                    }
+                    clipboardText.Length--; // Remove the last tab character
+                    clipboardText.AppendLine(); // Add a newline for the next item
                 }
 
-                // Remove the last tab character
+                // Remove the last newline character
                 if (clipboardText.Length > 0)
                 {
                     clipboardText.Length--;
@@ -4477,44 +4565,54 @@ namespace NeoBleeper
         {
             PasteFromClipboard();
         }
+        
         private void PasteFromClipboard()
         {
-            if (Clipboard.ContainsText())
-            {
-                string clipboardText = Clipboard.GetText();
-                string[] subItems = clipboardText.Split('\t');
+            if (!Clipboard.ContainsText()) return;
 
-                if (subItems.Length >= 7) // Ensure there are enough subitems
+            string clipboardText = Clipboard.GetText();
+            string[] lines = clipboardText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            int insertIndex = -1;
+            if (listViewNotes.SelectedItems.Count > 0)
+            {
+                insertIndex = listViewNotes.SelectedIndices[0];
+            }
+
+            List<ListViewItem> itemsToAdd = new List<ListViewItem>();
+
+            foreach (string line in lines)
+            {
+                string[] subItems = line.Split('\t');
+
+                if (subItems.Length >= 7)
                 {
-                    ListViewItem newItem = new ListViewItem(subItems[0]); // First subitem is the main item
+                    ListViewItem newItem = new ListViewItem(subItems[0]);
                     for (int i = 1; i < subItems.Length; i++)
                     {
                         newItem.SubItems.Add(subItems[i]);
                     }
-
-                    int insertIndex = -1;
-                    if (listViewNotes.SelectedItems.Count > 0)
-                    {
-                        insertIndex = listViewNotes.SelectedIndices[0];
-                    }
-
-                    var pasteCommand = new PasteCommand(listViewNotes, newItem, insertIndex);
-                    commandManager.ExecuteCommand(pasteCommand);
-                    isModified = true;
-                    UpdateFormTitle();
-                    if (listViewNotes.Items.Count > 0)
-                    {
-                        if (insertIndex != -1 && insertIndex < listViewNotes.Items.Count)
-                        {
-                            listViewNotes.EnsureVisible(insertIndex);
-                        }
-                        else
-                        {
-                            listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
-                        }
-                    }
-                    Logger.Log("Paste is executed.", Logger.LogTypes.Info);
+                    itemsToAdd.Add(newItem);
                 }
+            }
+
+            if (itemsToAdd.Any())
+            {
+                var addNotesCommand = new AddNoteCommand(listViewNotes, itemsToAdd, insertIndex);
+                commandManager.ExecuteCommand(addNotesCommand);
+
+                isModified = true;
+                UpdateFormTitle();
+                if (insertIndex != -1) // If inserted at a specific index, ensure that index is visible
+                {
+                    listViewNotes.EnsureVisible(insertIndex);
+                }
+                else
+                {
+                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                }
+
+                Logger.Log("Paste is executed.", Logger.LogTypes.Info);
             }
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4639,37 +4737,38 @@ namespace NeoBleeper
         }
         private void CutToClipboard()
         {
-            if (listViewNotes.SelectedItems.Count > 0)
+            var itemsToCut = listViewNotes.SelectedItems.Cast<ListViewItem>()
+                .Union(listViewNotes.CheckedItems.Cast<ListViewItem>())
+                .Distinct()
+                .ToList();
+
+            if (itemsToCut.Any())
             {
-                int selectedIndex = listViewNotes.SelectedIndices[0];
-                ListViewItem selectedItem = listViewNotes.SelectedItems[0];
                 StringBuilder clipboardText = new StringBuilder();
 
-                foreach (ListViewItem.ListViewSubItem subItem in selectedItem.SubItems)
+                foreach (ListViewItem item in itemsToCut)
                 {
-                    clipboardText.Append(subItem.Text + "\t"); // Combine the text with a tab character
+                    foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                    {
+                        clipboardText.Append(subItem.Text + "\t");
+                    }
+                    clipboardText.Length--;
+                    clipboardText.AppendLine();
                 }
 
-                // Remove the last tab character
                 if (clipboardText.Length > 0)
                 {
                     clipboardText.Length--;
                 }
 
-                // Copy to clipboard
                 Clipboard.SetText(clipboardText.ToString());
-                erase_line();
-                if (listViewNotes.Items.Count > 0)
-                {
-                    if (selectedIndex < listViewNotes.Items.Count)
-                    {
-                        listViewNotes.EnsureVisible(selectedIndex);
-                    }
-                    else
-                    {
-                        listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
-                    }
-                }
+
+                var removeCommand = new RemoveNoteCommand(listViewNotes, Target.Both);
+                commandManager.ExecuteCommand(removeCommand);
+
+                isModified = true;
+                UpdateFormTitle();
+
                 Logger.Log("Cut is executed.", Logger.LogTypes.Info);
             }
         }
@@ -5965,6 +6064,22 @@ namespace NeoBleeper
                 await StopAllVoices();
                 closeVoiceInternalsWindow();
                 Logger.Log("Voice internals window is closed", Logger.LogTypes.Info);
+            }
+        }
+
+        private void checkAllNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listViewNotes.Items)
+            {
+                item.Checked = true;
+            }
+        }
+
+        private void uncheckAllNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listViewNotes.Items)
+            {
+                item.Checked = false;
             }
         }
     }

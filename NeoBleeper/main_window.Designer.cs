@@ -103,6 +103,8 @@
             cutToolStripMenuItem = new ToolStripMenuItem();
             copyToClipboardToolStripMenuItem = new ToolStripMenuItem();
             pasteToolStripMenuItem = new ToolStripMenuItem();
+            checkAllNotesToolStripMenuItem = new ToolStripMenuItem();
+            uncheckAllNotesToolStripMenuItem = new ToolStripMenuItem();
             playbackControlsToolStripMenuItem = new ToolStripMenuItem();
             playAllToolStripMenuItem = new ToolStripMenuItem();
             playFromSelectedLineToolStripMenuItem = new ToolStripMenuItem();
@@ -766,6 +768,7 @@
             // listViewNotes
             // 
             resources.ApplyResources(listViewNotes, "listViewNotes");
+            listViewNotes.CheckBoxes = true;
             listViewNotes.Columns.AddRange(new ColumnHeader[] { length, note1, note2, note3, note4, mod, art });
             listViewNotes.ContextMenuStrip = notes_list_right_click;
             listViewNotes.FullRowSelect = true;
@@ -809,7 +812,7 @@
             // 
             resources.ApplyResources(notes_list_right_click, "notes_list_right_click");
             notes_list_right_click.ImageScalingSize = new Size(20, 20);
-            notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, cutToolStripMenuItem, copyToClipboardToolStripMenuItem, pasteToolStripMenuItem, playbackControlsToolStripMenuItem });
+            notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, cutToolStripMenuItem, copyToClipboardToolStripMenuItem, pasteToolStripMenuItem, checkAllNotesToolStripMenuItem, uncheckAllNotesToolStripMenuItem, playbackControlsToolStripMenuItem });
             notes_list_right_click.Name = "contextMenuStrip1";
             // 
             // blankLineToolStripMenuItem
@@ -885,6 +888,20 @@
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             resources.ApplyResources(pasteToolStripMenuItem, "pasteToolStripMenuItem");
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
+            // 
+            // checkAllNotesToolStripMenuItem
+            // 
+            checkAllNotesToolStripMenuItem.Image = Properties.Resources.icons8_check_all_48;
+            checkAllNotesToolStripMenuItem.Name = "checkAllNotesToolStripMenuItem";
+            resources.ApplyResources(checkAllNotesToolStripMenuItem, "checkAllNotesToolStripMenuItem");
+            checkAllNotesToolStripMenuItem.Click += checkAllNotesToolStripMenuItem_Click;
+            // 
+            // uncheckAllNotesToolStripMenuItem
+            // 
+            uncheckAllNotesToolStripMenuItem.Image = Properties.Resources.icons8_uncheck_all_48;
+            uncheckAllNotesToolStripMenuItem.Name = "uncheckAllNotesToolStripMenuItem";
+            resources.ApplyResources(uncheckAllNotesToolStripMenuItem, "uncheckAllNotesToolStripMenuItem");
+            uncheckAllNotesToolStripMenuItem.Click += uncheckAllNotesToolStripMenuItem_Click;
             // 
             // playbackControlsToolStripMenuItem
             // 
@@ -2318,5 +2335,7 @@
         public CheckBox checkBox_bleeper_portamento;
         private Button button_use_voice_system_help;
         public CheckBox checkBox_use_voice_system;
+        private ToolStripMenuItem checkAllNotesToolStripMenuItem;
+        private ToolStripMenuItem uncheckAllNotesToolStripMenuItem;
     }
 }

@@ -28,6 +28,7 @@ namespace NeoBleeper
                         radioButton_play_sound_on_all_beats.Checked = true;
                         radioButton_play_sound_on_odd_beats.Checked = false;
                         radioButton_play_sound_on_even_beats.Checked = false;
+                        radioButton_play_sound_on_checked_lines.Checked = false;
                         break;
                     }
                 case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
@@ -35,6 +36,7 @@ namespace NeoBleeper
                         radioButton_play_sound_on_all_beats.Checked = false;
                         radioButton_play_sound_on_odd_beats.Checked = true;
                         radioButton_play_sound_on_even_beats.Checked = false;
+                        radioButton_play_sound_on_checked_lines.Checked = false;
                         break;
                     }
                 case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
@@ -42,6 +44,15 @@ namespace NeoBleeper
                         radioButton_play_sound_on_all_beats.Checked = false;
                         radioButton_play_sound_on_even_beats.Checked = true;
                         radioButton_play_sound_on_odd_beats.Checked = false;
+                        radioButton_play_sound_on_checked_lines.Checked = false;
+                        break;
+                    }
+                case TemporarySettings.BeatTypes.BeatType.PlayOnCheckedLines:
+                    {
+                        radioButton_play_sound_on_all_beats.Checked = false;
+                        radioButton_play_sound_on_checked_lines.Checked = true;
+                        radioButton_play_sound_on_odd_beats.Checked = false;
+                        radioButton_play_sound_on_even_beats.Checked = false;
                         break;
                     }
             }
@@ -111,6 +122,11 @@ namespace NeoBleeper
             {
                 TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats;
                 Logger.Log("Set to play sound on even beats.", Logger.LogTypes.Info);
+            }
+            else if (radioButton_play_sound_on_checked_lines.Checked == true)
+            {
+                TemporarySettings.BeatTypes.beatType = TemporarySettings.BeatTypes.BeatType.PlayOnCheckedLines;
+                Logger.Log("Set to play sound on checked lines.", Logger.LogTypes.Info);
             }
         }
         private void play_beat_window_SystemColorsChanged(object sender, EventArgs e)
