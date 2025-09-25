@@ -33,6 +33,7 @@
             radioButton_play_sound_on_even_beats = new RadioButton();
             label_uncheck_do_not_update = new Label();
             panel1 = new Panel();
+            radioButton_play_sound_on_checked_lines = new RadioButton();
             SuspendLayout();
             // 
             // radioButton_play_sound_on_all_beats
@@ -80,7 +81,7 @@
             // 
             label_uncheck_do_not_update.AutoSize = true;
             label_uncheck_do_not_update.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_uncheck_do_not_update.Location = new Point(11, 87);
+            label_uncheck_do_not_update.Location = new Point(11, 111);
             label_uncheck_do_not_update.Margin = new Padding(2, 0, 2, 0);
             label_uncheck_do_not_update.MaximumSize = new Size(410, 0);
             label_uncheck_do_not_update.Name = "label_uncheck_do_not_update";
@@ -91,19 +92,32 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            panel1.Location = new Point(406, 104);
+            panel1.Location = new Point(417, 133);
             panel1.Name = "panel1";
             panel1.Size = new Size(20, 20);
             panel1.TabIndex = 2;
+            // 
+            // radioButton_play_sound_on_checked_lines
+            // 
+            radioButton_play_sound_on_checked_lines.AutoSize = true;
+            radioButton_play_sound_on_checked_lines.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButton_play_sound_on_checked_lines.Location = new Point(11, 82);
+            radioButton_play_sound_on_checked_lines.Margin = new Padding(2);
+            radioButton_play_sound_on_checked_lines.Name = "radioButton_play_sound_on_checked_lines";
+            radioButton_play_sound_on_checked_lines.Size = new Size(206, 20);
+            radioButton_play_sound_on_checked_lines.TabIndex = 3;
+            radioButton_play_sound_on_checked_lines.Text = "Play beat sound on checked lines";
+            radioButton_play_sound_on_checked_lines.UseVisualStyleBackColor = true;
+            radioButton_play_sound_on_checked_lines.Click += beat_types_click;
             // 
             // play_beat_window
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(428, 127);
+            ClientSize = new Size(437, 154);
             ControlBox = false;
+            Controls.Add(radioButton_play_sound_on_checked_lines);
             Controls.Add(label_uncheck_do_not_update);
             Controls.Add(radioButton_play_sound_on_even_beats);
             Controls.Add(radioButton_play_sound_on_odd_beats);
@@ -129,5 +143,6 @@
         private RadioButton radioButton_play_sound_on_even_beats;
         public Label label_uncheck_do_not_update;
         private Panel panel1;
+        private RadioButton radioButton_play_sound_on_checked_lines;
     }
 }

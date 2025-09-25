@@ -1457,7 +1457,7 @@ namespace NeoBleeper
 
         private void button_show_reason_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md") { UseShellExecute = true });
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility") { UseShellExecute = true });
         }
 
         private void numericUpDownLyricsSize_ValueChanged(object sender, EventArgs e)

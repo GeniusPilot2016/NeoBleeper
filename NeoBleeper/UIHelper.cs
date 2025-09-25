@@ -102,18 +102,7 @@ public static class UIHelper
         if (form == null || form.IsDisposed || form.Disposing)
             return;
 
-        // Lock the window to prevent flickering during updates
-        LockWindowUpdate(form.Handle);
-
-        try
-        {
-            // Sadece ana formu invalidate etmek çoðu durumda yeterlidir
-            form.Invalidate(true); // true: tüm alt kontrolleri de kapsar
-            form.Update();
-        }
-        finally
-        {
-            LockWindowUpdate(IntPtr.Zero);
-        }
+        form.Invalidate(true);
+        form.Update();
     }
 }

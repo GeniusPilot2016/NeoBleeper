@@ -71,9 +71,9 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   This feature disables the automatic updating of the position table when selecting notes. However, it will continue to update during editing. 
+        ///   This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
         ///
-        ///When enabled, the position table will not update when you select notes, allowing you to make changes without affecting the playback position. 
+        ///When enabled, the position table will not update when the music is playing.
         ///
         ///If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -448,6 +448,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_check_all_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-check-all-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_clear_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-clear-48", resourceCulture);
@@ -701,6 +711,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_sustainable_energy_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-sustainable-energy-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_uncheck_all_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-uncheck-all-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -160,6 +160,9 @@
             labelFormantControl = new Label();
             panel7 = new Panel();
             panel30 = new Panel();
+            groupBoxPlayVoiceOnLineSettings = new GroupBox();
+            label1 = new Label();
+            comboBoxPlayNoteOnLineOption = new ComboBox();
             groupBoxKey.SuspendLayout();
             groupBoxOutputOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
@@ -215,13 +218,14 @@
             ((System.ComponentModel.ISupportInitialize)trackBarFormant1Hz).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFormant1Vol).BeginInit();
             panel7.SuspendLayout();
+            groupBoxPlayVoiceOnLineSettings.SuspendLayout();
             SuspendLayout();
             // 
             // panel27
             // 
             panel27.BackColor = Color.Yellow;
             panel27.BorderStyle = BorderStyle.FixedSingle;
-            panel27.Location = new Point(17, 44);
+            panel27.Location = new Point(13, 25);
             panel27.Name = "panel27";
             panel27.Size = new Size(24, 24);
             panel27.TabIndex = 0;
@@ -230,7 +234,7 @@
             // 
             panel28.BackColor = Color.Cyan;
             panel28.BorderStyle = BorderStyle.FixedSingle;
-            panel28.Location = new Point(17, 74);
+            panel28.Location = new Point(13, 55);
             panel28.Name = "panel28";
             panel28.Size = new Size(24, 24);
             panel28.TabIndex = 0;
@@ -239,7 +243,7 @@
             // 
             panel29.BackColor = Color.Red;
             panel29.BorderStyle = BorderStyle.FixedSingle;
-            panel29.Location = new Point(17, 104);
+            panel29.Location = new Point(13, 85);
             panel29.Name = "panel29";
             panel29.Size = new Size(24, 24);
             panel29.TabIndex = 0;
@@ -247,7 +251,7 @@
             // label59
             // 
             label59.AutoSize = true;
-            label59.Location = new Point(50, 47);
+            label59.Location = new Point(46, 28);
             label59.Name = "label59";
             label59.Size = new Size(104, 19);
             label59.TabIndex = 1;
@@ -256,7 +260,7 @@
             // label60
             // 
             label60.AutoSize = true;
-            label60.Location = new Point(50, 77);
+            label60.Location = new Point(46, 58);
             label60.Name = "label60";
             label60.Size = new Size(86, 19);
             label60.TabIndex = 1;
@@ -265,7 +269,7 @@
             // label61
             // 
             label61.AutoSize = true;
-            label61.Location = new Point(50, 107);
+            label61.Location = new Point(46, 88);
             label61.Name = "label61";
             label61.Size = new Size(113, 19);
             label61.TabIndex = 1;
@@ -274,7 +278,7 @@
             // label62
             // 
             label62.AutoSize = true;
-            label62.Location = new Point(17, 168);
+            label62.Location = new Point(13, 125);
             label62.Name = "label62";
             label62.Size = new Size(84, 19);
             label62.TabIndex = 1;
@@ -283,7 +287,7 @@
             // label63
             // 
             label63.AutoSize = true;
-            label63.Location = new Point(17, 198);
+            label63.Location = new Point(13, 155);
             label63.Name = "label63";
             label63.Size = new Size(90, 19);
             label63.TabIndex = 1;
@@ -292,7 +296,7 @@
             // label64
             // 
             label64.AutoSize = true;
-            label64.Location = new Point(17, 228);
+            label64.Location = new Point(13, 185);
             label64.Name = "label64";
             label64.Size = new Size(159, 19);
             label64.TabIndex = 1;
@@ -312,7 +316,7 @@
             groupBoxKey.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBoxKey.Location = new Point(661, 12);
             groupBoxKey.Name = "groupBoxKey";
-            groupBoxKey.Size = new Size(287, 280);
+            groupBoxKey.Size = new Size(334, 212);
             groupBoxKey.TabIndex = 6;
             groupBoxKey.TabStop = false;
             groupBoxKey.Text = "Key";
@@ -370,7 +374,7 @@
             comboBoxNote1Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote1Option.Location = new Point(65, 24);
             comboBoxNote1Option.Name = "comboBoxNote1Option";
-            comboBoxNote1Option.Size = new Size(238, 24);
+            comboBoxNote1Option.Size = new Size(285, 24);
             comboBoxNote1Option.TabIndex = 1;
             comboBoxNote1Option.SelectedIndexChanged += comboBoxNote1Option_SelectedIndexChanged;
             // 
@@ -383,7 +387,7 @@
             comboBoxNote2Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote2Option.Location = new Point(65, 53);
             comboBoxNote2Option.Name = "comboBoxNote2Option";
-            comboBoxNote2Option.Size = new Size(238, 24);
+            comboBoxNote2Option.Size = new Size(285, 24);
             comboBoxNote2Option.TabIndex = 1;
             comboBoxNote2Option.SelectedIndexChanged += comboBoxNote2Option_SelectedIndexChanged;
             // 
@@ -396,7 +400,7 @@
             comboBoxNote3Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote3Option.Location = new Point(65, 82);
             comboBoxNote3Option.Name = "comboBoxNote3Option";
-            comboBoxNote3Option.Size = new Size(238, 24);
+            comboBoxNote3Option.Size = new Size(285, 24);
             comboBoxNote3Option.TabIndex = 1;
             comboBoxNote3Option.SelectedIndexChanged += comboBoxNote3Option_SelectedIndexChanged;
             // 
@@ -409,7 +413,7 @@
             comboBoxNote4Option.Items.AddRange(new object[] { "Voice system", "System speaker/Sound device beep" });
             comboBoxNote4Option.Location = new Point(65, 111);
             comboBoxNote4Option.Name = "comboBoxNote4Option";
-            comboBoxNote4Option.Size = new Size(238, 24);
+            comboBoxNote4Option.Size = new Size(285, 24);
             comboBoxNote4Option.TabIndex = 1;
             comboBoxNote4Option.SelectedIndexChanged += comboBoxNote4Option_SelectedIndexChanged;
             // 
@@ -426,7 +430,7 @@
             groupBoxOutputOptions.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBoxOutputOptions.Location = new Point(629, 435);
             groupBoxOutputOptions.Name = "groupBoxOutputOptions";
-            groupBoxOutputOptions.Size = new Size(319, 143);
+            groupBoxOutputOptions.Size = new Size(366, 143);
             groupBoxOutputOptions.TabIndex = 5;
             groupBoxOutputOptions.TabStop = false;
             groupBoxOutputOptions.Text = "Output options";
@@ -436,7 +440,7 @@
             label53.Anchor = AnchorStyles.None;
             label53.AutoSize = true;
             label53.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label53.Location = new Point(137, 25);
+            label53.Location = new Point(161, 25);
             label53.Name = "label53";
             label53.Size = new Size(34, 16);
             label53.TabIndex = 0;
@@ -446,7 +450,7 @@
             // 
             trackBarPitch.Anchor = AnchorStyles.None;
             trackBarPitch.AutoSize = false;
-            trackBarPitch.Location = new Point(45, 44);
+            trackBarPitch.Location = new Point(69, 44);
             trackBarPitch.Maximum = 1000;
             trackBarPitch.Name = "trackBarPitch";
             trackBarPitch.Size = new Size(228, 25);
@@ -460,7 +464,7 @@
             label54.Anchor = AnchorStyles.None;
             label54.AutoSize = true;
             label54.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label54.Location = new Point(134, 77);
+            label54.Location = new Point(158, 77);
             label54.Name = "label54";
             label54.Size = new Size(43, 16);
             label54.TabIndex = 2;
@@ -470,7 +474,7 @@
             // 
             trackBarRange.Anchor = AnchorStyles.None;
             trackBarRange.AutoSize = false;
-            trackBarRange.Location = new Point(45, 96);
+            trackBarRange.Location = new Point(69, 96);
             trackBarRange.Maximum = 1000;
             trackBarRange.Name = "trackBarRange";
             trackBarRange.Size = new Size(228, 25);
@@ -488,7 +492,7 @@
             groupBoxRandomVariationsOfFormants.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBoxRandomVariationsOfFormants.Location = new Point(629, 298);
             groupBoxRandomVariationsOfFormants.Name = "groupBoxRandomVariationsOfFormants";
-            groupBoxRandomVariationsOfFormants.Size = new Size(319, 131);
+            groupBoxRandomVariationsOfFormants.Size = new Size(366, 131);
             groupBoxRandomVariationsOfFormants.TabIndex = 4;
             groupBoxRandomVariationsOfFormants.TabStop = false;
             groupBoxRandomVariationsOfFormants.Text = "Random variations of formants";
@@ -1803,20 +1807,57 @@
             // 
             // panel30
             // 
-            panel30.Location = new Point(930, 561);
+            panel30.Location = new Point(977, 561);
             panel30.Name = "panel30";
             panel30.Size = new Size(30, 28);
             panel30.TabIndex = 7;
+            // 
+            // groupBoxPlayVoiceOnLineSettings
+            // 
+            groupBoxPlayVoiceOnLineSettings.Controls.Add(label1);
+            groupBoxPlayVoiceOnLineSettings.Controls.Add(comboBoxPlayNoteOnLineOption);
+            groupBoxPlayVoiceOnLineSettings.Font = new Font("HarmonyOS Sans", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupBoxPlayVoiceOnLineSettings.Location = new Point(661, 227);
+            groupBoxPlayVoiceOnLineSettings.Name = "groupBoxPlayVoiceOnLineSettings";
+            groupBoxPlayVoiceOnLineSettings.Size = new Size(334, 65);
+            groupBoxPlayVoiceOnLineSettings.TabIndex = 4;
+            groupBoxPlayVoiceOnLineSettings.TabStop = false;
+            groupBoxPlayVoiceOnLineSettings.Text = "Playing voice on line options";
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(13, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 16);
+            label1.TabIndex = 1;
+            label1.Text = "When to play voice";
+            // 
+            // comboBoxPlayNoteOnLineOption
+            // 
+            comboBoxPlayNoteOnLineOption.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxPlayNoteOnLineOption.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayNoteOnLineOption.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxPlayNoteOnLineOption.FormattingEnabled = true;
+            comboBoxPlayNoteOnLineOption.Items.AddRange(new object[] { "Play voice on all lines", "Play voice on checked lines" });
+            comboBoxPlayNoteOnLineOption.Location = new Point(131, 27);
+            comboBoxPlayNoteOnLineOption.Name = "comboBoxPlayNoteOnLineOption";
+            comboBoxPlayNoteOnLineOption.Size = new Size(187, 24);
+            comboBoxPlayNoteOnLineOption.TabIndex = 0;
+            comboBoxPlayNoteOnLineOption.SelectedIndexChanged += comboBoxPlayNoteOnLineOption_SelectedIndexChanged;
             // 
             // VoiceInternalsWindow
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(960, 589);
+            ClientSize = new Size(1007, 589);
             ControlBox = false;
             Controls.Add(groupBoxKey);
             Controls.Add(groupBoxOutputOptions);
+            Controls.Add(groupBoxPlayVoiceOnLineSettings);
             Controls.Add(groupBoxRandomVariationsOfFormants);
             Controls.Add(panel26);
             Controls.Add(panel30);
@@ -1909,6 +1950,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarFormant1Vol).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
+            groupBoxPlayVoiceOnLineSettings.ResumeLayout(false);
+            groupBoxPlayVoiceOnLineSettings.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -2005,7 +2048,6 @@
         private Label label7;
         private Label labelNoiseVol;
         private TrackBar trackBarNoiseVol;
-        private Label label2;
         private Panel panel1;
         private Panel panel6;
         private Panel panel8;
@@ -2046,7 +2088,6 @@
         private Label label33;
         private Label label34;
         private Button buttonOpenBack;
-        private Label label1;
         private Panel panel7;
         private Panel panel30;
         private Label labelFormantControl;
@@ -2065,5 +2106,8 @@
         private Label labelSaw;
         private Label labelNoise;
         private Label labelVoice;
+        private GroupBox groupBoxPlayVoiceOnLineSettings;
+        private ComboBox comboBoxPlayNoteOnLineOption;
+        private Label label1;
     }
 }
