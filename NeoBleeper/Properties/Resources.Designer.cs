@@ -1324,6 +1324,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Notes are copied to clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ToastMessageNotesCopy {
+            get {
+                return ResourceManager.GetString("ToastMessageNotesCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Notes are cut to clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ToastMessageNotesCut {
+            get {
+                return ResourceManager.GetString("ToastMessageNotesCut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature allows you to use your computer keyboard as a piano keyboard. 
         ///
         ///When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. 

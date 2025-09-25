@@ -3477,7 +3477,7 @@ namespace NeoBleeper
                     stopAllNotesAfterPlaying();
                 }
                 EnableDisableCommonControls(true);
-                if (!(listViewNotes.SelectedItems == null))
+                if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0)
                 {
                     Logger.Log($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
                      $"{listViewNotes.SelectedItems[0].SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
@@ -4557,6 +4557,8 @@ namespace NeoBleeper
 
                 // Copy to clipboard
                 Clipboard.SetText(clipboardText.ToString());
+                Toast toast = new Toast(this, Resources.ToastMessageNotesCopy, 2000);
+                toast.Show();
                 Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
             }
         }
@@ -4768,7 +4770,8 @@ namespace NeoBleeper
 
                 isModified = true;
                 UpdateFormTitle();
-
+                Toast toast = new Toast(this, Resources. ToastMessageNotesCut, 2000);
+                toast.Show();
                 Logger.Log("Cut is executed.", Logger.LogTypes.Info);
             }
         }
