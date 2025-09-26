@@ -104,6 +104,7 @@ namespace NeoBleeper
             checkBox_use_midi_input.Checked = TemporarySettings.MIDIDevices.useMIDIinput;
             checkBox_use_midi_output.Checked = TemporarySettings.MIDIDevices.useMIDIoutput;
             checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
+            comboBoxLanguage.SelectedItem = Settings1.Default.preferredLanguage;
             UIFonts.setFonts(this);
             set_theme();
             refresh_midi_input();
@@ -130,6 +131,9 @@ namespace NeoBleeper
                 tabPage.BackColor = Color.FromArgb(32, 32, 32);
                 tabPage.ForeColor = Color.White;
             }
+            groupBoxLanguageSettings.ForeColor = Color.White;
+            comboBoxLanguage.BackColor = Color.Black;
+            comboBoxLanguage.ForeColor = Color.White;
             groupBox_appearance.ForeColor = Color.White;
             btn_test_system_speaker.BackColor = Color.FromArgb(32, 32, 32);
             btn_test_system_speaker.ForeColor = Color.White;
@@ -200,6 +204,9 @@ namespace NeoBleeper
                 tabPage.BackColor = SystemColors.Window;
                 tabPage.ForeColor = SystemColors.ControlText;
             }
+            groupBoxLanguageSettings.ForeColor = SystemColors.ControlText;
+            comboBoxLanguage.BackColor = SystemColors.Window;
+            comboBoxLanguage.ForeColor = SystemColors.WindowText;
             groupBox_appearance.ForeColor = SystemColors.ControlText;
             btn_test_system_speaker.BackColor = Color.Transparent;
             btn_test_system_speaker.ForeColor = SystemColors.ControlText;
@@ -1448,7 +1455,7 @@ namespace NeoBleeper
             {
                 e.Cancel = true; // Prevent closing while testing system speaker
             }
-            if(lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
+            if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
             {
                 lyricsOverlay.Close();
                 lyricsOverlay.Dispose();
@@ -1496,6 +1503,17 @@ namespace NeoBleeper
             {
                 Logger.Log($"An error occured while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxLanguage.SelectedItem.ToString() != Settings1.Default.preferredLanguage)
+            {
+                Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
+                Settings1.Default.Save();
+                UIHelper.setLanguageByName(Settings1.Default.preferredLanguage);
+                Logger.Log("Preferred language changed to: " + comboBoxLanguage.SelectedItem.ToString(), Logger.LogTypes.Info);
             }
         }
     }

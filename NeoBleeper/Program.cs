@@ -216,6 +216,8 @@ namespace NeoBleeper
                     Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
                     break;
             }
+            UIHelper.setLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
+            Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
         }
     }
 }
