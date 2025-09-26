@@ -909,6 +909,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The language has been changed. Please restart the application to apply the new language. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageLanguageChanged {
+            get {
+                return ResourceManager.GetString("MessageLanguageChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error loading MIDI file: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageMIDIFileLoadingError {

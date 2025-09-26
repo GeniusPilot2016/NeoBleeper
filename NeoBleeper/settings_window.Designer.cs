@@ -33,6 +33,9 @@
             tabControl_settings = new TabControl();
             general_settings = new TabPage();
             flowLayoutPanelGeneralSettings = new FlowLayoutPanel();
+            groupBoxLanguageSettings = new GroupBox();
+            comboBoxLanguage = new ComboBox();
+            labelLanguage = new Label();
             groupBox_appearance = new GroupBox();
             checkBoxClassicBleeperMode = new CheckBox();
             lbl_theme = new Label();
@@ -141,6 +144,7 @@
             tabControl_settings.SuspendLayout();
             general_settings.SuspendLayout();
             flowLayoutPanelGeneralSettings.SuspendLayout();
+            groupBoxLanguageSettings.SuspendLayout();
             groupBox_appearance.SuspendLayout();
             groupBoxCreateMusicWithAI.SuspendLayout();
             groupBox_system_speaker_test.SuspendLayout();
@@ -189,12 +193,35 @@
             // 
             // flowLayoutPanelGeneralSettings
             // 
+            flowLayoutPanelGeneralSettings.Controls.Add(groupBoxLanguageSettings);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBox_appearance);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBoxCreateMusicWithAI);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBox_system_speaker_test);
             flowLayoutPanelGeneralSettings.Controls.Add(panelSystemSpeakerWarnings);
             resources.ApplyResources(flowLayoutPanelGeneralSettings, "flowLayoutPanelGeneralSettings");
             flowLayoutPanelGeneralSettings.Name = "flowLayoutPanelGeneralSettings";
+            // 
+            // groupBoxLanguageSettings
+            // 
+            groupBoxLanguageSettings.Controls.Add(comboBoxLanguage);
+            groupBoxLanguageSettings.Controls.Add(labelLanguage);
+            resources.ApplyResources(groupBoxLanguageSettings, "groupBoxLanguageSettings");
+            groupBoxLanguageSettings.Name = "groupBoxLanguageSettings";
+            groupBoxLanguageSettings.TabStop = false;
+            // 
+            // comboBoxLanguage
+            // 
+            resources.ApplyResources(comboBoxLanguage, "comboBoxLanguage");
+            comboBoxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLanguage.FormattingEnabled = true;
+            comboBoxLanguage.Items.AddRange(new object[] { resources.GetString("comboBoxLanguage.Items"), resources.GetString("comboBoxLanguage.Items1"), resources.GetString("comboBoxLanguage.Items2"), resources.GetString("comboBoxLanguage.Items3"), resources.GetString("comboBoxLanguage.Items4"), resources.GetString("comboBoxLanguage.Items5"), resources.GetString("comboBoxLanguage.Items6"), resources.GetString("comboBoxLanguage.Items7"), resources.GetString("comboBoxLanguage.Items8"), resources.GetString("comboBoxLanguage.Items9") });
+            comboBoxLanguage.Name = "comboBoxLanguage";
+            comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;
+            // 
+            // labelLanguage
+            // 
+            resources.ApplyResources(labelLanguage, "labelLanguage");
+            labelLanguage.Name = "labelLanguage";
             // 
             // groupBox_appearance
             // 
@@ -1029,6 +1056,8 @@
             tabControl_settings.ResumeLayout(false);
             general_settings.ResumeLayout(false);
             flowLayoutPanelGeneralSettings.ResumeLayout(false);
+            groupBoxLanguageSettings.ResumeLayout(false);
+            groupBoxLanguageSettings.PerformLayout();
             groupBox_appearance.ResumeLayout(false);
             groupBox_appearance.PerformLayout();
             groupBoxCreateMusicWithAI.ResumeLayout(false);
@@ -1181,5 +1210,8 @@
         private NumericUpDown numericUpDownLyricsSize;
         private Label labelPt;
         private Button buttonPreviewLyrics;
+        private GroupBox groupBoxLanguageSettings;
+        private ComboBox comboBoxLanguage;
+        private Label labelLanguage;
     }
 }

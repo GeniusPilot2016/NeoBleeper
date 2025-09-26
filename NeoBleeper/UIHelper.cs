@@ -1,5 +1,7 @@
+﻿using NeoBleeper;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -104,5 +106,38 @@ public static class UIHelper
 
         form.Invalidate(true);
         form.Update();
+    }
+    private static readonly Dictionary<string, string> LanguageNameToCulture = new()
+    {
+        {  "English", "en-US" },
+        {  "Deutsch", "de-DE" },
+        {  "Español", "es-ES" },
+        {  "Français", "fr-FR" },
+        {  "Italiano", "it-IT" },
+        {  "Türkçe", "tr-TR" },
+        {  "Русский", "ru-RU" },
+        {  "українська", "uk-UA" },
+        {  "Tiếng Việt", "vi-VN" }
+    };
+    public static void setLanguageByName(string languageName) // Set the application's culture based on a human-readable language name
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(languageName))
+                return;
+            if (!LanguageNameToCulture.TryGetValue(languageName, out string cultureCode))
+                return;
+            CultureInfo culture = new(cultureCode);
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            Logger.Log($"Language set to '{languageName}' ({cultureCode}).", Logger.LogTypes.Info);
+        }
+        catch (CultureNotFoundException)
+        {
+            Logger.Log($"Culture '{languageName}' not found. Falling back to default culture.", Logger.LogTypes.Warning);
+            CultureInfo culture = new("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+        }
     }
 }

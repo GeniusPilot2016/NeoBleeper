@@ -1,0 +1,1679 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="button_c_s3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d_s3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f_s3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_g_s3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a_s3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a_s4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_g_s4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f_s4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d_s4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_c_s4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a_s5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_g_s5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f_s5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d_s5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label_bpm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, -3</value>
+  </data>
+  <data name="trackBar_time_signature.ToolTip" xml:space="preserve">
+    <value>Beeinflusst die Positionstabelle in der unteren rechten Ecke dieses Fensters.</value>
+  </data>
+  <data name="label_time_signature.Location" type="System.Drawing.Point, System.Drawing">
+    <value>700, 234</value>
+  </data>
+  <data name="label_time_signature.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 16</value>
+  </data>
+  <data name="label_time_signature.Text" xml:space="preserve">
+    <value>Taktart</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Datei</value>
+  </data>
+  <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="newToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Neu</value>
+  </data>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zuletzt Geöffnet</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 6</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Speichern Unter...</value>
+  </data>
+  <data name="playMIDIFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAatJREFUaEPtmLtOQlEQRf02CiIUFBQkhPALGjUaCQ+9KMrDB6AfZowSVETlAkHh
+        XvALxsRicu5OpjkVo2clq9mZYtWzseFwOBwOx1+h2rhNes3uuNq6oTXV91rdBHYzXrPte80OrbPHjc4I
+        u5mjeps0iN1M5fyaNIjdTOnsijSI3UyxdkkaxG6mcHJBGsRu5rDaIg1iN3PgNUmD2M3sHzdIg9jN7FXq
+        pEHsZnbLZ6RB7GZ2SjXSIHYz28VT0iB2M1uFE9IgdjN3j31CY7FYRNsdle6k3RS7mfveE6HxeDyi7Y5K
+        d9Juit3MQ/+F0GQyGdF2R6U7aTfFbqb3PCA0lUpFtN1R6U7aTbGb6Q+GhKbT6Yi2OyrdSbspdjPPr++E
+        ZjKZiLY7Kt1Juyl2M4O3D0Kz2WxE2x2V7qTdFLuZ4YdPaC6Xi2i7o9KdtJtiN/PuTwgtlcqUz+d/LZcr
+        1jsq3Um7KXYzo8mUNIjdzHg6Iw1iNzOdfZIGsZuZfc1Jg9jNfC0C0iB2M/Mg9BdBSOvsfBHKv9Eg+E6E
+        y9UoXK5oTR0FwWoTux0Oh8Pxf/kB6wia/APB9cIAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>MIDI-Datei abspielen</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 6</value>
+  </data>
+  <data name="createMusicWithAIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
+    <value>Erstellen Sie Musik mit KI</value>
+  </data>
+  <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
+    <value>In GCode konvertieren</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 20</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Bearbeiten</value>
+  </data>
+  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 22</value>
+  </data>
+  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rückgängig machen</value>
+  </data>
+  <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 22</value>
+  </data>
+  <data name="redoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Wiederholen</value>
+  </data>
+  <data name="rewindToSavedVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 22</value>
+  </data>
+  <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle Änderungen an der gespeicherten Version rückgängig machen</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 20</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Einstellungen</value>
+  </data>
+  <data name="aboutNeoBleeperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 20</value>
+  </data>
+  <data name="aboutNeoBleeperToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Über NeoBleeper</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Helfen</value>
+  </data>
+  <data name="imageList_main_window.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
+        AAFoASUBaAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
+        /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
+        lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
+        GQH/AeABlwEXAf8B1wGPARQB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlBwAAw8B
+        FAGGAX0BcgH/AZ8BmAGQAf8IAAJaAVcBwgH/AeYBUAL/AeYBUAH/AycBOpAAAk8BTgGXAecBpwEiAf8B
+        5QGkASAB/wHkAaABHgH/AeMBnQEcAf8B2wGuAV4F/wHWAY4BFAH/Ad4BkQETAf8B3QGOAREB/wHcAYsB
+        DwH/AdoBiAEMAf8YAAQBAYYBfQFyAf8BhgF9AXIB/wGhAZoBkgH/BAADUQGeAfEBwQE1Af8B8QHBATUC
+        /wHmAVAC/wHmAVAB/5AAAekBrQEmAf8B6AGqASQB/wHnAacBIgH/AeUBpAEgAf8B5AGgAR4B/wHjAZ0B
+        HAH/AdYBkgEYAf8B4AGXARcB/wHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/A2IB4QwAAWUC
+        YAHjAWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BowGcAZMB/wJaAVcBwgHiAZ0BGwH/Al8B
+        WwHTAfEBwQE1Af8DWgG/Af8B5gFQAf8DCQEMjAAB6gGwASkB/wHpAa0BJgH/AegBqgEkAf8B5wGnASIB
+        /wHlAaQBIAH/AdoBqwFTBf8B4gGaARkB/wHgAZcBFwH/Ad8BlAEVAf8B3gGRARMB/wHdAY4BEQH/AdwB
+        iwEPAf8MAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BpQGdAZUB/wHUAXgB
+        AAH/AeIBnQEbAf8B4gGdARsB/wHxAcEBNQH/AfEBwQE1Av8B5gFQAf8CVwFVAbGMAAHrAbMBKwH/AeoB
+        sAEpAf8B6QGtASYB/wHoAaoBJAH/AecBpwEiAf8B2AGbAR4F/wHXAacBTQH/AeIBmgEZAf8B4AGXARcB
+        /wHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8B
+        hgF9AXIB/wGnAZ8BlgH/AdQBeAEAAf8B4gGdARsB/wHiAZ0BGwH/AfEBwQE1Af8B8QHBATUC/wHmAVAB
+        /wJ8AVwB+IwAAe0BtgEtAf8B6wGzASsB/wHqAbABKQH/AekBrQEmAf8B6AGqASQB/wHnAacBIgH/AdcB
+        pQE/Bf8B1AGZAS0B/wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/DAABaQFjAVwB/wFpAWMB
+        XAH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AakBoQGYAf8B1AF4AQAB/wHiAZ0BGwH/AeIBnQEbAf8B
+        8QHBATUB/wHxAcEBNQL/AeYBUAH/Al8BWwHYjAAB7gG5AS8B/wHtAbYBLQH/AesBswErAf8B6gGwASkB
+        /wHXAaEBJgH/AeIBpgEjAf8B5QGmASIF/wH3Ae4B3QH/AeMBnQEcAf8B4gGaARkB/wHgAZcBFwH/Ad8B
+        lAEVAf8MAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BqgGiAZoB/wHiAZ0B
+        GwH/AeIBnQEbAf8CXwFbAdgB8QHBATUB/wJjAV0B3wH/AeYBUAH/AzEBTIwAAmoBQQH5Ae4BuQEvAf8B
+        7QG2AS0B/wHrAbMBKwH/AdgBowEpDf8B1wGjAToB/wHkAaABHgH/AeMBnQEcAf8B4gGaARkB/wMWAR4U
+        AANLAY0BhgF9AXIB/wGGAX0BcgH/AawBpAGbAf8EAAHiAZ0BGwH/AfEBwQE1Af8B8QHBATUC/wHmAVAC
+        /wHmAVAB/5QAAe8BvAExAf8B7gG5AS8B/wHtAbYBLQH/AesBswErAf8B4QGpASgB/wHXAaABIwH/AeIB
+        pQEjAf8B5wGnASIB/wHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/xwAA10BzAGGAX0BcgH/Aa4BpgGdAf8I
+        AAHxAcEBNQH/AlwBWgHEAf8B5gFQAf8CYQFcAdaUAAMIAQoB7wG8ATEB/wHuAbkBLwH/Ae0BtgEtAf8B
+        6wGzASsB/wHqAbABKQH/AekBrQEmAf8B6AGqASQB/wHnAacBIgH/AeUBpAEgAf8kAANrAfIBsAGnAZ4B
+        /wwAAf8B5gFQAv8B5gFQAf+gAAJqAUEB+QHuAbkBLwH/Ae0BtgEtAf8B6wGzASsB/wHqAbABKQH/AekB
+        rQEmAf8CTwFOAZcsAAGyAakBoAH//wD/AP8A9wAB8AHKAaYC/wGZATMB/wHwAcoBpgH/qAADsgH/BAAD
+        wAH/BAAB/wGZATMC/wHMAQAD/wEzAv8BzAEzAv8BmQEACf8DsgH/A7IB/xAAAf8B7AHMAv8BzAEzAv8B
+        zAEzAv8BmQEzAv8BmQEzAv8BzAEzAv8B7AHMAf+gAAGkAqAB/wQAAaQCoAL/AewBzAH/AwAB/wMAAf8D
+        AAH/AwAB/wMAAv8BmQEAAf8EAAGkAqAB/xAABf8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        mQEzAv8BmQEzBf8YAAGNAYYBfwH/AYwBhQF+Af8BiwGEAX0B/wGKAYMBfQH/AYkBggF8Af8BiAGBAXsB
+        /wGIAYEBegH/AYcBgAF5Af8BhgF/AXkB/wGFAX4BeAH/AYUBfgF4Af8BhQF+AXgB/wGFAX4BeAH/AYUB
+        fgF4Af8DZQHiBAABngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8B
+        ngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcB
+        jwH/AZ4BlwGPAf8IAAH/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAH/AwAB/wMAAf8DAAH/AwAB/wMAAv8B
+        zAEzAf8EAAGkAqAB/xAAAf8BzAFmAv8BzAFmAv8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        mQEzAv8BmQEzAf8YAAGOAYcBgAH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8B2QHSAcoB
+        /wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYYBfwF5Af8B2QHSAcoB/wGFAX4BeAH/AdkB
+        0gHKAf8BhQF+AXgB/wQAAZMBjQGFAf8B5AHhAd4B/wHkAeIB3wH/AeQB4QHfAf8B4wHgAd0B/wHiAeAB
+        3QH/AeQB4QHfAf8B5AHiAd8B/wHkAeEB3gH/AZMBjQGFAf8B4wHgAd4B/wHXAdUB0wH/AaUBowGiAf8B
+        4wHhAd4B/wGgAZkBkQH/CAABzAGZAQAB/wHMAZkBAAH/AZkBZgEAAf8BzAGZAQAB/wMAAf8DAAH/AwAB
+        /wMAAf8DAAP/ATMB/wQAAaQCoAH/EAAB/wHMAWYC/wHMAWYC/wHMAWYB/wMAAv8BzAEzAv8BzAEzAv8B
+        zAEzAv8BzAEzAv8BmQEzAv8BzAEzBf8QAAGQAYkBggH/AdkB0gHKAf8BjwGIAYEB/wHZAdIBygH/AY0B
+        hgF/Af8B2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYgBgQF6Af8B2QHSAcoB
+        /wGGAX8BeQH/AdkB0gHKAf8BhQF+AXgB/wQAAZUBjwGHAf8B6QHmAeQB/wHcAdgB1gH/AekB5wHlAf8B
+        5wHlAeMB/wHnAeUB4gH/AekB5wHlAf8B3wHcAdoB/wHpAeYB5AH/AZUBjwGHAf8B6AHmAeMB/wHpAecB
+        5QH/A1MB/wHoAeYB4wH/AaIBmwGTAf8IAAHMAZkBAAH/AcwBmQEAAf8BzAGZAQAC/wHMATMB/wMAAf8D
+        AAH/AwAB/wMAAf8DAAL/AcwBAAH/BAABpAKgAf8QAAH/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/AcwB
+        mQEAAf8BmQFmAQAC/wHMATMC/wHMATMC/wHMATMB/wPXAv8BzAEzAv8B7AHMAf8MAAGSAYsBhAH/AdkB
+        0gHKAf8B2QHSAcoB/wGPAYgBgQH/AdkB0gHKAf8BjgGHAYAB/wHZAdIBygH/AYwBhQF+Af8B2QHSAcoB
+        /wGKAYMBfQH/AdkB0gHKAf8BiAGBAXsB/wHZAdIBygH/AdkB0gHKAf8BhgF/AXkB/wQAAZYBkAGIAf8B
+        igGGAYQB/wHiAeAB3wH/AVIBTgFKAf8B7AHqAegB/wHrAekB5wH/AVIBTgFKAf8B4gHfAd4B/wGZAZYB
+        kgH/AZYBkAGIAf8B7AHqAekB/wNgAf8DYAH/Ae0B6wHpAf8BpAGcAZQB/wgAAcwBmQEAAf8BzAGZAQAB
+        /wHMAZkBAAH/AZkBZgEAAv8BzAEzAf8DAAH/AwAB/wMAA/8BMwL/AcwBZgH/BAABpAKgAf8D8QH/A/EB
+        /wsAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQFmAQAB/wHMAZkBAAL/AcwBMwL/AcwBMwH/A90B
+        /wPXAv8BzAEzAf8MAAGUAY0BhQH/AdkB0gHKAf8B2QHSAcoB/wGRAYoBgwH/AdkB0gHKAf8BjwGIAYEB
+        /wHZAdIBygH/AY4BhwGAAf8B2QHSAcoB/wGMAYUBfgH/AdkB0gHKAf8BigGDAX0B/wHZAdIBygH/AdkB
+        0gHKAf8BiAGBAXoB/wQAAZgBkgGKAf8BUgFOAUoB/wH0AvIB/wFSAU4BSgH/Ae8B7gHsAf8B7wHtAewB
+        /wFSAU4BSgH/AfQC8gH/AVIBTgFKAf8BmAGSAYoB/wHwAe8B7QH/AfMB8gHxAf8B9AHyAfEB/wHxAe8B
+        7gH/AaYBngGWAf8IAAHMAZkBMwH/AcwBmQEAAf8BzAGZAQAB/wHMAZkBAAH/AZkBZgEAAv8BzAEzAv8B
+        zAEzAv8BzAEzAv8B7AHMAf8IAAGkAqAB/wGkAqAB/xAAAv8BmQH/AwAC/wHMAWYC/wHMAWYC/wHMAWYB
+        /wHMAZkBAAH/AcwBmQEAAf8D6gH/AfABygGmAf8D3QP/AWYD/wGZAf8IAAGWAY8BhwH/AdkB0gHKAf8B
+        lAGNAYUB/wHZAdIBygH/AZIBiwGEAf8B2QHSAcoB/wGQAYkBggH/AdkB0gHKAf8BjwGIAYEB/wHZAdIB
+        ygH/AY0BhgF/Af8B2QHSAcoB/wGLAYQBfQH/AdkB0gHKAf8BiQGCAXwB/wQAAZoBkwGLAf8BigGIAYQB
+        /wH3AfYB9QH/AVIBTgFKAf8B8gHwAe8B/wHxAe8B7gH/AVIBTgFKAf8B+AL3Af8BfgF7AXgB/wGaAZMB
+        iwH/AfMB8QHwAf8B+AL2Af8B+AH3AfYB/wHzAfIB8QH/AagBoAGXAf8IAAGZAWYBAAH/AZkBZgEAAf8B
+        mQFmAQAB/wHMAZkBMwH/AcwBmQEAAf8YAAGkAqAB/xgAAv8BmQH/AwAC/wHMAWYC/wHMAWYC/wHMAWYB
+        /wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wPjAf8D3QL/AcwBZgH/CAABlwGQAYgB/wHZAdIBygH/AZYB
+        jwGHAf8B2QHSAcoB/wGUAY0BhQH/AdkB0gHKAf8BkgGLAYQB/wHZAdIBygH/AZABiQGCAf8B2QHSAcoB
+        /wGPAYgBgQH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8EAAGcAZUBjQH/AfQC8gH/AbkB
+        tQGzAf8B9gL0Af8B8QHvAe4B/wHxAe8B7gH/AfUB9AHzAf8BsgGvAa0B/wH0AfMB8gH/AZwBlQGNAf8B
+        8gHxAfAB/wGZApgB/wGaApkB/wHzAfEB8AH/AaoBogGZAf8IAAH/AcwBAAL/AcwBAAL/AcwBAAL/AcwB
+        AAL/AcwBAAH/EAABmQHMAv8D6gX/IAAB/wHMATMB/wP4Af8D+AL/AewBzAH/AZkBZgEAAf8BmQFmAQAB
+        /wPqAv8BzAGZAv8B7AHMAf8IAAGYAZEBiQH/AckBwwG7Af8BygHDAboB/wGWAY8BiAH/AZYBjwGHAf8B
+        yQHCAboB/wHJAcIBuQH/AZMBjAGEAf8BkgGLAYQB/wHIAcEBuQH/AcgBwQG5Af8BjwGIAYEB/wGPAYgB
+        gQH/AccBwAG5Af8BjQGGAX8B/wQAAZ4BlgGPAf8B8AHvAe0B/wHyAfEB8AH/AfIB8AHvAf8B7gHtAesB
+        /wHuAewB6wH/AfEB8AHvAf8B8gHxAfAB/wHxAe8B7gH/AZ4BlgGPAf8B7wHuAewB/wNKAf8DSgH/AfAB
+        7gHsAf8BrAGjAZsB/zAAAZkBzAL/ATMBzAL/IAAB/wHMATMB/wPxBf8D+AH/A/EB/wPxAf8D6gL/AcwB
+        ZgH/DAABmAGRAYkB/wGYAZEBiQH/AZgBkQGJAf8BmAGRAYkB/wGXAZABiAH/AZYBjwGIAf8BlgGPAYcB
+        /wGVAY4BhgH/AZQBjQGFAf8BkwGMAYQB/wGSAYsBhAH/AZEBigGDAf8BkAGJAYIB/wGPAYgBgQH/AY8B
+        iAGBAf8EAAGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB/wGhAZgB
+        kAH/AaEBmAGQAf8BoQGYAZAB/wGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8B
+        rgGlAZwB/1wAAf8BmQEzAv8B7AHMAf8D+AH/A/EB/wPxAv8BzAFmAv8B7AHMAf/oAAH/AcwBMwL/AcwB
+        MwH/AwAC/wHMAWYF//8A/wD/AJcAAZkBzAL/AWYBzAL/AWYBzAL/ATMBzAL/AWYBzAL/AWYBzAL/AWYB
+        zAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/GAAD8QH/AQABZgHMAf8BAAFmAcwB/wEAAWYB
+        mQH/AQABZgGZAf8BAAFmAZkB/wEAAWYBmQH/AQABZgGZAf8oAAFmAcwC/wQAAWYBzAL/BAABZgHMAv9c
+        AAT/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMB
+        zAL/ATMBzAL/GAACmQHMAf8BMwFmAcwB/wEAAWYBzAH/AQABZgHMAf8BAAFmAcwB/wEAAWYBmQH/AQAB
+        ZgGZAf8BAAFmAZkB/xwAAZkBzAEzAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BMwGZAQAB/wFmAZkB
+        AAH/AWYBmQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8D6gH/EAABmQJmAf8BmQJmAf8BmQJmAf8B
+        mQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8DlgH/EAAB
+        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8YAAPqAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8BMwFmAcwB/wEAAWYBzAH/AQABZgHMAf8B
+        AAFmAcwB/xwAAZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/ATMB
+        mQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8BZgGZAQAB/xAAA3cB/wN3Af8DdwH/A3cB/wN3Af8D
+        wAH/A9cB/wGkAqAB/wN3Af8DdwH/A3cB/wN3Af8DdwH/EAABMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8CzAL/HQABZgHMAf8BAAFmAcwB/wEzAWYB
+        zAH/ATMBZgHMAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8cAAGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB
+        /wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wEzAZkBAAH/AWYB
+        mQEAAf8QAAN3Af8DdwH/AZkCZgH/A9cB/wPXAf8D1wH/ATMCmQH/A9cB/wPXAf8BpAKgAf8DdwH/A3cB
+        /wN3Af8QAAFmAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwG/xwAATMCZgH/ATMCZgH/AjMBZgH/AZkCzAH/ATMCZgH/ATMCZgH/ATMCZgH/GAABMwHMAv8B
+        mQHMAQAB/wGZAcwBAAH/AWYBmQEzAf8DQgH/A0IB/wNCAf8DQgH/A0IB/wEzAZkBAAH/AZkBzAEAAf8B
+        mQHMAQAB/wFmAcwC/wwAApkBZgH/ApkBZgH/A9cB/wPdAf8D3QH/A90B/wFmAZkBzAH/A90B/wPdAf8D
+        3QH/A5YB/wKZAWYB/wKZAWYB/xAAAswC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/wEzAcwC/wEzAcwC/yAAATMCZgH/AjMBZgH/ATMBZgGZAf8CzAL/ATMCZgH/ATMCZgH/ATMC
+        ZgH/HAABmQHMAQAB/wGZAcwBAAH/A0IB/wNCAf8DQgH/A0IB/wNCAf8DQgH/ATMBmQEAAf8BmQHMAQAB
+        /wGZAcwBAAH/EAADgAH/A3cB/wPdAf8D3QH/A90B/wPdAf8BZgGZAcwB/wPdAf8D3QH/A90B/wPdAf8C
+        mQFmAf8DgAH/EAAE/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/yEAATMBZgH/ATMBZgGZAf8BMwJmAf8CzAL/ATMCZgH/ATMCZgH/ApkBzAH/GAABMwHMAv8B
+        mQHMAQAB/wGZAcwBAAH/A00B/wNNAf8DTQH/A00B/wNNAf8DTQH/ATMBmQEAAf8BmQHMAQAB/wGZAcwB
+        AAH/AWYBzAL/DAADgAH/A8AB/wPdAf8D4wH/A+MB/wPjAf8BZgGZAcwB/wPjAf8D4wH/A+MB/wPdAf8D
+        dwH/A4AB/xQAAZkBZgEAAf8BzAGZATMB/wHMAZkBAAH/AcwBmQEAAf8BzAGZAQAB/wHMAZkBAAH/AcwB
+        mQEAAf8BmQFmAQAB/wGZAWYBAAH/HAADhgH/ATMCZgH/ATMCZgH/AZkBzAL/AswC/wEzAmYB/wEzAmYF
+        /xwAAZkBzAEzAf8BmQHMATMB/wNNAf8DTQH/A00B/wNNAf8DTQH/A00B/wEzAZkBAAH/AZkBzAEAAf8B
+        mQHMAQAB/xAAApkBZgH/A90B/wPjAf8D4wH/A+oB/wNNAf8DIgH/A+oB/wPjAf8D4wH/A+MB/wN3Af8D
+        hgH/FAAB/wHMAWYB/wKZATMB/wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wHMAZkBAAH/AcwBmQEAAf8B
+        zAGZAQAB/wPjAf8YAAIzAZkB/wJmAZkB/wFmAZkBzAH/AjMBmQH/AjMBmQH/AswC/wIzAZkB/wIzAZkB
+        /xwAATMBzAL/AZkBzAEzAf8BmQHMATMB/wKZATMB/wNVAf8DVQH/A1UB/wNVAf8DVQH/ATMBmQEAAf8B
+        mQHMAQAB/wGZAcwBAAH/AWYBzAL/DAADhgH/A7IB/wPjAf8DVQH/A1UB/wPqAf8D6gH/A00B/wPqAf8D
+        6gH/A+MB/wOAAf8DwAH/IAABmQFmAQAB/wGZAWYBAAH/KAAE/wQABP8CMwGZAf8CMwGZAf8CzAL/AjMB
+        mQH/AjMBmQH/IAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/EAABpAKgAf8DgAH/A+oB/wPqAf8D
+        6gH/A/EB/wPxAf8D8QH/A00B/wPqAf8D6gH/A4YB/yUAAZkBzAH/AQABmQHMAf80AAIzAZkB/wHGAdYB
+        7wH/AswC/wIzAZkB/wIzAZkB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/xQAAswBZgH/A7IB
+        /wPqAf8D8QH/A/EB/wPxAf8D8QH/A/EB/wPqAf8DgAH/AswBZgH/JQACzAH/AQACzAH/NQABZgHMAf8B
+        AAFmAcwB/wEAAWYBzAH/AQABZgHMAf8BMwFmAcwB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /xQAA+oB/wOWAf8BpAKgAf8D8QH/A/EB/wP4Af8D8QH/A/EB/wOAAf8DlgH/A00B/yUAAswB/wEAAswB
+        /zkAAWYBzAH/AQABZgHMAf8BMwFmAcwB/zAAATMBzAL/BAABMwHMAv8EAAEzAcwC/yQAA/EB/wOWAf8D
+        gAH/A4YB/wOAAf8DhgH/A5YB/wOWAf8DTQH/A8AB/yQAATMCzAH/AQACzAH/PAABZgGZAcwB/3QAA/EB
+        /wOyAf8DlgH/A8AB//8A/wAqAAH/AZkBMwH/QAABgAF8Av8BgAF8Av98AAGZAWYBzAH/AZkBZgHMAf8B
+        mQFmAcwB/ywAAf8BZgEAAv8BZgEAAv8B7AHMAf80AAGAAXwC/wGAAXwC/wPdAf8BgAF8Av8oAAGZAmYB
+        /0gAAZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/ygAAf8BZgEAAv8BZgEAAv8B
+        ZgEAAv8BZgEAAf8sAAGAAXwC/wGAAXwC/wPjAf8BgAF8Av8CMwL/AjMC/2QAAZkB/wEAAf8BmQH/AQAB
+        /wGZAf8BAAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwC/wHMAWYC/wHMAWYC
+        /wHMAWYC/wHMAWYC/wHMAWYB/xQAAf8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAf8B8AHKAaYB
+        /yAAAYABfAL/AYABfAL/A+MB/wGAAXwC/wIzAv8CMwL/AjMC/wIzAv8gAAOZAf9IAAGZAWYBzAH/AZkB
+        ZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8oAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAX/GAABgAF8Av8D6gH/AYABfAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8CMwL/AjMC
+        /xwAAaQCoAH/PAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAWYBzAH/AZkBZgHMAf8B
+        mQFmAcwB/wGZAWYBzAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wFmAQAC/wFmAQAC
+        /wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wGZATMB/xQAAdYC5wH/AYABfAL/ATMB
+        ZgHMAf8CUAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8BzAFmAQAB/wHMAWYBAAH/WAABmQH/AQAB/wGZAf8B
+        AAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYBzAH/AZkBZgHMAv8BzAFmAv8BzAFmAv8B
+        zAFmAv8BzAFmAv8BzAFmAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAL/AWYBAAH/FAABxgHWAe8B/wJQAv8BMwFmAcwB/wJQAv8BMwFmAcwB/wIzAv8B
+        zAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2wAAZkBZgHMAf8BmQFmAcwB/ygAAf8BmQEAAv8B
+        mQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEABf8YAAKZAv8CUAL/ATMB
+        ZgHMAf8CUAP/AZkBMwL/AZkBAAH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8QAAOZAf88
+        AAGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgH/AZkBZgL/AZkBZgP/AcwB
+        ZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC
+        /wGZAQAC/wGZAQAC/wHMAWYB/yQAApkC/wJQA/8BmQEzAv8BmQEzAv8BmQEzAv8BmQEAAf8BzAFmAQAB
+        /wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/wwAAaQCoAH/VAABmQFmAv8BmQFmAv8oAAH/AZkBAAL/AZkB
+        AAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAX/LAAB8AHKAaYC/wFmATMC/wGZATMC/wGZATMC/wGZATMC
+        /wGZAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2QAAZkBZgL/AZkBZgL/KAAB/wGZAQAC/wGZAQAC
+        /wGZAQAC/wGZAQAB/wHwAcoBpgH/OwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wGZAQAB/wHMAWYB
+        AAL/AewBzAH/TAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYC
+        /wGZAWYC/wFmATMBzAH/AWYBMwHMAv8BzAFmAv8BzAFmAv8BzAFmAf8UAAH/AZkBAAL/AZkBAAL/AZkB
+        AAH/RwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wHsAcwB/xAAAZkCZgH/VAABmQFmAv8BmQFmAv8B
+        ZgEzAcwB/wFmATMBzAH/IAAB/wGZAQAB/wPqAf9PAAL/AWYBMwL/AZkBMwL/AewBzAH/FAAD6gH/AZkC
+        ZgH/CAABpAKgAf8DmQH/CAABpAKgAf8DmQH/BAABmQJmAf8oAAT/AZkBZgL/AWYBMwHMAf8BZgEzAcwB
+        /3gAA90C/wHsAcwB//8A/wCuAAPAAf8UAAT/AjMC/xgAA/EC/wHMATMC/wHMATMC/wHMATMC/wGZATMC
+        /wHMAQAB/xwAAWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYB
+        zAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AcwB/wFmAf9cAAPqAf8D
+        lgH/DAAB/wGZAWYC/wHMATMB/wIzBv8UAAH/AcwBMwL/AcwBMwH/AcwBmQEzAf8BzAGZATMC/wHMAQAC
+        /wGZATMC/wHMAQAC/wHMAQAC/wGZAWYB/xQAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        MwH/AZkBzAEzAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/yAABP8D
+        hgH/A5kB/wgAAswBZgL/AWYBAAH/AjMC/wPxAf8UAAH/AWYBAAH/AcwBmQEzAf8BzAFmAQAF/wwAAf8B
+        mQFmAv8BzAEAAv8BzAEzAv8BmQFmAf9YAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC
+        /wFmAQAB/xwABP8DhgH/A4YB/wOZAf8EAAHwAcoBpgL/AcwBAAH/AjMD/wFmAQAC/wFmAQAB/xAAAfAB
+        ygGmAv8BZgEAAv8BzAFmAf8YAAX/AcwBMwL/AcwBAAH/WAAB/wFmAQAC/wFmAQAC/wFmAQAB/wwAAf8B
+        ZgEAAv8BZgEAAv8BZgEAAf8UAAOGAf8DZgH/A4YB/wOGAf8DhgH/A5kD/wFmAv8BzAEzAf8CMwP/AcwB
+        MwL/AcwBZgL/AWYBAAX/DAABzAGZATMC/wGZATMB/yAAAf8BzAEzAv8BzAEAAv8BmQEzAv8BzAEzAf9Q
+        AAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/xQAA2YB/wNmAf8DhgH/A4YB
+        /wOGAf8DmQH/AwAB/wIzA/8BzAEzAv8BzAEAAv8BzAEAAv8BZgEAAf8CzAFmAf8wAAX/AcwBMwL/AcwB
+        AAL/AcwBMwX/CAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/xQAAf8B
+        ZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYBAAH/FAADZgH/A2YB/wOGAf8DhgH/A4YB
+        /wOZAf8CMwP/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAH/AcwBmQEzAf8MAAH/AcwBMwH/KAAB
+        /wHMAQAC/wHMATMB/1QAAf8BZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYBAAH/FAAD
+        ZgH/A2YB/wOGAf8DhgH/A4YB/wIzAv8DAAL/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAL/AcwB
+        MwH/CAAB/wHMAZkC/wHMATMC/wHMATMC/wHMATMB/3wAAf8BmQEAAv8BmQEAAv8BmQEAAf8MAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/FAADZgH/A2YB/wOGAf8DhgH/AjMC/wGkAqAC/wHMATMC/wHMATMC/wHMAWYC
+        /wHMAQAC/wHMATMC/wFmAQAD/wHMAf8IAAH/AcwBMwL/AcwBMwL/AcwBMwH/JAACzAGZAf9YAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xwAA8wB/wIzAv8DhgH/AaQCoAH/BAAB
+        /wHMATMC/wHMAQAC/wHMAQAC/wFmAQAC/wFmAQAB/xAAAf8BzAEzAv8BzAEzAv8BmQEzAf8cAALMAWYC
+        /wFmAQAF/wwAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8UAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xgABP8CMwL/AaQCoAH/A4YB/wGkAqAB
+        /wgAAf8BzAEAAv8BzAFmAv8BZgEAAv8BzAEzAf8UAAH/AcwBMwL/AcwBMwL/AZkBMwH/FAACgAEAAv8B
+        ZgEAAv8BZgEAAf9YAAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xQABP8C
+        Mwb/BAACzAFmAf8BpAKgAf8MAAH/AWYBAAL/AWYBAAH/GAAF/wHMATMC/wHMATMC/wHMATMB/wHMAZkB
+        MwH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBmQEzAv8BmQEAAf9cAAH/AZkBAAL/AZkBAAL/AZkB
+        AAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xAABP8CMwb/DAADsgH/NAAB/wHMATMC/wHMATMC/wGZATMC
+        /wHMAQAC/wHMAQAC/wHMATMC/wHMAWYB/xgAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        MwH/AZkBzAEzAf8UAAH/AZkBAAL/AZkBAAH/AcwBmQEzAf8MAAH/AZkBAAL/AZkBAAH/AcwBmQEzAf8Q
+        AAj//wD1AAFCAU0BPgcAAT4DAAEoAwABQAMAAVADAAEBAQABAQUAAYABAhYAA/8BAAT/BAAB+AEfAf4B
+        /wQAAfABBwH8AecEAAHgAQMB+AHDBAABwAEDAfABgwQAAcABAQHAAQEEAAHAAQEBwAEBBAABwAEBAcAB
+        AQQAAcABAQHAAQEEAAHAAQEBwAEBBAABwAEBAfABgwQAAeABAwH4AcMEAAHgAQcB/AHnBAAB+AEPAf4B
+        /wQABP8EAAT/BAAK/wH4Bf8B1AEBAeABPwT/AdABCwHAAR8BgAEAAYABAAHAAQsBwAEfAYABAAGAAQAB
+        wAELAcABBwGAAQABgAEAAcABCwHAAQMBgAEAAYABAAHAAQgBwAEDAYABAAGAAQABwAEZAeABAQGAAQAB
+        gAEAAcEB+wHwAQEBgAEAAYABAAHBAeMB/AEBAYABAAGAAQAB/wHzAfwBAwGAAQABgAEAAv8B/gEDB/8B
+        Bxz/AcABAwHwAQ8B/QFfAv8BwAEDAfABDwHgAQMBwAEBAeABAwHwAQ8B4AEDAcABAQHgAQMB+AEPAeAB
+        AwHAAQEB4AEDAfgBDwHAAQEBwAEBAeABBwH4AQ8B4AEDAcABAQHgAQcB+AEPAcABAQHAAQEB8AEHAfAB
+        DwHgAQMBwAEBAfABBwHgAR8BwAEBAcABAQH+AX8B6AEfAeABAwHAAQMB/gF/AfwBHwHgAQMB4AEDAf4B
+        fwH8AR8B4AEDAeABAwH+AX8B/gE/Af0BXwHwAQMB/gF/Af8BfwL/AfwBPxD/AfcB/wH5A/8B/AF/AfEB
+        /wHwAf8B3wH/AfgBPwHwAf8B4AF/Av8BwAEBAfABPwHAAT8B3wH/AfgBPwHwAQ8BwAEfAd8B/wHAAQEB
+        8AEHAcABDwL/AcABAQHwAQMB4AEHA/8BPwHwAQMB8AEDAd8B/wHAAQEB8AEPAfgBAQHfAv8BPwHwAR8B
+        /AEBA/8BPwHwAX8B/gEBAv8BwAEBAfEC/wEDAd8C/wEPAfMC/wGHAcwBywH/AQ8D/wHPFP8B/gH5AfgB
+        HwHAAQEC/wH8AeEB8AEHAcABAQHxAccB+AHDAeEBwwL/AfEBxwHwAYMBxwHjAv8B8QHHAcABAQHPAfAC
+        /wHxAccBwAEBAf8B4AHAAQEB8QHHAcABAQHfAfkC/wHxAccBwAEBAYcD/wHxAccBwAEBAY8B+wL/AfEB
+        xwHwAYMBxwHxAcABAQHxAccB4AHDAuMC/wHxAccBxAHnAeABBwL/AfEBxwGOAf8B+AEPAcABAQHxAccB
+        nw//Cw==
+</value>
+  </data>
+  <data name="checkBox_mute_playback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 20</value>
+  </data>
+  <data name="checkBox_mute_playback.Text" xml:space="preserve">
+    <value>Stummschalten der Wiedergabe</value>
+  </data>
+  <data name="checkBox_mute_playback.ToolTip" xml:space="preserve">
+    <value>Sie können diese Option verwenden, wenn Sie die MIDI-Ausgabe verwenden</value>
+  </data>
+  <data name="numericUpDown_alternating_notes.ToolTip" xml:space="preserve">
+    <value>Die Zeit, die das Programm benötigt, um schnell zwischen Noten in einer einzelnen Zeile zu wechseln, wenn die Musik die Zeile erreicht, in der sich mehrere Noten gleichzeitig befinden.</value>
+  </data>
+  <data name="button_blank_line.Location" type="System.Drawing.Point, System.Drawing">
+    <value>882, 257</value>
+  </data>
+  <data name="button_blank_line.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 25</value>
+  </data>
+  <data name="button_blank_line.Text" xml:space="preserve">
+    <value>&amp;Leere Zeile</value>
+  </data>
+  <data name="button_blank_line.ToolTip" xml:space="preserve">
+    <value>Fügen Sie eine stille Zeile hinzu oder ändern Sie die Länge einer vorhandenen Notiz</value>
+  </data>
+  <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>878, 284</value>
+  </data>
+  <data name="button_clear_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 25</value>
+  </data>
+  <data name="button_clear_note1.Text" xml:space="preserve">
+    <value>Note &amp;1 löschen</value>
+  </data>
+  <data name="button_clear_note1.ToolTip" xml:space="preserve">
+    <value>Machen Sie die "Note 1" der ausgewählten Zeile leer</value>
+  </data>
+  <data name="button_clear_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>878, 310</value>
+  </data>
+  <data name="button_clear_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 25</value>
+  </data>
+  <data name="button_clear_note2.Text" xml:space="preserve">
+    <value>Note &amp;2 löschen</value>
+  </data>
+  <data name="button_clear_note2.ToolTip" xml:space="preserve">
+    <value>Machen Sie die "Note 2" der ausgewählten Zeile leer</value>
+  </data>
+  <data name="button_unselect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>876, 390</value>
+  </data>
+  <data name="button_unselect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 42</value>
+  </data>
+  <data name="button_unselect.Text" xml:space="preserve">
+    <value>&amp;Zeilenauswahl aufheben</value>
+  </data>
+  <data name="button_unselect.ToolTip" xml:space="preserve">
+    <value>Die Auswahl in der ausgewählten Zeile löschen</value>
+  </data>
+  <data name="button_erase_line.Location" type="System.Drawing.Point, System.Drawing">
+    <value>861, 433</value>
+  </data>
+  <data name="button_erase_line.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 25</value>
+  </data>
+  <data name="button_erase_line.Text" xml:space="preserve">
+    <value>Ganze Zeile löschen</value>
+  </data>
+  <data name="button_erase_line.ToolTip" xml:space="preserve">
+    <value>Die ausgewählte Zeile vollständig entfernen</value>
+  </data>
+  <data name="button_play_all.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 460</value>
+  </data>
+  <data name="button_play_all.Text" xml:space="preserve">
+    <value>Alle abspielen</value>
+  </data>
+  <data name="button_play_all.ToolTip" xml:space="preserve">
+    <value>Alle Musikzeilen in der Liste abspielen</value>
+  </data>
+  <data name="button_play_from_selected_line.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 485</value>
+  </data>
+  <data name="button_play_from_selected_line.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 43</value>
+  </data>
+  <data name="button_play_from_selected_line.Text" xml:space="preserve">
+    <value>Ab ausgewählter Zeile spielen</value>
+  </data>
+  <data name="button_play_from_selected_line.ToolTip" xml:space="preserve">
+    <value>Musik in der Liste ab der ausgewählten Zeile abspielen (wenn keine Zeile ausgewählt ist, beginnt die Wiedergabe ab der ersten Zeile)</value>
+  </data>
+  <data name="button_stop_playing.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 528</value>
+  </data>
+  <data name="button_stop_playing.Text" xml:space="preserve">
+    <value>Hör auf zu spielen</value>
+  </data>
+  <data name="button_stop_playing.ToolTip" xml:space="preserve">
+    <value>Stoppen Sie die Wiedergabe von Zeilen in der Musikliste (wenn die Musik lange Noten enthält, kann es eine Sekunde oder länger dauern, bis sie stoppt).</value>
+  </data>
+  <data name="numericUpDown_bpm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 23</value>
+  </data>
+  <data name="numericUpDown_bpm.ToolTip" xml:space="preserve">
+    <value>Anzahl der Beats in 1 Minute Musik</value>
+  </data>
+  <data name="comboBox_note_length.Items" xml:space="preserve">
+    <value>1 (Ganz)</value>
+  </data>
+  <data name="comboBox_note_length.Items1" xml:space="preserve">
+    <value>1/2 (Halb)</value>
+  </data>
+  <data name="comboBox_note_length.Items2" xml:space="preserve">
+    <value>1/4 (Viertel)</value>
+  </data>
+  <data name="comboBox_note_length.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 22</value>
+  </data>
+  <data name="comboBox_note_length.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 24</value>
+  </data>
+  <data name="checkBox_metronome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>675, 288</value>
+  </data>
+  <data name="checkBox_metronome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 26</value>
+  </data>
+  <data name="checkBox_metronome.Text" xml:space="preserve">
+    <value>Metronom</value>
+  </data>
+  <data name="checkBox_metronome.ToolTip" xml:space="preserve">
+    <value>Metronom ein- oder ausschalten</value>
+  </data>
+  <data name="checkBox_dotted.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 318</value>
+  </data>
+  <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 26</value>
+  </data>
+  <data name="checkBox_dotted.Text" xml:space="preserve">
+    <value>Gepunktet</value>
+  </data>
+  <data name="checkBox_dotted.ToolTip" xml:space="preserve">
+    <value>Erhöhen Sie die Dauer der Note um die Hälfte ihrer Dauer</value>
+  </data>
+  <data name="checkBox_triplet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>562, 318</value>
+  </data>
+  <data name="checkBox_triplet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 26</value>
+  </data>
+  <data name="checkBox_triplet.Text" xml:space="preserve">
+    <value>Triplett</value>
+  </data>
+  <data name="checkBox_triplet.ToolTip" xml:space="preserve">
+    <value>Machen Sie die Dauer der Note zu einem Drittel ihrer Dauer</value>
+  </data>
+  <data name="length.Text" xml:space="preserve">
+    <value>Länge</value>
+  </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 264</value>
+  </data>
+  <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 350</value>
+  </data>
+  <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>381, 334</value>
+  </data>
+  <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
+    <value>Leere Zeile</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Löschen Notes</value>
+  </data>
+  <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 26</value>
+  </data>
+  <data name="clearNote1ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Note 1 Löschen</value>
+  </data>
+  <data name="clearNote2ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 26</value>
+  </data>
+  <data name="clearNote2ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Note 2 Löschen</value>
+  </data>
+  <data name="clearNote3ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 26</value>
+  </data>
+  <data name="clearNote3ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Note 3 Löschen</value>
+  </data>
+  <data name="clearNote4ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 26</value>
+  </data>
+  <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Note 4 Löschen</value>
+  </data>
+  <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="unselectLineToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zeilenauswahl Aufheben</value>
+  </data>
+  <data name="eraseWholeLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="eraseWholeLineToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ganze Zeile Löschen</value>
+  </data>
+  <data name="cutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="cutToolStripMenuItem.Text" xml:space="preserve">
+    <value>Schneiden</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>In Die Zwischenablage Kopieren</value>
+  </data>
+  <data name="pasteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="checkAllNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="checkAllNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Aktivieren Sie Alle Notizen</value>
+  </data>
+  <data name="uncheckAllNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Deaktivieren Sie Alle Notizen</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Wiedergabesteuerung</value>
+  </data>
+  <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="playAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle Abspielen</value>
+  </data>
+  <data name="playFromSelectedLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="playFromSelectedLineToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ab Ausgewählter Zeile Spielen</value>
+  </data>
+  <data name="stopPlayingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hör Auf Zu Spielen</value>
+  </data>
+  <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 2</value>
+  </data>
+  <data name="label_note_length.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 16</value>
+  </data>
+  <data name="label_note_length.Text" xml:space="preserve">
+    <value>Notenlänge</value>
+  </data>
+  <data name="trackBar_note_silence_ratio.ToolTip" xml:space="preserve">
+    <value>Bestimmt das Verhältnis zwischen Note und Stille in jeder Zeile</value>
+  </data>
+  <data name="label_note_silence_ratio.Location" type="System.Drawing.Point, System.Drawing">
+    <value>496, 233</value>
+  </data>
+  <data name="label_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 16</value>
+  </data>
+  <data name="label_note_silence_ratio.Text" xml:space="preserve">
+    <value>Ton/Stille-Verhältnis</value>
+  </data>
+  <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 16</value>
+  </data>
+  <data name="label_silence.Text" xml:space="preserve">
+    <value>Stille</value>
+  </data>
+  <data name="label_note.Location" type="System.Drawing.Point, System.Drawing">
+    <value>624, 283</value>
+  </data>
+  <data name="label_note.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 16</value>
+  </data>
+  <data name="label_note.Text" xml:space="preserve">
+    <value>Ton</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label_alternating_notes_switch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label_alternating_notes_switch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 5</value>
+  </data>
+  <data name="label_alternating_notes_switch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 32</value>
+  </data>
+  <data name="label_alternating_notes_switch.Text" xml:space="preserve">
+    <value>Wechseln Sie zwischen abwechselnden Noten alle:</value>
+  </data>
+  <data name="label_mods.Location" type="System.Drawing.Point, System.Drawing">
+    <value>298, 515</value>
+  </data>
+  <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 16</value>
+  </data>
+  <data name="label_mods.Text" xml:space="preserve">
+    <value>Modifikationen</value>
+  </data>
+  <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 539</value>
+  </data>
+  <data name="checkBox_synchronized_play.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
+  </data>
+  <data name="checkBox_synchronized_play.Text" xml:space="preserve">
+    <value>Synchronisierte Wiedergabe</value>
+  </data>
+  <data name="checkBox_synchronized_play.ToolTip" xml:space="preserve">
+    <value>Mit dieser Option können mehrere NeoBleeper-Sitzungen synchron abgespielt werden.</value>
+  </data>
+  <data name="checkBox_play_beat_sound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 559</value>
+  </data>
+  <data name="checkBox_play_beat_sound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 20</value>
+  </data>
+  <data name="checkBox_play_beat_sound.Text" xml:space="preserve">
+    <value>Spielen Sie einen Beat-Sound</value>
+  </data>
+  <data name="checkBox_play_beat_sound.ToolTip" xml:space="preserve">
+    <value>Diese Option erzeugt schlagartige Klänge auf Viertel- und Halbnoten.</value>
+  </data>
+  <data name="checkBox_staccato.Location" type="System.Drawing.Point, System.Drawing">
+    <value>633, 318</value>
+  </data>
+  <data name="checkBox_staccato.ToolTip" xml:space="preserve">
+    <value>Machen Sie die Notiz kürzer und getrennt</value>
+  </data>
+  <data name="label_beep.Location" type="System.Drawing.Point, System.Drawing">
+    <value>908, 663</value>
+  </data>
+  <data name="label_beep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 25</value>
+  </data>
+  <data name="label_beep.Text" xml:space="preserve">
+    <value> PIEP </value>
+  </data>
+  <data name="label_beep.ToolTip" xml:space="preserve">
+    <value>Zeigt an, dass der Ton aus dem Systemlautsprecher/Soundgerät kommt.</value>
+  </data>
+  <data name="checkBox_fermata.Location" type="System.Drawing.Point, System.Drawing">
+    <value>766, 318</value>
+  </data>
+  <data name="checkBox_fermata.Text" xml:space="preserve">
+    <value>Fermate</value>
+  </data>
+  <data name="checkBox_fermata.ToolTip" xml:space="preserve">
+    <value>Verlängern Sie die Dauer einer Note um einen unbestimmten Betrag</value>
+  </data>
+  <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 363</value>
+  </data>
+  <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 32</value>
+  </data>
+  <data name="lbl_alternating_note_options.Text" xml:space="preserve">
+    <value>Optionen zum Spielen abwechselnder Noten</value>
+  </data>
+  <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>878, 362</value>
+  </data>
+  <data name="button_clear_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 25</value>
+  </data>
+  <data name="button_clear_note4.Text" xml:space="preserve">
+    <value>Note &amp;4 löschen</value>
+  </data>
+  <data name="button_clear_note4.ToolTip" xml:space="preserve">
+    <value>Machen Sie die "Note 4" der ausgewählten Zeile leer</value>
+  </data>
+  <data name="button_clear_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>878, 336</value>
+  </data>
+  <data name="button_clear_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 25</value>
+  </data>
+  <data name="button_clear_note3.Text" xml:space="preserve">
+    <value>Note &amp;3 löschen</value>
+  </data>
+  <data name="button_clear_note3.ToolTip" xml:space="preserve">
+    <value>Machen Sie die "Note 3" der ausgewählten Zeile leer</value>
+  </data>
+  <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
+    <value>700, 318</value>
+  </data>
+  <data name="checkBox_spiccato.ToolTip" xml:space="preserve">
+    <value>Machen Sie die Note kürzer und getrennt, auf halbem Weg durch Staccato</value>
+  </data>
+  <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 16</value>
+  </data>
+  <data name="lbl_beat.Text" xml:space="preserve">
+    <value>Schlagen</value>
+  </data>
+  <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 32</value>
+  </data>
+  <data name="lbl_beat_traditional.Text" xml:space="preserve">
+    <value>Schlagen (Traditionell)</value>
+  </data>
+  <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 1</value>
+  </data>
+  <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 22</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 39</value>
+  </data>
+  <data name="button_c3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_e3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_g3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_b3.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_c4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_e4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_b4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_c5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_d5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_e5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_a5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_b5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_c_s5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="checkbox_play_note.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 20</value>
+  </data>
+  <data name="checkbox_play_note.Text" xml:space="preserve">
+    <value>Note spielen</value>
+  </data>
+  <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 160</value>
+  </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Notiz hinzufügen</value>
+  </data>
+  <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 20</value>
+  </data>
+  <data name="add_as_note4.Text" xml:space="preserve">
+    <value>Als Note hinzufügen 4</value>
+  </data>
+  <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 20</value>
+  </data>
+  <data name="add_as_note3.Text" xml:space="preserve">
+    <value>Als Note hinzufügen 3</value>
+  </data>
+  <data name="checkBox_replace_length.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 20</value>
+  </data>
+  <data name="checkBox_replace_length.Text" xml:space="preserve">
+    <value>Auch länge ersetzen</value>
+  </data>
+  <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 20</value>
+  </data>
+  <data name="checkBox_replace.Text" xml:space="preserve">
+    <value>Ersetzen statt einfügen</value>
+  </data>
+  <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 20</value>
+  </data>
+  <data name="add_as_note2.Text" xml:space="preserve">
+    <value>Als Note hinzufügen 2</value>
+  </data>
+  <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 20</value>
+  </data>
+  <data name="add_as_note1.Text" xml:space="preserve">
+    <value>Als Note hinzufügen 1</value>
+  </data>
+  <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 20</value>
+  </data>
+  <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
+    <value>Notiz zur Musikliste hinzufügen</value>
+  </data>
+  <data name="group_key_is_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 208</value>
+  </data>
+  <data name="group_key_is_clicked.Text" xml:space="preserve">
+    <value>Wenn die Taste angeklickt wird</value>
+  </data>
+  <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 102</value>
+  </data>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>Wenn auf eine Zeile geklickt wird</value>
+  </data>
+  <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note4_clicked.Text" xml:space="preserve">
+    <value>Note 4 abspielen</value>
+  </data>
+  <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note3_clicked.Text" xml:space="preserve">
+    <value>Note 3 abspielen</value>
+  </data>
+  <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note2_clicked.Text" xml:space="preserve">
+    <value>Note 2 abspielen</value>
+  </data>
+  <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
+    <value>Note 1 abspielen</value>
+  </data>
+  <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 102</value>
+  </data>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>Wenn die Musik gespielt wird</value>
+  </data>
+  <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note4_played.Text" xml:space="preserve">
+    <value>Note 4 abspielen</value>
+  </data>
+  <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note1_played.Text" xml:space="preserve">
+    <value>Note 1 abspielen</value>
+  </data>
+  <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note3_played.Text" xml:space="preserve">
+    <value>Note 3 abspielen</value>
+  </data>
+  <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="checkBox_play_note2_played.Text" xml:space="preserve">
+    <value>Note 2 abspielen</value>
+  </data>
+  <data name="group_notes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 226</value>
+  </data>
+  <data name="group_notes.Text" xml:space="preserve">
+    <value>Noten in der Liste zum Abspielen</value>
+  </data>
+  <data name="button_g5.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_g4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="button_f4.ToolTip" xml:space="preserve">
+    <value>Drücken Sie eine beliebige Taste auf dieser Tastatur, um die Note zu hören/der Liste hinzuzufügen (abhängig von den Optionen auf der linken Seite des Fensters).</value>
+  </data>
+  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 40</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 27</value>
+  </data>
+  <data name="lbl_ms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 5</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>816, 237</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 42</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="position_table.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>854, 555</value>
+  </data>
+  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 77</value>
+  </data>
+  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 16</value>
+  </data>
+  <data name="lbl_measure.Text" xml:space="preserve">
+    <value>Messen</value>
+  </data>
+  <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 580</value>
+  </data>
+  <data name="checkBox_bleeper_portamento.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 20</value>
+  </data>
+  <data name="checkBox_bleeper_portamento.Text" xml:space="preserve">
+    <value>Bleeper-Portamento</value>
+  </data>
+  <data name="checkBox_bleeper_portamento.ToolTip" xml:space="preserve">
+    <value>Mit dieser Option wird die Note des Systemlautsprechers/Audiogeräts beim Wechsel von einer Note zur anderen ein- und ausgeblendet (nur angeklickte Tasten).</value>
+  </data>
+  <data name="btn_octave_decrease.ToolTip" xml:space="preserve">
+    <value>1 Oktave nach links verschieben</value>
+  </data>
+  <data name="btn_octave_increase.ToolTip" xml:space="preserve">
+    <value>1 Oktave nach rechts verschieben</value>
+  </data>
+  <data name="help_icon.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
+        EAElARABJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
+        3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
+        GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
+        2gGIAQwB/wJhAV0B1AMDAQT/AAkAAxYBHgHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZsBGgH/AeEB
+        mQEZAf8B3gGVARcB/wHXAY8BFAH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B2gGIAQwB
+        /wJhAV0B1P8ACQACbgFaAfUB5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHhAZsBGgH/Ae0B
+        1gGsBf8B3gGqAVQB/wHeAZIBFAH/Ad0BjwERAf8B3AGNARAB/wHbAYoBDgH/AdoBiAEMAf8CPgE9AWn/
+        AAEAAzgBWwHoAasBJQH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHdAawB
+        UgH/AfUB6QHVAf8B2AGWASIB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8D
+        gAH+/wABAAJjAV8B2gHpAa0BJgH/AegBqwElAf8B5wGoASMB/wHmAaYBIQH/AeUBowEfAf8B5AGgAR4B
+        /wHeAaABLQH/Ad0BogE1Af8B3gGWARgB/wHgAZYBFwH/Ad8BlAEVAf8B3gGSARQB/wHdAY8BEQH/AdwB
+        jQEQAf8B2wGKAQ4B/wMkATX8AAJvAWAB8wHqAa8BKAH/AekBrQEmAf8B6AGrASUB/wHnAagBIwH/AeYB
+        pgEhAf8B5AGjAR8B/wHwAd8BvAX/AdsBlgEZAf8B4QGZARkB/wHgAZYBFwH/Ad8BlAEVAf8B3gGSARQB
+        /wHdAY8BEQH/AdwBjQEQAf8CUAFPAZv8AAOAAf4B6wGyASoB/wHqAa8BKAH/AekBrQEmAf8B6AGrASUB
+        /wHnAagBIwH/AeYBpgEhAf8B6AHGAYIF/wHtAdcBrgH/AeEBmgEaAf8B4QGZARkB/wHgAZYBFwH/Ad8B
+        lAEVAf8B3gGSARQB/wHdAY8BEQH/AlwBWQHG/AACagFBAfkB7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B
+        6QGtASYB/wHoAasBJQH/AecBqAEjAf8B5AGkASEB/wHsAdQBpQX/AewB1QGpAf8B4QGbARoB/wHhAZkB
+        GQH/AeABlgEXAf8B3wGUARUB/wHeAZIBFAH/AlcBVQG0/AACagFhAeYB7QG3AS4B/wHsAbQBLAH/AesB
+        sgEqAf8B6gGvASgB/wHpAa0BJgH/AeMBpwEkAf8B5wGoASMB/wHlAaUBIQH/Af0B+wH3Bf8B2gGXARsB
+        /wHiAZsBGgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Az0BaPwAA1MBpwHuAbkBLwH/Ae0BtwEuAf8B
+        7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B/gH8AfkB/wHjAb8BcwH/Ad4BsgFXCf8B2wGaAR0B/wHjAZ4B
+        HAH/AeIBmwEaAf8B4QGZARkB/wHgAZYBFwH/BAL8AAMHAQkB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B
+        7AG0ASwB/wHrAbIBKgH/AfwB+QHyDf8B7QHYAawB/wHkAaMBHwH/AeQBoAEeAf8B4wGeARwB/wHiAZsB
+        GgH/Al0BWwHK/wAFAANFAXwB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHqAbEBKgH/Ad4B
+        pgEmAf8B1wGgASMB/wHeAaMBIwH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/AeQBoAEeAf8B4wGeARwB
+        /wMNARH/AAUABAECVwFWAbUB7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHrAbIBKgH/AeoB
+        rwEoAf8B6QGtASYB/wHoAasBJQH/AecBqAEjAf8B5gGmASEB/wHlAaMBHwH/Ay4BR/8ADQAEAQNEAXsB
+        7wG7ATEB/wHuAbkBLwH/Ae0BtwEuAf8B7AG0ASwB/wHrAbIBKgH/AeoBrwEoAf8B6QGtASYB/wHoAasB
+        JQH/AmMBSAH2AxYBHv8AGQADBwEJAlQBUgGoAmoBYQHmAn0BTQH6A4AB/gJvAWAB8wJjAV8B2gM4AVv/
+        AP8A/wCLAAFCAU0BPgcAAT4DAAEoAwABUAMAARQDAAEBAQABAQUAAfAXAAP/AQAC/wHwCQAB/gEHAfAJ
+        AAH4AQEB8AkAAfABAAFwCQAB4AEAAXAJAAHgAQABMAkAAcABAAEwCQABwAEAARAJAAHAAQABEAkAAcAB
+        AAEQCQABwAEAARAJAAHAAQABEAkAAcABAAEQCQABwAEAATAJAAHgAQABMAkAAeABAAFwCQAB8AEAAfAJ
+        AAH8AQMB8AkAAv8B8AkAAv8B8AkACw==
+</value>
+  </data>
+  <data name="button_synchronized_play_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>440, 538</value>
+  </data>
+  <data name="button_play_beat_sound_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>440, 559</value>
+  </data>
+  <data name="button_bleeper_portamento_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>440, 580</value>
+  </data>
+  <data name="button_use_keyboard_as_piano_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>440, 602</value>
+  </data>
+  <data name="button_do_not_update_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>994, 635</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 452</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>194, 60</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 60</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
+    <value>Spielen Sie abwechselnd zuerst die Noten in den ungeraden Spalten, dann in den geraden Spalten.</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.ToolTip" xml:space="preserve">
+    <value>Wenn diese Option aktiviert ist, werden abwechselnde Noten zuerst als Note 1 und Note 3, dann als Note 2 und Note 4 umgeschaltet</value>
+  </data>
+  <data name="checkBox_loop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>893, 237</value>
+  </data>
+  <data name="checkBox_loop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 20</value>
+  </data>
+  <data name="checkBox_loop.Text" xml:space="preserve">
+    <value>Schleife</value>
+  </data>
+  <data name="checkBox_loop.ToolTip" xml:space="preserve">
+    <value>Legt fest, ob die Musik ab der Note in der ersten oder der ausgewählten Zeile erneut abgespielt wird oder ob die Musik gestoppt wird, wenn die Note in der letzten Zeile der Liste abgespielt wird.</value>
+  </data>
+  <data name="checkBox_use_keyboard_as_piano.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 602</value>
+  </data>
+  <data name="checkBox_use_keyboard_as_piano.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 36</value>
+  </data>
+  <data name="checkBox_use_keyboard_as_piano.Text" xml:space="preserve">
+    <value>Verwenden Sie die Tastatur als 
+Klavier</value>
+  </data>
+  <data name="checkBox_use_keyboard_as_piano.ToolTip" xml:space="preserve">
+    <value>Mit dieser Option können Sie Ihre Computertastatur als Klavier verwenden.</value>
+  </data>
+  <data name="checkBox_do_not_update.Location" type="System.Drawing.Point, System.Drawing">
+    <value>863, 637</value>
+  </data>
+  <data name="checkBox_do_not_update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 20</value>
+  </data>
+  <data name="checkBox_do_not_update.Text" xml:space="preserve">
+    <value>Nicht aktualisieren</value>
+  </data>
+  <data name="checkBox_do_not_update.ToolTip" xml:space="preserve">
+    <value>Wenn die Liste viele Noten enthält, aktivieren Sie dieses Kontrollkästchen, um Probleme mit der Wiedergabeflüssigkeit zu vermeiden.</value>
+  </data>
+  <data name="checkBox_use_voice_system.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 636</value>
+  </data>
+  <data name="checkBox_use_voice_system.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 20</value>
+  </data>
+  <data name="checkBox_use_voice_system.Text" xml:space="preserve">
+    <value>Sprachsystem verwenden</value>
+  </data>
+  <data name="checkBox_use_voice_system.ToolTip" xml:space="preserve">
+    <value>Diese Option spielt ausgewählte Noten aus einem Sprachsystem ab, das Stimmformanten nachahmt.</value>
+  </data>
+  <data name="lbl_time_signature.Location" type="System.Drawing.Point, System.Drawing">
+    <value>771, 254</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 286</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 67</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>264, 232</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 47</value>
+  </data>
+  <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
+    <value>440, 636</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 407</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 42</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.TabIndex" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
+    <value>Spielen Sie abwechselnd Noten in der richtigen Reihenfolge</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
+    <value>Wenn diese Option ausgewählt ist, werden abwechselnde Noten in der Reihenfolge Note 1, Note 2, Note 3 und Note 4 gewechselt</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        YII=
+</value>
+  </data>
+</root>

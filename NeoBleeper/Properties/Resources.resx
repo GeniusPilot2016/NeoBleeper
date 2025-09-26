@@ -559,4 +559,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="ToastMessageNotesCut" xml:space="preserve">
     <value>Notes are cut to clipboard.</value>
   </data>
+  <data name="MessageLanguageChanged" xml:space="preserve">
+    <value>The language has been changed. Please restart the application to apply the new language.</value>
+  </data>
 </root>
