@@ -183,7 +183,7 @@
 
     The checkbox of "Synchronized Play" is unchecked window is closed. To reopen the window, Disabling this option will cancel any active waiting state.
 
-    Playback should be stopped before initiating the waiting state. Starting the waiting process while music is already playing may result in unexpected behavior. If this occurs, stopping the waiting state is recommended.
+    Playback is stopped automatically when initiating the waiting state to prevent issues, which is different from original Bleeper Music Maker.
 
     Synchronization across multiple computers is possible if all system clocks are precisely aligned. It is recommended to synchronize system clocks before using this feature across devices.
 
