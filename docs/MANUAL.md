@@ -14,13 +14,13 @@
   Notes clicked on the keyboard are inserted above the currently selected line in the music list. 
   If no line is selected, notes are added to the end of the music. 
   To add notes to the end when a line is selected, click "Un-select line" (turquoise button to the right of the music list).
-  
-  ![image](https://github.com/user-attachments/assets/80093bf4-d36f-4178-b5db-409587089bd7)
+
+  ![image](https://github.com/user-attachments/assets/d6f8f30e-7002-45c7-ae7b-e541c482baf9)
   
   To switch between inserting a note or replacing the currently selected note, and to choose which of the two note columns a note is inserted into or replaces, use the options box under the left side of the keyboard titled "When key is clicked."
   This box also includes the option to play notes without inserting or replacing them.
 
-  ![image](https://github.com/user-attachments/assets/a1f3ff74-7a0b-4d5d-8e06-7e0b838524fb)
+  ![image](https://github.com/user-attachments/assets/0e4d2ede-24f1-490a-bd49-d20d500d1492)
 
   To change the length of the inserted note, adjust the "Note length" value located under the middle of the keyboard.
   This drop-down menu allows selection of whole, 1/2 (half), 1/4 (quarter), 1/8, 1/16, or 1/32 notes.
@@ -29,7 +29,7 @@
   
   For example, to create a dotted half note, insert a half note and then a quarter note, or insert a half note and apply a "Dotted" length modifier.
 
-  ![image](https://github.com/user-attachments/assets/445d05ef-09a9-4941-846b-239cc217a1a0)
+  ![image](https://github.com/user-attachments/assets/bd5f13da-1f61-4763-be54-6fda1566e8de)
 
   If a 1/32 note is not short enough, the tempo (BPM) of the song can be set up to 600 BPM, which is double the capability of most MIDI sequencers.
   This allows for increased tempo and compensating by making every other note twice as long.
@@ -105,8 +105,8 @@
   
   To insert dotted, triplet, Staccato, Spiccato or Fermata notes, press the corresponding button and then click notes on the keyboard. During playback, the "Dotted", "Triplet", "Staccato", "Spiccato" and "Fermata" buttons activate automatically when such modifiers and
   articulations are encountered.
-
-  ![image](https://github.com/user-attachments/assets/f208110a-622f-4e9a-a024-cda8fb91b715)
+  
+  ![image](https://github.com/user-attachments/assets/6a23a907-0f06-4802-b460-6cd5e406c737)
 
 - ## Time Signature and Position Displays
 
@@ -145,8 +145,8 @@
   The program includes several modifications that alter its behavior from the original design. These modifications are listed near the bottom-left of the screen, adjacent to the music list. Each mod has a checkbox to enable or disable it. If a checkbox cannot be unticked, closing the mod's window will disable the mod and untick the checkbox.
 
   Click the question-mark button next to a mod's checkbox to view a brief description of its function (available for most mods).
-
-  ![image](https://github.com/user-attachments/assets/394f7d98-de36-40f5-8d73-e8143dca7046)
+  
+  ![image](https://github.com/user-attachments/assets/3490b6cc-dc60-4287-a2c2-497a84a80d2b)
   
   - ### Synchronized Play Mod
     
@@ -165,8 +165,8 @@
     Synchronization across multiple computers is possible if all system clocks are precisely aligned. It is recommended to synchronize system clocks before using this feature across devices.
 
   - ### Play Beat Sound Mod
-    
-    ![image](https://github.com/user-attachments/assets/fd702244-279f-4cea-bb54-abae02960ded)
+
+    ![image](https://github.com/user-attachments/assets/b8426d40-877c-440b-b9bd-ea30d69f0fe5)
 
     This modification ensures the system speaker/sound device to emit a beat sound on every beat or on every other beat, depending on the selected configuration. The sound resembles a techno-style beat due to the electronic nature of the system speaker/sound device. When the "Play a beat sound" checkbox is selected, a configuration window appears. This window allows users to choose whether the beat sound plays on every beat or on every odd-numbered beat. The latter option effectively halves the tempo of the beat sounds.
 
@@ -180,11 +180,78 @@
 
   - ### Use Keyboard As Piano Mod
 
-    ![image](https://github.com/user-attachments/assets/340ef0a7-1c2a-41c6-b913-845bffcc16e5)
+    ![image](https://github.com/user-attachments/assets/e21e5879-23d8-4df2-a0d2-ca5a7f3e7de2)
 
     This feature maps the computer keyboard to musical notes, allowing direct playback using key presses without any MIDI input devices. Each key corresponds to a specific note on the virtual piano. The mapping follows a predefined layout, typically aligned with the visible keyboard labels.
     
   When enabled, pressing a key will immediately trigger the associated note using the current synthesis method.
+
+  - ### Voice System ("Voice Internals")
+
+    NeoBleeper now includes a powerful voice synthesis system, accessible through the "Voice Internals" window. This system enables advanced control over synthesized voices, including vowel formants, noise, and sybilance, allowing you to create human-like or experimental vocal sounds directly in your compositions.
+
+    ![image](https://github.com/user-attachments/assets/664f5c25-330f-45a7-9fe5-9ff0bac76fc9)
+
+      - #### **Accessing the Voice System**
+      
+        To open the Voice Internals window, look for the "Voice System" or "Voice Internals" option in the menu or in the output device selection for each note.
+        Each note column (Note 1–4) can now be individually routed to the voice system, the traditional beep, or other output devices using the new "Output options" dropdowns.
+
+      - #### **Voice Internals Window Overview**
+      
+      The Voice Internals window is organized into sections, each giving you fine control over different aspects of the synthesized voice:
+
+      - ##### **Formant Control**
+        
+          There are four formant sliders, each representing a key resonance of the human vocal tract:
+            - Adjust the **Volume** and **Frequency (Hz)** for each formant.
+            - Preset buttons ("Open vowel", "Close front", etc.) allow quick selection of typical vowel sounds.
+        
+        - ##### **Oscillator Section**
+        
+          **Saw Vol** and **Noise Vol** sliders control the level of the sawtooth oscillator and noise source, forming the basis of the voice timbre.
+          These can be mixed with the formant filters for a variety of synthetic and vocal effects.
+        
+        - ##### **Sybillance and Sybillance Masking**
+        
+          Four masking controls let you simulate sybilance or consonant effects by shaping noise components and masking frequencies.
+          The "Cutoff Hz" slider sets a frequency cutoff for noise masking.
+          
+        ##### **Random Variations of Formants**
+        
+          - Pitch and range sliders introduce subtle random variation to formant frequencies, adding realism or special effects.
+        
+        - ##### **Output Options**
+        
+          - Assign which sound engine each note column uses:
+            "System speaker/Sound device beep"
+            "Voice system"
+            ...and others as available.
+        
+          You can play a mix of voice-synthesized and system speaker/sound device beeps in a single song.
+        
+        - ##### **Key and Usage Notes**
+        
+          The window provides a legend for color coding and parameter abbreviations. 
+          A dropdown lets you choose when to play the voice (all lines, specific lines, etc.).
+        
+      - #### **How to Use the Voice System**
+      
+        1. **Assign a Note to the Voice System**  
+           In the "Output options" of the Voice Internals window or main interface, set a note column (e.g., Note 2) to "Voice system".
+        2. **Edit Formants and Oscillator Settings**  
+           Use the sliders and preset buttons to shape the vowel, timbre, and sibilance.
+        3. **Playback**  
+           When you play music, the selected note column(s) will use the voice synthesizer based on your settings.
+        4. **Experiment**  
+           Try different combinations, randomization ranges, and oscillator mixes for robotic, natural, or unique synthetic voices.
+      
+      - #### **Tips**
+      
+        - Mix and match: Assign some notes to the voice system and others to beeps for rich, layered soundtracks.
+        - For best results, adjust formants to match the pitch of your notes.
+        - Use the randomization sliders for more "human" irregularity or robotic artifacts.
+        - The voice system can be used for experimental sound design, not just vocals.
 
 - ## Settings
   The NeoBleeper Settings window is divided into four main tabs, each targeting a different aspect of the app's configuration
@@ -256,9 +323,9 @@
       **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
 
   - ### Appearance Settings
-    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It's organized into three intuitive sections:
-    
-    ![image](https://github.com/user-attachments/assets/eb7a2939-a106-4ec5-8f5e-af32fb5d8ed0)
+    This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It's organized into sections for keyboard, buttons, indicators, and text event display.
+
+    ![image5](https://github.com/user-attachments/assets/183112ef-b1fa-40b5-9af3-50779946e223)
 
     - #### Keyboard Colors
       **Define the color scheme for different octaves on the virtual keyboard:**
@@ -287,7 +354,7 @@
       **Metronome Color:** Light blue
       
       **Keyboard Markup Color:** Light gray
-      
+
       These color assignments enhance usability by making actions and states visually intuitive.
     
     - #### Indicator Colors
@@ -298,9 +365,14 @@
       **Note Indicator Color:** Red
       
       These indicators flash or highlight during playback or input, helping you monitor activity at a glance.
-    
+
+    - #### Lyrics/Text Events Settings
+      **Lyrics/Text Events Size:** Adjust the size (in points) of the lyrics or text events that are displayed during playback of MIDI files or other event-driven features.
+      
+      **Preview Lyrics/Text Event Settings:** Use this button to preview how lyrics or text events will appear, ensuring readability and style match your preference.
+
     - #### Reset Option
-      **Reset Colors to Default Values:** A one-click button to restore all color settings to their original defaults, perfect for undoing experiments or starting fresh.
+      **Reset Appearance Settings to Default Values:** A one-click button to restore all color and appearance settings to their original defaults, perfect for undoing experiments or starting fresh.
       
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
@@ -332,7 +404,7 @@
 
       NeoBleeper's MIDI file player includes a feature to show lyrics or text events embedded in MIDI files, providing real-time visual feedback of vocal lines or cues for karaoke and performance applications.
 
-      ![image1](https://github.com/user-attachments/assets/5c483b50-bf94-4314-9299-e077c481d8bc)
+      ![image1](https://github.com/user-attachments/assets/cbc132ed-34db-4d11-b874-5406f813b4e1)
 
       When the "Show lyrics or text events" checkbox is enabled in the "Play MIDI File" window, any lyric or text events embedded within the currently playing MIDI file are displayed prominently at the bottom of the application window. These events appear as large, clear text overlays, updating in synchronization with the song's progression.
 
@@ -341,12 +413,41 @@
       The lyrics/text display updates automatically as new events are encountered during playback and will disappear when playback is stopped or when a new file is loaded.
 
     - ### Create Music with AI - `Ctrl + Alt + A`
-      Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions to kickstart your creativity.
-   
-      ![image](https://github.com/user-attachments/assets/5668346d-e216-4d73-80aa-a3b532a24d02)
+      Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions for melodies, harmonies, and rhythms.
 
-      This feature generates music based on a user-defined text prompt. The selected AI model interprets the prompt and produces a musical composition. The result is rendered internally and can be previewed or exported. If the AI model supports genre or instrumentation awareness, those elements may be reflected in the output. Prompt processing is powered by Google Gemini™. No manual note input is required.
+      ![image](https://github.com/user-attachments/assets/3713c655-4e73-4828-9c7d-b4da65afb825)
 
+      **How it works:**
+      - Open the "Create Music with AI" window from the File menu or by using the shortcut.
+      - Choose your desired **AI Model** (e.g., Gemini 2.5 Flash) from the dropdown.
+      - Enter a musical prompt in the **Prompt** box (e.g., "Generate a folk tune with acoustic guitar").
+      - Click **Create** to have the AI generate music. A progress bar will indicate when the request is being processed.
+      - A warning reminds you that results are inspirational suggestions and may contain mistakes.
+      - The feature is powered by Google Gemini™.
+
+      **Prompt Guidance and AI Restrictions:**
+      - The AI tool will only process prompts related to music composition. If your prompt is not related to music (e.g., "write a joke"), you will receive an error:  
+
+         ![image](https://github.com/user-attachments/assets/3741d41b-883a-4732-b80b-29939eb26492)
+        
+        *"The request is not related to music composition."*
+      - Prompts that contain offensive or inappropriate content are not allowed. If detected, an error will appear:  
+
+        ![image3](https://github.com/user-attachments/assets/3fe0e1f7-ed7c-4dca-a327-7141d874432e) 
+
+        *"Your prompt contains offensive or inappropriate content. Please try again with a different request."*
+      - Valid prompts should be specific and musically focused (e.g., "Generate a jazz melody for piano" or "Create a fast techno drum pattern").
+
+      **Notes:**
+      - If no prompt is written when "Create" button is clicked, the AI will use placeholder prompt text in textbox as prompt.
+      - AI-generated music is intended to spark inspiration and should be reviewed before using in final compositions.
+      - The AI does not guarantee perfect or stylistically accurate results.
+      - All generated content should be checked for accuracy and musicality before public use.
+
+      **Integration with Output Options:**
+      - You can use AI-generated music with any output engine (system beep, sound device, or voice system).
+      - Assign AI music to specific note columns and combine with traditional or voice synthesis features for unique results.
+        
     - ### Convert to GCode - `Ctrl + Shift + G`
 
       Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences, perfect for experimental art or educational tools.
