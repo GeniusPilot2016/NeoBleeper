@@ -2,7 +2,7 @@
 
 NeoBleeper, Robbi-985'in (diğer adıyla SomethingUnreal) 2007 sonu-2008 başı civarında geliştirdiği ancak yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında kullanımdan kaldırdığı Bleeper Music Maker yazılımından esinlenerek, anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan yapay zeka destekli bir melodi oluşturma yazılımıdır. NeoBleeper, yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilme sorununu çözerek daha kararlı bir müzik yapma deneyimi sunar 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/6d97daca-3dae-44e4-894c-c272864af8ee)
+![image](https://github.com/user-attachments/assets/6d0e2c17-0741-48b9-929f-401a81ad75a2)
 
 ## Durum
 
@@ -13,26 +13,28 @@ Bu proje **hala geliştirme aşamasında** olup, bazı özellikleri ve bileşenl
 - ### Kullanıcı dostu, tanıdık, daha ergonomik ve daha doğal arayüz
   NeoBleeper, yüksek çözünürlüklü ekranlarla uyumlu, kullanıcı dostu, tanıdık, ergonomik ve daha doğal bir arayüz sunar ve eski Bleeper Music Maker kullanıcılarının uyum sürecini hızlandırır.
 
-  ![image](https://github.com/user-attachments/assets/7f254095-cc6e-4f63-aa09-a6bbffad569a)
+  ![image](https://github.com/user-attachments/assets/dd83138f-2a06-4ed4-b866-5424a909becb)
 
-  ![image](https://github.com/user-attachments/assets/2f551791-e967-4157-b429-fe5f6de1bb25)
+  ![image](https://github.com/user-attachments/assets/84f11ed0-1073-4a88-96c7-1c83ed4bab1b)
 
-  ![image](https://github.com/user-attachments/assets/d9b14163-6393-41f1-8af3-240c710c1751)
+  ![image](https://github.com/user-attachments/assets/1a9af30a-394d-4de2-adc5-2c1e25ef6e7c)
 
-  ![image](https://github.com/user-attachments/assets/7614a924-c501-4982-a23c-6afc9b6542ca)
+  ![image](https://github.com/user-attachments/assets/554bf110-9de8-4128-8df8-b95b822a100f)
 
-  ![image](https://github.com/user-attachments/assets/6844b9b3-b2b2-45b7-9a52-ac3624093202)
-  
-  ![image](https://github.com/user-attachments/assets/7c75b019-6870-4cd7-b4e7-ed0a3ba34555)
+  ![image](https://github.com/user-attachments/assets/d386916d-ab06-42b7-98a1-37902c625e64)
 
-  ![image](https://github.com/user-attachments/assets/4a1540ca-fc07-4f93-8e05-8dc60731ffd3)
+  ![image](https://github.com/user-attachments/assets/a6d193ae-c6f9-4ad6-85d8-b1c2d6fccb8e)
+
+  ![image](https://github.com/user-attachments/assets/61fdf6e2-e208-428c-becd-a761e3dc7986)
+
+  ![image](https://github.com/user-attachments/assets/b0923941-201e-42ea-a24f-29980312fe3e)
   
 - ### Nota ekleyin ve düzenleyin
   NeoBleeper, kullanıcıların kolayca ve hızlı bir şekilde nota eklemesine olanak tanır. Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle müziğinize yaratıcı bir şekilde nota ekleyebilir veya müziğinizdeki notaları düzenleyebilirsiniz.
 
-  ![image](https://github.com/user-attachments/assets/de05e69e-423f-4fee-a2e7-9c09ab11a936)
-  
-  ![image](https://github.com/user-attachments/assets/f0df9458-3abf-42db-9e9d-ff7a384e5814)
+  ![image](https://github.com/user-attachments/assets/17a89d8b-e082-4e8d-9b44-6d7ea7078a8c)
+
+  ![image](https://github.com/user-attachments/assets/c709c014-b73c-4570-b595-aa5beba84841)
 
   ![image](https://github.com/user-attachments/assets/bcb5e8c3-367a-4d2d-a946-435c98d2e896)
 
@@ -40,7 +42,7 @@ Bu proje **hala geliştirme aşamasında** olup, bazı özellikleri ve bileşenl
   NeoBleeper, kullanıcıların müziğin zaman işaretini ayarlamasına ve metronom kullanarak ritmi düzenlemesine olanak tanır. 
 Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlamaları ve metronom kullanımı daha doğru ve tutarlı müzikler oluşturmanıza yardımcı olur.
 
-  ![image](https://github.com/user-attachments/assets/b22877c0-7f9f-498b-8bd5-60564c399630)
+  ![image](https://github.com/user-attachments/assets/25361c79-aa69-4e27-89a3-dc8298daca49)
 
 - ### Sanal klavye ile kolay nota girişi
   NeoBleeper, sanal klavye ile notalarınızı hızlı ve kolay bir şekilde girmenizi sağlar. Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle notalarınızı zahmetsizce girip düzenleyebilir, yaratıcı süreçlerinizi hızlandırabilirsiniz.
@@ -50,18 +52,18 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 - ### Geriye Dönük Uyumluluk
   NeoBleeper, kendi dosya formatının (.NBPML) yanı sıra esinlenildiği Bleeper Music Maker programının dosya formatını (.BMM) da destekler.
 
-  ![image](https://github.com/user-attachments/assets/759cd4f1-6997-4514-b4b7-413654989af6)
+  ![image](https://github.com/user-attachments/assets/e114bfa5-971f-4e22-9b31-face8952f49e)
 
 - ### Bir Yeniden Yapımdan Daha Fazlası
 
   Yeni özellikleriyle NeoBleeper, Bleeper Music Maker'ın yeniden yapılmış bir versiyonundan çok daha fazlası.
 
-  - #### Sistem hoparlörü yapay zekayla buluşuyor
+  - #### Sistem hoparlörü yapay zeka ile buluşuyor
     NeoBleeper programındaki Google Gemini™ destekli yapay zeka destekli müzik oluşturma özelliği sayesinde, yapay zeka ile müzik yaratabilir ve bunları sistem hoparlöründen veya MIDI çıkış cihazından çalabilirsiniz.
 
-    ![image](https://github.com/user-attachments/assets/83f4d4d8-c00b-4530-b3bb-e3814827443c)
+    ![image](https://github.com/user-attachments/assets/27f22d0a-37e0-4413-90aa-a8052c1f49ed)
 
-    ![image](https://github.com/user-attachments/assets/32d8af99-e737-43af-a854-a6c07e4006e2)
+    ![image](https://github.com/user-attachments/assets/bbb5bef9-7186-471e-b89d-397c240854e2)
     
  - #### Daha hassas pozisyon gösterimi
     NeoBleeper, 1/32 nota uzunluğuyla uyumlu bir pozisyon gösterimi sunar.
@@ -72,16 +74,16 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
     NeoBleeper, normal klavyenizi piyanoya dönüştürerek MIDI giriş cihazına ihtiyaç duymadan kolayca nota çalmanızı sağlar.
 
-    ![image](https://github.com/user-attachments/assets/a825dba3-ab9e-4fc3-8d93-437ee030f7dc)
+    ![image](https://github.com/user-attachments/assets/f926bcd6-bf2e-4ced-886f-3f21986ed2f5)
     
   - #### Dilediğiniz gibi kişiselleştirebilirsiniz
     NeoBleeper programını, oktav renklerini, bazı düğmelerin renklerini ve göstergelerin renklerini milyonlarca renkten herhangi biriyle değiştirerek ve koyu ve açık temalar arasında seçim yaparak kişiselleştirebilirsiniz. Bu özelliğin tek sınırı hayal gücünüzdür. Ayrıca, programın nostaljik Bleeper Music Maker kullanıcı arayüzüne benzemesi için "Klasik Bleeper modu"nu etkinleştirebilirsiniz.
 
-    ![image](https://github.com/user-attachments/assets/da29c212-c1b0-4142-95e3-7a6eee973cd9)
+    ![image](https://github.com/user-attachments/assets/4541acb3-9db0-4db4-abc5-86a72de8dac9)
 
-    ![image](https://github.com/user-attachments/assets/e536aa0f-733f-44a3-9878-95ec4f88710c)
+    ![image](https://github.com/user-attachments/assets/fb337ecd-a01b-4ddb-b6c0-7bf78be0b593)
 
-    ![image](https://github.com/user-attachments/assets/f4e860e1-b894-4c0e-8e16-27571888508b)
+    ![image](https://github.com/user-attachments/assets/400a4698-b88f-4d22-bac4-ab72116806d9)
 
   - #### Sistem hoparlörünü sizin için algılar
     NeoBleeper, bilgisayarınızın anakartındaki sistem hoparlörünü algılamazsa, 'Bip sesini oluşturmak için ses aygıtını kullan' seçeneğini otomatik olarak kalıcı olarak etkinleştirir.
