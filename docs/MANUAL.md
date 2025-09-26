@@ -16,7 +16,30 @@
   To add notes to the end when a line is selected, click "Un-select line" (turquoise button to the right of the music list).
 
   ![image](https://github.com/user-attachments/assets/d6f8f30e-7002-45c7-ae7b-e541c482baf9)
+
+  - ### Note List Multi-Purpose Checkboxes
   
+    NeoBleeper now features multi-purpose checkboxes in the note list, adding powerful editing and playback capabilities with a simple, intuitive interface.
+  
+    ![image1](https://github.com/user-attachments/assets/9bf6cd87-670e-4311-83e1-421d35d78ed3)
+
+    **Key Features of Multi-Purpose Checkboxes:**
+    - **Play Beat in Checked Lines (No Whole Number Limitation):**  
+      When the "Play beat" feature or a beat-mod is enabled, beats are played only in the lines where the checkbox is checked. This allows for custom rhythmic patterns regardless of measure boundaries or whole-number positions—beats can play on any checked line for creative flexibility.
+    - **Cutting and Copying Multiple Notes:**  
+      To cut or copy several lines at once, check the desired lines, then use the "Cut" or "Copy" actions. All checked lines are included in the operation, enabling efficient batch editing.
+    - **Erasing Multiple Notes:**  
+      To erase several notes at once, check the lines you wish to remove and use the "Erase" button. This allows for rapid deletion of multiple notes, reducing repetitive work and minimizing mistakes.
+    - **Voice Playback on Checked Lines:**  
+      When using the voice synthesis system, you can restrict voice playback to only the checked lines. This makes it easy to highlight certain musical phrases or experiment with alternating between traditional beeps and voice synthesis within a song.
+  
+    **Usage Tips:**
+    - You can select or deselect multiple lines in rapid succession to quickly configure which parts of your music are affected by each operation.
+    - The multi-purpose checkboxes work in conjunction with other editing features, allowing for advanced batch operations without switching modes.
+    - These checkboxes are independent of line selection for note entry—lines can be checked for batch actions even if another line is selected for editing.
+  
+    This addition streamlines both composition and editing, giving you more control over playback, voice effects, and batch manipulation of your music.
+    
   To switch between inserting a note or replacing the currently selected note, and to choose which of the two note columns a note is inserted into or replaces, use the options box under the left side of the keyboard titled "When key is clicked."
   This box also includes the option to play notes without inserting or replacing them.
 
