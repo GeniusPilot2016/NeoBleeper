@@ -1512,8 +1512,8 @@ namespace NeoBleeper
             {
                 Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
                 Settings1.Default.Save();
-                UIHelper.setLanguageByName(Settings1.Default.preferredLanguage);
                 Logger.Log("Preferred language changed to: " + comboBoxLanguage.SelectedItem.ToString(), Logger.LogTypes.Info);
+                MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
