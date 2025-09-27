@@ -40,52 +40,29 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(84, 14);
-            label1.MaximumSize = new Size(360, 0);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(341, 48);
-            label1.TabIndex = 0;
-            label1.Text = "The \"Create Music with AI\" feature has created an output like this, and this output does not comply with NBPML file format standards.";
             // 
             // richTextBox1
             // 
-            richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(richTextBox1, "richTextBox1");
             richTextBox1.BackColor = Color.Black;
-            richTextBox1.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 162);
             richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(12, 75);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(425, 182);
-            richTextBox1.TabIndex = 1;
-            richTextBox1.Text = "";
             // 
             // pictureBox1
             // 
-            pictureBox1.Anchor = AnchorStyles.Top;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.icons8_error_48;
-            pictureBox1.Location = new Point(23, 14);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(50, 50);
-            pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom;
-            button1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ImageIndex = 0;
+            resources.ApplyResources(button1, "button1");
             button1.ImageList = icons;
-            button1.Location = new Point(174, 267);
             button1.Name = "button1";
-            button1.Size = new Size(87, 28);
-            button1.TabIndex = 3;
-            button1.Text = "Close";
-            button1.TextAlign = ContentAlignment.MiddleRight;
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -98,9 +75,8 @@
             // 
             // AIGeneratedNBPMLError
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(449, 304);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             Controls.Add(richTextBox1);

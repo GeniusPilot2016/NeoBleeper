@@ -117,36 +117,192 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>425, 182</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 14</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
+    <value>richTextBox1</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AIGeneratedNBPMLError</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 75</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="richTextBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9pt</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button1.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
   <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAADgUAAAJNU0Z0AUkBTAMBAQAB
-        MAEAATABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wFCAToBswHi5AABRAE2AewB/wFCATQB
-        6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wEzASMB5gH/AUoBSQFfAZTY
+        OAEAAVwBAAEQAQABEAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wFJAUIBogHi5AABRAE2AewB/wFCATQB
+        6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wEzASMB5gH/AU0BTAFUAZTY
         AAFJATwB7gH/AUcBOQHtAf8BRAE2AewB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgB
-        KQHoAf8BNQEmAecB/wEzASMB5gH/AUoBSQFfAZTQAAFOAUwBYgGXAUsBPgHuAf8BSQE8Ae4B/wFHATkB
+        KQHoAf8BNQEmAecB/wEzASMB5gH/AU0BTAFUAZTQAAFOAU0BVQGXAUsBPgHuAf8BSQE8Ae4B/wFHATkB
         7QH/AUIBNQHlAf8BQgE0AesB/wE/ATEB6gH/AT0BLgHpAf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8B
         MwEjAeYB/9AAAU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzBf8BQQE0AeIB/wFCATQB6wH/AXwB
-        dAHhBf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8BRgE7AbEB4cwAAVEBRQHxAf8BTwFDAfAB/wFNAUAB
+        dAHhBf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8BTQFDAZ8B4cwAAVEBRQHxAf8BTwFDAfAB/wFNAUAB
         7wH/AUsBPgHuAf8C/AH+Bf8BfQF0AeIF/wGAAXgB4gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUB
         JgHnAf/MAAFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8C/QH+Bf8BgwF7AeQB
         /wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf/MAAFVAUkB8gH/AVMBRwHxAf8B
         UQFFAfEB/wFPAUMB8AH/AYIBegHkBf8C/QH+Bf8BQQE0AeIB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB
         /wE6ASsB6QH/zAABVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BgwF8AeUF/wGEAX0B5QH/AUsBPgHuAf8C
-        /AH+Bf8BQgE1AeUB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/8wAAVsBTAHkAfkBVwFLAfMB/wFVAUkB
+        /AH+Bf8BQgE1AeUB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/8wAAVwBTAHfAfkBVwFLAfMB/wFVAUkB
         8gH/AVEBRgHrAf8BgwF8AeUB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wHIAcQB8wH/AUcBOQHtAf8B
         RAE2AewB/wFCATQB6wH/AxYBHtAAAVkBTQHzAf8BVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB
         /wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wFJATwB7gH/AUcBOQHtAf8BRAE2AewB/9QAAwgBCgFZAU0B
         8wH/AVcBSwHzAf8BVQFJAfIB/wFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8B
-        SQE8Ae4B/+AAAVsBTAHkAfkBVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU4B
-        TAFiAZf/AP8A0gABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8G
+        SQE8Ae4B/+AAAVwBTAHfAfkBVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU4B
+        TQFVAZf/AP8A0gABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8G
         AAHwAQcGAAHgAQMGAAHAAQMGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHgAQMG
-        AAHgAQcGAAH4AQ8GAAL/BgAC/wYACw==
+        AAHgAQcGAAH4AQ8GAAL/BgAC/xwACw==
 </value>
   </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 28</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="button1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="richTextBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>The "Create Music with AI" feature has created an output like this, and this output does not comply with NBPML file format standards.</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>84, 14</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>174, 267</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;icons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="richTextBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 48</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;icons.Name" xml:space="preserve">
+    <value>icons</value>
+  </data>
+  <data name="label1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>360, 0</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>449, 304</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="button1.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>vi</value>
+  </metadata>
+  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

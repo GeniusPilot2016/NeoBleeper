@@ -74,7 +74,6 @@ namespace NeoBleeper
             InitializeComponent();
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
-            UIFonts.setFonts(this);
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;

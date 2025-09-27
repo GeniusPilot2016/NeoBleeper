@@ -131,8 +131,8 @@
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
             resources.ApplyResources(panel1, "panel1");
+            panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
             panel1.Controls.Add(lbl_name);
             panel1.Controls.Add(lbl_version);
             panel1.Controls.Add(pictureBox1);

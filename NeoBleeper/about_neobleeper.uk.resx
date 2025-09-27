@@ -117,102 +117,75 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;button_fork_me_on_github.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;button_visit_icons8.Name" xml:space="preserve">
-    <value>button_visit_icons8</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_version.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_version.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="lbl_name.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>398, 64</value>
+  <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 195</value>
   </data>
-  <data name="listView1.Items1" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>450, 0</value>
+  </data>
+  <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>450, 64</value>
+  </data>
+  <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>450, 96</value>
+  </data>
+  <data name="lbl_credit.Text" xml:space="preserve">
+    <value>Натхненний програмою Bleeper Music Maker від Robbi-985 (також відомою як SomethingUnreal)
+Розроблено та запрограмовано GeniusPilot2016
+Усі значки в цій програмі завантажено з icons8.com
+NeoBleeper ліцензовано за Загальною публічною ліцензією GNU версії 3.0
+Google Gemini™ є торговою маркою Google LLC</value>
+  </data>
+  <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
-        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
-        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
-        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
-        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
-        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
-        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAAH1JvYmJpLTk4NSAo
-        YWthIFNvbWV0aGluZ1VucmVhbCn/////AgAAAAkFAAAABfr///8UU3lzdGVtLkRyYXdpbmcuQ29sb3IE
-        AAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcDAAAACgAAAAAAAAAAGAABAAAJBwAA
-        AAH4////+v///woAAAAAAAAAABoAAQABBQUAAAAxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
-        dGVtK0xpc3RWaWV3U3ViSXRlbQQAAAAEdGV4dARuYW1lBXN0eWxlCHVzZXJEYXRhAQEEAj5TeXN0ZW0u
-        V2luZG93cy5Gb3Jtcy5MaXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJdGVtK1N1Ykl0ZW1TdHlsZQIAAAAC
-        AAAABgkAAAAfSW5pdGlhbCBkZXZlbG9wbWVudCBhbmQgY29uY2VwdAoKCgUHAAAAE1N5c3RlbS5EcmF3
-        aW5nLkZvbnQEAAAABE5hbWUEU2l6ZQVTdHlsZQRVbml0AQAEBAsYU3lzdGVtLkRyYXdpbmcuRm9udFN0
-        eWxlAwAAABtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQDAAAAAwAAAAYKAAAADkhhcm1vbnlPUyBT
-        YW5zAAAQQQX1////GFN5c3RlbS5EcmF3aW5nLkZvbnRTdHlsZQEAAAAHdmFsdWVfXwAIAwAAAAAAAAAF
-        9P///xtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
+        AAFwAQIBcAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
+        ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
+        /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
+        PAH/AzoB/wNMAZFUAAE7AbABJQH/ATsBsAElAf8BzwHoAcsN/wEsAYwBGgH/AS4BhgEdAf8B7wHzAe4B
+        /wF8AagBcwH/ASUBfQETAf8BJQF9ARMB/wwAAfIBSQG3Af8B8AFDAbEB/wHvAT4BqgH/Ae0BOAGkAf8B
+        SQGZAeMB/wQAAVUCVwG0AQgBuwH+Af8DBAEFA1QBpgHFAUoBsAH/Ae0BOgGmAf8B7wE/AawB/wHxAUUB
+        swH/AWEBXAFhAdkMAANJAf8DfQH/A8sB/wO7Df8DPAH/AzoB/wM5Af8DSQGIUAABOwGwASUB/wE7AbAB
+        JQH/A/wB/wP6Af8D+gH/A/sB/wEsAYsBGgH/A/kB/wP4Af8D+AH/AXwBqAFzAf8BJQF9ARMB/xAAAe8B
+        PgGqAf8B7QE4AaQB/wHrATIBngH/AQwBwgH+Af8BCwHBAf4B/wEKAb8B/gH/AQkBvgH+Af8BCQG8Af4B
+        /wEIAbsB/gH/AQcBugH+Af8B7AE0AaAB/wHtAToBpgH/Ae8BPwGsAf8MAANNAZIDRQH/A9AB/wNFAf8D
+        QQn/A/oB/wM8Af8DOgH/AzkB/wM3Af9QAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D+QH/AS8B
+        lAEcAf8D+AH/A/cB/wP4Af8B7wHzAe4B/wEsAYwBGgH/FAABOAGrAewB/wEPAcYB/gH/AQ4BxQH+Af8B
+        DQHDAf4B/wEMAcIB/gH/AQsBwAH+Af8BCgG/Af4B/wEJAb0B/gH/AQgBvAH+Af8BBwG7Af4B/wHFAUoB
+        sAH/EAADSwH/A0gB/wNGGf8DyQH/AzkB/wM3Af8DYgHhTAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D
+        +AH/A/gB/wEyAZ4BHgH/A/kB/wP4Af8D+QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARAB
+        xwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0BwwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B
+        /wMxAU0QAANLAf8DSQH/A/Ud/wNCAf8DNwH/AzUB/0wAAUcBxAExAf8BRwHEATEB/wP4Af8D9wH/A/cB
+        /wP4Af8BMgGeAR4B/wEyAZ4BHgH/AS8BlAEcAf8BLAGLARoB/wEsAYwBGgH/ASwBjAEaAf8UAAFgAmUB
+        4wESAcsC/wERAcoC/wEQAcgB/gH/AQ8BxwH+Af8BDgHFAf4B/wENAcQB/gH/AQ0BwgH+Af8BDAHBAf4B
+        /wELAcAB/gH/AwQBBRAAA0sB/wNJIf8DtwH/AzcB/wM1Af9MAAFVAdEBPwH/AVUB0QE/Af8D+AH/A/gB
+        /wP4Af8D+AH/ATsBsAElAf8B1AHnAdEB/wP5Af8D+QH/ATIBngEeAf8BMgGeAR4B/xAAAV0CYwHfARUB
+        zwL/ARQBzgL/ARMBzAL/ARIBywL/AREByQL/ARAByAH+Af8BDwHGAf4B/wEOAcUB/gH/AQ0BwwH+Af8B
+        DAHCAf4B/wELAcEB/gH/EAADSwH/A0kh/wOhAf8DNwH/AzUB/0wAAVUB0QE/Af8BVQHRAT8B/wP5Af8D
+        +AH/A/gB/wP4Af8BOQGqASQB/wP4Af8D+AH/A/gB/wHMAeAByQH/ATIBngEeAf8UAAEWAdEC/wEVAdAC
+        /wEUAc8C/wEUAc0C/wETAcwC/wESAcoC/wERAckC/wEQAccB/gH/AQ8BxgH+Af8BDgHFAf4B/wFVAlcB
+        tBAAA0sB/wNJAf8Dex3/AzgB/wM3Af8DNQH/TAABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D+QH/A/oB
+        /wE5AakBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAAV0CYQHRARcB0gL/ARYB0QL/ARUB
+        0AL/ARQBzgL/ARMBzQL/ARIBywL/AREBygL/ARAByAH+Af8BEAHHAf4B/xQAA0oB+QNJAf8DTR3/AzkB
+        /wM3Af8DFgEeTAABYwHbAU0B/wFjAdsBTQX/A/4B/wP+Bf8BRwHEATEB/wHXAesB1AH/A/kB/wP5Af8B
+        OwGwASUB/wE7AbABJQH/FAABGgHWAv8BGQHVAv8BGAHUAv8BFwHSAv8BFgHRAv8BFQHPAv8BFAHOAv8B
+        EwHMAv8BEgHLAv8BEQHKAv8BWAJaAboUAANJAf8DRQH/A44B/wNCAf8DQQH/Az8B/wM+Af8DOQH/A7YB
+        /wM5Af8DNwH/UAABYwHbAU0B/wFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
+        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEZAdYC/wEYAdUC
+        /wEYAdMC/wEXAdIC/wEWAdAC/wEVAc8C/wEUAc0C/xwAAwgBCgNHAf8DRQH/A0MB/wNCAf8DQAH/Az4B
+        /wM8Af8DOgH/AzkB/1QAAzABSwFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
+        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEbAdkC/wFdAmEB
+        0QEZAdYC/wEYAdQC/wFgAmUB4wEWAdEC/wFdAmEB0SQAA0QB+QNDAf8DQgH/A0AB/wM+Af8DPAH/A04B
+        l7AAAWACZgHg/wCdAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAG/wIAAv8B
+        7wH3AfgBHwIAAcABAwLnAfABBwIAAcABAwGCAQAB4AEDAgABwAEDAcABAQHAAQMCAAHAAQMB4AEDAcAB
+        AQIAAcABAwHgAQMBwAEBAgABwAEDAeABAwHAAQECAAHAAQMBwAEDAcABAQIAAcABAwHgAQMBwAEBAgAB
+        wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
+        /wIABv8CAAs=
 </value>
-  </data>
-  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_fork_me_on_github.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
-  </data>
-  <data name="&gt;&gt;lbl_credit.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 343</value>
-  </data>
-  <data name="button_view_license_text.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lbl_name.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;button_view_license_text.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>About NeoBleeper</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 125</value>
-  </data>
-  <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 47</value>
-  </data>
-  <data name="&gt;&gt;button_visit_icons8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_fork_me_on_github.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="button_view_license_text.Text" xml:space="preserve">
-    <value>View License Text</value>
   </data>
   <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -228,79 +201,95 @@
         bm93bkNvbG9yBXN0YXRlAQAAAAkHBwMAAAAKAAAAAAAAAAAYAAEAAAkHAAAAAfj////6////CgAAAAAA
         AAAAGgABAAEFBQAAADFTeXN0ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJ
         dGVtBAAAAAR0ZXh0BG5hbWUFc3R5bGUIdXNlckRhdGEBAQQCPlN5c3RlbS5XaW5kb3dzLkZvcm1zLkxp
-        c3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0rU3ViSXRlbVN0eWxlAgAAAAIAAAAGCQAAABlEZXNpZ25p
-        bmcgYW5kIHByb2dyYW1taW5nCgoKBQcAAAATU3lzdGVtLkRyYXdpbmcuRm9udAQAAAAETmFtZQRTaXpl
-        BVN0eWxlBFVuaXQBAAQECxhTeXN0ZW0uRHJhd2luZy5Gb250U3R5bGUDAAAAG1N5c3RlbS5EcmF3aW5n
-        LkdyYXBoaWNzVW5pdAMAAAADAAAABgoAAAAOSGFybW9ueU9TIFNhbnMAABBBBfX///8YU3lzdGVtLkRy
-        YXdpbmcuRm9udFN0eWxlAQAAAAd2YWx1ZV9fAAgDAAAAAAAAAAX0////G1N5c3RlbS5EcmF3aW5nLkdy
-        YXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
+        c3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0rU3ViSXRlbVN0eWxlAgAAAAIAAAAGCQAAADjQn9GA0L7Q
+        tdC60YLRg9Cy0LDQvdC90Y8g0YLQsCDQv9GA0L7Qs9GA0LDQvNGD0LLQsNC90L3RjwoKCgUHAAAAE1N5
+        c3RlbS5EcmF3aW5nLkZvbnQEAAAABE5hbWUEU2l6ZQVTdHlsZQRVbml0AQAEBAsYU3lzdGVtLkRyYXdp
+        bmcuRm9udFN0eWxlAwAAABtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQDAAAAAwAAAAYKAAAADkhh
+        cm1vbnlPUyBTYW5zAAAQQQX1////GFN5c3RlbS5EcmF3aW5nLkZvbnRTdHlsZQEAAAAHdmFsdWVfXwAI
+        AwAAAAAAAAAF9P///xtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAAD
+        AAAACw==
 </value>
   </data>
-  <data name="lbl_credit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
+  <data name="listView1.Items1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
+        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
+        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
+        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
+        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
+        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAAJ1JvYmJpLTk4NSAo
+        0LLRltC9INC20LUgU29tZXRoaW5nVW5yZWFsKf////8CAAAACQUAAAAF+v///xRTeXN0ZW0uRHJhd2lu
+        Zy5Db2xvcgQAAAAEbmFtZQV2YWx1ZQprbm93bkNvbG9yBXN0YXRlAQAAAAkHBwMAAAAKAAAAAAAAAAAY
+        AAEAAAkHAAAAAfj////6////CgAAAAAAAAAAGgABAAEFBQAAADFTeXN0ZW0uV2luZG93cy5Gb3Jtcy5M
+        aXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJdGVtBAAAAAR0ZXh0BG5hbWUFc3R5bGUIdXNlckRhdGEBAQQC
+        PlN5c3RlbS5XaW5kb3dzLkZvcm1zLkxpc3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0rU3ViSXRlbVN0
+        eWxlAgAAAAIAAAAGCQAAADvQn9C+0YfQsNGC0LrQvtCy0LAg0YDQvtC30YDQvtCx0LrQsCDRgtCwINC6
+        0L7QvdGG0LXQv9GG0ZbRjwoKCgUHAAAAE1N5c3RlbS5EcmF3aW5nLkZvbnQEAAAABE5hbWUEU2l6ZQVT
+        dHlsZQRVbml0AQAEBAsYU3lzdGVtLkRyYXdpbmcuRm9udFN0eWxlAwAAABtTeXN0ZW0uRHJhd2luZy5H
+        cmFwaGljc1VuaXQDAAAAAwAAAAYKAAAADkhhcm1vbnlPUyBTYW5zAAAQQQX1////GFN5c3RlbS5EcmF3
+        aW5nLkZvbnRTdHlsZQEAAAAHdmFsdWVfXwAIAwAAAAAAAAAF9P///xtTeXN0ZW0uRHJhd2luZy5HcmFw
+        aGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
+</value>
   </data>
-  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 376</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>about_neobleeper</value>
-  </data>
-  <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 111</value>
-  </data>
-  <data name="&gt;&gt;button_visit_icons8.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="button_visit_icons8.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="lbl_name.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 35.999996pt, style=Bold</value>
-  </data>
-  <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 300</value>
-  </data>
-  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
-    <value>350</value>
-  </data>
-  <data name="&gt;&gt;lbl_version.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>506, 530</value>
-  </data>
-  <data name="&gt;&gt;lbl_credit.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;listView1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="lbl_credit.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;button_visit_icons8.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 28</value>
-  </data>
-  <data name="button_visit_icons8.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>486, 146</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Name</value>
+    <value>Ім'я</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Завдання</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 352</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 16</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Автори</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_visit_icons8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 300</value>
+  </data>
+  <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 43</value>
+  </data>
+  <data name="button_visit_icons8.Text" xml:space="preserve">
+    <value>Відвідайте icons8.com</value>
+  </data>
+  <data name="button_visit_icons8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 43</value>
+  </data>
+  <data name="button_view_license_text.Text" xml:space="preserve">
+    <value>Переглянути текст ліцензії</value>
+  </data>
+  <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="button_fork_me_on_github.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 43</value>
+  </data>
+  <data name="button_fork_me_on_github.Text" xml:space="preserve">
+    <value>Розділіть мене на GitHub</value>
+  </data>
+  <data name="button_fork_me_on_github.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -622,332 +611,7 @@
         TTXVVFNNNdVUU0011VRTTTXVVFNNNdVU0+3Q/w/UmamGotaNbwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="lbl_name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 64</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Про NeoBleeper</value>
   </data>
-  <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 25</value>
-  </data>
-  <data name="button_fork_me_on_github.Text" xml:space="preserve">
-    <value>Fork Me on GitHub</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="lbl_version.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="button_fork_me_on_github.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="button_view_license_text.ImageIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;lbl_credit.Name" xml:space="preserve">
-    <value>lbl_credit</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 367</value>
-  </data>
-  <data name="&gt;&gt;listView1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>398, 0</value>
-  </data>
-  <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;listView1.Name" xml:space="preserve">
-    <value>listView1</value>
-  </data>
-  <data name="&gt;&gt;button_view_license_text.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;lbl_name.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Contributors</value>
-  </data>
-  <data name="button_view_license_text.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;columnHeader1.Name" xml:space="preserve">
-    <value>columnHeader1</value>
-  </data>
-  <data name="button_visit_icons8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="button_view_license_text.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>506, 183</value>
-  </data>
-  <data name="&gt;&gt;columnHeader2.Name" xml:space="preserve">
-    <value>columnHeader2</value>
-  </data>
-  <data name="&gt;&gt;lbl_name.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lbl_name.Name" xml:space="preserve">
-    <value>lbl_name</value>
-  </data>
-  <data name="&gt;&gt;button_fork_me_on_github.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_credit.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>398, 80</value>
-  </data>
-  <data name="button_view_license_text.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
-  </data>
-  <data name="listView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>486, 155</value>
-  </data>
-  <data name="listView1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="lbl_credit.Text" xml:space="preserve">
-    <value>Inspired by Robbi-985's (aka SomethingUnreal's) Bleeper Music Maker
-Designed and programmed by GeniusPilot2016
-All icons in this program are downloaded from icons8.com
-NeoBleeper is licensed under the GNU General Public License v3.0
-Google Gemini™ is a trademark of Google LLC</value>
-  </data>
-  <data name="&gt;&gt;lbl_version.Name" xml:space="preserve">
-    <value>lbl_version</value>
-  </data>
-  <data name="button_visit_icons8.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;button_view_license_text.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="listView1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>250</value>
-  </data>
-  <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_visit_icons8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
-  </data>
-  <data name="&gt;&gt;lbl_version.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 300</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;columnHeader2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;button_view_license_text.Name" xml:space="preserve">
-    <value>button_view_license_text</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
-  </data>
-  <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 200</value>
-  </data>
-  <data name="button_visit_icons8.Text" xml:space="preserve">
-    <value>Visit icons8.com</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="button_view_license_text.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="lbl_name.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 300</value>
-  </data>
-  <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 25</value>
-  </data>
-  <data name="button_fork_me_on_github.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="button_visit_icons8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;lbl_credit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button_fork_me_on_github.Name" xml:space="preserve">
-    <value>button_fork_me_on_github</value>
-  </data>
-  <data name="button_fork_me_on_github.ImageIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;imageList_about.Name" xml:space="preserve">
-    <value>imageList_about</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;lbl_version.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 25</value>
-  </data>
-  <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAEwAQIBcAECARABAAEQAQAE/wEhARAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
-        AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
-        ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
-        /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
-        PAH/AzoB/wNMAZFUAAE7AbABJQH/ATsBsAElAf8BzwHoAcsN/wEsAYwBGgH/AS4BhgEdAf8B7wHzAe4B
-        /wF8AagBcwH/ASUBfQETAf8BJQF9ARMB/wwAAfIBSQG3Af8B8AFDAbEB/wHvAT4BqgH/Ae0BOAGkAf8B
-        SQGZAeMB/wQAAVUCVwG0AQgBuwH+Af8DBAEFA1QBpgHFAUoBsAH/Ae0BOgGmAf8B7wE/AawB/wHxAUUB
-        swH/AWEBXAFhAdkMAANJAf8DfQH/A8sB/wO7Df8DPAH/AzoB/wM5Af8DSQGIUAABOwGwASUB/wE7AbAB
-        JQH/A/wB/wP6Af8D+gH/A/sB/wEsAYsBGgH/A/kB/wP4Af8D+AH/AXwBqAFzAf8BJQF9ARMB/xAAAe8B
-        PgGqAf8B7QE4AaQB/wHrATIBngH/AQwBwgH+Af8BCwHBAf4B/wEKAb8B/gH/AQkBvgH+Af8BCQG8Af4B
-        /wEIAbsB/gH/AQcBugH+Af8B7AE0AaAB/wHtAToBpgH/Ae8BPwGsAf8MAANNAZIDRQH/A9AB/wNFAf8D
-        QQn/A/oB/wM8Af8DOgH/AzkB/wM3Af9QAAFHAcQBMQH/AUcBxAExAf8D+QH/A/gB/wP4Af8D+QH/AS8B
-        lAEcAf8D+AH/A/cB/wP4Af8B7wHzAe4B/wEsAYwBGgH/FAABOAGrAewB/wEPAcYB/gH/AQ4BxQH+Af8B
-        DQHDAf4B/wEMAcIB/gH/AQsBwAH+Af8BCgG/Af4B/wEJAb0B/gH/AQgBvAH+Af8BBwG7Af4B/wHFAUoB
-        sAH/EAADSwH/A0gB/wNGGf8DyQH/AzkB/wM3Af8DYgHhTAABRwHEATEB/wFHAcQBMQH/A/gB/wP4Af8D
-        +AH/A/gB/wEyAZ4BHgH/A/kB/wP4Af8D+QH/AS8BhgEeAf8BLAGMARoB/xQAAREBygL/AREByQL/ARAB
-        xwH+Af8BDwHGAf4B/wEOAcQB/gH/AQ0BwwH+Af8BDAHBAf4B/wELAcAB/gH/AQoBvgH+Af8BCQG9Af4B
-        /wMxAU0QAANLAf8DSQH/A/Ud/wNCAf8DNwH/AzUB/0wAAUcBxAExAf8BRwHEATEB/wP4Af8D9wH/A/cB
-        /wP4Af8BMgGeAR4B/wEyAZ4BHgH/AS8BlAEcAf8BLAGLARoB/wEsAYwBGgH/ASwBjAEaAf8UAAFgAmUB
-        4wESAcsC/wERAcoC/wEQAcgB/gH/AQ8BxwH+Af8BDgHFAf4B/wENAcQB/gH/AQ0BwgH+Af8BDAHBAf4B
-        /wELAcAB/gH/AwQBBRAAA0sB/wNJIf8DtwH/AzcB/wM1Af9MAAFVAdEBPwH/AVUB0QE/Af8D+AH/A/gB
-        /wP4Af8D+AH/ATsBsAElAf8B1AHnAdEB/wP5Af8D+QH/ATIBngEeAf8BMgGeAR4B/xAAAV0CYwHfARUB
-        zwL/ARQBzgL/ARMBzAL/ARIBywL/AREByQL/ARAByAH+Af8BDwHGAf4B/wEOAcUB/gH/AQ0BwwH+Af8B
-        DAHCAf4B/wELAcEB/gH/EAADSwH/A0kh/wOhAf8DNwH/AzUB/0wAAVUB0QE/Af8BVQHRAT8B/wP5Af8D
-        +AH/A/gB/wP4Af8BOQGqASQB/wP4Af8D+AH/A/gB/wHMAeAByQH/ATIBngEeAf8UAAEWAdEC/wEVAdAC
-        /wEUAc8C/wEUAc0C/wETAcwC/wESAcoC/wERAckC/wEQAccB/gH/AQ8BxgH+Af8BDgHFAf4B/wFVAlcB
-        tBAAA0sB/wNJAf8Dex3/AzgB/wM3Af8DNQH/TAABVQHRAT8B/wFVAdEBPwH/A/oB/wP5Af8D+QH/A/oB
-        /wE5AakBJAH/A/gB/wP4Af8D+AH/AcwB4AHJAf8BMgGeAR4B/xQAAV0CYQHRARcB0gL/ARYB0QL/ARUB
-        0AL/ARQBzgL/ARMBzQL/ARIBywL/AREBygL/ARAByAH+Af8BEAHHAf4B/xQAA0oB+QNJAf8DTR3/AzkB
-        /wM3Af8DFgEeTAABYwHbAU0B/wFjAdsBTQX/A/4B/wP+Bf8BRwHEATEB/wHXAesB1AH/A/kB/wP5Af8B
-        OwGwASUB/wE7AbABJQH/FAABGgHWAv8BGQHVAv8BGAHUAv8BFwHSAv8BFgHRAv8BFQHPAv8BFAHOAv8B
-        EwHMAv8BEgHLAv8BEQHKAv8BWAJaAboUAANJAf8DRQH/A44B/wNCAf8DQQH/Az8B/wM+Af8DOQH/A7YB
-        /wM5Af8DNwH/UAABYwHbAU0B/wFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
-        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEZAdYC/wEYAdUC
-        /wEYAdMC/wEXAdIC/wEWAdAC/wEVAc8C/wEUAc0C/xwAAwgBCgNHAf8DRQH/A0MB/wNCAf8DQAH/Az4B
-        /wM8Af8DOgH/AzkB/1QAAzABSwFjAdsBTQH/AWMB2wFNAf8BVQHRAT8B/wFVAdEBPwH/AVUB0QE/Af8B
-        RwHEATEB/wFHAcQBMQH/AUcBxAExAf8BOwGwASUB/wE7AbABJQH/ATsBsAElAf8cAAEbAdkC/wFdAmEB
-        0QEZAdYC/wEYAdQC/wFgAmUB4wEWAdEC/wFdAmEB0SQAA0QB+QNDAf8DQgH/A0AB/wM+Af8DPAH/A04B
-        l7AAAWACZgHg/wCdAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAG/wIAAv8B
-        7wH3AfgBHwIAAcABAwLnAfABBwIAAcABAwGCAQAB4AEDAgABwAEDAcABAQHAAQMCAAHAAQMB4AEDAcAB
-        AQIAAcABAwHgAQMBwAEBAgABwAEDAeABAwHAAQECAAHAAQMBwAEDAcABAQIAAcABAwHgAQMBwAEBAgAB
-        wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
-        /wIABv8YAAs=
-</value>
-  </data>
-  <data name="lbl_credit.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 16</value>
-  </data>
-  <data name="button_fork_me_on_github.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="lbl_name.Text" xml:space="preserve">
-    <value>NeoBleeper</value>
-  </data>
-  <data name="lbl_version.Text" xml:space="preserve">
-    <value>Version 0.0.0</value>
-  </data>
-  <data name="&gt;&gt;lbl_name.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="button_view_license_text.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbl_version.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 13.8pt</value>
-  </data>
-  <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;imageList_about.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 25</value>
-  </data>
-  <data name="button_visit_icons8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="button_fork_me_on_github.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;button_fork_me_on_github.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>vi</value>
-  </metadata>
-  <metadata name="imageList_about.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>83</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

@@ -118,98 +118,95 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="button_c_s3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d_s3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f_s3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_g_s3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a_s3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a_s4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_g_s4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f_s4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d_s4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_c_s4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a_s5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_g_s5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f_s5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d_s5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label_bpm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 16</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="label_bpm.Text" xml:space="preserve">
-    <value>БПМ</value>
+    <value>УДП</value>
   </data>
   <data name="trackBar_time_signature.ToolTip" xml:space="preserve">
-    <value>Влияет на таблицу положений в правом нижнем углу этого окна.</value>
+    <value>Впливає на таблицю позицій у правому нижньому куті цього вікна.</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label_time_signature.Location" type="System.Drawing.Point, System.Drawing">
-    <value>650, 234</value>
+    <value>673, 234</value>
   </data>
   <data name="label_time_signature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 16</value>
+    <value>100, 16</value>
   </data>
   <data name="label_time_signature.Text" xml:space="preserve">
-    <value>Размер тактовой частоты</value>
+    <value>Тактовий розмір</value>
   </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="newToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Новый</value>
+    <value>Новий</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
-    <value>Открыть</value>
+    <value>Відкрити</value>
   </data>
   <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
-    <value>Открыть недавние</value>
+    <value>Відкрити Нещодавні</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 6</value>
+    <value>433, 6</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сохранять</value>
+    <value>Зберегти</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сохранить как...</value>
+    <value>Зберегти як...</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -225,25 +222,25 @@
 </value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Воспроизвести MIDI-файл</value>
+    <value>Відтворити MIDI-файл</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 6</value>
+    <value>433, 6</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создавайте музыку с помощью ИИ</value>
+    <value>Створюйте музику за допомогою штучного інтелекту</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 22</value>
+    <value>436, 22</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Конвертировать в GCode</value>
+    <value>Конвертувати в G-код</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 20</value>
@@ -252,53 +249,53 @@
     <value>&amp;Файл</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 22</value>
+    <value>349, 22</value>
   </data>
   <data name="undoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Отменить</value>
+    <value>Скасувати</value>
   </data>
   <data name="redoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 22</value>
+    <value>349, 22</value>
   </data>
   <data name="redoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Переделать</value>
+    <value>Повторити</value>
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 22</value>
+    <value>349, 22</value>
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Вернуть все изменения к сохраненной версии</value>
+    <value>Повернути всі зміни до збереженої версії</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 20</value>
+    <value>84, 20</value>
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Редактировать</value>
+    <value>&amp;Редагувати</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 20</value>
+    <value>103, 20</value>
   </data>
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Настройки</value>
+    <value>&amp;Налаштування</value>
   </data>
   <data name="aboutNeoBleeperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 20</value>
+    <value>111, 20</value>
   </data>
   <data name="aboutNeoBleeperToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;О NeoBleeper</value>
+    <value>&amp;Про NeoBleeper</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 20</value>
+    <value>64, 20</value>
   </data>
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Помощь</value>
+    <value>&amp;Довідка</value>
   </data>
   <data name="imageList_main_window.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFEASYBRAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAEsASYBLAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -524,121 +521,115 @@
 </value>
   </data>
   <data name="checkBox_mute_playback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 20</value>
+    <value>195, 20</value>
   </data>
   <data name="checkBox_mute_playback.Text" xml:space="preserve">
-    <value>Отключить воспроизведение</value>
+    <value>Вимкнути звук відтворення</value>
   </data>
   <data name="checkBox_mute_playback.ToolTip" xml:space="preserve">
-    <value>Эту опцию можно использовать при использовании MIDI-выхода.</value>
+    <value>Ви можете використовувати цю опцію під час використання MIDI-виходу</value>
   </data>
   <data name="numericUpDown_alternating_notes.ToolTip" xml:space="preserve">
-    <value>Время, необходимое программе для быстрого переключения между нотами в одной строке, когда музыка достигает строки, где одновременно расположены несколько нот.</value>
+    <value>Час, необхідний програмі для швидкого перемикання між нотами в одному рядку, коли музика досягає рядка, де одночасно розташовано кілька нот.</value>
   </data>
   <data name="button_blank_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>877, 256</value>
+    <value>870, 270</value>
   </data>
   <data name="button_blank_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 25</value>
+    <value>130, 25</value>
   </data>
   <data name="button_blank_line.Text" xml:space="preserve">
-    <value>&amp;Пустая строка</value>
-  </data>
-  <data name="button_blank_line.ToolTip" xml:space="preserve">
-    <value>Добавить тихую строку или изменить длину существующей заметки</value>
+    <value>&amp;Порожній рядок</value>
   </data>
   <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 283</value>
+    <value>867, 298</value>
   </data>
   <data name="button_clear_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 25</value>
+    <value>135, 25</value>
   </data>
   <data name="button_clear_note1.Text" xml:space="preserve">
-    <value>Очистить Нота &amp;1</value>
+    <value>Очистити Нота &amp;1</value>
   </data>
   <data name="button_clear_note1.ToolTip" xml:space="preserve">
-    <value>Оставьте «Нота 1» выбранной строки пустым.</value>
+    <value>Зробіть "Нота 1" вибраного рядка порожнім</value>
   </data>
   <data name="button_clear_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 309</value>
+    <value>867, 324</value>
   </data>
   <data name="button_clear_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 25</value>
+    <value>135, 25</value>
   </data>
   <data name="button_clear_note2.Text" xml:space="preserve">
-    <value>Очистить Нота &amp;2</value>
+    <value>Очистити Нота &amp;2</value>
   </data>
   <data name="button_clear_note2.ToolTip" xml:space="preserve">
-    <value>Оставьте «Нота 2» выбранной строки пустым.</value>
+    <value>Зробіть "Нота 1" вибраного рядка порожнім</value>
   </data>
   <data name="button_unselect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>861, 387</value>
+    <value>872, 403</value>
   </data>
   <data name="button_unselect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 42</value>
+    <value>125, 25</value>
   </data>
   <data name="button_unselect.Text" xml:space="preserve">
-    <value>&amp;Отменить выбор строки</value>
+    <value>&amp;Зняти вибір лінії</value>
   </data>
   <data name="button_unselect.ToolTip" xml:space="preserve">
-    <value>Очистить выделение в выбранной строке</value>
+    <value>Очистити вибір у вибраному рядку</value>
   </data>
   <data name="button_erase_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>861, 430</value>
-  </data>
-  <data name="button_erase_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 25</value>
+    <value>867, 430</value>
   </data>
   <data name="button_erase_line.Text" xml:space="preserve">
-    <value>Стереть всю строку</value>
+    <value>Стерти всю лінію</value>
   </data>
   <data name="button_erase_line.ToolTip" xml:space="preserve">
-    <value>Полностью удалить выбранную строку</value>
+    <value>Повністю видалити вибраний рядок</value>
   </data>
   <data name="button_play_all.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 457</value>
+    <value>855, 457</value>
   </data>
   <data name="button_play_all.Text" xml:space="preserve">
-    <value>Воспроизвести все</value>
+    <value>Відтворити все</value>
   </data>
   <data name="button_play_all.ToolTip" xml:space="preserve">
-    <value>Воспроизвести все музыкальные строки в списке</value>
+    <value>Відтворити всі музичні рядки зі списку</value>
   </data>
   <data name="button_play_from_selected_line.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 483</value>
+    <value>855, 483</value>
   </data>
   <data name="button_play_from_selected_line.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 40</value>
+    <value>164, 42</value>
   </data>
   <data name="button_play_from_selected_line.Text" xml:space="preserve">
-    <value>Играть с выбранной линии</value>
+    <value>Відтворити з вибраного рядка</value>
   </data>
   <data name="button_play_from_selected_line.ToolTip" xml:space="preserve">
-    <value>Воспроизвести музыку из списка, начиная с выбранной строки (если строка не выбрана, воспроизведение начнется с первой строки)</value>
+    <value>Відтворювати музику зі списку з вибраного рядка (якщо рядок не вибрано, відтворення почнеться з першого рядка)</value>
   </data>
   <data name="button_stop_playing.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 525</value>
+    <value>855, 526</value>
   </data>
   <data name="button_stop_playing.Text" xml:space="preserve">
-    <value>Перестань играть</value>
+    <value>Зупинити відтворення</value>
   </data>
   <data name="button_stop_playing.ToolTip" xml:space="preserve">
-    <value>Остановите воспроизведение строк в списке музыки (если в музыке длинные ноты, остановка может занять секунду или больше)</value>
+    <value>Зупинити відтворення рядків у списку музики (якщо музика має довгі ноти, зупинка може зайняти секунду або більше)</value>
   </data>
   <data name="numericUpDown_bpm.ToolTip" xml:space="preserve">
-    <value>Количество тактов в 1 минуте музыки</value>
+    <value>Кількість ударів за 1 хвилину музики</value>
   </data>
   <data name="comboBox_note_length.Items" xml:space="preserve">
-    <value>1 (Целая)</value>
+    <value>1 (Цілий)</value>
   </data>
   <data name="comboBox_note_length.Items1" xml:space="preserve">
     <value>1/2 (Половина)</value>
   </data>
   <data name="comboBox_note_length.Items2" xml:space="preserve">
-    <value>1/4 (Четверть)</value>
+    <value>1/4 (Чверть)</value>
   </data>
   <data name="comboBox_note_length.ToolTip" xml:space="preserve">
-    <value>Длительность ноты, добавляемой в список музыки при нажатии клавиши на клавиатуре.</value>
+    <value>Тривалість ноти, що додається до списку музики при натисканні клавіші на клавіатурі</value>
   </data>
   <data name="checkBox_metronome.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 26</value>
@@ -647,34 +638,34 @@
     <value>Метроном</value>
   </data>
   <data name="checkBox_metronome.ToolTip" xml:space="preserve">
-    <value>Включить или выключить метроном</value>
+    <value>Увімкнення або вимкнення метронома</value>
   </data>
   <data name="checkBox_dotted.Location" type="System.Drawing.Point, System.Drawing">
-    <value>471, 318</value>
+    <value>476, 318</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 26</value>
+    <value>86, 26</value>
   </data>
   <data name="checkBox_dotted.Text" xml:space="preserve">
-    <value>Пунктирный</value>
+    <value>Пунктирний</value>
   </data>
   <data name="checkBox_dotted.ToolTip" xml:space="preserve">
-    <value>Увеличьте длительность ноты на половину ее длительности.</value>
+    <value>Збільшити тривалість ноти вдвічі</value>
   </data>
   <data name="checkBox_triplet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>561, 318</value>
+    <value>565, 318</value>
   </data>
   <data name="checkBox_triplet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 26</value>
+    <value>54, 26</value>
   </data>
   <data name="checkBox_triplet.Text" xml:space="preserve">
-    <value>Триплет</value>
+    <value>Трійня</value>
   </data>
   <data name="checkBox_triplet.ToolTip" xml:space="preserve">
-    <value>Сделайте длительность ноты равной одной трети ее длительности.</value>
+    <value>Зробіть тривалість ноти на третину від її тривалості</value>
   </data>
   <data name="length.Text" xml:space="preserve">
-    <value>Длина</value>
+    <value>Тривалість</value>
   </data>
   <data name="note1.Text" xml:space="preserve">
     <value>Нота 1</value>
@@ -695,130 +686,136 @@
     <value>Арт</value>
   </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
-    <value>Пустая строка</value>
+    <value>Порожній рядок</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 26</value>
+    <value>236, 26</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Очистить Нота 1</value>
+    <value>Очистити Нота 1</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 26</value>
+    <value>236, 26</value>
   </data>
   <data name="clearNote2ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Очистить Нота 2</value>
+    <value>Очистити Нота 2</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 26</value>
+    <value>236, 26</value>
   </data>
   <data name="clearNote3ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Очистить Нота 3</value>
+    <value>Очистити Нота 3</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 26</value>
+    <value>236, 26</value>
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Очистить Нота 4</value>
+    <value>Очистити Нота 4</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Чистые ноты</value>
+    <value>Очистити нотатки</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Text" xml:space="preserve">
-    <value>Отменить выбор строки</value>
+    <value>Зняти вибір лінії</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="eraseWholeLineToolStripMenuItem.Text" xml:space="preserve">
-    <value>Стереть всю строку</value>
+    <value>Стерти всю лінію</value>
   </data>
   <data name="cutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="cutToolStripMenuItem.Text" xml:space="preserve">
-    <value>Резать</value>
+    <value>Вирізати</value>
   </data>
   <data name="copyToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Копировать в буфер обмена</value>
+    <value>Копіювати в буфер обміну</value>
   </data>
   <data name="pasteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="pasteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Вставить</value>
+    <value>Вставити</value>
   </data>
   <data name="checkAllNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="checkAllNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Установите все заметки</value>
+    <value>Поставте всі нотатки</value>
   </data>
   <data name="uncheckAllNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Снимите все отметки</value>
+    <value>Зніміть позначку з усіх нотаток</value>
   </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 26</value>
+    <value>310, 26</value>
   </data>
   <data name="playAllToolStripMenuItem.Text" xml:space="preserve">
-    <value>Воспроизвести все</value>
+    <value>Відтворити все</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 26</value>
+    <value>310, 26</value>
   </data>
   <data name="playFromSelectedLineToolStripMenuItem.Text" xml:space="preserve">
-    <value>Играть с выбранной линии</value>
+    <value>Відтворити з вибраного рядка</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 26</value>
+    <value>310, 26</value>
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Перестань играть</value>
+    <value>Зупинити відтворення</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
+    <value>328, 26</value>
   </data>
   <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Управление воспроизведением</value>
+    <value>Елементи керування відтворенням</value>
   </data>
   <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 264</value>
+    <value>329, 264</value>
+  </data>
+  <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 2</value>
+  </data>
+  <data name="label_note_length.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 16</value>
   </data>
   <data name="label_note_length.Text" xml:space="preserve">
-    <value>Длина ноты</value>
+    <value>Тривалість ноти</value>
   </data>
   <data name="trackBar_note_silence_ratio.ToolTip" xml:space="preserve">
-    <value>Определяет соотношение между нотой и тишиной в каждой строке</value>
+    <value>Визначає співвідношення між нотою та паузою в кожному рядку</value>
   </data>
   <data name="label_note_silence_ratio.Location" type="System.Drawing.Point, System.Drawing">
-    <value>477, 234</value>
+    <value>476, 234</value>
   </data>
   <data name="label_note_silence_ratio.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 16</value>
+    <value>161, 16</value>
   </data>
   <data name="label_note_silence_ratio.Text" xml:space="preserve">
-    <value>Соотношение нота/тишина</value>
+    <value>Співвідношення нота/тиша</value>
   </data>
   <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 16</value>
+    <value>37, 16</value>
   </data>
   <data name="label_silence.Text" xml:space="preserve">
-    <value>Тишина</value>
+    <value>Тиша</value>
   </data>
   <data name="label_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 16</value>
@@ -827,74 +824,73 @@
     <value>Нота</value>
   </data>
   <data name="label_alternating_notes_switch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 2</value>
+    <value>0, 2</value>
   </data>
   <data name="label_alternating_notes_switch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 32</value>
+    <value>182, 32</value>
   </data>
   <data name="label_alternating_notes_switch.Text" xml:space="preserve">
-    <value>Переключайтесь между чередующимися нотами каждые:</value>
+    <value>Перемикайтеся між чергуючимися нотами кожні:</value>
   </data>
   <data name="label_mods.Location" type="System.Drawing.Point, System.Drawing">
-    <value>345, 508</value>
+    <value>348, 499</value>
   </data>
   <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 16</value>
+    <value>40, 16</value>
   </data>
   <data name="label_mods.Text" xml:space="preserve">
-    <value>Моды</value>
+    <value>Моди</value>
   </data>
   <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 529</value>
+    <value>270, 521</value>
   </data>
   <data name="checkBox_synchronized_play.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 20</value>
+    <value>155, 20</value>
   </data>
   <data name="checkBox_synchronized_play.Text" xml:space="preserve">
-    <value>Синхронная игра</value>
+    <value>Синхронізована гра</value>
   </data>
   <data name="checkBox_synchronized_play.ToolTip" xml:space="preserve">
-    <value>Эта опция позволяет синхронно воспроизводить несколько сеансов NeoBleeper.</value>
+    <value>Ця опція дозволяє синхронно відтворювати кілька сеансів NeoBleeper.</value>
   </data>
   <data name="checkBox_play_beat_sound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 549</value>
+    <value>270, 541</value>
   </data>
   <data name="checkBox_play_beat_sound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 36</value>
+    <value>169, 20</value>
   </data>
   <data name="checkBox_play_beat_sound.Text" xml:space="preserve">
-    <value>Воспроизвести 
-ритмический звук</value>
+    <value>Відтворити звук ритму</value>
   </data>
   <data name="checkBox_play_beat_sound.ToolTip" xml:space="preserve">
-    <value>Эта опция создает ритмичные звуки на четвертных и половинных нотах.</value>
+    <value>Ця опція створює звуки, схожі на удари, на чвертях та половинних нотах.</value>
   </data>
   <data name="checkBox_staccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>634, 319</value>
+    <value>636, 318</value>
   </data>
   <data name="checkBox_staccato.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 26</value>
+    <value>64, 26</value>
   </data>
   <data name="checkBox_staccato.Text" xml:space="preserve">
-    <value>Стаккато</value>
+    <value>Стакато</value>
   </data>
   <data name="checkBox_staccato.ToolTip" xml:space="preserve">
-    <value>Сделайте заметку короче и разделите ее.</value>
+    <value>Зробіть нотатку коротшою та окремою</value>
   </data>
   <data name="label_beep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>908, 663</value>
+    <value>912, 663</value>
   </data>
   <data name="label_beep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 25</value>
+    <value>56, 25</value>
   </data>
   <data name="label_beep.Text" xml:space="preserve">
-    <value> БИП </value>
+    <value> БІП </value>
   </data>
   <data name="label_beep.ToolTip" xml:space="preserve">
-    <value>Указывает на то, что звук исходит из системного динамика/звукового устройства.</value>
+    <value>Означає, що звук виходить із системного динаміка/звукового пристрою.</value>
   </data>
   <data name="checkBox_fermata.Location" type="System.Drawing.Point, System.Drawing">
-    <value>779, 319</value>
+    <value>767, 318</value>
   </data>
   <data name="checkBox_fermata.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 26</value>
@@ -903,250 +899,247 @@
     <value>Фермата</value>
   </data>
   <data name="checkBox_fermata.ToolTip" xml:space="preserve">
-    <value>Увеличить длительность ноты на неопределенное время</value>
-  </data>
-  <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 357</value>
+    <value>Продовжити термін дії ноти на необмежений час</value>
   </data>
   <data name="lbl_alternating_note_options.Text" xml:space="preserve">
-    <value>Игра альтернативных вариантов нот</value>
+    <value>Гра з чергуванням опцій нот</value>
   </data>
   <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 361</value>
+    <value>867, 376</value>
   </data>
   <data name="button_clear_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 25</value>
+    <value>135, 25</value>
   </data>
   <data name="button_clear_note4.Text" xml:space="preserve">
-    <value>Очистить Нота &amp;4</value>
+    <value>Очистити Нота &amp;4</value>
   </data>
   <data name="button_clear_note4.ToolTip" xml:space="preserve">
-    <value>Оставьте «Нота 4» выбранной строки пустым.</value>
+    <value>Зробіть "Нота 1" вибраного рядка порожнім</value>
   </data>
   <data name="button_clear_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 335</value>
+    <value>867, 350</value>
   </data>
   <data name="button_clear_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 25</value>
+    <value>135, 25</value>
   </data>
   <data name="button_clear_note3.Text" xml:space="preserve">
-    <value>Очистить Нота &amp;3</value>
+    <value>Очистити Нота &amp;3</value>
   </data>
   <data name="button_clear_note3.ToolTip" xml:space="preserve">
-    <value>Оставьте «Нота 3» выбранной строки пустым.</value>
+    <value>Зробіть "Нота 1" вибраного рядка порожнім</value>
   </data>
   <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>706, 319</value>
+    <value>703, 318</value>
   </data>
   <data name="checkBox_spiccato.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 26</value>
+    <value>61, 26</value>
   </data>
   <data name="checkBox_spiccato.Text" xml:space="preserve">
-    <value>Спиккато</value>
+    <value>Спікато</value>
   </data>
   <data name="checkBox_spiccato.ToolTip" xml:space="preserve">
-    <value>Сделайте ноту короче и раздельнее, в середине стаккато</value>
+    <value>Зробіть ноту коротшою та окремою, посередині стакато</value>
   </data>
   <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
   </data>
   <data name="lbl_beat.Text" xml:space="preserve">
-    <value>Бить</value>
+    <value>Бити</value>
   </data>
   <data name="lbl_beat_traditional.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 6.75pt, style=Bold</value>
+    <value>HarmonyOS Sans, 7.8pt, style=Bold</value>
   </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 32</value>
+    <value>85, 32</value>
   </data>
   <data name="lbl_beat_traditional.Text" xml:space="preserve">
-    <value>Бить (традиционный)</value>
+    <value>Бити (традиційний)</value>
   </data>
   <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 1</value>
+    <value>99, 1</value>
   </data>
   <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 22</value>
+    <value>99, 22</value>
   </data>
   <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 39</value>
+    <value>99, 39</value>
   </data>
   <data name="button_c3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_e3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_g3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_b3.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_c4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_e4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_b4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_c5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_d5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_e5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_a5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_b5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_c_s5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="checkbox_play_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 20</value>
+    <value>119, 20</value>
   </data>
   <data name="checkbox_play_note.Text" xml:space="preserve">
-    <value>Играть ноту</value>
+    <value>Відтворити ноту</value>
   </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+    <value>125, 20</value>
   </data>
   <data name="add_as_note4.Text" xml:space="preserve">
-    <value>Добавить как Ноту 4</value>
+    <value>Додати як Нота 4</value>
   </data>
   <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+    <value>125, 20</value>
   </data>
   <data name="add_as_note3.Text" xml:space="preserve">
-    <value>Добавить как Ноту 3</value>
+    <value>Додати як Нота 3</value>
   </data>
   <data name="checkBox_replace_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 20</value>
+    <value>162, 20</value>
   </data>
   <data name="checkBox_replace_length.Text" xml:space="preserve">
-    <value>Заменить длину тоже</value>
+    <value>Також замініть довжину</value>
   </data>
   <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 20</value>
+    <value>169, 20</value>
   </data>
   <data name="checkBox_replace.Text" xml:space="preserve">
-    <value>Заменить вместо вставки</value>
+    <value>Замінити замість вставки</value>
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+    <value>125, 20</value>
   </data>
   <data name="add_as_note2.Text" xml:space="preserve">
-    <value>Добавить как Ноту 2</value>
+    <value>Додати як Нота 2</value>
   </data>
   <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+    <value>125, 20</value>
   </data>
   <data name="add_as_note1.Text" xml:space="preserve">
-    <value>Добавить как Ноту 1</value>
+    <value>Додати як Нота 1</value>
   </data>
   <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 20</value>
+    <value>217, 20</value>
   </data>
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
-    <value>Добавить заметку в список музыки</value>
+    <value>Додати нотатку до списку музики</value>
   </data>
   <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Добавление ноты</value>
+    <value>Додавання нотатки</value>
   </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
-    <value>При нажатии клавиши</value>
+    <value>Коли натискається клавіша</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note4_clicked.Text" xml:space="preserve">
-    <value>Сыграйте Нота 4</value>
+    <value>Грати Нота 4</value>
   </data>
   <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note3_clicked.Text" xml:space="preserve">
-    <value>Сыграйте Нота 3</value>
+    <value>Грати Нота 3</value>
   </data>
   <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note2_clicked.Text" xml:space="preserve">
-    <value>Сыграйте Нота 2</value>
+    <value>Грати Нота 2</value>
   </data>
   <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
-    <value>Сыграйте Нота 1</value>
+    <value>Грати Нота 1</value>
   </data>
   <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>При щелчке по строке</value>
+    <value>Коли клацають по рядку</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note4_played.Text" xml:space="preserve">
-    <value>Сыграйте Нота 4</value>
+    <value>Грати Нота 4</value>
   </data>
   <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note1_played.Text" xml:space="preserve">
-    <value>Сыграйте Нота 1</value>
+    <value>Грати Нота 1</value>
   </data>
   <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note3_played.Text" xml:space="preserve">
-    <value>Сыграйте Нота 3</value>
+    <value>Грати Нота 3</value>
   </data>
   <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>102, 20</value>
   </data>
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
-    <value>Сыграйте Нота 2</value>
+    <value>Грати Нота 2</value>
   </data>
   <data name="group_music_played.Text" xml:space="preserve">
-    <value>Когда играет музыка</value>
+    <value>Коли грає музика</value>
   </data>
   <data name="group_notes.Text" xml:space="preserve">
-    <value>Какие ноты в списке играть</value>
+    <value>Які ноти зі списку грати</value>
   </data>
   <data name="button_g5.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_g4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="button_f4.ToolTip" xml:space="preserve">
-    <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
+    <value>Натисніть будь-яку клавішу на цій клавіатурі, щоб прослухати ноту/додати ноту до списку (залежно від опцій у лівій частині вікна)</value>
   </data>
   <data name="lbl_ms.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 16</value>
@@ -1155,44 +1148,51 @@
     <value>мС</value>
   </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 36</value>
+    <value>51, 38</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>813, 237</value>
+  </data>
+  <data name="lbl_measure.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 7.8pt, style=Bold</value>
   </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 16</value>
+    <value>80, 15</value>
   </data>
   <data name="lbl_measure.Text" xml:space="preserve">
-    <value>Мера</value>
+    <value>Вимірювання</value>
   </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 555</value>
+    <value>855, 555</value>
   </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 77</value>
+    <value>163, 77</value>
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 586</value>
+    <value>270, 562</value>
   </data>
   <data name="checkBox_bleeper_portamento.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 20</value>
+    <value>174, 36</value>
   </data>
   <data name="checkBox_bleeper_portamento.Text" xml:space="preserve">
-    <value>Бипер портаменто</value>
+    <value>Портативний звуковий 
+сигнал</value>
   </data>
   <data name="checkBox_bleeper_portamento.ToolTip" xml:space="preserve">
-    <value>Эта опция заставляет ноту системного динамика/аудиоустройства плавно усиливаться и затухать при переходе от одной ноты к другой (только при нажатии клавиш).</value>
+    <value>Ця опція дозволяє ноті системного динаміка/аудіопристрою поступово з’являтися та зникати під час переходу від однієї ноти до іншої (лише для натискання клавіш).</value>
   </data>
   <data name="btn_octave_decrease.ToolTip" xml:space="preserve">
-    <value>Сдвиг на 1 октаву влево</value>
+    <value>Зсув на 1 октаву ліворуч</value>
   </data>
   <data name="btn_octave_increase.ToolTip" xml:space="preserve">
-    <value>Сдвиг на 1 октаву вправо</value>
+    <value>Зсув на 1 октаву праворуч</value>
   </data>
   <data name="help_icon.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        7AElAewBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        1AElAdQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1229,34 +1229,31 @@
 </value>
   </data>
   <data name="button_synchronized_play_help.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 529</value>
+    <value>444, 521</value>
   </data>
   <data name="button_play_beat_sound_help.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 549</value>
+    <value>444, 541</value>
   </data>
   <data name="button_bleeper_portamento_help.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 586</value>
+    <value>444, 562</value>
   </data>
   <data name="button_use_keyboard_as_piano_help.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 608</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 435</value>
+    <value>444, 600</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>194, 60</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 70</value>
+    <value>194, 60</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
-    <value>Сначала сыграйте чередующиеся ноты в нечетных столбцах, затем в четных столбцах.</value>
+    <value>Спочатку грайте ноти по черзі в непарних колонках, потім у парних.</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.ToolTip" xml:space="preserve">
-    <value>Если эта опция отмечена, чередующиеся ноты сначала переключаются как нота 1 и нота 3, затем как нота 2 и нота 4.</value>
+    <value>Якщо цей параметр позначено, ноти, що чергуються, спочатку перемикаються як Нота 1 та Нота 3, потім як Нота 2 та Нота 4</value>
   </data>
   <data name="checkBox_loop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>895, 233</value>
+    <value>896, 247</value>
   </data>
   <data name="checkBox_loop.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 20</value>
@@ -1264,64 +1261,61 @@
   <data name="checkBox_loop.Text" xml:space="preserve">
     <value>Петля</value>
   </data>
+  <data name="checkBox_loop.ToolTip" xml:space="preserve">
+    <value>Визначає, чи буде музика відтворюватися знову з ноти в першому рядку чи з вибраного рядка, чи музика буде зупинена, коли буде відтворено ноту в останньому рядку списку.</value>
+  </data>
   <data name="checkBox_use_keyboard_as_piano.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 608</value>
+    <value>270, 600</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 36</value>
+    <value>162, 36</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.Text" xml:space="preserve">
-    <value>Использовать 
-клавиатуру как пианино</value>
+    <value>Використовуйте 
+клавіатуру як піаніно</value>
   </data>
   <data name="checkBox_use_keyboard_as_piano.ToolTip" xml:space="preserve">
-    <value>Эта опция позволяет использовать клавиатуру компьютера в качестве фортепиано.</value>
+    <value>Ця опція дозволяє використовувати клавіатуру комп'ютера як піаніно.</value>
   </data>
   <data name="checkBox_do_not_update.Location" type="System.Drawing.Point, System.Drawing">
-    <value>885, 636</value>
+    <value>875, 636</value>
   </data>
   <data name="checkBox_do_not_update.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 20</value>
+    <value>114, 20</value>
   </data>
   <data name="checkBox_do_not_update.Text" xml:space="preserve">
-    <value>Не обновлять</value>
+    <value>Не оновлювати</value>
   </data>
   <data name="checkBox_do_not_update.ToolTip" xml:space="preserve">
-    <value>Если в списке много нот, установите этот флажок, чтобы избежать проблем с плавностью воспроизведения.</value>
+    <value>Якщо у списку багато нот, поставте позначку в цьому полі, щоб уникнути проблем із плавністю відтворення.</value>
   </data>
   <data name="checkBox_use_voice_system.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 643</value>
+    <value>270, 639</value>
   </data>
   <data name="checkBox_use_voice_system.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 36</value>
+    <value>142, 36</value>
   </data>
   <data name="checkBox_use_voice_system.Text" xml:space="preserve">
-    <value>Использовать 
-голосовую систему</value>
+    <value>Використовуйте 
+голосову систему</value>
   </data>
   <data name="checkBox_use_voice_system.ToolTip" xml:space="preserve">
-    <value>Эта опция воспроизводит выбранные ноты из голосовой системы, имитирующей голосовые форманты.</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 393</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 41</value>
+    <value>Ця опція відтворює вибрані ноти з голосової системи, яка імітує голосові форманти.</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
-    <value>Играйте чередующиеся ноты по порядку</value>
+    <value>Грайте ноти по черзі</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
-    <value>При выборе этой опции чередующиеся ноты переключаются в следующем порядке: нота 1, нота 2, нота 3 и нота 4.</value>
+    <value>Коли вибрано цю опцію, ноти, що чергуються, перемикаються в порядку ноти 1, ноти 2, ноти 3 та ноти 4.</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 283</value>
+    <value>274, 293</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 68</value>
+    <value>182, 63</value>
   </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 642</value>
+    <value>444, 639</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

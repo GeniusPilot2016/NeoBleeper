@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 74</value>
+  </data>
+  <data name="comboBox_component_note1.Items" xml:space="preserve">
+    <value>M3/M4 - Moteur</value>
+  </data>
+  <data name="comboBox_component_note1.Items1" xml:space="preserve">
+    <value>M300 - Avertisseur sonore</value>
+  </data>
+  <data name="comboBox_component_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 71</value>
+  </data>
+  <data name="comboBox_component_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 24</value>
+  </data>
+  <data name="checkBox_play_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 20</value>
+  </data>
+  <data name="checkBox_play_note1.Text" xml:space="preserve">
+    <value>Jouer Note 1</value>
+  </data>
+  <data name="label_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 108</value>
+  </data>
+  <data name="comboBox_component_note2.Items" xml:space="preserve">
+    <value>M3/M4 - Moteur</value>
+  </data>
+  <data name="comboBox_component_note2.Items1" xml:space="preserve">
+    <value>M300 - Avertisseur sonore</value>
+  </data>
+  <data name="comboBox_component_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 102</value>
+  </data>
+  <data name="comboBox_component_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 24</value>
+  </data>
+  <data name="checkBox_play_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 20</value>
+  </data>
+  <data name="checkBox_play_note2.Text" xml:space="preserve">
+    <value>Jouer Note 2</value>
+  </data>
+  <data name="label_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 139</value>
+  </data>
+  <data name="comboBox_component_note3.Items" xml:space="preserve">
+    <value>M3/M4 - Moteur</value>
+  </data>
+  <data name="comboBox_component_note3.Items1" xml:space="preserve">
+    <value>M300 - Avertisseur sonore</value>
+  </data>
+  <data name="comboBox_component_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 133</value>
+  </data>
+  <data name="comboBox_component_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 24</value>
+  </data>
+  <data name="checkBox_play_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 20</value>
+  </data>
+  <data name="checkBox_play_note3.Text" xml:space="preserve">
+    <value>Jouer Note 3</value>
+  </data>
+  <data name="label_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 169</value>
+  </data>
+  <data name="comboBox_component_note4.Items" xml:space="preserve">
+    <value>M3/M4 - Moteur</value>
+  </data>
+  <data name="comboBox_component_note4.Items1" xml:space="preserve">
+    <value>M300 - Avertisseur sonore</value>
+  </data>
+  <data name="comboBox_component_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>70, 166</value>
+  </data>
+  <data name="comboBox_component_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 24</value>
+  </data>
+  <data name="checkBox_play_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 20</value>
+  </data>
+  <data name="checkBox_play_note4.Text" xml:space="preserve">
+    <value>Jouer Note 4</value>
+  </data>
+  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPAcAAAJNU0Z0AUkBTAMBAQAB
+        YAEAAWABAAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wD/
+        AJwAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYD
+        PAFmAx0BKf8AAQADTwGZAXcBbQFiAf8BbAFjAVoB/wFsAWMBWgH/AYwBbgF0Af8BlAFwAXoB/wGTAXAB
+        egH/AZMBcAF6Af8BkwFxAXoB/wGTAXEBegH/AZEBbQF3Af8BjwFrAXUB/wGIAWkBbwH/AWwBYwFaAf8B
+        ewFwAWUB/wM8AWb/AAEAA08BmQFcAVYBTgH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B
+        6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB/wHVAUoBrAH/AbIBQwGRAf8DJQH/AW4BZgFcAf8D
+        PAFm/wABAANPAZkBXQFXAVAB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegBZgHIAf8B
+        5gFnAccB/wHlAWcBxwH/AdsBVgG3Af8B1QFKAawB/wGyAUMBkQH/AyUB/wFvAWcBXgH/AzwBZv8AAQAD
+        TwGZAV4BWAFRAf8DJQH/AyUB/wHDAVgBqAH/AekBZgHIAf8B6QFmAcgB/wHoAWYByAH/AeYBZwHHAf8B
+        5QFnAccB/wHbAVYBtwH/AdUBSwGtAf8BsgFDAZEB/wMlAf8BcQFpAWAB/wM8AWb/AAEAA08BmQFfAVkB
+        UwH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B
+        2wFWAbcB/wHVAUsBrQH/AbIBQwGSAf8DJQH/AXIBawFiAf8DPAFm/wABAANPAZkBYAFbAVQB/wMlAf8D
+        JQH/AcMBWAGoAf8B6QFmAcgB/wHZAWEBuwH/AcEBWQGnAf8BvwFaAacB/wG/AVoBpwH/AbcBTAGaAf8B
+        sgFDAZIB/wGWAT0BfAH/AyUB/wF0AW0BZAH/AzwBZv8AAQADTwGZAWEBXAFWAf8DJQH/AyUB/wHDAVgB
+        qAH/AekBZgHIAf8BmwFMAYcB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8BdQFuAWYB/wM8AWb/
+        AAEAA08BmQFiAV0BVwH/AyUB/wMlAf8BRQEvAT8B/wF9AV8BbQH/AW0BWQFgAf8DJQH/AyUB/wMlAf8D
+        JQH/AyUB/wMlAf8DJQH/AXYBcAFoAf8DPAFm/wABAANPAZkBYwFeAVgB/wMlAf8DJQH/AyUB/wFYAVIB
+        SwH/AVgBUgFLAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXgBcQFqAf8DPAFm/wABAANPAZkB
+        ZAFfAVoB/wMlAf8DJQH/AyUB/wFRAUsBRAH/AVEBSwFEAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8D
+        JQH/AXoBcwFsAf8DPAFm/wABAANPAZkBZwFiAV0B/wMpAf8DJQH/AyUB/wFKAUUBPwH/AUwBRwFBAf8B
+        KgEpASgB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wF7AXUBbQH/AzwBZv8AAQADTwGZAXABawFmAf8B
+        OQI3Af8DJQH/AyUB/wEvAS4BLAH/ATsBOAE1Af8BPAE5ATYB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB
+        /wF8AXYBbwH/AzwBZv8AAQADTwGZAY0BhgF/Af8BggF8AXUB/wF+AXgBcgH/AX4BeAFyAf8BpwGbAWAB
+        /wHMAbkBUAH/AdgBwwFLAf8B0wG/AUcB/wHTAb8BRwH/AaABlQFhAf8BmAGUAZAB/wGyAbABrQH/AX4B
+        eAFyAf8BjwGIAYEB/wM8AWb/AAEAAzYBWANcAb4BlgGPAYcB/wGWAY8BhwH/AZYBjwGHAf8BzwG+AWkB
+        /wH5AeEBUwL/AeYBUAL/AeYBUAL/AeYBUAH/AcABsgFxAf8BowGdAZYB/wGwAasBpQH/AZYBjwGHAf8B
+        lgGPAYcB/wM8AWb/AAEAAxQBGwM2AVgDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkD
+        TwGZA08BmQNPAZkDTwGZAykBPf8A/wD/AHsAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB
+        8BcAA/8BAAL/AfAJAAL/AfAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQAB
+        wAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQAB
+        MAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAv8B8AkAAv8B8AkACw==
+</value>
+  </data>
+  <data name="button_export_as_gcode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 324</value>
+  </data>
+  <data name="button_export_as_gcode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 31</value>
+  </data>
+  <data name="button_export_as_gcode.Text" xml:space="preserve">
+    <value>Exporter en tant que GCode</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>38, 9</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 48</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Sélectionnez les notes et le type de composant que vous souhaitez jouer sur l'imprimante 3D/machine CNC.</value>
+  </data>
+  <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 16</value>
+  </data>
+  <data name="lbl_alternating_note_options.Text" xml:space="preserve">
+    <value>Options de jeu de notes alternées</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
+    <value>Jouez d'abord les notes en alternance dans les colonnes impaires, puis dans les colonnes paires.</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 25</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
+    <value>Jouez des notes alternées dans l'ordre</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Convertir un Fichier en GCode</value>
+  </data>
+</root>
