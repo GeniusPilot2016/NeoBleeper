@@ -215,7 +215,6 @@
             checkBox_use_keyboard_as_piano = new CheckBox();
             checkBox_do_not_update = new CheckBox();
             checkBox_use_voice_system = new CheckBox();
-            radioButtonPlay_alternating_notes1 = new RadioButton();
             lbl_note_silence_ratio = new Label();
             lbl_time_signature = new Label();
             panel1 = new Panel();
