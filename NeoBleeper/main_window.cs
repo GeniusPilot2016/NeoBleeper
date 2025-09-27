@@ -30,6 +30,30 @@ namespace NeoBleeper
         private Memento initialMemento;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public event EventHandler MusicStopped;
+        public event EventHandler NotesChanged;
+        private int lastNotesCount = 0;
+        protected virtual void OnNotesChanged(EventArgs e)
+        {
+            NotesChanged?.Invoke(this, e);
+        }
+        private string lastListHash = string.Empty;
+
+        private string ComputeListHash()
+        {
+            if (listViewNotes?.Items == null || listViewNotes.Items.Count == 0) return string.Empty;
+            StringBuilder sb = new StringBuilder(listViewNotes.Items.Count * 32);
+            foreach (ListViewItem item in listViewNotes.Items)
+            {
+                // Her satırın tüm subitem metinlerini ekle
+                for (int i = 0; i < item.SubItems.Count; i++)
+                {
+                    sb.Append(item.SubItems[i].Text);
+                    sb.Append('\u001F'); // saha ayırıcı
+                }
+                sb.Append('\u001E'); // satır ayırıcı
+            }
+            return sb.ToString();
+        }
         private bool KeyPressed = false;
         int[] keyCharNum;
         public static class Variables
@@ -54,15 +78,12 @@ namespace NeoBleeper
             originator = new Originator(listViewNotes);
             commandManager = new CommandManager(originator);
             commandManager.StateChanged += CommandManager_StateChanged;
+            lastNotesCount = listViewNotes.Items.Count;
+            lastListHash = ComputeListHash();
             listViewNotes.DoubleBuffering(true);
             label_beep.DoubleBuffering(true);
             UpdateUndoRedoButtons();
-            listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            if (listViewNotes.Columns.Count > 0)
-            {
-                listViewNotes.Columns[0].Width = listViewNotes.Columns[0].Width + 25;
-                listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
-            }
+            resizeColumn();
             main_window_refresh();
             comboBox_note_length.SelectedItem = comboBox_note_length.Items[3];
             comboBox_note_length.SelectedValue = comboBox_note_length.Items[3];
@@ -79,28 +100,49 @@ namespace NeoBleeper
                 InitializeMidiInput();
             }
         }
+        private void resizeColumn() 
+        {
+            listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            if (listViewNotes.Columns.Count > 0)
+            {
+                listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
+            }
+        }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
         {
+            UpdateUndoRedoButtons();
+
             try
             {
-                UpdateUndoRedoButtons();
+                // Execute on the UI thread if necessary
+                if (listViewNotes != null)
+                {
+                    if (listViewNotes.InvokeRequired)
+                        listViewNotes.BeginInvoke(new Action(resizeColumn));
+                    else
+                        resizeColumn();
+                }
+
+                int currentCount = listViewNotes?.Items?.Count ?? 0;
+                string currentHash = ComputeListHash();
+
+                // Trigger NotesChanged event only if there's an actual change
+                if (currentCount != lastNotesCount || currentHash != lastListHash)
+                {
+                    lastNotesCount = currentCount;
+                    lastListHash = currentHash;
+                    OnNotesChanged(EventArgs.Empty);
+                }
             }
-            catch (InvalidAsynchronousStateException)
+            catch
             {
-                return;
+                // Ignore exceptions during UI updates
             }
         }
         private async void UpdateUndoRedoButtons()
         {
-            try
-            {
-                undoToolStripMenuItem.Enabled = commandManager.CanUndo;
-                redoToolStripMenuItem.Enabled = commandManager.CanRedo;
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
+            undoToolStripMenuItem.Enabled = commandManager.CanUndo;
+            redoToolStripMenuItem.Enabled = commandManager.CanRedo;
         }
 
         private void dark_theme()
@@ -422,9 +464,17 @@ namespace NeoBleeper
         }
         private void add_note()
         {
-            if (comboBox_note_length.SelectedIndex == 3 || comboBox_note_length.SelectedIndex == 4 || comboBox_note_length.SelectedIndex == 5)
+            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
             {
-                Line.length = comboBox_note_length.SelectedItem.ToString();
+                Line.length = "1/32";
+            }
+            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
+            {
+                Line.length = "1/16";
+            }
+            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
+            {
+                Line.length = "1/8";
             }
             if (comboBox_note_length.SelectedIndex == 2)
             {
@@ -515,9 +565,17 @@ namespace NeoBleeper
         {
             if (checkBox_replace_length.Checked == true)
             {
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3] || comboBox_note_length.SelectedItem == comboBox_note_length.Items[4] || comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
+                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
                 {
-                    Line.length = comboBox_note_length.SelectedItem.ToString();
+                    Line.length = "1/32";
+                }
+                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
+                {
+                    Line.length = "1/16";
+                }
+                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
+                {
+                    Line.length = "1/8";
                 }
                 if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[2])
                 {
