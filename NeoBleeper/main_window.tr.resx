@@ -160,7 +160,7 @@
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
   </data>
   <data name="trackBar_time_signature.ToolTip" xml:space="preserve">
-    <value>Bu pencerenin sağ alt köşesindeki pozisyon tablosunu etkiler.</value>
+    <value>Bu pencerenin sağ alt köşesindeki konum tablosunu etkiler.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label_time_signature.Location" type="System.Drawing.Point, System.Drawing">
@@ -292,7 +292,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAEEASYBBAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAEcASYBHAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -532,6 +532,9 @@
   <data name="button_blank_line.Text" xml:space="preserve">
     <value>&amp;Boş Satır</value>
   </data>
+  <data name="button_blank_line.ToolTip" xml:space="preserve">
+    <value>Sessiz bir satır ekleyin veya mevcut bir notanın uzunluğunu değiştirin</value>
+  </data>
   <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
     <value>872, 302</value>
   </data>
@@ -623,7 +626,7 @@
     <value>Metronom</value>
   </data>
   <data name="checkBox_metronome.ToolTip" xml:space="preserve">
-    <value>Metronomo aç ya da kapat</value>
+    <value>Metronomu aç ya da kapat</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 26</value>
@@ -1107,7 +1110,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        rAElAawBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        xAElAcQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1181,7 +1184,7 @@ kullan</value>
     <value>Güncelleme yapmayın</value>
   </data>
   <data name="checkBox_do_not_update.ToolTip" xml:space="preserve">
-    <value>Listede çok sayıda not varsa, akıcılık sorunlarını önlemek için bu kutuyu işaretleyin.</value>
+    <value>Listede çok sayıda nota varsa, akıcılık sorunlarını önlemek için bu kutuyu işaretleyin.</value>
   </data>
   <data name="checkBox_use_voice_system.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 640</value>

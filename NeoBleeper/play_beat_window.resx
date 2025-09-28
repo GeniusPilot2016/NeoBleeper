@@ -117,4 +117,228 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="radioButton_play_sound_on_all_beats.Text" xml:space="preserve">
+    <value>Play beat sound on all beats (for music with slow tempo)
+</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_checked_lines.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.Text" xml:space="preserve">
+    <value>Play beat sound on checked lines</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="radioButton_play_sound_on_even_beats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>254, 20</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="radioButton_play_sound_on_even_beats.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 10</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label_uncheck_do_not_update.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_checked_lines.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>437, 153</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_odd_beats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Beat Settings</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>329, 20</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 20</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>play_beat_window</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_even_beats.Name" xml:space="preserve">
+    <value>radioButton_play_sound_on_even_beats</value>
+  </data>
+  <data name="radioButton_play_sound_on_even_beats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_even_beats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radioButton_play_sound_on_even_beats.Text" xml:space="preserve">
+    <value>Play beat sound on even-numbered beats</value>
+  </data>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label_uncheck_do_not_update.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>417, 133</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_odd_beats.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label_uncheck_do_not_update.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_uncheck_do_not_update.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label_uncheck_do_not_update.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_checked_lines.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>395, 20</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_all_beats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_all_beats.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_even_beats.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.Text" xml:space="preserve">
+    <value>Play beat sound on odd-numbered beats (for music with fast tempo)
+</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_even_beats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>401, 32</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Text" xml:space="preserve">
+    <value>Please uncheck the "Do not update" checkbox in the main window to ensure that the beat sounds can be played correctly.</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="radioButton_play_sound_on_even_beats.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_all_beats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_all_beats.Name" xml:space="preserve">
+    <value>radioButton_play_sound_on_all_beats</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_odd_beats.Name" xml:space="preserve">
+    <value>radioButton_play_sound_on_odd_beats</value>
+  </data>
+  <data name="&gt;&gt;label_uncheck_do_not_update.Name" xml:space="preserve">
+    <value>label_uncheck_do_not_update</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 20</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_odd_beats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radioButton_play_sound_on_even_beats.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButton_play_sound_on_even_beats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 58</value>
+  </data>
+  <data name="label_uncheck_do_not_update.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>410, 0</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="radioButton_play_sound_on_odd_beats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 34</value>
+  </data>
+  <data name="&gt;&gt;radioButton_play_sound_on_checked_lines.Name" xml:space="preserve">
+    <value>radioButton_play_sound_on_checked_lines</value>
+  </data>
+  <data name="radioButton_play_sound_on_all_beats.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton_play_sound_on_checked_lines.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 82</value>
+  </data>
+  <data name="label_uncheck_do_not_update.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 111</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>tr</value>
+  </metadata>
 </root>

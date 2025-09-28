@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoBleeper.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,7 +32,7 @@ namespace NeoBleeper
             }
             trackBarLength.Value = TemporarySettings.PortamentoSettings.length;
             trackBarPitchChangeSpeed.Value = TemporarySettings.PortamentoSettings.pitchChangeSpeed;
-            labelLength.Text = TemporarySettings.PortamentoSettings.length.ToString() + " mS";
+            labelLength.Text = TemporarySettings.PortamentoSettings.length.ToString() + Resources.TextMilliseconds;
             setLabelsToMiddle();
             UIFonts.setFonts(this);
             set_theme();
@@ -135,7 +136,7 @@ namespace NeoBleeper
         {
             TemporarySettings.PortamentoSettings.length = trackBarLength.Value;
             finishTimer.Interval = TemporarySettings.PortamentoSettings.length;
-            labelLength.Text = trackBarLength.Value.ToString() + " mS";
+            labelLength.Text = trackBarLength.Value.ToString() + Resources.TextMilliseconds;
             setLabelsToMiddle();
             Logger.Log("Portamento length set to " + trackBarLength.Value.ToString() + " mS", Logger.LogTypes.Info);
         }

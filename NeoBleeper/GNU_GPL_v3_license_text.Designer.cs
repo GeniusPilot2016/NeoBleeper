@@ -37,32 +37,17 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(richTextBox1, "richTextBox1");
             richTextBox1.BackColor = SystemColors.Window;
-            richTextBox1.Font = new Font("HarmonyOS Sans", 8.95F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(10, 9);
-            richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(509, 434);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = resources.GetString("richTextBox1.Text");
             richTextBox1.LinkClicked += richTextBox1_LinkClicked;
             // 
             // close_button
             // 
-            close_button.Anchor = AnchorStyles.Bottom;
-            close_button.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            close_button.ImageIndex = 0;
+            resources.ApplyResources(close_button, "close_button");
             close_button.ImageList = icons;
-            close_button.Location = new Point(216, 453);
-            close_button.Margin = new Padding(3, 2, 3, 2);
             close_button.Name = "close_button";
-            close_button.Size = new Size(82, 26);
-            close_button.TabIndex = 1;
-            close_button.Text = "Close";
-            close_button.TextAlign = ContentAlignment.MiddleRight;
-            close_button.TextImageRelation = TextImageRelation.ImageBeforeText;
             close_button.UseVisualStyleBackColor = true;
             close_button.Click += close_button_Click;
             // 
@@ -75,20 +60,16 @@
             // 
             // GNU_GPL_v3_license_text
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(529, 484);
             Controls.Add(close_button);
             Controls.Add(richTextBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "GNU_GPL_v3_license_text";
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "License";
             SystemColorsChanged += GNU_GPL_v3_license_text_SystemColorsChanged;
             ResumeLayout(false);
         }

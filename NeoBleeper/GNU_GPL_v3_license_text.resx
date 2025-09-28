@@ -117,6 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;icons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="close_button.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="richTextBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="&gt;&gt;close_button.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>509, 434</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
+    <value>richTextBox1</value>
+  </data>
+  <data name="close_button.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="richTextBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.95pt</value>
+  </data>
+  <data name="&gt;&gt;icons.Name" xml:space="preserve">
+    <value>icons</value>
+  </data>
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>                    GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -793,36 +832,106 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.</value>
   </data>
-  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="close_button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 26</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>529, 484</value>
+  </data>
+  <data name="close_button.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="close_button.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAAAUAAAJNU0Z0AUkBTAMBAQAB
-        aAEAAWgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wJeAWcB4uQAAUQBNgHsAf8BQgE0AesB
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/gQAAAJNU0Z0AUkBTAMBAQAB
+        jAEAAbABAAEQAQABEAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wJeAWUB4uQAAUQBNgHsAf8BQgE0AesB
         /wE/ATEB6gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/wNOAZTYAAFJATwB
         7gH/AUcBOQHtAf8BRAE2AewB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8B
         NQEmAecB/wEzASMB5gH/A04BlNAAAk4BTwGXAUsBPgHuAf8BSQE8Ae4B/wFHATkB7QH/AUIBNQHlAf8B
         QgE0AesB/wE/ATEB6gH/AT0BLgHpAf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/9AAAU8B
         QwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzBf8BQQE0AeIB/wFCATQB6wH/AXwBdAHhBf8BNwEoAd0B
-        /wE4ASkB6AH/ATUBJgHnAf8BYQFgAWgB4cwAAVEBRQHxAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8C
-        /AH+Bf8BfQF0AeIF/wGAAXgB4gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUBJgHnAf/MAAFTAUcB
-        8QH/AVEBRQHxAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8C/QH+Bf8BgwF7AeQB/wFCATQB6wH/AT8B
-        MQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf/MAAFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB
-        8AH/AYIBegHkBf8C/QH+Bf8BQQE0AeIB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/zAAB
-        VwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BgwF8AeUF/wGEAX0B5QH/AUsBPgHuAf8C/AH+Bf8BQgE1AeUB
-        /wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/8wAAWYBTAGyAfkBVwFLAfMB/wFVAUkB8gH/AVEBRgHrAf8B
-        gwF8AeUB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wHIAcQB8wH/AUcBOQHtAf8BRAE2AewB/wFCATQB
-        6wH/AxYBHtAAAVkBTQHzAf8BVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU0B
-        QAHvAf8BSwE+Ae4B/wFJATwB7gH/AUcBOQHtAf8BRAE2AewB/9QAAwgBCgFZAU0B8wH/AVcBSwHzAf8B
-        VQFJAfIB/wFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8BSQE8Ae4B/+AAAWYB
-        TAGyAfkBVwFLAfMB/wFVAUkB8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/Ak4BTwGX/wD/ANIAAUIB
-        TQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAL/BgAB+AEfBgAB8AEHBgAB4AEDBgAB
-        wAEDBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgAB4AEDBgAB4AEHBgAB+AEPBgAC
-        /wYAAv8GAAs=
+        /wE4ASkB6AH/ATUBJgHnAf8CYgFmAeHMAAFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AvwB
+        /gX/AX0BdAHiBf8BgAF4AeIB/wE9AS4B6QH/AToBKwHpAf8BOAEpAegB/wE1ASYB5wH/zAABUwFHAfEB
+        /wFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/Av0B/gX/AYMBewHkAf8BQgE0AesB/wE/ATEB
+        6gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/zAABVQFJAfIB/wFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB
+        /wGCAXoB5AX/Av0B/gX/AUEBNAHiAf8BQgE0AesB/wE/ATEB6gH/AT0BLgHpAf8BOgErAekB/8wAAVcB
+        SwHzAf8BVQFJAfIB/wFTAUcB8QH/AYMBfAHlBf8BhAF9AeUB/wFLAT4B7gH/AvwB/gX/AUIBNQHlAf8B
+        QgE0AesB/wE/ATEB6gH/AT0BLgHpAf/MAAFoAUwBrAH5AVcBSwHzAf8BVQFJAfIB/wFRAUYB6wH/AYMB
+        fAHlAf8BTwFDAfAB/wFNAUAB7wH/AUsBPgHuAf8ByAHEAfMB/wFHATkB7QH/AUQBNgHsAf8BQgE0AesB
+        /wMWAR7QAAFZAU0B8wH/AVcBSwHzAf8BVQFJAfIB/wFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB/wFNAUAB
+        7wH/AUsBPgHuAf8BSQE8Ae4B/wFHATkB7QH/AUQBNgHsAf/UAAMIAQoBWQFNAfMB/wFXAUsB8wH/AVUB
+        SQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AUkBPAHuAf/gAAFoAUwB
+        rAH5AVcBSwHzAf8BVQFJAfIB/wFTAUcB8QH/AVEBRQHxAf8BTwFDAfAB/wJOAU8Bl/8A/wDSAAFCAU0B
+        PgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAC/wYAAfgBHwYAAfABBwYAAeABAwYAAcAB
+        AwYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAeABAwYAAeABBwYAAfgBDwYAAv8G
+        AAL/HAAL
 </value>
   </data>
+  <data name="&gt;&gt;close_button.Name" xml:space="preserve">
+    <value>close_button</value>
+  </data>
+  <data name="close_button.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 9</value>
+  </data>
+  <data name="&gt;&gt;close_button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>GNU_GPL_v3_license_text</value>
+  </data>
+  <data name="close_button.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="richTextBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="close_button.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="close_button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 453</value>
+  </data>
+  <data name="close_button.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="richTextBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;close_button.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>vi</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

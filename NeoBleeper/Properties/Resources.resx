@@ -562,4 +562,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="MessageLanguageChanged" xml:space="preserve">
     <value>The language has been changed and the application will now restart to apply the new language, and changes in open projects will be discarded.</value>
   </data>
+  <data name="TextMilliseconds" xml:space="preserve">
+    <value> mS</value>
+  </data>
 </root>

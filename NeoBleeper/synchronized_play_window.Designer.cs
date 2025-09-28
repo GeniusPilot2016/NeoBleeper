@@ -41,10 +41,10 @@
             imageList_synchronized_play = new ImageList(components);
             radioButton_play_beginning_of_music = new RadioButton();
             button_wait = new Button();
-            lbl_waiting = new Label();
             label6 = new Label();
             timer_time = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
+            lbl_waiting = new Label();
             groupBox_time.SuspendLayout();
             groupBox_position.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -133,13 +133,6 @@
             button_wait.UseVisualStyleBackColor = true;
             button_wait.Click += button_wait_Click;
             // 
-            // lbl_waiting
-            // 
-            resources.ApplyResources(lbl_waiting, "lbl_waiting");
-            lbl_waiting.BackColor = Color.Red;
-            lbl_waiting.ForeColor = SystemColors.ControlText;
-            lbl_waiting.Name = "lbl_waiting";
-            // 
             // label6
             // 
             resources.ApplyResources(label6, "label6");
@@ -153,10 +146,17 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.icons8_clock_48;
             resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Image = Properties.Resources.icons8_clock_48;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
+            // 
+            // lbl_waiting
+            // 
+            resources.ApplyResources(lbl_waiting, "lbl_waiting");
+            lbl_waiting.BackColor = Color.Red;
+            lbl_waiting.ForeColor = SystemColors.ControlText;
+            lbl_waiting.Name = "lbl_waiting";
             // 
             // synchronized_play_window
             // 
@@ -197,10 +197,10 @@
         private RadioButton radioButton_play_currently_selected_line;
         private RadioButton radioButton_play_beginning_of_music;
         private Button button_wait;
-        private Label lbl_waiting;
         private Label label6;
         private System.Windows.Forms.Timer timer_time;
         private ImageList imageList_synchronized_play;
         private PictureBox pictureBox1;
+        private Label lbl_waiting;
     }
 }

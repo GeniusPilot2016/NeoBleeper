@@ -47,40 +47,19 @@
             // 
             // labelPrompt
             // 
-            labelPrompt.Anchor = AnchorStyles.Top;
-            labelPrompt.AutoSize = true;
-            labelPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            labelPrompt.Location = new Point(31, 53);
-            labelPrompt.Margin = new Padding(2, 0, 2, 0);
+            resources.ApplyResources(labelPrompt, "labelPrompt");
             labelPrompt.Name = "labelPrompt";
-            labelPrompt.Size = new Size(46, 16);
-            labelPrompt.TabIndex = 2;
-            labelPrompt.Text = "Prompt";
             // 
             // textBoxPrompt
             // 
-            textBoxPrompt.Anchor = AnchorStyles.Top;
-            textBoxPrompt.Font = new Font("HarmonyOS Sans", 8.999999F);
-            textBoxPrompt.Location = new Point(85, 51);
-            textBoxPrompt.Margin = new Padding(2);
+            resources.ApplyResources(textBoxPrompt, "textBoxPrompt");
             textBoxPrompt.Name = "textBoxPrompt";
-            textBoxPrompt.Size = new Size(257, 23);
-            textBoxPrompt.TabIndex = 3;
             // 
             // buttonCreate
             // 
-            buttonCreate.Anchor = AnchorStyles.Top;
-            buttonCreate.Font = new Font("HarmonyOS Sans", 8.999999F);
-            buttonCreate.ImageIndex = 1;
+            resources.ApplyResources(buttonCreate, "buttonCreate");
             buttonCreate.ImageList = images;
-            buttonCreate.Location = new Point(346, 49);
-            buttonCreate.Margin = new Padding(2);
             buttonCreate.Name = "buttonCreate";
-            buttonCreate.Size = new Size(102, 26);
-            buttonCreate.TabIndex = 4;
-            buttonCreate.Text = "Create";
-            buttonCreate.TextAlign = ContentAlignment.MiddleRight;
-            buttonCreate.TextImageRelation = TextImageRelation.ImageBeforeText;
             buttonCreate.UseVisualStyleBackColor = true;
             buttonCreate.Click += buttonCreate_Click;
             // 
@@ -95,84 +74,42 @@
             // 
             // labelPoweredByGemini
             // 
-            labelPoweredByGemini.Anchor = AnchorStyles.Top;
-            labelPoweredByGemini.AutoSize = true;
-            labelPoweredByGemini.Font = new Font("HarmonyOS Sans", 8.999999F);
-            labelPoweredByGemini.ImageAlign = ContentAlignment.MiddleLeft;
-            labelPoweredByGemini.ImageIndex = 0;
+            resources.ApplyResources(labelPoweredByGemini, "labelPoweredByGemini");
             labelPoweredByGemini.ImageList = images;
-            labelPoweredByGemini.Location = new Point(134, 140);
-            labelPoweredByGemini.Margin = new Padding(2, 0, 2, 0);
             labelPoweredByGemini.Name = "labelPoweredByGemini";
-            labelPoweredByGemini.Size = new Size(182, 16);
-            labelPoweredByGemini.TabIndex = 3;
-            labelPoweredByGemini.Text = "      Powered by Google Gemini™";
-            labelPoweredByGemini.TextAlign = ContentAlignment.MiddleRight;
             // 
             // comboBox_ai_model
             // 
-            comboBox_ai_model.Anchor = AnchorStyles.Top;
+            resources.ApplyResources(comboBox_ai_model, "comboBox_ai_model");
             comboBox_ai_model.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox_ai_model.FormattingEnabled = true;
-            comboBox_ai_model.Items.AddRange(new object[] { "Gemini 2.5 Flash", "Gemini 2.5 Pro", "Gemini 2.0 Flash", "Gemini 2.0 Flash Lite" });
-            comboBox_ai_model.Location = new Point(85, 17);
-            comboBox_ai_model.Margin = new Padding(2);
+            comboBox_ai_model.Items.AddRange(new object[] { resources.GetString("comboBox_ai_model.Items"), resources.GetString("comboBox_ai_model.Items1"), resources.GetString("comboBox_ai_model.Items2"), resources.GetString("comboBox_ai_model.Items3") });
             comboBox_ai_model.Name = "comboBox_ai_model";
-            comboBox_ai_model.Size = new Size(257, 24);
-            comboBox_ai_model.TabIndex = 1;
             comboBox_ai_model.SelectedIndexChanged += comboBox_ai_model_SelectedIndexChanged;
             // 
             // label_ai_model
             // 
-            label_ai_model.Anchor = AnchorStyles.Top;
-            label_ai_model.AutoSize = true;
-            label_ai_model.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label_ai_model.Location = new Point(24, 19);
-            label_ai_model.Margin = new Padding(2, 0, 2, 0);
+            resources.ApplyResources(label_ai_model, "label_ai_model");
             label_ai_model.Name = "label_ai_model";
-            label_ai_model.Size = new Size(55, 16);
-            label_ai_model.TabIndex = 0;
-            label_ai_model.Text = "AI Model";
             // 
             // progressBarCreating
             // 
-            progressBarCreating.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            progressBarCreating.Location = new Point(11, 215);
-            progressBarCreating.Margin = new Padding(2);
+            resources.ApplyResources(progressBarCreating, "progressBarCreating");
             progressBarCreating.MarqueeAnimationSpeed = 5;
             progressBarCreating.Name = "progressBarCreating";
-            progressBarCreating.Size = new Size(448, 12);
             progressBarCreating.Style = ProgressBarStyle.Marquee;
-            progressBarCreating.TabIndex = 7;
-            progressBarCreating.Visible = false;
             // 
             // pictureBoxCreating
             // 
-            pictureBoxCreating.Anchor = AnchorStyles.Top;
+            resources.ApplyResources(pictureBoxCreating, "pictureBoxCreating");
             pictureBoxCreating.Image = Properties.Resources.icons8_wait_96;
-            pictureBoxCreating.Location = new Point(83, 173);
-            pictureBoxCreating.Margin = new Padding(2);
             pictureBoxCreating.Name = "pictureBoxCreating";
-            pictureBoxCreating.Size = new Size(38, 38);
-            pictureBoxCreating.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxCreating.TabIndex = 6;
             pictureBoxCreating.TabStop = false;
-            pictureBoxCreating.Visible = false;
             // 
             // labelCreating
             // 
-            labelCreating.Anchor = AnchorStyles.Top;
-            labelCreating.AutoSize = true;
-            labelCreating.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCreating.Location = new Point(134, 182);
-            labelCreating.Margin = new Padding(2, 0, 2, 0);
+            resources.ApplyResources(labelCreating, "labelCreating");
             labelCreating.Name = "labelCreating";
-            labelCreating.Size = new Size(235, 16);
-            labelCreating.TabIndex = 5;
-            labelCreating.Text = "Music is being created by AI. Please wait...";
-            labelCreating.TextAlign = ContentAlignment.MiddleCenter;
-            labelCreating.Visible = false;
             // 
             // connectionCheckTimer
             // 
@@ -181,26 +118,15 @@
             // 
             // labelWarning
             // 
-            labelWarning.AutoSize = true;
-            labelWarning.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelWarning.ImageAlign = ContentAlignment.TopLeft;
-            labelWarning.ImageIndex = 2;
+            resources.ApplyResources(labelWarning, "labelWarning");
             labelWarning.ImageList = images;
-            labelWarning.Location = new Point(12, 91);
-            labelWarning.MaximumSize = new Size(1024, 0);
             labelWarning.Name = "labelWarning";
-            labelWarning.Size = new Size(446, 32);
-            labelWarning.TabIndex = 8;
-            labelWarning.Text = "      Warning: The AI generates inspirational suggestions, not exact reproductions. \r\nResults may be imperfect or contain mistakes.";
-            labelWarning.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(470, 171);
             Controls.Add(labelWarning);
             Controls.Add(progressBarCreating);
             Controls.Add(pictureBoxCreating);
@@ -212,13 +138,11 @@
             Controls.Add(label_ai_model);
             Controls.Add(labelPrompt);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "CreateMusicWithAI";
             ShowIcon = false;
             ShowInTaskbar = false;
-            Text = "Create Music with AI";
             FormClosed += CreateMusicWithAI_FormClosed;
             SystemColorsChanged += CreateMusicWithAI_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).EndInit();

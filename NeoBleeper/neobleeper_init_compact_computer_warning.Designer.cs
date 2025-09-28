@@ -43,21 +43,11 @@
             // 
             // button_yes
             // 
+            resources.ApplyResources(button_yes, "button_yes");
             button_yes.AccessibleRole = AccessibleRole.None;
-            button_yes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_yes.AutoSize = true;
             button_yes.DialogResult = DialogResult.Yes;
-            button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
-            button_yes.ImageIndex = 1;
             button_yes.ImageList = imageList_compact_computer_warning;
-            button_yes.Location = new Point(71, 296);
-            button_yes.Margin = new Padding(2);
             button_yes.Name = "button_yes";
-            button_yes.Size = new Size(75, 26);
-            button_yes.TabIndex = 7;
-            button_yes.Text = "&Yes";
-            button_yes.TextAlign = ContentAlignment.MiddleRight;
-            button_yes.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_yes.UseVisualStyleBackColor = true;
             button_yes.Click += button_yes_Click;
             // 
@@ -71,89 +61,47 @@
             // 
             // label_compact_computer_warning
             // 
-            label_compact_computer_warning.Anchor = AnchorStyles.Top;
-            label_compact_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label_compact_computer_warning.Location = new Point(71, 10);
-            label_compact_computer_warning.Margin = new Padding(2, 0, 2, 0);
-            label_compact_computer_warning.MinimumSize = new Size(278, 91);
+            resources.ApplyResources(label_compact_computer_warning, "label_compact_computer_warning");
             label_compact_computer_warning.Name = "label_compact_computer_warning";
-            label_compact_computer_warning.Size = new Size(278, 91);
-            label_compact_computer_warning.TabIndex = 5;
-            label_compact_computer_warning.Text = resources.GetString("label_compact_computer_warning.Text");
             // 
             // pictureBox1
             // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.icons8_laptop_48;
-            pictureBox1.Location = new Point(10, 10);
-            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             // 
             // label_compact_computer_warning_result
             // 
-            label_compact_computer_warning_result.Anchor = AnchorStyles.Top;
-            label_compact_computer_warning_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_compact_computer_warning_result.Location = new Point(6, 151);
-            label_compact_computer_warning_result.Margin = new Padding(2, 0, 2, 0);
-            label_compact_computer_warning_result.MinimumSize = new Size(343, 114);
+            resources.ApplyResources(label_compact_computer_warning_result, "label_compact_computer_warning_result");
             label_compact_computer_warning_result.Name = "label_compact_computer_warning_result";
-            label_compact_computer_warning_result.Size = new Size(343, 114);
-            label_compact_computer_warning_result.TabIndex = 9;
-            label_compact_computer_warning_result.Text = resources.GetString("label_compact_computer_warning_result.Text");
             // 
             // button_no
             // 
-            button_no.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_no.AutoSize = true;
+            resources.ApplyResources(button_no, "button_no");
             button_no.DialogResult = DialogResult.No;
-            button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
-            button_no.ImageIndex = 0;
             button_no.ImageList = imageList_compact_computer_warning;
-            button_no.Location = new Point(201, 296);
-            button_no.Margin = new Padding(2);
             button_no.Name = "button_no";
-            button_no.Size = new Size(75, 26);
-            button_no.TabIndex = 8;
-            button_no.Text = "&No";
-            button_no.TextAlign = ContentAlignment.MiddleRight;
-            button_no.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_no.UseVisualStyleBackColor = true;
             button_no.Click += button_no_Click;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label1.Location = new Point(6, 101);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.MinimumSize = new Size(343, 40);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(343, 40);
-            label1.TabIndex = 6;
-            label1.Text = "Despite this, do you want to continue using the NeoBleeper application?\r\n";
             // 
             // checkBoxDontShowAgain
             // 
-            checkBoxDontShowAgain.Anchor = AnchorStyles.Bottom;
-            checkBoxDontShowAgain.AutoSize = true;
-            checkBoxDontShowAgain.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBoxDontShowAgain.Location = new Point(115, 271);
+            resources.ApplyResources(checkBoxDontShowAgain, "checkBoxDontShowAgain");
             checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
-            checkBoxDontShowAgain.Size = new Size(119, 20);
-            checkBoxDontShowAgain.TabIndex = 14;
-            checkBoxDontShowAgain.Text = "Don't show again";
             checkBoxDontShowAgain.UseVisualStyleBackColor = true;
             // 
             // neobleeper_init_compact_computer_warning
             // 
             AcceptButton = button_yes;
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(358, 326);
             Controls.Add(checkBoxDontShowAgain);
             Controls.Add(button_yes);
             Controls.Add(label_compact_computer_warning);
@@ -161,14 +109,11 @@
             Controls.Add(label_compact_computer_warning_result);
             Controls.Add(button_no);
             Controls.Add(label1);
-            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "neobleeper_init_compact_computer_warning";
             ShowIcon = false;
-            StartPosition = FormStartPosition.CenterScreen;
             SystemColorsChanged += neobleeper_init_compact_computer_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

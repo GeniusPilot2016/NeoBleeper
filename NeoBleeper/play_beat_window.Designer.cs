@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(play_beat_window));
             radioButton_play_sound_on_all_beats = new RadioButton();
             radioButton_play_sound_on_odd_beats = new RadioButton();
             radioButton_play_sound_on_even_beats = new RadioButton();
@@ -38,84 +39,48 @@
             // 
             // radioButton_play_sound_on_all_beats
             // 
-            radioButton_play_sound_on_all_beats.AutoSize = true;
+            resources.ApplyResources(radioButton_play_sound_on_all_beats, "radioButton_play_sound_on_all_beats");
             radioButton_play_sound_on_all_beats.Checked = true;
-            radioButton_play_sound_on_all_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_all_beats.Location = new Point(11, 10);
-            radioButton_play_sound_on_all_beats.Margin = new Padding(2);
             radioButton_play_sound_on_all_beats.Name = "radioButton_play_sound_on_all_beats";
-            radioButton_play_sound_on_all_beats.Size = new Size(329, 20);
-            radioButton_play_sound_on_all_beats.TabIndex = 0;
             radioButton_play_sound_on_all_beats.TabStop = true;
-            radioButton_play_sound_on_all_beats.Text = "Play beat sound on all beats (for music with slow tempo)\r\n";
             radioButton_play_sound_on_all_beats.UseVisualStyleBackColor = true;
             radioButton_play_sound_on_all_beats.Click += beat_types_click;
             // 
             // radioButton_play_sound_on_odd_beats
             // 
-            radioButton_play_sound_on_odd_beats.AutoSize = true;
-            radioButton_play_sound_on_odd_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_odd_beats.Location = new Point(11, 34);
-            radioButton_play_sound_on_odd_beats.Margin = new Padding(2);
+            resources.ApplyResources(radioButton_play_sound_on_odd_beats, "radioButton_play_sound_on_odd_beats");
             radioButton_play_sound_on_odd_beats.Name = "radioButton_play_sound_on_odd_beats";
-            radioButton_play_sound_on_odd_beats.Size = new Size(395, 20);
-            radioButton_play_sound_on_odd_beats.TabIndex = 0;
-            radioButton_play_sound_on_odd_beats.Text = "Play beat sound on odd-numbered beats (for music with fast tempo)\r\n";
             radioButton_play_sound_on_odd_beats.UseVisualStyleBackColor = true;
             radioButton_play_sound_on_odd_beats.Click += beat_types_click;
             // 
             // radioButton_play_sound_on_even_beats
             // 
-            radioButton_play_sound_on_even_beats.AutoSize = true;
-            radioButton_play_sound_on_even_beats.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_even_beats.Location = new Point(11, 58);
-            radioButton_play_sound_on_even_beats.Margin = new Padding(2);
+            resources.ApplyResources(radioButton_play_sound_on_even_beats, "radioButton_play_sound_on_even_beats");
             radioButton_play_sound_on_even_beats.Name = "radioButton_play_sound_on_even_beats";
-            radioButton_play_sound_on_even_beats.Size = new Size(254, 20);
-            radioButton_play_sound_on_even_beats.TabIndex = 0;
-            radioButton_play_sound_on_even_beats.Text = "Play beat sound on even-numbered beats";
             radioButton_play_sound_on_even_beats.UseVisualStyleBackColor = true;
             radioButton_play_sound_on_even_beats.Click += beat_types_click;
             // 
             // label_uncheck_do_not_update
             // 
-            label_uncheck_do_not_update.AutoSize = true;
-            label_uncheck_do_not_update.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_uncheck_do_not_update.Location = new Point(11, 111);
-            label_uncheck_do_not_update.Margin = new Padding(2, 0, 2, 0);
-            label_uncheck_do_not_update.MaximumSize = new Size(410, 0);
+            resources.ApplyResources(label_uncheck_do_not_update, "label_uncheck_do_not_update");
             label_uncheck_do_not_update.Name = "label_uncheck_do_not_update";
-            label_uncheck_do_not_update.Size = new Size(401, 32);
-            label_uncheck_do_not_update.TabIndex = 1;
-            label_uncheck_do_not_update.Text = "Please uncheck the \"Do not update\" checkbox in the main window to ensure that the beat sounds can be played correctly.";
-            label_uncheck_do_not_update.Visible = false;
             // 
             // panel1
             // 
-            panel1.Location = new Point(417, 133);
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
-            panel1.Size = new Size(20, 20);
-            panel1.TabIndex = 2;
             // 
             // radioButton_play_sound_on_checked_lines
             // 
-            radioButton_play_sound_on_checked_lines.AutoSize = true;
-            radioButton_play_sound_on_checked_lines.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton_play_sound_on_checked_lines.Location = new Point(11, 82);
-            radioButton_play_sound_on_checked_lines.Margin = new Padding(2);
+            resources.ApplyResources(radioButton_play_sound_on_checked_lines, "radioButton_play_sound_on_checked_lines");
             radioButton_play_sound_on_checked_lines.Name = "radioButton_play_sound_on_checked_lines";
-            radioButton_play_sound_on_checked_lines.Size = new Size(206, 20);
-            radioButton_play_sound_on_checked_lines.TabIndex = 3;
-            radioButton_play_sound_on_checked_lines.Text = "Play beat sound on checked lines";
             radioButton_play_sound_on_checked_lines.UseVisualStyleBackColor = true;
             radioButton_play_sound_on_checked_lines.Click += beat_types_click;
             // 
             // play_beat_window
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(437, 154);
             ControlBox = false;
             Controls.Add(radioButton_play_sound_on_checked_lines);
             Controls.Add(label_uncheck_do_not_update);
@@ -124,12 +89,10 @@
             Controls.Add(radioButton_play_sound_on_all_beats);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "play_beat_window";
             ShowIcon = false;
-            Text = "Beat Settings";
             FormClosed += play_beat_window_FormClosed;
             SystemColorsChanged += play_beat_window_SystemColorsChanged;
             ResumeLayout(false);

@@ -1261,6 +1261,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///    mS benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextMilliseconds {
+            get {
+                return ResourceManager.GetString("TextMilliseconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   (Not Found) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextNotFound {

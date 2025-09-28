@@ -39,19 +39,11 @@
             // 
             // button_close
             // 
+            resources.ApplyResources(button_close, "button_close");
             button_close.AccessibleRole = AccessibleRole.None;
-            button_close.Anchor = AnchorStyles.Bottom;
-            button_close.AutoSize = true;
             button_close.DialogResult = DialogResult.Abort;
-            button_close.Font = new Font("HarmonyOS Sans", 9F);
-            button_close.ImageIndex = 0;
             button_close.ImageList = imageList_display_resolution_warning;
-            button_close.Location = new Point(142, 52);
             button_close.Name = "button_close";
-            button_close.Size = new Size(132, 26);
-            button_close.TabIndex = 5;
-            button_close.Text = "&Close the program";
-            button_close.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_close.UseVisualStyleBackColor = true;
             button_close.Click += button_close_the_program_Click;
             // 
@@ -64,31 +56,21 @@
             // 
             // label_display_resolution_warning
             // 
-            label_display_resolution_warning.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label_display_resolution_warning.Font = new Font("HarmonyOS Sans", 9F);
-            label_display_resolution_warning.Location = new Point(69, 12);
-            label_display_resolution_warning.MinimumSize = new Size(329, 32);
+            resources.ApplyResources(label_display_resolution_warning, "label_display_resolution_warning");
             label_display_resolution_warning.Name = "label_display_resolution_warning";
-            label_display_resolution_warning.Size = new Size(329, 32);
-            label_display_resolution_warning.TabIndex = 4;
-            label_display_resolution_warning.Text = "The screen resolution does not meet the screen resolution requirements for the NeoBleeper program interface.";
             // 
             // pictureBox1
             // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.icons8_resolution_48;
-            pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
             // neobleeper_init_display_resolution_warning
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_close;
-            ClientSize = new Size(408, 84);
             Controls.Add(pictureBox1);
             Controls.Add(button_close);
             Controls.Add(label_display_resolution_warning);
@@ -97,7 +79,6 @@
             MinimizeBox = false;
             Name = "neobleeper_init_display_resolution_warning";
             ShowIcon = false;
-            StartPosition = FormStartPosition.CenterScreen;
             SystemColorsChanged += neobleeper_init_display_resolution_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

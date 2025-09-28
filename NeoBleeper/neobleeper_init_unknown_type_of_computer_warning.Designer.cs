@@ -30,36 +30,48 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(neobleeper_init_unknown_type_of_computer_warning));
-            button_yes = new Button();
-            imageList_unknown_type_of_computer_warning = new ImageList(components);
-            button_no = new Button();
-            label_unknown_type_of_computer_warning = new Label();
-            pictureBox1 = new PictureBox();
-            label_unknown_type_of_computer_result = new Label();
-            label1 = new Label();
             checkBoxDontShowAgain = new CheckBox();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
+            label_unknown_type_of_computer_warning = new Label();
+            button_no = new Button();
+            imageList_unknown_type_of_computer_warning = new ImageList(components);
+            button_yes = new Button();
+            label_unknown_type_of_computer_result = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // button_yes
+            // checkBoxDontShowAgain
             // 
-            button_yes.AccessibleRole = AccessibleRole.None;
-            button_yes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_yes.AutoSize = true;
-            button_yes.DialogResult = DialogResult.Yes;
-            button_yes.Font = new Font("HarmonyOS Sans", 8.999999F);
-            button_yes.ImageIndex = 1;
-            button_yes.ImageList = imageList_unknown_type_of_computer_warning;
-            button_yes.Location = new Point(71, 266);
-            button_yes.Margin = new Padding(2);
-            button_yes.Name = "button_yes";
-            button_yes.Size = new Size(75, 26);
-            button_yes.TabIndex = 13;
-            button_yes.Text = "&Yes";
-            button_yes.TextAlign = ContentAlignment.MiddleRight;
-            button_yes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_yes.UseVisualStyleBackColor = true;
-            button_yes.Click += button_yes_Click;
+            resources.ApplyResources(checkBoxDontShowAgain, "checkBoxDontShowAgain");
+            checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
+            checkBoxDontShowAgain.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
+            // 
+            // pictureBox1
+            // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
+            pictureBox1.Image = Properties.Resources.icons8_question_mark_48;
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.TabStop = false;
+            // 
+            // label_unknown_type_of_computer_warning
+            // 
+            resources.ApplyResources(label_unknown_type_of_computer_warning, "label_unknown_type_of_computer_warning");
+            label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
+            // 
+            // button_no
+            // 
+            resources.ApplyResources(button_no, "button_no");
+            button_no.DialogResult = DialogResult.No;
+            button_no.ImageList = imageList_unknown_type_of_computer_warning;
+            button_no.Name = "button_no";
+            button_no.UseVisualStyleBackColor = true;
+            button_no.Click += button_no_Click;
             // 
             // imageList_unknown_type_of_computer_warning
             // 
@@ -69,91 +81,27 @@
             imageList_unknown_type_of_computer_warning.Images.SetKeyName(0, "icons8-no-48.png");
             imageList_unknown_type_of_computer_warning.Images.SetKeyName(1, "icons8-yes-48.png");
             // 
-            // button_no
+            // button_yes
             // 
-            button_no.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_no.AutoSize = true;
-            button_no.DialogResult = DialogResult.No;
-            button_no.Font = new Font("HarmonyOS Sans", 8.999999F);
-            button_no.ImageIndex = 0;
-            button_no.ImageList = imageList_unknown_type_of_computer_warning;
-            button_no.Location = new Point(201, 266);
-            button_no.Margin = new Padding(2);
-            button_no.Name = "button_no";
-            button_no.Size = new Size(75, 26);
-            button_no.TabIndex = 14;
-            button_no.Text = "&No";
-            button_no.TextAlign = ContentAlignment.MiddleRight;
-            button_no.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_no.UseVisualStyleBackColor = true;
-            button_no.Click += button_no_Click;
-            // 
-            // label_unknown_type_of_computer_warning
-            // 
-            label_unknown_type_of_computer_warning.Anchor = AnchorStyles.Top;
-            label_unknown_type_of_computer_warning.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label_unknown_type_of_computer_warning.Location = new Point(71, 10);
-            label_unknown_type_of_computer_warning.Margin = new Padding(2, 0, 2, 0);
-            label_unknown_type_of_computer_warning.MinimumSize = new Size(278, 60);
-            label_unknown_type_of_computer_warning.Name = "label_unknown_type_of_computer_warning";
-            label_unknown_type_of_computer_warning.Size = new Size(278, 60);
-            label_unknown_type_of_computer_warning.TabIndex = 11;
-            label_unknown_type_of_computer_warning.Text = "The NeoBleeper Smart Device Type Recognition System has detected that your computer is an unknown type of computer.";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.icons8_question_mark_48;
-            pictureBox1.Location = new Point(10, 10);
-            pictureBox1.Margin = new Padding(2);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 16;
-            pictureBox1.TabStop = false;
+            resources.ApplyResources(button_yes, "button_yes");
+            button_yes.AccessibleRole = AccessibleRole.None;
+            button_yes.DialogResult = DialogResult.Yes;
+            button_yes.ImageList = imageList_unknown_type_of_computer_warning;
+            button_yes.Name = "button_yes";
+            button_yes.UseVisualStyleBackColor = true;
+            button_yes.Click += button_yes_Click;
             // 
             // label_unknown_type_of_computer_result
             // 
-            label_unknown_type_of_computer_result.Anchor = AnchorStyles.Top;
-            label_unknown_type_of_computer_result.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_unknown_type_of_computer_result.Location = new Point(6, 118);
-            label_unknown_type_of_computer_result.Margin = new Padding(2, 0, 2, 0);
-            label_unknown_type_of_computer_result.MinimumSize = new Size(343, 118);
+            resources.ApplyResources(label_unknown_type_of_computer_result, "label_unknown_type_of_computer_result");
             label_unknown_type_of_computer_result.Name = "label_unknown_type_of_computer_result";
-            label_unknown_type_of_computer_result.Size = new Size(343, 118);
-            label_unknown_type_of_computer_result.TabIndex = 15;
-            label_unknown_type_of_computer_result.Text = resources.GetString("label_unknown_type_of_computer_result.Text");
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.Font = new Font("HarmonyOS Sans", 8.999999F);
-            label1.Location = new Point(6, 70);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.MinimumSize = new Size(343, 40);
-            label1.Name = "label1";
-            label1.Size = new Size(343, 40);
-            label1.TabIndex = 12;
-            label1.Text = "Despite this, do you want to continue using the NeoBleeper application?\r\n";
-            // 
-            // checkBoxDontShowAgain
-            // 
-            checkBoxDontShowAgain.Anchor = AnchorStyles.Bottom;
-            checkBoxDontShowAgain.AutoSize = true;
-            checkBoxDontShowAgain.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBoxDontShowAgain.Location = new Point(115, 241);
-            checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
-            checkBoxDontShowAgain.Size = new Size(119, 20);
-            checkBoxDontShowAgain.TabIndex = 17;
-            checkBoxDontShowAgain.Text = "Don't show again";
-            checkBoxDontShowAgain.UseVisualStyleBackColor = true;
             // 
             // neobleeper_init_unknown_type_of_computer_warning
             // 
             AcceptButton = button_yes;
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = button_no;
-            ClientSize = new Size(358, 296);
             Controls.Add(checkBoxDontShowAgain);
             Controls.Add(button_yes);
             Controls.Add(button_no);
@@ -161,14 +109,11 @@
             Controls.Add(pictureBox1);
             Controls.Add(label_unknown_type_of_computer_result);
             Controls.Add(label1);
-            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "neobleeper_init_unknown_type_of_computer_warning";
             ShowIcon = false;
-            StartPosition = FormStartPosition.CenterScreen;
             SystemColorsChanged += neobleeper_init_unknown_type_of_computer_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -177,13 +122,13 @@
 
         #endregion
 
-        private Button button_yes;
-        private ImageList imageList_unknown_type_of_computer_warning;
-        private Button button_no;
-        private Label label_unknown_type_of_computer_warning;
-        private PictureBox pictureBox1;
-        private Label label_unknown_type_of_computer_result;
-        private Label label1;
         private CheckBox checkBoxDontShowAgain;
+        private Label label1;
+        private PictureBox pictureBox1;
+        private Label label_unknown_type_of_computer_warning;
+        private Button button_no;
+        private ImageList imageList_unknown_type_of_computer_warning;
+        private Button button_yes;
+        private Label label_unknown_type_of_computer_result;
     }
 }

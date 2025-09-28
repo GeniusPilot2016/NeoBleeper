@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortamentoWindow));
             groupBox1 = new GroupBox();
             labelLength = new Label();
             trackBarLength = new TrackBar();
@@ -44,105 +45,59 @@
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(groupBox1, "groupBox1");
             groupBox1.Controls.Add(labelLength);
             groupBox1.Controls.Add(trackBarLength);
             groupBox1.Controls.Add(radioButtonProduceSoundForManyMilliseconds);
             groupBox1.Controls.Add(radioButtonAlwaysProduceSound);
-            groupBox1.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(12, 11);
-            groupBox1.Margin = new Padding(2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(2);
-            groupBox1.Size = new Size(429, 163);
-            groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Length of sound";
             // 
             // labelLength
             // 
-            labelLength.Anchor = AnchorStyles.None;
-            labelLength.AutoSize = true;
-            labelLength.Font = new Font("HarmonyOS Sans", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLength.Location = new Point(190, 130);
-            labelLength.Margin = new Padding(2, 0, 2, 0);
+            resources.ApplyResources(labelLength, "labelLength");
             labelLength.Name = "labelLength";
-            labelLength.Size = new Size(67, 21);
-            labelLength.TabIndex = 2;
-            labelLength.Text = "250 mS";
-            labelLength.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // trackBarLength
             // 
-            trackBarLength.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            trackBarLength.Location = new Point(15, 97);
-            trackBarLength.Margin = new Padding(2);
+            resources.ApplyResources(trackBarLength, "trackBarLength");
             trackBarLength.Maximum = 1000;
             trackBarLength.Minimum = 50;
             trackBarLength.Name = "trackBarLength";
-            trackBarLength.Size = new Size(398, 45);
-            trackBarLength.TabIndex = 1;
             trackBarLength.TickFrequency = 50;
             trackBarLength.Value = 250;
             trackBarLength.Scroll += trackBarLength_Scroll;
             // 
             // radioButtonProduceSoundForManyMilliseconds
             // 
-            radioButtonProduceSoundForManyMilliseconds.Anchor = AnchorStyles.Left;
-            radioButtonProduceSoundForManyMilliseconds.AutoSize = true;
+            resources.ApplyResources(radioButtonProduceSoundForManyMilliseconds, "radioButtonProduceSoundForManyMilliseconds");
             radioButtonProduceSoundForManyMilliseconds.Checked = true;
-            radioButtonProduceSoundForManyMilliseconds.Location = new Point(15, 53);
-            radioButtonProduceSoundForManyMilliseconds.Margin = new Padding(2);
-            radioButtonProduceSoundForManyMilliseconds.MaximumSize = new Size(400, 0);
-            radioButtonProduceSoundForManyMilliseconds.MinimumSize = new Size(0, 40);
             radioButtonProduceSoundForManyMilliseconds.Name = "radioButtonProduceSoundForManyMilliseconds";
-            radioButtonProduceSoundForManyMilliseconds.Size = new Size(400, 40);
-            radioButtonProduceSoundForManyMilliseconds.TabIndex = 0;
             radioButtonProduceSoundForManyMilliseconds.TabStop = true;
-            radioButtonProduceSoundForManyMilliseconds.Text = "System speaker/sound device produces sound for roughly this many milliseconds";
             radioButtonProduceSoundForManyMilliseconds.UseVisualStyleBackColor = true;
             radioButtonProduceSoundForManyMilliseconds.CheckedChanged += radioButtons_Checked_Changed;
             // 
             // radioButtonAlwaysProduceSound
             // 
-            radioButtonAlwaysProduceSound.Anchor = AnchorStyles.Left;
-            radioButtonAlwaysProduceSound.AutoSize = true;
-            radioButtonAlwaysProduceSound.Location = new Point(15, 29);
-            radioButtonAlwaysProduceSound.Margin = new Padding(2);
-            radioButtonAlwaysProduceSound.MaximumSize = new Size(400, 0);
+            resources.ApplyResources(radioButtonAlwaysProduceSound, "radioButtonAlwaysProduceSound");
             radioButtonAlwaysProduceSound.Name = "radioButtonAlwaysProduceSound";
-            radioButtonAlwaysProduceSound.Size = new Size(315, 20);
-            radioButtonAlwaysProduceSound.TabIndex = 0;
-            radioButtonAlwaysProduceSound.Text = "System speaker/sound device always produces sound";
             radioButtonAlwaysProduceSound.UseVisualStyleBackColor = true;
             radioButtonAlwaysProduceSound.CheckedChanged += radioButtons_Checked_Changed;
             // 
             // trackBarPitchChangeSpeed
             // 
-            trackBarPitchChangeSpeed.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            trackBarPitchChangeSpeed.Location = new Point(12, 207);
-            trackBarPitchChangeSpeed.Margin = new Padding(2);
+            resources.ApplyResources(trackBarPitchChangeSpeed, "trackBarPitchChangeSpeed");
             trackBarPitchChangeSpeed.Maximum = 18000;
             trackBarPitchChangeSpeed.Minimum = 50;
             trackBarPitchChangeSpeed.Name = "trackBarPitchChangeSpeed";
-            trackBarPitchChangeSpeed.Size = new Size(429, 45);
-            trackBarPitchChangeSpeed.TabIndex = 1;
             trackBarPitchChangeSpeed.TickFrequency = 400;
             trackBarPitchChangeSpeed.Value = 12000;
             trackBarPitchChangeSpeed.Scroll += trackBarPitchChangeSpeed_Scroll;
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(176, 189);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
-            label2.Size = new Size(130, 16);
-            label2.TabIndex = 2;
-            label2.Text = "Speed of pitch change";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // finishTimer
             // 
@@ -152,21 +107,17 @@
             // 
             // PortamentoWindow
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(452, 244);
             ControlBox = false;
             Controls.Add(label2);
             Controls.Add(trackBarPitchChangeSpeed);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "PortamentoWindow";
             ShowIcon = false;
-            Text = "Bleeper Portamento";
             SystemColorsChanged += PortamentoWindow_SystemColorsChanged;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
