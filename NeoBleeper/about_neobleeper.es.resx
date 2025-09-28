@@ -119,16 +119,16 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 195</value>
+    <value>42, 195</value>
   </data>
   <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>475, 0</value>
+    <value>415, 0</value>
   </data>
   <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>475, 64</value>
+    <value>415, 64</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>475, 96</value>
+    <value>415, 96</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>Inspirado en Bleeper Music Maker de Robbi-985 (también conocido como SomethingUnreal).
@@ -142,7 +142,7 @@ Google Gemini™ es una marca registrada de Google LLC.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFYAQIBWAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFgAQIBYAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D

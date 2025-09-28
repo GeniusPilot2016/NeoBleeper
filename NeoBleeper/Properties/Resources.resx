@@ -560,6 +560,6 @@ You can see the key mappings in the buttons in the top of the window.</value>
     <value>Notes are cut to clipboard.</value>
   </data>
   <data name="MessageLanguageChanged" xml:space="preserve">
-    <value>The language has been changed. Please restart the application to apply the new language.</value>
+    <value>The language has been changed and the application will now restart to apply the new language, and changes in open projects will be discarded.</value>
   </data>
 </root>

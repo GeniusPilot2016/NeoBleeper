@@ -10,7 +10,6 @@ namespace NeoBleeper
     public partial class settings_window : Form
     {
         bool darkTheme = false;
-        bool languageWarningShown = false;
         private main_window mainWindow;
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
@@ -1514,11 +1513,8 @@ namespace NeoBleeper
                 Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
                 Settings1.Default.Save();
                 Logger.Log("Preferred language changed to: " + comboBoxLanguage.SelectedItem.ToString(), Logger.LogTypes.Info);
-                if(languageWarningShown == false)
-                {
-                    MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    languageWarningShown = true;
-                }
+                MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Restart(); // Restart the application to apply the new language
             }
         }
     }

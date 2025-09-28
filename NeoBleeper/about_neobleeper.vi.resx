@@ -119,16 +119,16 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 193</value>
+    <value>42, 193</value>
   </data>
   <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>450, 0</value>
+    <value>420, 0</value>
   </data>
   <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>450, 64</value>
+    <value>420, 64</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>450, 96</value>
+    <value>420, 96</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>Lấy cảm hứng từ Bleeper Music Maker của Robbi-985 (hay còn gọi là SomethingUnreal)
@@ -142,7 +142,7 @@ Google Gemini™ là thương hiệu của Google LLC</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAF0AQIBdAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAF8AQIBfAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -186,16 +186,6 @@ Google Gemini™ là thương hiệu của Google LLC</value>
         wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
         /wIABv8CAAs=
 </value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Tên</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>300</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Nhiệm vụ</value>
   </data>
   <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -247,6 +237,16 @@ Google Gemini™ là thương hiệu của Google LLC</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>486, 144</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Nhiệm vụ</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>178, 354</value>
