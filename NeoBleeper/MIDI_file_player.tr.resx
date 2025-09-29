@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>245, 23</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 16</value>
   </data>
@@ -150,7 +153,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAHEAQQBxAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHcAQQB3AEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -196,7 +199,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAHEAQQBxAEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAHcAQQB3AEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -319,6 +322,12 @@ Seçilmeyen kanallar yok sayılacaktır.</value>
   <data name="holded_note_label.Text" xml:space="preserve">
     <value>Şu anda tutulan notalar: (0)</value>
   </data>
+  <data name="button_browse_file.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 24</value>
+  </data>
+  <data name="button_browse_file.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 27</value>
+  </data>
   <data name="button_browse_file.Text" xml:space="preserve">
     <value>Gözat</value>
   </data>
@@ -380,7 +389,7 @@ Seçilmeyen kanallar yok sayılacaktır.</value>
     <value>(Adet Daha)</value>
   </data>
   <data name="labelStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 16</value>
+    <value>261, 38</value>
   </data>
   <data name="labelStatus.Text" xml:space="preserve">
     <value>MIDI dosyası yükleniyor. Lütfen bekleyiniz...</value>

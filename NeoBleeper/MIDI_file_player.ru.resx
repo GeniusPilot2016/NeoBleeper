@@ -153,7 +153,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAHIAQQByAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHgAQQB4AEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -199,7 +199,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAHIAQQByAEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAHgAQQB4AEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -332,7 +332,7 @@
     <value>Просмотреть файл</value>
   </data>
   <data name="checkBox_play_each_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 514</value>
+    <value>9, 516</value>
   </data>
   <data name="checkBox_play_each_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>321, 41</value>
@@ -341,13 +341,19 @@
     <value>Играйте каждую ноту по одному разу (не чередуйте)</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 558</value>
+    <value>9, 560</value>
+  </data>
+  <data name="checkBox_make_each_cycle_last_30ms.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>321, 55</value>
+  </data>
+  <data name="checkBox_make_each_cycle_last_30ms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>321, 55</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Text" xml:space="preserve">
     <value>Попробуйте сделать так, чтобы каждый цикл длился 30 мС (с максимальным интервалом чередования 15 мС на ноту)</value>
   </data>
   <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 604</value>
+    <value>9, 621</value>
   </data>
   <data name="checkBox_dont_update_grid.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 20</value>
@@ -383,6 +389,9 @@
   <data name="label_ms.Text" xml:space="preserve">
     <value>мС</value>
   </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 475</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>319, 37</value>
   </data>
@@ -395,21 +404,17 @@
   <data name="label_more_notes.Text" xml:space="preserve">
     <value>(Еще)</value>
   </data>
-  <data name="pictureBoxIcon.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 9</value>
-  </data>
   <data name="labelStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 13</value>
+    <value>56, 15</value>
   </data>
   <data name="labelStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 32</value>
+    <value>261, 32</value>
   </data>
   <data name="labelStatus.Text" xml:space="preserve">
-    <value>Загрузка MIDI-файла. 
-Пожалуйста, подождите...</value>
+    <value>Загрузка MIDI-файла. Пожалуйста, подождите...</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 629</value>
+    <value>9, 646</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Size" type="System.Drawing.Size, System.Drawing">
     <value>312, 20</value>
@@ -418,7 +423,7 @@
     <value>Показывать тексты песен или текстовые события</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>348, 657</value>
+    <value>348, 674</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Воспроизвести MIDI-файл</value>

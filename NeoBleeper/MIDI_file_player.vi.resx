@@ -124,15 +124,6 @@
   <data name="label1.Text" xml:space="preserve">
     <value>Đang phát tệp MIDI:</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Điều khiển phát lại</value>
-  </data>
-  <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 55</value>
-  </data>
-  <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 40</value>
-  </data>
   <data name="label_position.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 0</value>
   </data>
@@ -145,12 +136,18 @@
   <data name="label_percentage.Location" type="System.Drawing.Point, System.Drawing">
     <value>72, 16</value>
   </data>
+  <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 55</value>
+  </data>
+  <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 40</value>
+  </data>
   <data name="icons2.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAHIAQQByAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHgAQQB4AEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -196,7 +193,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAHIAQQByAEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAHgAQQB4AEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -309,6 +306,9 @@
   <data name="button_rewind.ToolTip" xml:space="preserve">
     <value>Quay lại</value>
   </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Điều khiển phát lại</value>
+  </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Chọn kênh cần nghe.
 Các kênh không được chọn sẽ bị bỏ qua.</value>
@@ -325,8 +325,17 @@ Các kênh không được chọn sẽ bị bỏ qua.</value>
   <data name="checkBox_play_each_note.Text" xml:space="preserve">
     <value>Chơi từng nốt một lần (không chơi luân phiên)</value>
   </data>
+  <data name="checkBox_make_each_cycle_last_30ms.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>321, 55</value>
+  </data>
+  <data name="checkBox_make_each_cycle_last_30ms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>321, 55</value>
+  </data>
   <data name="checkBox_make_each_cycle_last_30ms.Text" xml:space="preserve">
     <value>Hãy thử làm cho mỗi chu kỳ kéo dài 30 mS (với thời gian xen kẽ tối đa được giới hạn ở mức 15 mS cho mỗi nốt)</value>
+  </data>
+  <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 582</value>
   </data>
   <data name="checkBox_dont_update_grid.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 20</value>
@@ -347,16 +356,22 @@ Các kênh không được chọn sẽ bị bỏ qua.</value>
     <value>(Thêm)</value>
   </data>
   <data name="labelStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 16</value>
+    <value>261, 38</value>
   </data>
   <data name="labelStatus.Text" xml:space="preserve">
     <value>Đang tải tệp MIDI. Vui lòng đợi...</value>
+  </data>
+  <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 607</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Size" type="System.Drawing.Size, System.Drawing">
     <value>244, 20</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Text" xml:space="preserve">
     <value>Hiển thị lời bài hát hoặc sự kiện văn bản</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>348, 635</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Phát tệp MIDI</value>

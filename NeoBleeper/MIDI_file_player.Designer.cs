@@ -886,7 +886,6 @@
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
             panelLoading.ResumeLayout(false);
-            panelLoading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
