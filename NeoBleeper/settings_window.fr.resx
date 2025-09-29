@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>348, 638</value>
+    <value>348, 646</value>
   </data>
   <data name="general_settings.Text" xml:space="preserve">
     <value>Généraux</value>
@@ -147,8 +147,8 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAJkkAAAJNU0Z0AUkBTAIBAREB
-        AAG4AQYBuAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
-        Zf8A/wB0AAMiATEBbgFmAVkB5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
+        AAHQAQYB0AEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        Zf8A/wB0AAMiATEBawFmAV8B5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AdkBjAEpAf/gAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wHdAaABUAH/4AACVQFTAaoE/wHyAcUBQwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB
@@ -164,7 +164,7 @@
         qgT/AfYB2QGCAf8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Af8B9gHWAXgF/wPwAf8D8AH/AeUB2QHLAf8B
         qwFiAQ0B/wHDAZIBWgH/A/AB/wPwAf8B3QGgAVAB/+AAAlUBUwGqHP8D8AH/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/Ad0BoAFQAf/gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B
-        ewFvAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
+        cgFsAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
         NQFVAzUBVVwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8D
         RAF7DAACZQFdAewBoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
@@ -462,10 +462,10 @@
 </value>
   </data>
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 673</value>
+    <value>356, 681</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 628</value>
+    <value>338, 636</value>
   </data>
   <data name="groupBoxLanguageSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 65</value>
@@ -561,7 +561,8 @@
     <value>Montrer</value>
   </data>
   <data name="buttonShowHide.ToolTip" xml:space="preserve">
-    <value>Affichez la clé API dans le champ prévu à cet effet.</value>
+    <value>Afficher la clé API dans le champ prévu à cet effet.
+Cliquez à nouveau pour la masquer.</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 80</value>
@@ -589,7 +590,7 @@ que ce soit.</value>
     <value>3, 369</value>
   </data>
   <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 106</value>
+    <value>332, 114</value>
   </data>
   <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
     <value>Haut-parleur du système de test</value>
@@ -613,22 +614,22 @@ que ce soit.</value>
     <value>Si vous n'entendez aucun son, vous pouvez utiliser la fonction « Utiliser un périphérique audio pour créer un bip ».</value>
   </data>
   <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 481</value>
+    <value>3, 489</value>
   </data>
   <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 141</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>322, 131</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
-    <value>Sur les ordinateurs compacts et les ordinateurs de type inconnu, vous risquez de ne pas entendre de son ou de provoquer une instabilité ou un comportement indésirable lorsque le haut-parleur du système est testé, car les haut-parleurs principaux peuvent être connectés à la sortie du haut-parleur du système au lieu du haut-parleur du système réel.</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 131</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Le test du haut-parleur système n'est pas disponible sur les ordinateurs qui ne disposent pas d'une sortie de haut-parleur système ou sur les ordinateurs dotés d'une sortie de haut-parleur système non standard.</value>
+  </data>
+  <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 131</value>
+  </data>
+  <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
+    <value>Sur les ordinateurs compacts et les ordinateurs de type inconnu, vous risquez de ne pas entendre de son ou de provoquer une instabilité ou un comportement indésirable lorsque le haut-parleur du système est testé, car les haut-parleurs principaux peuvent être connectés à la sortie du haut-parleur du système au lieu du haut-parleur du système réel.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>338, 628</value>
@@ -1187,12 +1188,6 @@ Si vous possédez un clavier MIDI, vous pouvez l'utiliser pour jouer des notes s
   <data name="note_indicator_color_change.ToolTip" xml:space="preserve">
     <value>Changer la couleur de l'indicateur de note pendant la lecture d'un fichier MIDI dans la fenêtre de lecture du fichier MIDI</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 16</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Couleur l'indicateur bip</value>
-  </data>
   <data name="beep_indicator_color_change.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 7.8pt</value>
   </data>
@@ -1231,6 +1226,12 @@ Si vous possédez un clavier MIDI, vous pouvez l'utiliser pour jouer des notes s
   </data>
   <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 16</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 16</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Couleur l'indicateur bip</value>
   </data>
   <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 103</value>
@@ -1291,7 +1292,7 @@ Si vous possédez un clavier MIDI, vous pouvez l'utiliser pour jouer des notes s
     <value>MiddleCenter</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>364, 681</value>
+    <value>364, 689</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

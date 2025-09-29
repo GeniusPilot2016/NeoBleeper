@@ -292,7 +292,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAGQASUBkAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAGYASUBmAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -1117,7 +1117,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        OAElATgBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        QAElAUABJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1167,18 +1167,6 @@
   </data>
   <data name="button_do_not_update_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>994, 637</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 398</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 37</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
-    <value>Jouez des notes alternées dans l'ordre</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
-    <value>Lorsque cette option est sélectionnée, les notes alternées sont commutées dans l'ordre Note 1, Note 2, Note 3 et Note 4</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 448</value>
@@ -1238,6 +1226,18 @@ un piano</value>
   </data>
   <data name="checkBox_use_voice_system.ToolTip" xml:space="preserve">
     <value>Cette option joue les notes sélectionnées du système vocal qui imite les formants vocaux.</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 398</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 37</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
+    <value>Jouez des notes alternées dans l'ordre</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
+    <value>Lorsque cette option est sélectionnée, les notes alternées sont commutées dans l'ordre Note 1, Note 2, Note 3 et Note 4</value>
   </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 647</value>

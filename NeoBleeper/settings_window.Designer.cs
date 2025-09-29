@@ -127,11 +127,11 @@
             label7 = new Label();
             group_indicator_colors = new GroupBox();
             note_indicator_color_change = new Button();
-            label11 = new Label();
             beep_indicator_color_change = new Button();
             label12 = new Label();
             beep_indicator_color = new Panel();
             note_indicator_color = new Panel();
+            label11 = new Label();
             group_lyrics_size_settings = new GroupBox();
             buttonPreviewLyrics = new Button();
             labelPt = new Label();
@@ -1015,12 +1015,6 @@
             note_indicator_color_change.UseVisualStyleBackColor = true;
             note_indicator_color_change.Click += note_indicator_color_change_Click;
             // 
-            // label11
-            // 
-            resources.ApplyResources(label11, "label11");
-            label11.Name = "label11";
-            toolTip1.SetToolTip(label11, resources.GetString("label11.ToolTip"));
-            // 
             // beep_indicator_color_change
             // 
             resources.ApplyResources(beep_indicator_color_change, "beep_indicator_color_change");
@@ -1050,6 +1044,12 @@
             note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
             note_indicator_color.Name = "note_indicator_color";
             toolTip1.SetToolTip(note_indicator_color, resources.GetString("note_indicator_color.ToolTip"));
+            // 
+            // label11
+            // 
+            resources.ApplyResources(label11, "label11");
+            label11.Name = "label11";
+            toolTip1.SetToolTip(label11, resources.GetString("label11.ToolTip"));
             // 
             // group_lyrics_size_settings
             // 
@@ -1247,7 +1247,6 @@
         private FlowLayoutPanel flowLayoutPanelGeneralSettings;
         private Panel panelSystemSpeakerWarnings;
         private GroupBox groupBoxCreateMusicWithAI;
-        private Button buttonResetAPIKey;
         private Button buttonShowHide;
         private Label labelAPIKeyWarning;
         private Label labelAPIKey;
@@ -1289,5 +1288,6 @@
         private Panel beep_indicator_color;
         private Panel note_indicator_color;
         private Button buttonUpdateAPIKey;
+        private Button buttonResetAPIKey;
     }
 }

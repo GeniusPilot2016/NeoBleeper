@@ -147,8 +147,8 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAJkkAAAJNU0Z0AUkBTAIBAREB
-        AAGoAQYBqAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
-        Zf8A/wB0AAMiATEBbgFmAVkB5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
+        AAHIAQYByAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        Zf8A/wB0AAMiATEBaQFmAV8B5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AdkBjAEpAf/gAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wHdAaABUAH/4AACVQFTAaoE/wHyAcUBQwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB
@@ -164,7 +164,7 @@
         qgT/AfYB2QGCAf8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Af8B9gHWAXgF/wPwAf8D8AH/AeUB2QHLAf8B
         qwFiAQ0B/wHDAZIBWgH/A/AB/wPwAf8B3QGgAVAB/+AAAlUBUwGqHP8D8AH/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/Ad0BoAFQAf/gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B
-        ewFvAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
+        cQFrAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
         NQFVAzUBVVwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8D
         RAF7DAACZQFdAewBoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
@@ -552,7 +552,8 @@
     <value>Zeigen</value>
   </data>
   <data name="buttonShowHide.ToolTip" xml:space="preserve">
-    <value>Zeigen Sie den API-Schlüssel im API-Schlüsselfeld an.</value>
+    <value>Zeigen Sie den API-Schlüssel im API-Schlüssel-Feld an.
+Klicken Sie erneut, um ihn auszublenden.</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 84</value>
@@ -613,17 +614,17 @@ Sie erhalten Ihren API-Schlüssel unter https://aistudio.google.com/app/apikey.<
   <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 161</value>
   </data>
-  <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 151</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
-    <value>Bei Kompaktcomputern und Computern unbekannten Typs kann es vorkommen, dass beim Testen des Systemlautsprechers kein Ton zu hören ist oder Instabilität oder unerwünschtes Verhalten auftritt, weil die Hauptlautsprecher möglicherweise an den Systemlautsprecherausgang angeschlossen sind und nicht an den eigentlichen Systemlautsprecher.</value>
-  </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>290, 151</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Das Testen des Systemlautsprechers ist auf Computern ohne Systemlautsprecherausgang oder auf Computern mit einem nicht standardmäßigen Systemlautsprecherausgang nicht möglich.</value>
+  </data>
+  <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 151</value>
+  </data>
+  <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
+    <value>Bei Kompaktcomputern und Computern unbekannten Typs kann es vorkommen, dass beim Testen des Systemlautsprechers kein Ton zu hören ist oder Instabilität oder unerwünschtes Verhalten auftritt, weil die Hauptlautsprecher möglicherweise an den Systemlautsprecherausgang angeschlossen sind und nicht an den eigentlichen Systemlautsprecher.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 665</value>
@@ -1076,12 +1077,6 @@ verwenden</value>
   <data name="note_indicator_color_change.ToolTip" xml:space="preserve">
     <value>Ändern Sie die Farbe der Notenanzeige während der Wiedergabe einer MIDI-Datei im MIDI-Datei-Wiedergabefenster</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 16</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Farbe der Anzeige Piep</value>
-  </data>
   <data name="beep_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 22</value>
   </data>
@@ -1105,6 +1100,12 @@ verwenden</value>
   </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 50</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 16</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Farbe der Anzeige Piep</value>
   </data>
   <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 109</value>

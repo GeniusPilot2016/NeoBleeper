@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lbl_current_system_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 64</value>
+    <value>327, 64</value>
   </data>
   <data name="lbl_current_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 48</value>
+    <value>333, 48</value>
   </data>
   <data name="lbl_current_time.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 16</value>
@@ -131,7 +131,7 @@
     <value>Heure actuelle</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 25</value>
+    <value>-2, 25</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>482, 16</value>
@@ -152,7 +152,7 @@
     <value>43, 67</value>
   </data>
   <data name="groupBox_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>558, 100</value>
+    <value>482, 100</value>
   </data>
   <data name="groupBox_time.Text" xml:space="preserve">
     <value>Il est temps de commencer à jouer à</value>
@@ -161,7 +161,7 @@
     <value>10, 168</value>
   </data>
   <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>445, 85</value>
+    <value>321, 85</value>
   </data>
   <data name="groupBox_position.Text" xml:space="preserve">
     <value>Position à partir de laquelle commencer à jouer</value>
@@ -171,7 +171,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA1AgAAAJNU0Z0AUkBTAIBAQMB
-        AAEUAQEBFAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEsAQEBLAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAf8cAAJnAVkB70QAAWABKAHbAf8BYAEoAdsB/wFgASgB2wH/bAAB/wFmATMC/wFmATMC
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAcgBcAEDAf8ByAFwAQMB
@@ -204,7 +204,7 @@
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAdkBgwEIAf8B2QGDAQgB/wHZAYMB
         CAH/RAABdQE2Ae0B/wF1ATYB7QH/AU0BGwHKAf8BTgEbAcsB/1wAAZkB/wEAAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8cAAHZAYMBCAH/Ay0B
-        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAYAB+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
+        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAXsB+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
         AAEBAQABAQUAAYAXAAP/AQAG/wIAAeABBwH3Af8B/AF/AgAB8AEHAfEB/wH4AT8CAAHwAQ8B8AH/AcAB
         AQIAAfABDwHwAT8B+AE/AgAB8AEPAfABDwHAAQECAAH4AQ8B8AEHAcABAQIAAfwBHwHwAQMB/wE/AgAB
         +AEPAfABAwHAAQECAAHwAQ8B8AEPAf8BPwIAAfABDwHwAR8B/wE/AgAB8AEPAfABfwHAAQECAAHwAQcB
@@ -218,25 +218,40 @@
     <value>6, 28</value>
   </data>
   <data name="button_wait.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 168</value>
+    <value>337, 168</value>
   </data>
   <data name="button_wait.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 40</value>
+    <value>153, 40</value>
   </data>
   <data name="button_wait.Text" xml:space="preserve">
     <value>Commencer à attendre</value>
   </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 16</value>
+  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 40</value>
+    <value>393, 40</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>La lecture synchronisée permet à plusieurs sessions NeoBleeper en cours d'exécution de lire leur musique exactement au même moment.</value>
   </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 16</value>
+  </data>
   <data name="lbl_waiting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 213</value>
+    <value>337, 213</value>
+  </data>
+  <data name="lbl_waiting.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="lbl_waiting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="lbl_waiting.Text" xml:space="preserve">
+    <value>N'est pas en attente actuellement</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>578, 265</value>
+    <value>502, 265</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

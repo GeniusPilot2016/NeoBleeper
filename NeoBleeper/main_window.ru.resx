@@ -178,6 +178,12 @@
   <data name="label_time_signature.Text" xml:space="preserve">
     <value>Размер тактовой частоты</value>
   </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Файл</value>
+  </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 22</value>
   </data>
@@ -245,11 +251,11 @@
   <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
     <value>Конвертировать в GCode</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 20</value>
   </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Файл</value>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Редактировать</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 22</value>
@@ -268,12 +274,6 @@
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Вернуть все изменения к сохраненной версии</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 20</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Редактировать</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 20</value>
@@ -298,7 +298,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFEASYBRAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAFMASYBTAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -694,11 +694,20 @@
   <data name="art.Text" xml:space="preserve">
     <value>Арт</value>
   </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 264</value>
+  </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Пустая строка</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Чистые ноты</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 26</value>
@@ -723,12 +732,6 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Очистить Нота 4</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Чистые ноты</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 26</value>
@@ -772,6 +775,12 @@
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Снимите все отметки</value>
   </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Управление воспроизведением</value>
+  </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>293, 26</value>
   </data>
@@ -789,15 +798,6 @@
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Перестань играть</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Управление воспроизведением</value>
-  </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 264</value>
   </data>
   <data name="label_note_length.Text" xml:space="preserve">
     <value>Длина ноты</value>
@@ -1034,6 +1034,9 @@
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Играть ноту</value>
   </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Добавление ноты</value>
+  </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 20</value>
   </data>
@@ -1076,11 +1079,11 @@
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Добавить заметку в список музыки</value>
   </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Добавление ноты</value>
-  </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>При нажатии клавиши</value>
+  </data>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>При щелчке по строке</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
@@ -1106,8 +1109,8 @@
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Сыграйте Нота 1</value>
   </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>При щелчке по строке</value>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>Когда играет музыка</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
@@ -1133,9 +1136,6 @@
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Сыграйте Нота 2</value>
   </data>
-  <data name="group_music_played.Text" xml:space="preserve">
-    <value>Когда играет музыка</value>
-  </data>
   <data name="group_notes.Text" xml:space="preserve">
     <value>Какие ноты в списке играть</value>
   </data>
@@ -1148,26 +1148,26 @@
   <data name="button_f4.ToolTip" xml:space="preserve">
     <value>Нажмите любую клавишу на этой клавиатуре, чтобы прослушать ноту/добавить ноту в список (в зависимости от опций в левой части окна)</value>
   </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 36</value>
+  </data>
   <data name="lbl_ms.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 16</value>
   </data>
   <data name="lbl_ms.Text" xml:space="preserve">
     <value>мС</value>
   </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 36</value>
+  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 555</value>
+  </data>
+  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 77</value>
   </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 16</value>
   </data>
   <data name="lbl_measure.Text" xml:space="preserve">
     <value>Мера</value>
-  </data>
-  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 555</value>
-  </data>
-  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 77</value>
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 586</value>
@@ -1192,7 +1192,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        7AElAewBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        9AElAfQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

@@ -128,7 +128,7 @@
     <value>Events are being sorted...</value>
   </data>
   <data name="TextCurrentlyNotWaiting" xml:space="preserve">
-    <value>Currently not waiting</value>
+    <value>N'est pas en attente actuellement</value>
   </data>
   <data name="MIDIDeviceErrorTitle" xml:space="preserve">
     <value>MIDI Device Error</value>
@@ -137,7 +137,7 @@
     <value>Generate a lullaby for children</value>
   </data>
   <data name="TextStopWaiting" xml:space="preserve">
-    <value>Stop waiting</value>
+    <value>Arrêtez d'attendre</value>
   </data>
   <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Google Gemini™ API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
@@ -157,7 +157,7 @@
 Do you want to open this file anyway?</value>
   </data>
   <data name="TextStartWaiting" xml:space="preserve">
-    <value>Start waiting</value>
+    <value>Commencer à attendre</value>
   </data>
   <data name="ErrorSavingAPIKey" xml:space="preserve">
     <value>Error saving API key: </value>
@@ -193,7 +193,7 @@ Do you want to open this file anyway?</value>
     <value>This feauture makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
   </data>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
-    <value>Currently waiting</value>
+    <value>En attente actuellement</value>
   </data>
   <data name="icons8-processor-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-processor-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -210,7 +210,7 @@ Do you want to open this file anyway?</value>
     <value>Events are being collected...</value>
   </data>
   <data name="TextHoldedNotes" xml:space="preserve">
-    <value>Notes which are currently being held on:</value>
+    <value>Notes actuellement conservées sur:</value>
   </data>
   <data name="MessageErrorFileOpening" xml:space="preserve">
     <value>Error opening file:</value>
@@ -231,8 +231,8 @@ You can then use this window to control the playback of all instances of NeoBlee
     <value>Use Voice System</value>
   </data>
   <data name="HideAPIKeyToolTip" xml:space="preserve">
-    <value>Hide the API key in the API key field.
-Click again to show it.</value>
+    <value>Masquez la clé API dans le champ dédié.
+Cliquez à nouveau pour la réafficher.</value>
   </data>
   <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -330,8 +330,8 @@ You can choose the sound to play by clicking the 'Change Beat Sound' button.</va
     <value>Compose a jazz melody with a swing rhythm</value>
   </data>
   <data name="ShowAPIKeyToolTip" xml:space="preserve">
-    <value>Show the API key in the API key field.
-Click again to hide it.</value>
+    <value>Afficher la clé API dans le champ prévu à cet effet.
+Cliquez à nouveau pour la masquer.</value>
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -346,7 +346,7 @@ Click again to hide it.</value>
     <value>Empty note list cannot be exported.</value>
   </data>
   <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
-    <value>La respuesta de la IA es nula o está vacía.</value>
+    <value>AI response is null or empty.</value>
   </data>
   <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -373,7 +373,7 @@ Click again to hide it.</value>
     <value>Internet connection is not available. Please check your connection.</value>
   </data>
   <data name="TextPlaying" xml:space="preserve">
-    <value>Playing</value>
+    <value>En cours de lecture</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -422,7 +422,7 @@ When enabled, the position table will not update when the music is playing.
 If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.</value>
   </data>
   <data name="TextMIDIFileLoadingError" xml:space="preserve">
-    <value>Se ha producido un error al cargar el archivo MIDI.</value>
+    <value>An error occurred while loading the MIDI file.</value>
   </data>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Error closing the form: </value>
@@ -445,7 +445,7 @@ If you are experiencing problems with fluidity or skipping while playing the mus
 This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Cacher</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Generate a rock song inspired by The Beatles</value>
@@ -457,13 +457,13 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>This file is not a valid MIDI file, or it is corrupted or is being used by another process.</value>
   </data>
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
-    <value>La creación de música por IA ha fallado: </value>
+    <value>AI music creation failed:</value>
   </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI file loaded successfully.</value>
   </data>
   <data name="TextShow" xml:space="preserve">
-    <value>Show</value>
+    <value>Montrer</value>
   </data>
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>The MIDI file is being loaded...</value>
@@ -472,7 +472,8 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Se ha producido un error al ejecutar la aplicación: </value>
+    <value>An error occurred while running the application:
+</value>
   </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -487,7 +488,7 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>Error starting playback:</value>
   </data>
   <data name="TextStopPlaying" xml:space="preserve">
-    <value>Stop playing</value>
+    <value>Arrêtez de jouer</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
     <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked and "Use MIDI output" checkbox is unchecked.
@@ -565,16 +566,16 @@ You can see the key mappings in the buttons in the top of the window.</value>
     <value> mS</value>
   </data>
   <data name="WholeNote" xml:space="preserve">
-    <value>Whole</value>
+    <value>Entier</value>
   </data>
   <data name="HalfNote" xml:space="preserve">
-    <value>Half</value>
+    <value>Moitié</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
     <value>1/8</value>
   </data>
   <data name="QuarterNote" xml:space="preserve">
-    <value>Quarter</value>
+    <value>Quart</value>
   </data>
   <data name="SixteenthNote" xml:space="preserve">
     <value>1/16</value>
@@ -583,7 +584,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
     <value>1/32</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
-    <value>Dot</value>
+    <value>Pnt</value>
   </data>
   <data name="TripletModifier" xml:space="preserve">
     <value>Tri</value>
@@ -595,9 +596,9 @@ You can see the key mappings in the buttons in the top of the window.</value>
     <value>Spi</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
-    <value>Fer</value>
+    <value>Ptd</value>
   </data>
   <data name="MoreText" xml:space="preserve">
-    <value>({number} More)</value>
+    <value>({number} de Plus)</value>
   </data>
 </root>

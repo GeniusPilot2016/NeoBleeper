@@ -118,36 +118,66 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 638</value>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 26</value>
   </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>Общий</value>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 24</value>
   </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 638</value>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>Thay đổi ngôn ngữ của chương trình</value>
   </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Создание звуков</value>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 16</value>
   </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 638</value>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Ngôn ngữ</value>
   </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Устройства</value>
+  <data name="groupBoxLanguageSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 65</value>
   </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 638</value>
+  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
+    <value>Cài đặt ngôn ngữ</value>
   </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Появление</value>
+  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 20</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
+    <value>Chế độ Bleeper cổ điển</value>
+  </data>
+  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 16</value>
+  </data>
+  <data name="lbl_theme.Text" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="comboBox_theme.Items" xml:space="preserve">
+    <value>Sử dụng giao diện hệ thống</value>
+  </data>
+  <data name="comboBox_theme.Items1" xml:space="preserve">
+    <value>Sáng</value>
+  </data>
+  <data name="comboBox_theme.Items2" xml:space="preserve">
+    <value>Tối</value>
+  </data>
+  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>311, 24</value>
+  </data>
+  <data name="comboBox_theme.ToolTip" xml:space="preserve">
+    <value>Thay đổi chủ đề của chương trình</value>
+  </data>
+  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 82</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>Ngoại hình chung</value>
   </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAJkkAAAJNU0Z0AUkBTAIBAREB
-        AAH0AQYB9AEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEMAQcBDAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATEBbQFmAVwB5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AdkBjAEpAf/gAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB/wPwAf8D
@@ -461,778 +491,715 @@
         BwH/AQEB/wG/AT8BAAEBAwAB/wGDAf8BAQH/Ab8BPwL/AwAD/wEBAf8BvwE/Av8DAAn/AwAL
 </value>
   </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 673</value>
-  </data>
-  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 628</value>
-  </data>
-  <data name="groupBoxLanguageSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 65</value>
-  </data>
-  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
-    <value>Настройки языка</value>
-  </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 26</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 24</value>
-  </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>Изменить язык программы</value>
-  </data>
-  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 16</value>
-  </data>
-  <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 82</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>Общий вид</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 20</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
-    <value>Классический режим Bleeper</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
-    <value>Включить или отключить классический режим Bleeper</value>
-  </data>
-  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 16</value>
-  </data>
-  <data name="lbl_theme.Text" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-  <data name="comboBox_theme.Items" xml:space="preserve">
-    <value>Использовать системную тему</value>
-  </data>
-  <data name="comboBox_theme.Items1" xml:space="preserve">
-    <value>Светлая</value>
-  </data>
-  <data name="comboBox_theme.Items2" xml:space="preserve">
-    <value>Тёмная</value>
-  </data>
-  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 25</value>
-  </data>
-  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 24</value>
-  </data>
-  <data name="comboBox_theme.ToolTip" xml:space="preserve">
-    <value>Изменить тему программы</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 191</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Создавайте музыку с помощью ИИ</value>
-  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 156</value>
+    <value>81, 167</value>
   </data>
   <data name="buttonResetAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 26</value>
+    <value>222, 26</value>
   </data>
   <data name="buttonResetAPIKey.Text" xml:space="preserve">
-    <value>Сброс ключа API Google Gemini™</value>
+    <value>Đặt lại Khóa API Google Gemini™</value>
   </data>
   <data name="buttonResetAPIKey.ToolTip" xml:space="preserve">
-    <value>Сбросьте ключ API, чтобы очистить текущий ключ и ввести новый.</value>
+    <value>Đặt lại khóa API để xóa khóa hiện tại và cho phép bạn nhập khóa mới.</value>
   </data>
   <data name="buttonUpdateAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 126</value>
+    <value>76, 137</value>
   </data>
   <data name="buttonUpdateAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 26</value>
+    <value>232, 26</value>
   </data>
   <data name="buttonUpdateAPIKey.Text" xml:space="preserve">
-    <value>Обновить ключ API Google Gemini™</value>
+    <value>Cập nhật Khóa API Google Gemini™</value>
   </data>
   <data name="buttonUpdateAPIKey.ToolTip" xml:space="preserve">
-    <value>Сохраните ключ API в поле «Ключ API».
-Если вы изменили ключ API, нажмите эту кнопку, чтобы сохранить его.</value>
+    <value>Lưu khóa API vào trường Khóa API.
+Nếu bạn thay đổi khóa API, bạn cần nhấp vào nút này để lưu.</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>221, 43</value>
+    <value>276, 43</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 28</value>
+    <value>95, 28</value>
   </data>
   <data name="buttonShowHide.Text" xml:space="preserve">
-    <value>Показывать</value>
+    <value>Trình diễn</value>
   </data>
   <data name="buttonShowHide.ToolTip" xml:space="preserve">
-    <value>Отобразить ключ API в поле «Ключ API».
-Нажмите ещё раз, чтобы скрыть его.</value>
+    <value>Hiển thị khóa API trong trường khóa API.
+Nhấp lại để ẩn khóa.</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 76</value>
+    <value>45, 80</value>
   </data>
   <data name="labelAPIKeyWarning.Size" type="System.Drawing.Size, System.Drawing">
     <value>292, 48</value>
   </data>
   <data name="labelAPIKeyWarning.Text" xml:space="preserve">
-    <value>   Внимание: в целях безопасности не передавайте свой ключ API Google Gemini™ третьим лицам.</value>
+    <value>     Cảnh báo: Vì lý do bảo mật, không chia sẻ 
+khóa API Google Gemini™ của bạn với 
+bất kỳ ai khác.</value>
   </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 16</value>
+    <value>150, 16</value>
   </data>
   <data name="labelAPIKey.Text" xml:space="preserve">
-    <value>API-ключ Google Gemini™</value>
+    <value>Khóa API Google Gemini™</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 23</value>
+    <value>262, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
-    <value>Установите здесь свой ключ API, чтобы использовать функцию генерации музыки с помощью ИИ.
-Вы можете получить свой ключ API по адресу https://aistudio.google.com/app/apikey.</value>
+    <value>Đặt khóa API của bạn tại đây để sử dụng tính năng tạo nhạc AI.
+Bạn có thể lấy khóa API từ https://aistudio.google.com/app/apikey.</value>
   </data>
-  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 359</value>
+  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 201</value>
   </data>
-  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 128</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Тестирование системного динамика</value>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Tạo nhạc bằng AI</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 22</value>
+    <value>90, 30</value>
   </data>
   <data name="btn_test_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 30</value>
+    <value>173, 30</value>
   </data>
   <data name="btn_test_system_speaker.Text" xml:space="preserve">
-    <value>Тестовая система динамика</value>
+    <value>Loa hệ thống thử nghiệm</value>
   </data>
   <data name="btn_test_system_speaker.ToolTip" xml:space="preserve">
-    <value>Эта кнопка воспроизводит короткую мелодию через системный динамик для проверки системного динамика вашего компьютера.</value>
+    <value>Nút này phát một giai điệu ngắn qua loa hệ thống để kiểm tra loa hệ thống trên máy tính của bạn.</value>
   </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 55</value>
+    <value>36, 63</value>
   </data>
   <data name="label_test_system_speaker_message.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 64</value>
+    <value>292, 48</value>
   </data>
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
-    <value>Если вы не слышите никакого звука, вы можете воспользоваться функцией «Использовать звуковое устройство для создания звукового сигнала».</value>
+    <value>Nếu bạn không nghe thấy bất kỳ âm thanh nào, bạn có thể sử dụng tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp".</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 493</value>
+  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 369</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 126</value>
+  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 122</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Hệ thống kiểm tra loa</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 116</value>
+    <value>374, 85</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
-    <value>Тестирование системного динамика недоступно на компьютерах, не имеющих выхода системного динамика, или на компьютерах с нестандартным выходом системного динамика.</value>
+    <value>Không thể kiểm tra loa hệ thống trên những máy tính không có đầu ra loa hệ thống hoặc trên những máy tính có đầu ra loa hệ thống không chuẩn.</value>
   </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 116</value>
+    <value>374, 85</value>
   </data>
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
-    <value>На компактных компьютерах и компьютерах неизвестного типа вы можете не услышать звук или столкнуться с нестабильностью или нежелательным поведением при проверке системного динамика, поскольку основные динамики могут быть подключены к выходу системного динамика вместо самого системного динамика.</value>
+    <value>Trên máy tính nhỏ gọn và máy tính loại không xác định, bạn có thể không nghe thấy bất kỳ âm thanh nào hoặc có thể gây ra sự bất ổn hoặc hành vi không mong muốn khi kiểm tra loa hệ thống vì loa chính có thể được kết nối với đầu ra loa hệ thống thay vì loa hệ thống thực tế.</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 628</value>
+  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 497</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 95</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>390, 598</value>
+  </data>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 608</value>
+  </data>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>Tổng quan</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 36</value>
+    <value>274, 20</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Text" xml:space="preserve">
-    <value>Использовать звуковое устройство для создания 
-звукового сигнала</value>
+    <value>Sử dụng thiết bị âm thanh để tạo tiếng bíp</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.ToolTip" xml:space="preserve">
-    <value>Используйте звуковое устройство вместо системного динамика для создания звукового сигнала.</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 45</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 269</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Создание звукового сигнала из настроек звукового устройства</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 143</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 122</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 78</value>
+    <value>Sử dụng âm thanh thiết bị để tạo bíp âm thanh</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 68</value>
+    <value>358, 68</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
-    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» постоянно включена, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
+    <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được bật vĩnh viễn vì đầu ra loa hệ thống không được phát hiện hoặc đầu ra loa hệ thống không chuẩn.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 68</value>
+    <value>358, 68</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>368, 78</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 87</value>
+    <value>64, 87</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
-    <value>Покажите причину этой ситуации</value>
+    <value>Trình bày lý do cho tình huống này</value>
   </data>
-  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 35</value>
-  </data>
-  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 102</value>
-  </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Форма тональной волны</value>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 122</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>475, 20</value>
+    <value>225, 20</value>
   </data>
   <data name="radioButton_noise.Text" xml:space="preserve">
-    <value>Шум (для создания звуковых эффектов)Шум (для создания звуковых эффектов)</value>
+    <value>Tiếng ồn (để tạo hiệu ứng âm thanh)</value>
   </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 20</value>
+    <value>101, 20</value>
   </data>
   <data name="radioButton_triangle.Text" xml:space="preserve">
-    <value>Треугольник</value>
+    <value>Hình tam giác</value>
   </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 20</value>
+    <value>42, 20</value>
   </data>
   <data name="radioButton_sine.Text" xml:space="preserve">
-    <value>Синус</value>
+    <value>Sin</value>
   </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 20</value>
+    <value>149, 20</value>
   </data>
   <data name="radioButton_square.Text" xml:space="preserve">
-    <value>Квадрат (по умолчанию)</value>
+    <value>Hình vuông (Mặc định)</value>
   </data>
-  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 628</value>
+  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 102</value>
+  </data>
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Dạng sóng âm thanh</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 255</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Tạo tiếng bíp từ Cài đặt thiết bị âm thanh</value>
+  </data>
+  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>390, 593</value>
+  </data>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 603</value>
+  </data>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Tạo âm thanh</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 20</value>
+    <value>212, 20</value>
   </data>
   <data name="checkBox_use_midi_input.Text" xml:space="preserve">
-    <value>Используйте живой MIDI-вход</value>
+    <value>Sử dụng đầu vào MIDI trực tiếp</value>
   </data>
   <data name="checkBox_use_midi_input.ToolTip" xml:space="preserve">
-    <value>Используйте MIDI-устройство ввода для отправки нот на NeoBleeper.
-Если у вас есть MIDI-клавиатура, вы можете использовать её для воспроизведения нот на NeoBleeper.</value>
-  </data>
-  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 82</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>Устройства ввода MIDI</value>
+    <value>Sử dụng thiết bị đầu vào MIDI để gửi nốt nhạc đến NeoBleeper.</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>235, 37</value>
+    <value>247, 37</value>
   </data>
   <data name="refresh_midi_input_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 26</value>
+    <value>130, 26</value>
   </data>
   <data name="refresh_midi_input_button.Text" xml:space="preserve">
-    <value>Обновить</value>
+    <value>Làm cho khỏe lại</value>
   </data>
   <data name="refresh_midi_input_button.ToolTip" xml:space="preserve">
-    <value>Обновить список устройств ввода MIDI</value>
+    <value>Làm mới danh sách các thiết bị đầu vào MIDI</value>
   </data>
   <data name="comboBox_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 24</value>
+    <value>236, 24</value>
   </data>
   <data name="comboBox_midi_input_devices.ToolTip" xml:space="preserve">
-    <value>Выберите MIDI-устройство ввода, которое вы хотите использовать.
-Если у вас несколько устройств, выберите то, которое вы хотите использовать для ввода.</value>
+    <value>Chọn thiết bị đầu vào MIDI bạn muốn sử dụng.
+Nếu bạn có nhiều thiết bị, hãy chọn thiết bị bạn muốn sử dụng để nhập.</value>
   </data>
   <data name="label_midi_input_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 16</value>
+    <value>152, 16</value>
   </data>
   <data name="label_midi_input_device.Text" xml:space="preserve">
-    <value>Выберите устройство ввода MIDI</value>
+    <value>Chọn thiết bị đầu vào MIDI</value>
   </data>
-  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 144</value>
+  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 82</value>
   </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>Устройства вывода MIDI</value>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>Thiết bị đầu vào MIDI</value>
+  </data>
+  <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 20</value>
+  </data>
+  <data name="checkBox_use_midi_output.Text" xml:space="preserve">
+    <value>Sử dụng đầu ra MIDI</value>
+  </data>
+  <data name="checkBox_use_midi_output.ToolTip" xml:space="preserve">
+    <value>Sử dụng thiết bị đầu ra MIDI để chơi các nốt nhạc.
+Điều này sẽ cho phép bạn sử dụng các thiết bị MIDI bên ngoài hoặc phần mềm tổng hợp.</value>
+  </data>
+  <data name="comboBox_midi_output_instrument.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 102</value>
   </data>
   <data name="comboBox_midi_output_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 24</value>
+    <value>311, 24</value>
   </data>
   <data name="comboBox_midi_output_instrument.ToolTip" xml:space="preserve">
-    <value>Выберите инструмент, который будет использоваться для MIDI-вывода.
-Этот инструмент будет использоваться для всех MIDI-выводов.</value>
+    <value>Chọn nhạc cụ sẽ được sử dụng cho đầu ra MIDI
+Nhạc cụ sẽ được sử dụng cho tất cả đầu ra MIDI.</value>
+  </data>
+  <data name="comboBox_midi_output_channel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 75</value>
   </data>
   <data name="comboBox_midi_output_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 24</value>
+    <value>254, 24</value>
   </data>
   <data name="comboBox_midi_output_channel.ToolTip" xml:space="preserve">
-    <value>Выберите MIDI-канал для вывода.
-Если вы не уверены, оставьте всё как есть.</value>
-  </data>
-  <data name="label_instrument.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 105</value>
+    <value>Chọn kênh MIDI để xuất.
+Nếu bạn không chắc chắn, hãy giữ nguyên.</value>
   </data>
   <data name="label_instrument.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 16</value>
+    <value>53, 16</value>
   </data>
   <data name="label_instrument.Text" xml:space="preserve">
-    <value>Инструмент</value>
-  </data>
-  <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 78</value>
+    <value>Dụng cụ</value>
   </data>
   <data name="label_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 16</value>
+    <value>36, 16</value>
   </data>
   <data name="label_channel.Text" xml:space="preserve">
-    <value>Канал</value>
+    <value>Kênh</value>
   </data>
   <data name="refresh_midi_output_button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>235, 37</value>
+    <value>247, 37</value>
   </data>
   <data name="refresh_midi_output_button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 26</value>
+    <value>130, 26</value>
   </data>
   <data name="refresh_midi_output_button.Text" xml:space="preserve">
-    <value>Обновить</value>
+    <value>Làm cho khỏe lại</value>
   </data>
   <data name="refresh_midi_output_button.ToolTip" xml:space="preserve">
-    <value>Обновить список устройств вывода MIDI</value>
+    <value>Làm mới danh sách các thiết bị đầu ra MIDI</value>
   </data>
   <data name="comboBox_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 24</value>
+    <value>236, 24</value>
   </data>
   <data name="comboBox_midi_output_devices.ToolTip" xml:space="preserve">
-    <value>Выберите выходное MIDI-устройство для отправки нот.
-Если у вас подключено MIDI-устройство, оно должно появиться здесь.</value>
+    <value>Chọn thiết bị đầu ra MIDI để sử dụng cho việc gửi ghi chú.
+Nếu bạn đã kết nối thiết bị MIDI, thiết bị đó sẽ xuất hiện ở đây.</value>
   </data>
   <data name="label_midi_output_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 16</value>
+    <value>142, 16</value>
   </data>
   <data name="label_midi_output_device.Text" xml:space="preserve">
-    <value>Выберите выходное MIDI-устройство</value>
+    <value>Chọn thiết bị đầu ra MIDI</value>
   </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 170</value>
+  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 144</value>
   </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Другие устройства</value>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>Thiết bị đầu ra MIDI</value>
   </data>
   <data name="trackBar_motor_octave.ToolTip" xml:space="preserve">
-    <value>Установите октаву для двигателя.
-Двигатель будет работать на скорости, соответствующей выбранной октаве.
-0 = минимальная скорость, 5 = максимальная скорость.</value>
+    <value>Đặt quãng tám cho động cơ.
+Động cơ sẽ chạy ở tốc độ tương ứng với quãng tám đã chọn.
+0 = tốc độ thấp nhất, 5 = tốc độ cao nhất.</value>
   </data>
   <data name="label_motor_speed_mod.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 15</value>
+    <value>115, 15</value>
   </data>
   <data name="label_motor_speed_mod.Text" xml:space="preserve">
-    <value>Мотор Октава</value>
-  </data>
-  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 62</value>
-  </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Тип устройства</value>
+    <value>Quãng tám động cơ</value>
   </data>
   <data name="radioButtonBuzzer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 20</value>
+    <value>92, 20</value>
   </data>
   <data name="radioButtonBuzzer.Text" xml:space="preserve">
-    <value>Зуммер</value>
+    <value>Chuông báo</value>
   </data>
   <data name="radioButtonBuzzer.ToolTip" xml:space="preserve">
-    <value>Зуммер — это устройство, издающее звук посредством вибрации мембраны или пьезоэлектрического элемента.
-Он часто используется в будильниках, таймерах и других устройствах, требующих звукового сигнала.</value>
+    <value>Còi báo động là một thiết bị có thể tạo ra âm thanh bằng cách rung màng loa hoặc một thành phần áp điện.
+Thiết bị này thường được sử dụng trong báo thức, bộ hẹn giờ và các thiết bị khác cần phát ra âm thanh.</value>
   </data>
   <data name="radioButtonMotor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 20</value>
+    <value>71, 20</value>
   </data>
   <data name="radioButtonMotor.Text" xml:space="preserve">
-    <value>Мотор</value>
+    <value>Động cơ</value>
   </data>
   <data name="radioButtonMotor.ToolTip" xml:space="preserve">
-    <value>Мотор используется для создания тонов путем изменения скорости двигателя.</value>
+    <value>Động cơ được sử dụng để tạo ra âm thanh bằng cách thay đổi tốc độ của động cơ.</value>
+  </data>
+  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 62</value>
+  </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Loại thiết bị</value>
   </data>
   <data name="checkBox_use_microcontroller.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 38</value>
+    <value>373, 38</value>
   </data>
   <data name="checkBox_use_microcontroller.Text" xml:space="preserve">
-    <value>Используйте модификатор скорости двигателя или зуммер (через Arduino, Raspberry Pi или ESP32)</value>
+    <value>Sử dụng mod tốc độ động cơ hoặc còi báo động (thông qua Arduino, Raspberry Pi hoặc ESP32)</value>
   </data>
   <data name="checkBox_use_microcontroller.ToolTip" xml:space="preserve">
-    <value>Используйте микроконтроллер для управления двигателем или зуммером.
-Если вы используете двигатель, вы можете управлять его скоростью с помощью ползунка модуляции скорости двигателя.</value>
+    <value>Sử dụng vi điều khiển để sử dụng với động cơ hoặc còi báo động.
+Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ của nó bằng thanh trượt điều chỉnh tốc độ động cơ.</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 628</value>
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 170</value>
   </data>
-  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 103</value>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Các thiết bị khác</value>
   </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Цвета клавиатуры</value>
+  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>390, 593</value>
+  </data>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 603</value>
+  </data>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Thiết bị</value>
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 70</value>
+    <value>301, 70</value>
   </data>
   <data name="third_octave_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="third_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет третьей октавы</value>
+    <value>Thay đổi màu của quãng tám thứ ba</value>
   </data>
   <data name="second_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 46</value>
+    <value>301, 46</value>
   </data>
   <data name="second_octave_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="second_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет второй октавы</value>
+    <value>Thay đổi màu của quãng tám thứ hai</value>
   </data>
   <data name="first_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 22</value>
+    <value>301, 22</value>
   </data>
   <data name="first_octave_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="first_octave_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет первой октавы</value>
+    <value>Thay đổi màu của quãng tám đầu tiên</value>
   </data>
   <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>183, 74</value>
+    <value>234, 74</value>
   </data>
   <data name="third_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>183, 50</value>
+    <value>234, 50</value>
   </data>
   <data name="second_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>183, 26</value>
+    <value>234, 26</value>
   </data>
   <data name="first_octave_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 16</value>
+    <value>86, 16</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>Цвет третьей октавы</value>
+    <value>Màu quãng ba</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 16</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Цвет второй октавы</value>
+    <value>Màu quãng tám thứ hai</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 16</value>
+    <value>141, 16</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Цвет первой октавы</value>
+    <value>Màu quãng tám đầu tiên</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 196</value>
+  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Цвета кнопок и элементов управления</value>
+  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 103</value>
+  </data>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Màu sắc bàn phím</value>
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 165</value>
+    <value>301, 165</value>
   </data>
   <data name="markup_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="markup_color_change.ToolTip" xml:space="preserve">
-    <value>Изменение цвета разметки клавиатуры при использовании функции «Использовать клавиатуру как пианино»</value>
+    <value>Thay đổi màu đánh dấu bàn phím khi sử dụng tính năng "Sử dụng bàn phím làm đàn piano"</value>
   </data>
   <data name="metronome_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 139</value>
+    <value>301, 139</value>
   </data>
   <data name="metronome_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="metronome_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет кнопки «Метроном» при включении</value>
+    <value>Thay đổi màu của nút "Metronome" khi được bật</value>
   </data>
   <data name="playback_buttons_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 115</value>
+    <value>301, 115</value>
   </data>
   <data name="playback_buttons_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="playback_buttons_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвета кнопок «Воспроизвести все», «Воспроизвести с выбранной строки» и «Остановить воспроизведение»</value>
+    <value>Thay đổi màu của các nút "Phát tất cả", "Phát từ dòng đã chọn" và "Dừng phát"</value>
   </data>
   <data name="erase_whole_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 91</value>
+    <value>301, 91</value>
   </data>
   <data name="erase_whole_line_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="erase_whole_line_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет кнопки «Стереть всю строку»</value>
+    <value>Thay đổi màu của nút "Xóa toàn bộ dòng"</value>
   </data>
   <data name="unselect_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 67</value>
+    <value>301, 67</value>
   </data>
   <data name="unselect_line_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="unselect_line_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет кнопки «Отменить выбор линии»</value>
+    <value>Thay đổi màu của nút "Bỏ chọn dòng"</value>
   </data>
   <data name="clear_notes_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 43</value>
+    <value>301, 43</value>
   </data>
   <data name="clear_notes_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="clear_notes_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет кнопок «Очистить заметку 1», «Очистить заметку 2», «Очистить заметку 3» и «Очистить заметку 4»</value>
+    <value>Thay đổi màu của các nút "Xóa nốt 1", "Xóa nốt 2", "Xóa nốt 3" và "Xóa nốt 4"</value>
   </data>
   <data name="blank_line_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 20</value>
+    <value>301, 20</value>
   </data>
   <data name="blank_line_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="blank_line_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет кнопки «Пустая строка»</value>
+    <value>Thay đổi màu của nút "Dòng trống"</value>
   </data>
   <data name="markup_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 169</value>
+    <value>233, 169</value>
   </data>
   <data name="markup_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 143</value>
+    <value>233, 143</value>
   </data>
   <data name="metronome_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 119</value>
+    <value>233, 119</value>
   </data>
   <data name="playback_buttons_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 95</value>
+    <value>233, 95</value>
   </data>
   <data name="erase_whole_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 71</value>
+    <value>233, 71</value>
   </data>
   <data name="unselect_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 47</value>
+    <value>233, 47</value>
   </data>
   <data name="clear_notes_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 24</value>
+    <value>233, 24</value>
   </data>
   <data name="blank_line_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>56, 16</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 15</value>
+    <value>140, 16</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Цвет разметки клавиатуры</value>
-  </data>
-  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Màu đánh dấu bàn phím</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 15</value>
+    <value>155, 16</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
-    <value>Цвет метронома</value>
-  </data>
-  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Màu sắc của máy đếm nhịp</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 15</value>
+    <value>117, 16</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Цвет кнопок воспроизведения</value>
-  </data>
-  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Màu sắc nút phát lại</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 15</value>
+    <value>155, 16</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>Стереть весь цвет линии</value>
-  </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Xóa toàn bộ màu đường kẻ</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 15</value>
+    <value>133, 16</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Отменить выбор цвета линии</value>
-  </data>
-  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Bỏ chọn màu đường kẻ</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 15</value>
+    <value>99, 16</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Очистить цвет заметок</value>
-  </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 7.8pt</value>
+    <value>Xóa ghi chú màu</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 15</value>
+    <value>94, 16</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>Цвет пустой строки</value>
+    <value>Màu dòng trống</value>
   </data>
-  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 80</value>
+  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 109</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Цвета индикаторов</value>
+  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 196</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Màu sắc của các nút và điều khiển</value>
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 46</value>
+    <value>301, 46</value>
   </data>
   <data name="note_indicator_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="note_indicator_color_change.ToolTip" xml:space="preserve">
-    <value>Изменение цвета индикатора ноты во время воспроизведения MIDI-файла в окне воспроизведения MIDI-файла</value>
+    <value>Thay đổi màu của chỉ báo nốt nhạc khi phát tệp MIDI trong cửa sổ phát tệp MIDI</value>
   </data>
   <data name="beep_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 22</value>
+    <value>301, 22</value>
   </data>
   <data name="beep_indicator_color_change.Text" xml:space="preserve">
-    <value>Изменять</value>
+    <value>Thay đổi</value>
   </data>
   <data name="beep_indicator_color_change.ToolTip" xml:space="preserve">
-    <value>Изменить цвет индикатора звукового сигнала представителя при воспроизведении музыки из списка в главном окне</value>
+    <value>Thay đổi màu của đèn báo tiếng bíp đại diện khi phát nhạc từ danh sách trong cửa sổ chính</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 16</value>
+    <value>107, 16</value>
   </data>
   <data name="label12.Text" xml:space="preserve">
-    <value>Цвет индикатора Нота</value>
+    <value>Lưu ý Màu chỉ báo</value>
   </data>
   <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 26</value>
+    <value>233, 26</value>
   </data>
   <data name="beep_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 50</value>
+    <value>233, 50</value>
   </data>
   <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 16</value>
+    <value>56, 16</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 16</value>
+    <value>99, 16</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
-    <value>Цвет индикатора бип</value>
+    <value>Màu đèn báo bíp</value>
   </data>
-  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 111</value>
+  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 309</value>
   </data>
-  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
-    <value>Тексты песен/текстовые события</value>
+  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 80</value>
+  </data>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Màu chỉ báo</value>
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 59</value>
+    <value>53, 57</value>
   </data>
   <data name="buttonPreviewLyrics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 48</value>
+    <value>280, 26</value>
   </data>
   <data name="buttonPreviewLyrics.Text" xml:space="preserve">
-    <value>Настройки текстов песен/текстовых событий предварительного просмотра</value>
-  </data>
-  <data name="buttonPreviewLyrics.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+    <value>Xem trước Cài đặt sự kiện lời bài hát/văn bản</value>
   </data>
   <data name="labelPt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 33</value>
-  </data>
-  <data name="labelPt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 16</value>
-  </data>
-  <data name="labelPt.Text" xml:space="preserve">
-    <value>пт</value>
+    <value>293, 27</value>
   </data>
   <data name="numericUpDownLyricsSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>183, 30</value>
+    <value>233, 24</value>
   </data>
   <data name="numericUpDownLyricsSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 23</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 24</value>
+    <value>56, 23</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 32</value>
+    <value>218, 16</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
-    <value>Размер текстов/
-текстовых событий</value>
+    <value>Lời bài hát/Sự kiện văn bản Kích thước</value>
   </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 509</value>
+  <data name="group_lyrics_size_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 393</value>
   </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 55</value>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 88</value>
   </data>
-  <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 7</value>
-  </data>
-  <data name="reset_appearance_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 42</value>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Sự kiện Lời bài hát/Văn bản</value>
   </data>
   <data name="reset_appearance_settings.Text" xml:space="preserve">
-    <value>Сбросить настройки внешнего вида до значений по умолчанию</value>
+    <value>Đặt lại cài đặt giao diện về giá trị mặc định</value>
   </data>
-  <data name="reset_appearance_settings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
+    <value>Đặt lại tất cả cài đặt giao diện về giá trị mặc định</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 486</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>390, 593</value>
+  </data>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 603</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Vẻ bề ngoài</value>
+  </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>408, 643</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>368, 681</value>
+    <value>416, 651</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1555,6 +1522,6 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Настройки NeoBleeper</value>
+    <value>Cài đặt NeoBleeper</value>
   </data>
 </root>

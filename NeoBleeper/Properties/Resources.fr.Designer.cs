@@ -22,14 +22,14 @@ namespace NeoBleeper.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Resources_fr {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources_fr() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NeoBleeper.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NeoBleeper.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NeoBleeper.Properties.Resources - Kopyala", typeof(Resources_fr).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,8 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Se ha producido un error al ejecutar la aplicación:  benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occurred while running the application:
+        /// benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccuredWhileRunningApplication {
             get {
@@ -800,7 +801,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   La creación de música por IA ha fallado:  benzeri yerelleştirilmiş bir dize arar.
+        ///   AI music creation failed: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIMusicCreationFailed {
             get {
@@ -809,7 +810,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   La respuesta de la IA es nula o está vacía. benzeri yerelleştirilmiş bir dize arar.
+        ///   AI response is null or empty. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIResponseNullOrEmpty {
             get {
@@ -1332,7 +1333,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Se ha producido un error al cargar el archivo MIDI. benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occurred while loading the MIDI file. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextMIDIFileLoadingError {
             get {

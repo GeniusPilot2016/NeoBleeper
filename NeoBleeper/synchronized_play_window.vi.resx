@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lbl_current_system_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 65</value>
+    <value>327, 65</value>
   </data>
   <data name="lbl_current_time.Location" type="System.Drawing.Point, System.Drawing">
-    <value>301, 49</value>
+    <value>326, 49</value>
   </data>
   <data name="lbl_current_time.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 16</value>
@@ -131,7 +131,7 @@
     <value>Thời gian hiện tại</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 22</value>
+    <value>44, 22</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 16</value>
@@ -149,13 +149,13 @@
     <value>Chọn thời gian</value>
   </data>
   <data name="groupBox_time.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 103</value>
+    <value>482, 103</value>
   </data>
   <data name="groupBox_time.Text" xml:space="preserve">
     <value>Đến giờ bắt đầu chơi rồi</value>
   </data>
   <data name="groupBox_position.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 70</value>
+    <value>333, 70</value>
   </data>
   <data name="groupBox_position.Text" xml:space="preserve">
     <value>Vị trí bắt đầu chơi</value>
@@ -165,7 +165,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA1AgAAAJNU0Z0AUkBTAIBAQMB
-        AAE0AQEBNAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFMAQEBTAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AAf8BzAGZAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAf8cAAJnAVkB70QAAWABKAHbAf8BYAEoAdsB/wFgASgB2wH/bAAB/wFmATMC/wFmATMC
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAcgBcAEDAf8ByAFwAQMB
@@ -198,7 +198,7 @@
         /wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMC/wFmATMB/xwAAdkBgwEIAf8B2QGDAQgB/wHZAYMB
         CAH/RAABdQE2Ae0B/wF1ATYB7QH/AU0BGwHKAf8BTgEbAcsB/1wAAZkB/wEAAf8BmQH/AQAB/wGZAf8B
         AAH/AZkB/wEAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8cAAHZAYMBCAH/Ay0B
-        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAYEB+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
+        RUgAAxEBFgF1ATYB7QH/AU0BGwHKAf8BTQFBAX0B+f8A/wBSAAFCAU0BPgcAAT4DAAEoAwABQAMAARAD
         AAEBAQABAQUAAYAXAAP/AQAG/wIAAeABBwH3Af8B/AF/AgAB8AEHAfEB/wH4AT8CAAHwAQ8B8AH/AcAB
         AQIAAfABDwHwAT8B+AE/AgAB8AEPAfABDwHAAQECAAH4AQ8B8AEHAcABAQIAAfwBHwHwAQMB/wE/AgAB
         +AEPAfABAwHAAQECAAHwAQ8B8AEPAf8BPwIAAfABDwHwAR8B/wE/AgAB8AEPAfABfwHAAQECAAHwAQcB
@@ -218,34 +218,34 @@
     <value>Bắt đầu danh sách nhạc</value>
   </data>
   <data name="button_wait.Location" type="System.Drawing.Point, System.Drawing">
-    <value>344, 171</value>
+    <value>349, 171</value>
   </data>
   <data name="button_wait.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 36</value>
+    <value>143, 36</value>
   </data>
   <data name="button_wait.Text" xml:space="preserve">
     <value>Bắt đầu chờ đợi</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>348, 32</value>
+    <value>373, 32</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Tính năng Synchronized Play cho phép nhiều phiên NeoBleeper chạy cùng lúc phát nhạc.</value>
   </data>
   <data name="lbl_waiting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>344, 213</value>
+    <value>349, 213</value>
   </data>
   <data name="lbl_waiting.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>150, 40</value>
   </data>
   <data name="lbl_waiting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 40</value>
+    <value>141, 40</value>
   </data>
   <data name="lbl_waiting.Text" xml:space="preserve">
     <value>Hiện tại không chờ đợi</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>477, 265</value>
+    <value>502, 265</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
