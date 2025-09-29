@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label59.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 19</value>
+  </data>
+  <data name="label59.Text" xml:space="preserve">
+    <value>Groupe de chaînes</value>
+  </data>
+  <data name="label60.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 19</value>
+  </data>
+  <data name="label60.Text" xml:space="preserve">
+    <value>DSP comme filtre</value>
+  </data>
+  <data name="label61.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 19</value>
+  </data>
+  <data name="label61.Text" xml:space="preserve">
+    <value>DSP comme oscillateur</value>
+  </data>
+  <data name="label62.Text" xml:space="preserve">
+    <value>Ra = Portée</value>
+  </data>
+  <data name="label64.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 19</value>
+  </data>
+  <data name="label64.Text" xml:space="preserve">
+    <value>Hz = Fréquence (Hertz)</value>
+  </data>
+  <data name="groupBoxKey.Text" xml:space="preserve">
+    <value>Clé</value>
+  </data>
+  <data name="comboBoxNote1Option.Items" xml:space="preserve">
+    <value>Système vocal</value>
+  </data>
+  <data name="comboBoxNote1Option.Items1" xml:space="preserve">
+    <value>Bip du haut-parleur/de l'appareil audio</value>
+  </data>
+  <data name="comboBoxNote2Option.Items" xml:space="preserve">
+    <value>Système vocal</value>
+  </data>
+  <data name="comboBoxNote2Option.Items1" xml:space="preserve">
+    <value>Bip du haut-parleur/de l'appareil audio</value>
+  </data>
+  <data name="comboBoxNote3Option.Items" xml:space="preserve">
+    <value>Système vocal</value>
+  </data>
+  <data name="comboBoxNote3Option.Items1" xml:space="preserve">
+    <value>Bip du haut-parleur/de l'appareil audio</value>
+  </data>
+  <data name="comboBoxNote4Option.Items" xml:space="preserve">
+    <value>Système vocal</value>
+  </data>
+  <data name="comboBoxNote4Option.Items1" xml:space="preserve">
+    <value>Bip du haut-parleur/de l'appareil audio</value>
+  </data>
+  <data name="groupBoxOutputOptions.Text" xml:space="preserve">
+    <value>Options de sortie</value>
+  </data>
+  <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
+    <value>168, 25</value>
+  </data>
+  <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 16</value>
+  </data>
+  <data name="label53.Text" xml:space="preserve">
+    <value>Pas</value>
+  </data>
+  <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
+    <value>160, 77</value>
+  </data>
+  <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 16</value>
+  </data>
+  <data name="label54.Text" xml:space="preserve">
+    <value>Portée</value>
+  </data>
+  <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
+    <value>Variations aléatoires des formants</value>
+  </data>
+  <data name="labelSybillanceMasking.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="labelSybillanceMasking.Text" xml:space="preserve">
+    <value>Masquage Sybillance</value>
+  </data>
+  <data name="labelCutoff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 7</value>
+  </data>
+  <data name="labelCutoff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 22</value>
+  </data>
+  <data name="labelCutoff.Text" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="label49.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="label49.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 16</value>
+  </data>
+  <data name="label49.Text" xml:space="preserve">
+    <value>Couper Hz</value>
+  </data>
+  <data name="labelOscillator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 7</value>
+  </data>
+  <data name="labelOscillator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 22</value>
+  </data>
+  <data name="labelOscillator.Text" xml:space="preserve">
+    <value>Oscillateur</value>
+  </data>
+  <data name="labelSaw.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 22</value>
+  </data>
+  <data name="labelSaw.Text" xml:space="preserve">
+    <value>Scie</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Scie Vol</value>
+  </data>
+  <data name="labelNoise.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 7</value>
+  </data>
+  <data name="labelNoise.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 22</value>
+  </data>
+  <data name="labelNoise.Text" xml:space="preserve">
+    <value>Bruit</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 0</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 16</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Bruit Vol</value>
+  </data>
+  <data name="labelVoice.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 7</value>
+  </data>
+  <data name="labelVoice.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 22</value>
+  </data>
+  <data name="labelVoice.Text" xml:space="preserve">
+    <value>Voix</value>
+  </data>
+  <data name="buttonCloseFront.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 233</value>
+  </data>
+  <data name="buttonCloseFront.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="buttonCloseFront.Text" xml:space="preserve">
+    <value>Fermer devant</value>
+  </data>
+  <data name="buttonCloseBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>175, 233</value>
+  </data>
+  <data name="buttonCloseBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="buttonCloseBack.Text" xml:space="preserve">
+    <value>Fermer le dos</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonOpenVowel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonOpenVowel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 233</value>
+  </data>
+  <data name="buttonOpenVowel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="buttonOpenVowel.Text" xml:space="preserve">
+    <value>Voyelle ouverte</value>
+  </data>
+  <data name="buttonMidFront.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 233</value>
+  </data>
+  <data name="buttonMidFront.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="buttonMidFront.Text" xml:space="preserve">
+    <value>Milieu devant</value>
+  </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 195</value>
+  </data>
+  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 151</value>
+  </data>
+  <data name="labelFormant4Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant4Hz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 133</value>
+  </data>
+  <data name="label19.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelFormant4Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant4Vol.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 133</value>
+  </data>
+  <data name="trackBarFormant4Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant4Vol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="trackBarFormant4Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant4Hz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 151</value>
+  </data>
+  <data name="labelFormant3Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant3Hz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 133</value>
+  </data>
+  <data name="label25.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelFormant3Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant3Vol.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 133</value>
+  </data>
+  <data name="trackBarFormant3Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant3Vol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="trackBarFormant3Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant3Hz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 151</value>
+  </data>
+  <data name="labelFormant2Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant2Hz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 133</value>
+  </data>
+  <data name="label29.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelFormant2Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant2Vol.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 133</value>
+  </data>
+  <data name="trackBarFormant2Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant2Vol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="trackBarFormant2Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant2Hz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="panel13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 151</value>
+  </data>
+  <data name="labelFormant1Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant1Hz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 133</value>
+  </data>
+  <data name="labelFormant1Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="labelFormant1Vol.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 133</value>
+  </data>
+  <data name="trackBarFormant1Hz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant1Hz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="trackBarFormant1Vol.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="trackBarFormant1Vol.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 111</value>
+  </data>
+  <data name="label33.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="buttonOpenBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>339, 233</value>
+  </data>
+  <data name="buttonOpenBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 42</value>
+  </data>
+  <data name="buttonOpenBack.Text" xml:space="preserve">
+    <value>Dos ouvert</value>
+  </data>
+  <data name="labelFormantControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 7</value>
+  </data>
+  <data name="labelFormantControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 22</value>
+  </data>
+  <data name="labelFormantControl.Text" xml:space="preserve">
+    <value>Contrôle des Formants</value>
+  </data>
+  <data name="groupBoxPlayVoiceOnLineSettings.Text" xml:space="preserve">
+    <value>Options de lecture vocale en ligne</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 16</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Quand jouer de la voix</value>
+  </data>
+  <data name="comboBoxPlayNoteOnLineOption.Items" xml:space="preserve">
+    <value>Écouter la voix sur toutes les lignes</value>
+  </data>
+  <data name="comboBoxPlayNoteOnLineOption.Items1" xml:space="preserve">
+    <value>Écouter la voix sur les lignes sélectionnées</value>
+  </data>
+  <data name="comboBoxPlayNoteOnLineOption.Location" type="System.Drawing.Point, System.Drawing">
+    <value>149, 27</value>
+  </data>
+  <data name="comboBoxPlayNoteOnLineOption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 24</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Internes de la Voix</value>
+  </data>
+</root>

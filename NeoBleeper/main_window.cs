@@ -465,27 +465,27 @@ namespace NeoBleeper
         {
             if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
             {
-                Line.length = "1/32";
+                Line.length = Resources.ThirtySecondNote;
             }
             if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
             {
-                Line.length = "1/16";
+                Line.length = Resources.SixteenthNote;
             }
             if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
             {
-                Line.length = "1/8";
+                Line.length = Resources.EighthNote;
             }
             if (comboBox_note_length.SelectedIndex == 2)
             {
-                Line.length = "Quarter";
+                Line.length = Resources.QuarterNote;
             }
             if (comboBox_note_length.SelectedIndex == 1)
             {
-                Line.length = "Half";
+                Line.length = Resources.HalfNote;
             }
             if (comboBox_note_length.SelectedIndex == 0)
             {
-                Line.length = "Whole";
+                Line.length = Resources.WholeNote;
             }
             string[] note_line = { Line.length, Line.note1, Line.note2, Line.note3, Line.note4, Line.mod, Line.art };
             var listViewItem = new ListViewItem(note_line);
@@ -566,27 +566,27 @@ namespace NeoBleeper
             {
                 if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
                 {
-                    Line.length = "1/32";
+                    Line.length = Resources.ThirtySecondNote;
                 }
                 if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
                 {
-                    Line.length = "1/16";
+                    Line.length = Resources.SixteenthNote;
                 }
                 if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
                 {
-                    Line.length = "1/8";
+                    Line.length = Resources.EighthNote;
                 }
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[2])
+                if (comboBox_note_length.SelectedIndex == 2)
                 {
-                    Line.length = "Quarter";
+                    Line.length = Resources.QuarterNote;
                 }
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[1])
+                if (comboBox_note_length.SelectedIndex == 1)
                 {
-                    Line.length = "Half";
+                    Line.length = Resources.HalfNote;
                 }
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[0])
+                if (comboBox_note_length.SelectedIndex == 0)
                 {
-                    Line.length = "Whole";
+                    Line.length = Resources.WholeNote;
                 }
                 var replaceLengthCommand = new ReplaceLengthCommand(listViewNotes, Line.length);
                 commandManager.ExecuteCommand(replaceLengthCommand);
@@ -1620,13 +1620,13 @@ namespace NeoBleeper
 
                     foreach (var line in projectFile.LineList.Lines)
                     {
-                        ListViewItem item = new ListViewItem(line.Length);
+                        ListViewItem item = new ListViewItem(convertNoteLengthIntoLocalized(line.Length));
                         item.SubItems.Add(line.Note1);
                         item.SubItems.Add(line.Note2);
                         item.SubItems.Add(line.Note3);
                         item.SubItems.Add(line.Note4);
-                        item.SubItems.Add(line.Mod);
-                        item.SubItems.Add(line.Art);
+                        item.SubItems.Add(convertModifiersIntoLocalized(line.Mod));
+                        item.SubItems.Add(convertArticulationsIntoLocalized(line.Art));
                         listViewNotes.Items.Add(item);
                     }
                     isModified = false;
@@ -1640,6 +1640,52 @@ namespace NeoBleeper
                 MessageBox.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private string convertNoteLengthIntoLocalized(string noteLength)
+        {
+            switch (noteLength)
+            {
+                case "Whole":
+                    return Resources.WholeNote;
+                case "Half":
+                    return Resources.HalfNote;
+                case "Quarter":
+                    return Resources.QuarterNote;
+                case "1/8":
+                    return Resources.EighthNote;
+                case "1/16":
+                    return Resources.SixteenthNote;
+                case "1/32":
+                    return Resources.ThirtySecondNote;
+                default:
+                    return Resources.WholeNote;
+            }
+        }
+        private string convertModifiersIntoLocalized(string modifier)
+        {
+            switch(modifier)
+            {
+                case "Dot":
+                    return Resources.DottedModifier;
+                case "Tri":
+                    return Resources.TripletModifier;
+                default:
+                    return string.Empty;
+            }
+        }
+        private string convertArticulationsIntoLocalized(string articulation)
+        {
+            switch(articulation)
+            {
+                case "Sta":
+                    return Resources.StaccatoArticulation;
+                case "Spi":
+                    return Resources.SpiccatoArticulation;
+                case "Fer":
+                    return Resources.FermataArticulation;
+                default:
+                    return string.Empty;
+            }
+        }
         private void FileParser(string filename)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
@@ -1650,7 +1696,7 @@ namespace NeoBleeper
             string first_line = File.ReadLines(filename).First().Trim();
             switch (first_line)
             {
-                case "Bleeper Music Maker by Robbi-985 file format":
+                case "Bleeper Music Maker by Robbi-985 file format": // Legacy Bleeper Music Maker file format by Robbi-985
                     {
                         try
                         {
@@ -1833,7 +1879,7 @@ namespace NeoBleeper
                                 {
                                     string[] noteData = lines[i].Split(' ');
 
-                                    ListViewItem item = new ListViewItem(noteData[0]); // Note length
+                                    ListViewItem item = new ListViewItem(convertNoteLengthIntoLocalized(noteData[0])); // Note length
                                     if (noteData[1] != "-")
                                     {
                                         item.SubItems.Add(noteData[1]); // Note 1
@@ -1852,13 +1898,13 @@ namespace NeoBleeper
                                     }
                                     if (noteData.Length == 4)
                                     {
-                                        if (noteData[3] != "-")
+                                        if (noteData[3] != "-") // Modifier
                                         {
                                             for (int j = 0; j < 2; j++)
                                             {
                                                 item.SubItems.Add(string.Empty);
                                             }
-                                            item.SubItems.Add(noteData[3]);
+                                            item.SubItems.Add(convertModifiersIntoLocalized(noteData[3])); 
                                         }
                                         else
                                         {
@@ -1897,7 +1943,7 @@ namespace NeoBleeper
                         }
                         break;
                     }
-                case "<NeoBleeperProjectFile>":
+                case "<NeoBleeperProjectFile>": // Modern NeoBleeper Project File format
                     {
                         try
                         {
@@ -2052,13 +2098,13 @@ namespace NeoBleeper
                                 {
                                     foreach (var line in projectFile.LineList.Lines)
                                     {
-                                        ListViewItem item = new ListViewItem(line.Length);
+                                        ListViewItem item = new ListViewItem(convertNoteLengthIntoLocalized(line.Length));
                                         item.SubItems.Add(line.Note1);
                                         item.SubItems.Add(line.Note2);
                                         item.SubItems.Add(line.Note3);
                                         item.SubItems.Add(line.Note4);
-                                        item.SubItems.Add(line.Mod);
-                                        item.SubItems.Add(line.Art);
+                                        item.SubItems.Add(convertModifiersIntoLocalized(line.Mod));
+                                        item.SubItems.Add(convertArticulationsIntoLocalized(line.Art));
                                         listViewNotes.Items.Add(item);
                                     }
                                 }
@@ -2236,13 +2282,13 @@ namespace NeoBleeper
                     {
                         Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
                         {
-                            Length = item.SubItems[0].Text,
+                            Length = convertLocalizedNoteLengthIntoUnlocalized(item.SubItems[0].Text),
                             Note1 = item.SubItems[1].Text,
                             Note2 = item.SubItems[2].Text,
                             Note3 = item.SubItems[3].Text,
                             Note4 = item.SubItems[4].Text,
-                            Mod = item.SubItems[5].Text,
-                            Art = item.SubItems[6].Text
+                            Mod = convertLocalizedModifiersIntoUnlocalized(item.SubItems[5].Text),
+                            Art = convertLocalizedArticulationsIntoUnlocalized(item.SubItems[6].Text)
                         }).ToArray()
                     }
                 };
@@ -2410,7 +2456,7 @@ namespace NeoBleeper
             }
             if (checkBox_dotted.Checked == true)
             {
-                Line.mod = "Dot";
+                Line.mod = Resources.DottedModifier;
             }
             else
             {
@@ -2433,7 +2479,7 @@ namespace NeoBleeper
             }
             if (checkBox_triplet.Checked == true)
             {
-                Line.mod = "Tri";
+                Line.mod = Resources.TripletModifier;
             }
             else
             {
@@ -2460,7 +2506,7 @@ namespace NeoBleeper
             }
             if (checkBox_staccato.Checked == true)
             {
-                Line.art = "Sta";
+                Line.art = Resources.StaccatoArticulation;
             }
             else
             {
@@ -2487,7 +2533,7 @@ namespace NeoBleeper
             }
             if (checkBox_fermata.Checked == true)
             {
-                Line.art = "Fer";
+                Line.art = Resources.FermataArticulation;
             }
             else
             {
@@ -2513,7 +2559,7 @@ namespace NeoBleeper
             }
             if (checkBox_spiccato.Checked == true)
             {
-                Line.art = "Spi";
+                Line.art = Resources.SpiccatoArticulation;
             }
             else
             {
@@ -3619,11 +3665,11 @@ namespace NeoBleeper
             double articulationFactor = 1.0;
             if (!string.IsNullOrWhiteSpace(articulation))
             {
-                if (articulation.ToLowerInvariant().Contains("sta"))
+                if (articulation.ToLowerInvariant().Contains(Resources.StaccatoArticulation.ToLower()))
                     articulationFactor = 0.5;    // Staccato: 0.5x length
-                else if (articulation.ToLowerInvariant().Contains("spi"))
+                else if (articulation.ToLowerInvariant().Contains(Resources.SpiccatoArticulation.ToLower()))
                     articulationFactor = 0.25;   // Spiccato: 0.25x length
-                else if (articulation.ToLowerInvariant().Contains("fer"))
+                else if (articulation.ToLowerInvariant().Contains(Resources.FermataArticulation.ToLower()))
                     articulationFactor = 2.0;    // Fermata: 2x length
             }
 
@@ -3672,7 +3718,7 @@ namespace NeoBleeper
 
             // Articulation factor - only fermata affects line length
             double articulationFactor = 1.0;
-            if (!string.IsNullOrWhiteSpace(articulation) && articulation.ToLowerInvariant().Contains("fer"))
+            if (!string.IsNullOrWhiteSpace(articulation) && articulation.ToLowerInvariant().Contains(Resources.FermataArticulation.ToLower()))
             {
                 articulationFactor = 2.0; // Fermata: 2x length
             }
@@ -3688,26 +3734,30 @@ namespace NeoBleeper
         }
         public static double getNoteLength(double rawNoteLength, String lengthName)
         {
-            double noteFraction = lengthName switch
-            {
-                "Whole" => 4.0,      // Whole note = 4 quarter notes
-                "Half" => 2.0,       // Half note = 2 quarter notes
-                "Quarter" => 1.0,    // Quarter note = 1 quarter note
-                "1/8" => 0.5,        // 1/8 note = 1/2 quarter note
-                "1/16" => 0.25,      // 1/16 note = 1/4 quarter note
-                "1/32" => 0.125,     // 1/32 note = 1/8 quarter note
-                _ => 1.0,            // Default: Quarter note
-            };
-            return rawNoteLength * noteFraction; // Remove truncation here
+            // Yerelleştirilmiş kaynaklardan alınan değerlerle karşılaştırma
+            if (lengthName == Resources.WholeNote)
+                return rawNoteLength * 4.0;
+            else if (lengthName == Resources.HalfNote)
+                return rawNoteLength * 2.0;
+            else if (lengthName == Resources.QuarterNote)
+                return rawNoteLength * 1.0;
+            else if (lengthName == Resources.EighthNote)
+                return rawNoteLength * 0.5;
+            else if (lengthName == Resources.SixteenthNote)
+                return rawNoteLength * 0.25;
+            else if (lengthName == Resources.ThirtySecondNote)
+                return rawNoteLength * 0.125;
+            else
+                return rawNoteLength * 1.0; // Default to quarter note if unrecognized
         }
         public static double getModifiedNoteLength(double noteLength, String modifier)
         {
             double modifierFactor = 1.0;
             if (!string.IsNullOrWhiteSpace(modifier))
             {
-                if (modifier.ToLowerInvariant().Contains("dot"))
+                if (modifier.ToLowerInvariant().Contains(Resources.DottedModifier.ToLower()))
                     modifierFactor = 1.5; // Dotted: 1.5x length
-                else if (modifier.ToLowerInvariant().Contains("tri"))
+                else if (modifier.ToLowerInvariant().Contains(Resources.TripletModifier.ToLower()))
                     modifierFactor = 1.0 / 3.0; // Triplet: 1/3x length
             }
             return noteLength * modifierFactor; // Remove truncation
@@ -3863,11 +3913,11 @@ namespace NeoBleeper
             if (listViewNotes.SelectedItems.Count > 0)
             {
                 int selectedLine = listViewNotes.SelectedIndices[0];
-                if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Dot" && checkBox_staccato.Checked == false)
+                if (listViewNotes.Items[selectedLine].SubItems[5].Text == Resources.DottedModifier && checkBox_staccato.Checked == false)
                 {
                     checkBox_dotted.Checked = true;
                 }
-                if (listViewNotes.Items[selectedLine].SubItems[5].Text == "Tri" && checkBox_fermata.Checked == false)
+                if (listViewNotes.Items[selectedLine].SubItems[5].Text == Resources.TripletModifier && checkBox_fermata.Checked == false)
                 {
                     checkBox_triplet.Checked = true;
                 }
@@ -3882,15 +3932,15 @@ namespace NeoBleeper
                         checkBox_triplet.Checked = false;
                     }
                 }
-                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Sta" && checkBox_staccato.Checked == false)
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == Resources.StaccatoArticulation && checkBox_staccato.Checked == false)
                 {
                     checkBox_staccato.Checked = true;
                 }
-                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Fer" && checkBox_fermata.Checked == false)
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == Resources.FermataArticulation && checkBox_fermata.Checked == false)
                 {
                     checkBox_fermata.Checked = true;
                 }
-                if (listViewNotes.Items[selectedLine].SubItems[6].Text == "Spi" && checkBox_spiccato.Checked == false)
+                if (listViewNotes.Items[selectedLine].SubItems[6].Text == Resources.SpiccatoArticulation && checkBox_spiccato.Checked == false)
                 {
                     checkBox_spiccato.Checked = true;
                 }
@@ -4151,22 +4201,22 @@ namespace NeoBleeper
             // Use the first subitem to determine the length
             switch (listViewItem.SubItems[0].Text)
             {
-                case "Whole":
+                case var s when s == Resources.WholeNote:
                     length = 4m;
                     break;
-                case "Half":
+                case var s when s == Resources.HalfNote:
                     length = 2m;
                     break;
-                case "Quarter":
+                case var s when s == Resources.QuarterNote:
                     length = 1m;
                     break;
-                case "1/8":
+                case var s when s == Resources.EighthNote:
                     length = 0.5m;
                     break;
-                case "1/16":
+                case var s when s == Resources.SixteenthNote:
                     length = 0.25m;
                     break;
-                case "1/32":
+                case var s when s == Resources.ThirtySecondNote:
                     length = 0.125m;
                     break;
                 default:
@@ -4174,13 +4224,14 @@ namespace NeoBleeper
                     break;
             }
 
+
             // Apply modifiers
             switch (listViewItem.SubItems[5].Text)
             {
-                case "Dot":
+                case var s when s == Resources.DottedModifier:
                     modifier = 1.5m;
                     break;
-                case "Tri":
+                case var s when s == Resources.TripletModifier:
                     modifier = 1m / 3m; // Precise triplet calculation
                     break;
                 default:
@@ -4191,13 +4242,13 @@ namespace NeoBleeper
             // Use the articulation subitem to determine the articulation effect
             switch (listViewItem.SubItems[6].Text)
             {
-                case "Sta":
+                case var s when s == Resources.StaccatoArticulation:
                     articulation = 0.5m;
                     break;
-                case "Spi":
+                case var s when s == Resources.SpiccatoArticulation:
                     articulation = 0.25m;
                     break;
-                case "Fer":
+                case var s when s == Resources.FermataArticulation:
                     articulation = 2m;
                     break;
                 default:
@@ -5139,6 +5190,52 @@ namespace NeoBleeper
                 Logger.Log("Play a beat sound window is closed.", Logger.LogTypes.Info);
             }
         }
+        private string convertLocalizedNoteLengthIntoUnlocalized(string noteLength)
+        {
+            switch (noteLength)
+            {
+                case var s when s == Resources.WholeNote:
+                    return "Whole";
+                case var s when s == Resources.HalfNote:
+                    return "Half";
+                case var s when s == Resources.QuarterNote:
+                    return "Quarter";
+                case var s when s == Resources.EighthNote:
+                    return "1/8";
+                case var s when s == Resources.SixteenthNote:
+                    return "1/16";
+                case var s when s == Resources.ThirtySecondNote:
+                    return "1/32";
+                default:
+                    return Resources.WholeNote;
+            }
+        }
+        private string convertLocalizedModifiersIntoUnlocalized(string modifier)
+        {
+            switch (modifier)
+            {
+                case var s when s == Resources.DottedModifier:
+                    return "Dot";
+                case var s when s == Resources.TripletModifier:
+                    return "Tri";
+                default:
+                    return string.Empty;
+            }
+        }
+        private string convertLocalizedArticulationsIntoUnlocalized(string articulation)
+        {
+            switch (articulation)
+            {
+                case var s when s == Resources.StaccatoArticulation:
+                    return "Sta";
+                case var s when s == Resources.SpiccatoArticulation:
+                    return "Spi";
+                case var s when s == Resources.FermataArticulation:
+                    return "Fer";
+                default:
+                    return string.Empty;
+            }
+        }
         private String ConvertToNBPMLString()
         {
             try
@@ -5187,13 +5284,13 @@ namespace NeoBleeper
                     {
                         Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
                         {
-                            Length = item.SubItems[0].Text,
+                            Length = convertLocalizedNoteLengthIntoUnlocalized(item.SubItems[0].Text),
                             Note1 = item.SubItems[1].Text,
                             Note2 = item.SubItems[2].Text,
                             Note3 = item.SubItems[3].Text,
                             Note4 = item.SubItems[4].Text,
-                            Mod = item.SubItems[5].Text,
-                            Art = item.SubItems[6].Text
+                            Mod = convertLocalizedModifiersIntoUnlocalized(item.SubItems[5].Text),
+                            Art = convertLocalizedArticulationsIntoUnlocalized(item.SubItems[6].Text)
                         }).ToArray()
                     }
                 };

@@ -93,6 +93,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Dot benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string DottedModifier {
+            get {
+                return ResourceManager.GetString("DottedModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   1/8 benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string EighthNote {
+            get {
+                return ResourceManager.GetString("EighthNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error resetting API key:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ErrorResettingAPIKey {
@@ -201,6 +219,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Fer benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FermataArticulation {
+            get {
+                return ResourceManager.GetString("FermataArticulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Google Gemini™ API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string GoogleGeminiAPIIsNotSupportedInYourCountry {
@@ -242,6 +269,15 @@ namespace NeoBleeper.Properties {
         public static string GoogleGeminiServerDown {
             get {
                 return ResourceManager.GetString("GoogleGeminiServerDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Half benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string HalfNote {
+            get {
+                return ResourceManager.GetString("HalfNote", resourceCulture);
             }
         }
         
@@ -1041,6 +1077,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   ({number} More) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MoreText {
+            get {
+                return ResourceManager.GetString("MoreText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static System.Drawing.Bitmap neobleeper_background_dark {
@@ -1121,12 +1166,48 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Quarter benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string QuarterNote {
+            get {
+                return ResourceManager.GetString("QuarterNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show the API key in the API key field.
         ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ShowAPIKeyToolTip {
             get {
                 return ResourceManager.GetString("ShowAPIKeyToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   1/16 benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SixteenthNote {
+            get {
+                return ResourceManager.GetString("SixteenthNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Spi benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SpiccatoArticulation {
+            get {
+                return ResourceManager.GetString("SpiccatoArticulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sta benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StaccatoArticulation {
+            get {
+                return ResourceManager.GetString("StaccatoArticulation", resourceCulture);
             }
         }
         
@@ -1342,6 +1423,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   1/32 benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ThirtySecondNote {
+            get {
+                return ResourceManager.GetString("ThirtySecondNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Notes are copied to clipboard. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ToastMessageNotesCopy {
@@ -1356,6 +1446,15 @@ namespace NeoBleeper.Properties {
         public static string ToastMessageNotesCut {
             get {
                 return ResourceManager.GetString("ToastMessageNotesCut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tri benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TripletModifier {
+            get {
+                return ResourceManager.GetString("TripletModifier", resourceCulture);
             }
         }
         
@@ -1396,6 +1495,15 @@ namespace NeoBleeper.Properties {
         public static string UseVoiceSystemHelpTitle {
             get {
                 return ResourceManager.GetString("UseVoiceSystemHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Whole benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string WholeNote {
+            get {
+                return ResourceManager.GetString("WholeNote", resourceCulture);
             }
         }
     }

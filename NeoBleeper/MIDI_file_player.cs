@@ -538,7 +538,10 @@ namespace NeoBleeper
             if (sortedNotes.Count > _noteLabels.Length)
             {
                 if (!label_more_notes.Visible) label_more_notes.Visible = true;
-                string moreText = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                int extraNotes = sortedNotes.Count - _noteLabels.Length;
+                string localizedMoreText = Resources.MoreText; // ({number} More)
+                localizedMoreText = localizedMoreText.Replace("{number}", extraNotes.ToString());
+                string moreText = localizedMoreText;
                 if (label_more_notes.Text != moreText) label_more_notes.Text = moreText;
             }
             else
@@ -952,7 +955,10 @@ namespace NeoBleeper
                     if (sortedNotes.Count > _noteLabels.Length)
                     {
                         label_more_notes.Visible = true;
-                        label_more_notes.Text = $"({sortedNotes.Count - _noteLabels.Length} More)";
+                        int extraNotes = sortedNotes.Count - _noteLabels.Length;
+                        string localizedMoreText = Resources.MoreText; // ({number} More)
+                        localizedMoreText = localizedMoreText.Replace("{number}", extraNotes.ToString());
+                        label_more_notes.Text = localizedMoreText;
                     }
                     else
                     {

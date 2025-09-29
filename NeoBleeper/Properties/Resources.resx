@@ -565,4 +565,40 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="TextMilliseconds" xml:space="preserve">
     <value> mS</value>
   </data>
+  <data name="WholeNote" xml:space="preserve">
+    <value>Whole</value>
+  </data>
+  <data name="HalfNote" xml:space="preserve">
+    <value>Half</value>
+  </data>
+  <data name="EighthNote" xml:space="preserve">
+    <value>1/8</value>
+  </data>
+  <data name="QuarterNote" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="SixteenthNote" xml:space="preserve">
+    <value>1/16</value>
+  </data>
+  <data name="ThirtySecondNote" xml:space="preserve">
+    <value>1/32</value>
+  </data>
+  <data name="DottedModifier" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="TripletModifier" xml:space="preserve">
+    <value>Tri</value>
+  </data>
+  <data name="StaccatoArticulation" xml:space="preserve">
+    <value>Sta</value>
+  </data>
+  <data name="SpiccatoArticulation" xml:space="preserve">
+    <value>Spi</value>
+  </data>
+  <data name="FermataArticulation" xml:space="preserve">
+    <value>Fer</value>
+  </data>
+  <data name="MoreText" xml:space="preserve">
+    <value>({number} More)</value>
+  </data>
 </root>
