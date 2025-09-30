@@ -134,7 +134,7 @@
     <value>Ошибка MIDI-устройства</value>
   </data>
   <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Generate a lullaby for children</value>
+    <value>Сочини колыбельную песню</value>
   </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Хватит ждать</value>
@@ -204,7 +204,7 @@
 Вы хотите всё равно открыть этот файл?</value>
   </data>
   <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Make an electronic dance track with a fast tempo</value>
+    <value>Создай электронную музыку в стиле транс</value>
   </data>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>События собираются...</value>
@@ -227,7 +227,7 @@
 Это окно можно использовать для управления воспроизведением всех копий NeoBleeper на вашем компьютере.</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Create a classical music piece in the style of Beethoven</value>
+    <value>Создай классическое произведение в стиле Чайковского</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Использовать голосовую систему</value>
@@ -246,7 +246,7 @@
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Write a relaxing piano solo</value>
+    <value>Напиши романтическую фортепианную пьесу</value>
   </data>
   <data name="ErrorResettingAPIKey" xml:space="preserve">
     <value>Ошибка сброса ключа API: </value>
@@ -308,7 +308,7 @@
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Compose a soundtrack for a fantasy game</value>
+    <value>Сгенерируй оркестровый саундтрек для фэнтези игры</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Перетащенный вами файл не поддерживается проигрывателем NeoBleeper MIDI или поврежден.</value>
@@ -329,7 +329,7 @@
     <value>Не обновлять отображение битов</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Compose a jazz melody with a swing rhythm</value>
+    <value>Сгенерируй джазовую композицию с импровизацией</value>
   </data>
   <data name="ShowAPIKeyToolTip" xml:space="preserve">
     <value>Отобразить ключ API в поле «Ключ API».
@@ -354,7 +354,7 @@
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Write a blues progression in E major</value>
+    <value>Создай энергичный рок-трек</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Сохраненной версии для перемотки нет.</value>
@@ -414,7 +414,7 @@
     <value>Перетащенный вами файл не поддерживается NeoBleeper или поврежден.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Create a pop song with catchy melodies</value>
+    <value>Напиши блюзовую прогрессию</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Эта функция отключает автоматическое обновление таблицы позиций при воспроизведении музыки. Однако она продолжит обновляться во время редактирования.
@@ -450,7 +450,7 @@
     <value>Скрывать</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Generate a rock song inspired by The Beatles</value>
+    <value>Сочини народную мелодию с балалайкой</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
     <value>Не установлен ключ API Google Gemini™. Установите ключ API на вкладке «Общие» в настройках.</value>
@@ -512,7 +512,7 @@
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Generate a folk tune with acoustic guitar</value>
+    <value>Сочини расслабляющую ambient композицию</value>
   </data>
   <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -570,19 +570,19 @@
     <value>Целая</value>
   </data>
   <data name="HalfNote" xml:space="preserve">
-    <value>Половина</value>
+    <value>Половинная</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
-    <value>1/8</value>
+    <value>Восьмая</value>
   </data>
   <data name="QuarterNote" xml:space="preserve">
-    <value>Четверть</value>
+    <value>Четвертная</value>
   </data>
   <data name="SixteenthNote" xml:space="preserve">
-    <value>1/16</value>
+    <value>Шестнадцатая</value>
   </data>
   <data name="ThirtySecondNote" xml:space="preserve">
-    <value>1/32</value>
+    <value>Тридцать вторая</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
     <value>Пун</value>
@@ -601,5 +601,8 @@
   </data>
   <data name="MoreText" xml:space="preserve">
     <value>(Еще {number})</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Музыка, Созданная ИИ</value>
   </data>
 </root>

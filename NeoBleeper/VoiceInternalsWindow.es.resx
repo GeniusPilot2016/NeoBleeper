@@ -145,6 +145,9 @@
   <data name="label64.Text" xml:space="preserve">
     <value>Hz = Frecuencia (Hertz)</value>
   </data>
+  <data name="groupBoxKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 212</value>
+  </data>
   <data name="groupBoxKey.Text" xml:space="preserve">
     <value>Llave</value>
   </data>
@@ -166,11 +169,17 @@
   <data name="comboBoxNote1Option.Items1" xml:space="preserve">
     <value>Pito del Altavoz del sistema/dispositivo de sonido</value>
   </data>
+  <data name="comboBoxNote1Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>365, 24</value>
+  </data>
   <data name="comboBoxNote2Option.Items" xml:space="preserve">
     <value>Sistema de voz</value>
   </data>
   <data name="comboBoxNote2Option.Items1" xml:space="preserve">
     <value>Pito del Altavoz del sistema/dispositivo de sonido</value>
+  </data>
+  <data name="comboBoxNote2Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>365, 24</value>
   </data>
   <data name="comboBoxNote3Option.Items" xml:space="preserve">
     <value>Sistema de voz</value>
@@ -178,14 +187,26 @@
   <data name="comboBoxNote3Option.Items1" xml:space="preserve">
     <value>Pito del Altavoz del sistema/dispositivo de sonido</value>
   </data>
+  <data name="comboBoxNote3Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>365, 24</value>
+  </data>
   <data name="comboBoxNote4Option.Items" xml:space="preserve">
     <value>Sistema de voz</value>
   </data>
   <data name="comboBoxNote4Option.Items1" xml:space="preserve">
     <value>Pito del Altavoz del sistema/dispositivo de sonido</value>
   </data>
+  <data name="comboBoxNote4Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>365, 24</value>
+  </data>
+  <data name="groupBoxOutputOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 143</value>
+  </data>
   <data name="groupBoxOutputOptions.Text" xml:space="preserve">
     <value>Opciones de salida</value>
+  </data>
+  <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
+    <value>201, 25</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 16</value>
@@ -193,8 +214,20 @@
   <data name="label53.Text" xml:space="preserve">
     <value>Paso</value>
   </data>
+  <data name="trackBarPitch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 44</value>
+  </data>
+  <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 77</value>
+  </data>
   <data name="label54.Text" xml:space="preserve">
     <value>Rango</value>
+  </data>
+  <data name="trackBarRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 96</value>
+  </data>
+  <data name="groupBoxRandomVariationsOfFormants.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 131</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
     <value>Variaciones aleatorias de formantes</value>
@@ -391,6 +424,15 @@
   <data name="labelFormantControl.Text" xml:space="preserve">
     <value>Control de Formantes</value>
   </data>
+  <data name="panel30.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1059, 561</value>
+  </data>
+  <data name="panel30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="groupBoxPlayVoiceOnLineSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 65</value>
+  </data>
   <data name="groupBoxPlayVoiceOnLineSettings.Text" xml:space="preserve">
     <value>Opciones de reproducción de voz en línea</value>
   </data>
@@ -410,7 +452,10 @@
     <value>163, 27</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 24</value>
+    <value>235, 24</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1087, 589</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Internos de Voz</value>

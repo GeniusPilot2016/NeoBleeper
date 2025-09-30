@@ -1615,7 +1615,7 @@ namespace NeoBleeper
                     {
                         octave10NoteLabelShiftToRight();
                     }
-                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + "AI Generated Music";
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic;
                     listViewNotes.Items.Clear();
 
                     foreach (var line in projectFile.LineList.Lines)
@@ -5089,9 +5089,9 @@ namespace NeoBleeper
             {
                 title += " - " + currentFilePath;
             }
-            else if (this.Text.Contains("AI Generated Music"))
+            else if (this.Text.Contains(Resources.TextAIGeneratedMusic))
             {
-                title += " - AI Generated Music";
+                title += " - " + Resources.TextAIGeneratedMusic;
             }
 
             // Add an asterisk if the file is modified

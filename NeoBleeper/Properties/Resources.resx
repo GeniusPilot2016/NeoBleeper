@@ -600,4 +600,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="MoreText" xml:space="preserve">
     <value>({number} More)</value>
   </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>AI Generated Music</value>
+  </data>
 </root>

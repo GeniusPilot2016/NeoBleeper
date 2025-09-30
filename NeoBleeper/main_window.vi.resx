@@ -289,7 +289,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFMASYBTAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAFcASYBXAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -578,13 +578,22 @@
     <value>Số nhịp trong 1 phút nhạc</value>
   </data>
   <data name="comboBox_note_length.Items" xml:space="preserve">
-    <value>1 (Toàn bộ)</value>
+    <value>Nốt tròn</value>
   </data>
   <data name="comboBox_note_length.Items1" xml:space="preserve">
-    <value>1/2 (Một nửa)</value>
+    <value>Nốt trắng</value>
   </data>
   <data name="comboBox_note_length.Items2" xml:space="preserve">
-    <value>1/4 (Một phần tư)</value>
+    <value>Nốt đen</value>
+  </data>
+  <data name="comboBox_note_length.Items3" xml:space="preserve">
+    <value>Nốt móc đơn</value>
+  </data>
+  <data name="comboBox_note_length.Items4" xml:space="preserve">
+    <value>Nốt móc kép</value>
+  </data>
+  <data name="comboBox_note_length.Items5" xml:space="preserve">
+    <value>Nốt móc ba</value>
   </data>
   <data name="comboBox_note_length.ToolTip" xml:space="preserve">
     <value>Độ dài của nốt nhạc được thêm vào danh sách nhạc khi một phím trên bàn phím được nhấn</value>
@@ -749,13 +758,13 @@
     <value>275, 264</value>
   </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 2</value>
+    <value>31, 2</value>
   </data>
   <data name="label_note_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 16</value>
+    <value>64, 16</value>
   </data>
   <data name="label_note_length.Text" xml:space="preserve">
-    <value>Độ dài ghi chú</value>
+    <value>Độ dài nốt</value>
   </data>
   <data name="trackBar_note_silence_ratio.ToolTip" xml:space="preserve">
     <value>Xác định tỷ lệ giữa nốt nhạc và khoảng lặng trong mỗi dòng</value>
@@ -1072,7 +1081,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        9AElAfQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        BAEmAQQBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

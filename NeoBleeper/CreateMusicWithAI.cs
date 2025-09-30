@@ -547,7 +547,7 @@ namespace NeoBleeper
                     $"  - Represent notes as letters (A-G).\r\n" +
                     $"  - Include sharps (#) if applicable (e.g., C#, F#).\r\n" +
                     $"  - Specify the octave number (1-10) after the note (e.g., A4, C#5).\r\n" +
-                    $"  - Do not use flat notes (e.g., Db). Convert them to their sharp equivalents (e.g., C#).\r\n" +
+                    $"  - Always convert flat notes (e.g., Db) to their sharp equivalents (e.g., C#).\r\n" +
                     $"  - For rests, leave all <Note1>, <Note2>, <Note3>, and <Note4> tags blank (e.g., <Note1></Note1>). Do not write 'rest' or any other text inside the tags.\r\n" +
                     $"  - Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
                     $"  - Use <PlayNote1>, <PlayNote2>, <PlayNote3>, and <PlayNote4> tags in the <PlayNotes> section.\r\n" +
@@ -628,11 +628,11 @@ namespace NeoBleeper
                     output = Regex.Replace(output, @"N(\d)([A-G])", "$2$1");
                     output = Regex.Replace(output, @"N(\d)([A-G]#?)", "$2$1");
                     output = Regex.Replace(output, @"N(\d)([A-G][#b]?)", "$2$1");
-                    output = Regex.Replace(output, @"\s*Db\s*$", "C#", RegexOptions.IgnoreCase);
-                    output = Regex.Replace(output, @"\s*Eb\s*$", "D#", RegexOptions.IgnoreCase);
-                    output = Regex.Replace(output, @"\s*Gb\s*$", "F#", RegexOptions.IgnoreCase);
-                    output = Regex.Replace(output, @"\s*Ab\s*$", "G#", RegexOptions.IgnoreCase);
-                    output = Regex.Replace(output, @"\s*Bb\s*$", "A#", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\bDb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\bEb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                    output = Regex.Replace(output, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                     // Trim leading/trailing whitespace
                     output = output.Trim();
                     output = RewriteOutput(output).Trim();

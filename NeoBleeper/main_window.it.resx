@@ -268,7 +268,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAGUASUBlAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAGcASUBnAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -593,13 +593,22 @@
     <value>Numero di battiti in 1 minuto di musica</value>
   </data>
   <data name="comboBox_note_length.Items" xml:space="preserve">
-    <value>1 (Intero)</value>
+    <value>Semibreve</value>
   </data>
   <data name="comboBox_note_length.Items1" xml:space="preserve">
-    <value>1/2 (Metà)</value>
+    <value>Minima</value>
   </data>
   <data name="comboBox_note_length.Items2" xml:space="preserve">
-    <value>1/4 (Quarto)</value>
+    <value>Semiminima</value>
+  </data>
+  <data name="comboBox_note_length.Items3" xml:space="preserve">
+    <value>Croma</value>
+  </data>
+  <data name="comboBox_note_length.Items4" xml:space="preserve">
+    <value>Semicroma</value>
+  </data>
+  <data name="comboBox_note_length.Items5" xml:space="preserve">
+    <value>Biscroma</value>
   </data>
   <data name="comboBox_note_length.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 24</value>
@@ -1111,7 +1120,7 @@ ritmico</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        PAElATwBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        RAElAUQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1158,19 +1167,6 @@ ritmico</value>
   </data>
   <data name="button_use_keyboard_as_piano_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 601</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 390</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 44</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
-    <value>Suona le note alternate in 
-ordine</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
-    <value>Quando questa opzione è selezionata, le note alternate vengono cambiate nell'ordine Nota 1, Nota 2, Nota 3 e Nota 4</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 435</value>
@@ -1230,6 +1226,19 @@ come pianoforte</value>
   <data name="checkBox_use_voice_system.Text" xml:space="preserve">
     <value>Utilizzare il sistema 
 vocale</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 390</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 44</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
+    <value>Suona le note alternate in 
+ordine</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
+    <value>Quando questa opzione è selezionata, le note alternate vengono cambiate nell'ordine Nota 1, Nota 2, Nota 3 e Nota 4</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>293, 284</value>

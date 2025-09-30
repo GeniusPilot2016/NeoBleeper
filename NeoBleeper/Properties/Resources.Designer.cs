@@ -1233,6 +1233,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   AI Generated Music benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextAIGeneratedMusic {
+            get {
+                return ResourceManager.GetString("TextAIGeneratedMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   (Error) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextBeatError {

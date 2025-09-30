@@ -134,7 +134,7 @@
     <value>MIDI-Gerätefehler</value>
   </data>
   <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Generate a lullaby for children</value>
+    <value>Komponiere eine mittelalterliche Melodie für ein Rollenspiel</value>
   </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Hören Sie auf zu warten</value>
@@ -204,7 +204,7 @@ Möchten Sie die Datei trotzdem öffnen?</value>
 Möchten Sie diese Datei trotzdem öffnen?</value>
   </data>
   <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Make an electronic dance track with a fast tempo</value>
+    <value>Erstelle ein Wiegenlied mit sanften Tönen</value>
   </data>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Ereignisse werden gesammelt...</value>
@@ -223,7 +223,7 @@ Deshalb empfiehlt es sich, die Systemuhren vor der Nutzung dieser Funktion zu sy
 Über dieses Fenster können Sie die Wiedergabe aller NeoBleeper-Instanzen auf Ihrem Computer steuern.</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Create a classical music piece in the style of Beethoven</value>
+    <value>Erstelle ein klassisches Musikstück im Stil von Mozart</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sprachsteuerung verwenden</value>
@@ -242,7 +242,7 @@ Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Write a relaxing piano solo</value>
+    <value>Schreibe eine melancholische Klavierballade</value>
   </data>
   <data name="ErrorResettingAPIKey" xml:space="preserve">
     <value>Fehler beim Zurücksetzen des API-Schlüssels: </value>
@@ -304,7 +304,7 @@ Sie können den gewünschten Klang auswählen, indem Sie auf die Schaltfläche �
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Compose a soundtrack for a fantasy game</value>
+    <value>Erzeuge einen Jazz-Song mit Improvisationscharakter</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Die von Ihnen per Drag-and-Drop übertragene Datei wird vom NeoBleeper MIDI-Player nicht unterstützt oder ist beschädigt.</value>
@@ -325,7 +325,7 @@ Sie können den gewünschten Klang auswählen, indem Sie auf die Schaltfläche �
     <value>Beat-Anzeigen nicht aktualisieren</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Compose a jazz melody with a swing rhythm</value>
+    <value>Erzeuge einen energiegeladenen Techno-Track</value>
   </data>
   <data name="ShowAPIKeyToolTip" xml:space="preserve">
     <value>Zeigen Sie den API-Schlüssel im API-Schlüssel-Feld an.
@@ -350,7 +350,7 @@ Klicken Sie erneut, um ihn auszublenden.</value>
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Write a blues progression in E major</value>
+    <value>Erstelle einen Walzer im 3/4-Takt</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Es ist keine gespeicherte Version vorhanden, auf die zurückgespult werden kann.</value>
@@ -410,7 +410,7 @@ Klicken Sie erneut, um ihn auszublenden.</value>
     <value>Die von Ihnen per Drag-and-Drop übertragene Datei wird von NeoBleeper nicht unterstützt oder ist beschädigt.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Create a pop song with catchy melodies</value>
+    <value>Schreibe eine orchestrale Filmmusik für eine Abenteuerszene</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Diese Funktion deaktiviert die automatische Aktualisierung der Wiedergabeliste während der Musikwiedergabe. Während des Bearbeitens wird die Liste jedoch weiterhin aktualisiert.
@@ -446,7 +446,7 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
     <value>Verstecken</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Generate a rock song inspired by The Beatles</value>
+    <value>Komponiere eine fröhliche Volksmelodie mit Akkordeon</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
     <value>Der API-Schlüssel für Google Gemini™ ist nicht festgelegt. Bitte geben Sie den API-Schlüssel im Reiter „Allgemein“ in den Einstellungen ein.</value>
@@ -508,7 +508,7 @@ Um diese Funktion nutzen zu können, aktivieren Sie bitte das Kontrollkästchen 
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Generate a folk tune with acoustic guitar</value>
+    <value>Komponiere eine entspannende Ambient-Soundlandschaft</value>
   </data>
   <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -563,22 +563,22 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
     <value> mS</value>
   </data>
   <data name="WholeNote" xml:space="preserve">
-    <value>Ganzes</value>
+    <value>Ganze</value>
   </data>
   <data name="HalfNote" xml:space="preserve">
-    <value>Halbes</value>
+    <value>Halbe</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
-    <value>1/8</value>
+    <value>Achtel</value>
   </data>
   <data name="QuarterNote" xml:space="preserve">
     <value>Viertel</value>
   </data>
   <data name="SixteenthNote" xml:space="preserve">
-    <value>1/16</value>
+    <value>Sechzehntel</value>
   </data>
   <data name="ThirtySecondNote" xml:space="preserve">
-    <value>1/32</value>
+    <value>Zweiunddreißigstel</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
     <value>Gep</value>
@@ -597,5 +597,8 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   </data>
   <data name="MoreText" xml:space="preserve">
     <value>({number] Weitere)</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>KI-Generierte Musik</value>
   </data>
 </root>

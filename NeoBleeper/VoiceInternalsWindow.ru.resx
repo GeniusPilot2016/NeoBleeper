@@ -151,6 +151,9 @@
   <data name="label64.Text" xml:space="preserve">
     <value>Hz = Частота (Герц)</value>
   </data>
+  <data name="groupBoxKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 212</value>
+  </data>
   <data name="groupBoxKey.Text" xml:space="preserve">
     <value>Ключ</value>
   </data>
@@ -184,11 +187,17 @@
   <data name="comboBoxNote1Option.Items1" xml:space="preserve">
     <value>Системный динамик/Звуковой сигнал устройства</value>
   </data>
+  <data name="comboBoxNote1Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 24</value>
+  </data>
   <data name="comboBoxNote2Option.Items" xml:space="preserve">
     <value>Голосовая система</value>
   </data>
   <data name="comboBoxNote2Option.Items1" xml:space="preserve">
     <value>Системный динамик/Звуковой сигнал устройства</value>
+  </data>
+  <data name="comboBoxNote2Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 24</value>
   </data>
   <data name="comboBoxNote3Option.Items" xml:space="preserve">
     <value>Голосовая система</value>
@@ -196,17 +205,26 @@
   <data name="comboBoxNote3Option.Items1" xml:space="preserve">
     <value>Системный динамик/Звуковой сигнал устройства</value>
   </data>
+  <data name="comboBoxNote3Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 24</value>
+  </data>
   <data name="comboBoxNote4Option.Items" xml:space="preserve">
     <value>Голосовая система</value>
   </data>
   <data name="comboBoxNote4Option.Items1" xml:space="preserve">
     <value>Системный динамик/Звуковой сигнал устройства</value>
   </data>
+  <data name="comboBoxNote4Option.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 24</value>
+  </data>
+  <data name="groupBoxOutputOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 143</value>
+  </data>
   <data name="groupBoxOutputOptions.Text" xml:space="preserve">
     <value>Параметры вывода</value>
   </data>
   <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 21</value>
+    <value>213, 21</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 16</value>
@@ -215,10 +233,10 @@
     <value>Подача</value>
   </data>
   <data name="trackBarPitch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 40</value>
+    <value>127, 40</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 73</value>
+    <value>203, 73</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 16</value>
@@ -227,13 +245,13 @@
     <value>Диапазон</value>
   </data>
   <data name="trackBarRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 92</value>
+    <value>127, 92</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Location" type="System.Drawing.Point, System.Drawing">
     <value>629, 305</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 124</value>
+    <value>483, 124</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
     <value>Случайные вариации формант</value>
@@ -455,8 +473,14 @@ Hz</value>
   <data name="labelFormantControl.Text" xml:space="preserve">
     <value>Формантный контроль</value>
   </data>
+  <data name="panel30.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1096, 561</value>
+  </data>
+  <data name="panel30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
   <data name="groupBoxPlayVoiceOnLineSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 72</value>
+    <value>451, 72</value>
   </data>
   <data name="groupBoxPlayVoiceOnLineSettings.Text" xml:space="preserve">
     <value>Возможности голосового воспроизведения в режиме онлайн</value>
@@ -480,7 +504,10 @@ Hz</value>
     <value>151, 41</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 24</value>
+    <value>284, 24</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1124, 589</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Внутренние голосовые функции</value>

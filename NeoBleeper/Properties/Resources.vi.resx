@@ -134,7 +134,7 @@
     <value>Lỗi thiết bị MIDI</value>
   </data>
   <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Generate a lullaby for children</value>
+    <value>Viết một bài hát ru cho trẻ em</value>
   </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Đừng chờ đợi nữa</value>
@@ -204,7 +204,7 @@ Bạn có muốn mở tệp này không?</value>
 Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Make an electronic dance track with a fast tempo</value>
+    <value>Sáng tác nhạc điện tử sôi động</value>
   </data>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Các sự kiện đang được thu thập...</value>
@@ -226,7 +226,7 @@ Khi bạn bật tính năng này, một cửa sổ mới sẽ mở ra, hiển th
 Sau đó, bạn có thể sử dụng cửa sổ này để điều khiển việc phát lại tất cả các phiên bản NeoBleeper trên máy tính của mình.</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Create a classical music piece in the style of Beethoven</value>
+    <value>Tạo một tác phẩm nhạc cổ điển phong cách Beethoven</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sử dụng Hệ thống giọng nói</value>
@@ -245,7 +245,7 @@ Nhấp lại để hiển thị.</value>
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Write a relaxing piano solo</value>
+    <value>Tạo một bản piano thư giãn</value>
   </data>
   <data name="ErrorResettingAPIKey" xml:space="preserve">
     <value>Lỗi khi đặt lại khóa API:</value>
@@ -307,7 +307,7 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Compose a soundtrack for a fantasy game</value>
+    <value>Tạo nhạc nền cho game phiêu lưu</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Tệp bạn kéo không được trình phát MIDI NeoBleeper hỗ trợ hoặc bị hỏng.</value>
@@ -328,7 +328,7 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
     <value>Không cập nhật màn hình nhịp điệu</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Compose a jazz melody with a swing rhythm</value>
+    <value>Viết một giai điệu jazz với nhịp swing</value>
   </data>
   <data name="ShowAPIKeyToolTip" xml:space="preserve">
     <value>Hiển thị khóa API trong trường khóa API.
@@ -353,7 +353,7 @@ Nhấp lại để ẩn khóa.</value>
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Write a blues progression in E major</value>
+    <value>Viết một đoạn blues ở cung trưởng</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Không có phiên bản đã lưu để tua lại.</value>
@@ -413,7 +413,7 @@ Nhấp lại để ẩn khóa.</value>
     <value>Tệp bạn kéo không được NeoBleeper hỗ trợ hoặc đã bị hỏng.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Create a pop song with catchy melodies</value>
+    <value>Sáng tác một bản nhạc pop với giai điệu bắt tai</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Tính năng này vô hiệu hóa việc tự động cập nhật bảng vị trí khi phát nhạc. Tuy nhiên, bảng vị trí sẽ tiếp tục cập nhật trong quá trình chỉnh sửa.
@@ -449,7 +449,7 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
     <value>Trốn</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Generate a rock song inspired by The Beatles</value>
+    <value>Sáng tác một bản nhạc dân ca với đàn tranh</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
     <value>Khóa API Google Gemini™ chưa được thiết lập. Vui lòng thiết lập khóa API trong tab "Chung" trong phần cài đặt.</value>
@@ -511,7 +511,7 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Generate a folk tune with acoustic guitar</value>
+    <value>Tạo một bản nhạc folk với guitar acoustic</value>
   </data>
   <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -566,22 +566,22 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
     <value> mS</value>
   </data>
   <data name="WholeNote" xml:space="preserve">
-    <value>Toàn bộ</value>
+    <value>Nốt tròn</value>
   </data>
   <data name="HalfNote" xml:space="preserve">
-    <value>Một nửa</value>
+    <value>Nốt trắng</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
-    <value>1/8</value>
+    <value>Nốt móc đơn</value>
   </data>
   <data name="QuarterNote" xml:space="preserve">
-    <value>Một phần tư</value>
+    <value>Nốt đen</value>
   </data>
   <data name="SixteenthNote" xml:space="preserve">
-    <value>1/16</value>
+    <value>Nốt móc kép</value>
   </data>
   <data name="ThirtySecondNote" xml:space="preserve">
-    <value>1/32</value>
+    <value>Nốt móc ba</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
     <value>Say</value>
@@ -600,5 +600,8 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   </data>
   <data name="MoreText" xml:space="preserve">
     <value>({number} Thêm)</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Âm nhạc được tạo ra bởi AI</value>
   </data>
 </root>

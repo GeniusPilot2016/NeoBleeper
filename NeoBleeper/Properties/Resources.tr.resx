@@ -134,7 +134,7 @@
     <value>MIDI Aygıtı Hatası</value>
   </data>
   <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Generate a lullaby for children</value>
+    <value>Akustik gitarlı bir folk şarkı beste</value>
   </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Beklemeyi Bırak</value>
@@ -204,7 +204,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
 Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Make an electronic dance track with a fast tempo</value>
+    <value>Fantezi oyunu için epik bir soundtrack oluştur</value>
   </data>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Olaylar toplanıyor...</value>
@@ -226,7 +226,7 @@ Bu özelliği etkinleştirdiğinizde, senkronize oynatma kontrollerini gösteren
 Daha sonra bu pencereyi kullanarak bilgisayarınızdaki tüm NeoBleeper örneklerinin oynatımını kontrol edebilirsiniz.</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Create a classical music piece in the style of Beethoven</value>
+    <value>Klasik Türk müziği tarzında bir makam bestele</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Ses Sistemini Kullan</value>
@@ -245,7 +245,7 @@ Görüntülemek için tekrar tıklayınız</value>
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Write a relaxing piano solo</value>
+    <value>Rahatlatıcı bir ninni bestle</value>
   </data>
   <data name="ErrorResettingAPIKey" xml:space="preserve">
     <value>API anahtarı sıfırlanırken hata oluştu: </value>
@@ -307,7 +307,7 @@ Görüntülemek için tekrar tıklayınız</value>
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Compose a soundtrack for a fantasy game</value>
+    <value>Rock tarzında enerjik bir parça yarat</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Sürüklediğiniz dosya NeoBleeper MIDI oynatıcısı tarafından desteklenmiyor veya bozuk.</value>
@@ -328,7 +328,7 @@ Görüntülemek için tekrar tıklayınız</value>
     <value>Vuruş Ekranlarını Güncellemeyin</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Compose a jazz melody with a swing rhythm</value>
+    <value>Hareketli bir elektronik dans müziği yarat</value>
   </data>
   <data name="ShowAPIKeyToolTip" xml:space="preserve">
     <value>API anahtarı alanındaki API anahtarını gizle
@@ -353,7 +353,7 @@ Görüntülemek için tekrar tıklayınız</value>
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Write a blues progression in E major</value>
+    <value>Ambient tarzda meditasyon müziği oluştur</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Geri dönmek için kayıtlı bir sürüm yok.</value>
@@ -413,7 +413,7 @@ Görüntülemek için tekrar tıklayınız</value>
     <value>Sürüklediğiniz dosya NeoBleeper tarafından desteklenmiyor veya bozuk.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Create a pop song with catchy melodies</value>
+    <value>Barok dönem tarzında klasik bir eser bestle</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Bu özellik, müzik çalınırken konum tablosunun otomatik olarak güncellenmesini devre dışı bırakır. Ancak, düzenleme sırasında güncellenmeye devam eder.
@@ -449,7 +449,7 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
     <value>Gizle</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Generate a rock song inspired by The Beatles</value>
+    <value>Caz ritimli bir piyano melodisi oluştur</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
     <value>Google Gemini™ API anahtarı ayarlanmamış. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını ayarlayınız.</value>
@@ -512,7 +512,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Generate a folk tune with acoustic guitar</value>
+    <value>Hüzünlü bir piyano solosu yaz</value>
   </data>
   <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -601,5 +601,8 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   </data>
   <data name="MoreText" xml:space="preserve">
     <value>({number} Adet Daha)</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Yapay Zeka ile Oluşturulmuş Müzik</value>
   </data>
 </root>
