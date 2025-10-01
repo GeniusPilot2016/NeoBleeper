@@ -649,7 +649,7 @@ namespace NeoBleeper
             {
                 // Show a generic error message and log the exception details
                 Logger.Log($"Error: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -822,7 +822,7 @@ namespace NeoBleeper
             output = Regex.Replace(output, @"</ClickPlayNotes\s*</ClickPlayNotes>", "</ClickPlayNotes>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</ClickPlayNote1\s*</ClickPlayNote1>", "</ClickPlayNote1>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</ClickPlayNote2\s*</ClickPlayNote2>", "</ClickPlayNote2>", RegexOptions.IgnoreCase);
-            output = Regex.Replace(output, @"</ClickPlayNote3\s*</C3lickPlayNote3>", "</ClickPlayNote3>", RegexOptions.IgnoreCase);
+            output = Regex.Replace(output, @"</ClickPlayNote3\s*</ClickPlayNote3>", "</ClickPlayNote3>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</ClickPlayNote4\s*</ClickPlayNote4>", "</ClickPlayNote4>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</PlayNotes\s*</PlayNotes>", "</PlayNotes>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</PlayNote1\s*</PlayNote1>", "</PlayNote1>", RegexOptions.IgnoreCase);

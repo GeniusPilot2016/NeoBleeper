@@ -8,7 +8,7 @@ namespace NeoBleeper
 {
     public class TemporarySettings
     {
-        public static class eligability_of_create_beep_from_system_speaker
+        public static class eligibility_of_create_beep_from_system_speaker
         {
             public static bool is_system_speaker_present;
             public static DeviceType deviceType = DeviceType.Unknown;

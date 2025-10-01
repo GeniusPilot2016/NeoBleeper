@@ -292,7 +292,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAGgASUBoAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAG4ASUBuAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -623,22 +623,22 @@
     <value>Nombre de battements dans 1 minute de musique</value>
   </data>
   <data name="comboBox_note_length.Items" xml:space="preserve">
-    <value>Ronde</value>
+    <value>1 (Ronde)</value>
   </data>
   <data name="comboBox_note_length.Items1" xml:space="preserve">
-    <value>Blanche</value>
+    <value>1/2 (Blanche)</value>
   </data>
   <data name="comboBox_note_length.Items2" xml:space="preserve">
-    <value>Noire</value>
+    <value>1/4 (Noire)</value>
   </data>
   <data name="comboBox_note_length.Items3" xml:space="preserve">
-    <value>Croche</value>
+    <value>1/8 (Croche)</value>
   </data>
   <data name="comboBox_note_length.Items4" xml:space="preserve">
-    <value>Double-croche</value>
+    <value>1/16 (Double-croche)</value>
   </data>
   <data name="comboBox_note_length.Items5" xml:space="preserve">
-    <value>Triple-croche</value>
+    <value>1/32 (Triple-croche)</value>
   </data>
   <data name="comboBox_note_length.ToolTip" xml:space="preserve">
     <value>La longueur de la note ajoutée à la liste de musique lorsqu'une touche du clavier est enfoncée</value>
@@ -650,7 +650,7 @@
     <value>Activer ou désactiver le métronome</value>
   </data>
   <data name="checkBox_dotted.Location" type="System.Drawing.Point, System.Drawing">
-    <value>483, 318</value>
+    <value>499, 318</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 26</value>
@@ -662,7 +662,7 @@
     <value>Augmenter la durée de la note de moitié</value>
   </data>
   <data name="checkBox_triplet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>544, 318</value>
+    <value>560, 318</value>
   </data>
   <data name="checkBox_triplet.Text" xml:space="preserve">
     <value>Triolet</value>
@@ -831,7 +831,7 @@
     <value>Cette option crée des sons de type beat sur des notes noires et blanches.</value>
   </data>
   <data name="checkBox_staccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>615, 318</value>
+    <value>631, 318</value>
   </data>
   <data name="checkBox_staccato.ToolTip" xml:space="preserve">
     <value>Rendre la note plus courte et séparée</value>
@@ -849,13 +849,7 @@
     <value>Indique que le son sort du haut-parleur du système/périphérique audio.</value>
   </data>
   <data name="checkBox_fermata.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 318</value>
-  </data>
-  <data name="checkBox_fermata.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 26</value>
-  </data>
-  <data name="checkBox_fermata.Text" xml:space="preserve">
-    <value>Point d'orgue</value>
+    <value>764, 318</value>
   </data>
   <data name="checkBox_fermata.ToolTip" xml:space="preserve">
     <value>Prolonger la durée d'un billet d'une durée indéterminée</value>
@@ -891,7 +885,7 @@
     <value>Rendre la « Note 3 » de la ligne sélectionnée vide</value>
   </data>
   <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>682, 318</value>
+    <value>698, 318</value>
   </data>
   <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 16</value>
@@ -1126,7 +1120,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        SAElAUgBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        YAElAWABJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

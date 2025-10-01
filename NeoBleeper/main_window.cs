@@ -99,7 +99,7 @@ namespace NeoBleeper
                 InitializeMidiInput();
             }
         }
-        private void resizeColumn() 
+        private void resizeColumn()
         {
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (listViewNotes.Columns.Count > 0)
@@ -1632,7 +1632,7 @@ namespace NeoBleeper
                     isModified = false;
                     UpdateFormTitle();
                 }
-                Logger.Log("File is succesfully created by AI", Logger.LogTypes.Info);
+                Logger.Log("File is successfully created by AI", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
@@ -1662,7 +1662,7 @@ namespace NeoBleeper
         }
         private string convertModifiersIntoLocalized(string modifier)
         {
-            switch(modifier)
+            switch (modifier)
             {
                 case "Dot":
                     return Resources.DottedModifier;
@@ -1674,7 +1674,7 @@ namespace NeoBleeper
         }
         private string convertArticulationsIntoLocalized(string articulation)
         {
-            switch(articulation)
+            switch (articulation)
             {
                 case "Sta":
                     return Resources.StaccatoArticulation;
@@ -1904,7 +1904,7 @@ namespace NeoBleeper
                                             {
                                                 item.SubItems.Add(string.Empty);
                                             }
-                                            item.SubItems.Add(convertModifiersIntoLocalized(noteData[3])); 
+                                            item.SubItems.Add(convertModifiersIntoLocalized(noteData[3]));
                                         }
                                         else
                                         {
@@ -3537,8 +3537,13 @@ namespace NeoBleeper
             unselect_line();
         }
         bool is_clicked = false;
+        bool right_clicked = false;
         private async void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
+            if (right_clicked)
+            {
+                return; // Exit the method if it's a right-click
+            }
             var mousePoint = listViewNotes.PointToClient(Control.MousePosition);
             var hit = listViewNotes.HitTest(mousePoint);
             if (hit.Location == ListViewHitTestLocations.StateImage)
@@ -4675,7 +4680,7 @@ namespace NeoBleeper
         {
             PasteFromClipboard();
         }
-        
+
         private void PasteFromClipboard()
         {
             if (!Clipboard.ContainsText()) return;
@@ -4878,7 +4883,7 @@ namespace NeoBleeper
 
                 isModified = true;
                 UpdateFormTitle();
-                Toast toast = new Toast(this, Resources. ToastMessageNotesCut, 2000);
+                Toast toast = new Toast(this, Resources.ToastMessageNotesCut, 2000);
                 toast.Show();
                 Logger.Log("Cut is executed.", Logger.LogTypes.Info);
             }
@@ -6238,6 +6243,16 @@ namespace NeoBleeper
             {
                 item.Checked = false;
             }
+        }
+
+        private void listViewNotes_MouseDown(object sender, MouseEventArgs e)
+        {
+            right_clicked = e.Button == MouseButtons.Right;
+        }
+
+        private void listViewNotes_MouseUp(object sender, MouseEventArgs e)
+        {
+            right_clicked = false;
         }
     }
 }

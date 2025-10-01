@@ -63,9 +63,9 @@ namespace BeepStopper.Properties {
         /// <summary>
         ///   An error occurred:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnErrorOccuredMessage {
+        internal static string AnErrorOccurredMessage {
             get {
-                return ResourceManager.GetString("AnErrorOccuredMessage", resourceCulture);
+                return ResourceManager.GetString("AnErrorOccurredMessage", resourceCulture);
             }
         }
         

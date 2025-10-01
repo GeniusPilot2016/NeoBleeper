@@ -131,7 +131,7 @@
     <value>Attualmente non in attesa</value>
   </data>
   <data name="MIDIDeviceErrorTitle" xml:space="preserve">
-    <value>MIDI Device Error</value>
+    <value>Errore Dispositivo MIDI</value>
   </data>
   <data name="ExamplePrompt6" xml:space="preserve">
     <value>Componi una canzone pop italiana allegra</value>
@@ -140,7 +140,7 @@
     <value>Smetti di aspettare</value>
   </data>
   <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Le format de la clé API Google Gemini™ est invalide. Veuillez la saisir à nouveau dans l'onglet « Général » des paramètres.</value>
+    <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
   </data>
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -463,7 +463,7 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
     <value>File MIDI caricato correttamente.</value>
   </data>
   <data name="TextShow" xml:space="preserve">
-    <value>Spettacolo</value>
+    <value>Mostra</value>
   </data>
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>Il file MIDI è in fase di caricamento...</value>
@@ -471,14 +471,11 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Si è verificato un errore durante l'esecuzione dell'applicazione: </value>
-  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
-    <value>Il formato della chiave API di Google Gemini™ non è valido. Inserisci nuovamente la chiave API nella scheda "Generale" delle impostazioni.</value>
+    <value>File musicale non valido o danneggiato</value>
   </data>
   <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -530,9 +527,6 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Si stanno creando delle cornici...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>Si è verificato un errore:</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Errore durante la conversione in GCode:</value>
@@ -602,5 +596,11 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>Musica Generata dall'Intelligenza Artificiale</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Si è verificato un errore:</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>Si è verificato un errore durante l'esecuzione dell'applicazione: </value>
   </data>
 </root>

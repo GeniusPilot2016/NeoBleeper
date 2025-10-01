@@ -125,19 +125,19 @@
     <value>Generale</value>
   </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 647</value>
+    <value>366, 655</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Creazione di Suoni</value>
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 647</value>
+    <value>366, 655</value>
   </data>
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Dispositivi</value>
   </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 647</value>
+    <value>366, 655</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Aspetto</value>
@@ -147,8 +147,8 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAJkkAAAJNU0Z0AUkBTAIBAREB
-        AAHYAQYB2AEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
-        Zf8A/wB0AAMiATEBbAFmAV4B5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
+        AAHgAQYB4AEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        Zf8A/wB0AAMiATEBawFmAV8B5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AdkBjAEpAf/gAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wHdAaABUAH/4AACVQFTAaoE/wHyAcUBQwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB
@@ -164,7 +164,7 @@
         qgT/AfYB2QGCAf8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Af8B9gHWAXgF/wPwAf8D8AH/AeUB2QHLAf8B
         qwFiAQ0B/wHDAZIBWgH/A/AB/wPwAf8B3QGgAVAB/+AAAlUBUwGqHP8D8AH/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/Ad0BoAFQAf/gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B
-        dQFtAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
+        cgFsAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
         NQFVAzUBVVwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8D
         RAF7DAACZQFdAewBoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
@@ -558,13 +558,13 @@
     <value>Salva la chiave API nel campo Chiave API.</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 43</value>
+    <value>234, 43</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 28</value>
+    <value>103, 28</value>
   </data>
   <data name="buttonShowHide.Text" xml:space="preserve">
-    <value>Spettacolo</value>
+    <value>Monstra</value>
   </data>
   <data name="buttonShowHide.ToolTip" xml:space="preserve">
     <value>Mostra la chiave API nel campo Chiave API.
@@ -587,7 +587,7 @@ con nessun altro.</value>
     <value>Chiave API di Google Gemini™</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 23</value>
+    <value>220, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
     <value>Imposta qui la tua chiave API per utilizzare la funzionalità di generazione musicale basata sull'intelligenza artificiale.
@@ -642,7 +642,7 @@ Puoi ottenere la tua chiave API da https://aistudio.google.com/app/apikey.</valu
     <value>Nei computer compatti e nei computer di tipo sconosciuto, potrebbe non essere udibile alcun suono o potrebbe verificarsi instabilità o un comportamento indesiderato quando si testa l'altoparlante di sistema, perché gli altoparlanti principali potrebbero essere collegati all'uscita dell'altoparlante di sistema anziché all'altoparlante di sistema vero e proprio.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 637</value>
+    <value>356, 645</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>329, 20</value>
@@ -717,7 +717,7 @@ Puoi ottenere la tua chiave API da https://aistudio.google.com/app/apikey.</valu
     <value>Quadrato (predefinito)</value>
   </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 637</value>
+    <value>356, 645</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 20</value>
@@ -883,7 +883,7 @@ Il motore funzionerà alla velocità corrispondente all'ottava selezionata.
 Se si utilizza un motore, è possibile controllarne la velocità con il cursore di modifica della velocità del motore.</value>
   </data>
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>356, 637</value>
+    <value>356, 645</value>
   </data>
   <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 103</value>

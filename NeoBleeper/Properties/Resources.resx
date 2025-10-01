@@ -346,7 +346,7 @@ Click again to hide it.</value>
     <value>Empty note list cannot be exported.</value>
   </data>
   <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
-    <value>La respuesta de la IA es nula o está vacía.</value>
+    <value>The AI response is null or empty</value>
   </data>
   <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -457,7 +457,7 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>This file is not a valid MIDI file, or it is corrupted or is being used by another process.</value>
   </data>
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
-    <value>La creación de música por IA ha fallado: </value>
+    <value>AI music creation failed: </value>
   </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI file loaded successfully.</value>
@@ -470,9 +470,6 @@ This feature makes the system speaker/sound device increase or decrease in pitch
   </data>
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Se ha producido un error al ejecutar la aplicación: </value>
   </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -530,9 +527,6 @@ You can see the key mappings in the buttons in the top of the window.</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Frames are being created...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>An error occurred:</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Error converting to GCode:</value>
@@ -602,5 +596,11 @@ You can see the key mappings in the buttons in the top of the window.</value>
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>AI Generated Music</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>An error occurred:</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>An error occured while running application: </value>
   </data>
 </root>

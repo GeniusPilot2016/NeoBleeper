@@ -471,9 +471,6 @@ Cette fonctionnalité permet au haut-parleur/au périphérique audio du système
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Une erreur s'est produite lors de l'exécution de l'application: </value>
-  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -530,9 +527,6 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Les cadres sont en cours de création...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>Une erreur s'est produite :</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Erreur lors de la conversion en GCode :</value>
@@ -595,12 +589,18 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
     <value>Spi</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
-    <value>Ptd</value>
+    <value>Fer</value>
   </data>
   <data name="MoreText" xml:space="preserve">
     <value>({number} de Plus)</value>
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>Musique Générée par l'IA</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Une erreur s'est produite :</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'exécution de l'application: </value>
   </data>
 </root>

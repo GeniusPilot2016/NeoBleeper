@@ -66,8 +66,8 @@ namespace NeoBleeper
 
                 case true:
                     {
-                        TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
-                        switch (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present)
+                        TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
+                        switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
                         {
                             case false:
                                 {
@@ -91,7 +91,7 @@ namespace NeoBleeper
                                     case GetInformations.computerTypes.ModularComputer:
                                         {
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
+                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                             shouldRun = true;
                                             break;
                                         }
@@ -99,7 +99,7 @@ namespace NeoBleeper
                                         {
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                             TemporarySettings.creating_sounds.permanently_enabled = false;
-                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
+                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
                                             Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                             {
@@ -116,7 +116,7 @@ namespace NeoBleeper
                                         {
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                             TemporarySettings.creating_sounds.permanently_enabled = false;
-                                            TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown;
+                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                             Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                             {
@@ -146,7 +146,7 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
-                    MessageBox.Show(Resources.AnErrorOccuredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.AnErrorOccurredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit when both normal exit and fatal error
             }

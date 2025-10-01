@@ -44,7 +44,7 @@ namespace NeoBleeper
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = false;
             }
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == false)
+            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 label_test_system_speaker_message_2.Visible = true;
                 label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
@@ -52,8 +52,8 @@ namespace NeoBleeper
             }
             else
             {
-                if (TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown ||
-                    TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
+                if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                    TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
                 {
                     label_test_system_speaker_message_3.Visible = true;
                     label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
@@ -301,7 +301,7 @@ namespace NeoBleeper
         }
         private async Task system_speaker_test_tune()
         {
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
+            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
             // Debounce check to prevent multiple clicks to test the system speaker
             {
                 isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
@@ -388,7 +388,7 @@ namespace NeoBleeper
 
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
             }
@@ -415,8 +415,8 @@ namespace NeoBleeper
 
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
-            if (TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.Unknown ||
-                TemporarySettings.eligability_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligability_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
+            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {
@@ -1479,8 +1479,8 @@ namespace NeoBleeper
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log($"An error occured while lyrics/text event size is changing: {ex.Message}", Logger.LogTypes.Error);
-                    MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Log($"An error occurred while lyrics/text event size is changing: {ex.Message}", Logger.LogTypes.Error);
+                    MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1501,8 +1501,8 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Logger.Log($"An error occured while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageAnErrorOccured} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.Log($"An error occurred while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
+                MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
