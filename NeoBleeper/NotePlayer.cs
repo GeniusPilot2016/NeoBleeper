@@ -94,17 +94,17 @@ namespace NeoBleeper
                 return; // If the system speaker is not present, do nothing
             }
         }
-        public static void StopMicrocontrollerSound() // Stop the sound from the microcontroller
+        public static async void StopMicrocontrollerSound() // Stop the sound from the microcontroller
         {
             try
             {
                 switch (TemporarySettings.MicrocontrollerSettings.deviceType)
                 {
-                    case TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer:
-                        throw new NotImplementedException("Buzzer support is not implemented yet.");
+                    case TemporarySettings.MicrocontrollerSettings.DeviceType.DCMotorOrBuzzer:
+                        await SerialPortHelper.StopBuzzerSound();
                         break;
-                    case TemporarySettings.MicrocontrollerSettings.DeviceType.Motor:
-                        throw new NotImplementedException("Motor support is not implemented yet.");
+                    case TemporarySettings.MicrocontrollerSettings.DeviceType.StepperMotor:
+                        await SerialPortHelper.StopMotorSound();
                         break;
                 }
             }
@@ -119,12 +119,12 @@ namespace NeoBleeper
             {
                 switch (TemporarySettings.MicrocontrollerSettings.deviceType)
                 {
-                    case TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer:
-                        throw new NotImplementedException("Buzzer support is not implemented yet.");
+                    case TemporarySettings.MicrocontrollerSettings.DeviceType.DCMotorOrBuzzer:
+                        await SerialPortHelper.PlaySoundUsingBuzzer(frequency, length, nonStopping);
                         break;
-                    case TemporarySettings.MicrocontrollerSettings.DeviceType.Motor:
-                        int motorOctave = TemporarySettings.MicrocontrollerSettings.motorOctave; // Get the motor octave setting
-                        throw new NotImplementedException("Motor support is not implemented yet.");
+                    case TemporarySettings.MicrocontrollerSettings.DeviceType.StepperMotor:
+                        int motorOctave = TemporarySettings.MicrocontrollerSettings.stepperMotorOctave; // Get the motor octave setting
+                        await SerialPortHelper.PlaySoundUsingMotor(frequency, length, nonStopping);
                         break;
                 }
             }

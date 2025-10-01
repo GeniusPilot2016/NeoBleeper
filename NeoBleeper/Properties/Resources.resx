@@ -190,7 +190,7 @@ Do you want to open this file anyway?</value>
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UseVoiceSystemHelp" xml:space="preserve">
-    <value>This feauture makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
+    <value>This feature makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
   </data>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Currently waiting</value>
@@ -422,7 +422,7 @@ When enabled, the position table will not update when the music is playing.
 If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.</value>
   </data>
   <data name="TextMIDIFileLoadingError" xml:space="preserve">
-    <value>Se ha producido un error al cargar el archivo MIDI.</value>
+    <value>An error occurred while loading MIDI file.</value>
   </data>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Error closing the form: </value>
@@ -601,6 +601,6 @@ You can see the key mappings in the buttons in the top of the window.</value>
     <value>An error occurred:</value>
   </data>
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
-    <value>An error occured while running application: </value>
+    <value>An error occurred while running application: </value>
   </data>
 </root>

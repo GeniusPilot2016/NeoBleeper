@@ -85,11 +85,13 @@
             comboBox_midi_output_devices = new ComboBox();
             label_midi_output_device = new Label();
             groupBox_other_devices = new GroupBox();
-            trackBar_motor_octave = new TrackBar();
-            label_motor_speed_mod = new Label();
+            button1 = new Button();
+            label_firmware_warning = new Label();
+            trackBar_stepper_motor_octave = new TrackBar();
+            label_stepper_motor_octave = new Label();
             groupBox_type_of_device = new GroupBox();
-            radioButtonBuzzer = new RadioButton();
-            radioButtonMotor = new RadioButton();
+            radioButtonDCMotorOrBuzzer = new RadioButton();
+            radioButtonStepperMotor = new RadioButton();
             checkBox_use_microcontroller = new CheckBox();
             appearance = new TabPage();
             flowLayoutPanelAppearanceSettings = new FlowLayoutPanel();
@@ -160,7 +162,7 @@
             group_midi_input_devices.SuspendLayout();
             group_midi_output_devices.SuspendLayout();
             groupBox_other_devices.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar_stepper_motor_octave).BeginInit();
             groupBox_type_of_device.SuspendLayout();
             appearance.SuspendLayout();
             flowLayoutPanelAppearanceSettings.SuspendLayout();
@@ -307,6 +309,7 @@
             imageList_settings.Images.SetKeyName(14, "icons8-update-48.png");
             imageList_settings.Images.SetKeyName(15, "icons8-preview-48.png");
             imageList_settings.Images.SetKeyName(16, "icons8-manual-48.png");
+            imageList_settings.Images.SetKeyName(17, "icons8-bios-48.png");
             // 
             // buttonUpdateAPIKey
             // 
@@ -651,56 +654,73 @@
             // groupBox_other_devices
             // 
             resources.ApplyResources(groupBox_other_devices, "groupBox_other_devices");
-            groupBox_other_devices.Controls.Add(trackBar_motor_octave);
-            groupBox_other_devices.Controls.Add(label_motor_speed_mod);
+            groupBox_other_devices.Controls.Add(button1);
+            groupBox_other_devices.Controls.Add(label_firmware_warning);
+            groupBox_other_devices.Controls.Add(trackBar_stepper_motor_octave);
+            groupBox_other_devices.Controls.Add(label_stepper_motor_octave);
             groupBox_other_devices.Controls.Add(groupBox_type_of_device);
             groupBox_other_devices.Controls.Add(checkBox_use_microcontroller);
             groupBox_other_devices.Name = "groupBox_other_devices";
             groupBox_other_devices.TabStop = false;
             toolTip1.SetToolTip(groupBox_other_devices, resources.GetString("groupBox_other_devices.ToolTip"));
             // 
-            // trackBar_motor_octave
+            // button1
             // 
-            resources.ApplyResources(trackBar_motor_octave, "trackBar_motor_octave");
-            trackBar_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
-            trackBar_motor_octave.Maximum = 5;
-            trackBar_motor_octave.Name = "trackBar_motor_octave";
-            toolTip1.SetToolTip(trackBar_motor_octave, resources.GetString("trackBar_motor_octave.ToolTip"));
-            trackBar_motor_octave.Value = 2;
-            trackBar_motor_octave.Scroll += trackBar_motor_octave_Scroll;
+            resources.ApplyResources(button1, "button1");
+            button1.ImageList = imageList_settings;
+            button1.Name = "button1";
+            toolTip1.SetToolTip(button1, resources.GetString("button1.ToolTip"));
+            button1.UseVisualStyleBackColor = true;
             // 
-            // label_motor_speed_mod
+            // label_firmware_warning
             // 
-            resources.ApplyResources(label_motor_speed_mod, "label_motor_speed_mod");
-            label_motor_speed_mod.Name = "label_motor_speed_mod";
-            toolTip1.SetToolTip(label_motor_speed_mod, resources.GetString("label_motor_speed_mod.ToolTip"));
+            resources.ApplyResources(label_firmware_warning, "label_firmware_warning");
+            label_firmware_warning.ImageList = imageList_settings;
+            label_firmware_warning.Name = "label_firmware_warning";
+            toolTip1.SetToolTip(label_firmware_warning, resources.GetString("label_firmware_warning.ToolTip"));
+            // 
+            // trackBar_stepper_motor_octave
+            // 
+            resources.ApplyResources(trackBar_stepper_motor_octave, "trackBar_stepper_motor_octave");
+            trackBar_stepper_motor_octave.BackColor = Color.FromArgb(249, 248, 249);
+            trackBar_stepper_motor_octave.Maximum = 5;
+            trackBar_stepper_motor_octave.Name = "trackBar_stepper_motor_octave";
+            toolTip1.SetToolTip(trackBar_stepper_motor_octave, resources.GetString("trackBar_stepper_motor_octave.ToolTip"));
+            trackBar_stepper_motor_octave.Value = 2;
+            trackBar_stepper_motor_octave.Scroll += trackBar_motor_octave_Scroll;
+            // 
+            // label_stepper_motor_octave
+            // 
+            resources.ApplyResources(label_stepper_motor_octave, "label_stepper_motor_octave");
+            label_stepper_motor_octave.Name = "label_stepper_motor_octave";
+            toolTip1.SetToolTip(label_stepper_motor_octave, resources.GetString("label_stepper_motor_octave.ToolTip"));
             // 
             // groupBox_type_of_device
             // 
             resources.ApplyResources(groupBox_type_of_device, "groupBox_type_of_device");
-            groupBox_type_of_device.Controls.Add(radioButtonBuzzer);
-            groupBox_type_of_device.Controls.Add(radioButtonMotor);
+            groupBox_type_of_device.Controls.Add(radioButtonDCMotorOrBuzzer);
+            groupBox_type_of_device.Controls.Add(radioButtonStepperMotor);
             groupBox_type_of_device.Name = "groupBox_type_of_device";
             groupBox_type_of_device.TabStop = false;
             toolTip1.SetToolTip(groupBox_type_of_device, resources.GetString("groupBox_type_of_device.ToolTip"));
             // 
-            // radioButtonBuzzer
+            // radioButtonDCMotorOrBuzzer
             // 
-            resources.ApplyResources(radioButtonBuzzer, "radioButtonBuzzer");
-            radioButtonBuzzer.Name = "radioButtonBuzzer";
-            toolTip1.SetToolTip(radioButtonBuzzer, resources.GetString("radioButtonBuzzer.ToolTip"));
-            radioButtonBuzzer.UseVisualStyleBackColor = true;
-            radioButtonBuzzer.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
+            resources.ApplyResources(radioButtonDCMotorOrBuzzer, "radioButtonDCMotorOrBuzzer");
+            radioButtonDCMotorOrBuzzer.Name = "radioButtonDCMotorOrBuzzer";
+            toolTip1.SetToolTip(radioButtonDCMotorOrBuzzer, resources.GetString("radioButtonDCMotorOrBuzzer.ToolTip"));
+            radioButtonDCMotorOrBuzzer.UseVisualStyleBackColor = true;
+            radioButtonDCMotorOrBuzzer.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
             // 
-            // radioButtonMotor
+            // radioButtonStepperMotor
             // 
-            resources.ApplyResources(radioButtonMotor, "radioButtonMotor");
-            radioButtonMotor.Checked = true;
-            radioButtonMotor.Name = "radioButtonMotor";
-            radioButtonMotor.TabStop = true;
-            toolTip1.SetToolTip(radioButtonMotor, resources.GetString("radioButtonMotor.ToolTip"));
-            radioButtonMotor.UseVisualStyleBackColor = true;
-            radioButtonMotor.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
+            resources.ApplyResources(radioButtonStepperMotor, "radioButtonStepperMotor");
+            radioButtonStepperMotor.Checked = true;
+            radioButtonStepperMotor.Name = "radioButtonStepperMotor";
+            radioButtonStepperMotor.TabStop = true;
+            toolTip1.SetToolTip(radioButtonStepperMotor, resources.GetString("radioButtonStepperMotor.ToolTip"));
+            radioButtonStepperMotor.UseVisualStyleBackColor = true;
+            radioButtonStepperMotor.CheckedChanged += deviceTypeRadioButtons_CheckedChanged;
             // 
             // checkBox_use_microcontroller
             // 
@@ -1158,7 +1178,7 @@
             group_midi_output_devices.PerformLayout();
             groupBox_other_devices.ResumeLayout(false);
             groupBox_other_devices.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar_motor_octave).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar_stepper_motor_octave).EndInit();
             groupBox_type_of_device.ResumeLayout(false);
             groupBox_type_of_device.PerformLayout();
             appearance.ResumeLayout(false);
@@ -1235,12 +1255,12 @@
         private ComboBox comboBox_midi_output_instrument;
         private Label label_instrument;
         private GroupBox groupBox_other_devices;
-        private Label label_motor_speed_mod;
+        private Label label_stepper_motor_octave;
         private GroupBox groupBox_type_of_device;
-        private RadioButton radioButtonBuzzer;
-        private RadioButton radioButtonMotor;
+        private RadioButton radioButtonDCMotorOrBuzzer;
+        private RadioButton radioButtonStepperMotor;
         private CheckBox checkBox_use_microcontroller;
-        private TrackBar trackBar_motor_octave;
+        private TrackBar trackBar_stepper_motor_octave;
         private CheckBox checkBoxClassicBleeperMode;
         private Button markup_color_change;
         private Label label1;
@@ -1289,5 +1309,7 @@
         private Panel note_indicator_color;
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
+        private Label label_firmware_warning;
+        private Button button1;
     }
 }

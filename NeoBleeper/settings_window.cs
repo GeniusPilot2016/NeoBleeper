@@ -18,6 +18,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            checkBox_use_microcontroller.Enabled = SerialPortHelper.IsAnyPortThatIsMicrocontrollerAvailable(); // Enable or disable the microcontroller checkbox based on availability
             switch (TemporarySettings.creating_sounds.soundDeviceBeepWaveform)
             {
                 case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square:
@@ -81,14 +82,14 @@ namespace NeoBleeper
             }
             switch (TemporarySettings.MicrocontrollerSettings.deviceType)
             {
-                case TemporarySettings.MicrocontrollerSettings.DeviceType.Motor:
-                    radioButtonMotor.Checked = true;
+                case TemporarySettings.MicrocontrollerSettings.DeviceType.StepperMotor:
+                    radioButtonStepperMotor.Checked = true;
                     break;
-                case TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer:
-                    radioButtonBuzzer.Checked = true;
+                case TemporarySettings.MicrocontrollerSettings.DeviceType.DCMotorOrBuzzer:
+                    radioButtonDCMotorOrBuzzer.Checked = true;
                     break;
             }
-            trackBar_motor_octave.Value = TemporarySettings.MicrocontrollerSettings.motorOctave;
+            trackBar_stepper_motor_octave.Value = TemporarySettings.MicrocontrollerSettings.stepperMotorOctave;
             first_octave_color.BackColor = Settings1.Default.first_octave_color;
             second_octave_color.BackColor = Settings1.Default.second_octave_color;
             third_octave_color.BackColor = Settings1.Default.third_octave_color;
@@ -161,7 +162,7 @@ namespace NeoBleeper
             refresh_midi_output_button.BackColor = Color.FromArgb(32, 32, 32);
             groupBox_other_devices.ForeColor = Color.White;
             groupBox_type_of_device.ForeColor = Color.White;
-            trackBar_motor_octave.BackColor = Color.FromArgb(32, 32, 32);
+            trackBar_stepper_motor_octave.BackColor = Color.FromArgb(32, 32, 32);
             group_keyboard_colors.ForeColor = Color.White;
             group_buttons_and_controls_colors.ForeColor = Color.White;
             group_indicator_colors.ForeColor = Color.White;
@@ -232,7 +233,7 @@ namespace NeoBleeper
             refresh_midi_output_button.BackColor = Color.Transparent;
             groupBox_other_devices.ForeColor = SystemColors.ControlText;
             groupBox_type_of_device.ForeColor = SystemColors.ControlText;
-            trackBar_motor_octave.BackColor = SystemColors.Window;
+            trackBar_stepper_motor_octave.BackColor = SystemColors.Window;
             group_keyboard_colors.ForeColor = SystemColors.ControlText;
             group_buttons_and_controls_colors.ForeColor = SystemColors.ControlText;
             group_indicator_colors.ForeColor = SystemColors.ControlText;
@@ -1289,26 +1290,10 @@ namespace NeoBleeper
             }
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonMotor.Checked == true)
-            {
-                Logger.Log("Modulation type: Motor", Logger.LogTypes.Info);
-            }
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonBuzzer.Checked == true)
-            {
-                Logger.Log("Modulation type: Buzzer", Logger.LogTypes.Info);
-            }
-        }
-
         private void trackBar_motor_octave_Scroll(object sender, EventArgs e)
         {
-            TemporarySettings.MicrocontrollerSettings.motorOctave = trackBar_motor_octave.Value;
-            Logger.Log("Motor speed modulation octave: " + trackBar_motor_octave.Value, Logger.LogTypes.Info);
+            TemporarySettings.MicrocontrollerSettings.stepperMotorOctave = trackBar_stepper_motor_octave.Value;
+            Logger.Log("Stepper motor octave: " + trackBar_stepper_motor_octave.Value, Logger.LogTypes.Info);
         }
 
         private void buttonShowHide_Click(object sender, EventArgs e)
@@ -1432,15 +1417,19 @@ namespace NeoBleeper
 
         private void deviceTypeRadioButtons_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonMotor.Checked)
+            var rb = sender as RadioButton;
+            if (rb != null && rb.Checked)
             {
-                TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Motor;
-                Logger.Log("Device type set to Motor.", Logger.LogTypes.Info);
-            }
-            else if (radioButtonBuzzer.Checked)
-            {
-                TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.Buzzer;
-                Logger.Log("Device type set to Buzzer.", Logger.LogTypes.Info);
+                if (rb == radioButtonStepperMotor)
+                {
+                    TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.StepperMotor;
+                    Logger.Log("Device type set to Stepper Motor.", Logger.LogTypes.Info);
+                }
+                else if (rb == radioButtonDCMotorOrBuzzer)
+                {
+                    TemporarySettings.MicrocontrollerSettings.deviceType = TemporarySettings.MicrocontrollerSettings.DeviceType.DCMotorOrBuzzer;
+                    Logger.Log("Device type set to DC Motor or Buzzer.", Logger.LogTypes.Info);
+                }
             }
         }
 

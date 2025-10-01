@@ -61,7 +61,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   An error occured while running application:  benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occurred while running application:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccurredWhileRunningApplication {
             get {
@@ -1341,7 +1341,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Se ha producido un error al cargar el archivo MIDI. benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occurred while loading MIDI file. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextMIDIFileLoadingError {
             get {
@@ -1489,7 +1489,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   This feauture makes the program use voice system to mimic speech formants to make selected notes mimic &quot;singing&quot;. benzeri yerelleştirilmiş bir dize arar.
+        ///   This feature makes the program use voice system to mimic speech formants to make selected notes mimic &quot;singing&quot;. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string UseVoiceSystemHelp {
             get {

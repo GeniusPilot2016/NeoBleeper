@@ -78,13 +78,13 @@ namespace NeoBleeper
         public static class MicrocontrollerSettings
         {
             public static bool useMicrocontroller = false;
-            public static DeviceType deviceType = DeviceType.Motor;
+            public static DeviceType deviceType = DeviceType.StepperMotor;
             public enum DeviceType
             {
-                Motor,
-                Buzzer,
+                StepperMotor,
+                DCMotorOrBuzzer,
             }
-            public static int motorOctave = 2; // Default octave for motor
+            public static int stepperMotorOctave = 2; // Default octave for motor
         }
         public static class VoiceInternalSettings
         {
