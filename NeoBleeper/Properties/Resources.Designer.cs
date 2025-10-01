@@ -61,11 +61,11 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Se ha producido un error al ejecutar la aplicación:  benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occured while running application:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string AnErrorOccuredWhileRunningApplication {
+        public static string AnErrorOccurredWhileRunningApplication {
             get {
-                return ResourceManager.GetString("AnErrorOccuredWhileRunningApplication", resourceCulture);
+                return ResourceManager.GetString("AnErrorOccurredWhileRunningApplication", resourceCulture);
             }
         }
         
@@ -800,7 +800,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   La creación de música por IA ha fallado:  benzeri yerelleştirilmiş bir dize arar.
+        ///   AI music creation failed:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIMusicCreationFailed {
             get {
@@ -809,7 +809,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   La respuesta de la IA es nula o está vacía. benzeri yerelleştirilmiş bir dize arar.
+        ///   The AI response is null or empty benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIResponseNullOrEmpty {
             get {
@@ -820,9 +820,9 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   An error occurred: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string MessageAnErrorOccured {
+        public static string MessageAnErrorOccurred {
             get {
-                return ResourceManager.GetString("MessageAnErrorOccured", resourceCulture);
+                return ResourceManager.GetString("MessageAnErrorOccurred", resourceCulture);
             }
         }
         

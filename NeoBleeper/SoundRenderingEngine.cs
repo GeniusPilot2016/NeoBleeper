@@ -15,6 +15,67 @@ namespace NeoBleeper
         public static class SystemSpeakerBeepEngine // Drive the system speaker (aka PC speaker) directly by emulating beep.sys using inpoutx64.dll in modern Windows (Windows 7 and above)
                                                     // Note: This will not work in virtual machines or computers without a physical system speaker output
         {
+            static systemStorageType StorageType = systemStorageType.HDD; // Default to HDD to prevent resonance issues, should be set by the main program based on actual storage device
+            static int storageRPM = 5400; // Default RPM for HDD, should be set by the main program based on actual storage device
+            static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
+            public static void SpecifyStorageType()
+            {
+                try
+                {
+                    Logger.Log("Specifying storage type for resonance prevention...", Logger.LogTypes.Info);
+                    string query = "SELECT * FROM Win32_DiskDrive";
+                    using (var searcher = new ManagementObjectSearcher(query))
+                    {
+                        var devices = searcher.Get();
+                        foreach (ManagementObject device in devices)
+                        {
+                            string model = device["Model"]?.ToString() ?? "";
+                            string interfaceType = device["InterfaceType"]?.ToString() ?? "";
+                            if (interfaceType.Equals("NVMe", StringComparison.OrdinalIgnoreCase) || model.Contains("NVMe", StringComparison.OrdinalIgnoreCase))
+                            {
+                                StorageType = systemStorageType.NVMe;
+                                resonanceFrequency = 0; // NVMe drives have no resonance issues
+                                Logger.Log("Detected NVMe storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                return;
+                            }
+                            else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("SATA", StringComparison.OrdinalIgnoreCase) || model.Contains("SSD", StringComparison.OrdinalIgnoreCase))
+                            {
+                                StorageType = systemStorageType.SSD;
+                                resonanceFrequency = 0; // SSDs have no resonance issues
+                                Logger.Log("Detected SSD storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                return;
+                            }
+                            else if (interfaceType.Equals("IDE", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("ATA", StringComparison.OrdinalIgnoreCase) || model.Contains("HDD", StringComparison.OrdinalIgnoreCase) || model.Contains("Hard Drive", StringComparison.OrdinalIgnoreCase))
+                            {
+                                StorageType = systemStorageType.HDD;
+                                string rpmStr = device["TotalCylinders"]?.ToString() ?? ""; // Placeholder, as RPM is not directly available
+                                // In real scenarios, RPM might be fetched from specific vendor tools or databases
+                                // Here we default to 5400 RPM for simplicity
+                                storageRPM = 5400;
+                                resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
+                                Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
+                                return;
+                            }
+                        }
+                        StorageType = systemStorageType.Other; // If no known type is found
+                        resonanceFrequency = 0; // Assume no resonance issues for unknown types
+                        Logger.Log("Storage type is unknown. Resonance prevention is not applied.", Logger.LogTypes.Warning);
+                    }
+                }
+                catch (Exception ex) 
+                {
+                    Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
+                    StorageType = systemStorageType.HDD; // Fallback to HDD on error
+                }
+            }
+            public enum systemStorageType // Enum for different types of storage devices to prevent critical crashes by preventing resonance frequencies on certain devices because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                                          // Fun fact: Janet Jackson's "Rhythm Nation" has a bass frequency of 50 Hz, which can cause resonance in HDDs and lead to crashes
+            {
+                HDD,
+                SSD, 
+                NVMe,
+                Other
+            }
             static SystemSpeakerBeepEngine()
             {
                 // Safe stop to avoid stuck beeps on exit or crash
@@ -47,6 +108,10 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
+                if(freq == resonanceFrequency && StorageType == systemStorageType.HDD) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                {
+                    freq += 1; // Shift frequency by 1 Hz to avoid resonance
+                }
                 Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
                 int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
                 Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor

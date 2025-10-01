@@ -85,7 +85,7 @@ namespace NeoBleeper
         }
         public static void PlayOnlySystemSpeakerBeep(int frequency, int length) // Play only the system speaker beep
         {
-            if(TemporarySettings.eligability_of_create_beep_from_system_speaker.is_system_speaker_present == true)
+            if(TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 SoundRenderingEngine.SystemSpeakerBeepEngine.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
             }

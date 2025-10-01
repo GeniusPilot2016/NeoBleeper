@@ -166,7 +166,7 @@ Bạn có muốn mở tệp này không?</value>
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
-    <value>Try refreshing tHãy thử làm mới danh sách thiết bị.he device list.</value>
+    <value>Hãy thử làm mới danh sách thiết bị.</value>
   </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -464,16 +464,13 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
     <value>Tệp MIDI đã được tải thành công.</value>
   </data>
   <data name="TextShow" xml:space="preserve">
-    <value>Trình diễn</value>
+    <value>Hiển thị</value>
   </data>
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>Tệp MIDI đang được tải...</value>
   </data>
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Đã xảy ra lỗi khi chạy ứng dụng: </value>
   </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -531,9 +528,6 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Khung đang được tạo...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>Đã xảy ra lỗi:</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Lỗi khi chuyển đổi sang GCode:</value>
@@ -603,5 +597,11 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>Âm nhạc được tạo ra bởi AI</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Đã xảy ra lỗi:</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi chạy ứng dụng: </value>
   </data>
 </root>

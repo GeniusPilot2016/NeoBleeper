@@ -785,6 +785,8 @@
             listViewNotes.View = View.Details;
             listViewNotes.SelectedIndexChanged += listViewNotes_SelectedIndexChanged;
             listViewNotes.Click += listViewNotes_Click;
+            listViewNotes.MouseDown += listViewNotes_MouseDown;
+            listViewNotes.MouseUp += listViewNotes_MouseUp;
             // 
             // length
             // 

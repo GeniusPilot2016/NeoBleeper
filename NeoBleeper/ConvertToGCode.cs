@@ -191,10 +191,10 @@ namespace NeoBleeper
                 int silence = (int)Math.Truncate(FixRoundingErrors(CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))));
                 double difference = RemoveWholeNumber(raw_note_length - (note_length + silence));
                 remainder += difference;
-                int roundedReminder = (int)Math.Round(remainder, MidpointRounding.ToEven);
-                if (roundedReminder >= 1.0 || roundedReminder <= -1.0)
+                int roundedRemainder = (int)Math.Round(remainder, MidpointRounding.ToEven);
+                if (roundedRemainder >= 1.0 || roundedRemainder <= -1.0)
                 {
-                    note_length -= roundedReminder;
+                    note_length -= roundedRemainder;
                     remainder -= remainder;
                 }
                 insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
@@ -517,16 +517,16 @@ namespace NeoBleeper
 
         private double CalculateNoteLength(string noteType, string modifier = "", string articulation = "")
         {
-            int milisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
+            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
             int baseLength = noteType switch
             {
-                "Whole" => milisecondsPerBeat * 4,
-                "Half" => milisecondsPerBeat * 2,
-                "Quarter" => milisecondsPerBeat,
-                "1/8" => milisecondsPerBeat / 2,
-                "1/16" => milisecondsPerBeat / 4,
-                "1/32" => milisecondsPerBeat / 8,
-                _ => milisecondsPerBeat
+                "Whole" => millisecondsPerBeat * 4,
+                "Half" => millisecondsPerBeat * 2,
+                "Quarter" => millisecondsPerBeat,
+                "1/8" => millisecondsPerBeat / 2,
+                "1/16" => millisecondsPerBeat / 4,
+                "1/32" => millisecondsPerBeat / 8,
+                _ => millisecondsPerBeat
             };
             switch (modifier)
             {
@@ -557,16 +557,16 @@ namespace NeoBleeper
         }
         private double CalculateLineLength(string noteType, string modifier = "", string articulation = "")
         {
-            int milisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
+            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
             int baseLength = noteType switch
             {
-                "Whole" => milisecondsPerBeat * 4,
-                "Half" => milisecondsPerBeat * 2,
-                "Quarter" => milisecondsPerBeat,
-                "1/8" => milisecondsPerBeat / 2,
-                "1/16" => milisecondsPerBeat / 4,
-                "1/32" => milisecondsPerBeat / 8,
-                _ => milisecondsPerBeat
+                "Whole" => millisecondsPerBeat * 4,
+                "Half" => millisecondsPerBeat * 2,
+                "Quarter" => millisecondsPerBeat,
+                "1/8" => millisecondsPerBeat / 2,
+                "1/16" => millisecondsPerBeat / 4,
+                "1/32" => millisecondsPerBeat / 8,
+                _ => millisecondsPerBeat
             };
             switch (modifier)
             {

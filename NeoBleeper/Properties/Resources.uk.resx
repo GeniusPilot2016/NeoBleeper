@@ -357,7 +357,7 @@
     <value>Напиши блюзову прогресію в мажорній тональності</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>No saved version to rewind to.</value>
+    <value>Немає збереженої версії для перемотування.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -414,7 +414,7 @@
     <value>Перетягнутий вами файл не підтримується NeoBleeper або пошкоджений.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Згенеруйfolk мелодію з акустичною гітарою</value>
+    <value>Згенеруй фолк мелодію з акустичною гітарою</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Ця функція вимикає автоматичне оновлення таблиці позицій під час відтворення музики. Однак вона продовжуватиме оновлюватися під час редагування.
@@ -473,9 +473,6 @@
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Під час запуску програми сталася помилка: </value>
-  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -532,9 +529,6 @@
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Створюються кадри...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>Сталася помилка:</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Помилка конвертації в G-код:</value>
@@ -604,5 +598,11 @@
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>Музика, згенерована штучним інтелектом</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Сталася помилка:</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>Під час запуску програми сталася помилка: </value>
   </data>
 </root>

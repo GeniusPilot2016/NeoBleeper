@@ -118,70 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 26</value>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 595</value>
   </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 595</value>
   </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>Cambiar el idioma del programa</value>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Creando Sonidos</value>
   </data>
-  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 16</value>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 595</value>
   </data>
-  <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Idioma</value>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Dispositivos</value>
   </data>
-  <data name="groupBoxLanguageSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 65</value>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 595</value>
   </data>
-  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
-    <value>Configuración de idioma</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
-    <value>Modo Bleeper clásico</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
-    <value>Habilitar o deshabilitar el modo Bleeper clásico</value>
-  </data>
-  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 16</value>
-  </data>
-  <data name="lbl_theme.Text" xml:space="preserve">
-    <value>Tema</value>
-  </data>
-  <data name="comboBox_theme.Items" xml:space="preserve">
-    <value>Usar tema del sistema</value>
-  </data>
-  <data name="comboBox_theme.Items1" xml:space="preserve">
-    <value>Claro</value>
-  </data>
-  <data name="comboBox_theme.Items2" xml:space="preserve">
-    <value>Oscuro</value>
-  </data>
-  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 25</value>
-  </data>
-  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 24</value>
-  </data>
-  <data name="comboBox_theme.ToolTip" xml:space="preserve">
-    <value>Cambiar el tema del programa</value>
-  </data>
-  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 82</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>Apariencia general</value>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Apariencia</value>
   </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAJkkAAAJNU0Z0AUkBTAIBAREB
-        AAHEAQYBxAEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
-        Zf8A/wB0AAMiATEBbQFmAVwB5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
+        AAHcAQYB3AEGARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        Zf8A/wB0AAMiATEBaQFmAV8B5QQC+AACUgFRAaQB8gHUAZsB/wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AdkBjAEpAf/gAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wHdAaABUAH/4AACVQFTAaoE/wHyAcUBQwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB
@@ -197,7 +161,7 @@
         qgT/AfYB2QGCAf8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Af8B9gHWAXgF/wPwAf8D8AH/AeUB2QHLAf8B
         qwFiAQ0B/wHDAZIBWgH/A/AB/wPwAf8B3QGgAVAB/+AAAlUBUwGqHP8D8AH/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/Ad0BoAFQAf/gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B
-        eAFuAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
+        cQFrAV0B7P8A/wD/AP8A/wD9AAMeASsDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUD
         NQFVAzUBVVwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8D
         RAF7DAACZQFdAewBoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
@@ -494,6 +458,75 @@
         BwH/AQEB/wG/AT8BAAEBAwAB/wGDAf8BAQH/Ab8BPwL/AwAD/wEBAf8BvwE/Av8DAAn/AwAL
 </value>
   </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>412, 630</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 585</value>
+  </data>
+  <data name="groupBoxLanguageSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 65</value>
+  </data>
+  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
+    <value>Configuración de idioma</value>
+  </data>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 26</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>315, 24</value>
+  </data>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>Cambiar el idioma del programa</value>
+  </data>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 16</value>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="groupBox_appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 82</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>Apariencia general</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
+    <value>Modo Bleeper clásico</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
+    <value>Habilitar o deshabilitar el modo Bleeper clásico</value>
+  </data>
+  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbl_theme.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="comboBox_theme.Items" xml:space="preserve">
+    <value>Usar tema del sistema</value>
+  </data>
+  <data name="comboBox_theme.Items1" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="comboBox_theme.Items2" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 25</value>
+  </data>
+  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>323, 24</value>
+  </data>
+  <data name="comboBox_theme.ToolTip" xml:space="preserve">
+    <value>Cambiar el tema del programa</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 179</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Crea música con IA</value>
+  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>54, 144</value>
   </data>
@@ -519,13 +552,13 @@
     <value>Guarda la clave API en el campo correspondiente. Si cambias la clave API, haz clic en este botón para guardarla.</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 43</value>
+    <value>288, 43</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 28</value>
+    <value>87, 28</value>
   </data>
   <data name="buttonShowHide.Text" xml:space="preserve">
-    <value>Espectáculo</value>
+    <value>Mostrar</value>
   </data>
   <data name="buttonShowHide.ToolTip" xml:space="preserve">
     <value>Muestra la clave API en el campo correspondiente.
@@ -544,16 +577,16 @@ Haz clic de nuevo para ocultarla.</value>
     <value>Clave API de Google Gemini™</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 23</value>
+    <value>274, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
     <value>Configura tu clave API aquí para usar la función de generación de música con IA. Puedes obtenerla en https://aistudio.google.com/app/apikey.</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 179</value>
+  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 119</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Crea música con IA</value>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Sistema de prueba de altavoces</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>84, 22</value>
@@ -576,11 +609,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Si no escucha ningún sonido, puede utilizar la función "Usar dispositivo de sonido para crear un pitido".</value>
   </data>
-  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 119</value>
+  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 472</value>
   </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Sistema de prueba de altavoces</value>
+  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 110</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 100</value>
@@ -594,17 +627,8 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>En computadoras compactas y computadoras de tipo desconocido, es posible que no escuche ningún sonido o que se produzca inestabilidad o un comportamiento no deseado cuando se prueba el altavoz del sistema porque los altavoces principales pueden estar conectados a la salida del altavoz del sistema en lugar de al altavoz del sistema real.</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 472</value>
-  </data>
-  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 110</value>
-  </data>
-  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 585</value>
-  </data>
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 595</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 20</value>
@@ -615,6 +639,21 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="checkBox_enable_create_beep_from_soundcard.ToolTip" xml:space="preserve">
     <value>Utilice un dispositivo de sonido en lugar del altavoz del sistema para crear un pitido</value>
   </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 280</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Creación de pitidos desde la configuración del dispositivo de sonido</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 143</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 133</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>368, 89</value>
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
     <value>358, 79</value>
   </data>
@@ -624,20 +663,20 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>358, 79</value>
   </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>368, 89</value>
-  </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>64, 98</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Muestra la razón de esta situación.</value>
   </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 143</value>
+  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 35</value>
   </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 133</value>
+  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 102</value>
+  </data>
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Forma de onda de tono</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>222, 20</value>
@@ -663,29 +702,8 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Cuadrado (predeterminado)</value>
   </data>
-  <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 35</value>
-  </data>
-  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 102</value>
-  </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Forma de onda de tono</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 280</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Creación de pitidos desde la configuración del dispositivo de sonido</value>
-  </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 585</value>
-  </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 595</value>
-  </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Creando Sonidos</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>207, 20</value>
@@ -695,6 +713,12 @@ Haz clic de nuevo para ocultarla.</value>
   </data>
   <data name="checkBox_use_midi_input.ToolTip" xml:space="preserve">
     <value>Usa un dispositivo de entrada MIDI para enviar notas al NeoBleeper.</value>
+  </data>
+  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 82</value>
+  </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>Dispositivos de entrada MIDI</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>292, 37</value>
@@ -717,17 +741,17 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>Seleccionar dispositivo de entrada MIDI</value>
   </data>
-  <data name="group_midi_input_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 82</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>Dispositivos de entrada MIDI</value>
-  </data>
   <data name="checkBox_use_midi_output.Text" xml:space="preserve">
     <value>Usar salida MIDI</value>
   </data>
   <data name="checkBox_use_midi_output.ToolTip" xml:space="preserve">
     <value>Utiliza un dispositivo de salida MIDI para reproducir notas. Esto te permitirá usar dispositivos MIDI externos o sintetizadores de software.</value>
+  </data>
+  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 144</value>
+  </data>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>Dispositivos de salida MIDI</value>
   </data>
   <data name="comboBox_midi_output_instrument.Size" type="System.Drawing.Size, System.Drawing">
     <value>299, 24</value>
@@ -774,11 +798,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>Seleccionar dispositivo de salida MIDI</value>
   </data>
-  <data name="group_midi_output_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 144</value>
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 188</value>
   </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>Dispositivos de salida MIDI</value>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Otros dispositivos</value>
   </data>
   <data name="trackBar_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 147</value>
@@ -795,6 +819,15 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label_motor_speed_mod.Text" xml:space="preserve">
     <value>Octava del motor</value>
   </data>
+  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 76</value>
+  </data>
+  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 62</value>
+  </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Tipo de dispositivo</value>
+  </data>
   <data name="radioButtonBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 20</value>
   </data>
@@ -807,15 +840,6 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="radioButtonMotor.ToolTip" xml:space="preserve">
     <value>El motor se utiliza para crear tonos cambiando la velocidad del motor.</value>
   </data>
-  <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 76</value>
-  </data>
-  <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 62</value>
-  </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Tipo de dispositivo</value>
-  </data>
   <data name="checkBox_use_microcontroller.Size" type="System.Drawing.Size, System.Drawing">
     <value>377, 53</value>
   </data>
@@ -825,20 +849,14 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="checkBox_use_microcontroller.ToolTip" xml:space="preserve">
     <value>Usa un microcontrolador para usarlo con un motor o un zumbador. Si usas un motor, puedes controlar su velocidad con el control deslizante de velocidad del motor.</value>
   </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 188</value>
-  </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Otros dispositivos</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 585</value>
   </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 595</value>
+  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 103</value>
   </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Dispositivos</value>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Colores del teclado</value>
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 70</value>
@@ -903,11 +921,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label2.Text" xml:space="preserve">
     <value>Color de la primera octava</value>
   </data>
-  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 103</value>
+  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 196</value>
   </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Colores del teclado</value>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Colores de botones y controles</value>
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 165</value>
@@ -1056,11 +1074,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label7.Text" xml:space="preserve">
     <value>Color de Línea en Blanco</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 196</value>
+  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 80</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Colores de botones y controles</value>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Colores indicadores</value>
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 46</value>
@@ -1104,11 +1122,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label11.Text" xml:space="preserve">
     <value>Color del indicador de bip</value>
   </data>
-  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 80</value>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 108</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Colores indicadores</value>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Eventos de letras/texto</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonPreviewLyrics.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -1144,11 +1162,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="label13.Text" xml:space="preserve">
     <value>Letras/Texto Eventos Tamaño</value>
   </data>
-  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 108</value>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 506</value>
   </data>
-  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
-    <value>Eventos de letras/texto</value>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 52</value>
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>54, 6</value>
@@ -1164,24 +1182,6 @@ Haz clic de nuevo para ocultarla.</value>
   </data>
   <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
     <value>Restablecer todas las configuraciones de apariencia a los valores predeterminados</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 506</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 52</value>
-  </data>
-  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 585</value>
-  </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 595</value>
-  </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Apariencia</value>
-  </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>412, 630</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>420, 638</value>

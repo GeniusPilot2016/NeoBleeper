@@ -386,7 +386,7 @@ Klicken Sie erneut, um ihn auszublenden.</value>
     <value>NeoBleeper hat festgestellt, dass Ihr Google Gemini™-API-Schlüssel beschädigt ist. Bitte geben Sie Ihren Google Gemini™-API-Schlüssel erneut im Einstellungsfenster ein.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
-    <value>Error loading MIDI file:</value>
+    <value>Fehler beim Laden der MIDI-Datei:</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Position:</value>
@@ -469,9 +469,6 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AnErrorOccuredWhileRunningApplication" xml:space="preserve">
-    <value>Beim Ausführen der Anwendung ist ein Fehler aufgetreten: </value>
-  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -528,9 +525,6 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Es werden Frames erstellt...</value>
-  </data>
-  <data name="MessageAnErrorOccured" xml:space="preserve">
-    <value>Während des Programmdurchlaufs ist ein Fehler aufgetreten:</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Fehler beim Konvertieren in G-Code:</value>
@@ -596,9 +590,15 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
     <value>Fer</value>
   </data>
   <data name="MoreText" xml:space="preserve">
-    <value>({number] Weitere)</value>
+    <value>({number} Weitere)</value>
   </data>
   <data name="TextAIGeneratedMusic" xml:space="preserve">
     <value>KI-Generierte Musik</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Während des Programmdurchlaufs ist ein Fehler aufgetreten:</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>Beim Ausführen der Anwendung ist ein Fehler aufgetreten: </value>
   </data>
 </root>

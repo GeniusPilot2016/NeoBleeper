@@ -34,7 +34,7 @@ namespace BeepStopper
             catch (Exception ex)
             {
                 // Show the error message
-                MessageBox.Show(Resources.AnErrorOccuredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.AnErrorOccurredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

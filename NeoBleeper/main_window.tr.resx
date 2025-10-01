@@ -159,6 +159,12 @@
   <data name="button_d_s5.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
   </data>
+  <data name="red_felt.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label_bpm.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trackBar_time_signature.ToolTip" xml:space="preserve">
     <value>Bu pencerenin sağ alt köşesindeki konum tablosunu etkiler.</value>
   </data>
@@ -171,6 +177,12 @@
   </data>
   <data name="label_time_signature.Text" xml:space="preserve">
     <value>Zaman İşareti</value>
+  </data>
+  <data name="label_time_signature.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="menuStrip1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
@@ -292,7 +304,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFkASYBZAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAF8ASYBfAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -599,22 +611,22 @@
     <value>Müziğin 1 dakikasındaki vuruş sayısı</value>
   </data>
   <data name="comboBox_note_length.Items" xml:space="preserve">
-    <value>Birlik</value>
+    <value>1 (Birlik)</value>
   </data>
   <data name="comboBox_note_length.Items1" xml:space="preserve">
-    <value>İkilik</value>
+    <value>1/2 (İkilik)</value>
   </data>
   <data name="comboBox_note_length.Items2" xml:space="preserve">
-    <value>Dörtlük</value>
+    <value>1/4 (Dörtlük)</value>
   </data>
   <data name="comboBox_note_length.Items3" xml:space="preserve">
-    <value>Sekizlik</value>
+    <value>1/8 (Sekizlik)</value>
   </data>
   <data name="comboBox_note_length.Items4" xml:space="preserve">
-    <value>Onaltılık</value>
+    <value>1/16 (Onaltılık)</value>
   </data>
   <data name="comboBox_note_length.Items5" xml:space="preserve">
-    <value>Otuzikilik</value>
+    <value>1/32 (Otuzikilik)</value>
   </data>
   <data name="comboBox_note_length.ToolTip" xml:space="preserve">
     <value>Klavyedeki bir tuşa basıldığında müziğin listesine eklenen notanın uzunluğu</value>
@@ -666,6 +678,12 @@
   </data>
   <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 264</value>
+  </data>
+  <data name="notes_list_right_click.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listViewNotes.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>324, 26</value>
@@ -778,6 +796,9 @@
   <data name="label_note_length.Text" xml:space="preserve">
     <value>Nota Uzunluğu</value>
   </data>
+  <data name="label_note_length.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trackBar_note_silence_ratio.ToolTip" xml:space="preserve">
     <value>Her satırdaki nota ve sus arasındaki oranı belirler</value>
   </data>
@@ -790,14 +811,23 @@
   <data name="label_note_silence_ratio.Text" xml:space="preserve">
     <value>Nota/Sus Oranı</value>
   </data>
+  <data name="label_note_silence_ratio.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 16</value>
   </data>
   <data name="label_silence.Text" xml:space="preserve">
     <value>Sus</value>
   </data>
+  <data name="label_silence.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_note.Text" xml:space="preserve">
     <value>Nota</value>
+  </data>
+  <data name="label_note.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_alternating_notes_switch.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, -6</value>
@@ -808,6 +838,9 @@
   <data name="label_alternating_notes_switch.Text" xml:space="preserve">
     <value>Şu süre içinde dalgalı notalar arasında geçiş yap:</value>
   </data>
+  <data name="label_alternating_notes_switch.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_mods.Location" type="System.Drawing.Point, System.Drawing">
     <value>340, 519</value>
   </data>
@@ -816,6 +849,9 @@
   </data>
   <data name="label_mods.Text" xml:space="preserve">
     <value>Modlar</value>
+  </data>
+  <data name="label_mods.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_synchronized_play.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 20</value>
@@ -836,7 +872,7 @@
     <value>Bu seçenek çeyrek ve yarım notalarda vuruş benzeri sesler yaratır.</value>
   </data>
   <data name="checkBox_staccato.ToolTip" xml:space="preserve">
-    <value>Notu daha kısa ve ayrı yap</value>
+    <value>Notayı daha kısa ve ayrı yap</value>
   </data>
   <data name="label_beep.Location" type="System.Drawing.Point, System.Drawing">
     <value>912, 663</value>
@@ -855,6 +891,60 @@
   </data>
   <data name="lbl_alternating_note_options.Text" xml:space="preserve">
     <value>Dalgalı nota çalma seçenekleri</value>
+  </data>
+  <data name="lbl_alternating_note_options.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_f3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_b3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_b4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_f4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_c4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_c5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
     <value>872, 380</value>
@@ -889,20 +979,35 @@
   <data name="lbl_beat.Text" xml:space="preserve">
     <value>Vuruş</value>
   </data>
+  <data name="lbl_beat.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 32</value>
   </data>
   <data name="lbl_beat_traditional.Text" xml:space="preserve">
     <value>Vuruş (Geleneksel)</value>
   </data>
+  <data name="lbl_beat_traditional.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 1</value>
+  </data>
+  <data name="lbl_measure_value.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 22</value>
   </data>
+  <data name="lbl_beat_value.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 39</value>
+  </data>
+  <data name="lbl_beat_traditional_value.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_c3.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
@@ -955,6 +1060,12 @@
   <data name="button_a5.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
   </data>
+  <data name="lbl_b5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_b5.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
   </data>
@@ -967,8 +1078,14 @@
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Nota çal</value>
   </data>
+  <data name="checkbox_play_note.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_adding_note.Text" xml:space="preserve">
     <value>Nota ekleme</value>
+  </data>
+  <data name="group_adding_note.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
@@ -976,11 +1093,17 @@
   <data name="add_as_note4.Text" xml:space="preserve">
     <value>Nota 4 olarak ekle</value>
   </data>
+  <data name="add_as_note4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
   </data>
   <data name="add_as_note3.Text" xml:space="preserve">
     <value>Nota 3 olarak ekle</value>
+  </data>
+  <data name="add_as_note3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_replace_length.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 20</value>
@@ -988,11 +1111,17 @@
   <data name="checkBox_replace_length.Text" xml:space="preserve">
     <value>Uzunluğunu da değiştir</value>
   </data>
+  <data name="checkBox_replace_length.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 20</value>
   </data>
   <data name="checkBox_replace.Text" xml:space="preserve">
     <value>Yerleştirmek yerine değiştir</value>
+  </data>
+  <data name="checkBox_replace.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
@@ -1000,11 +1129,17 @@
   <data name="add_as_note2.Text" xml:space="preserve">
     <value>Nota 2 olarak ekle</value>
   </data>
+  <data name="add_as_note2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
   </data>
   <data name="add_as_note1.Text" xml:space="preserve">
     <value>Nota 1 olarak ekle</value>
+  </data>
+  <data name="add_as_note1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 20</value>
@@ -1012,11 +1147,20 @@
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Müziğin listesine nota ekle</value>
   </data>
+  <data name="checkBox_add_note_to_list.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>Tuşa tıklandığında</value>
   </data>
+  <data name="group_key_is_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_line_clicked.Text" xml:space="preserve">
     <value>Satıra tıklandığında</value>
+  </data>
+  <data name="group_line_clicked.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -1024,11 +1168,17 @@
   <data name="checkBox_play_note4_clicked.Text" xml:space="preserve">
     <value>Nota 4'ü çal</value>
   </data>
+  <data name="checkBox_play_note4_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
   </data>
   <data name="checkBox_play_note3_clicked.Text" xml:space="preserve">
     <value>Nota 3'ü çal</value>
+  </data>
+  <data name="checkBox_play_note3_clicked.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 20</value>
@@ -1036,14 +1186,23 @@
   <data name="checkBox_play_note2_clicked.Text" xml:space="preserve">
     <value>Nota 2'yi çal</value>
   </data>
+  <data name="checkBox_play_note2_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 20</value>
   </data>
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Nota 1'i çal</value>
   </data>
+  <data name="checkBox_play_note1_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_music_played.Text" xml:space="preserve">
     <value>Müzik oynatıldığında</value>
+  </data>
+  <data name="group_music_played.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -1051,11 +1210,17 @@
   <data name="checkBox_play_note4_played.Text" xml:space="preserve">
     <value>Nota 4'ü çal</value>
   </data>
+  <data name="checkBox_play_note4_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 20</value>
   </data>
   <data name="checkBox_play_note1_played.Text" xml:space="preserve">
     <value>Nota 1'i çal</value>
+  </data>
+  <data name="checkBox_play_note1_played.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -1063,17 +1228,29 @@
   <data name="checkBox_play_note3_played.Text" xml:space="preserve">
     <value>Nota 3'ü çal</value>
   </data>
+  <data name="checkBox_play_note3_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 20</value>
   </data>
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Nota 2'yi çal</value>
   </data>
+  <data name="checkBox_play_note2_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_notes.Text" xml:space="preserve">
     <value>Listedeki hangi notaların çalınacağı</value>
   </data>
+  <data name="group_notes.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_g5.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
+  </data>
+  <data name="lbl_f5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_g4.ToolTip" xml:space="preserve">
     <value>Notayı duymak/listeye nota eklemek için bu klavyedeki herhangi bir tuşa basınız (pencerenin sol tarafındaki seçeneklere göre)</value>
@@ -1084,17 +1261,32 @@
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 41</value>
   </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_ms.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
     <value>853, 555</value>
   </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 77</value>
   </data>
+  <data name="position_table.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 16</value>
   </data>
   <data name="lbl_measure.Text" xml:space="preserve">
     <value>Ölçü</value>
+  </data>
+  <data name="lbl_measure.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_bleeper_portamento.ToolTip" xml:space="preserve">
     <value>Bu seçenek, bir notadan diğerine geçerken sistem hoparlörünün/ses aygıtının notasının yavaş yavaş artıp azalmasını sağlar (sadece tıklanan tuşlar).</value>
@@ -1105,12 +1297,18 @@
   <data name="btn_octave_increase.ToolTip" xml:space="preserve">
     <value>1 oktav sağa kaydır</value>
   </data>
+  <data name="keyboard_panel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_c3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="help_icon.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        DAEmAQwBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        JAEmASQBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1146,8 +1344,23 @@
         AAH8AQMB8AkAAv8B8AkAAv8B8AkACw==
 </value>
   </data>
+  <data name="button_synchronized_play_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button_play_beat_sound_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button_bleeper_portamento_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button_use_keyboard_as_piano_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_do_not_update_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>999, 637</value>
+  </data>
+  <data name="button_do_not_update_help.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
     <value>Dalgalı notaları ilk önce tek sütunlardan, daha sonra çift sütunlardan çal</value>
@@ -1204,14 +1417,29 @@ kullan</value>
   <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
     <value>Bu seçenek seçildiğinde dalgalı notalar sırasıyla Nota 1, Nota 2, Nota 3 ve Nota 4 olarak geçiş yapar.</value>
   </data>
+  <data name="lbl_note_silence_ratio.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_time_signature.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>285, 288</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 68</value>
   </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 639</value>
+  </data>
+  <data name="button_use_voice_system_help.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1526,5 +1754,8 @@ kullan</value>
         iUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCK5YPx/FGDb+Y+IaKgAAAAASUVORK5C
         YII=
 </value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

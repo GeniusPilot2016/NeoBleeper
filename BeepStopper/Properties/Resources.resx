@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnErrorOccuredMessage" xml:space="preserve">
+  <data name="AnErrorOccurredMessage" xml:space="preserve">
     <value>An error occurred: </value>
   </data>
   <data name="BeepStoppedMessage" xml:space="preserve">
