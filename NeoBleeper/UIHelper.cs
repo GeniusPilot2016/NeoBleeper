@@ -130,11 +130,9 @@ public static class UIHelper
             CultureInfo culture = new(cultureCode);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
-            Logger.Log($"Language set to '{languageName}' ({cultureCode}).", Logger.LogTypes.Info);
         }
         catch (CultureNotFoundException)
         {
-            Logger.Log($"Culture '{languageName}' not found. Falling back to default culture.", Logger.LogTypes.Warning);
             CultureInfo culture = new("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.DefaultThreadCurrentCulture = culture;

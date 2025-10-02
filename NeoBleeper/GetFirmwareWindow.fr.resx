@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA+g4AAAJNU0Z0AUkBTAIBAQIB
+        AAFcAQABXAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARmG
+        AAMvAUkDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAyYBOP8ABQADCQEMAVkCXAHDA10BzANdAcwD
+        XQHMAl8BWwHTAeQBowEeAf8B5AGjAR4C/wHmAVAC/wHmAVAB/wHkAaMBHwL/AeYBUAL/AeYBUAH/AeQB
+        ogEeAf8B5AGiAR4B/wJBAUABcawAAxwBJwMjATMDIwEzAyMBMwMjATMDIwEzAyMBMwMjATMDIwEzAyMB
+        MwMjATMDIwEzAyMBMwMjATMDIwEzAyMBMwMJAQwQAAMjATMBfAGZAcEB/wPPAf8DzwH/A88B/wHaAZQB
+        FwH/AfABxQE5Av8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B4QGkASIB
+        /wNdAcysAAFAAYgBIgH9AUgBcgEiAf8BRwGIAQwB/wFHAYgBDAH/AUYBhwELAf8BRgGHAQsB/wFFAYYB
+        CwH/AUUBhgEKAf8BRQGFAQoB/wFEAYUBCgH/AUQBhAEJAf8BQwGEAQkB/wFDAYMBCQH/AUMBgwEJAf8B
+        QgGCAQgB/wFGAWgBJgH/AVkBXAFZAcMQAAMjATMBoAG2AdYB/wPzAf8D8wH/A/MB/wHzAckBOwH/AfoB
+        2wFIAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B9gHPAUAB/wNdAcys
+        AAFKAYwBDgH/AUkBiwENAf8BPwFgASEB/wM3Af8BNgE7ATEB/wFHAYcBDAH/AUsBlwE5Af8BWwHUAv8B
+        WAHTAv8BUwHSAv8BTQHPAf4B/wFJAc4B/gH/AUMBzAH+Af8BPAHKAf4B/wFEAYUBCgH/AUQBhAEJAf8D
+        XQHMEAADIwEzAaUBuwHbAf8D8wH/A/MB/wPzAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8BXgJdAcysAAFMAY4BDwH/AUsBjgEPAf8BQwFbAS0B
+        /wNAAf8DPQH/AUkBigEOAf8BSQGLAQ0B/wFJAYsBDQH/AUkBigENAf8BSAGKAQ0B/wFIAYkBDAH/AUcB
+        iQEMAf8BRwGJAQwB/wFHAYgBCwH/AUYBiAELAf8BRgGHAQsB/wNdAcwQAAMjATMBpgG8AdsB/wPzAf8D
+        8wH/A/MB/wHhAZ0BGwH/AfMByQE7Av8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAf8B5wGsASYB/wNdAcysAAFOAZIBEQH/AU4BkQERAf8BSQFoASwB/wNIAf8BRgFKAUIB/wFLAY0B
+        EAH/AWwBmwEfAf8B+QHNAWEB/wH3AckBWwH/AfUBxgFVAf8B9AHCAU8B/wHxAb4BSQH/AfABugFDAf8B
+        7gG2AT0B/wFJAYsBDQH/AUkBigENAf8DXQHMEAADIwEzAaYBvAHcAf8D8wH/A/MB/wPzAf8B+QHYAUYB
+        /wH9AeABTAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAH/AfoB2wFIAf8D
+        XQHMrAABUAGUARMB/wFQAZQBEgH/AVABkwESAf8BTwGTARIB/wFPAZIBEQH/AU4BkgERAf8BTgGRAREB
+        /wFOAZEBEQH/AU0BkAEQAf8BTQGQARAB/wFMAY8BEAH/AUwBjwEPAf8BTAGOAQ8B/wFLAY4BDwH/AUsB
+        jQEPAf8BSgGNAQ4B/wNdAcwQAAMjATMBpwG9AdwB/wPzAf8D8wH/A/MC/wHmAVAC/wHmAVAC/wHmAVAC
+        /wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAB/wFeAl0BzKwAAVMBlwEVAf8B
+        UwGXARQB/wFAAbMBnAH/AVIBlgEUAf8BNAHGAfcB/wFRAZUBEwH/AToBvAHJAf8BUAGUARMB/wFNAY4B
+        EQH/AT8BWAEoAf8BPQFXAScB/wE9AVYBJgH/ATwBVQElAf8BPwFiASAB/wFOAZABEQH/AU0BkAEQAf8D
+        XQHMEAADIwEzAacBvQHdAf8D8wH/A/MB/wPzAf8B4QGcARoB/wHzAckBOwL/AeYBUAL/AeYBUAL/AeYB
+        UAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAH/AecBqwElAf8DXQHMrAABVQGaARYB/wFVAZoBFgH/AUsB
+        uAGhAf8BVAGZARUB/wFFAc0B/gH/AVMBmAEVAf8BSAHCAc8B/wFSAZYBFAH/AUwBjAETAf8DOwH/AzoB
+        /wM5Af8DNwH/AzYB/wFQAZMBEgH/AU8BkwESAf8DXQHMEAADIwEzAacBvQHdAf8D8wH/A/MB/wPzAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B
+        XgJdAcysAAFXAZ0BFwH/AVcBnAEXAf8BVAG8AaIB/wFWAZsBFgH/AVIB0QL/AVUBmgEWAf8BUgHGAdAB
+        /wFUAZkBFQH/AU4BjwEUAf8DPwH/Az4B/wM9Af8DPAH/AzsB/wFRAZYBEwH/AVEBlQETAf8DXQHMEAAD
+        IwEzAagBvgHeAf8D8wH/A/MB/wPzAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8BXgJdAcysAAFaAaABGQH/AVkBnwEZAf8BWwG/AaMB/wFZAZ4B
+        GQH/AV0B1QL/AVgBnQEYAf8BWwHKAdEB/wFXAZwBFwH/AVEBkQEVAf8DRAH/A0MB/wNBAf8DQAH/Az8B
+        /wFUAZkBFQH/AVQBmAEVAf8DXQHMEAADIwEzAakBvwHeAf8D8wH/A/MB/wPzAf8B4AGbARoB/wHzAcgB
+        OgL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAH/AecBqgElAf8DXQHMrAAB
+        XAGiARsB/wFbAaIBGwH/AWEBwgGkAf8BWgGhARoB/wFlAdcC/wFaAaABGQH/AWIBzAHRAf8BWQGfARkB
+        /wFSAZMBFgH/A0gB/wNHAf8BRgFVAVsB/wFHAXQBhAH/A0MB/wFWAZsBFwH/AVYBmwEWAf8DXQHMEAAD
+        IwEzAakBvwHfAf8D8wH/A/MB/wPzAf8B0QGQAR8B/wHqAbsBMwH/AfoB2gFHAv8B5gFQAv8B5gFQAf8B
+        +gHaAUgC/wHmAVAC/wHmAVAB/wH6AdoBRwH/AdkBnAEeAf8DWgG/rAABXgGmAR0B/wFeAaUBHAH/AWQB
+        wgGeAf8BXQGkARwB/wFnAdYB9QH/AVwBowEbAf8BZQHLAckB/wFcAaIBGwH/AVgBnAEaAf8BUQF3ASwB
+        /wFQAXcBLAH/AVABdgEsAf8BTwF1ASoB/wFQAX0BJgH/AVkBnwEZAf8BWAGeARkB/wNdAcwQAAMjATMB
+        qQG/Ad8B/wPzAf8D8wH/A/MB/wHqAecB3wH/AeYBtQFGAf8B6AGsASYC/wHmAVAC/wHmAVAB/wHoAawB
+        JQL/AeYBUAL/AeYBUAH/AegBqwElAf8CWgFYAboEAawAAWABqAEeAf8BYAGoAR4B/wFfAacBHgH/AV8B
+        pwEdAf8BXwGmAR0B/wFeAaYBHQH/AV4BpQEdAf8BXQGlARwB/wFdAaQBHAH/AV0BpAEcAf8BXAGjARsB
+        /wFcAaMBGwH/AVsBogEbAf8BWwGiARoB/wFbAaEBGgH/AVoBoQEaAf8DXQHMEAADIwEzAaoBwAHfAf8D
+        8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wE3AW4BvgH/tAABYgGrASAB
+        /wFkAYEBSwH/AWEBqgEfAf8BYQGpAR8B/wFhAakBHgH/AcsBzAHKAf8BswHEAaMB/wF7AbIBRQH/AV8B
+        pwEdAf8BkAFjAeoB/wGSAWIB8AH/AZIBYgHwAf8BkgFiAfAB/wFdAaQBHAH/AV0BpAEcAf8BZAF1AVQB
+        /wNdAcwQAAMjATMBqgHAAeAB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D
+        8wH/ATgBbwG/Af+0AAJhAV0BzwFkAa0BIQH/AWQBrQEhAf8BZAGtASEB/wFjAawBIAH/A8wB/wG3AcUB
+        qgH/AasBxgGJAf8BYgGqAR8B/wGSAWIB8AH/AZIBYgHwAf8BkgFiAfAB/wGSAWIB8AH/AWABqAEeAf8B
+        XwGnAR4B/wFfAacBHQH/AzQBUxAAAyMBMwGrAcEB4QH/A/MB/wPzAf8B0AHIAcEB/wHIAb0BtAH/AcsB
+        wAG2Af8BzQHCAbkB/wHQAcUBuwH/AdMByAG+Af8D8wH/A/MB/wPzAf8BOgFxAcAB/9gAA1wBwwNdAcwD
+        XQHMA10BzCAAAxwBJwFAAWsBvgH9AT8BdgHGAf8BPgF1AcUB/wGgAaQBrQH/AbwBsgGpAf8BvwG1AawB
+        /wMxAU4BxAG6AbEB/wHIAb0BtAH/ATwBcwHDAf8BPAFzAcIB/wE7AXIBwgH/AVsBYwFpAeT/ACEAA0kB
+        hwGBAX8BewHzAxkBIv8A/wACAAFCAU0BPgcAAT4DAAEoAwABUAMAARQDAAEBAQABAQUAAfAXAAP/AQAD
+        /wH4AQMHAAL/Af4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4B
+        AAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4B
+        AAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEBBwABwAEAAR4BAAEHBwABwAEAAR4B
+        AAEHBwABwAEAAR4BAAEHBwAB/wHhAf4BAAEHBwAD/wH4Af8HAAX/BwAL
+</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 16</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>        Microcontrôleur</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items" xml:space="preserve">
+    <value>Arduino (fichier .ino)</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items1" xml:space="preserve">
+    <value>Raspberry Pi (fichier .py)</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items2" xml:space="preserve">
+    <value>ESP32 (fichier .ino)</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Location" type="System.Drawing.Point, System.Drawing">
+    <value>358, 7</value>
+  </data>
+  <data name="richTextBoxFirmware.Text" xml:space="preserve">
+    <value>#include &lt;Arduino.h&gt;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(8, OUTPUT); // Buzzer pin
+  pinMode(9, OUTPUT); // Motor direction pin
+  pinMode(10, OUTPUT); // Motor step pin
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {
+    String command = Serial.readStringUntil('\n');
+    command.trim();
+
+    if (command == "IDENTIFY") {
+      Serial.println("Arduino");
+    } 
+    else if (command.startsWith("MOTOR:")) {
+      int rpm = command.substring(6).toInt();
+      if (rpm &gt; 0) {
+        // Convert RPM to step delay
+        unsigned long stepDelay = 60000000UL / (rpm * 200); // 200 steps per revolution
+        
+        // Set motor direction
+        digitalWrite(9, HIGH);
+        
+        // Start stepping motor
+        for (int i = 0; i &lt; 200; i++) {
+          digitalWrite(10, HIGH);
+          delayMicroseconds(stepDelay / 2);
+          digitalWrite(10, LOW);
+          delayMicroseconds(stepDelay / 2);
+        }
+        
+        Serial.print("Motor running at RPM: ");
+        Serial.println(rpm);
+      }
+    } 
+    else if (command.startsWith("BUZZER:")) {
+      int frequency = command.substring(7).toInt();
+      if (frequency &gt; 0 &amp;&amp; frequency &lt;= 20000) {
+        tone(8, frequency);
+        Serial.print("Buzzer playing at frequency: ");
+        Serial.println(frequency);
+      }
+    } 
+    else if (command == "STOP:MOTOR") {
+      digitalWrite(9, LOW);
+      digitalWrite(10, LOW);
+      Serial.println("Motor stopped");
+    } 
+    else if (command == "STOP:BUZZER") {
+      noTone(8);
+      Serial.println("Buzzer stopped");
+    }
+  }
+}</value>
+  </data>
+  <data name="buttonCopyFirmwareToClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>249, 411</value>
+  </data>
+  <data name="buttonCopyFirmwareToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 26</value>
+  </data>
+  <data name="buttonCopyFirmwareToClipboard.Text" xml:space="preserve">
+    <value>Copier le micrologiciel dans le presse-papiers</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Obtenir le micrologiciel</value>
+  </data>
+</root>

@@ -193,6 +193,7 @@ namespace NeoBleeper
             numericUpDownLyricsSize.ForeColor = Color.White;
             buttonPreviewLyrics.BackColor = Color.FromArgb(32, 32, 32);
             buttonPreviewLyrics.ForeColor = Color.White;
+            button_get_firmware.BackColor = Color.FromArgb(32, 32, 32);
         }
         private void light_theme()
         {
@@ -264,6 +265,7 @@ namespace NeoBleeper
             numericUpDownLyricsSize.ForeColor = SystemColors.WindowText;
             buttonPreviewLyrics.BackColor = Color.Transparent;
             buttonPreviewLyrics.ForeColor = SystemColors.ControlText;
+            button_get_firmware.BackColor = Color.Transparent;
         }
 
         private void set_theme()
@@ -1505,6 +1507,12 @@ namespace NeoBleeper
                 MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }
+        }
+
+        private void button_get_firmware_Click(object sender, EventArgs e)
+        {
+            GetFirmwareWindow getFirmwareWindow = new GetFirmwareWindow();
+            getFirmwareWindow.ShowDialog();
         }
     }
 }

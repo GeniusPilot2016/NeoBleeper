@@ -605,4 +605,7 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
     <value>Uygulama çalışırken bir hata oluştu: 
 </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Yazılım kodu panoya kopyalandı</value>
+  </data>
 </root>

@@ -908,6 +908,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Firmware code is copied to clipboard benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFirmwareCopied {
+            get {
+                return ResourceManager.GetString("MessageFirmwareCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Empty note list cannot be exported. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageGCodeEmptyNoteList {

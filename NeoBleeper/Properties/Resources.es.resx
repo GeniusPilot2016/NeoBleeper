@@ -604,4 +604,7 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Se produjo un error al ejecutar la aplicación: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>El código de firmware se copia al portapapeles</value>
+  </data>
 </root>

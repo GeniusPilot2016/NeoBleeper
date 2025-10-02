@@ -177,13 +177,13 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAsE0AAAJNU0Z0AUkBTAIBARIB
-        AAE8AQcBPAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAFkAQcBZAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFzAW0BZQHsnAACVQFTAaoE/wHyAcUB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFtAWgBZQHsnAACVQFTAaoE/wHyAcUB
         QwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB7AHBBf8D8AH/A/AB/wPwAf8BqwFiAQ0B/wHZAcEB
         pAH/A/AB/wPwAf8B3QGgAVAB/wwAAzUBVQGFAXsBbwH/AYMBeAFtAf8BgQF3AWsB/wF/AXUBaAH/AX0B
         cgFmAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
@@ -211,8 +211,8 @@
         hAH/AZEBiQGCAf8BkwGLAYMB/wGSAYoBggH/AZEBiQGAAf8BkAGIAX8B/wGPAYcBfgH/AY4BhQF8Af8B
         jQGEAXsB/wGMAYMBeQH/AYsBgQF3Af8BiQGAAXUB/wGHAX4BcwH/nAACVQFTAaoc/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/xQAAzUBVQQAAQgBvAH+Af8IAAEIAbwB/gH/BAADNQFVCAAB
-        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFuAWgBXQHsFAAD
-        MgFPBAABMwGsAckB7QgAATUBqgHFAewEAAMyAU8IAAEzAaoByQHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
+        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFpAWUBXQHsFAAD
+        MgFPBAABTAGGAZYB7QgAAU4BgwGPAewEAAMyAU8IAAFMAYQBlgHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewBoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
@@ -824,11 +824,14 @@ Nếu bạn đã kết nối thiết bị MIDI, thiết bị đó sẽ xuất hi
   <data name="group_midi_output_devices.Text" xml:space="preserve">
     <value>Thiết bị đầu ra MIDI</value>
   </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 231</value>
+  <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 231</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Tải firmware</value>
+  <data name="button_get_firmware.Text" xml:space="preserve">
+    <value>Tải phần mềm hệ thống</value>
+  </data>
+  <data name="button_get_firmware.ToolTip" xml:space="preserve">
+    <value>Tải phần mềm hệ thống tương thích cho vi điều khiển của bạn.</value>
   </data>
   <data name="label_firmware_warning.Location" type="System.Drawing.Point, System.Drawing">
     <value>43, 155</value>
@@ -865,7 +868,7 @@ thể tìm thấy firmware này khi nhấp vào nút bên dưới trước khi s
     <value>Còi là một thiết bị có thể tạo ra âm thanh bằng cách rung màng loa hoặc phần tử áp điện.
 Nó thường được sử dụng trong báo động, bộ hẹn giờ và các thiết bị khác yêu cầu đầu ra âm thanh.
 Động cơ DC cũng có thể được sử dụng để tạo ra âm thanh bằng cách thay đổi tốc độ của động cơ, điều này làm thay đổi tần số âm thanh phát ra. Điều này thường được sử dụng trong các ứng dụng như bàn chải đánh răng điện, quạt và các thiết bị khác yêu cầu điều khiển tốc độ thay đổi.
-Tính năng này sử dụng chân 9 (PWM) để điều khiển tốc độ của động cơ DC hoặc tần số của còi báo động.</value>
+Nó sử dụng chân 8 trong Arduino, GPIO 18 trong Raspberry Pi và chân 25 trong ESP32.</value>
   </data>
   <data name="radioButtonStepperMotor.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 20</value>
@@ -877,7 +880,7 @@ Tính năng này sử dụng chân 9 (PWM) để điều khiển tốc độ c�
     <value>Động cơ bước là động cơ chuyển động theo từng bước rời rạc, cho phép điều khiển chính xác vị trí và tốc độ.
 Động cơ này thường được sử dụng trong các ứng dụng như máy in 3D, máy CNC và robot, nơi cần chuyển động chính xác.
 Ngoài ra, nó có thể được sử dụng để tạo ra âm thanh bằng cách điều chỉnh tốc độ quay để tạo ra các tần số khác nhau.
-Động cơ này sử dụng chân số 9 (PWM) để điều khiển tốc độ và chân số 8 để điều khiển hướng.</value>
+Động cơ này sử dụng chân 9 để điều khiển hướng và chân 10 để điều khiển bước trong Arduino, GPIO 21 để điều khiển hướng và GPIO 20 để điều khiển bước trong Raspberry Pi, và chân 27 để điều khiển hướng và chân 26 để điều khiển bước trong ESP32.</value>
   </data>
   <data name="groupBox_type_of_device.Size" type="System.Drawing.Size, System.Drawing">
     <value>371, 62</value>
@@ -896,7 +899,7 @@ Ngoài ra, nó có thể được sử dụng để tạo ra âm thanh bằng c�
 Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ của nó bằng thanh trượt điều chỉnh tốc độ động cơ.</value>
   </data>
   <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 264</value>
+    <value>384, 263</value>
   </data>
   <data name="groupBox_other_devices.Text" xml:space="preserve">
     <value>Các thiết bị khác</value>

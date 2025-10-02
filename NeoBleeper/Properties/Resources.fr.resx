@@ -603,4 +603,7 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Une erreur s'est produite lors de l'exécution de l'application: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Le code du micrologiciel est copié dans le presse-papiers</value>
+  </data>
 </root>

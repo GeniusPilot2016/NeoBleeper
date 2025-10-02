@@ -603,4 +603,7 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Si è verificato un errore durante l'esecuzione dell'applicazione: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Il codice del firmware è copiato negli appunti</value>
+  </data>
 </root>

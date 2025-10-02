@@ -605,4 +605,7 @@
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Під час запуску програми сталася помилка: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Код прошивки скопійовано в буфер обміну</value>
+  </data>
 </root>
