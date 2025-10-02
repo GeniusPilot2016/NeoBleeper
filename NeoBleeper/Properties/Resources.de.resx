@@ -601,4 +601,7 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Beim Ausführen der Anwendung ist ein Fehler aufgetreten: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value />
+  </data>
 </root>

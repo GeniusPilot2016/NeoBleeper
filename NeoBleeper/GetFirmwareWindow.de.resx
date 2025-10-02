@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA8g4AAAJNU0Z0AUkBTAIBAQIB
+        AAFgAQABYAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARmG
+        AAMvAUkDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAyYBOP8ABQADCQEMAVkCXAHDA10BzANdAcwD
+        XQHMAl8BWwHTAeQBowEeAf8B5AGjAR4C/wHmAVAC/wHmAVAB/wHkAaMBHwL/AeYBUAL/AeYBUAH/AeQB
+        ogEeAf8B5AGiAR4B/wJBAUABcawAAxwBJwMjATMDIwEzAyMBMwMjATMDIwEzAyMBMwMjATMDIwEzAyMB
+        MwMjATMDIwEzAyMBMwMjATMDIwEzAyMBMwMJAQwQAAMjATMBfAGZAcEB/wPPAf8DzwH/A88B/wHaAZQB
+        FwH/AfABxQE5Av8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B4QGkASIB
+        /wNdAcysAAFAAYgBJAH9AUgBcgEiAf8BRwGIAQwB/wFHAYgBDAH/AUYBhwELAf8BRgGHAQsB/wFFAYYB
+        CwH/AUUBhgEKAf8BRQGFAQoB/wFEAYUBCgH/AUQBhAEJAf8BQwGEAQkB/wFDAYMBCQH/AUMBgwEJAf8B
+        QgGCAQgB/wFGAWgBJgH/AVkBXAFZAcMQAAMjATMBoAG2AdYB/wPzAf8D8wH/A/MB/wHzAckBOwH/AfoB
+        2wFIAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B9gHPAUAB/wNdAcys
+        AAFKAYwBDgH/AUkBiwENAf8BPwFgASEB/wM3Af8BNgE7ATEB/wFHAYcBDAH/AUsBlwE5Af8BWwHUAv8B
+        WAHTAv8BUwHSAv8BTQHPAf4B/wFJAc4B/gH/AUMBzAH+Af8BPAHKAf4B/wFEAYUBCgH/AUQBhAEJAf8D
+        XQHMEAADIwEzAaUBuwHbAf8D8wH/A/MB/wPzAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8DXQHMrAABTAGOAQ8B/wFLAY4BDwH/AUMBWwEtAf8D
+        QAH/Az0B/wFJAYoBDgH/AUkBiwENAf8BSQGLAQ0B/wFJAYoBDQH/AUgBigENAf8BSAGJAQwB/wFHAYkB
+        DAH/AUcBiQEMAf8BRwGIAQsB/wFGAYgBCwH/AUYBhwELAf8DXQHMEAADIwEzAaYBvAHbAf8D8wH/A/MB
+        /wPzAf8B4QGdARsB/wHzAckBOwL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYBUAL/AeYB
+        UAH/AecBrAEmAf8DXQHMrAABTgGSAREB/wFOAZEBEQH/AUkBaAEsAf8DSAH/AUYBSgFCAf8BSwGNARAB
+        /wFsAZsBHwH/AfkBzQFhAf8B9wHJAVsB/wH1AcYBVQH/AfQBwgFPAf8B8QG+AUkB/wHwAboBQwH/Ae4B
+        tgE9Af8BSQGLAQ0B/wFJAYoBDQH/A10BzBAAAyMBMwGmAbwB3AH/A/MB/wPzAf8D8wH/AfkB2AFGAf8B
+        /QHgAUwC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAB/wH6AdsBSAH/A10B
+        zKwAAVABlAETAf8BUAGUARIB/wFQAZMBEgH/AU8BkwESAf8BTwGSAREB/wFOAZIBEQH/AU4BkQERAf8B
+        TgGRAREB/wFNAZABEAH/AU0BkAEQAf8BTAGPARAB/wFMAY8BDwH/AUwBjgEPAf8BSwGOAQ8B/wFLAY0B
+        DwH/AUoBjQEOAf8DXQHMEAADIwEzAacBvQHcAf8D8wH/A/MB/wPzAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8DXQHMrAABUwGXARUB/wFTAZcB
+        FAH/AUABswGcAf8BUgGWARQB/wE0AcYB9wH/AVEBlQETAf8BOgG8AckB/wFQAZQBEwH/AU0BjgERAf8B
+        PwFYASgB/wE9AVcBJwH/AT0BVgEmAf8BPAFVASUB/wE/AWIBIAH/AU4BkAERAf8BTQGQARAB/wNdAcwQ
+        AAMjATMBpwG9Ad0B/wPzAf8D8wH/A/MB/wHhAZwBGgH/AfMByQE7Av8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAv8B5gFQAf8B5wGrASUB/wNdAcysAAFVAZoBFgH/AVUBmgEWAf8BSwG4AaEB
+        /wFUAZkBFQH/AUUBzQH+Af8BUwGYARUB/wFIAcIBzwH/AVIBlgEUAf8BTAGMARMB/wM7Af8DOgH/AzkB
+        /wM3Af8DNgH/AVABkwESAf8BTwGTARIB/wNdAcwQAAMjATMBpwG9Ad0B/wPzAf8D8wH/A/MC/wHmAVAC
+        /wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAB/wNdAcys
+        AAFXAZ0BFwH/AVcBnAEXAf8BVAG8AaIB/wFWAZsBFgH/AVIB0QL/AVUBmgEWAf8BUgHGAdAB/wFUAZkB
+        FQH/AU4BjwEUAf8DPwH/Az4B/wM9Af8DPAH/AzsB/wFRAZYBEwH/AVEBlQETAf8DXQHMEAADIwEzAagB
+        vgHeAf8D8wH/A/MB/wPzAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B5gFQAv8B
+        5gFQAv8B5gFQAv8B5gFQAf8DXQHMrAABWgGgARkB/wFZAZ8BGQH/AVsBvwGjAf8BWQGeARkB/wFdAdUC
+        /wFYAZ0BGAH/AVsBygHRAf8BVwGcARcB/wFRAZEBFQH/A0QB/wNDAf8DQQH/A0AB/wM/Af8BVAGZARUB
+        /wFUAZgBFQH/A10BzBAAAyMBMwGpAb8B3gH/A/MB/wPzAf8D8wH/AeABmwEaAf8B8wHIAToC/wHmAVAC
+        /wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAC/wHmAVAB/wHnAaoBJQH/A10BzKwAAVwBogEbAf8B
+        WwGiARsB/wFhAcIBpAH/AVoBoQEaAf8BZQHXAv8BWgGgARkB/wFiAcwB0QH/AVkBnwEZAf8BUgGTARYB
+        /wNIAf8DRwH/AUYBVQFbAf8BRwF0AYQB/wNDAf8BVgGbARcB/wFWAZsBFgH/A10BzBAAAyMBMwGpAb8B
+        3wH/A/MB/wPzAf8D8wH/AdEBkAEfAf8B6gG7ATMB/wH6AdoBRwL/AeYBUAL/AeYBUAH/AfoB2gFIAv8B
+        5gFQAv8B5gFQAf8B+gHaAUcB/wHZAZwBHgH/A1oBv6wAAV4BpgEdAf8BXgGlARwB/wFkAcIBngH/AV0B
+        pAEcAf8BZwHWAfUB/wFcAaMBGwH/AWUBywHJAf8BXAGiARsB/wFYAZwBGgH/AVEBdwEsAf8BUAF3ASwB
+        /wFQAXYBLAH/AU8BdQEqAf8BUAF9ASYB/wFZAZ8BGQH/AVgBngEZAf8DXQHMEAADIwEzAakBvwHfAf8D
+        8wH/A/MB/wPzAf8B6gHnAd8B/wHmAbUBRgH/AegBrAEmAv8B5gFQAv8B5gFQAf8B6AGsASUC/wHmAVAC
+        /wHmAVAB/wHoAasBJQH/AloBWAG6BAGsAAFgAagBHgH/AWABqAEeAf8BXwGnAR4B/wFfAacBHQH/AV8B
+        pgEdAf8BXgGmAR0B/wFeAaUBHQH/AV0BpQEcAf8BXQGkARwB/wFdAaQBHAH/AVwBowEbAf8BXAGjARsB
+        /wFbAaIBGwH/AVsBogEaAf8BWwGhARoB/wFaAaEBGgH/A10BzBAAAyMBMwGqAcAB3wH/A/MB/wPzAf8D
+        8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8BNwFuAb4B/7QAAWIBqwEgAf8BZAGBAUsB
+        /wFhAaoBHwH/AWEBqQEfAf8BYQGpAR4B/wHLAcwBygH/AbMBxAGjAf8BewGyAUUB/wFfAacBHQH/AZAB
+        YwHqAf8BkgFiAfAB/wGSAWIB8AH/AZIBYgHwAf8BXQGkARwB/wFdAaQBHAH/AWQBdQFUAf8DXQHMEAAD
+        IwEzAaoBwAHgAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wPzAf8D8wH/A/MB/wE4AW8B
+        vwH/tAACYQFdAc8BZAGtASEB/wFkAa0BIQH/AWQBrQEhAf8BYwGsASAB/wPMAf8BtwHFAaoB/wGrAcYB
+        iQH/AWIBqgEfAf8BkgFiAfAB/wGSAWIB8AH/AZIBYgHwAf8BkgFiAfAB/wFgAagBHgH/AV8BpwEeAf8B
+        XwGnAR0B/wM0AVMQAAMjATMBqwHBAeEB/wPzAf8D8wH/AdAByAHBAf8ByAG9AbQB/wHLAcABtgH/Ac0B
+        wgG5Af8B0AHFAbsB/wHTAcgBvgH/A/MB/wPzAf8D8wH/AToBcQHAAf/YAANcAcMDXQHMA10BzANdAcwg
+        AAMcAScBQAFqAb4B/QE/AXYBxgH/AT4BdQHFAf8BoAGkAa0B/wG8AbIBqQH/Ab8BtQGsAf8DMQFOAcQB
+        ugGxAf8ByAG9AbQB/wE8AXMBwwH/ATwBcwHCAf8BOwFyAcIB/wFbAWMBaAHk/wAhAANJAYcBfwF8AXgB
+        8wMZASL/AP8AAgABQgFNAT4HAAE+AwABKAMAAVADAAEUAwABAQEAAQEFAAHwFwAD/wEAA/8B+AEDBwAC
+        /wH+AQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcAB
+        AAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcAB
+        AAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABAQcAAcABAAEeAQABBwcAAcABAAEeAQABBwcAAcAB
+        AAEeAQABBwcAAf8B4QH+AQABBwcAA/8B+AH/BwAF/wcACw==
+</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>        Mikrocontroller</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items" xml:space="preserve">
+    <value>Arduino (ino-Datei)</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items1" xml:space="preserve">
+    <value>Raspberry Pi (py-Datei)</value>
+  </data>
+  <data name="comboBoxMicrocontroller.Items2" xml:space="preserve">
+    <value>ESP32 (ino-Datei)</value>
+  </data>
+  <data name="richTextBoxFirmware.Text" xml:space="preserve">
+    <value>#include &lt;Arduino.h&gt;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(8, OUTPUT); // Buzzer pin
+  pinMode(9, OUTPUT); // Motor direction pin
+  pinMode(10, OUTPUT); // Motor step pin
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {
+    String command = Serial.readStringUntil('\n');
+    command.trim();
+
+    if (command == "IDENTIFY") {
+      Serial.println("Arduino");
+    } 
+    else if (command.startsWith("MOTOR:")) {
+      int rpm = command.substring(6).toInt();
+      if (rpm &gt; 0) {
+        // Convert RPM to step delay
+        unsigned long stepDelay = 60000000UL / (rpm * 200); // 200 steps per revolution
+        
+        // Set motor direction
+        digitalWrite(9, HIGH);
+        
+        // Start stepping motor
+        for (int i = 0; i &lt; 200; i++) {
+          digitalWrite(10, HIGH);
+          delayMicroseconds(stepDelay / 2);
+          digitalWrite(10, LOW);
+          delayMicroseconds(stepDelay / 2);
+        }
+        
+        Serial.print("Motor running at RPM: ");
+        Serial.println(rpm);
+      }
+    } 
+    else if (command.startsWith("BUZZER:")) {
+      int frequency = command.substring(7).toInt();
+      if (frequency &gt; 0 &amp;&amp; frequency &lt;= 20000) {
+        tone(8, frequency);
+        Serial.print("Buzzer playing at frequency: ");
+        Serial.println(frequency);
+      }
+    } 
+    else if (command == "STOP:MOTOR") {
+      digitalWrite(9, LOW);
+      digitalWrite(10, LOW);
+      Serial.println("Motor stopped");
+    } 
+    else if (command == "STOP:BUZZER") {
+      noTone(8);
+      Serial.println("Buzzer stopped");
+    }
+  }
+}</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonCopyFirmwareToClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 411</value>
+  </data>
+  <data name="buttonCopyFirmwareToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 26</value>
+  </data>
+  <data name="buttonCopyFirmwareToClipboard.Text" xml:space="preserve">
+    <value>Firmware in die Zwischenablage kopieren</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Firmware herunterladen</value>
+  </data>
+</root>

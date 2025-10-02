@@ -85,7 +85,7 @@
             comboBox_midi_output_devices = new ComboBox();
             label_midi_output_device = new Label();
             groupBox_other_devices = new GroupBox();
-            button1 = new Button();
+            button_get_firmware = new Button();
             label_firmware_warning = new Label();
             trackBar_stepper_motor_octave = new TrackBar();
             label_stepper_motor_octave = new Label();
@@ -654,7 +654,7 @@
             // groupBox_other_devices
             // 
             resources.ApplyResources(groupBox_other_devices, "groupBox_other_devices");
-            groupBox_other_devices.Controls.Add(button1);
+            groupBox_other_devices.Controls.Add(button_get_firmware);
             groupBox_other_devices.Controls.Add(label_firmware_warning);
             groupBox_other_devices.Controls.Add(trackBar_stepper_motor_octave);
             groupBox_other_devices.Controls.Add(label_stepper_motor_octave);
@@ -664,13 +664,14 @@
             groupBox_other_devices.TabStop = false;
             toolTip1.SetToolTip(groupBox_other_devices, resources.GetString("groupBox_other_devices.ToolTip"));
             // 
-            // button1
+            // button_get_firmware
             // 
-            resources.ApplyResources(button1, "button1");
-            button1.ImageList = imageList_settings;
-            button1.Name = "button1";
-            toolTip1.SetToolTip(button1, resources.GetString("button1.ToolTip"));
-            button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(button_get_firmware, "button_get_firmware");
+            button_get_firmware.ImageList = imageList_settings;
+            button_get_firmware.Name = "button_get_firmware";
+            toolTip1.SetToolTip(button_get_firmware, resources.GetString("button_get_firmware.ToolTip"));
+            button_get_firmware.UseVisualStyleBackColor = true;
+            button_get_firmware.Click += button_get_firmware_Click;
             // 
             // label_firmware_warning
             // 
@@ -1310,6 +1311,6 @@
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
         private Label label_firmware_warning;
-        private Button button1;
+        private Button button_get_firmware;
     }
 }

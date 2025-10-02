@@ -603,4 +603,7 @@ You can see the key mappings in the buttons in the top of the window.</value>
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>An error occurred while running application: </value>
   </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Firmware code is copied to clipboard</value>
+  </data>
 </root>
