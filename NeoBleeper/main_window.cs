@@ -4336,7 +4336,9 @@ namespace NeoBleeper
 
         private void main_window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(isModified == true)
+            stop_playing();
+            StopAllSounds();
+            if (isModified == true)
             {
                 var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
@@ -4353,7 +4355,6 @@ namespace NeoBleeper
                     return;
                 }
             }
-            stop_playing();
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
