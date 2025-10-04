@@ -608,4 +608,10 @@
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Код прошивки копируется в буфер обмена</value>
   </data>
+  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+    <value>Есть несохранённые изменения. Сохранить перед выходом?</value>
+  </data>
+  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+    <value>Несохранённые изменения</value>
+  </data>
 </root>

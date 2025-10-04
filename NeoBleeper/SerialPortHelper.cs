@@ -103,7 +103,7 @@ namespace NeoBleeper
         {
             await Task.Run(() =>
             {
-                frequency *= (int)Math.Pow(2, TemporarySettings.MicrocontrollerSettings.stepperMotorOctave);
+                frequency *= (int)Math.Pow(2, TemporarySettings.MicrocontrollerSettings.stepperMotorOctave - 2);
                 int RPM = (int)(frequency / 60.0 * 1000); // Convert frequency in Hz to RPM
 
                 try
@@ -156,6 +156,7 @@ namespace NeoBleeper
         {
             await Task.Run(() =>
             {
+                frequency *= (int)Math.Pow(2, TemporarySettings.MicrocontrollerSettings.stepperMotorOctave - 2);
                 try
                 {
                     lock (_lockObject)

@@ -2218,8 +2218,10 @@ namespace NeoBleeper
                 OpenSaveAsDialog(); // Open Save As dialog if no file path is set or if the file is not a NBPML file
             }
         }
+        bool isSaved = false;
         private void OpenSaveAsDialog()
         {
+            isSaved = false;
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -2227,12 +2229,20 @@ namespace NeoBleeper
             };
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                SaveToNBPML(saveFileDialog.FileName);
-                currentFilePath = saveFileDialog.FileName;
-                this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
-                isModified = false;
-                UpdateFormTitle();
-                initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
+                try
+                {
+                    isSaved = true;
+                    SaveToNBPML(saveFileDialog.FileName);
+                    currentFilePath = saveFileDialog.FileName;
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
+                    isModified = false;
+                    UpdateFormTitle();
+                    initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
+                }
+                catch
+                {
+                    isSaved = false; // If saving failed, set isSaved to false
+                }
             }
         }
         private void SaveToNBPML(string filename)
@@ -4326,6 +4336,23 @@ namespace NeoBleeper
 
         private void main_window_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if(isModified == true)
+            {
+                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    saveToolStripMenuItem_Click(sender, e);
+                    if (!isSaved)
+                    {
+                        e.Cancel = true; // Cancel closing if save was not successful
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
             stop_playing();
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();

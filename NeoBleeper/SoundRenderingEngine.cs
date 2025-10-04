@@ -50,7 +50,7 @@ namespace NeoBleeper
                                 StorageType = systemStorageType.HDD;
                                 string rpmStr = device["TotalCylinders"]?.ToString() ?? ""; // Placeholder, as RPM is not directly available
                                 // In real scenarios, RPM might be fetched from specific vendor tools or databases
-                                // Here we default to 5400 RPM for simplicity
+                                // Default to 5400 RPM for simplicity
                                 storageRPM = 5400;
                                 resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
                                 Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
@@ -59,7 +59,7 @@ namespace NeoBleeper
                         }
                         StorageType = systemStorageType.Other; // If no known type is found
                         resonanceFrequency = 0; // Assume no resonance issues for unknown types
-                        Logger.Log("Storage type is unknown. Resonance prevention is not applied.", Logger.LogTypes.Warning);
+                        Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
                     }
                 }
                 catch (Exception ex) 
@@ -108,7 +108,10 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                if(freq == resonanceFrequency && StorageType == systemStorageType.HDD) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
+                if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) || 
+                    (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                                                                                                            // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
                 {
                     freq += 1; // Shift frequency by 1 Hz to avoid resonance
                 }
