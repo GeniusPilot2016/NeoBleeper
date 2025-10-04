@@ -489,9 +489,9 @@
     <value>Перестань играть</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Проигрыватель MIDI-файлов невозможно открыть, если установлен флажок «Отключить воспроизведение» и снят флажок «Использовать MIDI-выход».
+    <value>Проигрыватель MIDI-файлов не может быть открыт, если установлен флажок «Отключить воспроизведение», сняты флажки «Использовать мотор или зуммер (через Arduino, Raspberry Pi или ESP32)» и «Использовать выход MIDI».
 
-Чтобы использовать эту функцию, установите флажок «Использовать MIDI-выход» на вкладке «Устройства» в настройках или снимите флажок «Отключить воспроизведение».</value>
+Чтобы использовать эту функцию, установите флажок «Использовать выход MIDI» на вкладке «Устройства» в настройках или снимите флажок «Отключить воспроизведение» или флажок «Использовать мотор или зуммер (через Arduino, Raspberry Pi или ESP32)».</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -613,5 +613,8 @@
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Несохранённые изменения</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>

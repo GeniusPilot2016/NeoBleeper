@@ -487,9 +487,9 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
     <value>Smetti di giocare</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Il lettore di file MIDI non può essere aperto se la casella di controllo "Disattiva riproduzione" è selezionata e la casella di controllo "Usa uscita MIDI" è deselezionata.
+    <value>Il lettore di file MIDI non può essere aperto quando la casella di controllo "Disattiva riproduzione" è selezionata, la casella di controllo "Usa motore o cicalino (tramite Arduino, Raspberry Pi o ESP32)" è deselezionata e la casella di controllo "Usa uscita MIDI" è deselezionata.
 
-Seleziona la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nelle impostazioni o deseleziona la casella di controllo "Disattiva riproduzione" per utilizzare questa funzione.</value>
+Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nelle impostazioni o deseleziona la casella di controllo "Disattiva riproduzione" o la casella di controllo "Usa motore o cicalino (tramite Arduino, Raspberry Pi o ESP32)" per utilizzare questa funzione.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -611,5 +611,8 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Modifiche non salvate</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>

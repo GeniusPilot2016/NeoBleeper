@@ -488,9 +488,9 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
     <value>Oynatmayı Durdur</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>"Sessiz oynatma" onay kutusu işaretli ve "MIDI çıkışını kullan" onay kutusu işaretli değilken MIDI dosya oynatıcısı açılamaz.
+    <value>"Sessiz oynatma" onay kutusu işaretliyken, "Motor veya buzzer kullan (Arduino, Raspberry Pi veya ESP32 üzerinden)" onay kutusu işaretli değilken ve "MIDI çıkışını kullan" onay kutusu işaretli değilken MIDI dosya oynatıcısı açılamaz.
 
-Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI çıkışını kullan" onay kutusunu işaretleyin veya "Sessiz oynatma" onay kutusunun işaretini kaldırın.</value>
+Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI çıkışını kullan" onay kutusunu işaretleyin veya "Oynatma sesini kapat" onay kutusunun işaretini kaldırın.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -613,5 +613,8 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Kaydedilmemiş Değişiklikler</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>%{number}</value>
   </data>
 </root>

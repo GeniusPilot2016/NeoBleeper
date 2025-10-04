@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -562,7 +563,7 @@ namespace NeoBleeper
         }
         private void replace_length_in_line()
         {
-            if (checkBox_replace_length.Checked == true)
+            if (checkBox_replace_length.Checked == true && listViewNotes.SelectedItems.Count > 0)
             {
                 if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
                 {
@@ -596,7 +597,7 @@ namespace NeoBleeper
         }
         private void replace_note_in_line(string note)
         {
-            if (checkBox_add_note_to_list.Checked == true)
+            if (checkBox_add_note_to_list.Checked == true && listViewNotes.SelectedItems.Count > 0)
             {
                 if (add_as_note1.Checked == true)
                 {
@@ -644,757 +645,102 @@ namespace NeoBleeper
                 updateDisplays(listViewNotes.Items.Count - 1, true);
             }
         }
-        private void button_c3_Click(object sender, EventArgs e)
+        private void trigger_key_click(string keyName)
         {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
+            try
             {
-                replace_note_in_line(lbl_c3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_c3.Text);
+                string input = keyName;
+                int firstUnderscore = input.IndexOf('_');
+                string afterFirstUnderscore = firstUnderscore >= 0 ? input.Substring(firstUnderscore + 1) : string.Empty;
+                string labelName = string.Empty;
+                string noteName = string.Empty;
+                int extractedOctave = int.Parse(Regex.Match(afterFirstUnderscore, @"\d+").Value);
+                int currentOctave = Variables.octave;
+                switch (extractedOctave)
+                {
+                    case 3:
+                        currentOctave = Variables.octave - 1;
+                        break;
+                    case 4:
+                        currentOctave = Variables.octave;
+                        break;
+                    case 5:
+                        currentOctave = Variables.octave + 1;
+                        break;
+                }
+                if (!keyName.Contains("s")) // If the key is not a sharp note
+                {
+                    labelName = "lbl_" + afterFirstUnderscore;
+                    Label label = this.Controls.Find(labelName, true).FirstOrDefault() as Label;
+                    string labelText = label != null ? label.Text : string.Empty;
+                    noteName = labelText;
+                }
+                else // If the key is a sharp note
+                {
+                    noteName = afterFirstUnderscore[0].ToString().ToUpper() + "#" + currentOctave;
+                }
+                update_indicator_when_key_is_clicked();
+                if (checkBox_replace.Checked == true)
+                {
+                    replace_note_in_line(noteName);
+                    replace_length_in_line();
+                    select_next_line(noteName);
+                }
+                else
+                {
+                    add_notes_to_column(noteName);
+                }
+                if (checkbox_play_note.Checked == true)
+                {
+                    int rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.C); // Default to C if no match
+                    switch (noteName)
+                    {
+                        case var n when n.StartsWith("C"):
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.CS) : 
+                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.C);
+                            break;
+                        case var n when n.StartsWith("D"):
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.DS) : 
+                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.D);
+                            break;
+                        case var n when n.StartsWith("E"):
+                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.E);
+                            break;
+                        case var n when n.StartsWith("F"):
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.FS) : 
+                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.F);
+                            break;
+                        case var n when n.StartsWith("G"):
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.GS) : 
+                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.G);
+                            break;
+                        case var n when n.StartsWith("A"):
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.AS) : 
+                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.A);
+                            break;
+                        case var n when n.StartsWith("B"):
+                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.B);
+                            break;
+                        default:
+                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.C);
+                            break;
+                    }
+                    note_frequency = Convert.ToInt16(rawFrequency * (Math.Pow(2, (currentOctave - 4))));
+                    play_note_when_key_is_clicked(note_frequency);
+                }
+                Logger.Log($"Key {noteName} is clicked", Logger.LogTypes.Info);
             }
-            else
+            catch (Exception ex)
             {
-                add_notes_to_column(lbl_c3.Text);
+                Logger.Log($"Error in triggering key click: {ex.Message}", Logger.LogTypes.Error);
             }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
         }
-
-        private void button_d3_Click(object sender, EventArgs e)
+        private void piano_keys_Click(object sender, EventArgs e)
         {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
+            if (sender is Control control)
             {
-                replace_note_in_line(lbl_d3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_d3.Text);
+                trigger_key_click(control.Name);
             }
-            else
-            {
-                add_notes_to_column(lbl_d3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-        private void button_e3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_e3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_e3.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_e3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key E{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_f3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_f3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_f3.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_f3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_g3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_g3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_g3.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_g3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_a3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_a3.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_a3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_b3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_b3.Text);
-                replace_length_in_line();
-                select_next_line(lbl_b3.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_b3.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key B{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-        private void button_c4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_c4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_c4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_c4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_d4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_d4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_d4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_d4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_e4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_e4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_e4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_e4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key E{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_f4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_f4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_f4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_f4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_g4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_g4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_f4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_g4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_a4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_a4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_a4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_b4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_b4.Text);
-                replace_length_in_line();
-                select_next_line(lbl_b4.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_b4.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key B{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-        private void button_c5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_c5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_c5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_c5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.C * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_d5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_d5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_d5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_d5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.D * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_e5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_e5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_e5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_e5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.E * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key E{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_f5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_f5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_f5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_f5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.F * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F{Variables.octave + 1} is clicked", Logger.LogTypes.Info); ;
-        }
-
-        private void button_g5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_g5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_g5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_g5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.G * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_a5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_a5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_a5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.A * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_b5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line(lbl_b5.Text);
-                replace_length_in_line();
-                select_next_line(lbl_b5.Text);
-            }
-            else
-            {
-                add_notes_to_column(lbl_b5.Text);
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.B * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key B{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-        private void button_c_s3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("C#" + (Variables.octave - 1).ToString());
-                replace_length_in_line();
-                select_next_line("C#" + (Variables.octave - 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("C#" + (Variables.octave - 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-        private void button_d_s3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("D#" + (Variables.octave - 1).ToString());
-                replace_length_in_line();
-                select_next_line("D#" + (Variables.octave - 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("D#" + (Variables.octave - 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-
-        private void button_f_s3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("F#" + (Variables.octave - 1).ToString());
-                replace_length_in_line();
-                select_next_line("F#" + (Variables.octave - 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("F#" + (Variables.octave - 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_g_s3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("G#" + (Variables.octave - 1).ToString());
-                replace_length_in_line();
-                select_next_line("G#" + (Variables.octave - 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("G#" + (Variables.octave - 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a_s3_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("A#" + (Variables.octave - 1).ToString());
-                replace_length_in_line();
-                select_next_line("A#" + (Variables.octave - 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("A#" + (Variables.octave - 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 5))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A#{Variables.octave - 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_c_s4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("C#" + Variables.octave.ToString());
-                replace_length_in_line();
-                select_next_line("C#" + Variables.octave.ToString());
-            }
-            else
-            {
-                add_notes_to_column("C#" + Variables.octave.ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C#{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_d_s4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("D#" + Variables.octave.ToString());
-                replace_length_in_line();
-                select_next_line("D#" + Variables.octave.ToString());
-            }
-            else
-            {
-                add_notes_to_column("D#" + Variables.octave.ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D#{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_f_s4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("F#" + Variables.octave.ToString());
-                replace_length_in_line();
-                select_next_line("F#" + Variables.octave.ToString());
-            }
-            else
-            {
-                add_notes_to_column("F#" + Variables.octave.ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F#{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_g_s4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("G#" + Variables.octave.ToString());
-                replace_length_in_line();
-                select_next_line("G#" + Variables.octave.ToString());
-            }
-            else
-            {
-                add_notes_to_column("G#" + Variables.octave.ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G#{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a_s4_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("A#" + Variables.octave.ToString());
-                replace_length_in_line();
-                select_next_line("A#" + Variables.octave.ToString());
-            }
-            else
-            {
-                add_notes_to_column("A#" + Variables.octave.ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 4))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A#{Variables.octave} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_c_s5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("C#" + (Variables.octave + 1).ToString());
-                replace_length_in_line();
-                select_next_line("C#" + (Variables.octave + 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("C#" + (Variables.octave + 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.CS * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key C#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_d_s5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("D#" + (Variables.octave + 1).ToString());
-                replace_length_in_line();
-                select_next_line("D#" + (Variables.octave + 1).ToString());
-
-            }
-            else
-            {
-                add_notes_to_column("D#" + (Variables.octave + 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.DS * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key D#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_f_s5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("F#" + (Variables.octave + 1).ToString());
-                replace_length_in_line();
-                select_next_line("F#" + (Variables.octave + 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("F#" + (Variables.octave + 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.FS * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key F#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_g_s5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("G#" + (Variables.octave + 1).ToString());
-                replace_length_in_line();
-                select_next_line("G#" + (Variables.octave + 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("G#" + (Variables.octave + 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.GS * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key G#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
-        }
-
-        private void button_a_s5_Click(object sender, EventArgs e)
-        {
-            update_indicator_when_key_is_clicked();
-            if (checkBox_replace.Checked == true)
-            {
-                replace_note_in_line("A#" + (Variables.octave + 1).ToString());
-                replace_length_in_line();
-                select_next_line("A#" + (Variables.octave + 1).ToString());
-            }
-            else
-            {
-                add_notes_to_column("A#" + (Variables.octave + 1).ToString());
-            }
-            if (checkbox_play_note.Checked == true)
-            {
-                note_frequency = Convert.ToInt16(base_note_frequency.base_note_frequency_in_4th_octave.AS * (Math.Pow(2, (Variables.octave - 3))));
-                play_note_when_key_is_clicked(note_frequency);
-            }
-            Logger.Log($"Key A#{Variables.octave + 1} is clicked", Logger.LogTypes.Info);
         }
         private int note_name_to_MIDI_number(string noteName)
         {
@@ -1492,7 +838,7 @@ namespace NeoBleeper
                     lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
                     Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
                     trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                    lbl_note_silence_ratio.Text = projectFile.Settings.RandomSettings.NoteSilenceRatio + "%";
+                    lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", projectFile.Settings.RandomSettings.NoteSilenceRatio);
                     comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
                     Variables.alternating_note_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
                     numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
@@ -1732,7 +1078,7 @@ namespace NeoBleeper
                                         case "NoteSilenceRatio":
                                             Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(parts[1]) / 100);
                                             trackBar_note_silence_ratio.Value = Convert.ToInt32(parts[1]);
-                                            lbl_note_silence_ratio.Text = parts[1].ToString() + "%";
+                                            lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", parts[1].ToString());
                                             break;
                                         case "NoteLength":
                                             comboBox_note_length.SelectedIndex = Convert.ToInt32(parts[1]);
@@ -1967,7 +1313,7 @@ namespace NeoBleeper
                                 lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
                                 Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
                                 trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                                lbl_note_silence_ratio.Text = projectFile.Settings.RandomSettings.NoteSilenceRatio + "%";
+                                lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", projectFile.Settings.RandomSettings.NoteSilenceRatio);
                                 comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
                                 Variables.alternating_note_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
                                 numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
@@ -2151,7 +1497,35 @@ namespace NeoBleeper
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            stop_playing();
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            if (isModified == true)
+            {
+                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    saveToolStripMenuItem_Click(sender, e);
+                    if (isSaved)
+                    {
+                        openAFileFromDialog(); // Proceed to open the file only if the save was successful
+                    }
+                }
+                else if (result == DialogResult.No)
+                {
+                    openAFileFromDialog();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return; // Cancel the open operation if the user selects Cancel
+                }
+            }
+            else
+            {
+                openAFileFromDialog();
+            }
+        }
+        private void openAFileFromDialog()
+        {
             openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -2162,22 +1536,11 @@ namespace NeoBleeper
                 // Add the file to the recent files list
                 if (is_file_valid == true)
                 {
-                    if (is_file_valid)
-                    {
-                        initialMemento = originator.CreateSavedStateMemento(
+                    initialMemento = originator.CreateSavedStateMemento(
                             Variables.bpm,
                             Variables.alternating_note_length);
-                        isModified = false;
-                        UpdateFormTitle();
-                    }
-                    if (is_file_valid)
-                    {
-                        initialMemento = originator.CreateSavedStateMemento(
-                            Variables.bpm,
-                            Variables.alternating_note_length);
-                        isModified = false;
-                        UpdateFormTitle();
-                    }
+                    isModified = false;
+                    UpdateFormTitle();
                     if (Settings1.Default.RecentFiles == null)
                     {
                         Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
@@ -2192,7 +1555,6 @@ namespace NeoBleeper
                 }
             }
         }
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
@@ -2318,7 +1680,9 @@ namespace NeoBleeper
         private void trackBar_note_silence_ratio_Scroll(object sender, EventArgs e)
         {
             Variables.note_silence_ratio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
-            lbl_note_silence_ratio.Text = trackBar_note_silence_ratio.Value.ToString() + "%";
+            string percentText = Resources.TextPercent;
+            percentText = percentText.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
+            lbl_note_silence_ratio.Text = percentText;
             Logger.Log($"Note silence ratio is set to {trackBar_note_silence_ratio.Value}%", Logger.LogTypes.Info);
         }
 
@@ -2757,7 +2121,7 @@ namespace NeoBleeper
             numericUpDown_bpm.Value = 140;
             trackBar_time_signature.Value = 4;
             lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
-            lbl_note_silence_ratio.Text = 50 + "%";
+            lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", "50");
             trackBar_note_silence_ratio.Value = 50;
             comboBox_note_length.Text = "1/8";
             if (checkBox_dotted.Checked == true)
@@ -3595,13 +2959,67 @@ namespace NeoBleeper
                     stopAllNotesAfterPlaying();
                 }
                 EnableDisableCommonControls(true);
-                if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0)
+                if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0) // Multi-lingual compatible logging of selected line as English 
                 {
+                    string length = "Quarter"; // Default to quarter note
+                    string modifier = string.Empty;
+                    string articulation = string.Empty;
+                    switch (listViewNotes.SelectedItems[0].SubItems[0].Text.ToString())
+                    {
+                        case var n when n == Resources.WholeNote:
+                            length = "Whole";
+                            break;
+                        case var n when n == Resources.HalfNote:
+                            length = "Half";
+                            break;
+                        case var n when n == Resources.QuarterNote:
+                            length = "Quarter";
+                            break;
+                        case var n when n == Resources.EighthNote:
+                            length = "1/8";
+                            break;
+                        case var n when n == Resources.SixteenthNote:
+                            length = "1/16";
+                            break;
+                        case var n when n == Resources.ThirtySecondNote:
+                            length = "1/32";
+                            break;
+                        default:
+                            length = "Quarter";
+                            break;
+                    }
+                    switch(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())
+                    {
+                        case var m when m == Resources.DottedModifier:
+                            modifier = "Dotted";
+                            break;
+                        case var m when m == Resources.TripletModifier:
+                            modifier = "Triplet";
+                            break;
+                        default:
+                            modifier = string.Empty;
+                            break;
+                    }
+                    switch (listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())
+                    {
+                        case var a when a == Resources.StaccatoArticulation:
+                            articulation = "Staccato";
+                            break;
+                        case var a when a == Resources.SpiccatoArticulation:
+                            articulation = "Spiccato";
+                            break;
+                        case var a when a == Resources.FermataArticulation:
+                            articulation = "Fermata";
+                            break;
+                        default:
+                            articulation = string.Empty;
+                            break;
+                    }
                     Logger.Log($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
-                     $"{listViewNotes.SelectedItems[0].SubItems[0].Text.ToString()} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
+                     $"{length} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
                      $" Note 2: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[3].Text.ToString())}" +
-                     $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())}" +
-                     $" Articulation: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())}", Logger.LogTypes.Info);
+                     $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(modifier)}" +
+                     $" Articulation: {GetOrDefault(articulation)}", Logger.LogTypes.Info);
                 }
 
             }
@@ -4577,7 +3995,7 @@ namespace NeoBleeper
             {
                 checkBox_synchronized_play.Checked = false;
             }
-            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
+            if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput && !TemporarySettings.MicrocontrollerSettings.useMicrocontroller))
             {
                 openFileDialog.Filter = "MIDI Files|*.mid";
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
@@ -4587,7 +4005,7 @@ namespace NeoBleeper
             }
             else
             {
-                Logger.Log("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
+                Logger.Log("\"Mute playback\" is checkbox is checked, \"Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)\" checkbox is unchecked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4760,7 +4178,6 @@ namespace NeoBleeper
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ;
             if (is_music_playing == true)
             {
                 stop_playing();
@@ -4778,6 +4195,11 @@ namespace NeoBleeper
                 {
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
+            }
+            if(commandManager.CanUndo == false)
+            {
+                isModified = false;
+                UpdateFormTitle();
             }
             Logger.Log("Undo is executed.", Logger.LogTypes.Info);
         }
@@ -4801,6 +4223,11 @@ namespace NeoBleeper
                 {
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
+            }
+            if(commandManager.CanUndo == true)
+            {
+                isModified = true;
+                UpdateFormTitle();
             }
             Logger.Log("Redo is executed.", Logger.LogTypes.Info);
         }
@@ -4942,20 +4369,39 @@ namespace NeoBleeper
                 openRecentToolStripMenuItem.Enabled = false;
             }
         }
-        private async void OpenRecentFile(string filePath)
+        private void OpenRecentFile(string filePath)
+        {
+            if (isModified == true)
+            {
+                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    if (isSaved)
+                    {
+                        openFileAndUpdateMenu(filePath); // Open the recent file if save was successful
+                    }
+                }
+                else if(result == DialogResult.No) // Open recent file without saving
+                {
+                    openFileAndUpdateMenu(filePath);
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return; // Do nothing if cancel is clicked
+                }
+            }
+            else // No unsaved changes, open the recent file directly
+            {
+                openFileAndUpdateMenu(filePath);
+            }
+        }
+        private void openFileAndUpdateMenu(string filePath)
         {
             try
             {
                 if (File.Exists(filePath))
                 {
-                    FileParser(filePath);
-
-                    // Create initialMemento with current values after file is opened.
-                    initialMemento = originator.CreateSavedStateMemento(
-                        Variables.bpm,
-                        Variables.alternating_note_length);
-
-                    commandManager.ClearHistory(); // Reset the history
+                    openAFile(filePath);
                 }
                 else
                 {
@@ -4966,15 +4412,22 @@ namespace NeoBleeper
                     UpdateRecentFilesMenu();
                 }
             }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
             catch (Exception ex)
             {
                 Logger.Log($"Error opening recent file: {ex.Message}", Logger.LogTypes.Error);
                 MessageBox.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void openAFile(string filePath)
+        {
+            FileParser(filePath);
+
+            // Create initialMemento with current values after file is opened.
+            initialMemento = originator.CreateSavedStateMemento(
+                Variables.bpm,
+                Variables.alternating_note_length);
+
+            commandManager.ClearHistory(); // Reset the history
         }
         private void main_window_Load(object sender, EventArgs e)
         {

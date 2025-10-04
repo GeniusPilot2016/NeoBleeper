@@ -355,17 +355,14 @@ Vol</value>
   <data name="buttonMidFront.Text" xml:space="preserve">
     <value>Orta Ön Ünlü</value>
   </data>
-  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 196</value>
-  </data>
-  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 152</value>
-  </data>
   <data name="labelFormant4Hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 134</value>
   </data>
   <data name="labelFormant4Vol.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 134</value>
+  </data>
+  <data name="labelFormant4Vol.Text" xml:space="preserve">
+    <value>%100</value>
   </data>
   <data name="trackBarFormant4Vol.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
@@ -373,7 +370,7 @@ Vol</value>
   <data name="trackBarFormant4Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant3Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -382,13 +379,16 @@ Vol</value>
   <data name="labelFormant3Vol.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 134</value>
   </data>
+  <data name="labelFormant3Vol.Text" xml:space="preserve">
+    <value>%100</value>
+  </data>
   <data name="trackBarFormant3Vol.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
   <data name="trackBarFormant3Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant2Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -397,20 +397,32 @@ Vol</value>
   <data name="labelFormant2Vol.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 134</value>
   </data>
+  <data name="labelFormant2Vol.Text" xml:space="preserve">
+    <value>%100</value>
+  </data>
   <data name="trackBarFormant2Vol.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
   <data name="trackBarFormant2Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
+  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 152</value>
+  </data>
   <data name="panel13.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
+  </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 196</value>
   </data>
   <data name="labelFormant1Hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 134</value>
   </data>
   <data name="labelFormant1Vol.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 134</value>
+  </data>
+  <data name="labelFormant1Vol.Text" xml:space="preserve">
+    <value>%100</value>
   </data>
   <data name="trackBarFormant1Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>

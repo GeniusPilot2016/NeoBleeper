@@ -489,9 +489,9 @@
     <value>Припинити грати</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Плеєр MIDI-файлів не можна відкрити, якщо встановлено прапорець «Вимкнути відтворення» та знято прапорець «Використовувати MIDI-вихід».
+    <value>Плеєр MIDI-файлів не можна відкрити, якщо встановлено прапорець «Вимкнути звук відтворення», знято прапорець «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)» та знято прапорець «Використовувати вихід MIDI».
 
-Будь ласка, встановіть прапорець «Використовувати MIDI-вихід» на вкладці «Пристрої» в налаштуваннях або зніміть прапорець «Вимкнути відтворення», щоб скористатися цією функцією.</value>
+Будь ласка, встановіть прапорець «Використовувати вихід MIDI» на вкладці «Пристрої» в налаштуваннях або зніміть прапорець «Вимкнути звук відтворення» чи «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)», щоб скористатися цією функцією.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -613,5 +613,8 @@
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Незбережені зміни</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>

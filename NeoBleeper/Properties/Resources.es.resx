@@ -488,9 +488,9 @@ Esta función permite que el altavoz/dispositivo de sonido del sistema suba o ba
     <value>Detener reproducción</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>El reproductor de archivos MIDI no se puede abrir cuando la casilla "Silenciar reproducción" está marcada y la casilla "Usar salida MIDI" está desmarcada.
+    <value>El reproductor de archivos MIDI no se puede abrir cuando la casilla "Silenciar reproducción" está marcada, la casilla "Usar motor o zumbador (mediante Arduino, Raspberry Pi o ESP32)" está desmarcada y la casilla "Usar salida MIDI" está desmarcada.
 
-Marque la casilla "Usar salida MIDI" en la pestaña "Dispositivos" de la configuración o desmarque la casilla "Silenciar reproducción" para usar esta función.</value>
+Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Dispositivos" de la configuración o desmarque la casilla "Silenciar reproducción" o la casilla "Usar motor o zumbador (mediante Arduino, Raspberry Pi o ESP32)".</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -612,5 +612,8 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Cambios sin guardar</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>

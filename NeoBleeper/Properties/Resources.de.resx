@@ -485,9 +485,9 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
     <value>Stoppt das Spielen</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Der MIDI-Player kann nicht geöffnet werden, wenn das Kontrollkästchen „Wiedergabe stummschalten“ aktiviert und das Kontrollkästchen „MIDI-Ausgabe verwenden“ deaktiviert ist.
+    <value>Der MIDI-Dateiplayer kann nicht geöffnet werden, wenn das Kontrollkästchen „Wiedergabe stummschalten“ aktiviert, das Kontrollkästchen „Motor oder Summer verwenden (über Arduino, Raspberry Pi oder ESP32)“ deaktiviert und das Kontrollkästchen „MIDI-Ausgang verwenden“ deaktiviert ist.
 
-Um diese Funktion nutzen zu können, aktivieren Sie bitte das Kontrollkästchen „MIDI-Ausgabe verwenden“ im Bereich „Geräte“ der Einstellungen oder deaktivieren Sie das Kontrollkästchen „Wiedergabe stummschalten“.</value>
+Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-Ausgang verwenden“ im Reiter „Geräte“ in den Einstellungen oder deaktivieren Sie das Kontrollkästchen „Wiedergabe stummschalten“ bzw. „Motor oder Summer verwenden (über Arduino, Raspberry Pi oder ESP32)“.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -609,5 +609,8 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Nicht gespeicherte Änderungen</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>

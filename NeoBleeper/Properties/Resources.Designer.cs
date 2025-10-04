@@ -1083,9 +1083,9 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The MIDI file player cannot be opened when &quot;Mute playback&quot; checkbox is checked and &quot;Use MIDI output&quot; checkbox is unchecked.
+        ///   The MIDI file player cannot be opened when &quot;Mute playback&quot; checkbox is checked, &quot;Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)&quot; checkbox is unchecked and &quot;Use MIDI output&quot; checkbox is unchecked.
         ///
-        ///Please check &quot;Use MIDI output&quot; checkbox from &quot;Devices&quot; tab in settings or uncheck &quot;Mute playback&quot; checkbox to use this feature. benzeri yerelleştirilmiş bir dize arar.
+        ///Please check &quot;Use MIDI output&quot; checkbox from &quot;Devices&quot; tab in settings or uncheck &quot;Mute playback&quot; checkbox or uncheck &quot;Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)&quot; checkbox to use this feature. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MIDIFilePlayerMutedError {
             get {
@@ -1382,6 +1382,15 @@ namespace NeoBleeper.Properties {
         public static string TextNotFound {
             get {
                 return ResourceManager.GetString("TextNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextPercent {
+            get {
+                return ResourceManager.GetString("TextPercent", resourceCulture);
             }
         }
         

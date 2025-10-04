@@ -144,6 +144,10 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"Error playing motor sound: {ex.Message}", Logger.LogTypes.Error);
+                    if (!IsAnyPortThatIsMicrocontrollerAvailable())
+                    {
+                        TemporarySettings.MicrocontrollerSettings.useMicrocontroller = false; // Disable microcontroller usage if none is available
+                    }
                     lock (_lockObject)
                     {
                         _isMotorPlaying = false;
@@ -195,6 +199,10 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"Error playing buzzer sound: {ex.Message}", Logger.LogTypes.Error);
+                    if (!IsAnyPortThatIsMicrocontrollerAvailable())
+                    {
+                        TemporarySettings.MicrocontrollerSettings.useMicrocontroller = false; // Disable microcontroller usage if none is available
+                    }
                     lock (_lockObject)
                     {
                         _isBuzzerPlaying = false;
@@ -230,6 +238,10 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"Error stopping motor sound: {ex.Message}", Logger.LogTypes.Error);
+                    if (!IsAnyPortThatIsMicrocontrollerAvailable())
+                    {
+                        TemporarySettings.MicrocontrollerSettings.useMicrocontroller = false; // Disable microcontroller usage if none is available
+                    }
                 }
             });
         }
@@ -261,6 +273,10 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"Error stopping buzzer sound: {ex.Message}", Logger.LogTypes.Error);
+                    if (!IsAnyPortThatIsMicrocontrollerAvailable())
+                    {
+                        TemporarySettings.MicrocontrollerSettings.useMicrocontroller = false; // Disable microcontroller usage if none is available
+                    }
                 }
             });
         }

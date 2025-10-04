@@ -878,17 +878,18 @@ namespace NeoBleeper
 
             string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff");
 
+            string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00"));
             if (label_percentage.InvokeRequired)
             {
                 label_percentage.BeginInvoke(new Action(() =>
                 {
-                    label_percentage.Text = percent.ToString("0.00") + "%";
+                    label_percentage.Text = percentagestr;
                     label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                 }));
             }
             else
             {
-                label_percentage.Text = percent.ToString("0.00") + "%";
+                label_percentage.Text = percentagestr;
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
@@ -1605,7 +1606,8 @@ namespace NeoBleeper
             }
 
             // Update the percentage label
-            label_percentage.Text = ((double)frameIndex / _frames.Count * 100).ToString("0.00") + "%";
+            string percentagestr = Resources.TextPercent.Replace("{number}", ((double)frameIndex / _frames.Count * 100).ToString("0.00"));
+            label_percentage.Text = percentagestr;
 
             // Update the position label
             UpdatePositionLabel();

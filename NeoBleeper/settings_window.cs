@@ -19,6 +19,11 @@ namespace NeoBleeper
             InitializeComponent();
             this.mainWindow = mainWindow;
             checkBox_use_microcontroller.Enabled = SerialPortHelper.IsAnyPortThatIsMicrocontrollerAvailable(); // Enable or disable the microcontroller checkbox based on availability
+            if(!checkBox_use_microcontroller.Enabled)
+            {
+                checkBox_use_microcontroller.Checked = false;
+                TemporarySettings.MicrocontrollerSettings.useMicrocontroller = checkBox_use_microcontroller.Checked;
+            }
             switch (TemporarySettings.creating_sounds.soundDeviceBeepWaveform)
             {
                 case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square:

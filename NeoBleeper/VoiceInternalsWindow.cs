@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoBleeper.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -52,10 +53,10 @@ namespace NeoBleeper
             labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
             labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
             labelFormant4Hz.Text = TemporarySettings.VoiceInternalSettings.Formant4Frequency.ToString() + " Hz";
-            labelFormant1Vol.Text = TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%";
-            labelFormant2Vol.Text = TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%";
-            labelFormant3Vol.Text = TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%";
-            labelFormant4Vol.Text = TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%";
+            labelFormant1Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString());
+            labelFormant2Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString());
+            labelFormant3Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString());
+            labelFormant4Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString());
             labelVoiceVol.Text = TemporarySettings.VoiceInternalSettings.VoiceVolume.ToString();
             labelSawVol.Text = TemporarySettings.VoiceInternalSettings.SawVolume.ToString();
             labelNoiseVol.Text = TemporarySettings.VoiceInternalSettings.NoiseVolume.ToString();
@@ -198,7 +199,7 @@ namespace NeoBleeper
             if (TemporarySettings.VoiceInternalSettings.Formant1Volume != getTrackBarReverseValue(trackBarFormant1Vol))
             {
                 TemporarySettings.VoiceInternalSettings.Formant1Volume = getTrackBarReverseValue(trackBarFormant1Vol);
-                labelFormant1Vol.Text = TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%";
+                labelFormant1Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString());
                 Logger.Log("Formant 1 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%", Logger.LogTypes.Info);
             }
         }
@@ -218,7 +219,7 @@ namespace NeoBleeper
             if (TemporarySettings.VoiceInternalSettings.Formant2Volume != getTrackBarReverseValue(trackBarFormant2Vol))
             {
                 TemporarySettings.VoiceInternalSettings.Formant2Volume = getTrackBarReverseValue(trackBarFormant2Vol);
-                labelFormant2Vol.Text = TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%";
+                labelFormant2Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString());
                 Logger.Log("Formant 2 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%", Logger.LogTypes.Info);
             }
         }
@@ -238,7 +239,7 @@ namespace NeoBleeper
             if (TemporarySettings.VoiceInternalSettings.Formant3Volume != getTrackBarReverseValue(trackBarFormant3Vol))
             {
                 TemporarySettings.VoiceInternalSettings.Formant3Volume = getTrackBarReverseValue(trackBarFormant3Vol);
-                labelFormant3Vol.Text = TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%";
+                labelFormant3Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString());
                 Logger.Log("Formant 3 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%", Logger.LogTypes.Info);
             }
         }
@@ -258,7 +259,7 @@ namespace NeoBleeper
             if (TemporarySettings.VoiceInternalSettings.Formant4Volume != getTrackBarReverseValue(trackBarFormant4Vol))
             {
                 TemporarySettings.VoiceInternalSettings.Formant4Volume = getTrackBarReverseValue(trackBarFormant4Vol);
-                labelFormant4Vol.Text = TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%";
+                labelFormant4Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString());
                 Logger.Log("Formant 4 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%", Logger.LogTypes.Info);
             }
         }
@@ -545,10 +546,10 @@ namespace NeoBleeper
             labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
             labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
             labelFormant4Hz.Text = TemporarySettings.VoiceInternalSettings.Formant4Frequency.ToString() + " Hz";
-            labelFormant1Vol.Text = TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%";
-            labelFormant2Vol.Text = TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%";
-            labelFormant3Vol.Text = TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%";
-            labelFormant4Vol.Text = TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%";
+            labelFormant1Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString());
+            labelFormant2Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString());
+            labelFormant3Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString());
+            labelFormant4Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString());
         }
         private void buttonOpenVowel_Click(object sender, EventArgs e) // Open vowel preset (A)
         {

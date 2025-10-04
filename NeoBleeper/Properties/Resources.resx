@@ -487,9 +487,9 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>Stop playing</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked and "Use MIDI output" checkbox is unchecked.
+    <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked, "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox is unchecked and "Use MIDI output" checkbox is unchecked.
 
-Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox to use this feature.</value>
+Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox or uncheck "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox to use this feature.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -611,5 +611,8 @@ You can see the key mappings in the buttons in the top of the window.</value>
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Unsaved Changes</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value />
   </data>
 </root>

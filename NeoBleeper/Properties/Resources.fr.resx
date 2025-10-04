@@ -487,9 +487,9 @@ Cette fonctionnalité permet au haut-parleur/au périphérique audio du système
     <value>Arrêtez de jouer</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Impossible d'ouvrir le lecteur de fichiers MIDI lorsque la case « Couper le son » est cochée et que la case « Utiliser la sortie MIDI » est décochée.
+    <value>Le lecteur de fichiers MIDI ne peut pas être ouvert lorsque la case « Couper la lecture » ​​est cochée, que la case « Utiliser un moteur ou un buzzer (via Arduino, Raspberry Pi ou ESP32) » est décochée et que la case « Utiliser la sortie MIDI » est décochée.
 
-Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI » dans l'onglet « Périphériques » des paramètres ou décochez la case « Couper le son ».</value>
+Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI » dans l'onglet « Périphériques » des paramètres ou décochez la case « Couper la lecture » ​​ou « Utiliser un moteur ou un buzzer (via Arduino, Raspberry Pi ou ESP32) ».</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -611,5 +611,8 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   </data>
   <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
     <value>Modifications non enregistrées</value>
+  </data>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
 </root>
