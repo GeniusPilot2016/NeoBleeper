@@ -1065,6 +1065,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   There are unsaved changes. Do you want to save before exiting? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageUnsavedChangesOnExit {
+            get {
+                return ResourceManager.GetString("MessageUnsavedChangesOnExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   MIDI Device Error benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MIDIDeviceErrorTitle {
@@ -1445,6 +1454,15 @@ namespace NeoBleeper.Properties {
         public static string ThirtySecondNote {
             get {
                 return ResourceManager.GetString("ThirtySecondNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unsaved Changes benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleUnsavedChangedOnExit {
+            get {
+                return ResourceManager.GetString("TitleUnsavedChangedOnExit", resourceCulture);
             }
         }
         

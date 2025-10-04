@@ -607,4 +607,10 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Mã chương trình cơ sở được sao chép vào bảng tạm</value>
   </data>
+  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+    <value>Có những thay đổi chưa được lưu. Bạn có muốn lưu trước khi thoát không?</value>
+  </data>
+  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+    <value>Thay đổi chưa lưu</value>
+  </data>
 </root>

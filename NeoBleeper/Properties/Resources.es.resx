@@ -607,4 +607,10 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>El código de firmware se copia al portapapeles</value>
   </data>
+  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+    <value>Hay cambios sin guardar. ¿Desea guardarlos antes de salir?</value>
+  </data>
+  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+    <value>Cambios sin guardar</value>
+  </data>
 </root>

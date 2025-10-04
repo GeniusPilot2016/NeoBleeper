@@ -604,4 +604,10 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value />
   </data>
+  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+    <value>Es gibt nicht gespeicherte Änderungen. Möchten Sie vor dem Beenden speichern?</value>
+  </data>
+  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+    <value>Nicht gespeicherte Änderungen</value>
+  </data>
 </root>

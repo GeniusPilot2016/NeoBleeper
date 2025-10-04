@@ -608,4 +608,10 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Yazılım kodu panoya kopyalandı</value>
   </data>
+  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+    <value>Kaydedilmemiş değişiklikler var. Çıkmadan önce kaydetmek istiyor musunuz?</value>
+  </data>
+  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+    <value>Kaydedilmemiş Değişiklikler</value>
+  </data>
 </root>
