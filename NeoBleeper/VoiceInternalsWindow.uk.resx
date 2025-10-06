@@ -227,28 +227,28 @@
     <value>Параметри виводу</value>
   </data>
   <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
-    <value>221, 25</value>
+    <value>217, 25</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 16</value>
+    <value>43, 16</value>
   </data>
   <data name="label53.Text" xml:space="preserve">
-    <value>Крок</value>
+    <value>Тембр</value>
   </data>
-  <data name="trackBarPitch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 44</value>
+  <data name="trackBarTimbre.Size" type="System.Drawing.Size, System.Drawing">
+    <value>347, 25</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
-    <value>210, 77</value>
+    <value>156, 80</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 16</value>
+    <value>171, 16</value>
   </data>
   <data name="label54.Text" xml:space="preserve">
-    <value>Діапазон</value>
+    <value>Випадковий діапазон частот</value>
   </data>
-  <data name="trackBarRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 96</value>
+  <data name="trackBarRandomizedFormantFreqRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>347, 25</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Size" type="System.Drawing.Size, System.Drawing">
     <value>487, 131</value>

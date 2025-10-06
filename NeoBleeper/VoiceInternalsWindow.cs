@@ -73,12 +73,12 @@ namespace NeoBleeper
             labelSybillance3Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz";
             labelSybillance4Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz";
             double minPitch = 0.5, maxPitch = 2.0;
-            int pitchSpan = trackBarPitch.Maximum - trackBarPitch.Minimum;
-            trackBarPitch.Value = trackBarPitch.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Pitch - minPitch) / (maxPitch - minPitch)) * (pitchSpan > 0 ? pitchSpan : 1));
+            int pitchSpan = trackBarTimbre.Maximum - trackBarTimbre.Minimum;
+            trackBarTimbre.Value = trackBarTimbre.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Timbre - minPitch) / (maxPitch - minPitch)) * (pitchSpan > 0 ? pitchSpan : 1));
             comboBoxPlayNoteOnLineOption.SelectedIndex = TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions == TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines ? 1 : 0;
             double minRange = 0, maxRange = 1.0;
-            int rangeSpan = trackBarRange.Maximum - trackBarRange.Minimum;
-            trackBarRange.Value = trackBarRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.Range - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
+            int rangeSpan = trackBarRandomizedFormantFreqRange.Maximum - trackBarRandomizedFormantFreqRange.Minimum;
+            trackBarRandomizedFormantFreqRange.Value = trackBarRandomizedFormantFreqRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
             trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
             BringToFront();
@@ -313,7 +313,6 @@ namespace NeoBleeper
                     TemporarySettings.VoiceInternalSettings.Sybillance1Range = value;
                     labelSybillance1Ra.Text = TemporarySettings.VoiceInternalSettings.Sybillance1Range.ToString("0.##", CultureInfo.InvariantCulture);
                     Logger.Log("Sybillance 1 Range set to " + TemporarySettings.VoiceInternalSettings.Sybillance1Range.ToString("0.##", CultureInfo.InvariantCulture), Logger.LogTypes.Info);
-
                 }
             }
         }
@@ -439,26 +438,26 @@ namespace NeoBleeper
         {
             double minPitch = 0.5;
             double maxPitch = 2.0;
-            int span = trackBarPitch.Maximum - trackBarPitch.Minimum;
-            double normalized = span > 0 ? (trackBarPitch.Value - trackBarPitch.Minimum) / (double)span : 0.0;
+            int span = trackBarTimbre.Maximum - trackBarTimbre.Minimum;
+            double normalized = span > 0 ? (trackBarTimbre.Value - trackBarTimbre.Minimum) / (double)span : 0.0;
             double value = minPitch + normalized * (maxPitch - minPitch);
-            if (Math.Abs(TemporarySettings.VoiceInternalSettings.Pitch - value) > 1e-9)
+            if (Math.Abs(TemporarySettings.VoiceInternalSettings.Timbre - value) > 1e-9)
             {
-                TemporarySettings.VoiceInternalSettings.Pitch = value;
-                Logger.Log("Pitch set to " + TemporarySettings.VoiceInternalSettings.Pitch.ToString(), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.Timbre = value;
+                Logger.Log("Timbre set to " + TemporarySettings.VoiceInternalSettings.Timbre.ToString(), Logger.LogTypes.Info);
             }
         }
 
         private void trackBarRange_Scroll(object sender, EventArgs e)
         {
             double minRange = 0, maxRange = 1.0;
-            int span = trackBarRange.Maximum - trackBarRange.Minimum;
-            double normalized = span > 0 ? (trackBarRange.Value - trackBarRange.Minimum) / (double)span : 0.0;
+            int span = trackBarRandomizedFormantFreqRange.Maximum - trackBarRandomizedFormantFreqRange.Minimum;
+            double normalized = span > 0 ? (trackBarRandomizedFormantFreqRange.Value - trackBarRandomizedFormantFreqRange.Minimum) / (double)span : 0.0;
             double value = minRange + normalized * (maxRange - minRange);
-            if (Math.Abs(TemporarySettings.VoiceInternalSettings.Range - value) > 1e-9)
+            if (Math.Abs(TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange - value) > 1e-9)
             {
-                TemporarySettings.VoiceInternalSettings.Range = value;
-                Logger.Log("Range set to " + TemporarySettings.VoiceInternalSettings.Range.ToString(), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange = value;
+                Logger.Log("Randomized frequency range set to " + TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange.ToString(), Logger.LogTypes.Info);
             }
         }
 
@@ -597,6 +596,11 @@ namespace NeoBleeper
                     Logger.Log("Set to play voice on checked lines only", Logger.LogTypes.Info);
                 }
             }
+        }
+
+        private void timerControlApplier_Tick(object sender, EventArgs e)
+        {
+            SoundRenderingEngine.VoiceSynthesisEngine.ApplyValues(); // Apply new values
         }
     }
 }

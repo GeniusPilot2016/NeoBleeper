@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VoiceInternalsWindow));
             panel27 = new Panel();
             panel28 = new Panel();
@@ -49,9 +50,9 @@
             comboBoxNote4Option = new ComboBox();
             groupBoxOutputOptions = new GroupBox();
             label53 = new Label();
-            trackBarPitch = new TrackBar();
+            trackBarTimbre = new TrackBar();
             label54 = new Label();
-            trackBarRange = new TrackBar();
+            trackBarRandomizedFormantFreqRange = new TrackBar();
             groupBoxRandomVariationsOfFormants = new GroupBox();
             labelSybillance = new Label();
             panel26 = new Panel();
@@ -164,10 +165,11 @@
             groupBoxPlayVoiceOnLineSettings = new GroupBox();
             label1 = new Label();
             comboBoxPlayNoteOnLineOption = new ComboBox();
+            timerControlApplier = new System.Windows.Forms.Timer(components);
             groupBoxKey.SuspendLayout();
             groupBoxOutputOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarTimbre).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRandomizedFormantFreqRange).BeginInit();
             groupBoxRandomVariationsOfFormants.SuspendLayout();
             panel26.SuspendLayout();
             panel16.SuspendLayout();
@@ -224,23 +226,23 @@
             // 
             // panel27
             // 
-            resources.ApplyResources(panel27, "panel27");
             panel27.BackColor = Color.Yellow;
             panel27.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(panel27, "panel27");
             panel27.Name = "panel27";
             // 
             // panel28
             // 
-            resources.ApplyResources(panel28, "panel28");
             panel28.BackColor = Color.Cyan;
             panel28.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(panel28, "panel28");
             panel28.Name = "panel28";
             // 
             // panel29
             // 
-            resources.ApplyResources(panel29, "panel29");
             panel29.BackColor = Color.Red;
             panel29.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(panel29, "panel29");
             panel29.Name = "panel29";
             // 
             // label59
@@ -275,7 +277,6 @@
             // 
             // groupBoxKey
             // 
-            resources.ApplyResources(groupBoxKey, "groupBoxKey");
             groupBoxKey.Controls.Add(label64);
             groupBoxKey.Controls.Add(label63);
             groupBoxKey.Controls.Add(label62);
@@ -285,6 +286,7 @@
             groupBoxKey.Controls.Add(panel29);
             groupBoxKey.Controls.Add(panel28);
             groupBoxKey.Controls.Add(panel27);
+            resources.ApplyResources(groupBoxKey, "groupBoxKey");
             groupBoxKey.Name = "groupBoxKey";
             groupBoxKey.TabStop = false;
             // 
@@ -346,7 +348,6 @@
             // 
             // groupBoxOutputOptions
             // 
-            resources.ApplyResources(groupBoxOutputOptions, "groupBoxOutputOptions");
             groupBoxOutputOptions.Controls.Add(comboBoxNote4Option);
             groupBoxOutputOptions.Controls.Add(comboBoxNote3Option);
             groupBoxOutputOptions.Controls.Add(comboBoxNote2Option);
@@ -355,6 +356,7 @@
             groupBoxOutputOptions.Controls.Add(label57);
             groupBoxOutputOptions.Controls.Add(label56);
             groupBoxOutputOptions.Controls.Add(label55);
+            resources.ApplyResources(groupBoxOutputOptions, "groupBoxOutputOptions");
             groupBoxOutputOptions.Name = "groupBoxOutputOptions";
             groupBoxOutputOptions.TabStop = false;
             // 
@@ -363,36 +365,36 @@
             resources.ApplyResources(label53, "label53");
             label53.Name = "label53";
             // 
-            // trackBarPitch
+            // trackBarTimbre
             // 
-            resources.ApplyResources(trackBarPitch, "trackBarPitch");
-            trackBarPitch.Maximum = 1000;
-            trackBarPitch.Name = "trackBarPitch";
-            trackBarPitch.TickFrequency = 50;
-            trackBarPitch.Value = 325;
-            trackBarPitch.Scroll += trackBarPitch_Scroll;
+            resources.ApplyResources(trackBarTimbre, "trackBarTimbre");
+            trackBarTimbre.Maximum = 1000;
+            trackBarTimbre.Name = "trackBarTimbre";
+            trackBarTimbre.TickFrequency = 50;
+            trackBarTimbre.Value = 325;
+            trackBarTimbre.Scroll += trackBarPitch_Scroll;
             // 
             // label54
             // 
             resources.ApplyResources(label54, "label54");
             label54.Name = "label54";
             // 
-            // trackBarRange
+            // trackBarRandomizedFormantFreqRange
             // 
-            resources.ApplyResources(trackBarRange, "trackBarRange");
-            trackBarRange.Maximum = 1000;
-            trackBarRange.Name = "trackBarRange";
-            trackBarRange.TickFrequency = 50;
-            trackBarRange.Value = 105;
-            trackBarRange.Scroll += trackBarRange_Scroll;
+            resources.ApplyResources(trackBarRandomizedFormantFreqRange, "trackBarRandomizedFormantFreqRange");
+            trackBarRandomizedFormantFreqRange.Maximum = 1000;
+            trackBarRandomizedFormantFreqRange.Name = "trackBarRandomizedFormantFreqRange";
+            trackBarRandomizedFormantFreqRange.TickFrequency = 50;
+            trackBarRandomizedFormantFreqRange.Value = 105;
+            trackBarRandomizedFormantFreqRange.Scroll += trackBarRange_Scroll;
             // 
             // groupBoxRandomVariationsOfFormants
             // 
-            resources.ApplyResources(groupBoxRandomVariationsOfFormants, "groupBoxRandomVariationsOfFormants");
-            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarRange);
+            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarRandomizedFormantFreqRange);
             groupBoxRandomVariationsOfFormants.Controls.Add(label54);
-            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarPitch);
+            groupBoxRandomVariationsOfFormants.Controls.Add(trackBarTimbre);
             groupBoxRandomVariationsOfFormants.Controls.Add(label53);
+            resources.ApplyResources(groupBoxRandomVariationsOfFormants, "groupBoxRandomVariationsOfFormants");
             groupBoxRandomVariationsOfFormants.Name = "groupBoxRandomVariationsOfFormants";
             groupBoxRandomVariationsOfFormants.TabStop = false;
             // 
@@ -405,10 +407,10 @@
             // 
             // panel26
             // 
-            resources.ApplyResources(panel26, "panel26");
             panel26.Controls.Add(labelSybillance);
             panel26.Controls.Add(panel16);
             panel26.Controls.Add(panel22);
+            resources.ApplyResources(panel26, "panel26");
             panel26.Name = "panel26";
             // 
             // panel16
@@ -710,10 +712,10 @@
             // 
             // panel22
             // 
-            resources.ApplyResources(panel22, "panel22");
             panel22.BorderStyle = BorderStyle.FixedSingle;
             panel22.Controls.Add(labelCutoff);
             panel22.Controls.Add(panel23);
+            resources.ApplyResources(panel22, "panel22");
             panel22.Name = "panel22";
             // 
             // labelCutoff
@@ -767,10 +769,10 @@
             // 
             // panel25
             // 
-            resources.ApplyResources(panel25, "panel25");
             panel25.Controls.Add(labelOscillator);
             panel25.Controls.Add(panel2);
             panel25.Controls.Add(panel5);
+            resources.ApplyResources(panel25, "panel25");
             panel25.Name = "panel25";
             // 
             // panel2
@@ -882,9 +884,9 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.Controls.Add(labelVoice);
             panel1.Controls.Add(panel6);
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
             // panel6
@@ -1188,7 +1190,6 @@
             // 
             // panel7
             // 
-            resources.ApplyResources(panel7, "panel7");
             panel7.Controls.Add(labelFormantControl);
             panel7.Controls.Add(buttonOpenBack);
             panel7.Controls.Add(panel9);
@@ -1196,6 +1197,7 @@
             panel7.Controls.Add(buttonOpenVowel);
             panel7.Controls.Add(buttonCloseBack);
             panel7.Controls.Add(buttonCloseFront);
+            resources.ApplyResources(panel7, "panel7");
             panel7.Name = "panel7";
             // 
             // panel30
@@ -1205,9 +1207,9 @@
             // 
             // groupBoxPlayVoiceOnLineSettings
             // 
-            resources.ApplyResources(groupBoxPlayVoiceOnLineSettings, "groupBoxPlayVoiceOnLineSettings");
             groupBoxPlayVoiceOnLineSettings.Controls.Add(label1);
             groupBoxPlayVoiceOnLineSettings.Controls.Add(comboBoxPlayNoteOnLineOption);
+            resources.ApplyResources(groupBoxPlayVoiceOnLineSettings, "groupBoxPlayVoiceOnLineSettings");
             groupBoxPlayVoiceOnLineSettings.Name = "groupBoxPlayVoiceOnLineSettings";
             groupBoxPlayVoiceOnLineSettings.TabStop = false;
             // 
@@ -1224,6 +1226,12 @@
             comboBoxPlayNoteOnLineOption.Items.AddRange(new object[] { resources.GetString("comboBoxPlayNoteOnLineOption.Items"), resources.GetString("comboBoxPlayNoteOnLineOption.Items1") });
             comboBoxPlayNoteOnLineOption.Name = "comboBoxPlayNoteOnLineOption";
             comboBoxPlayNoteOnLineOption.SelectedIndexChanged += comboBoxPlayNoteOnLineOption_SelectedIndexChanged;
+            // 
+            // timerControlApplier
+            // 
+            timerControlApplier.Enabled = true;
+            timerControlApplier.Interval = 50;
+            timerControlApplier.Tick += timerControlApplier_Tick;
             // 
             // VoiceInternalsWindow
             // 
@@ -1247,8 +1255,8 @@
             groupBoxKey.PerformLayout();
             groupBoxOutputOptions.ResumeLayout(false);
             groupBoxOutputOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBarPitch).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarTimbre).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRandomizedFormantFreqRange).EndInit();
             groupBoxRandomVariationsOfFormants.ResumeLayout(false);
             groupBoxRandomVariationsOfFormants.PerformLayout();
             panel26.ResumeLayout(false);
@@ -1353,9 +1361,9 @@
         private ComboBox comboBoxNote4Option;
         private GroupBox groupBoxOutputOptions;
         private Label label53;
-        private TrackBar trackBarPitch;
+        private TrackBar trackBarTimbre;
         private Label label54;
-        private TrackBar trackBarRange;
+        private TrackBar trackBarRandomizedFormantFreqRange;
         private GroupBox groupBoxRandomVariationsOfFormants;
         private Label label52;
         private Panel panel26;
@@ -1482,5 +1490,6 @@
         private GroupBox groupBoxPlayVoiceOnLineSettings;
         private ComboBox comboBoxPlayNoteOnLineOption;
         private Label label1;
+        private System.Windows.Forms.Timer timerControlApplier;
     }
 }

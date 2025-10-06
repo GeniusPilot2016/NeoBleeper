@@ -196,17 +196,30 @@
   <data name="groupBoxOutputOptions.Text" xml:space="preserve">
     <value>Çıkış seçenekleri</value>
   </data>
+  <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
+    <value>165, 25</value>
+  </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 16</value>
+    <value>26, 16</value>
   </data>
   <data name="label53.Text" xml:space="preserve">
-    <value>Perde</value>
+    <value>Tını</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="trackBarTimbre.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
+    <value>117, 77</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 16</value>
+    <value>138, 16</value>
   </data>
   <data name="label54.Text" xml:space="preserve">
-    <value>Çarpan</value>
+    <value>Rastgele Frekans Aralığı</value>
+  </data>
+  <data name="trackBarRandomizedFormantFreqRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
     <value>Formantların rastgele varyasyonları</value>
@@ -355,6 +368,12 @@ Vol</value>
   <data name="buttonMidFront.Text" xml:space="preserve">
     <value>Orta Ön Ünlü</value>
   </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 196</value>
+  </data>
+  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 152</value>
+  </data>
   <data name="labelFormant4Hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 134</value>
   </data>
@@ -370,7 +389,7 @@ Vol</value>
   <data name="trackBarFormant4Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant3Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -388,7 +407,7 @@ Vol</value>
   <data name="trackBarFormant3Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant2Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -406,14 +425,8 @@ Vol</value>
   <data name="trackBarFormant2Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 152</value>
-  </data>
   <data name="panel13.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
-  </data>
-  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 196</value>
   </data>
   <data name="labelFormant1Hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 134</value>

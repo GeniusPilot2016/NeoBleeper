@@ -85,8 +85,7 @@ namespace NeoBleeper
             UpdateUndoRedoButtons();
             resizeColumn();
             main_window_refresh();
-            comboBox_note_length.SelectedItem = comboBox_note_length.Items[3];
-            comboBox_note_length.SelectedValue = comboBox_note_length.Items[3];
+            comboBox_note_length.SelectedIndex = 3;
             Variables.octave = 4;
             Variables.bpm = 140;
             Variables.alternating_note_length = 30;
@@ -464,15 +463,15 @@ namespace NeoBleeper
         }
         private void add_note()
         {
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
+            if (comboBox_note_length.SelectedIndex == 5)
             {
                 Line.length = Resources.ThirtySecondNote;
             }
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
+            if (comboBox_note_length.SelectedIndex == 4)
             {
                 Line.length = Resources.SixteenthNote;
             }
-            if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
+            if (comboBox_note_length.SelectedIndex == 3)
             {
                 Line.length = Resources.EighthNote;
             }
@@ -565,15 +564,15 @@ namespace NeoBleeper
         {
             if (checkBox_replace_length.Checked == true && listViewNotes.SelectedItems.Count > 0)
             {
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[5])
+                if (comboBox_note_length.SelectedIndex == 5)
                 {
                     Line.length = Resources.ThirtySecondNote;
                 }
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[4])
+                if (comboBox_note_length.SelectedIndex == 4)
                 {
                     Line.length = Resources.SixteenthNote;
                 }
-                if (comboBox_note_length.SelectedItem == comboBox_note_length.Items[3])
+                if (comboBox_note_length.SelectedIndex == 3)
                 {
                     Line.length = Resources.EighthNote;
                 }
@@ -812,6 +811,7 @@ namespace NeoBleeper
 
         private void createMusicWithAIResponse(string createdMusic)
         {
+            createNewFile();
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -880,8 +880,8 @@ namespace NeoBleeper
                     // Assign default values if no note length is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                     {
-                        comboBox_note_length.SelectedIndex = 0; // Default value
-                        Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
+                        comboBox_note_length.SelectedIndex = 3; // Default value
+                        Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                     }
                     // Assign default values if no alternating note length is found
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
@@ -978,6 +978,9 @@ namespace NeoBleeper
                     isModified = false;
                     UpdateFormTitle();
                 }
+                saveAsToolStripMenuItem.Enabled = false;
+                initialMemento = originator.CreateMemento(); // Save the initial state
+                commandManager.ClearHistory(); // Reset the history
                 Logger.Log("File is successfully created by AI", Logger.LogTypes.Info);
             }
             catch (Exception ex)
@@ -1150,8 +1153,8 @@ namespace NeoBleeper
                             // Assign default values if no note length is found
                             if (!lines.Any(line => line.StartsWith("NoteLength")))
                             {
-                                comboBox_note_length.SelectedIndex = 0; // Default value
-                                Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
+                                comboBox_note_length.SelectedIndex = 3; // Default value
+                                Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                             }
                             // Assign default values if no alternating note length is found
                             if (!lines.Any(line => line.StartsWith("AlternateTime")))
@@ -1355,8 +1358,8 @@ namespace NeoBleeper
                                 // Assign default values if no note length is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
                                 {
-                                    comboBox_note_length.SelectedIndex = 0; // Default value
-                                    Logger.Log("Note length not found, defaulting to Whole", Logger.LogTypes.Info);
+                                    comboBox_note_length.SelectedIndex = 3; // Default value
+                                    Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no alternating note length is found
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
@@ -1499,24 +1502,24 @@ namespace NeoBleeper
         {
             stop_playing();
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            closeAllOpenWindows();
             if (isModified == true)
             {
                 var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
+                switch (result)
                 {
-                    saveToolStripMenuItem_Click(sender, e);
-                    if (isSaved)
-                    {
-                        openAFileFromDialog(); // Proceed to open the file only if the save was successful
-                    }
-                }
-                else if (result == DialogResult.No)
-                {
-                    openAFileFromDialog();
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    return; // Cancel the open operation if the user selects Cancel
+                    case DialogResult.Yes:
+                        SaveTheFile();
+                        if (isSaved)
+                        {
+                            openAFileFromDialog(); // Proceed to open the file only if the save was successful
+                        }
+                        break;
+                    case DialogResult.No:
+                        openAFileFromDialog();
+                        break;
+                    default:
+                        return;
                 }
             }
             else
@@ -1555,36 +1558,50 @@ namespace NeoBleeper
                 }
             }
         }
+        bool isSaved = false;
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveTheFile();
+        }
+        private void SaveTheFile()
         {
             if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
             {
-                SaveToNBPML(currentFilePath);
-
-                // Save current state as SavedStateMemento
-                List<ListViewItem> items = new List<ListViewItem>();
-                foreach (ListViewItem item in listViewNotes.Items)
+                try
                 {
-                    items.Add((ListViewItem)item.Clone());
-                }
+                    isSaved = false;
+                    SaveToNBPML(currentFilePath);
 
-                initialMemento = new SavedStateMemento(
-                    items,
-                    Convert.ToInt32(numericUpDown_bpm.Value),
-                    Convert.ToInt32(numericUpDown_alternating_notes.Value));
-                isModified = false;
-                UpdateFormTitle();
+                    // Save current state as SavedStateMemento
+                    List<ListViewItem> items = new List<ListViewItem>();
+                    foreach (ListViewItem item in listViewNotes.Items)
+                    {
+                        items.Add((ListViewItem)item.Clone());
+                    }
+
+                    initialMemento = new SavedStateMemento(
+                        items,
+                        Convert.ToInt32(numericUpDown_bpm.Value),
+                        Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                    isModified = false;
+                    UpdateFormTitle();
+                    isSaved = true;
+                }
+                catch
+                {
+                    isSaved = false;
+                }
             }
             else
             {
                 OpenSaveAsDialog(); // Open Save As dialog if no file path is set or if the file is not a NBPML file
             }
         }
-        bool isSaved = false;
         private void OpenSaveAsDialog()
         {
             isSaved = false;
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            closeAllOpenWindows(); // Close all open windows before opening the Save As dialog
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
@@ -2000,12 +2017,29 @@ namespace NeoBleeper
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            createNewFile();
-            initialMemento = originator.CreateMemento();
-            commandManager.ClearHistory(); // Reset the history
-            isModified = true;
-            UpdateFormTitle();
-            Logger.Log("New file created", Logger.LogTypes.Info);
+            if (isModified)
+            {
+                DialogResult result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        SaveTheFile();
+                        if (isSaved)
+                        {
+                            createNewFile();
+                        }
+                        break;
+                    case DialogResult.No:
+                        createNewFile();
+                        break;
+                    default:
+                        return;
+                }
+            }
+            else
+            {
+                createNewFile();
+            }   
         }
         private async void stopPlayingAllSounds()
         {
@@ -2123,7 +2157,7 @@ namespace NeoBleeper
             lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
             lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", "50");
             trackBar_note_silence_ratio.Value = 50;
-            comboBox_note_length.Text = "1/8";
+            comboBox_note_length.SelectedIndex = 3;
             if (checkBox_dotted.Checked == true)
             {
                 checkBox_dotted.Checked = false;
@@ -2152,8 +2186,11 @@ namespace NeoBleeper
             {
                 checkBox_bleeper_portamento.Checked = false;
             }
+            initialMemento = originator.CreateMemento();
+            commandManager.ClearHistory(); // Reset the history
             isModified = false;
             UpdateFormTitle();
+            Logger.Log("New file created", Logger.LogTypes.Info);
         }
         private (int noteSound_int, int silence_int) CalculateNoteDurations(double baseLength)
         {
@@ -3761,7 +3798,7 @@ namespace NeoBleeper
                 var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    saveToolStripMenuItem_Click(sender, e);
+                    SaveTheFile();
                     if (!isSaved)
                     {
                         e.Cancel = true; // Cancel closing if save was not successful
@@ -3991,10 +4028,7 @@ namespace NeoBleeper
         private void playMIDIFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            if (checkBox_synchronized_play.Checked == true)
-            {
-                checkBox_synchronized_play.Checked = false;
-            }
+            closeAllOpenWindows(); // Close all open windows before opening a new modal dialog
             if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput && !TemporarySettings.MicrocontrollerSettings.useMicrocontroller))
             {
                 openFileDialog.Filter = "MIDI Files|*.mid";
@@ -4542,27 +4576,60 @@ namespace NeoBleeper
 
         private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
             try
             {
+                CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
                 stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+                closeAllOpenWindows(); // Close all open windows before opening a new modal dialog
                 createMusicWithAI.ShowDialog();
                 if (createMusicWithAI.output != string.Empty)
                 {
-                    if (checkBox_synchronized_play.Checked == true)
+                    if (isModified)
                     {
-                        checkBox_synchronized_play.Checked = false;
+                        DialogResult result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                saveRunAndRetry(new Action(() => { createMusicWithAIResponse(createMusicWithAI.output); }));
+                                break;
+                            case DialogResult.No:
+                                createMusicWithAIResponse(createMusicWithAI.output);
+                                break;
+                        }
                     }
-                    createNewFile();
-                    createMusicWithAIResponse(createMusicWithAI.output);
-                    saveAsToolStripMenuItem.Enabled = false;
-                    initialMemento = originator.CreateMemento(); // Save the initial state
-                    commandManager.ClearHistory(); // Reset the history
+                    else
+                    {
+                        createMusicWithAIResponse(createMusicWithAI.output);
+                    }
                 }
             }
             catch (ObjectDisposedException)
             {
                 return;
+            }
+        }
+        int retryCount = 0;
+        private void saveRunAndRetry(Action action)
+        {
+            SaveTheFile(); // Try to save file
+            if (isSaved)
+            {
+                action(); // Run the action if the file is saved
+                retryCount = 0; // Reset retry count after successful save and action execution
+            }
+            else
+            {
+                if(retryCount >= 3)
+                {
+                    Logger.Log("The action is executed without saving after 3 retries.", Logger.LogTypes.Warning);
+                    retryCount = 0; // Reset retry count
+                    action(); // Run the action without saving after 3 retries
+                }
+                else
+                {
+                    retryCount++;
+                    saveRunAndRetry(action); // Retry to save if not saved 
+                }    
             }
         }
         // This method is used to update the form title with the current file path and modification status.

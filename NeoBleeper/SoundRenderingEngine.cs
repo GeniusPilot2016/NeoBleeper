@@ -62,7 +62,7 @@ namespace NeoBleeper
                         Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
                     StorageType = systemStorageType.HDD; // Fallback to HDD on error
@@ -72,7 +72,7 @@ namespace NeoBleeper
                                           // Fun fact: Janet Jackson's "Rhythm Nation" has a bass frequency of 50 Hz, which can cause resonance in HDDs and lead to crashes
             {
                 HDD,
-                SSD, 
+                SSD,
                 NVMe,
                 Other
             }
@@ -109,7 +109,7 @@ namespace NeoBleeper
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
                 int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
-                if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) || 
+                if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
                     (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
                                                                                                             // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
                 {
@@ -346,8 +346,12 @@ namespace NeoBleeper
         public class FilteredWaveProvider : ISampleProvider
         {
             private readonly ISampleProvider source;
-            private readonly BiQuadFilter filter;
-            private readonly double gain;
+            private BiQuadFilter filter;
+            private double gain;
+
+            public ISampleProvider Source => source;
+
+            public BiQuadFilter Filter => filter;
 
             public FilteredWaveProvider(ISampleProvider source, BiQuadFilter filter, double gain)
             {
@@ -355,9 +359,15 @@ namespace NeoBleeper
                 this.filter = filter;
                 this.gain = gain;
             }
-
+            public void UpdateGain(double newGain)
+            {
+                gain = newGain;
+            }
             public WaveFormat WaveFormat => source.WaveFormat;
-
+            public void UpdateFilter(BiQuadFilter newFilter)
+            {
+                filter = newFilter;
+            }
             public int Read(float[] buffer, int offset, int count)
             {
                 int samplesRead = source.Read(buffer, offset, count);
@@ -381,7 +391,7 @@ namespace NeoBleeper
 
         public class CachedSoundSampleProvider : ISampleProvider
         {
-            private readonly CachedSound cached;
+            public readonly CachedSound cached;
             private long position;
             public bool Loop { get; set; } = true;
             public CachedSoundSampleProvider(CachedSound cached, bool loop = true)
@@ -414,11 +424,20 @@ namespace NeoBleeper
         public static class VoiceSynthesisEngine // Voice synthesis by emulating FMOD that is used in Bleeper Music Maker using NAudio
         {
             private static readonly object synthLock = new();
-            // Tek master mixer ve tek WaveOutEvent — cihaz yeniden başlatılmaz, kesinti azalır
+            // Single master mixer
             private static readonly MixingSampleProvider masterMixer;
             private static readonly WaveOutEvent masterWaveOut;
-            private static readonly Dictionary<int, (RemovableSampleProvider removable, ISampleProvider provider)> channels = new();
-
+            private static readonly Dictionary<int, (
+                RemovableSampleProvider removable,
+                ISampleProvider provider,
+                FilteredWaveProvider finalFiltered,
+                SignalGenerator sineSource,
+                SignalGenerator triangleSource,
+                double[] formantFreqs,
+                double[] formantVols,
+                BiQuadFilter lowPass,
+                List<FilteredWaveProvider> formantProviders
+            )> channels = new();
             static VoiceSynthesisEngine()
             {
                 const int sampleRate = 44100;
@@ -450,45 +469,185 @@ namespace NeoBleeper
                     return inner.Read(buffer, offset, count);
                 }
             }
-
-            public static void StartVoice(int channelId, int baseFrequency) 
+            public static void ApplyValues()
             {
-                const int sampleRate = 44100;
+                int frequency = 0;
+                bool isPlaying = false;
+                for (int i = 0; i < 4; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            frequency = cachedFrequency1;
+                            isPlaying = voice1Playing;
+                            break;
+                        case 1:
+                            frequency = cachedFrequency2;
+                            isPlaying = voice2Playing;
+                            break;
+                        case 2:
+                            frequency = cachedFrequency3;
+                            isPlaying = voice3Playing;
+                            break;
+                        case 3:
+                            frequency = cachedFrequency4;
+                            isPlaying = voice4Playing;
+                            break;
+                    }
+                    if (isPlaying)
+                    {
+                        ChangeValues(i, frequency);
+                    }
+                }
+            }
+            private static (SignalGenerator sineSource, SignalGenerator triangleSource) CreateSignalGenerators(double modulatedFrequency, double masterVolume)
+            {
+                var wf = masterMixer.WaveFormat;
+                SignalGenerator sineSource = new SignalGenerator(wf.SampleRate, wf.Channels)
+                {
+                    Type = SignalGeneratorType.Sin,
+                    Frequency = modulatedFrequency,
+                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0) * 0.3
+                };
 
-                double rawPitch = VoiceInternalSettings.Pitch;
-                rawPitch = Math.Clamp(rawPitch, 0.1, 8.0);
-
-                double normalizedRange = Math.Clamp(VoiceInternalSettings.Range, 0.0, 1.0);
-                double finalPitchMultiplier = (1.0 + (rawPitch - 1.0) * normalizedRange)/2;
-
-                if (finalPitchMultiplier < 0.001) finalPitchMultiplier = 0.001;
-
-                double modulatedFrequency = (baseFrequency * finalPitchMultiplier);
-
-                double masterVolume = VoiceInternalSettings.VoiceVolume / 400.0;
-
-                SignalGenerator renderSource = new SignalGenerator()
+                SignalGenerator triangleSource = new SignalGenerator(wf.SampleRate, wf.Channels)
                 {
                     Type = SignalGeneratorType.SawTooth,
                     Frequency = modulatedFrequency,
-                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0)
+                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0) * 1.2
                 };
 
-                int renderSeconds = 2;
+                return (sineSource, triangleSource);
+            }
+            public static void ChangeValues(int channelId, int baseFrequency)
+            {
+                lock (synthLock)
+                {
+                    if (channels.TryGetValue(channelId, out var tuple))
+                    {
+                        const int sampleRate = 44100;
+
+                        double rawTimbre = TemporarySettings.VoiceInternalSettings.Timbre;
+                        double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange;
+
+                        double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
+                        double finalPitchMultiplier = (1 + rawTimbre) * 0.3;
+                        double modulatedFrequency = ((baseFrequency * finalPitchMultiplier) / 4) + randomVariation;
+
+                        // Update frequency of signal generators
+                        tuple.sineSource.Frequency = modulatedFrequency;
+                        tuple.triangleSource.Frequency = modulatedFrequency;
+
+                        // Take formant frequencies and volumes
+                        double[] currentFormantFreqs = new double[] {
+                VoiceInternalSettings.Formant1Frequency,
+                VoiceInternalSettings.Formant2Frequency,
+                VoiceInternalSettings.Formant3Frequency,
+                VoiceInternalSettings.Formant4Frequency
+            };
+
+                        double[] currentFormantVols = new double[] {
+                VoiceInternalSettings.Formant1Volume / 100.0,
+                VoiceInternalSettings.Formant2Volume / 100.0,
+                VoiceInternalSettings.Formant3Volume / 100.0,
+                VoiceInternalSettings.Formant4Volume / 100.0
+            };
+
+                        double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 100.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
+                        float BaseFormantQ(int bf) => bf < 2000 ? 2.0f : 1.0f;
+
+                        // Update formant providers
+                        for (int i = 0; i < 4; i++)
+                        {
+                            double fCenter = currentFormantFreqs[i];
+                            double fVol = currentFormantVols[i];
+                            float dynamicQ = (float)(0.5f + (i * 0.3f)) * BaseFormantQ(baseFrequency) * 2.4f;
+
+                            // Update voiced and noise provider for every note
+                            int voicedIndex = i * 2;
+                            int noiseIndex = i * 2 + 1;
+
+                            if (voicedIndex < tuple.formantProviders.Count)
+                            {
+                                var voicedFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, (float)fCenter, dynamicQ);
+                                tuple.formantProviders[voicedIndex].UpdateFilter(voicedFilter);
+                                tuple.formantProviders[voicedIndex].UpdateGain(Math.Min(fVol * 1.0, 2.0));
+                            }
+
+                            if (noiseIndex < tuple.formantProviders.Count)
+                            {
+                                var noiseFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, (float)fCenter, dynamicQ * 1.1f);
+                                tuple.formantProviders[noiseIndex].UpdateFilter(noiseFilter);
+                                tuple.formantProviders[noiseIndex].UpdateGain(noiseToFormantScale * fVol * 1.2);
+                            }
+                        }
+
+                        // Update lowpass filter
+                        var newLowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.CutoffFrequency, 1.0f);
+                        tuple.finalFiltered.UpdateFilter(newLowPass);
+                    }
+                }
+            }
+            static int cachedFrequency1 = 0;
+            static int cachedFrequency2 = 0;
+            static int cachedFrequency3 = 0;
+            static int cachedFrequency4 = 0;
+            static bool voice1Playing = false;
+            static bool voice2Playing = false;
+            static bool voice3Playing = false;
+            static bool voice4Playing = false;
+            public static void StartVoice(int channelId, int baseFrequency)
+            {
+                switch (channelId)
+                {
+                    case 0:
+                        cachedFrequency1 = baseFrequency;
+                        voice1Playing = true;
+                        break;
+                    case 1:
+                        cachedFrequency2 = baseFrequency;
+                        voice2Playing = true;
+                        break;
+                    case 2:
+                        cachedFrequency3 = baseFrequency;
+                        voice3Playing = true;
+                        break;
+                    case 3:
+                        cachedFrequency4 = baseFrequency;
+                        voice4Playing = true;
+                        break;
+                }
+                const int sampleRate = 44100;
+
+                double rawTimbre = TemporarySettings.VoiceInternalSettings.Timbre;
+                double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange;
+
+                // Apply random variations
+                double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
+
+                double finalPitchMultiplier = (1 + rawTimbre) * 0.3;
+
+                double modulatedFrequency = ((baseFrequency * finalPitchMultiplier / 4)) + randomVariation;
+
+                double masterVolume = VoiceInternalSettings.VoiceVolume / 400.0;
+
+                var (sineSource, triangleSource) = CreateSignalGenerators(modulatedFrequency, masterVolume);
+                var mixingProvider = new MixingSampleProvider(new[] { sineSource, triangleSource });
+                int renderSeconds = 1;
                 WaveFormat wf = WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1);
                 int totalSamples = sampleRate * renderSeconds;
                 float[] renderBuffer = new float[totalSamples];
                 int read = 0;
                 while (read < totalSamples)
                 {
-                    int r = renderSource.Read(renderBuffer, read, totalSamples - read);
+                    int r = mixingProvider.Read(renderBuffer, read, totalSamples - read);
                     if (r == 0) break;
                     read += r;
                 }
                 if (read < totalSamples) Array.Clear(renderBuffer, read, totalSamples - read);
                 var cachedVoiced = new CachedSound(renderBuffer, wf);
 
-                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = masterVolume * (VoiceInternalSettings.NoiseVolume / 800.0) };
+                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = (masterVolume * (VoiceInternalSettings.NoiseVolume / 100.0))/10 };
                 float[] noiseBuffer = new float[totalSamples];
                 read = 0;
                 while (read < totalSamples)
@@ -530,7 +689,7 @@ namespace NeoBleeper
                 {
                     double fCenter = formantFreqs[i];
                     double fVol = formantVols[i];
-                    float dynamicQ = (float)(0.5f + (i * 0.3f)) * BaseFormantQ(baseFrequency) * 1.6f;
+                    float dynamicQ = (float)(0.5f + (i * 0.3f)) * BaseFormantQ(baseFrequency) * 2.4f;
                     var filter = MakeBP(sampleRate, fCenter, dynamicQ);
                     var voicedReader = new CachedSoundSampleProvider(cachedVoiced, loop: true);
                     providers.Add(new FilteredWaveProvider(voicedReader, filter, Math.Min(fVol * 1.0, 2.0)));
@@ -570,14 +729,36 @@ namespace NeoBleeper
                         channels.Remove(channelId);
                     }
 
+                    // Take formant providers to list
+                    var formantProviders = providers.Take(8).OfType<FilteredWaveProvider>().ToList();
+
                     var removable = new RemovableSampleProvider(volumeControlled);
                     masterMixer.AddMixerInput(removable);
-                    channels[channelId] = (removable, volumeControlled);
+                    channels[channelId] = (removable, volumeControlled, finalFiltered, sineSource, triangleSource, formantFreqs, formantVols, lowPass, formantProviders);
                 }
             }
 
             public static void StopVoice(int channelId)
             {
+                switch (channelId)
+                {
+                    case 0:
+                        cachedFrequency1 = 0;
+                        voice1Playing = false;
+                        break;
+                    case 1:
+                        cachedFrequency1 = 0;
+                        voice1Playing = false;
+                        break;
+                    case 2:
+                        cachedFrequency1 = 0;
+                        voice1Playing = false;
+                        break;
+                    case 3:
+                        cachedFrequency1 = 0;
+                        voice1Playing = false;
+                        break;
+                }
                 lock (synthLock)
                 {
                     if (channels.TryGetValue(channelId, out var tuple))

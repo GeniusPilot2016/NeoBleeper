@@ -227,25 +227,25 @@
     <value>213, 21</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 16</value>
+    <value>43, 16</value>
   </data>
   <data name="label53.Text" xml:space="preserve">
-    <value>Подача</value>
+    <value>Тембр</value>
   </data>
-  <data name="trackBarPitch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 40</value>
+  <data name="trackBarTimbre.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 25</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 73</value>
+    <value>152, 79</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 16</value>
+    <value>171, 16</value>
   </data>
   <data name="label54.Text" xml:space="preserve">
-    <value>Диапазон</value>
+    <value>Случайный диапазон частот</value>
   </data>
-  <data name="trackBarRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 92</value>
+  <data name="trackBarRandomizedFormantFreqRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 25</value>
   </data>
   <data name="groupBoxRandomVariationsOfFormants.Location" type="System.Drawing.Point, System.Drawing">
     <value>629, 305</value>
