@@ -368,12 +368,6 @@ Vol</value>
   <data name="buttonMidFront.Text" xml:space="preserve">
     <value>Orta Ön Ünlü</value>
   </data>
-  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>418, 196</value>
-  </data>
-  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 152</value>
-  </data>
   <data name="labelFormant4Hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 134</value>
   </data>
@@ -389,7 +383,7 @@ Vol</value>
   <data name="trackBarFormant4Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant3Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -407,7 +401,7 @@ Vol</value>
   <data name="trackBarFormant3Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant2Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -425,7 +419,7 @@ Vol</value>
   <data name="trackBarFormant2Hz.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
-  <data name="panel13.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 152</value>
   </data>
   <data name="labelFormant1Hz.Location" type="System.Drawing.Point, System.Drawing">
@@ -443,6 +437,12 @@ Vol</value>
   <data name="trackBarFormant1Vol.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 112</value>
   </data>
+  <data name="panel13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 152</value>
+  </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>418, 196</value>
+  </data>
   <data name="buttonOpenBack.Location" type="System.Drawing.Point, System.Drawing">
     <value>339, 234</value>
   </data>
@@ -458,9 +458,6 @@ Vol</value>
   <data name="labelFormantControl.Text" xml:space="preserve">
     <value>Formant Kontrolü</value>
   </data>
-  <data name="groupBoxPlayVoiceOnLineSettings.Text" xml:space="preserve">
-    <value>Satır içindeki sesi çalma seçenekleri</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 16</value>
   </data>
@@ -468,16 +465,19 @@ Vol</value>
     <value>Ses ne zaman çalınır:</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Items" xml:space="preserve">
-    <value>Tüm satırlarda ses çalın</value>
+    <value>Tüm satırlarda ses çal</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Items1" xml:space="preserve">
-    <value>İşaretli satırlarda ses çalın</value>
+    <value>İşaretli satırlarda ses çal</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Location" type="System.Drawing.Point, System.Drawing">
     <value>139, 27</value>
   </data>
   <data name="comboBoxPlayNoteOnLineOption.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 24</value>
+  </data>
+  <data name="groupBoxPlayVoiceOnLineSettings.Text" xml:space="preserve">
+    <value>Satır içindeki sesi çalma seçenekleri</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Ses İç Bileşenleri</value>

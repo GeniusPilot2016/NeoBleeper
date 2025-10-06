@@ -597,51 +597,82 @@ namespace NeoBleeper
 
             if (checkBox_play_each_note.Checked)
             {
-                // --- Play each note once ---
-                double timePerNote = (double)duration / frequencies.Length;
+                // --- Play each note once per cycle ---
 
+                // Calculate cycle duration
+                int cycleDuration;
+                if (checkBox_make_each_cycle_last_30ms.Checked)
+                {
+                    cycleDuration = 30; // 30ms cycle duration
+                }
+                else
+                {
+                    cycleDuration = interval; // User-defined interval
+                }
+
+                // Check if there's enough time left for another cycle
+                if (totalStopwatch.ElapsedMilliseconds + cycleDuration > duration)
+                {
+                    // Skip the cycle if not enough time remains
+                    return;
+                }
+
+                Stopwatch cycleStopwatch = Stopwatch.StartNew();
+
+                // Time per note in the cycle
+                int timePerNote = Math.Max(1, cycleDuration / frequencies.Length);
+
+                // Play all notes in the cycle
                 for (int i = 0; i < frequencies.Length; i++)
                 {
+                    // Check if total duration exceeded
                     if (totalStopwatch.ElapsedMilliseconds >= duration) break;
 
                     int notePlayDuration;
-                    int silenceDuration;
                     if (checkBox_make_each_cycle_last_30ms.Checked)
                     {
-                        // Ensure each cycle is exactly 30 ms
-                        notePlayDuration = Math.Min(15, 30); // Limit note duration to 15ms
-                        silenceDuration = 30 - notePlayDuration; // Remaining time is silence
+                        // Every note lasts 15ms or less
+                        notePlayDuration = Math.Min(15, timePerNote);
                     }
                     else
                     {
-                        notePlayDuration = interval;
-                        silenceDuration = (int)Math.Max(0, timePerNote - notePlayDuration);
+                        // User-defined interval
+                        notePlayDuration = Math.Min(timePerNote, (int)(duration - totalStopwatch.ElapsedMilliseconds));
                     }
 
-                    // Ensure durations are non-negative
-                    notePlayDuration = Math.Max(0, notePlayDuration);
-                    silenceDuration = Math.Max(0, silenceDuration);
+                    notePlayDuration = Math.Max(1, notePlayDuration);
 
-                    Stopwatch noteStopwatch = new Stopwatch();
-                    noteStopwatch.Start();
+                    Stopwatch noteStopwatch = Stopwatch.StartNew();
 
-                    // Capture the current value of 'i' for use in the Task
+                    // Play note and highlight
                     int currentNoteIndex = i;
-
-                    // Play the note and update the UI asynchronously
                     HighlightNoteLabel(currentNoteIndex);
                     NotePlayer.play_note(frequencies[currentNoteIndex], notePlayDuration);
                     UnHighlightNoteLabel(currentNoteIndex);
 
                     noteStopwatch.Stop();
-                    long noteElapsed = noteStopwatch.ElapsedMilliseconds;
 
-                    // Apply silence
-                    UpdateNoteLabels(new HashSet<int>()); // Clear note label if played only once
-                    if (silenceDuration > 0)
+                    // Gap between notes
+                    int noteGap = Math.Max(0, timePerNote - (int)noteStopwatch.ElapsedMilliseconds);
+                    if (noteGap > 0 && i < frequencies.Length - 1)
                     {
-                        HighPrecisionSleep.Sleep(silenceDuration);
+                        HighPrecisionSleep.Sleep(noteGap);
                     }
+                }
+
+                cycleStopwatch.Stop();
+
+                // Silence until the cycle duration is complete
+                int cycleElapsed = (int)cycleStopwatch.ElapsedMilliseconds;
+                int remainingSilence = Math.Max(0, duration - (int)totalStopwatch.ElapsedMilliseconds);
+
+                // Clean all note labels
+                UpdateNoteLabels(new HashSet<int>());
+
+                // Add remaining silence to complete the cycle duration
+                if (remainingSilence > 0)
+                {
+                    HighPrecisionSleep.Sleep(remainingSilence);
                 }
             }
             else
@@ -656,7 +687,7 @@ namespace NeoBleeper
                     int notePlayDuration;
                     if (checkBox_make_each_cycle_last_30ms.Checked)
                     {
-                        notePlayDuration = Math.Min(15, Math.Max(1, (int)Math.Round((double)interval / frequencies.Length, MidpointRounding.ToEven)));
+                        notePlayDuration = Math.Min(15, Math.Max(1, (int)Math.Round((double)interval / frequencies.Length, MidpointRounding.ToZero)));
                     }
                     else
                     {
@@ -878,7 +909,7 @@ namespace NeoBleeper
 
         private void disable_alternating_notes_panel(object sender, EventArgs e)
         {
-            if (checkBox_play_each_note.Checked == true || checkBox_make_each_cycle_last_30ms.Checked == true)
+            if (checkBox_make_each_cycle_last_30ms.Checked == true)
             {
                 panel1.Enabled = false;
                 Logger.Log("Play each note or make each cycle last 30 ms checkbox is checked. Disabling the panel.", Logger.LogTypes.Info);
@@ -1226,8 +1257,8 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    durationMsInt = 1; // If drift is larger than duration, set to minimum
                     driftMs = driftMs - durationMsInt; // Reduce drift accordingly
+                    durationMsInt = 0; // Skip this frame to catch up
                 }
             }
             else if(driftMs < 0)
@@ -1254,6 +1285,10 @@ namespace NeoBleeper
             }
 
             // Play notes
+            if(durationMs <= 0)
+            {
+                return; // Skip if duration is zero or negative after drift adjustment
+            }
             var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {

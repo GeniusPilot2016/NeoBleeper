@@ -257,22 +257,22 @@
     <value>Случайные вариации формант</value>
   </data>
   <data name="labelSybillance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>260, 7</value>
+    <value>265, 7</value>
   </data>
   <data name="labelSybillance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 22</value>
+    <value>78, 22</value>
   </data>
   <data name="labelSybillance.Text" xml:space="preserve">
-    <value>Сибилланс</value>
+    <value>Шипение</value>
   </data>
   <data name="labelSybillanceMasking.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 7</value>
+    <value>176, 7</value>
   </data>
   <data name="labelSybillanceMasking.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
+    <value>169, 22</value>
   </data>
   <data name="labelSybillanceMasking.Text" xml:space="preserve">
-    <value>Маскировка сибиллянта</value>
+    <value>Маскировка Шипения</value>
   </data>
   <data name="labelCutoff.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 10.199999pt</value>

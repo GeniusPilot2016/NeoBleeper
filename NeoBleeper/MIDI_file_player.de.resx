@@ -121,23 +121,14 @@
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 23</value>
   </data>
-  <data name="textBox1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 16</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Aktuell wiedergegebene MIDI-Datei:</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Wiedergabesteuerung</value>
-  </data>
-  <data name="groupBox1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>204, 55</value>
@@ -145,27 +136,18 @@
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 40</value>
   </data>
-  <data name="flowLayoutPanel1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_position.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 0</value>
   </data>
-  <data name="label_position.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_percentage.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 16</value>
-  </data>
-  <data name="label_percentage.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="icons2.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAHIAQQByAEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHQAQQB0AEEARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -206,15 +188,12 @@
   <data name="checkBox_loop.Text" xml:space="preserve">
     <value>Schleife</value>
   </data>
-  <data name="checkBox_loop.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAHIAQQByAEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAHQAQQB0AEEARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -327,9 +306,6 @@
   <data name="button_rewind.ToolTip" xml:space="preserve">
     <value>Zurückspulen</value>
   </data>
-  <data name="trackBar1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -341,104 +317,53 @@
     <value>Wählen Sie den/die Kanal(e) aus, der/die gehört werden soll(en).
 Nicht ausgewählte Kanäle werden ignoriert.</value>
   </data>
-  <data name="label4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 220</value>
-  </data>
-  <data name="checkBox_channel_1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_2.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 220</value>
   </data>
-  <data name="checkBox_channel_2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_3.Location" type="System.Drawing.Point, System.Drawing">
     <value>109, 220</value>
-  </data>
-  <data name="checkBox_channel_3.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_4.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 220</value>
   </data>
-  <data name="checkBox_channel_4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_5.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 244</value>
-  </data>
-  <data name="checkBox_channel_5.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_7.Location" type="System.Drawing.Point, System.Drawing">
     <value>109, 244</value>
   </data>
-  <data name="checkBox_channel_7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_6.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 244</value>
-  </data>
-  <data name="checkBox_channel_6.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_8.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 244</value>
   </data>
-  <data name="checkBox_channel_8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_9.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 267</value>
-  </data>
-  <data name="checkBox_channel_9.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_11.Location" type="System.Drawing.Point, System.Drawing">
     <value>109, 267</value>
   </data>
-  <data name="checkBox_channel_11.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_10.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 267</value>
-  </data>
-  <data name="checkBox_channel_10.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_12.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 267</value>
   </data>
-  <data name="checkBox_channel_12.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_13.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 289</value>
-  </data>
-  <data name="checkBox_channel_13.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_channel_15.Location" type="System.Drawing.Point, System.Drawing">
     <value>109, 289</value>
   </data>
-  <data name="checkBox_channel_15.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_14.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 289</value>
   </data>
-  <data name="checkBox_channel_14.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_channel_16.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 289</value>
-  </data>
-  <data name="checkBox_channel_16.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="holded_note_label.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 322</value>
@@ -449,105 +374,6 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="holded_note_label.Text" xml:space="preserve">
     <value>Notizen, die derzeit gehalten werden auf: (0)</value>
   </data>
-  <data name="holded_note_label.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note5.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note6.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note9.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note13.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note11.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note15.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note10.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note14.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note12.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note16.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note17.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note21.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note19.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note23.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note18.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note22.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note20.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note24.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note25.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note29.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note27.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note31.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note26.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note30.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note28.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_note32.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="button_browse_file.Location" type="System.Drawing.Point, System.Drawing">
     <value>194, 24</value>
   </data>
@@ -557,9 +383,6 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="button_browse_file.Text" xml:space="preserve">
     <value>Datei Furchsuchen</value>
   </data>
-  <data name="button_browse_file.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_play_each_note.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 536</value>
   </data>
@@ -568,9 +391,6 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   </data>
   <data name="checkBox_play_each_note.Text" xml:space="preserve">
     <value>Spielen Sie jede Note einzeln (nicht ständig abwechseln)</value>
-  </data>
-  <data name="checkBox_play_each_note.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 576</value>
@@ -584,9 +404,6 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="checkBox_make_each_cycle_last_30ms.Text" xml:space="preserve">
     <value>Versuchen Sie, jeden Zyklus auf 30 ms zu verlängern (mit einer maximalen Wechselzeitbegrenzung von 15 ms pro Note).</value>
   </data>
-  <data name="checkBox_make_each_cycle_last_30ms.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 631</value>
   </data>
@@ -595,9 +412,6 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   </data>
   <data name="checkBox_dont_update_grid.Text" xml:space="preserve">
     <value>Raster oben nicht aktualisieren</value>
-  </data>
-  <data name="checkBox_dont_update_grid.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_alternating_note.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -611,29 +425,17 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="label_alternating_note.Text" xml:space="preserve">
     <value>Wechseln Sie zwischen abwechselnden Noten alle:</value>
   </data>
-  <data name="label_alternating_note.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="numericUpDown_alternating_note.Location" type="System.Drawing.Point, System.Drawing">
     <value>233, 10</value>
   </data>
-  <data name="numericUpDown_alternating_note.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>295, 12</value>
-  </data>
-  <data name="label_ms.ToolTip" xml:space="preserve">
-    <value />
+    <value>295, 14</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 488</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 44</value>
-  </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_more_notes.Location" type="System.Drawing.Point, System.Drawing">
     <value>280, 116</value>
@@ -644,35 +446,14 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="label_more_notes.Text" xml:space="preserve">
     <value>(Weitere)</value>
   </data>
-  <data name="label_more_notes.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="flowLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 342</value>
-  </data>
-  <data name="flowLayoutPanel2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelLoading.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="progressBar1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pictureBoxIcon.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="labelStatus.Size" type="System.Drawing.Size, System.Drawing">
     <value>261, 38</value>
   </data>
   <data name="labelStatus.Text" xml:space="preserve">
     <value>MIDI-Datei wird geladen. Bitte warten …</value>
-  </data>
-  <data name="labelStatus.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 656</value>
@@ -683,16 +464,10 @@ Nicht ausgewählte Kanäle werden ignoriert.</value>
   <data name="checkBox_show_lyrics_or_text_events.Text" xml:space="preserve">
     <value>Liedtexte oder Textereignisse anzeigen</value>
   </data>
-  <data name="checkBox_show_lyrics_or_text_events.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>348, 684</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>MIDI-Datei Abspielen</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

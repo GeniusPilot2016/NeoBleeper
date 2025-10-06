@@ -229,14 +229,23 @@
   <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
     <value>Variaciones aleatorias de formantes</value>
   </data>
+  <data name="labelSybillance.Location" type="System.Drawing.Point, System.Drawing">
+    <value>272, 7</value>
+  </data>
+  <data name="labelSybillance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 22</value>
+  </data>
+  <data name="labelSybillance.Text" xml:space="preserve">
+    <value>Sibilancia</value>
+  </data>
   <data name="labelSybillanceMasking.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 7</value>
+    <value>152, 7</value>
   </data>
   <data name="labelSybillanceMasking.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 22</value>
+    <value>225, 22</value>
   </data>
   <data name="labelSybillanceMasking.Text" xml:space="preserve">
-    <value>Enmascaramiento de Sybillance</value>
+    <value>Enmascaramiento de Sibilancia</value>
   </data>
   <data name="labelCutoff.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 7</value>

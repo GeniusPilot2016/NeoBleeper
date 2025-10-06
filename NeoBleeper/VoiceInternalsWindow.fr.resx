@@ -217,11 +217,20 @@
   <data name="groupBoxRandomVariationsOfFormants.Text" xml:space="preserve">
     <value>Variations aléatoires des formants</value>
   </data>
+  <data name="labelSybillance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 22</value>
+  </data>
+  <data name="labelSybillance.Text" xml:space="preserve">
+    <value>Sibilance</value>
+  </data>
+  <data name="labelSybillanceMasking.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 7</value>
+  </data>
   <data name="labelSybillanceMasking.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>183, 22</value>
   </data>
   <data name="labelSybillanceMasking.Text" xml:space="preserve">
-    <value>Masquage Sybillance</value>
+    <value>Masquage des Sibilances</value>
   </data>
   <data name="labelCutoff.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 7</value>
