@@ -172,41 +172,35 @@
   <data name="label_time_signature.Text" xml:space="preserve">
     <value>Zaman İşareti</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>D&amp;osya</value>
-  </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="newToolStripMenuItem1.Text" xml:space="preserve">
     <value>Yeni</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Aç</value>
   </data>
   <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
     <value>En Son Açılan Dosyaları Aç</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>295, 6</value>
+    <value>291, 6</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Kaydet</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Farklı Kaydet...</value>
@@ -225,31 +219,31 @@
 </value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
     <value>MIDI dosyası oynat</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>295, 6</value>
+    <value>291, 6</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
     <value>Yapay Zeka ile Müzik Oluştur</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 26</value>
+    <value>294, 22</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
     <value>GCode'a Dönüştür</value>
   </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 20</value>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
   </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>D&amp;üzenle</value>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>D&amp;osya</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>404, 22</value>
@@ -268,6 +262,12 @@
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Tüm Değişiklikleri Kaydedilmiş Versiyona Geri Döndür</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>D&amp;üzenle</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 20</value>
@@ -292,7 +292,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAEsAScBLAEnARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAF8AScBfAEnARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -664,20 +664,11 @@
   <data name="mod.Text" xml:space="preserve">
     <value>Değ</value>
   </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 264</value>
-  </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>324, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Boş Satır</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Notaları Temizle</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 26</value>
@@ -702,6 +693,12 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Nota 4'ü Temizle</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>324, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Notaları Temizle</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>324, 26</value>
@@ -745,12 +742,6 @@
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Tüm Notaların İşaretlerini Kaldır</value>
   </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Oynatma Kontrolleri</value>
-  </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 26</value>
   </data>
@@ -768,6 +759,15 @@
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Oynatmayı Durdur</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>324, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Oynatma Kontrolleri</value>
+  </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 264</value>
   </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 2</value>
@@ -967,9 +967,6 @@
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Nota çal</value>
   </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Nota ekleme</value>
-  </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 20</value>
   </data>
@@ -1012,11 +1009,11 @@
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Müziğin listesine nota ekle</value>
   </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Nota ekleme</value>
+  </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>Tuşa tıklandığında</value>
-  </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>Satıra tıklandığında</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -1042,8 +1039,8 @@
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Nota 1'i çal</value>
   </data>
-  <data name="group_music_played.Text" xml:space="preserve">
-    <value>Müzik oynatıldığında</value>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>Satıra tıklandığında</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -1069,6 +1066,9 @@
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Nota 2'yi çal</value>
   </data>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>Müzik oynatıldığında</value>
+  </data>
   <data name="group_notes.Text" xml:space="preserve">
     <value>Listedeki hangi notaların çalınacağı</value>
   </data>
@@ -1084,17 +1084,17 @@
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 41</value>
   </data>
-  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 555</value>
-  </data>
-  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 77</value>
-  </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 16</value>
   </data>
   <data name="lbl_measure.Text" xml:space="preserve">
     <value>Ölçü</value>
+  </data>
+  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 555</value>
+  </data>
+  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 77</value>
   </data>
   <data name="checkBox_bleeper_portamento.ToolTip" xml:space="preserve">
     <value>Bu seçenek, bir notadan diğerine geçerken sistem hoparlörünün/ses aygıtının notasının yavaş yavaş artıp azalmasını sağlar (sadece tıklanan tuşlar).</value>
@@ -1110,7 +1110,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        1AEmAdQBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        JAEnASQBJwEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

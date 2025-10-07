@@ -19,6 +19,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace NeoBleeper
 {
+    // The main window of the application, which inspired from Bleeper Music Maker by Robbi-985 (aka SomethingUnreal)
     public partial class main_window : Form
     {
         bool darkTheme = false;
@@ -68,10 +69,10 @@ namespace NeoBleeper
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
+        string openedFilePath = Program.filePath;
         public main_window()
         {
             CheckForIllegalCrossThreadCalls = false;
-
             InitializeComponent();
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
@@ -695,26 +696,26 @@ namespace NeoBleeper
                     switch (noteName)
                     {
                         case var n when n.StartsWith("C"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.CS) : 
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.CS) :
                                 (int)(base_note_frequency.base_note_frequency_in_4th_octave.C);
                             break;
                         case var n when n.StartsWith("D"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.DS) : 
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.DS) :
                                 (int)(base_note_frequency.base_note_frequency_in_4th_octave.D);
                             break;
                         case var n when n.StartsWith("E"):
                             rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.E);
                             break;
                         case var n when n.StartsWith("F"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.FS) : 
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.FS) :
                                 (int)(base_note_frequency.base_note_frequency_in_4th_octave.F);
                             break;
                         case var n when n.StartsWith("G"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.GS) : 
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.GS) :
                                 (int)(base_note_frequency.base_note_frequency_in_4th_octave.G);
                             break;
                         case var n when n.StartsWith("A"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.AS) : 
+                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.AS) :
                                 (int)(base_note_frequency.base_note_frequency_in_4th_octave.A);
                             break;
                         case var n when n.StartsWith("B"):
@@ -1214,8 +1215,7 @@ namespace NeoBleeper
                             {
                                 octave10NoteLabelShiftToRight();
                             }
-                            currentFilePath = filename;
-                            this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + filename;
+
                             listViewNotes.Items.Clear();
 
                             for (int i = noteListStartIndex; i < lines.Length; i++)
@@ -1289,6 +1289,11 @@ namespace NeoBleeper
                             {
                                 Logger.Log("User chose to open the file anyway", Logger.LogTypes.Info);
                             }
+                        }
+                        finally
+                        {
+                            is_file_valid = true;
+                            currentFilePath = filename;
                         }
                         break;
                     }
@@ -1439,8 +1444,6 @@ namespace NeoBleeper
                                 {
                                     octave10NoteLabelShiftToRight();
                                 }
-                                currentFilePath = filename;
-                                this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + filename;
                                 listViewNotes.Items.Clear();
 
                                 if (projectFile.LineList?.Lines != null && projectFile.LineList.Lines.Length > 0)
@@ -1460,8 +1463,6 @@ namespace NeoBleeper
                                 // Leave empty if no lines are found
                             }
                             Logger.Log("NeoBleeper file opened successfully", Logger.LogTypes.Info);
-                            isModified = false;
-                            UpdateFormTitle();
                         }
                         catch (Exception ex)
                         {
@@ -1479,6 +1480,11 @@ namespace NeoBleeper
                                 Logger.Log("User chose to open the file anyway", Logger.LogTypes.Info);
                             }
                         }
+                        finally
+                        {
+                            is_file_valid = true;
+                            currentFilePath = filename;
+                        }
                         break;
                     }
                 default:
@@ -1488,6 +1494,28 @@ namespace NeoBleeper
                         MessageBox.Show(Resources.MessageInvalidOrCorruptedMusicFile, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
+            }
+            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length); // Save the initial state
+            commandManager.ClearHistory(); // Reset the history
+                                           // Add the file to the recent files list
+            if (is_file_valid == true)
+            {
+                initialMemento = originator.CreateSavedStateMemento(
+                        Variables.bpm,
+                        Variables.alternating_note_length);
+                isModified = false;
+                UpdateFormTitle();
+                if (Settings1.Default.RecentFiles == null)
+                {
+                    Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+                }
+
+                if (!Settings1.Default.RecentFiles.Contains(filename))
+                {
+                    Settings1.Default.RecentFiles.Add(filename);
+                    Settings1.Default.Save();
+                }
+                UpdateRecentFilesMenu();
             }
         }
         public static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
@@ -1503,29 +1531,7 @@ namespace NeoBleeper
             stop_playing();
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             closeAllOpenWindows();
-            if (isModified == true)
-            {
-                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        SaveTheFile();
-                        if (isSaved)
-                        {
-                            openAFileFromDialog(); // Proceed to open the file only if the save was successful
-                        }
-                        break;
-                    case DialogResult.No:
-                        openAFileFromDialog();
-                        break;
-                    default:
-                        return;
-                }
-            }
-            else
-            {
-                openAFileFromDialog();
-            }
+            AskForSavingIfModified(new Action(() => openAFileFromDialog()));
         }
         private void openAFileFromDialog()
         {
@@ -1534,28 +1540,6 @@ namespace NeoBleeper
             {
                 string filePath = openFileDialog.FileName;
                 FileParser(filePath);
-                initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length); // Save the initial state
-                commandManager.ClearHistory(); // Reset the history
-                // Add the file to the recent files list
-                if (is_file_valid == true)
-                {
-                    initialMemento = originator.CreateSavedStateMemento(
-                            Variables.bpm,
-                            Variables.alternating_note_length);
-                    isModified = false;
-                    UpdateFormTitle();
-                    if (Settings1.Default.RecentFiles == null)
-                    {
-                        Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
-                    }
-
-                    if (!Settings1.Default.RecentFiles.Contains(filePath))
-                    {
-                        Settings1.Default.RecentFiles.Add(filePath);
-                        Settings1.Default.Save();
-                    }
-                    UpdateRecentFilesMenu();
-                }
             }
         }
         bool isSaved = false;
@@ -2017,29 +2001,7 @@ namespace NeoBleeper
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isModified)
-            {
-                DialogResult result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        SaveTheFile();
-                        if (isSaved)
-                        {
-                            createNewFile();
-                        }
-                        break;
-                    case DialogResult.No:
-                        createNewFile();
-                        break;
-                    default:
-                        return;
-                }
-            }
-            else
-            {
-                createNewFile();
-            }   
+           AskForSavingIfModified(new Action(() => createNewFile()));
         }
         private async void stopPlayingAllSounds()
         {
@@ -3025,7 +2987,7 @@ namespace NeoBleeper
                             length = "Quarter";
                             break;
                     }
-                    switch(listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())
+                    switch (listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())
                     {
                         case var m when m == Resources.DottedModifier:
                             modifier = "Dotted";
@@ -3514,6 +3476,9 @@ namespace NeoBleeper
         }
         private int play_beat_sound()
         {
+            // The original developer thought this "techno beat" was a masterpiece.
+            // Spoiler alert: It's just a glorified system speaker sound. ;P
+
             // Basic frequencies
             int snareFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("D2"));
             int kickFrequency = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName("E2"));
@@ -3795,7 +3760,7 @@ namespace NeoBleeper
             StopAllSounds();
             if (isModified == true)
             {
-                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                var result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SaveTheFile();
@@ -3951,34 +3916,73 @@ namespace NeoBleeper
             }
         }
 
+        // The feature that Robbi-985 (aka SomethingUnreal) that planned add to Bleeper Music Maker long time ago, but he abandoned the project and never added this feature.
         private void main_window_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                try
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string fileName = files[0];
+                openFiles(fileName, FileOpenMode.DragAndDrop);
+            }
+        }
+        enum FileOpenMode
+        {
+            DragAndDrop,
+            OpenedAsArg,
+        }
+        private FileOpenMode fileOpenMode;
+        private void openFiles(string fileName, FileOpenMode fileOpenMode)
+        {
+            try
+            {
+                string first_line = File.ReadLines(fileName).First();
+                if (MIDIFileValidator.IsMidiFile(fileName))
                 {
-                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                    string fileName = files[0];
-                    string first_line = File.ReadLines(fileName).First();
-                    if (MIDIFileValidator.IsMidiFile(fileName))
+                    openMIDIFilePlayer(fileName);
+                }
+                else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
+                    first_line == "<NeoBleeperProjectFile>")
+                {
+                    switch(fileOpenMode)
                     {
-                        openMIDIFilePlayer(fileName);
-                    }
-                    else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
-                        first_line == "<NeoBleeperProjectFile>")
-                    {
-                        FileParser(fileName);
-                    }
-                    else
-                    {
-                        Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                        MessageBox.Show(Resources.MessageNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        case FileOpenMode.DragAndDrop:
+                            Logger.Log($"Opening the file you dragged: {fileName}", Logger.LogTypes.Info);
+                            AskForSavingIfModified(new Action(()=> FileParser(fileName)));
+                            break;
+                        case FileOpenMode.OpenedAsArg:
+                            Logger.Log($"Opening the file you opened: {fileName}", Logger.LogTypes.Info);
+                            FileParser(fileName);
+                            break;
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    Logger.Log("The file you dragged is corrupted or the file is in use by another process.", Logger.LogTypes.Error);
-                    MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    switch (fileOpenMode)
+                    {
+                        case FileOpenMode.DragAndDrop:
+                            Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                            MessageBox.Show(Resources.MessageNonSupportedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        case FileOpenMode.OpenedAsArg:
+                            Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                            MessageBox.Show(Resources.MessageNonSupportedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                switch (fileOpenMode)
+                {
+                    case FileOpenMode.DragAndDrop:
+                        Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                        MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case FileOpenMode.OpenedAsArg:
+                        Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                        MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                 }
             }
         }
@@ -3986,9 +3990,9 @@ namespace NeoBleeper
         {
             if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
             {
-                if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
+                if (MIDIFileValidator.IsMidiFile(fileName))
                 {
-                    MIDI_file_player midi_file_player = new MIDI_file_player(openFileDialog.FileName, this);
+                    MIDI_file_player midi_file_player = new MIDI_file_player(fileName, this);
                     midi_file_player.ShowDialog();
                     Logger.Log("MIDI file is opened.", Logger.LogTypes.Info);
                 }
@@ -4230,7 +4234,7 @@ namespace NeoBleeper
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
             }
-            if(commandManager.CanUndo == false)
+            if (commandManager.CanUndo == false)
             {
                 isModified = false;
                 UpdateFormTitle();
@@ -4258,7 +4262,7 @@ namespace NeoBleeper
                     listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
                 }
             }
-            if(commandManager.CanUndo == true)
+            if (commandManager.CanUndo == true)
             {
                 isModified = true;
                 UpdateFormTitle();
@@ -4339,6 +4343,7 @@ namespace NeoBleeper
         {
             CutToClipboard();
         }
+        // The feature that Robbi-985 (aka SomethingUnreal) didn't thought of in Bleeper Music Maker :D
         private void CutToClipboard()
         {
             var itemsToCut = listViewNotes.SelectedItems.Cast<ListViewItem>()
@@ -4405,28 +4410,35 @@ namespace NeoBleeper
         }
         private void OpenRecentFile(string filePath)
         {
-            if (isModified == true)
+            AskForSavingIfModified(new Action(() => openFileAndUpdateMenu(filePath)));
+        }
+        private void AskForSavingIfModified(Action action) // Action to execute after handling unsaved changes
+        {
+            if (isModified == true) // Ask for saving if there are unsaved changes
             {
-                var result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                stop_playing(); // Stop playing if music is playing
+                stopAllNotesAfterPlaying(); // Stop all notes if any note is still playing to prevent stuck notes
+                var result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
+                    SaveTheFile();
                     if (isSaved)
                     {
-                        openFileAndUpdateMenu(filePath); // Open the recent file if save was successful
+                        action(); // Execute the action if save was successful
                     }
                 }
-                else if(result == DialogResult.No) // Open recent file without saving
+                else if (result == DialogResult.No) // Execute action without saving
                 {
-                    openFileAndUpdateMenu(filePath);
+                    action();
                 }
                 else if (result == DialogResult.Cancel)
                 {
                     return; // Do nothing if cancel is clicked
                 }
             }
-            else // No unsaved changes, open the recent file directly
+            else // No unsaved changes, execute action directly
             {
-                openFileAndUpdateMenu(filePath);
+                action();
             }
         }
         private void openFileAndUpdateMenu(string filePath)
@@ -4586,7 +4598,7 @@ namespace NeoBleeper
                 {
                     if (isModified)
                     {
-                        DialogResult result = MessageBox.Show(Resources.MessageUnsavedChangesOnExit, Resources.TitleUnsavedChangedOnExit, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (result)
                         {
                             case DialogResult.Yes:
@@ -4619,7 +4631,7 @@ namespace NeoBleeper
             }
             else
             {
-                if(retryCount >= 3)
+                if (retryCount >= 3)
                 {
                     Logger.Log("The action is executed without saving after 3 retries.", Logger.LogTypes.Warning);
                     retryCount = 0; // Reset retry count
@@ -4629,7 +4641,7 @@ namespace NeoBleeper
                 {
                     retryCount++;
                     saveRunAndRetry(action); // Retry to save if not saved 
-                }    
+                }
             }
         }
         // This method is used to update the form title with the current file path and modification status.
@@ -5801,6 +5813,14 @@ namespace NeoBleeper
         private void listViewNotes_MouseUp(object sender, MouseEventArgs e)
         {
             right_clicked = false;
+        }
+
+        private void main_window_Shown(object sender, EventArgs e)
+        {
+            if (Program.filePath != null)
+            {
+                openFiles(Program.filePath, FileOpenMode.OpenedAsArg);
+            }
         }
     }
 }

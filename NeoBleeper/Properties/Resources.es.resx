@@ -171,8 +171,11 @@
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedFile" xml:space="preserve">
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>El archivo que arrastró está dañado o está siendo utilizado por otro proceso.</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>El archivo que abriste está dañado o está siendo utilizado por otro proceso.</value>
   </data>
   <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
     <value>Usar el teclado como piano</value>
@@ -409,8 +412,11 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNonSupportedFile" xml:space="preserve">
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
     <value>El archivo que arrastraste no es compatible con NeoBleeper o está dañado.</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>El archivo que abriste no es compatible con NeoBleeper o está dañado.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
     <value>Escribe una pieza de tango argentino</value>
@@ -607,10 +613,10 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>El código de firmware se copia al portapapeles</value>
   </data>
-  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+  <data name="MessageUnsavedChanges" xml:space="preserve">
     <value>Hay cambios sin guardar. ¿Desea guardarlos antes de salir?</value>
   </data>
-  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+  <data name="TitleUnsavedChanges" xml:space="preserve">
     <value>Cambios sin guardar</value>
   </data>
   <data name="TextPercent" xml:space="preserve">

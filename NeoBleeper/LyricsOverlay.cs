@@ -12,6 +12,8 @@ namespace NeoBleeper
 {
     public partial class LyricsOverlay : Form
     {
+        // Lyrics in MIDI file player? yeah, why not :)
+        // Also, this overlay can be used for karaoke.
         public LyricsOverlay()
         {
             InitializeComponent();

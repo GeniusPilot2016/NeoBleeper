@@ -2165,6 +2165,7 @@
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
             Load += main_window_Load;
+            Shown += main_window_Shown;
             DragDrop += main_window_DragDrop;
             DragEnter += main_window_DragEnter;
             KeyDown += main_window_KeyDown;

@@ -15,6 +15,10 @@ namespace NeoBleeper
         public static class SystemSpeakerBeepEngine // Drive the system speaker (aka PC speaker) directly by emulating beep.sys using inpoutx64.dll in modern Windows (Windows 7 and above)
                                                     // Note: This will not work in virtual machines or computers without a physical system speaker output
         {
+            // Robbi-985 (aka SomethingUnreal) abandoned the Bleeper Music Maker in 2011 due to changes in beep.sys in Windows 7 and later.
+            // We're fighting to bring it back to life in 2025... with direct hardware access like his BaWaMI (Basic Waveform MIDI Software Synthesizer) did. :D
+            // Pro tip: When you create something cool, don't abandon it. Keep it alive and updated. :)
+
             static systemStorageType StorageType = systemStorageType.HDD; // Default to HDD to prevent resonance issues, should be set by the main program based on actual storage device
             static int storageRPM = 5400; // Default RPM for HDD, should be set by the main program based on actual storage device
             static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
@@ -108,6 +112,7 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
+                // This program contains 100% recycled beeps from the golden age of the PC audio.
                 int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
                 if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
                     (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
@@ -148,6 +153,8 @@ namespace NeoBleeper
             }
             public static bool isSystemSpeakerExist()
             {
+                // No system speaker, no problem.
+                // Because it's falling back to sound card beep if no system speaker is found.
                 string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                 using (var searcher = new ManagementObjectSearcher(query))
                 {
@@ -163,6 +170,8 @@ namespace NeoBleeper
             private static readonly SignalGenerator whiteNoiseGenerator = new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.5 };
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
+
+            // FMOD? That's a F-problem, so we use NAudio instead.
 
             static WaveSynthEngine()
             {
@@ -423,6 +432,7 @@ namespace NeoBleeper
         }
         public static class VoiceSynthesisEngine // Voice synthesis by emulating FMOD that is used in Bleeper Music Maker using NAudio
         {
+            // "Rubbish" system? At least it can synthesize voices better than nothing.
             private static readonly object synthLock = new();
             // Single master mixer
             private static readonly MixingSampleProvider masterMixer;

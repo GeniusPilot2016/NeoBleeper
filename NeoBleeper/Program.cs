@@ -14,11 +14,17 @@ namespace NeoBleeper
         ///  The main entry point for the application.
         /// </summary>
         /// 
-
+        // The core of the NeoBleeper application, which Robbi-985 (aka SomethingUnreal) would be proud of.
+        // Powered by nostalgia and a passion for sound, this program brings the classic system speaker beeps back to life with modern enhancements - Thanks Robbi-985 (aka SomethingUnreal)!
+        public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if(args.Length > 0)
+            {
+                filePath = args[0];
+            }
             bool shouldRun = false;
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             Logger.Log("NeoBleeper is starting up.", LogTypes.Info);

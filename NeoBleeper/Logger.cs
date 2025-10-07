@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace NeoBleeper
 {
     public static class Logger
     {
+        // Out with legacy "logenable" file without extension to enable logging, in with "DebugLog.txt" that always logs.
         static String LogText;
         static Logger()
         {
@@ -111,7 +113,9 @@ namespace NeoBleeper
         {
             try
             {
-                using (FileStream fs = new FileStream("DebugLog.txt", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string logPath = Path.Combine(exePath, "DebugLog.txt");
+                using (FileStream fs = new FileStream(logPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                 {
                     using (StreamWriter writer = new StreamWriter(fs))
                     {

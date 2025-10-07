@@ -171,8 +171,11 @@ Vuoi aprire comunque questo file?</value>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedFile" xml:space="preserve">
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Il file trascinato è danneggiato oppure è utilizzato da un altro processo.</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>Il file aperto è danneggiato o è in uso da un altro processo.</value>
   </data>
   <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
     <value>Usa la tastiera come pianoforte</value>
@@ -408,8 +411,11 @@ Clicca di nuovo per nasconderla.</value>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNonSupportedFile" xml:space="preserve">
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
     <value>Il file trascinato non è supportato da NeoBleeper o è danneggiato.</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>Il file aperto non è supportato da NeoBleeper o è danneggiato.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
     <value>Scrivi un brano di musica barocca</value>
@@ -606,10 +612,10 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Il codice del firmware è copiato negli appunti</value>
   </data>
-  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+  <data name="MessageUnsavedChanges" xml:space="preserve">
     <value>Ci sono modifiche non salvate. Vuoi salvarle prima di uscire?</value>
   </data>
-  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+  <data name="TitleUnsavedChanges" xml:space="preserve">
     <value>Modifiche non salvate</value>
   </data>
   <data name="TextPercent" xml:space="preserve">

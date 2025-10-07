@@ -856,9 +856,18 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   The file you dragged is corrupted or the file is in use by another process. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string MessageCorruptedOrCurrentlyUsedFile {
+        public static string MessageCorruptedOrCurrentlyUsedDraggedFile {
             get {
-                return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedFile", resourceCulture);
+                return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedDraggedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file you opened is corrupted or the file is in use by another process. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageCorruptedOrCurrentlyUsedOpenedFile {
+            get {
+                return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedOpenedFile", resourceCulture);
             }
         }
         
@@ -1013,9 +1022,18 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   The file you dragged is not supported by NeoBleeper or is corrupted. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string MessageNonSupportedFile {
+        public static string MessageNonSupportedDraggedFile {
             get {
-                return ResourceManager.GetString("MessageNonSupportedFile", resourceCulture);
+                return ResourceManager.GetString("MessageNonSupportedDraggedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file you opened is not supported by NeoBleeper or is corrupted. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNonSupportedOpenedFile {
+            get {
+                return ResourceManager.GetString("MessageNonSupportedOpenedFile", resourceCulture);
             }
         }
         
@@ -1067,9 +1085,9 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   There are unsaved changes. Do you want to save before exiting? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string MessageUnsavedChangesOnExit {
+        public static string MessageUnsavedChanges {
             get {
-                return ResourceManager.GetString("MessageUnsavedChangesOnExit", resourceCulture);
+                return ResourceManager.GetString("MessageUnsavedChanges", resourceCulture);
             }
         }
         
@@ -1469,9 +1487,9 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   Unsaved Changes benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string TitleUnsavedChangedOnExit {
+        public static string TitleUnsavedChanges {
             get {
-                return ResourceManager.GetString("TitleUnsavedChangedOnExit", resourceCulture);
+                return ResourceManager.GetString("TitleUnsavedChanges", resourceCulture);
             }
         }
         
