@@ -171,8 +171,11 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedFile" xml:space="preserve">
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Sürüklediğiniz dosya bozuk veya dosya başka bir işlem tarafından kullanılıyor.</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>Açtığınız dosya bozuk veya başka bir işlem tarafından kullanılıyor.</value>
   </data>
   <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
     <value>Klavyeyi Piyano Olarak Kullan</value>
@@ -409,8 +412,11 @@ Gizlemek için tekrar tıklayınız</value>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNonSupportedFile" xml:space="preserve">
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
     <value>Sürüklediğiniz dosya NeoBleeper tarafından desteklenmiyor veya bozuk.</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>Açtığınız dosya NeoBleeper tarafından desteklenmiyor veya bozuk.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
     <value>Barok dönem tarzında klasik bir eser bestele</value>
@@ -608,10 +614,10 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Yazılım kodu panoya kopyalandı</value>
   </data>
-  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+  <data name="MessageUnsavedChanges" xml:space="preserve">
     <value>Kaydedilmemiş değişiklikler var. Çıkmadan önce kaydetmek istiyor musunuz?</value>
   </data>
-  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+  <data name="TitleUnsavedChanges" xml:space="preserve">
     <value>Kaydedilmemiş Değişiklikler</value>
   </data>
   <data name="TextPercent" xml:space="preserve">

@@ -154,7 +154,7 @@ namespace NeoBleeper
                 catch (Exception)
                 {
                     Logger.Log("The file you dragged is corrupted or the file is in use by another process.", Logger.LogTypes.Error);
-                    MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1533,7 +1533,7 @@ namespace NeoBleeper
 
             if (!checkBox_dont_update_grid.Checked)
             {
-                // Not labellarını güncelle
+                // Update note labels
                 UpdateNoteLabelsSync(filteredNotes);
             }
 

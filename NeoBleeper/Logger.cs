@@ -9,6 +9,7 @@ namespace NeoBleeper
 {
     public static class Logger
     {
+        // Out with legacy "logenable" file without extension to enable logging, in with "DebugLog.txt" that always logs.
         static String LogText;
         static Logger()
         {

@@ -15,6 +15,7 @@ using static NeoBleeper.main_window;
 
 namespace NeoBleeper
 {
+    // When your CNC machine or 3D printer meets the world of music: Converting melodies to GCode for a symphony of mechanical sounds!
     public partial class ConvertToGCode : Form
     {
         bool darkTheme = false;

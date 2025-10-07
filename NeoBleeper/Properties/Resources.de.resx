@@ -171,8 +171,11 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedFile" xml:space="preserve">
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Die von Ihnen verschobene Datei ist beschädigt oder wird von einem anderen Programm verwendet.</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>Die geöffnete Datei ist beschädigt oder wird von einem anderen Prozess verwendet.</value>
   </data>
   <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
     <value>Die Tastatur als Klavier verwenden</value>
@@ -406,8 +409,11 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNonSupportedFile" xml:space="preserve">
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
     <value>Die von Ihnen per Drag-and-Drop übertragene Datei wird von NeoBleeper nicht unterstützt oder ist beschädigt.</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>Die geöffnete Datei wird von NeoBleeper nicht unterstützt oder ist beschädigt.</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
     <value>Schreibe eine orchestrale Filmmusik für eine Abenteuerszene</value>
@@ -604,10 +610,10 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value />
   </data>
-  <data name="MessageUnsavedChangesOnExit" xml:space="preserve">
+  <data name="MessageUnsavedChanges" xml:space="preserve">
     <value>Es gibt nicht gespeicherte Änderungen. Möchten Sie vor dem Beenden speichern?</value>
   </data>
-  <data name="TitleUnsavedChangedOnExit" xml:space="preserve">
+  <data name="TitleUnsavedChanges" xml:space="preserve">
     <value>Nicht gespeicherte Änderungen</value>
   </data>
   <data name="TextPercent" xml:space="preserve">

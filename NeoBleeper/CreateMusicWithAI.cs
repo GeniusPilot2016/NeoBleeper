@@ -20,6 +20,7 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
+        // Created as byproduct of my old school project to create chaotic music with AI, which is the AI-powered Paint-like program called "ArtFusion" (however, our projects were prohibited to exhibit in school exhibition until final exam points are given, so I exhibited this program instead, instead of exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management system" which are boring and useless for normal users)
         string[] examplePrompts =         {
             Resources.ExamplePrompt1,
             Resources.ExamplePrompt2,
@@ -493,6 +494,7 @@ namespace NeoBleeper
         {
             try
             {
+                // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
                 string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
                 connectionCheckTimer.Start();
                 SetControlsEnabledAndMakeLoadingVisible(false);
@@ -614,6 +616,7 @@ namespace NeoBleeper
                         output = String.Empty; // Clear the output if it's an error message
                         this.Close(); // Close the form after handling the error message
                     }
+
                     // Remove ```xml and any surrounding text
                     output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
                     output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -775,6 +778,7 @@ namespace NeoBleeper
         }
         private string RewriteOutput(string output)
         {
+            // Regex spaghetti to fix common issues in the AI-generated XML output
             // Ensure all tags are properly closed and formatted
             output = Regex.Replace(output, @"(?<!<)(NeoBleeperProjectFile>.*?</NeoBleeperProjectFile>)", "<$1", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"(?<!<)(Settings>.*?</Settings>)", "<$1", RegexOptions.IgnoreCase);
@@ -900,6 +904,7 @@ namespace NeoBleeper
         }
         private string FixParameterNames(string xmlContent)
         {
+            // Another batch of regex spaghetti to fix parameter names
             // Fix all parameter names according to Clementi Sonatina No. 3, Op 36.NBPML syntax
             xmlContent = Regex.Replace(xmlContent, @"<length>", "<Length>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</length>", "</Length>", RegexOptions.IgnoreCase);
@@ -1073,6 +1078,7 @@ namespace NeoBleeper
 
         private void connectionCheckTimer_Tick(object sender, EventArgs e)
         {
+            // No connection, no AI music generation
             if (!IsInternetAvailable())
             {
                 cts.Cancel();
