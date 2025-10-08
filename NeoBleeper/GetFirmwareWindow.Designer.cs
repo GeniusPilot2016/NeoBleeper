@@ -97,6 +97,7 @@
             Name = "GetFirmwareWindow";
             ShowIcon = false;
             ShowInTaskbar = false;
+            SystemColorsChanged += GetFirmwareWindow_SystemColorsChanged;
             ResumeLayout(false);
             PerformLayout();
         }

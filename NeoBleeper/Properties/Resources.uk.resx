@@ -117,106 +117,371 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
+    <value>Недійсний або пошкоджений музичний файл</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="icons8-new-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-new-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HarmonyOS_Sans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="LyricsExampleText" xml:space="preserve">
+    <value>Приклад тексту</value>
   </data>
-  <data name="TextEventsAreBeingSorted" xml:space="preserve">
-    <value>Події впорядковуються...</value>
+  <data name="FermataArticulation" xml:space="preserve">
+    <value>Фер</value>
   </data>
-  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
-    <value>Наразі не чекаю</value>
+  <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
+    <value>Помилка конвертації в команду Beep для Linux: </value>
   </data>
-  <data name="MIDIDeviceErrorTitle" xml:space="preserve">
-    <value>Помилка MIDI-пристрою</value>
-  </data>
-  <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Напиши ніжну колискову пісню</value>
-  </data>
-  <data name="TextStopWaiting" xml:space="preserve">
-    <value>Перестань чекати</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Формат ключа API Google Gemini™ недійсний. Будь ласка, повторно введіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
-  </data>
-  <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>API Google Gemini™ недоступний у вашій країні. Будь ласка, перевірте список підтримуваних країн.</value>
-  </data>
-  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
-    <value>Цей файл Bleeper Music Maker містить недійсні елементи, які не відповідають синтаксису формату файлу Bleeper Music Maker.
-
-Ви все одно хочете відкрити цей файл?</value>
+  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TextStartWaiting" xml:space="preserve">
     <value>Почати чекати</value>
   </data>
-  <data name="ErrorSavingAPIKey" xml:space="preserve">
-    <value>Помилка збереження ключа API: </value>
+  <data name="ExamplePrompt8" xml:space="preserve">
+    <value>Згенеруй фолк мелодію з акустичною гітарою</value>
   </data>
-  <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
-    <value>Спробуйте оновити список пристроїв.</value>
+  <data name="EighthNote" xml:space="preserve">
+    <value>Восьма</value>
   </data>
-  <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
-    <value>Перетягнутий файл пошкоджений або його використовує інший процес.</value>
+  <data name="MessageErrorSavingFile" xml:space="preserve">
+    <value>Помилка збереження файлу NeoBleeper:</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
-    <value>Файл, який ви відкрили, пошкоджений або його використовує інший процес.</value>
+  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
-    <value>Використовуйте клавіатуру як фортепіано</value>
+  <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
+    <value>MIDI-файл завантажується...</value>
   </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
+    <value>Відтворити звук ритму</value>
   </data>
-  <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HalfNote" xml:space="preserve">
+    <value>Половинна</value>
+  </data>
+  <data name="GoogleGeminiServerDown" xml:space="preserve">
+    <value>Сервер Google Gemini™ наразі недоступний. Спробуйте ще раз пізніше.</value>
+  </data>
+  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
+    <value>Скрипт оболонки (*.sh)|*.sh</value>
   </data>
   <data name="UseVoiceSystemHelp" xml:space="preserve">
     <value>Ця функція дозволяє програмі використовувати голосову систему для імітації мовленнєвих формантів, щоб вибрані ноти імітували «спів».</value>
   </data>
+  <data name="MessageLanguageChanged" xml:space="preserve">
+    <value>Мову змінено, і тепер застосунок перезавантажиться, щоб застосувати нову мову, а зміни у відкритих проектах будуть скасовані.</value>
+  </data>
+  <data name="MessageNonValidMIDIFile" xml:space="preserve">
+    <value>Цей файл не є дійсним MIDI-файлом, або він пошкоджений, або використовується іншим процесом.</value>
+  </data>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Наразі очікується</value>
   </data>
-  <data name="icons8-processor-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-processor-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
+    <value>Збираються MIDI-події...</value>
+  </data>
+  <data name="WholeNote" xml:space="preserve">
+    <value>Ціла</value>
+  </data>
+  <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt4" xml:space="preserve">
+    <value>Створи ліричну фортепіанну баладу</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Формат ключа API Google Gemini™ недійсний. Будь ласка, повторно введіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
+  </data>
+  <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
+    <value>Ключ API Google Gemini™ не встановлено. Будь ласка, встановіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
+  </data>
+  <data name="PlayBeatSoundHelp" xml:space="preserve">
+    <value>Ця функція дозволяє відтворювати звуки, схожі на ритм, із системного динаміка/звукового пристрою.
+
+Ви можете вибрати звук для відтворення, натиснувши кнопку «Змінити звук ритму».</value>
+  </data>
+  <data name="MessageErrorClosingForm" xml:space="preserve">
+    <value>Помилка закриття форми: </value>
+  </data>
+  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextPlaying" xml:space="preserve">
+    <value>Зараз грає</value>
+  </data>
+  <data name="ShowAPIKeyToolTip" xml:space="preserve">
+    <value>Показати ключ API у полі «Ключ API».
+Натисніть ще раз, щоб приховати його.</value>
+  </data>
+  <data name="MessageNoInternet" xml:space="preserve">
+    <value>Немає підключення до Інтернету. Перевірте з’єднання.</value>
+  </data>
+  <data name="ToastMessageNotesCopy" xml:space="preserve">
+    <value>Нотатки копіюються в буфер обміну.</value>
+  </data>
+  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="HarmonyOS_Sans_Regular_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Regular_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextShow" xml:space="preserve">
+    <value>Показати</value>
+  </data>
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
+    <value>Перетягнутий вами файл не підтримується NeoBleeper або пошкоджений.</value>
+  </data>
+  <data name="ErrorSavingAPIKey" xml:space="preserve">
+    <value>Помилка збереження ключа API: </value>
+  </data>
+  <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessagePlaybackStartingError" xml:space="preserve">
+    <value>Помилка початку відтворення:</value>
+  </data>
+  <data name="MIDIFilePlayerMutedError" xml:space="preserve">
+    <value>Плеєр MIDI-файлів не можна відкрити, якщо встановлено прапорець «Вимкнути звук відтворення», знято прапорець «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)» та знято прапорець «Використовувати вихід MIDI».
+
+Будь ласка, встановіть прапорець «Використовувати вихід MIDI» на вкладці «Пристрої» в налаштуваннях або зніміть прапорець «Вимкнути звук відтворення» чи «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)», щоб скористатися цією функцією.</value>
+  </data>
+  <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
+    <value>Використовуйте клавіатуру як фортепіано</value>
+  </data>
+  <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextBeatError" xml:space="preserve">
+    <value>(Помилка)</value>
+  </data>
+  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>Файл, який ви відкрили, не підтримується NeoBleeper або пошкоджений.</value>
+  </data>
+  <data name="MessageUnsavedChanges" xml:space="preserve">
+    <value>Є незбережені зміни. Зберегти їх перед виходом?</value>
+  </data>
+  <data name="FilterProjectFileFormats" xml:space="preserve">
+    <value>Файли мови розмітки проекту NeoBleeper|*.NBPML|Файли Bleeper Music Maker|*.BMM|Усі файли|*.*</value>
+  </data>
+  <data name="ExamplePrompt5" xml:space="preserve">
+    <value>Склади електронну танцювальну музику</value>
+  </data>
+  <data name="TextError" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
+    <value>Використовувати голосову систему</value>
+  </data>
+  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextMIDIFileLoadingError" xml:space="preserve">
+    <value>Під час завантаження MIDI-файлу сталася помилка.</value>
+  </data>
+  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
+    <value>Не оновлювати дисплеї ритму</value>
+  </data>
+  <data name="icons8-playlist-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-playlist-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
+    <value>Перетягнутий файл пошкоджений або його використовує інший процес.</value>
+  </data>
+  <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
+    <value>Порожній список нотаток не можна експортувати.</value>
+  </data>
+  <data name="MessageConvertToGCodeError" xml:space="preserve">
+    <value>Помилка конвертації в G-код:</value>
+  </data>
+  <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Код прошивки скопійовано в буфер обміну</value>
+  </data>
+  <data name="HideAPIKeyToolTip" xml:space="preserve">
+    <value>Сховайте ключ API у полі «Ключ API».
+Натисніть ще раз, щоб показати його.</value>
+  </data>
+  <data name="ExamplePrompt7" xml:space="preserve">
+    <value>Створи епічний саундтрек для пригодницької гри</value>
+  </data>
+  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
+    <value>Ключ API Google Gemini™ успішно скинуто.</value>
+  </data>
+  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleUnsavedChanges" xml:space="preserve">
+    <value>Незбережені зміни</value>
+  </data>
+  <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
+    <value>Відповідь ШІ пуста або має значення null.</value>
+  </data>
+  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToastMessageNotesCut" xml:space="preserve">
+    <value>Нотатки вирізаються в буфер обміну.</value>
+  </data>
+  <data name="TextEventsAreBeingSorted" xml:space="preserve">
+    <value>Події впорядковуються...</value>
+  </data>
+  <data name="icons8-clock-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clock-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StaccatoArticulation" xml:space="preserve">
+    <value>Ста</value>
+  </data>
+  <data name="UseKeyboardAsPianoHelp" xml:space="preserve">
+    <value>Ця функція дозволяє використовувати клавіатуру комп’ютера як клавіатуру фортепіано.
+
+Якщо її ввімкнено, ви можете грати ноти, натискаючи відповідні клавіші на клавіатурі без використання MIDI-пристроїв.
+
+Ви можете побачити розстановку клавіш у кнопках у верхній частині вікна.</value>
+  </data>
+  <data name="QuarterNote" xml:space="preserve">
+    <value>Чвертна</value>
+  </data>
+  <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
+    <value>Порожній список нотаток неможливо конвертувати в команду Beep для Linux.</value>
+  </data>
+  <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
+    <value>Перетягнутий вами файл не підтримується MIDI-плеєром NeoBleeper або пошкоджений.</value>
+  </data>
+  <data name="TitleOpenProjectFile" xml:space="preserve">
+    <value>Відкрити файл проекту</value>
+  </data>
+  <data name="FilterGCodeFile" xml:space="preserve">
+    <value>Файли GCode (*.gcode)|*.gcode</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Музика, згенерована штучним інтелектом</value>
+  </data>
+  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
+    <value>Формат ключа API недійсний. Перевірте та спробуйте ще раз.</value>
+  </data>
+  <data name="icons8-cut-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-cut-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-uncheck-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-uncheck-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageMIDIFileLoadingError" xml:space="preserve">
+    <value>Помилка завантаження MIDI-файлу:</value>
+  </data>
+  <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextStopPlaying" xml:space="preserve">
+    <value>Припинити грати</value>
+  </data>
+  <data name="MessageBeepCommandSaved" xml:space="preserve">
+    <value>Команду Beep як скрипт оболонки успішно збережено.</value>
+  </data>
+  <data name="ExamplePrompt6" xml:space="preserve">
+    <value>Напиши ніжну колискову пісню</value>
+  </data>
+  <data name="MoreText" xml:space="preserve">
+    <value>(Ще {number})</value>
+  </data>
+  <data name="PortamentoHelp" xml:space="preserve">
+    <value>Тільки для випадку, коли музика відтворюється в режимі реального часу на клавіатурі.
+
+Ця функція змушує системний динамік/звуковий пристрій збільшувати або зменшувати висоту звуку до ноти, на яку ви натиснули.</value>
+  </data>
+  <data name="MessageGCodeExported" xml:space="preserve">
+    <value>Файл G-коду успішно експортовано!</value>
+  </data>
+  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
+    <value>Ключ API Google Gemini™ успішно збережено.</value>
+  </data>
+  <data name="ErrorResettingAPIKey" xml:space="preserve">
+    <value>Помилка скидання ключа API: </value>
+  </data>
+  <data name="TextPosition" xml:space="preserve">
+    <value>Посада:</value>
+  </data>
+  <data name="SpiccatoArticulation" xml:space="preserve">
+    <value>Спі</value>
+  </data>
+  <data name="ExamplePrompt10" xml:space="preserve">
+    <value>Створи розслаблюючу ambient композицію</value>
+  </data>
+  <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
+    <value>Конвертована команда Beep скопійована в буфер обміну.</value>
+  </data>
+  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextNotFound" xml:space="preserve">
+    <value>(Не знайдено)</value>
+  </data>
+  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextMilliseconds" xml:space="preserve">
+    <value> мС</value>
+  </data>
+  <data name="MessageFileNotFoundError" xml:space="preserve">
+    <value>Файл не знайдено:</value>
   </data>
   <data name="MessageNonStandardNeoBleeperFile" xml:space="preserve">
     <value>Цей файл NeoBleeper містить недійсні елементи, які не відповідають синтаксису формату файлу NeoBleeper.
 
 Ви все одно хочете відкрити цей файл?</value>
   </data>
-  <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Склади електронну танцювальну музику</value>
+  <data name="ExamplePrompt2" xml:space="preserve">
+    <value>Згенеруй народну мелодію з бандурою</value>
   </data>
-  <data name="TextEventsAreBeingCollected" xml:space="preserve">
-    <value>Збираються події...</value>
+  <data name="MIDIDeviceErrorTitle" xml:space="preserve">
+    <value>Помилка MIDI-пристрою</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
-    <value>Нотатки, які зараз зберігаються:</value>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Помилка відкриття файлу:</value>
+  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Ця функція дозволяє синхронізувати відтворення кількох копій NeoBleeper.
@@ -229,198 +494,23 @@
 
 Потім ви можете використовувати це вікно для керування відтворенням усіх копій NeoBleeper на вашому комп’ютері.</value>
   </data>
-  <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Створи класичний музичний твір у стилі Лисенка</value>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
-    <value>Використовувати голосову систему</value>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Помилка відкриття файлу:</value>
   </data>
-  <data name="HideAPIKeyToolTip" xml:space="preserve">
-    <value>Сховайте ключ API у полі «Ключ API».
-Натисніть ще раз, щоб показати його.</value>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>Файл, який ви відкрили, пошкоджений або його використовує інший процес.</value>
   </data>
-  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextNotFound" xml:space="preserve">
-    <value>(Не знайдено)</value>
-  </data>
-  <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Створи ліричну фортепіанну баладу</value>
-  </data>
-  <data name="ErrorResettingAPIKey" xml:space="preserve">
-    <value>Помилка скидання ключа API: </value>
-  </data>
-  <data name="PortamentoHelpTitle" xml:space="preserve">
-    <value>Bleeper Portamento</value>
-  </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageErrorRewinding" xml:space="preserve">
-    <value>Помилка перемотування до збереженої версії:</value>
-  </data>
-  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
-    <value>Синхронізована гра</value>
-  </data>
-  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageGCodeExported" xml:space="preserve">
-    <value>Файл G-коду успішно експортовано!</value>
-  </data>
-  <data name="PlayBeatSoundHelp" xml:space="preserve">
-    <value>Ця функція дозволяє відтворювати звуки, схожі на ритм, із системного динаміка/звукового пристрою.
-
-Ви можете вибрати звук для відтворення, натиснувши кнопку «Змінити звук ритму».</value>
-  </data>
-  <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
-    <value>Відтворити звук ритму</value>
-  </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Сервер Google Gemini™ наразі недоступний. Спробуйте ще раз пізніше.</value>
-  </data>
-  <data name="TextBeatError" xml:space="preserve">
-    <value>(Помилка)</value>
-  </data>
-  <data name="icons8-clock-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clock-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Сталася помилка:</value>
   </data>
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Створи епічний саундтрек для пригодницької гри</value>
-  </data>
-  <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
-    <value>Перетягнутий вами файл не підтримується MIDI-плеєром NeoBleeper або пошкоджений.</value>
-  </data>
-  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LyricsExampleText" xml:space="preserve">
-    <value>Приклад тексту</value>
-  </data>
-  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
-    <value>Не оновлювати дисплеї ритму</value>
-  </data>
-  <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Напиши джазову композицію зі свінговим ритмом</value>
-  </data>
-  <data name="ShowAPIKeyToolTip" xml:space="preserve">
-    <value>Показати ключ API у полі «Ключ API».
-Натисніть ще раз, щоб приховати його.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="icons8-playlist-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-playlist-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
-    <value>Порожній список нотаток не можна експортувати.</value>
-  </data>
-  <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
-    <value>Відповідь ШІ пуста або має значення null.</value>
-  </data>
-  <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Напиши блюзову прогресію в мажорній тональності</value>
-  </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>Немає збереженої версії для перемотування.</value>
-  </data>
-  <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageFileNotFoundError" xml:space="preserve">
-    <value>Файл не знайдено:</value>
-  </data>
-  <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="TextError" xml:space="preserve">
-    <value>Помилка</value>
-  </data>
-  <data name="MessageNoInternet" xml:space="preserve">
-    <value>Немає підключення до Інтернету. Перевірте з’єднання.</value>
-  </data>
-  <data name="TextPlaying" xml:space="preserve">
-    <value>Зараз грає</value>
-  </data>
-  <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Regular_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Regular_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper виявив, що ваш ключ API Google Gemini™ пошкоджено. Будь ласка, повторно введіть свій ключ API Google Gemini™ у вікні налаштувань.</value>
-  </data>
-  <data name="MessageMIDIFileLoadingError" xml:space="preserve">
-    <value>Помилка завантаження MIDI-файлу:</value>
-  </data>
-  <data name="TextPosition" xml:space="preserve">
-    <value>Посада:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>Формат ключа API недійсний. Перевірте та спробуйте ще раз.</value>
-  </data>
-  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-cut-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-cut-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
-    <value>Перетягнутий вами файл не підтримується NeoBleeper або пошкоджений.</value>
-  </data>
-  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
-    <value>Файл, який ви відкрили, не підтримується NeoBleeper або пошкоджений.</value>
-  </data>
-  <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Згенеруй фолк мелодію з акустичною гітарою</value>
+  <data name="TitleSaveProjectFile" xml:space="preserve">
+    <value>Зберегти файл проекту</value>
   </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Ця функція вимикає автоматичне оновлення таблиці позицій під час відтворення музики. Однак вона продовжуватиме оновлюватися під час редагування.
@@ -429,198 +519,153 @@
 
 Якщо у вас виникають проблеми з плавністю або пропусками під час відтворення музики у списку, рекомендується вимкнути цю опцію.</value>
   </data>
-  <data name="TextMIDIFileLoadingError" xml:space="preserve">
-    <value>Під час завантаження MIDI-файлу сталася помилка.</value>
-  </data>
-  <data name="MessageErrorClosingForm" xml:space="preserve">
-    <value>Помилка закриття форми: </value>
-  </data>
-  <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
-    <value>Збираються MIDI-події...</value>
-  </data>
-  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PortamentoHelp" xml:space="preserve">
-    <value>Тільки для випадку, коли музика відтворюється в режимі реального часу на клавіатурі.
-
-Ця функція змушує системний динамік/звуковий пристрій збільшувати або зменшувати висоту звуку до ноти, на яку ви натиснули.</value>
-  </data>
-  <data name="TextHide" xml:space="preserve">
-    <value>Приховати</value>
-  </data>
-  <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Згенеруй народну мелодію з бандурою</value>
-  </data>
-  <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Ключ API Google Gemini™ не встановлено. Будь ласка, встановіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
-  </data>
-  <data name="MessageNonValidMIDIFile" xml:space="preserve">
-    <value>Цей файл не є дійсним MIDI-файлом, або він пошкоджений, або використовується іншим процесом.</value>
-  </data>
-  <data name="MessageAIMusicCreationFailed" xml:space="preserve">
-    <value>Не вдалося створити музику за допомогою штучного інтелекту:</value>
-  </data>
-  <data name="TextMIDIFileLoaded" xml:space="preserve">
-    <value>MIDI-файл успішно завантажено.</value>
-  </data>
-  <data name="TextShow" xml:space="preserve">
-    <value>Показати</value>
-  </data>
-  <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
-    <value>MIDI-файл завантажується...</value>
-  </data>
-  <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
-    <value>Недійсний або пошкоджений музичний файл</value>
-  </data>
-  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessagePlaybackStartingError" xml:space="preserve">
-    <value>Помилка початку відтворення:</value>
-  </data>
-  <data name="TextStopPlaying" xml:space="preserve">
-    <value>Припинити грати</value>
-  </data>
-  <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Плеєр MIDI-файлів не можна відкрити, якщо встановлено прапорець «Вимкнути звук відтворення», знято прапорець «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)» та знято прапорець «Використовувати вихід MIDI».
-
-Будь ласка, встановіть прапорець «Використовувати вихід MIDI» на вкладці «Пристрої» в налаштуваннях або зніміть прапорець «Вимкнути звук відтворення» чи «Використовувати двигун або зумер (через Arduino, Raspberry Pi або ESP32)», щоб скористатися цією функцією.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Ключ API Google Gemini™ успішно скинуто.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Створи розслаблюючу ambient композицію</value>
-  </data>
-  <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Ключ API Google Gemini™ успішно збережено.</value>
-  </data>
-  <data name="UseKeyboardAsPianoHelp" xml:space="preserve">
-    <value>Ця функція дозволяє використовувати клавіатуру комп’ютера як клавіатуру фортепіано.
-
-Якщо її ввімкнено, ви можете грати ноти, натискаючи відповідні клавіші на клавіатурі без використання MIDI-пристроїв.
-
-Ви можете побачити розстановку клавіш у кнопках у верхній частині вікна.</value>
-  </data>
-  <data name="TextFramesAreBeingCreated" xml:space="preserve">
-    <value>Створюються кадри...</value>
-  </data>
-  <data name="MessageConvertToGCodeError" xml:space="preserve">
-    <value>Помилка конвертації в G-код:</value>
-  </data>
-  <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
-    <value>Не вдається запустити пристрій введення MIDI:</value>
-  </data>
-  <data name="MessageErrorSavingFile" xml:space="preserve">
-    <value>Помилка збереження файлу NeoBleeper:</value>
-  </data>
-  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-uncheck-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-uncheck-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ToastMessageNotesCopy" xml:space="preserve">
-    <value>Нотатки копіюються в буфер обміну.</value>
-  </data>
-  <data name="ToastMessageNotesCut" xml:space="preserve">
-    <value>Нотатки вирізаються в буфер обміну.</value>
-  </data>
-  <data name="MessageLanguageChanged" xml:space="preserve">
-    <value>Мову змінено, і тепер застосунок перезавантажиться, щоб застосувати нову мову, а зміни у відкритих проектах будуть скасовані.</value>
-  </data>
-  <data name="TextMilliseconds" xml:space="preserve">
-    <value> мС</value>
-  </data>
-  <data name="WholeNote" xml:space="preserve">
-    <value>Ціла</value>
-  </data>
-  <data name="HalfNote" xml:space="preserve">
-    <value>Половинна</value>
-  </data>
-  <data name="EighthNote" xml:space="preserve">
-    <value>Восьма</value>
-  </data>
-  <data name="QuarterNote" xml:space="preserve">
-    <value>Чвертна</value>
-  </data>
-  <data name="SixteenthNote" xml:space="preserve">
-    <value>Шістнадцята</value>
+  <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
+    <value>Синхронізована гра</value>
   </data>
   <data name="ThirtySecondNote" xml:space="preserve">
     <value>Тридцять друга</value>
   </data>
-  <data name="DottedModifier" xml:space="preserve">
-    <value>Пун</value>
+  <data name="MessageBeepCommandSavingError" xml:space="preserve">
+    <value>Помилка збереження команди Beep як скрипта оболонки: </value>
+  </data>
+  <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleExportGCodeFile" xml:space="preserve">
+    <value>Експорт файлу GCode</value>
+  </data>
+  <data name="TextMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-файл успішно завантажено.</value>
+  </data>
+  <data name="TextHide" xml:space="preserve">
+    <value>Приховати</value>
+  </data>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Bleeper Portamento</value>
+  </data>
+  <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
+    <value>Не вдається запустити пристрій введення MIDI:</value>
+  </data>
+  <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TripletModifier" xml:space="preserve">
     <value>Трі</value>
   </data>
-  <data name="StaccatoArticulation" xml:space="preserve">
-    <value>Ста</value>
+  <data name="ExamplePrompt1" xml:space="preserve">
+    <value>Створи класичний музичний твір у стилі Лисенка</value>
   </data>
-  <data name="SpiccatoArticulation" xml:space="preserve">
-    <value>Спі</value>
+  <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FermataArticulation" xml:space="preserve">
-    <value>Фер</value>
+  <data name="TextHoldedNotes" xml:space="preserve">
+    <value>Нотатки, які зараз зберігаються:</value>
   </data>
-  <data name="MoreText" xml:space="preserve">
-    <value>(Ще {number})</value>
+  <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
+    <value>Цей файл Bleeper Music Maker містить недійсні елементи, які не відповідають синтаксису формату файлу Bleeper Music Maker.
+
+Ви все одно хочете відкрити цей файл?</value>
   </data>
-  <data name="TextAIGeneratedMusic" xml:space="preserve">
-    <value>Музика, згенерована штучним інтелектом</value>
+  <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
+    <value>Спробуйте оновити список пристроїв.</value>
   </data>
-  <data name="MessageAnErrorOccurred" xml:space="preserve">
-    <value>Сталася помилка:</value>
+  <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
+    <value>Наразі не чекаю</value>
+  </data>
+  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>API Google Gemini™ недоступний у вашій країні. Будь ласка, перевірте список підтримуваних країн.</value>
+  </data>
+  <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SaveBeepCommandTitle" xml:space="preserve">
+    <value>Зберегти команду Beep як скрипт оболонки</value>
+  </data>
+  <data name="ExamplePrompt3" xml:space="preserve">
+    <value>Напиши джазову композицію зі свінговим ритмом</value>
+  </data>
+  <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
+    <value>NeoBleeper виявив, що ваш ключ API Google Gemini™ пошкоджено. Будь ласка, повторно введіть свій ключ API Google Gemini™ у вікні налаштувань.</value>
+  </data>
+  <data name="TextEventsAreBeingCollected" xml:space="preserve">
+    <value>Збираються події...</value>
+  </data>
+  <data name="SixteenthNote" xml:space="preserve">
+    <value>Шістнадцята</value>
+  </data>
+  <data name="TextStopWaiting" xml:space="preserve">
+    <value>Перестань чекати</value>
+  </data>
+  <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt9" xml:space="preserve">
+    <value>Напиши блюзову прогресію в мажорній тональності</value>
   </data>
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Під час запуску програми сталася помилка: </value>
   </data>
-  <data name="MessageFirmwareCopied" xml:space="preserve">
-    <value>Код прошивки скопійовано в буфер обміну</value>
+  <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MessageUnsavedChanges" xml:space="preserve">
-    <value>Є незбережені зміни. Зберегти їх перед виходом?</value>
+  <data name="icons8-4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleUnsavedChanges" xml:space="preserve">
-    <value>Незбережені зміни</value>
+  <data name="icons8-processor-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-processor-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextPercent" xml:space="preserve">
-    <value>{number}%</value>
+  <data name="HarmonyOS_Sans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageAIMusicCreationFailed" xml:space="preserve">
+    <value>Не вдалося створити музику за допомогою штучного інтелекту:</value>
+  </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageErrorRewinding" xml:space="preserve">
+    <value>Помилка перемотування до збереженої версії:</value>
+  </data>
+  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DottedModifier" xml:space="preserve">
+    <value>Пун</value>
+  </data>
+  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
+    <value>Файли мови розмітки проекту NeoBleeper|*.NBPML|Усі файли|*.*</value>
+  </data>
+  <data name="TextFramesAreBeingCreated" xml:space="preserve">
+    <value>Створюються кадри...</value>
+  </data>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>Немає збереженої версії для перемотування.</value>
+  </data>
+  <data name="TitleOpenMIDIFile" xml:space="preserve">
+    <value>Відкрити MIDI-файл</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>MIDI-файли|*.mid</value>
   </data>
 </root>

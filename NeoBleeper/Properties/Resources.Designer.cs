@@ -227,6 +227,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Shell Script (*.sh)|*.sh benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FilterBeepCommandFileFormats {
+            get {
+                return ResourceManager.GetString("FilterBeepCommandFileFormats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   GCode Files (*.gcode)|*.gcode benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FilterGCodeFile {
+            get {
+                return ResourceManager.GetString("FilterGCodeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MIDI Files|*.mid benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FilterMIDIFileFormat {
+            get {
+                return ResourceManager.GetString("FilterMIDIFileFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.* benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FilterProjectFileFormats {
+            get {
+                return ResourceManager.GetString("FilterProjectFileFormats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.* benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FilterProjectFileFormatsForSaving {
+            get {
+                return ResourceManager.GetString("FilterProjectFileFormatsForSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Google Gemini™ API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string GoogleGeminiAPIIsNotSupportedInYourCountry {
@@ -593,6 +638,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_linux_terminal_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-linux-terminal-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_mute_48__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-mute-48 (1)", resourceCulture);
@@ -845,6 +900,33 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The Beep command as shell script is saved successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageBeepCommandSaved {
+            get {
+                return ResourceManager.GetString("MessageBeepCommandSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error saving the Beep command as shell script:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageBeepCommandSavingError {
+            get {
+                return ResourceManager.GetString("MessageBeepCommandSavingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The converted Beep command is copied to clipboard benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageConvertedBeepCommandCopied {
+            get {
+                return ResourceManager.GetString("MessageConvertedBeepCommandCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error converting to GCode: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageConvertToGCodeError {
@@ -868,6 +950,15 @@ namespace NeoBleeper.Properties {
         public static string MessageCorruptedOrCurrentlyUsedOpenedFile {
             get {
                 return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedOpenedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Empty note list can&apos;t be converted to Beep command for Linux. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageEmptyNoteListCannotBeExportedAsLinuxBeep {
+            get {
+                return ResourceManager.GetString("MessageEmptyNoteListCannotBeExportedAsLinuxBeep", resourceCulture);
             }
         }
         
@@ -967,6 +1058,15 @@ namespace NeoBleeper.Properties {
         public static string MessageLanguageChanged {
             get {
                 return ResourceManager.GetString("MessageLanguageChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error converting to Beep command for Linux:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageLinuxBeepCommandConvertError {
+            get {
+                return ResourceManager.GetString("MessageLinuxBeepCommandConvertError", resourceCulture);
             }
         }
         
@@ -1210,6 +1310,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Save Beep Command as Shell Script benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SaveBeepCommandTitle {
+            get {
+                return ResourceManager.GetString("SaveBeepCommandTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show the API key in the API key field.
         ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -1404,7 +1513,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///    benzeri yerelleştirilmiş bir dize arar.
+        ///   {number]% benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextPercent {
             get {
@@ -1481,6 +1590,42 @@ namespace NeoBleeper.Properties {
         public static string ThirtySecondNote {
             get {
                 return ResourceManager.GetString("ThirtySecondNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export GCode File benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleExportGCodeFile {
+            get {
+                return ResourceManager.GetString("TitleExportGCodeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Open MIDI File benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleOpenMIDIFile {
+            get {
+                return ResourceManager.GetString("TitleOpenMIDIFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Open Project File benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleOpenProjectFile {
+            get {
+                return ResourceManager.GetString("TitleOpenProjectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Project File benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleSaveProjectFile {
+            get {
+                return ResourceManager.GetString("TitleSaveProjectFile", resourceCulture);
             }
         }
         

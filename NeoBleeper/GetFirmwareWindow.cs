@@ -78,7 +78,7 @@ namespace NeoBleeper
 
         private void comboBoxMicrocontroller_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(comboBoxMicrocontroller.SelectedIndex)
+            switch (comboBoxMicrocontroller.SelectedIndex)
             {
                 case 0: // Arduino
                     richTextBoxFirmware.Text = SerialPortHelper.ArduinoFirmwareCode;
@@ -90,6 +90,11 @@ namespace NeoBleeper
                     richTextBoxFirmware.Text = SerialPortHelper.ESP32FirmwareCode;
                     break;
             }
+        }
+
+        private void GetFirmwareWindow_SystemColorsChanged(object sender, EventArgs e)
+        {
+            set_theme(); // Apply the theme again in case of system theme changes
         }
     }
 }

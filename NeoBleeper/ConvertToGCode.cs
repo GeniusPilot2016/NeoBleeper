@@ -27,6 +27,7 @@ namespace NeoBleeper
         int alternate_length = 30;
         int bpm = 120; // Default BPM
         int note_silence_ratio = 50;
+        bool nonStopping = false;
         public ConvertToGCode(String musicFile)
         {
             InitializeComponent();
@@ -133,36 +134,27 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
             }
         }
-
         StringBuilder gcodeBuilder = new StringBuilder();
+        int elapsedLineTime = 0; // Equivalent of Stopwatch.ElapsedMilliseconds for text based timing
         private String ExtractNotes(string musicString)
         {
             List<NoteInfo> notes = new List<NoteInfo>();
             gcodeBuilder.Clear();
-            // Prepare the music string for parsing
             using (StringReader stringReader = new StringReader(musicString))
             {
-                NBPML_File.NeoBleeperProjectFile? projectFile = DeserializeXMLFromString(stringReader);
+                var projectFile = DeserializeXMLFromString(stringReader);
                 if (projectFile != null)
                 {
                     bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                     note_silence_ratio = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
                     alternate_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
-
-                    // Assign default values if settings are not found
+                    nonStopping = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio) == 100;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
-                    {
-                        note_silence_ratio = 50; // Default value
-                        Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
-                    }
+                        note_silence_ratio = 50;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
-                    {
-                        alternate_length = 30; // Default value
-                        Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
-                    }
+                        alternate_length = 30;
 
                     notes.Clear();
-
                     if (projectFile.LineList?.Lines != null)
                     {
                         foreach (var line in projectFile.LineList.Lines)
@@ -181,34 +173,41 @@ namespace NeoBleeper
             }
 
             if (notes.Count == 0)
-            {
-                return string.Empty; // Return empty string if no notes are found
-            }
-            double remainder = 0.0;
+                return string.Empty;
+
             foreach (var note in notes)
             {
-                double raw_note_length = CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0);
-                int note_length = (int)Math.Truncate(FixRoundingErrors(CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0)));
-                int silence = (int)Math.Truncate(FixRoundingErrors(CalculateLineLength(note.Length, note.Mod) - (CalculateNoteLength(note.Length, note.Mod, note.Art) * (note_silence_ratio / 100))));
-                double difference = RemoveWholeNumber(raw_note_length - (note_length + silence));
-                remainder += difference;
-                int roundedRemainder = (int)Math.Round(remainder, MidpointRounding.ToEven);
-                if (roundedRemainder >= 1.0 || roundedRemainder <= -1.0)
+                double noteDuration = NoteLengths.CalculateLineLength(bpm, note.Length, note.Mod, note.Art);
+                double rawNoteLength = NoteLengths.CalculateNoteLength(bpm, note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0);
+                int note_length = (int)Math.Truncate(rawNoteLength);
+                int silence = (int)Math.Truncate(noteDuration - rawNoteLength);
+                int drift = 0;
+                if(drift > 0)
                 {
-                    note_length -= roundedRemainder;
-                    remainder -= remainder;
+                    if(drift < note_length)
+                    {
+                        note_length -= drift; // Reduce note length by drift amount
+                    }
+                    else
+                    {
+                        drift -= note_length; // Skip note length if drift is larger
+                        continue;
+                    }
                 }
-                insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
-                    checkBox_play_note1.Checked, checkBox_play_note2.Checked,
-                    checkBox_play_note3.Checked, checkBox_play_note4.Checked,
-                    note_length);
+                // Add GCode line
+                elapsedLineTime = insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
+                    true, true, true, true, note_length);
+                if(drift < 0)
+                {
+                    silence -= drift; // Add drift to silence if drift is negative
+                }
                 if (silence > 0)
                 {
                     gcodeBuilder.AppendLine($"G4 P{silence}");
                 }
             }
-            string gcode = gcodeBuilder.ToString();
-            return gcode;
+
+            return gcodeBuilder.ToString();
         }
         private NBPML_File.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
@@ -281,6 +280,7 @@ namespace NeoBleeper
             if (!string.IsNullOrEmpty(notes))
             {
                 exportGCodeFile.Filter = "GCode Files (*.gcode)|*.gcode";
+                exportGCodeFile.Title = "Export GCode File";
                 DialogResult result = exportGCodeFile.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -315,21 +315,27 @@ namespace NeoBleeper
         {
             note4_component = comboBox_component_note4.SelectedIndex;
         }
-        private string GenerateGCodeForBuzzerNote(double frequency, int length)
+        private (string output, int length) GenerateGCodeForBuzzerNote(double frequency, int length, bool nonStopping = false)
         {
-            return $"G4 P5\nM300 S{frequency} P{length}";
+            string delay = nonStopping ? "G4 P5\n" : string.Empty;
+            return ($"G4 P5\nM300 S{frequency} P{length}", nonStopping ? length : length + 5);
         }
-        private string GenerateGCodeForMotorNote(int frequency, int length)
+        private (string output, int length) GenerateGCodeForMotorNote(int frequency, int length, bool nonStopping = false)
         {
-            return $"G4 P5\nM3 S{FrequencyToRPM(frequency)} P{length}"; // Sample GCode format
+            // Convert frequency to RPM
+            int rpm = FrequencyToRPM(frequency);
+            string delay = nonStopping ? "G4 P5\n" : string.Empty;
+            // Start the motor, then wait for the specified length, then stop the motor
+            return (delay + $"G4 P5\nM3 S{rpm}\nG4 P{length}\nM5", nonStopping? length : length + 5); 
         }
         private int FrequencyToRPM(double frequency)
         {
             return (int)(frequency * 60); // Convert frequency to RPM
         }
-        private void insert_note_to_gcode(String note1, String note2, String note3, String note4,
+        private int insert_note_to_gcode(String note1, String note2, String note3, String note4,
             bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
         {
+            int elapsedTime = 0;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
             String[] notes = new string[4];
             string Note1 = string.Empty, Note2 = string.Empty, Note3 = string.Empty, Note4 = string.Empty;
@@ -377,52 +383,68 @@ namespace NeoBleeper
                     switch (comboBox_component_note1.SelectedIndex)
                     {
                         case 0:
-                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note1_frequency, length));
+                            var motorNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(motorNote.output);
+                            elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note1_frequency, length));
+                           var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(buzzerNote.output);
+                            elapsedTime = buzzerNote.length;
                             break;
                     }
-                    return;
+                    return elapsedTime;
                 }
                 else if (notes[0] == note2)
                 {
-                    switch (comboBox_component_note1.SelectedIndex)
+                    switch (comboBox_component_note2.SelectedIndex)
                     {
                         case 0:
-                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note2_frequency, length));
+                            var motorNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(motorNote.output);
+                            elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note2_frequency, length));
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(buzzerNote.output);
+                            elapsedTime = buzzerNote.length;
                             break;
                     }
-                    return;
+                    return elapsedTime;
                 }
                 else if (notes[0] == note3)
                 {
-                    switch (comboBox_component_note1.SelectedIndex)
+                    switch (comboBox_component_note3.SelectedIndex)
                     {
                         case 0:
-                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note3_frequency, length));
+                            var motorNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(motorNote.output);
+                            elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note3_frequency, length));
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(buzzerNote.output);
+                            elapsedTime = buzzerNote.length;
                             break;
                     }
-                    return;
+                    return elapsedTime;
                 }
                 else if (notes[0] == note4)
                 {
-                    switch (comboBox_component_note1.SelectedIndex)
+                    switch (comboBox_component_note4.SelectedIndex)
                     {
                         case 0:
-                            gcodeBuilder.AppendLine(GenerateGCodeForMotorNote((int)note4_frequency, length));
+                            var motorNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(motorNote.output);
+                            elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            gcodeBuilder.AppendLine(GenerateGCodeForBuzzerNote((int)note4_frequency, length));
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                            gcodeBuilder.AppendLine(buzzerNote.output);
+                            elapsedTime = buzzerNote.length;
                             break;
                     }
-                    return;
+                    return elapsedTime;
                 }
             }
             else if(notes.Length > 1)
@@ -448,49 +470,69 @@ namespace NeoBleeper
                                 case 1: // Note 1
                                     switch (comboBox_component_note1.SelectedIndex)
                                     {
-                                        case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                        case 0:
+                                            var motorNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(motorNote.output);
+                                            elapsedTime += motorNote.length;
                                             break;
-                                        case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                        case 1:
+                                            var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(buzzerNote.output);
+                                            elapsedTime += buzzerNote.length;
                                             break;
                                     }
+                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
                                     break;
 
                                 case 2: // Note 2
                                     switch (comboBox_component_note2.SelectedIndex)
                                     {
-                                        case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                        case 0:
+                                            var motorNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(motorNote.output);
+                                            elapsedTime += motorNote.length;
                                             break;
-                                        case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                        case 1:
+                                            var buzzerNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(buzzerNote.output);
+                                            elapsedTime += buzzerNote.length;
                                             break;
                                     }
+                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
                                     break;
 
                                 case 3: // Note 3
                                     switch (comboBox_component_note3.SelectedIndex)
                                     {
-                                        case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                        case 0:
+                                            var motorNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(motorNote.output);
+                                            elapsedTime += motorNote.length;
                                             break;
-                                        case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                        case 1:
+                                            var buzzerNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(buzzerNote.output);
+                                            elapsedTime += buzzerNote.length;
                                             break;
                                     }
+                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
                                     break;
 
                                 case 4: // Note 4
                                     switch (comboBox_component_note4.SelectedIndex)
                                     {
-                                        case 0: // Motor
-                                            generatedGCode = GenerateGCodeForMotorNote((int)frequency, alternate_length_to_write);
+                                        case 0:
+                                            var motorNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(motorNote.output);
+                                            elapsedTime += motorNote.length;
                                             break;
-                                        case 1: // Buzzer
-                                            generatedGCode = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write);
+                                        case 1:
+                                            var buzzerNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                                            gcodeBuilder.AppendLine(buzzerNote.output);
+                                            elapsedTime += buzzerNote.length;
                                             break;
                                     }
+                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
                                     break;
                             }
                             note_order++;
@@ -503,88 +545,19 @@ namespace NeoBleeper
                             break;
                         }
                         gcodeBuilder.Append(generatedGCode + Environment.NewLine);
-                        remainingLength -= (alternate_length + 5); // Subtract the length of the note and the delay
+                        remainingLength -= elapsedTime; // Subtract the length of the note and the delay
                     }
                 }
                 while (remainingLength > 0);
-                return;
+                return elapsedTime;
             }
-            else
+            else // No notes to play
             {
                 gcodeBuilder.AppendLine($"G4 P{length}");
-                return;
+                return length;
             }
+            return elapsedTime;
         }
-
-        private double CalculateNoteLength(string noteType, string modifier = "", string articulation = "")
-        {
-            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
-            int baseLength = noteType switch
-            {
-                "Whole" => millisecondsPerBeat * 4,
-                "Half" => millisecondsPerBeat * 2,
-                "Quarter" => millisecondsPerBeat,
-                "1/8" => millisecondsPerBeat / 2,
-                "1/16" => millisecondsPerBeat / 4,
-                "1/32" => millisecondsPerBeat / 8,
-                _ => millisecondsPerBeat
-            };
-            switch (modifier)
-            {
-                case "Dot":
-                    baseLength = (int)(baseLength * 1.5);
-                    break;
-                case "Tri":
-                    baseLength /= 3;
-                    break;
-                default:
-                    break;
-            }
-            switch (articulation)
-            {
-                case "Sta":
-                    baseLength /= 2;
-                    break;
-                case "Spi":
-                    baseLength /= 4;
-                    break;
-                case "Fer":
-                    baseLength *= 2;
-                    break;
-                default:
-                    break;
-            }
-            return baseLength;
-        }
-        private double CalculateLineLength(string noteType, string modifier = "", string articulation = "")
-        {
-            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
-            int baseLength = noteType switch
-            {
-                "Whole" => millisecondsPerBeat * 4,
-                "Half" => millisecondsPerBeat * 2,
-                "Quarter" => millisecondsPerBeat,
-                "1/8" => millisecondsPerBeat / 2,
-                "1/16" => millisecondsPerBeat / 4,
-                "1/32" => millisecondsPerBeat / 8,
-                _ => millisecondsPerBeat
-            };
-            switch (modifier)
-            {
-                case "Dot":
-                    baseLength = (int)(baseLength * 1.5);
-                    break;
-                case "Tri":
-                    baseLength /= 3;
-                    break;
-            }
-            if (articulation == "Fer")
-            {
-                baseLength *= 2;
-            }
-            return baseLength;
-        }
-
         private void ConvertToGCode_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();

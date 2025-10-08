@@ -59,7 +59,9 @@
             playMIDIFileToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             createMusicWithAIToolStripMenuItem = new ToolStripMenuItem();
+            convertToToolStripMenuItem = new ToolStripMenuItem();
             convertToGCodeToolStripMenuItem = new ToolStripMenuItem();
+            convertToBeepCommandForLinuxToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             undoToolStripMenuItem = new ToolStripMenuItem();
             redoToolStripMenuItem = new ToolStripMenuItem();
@@ -469,7 +471,7 @@
             // fileToolStripMenuItem
             // 
             resources.ApplyResources(fileToolStripMenuItem, "fileToolStripMenuItem");
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, playMIDIFileToolStripMenuItem, toolStripSeparator2, createMusicWithAIToolStripMenuItem, convertToGCodeToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, playMIDIFileToolStripMenuItem, toolStripSeparator2, createMusicWithAIToolStripMenuItem, convertToToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
             // newToolStripMenuItem1
@@ -527,12 +529,25 @@
             createMusicWithAIToolStripMenuItem.Name = "createMusicWithAIToolStripMenuItem";
             createMusicWithAIToolStripMenuItem.Click += createMusicWithAIToolStripMenuItem_Click;
             // 
+            // convertToToolStripMenuItem
+            // 
+            resources.ApplyResources(convertToToolStripMenuItem, "convertToToolStripMenuItem");
+            convertToToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { convertToGCodeToolStripMenuItem, convertToBeepCommandForLinuxToolStripMenuItem });
+            convertToToolStripMenuItem.Name = "convertToToolStripMenuItem";
+            // 
             // convertToGCodeToolStripMenuItem
             // 
             resources.ApplyResources(convertToGCodeToolStripMenuItem, "convertToGCodeToolStripMenuItem");
             convertToGCodeToolStripMenuItem.Image = Properties.Resources.icons8_3d_printer_48;
             convertToGCodeToolStripMenuItem.Name = "convertToGCodeToolStripMenuItem";
             convertToGCodeToolStripMenuItem.Click += convertToGCodeToolStripMenuItem_Click;
+            // 
+            // convertToBeepCommandForLinuxToolStripMenuItem
+            // 
+            resources.ApplyResources(convertToBeepCommandForLinuxToolStripMenuItem, "convertToBeepCommandForLinuxToolStripMenuItem");
+            convertToBeepCommandForLinuxToolStripMenuItem.Image = Properties.Resources.icons8_linux_terminal_48;
+            convertToBeepCommandForLinuxToolStripMenuItem.Name = "convertToBeepCommandForLinuxToolStripMenuItem";
+            convertToBeepCommandForLinuxToolStripMenuItem.Click += convertToBeepCommandForLinuxToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
@@ -2261,7 +2276,6 @@
         private ColumnHeader note3;
         private ColumnHeader note4;
         private CheckBox checkBox_fermata;
-        private RadioButton radioButtonPlay_alternating_notes2;
         private CheckBox checkBox_do_not_update;
         private Label lbl_alternating_note_options;
         private Label lbl_c3;
@@ -2414,7 +2428,6 @@
         private ToolStripMenuItem cutToolStripMenuItem;
         private ToolStripMenuItem openRecentToolStripMenuItem;
         private ToolStripMenuItem createMusicWithAIToolStripMenuItem;
-        private ToolStripMenuItem convertToGCodeToolStripMenuItem;
         public ListView listViewNotes;
         public CheckBox checkBox_play_beat_sound;
         public CheckBox checkBox_synchronized_play;
@@ -2423,6 +2436,10 @@
         public CheckBox checkBox_use_voice_system;
         private ToolStripMenuItem checkAllNotesToolStripMenuItem;
         private ToolStripMenuItem uncheckAllNotesToolStripMenuItem;
-        private RadioButton radioButtonPlay_alternating_notes1;
+        private ToolStripMenuItem convertToToolStripMenuItem;
+        private ToolStripMenuItem convertToGCodeToolStripMenuItem;
+        private ToolStripMenuItem convertToBeepCommandForLinuxToolStripMenuItem;
+        public RadioButton radioButtonPlay_alternating_notes2;
+        public RadioButton radioButtonPlay_alternating_notes1;
     }
 }

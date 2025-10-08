@@ -103,7 +103,8 @@ namespace NeoBleeper
         private async void button4_Click(object sender, EventArgs e)
         {
             Stop();
-            openFileDialog.Filter = "MIDI Files|*.mid";
+            openFileDialog.Filter = Resources.FilterMIDIFileFormat;
+            openFileDialog.Title = Resources.TitleOpenMIDIFile;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
@@ -503,7 +504,7 @@ namespace NeoBleeper
             // Clamp the index to valid range
             _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
 
-            Logger.Log($"Position set to {positionPercent}% (frame {_currentFrameIndex} of {_frames.Count})", Logger.LogTypes.Info);
+            Logger.Log($"Position set to {positionPercent.ToString("0.00")}% (frame {_currentFrameIndex} of {_frames.Count})", Logger.LogTypes.Info);
 
             // Don't restart playback immediately if trackbar is being dragged
             // The timer in trackBar1_Scroll will handle restart after user stops dragging
@@ -929,7 +930,6 @@ namespace NeoBleeper
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            // It's not user scroll if updating by the program
             if (!_isUserScrolling)
             {
                 _isUserScrolling = true;
@@ -940,32 +940,50 @@ namespace NeoBleeper
             _lastTrackBarScrollTime = DateTime.Now;
             _isTrackBarBeingDragged = true;
 
-            // Save state in first scroll
             if (!_wasPlayingBeforeScroll && _isPlaying)
             {
                 _wasPlayingBeforeScroll = true;
             }
 
-            int positionPercent = trackBar1.Value / 10;
+            double positionPercent = (double)trackBar1.Value / trackBar1.Maximum * 100.0;
 
-            // Stop current restart timer
             _playbackRestartTimer?.Stop();
             _playbackRestartTimer?.Dispose();
 
-            // Set position, but don't restart
             _ = Task.Run(async () =>
             {
                 await SetPosition(positionPercent);
 
-                // Update the UI in main thread
                 this.BeginInvoke(new Action(() =>
                 {
-                    UpdateTimeAndPercentPosition(positionPercent);
+                    int frameIndex = (int)(positionPercent * _frames.Count / 100.0);
+                    frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
+                    if (_frames.Count == 0) return; // Prevent division by zero
+
+                    long frameTick = _frames[frameIndex].Time;
+                    double currentTimeMs = TicksToMilliseconds(frameTick);
+
+                    // Corrected total duration calculation
+                    long lastTick = _midiFile.Events
+                        .SelectMany(track => track.Select(e => e.AbsoluteTime))
+                        .Max();
+                    double totalDurationMs = TicksToMilliseconds(lastTick);
+
+                    // Ensure totalDurationMs is not zero
+                    if (totalDurationMs <= 0) totalDurationMs = 1; // Avoid division by zero
+
+                    // Use positionPercent directly for UI consistency.
+                    double percent = positionPercent;
+
+                    string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff");
+                    string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00"));
+
+                    label_percentage.Text = percentagestr;
+                    label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                 }));
             });
 
-            // Timer for restarting after scrolling by user
-            _playbackRestartTimer = new System.Timers.Timer(300); // 300ms latency
+            _playbackRestartTimer = new System.Timers.Timer(300);
             _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
             _playbackRestartTimer.AutoReset = false;
             _playbackRestartTimer.Start();
@@ -1072,14 +1090,14 @@ namespace NeoBleeper
 
         private double TicksToMilliseconds(long ticks)
         {
-            // Find the last tempo event that occurred before or at the given ticks
+            // Find tempo events in right order
             int index = _precomputedTempoTimes.BinarySearch((ticks, 0), Comparer<(long, double)>.Create((x, y) => x.Item1.CompareTo(y.Item1)));
             if (index < 0)
             {
                 index = ~index - 1;
             }
 
-            // Use the default tempo (120 BPM) if no tempo events are found
+            // Use default tempo (120 BPM)
             if (index < 0)
             {
                 return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
@@ -1090,6 +1108,7 @@ namespace NeoBleeper
             long lastTicks = lastTempoEvent.time;
             int lastTempo = _tempoEvents.FirstOrDefault(e => e.time == lastTicks).tempo;
 
+            // More precise calculation
             cumulativeMs += (double)(ticks - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
             return cumulativeMs;
         }

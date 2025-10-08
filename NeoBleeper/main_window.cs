@@ -692,37 +692,37 @@ namespace NeoBleeper
                 }
                 if (checkbox_play_note.Checked == true)
                 {
-                    int rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.C); // Default to C if no match
+                    int rawFrequency = (int)(NoteUtility.base_note_frequency_in_4th_octave.C); // Default to C if no match
                     switch (noteName)
                     {
                         case var n when n.StartsWith("C"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.CS) :
-                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.C);
+                            rawFrequency = n.Contains("#") ? (int)(NoteUtility.base_note_frequency_in_4th_octave.CS) :
+                                (int)(NoteUtility.base_note_frequency_in_4th_octave.C);
                             break;
                         case var n when n.StartsWith("D"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.DS) :
-                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.D);
+                            rawFrequency = n.Contains("#") ? (int)(NoteUtility.base_note_frequency_in_4th_octave.DS) :
+                                (int)(NoteUtility.base_note_frequency_in_4th_octave.D);
                             break;
                         case var n when n.StartsWith("E"):
-                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.E);
+                            rawFrequency = (int)(NoteUtility.base_note_frequency_in_4th_octave.E);
                             break;
                         case var n when n.StartsWith("F"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.FS) :
-                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.F);
+                            rawFrequency = n.Contains("#") ? (int)(NoteUtility.base_note_frequency_in_4th_octave.FS) :
+                                (int)(NoteUtility.base_note_frequency_in_4th_octave.F);
                             break;
                         case var n when n.StartsWith("G"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.GS) :
-                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.G);
+                            rawFrequency = n.Contains("#") ? (int)(NoteUtility.base_note_frequency_in_4th_octave.GS) :
+                                (int)(NoteUtility.base_note_frequency_in_4th_octave.G);
                             break;
                         case var n when n.StartsWith("A"):
-                            rawFrequency = n.Contains("#") ? (int)(base_note_frequency.base_note_frequency_in_4th_octave.AS) :
-                                (int)(base_note_frequency.base_note_frequency_in_4th_octave.A);
+                            rawFrequency = n.Contains("#") ? (int)(NoteUtility.base_note_frequency_in_4th_octave.AS) :
+                                (int)(NoteUtility.base_note_frequency_in_4th_octave.A);
                             break;
                         case var n when n.StartsWith("B"):
-                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.B);
+                            rawFrequency = (int)(NoteUtility.base_note_frequency_in_4th_octave.B);
                             break;
                         default:
-                            rawFrequency = (int)(base_note_frequency.base_note_frequency_in_4th_octave.C);
+                            rawFrequency = (int)(NoteUtility.base_note_frequency_in_4th_octave.C);
                             break;
                     }
                     note_frequency = Convert.ToInt16(rawFrequency * (Math.Pow(2, (currentOctave - 4))));
@@ -1535,7 +1535,8 @@ namespace NeoBleeper
         }
         private void openAFileFromDialog()
         {
-            openFileDialog.Filter = "NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*";
+            openFileDialog.Title = Resources.TitleOpenProjectFile;
+            openFileDialog.Filter = Resources.FilterProjectFileFormats;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
@@ -1588,7 +1589,8 @@ namespace NeoBleeper
             closeAllOpenWindows(); // Close all open windows before opening the Save As dialog
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Filter = "NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*"
+                Filter = Resources.FilterProjectFileFormatsForSaving,
+                Title = Resources.TitleSaveProjectFile
             };
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -2001,7 +2003,7 @@ namespace NeoBleeper
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           AskForSavingIfModified(new Action(() => createNewFile()));
+            AskForSavingIfModified(new Action(() => createNewFile()));
         }
         private async void stopPlayingAllSounds()
         {
@@ -3944,11 +3946,11 @@ namespace NeoBleeper
                 else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
                     first_line == "<NeoBleeperProjectFile>")
                 {
-                    switch(fileOpenMode)
+                    switch (fileOpenMode)
                     {
                         case FileOpenMode.DragAndDrop:
                             Logger.Log($"Opening the file you dragged: {fileName}", Logger.LogTypes.Info);
-                            AskForSavingIfModified(new Action(()=> FileParser(fileName)));
+                            AskForSavingIfModified(new Action(() => FileParser(fileName)));
                             break;
                         case FileOpenMode.OpenedAsArg:
                             Logger.Log($"Opening the file you opened: {fileName}", Logger.LogTypes.Info);
@@ -4035,7 +4037,8 @@ namespace NeoBleeper
             closeAllOpenWindows(); // Close all open windows before opening a new modal dialog
             if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput && !TemporarySettings.MicrocontrollerSettings.useMicrocontroller))
             {
-                openFileDialog.Filter = "MIDI Files|*.mid";
+                openFileDialog.Filter = Resources.FilterMIDIFileFormat;
+                openFileDialog.Title = Resources.TitleOpenMIDIFile;
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     openMIDIFilePlayer(openFileDialog.FileName);
@@ -4883,10 +4886,6 @@ namespace NeoBleeper
             {
                 stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 closeAllOpenWindows();
-                if (checkBox_synchronized_play.Checked == true)
-                {
-                    checkBox_synchronized_play.Checked = false;
-                }
                 ConvertToGCode convertToGCode = new ConvertToGCode(ConvertToNBPMLString());
                 convertToGCode.ShowDialog();
             }
@@ -5021,42 +5020,42 @@ namespace NeoBleeper
             // Key and octave offset mapping
             Dictionary<int, (double baseFreq, int octaveOffset)> keyValuePairs = new()
             {
-                { (int)Keys.Tab, (base_note_frequency.base_note_frequency_in_4th_octave.C, -1) }, // C3
-                { (int)Keys.Oemtilde, (base_note_frequency.base_note_frequency_in_4th_octave.CS, -1) }, // C#3
-                { (int)Keys.Q, (base_note_frequency.base_note_frequency_in_4th_octave.D, -1) }, // D3
-                { (int)Keys.D1, (base_note_frequency.base_note_frequency_in_4th_octave.DS, -1) }, // D#3
-                { (int)Keys.W, (base_note_frequency.base_note_frequency_in_4th_octave.E, -1) }, // E3
-                { (int)Keys.E, (base_note_frequency.base_note_frequency_in_4th_octave.F, -1) }, // F3
-                { (int)Keys.D3, (base_note_frequency.base_note_frequency_in_4th_octave.FS, -1) }, // F#3
-                { (int)Keys.R, (base_note_frequency.base_note_frequency_in_4th_octave.G, -1) }, // G3
-                { (int)Keys.D4, (base_note_frequency.base_note_frequency_in_4th_octave.GS, -1) }, // G#3
-                { (int)Keys.T, (base_note_frequency.base_note_frequency_in_4th_octave.A, -1) }, // A3
-                { (int)Keys.D5, (base_note_frequency.base_note_frequency_in_4th_octave.AS, -1) }, // A#3
-                { (int)Keys.Y, (base_note_frequency.base_note_frequency_in_4th_octave.B, -1) }, // B3
-                { (int)Keys.U, (base_note_frequency.base_note_frequency_in_4th_octave.C, 0) }, // C4
-                { (int)Keys.D6, (base_note_frequency.base_note_frequency_in_4th_octave.CS, 0) }, // C#4
-                { (int)Keys.I, (base_note_frequency.base_note_frequency_in_4th_octave.D, 0) }, // D4
-                { (int)Keys.D7, (base_note_frequency.base_note_frequency_in_4th_octave.DS, 0) }, // D#4
-                { (int)Keys.O, (base_note_frequency.base_note_frequency_in_4th_octave.E, 0) }, // E4
-                { (int)Keys.P, (base_note_frequency.base_note_frequency_in_4th_octave.F, 0) }, // F4
-                { (int)Keys.D8, (base_note_frequency.base_note_frequency_in_4th_octave.FS, 0) }, // F#4
-                { (int)Keys.OemOpenBrackets, (base_note_frequency.base_note_frequency_in_4th_octave.G, 0) }, // G4
-                { (int)Keys.OemMinus, (base_note_frequency.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
-                { (int)Keys.OemCloseBrackets, (base_note_frequency.base_note_frequency_in_4th_octave.A, 0) }, // A4
-                { (int)Keys.Oemplus, (base_note_frequency.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
-                { (int)Keys.OemPipe, (base_note_frequency.base_note_frequency_in_4th_octave.B, 0) }, // B4
-                { (int)Keys.ShiftKey, (base_note_frequency.base_note_frequency_in_4th_octave.C, 1) }, // C5
-                { (int)Keys.A, (base_note_frequency.base_note_frequency_in_4th_octave.CS, 1) }, // C#5
-                { (int)Keys.Z, (base_note_frequency.base_note_frequency_in_4th_octave.D, 1) }, // D5
-                { (int)Keys.S, (base_note_frequency.base_note_frequency_in_4th_octave.DS, 1) }, // D#5
-                { (int)Keys.X, (base_note_frequency.base_note_frequency_in_4th_octave.E, 1) }, // E5
-                { (int)Keys.C, (base_note_frequency.base_note_frequency_in_4th_octave.F, 1) }, // F5
-                { (int)Keys.F, (base_note_frequency.base_note_frequency_in_4th_octave.FS, 1) }, // F#5
-                { (int)Keys.V, (base_note_frequency.base_note_frequency_in_4th_octave.G, 1) }, // G5
-                { (int)Keys.G, (base_note_frequency.base_note_frequency_in_4th_octave.GS, 1) }, // G#5
-                { (int)Keys.B, (base_note_frequency.base_note_frequency_in_4th_octave.A, 1) }, // A5
-                { (int)Keys.H, (base_note_frequency.base_note_frequency_in_4th_octave.AS, 1) }, // A#5
-                { (int)Keys.N, (base_note_frequency.base_note_frequency_in_4th_octave.B, 1) }, // B5
+                { (int)Keys.Tab, (NoteUtility.base_note_frequency_in_4th_octave.C, -1) }, // C3
+                { (int)Keys.Oemtilde, (NoteUtility.base_note_frequency_in_4th_octave.CS, -1) }, // C#3
+                { (int)Keys.Q, (NoteUtility.base_note_frequency_in_4th_octave.D, -1) }, // D3
+                { (int)Keys.D1, (NoteUtility.base_note_frequency_in_4th_octave.DS, -1) }, // D#3
+                { (int)Keys.W, (NoteUtility.base_note_frequency_in_4th_octave.E, -1) }, // E3
+                { (int)Keys.E, (NoteUtility.base_note_frequency_in_4th_octave.F, -1) }, // F3
+                { (int)Keys.D3, (NoteUtility.base_note_frequency_in_4th_octave.FS, -1) }, // F#3
+                { (int)Keys.R, (NoteUtility.base_note_frequency_in_4th_octave.G, -1) }, // G3
+                { (int)Keys.D4, (NoteUtility.base_note_frequency_in_4th_octave.GS, -1) }, // G#3
+                { (int)Keys.T, (NoteUtility.base_note_frequency_in_4th_octave.A, -1) }, // A3
+                { (int)Keys.D5, (NoteUtility.base_note_frequency_in_4th_octave.AS, -1) }, // A#3
+                { (int)Keys.Y, (NoteUtility.base_note_frequency_in_4th_octave.B, -1) }, // B3
+                { (int)Keys.U, (NoteUtility.base_note_frequency_in_4th_octave.C, 0) }, // C4
+                { (int)Keys.D6, (NoteUtility.base_note_frequency_in_4th_octave.CS, 0) }, // C#4
+                { (int)Keys.I, (NoteUtility.base_note_frequency_in_4th_octave.D, 0) }, // D4
+                { (int)Keys.D7, (NoteUtility.base_note_frequency_in_4th_octave.DS, 0) }, // D#4
+                { (int)Keys.O, (NoteUtility.base_note_frequency_in_4th_octave.E, 0) }, // E4
+                { (int)Keys.P, (NoteUtility.base_note_frequency_in_4th_octave.F, 0) }, // F4
+                { (int)Keys.D8, (NoteUtility.base_note_frequency_in_4th_octave.FS, 0) }, // F#4
+                { (int)Keys.OemOpenBrackets, (NoteUtility.base_note_frequency_in_4th_octave.G, 0) }, // G4
+                { (int)Keys.OemMinus, (NoteUtility.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
+                { (int)Keys.OemCloseBrackets, (NoteUtility.base_note_frequency_in_4th_octave.A, 0) }, // A4
+                { (int)Keys.Oemplus, (NoteUtility.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
+                { (int)Keys.OemPipe, (NoteUtility.base_note_frequency_in_4th_octave.B, 0) }, // B4
+                { (int)Keys.ShiftKey, (NoteUtility.base_note_frequency_in_4th_octave.C, 1) }, // C5
+                { (int)Keys.A, (NoteUtility.base_note_frequency_in_4th_octave.CS, 1) }, // C#5
+                { (int)Keys.Z, (NoteUtility.base_note_frequency_in_4th_octave.D, 1) }, // D5
+                { (int)Keys.S, (NoteUtility.base_note_frequency_in_4th_octave.DS, 1) }, // D#5
+                { (int)Keys.X, (NoteUtility.base_note_frequency_in_4th_octave.E, 1) }, // E5
+                { (int)Keys.C, (NoteUtility.base_note_frequency_in_4th_octave.F, 1) }, // F5
+                { (int)Keys.F, (NoteUtility.base_note_frequency_in_4th_octave.FS, 1) }, // F#5
+                { (int)Keys.V, (NoteUtility.base_note_frequency_in_4th_octave.G, 1) }, // G5
+                { (int)Keys.G, (NoteUtility.base_note_frequency_in_4th_octave.GS, 1) }, // G#5
+                { (int)Keys.B, (NoteUtility.base_note_frequency_in_4th_octave.A, 1) }, // A5
+                { (int)Keys.H, (NoteUtility.base_note_frequency_in_4th_octave.AS, 1) }, // A#5
+                { (int)Keys.N, (NoteUtility.base_note_frequency_in_4th_octave.B, 1) }, // B5
             };
 
             if (keyValuePairs.TryGetValue(keyCode, out var noteInfo))
@@ -5820,6 +5819,27 @@ namespace NeoBleeper
             if (Program.filePath != null)
             {
                 openFiles(Program.filePath, FileOpenMode.OpenedAsArg);
+            }
+        }
+
+        private void convertToBeepCommandForLinuxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(listViewNotes.Items.Count == 0)
+            {
+                MessageBox.Show(Resources.MessageEmptyNoteListCannotBeExportedAsLinuxBeep, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+                closeAllOpenWindows();
+                ConvertToBeepCommandForLinux convertToBeepCommandForLinux = new ConvertToBeepCommandForLinux(ConvertToNBPMLString(), this);
+                convertToBeepCommandForLinux.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error converting to Beep command for Linux: " + ex.Message, Logger.LogTypes.Error);
+                MessageBox.Show(Resources.MessageLinuxBeepCommandConvertError + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

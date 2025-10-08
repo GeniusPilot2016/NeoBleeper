@@ -182,34 +182,34 @@
     <value>&amp;Файл</value>
   </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="newToolStripMenuItem1.Text" xml:space="preserve">
     <value>Новий</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Відкрити</value>
   </data>
   <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
     <value>Відкрити Нещодавні</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 6</value>
+    <value>437, 6</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Зберегти</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Зберегти як...</value>
@@ -228,25 +228,37 @@
 </value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Відтворити MIDI-файл</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 6</value>
+    <value>437, 6</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>440, 26</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
     <value>Створюйте музику за допомогою штучного інтелекту</value>
   </data>
+  <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>440, 26</value>
+  </data>
+  <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
+    <value>Конвертувати в...</value>
+  </data>
   <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 22</value>
+    <value>383, 26</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
     <value>Конвертувати в G-код</value>
+  </data>
+  <data name="convertToBeepCommandForLinuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>383, 26</value>
+  </data>
+  <data name="convertToBeepCommandForLinuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Перетворити на команду Beep для Linux</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 20</value>
@@ -295,7 +307,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFEASYBRAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAFUASYBVAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -1201,7 +1213,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        7AElAewBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        /AElAfwBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
