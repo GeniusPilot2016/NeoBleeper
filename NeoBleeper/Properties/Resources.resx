@@ -149,7 +149,7 @@
     <value>1/8</value>
   </data>
   <data name="TextPercent" xml:space="preserve">
-    <value>{number]%</value>
+    <value>{number}%</value>
   </data>
   <data name="MessageErrorSavingFile" xml:space="preserve">
     <value>Error saving NeoBleeper file:</value>

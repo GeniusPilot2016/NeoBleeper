@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Channels;
@@ -772,9 +773,9 @@ namespace NeoBleeper
             double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
             double percent = (currentTimeMs / totalDurationMs) * 100.0;
 
-            string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff");
+            string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
 
-            string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00"));
+            string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
             if (label_percentage.InvokeRequired)
             {
                 label_percentage.BeginInvoke(new Action(() =>
@@ -975,8 +976,8 @@ namespace NeoBleeper
                     // Use positionPercent directly for UI consistency.
                     double percent = positionPercent;
 
-                    string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff");
-                    string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00"));
+                    string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
+                    string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
 
                     label_percentage.Text = percentagestr;
                     label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
@@ -1544,7 +1545,7 @@ namespace NeoBleeper
             }
 
             // Update the percentage label
-            string percentagestr = Resources.TextPercent.Replace("{number}", ((double)frameIndex / _frames.Count * 100).ToString("0.00"));
+            string percentagestr = Resources.TextPercent.Replace("{number}", ((double)frameIndex / _frames.Count * 100).ToString("0.00", CultureInfo.CurrentCulture));
             label_percentage.Text = percentagestr;
 
             // Update the position label

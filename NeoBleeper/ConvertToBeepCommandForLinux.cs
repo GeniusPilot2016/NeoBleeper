@@ -158,15 +158,17 @@ namespace NeoBleeper
                 }
                 if (silence > 0)
                 {
-                    beepCommandBuilder.Append(createDelay(silence, false).duration);
+                    // Pass endOfLine so that last element doesn't get a trailing -n
+                    beepCommandBuilder.Append(createDelay(silence, endOfLine).duration);
                 }
 
             }
-
-            return beepCommandBuilder.ToString();
+            string rawOutput = beepCommandBuilder.ToString();
+            string trimmedOutput = rawOutput.TrimEnd();
+            return trimmedOutput;
         }
         private int insert_note_to_beep_command(String note1, String note2, String note3, String note4,
-    bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool endOfLine = false) // Play note in a line
+bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool endOfLine = false) // Play note in a line
         {
             int elapsedTime = 0;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
@@ -197,7 +199,7 @@ namespace NeoBleeper
                 notes = new string[] { Note1, Note3, Note2, Note4 };
             }
             notes = notes.Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToArray(); // Remove empty notes and duplicates
-            // Calculate frequencies from note names
+                                                                                          // Calculate frequencies from note names
             if (notes.Contains(note1) && !string.IsNullOrWhiteSpace(note1))
                 note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
@@ -248,55 +250,76 @@ namespace NeoBleeper
                 bool willAnyNoteBeWritten = false;
                 do
                 {
+                    note_order = 1; // Reset order at each alternation cycle
                     foreach (string note in notes)
                     {
                         if (remainingLength >= alternate_length)
                         {
                             willAnyNoteBeWritten = true;
                         }
-                        bool isLastAlternatingNoteOfLastLine = false;
                         if (remainingLength >= alternate_length || willAnyNoteBeWritten == false)
                         {
                             int alternate_length_to_write = willAnyNoteBeWritten ? alternate_length : remainingLength;
+                            // Determine if this alternating chunk will be the last chunk of the last line.
+                            bool isLastAlternatingNoteOfLastLine = endOfLine && (alternate_length_to_write == remainingLength);
                             double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
+
+                            int currentDuration = 0; // duration for this single chunk
                             switch (note_order)
                             {
                                 case 1: // Note 1
-                                    var(frequencyAndLength1, totalDuration1) = CreateFrequencyAndDurationDuo((int)note1_frequency, alternate_length_to_write, false, isLastAlternatingNoteOfLastLine);
-                                    generatedBeepCommand = frequencyAndLength1;
-                                    elapsedTime += totalDuration1;
-                                    break;
-
+                                    {
+                                        var (frequencyAndLength1, totalDuration1) = CreateFrequencyAndDurationDuo((int)frequency, alternate_length_to_write, isLastAlternatingNoteOfLastLine, nonStopping);
+                                        generatedBeepCommand = frequencyAndLength1;
+                                        currentDuration = totalDuration1;
+                                        break;
+                                    }
                                 case 2: // Note 2
-                                    var (frequencyAndLength2, totalDuration2) = CreateFrequencyAndDurationDuo((int)note2_frequency, alternate_length_to_write, false, isLastAlternatingNoteOfLastLine);
-                                    generatedBeepCommand = frequencyAndLength2;
-                                    elapsedTime += totalDuration2;
-                                    break;
-
+                                    {
+                                        var (frequencyAndLength2, totalDuration2) = CreateFrequencyAndDurationDuo((int)frequency, alternate_length_to_write, isLastAlternatingNoteOfLastLine, nonStopping);
+                                        generatedBeepCommand = frequencyAndLength2;
+                                        currentDuration = totalDuration2;
+                                        break;
+                                    }
                                 case 3: // Note 3
-                                    var (frequencyAndLength3, totalDuration3) = CreateFrequencyAndDurationDuo((int)note3_frequency, alternate_length_to_write, false, isLastAlternatingNoteOfLastLine);
-                                    generatedBeepCommand = frequencyAndLength3;
-                                    elapsedTime += totalDuration3;
-                                    break;
-
+                                    {
+                                        var (frequencyAndLength3, totalDuration3) = CreateFrequencyAndDurationDuo((int)frequency, alternate_length_to_write, isLastAlternatingNoteOfLastLine, nonStopping);
+                                        generatedBeepCommand = frequencyAndLength3;
+                                        currentDuration = totalDuration3;
+                                        break;
+                                    }
                                 case 4: // Note 4
-                                    var (frequencyAndLength4, totalDuration4) = CreateFrequencyAndDurationDuo((int)note4_frequency, alternate_length_to_write, false, isLastAlternatingNoteOfLastLine);
-                                    generatedBeepCommand = frequencyAndLength4;
-                                    elapsedTime += totalDuration4;
-                                    break;
+                                    {
+                                        var (frequencyAndLength4, totalDuration4) = CreateFrequencyAndDurationDuo((int)frequency, alternate_length_to_write, isLastAlternatingNoteOfLastLine, nonStopping);
+                                        generatedBeepCommand = frequencyAndLength4;
+                                        currentDuration = totalDuration4;
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        // Safety: if note_order goes out of expected range, treat as a simple chunk
+                                        var (frequencyAndLengthX, totalDurationX) = CreateFrequencyAndDurationDuo((int)frequency, alternate_length_to_write, isLastAlternatingNoteOfLastLine, nonStopping);
+                                        generatedBeepCommand = frequencyAndLengthX;
+                                        currentDuration = totalDurationX;
+                                        break;
+                                    }
                             }
-                            isLastAlternatingNoteOfLastLine = endOfLine && (remainingLength <= alternate_length);
+
+                            elapsedTime += currentDuration;
                             note_order++;
+                            beepCommandBuilder.Append(generatedBeepCommand);
+                            remainingLength -= currentDuration; // Subtract only this chunk's duration
                         }
                         else
                         {
                             generatedBeepCommand = createDelay(remainingLength, endOfLine).duration;
                             beepCommandBuilder.Append(generatedBeepCommand + Environment.NewLine);
-                            remainingLength -= remainingLength;
+                            remainingLength = 0;
                             break;
                         }
-                        beepCommandBuilder.Append(generatedBeepCommand);
-                        remainingLength -= elapsedTime; // Subtract the length of the note and the delay
+
+                        if (remainingLength <= 0)
+                            break;
                     }
                 }
                 while (remainingLength > 0);
@@ -314,7 +337,7 @@ namespace NeoBleeper
             string result = string.Empty;
             if (!nonStopping)
             {
-                result += " -d 5 -n"; // Add a small delay before the beep to ensure it plays correctly
+                result += " -f 0 -l 5 -n"; // Add a small delay before the beep to ensure it plays correctly
             }
             result += $" -f {frequency} -l {duration}"; // Add frequency and duration
             if (!endOfLine)
@@ -325,7 +348,7 @@ namespace NeoBleeper
         }
         private (string duration, int totalDuration) createDelay(int duration, bool endOfLine)
         {
-            string result = $" -d {duration}"; // Add delay
+            string result = $" -f 0 -l {duration}"; // Add delay
             if (!endOfLine)
             {
                 result += " -n"; // Add -n to start new beep if not end of line

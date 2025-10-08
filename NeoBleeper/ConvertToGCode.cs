@@ -333,25 +333,25 @@ namespace NeoBleeper
             return (int)(frequency * 60); // Convert frequency to RPM
         }
         private int insert_note_to_gcode(String note1, String note2, String note3, String note4,
-            bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
+    bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
         {
             int elapsedTime = 0;
             double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
             String[] notes = new string[4];
             string Note1 = string.Empty, Note2 = string.Empty, Note3 = string.Empty, Note4 = string.Empty;
-            if(play_note1)
+            if (play_note1)
             {
                 Note1 = note1;
             }
-            if(play_note2)
+            if (play_note2)
             {
                 Note2 = note2;
             }
-            if(play_note3)
+            if (play_note3)
             {
                 Note3 = note3;
             }
-            if(play_note4)
+            if (play_note4)
             {
                 Note4 = note4;
             }
@@ -388,7 +388,7 @@ namespace NeoBleeper
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                           var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -447,105 +447,117 @@ namespace NeoBleeper
                     return elapsedTime;
                 }
             }
-            else if(notes.Length > 1)
+            else if (notes.Length > 1)
             {
-                string generatedGCode = string.Empty;
                 int note_order = 1;
                 int remainingLength = length;
                 bool willAnyNoteBeWritten = false;
                 do
                 {
+                    note_order = 1; // Reset order at each alternation cycle
                     foreach (string note in notes)
                     {
+                        if (remainingLength <= 0)
+                            break;
+
                         if (remainingLength >= alternate_length)
                         {
                             willAnyNoteBeWritten = true;
                         }
+
                         if (remainingLength >= alternate_length || willAnyNoteBeWritten == false)
                         {
                             int alternate_length_to_write = willAnyNoteBeWritten ? alternate_length : remainingLength;
                             double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
+
+                            int currentDuration = 0;
+                            string generatedGCode = string.Empty;
+
                             switch (note_order)
                             {
                                 case 1: // Note 1
-                                    switch (comboBox_component_note1.SelectedIndex)
+                                    if (comboBox_component_note1.SelectedIndex == 0)
                                     {
-                                        case 0:
-                                            var motorNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(motorNote.output);
-                                            elapsedTime += motorNote.length;
-                                            break;
-                                        case 1:
-                                            var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(buzzerNote.output);
-                                            elapsedTime += buzzerNote.length;
-                                            break;
+                                        var motor = GenerateGCodeForMotorNote((int)note1_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = motor.output;
+                                        currentDuration = motor.length;
                                     }
-                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
+                                    else
+                                    {
+                                        var buz = GenerateGCodeForBuzzerNote((int)note1_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = buz.output;
+                                        currentDuration = buz.length;
+                                    }
                                     break;
 
                                 case 2: // Note 2
-                                    switch (comboBox_component_note2.SelectedIndex)
+                                    if (comboBox_component_note2.SelectedIndex == 0)
                                     {
-                                        case 0:
-                                            var motorNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(motorNote.output);
-                                            elapsedTime += motorNote.length;
-                                            break;
-                                        case 1:
-                                            var buzzerNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(buzzerNote.output);
-                                            elapsedTime += buzzerNote.length;
-                                            break;
+                                        var motor = GenerateGCodeForMotorNote((int)note2_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = motor.output;
+                                        currentDuration = motor.length;
                                     }
-                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
+                                    else
+                                    {
+                                        var buz = GenerateGCodeForBuzzerNote((int)note2_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = buz.output;
+                                        currentDuration = buz.length;
+                                    }
                                     break;
 
                                 case 3: // Note 3
-                                    switch (comboBox_component_note3.SelectedIndex)
+                                    if (comboBox_component_note3.SelectedIndex == 0)
                                     {
-                                        case 0:
-                                            var motorNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(motorNote.output);
-                                            elapsedTime += motorNote.length;
-                                            break;
-                                        case 1:
-                                            var buzzerNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(buzzerNote.output);
-                                            elapsedTime += buzzerNote.length;
-                                            break;
+                                        var motor = GenerateGCodeForMotorNote((int)note3_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = motor.output;
+                                        currentDuration = motor.length;
                                     }
-                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
+                                    else
+                                    {
+                                        var buz = GenerateGCodeForBuzzerNote((int)note3_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = buz.output;
+                                        currentDuration = buz.length;
+                                    }
                                     break;
 
                                 case 4: // Note 4
-                                    switch (comboBox_component_note4.SelectedIndex)
+                                    if (comboBox_component_note4.SelectedIndex == 0)
                                     {
-                                        case 0:
-                                            var motorNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(motorNote.output);
-                                            elapsedTime += motorNote.length;
-                                            break;
-                                        case 1:
-                                            var buzzerNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
-                                            gcodeBuilder.AppendLine(buzzerNote.output);
-                                            elapsedTime += buzzerNote.length;
-                                            break;
+                                        var motor = GenerateGCodeForMotorNote((int)note4_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = motor.output;
+                                        currentDuration = motor.length;
                                     }
-                                    remainingLength -= (elapsedTime); // Subtract the length of the note and the delay
+                                    else
+                                    {
+                                        var buz = GenerateGCodeForBuzzerNote((int)note4_frequency, alternate_length_to_write, nonStopping);
+                                        generatedGCode = buz.output;
+                                        currentDuration = buz.length;
+                                    }
+                                    break;
+
+                                default:
+                                    // Safety fallback
+                                    var fallback = GenerateGCodeForBuzzerNote((int)frequency, alternate_length_to_write, nonStopping);
+                                    generatedGCode = fallback.output;
+                                    currentDuration = fallback.length;
                                     break;
                             }
+
+                            // Append and account only for this chunk's duration
+                            if (!string.IsNullOrEmpty(generatedGCode))
+                                gcodeBuilder.AppendLine(generatedGCode);
+
+                            elapsedTime += currentDuration;
+                            remainingLength -= currentDuration;
                             note_order++;
                         }
                         else
                         {
-                            generatedGCode = $"G4 P{remainingLength}";
-                            gcodeBuilder.Append(generatedGCode + Environment.NewLine);
-                            remainingLength -= remainingLength;
+                            // Remaining less than alternate chunk => insert delay and finish
+                            gcodeBuilder.AppendLine($"G4 P{remainingLength}");
+                            remainingLength = 0;
                             break;
                         }
-                        gcodeBuilder.Append(generatedGCode + Environment.NewLine);
-                        remainingLength -= elapsedTime; // Subtract the length of the note and the delay
                     }
                 }
                 while (remainingLength > 0);

@@ -1513,7 +1513,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   {number]% benzeri yerelleştirilmiş bir dize arar.
+        ///   {number}% benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextPercent {
             get {

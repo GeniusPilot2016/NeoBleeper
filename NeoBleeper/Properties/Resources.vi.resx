@@ -434,7 +434,7 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
     <value>Lỗi khi đặt lại khóa API:</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
-    <value>Chức vụ:</value>
+    <value>Vị trí:</value>
   </data>
   <data name="SpiccatoArticulation" xml:space="preserve">
     <value>Spi</value>
