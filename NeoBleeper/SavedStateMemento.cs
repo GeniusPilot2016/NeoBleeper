@@ -5,12 +5,17 @@ public class SavedStateMemento : Memento
 {
     public int BpmValue { get; }
     public int AlternatingNoteLength { get; }
+    public double NoteSilenceRatio { get; }
+    public int TimeSignature { get; }
 
-    public SavedStateMemento(List<ListViewItem> items, int bpmValue, int alternatingNoteLength)
+    public SavedStateMemento(List<ListViewItem> items, int bpmValue, int alternatingNoteLength,
+        double noteSilenceRatio, int timeSignature)
         : base(items)
     {
         BpmValue = bpmValue;
         AlternatingNoteLength = alternatingNoteLength;
+        NoteSilenceRatio = noteSilenceRatio;
+        TimeSignature = timeSignature;
     }
 }
 
@@ -48,7 +53,8 @@ public class RewindCommand : ICommand
             // Reload the BPM and alternating note length values
             if (savedState is SavedStateMemento state && mainWindow != null)
             {
-                mainWindow.RestoreVariableValues(state.BpmValue, state.AlternatingNoteLength);
+                mainWindow.RestoreVariableValues(state.BpmValue, state.AlternatingNoteLength, 
+                    state.TimeSignature, state.NoteSilenceRatio);
             }
         }
         catch (Exception ex)

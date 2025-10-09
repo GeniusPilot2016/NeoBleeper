@@ -118,70 +118,58 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="instructionLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="warningLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 80</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="warningLabel.Text" xml:space="preserve">
+    <value>Внимание: NeoBleeper Остановка бипера следует использовать только в тех случаях, когда звуковой сигнал не прекращается из-за потери системой управления системным динамиком, например, при сбое программы или принудительном выходе из неё.</value>
+  </data>
+  <data name="instructionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 120</value>
+  </data>
+  <data name="instructionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>507, 40</value>
   </data>
   <data name="instructionLabel.Text" xml:space="preserve">
-    <value>Press "Stop Beep" button to stop beep from system speaker.</value>
+    <value>Нажмите кнопку «Остановить звуковой сигнал», чтобы остановить звуковой сигнал системного динамика.</value>
   </data>
-  <data name="&gt;&gt;warningLabel.Name" xml:space="preserve">
-    <value>warningLabel</value>
+  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAZAQAAAJNU0Z0AUkBTAMBAQAB
+        eAEAAXgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
+        AANcAcMUAAMCAQMBMAEgAeUB/9wAAysBQQGeAZcBjwH/DAACWgFXAcICYQFdAc8BMAEgAeUB/wMDAQTY
+        AAMPARQBhgF9AXIB/wGfAZgBkAH/CAACWgFXAcIB0wF3AQMB/wEwASAB5QH/AykBPdgABAEBhgF9AXIB
+        /wGGAX0BcgH/AaEBmgGSAf8EAANRAZ4B4AGZARwB/wEwASAB5QH/AdIBdgEEAf8B1AF4AQAB/9AAAWUC
+        YAHjAWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BowGcAZMB/wJaAVcBwgHvAb8BNwH/ATAB
+        IAHlAf8B3wGZAR0B/wNaAb8B1AF4AQAB/wMJAQzMAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0B
+        cgH/AYYBfQFyAf8BpQGdAZUB/wH9AeMBUgH/ATABIAHlAf8B7gG+ATgB/wHiAZsBGQH/AeIBmwEZAf8B
+        1AF4AQAB/wJXAVUBscwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wGmAZ0B
+        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZ0BeAEyAfjM
+        AAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wH8AeIBUwH/AfEB
+        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFiAV8BWwHYzAABaQFjAVwB/wFpAWMB
+        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWIBYQFbAdgB
+        4gGbARkB/wFlAWMBXQHfAdQBeAEAAf8CMQEwAUzUAANMAY4BMAEgAeUB/wGFAXsBdAH/AawBpAGbAf8E
+        AAHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AdQBeAEAAf/UAAMCAQMBMAEgAeUB/wNeAc0B
+        hgF9AXIB/wGuAaYBnQH/CAAB4gGbARkB/wJcAVoBxAHUAXgBAAH/AmEBXAHW0AADAgEDATABIAHlAf8D
+        AwEEBAABbQJrAfIBsAGnAZ4B/wwAAdQBeAEAAf8B1AF4AQAB/9AAAwIBAwEwASAB5QH/AwMBBAwAAbIB
+        qQGgAf/kAAMCAQMDAgED/wD1AAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAC
+        /wYAAf4B+QYAAfwB4QYAAfgBwwYAAfABgwYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAfAB
+        gwYAAeABwwYAAcQB5wYAAY4B/wYAAZ8B/wYAAv8GAAs=
+</value>
   </data>
-  <data name="instructionLabel.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>512, 0</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>669, 211</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>AutoSize</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="instructionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="warningLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>503, 60</value>
-  </data>
-  <data name="&gt;&gt;warningLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="warningLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="warningLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;stopBeepButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;instructionLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="stopBeepButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>200, 173</value>
   </data>
   <data name="stopBeepButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 46</value>
+    <value>273, 46</value>
   </data>
-  <data name="stopBeepButton.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="stopBeepButton.Text" xml:space="preserve">
+    <value>Остановить звуковой сигнал</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>669, 231</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -484,141 +472,7 @@
         whnBpUeWNF0AAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="&gt;&gt;instructionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="instructionLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt, style=Bold</value>
-  </data>
-  <data name="instructionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 20</value>
-  </data>
-  <data name="warningLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;icons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="stopBeepButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="stopBeepButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="stopBeepButton.Text" xml:space="preserve">
-    <value>Stop Beep</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="warningLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="instructionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;instructionLabel.Name" xml:space="preserve">
-    <value>instructionLabel</value>
-  </data>
-  <data name="warningLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 29</value>
-  </data>
-  <data name="&gt;&gt;stopBeepButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="instructionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 48</value>
-  </data>
-  <data name="stopBeepButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="warningLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;stopBeepButton.Name" xml:space="preserve">
-    <value>stopBeepButton</value>
-  </data>
-  <data name="&gt;&gt;warningLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;warningLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>NeoBleeper Beep Stopper</value>
+    <value>NeoBleeper Остановка бипера</value>
   </data>
-  <data name="stopBeepButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="stopBeepButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAZgQAAAJNU0Z0AUkBTAMBAQAB
-        WAEAAYQBAAEQAQABEAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
-        AANcAcMUAAMCAQMBMAEgAeUB/9wAAysBQQGeAZcBjwH/DAACWgFXAcICYQFdAc8BMAEgAeUB/wMDAQTY
-        AAMPARQBhgF9AXIB/wGfAZgBkAH/CAACWgFXAcIB0wF3AQMB/wEwASAB5QH/AykBPdgABAEBhgF9AXIB
-        /wGGAX0BcgH/AaEBmgGSAf8EAANRAZ4B4AGZARwB/wEwASAB5QH/AdIBdgEEAf8B1AF4AQAB/9AAAWUC
-        YAHjAWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BowGcAZMB/wJaAVcBwgHvAb8BNwH/ATAB
-        IAHlAf8B3wGZAR0B/wNaAb8B1AF4AQAB/wMJAQzMAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0B
-        cgH/AYYBfQFyAf8BpQGdAZUB/wH9AeMBUgH/ATABIAHlAf8B7gG+ATgB/wHiAZsBGQH/AeIBmwEZAf8B
-        1AF4AQAB/wJXAVUBscwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wGmAZ0B
-        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZ8BeAEuAfjM
-        AAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wH8AeIBUwH/AfEB
-        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFjAV8BWwHYzAABaQFjAVwB/wFpAWMB
-        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWMBYgFbAdgB
-        4gGbARkB/wFnAWMBXAHfAdQBeAEAAf8CMQEwAUzUAANMAY4BMAEgAeUB/wGFAXsBdAH/AawBpAGbAf8E
-        AAHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AdQBeAEAAf/UAAMCAQMBMAEgAeUB/wNeAc0B
-        hgF9AXIB/wGuAaYBnQH/CAAB4gGbARkB/wJcAVoBxAHUAXgBAAH/AWMBYQFcAdbQAAMCAQMBMAEgAeUB
-        /wMDAQQEAAFvAmsB8gGwAacBngH/DAAB1AF4AQAB/wHUAXgBAAH/0AADAgEDATABIAHlAf8DAwEEDAAB
-        sgGpAaAB/+QAAwIBAwMCAQP/APUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8B
-        AAL/BgAB/gH5BgAB/AHhBgAB+AHDBgAB8AGDBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgAB
-        8AGDBgAB4AHDBgABxAHnBgABjgH/BgABnwH/BgAC/xwACw==
-</value>
-  </data>
-  <data name="&gt;&gt;icons.Name" xml:space="preserve">
-    <value>icons</value>
-  </data>
-  <data name="instructionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 114</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 29</value>
-  </data>
-  <data name="&gt;&gt;stopBeepButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>main_window</value>
-  </data>
-  <data name="warningLabel.Text" xml:space="preserve">
-    <value>Warning: NeoBleeper Beep Stopper should only be used in cases where the beep does not stop due to the system losing control of the system speaker, such as when the program crashes or is force-quitted.</value>
-  </data>
-  <data name="&gt;&gt;instructionLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="warningLabel.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>512, 0</value>
-  </data>
-  <data name="stopBeepButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 153</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

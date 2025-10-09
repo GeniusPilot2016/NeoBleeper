@@ -64,6 +64,7 @@ namespace NeoBleeper
             public static int bpm;
             public static int alternating_note_length;
             public static double note_silence_ratio;
+            public static int time_signature;
         }
         private bool isClosing = false;
         string currentFilePath;
@@ -91,7 +92,9 @@ namespace NeoBleeper
             Variables.bpm = 140;
             Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
-            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
+            Variables.time_signature = 4;
+            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
+                Variables.note_silence_ratio, Variables.time_signature);
             TemporarySettings.MIDIDevices.MidiStatusChanged += MidiDevices_StatusChanged;
 
             // Initialize MIDI input if it's enabled
@@ -835,6 +838,7 @@ namespace NeoBleeper
                     }
                     Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                     numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
+                    Variables.time_signature = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
                     trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
                     lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
                     Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
@@ -868,6 +872,7 @@ namespace NeoBleeper
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
                     {
                         trackBar_time_signature.Value = 4; // Default value
+                        Variables.time_signature = 4;
                         lbl_time_signature.Text = "4";
                         Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                     }
@@ -1077,6 +1082,7 @@ namespace NeoBleeper
                                             break;
                                         case "TimeSig":
                                             trackBar_time_signature.Value = Convert.ToInt32(parts[1]);
+                                            Variables.time_signature = Convert.ToInt32(parts[1]);
                                             lbl_time_signature.Text = parts[1].ToString();
                                             break;
                                         case "NoteSilenceRatio":
@@ -1141,6 +1147,7 @@ namespace NeoBleeper
                             if (!lines.Any(line => line.StartsWith("TimeSig")))
                             {
                                 trackBar_time_signature.Value = 4; // Default value
+                                Variables.time_signature = 4;
                                 lbl_time_signature.Text = "4";
                                 Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                             }
@@ -1317,6 +1324,7 @@ namespace NeoBleeper
                                 }
                                 Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                                 numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
+                                Variables.time_signature = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
                                 trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
                                 lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
                                 Variables.note_silence_ratio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
@@ -1350,6 +1358,7 @@ namespace NeoBleeper
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
                                 {
                                     trackBar_time_signature.Value = 4; // Default value
+                                    Variables.time_signature = 4;
                                     lbl_time_signature.Text = "4";
                                     Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                                 }
@@ -1495,14 +1504,14 @@ namespace NeoBleeper
                         break;
                     }
             }
-            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length); // Save the initial state
+            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
+    Variables.note_silence_ratio, Variables.time_signature); // Save the initial state
             commandManager.ClearHistory(); // Reset the history
                                            // Add the file to the recent files list
             if (is_file_valid == true)
             {
-                initialMemento = originator.CreateSavedStateMemento(
-                        Variables.bpm,
-                        Variables.alternating_note_length);
+                initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
+    Variables.note_silence_ratio, Variables.time_signature);
                 isModified = false;
                 UpdateFormTitle();
                 if (Settings1.Default.RecentFiles == null)
@@ -1567,7 +1576,9 @@ namespace NeoBleeper
                     initialMemento = new SavedStateMemento(
                         items,
                         Convert.ToInt32(numericUpDown_bpm.Value),
-                        Convert.ToInt32(numericUpDown_alternating_notes.Value));
+                        Convert.ToInt32(numericUpDown_alternating_notes.Value),
+                        Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100,
+                        Convert.ToInt32(trackBar_time_signature.Value));
                     isModified = false;
                     UpdateFormTitle();
                     isSaved = true;
@@ -1602,7 +1613,8 @@ namespace NeoBleeper
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
                     isModified = false;
                     UpdateFormTitle();
-                    initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length);
+                    initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
+    Variables.note_silence_ratio, Variables.time_signature);
                 }
                 catch
                 {
@@ -1682,16 +1694,54 @@ namespace NeoBleeper
 
         private void trackBar_note_silence_ratio_Scroll(object sender, EventArgs e)
         {
+            double oldValue = Variables.note_silence_ratio;
             Variables.note_silence_ratio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
             string percentText = Resources.TextPercent;
             percentText = percentText.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
             lbl_note_silence_ratio.Text = percentText;
+            if (!variableIsChanging)
+            {
+                double newValue = Variables.note_silence_ratio;
+                if (newValue != oldValue)
+                {
+                    var command = new ValueChangeCommand(
+                            "note_silence_ratio",
+                            oldValue,
+                            newValue,
+                            trackBar_note_silence_ratio,
+                            true,
+                            lbl_note_silence_ratio);
+
+                    commandManager.ExecuteCommand(command);
+                    isModified = true;
+                    UpdateFormTitle();
+                }
+            }
             Logger.Log($"Note silence ratio is set to {trackBar_note_silence_ratio.Value}%", Logger.LogTypes.Info);
         }
 
         private void trackBar_time_signature_Scroll(object sender, EventArgs e)
         {
+            int oldValue = Variables.time_signature;
+            Variables.time_signature = trackBar_time_signature.Value;
             lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
+            if (!variableIsChanging)
+            {
+                int newValue = Variables.time_signature;
+                if (newValue != oldValue)
+                {
+                    var command = new ValueChangeCommand(
+                            "time_signature",
+                            oldValue,
+                            newValue,
+                            trackBar_time_signature,
+                            lbl_time_signature);
+
+                    commandManager.ExecuteCommand(command);
+                    isModified = true;
+                    UpdateFormTitle();
+                }
+            }
             Logger.Log($"Time signature is set to {trackBar_time_signature.Value}", Logger.LogTypes.Info);
         }
 
@@ -2037,6 +2087,7 @@ namespace NeoBleeper
             Variables.bpm = 140;
             Variables.alternating_note_length = 30;
             Variables.note_silence_ratio = 0.5;
+            Variables.time_signature = 4;
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -2653,19 +2704,8 @@ namespace NeoBleeper
                 // Then update the UI (which is less time-critical)
                 ShowMetronomeBeatLabel();
 
-                // Get time signature value safely from UI thread
-                int timeSignatureValue;
-                if (trackBar_time_signature.InvokeRequired)
-                {
-                    timeSignatureValue = (int)trackBar_time_signature.Invoke(
-                        new Func<int>(() => trackBar_time_signature.Value));
-                }
-                else
-                {
-                    timeSignatureValue = trackBar_time_signature.Value;
-                }
                 // Update beat counter
-                beatCount = (beatCount + 1) % timeSignatureValue;
+                beatCount = (beatCount + 1) % Variables.time_signature;
 
                 // Schedule the next beat
                 metronomeTimer.Start();
@@ -3412,7 +3452,7 @@ namespace NeoBleeper
                     for (int i = 1; i <= Line; i++)
                     {
                         beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
-                        if (beat >= trackBar_time_signature.Value)
+                        if (beat >= Variables.time_signature)
                         {
                             measure++;
                             beat = 0;
@@ -4472,9 +4512,8 @@ namespace NeoBleeper
             FileParser(filePath);
 
             // Create initialMemento with current values after file is opened.
-            initialMemento = originator.CreateSavedStateMemento(
-                Variables.bpm,
-                Variables.alternating_note_length);
+            initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
+    Variables.note_silence_ratio, Variables.time_signature);
 
             commandManager.ClearHistory(); // Reset the history
         }
@@ -4670,13 +4709,16 @@ namespace NeoBleeper
 
             this.Text = title;
         }
-        public void RestoreVariableValues(int bpmValue, int alternatingNoteLength)
+        public void RestoreVariableValues(int bpmValue, int alternatingNoteLength,
+            int timeSignature, double noteSilenceRatio)
         {
             try
             {
                 // Prevent triggering ValueChanged event by setting tag
                 numericUpDown_bpm.Tag = "SkipValueChanged";
                 numericUpDown_alternating_notes.Tag = "SkipValueChanged";
+                trackBar_note_silence_ratio.Tag = "SkipValueChanged";
+                trackBar_time_signature.Tag = "SkipValueChanged";
 
                 // Update values
                 numericUpDown_bpm.Value = bpmValue;
@@ -4684,6 +4726,15 @@ namespace NeoBleeper
 
                 numericUpDown_alternating_notes.Value = alternatingNoteLength;
                 Variables.alternating_note_length = alternatingNoteLength;
+
+                trackBar_time_signature.Value = timeSignature;
+                Variables.time_signature = timeSignature;
+                lbl_time_signature.Text = timeSignature.ToString();
+
+                trackBar_note_silence_ratio.Value = (int)(noteSilenceRatio * 100);
+                Variables.note_silence_ratio = noteSilenceRatio;
+                lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}",
+                    ((int)(noteSilenceRatio * 100)).ToString());
 
                 Logger.Log($"Values restored: BPM={bpmValue}, Alt Notes={alternatingNoteLength}", Logger.LogTypes.Info);
             }
@@ -4817,7 +4868,7 @@ namespace NeoBleeper
                         {
                             KeyboardOctave = Variables.octave.ToString(),
                             BPM = Variables.bpm.ToString(),
-                            TimeSignature = trackBar_time_signature.Value.ToString(),
+                            TimeSignature = Variables.time_signature.ToString(),
                             NoteSilenceRatio = (Variables.note_silence_ratio * 100).ToString(),
                             NoteLength = comboBox_note_length.SelectedIndex.ToString(),
                             AlternateTime = numericUpDown_alternating_notes.Value.ToString()
@@ -5824,7 +5875,7 @@ namespace NeoBleeper
 
         private void convertToBeepCommandForLinuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(listViewNotes.Items.Count == 0)
+            if (listViewNotes.Items.Count == 0)
             {
                 MessageBox.Show(Resources.MessageEmptyNoteListCannotBeExportedAsLinuxBeep, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -5841,6 +5892,73 @@ namespace NeoBleeper
                 Logger.Log("Error converting to Beep command for Linux: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show(Resources.MessageLinuxBeepCommandConvertError + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        int previous_time_signature = Variables.time_signature;
+        private void setTimeSignatureValueChanging()
+        {
+            variableIsChanging = true;
+            previous_time_signature = Variables.time_signature;
+        }
+        private void setTimeSignatureValueChanged()
+        {
+            variableIsChanging = false;
+            int current_time_signature = Variables.time_signature;
+            if (current_time_signature != previous_time_signature)
+            {
+                var command = new ValueChangeCommand(
+                        "time_signature",
+                        previous_time_signature,
+                        current_time_signature,
+                        trackBar_time_signature,
+                        lbl_time_signature);
+
+                commandManager.ExecuteCommand(command);
+                isModified = true;
+                UpdateFormTitle();
+            }
+        }
+        private void trackBar_time_signature_MouseDown(object sender, MouseEventArgs e)
+        {
+            setTimeSignatureValueChanging();
+        }
+
+        private void trackBar_time_signature_MouseUp(object sender, MouseEventArgs e)
+        {
+            setTimeSignatureValueChanged();
+        }
+        double previous_note_silence_ratio = Variables.note_silence_ratio;
+        bool variableIsChanging = false;
+        private void setNoteSilenceValueChanging()
+        {
+            variableIsChanging = true;
+            previous_note_silence_ratio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100;
+
+        }
+        private void setNoteSilenceValueChanged()
+        {
+            variableIsChanging = false;
+            double current_note_silence_ratio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
+            if (current_note_silence_ratio != previous_note_silence_ratio)
+            {
+                var command = new ValueChangeCommand(
+                        "note_silence_ratio",
+                        previous_note_silence_ratio,
+                        current_note_silence_ratio,
+                        trackBar_note_silence_ratio,
+                        true, lbl_note_silence_ratio);
+                commandManager.ExecuteCommand(command);
+                isModified = true;
+                UpdateFormTitle();
+            }
+        }
+        private void trackBar_note_silence_ratio_MouseDown(object sender, MouseEventArgs e)
+        {
+            setNoteSilenceValueChanging();
+        }
+
+        private void trackBar_note_silence_ratio_MouseUp(object sender, MouseEventArgs e)
+        {
+            setNoteSilenceValueChanged();
         }
     }
 }

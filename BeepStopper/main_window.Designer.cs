@@ -40,54 +40,26 @@
             // 
             // warningLabel
             // 
-            warningLabel.Anchor = AnchorStyles.Top;
-            warningLabel.AutoSize = true;
-            warningLabel.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            warningLabel.Location = new Point(124, 29);
-            warningLabel.MaximumSize = new Size(512, 0);
+            resources.ApplyResources(warningLabel, "warningLabel");
             warningLabel.Name = "warningLabel";
-            warningLabel.Size = new Size(503, 60);
-            warningLabel.TabIndex = 0;
-            warningLabel.Text = "Warning: NeoBleeper Beep Stopper should only be used in cases where the beep does not stop due to the system losing control of the system speaker, such as when the program crashes or is force-quitted.";
-            warningLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
-            pictureBox1.Anchor = AnchorStyles.Top;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.icons8_warning_48;
-            pictureBox1.Location = new Point(41, 29);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 48);
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // instructionLabel
             // 
-            instructionLabel.Anchor = AnchorStyles.Top;
-            instructionLabel.AutoSize = true;
-            instructionLabel.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            instructionLabel.Location = new Point(124, 114);
-            instructionLabel.MaximumSize = new Size(512, 0);
+            resources.ApplyResources(instructionLabel, "instructionLabel");
             instructionLabel.Name = "instructionLabel";
-            instructionLabel.Size = new Size(431, 20);
-            instructionLabel.TabIndex = 0;
-            instructionLabel.Text = "Press \"Stop Beep\" button to stop beep from system speaker.";
-            instructionLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // stopBeepButton
             // 
-            stopBeepButton.Anchor = AnchorStyles.Bottom;
-            stopBeepButton.Font = new Font("HarmonyOS Sans", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            stopBeepButton.ImageIndex = 0;
+            resources.ApplyResources(stopBeepButton, "stopBeepButton");
             stopBeepButton.ImageList = icons;
-            stopBeepButton.Location = new Point(263, 153);
             stopBeepButton.Name = "stopBeepButton";
-            stopBeepButton.Size = new Size(141, 46);
-            stopBeepButton.TabIndex = 2;
-            stopBeepButton.Text = "Stop Beep";
-            stopBeepButton.TextAlign = ContentAlignment.MiddleRight;
-            stopBeepButton.TextImageRelation = TextImageRelation.ImageBeforeText;
             stopBeepButton.UseVisualStyleBackColor = true;
             stopBeepButton.Click += button1_Click;
             // 
@@ -100,20 +72,16 @@
             // 
             // main_window
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(669, 211);
             Controls.Add(stopBeepButton);
             Controls.Add(pictureBox1);
             Controls.Add(instructionLabel);
             Controls.Add(warningLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "main_window";
-            Text = "NeoBleeper Beep Stopper";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

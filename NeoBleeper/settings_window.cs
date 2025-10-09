@@ -412,9 +412,11 @@ namespace NeoBleeper
         {
             if (comboBox_theme.SelectedIndex != Settings1.Default.theme)
             {
+                var synchronizedSettings = SynchronizedSettings.Load();
                 string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
                 Settings1.Default.theme = comboBox_theme.SelectedIndex;
                 Settings1.Default.Save();
+                synchronizedSettings.Theme = Settings1.Default.theme;
                 set_theme();
                 Logger.Log("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex], Logger.LogTypes.Info);
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
@@ -1505,10 +1507,11 @@ namespace NeoBleeper
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxLanguage.SelectedItem.ToString() != Settings1.Default.preferredLanguage)
-            {
+            {   
+                var synchronizedSettings = SynchronizedSettings.Load();
                 Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
                 Settings1.Default.Save();
-                Logger.Log("Preferred language changed to: " + comboBoxLanguage.SelectedItem.ToString(), Logger.LogTypes.Info);
+                synchronizedSettings.Language = Settings1.Default.preferredLanguage;
                 MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }

@@ -13,27 +13,72 @@ namespace BeepStopper
             InitializeComponent();
             UIFonts.setFonts(this);
             UIHelper.ApplyCustomTitleBar(this, Color.White);
+            set_theme();
         }
-
+        int themeIndex = 0;
+        private void set_theme()
+        {
+            var synchronizedSettings = SynchronizedSettings.Load();
+            switch (synchronizedSettings.Theme)
+            {
+                case 0:
+                    switch (check_system_theme.IsDarkTheme())
+                    {
+                        case true:
+                            dark_theme();
+                            break;
+                        case false:
+                            light_theme();
+                            break;
+                    }
+                    break;
+                case 1:
+                    light_theme();
+                    break;
+                case 2:
+                    dark_theme();
+                    break;
+            }
+            themeIndex = synchronizedSettings.Theme;
+        }
+        private void light_theme()
+        {
+            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
+            this.BackColor = SystemColors.Control;
+            this.ForeColor = SystemColors.ControlText;
+            stopBeepButton.BackColor = Color.Transparent;
+            stopBeepButton.ForeColor = SystemColors.ControlText;
+        }
+        private void dark_theme()
+        {
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
+            this.BackColor = Color.FromArgb(32, 32, 32);
+            this.ForeColor = Color.White;
+            stopBeepButton.BackColor = Color.FromArgb(64, 64, 64);
+            stopBeepButton.ForeColor = Color.White; 
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            // Stop the beeping without force-shutdown
+            // Stop the stuck system speaker beep without force-shutdown the computer by manipulating the 0x61 port (system speaker control port).
             try
             {
                 if (SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerBeepStuck())
                 {
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                    Logger.Log("Stuck system speaker beep is stopped.", Logger.LogTypes.Info);
                     MessageBox.Show(Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
+                    Logger.Log("System speaker is not stuck, nothing to stop.", Logger.LogTypes.Warning);
                     MessageBox.Show(Resources.SystemSpeakerIsNotStuckMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 // Show the error message
+                Logger.Log("Error stopping the beep: " + ex.Message, Logger.LogTypes.Error);
                 MessageBox.Show(Resources.AnErrorOccurredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
