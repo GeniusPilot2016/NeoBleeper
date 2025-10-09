@@ -211,7 +211,7 @@ namespace NeoBleeper
         }
         private static void ConfigureApplication()
         {
-            switch(Settings1.Default.ClassicBleeperMode)
+            switch (Settings1.Default.ClassicBleeperMode)
             {
                 case true:
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
@@ -224,6 +224,23 @@ namespace NeoBleeper
             }
             UIHelper.setLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
             Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
+            try
+            {
+                var synchronizedSettings = SynchronizedSettings.Load();
+                // Load synchronized settings and check for mismatches for beep stopper to apply NeoBleeper's theme and language settings
+                if (synchronizedSettings.Language != Settings1.Default.preferredLanguage ||
+                    synchronizedSettings.Theme != Settings1.Default.theme)
+                {
+                    Logger.Log("Settings mismatch detected. Updating synchronized settings.", LogTypes.Warning);
+                    synchronizedSettings.Language = Settings1.Default.preferredLanguage;
+                    synchronizedSettings.Theme = Settings1.Default.theme;
+                    synchronizedSettings.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Failed to load or save synchronized settings for beep stopper: " + ex.Message, LogTypes.Error);
+            }
         }
     }
 }

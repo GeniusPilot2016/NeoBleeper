@@ -15,10 +15,11 @@ public class Originator
         return new Memento(items);
     }
 
-    public SavedStateMemento CreateSavedStateMemento(int bpmValue, int alternatingNoteLength)
+    public SavedStateMemento CreateSavedStateMemento(int bpmValue, int alternatingNoteLength, 
+        double noteSilenceRatio, int timeSignature)
     {
         var items = listView.Items.Cast<ListViewItem>().Select(item => (ListViewItem)item.Clone()).ToList();
-        return new SavedStateMemento(items, bpmValue, alternatingNoteLength);
+        return new SavedStateMemento(items, bpmValue, alternatingNoteLength, noteSilenceRatio, timeSignature);
     }
 
     public void SetMemento(Memento memento)

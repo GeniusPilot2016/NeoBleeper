@@ -452,6 +452,8 @@
             toolTip1.SetToolTip(trackBar_time_signature, resources.GetString("trackBar_time_signature.ToolTip"));
             trackBar_time_signature.Value = 4;
             trackBar_time_signature.Scroll += trackBar_time_signature_Scroll;
+            trackBar_time_signature.MouseDown += trackBar_time_signature_MouseDown;
+            trackBar_time_signature.MouseUp += trackBar_time_signature_MouseUp;
             // 
             // label_time_signature
             // 
@@ -971,6 +973,8 @@
             toolTip1.SetToolTip(trackBar_note_silence_ratio, resources.GetString("trackBar_note_silence_ratio.ToolTip"));
             trackBar_note_silence_ratio.Value = 50;
             trackBar_note_silence_ratio.Scroll += trackBar_note_silence_ratio_Scroll;
+            trackBar_note_silence_ratio.MouseDown += trackBar_note_silence_ratio_MouseDown;
+            trackBar_note_silence_ratio.MouseUp += trackBar_note_silence_ratio_MouseUp;
             // 
             // label_note_silence_ratio
             // 
