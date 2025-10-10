@@ -5960,51 +5960,5 @@ namespace NeoBleeper
         {
             setNoteSilenceValueChanged();
         }
-        int previous_time_signature = Variables.time_signature;
-
-        private void trackBar_time_signature_MouseDown(object sender, MouseEventArgs e)
-        {
-            previous_time_signature = Variables.time_signature;
-        }
-
-        private void trackBar_time_signature_MouseUp(object sender, MouseEventArgs e)
-        {
-            int current_time_signature = Variables.time_signature;
-            if (current_time_signature != previous_time_signature)
-            {
-                var command = new ValueChangeCommand(
-                        "time_signature",
-                        previous_time_signature,
-                        current_time_signature,
-                        trackBar_time_signature,
-                        lbl_time_signature);
-
-                commandManager.ExecuteCommand(command);
-                isModified = true;
-                UpdateFormTitle();
-            }
-        }
-        double previous_note_silence_ratio = Variables.note_silence_ratio;
-        private void trackBar_note_silence_ratio_MouseDown(object sender, MouseEventArgs e)
-        {
-            previous_note_silence_ratio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100;
-        }
-
-        private void trackBar_note_silence_ratio_MouseUp(object sender, MouseEventArgs e)
-        {
-            double current_note_silence_ratio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
-            if (current_note_silence_ratio != previous_note_silence_ratio)
-            {
-                var command = new ValueChangeCommand(
-                        "note_silence_ratio",
-                        previous_note_silence_ratio,
-                        current_note_silence_ratio,
-                        trackBar_note_silence_ratio,
-                        true, lbl_note_silence_ratio);
-                commandManager.ExecuteCommand(command);
-                isModified = true;
-                UpdateFormTitle();
-            }
-        }
     }
 }
