@@ -79,12 +79,12 @@ This project is **still in development** and some features and components are st
   - #### You can personalize as you wish
     You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only     
     limit to this feature is your imagination. Also, you can enable the "Classic Bleeper mode" to make the program resemble the nostalgic user interface of Bleeper Music Maker.
-    
-    ![image](https://github.com/user-attachments/assets/4541acb3-9db0-4db4-abc5-86a72de8dac9)
 
-    ![image](https://github.com/user-attachments/assets/fb337ecd-a01b-4ddb-b6c0-7bf78be0b593)
+    ![image](https://github.com/user-attachments/assets/96388b90-614b-4994-a21b-c3ac581f8193)
 
-    ![image](https://github.com/user-attachments/assets/400a4698-b88f-4d22-bac4-ab72116806d9)
+    ![image](https://github.com/user-attachments/assets/20519999-b2b0-4a93-b027-50d29b16a091)
+
+    ![image](https://github.com/user-attachments/assets/4fd60c0b-bce7-4fe4-abc3-851b277f5803)
 
   - #### Detects system speaker for you
     If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
