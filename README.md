@@ -2,7 +2,7 @@
 
 NeoBleeper is an AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software that Robbi-985 (aka SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/6d0e2c17-0741-48b9-929f-401a81ad75a2)
+![image](https://github.com/user-attachments/assets/efe2efff-f6b5-49d4-a0d7-424e47a997ce)
 
 
 ## Status
@@ -14,26 +14,26 @@ This project is **still in development** and some features and components are st
 - ### User-friendly, familiar, more ergonomic and more natural interface
   NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays, and speeds up the adaptation process for former Bleeper Music Maker users.
 
-  ![image](https://github.com/user-attachments/assets/dd83138f-2a06-4ed4-b866-5424a909becb)
+  ![image](https://github.com/user-attachments/assets/f5fbbc2a-f174-44b6-b680-7bb47063ec88)
+  
+  ![image](https://github.com/user-attachments/assets/474a2d6c-4977-4555-8026-eea213a8bee6)
 
-  ![image](https://github.com/user-attachments/assets/84f11ed0-1073-4a88-96c7-1c83ed4bab1b)
+  ![image](https://github.com/user-attachments/assets/7c819bd4-f3bc-4573-8a34-f819966e077f)
 
-  ![image](https://github.com/user-attachments/assets/1a9af30a-394d-4de2-adc5-2c1e25ef6e7c)
+  ![image](https://github.com/user-attachments/assets/266f9585-639d-47f1-833b-a025adc9e626)
 
-  ![image](https://github.com/user-attachments/assets/554bf110-9de8-4128-8df8-b95b822a100f)
+  ![image](https://github.com/user-attachments/assets/b63ded9c-a026-4a6c-a677-d5404a05a92a)
 
-  ![image](https://github.com/user-attachments/assets/d386916d-ab06-42b7-98a1-37902c625e64)
+  ![image](https://github.com/user-attachments/assets/7cc2aa8f-586f-48e2-a0c7-84ed7e6e5558)
 
-  ![image](https://github.com/user-attachments/assets/a6d193ae-c6f9-4ad6-85d8-b1c2d6fccb8e)
-
-  ![image](https://github.com/user-attachments/assets/61fdf6e2-e208-428c-becd-a761e3dc7986)
+  ![image](https://github.com/user-attachments/assets/39ef444b-d067-46d9-9f55-2f869b6edc73)
 
   ![image](https://github.com/user-attachments/assets/b0923941-201e-42ea-a24f-29980312fe3e)
 
 - ### Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
-  ![image](https://github.com/user-attachments/assets/17a89d8b-e082-4e8d-9b44-6d7ea7078a8c)
+  ![image](https://github.com/user-attachments/assets/e0afa613-f423-40cb-aeaa-a8d72774fdc3)
 
   ![image](https://github.com/user-attachments/assets/c709c014-b73c-4570-b595-aa5beba84841)
 
@@ -42,7 +42,7 @@ This project is **still in development** and some features and components are st
 - ### Time signature and BPM settings
   NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
 
-  ![image](https://github.com/user-attachments/assets/25361c79-aa69-4e27-89a3-dc8298daca49)
+  ![image](https://github.com/user-attachments/assets/f6a1a8ba-3979-48a9-9e35-2a8e44a98f5a)
 
 - ### Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
@@ -52,7 +52,7 @@ This project is **still in development** and some features and components are st
 - ### Backwards Compatible
   NeoBleeper supports its own file format (.NBPML) as well as the file format of the Bleeper Music Maker program (.BMM), from which it was inspired.
 
-  ![image](https://github.com/user-attachments/assets/e114bfa5-971f-4e22-9b31-face8952f49e)
+  ![image](https://github.com/user-attachments/assets/3308e7dc-ac85-4c6c-bca0-94179a7c554e)
 
 - ### More Than a Remake
   
@@ -61,20 +61,20 @@ This project is **still in development** and some features and components are st
   - #### System speaker meets AI
     Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
-    ![image](https://github.com/user-attachments/assets/27f22d0a-37e0-4413-90aa-a8052c1f49ed)
+    ![image](https://github.com/user-attachments/assets/e8d3b881-0cb3-4d4e-9e73-cd4de1ac73b0)
 
-    ![image](https://github.com/user-attachments/assets/bbb5bef9-7186-471e-b89d-397c240854e2)
+    ![image](https://github.com/user-attachments/assets/01a94f56-f3cd-477b-9aa5-82f7e37c4680)
     
   - #### More precise position display
     NeoBleeper offers a position display that compatible with 1/32 note length.
-    
-    ![image](https://github.com/user-attachments/assets/213b8caa-2559-436b-a4ae-4d8ec6ba9de8)
+
+    ![image](https://github.com/user-attachments/assets/23d1e9ae-52e5-460c-bb2f-f5e8d8fa71d6)
 
   - #### Also, you can use your regular keyboard as piano
     
     NeoBleeper turns your regular keyboard into a piano, allowing you to easily play notes without needing a MIDI input device.
 
-    ![image](https://github.com/user-attachments/assets/f926bcd6-bf2e-4ced-886f-3f21986ed2f5)
+    ![image](https://github.com/user-attachments/assets/f97f56e0-3d61-4c22-8aad-5533dc6d5562)
     
   - #### You can personalize as you wish
     You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only     
