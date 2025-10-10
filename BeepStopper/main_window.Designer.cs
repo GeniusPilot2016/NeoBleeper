@@ -35,6 +35,7 @@
             instructionLabel = new Label();
             stopBeepButton = new Button();
             icons = new ImageList(components);
+            settingsChangeTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -70,6 +71,12 @@
             icons.TransparentColor = Color.Transparent;
             icons.Images.SetKeyName(0, "icons8-mute-48.png");
             // 
+            // settingsChangeTimer
+            // 
+            settingsChangeTimer.Enabled = true;
+            settingsChangeTimer.Interval = 200;
+            settingsChangeTimer.Tick += settingsChangeTimer_Tick;
+            // 
             // main_window
             // 
             resources.ApplyResources(this, "$this");
@@ -82,6 +89,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "main_window";
+            SystemColorsChanged += main_window_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -94,5 +102,6 @@
         private Label instructionLabel;
         private Button stopBeepButton;
         private ImageList icons;
+        private System.Windows.Forms.Timer settingsChangeTimer;
     }
 }
