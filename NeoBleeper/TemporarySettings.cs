@@ -33,7 +33,6 @@ namespace NeoBleeper
                 Triangle,
                 Noise
             }
-            public static bool permanently_enabled;
             public static bool is_playback_muted = false;
         }
 

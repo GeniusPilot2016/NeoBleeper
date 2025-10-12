@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class disable_create_beep_from_sound_card_warning
+    partial class disable_create_beep_from_sound_device_warning_on_certain_types
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(disable_create_beep_from_sound_card_warning));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(disable_create_beep_from_sound_device_warning_on_certain_types));
             button_yes = new Button();
             imageList_disable_create_beep_from_sound_device_warning = new ImageList(components);
             button_no = new Button();
@@ -90,7 +90,7 @@
             checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
             checkBoxDontShowAgain.UseVisualStyleBackColor = true;
             // 
-            // disable_create_beep_from_sound_card_warning
+            // disable_create_beep_from_sound_device_warning_on_certain_types
             // 
             AcceptButton = button_yes;
             resources.ApplyResources(this, "$this");
@@ -105,7 +105,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "disable_create_beep_from_sound_card_warning";
+            Name = "disable_create_beep_from_sound_device_warning_on_certain_types";
             SystemColorsChanged += disable_create_beep_from_sound_card_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

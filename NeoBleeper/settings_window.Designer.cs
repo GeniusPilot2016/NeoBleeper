@@ -385,7 +385,7 @@
             // label_test_system_speaker_message_2
             // 
             resources.ApplyResources(label_test_system_speaker_message_2, "label_test_system_speaker_message_2");
-            label_test_system_speaker_message_2.ForeColor = Color.FromArgb(192, 0, 0);
+            label_test_system_speaker_message_2.ForeColor = Color.FromArgb(255, 128, 0);
             label_test_system_speaker_message_2.Name = "label_test_system_speaker_message_2";
             toolTip1.SetToolTip(label_test_system_speaker_message_2, resources.GetString("label_test_system_speaker_message_2.ToolTip"));
             // 

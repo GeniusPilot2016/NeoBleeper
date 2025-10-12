@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAGAAQABgAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGIAQABiAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -152,25 +152,28 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 226</value>
+    <value>71, 292</value>
   </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Evet</value>
   </data>
   <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 226</value>
+    <value>201, 292</value>
   </data>
   <data name="button_no.Text" xml:space="preserve">
     <value>&amp;Hayır</value>
   </data>
+  <data name="label_system_speaker_warning_result.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 131</value>
+  </data>
   <data name="label_system_speaker_warning_result.Text" xml:space="preserve">
-    <value>Uygulamayı kullanmaya devam etmek istiyorsanız, bip sesi üretmek için yalnızca "Bip sesi üretmek için ses aygıtını kullan" ayarını kullanabilirsiniz ve bu ayar bilgisayarınızda devre dışı bırakılamaz.</value>
+    <value>Uygulamayı kullanmaya devam etmek istiyorsanız, "Bip sesi üretmek için ses aygıtını kullan" ayarı otomatik olarak ses aygıtını kullanarak bip sesi üretecek şekilde etkinleştirilecektir ve bu ayarı devre dışı bırakarak sistem hoparlörü çıkışını kullanabilirsiniz, ancak bilgisayarınızda sistem hoparlörü çıkışını kullanmanız sistem hoparlörü çıkışından hiçbir ses gelmemesine, kararsızlıklara veya istenmeyen davranışlara neden olabilir.</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Buna rağmen NeoBleeper uygulamasını kullanmaya devam etmek istiyor musunuz?</value>
   </data>
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 200</value>
+    <value>107, 266</value>
   </data>
   <data name="checkBoxDontShowAgain.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
@@ -179,7 +182,7 @@
     <value>Bir daha gösterme</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>358, 256</value>
+    <value>358, 322</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

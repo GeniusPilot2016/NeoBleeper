@@ -78,7 +78,6 @@ namespace NeoBleeper
                             case false:
                                 {
                                     TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                    TemporarySettings.creating_sounds.permanently_enabled = true;
                                     Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
                                     if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                     {
@@ -104,7 +103,6 @@ namespace NeoBleeper
                                     case GetInformations.computerTypes.CompactComputer:
                                         {
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                            TemporarySettings.creating_sounds.permanently_enabled = false;
                                             TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
                                             Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)
@@ -121,7 +119,6 @@ namespace NeoBleeper
                                     default:
                                         {
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                            TemporarySettings.creating_sounds.permanently_enabled = false;
                                             TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                             Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)

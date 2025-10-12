@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAGEAQABhAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGMAQABjAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -152,28 +152,28 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 243</value>
+    <value>71, 322</value>
   </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Да</value>
   </data>
   <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 243</value>
+    <value>201, 322</value>
   </data>
   <data name="button_no.Text" xml:space="preserve">
     <value>&amp;Нет</value>
   </data>
   <data name="label_system_speaker_warning_result.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 86</value>
+    <value>340, 162</value>
   </data>
   <data name="label_system_speaker_warning_result.Text" xml:space="preserve">
-    <value>Если вы хотите продолжить использование приложения, вы можете использовать только настройку «Использовать звуковое устройство для генерации звуковых сигналов», и эту настройку нельзя отключить на вашем компьютере.</value>
+    <value>Если вы хотите продолжить использование приложения, параметр «Использовать звуковое устройство для воспроизведения звуковых сигналов» будет автоматически включен для воспроизведения звуковых сигналов, и вы можете отключить этот параметр и использовать выход системного динамика, но использование выхода системного динамика на вашем компьютере может привести к отсутствию звука из выхода системного динамика, нестабильной работе или нежелательному поведению.</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Несмотря на это, хотите ли вы продолжить использование приложения NeoBleeper?</value>
   </data>
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 217</value>
+    <value>97, 296</value>
   </data>
   <data name="checkBoxDontShowAgain.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 20</value>
@@ -182,7 +182,7 @@
     <value>Больше не показывать</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>358, 273</value>
+    <value>358, 352</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

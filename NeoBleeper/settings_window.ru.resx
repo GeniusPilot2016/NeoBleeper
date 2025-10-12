@@ -147,13 +147,13 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAsE0AAAJNU0Z0AUkBTAIBARIB
-        AAEkAQcBJAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAE0AQcBNAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFvAWoBZQHsnAACVQFTAaoE/wHyAcUB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFtAWgBZQHsnAACVQFTAaoE/wHyAcUB
         QwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB7AHBBf8D8AH/A/AB/wPwAf8BqwFiAQ0B/wHZAcEB
         pAH/A/AB/wPwAf8B3QGgAVAB/wwAAzUBVQGFAXsBbwH/AYMBeAFtAf8BgQF3AWsB/wF/AXUBaAH/AX0B
         cgFmAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
@@ -181,8 +181,8 @@
         hAH/AZEBiQGCAf8BkwGLAYMB/wGSAYoBggH/AZEBiQGAAf8BkAGIAX8B/wGPAYcBfgH/AY4BhQF8Af8B
         jQGEAXsB/wGMAYMBeQH/AYsBgQF3Af8BiQGAAXUB/wGHAX4BcwH/nAACVQFTAaoc/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/xQAAzUBVQQAAQgBvAH+Af8IAAEIAbwB/gH/BAADNQFVCAAB
-        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFuAWgBXQHsFAAD
-        MgFPBAABRQGSAacB7QgAAUYBjwGfAewEAAMyAU8IAAFFAZABpwHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
+        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFsAWYBXQHsFAAD
+        MgFPBAABTAGGAZYB7QgAAU4BgwGPAewEAAMyAU8IAAFMAYQBlgHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewBoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
@@ -653,7 +653,7 @@
     <value>326, 116</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
-    <value>Тестирование системного динамика недоступно на компьютерах, не имеющих выхода системного динамика, или на компьютерах с нестандартным выходом системного динамика.</value>
+    <value>На компьютерах без выхода на системный динамик или на компьютерах с нестандартным выходом на системный динамик вы можете не услышать звук при проверке системного динамика, или это может привести к нестабильной работе или нежелательному поведению.</value>
   </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>326, 116</value>
@@ -678,7 +678,7 @@
     <value>3, 45</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 269</value>
+    <value>336, 283</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Создание звукового сигнала из настроек звукового устройства</value>
@@ -687,22 +687,22 @@
     <value>6, 143</value>
   </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 122</value>
+    <value>323, 136</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 78</value>
+    <value>320, 90</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 68</value>
+    <value>310, 80</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
-    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» постоянно включена, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
+    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» включается автоматически, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 68</value>
+    <value>310, 80</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 87</value>
+    <value>40, 99</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Покажите причину этой ситуации</value>

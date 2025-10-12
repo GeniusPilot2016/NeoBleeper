@@ -121,61 +121,61 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYAUAAAJNU0Z0AUkBTAIBAQIC
-        AAEBAQABAQEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAf
-        AAPqAf8D6gH/HAABmQEzAcwB/9QAA+oB/wJQAv8CMwL/A+oB/xQAAWYBMwHMAf8BZgEAAcwB/wFmAQAB
-        zAH/HAABmQHMATMB/wGZAcwBMwH/AfABygGmAf+oAAJQAv8CMwL/AlAC/wIzAv8D6gH/DAABZgEzAcwB
-        /wFmAQABzAH/AWYBAAHMAf8BZgEAAcwB/wGZATMBzAH/FAABZgHMAQAB/wGZAcwBMwH/AZkBzAEzAf8B
-        mQHMATMB/wHMAf8BzAH/qAACUAL/AjMC/wJQAv8CMwL/A+oB/wQAAWYBMwHMAf8BZgEAAcwB/wFmAQAB
-        zAH/AWYBAAHMAf8BZgEzAcwB/xQAAZkBzAEzAf8BmQHMAQAB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
-        /wGZAcwBMwH/AcwB/wHMAf+oAAJQAv8CMwL/AlAC/wIzAv8BmQFmAcwB/wFmATMBzAH/AWYBAAHMAf8B
-        ZgEAAcwB/wFmATMBzAH/FAABmQHMATMB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBMwH/AZkB
-        zAEzAf8BmQHMATMB/wGZAcwBMwH/AcwB/wHMAf+oAAJQAv8CMwL/AlAC/wIzAv8BmQFmAcwB/wFmATMB
-        zAH/AWYBMwHMAf8UAAGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8EAAGZAcwB
-        MwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AcwB/wHMAf+oAAJQAv8CMwL/AlAC/wIzAv8BmQFmAcwB
-        /xgAAZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEzAf8MAAGZAcwBMwH/AZkBzAEzAf8BZgHMATMB
-        /wFmAcwBMwH/AcwB/wHMAf+gAAEzAWYBzAH/ATMBZgHMAf8CUAL/AjMC/wJQAv8CMwL/A+oB/xQAAcwB
-        /wHMAf8BmQHMAQAB/wGZAcwBAAH/FAABZgHMATMB/wFmAcwBMwH/AWYBzAEzAf8BZgHMATMB/wHMAf8B
-        zAH/mAACZgHMAf8BMwFmAcwB/wJQAv8BMwFmAcwB/wJQAv8CMwL/AlAC/wIzAv8D6gH/NAABZgHMATMB
-        /wFmAcwBMwH/AWYBzAEzAf8BZgHMATMB/wHMAf8BzAH/kAACUAL/AlAC/wEzAWYBzAH/ATMBZgHMAf8C
-        UAL/BAACUAL/AjMC/wJQAv8CMwL/A+oB/zQAAWYBzAEzAf8BZgHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
-        zAH/AcwB/4gAAlAC/wJQAv8BZgEzAv8CUAL/AmYBzAH/DAACUAL/AjMC/wJQAv8CMwL/A+oB/zQAAZkB
-        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf+IAAJQAv8CUAL/AlAC/wJQAv8UAAJQAv8CMwL/AlAC
-        /wPqAf84AAGZAcwBMwH/AZkBzAEzAf+QAAJQAv8CUAL/HAACUAL/A+oB//8A/wDKAAFCAU0BPgcAAT4D
-        AAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQAAecB9wL/BAABwwHjAfgB/wQAAsEB8AF/BAAB
-        4AGDAeABPwQAAfABBwHAAR8EAAH4AQ8BggEPBAAB/AEfAYcBBwQAAfgBDwGPAYMEAAHwAQcB/wHBBAAB
-        4AGDAf8B4AQAAsEB/wHwBAABwwHhAf8B+QQAAecB8wL/BAAE/wQABP8EAAs=
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
+        AAEIAQEBCAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
+        AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
+        zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
+        /wGZAcwBMwH/AcwB/wHMAf+oAAJQAv8CMwL/AlAC/wIzAv8D6gH/BAABZgEzAcwB/wFmAQABzAH/AWYB
+        AAHMAf8BZgEAAcwB/wFmATMBzAH/FAABmQHMATMB/wGZAcwBAAH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        MwH/AZkBzAEzAf8BzAH/AcwB/6gAAlAC/wIzAv8CUAL/AjMC/wGZAWYBzAH/AWYBMwHMAf8BZgEAAcwB
+        /wFmAQABzAH/AWYBMwHMAf8UAAGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BzAH/AcwB/6gAAlAC/wIzAv8CUAL/AjMC/wGZAWYBzAH/AWYB
+        MwHMAf8BZgEzAcwB/xQAAZkBzAEzAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wQAAZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BzAH/AcwB/6gAAlAC/wIzAv8CUAL/AjMC/wGZAWYB
+        zAH/GAABmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMATMB/wwAAZkBzAEzAf8BmQHMATMB/wFmAcwB
+        MwH/AWYBzAEzAf8BzAH/AcwB/6AAATMBZgHMAf8BMwFmAcwB/wJQAv8CMwL/AlAC/wIzAv8D6gH/FAAB
+        zAH/AcwB/wGZAcwBAAH/AZkBzAEAAf8UAAFmAcwBMwH/AWYBzAEzAf8BZgHMATMB/wFmAcwBMwH/AcwB
+        /wHMAf+YAAJmAcwB/wEzAWYBzAH/AlAC/wEzAWYBzAH/AlAC/wIzAv8CUAL/AjMC/wPqAf80AAFmAcwB
+        MwH/AWYBzAEzAf8BZgHMATMB/wFmAcwBMwH/AcwB/wHMAf+QAAJQAv8CUAL/ATMBZgHMAf8BMwFmAcwB
+        /wJQAv8EAAJQAv8CMwL/AlAC/wIzAv8D6gH/NAABZgHMATMB/wFmAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /wHMAf8BzAH/iAACUAL/AlAC/wFmATMC/wJQAv8CZgHMAf8MAAJQAv8CMwL/AlAC/wIzAv8D6gH/NAAB
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/4gAAlAC/wJQAv8CUAL/AlAC/xQAAlAC/wIzAv8C
+        UAL/A+oB/zgAAZkBzAEzAf8BmQHMATMB/5AAAlAC/wJQAv8cAAJQAv8D6gH//wD/AMoAAUIBTQE+BwAB
+        PgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAAB5wH3Av8EAAHDAeMB+AH/BAACwQHwAX8E
+        AAHgAYMB4AE/BAAB8AEHAcABHwQAAfgBDwGCAQ8EAAH8AR8BhwEHBAAB+AEPAY8BgwQAAfABBwH/AcEE
+        AAHgAYMB/wHgBAACwQH/AfAEAAHDAeEB/wH5BAAB5wHzAv8EAAT/BAAE/wQACw==
 </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 242</value>
+    <value>71, 215</value>
   </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Sì</value>
   </data>
   <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 242</value>
+    <value>213, 215</value>
   </data>
   <data name="label_unknown_type_of_computer_warning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>284, 161</value>
+    <value>284, 132</value>
   </data>
   <data name="label_unknown_type_of_computer_warning.Text" xml:space="preserve">
-    <value>Poiché il computer è un computer compatto o il suo tipo è sconosciuto, in tali computer gli altoparlanti principali potrebbero essere collegati all'uscita degli altoparlanti di sistema anziché all'altoparlante di sistema vero e proprio e quando si tenta di creare segnali acustici tramite l'altoparlante di sistema, dall'uscita degli altoparlanti di sistema potrebbe non uscire alcun suono, causando instabilità o un comportamento indesiderato.</value>
+    <value>Il computer non dispone di un'uscita per gli altoparlanti di sistema oppure ne dispone di una non standard e quando si tenta di generare un segnale acustico con l'altoparlante di sistema, potrebbe non venire emesso alcun suono dall'uscita dell'altoparlante di sistema oppure potrebbe verificarsi instabilità o un comportamento indesiderato.</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 174</value>
+    <value>8, 148</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Nonostante ciò, vuoi disattivare l'opzione "Usa dispositivo audio per creare segnali acustici"?</value>
   </data>
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 217</value>
+    <value>115, 190</value>
   </data>
   <data name="checkBoxDontShowAgain.Text" xml:space="preserve">
     <value>Non mostrare più</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>362, 273</value>
+    <value>362, 246</value>
   </data>
 </root>

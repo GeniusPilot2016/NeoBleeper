@@ -129,7 +129,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAFwAQABcAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAF4AQABeAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -155,13 +155,13 @@
 </value>
   </data>
   <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 256</value>
+    <value>71, 332</value>
   </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Ja</value>
   </data>
   <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 256</value>
+    <value>201, 332</value>
   </data>
   <data name="button_no.Text" xml:space="preserve">
     <value>&amp;Nein</value>
@@ -170,10 +170,10 @@
     <value>9, 139</value>
   </data>
   <data name="label_system_speaker_warning_result.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 88</value>
+    <value>340, 163</value>
   </data>
   <data name="label_system_speaker_warning_result.Text" xml:space="preserve">
-    <value>Wenn Sie die Anwendung weiterhin verwenden möchten, können Sie zum Generieren von Signaltönen nur die Einstellung „Soundgerät zum Generieren von Signaltönen verwenden“ verwenden. Diese Einstellung kann auf Ihrem Computer nicht deaktiviert werden.</value>
+    <value>Wenn Sie die Anwendung weiterhin verwenden möchten, wird die Einstellung „Audiogerät zum Erzeugen von Signaltönen verwenden“ automatisch aktiviert, um Signaltöne zu erzeugen. Sie können diese Einstellung deaktivieren und den Systemlautsprecherausgang verwenden. Die Verwendung des Systemlautsprecherausgangs Ihres Computers kann jedoch dazu führen, dass kein Ton aus dem Systemlautsprecherausgang kommt, Instabilität auftritt oder unerwünschtes Verhalten auftritt.</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 97</value>
@@ -182,7 +182,7 @@
     <value>Möchten Sie die NeoBleeper-Anwendung trotzdem weiterhin verwenden?</value>
   </data>
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 230</value>
+    <value>104, 306</value>
   </data>
   <data name="checkBoxDontShowAgain.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 20</value>
@@ -191,7 +191,7 @@
     <value>Nicht mehr anzeigen</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>358, 286</value>
+    <value>358, 362</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

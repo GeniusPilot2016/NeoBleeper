@@ -122,7 +122,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAEEAQEBBAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEMAQEBDAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -147,23 +147,41 @@
         AAHgAYMB/wHgBAACwQH/AfAEAAHDAeEB/wH5BAAB5wHzAv8EAAT/BAAE/wQACw==
 </value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 198</value>
+  </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Evet</value>
+  </data>
+  <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
+    <value>213, 198</value>
   </data>
   <data name="button_no.Text" xml:space="preserve">
     <value>&amp;Hayır</value>
   </data>
+  <data name="label_unknown_type_of_computer_warning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 118</value>
+  </data>
   <data name="label_unknown_type_of_computer_warning.Text" xml:space="preserve">
-    <value>Bilgisayarınız kompakt bir bilgisayar veya bilgisayarınızın tipi bilinmiyor ve bu tür bilgisayarlarda ana hoparlörler gerçek sistem hoparlörü yerine sistem hoparlörü çıkışına bağlanmış olabilir ve sistem hoparlöründen bip sesi oluşturmaya çalıştığınızda sistem hoparlörü çıkışından hiçbir ses gelmeyebilir, kararsızlıklara veya istenmeyen davranışlara yol açabilir.</value>
+    <value>Bilgisayarınızda sistem hoparlörü çıkışı bulunmamaktadır veya standart dışı sistem hoparlörü çıkışı bulunmaktadır ve sistem hoparlörü ile bip sesi oluşturmaya çalıştığınızda sistem hoparlörü çıkışından hiçbir ses gelmeyebilir ya da kararsızlıklara veya istenmeyen davranışlara yol açabilir.</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 130</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Buna rağmen "Bip sesi oluşturmak için ses aygıtını kullan" seçeneğini devre dışı bırakmak istiyor musunuz?</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 173</value>
+  </data>
   <data name="checkBoxDontShowAgain.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
   </data>
   <data name="checkBoxDontShowAgain.Text" xml:space="preserve">
     <value>Bir daha gösterme</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>362, 229</value>
   </data>
 </root>

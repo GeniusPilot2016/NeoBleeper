@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAGMAQABjAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGcAQABnAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -157,7 +157,7 @@
     <value>&amp;Không</value>
   </data>
   <data name="label_system_speaker_warning_result.Text" xml:space="preserve">
-    <value>Nếu bạn muốn tiếp tục sử dụng ứng dụng, bạn chỉ có thể sử dụng cài đặt "Sử dụng thiết bị âm thanh để tạo tiếng bíp" để tạo tiếng bíp và không thể tắt cài đặt này trên máy tính của bạn.</value>
+    <value>Nếu bạn muốn tiếp tục sử dụng ứng dụng, cài đặt "Sử dụng thiết bị âm thanh để phát ra tiếng bíp" sẽ tự động được bật để phát ra tiếng bíp và bạn có thể tắt cài đặt này và sử dụng đầu ra loa hệ thống, nhưng việc sử dụng đầu ra loa hệ thống trên máy tính có thể khiến đầu ra loa hệ thống không phát ra âm thanh, âm thanh không ổn định hoặc có hiện tượng không mong muốn.</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Mặc dù vậy, bạn có muốn tiếp tục sử dụng ứng dụng NeoBleeper không?</value>

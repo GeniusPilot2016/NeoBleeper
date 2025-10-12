@@ -129,7 +129,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAF8AQABfAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGEAQABhAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -155,22 +155,22 @@
 </value>
   </data>
   <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 264</value>
+    <value>71, 335</value>
   </data>
   <data name="button_yes.Text" xml:space="preserve">
     <value>&amp;Sì</value>
   </data>
   <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 264</value>
+    <value>201, 335</value>
   </data>
   <data name="label_system_speaker_warning_result.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 156</value>
   </data>
   <data name="label_system_speaker_warning_result.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 83</value>
+    <value>340, 147</value>
   </data>
   <data name="label_system_speaker_warning_result.Text" xml:space="preserve">
-    <value>Se si desidera continuare a utilizzare l'applicazione, è possibile utilizzare solo l'impostazione "Usa dispositivo audio per generare segnali acustici" per generare segnali acustici e questa impostazione non può essere disattivata sul computer.</value>
+    <value>Se si desidera continuare a utilizzare l'applicazione, l'impostazione "Usa dispositivo audio per produrre segnali acustici" verrà automaticamente abilitata per produrre segnali acustici; è possibile disabilitare questa impostazione e utilizzare l'uscita degli altoparlanti di sistema. Tuttavia, l'utilizzo dell'uscita degli altoparlanti di sistema sul computer potrebbe causare l'assenza di suono dall'uscita degli altoparlanti di sistema, instabilità o comportamenti indesiderati.</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 114</value>
@@ -179,13 +179,13 @@
     <value>Nonostante ciò, vuoi continuare a utilizzare l'applicazione NeoBleeper?</value>
   </data>
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 238</value>
+    <value>115, 309</value>
   </data>
   <data name="checkBoxDontShowAgain.Text" xml:space="preserve">
     <value>Non mostrare più</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>358, 294</value>
+    <value>358, 365</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

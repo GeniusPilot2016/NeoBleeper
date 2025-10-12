@@ -72,11 +72,6 @@ namespace NeoBleeper
                     group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
                 }
             }
-            if (TemporarySettings.creating_sounds.permanently_enabled == true)
-            {
-                checkBox_enable_create_beep_from_soundcard.Enabled = false;
-                groupBox_system_speaker_test.Enabled = false;
-            }
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
                 checkBox_use_microcontroller.Checked = true;
@@ -425,36 +420,27 @@ namespace NeoBleeper
 
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
-            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
-                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
+            if ((TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers) && 
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {
-                    if (!Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again)
-                    {
-                        Logger.Log("User is trying to disable \"Use Sound Device to Create Beep\" feature in system that's a compact computer or unknown type of computer.", Logger.LogTypes.Warning);
-                        disable_create_beep_from_sound_card_warning disable_Create_Beep_From_Sound_Card_Warning = new disable_create_beep_from_sound_card_warning();
-                        DialogResult result = disable_Create_Beep_From_Sound_Card_Warning.ShowDialog();
-                        switch (result)
-                        {
-                            case DialogResult.Yes:
-                                TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                                Logger.Log("User chose to disable beep creation from sound card.", Logger.LogTypes.Info);
-                                Logger.Log("Beep creation from sound card disabled.", Logger.LogTypes.Info);
-                                break;
-                            case DialogResult.No:
-                                checkBox_enable_create_beep_from_soundcard.Checked = true;
-                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                Logger.Log("User chose to keep beep creation from sound card enabled.", Logger.LogTypes.Info);
-                                Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                        Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
-                    }
+                    disable_create_beep_from_sound_device_warning_on_certain_types warningForm = new disable_create_beep_from_sound_device_warning_on_certain_types();
+                    DisableSoundDeviceBeepWithWarning(warningForm);
+                }
+                else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
+                {
+                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                    Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
+                }
+            }
+            else if(TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
+            {
+                if (checkBox_enable_create_beep_from_soundcard.Checked == false)
+                {
+                    disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output warningForm = new disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output();
+                    DisableSoundDeviceBeepWithWarning(warningForm);
                 }
                 else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
                 {
@@ -475,6 +461,33 @@ namespace NeoBleeper
                         Logger.Log("Beep creation from sound card disabled.", Logger.LogTypes.Info);
                         break;
                 }
+            }
+        }
+        private void DisableSoundDeviceBeepWithWarning(Form form)
+        {
+            if (!Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again)
+            {
+                Logger.Log("User is trying to disable \"Use Sound Device to Create Beep\" feature in system that's a compact computer or unknown type of computer.", Logger.LogTypes.Warning);
+                DialogResult result = form.ShowDialog();
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                        Logger.Log("User chose to disable beep creation from sound card.", Logger.LogTypes.Info);
+                        Logger.Log("Beep creation from sound card disabled.", Logger.LogTypes.Info);
+                        break;
+                    case DialogResult.No:
+                        checkBox_enable_create_beep_from_soundcard.Checked = true;
+                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                        Logger.Log("User chose to keep beep creation from sound card enabled.", Logger.LogTypes.Info);
+                        Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
+                        break;
+                }
+            }
+            else
+            {
+                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
             }
         }
         private void PlayFurElise()

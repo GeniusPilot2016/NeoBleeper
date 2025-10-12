@@ -47,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.vi.Designer.cs">
       <DependentUpon>Resources.vi.resx</DependentUpon>
       <DesignTime>True</DesignTime>

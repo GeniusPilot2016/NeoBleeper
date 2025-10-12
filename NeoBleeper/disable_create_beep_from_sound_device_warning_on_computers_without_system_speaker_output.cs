@@ -2,10 +2,10 @@
 
 namespace NeoBleeper
 {
-    public partial class disable_create_beep_from_sound_card_warning : Form
+    public partial class disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output : Form
     {
         bool darkTheme = false;
-        public disable_create_beep_from_sound_card_warning()
+        public disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output()
         {
             InitializeComponent();
             UIFonts.setFonts(this);
