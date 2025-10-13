@@ -605,32 +605,66 @@ namespace NeoBleeper
                 UpdateFormTitle();
             }
         }
-        private void replace_note_in_line(string note)
+        private void replaceLengthWithoutSavingToMemento()
+        {
+            if (checkBox_replace_length.Checked == true && listViewNotes.SelectedItems.Count > 0)
+            {
+                if (comboBox_note_length.SelectedIndex == 5)
+                {
+                    Line.length = Resources.ThirtySecondNote;
+                }
+                if (comboBox_note_length.SelectedIndex == 4)
+                {
+                    Line.length = Resources.SixteenthNote;
+                }
+                if (comboBox_note_length.SelectedIndex == 3)
+                {
+                    Line.length = Resources.EighthNote;
+                }
+                if (comboBox_note_length.SelectedIndex == 2)
+                {
+                    Line.length = Resources.QuarterNote;
+                }
+                if (comboBox_note_length.SelectedIndex == 1)
+                {
+                    Line.length = Resources.HalfNote;
+                }
+                if (comboBox_note_length.SelectedIndex == 0)
+                {
+                    Line.length = Resources.WholeNote;
+                }
+            }
+        }
+        private void replace_note_and_length_in_line(string note)
         {
             if (checkBox_add_note_to_list.Checked == true && listViewNotes.SelectedItems.Count > 0)
             {
                 if (add_as_note1.Checked == true)
                 {
                     Line.note1 = note;
-                    var replaceNoteCommand = new ReplaceNoteCommand(listViewNotes, 1, note);
+                    replaceLengthWithoutSavingToMemento();
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 1, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note2.Checked == true)
                 {
                     Line.note2 = note;
-                    var replaceNoteCommand = new ReplaceNoteCommand(listViewNotes, 2, note);
+                    replaceLengthWithoutSavingToMemento();
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 2, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note3.Checked == true)
                 {
                     Line.note3 = note;
-                    var replaceNoteCommand = new ReplaceNoteCommand(listViewNotes, 3, note);
+                    replaceLengthWithoutSavingToMemento();
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 3, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note4.Checked == true)
                 {
                     Line.note4 = note;
-                    var replaceNoteCommand = new ReplaceNoteCommand(listViewNotes, 4, note);
+                    replaceLengthWithoutSavingToMemento();
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 4, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 isModified = true;
@@ -692,8 +726,7 @@ namespace NeoBleeper
                 update_indicator_when_key_is_clicked();
                 if (checkBox_replace.Checked == true)
                 {
-                    replace_note_in_line(noteName);
-                    replace_length_in_line();
+                    replace_note_and_length_in_line(noteName);
                     select_next_line(noteName);
                 }
                 else
