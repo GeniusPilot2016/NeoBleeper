@@ -87,7 +87,7 @@ This project is **still in development** and some features and components are un
     ![image](https://github.com/user-attachments/assets/4fd60c0b-bce7-4fe4-abc3-851b277f5803)
 
   - #### Detects system speaker for you
-    If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently to prevent possible undesired situations.
+    If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option to prevent possible undesired situations.
     
     ![image](https://github.com/user-attachments/assets/6ad58cdb-70ce-4eba-aea5-8d200a6e1f2e)
 
