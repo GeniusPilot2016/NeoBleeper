@@ -14,8 +14,8 @@ This project is **still in development** and some features and components are un
 - ### User-friendly, familiar, more ergonomic and more natural interface
   NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays, and speeds up the adaptation process for former Bleeper Music Maker users.
 
-  ![image](https://github.com/user-attachments/assets/f5fbbc2a-f174-44b6-b680-7bb47063ec88)
-  
+  ![image](https://github.com/user-attachments/assets/5589b9b6-f481-4047-91db-8c09d6aece0d)
+
   ![image](https://github.com/user-attachments/assets/474a2d6c-4977-4555-8026-eea213a8bee6)
 
   ![image](https://github.com/user-attachments/assets/7c819bd4-f3bc-4573-8a34-f819966e077f)
@@ -87,14 +87,14 @@ This project is **still in development** and some features and components are un
     ![image](https://github.com/user-attachments/assets/4fd60c0b-bce7-4fe4-abc3-851b277f5803)
 
   - #### Detects system speaker for you
-    If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently.
-
-    ![image](https://github.com/user-attachments/assets/6fb56353-c2f3-4fe5-824f-9a07c415f929)
+    If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option permanently to prevent possible undesired situations.
+    
+    ![image](https://github.com/user-attachments/assets/6ad58cdb-70ce-4eba-aea5-8d200a6e1f2e)
 
   - #### Smarter than you think
     NeoBleeper recognizes your computer type and prevents possible undesired situations by automatically activating the 'Use sound device to create the beep' option on compact computers.
-  
-    ![image](https://github.com/user-attachments/assets/9f5b6680-3ee0-4423-9056-e9218080ecbc)
+
+    ![image](https://github.com/user-attachments/assets/9f5c5a79-5645-4a36-b3f5-f1f4da70259d)
 
 ## System Requirements
 
