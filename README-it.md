@@ -34,7 +34,7 @@ NeoBleeper consente agli utenti di aggiungere note in modo semplice e veloce. Gr
 
   ![image](https://github.com/user-attachments/assets/0503e329-0d1b-47c7-9e61-5885032309f9)
 
-  ![image](https://github.com/user-attachments/assets/5c13617f-11a9-481a-91e9-bbc05d432961)
+  ![image](https://github.com/user-attachments/assets/5f87bf52-8f9b-4393-8ae4-8906981d93b5)
 
   ![image](https://github.com/user-attachments/assets/1121736c-ef7c-4b6b-a526-37c59e8ebb88)
 
