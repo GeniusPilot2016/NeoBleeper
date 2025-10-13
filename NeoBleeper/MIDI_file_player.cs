@@ -1321,6 +1321,7 @@ namespace NeoBleeper
                 return; // Skip if duration is zero or negative after drift adjustment
             }
             var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+            durationMsInt = Math.Max(1, durationMsInt); // Ensure at least 1ms after drift adjustment
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
                 foreach (var noteNumber in filteredNotes)
