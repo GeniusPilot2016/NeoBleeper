@@ -12,6 +12,9 @@
     <BaseOutputPath>NeoBleeper\bin</BaseOutputPath>
     <Platforms>x64</Platforms>
     <Version>1.1.0</Version>
+    <Description>Co-program of NeoBleeper to stop stuck system speaker beeps when program is forcibly closed or crashed.</Description>
+    <Copyright>© 2023-2025 GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
+    <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

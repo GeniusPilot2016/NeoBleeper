@@ -132,6 +132,7 @@
 No action taken.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>System speaker is not present. Therefore, stopping the beep is not possible.</value>
+    <value>System speaker output is not present or non-standard system speaker output is present. Beep stopper may cause instability or undesirable behaviors. 
+Do you want to continue?</value>
   </data>
 </root>

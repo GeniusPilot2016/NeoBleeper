@@ -1,9 +1,21 @@
-﻿using NAudio.Midi;
+﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+// Copyright (C) 2023 GeniusPilot2016
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+using NAudio.Midi;
 using NeoBleeper.Properties;
-using System.Diagnostics;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using static NeoBleeper.Program;
 
 namespace NeoBleeper
 {
@@ -304,7 +316,7 @@ namespace NeoBleeper
         }
         private async Task system_speaker_test_tune()
         {
-            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true && !isTestingSystemSpeaker)
+            if (!isTestingSystemSpeaker)
             // Debounce check to prevent multiple clicks to test the system speaker
             {
                 isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested

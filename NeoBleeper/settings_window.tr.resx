@@ -117,74 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 26</value>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>Genel</value>
   </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 24</value>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Ses Oluşturma</value>
   </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>Programın dilini değiştir
-</value>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Aygıtlar</value>
   </data>
-  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 16</value>
-  </data>
-  <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Dil</value>
-  </data>
-  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
-    <value>Dil Ayarları</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 20</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
-    <value>Klasik Bleeper modu</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
-    <value>Klasik Bleeper modunu etkinleştir veya devre dışı bırak</value>
-  </data>
-  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 16</value>
-  </data>
-  <data name="lbl_theme.Text" xml:space="preserve">
-    <value>Tema</value>
-  </data>
-  <data name="comboBox_theme.Items" xml:space="preserve">
-    <value>Sistem temasını kullan</value>
-  </data>
-  <data name="comboBox_theme.Items1" xml:space="preserve">
-    <value>Açık</value>
-  </data>
-  <data name="comboBox_theme.Items2" xml:space="preserve">
-    <value>Koyu</value>
-  </data>
-  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 25</value>
-  </data>
-  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 24</value>
-  </data>
-  <data name="comboBox_theme.ToolTip" xml:space="preserve">
-    <value>Programın temasını değiştir</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>Genel Görünüm</value>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Görünüm</value>
   </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAArE0AAAJNU0Z0AUkBTAIBARIB
-        AAFkAQcBZAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAF0AQcBdAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFqAmUB7JwAAlUBUwGqBP8B8gHFAUMB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFoAmUB7JwAAlUBUwGqBP8B8gHFAUMB
         /wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB/wH7AewBwQX/A/AB/wPwAf8D8AH/AasBYgENAf8B2QHBAaQB
         /wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUBhQF7AW8B/wGDAXgBbQH/AYEBdwFrAf8BfwF1AWgB/wF9AXIB
         ZgH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8B
@@ -213,7 +169,7 @@
         hAF7Af8BjAGDAXkB/wGLAYEBdwH/AYkBgAF1Af8BhwF+AXMB/5wAAlUBUwGqHP8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/Ad0BoAFQAf8UAAM1AVUEAAEIAbwB/gH/CAABCAG8Af4B/wQAAzUBVQgAAQgB
         vAH+Af+gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8CZQFdAewUAAMyAU8E
-        AAFUAXoBgwHtCAABVwF4AX4B7AQAAzIBTwgAAVQBeQGDAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
+        AAFYAXQBewHtCAABWwFyAXgB7AQAAzIBTwgAAVgBdAF7Ae3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsB
@@ -512,6 +468,65 @@
         vwE/Av8DAAn/AwAL
 </value>
   </data>
+  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
+    <value>Dil Ayarları</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 26</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>251, 24</value>
+  </data>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>Programın dilini değiştir
+</value>
+  </data>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 16</value>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>Genel Görünüm</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 20</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
+    <value>Klasik Bleeper modu</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
+    <value>Klasik Bleeper modunu etkinleştir veya devre dışı bırak</value>
+  </data>
+  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbl_theme.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="comboBox_theme.Items" xml:space="preserve">
+    <value>Sistem temasını kullan</value>
+  </data>
+  <data name="comboBox_theme.Items1" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="comboBox_theme.Items2" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 25</value>
+  </data>
+  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 24</value>
+  </data>
+  <data name="comboBox_theme.ToolTip" xml:space="preserve">
+    <value>Programın temasını değiştir</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Yapay Zeka ile Müzik Oluştur</value>
+  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>30, 144</value>
   </data>
@@ -561,8 +576,8 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>193, 23</value>
   </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Yapay Zeka ile Müzik Oluştur</value>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Sistem Hoparlörünü Test Etme</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>52, 22</value>
@@ -579,17 +594,11 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Eğer hiçbir ses duymazsanız "Bip sesi oluşturmak için ses aygıtını kullan" özelliğini kullanabilirsiniz.</value>
   </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Sistem Hoparlörünü Test Etme</value>
-  </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Sistem hoparlörü çıkışı bulunmayan bilgisayarlarda veya standart olmayan sistem hoparlörü çıkışı bulunan bilgisayarlarda sistem hoparlörü test edildiğinde hiçbir ses duymayabilirsiniz, veya kararsızlıklara ya da istenmeyen davranışlara yol açabilir.</value>
   </data>
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Kompakt bilgisayarlarda ve bilinmeyen tipteki bilgisayarlarda, ana hoparlörler gerçek sistem hoparlörü yerine sistem hoparlörü çıkışına bağlanmış olabilir ve sistem hoparlörü test edildiğinde hiçbir ses duymayabilirsiniz veya kararsızlıklara ya da istenmeyen davranışlara neden olabilir</value>
-  </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>Genel</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 20</value>
@@ -600,17 +609,29 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="checkBox_enable_create_beep_from_soundcard.ToolTip" xml:space="preserve">
     <value>Bip sesi oluşturmak için sistem hoparlörü yerine ses kartını kullan</value>
   </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 267</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Ses Aygıtından Bip Sesi Oluşturma Seçenekleri</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 134</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 88</value>
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
     <value>267, 78</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
-    <value>Bip sesi oluşturmak için ses aygıtını kullan özelliği sistem hoparlörü çıkışının algılanamaması veya sistem hoparlörü çıkışının standart dışı olması nedeniyle otomatik olarak etkinleştirilmiştir.</value>
+    <value>"Bip sesi oluşturmak için ses aygıtını kullan özelliği" sistem hoparlörü çıkışının algılanamaması veya sistem hoparlörü çıkışının standart dışı olması nedeniyle otomatik olarak etkinleştirilmiştir.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>267, 78</value>
   </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 88</value>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
+    <value>"Bip sesi oluşturmak için ses aygıtını kullan" özelliği bilgisayarın kompakt bir bilgisayar olması veya tipinin bilinmemesi nedeniyle otomatik olarak etkinleştirilmiştir</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 97</value>
@@ -618,8 +639,8 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Bu durumun nedenini göster</value>
   </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 135</value>
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Ton Dalga Şekli</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 20</value>
@@ -648,18 +669,6 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Kare (Default)</value>
   </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Ton Dalga Şekli</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 270</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Ses Aygıtından Bip Sesi Oluşturma Seçenekleri</value>
-  </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Ses Oluşturma</value>
-  </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 20</value>
   </data>
@@ -669,6 +678,9 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
   <data name="checkBox_use_midi_input.ToolTip" xml:space="preserve">
     <value>NeoBleeper'a nota göndermek için MIDI giriş aygıtını kullanın.
 Bir MIDI klavyeniz varsa, NeoBleeper'da nota çalmak için bunu kullanabilirsiniz.</value>
+  </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>MIDI Giriş Aygıtları</value>
   </data>
   <data name="refresh_midi_input_button.Text" xml:space="preserve">
     <value>Yenile</value>
@@ -686,9 +698,6 @@ Birden fazla aygıtınıx varsa, giriş için kullanmak istediğiniz aygıtı se
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>MIDI Giriş Aygıtını Seçiniz</value>
   </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>MIDI Giriş Aygıtları</value>
-  </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 20</value>
   </data>
@@ -698,6 +707,9 @@ Birden fazla aygıtınıx varsa, giriş için kullanmak istediğiniz aygıtı se
   <data name="checkBox_use_midi_output.ToolTip" xml:space="preserve">
     <value>Notaları çalmak için MIDI çıkış aygıtını kullan.
 Bu, harici MIDI aygıtlarını veya yazılım sentezleyicilerini kullanmanıza olanak tanır.</value>
+  </data>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>MIDI Çıkış Aygıtları</value>
   </data>
   <data name="comboBox_midi_output_instrument.ToolTip" xml:space="preserve">
     <value>MIDI çıkışı için kullanılacak enstrümanı seçiniz
@@ -735,8 +747,8 @@ Bağlı bir MIDI aygıtınız varsa burada görünmelidir.</value>
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>MIDI Çıkış Aygıtını Seçiniz</value>
   </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>MIDI Çıkış Aygıtları</value>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Diğer Aygıtlar</value>
   </data>
   <data name="button_get_firmware.Text" xml:space="preserve">
     <value>Yazılımı Al</value>
@@ -763,6 +775,9 @@ Step motoru, seçilen oktava karşılık gelen bir hızda çalışacaktır.
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Step motoru oktavı</value>
   </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Aygıt Türü</value>
+  </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 20</value>
   </data>
@@ -787,9 +802,6 @@ Arduino'da 8. pini, Raspberry Pi'de GPIO 18'i ve ESP32'de 25. pini kullanır.</v
 Ayrıca, farklı frekanslar oluşturmak için dönüş hızını ayarlayarak ses üretmek için de kullanılabilir.
 Arduino'da yön için 9 numaralı pini, adım için 10 numaralı pini, Raspberry Pi'de yön için GPIO 21 numaralı pini ve adım için GPIO 20 numaralı pini ve ESP32'de yön için 27 numaralı pini ve adım için 26 numaralı pini kullanır.</value>
   </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Aygıt Türü</value>
-  </data>
   <data name="checkBox_use_microcontroller.Text" xml:space="preserve">
     <value>Motor veya buzzer kullanın (Arduino, Raspberry Pi veya ESP32 aracılığıyla)</value>
   </data>
@@ -797,11 +809,8 @@ Arduino'da yön için 9 numaralı pini, adım için 10 numaralı pini, Raspberry
     <value>Motor veya buzzer ile kullanmak için mikrodenetleyici kullanın.
 Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol edebilirsiniz.</value>
   </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Diğer Aygıtlar</value>
-  </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Aygıtlar</value>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Klavye Renkleri</value>
   </data>
   <data name="third_octave_color_change.Text" xml:space="preserve">
     <value>Değiştir</value>
@@ -839,8 +848,8 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label2.Text" xml:space="preserve">
     <value>İlk Oktav Rengi</value>
   </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Klavye Renkleri</value>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Düğme ve Kontrol Renkleri</value>
   </data>
   <data name="markup_color_change.Text" xml:space="preserve">
     <value>Değiştir</value>
@@ -947,8 +956,8 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label7.Text" xml:space="preserve">
     <value>Boş Satır Rengi</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Düğme ve Kontrol Renkleri</value>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Gösterge Renkleri</value>
   </data>
   <data name="note_indicator_color_change.Text" xml:space="preserve">
     <value>Değiştir</value>
@@ -974,8 +983,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label11.Text" xml:space="preserve">
     <value>Bip Göstergesi Rengi</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Gösterge Renkleri</value>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 103</value>
+  </data>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Şarkı Sözü/Metin Etkinlikleri</value>
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 64</value>
@@ -1005,11 +1017,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
     <value>Şarkı Sözü/Metin 
 Etkinlikleri Boyutu</value>
   </data>
-  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 103</value>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 501</value>
   </data>
-  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
-    <value>Şarkı Sözü/Metin Etkinlikleri</value>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 53</value>
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 4</value>
@@ -1025,15 +1037,6 @@ Etkinlikleri Boyutu</value>
   </data>
   <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
     <value>Tüm görünüm ayarlatını varsayolan değerlerine sıfırla</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 501</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 53</value>
-  </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Görünüm</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

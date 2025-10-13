@@ -132,6 +132,7 @@
 Aucune action n'a été effectuée.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>Le haut-parleur système est absent. Il est donc impossible d'arrêter le bip sonore.</value>
+    <value>La sortie des haut-parleurs système est absente ou présente une sortie non standard. L'arrêt du bip sonore peut entraîner une instabilité ou des comportements indésirables.
+Voulez-vous continuer ?</value>
   </data>
 </root>

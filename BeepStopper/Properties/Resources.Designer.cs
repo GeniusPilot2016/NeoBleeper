@@ -99,7 +99,8 @@ namespace BeepStopper.Properties {
         }
         
         /// <summary>
-        ///   System speaker is not present. Therefore, stopping the beep is not possible. benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker output is not present or non-standard system speaker output is present. Beep stopper may cause instability or undesirable behaviors. 
+        ///Do you want to continue? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string SystemSpeakerNotPresentMessage {
             get {

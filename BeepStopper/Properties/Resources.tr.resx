@@ -132,6 +132,7 @@
 Herhangi bir işlem yapılmadı.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>Sistem hoparlörü mevcut değil. Bu nedenle, bip sesini durdurmak mümkün değil.</value>
+    <value>Sistem hoparlörü çıkışı mevcut değil veya standart dışı bir sistem hoparlörü çıkışı mevcut. Bip sesi durdurucu, kararsızlıklara veya istenmeyen davranışlara neden olabilir.
+Devam etmek istiyor musunuz?</value>
   </data>
 </root>

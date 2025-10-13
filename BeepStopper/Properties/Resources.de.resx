@@ -132,6 +132,7 @@
 Keine Aktion ausgeführt.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>Der Systemlautsprecher ist nicht vorhanden. Daher kann der Signalton nicht gestoppt werden.</value>
+    <value>Es ist kein Systemlautsprecherausgang vorhanden oder es liegt ein nicht standardmäßiger Systemlautsprecherausgang vor. Der Signaltonstopper kann zu Instabilität oder unerwünschtem Verhalten führen.
+Möchten Sie fortfahren?</value>
   </data>
 </root>

@@ -79,6 +79,7 @@
             MinimizeBox = false;
             Name = "neobleeper_init_display_resolution_warning";
             ShowIcon = false;
+            Shown += neobleeper_init_display_resolution_warning_Shown;
             SystemColorsChanged += neobleeper_init_display_resolution_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

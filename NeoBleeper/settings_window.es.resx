@@ -144,13 +144,13 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAsE0AAAJNU0Z0AUkBTAIBARIB
-        AAEUAQcBFAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEcAQcBHAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFvAWoBZQHsnAACVQFTAaoE/wHyAcUB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFuAWkBZQHsnAACVQFTAaoE/wHyAcUB
         QwH/AfEBwQE1Af8B8QHBATUB/wHxAcEBNQH/AfsB7AHBBf8D8AH/A/AB/wPwAf8BqwFiAQ0B/wHZAcEB
         pAH/A/AB/wPwAf8B3QGgAVAB/wwAAzUBVQGFAXsBbwH/AYMBeAFtAf8BgQF3AWsB/wF/AXUBaAH/AX0B
         cgFmAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
@@ -178,8 +178,8 @@
         hAH/AZEBiQGCAf8BkwGLAYMB/wGSAYoBggH/AZEBiQGAAf8BkAGIAX8B/wGPAYcBfgH/AY4BhQF8Af8B
         jQGEAXsB/wGMAYMBeQH/AYsBgQF3Af8BiQGAAXUB/wGHAX4BcwH/nAACVQFTAaoc/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/xQAAzUBVQQAAQgBvAH+Af8IAAEIAbwB/gH/BAADNQFVCAAB
-        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFqAWUBXQHsFAAD
-        MgFPBAABRQGSAacB7QgAAUYBjwGfAewEAAMyAU8IAAFFAZABpwHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
+        CAG8Af4B/6AAAyMBMgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wFpAWUBXQHsFAAD
+        MgFPBAABSAGMAZ0B7QgAAUsBiAGWAewEAAMyAU8IAAFIAYoBnQHt/wD/AP8A/wD/AL0AAx4BKwM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewBoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
@@ -682,6 +682,9 @@ Haz clic de nuevo para ocultarla.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>358, 79</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
+    <value>La función "Usar dispositivo de sonido para crear un pitido" se habilita automáticamente porque la computadora es compacta o se desconoce su tipo.</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>64, 98</value>

@@ -132,6 +132,7 @@
 Nessuna azione intrapresa.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>L'altoparlante di sistema non è presente. Pertanto, non è possibile interrompere il segnale acustico.</value>
+    <value>L'uscita dell'altoparlante di sistema non è presente oppure è presente un'uscita dell'altoparlante di sistema non standard. Il blocco del segnale acustico potrebbe causare instabilità o comportamenti indesiderati.
+Vuoi continuare?</value>
   </data>
 </root>
