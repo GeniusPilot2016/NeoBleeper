@@ -95,7 +95,7 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
 
   - #### Erkennt den Systemlautsprecher
     
-    Sollte NeoBleeper den Systemlautsprecher auf dem Motherboard Ihres Computers nicht erkennen, aktiviert es automatisch die Option „Audiogerät zum Erzeugen des Signaltons verwenden“, um mögliche unerwünschte Situationen zu vermeiden.
+    Sollte NeoBleeper den Systemlautsprecher auf dem Motherboard Ihres Computers nicht erkennen, aktiviert es automatisch die Option „Soundgerät zum Erzeugen des Signaltons verwenden“, um mögliche unerwünschte Situationen zu vermeiden.
 
     ![image](https://github.com/user-attachments/assets/cd7126f7-fc64-474a-898c-e60ddf755565)
 
