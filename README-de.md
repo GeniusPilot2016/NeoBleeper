@@ -2,11 +2,11 @@
 
 NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet. 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/6d0e2c17-0741-48b9-929f-401a81ad75a2)
+![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
 
 ## Status
 
-Dieses Projekt befindet sich **noch in der Entwicklung**. Einige Funktionen und Komponenten sind noch nicht fertig, und einige Teile wurden noch nicht erstellt. Bitte beachten Sie dies bei der Nutzung des Programms und geben Sie uns Feedback zu möglichen Fehlern oder Auslassungen.
+Dieses Projekt befindet sich **noch in der Entwicklung**. Einige Funktionen und Komponenten sind noch nicht fertig, und einige Teile müssen noch erstellt werden. Die nächste veröffentlichte Version ist die **letzte Alpha-Version**. Mit dem darauffolgenden Update wird NeoBleeper in die **erste Beta-Version** übergehen. Bitte beachten Sie dies bei der Nutzung des Programms und geben Sie uns Feedback, um zukünftige Versionen zu verbessern.
 
 ## Funktionen
 
@@ -14,37 +14,38 @@ Dieses Projekt befindet sich **noch in der Entwicklung**. Einige Funktionen und 
   
 NeoBleeper bietet eine benutzerfreundliche, vertraute, ergonomischere und natürlichere Oberfläche, die mit hochauflösenden Displays kompatibel ist und die Eingewöhnung für ehemalige Bleeper Music Maker-Nutzer beschleunigt.
 
- ![image](https://github.com/user-attachments/assets/dd83138f-2a06-4ed4-b866-5424a909becb)
+  ![image](https://github.com/user-attachments/assets/c9d253c1-3ead-4fee-b7a9-e80e8ad941bf)
 
-  ![image](https://github.com/user-attachments/assets/84f11ed0-1073-4a88-96c7-1c83ed4bab1b)
+  ![image](https://github.com/user-attachments/assets/65142fea-3c59-4625-9ad2-7c371589b3e8)
 
-  ![image](https://github.com/user-attachments/assets/1a9af30a-394d-4de2-adc5-2c1e25ef6e7c)
+  ![image](https://github.com/user-attachments/assets/1d5e558e-0abf-437d-9143-16e4e626dc51)
 
-  ![image](https://github.com/user-attachments/assets/554bf110-9de8-4128-8df8-b95b822a100f)
+  ![image](https://github.com/user-attachments/assets/d900a0d2-1f4f-4407-acfd-fb5bb396726b)
 
-  ![image](https://github.com/user-attachments/assets/d386916d-ab06-42b7-98a1-37902c625e64)
+  ![image](https://github.com/user-attachments/assets/cc903df6-7de3-42f9-a8e0-5e940589710c)
 
-  ![image](https://github.com/user-attachments/assets/a6d193ae-c6f9-4ad6-85d8-b1c2d6fccb8e)
+  ![image](https://github.com/user-attachments/assets/95963db7-130f-486e-9e91-ef100cb62229)
 
-  ![image](https://github.com/user-attachments/assets/61fdf6e2-e208-428c-becd-a761e3dc7986)
+  ![image](https://github.com/user-attachments/assets/851ae216-7a67-46aa-9a53-d1e2cfa9717b)
 
-  ![image](https://github.com/user-attachments/assets/b0923941-201e-42ea-a24f-29980312fe3e)
+  ![image](https://github.com/user-attachments/assets/b51e9557-a914-4c46-935c-ee49984fa414)
   
 - ### Notizen hinzufügen und bearbeiten
   
 Mit NeoBleeper können Nutzer einfach und schnell Notizen hinzufügen. Dank der benutzerfreundlichen, vertrauten und intuitiven Oberfläche können Sie Ihrer Musik kreativ Notizen hinzufügen oder Notizen darin bearbeiten.
 
-  ![image](https://github.com/user-attachments/assets/17a89d8b-e082-4e8d-9b44-6d7ea7078a8c)
+  ![image](https://github.com/user-attachments/assets/c30e352d-d9a9-4b59-bd88-30b8a165e6f0)
 
-  ![image](https://github.com/user-attachments/assets/c709c014-b73c-4570-b595-aa5beba84841)
+  ![image](https://github.com/user-attachments/assets/c4bdc5f5-0a8a-4d17-a8d5-158724cd1be7)
 
-  ![image](https://github.com/user-attachments/assets/bcb5e8c3-367a-4d2d-a946-435c98d2e896)
+  ![image](https://github.com/user-attachments/assets/d7a055ec-958b-46ae-94d0-01ca5859da83)
+
 
 - ### Taktart- und BPM-Einstellungen
   
 NeoBleeper ermöglicht es Nutzern, die Taktart von Musik anzupassen und den Rhythmus mithilfe eines Metronoms zu bearbeiten. Dank der benutzerfreundlichen, vertrauten und intuitiven Oberfläche können Sie mit Taktartanpassungen und Metronomnutzung präzisere und konsistentere Musik erstellen.
-  
-   ![image](https://github.com/user-attachments/assets/25361c79-aa69-4e27-89a3-dc8298daca49)
+
+   ![image](https://github.com/user-attachments/assets/e84ceefc-1439-4f53-8db9-7c011ece86cf)
 
 - ### Einfache Noteneingabe mit virtueller Tastatur
   
@@ -56,7 +57,7 @@ NeoBleeper ermöglicht Ihnen die schnelle und einfache Noteneingabe mit einer vi
   
 NeoBleeper unterstützt sein eigenes Dateiformat (.NBPML) sowie das Dateiformat des Bleeper Music Maker (.BMM), von dem es inspiriert wurde.
 
-  ![image](https://github.com/user-attachments/assets/e114bfa5-971f-4e22-9b31-face8952f49e)
+  ![image](https://github.com/user-attachments/assets/5fef7156-9225-41a5-92c9-b1f38bb1ef63)
 
 - ### Mehr als ein Remake
 
@@ -66,43 +67,43 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
     
     Dank der KI-gestützten Musikerstellungsfunktion von Google Gemini™ im NeoBleeper-Programm können Sie Musik mit KI erstellen und über den Systemlautsprecher oder ein MIDI-Ausgabegerät abspielen.
 
-    ![image](https://github.com/user-attachments/assets/27f22d0a-37e0-4413-90aa-a8052c1f49ed)
+    ![image](https://github.com/user-attachments/assets/36eddae6-3c8f-49c9-a8c7-10fe3e72ed2f)
 
-    ![image](https://github.com/user-attachments/assets/bbb5bef9-7186-471e-b89d-397c240854e2)
-    
+    ![image](https://github.com/user-attachments/assets/4a8bbc36-46a6-4f43-8516-83c959d0880a)
+
   - #### Präzisere Positionsanzeige
-  - 
-    NeoBleeper bietet eine Positionsanzeige, die mit 1/32 Notenlänge kompatibel ist.
     
-    ![image](https://github.com/user-attachments/assets/213b8caa-2559-436b-a4ae-4d8ec6ba9de8)
+    NeoBleeper bietet eine Positionsanzeige, die mit 1/32 Notenlänge kompatibel ist.
+
+    ![image](https://github.com/user-attachments/assets/0808f38f-5174-49f0-acee-f9ddbbc74116)
 
   - #### Sie können Ihr normales Keyboard auch als Klavier verwenden.
 
     NeoBleeper verwandelt Ihr normales Keyboard in ein Klavier und ermöglicht Ihnen das einfache Spielen von Noten ohne MIDI-Eingabegerät.
 
-    ![image](https://github.com/user-attachments/assets/f926bcd6-bf2e-4ced-886f-3f21986ed2f5)
+    ![image](https://github.com/user-attachments/assets/ff82344f-39eb-4f75-9152-08b3e1b3235f)
     
   - #### Personalisierung nach Wunsch
     
     Sie können NeoBleeper personalisieren, indem Sie die Oktavfarben, die Farben einiger Schaltflächen und Anzeigen in Millionen von Farben ändern und zwischen dunklen und hellen Designs wählen. Ihrer Fantasie sind dabei keine Grenzen gesetzt. Aktivieren Sie außerdem den „Klassischen Bleeper-Modus“, um die Benutzeroberfläche des Programms an die nostalgische Benutzeroberfläche des Bleeper Music Maker anzupassen.
 
-    ![image](https://github.com/user-attachments/assets/4541acb3-9db0-4db4-abc5-86a72de8dac9)
+    ![image](https://github.com/user-attachments/assets/109701c2-856e-4c10-a412-4dceeb21e102)
 
-    ![image](https://github.com/user-attachments/assets/fb337ecd-a01b-4ddb-b6c0-7bf78be0b593)
+    ![image](https://github.com/user-attachments/assets/1d259709-eb5b-4c05-b761-5861d716c005)
 
-    ![image](https://github.com/user-attachments/assets/400a4698-b88f-4d22-bac4-ab72116806d9)
+    ![image](https://github.com/user-attachments/assets/6022ec1f-eb7d-45f5-b36a-2c560495e0e2)
 
   - #### Erkennt den Systemlautsprecher
-  - 
-    Wenn NeoBleeper den Systemlautsprecher auf dem Motherboard Ihres Computers nicht erkennt, wird die Option „Audiogerät zum Erzeugen des Signaltons verwenden“ automatisch und dauerhaft aktiviert.
+    
+    Sollte NeoBleeper den Systemlautsprecher auf dem Motherboard Ihres Computers nicht erkennen, aktiviert es automatisch die Option „Audiogerät zum Erzeugen des Signaltons verwenden“, um mögliche unerwünschte Situationen zu vermeiden.
 
-    ![image](https://github.com/user-attachments/assets/6fb56353-c2f3-4fe5-824f-9a07c415f929)
+    ![image](https://github.com/user-attachments/assets/cd7126f7-fc64-474a-898c-e60ddf755565)
 
   - #### Intelligenter als Sie denken
     
-    NeoBleeper erkennt Ihren Computertyp und verhindert mögliche unerwünschte Situationen, indem es auf Kompaktcomputern automatisch die Option „Audiogerät zum Erzeugen des Signaltons verwenden“ aktiviert.
-  
-    ![image](https://github.com/user-attachments/assets/9f5b6680-3ee0-4423-9056-e9218080ecbc)
+    NeoBleeper erkennt Ihren Computertyp und verhindert mögliche unerwünschte Situationen, indem es die Option „Audiogerät zum Erzeugen des Signaltons verwenden“ auf kompakten Computern automatisch aktiviert.
+
+    ![image](https://github.com/user-attachments/assets/47af940b-6468-4beb-ab5f-5cc55ad57c73)
 
 ## Systemanforderungen
 
