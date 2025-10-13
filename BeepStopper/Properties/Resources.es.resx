@@ -132,6 +132,7 @@
 No se realizó ninguna acción.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>El altavoz del sistema no está presente. Por lo tanto, no es posible detener el pitido.</value>
+    <value>La salida de los altavoces del sistema no está presente o la salida no es la estándar. El silenciador de pitidos puede causar inestabilidad o comportamientos indeseados.
+¿Desea continuar?</value>
   </data>
 </root>

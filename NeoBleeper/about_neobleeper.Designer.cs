@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(about_neobleeper));
             pictureBox1 = new PictureBox();
-            lbl_credit = new Label();
             lbl_name = new Label();
             lbl_version = new Label();
             imageList_about = new ImageList(components);
@@ -43,6 +42,7 @@
             button_view_license_text = new Button();
             button_fork_me_on_github = new Button();
             panel1 = new Panel();
+            lbl_credit = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -54,11 +54,6 @@
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
-            // 
-            // lbl_credit
-            // 
-            resources.ApplyResources(lbl_credit, "lbl_credit");
-            lbl_credit.Name = "lbl_credit";
             // 
             // lbl_name
             // 
@@ -86,7 +81,7 @@
             resources.ApplyResources(listView1, "listView1");
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             listView1.FullRowSelect = true;
-            listView1.Items.AddRange(new ListViewItem[] { (ListViewItem)resources.GetObject("listView1.Items"), (ListViewItem)resources.GetObject("listView1.Items1") });
+            listView1.Items.AddRange(new ListViewItem[] { (ListViewItem)resources.GetObject("listView1.Items"), (ListViewItem)resources.GetObject("listView1.Items1"), (ListViewItem)resources.GetObject("listView1.Items2") });
             listView1.MultiSelect = false;
             listView1.Name = "listView1";
             listView1.UseCompatibleStateImageBehavior = false;
@@ -131,24 +126,29 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Controls.Add(lbl_name);
             panel1.Controls.Add(lbl_version);
             panel1.Controls.Add(pictureBox1);
             panel1.Name = "panel1";
+            // 
+            // lbl_credit
+            // 
+            resources.ApplyResources(lbl_credit, "lbl_credit");
+            lbl_credit.Name = "lbl_credit";
             // 
             // about_neobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(button_fork_me_on_github);
-            Controls.Add(button_view_license_text);
             Controls.Add(button_visit_icons8);
             Controls.Add(label1);
             Controls.Add(listView1);
-            Controls.Add(lbl_credit);
             Controls.Add(panel1);
+            Controls.Add(button_view_license_text);
+            Controls.Add(lbl_credit);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -166,7 +166,6 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label lbl_credit;
         private Label lbl_name;
         private Label lbl_version;
         private ImageList imageList_about;
@@ -178,5 +177,6 @@
         private Button button_view_license_text;
         private Button button_fork_me_on_github;
         private Panel panel1;
+        private Label lbl_credit;
     }
 }

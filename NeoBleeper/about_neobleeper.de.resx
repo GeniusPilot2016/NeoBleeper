@@ -117,32 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 200</value>
-  </data>
-  <data name="lbl_credit.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>475, 0</value>
-  </data>
-  <data name="lbl_credit.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>475, 64</value>
-  </data>
-  <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>475, 80</value>
-  </data>
-  <data name="lbl_credit.Text" xml:space="preserve">
-    <value>Inspiriert von Robbi-985s (auch bekannt als SomethingUnreals) Bleeper Music Maker
-Design und Programmierung: GeniusPilot2016
-Alle Symbole in diesem Programm wurden von icons8.com heruntergeladen.
-NeoBleeper ist unter der GNU General Public License v3.0 lizenziert.
-Google Gemini™ ist eine Marke von Google LLC.</value>
-  </data>
   <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFIAQIBSAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAFwAQIBcAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -232,6 +212,29 @@ Google Gemini™ ist eine Marke von Google LLC.</value>
         AAMAAAAL
 </value>
   </data>
+  <data name="listView1.Items2" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
+        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
+        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
+        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
+        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
+        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAACE0wODRNTTNE////
+        /wIAAAAJBQAAAAX6////FFN5c3RlbS5EcmF3aW5nLkNvbG9yBAAAAARuYW1lBXZhbHVlCmtub3duQ29s
+        b3IFc3RhdGUBAAAACQcHAwAAAAoAAAAAAAAAABgAAQAACQcAAAAB+P////r///8KAAAAAAAAAAAaAAEA
+        AQUFAAAAMVN5c3RlbS5XaW5kb3dzLkZvcm1zLkxpc3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0EAAAA
+        BHRleHQEbmFtZQVzdHlsZQh1c2VyRGF0YQEBBAI+U3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbStTdWJJdGVtU3R5bGUCAAAAAgAAAAYJAAAAZUVyZ8OkbnplbiBkZXIg
+        ZmVobGVuZGVuIERhdGVuIHp1bSBQcm9ibGVtIGRlciBmYWxzY2ggbmVnYXRpdmVuIEVyZ2Vibmlzc2Ug
+        aW0gU3lzdGVtbGF1dHNwcmVjaGVyc2Vuc29yCgoKBQcAAAATU3lzdGVtLkRyYXdpbmcuRm9udAQAAAAE
+        TmFtZQRTaXplBVN0eWxlBFVuaXQBAAQECxhTeXN0ZW0uRHJhd2luZy5Gb250U3R5bGUDAAAAG1N5c3Rl
+        bS5EcmF3aW5nLkdyYXBoaWNzVW5pdAMAAAADAAAABgoAAAAOSGFybW9ueU9TIFNhbnP//w9BBfX///8Y
+        U3lzdGVtLkRyYXdpbmcuRm9udFN0eWxlAQAAAAd2YWx1ZV9fAAgDAAAAAAAAAAX0////G1N5c3RlbS5E
+        cmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
+</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="columnHeader1.Width" type="System.Int32, mscorlib">
     <value>300</value>
@@ -242,8 +245,9 @@ Google Gemini™ ist eine Marke von Google LLC.</value>
   <data name="label1.Text" xml:space="preserve">
     <value>Mitwirkende</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 295</value>
+    <value>52, 326</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 41</value>
@@ -255,7 +259,7 @@ Google Gemini™ ist eine Marke von Google LLC.</value>
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 295</value>
+    <value>182, 326</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 41</value>
@@ -267,13 +271,48 @@ Google Gemini™ ist eine Marke von Google LLC.</value>
     <value>MiddleCenter</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 295</value>
+    <value>318, 326</value>
   </data>
   <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 41</value>
   </data>
   <data name="button_fork_me_on_github.Text" xml:space="preserve">
     <value>Fork Me auf GitHub</value>
+  </data>
+  <data name="richTextBox_credit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 200</value>
+  </data>
+  <data name="richTextBox_credit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>475, 112</value>
+  </data>
+  <data name="richTextBox_credit.Text" xml:space="preserve">
+    <value>© 2023-2025 GeniusPilot2016
+NeoBleeper ist unter der GNU General Public License v3.0 lizenziert
+Weitere Informationen finden Sie unter https://www.gnu.org/licenses/
+Inspiriert von Robbi-985s (auch bekannt als SomethingUnreals) Bleeper Music Maker
+Design und Programmierung: GeniusPilot2016
+Alle Symbole in diesem Programm wurden von icons8.com heruntergeladen
+Google Gemini™ ist eine Marke von Google LLC</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lbl_credit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 200</value>
+  </data>
+  <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>475, 112</value>
+  </data>
+  <data name="lbl_credit.Text" xml:space="preserve">
+    <value>© 2023-2025 GeniusPilot2016
+NeoBleeper ist unter der GNU General Public License v3.0 lizenziert
+Weitere Informationen finden Sie unter https://www.gnu.org/licenses/
+Inspiriert von Robbi-985s (auch bekannt als SomethingUnreals) Bleeper Music Maker
+Design und Programmierung: GeniusPilot2016
+Alle Symbole in diesem Programm wurden von icons8.com heruntergeladen
+Google Gemini™ ist eine Marke von Google LLC
+</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

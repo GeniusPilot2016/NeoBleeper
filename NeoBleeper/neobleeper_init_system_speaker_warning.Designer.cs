@@ -114,6 +114,7 @@
             MinimizeBox = false;
             Name = "neobleeper_init_system_speaker_warning";
             ShowIcon = false;
+            Shown += neobleeper_init_system_speaker_warning_Shown;
             SystemColorsChanged += neobleeper_init_system_speaker_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

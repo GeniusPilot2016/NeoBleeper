@@ -132,6 +132,7 @@
 Không có hành động nào được thực hiện.</value>
   </data>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
-    <value>Loa hệ thống không có. Do đó, không thể dừng tiếng bíp.</value>
+    <value>Không có đầu ra loa hệ thống hoặc đầu ra loa hệ thống không chuẩn. Bộ chặn tiếng bíp có thể gây mất ổn định hoặc các hiện tượng không mong muốn.
+Bạn có muốn tiếp tục không?</value>
   </data>
 </root>

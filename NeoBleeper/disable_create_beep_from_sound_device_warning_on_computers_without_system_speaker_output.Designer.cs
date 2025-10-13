@@ -106,6 +106,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output";
+            Shown += disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output_Shown;
             SystemColorsChanged += disable_create_beep_from_sound_card_warning_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

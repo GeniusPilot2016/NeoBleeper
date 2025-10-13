@@ -18,11 +18,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x64</Platforms>
-    <Copyright>NeoBleeper is licensed under the GNU GPL v3</Copyright>
+    <Copyright>© 2023-2025 GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>music, beep, pc-speaker, buzzer, tune, pc-beeper, system-speaker, neobleeper, bleeper, motherboard-speaker, motherboard-buzzer</PackageTags>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Description>NeoBleeper is an AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software by Robbi-985 (aka SomethingUnreal).</Description>
   </PropertyGroup>
 
   <ItemGroup>

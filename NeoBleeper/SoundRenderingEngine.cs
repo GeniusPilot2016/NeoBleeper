@@ -1,8 +1,23 @@
-﻿using NAudio.CoreAudioApi;
+﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+// Copyright (C) 2023 GeniusPilot2016
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+using NAudio.CoreAudioApi;
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
 using System.Management;
 using System.Runtime.InteropServices;
 using static NeoBleeper.TemporarySettings;
@@ -144,7 +159,7 @@ namespace NeoBleeper
                 try
                 {
                     // Check if the system speaker is currently beeping by reading the status of the speaker port
-                    return (Inp32(0x61) & 0x03) == 0x03;
+                    return ((Inp32(0x61) & 0x03) == 0x03);
                 }
                 catch (Exception)
                 {
@@ -159,7 +174,7 @@ namespace NeoBleeper
                 using (var searcher = new ManagementObjectSearcher(query))
                 {
                     var devices = searcher.Get();
-                    return devices.Count > 0;
+                    return (devices.Count > 0);
                 }
             }
         }

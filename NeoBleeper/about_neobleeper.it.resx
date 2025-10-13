@@ -117,19 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lbl_credit.Text" xml:space="preserve">
-    <value>Ispirato a Bleeper Music Maker di Robbi-985 (alias SomethingUnreal)
-Progettato e programmato da GeniusPilot2016
-Tutte le icone di questo programma sono scaricabili da icons8.com
-NeoBleeper è concesso in licenza con GNU General Public License v3.0
-Google Gemini™ è un marchio registrato di Google LLC</value>
-  </data>
   <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFUAQIBVAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAF8AQIBfAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -218,12 +211,35 @@ Google Gemini™ è un marchio registrato di Google LLC</value>
         ////G1N5c3RlbS5EcmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
 </value>
   </data>
+  <data name="listView1.Items2" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
+        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
+        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
+        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
+        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
+        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAACE0wODRNTTNE////
+        /wIAAAAJBQAAAAX6////FFN5c3RlbS5EcmF3aW5nLkNvbG9yBAAAAARuYW1lBXZhbHVlCmtub3duQ29s
+        b3IFc3RhdGUBAAAACQcHAwAAAAoAAAAAAAAAABgAAQAACQcAAAAB+P////r///8KAAAAAAAAAAAaAAEA
+        AQUFAAAAMVN5c3RlbS5XaW5kb3dzLkZvcm1zLkxpc3RWaWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0EAAAA
+        BHRleHQEbmFtZQVzdHlsZQh1c2VyRGF0YQEBBAI+U3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbStTdWJJdGVtU3R5bGUCAAAAAgAAAAYJAAAAb0luc2VyaW1lbnRvIGRl
+        aSBkYXRpIG1hbmNhbnRpIHJlbGF0aXZpIGFsIHByb2JsZW1hIGRlbCBmYWxzbyBuZWdhdGl2byBuZWwg
+        c2Vuc29yZSBkZWxsJ2FsdG9wYXJsYW50ZSBkZWwgc2lzdGVtYQoKCgUHAAAAE1N5c3RlbS5EcmF3aW5n
+        LkZvbnQEAAAABE5hbWUEU2l6ZQVTdHlsZQRVbml0AQAEBAsYU3lzdGVtLkRyYXdpbmcuRm9udFN0eWxl
+        AwAAABtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQDAAAAAwAAAAYKAAAADkhhcm1vbnlPUyBTYW5z
+        //8PQQX1////GFN5c3RlbS5EcmF3aW5nLkZvbnRTdHlsZQEAAAAHdmFsdWVfXwAIAwAAAAAAAAAF9P//
+        /xtTeXN0ZW0uRHJhd2luZy5HcmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 376</value>
+    <value>12, 400</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>486, 146</value>
+    <value>482, 146</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>Nome</value>
@@ -232,13 +248,16 @@ Google Gemini™ è un marchio registrato di Google LLC</value>
     <value>Compito</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 352</value>
+    <value>215, 376</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 16</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Collaboratori</value>
+  </data>
+  <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 325</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 40</value>
@@ -249,6 +268,9 @@ Google Gemini™ è un marchio registrato di Google LLC</value>
   <data name="button_visit_icons8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 325</value>
+  </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 40</value>
   </data>
@@ -258,6 +280,9 @@ Google Gemini™ è un marchio registrato di Google LLC</value>
   <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
+    <value>319, 325</value>
+  </data>
   <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 40</value>
   </data>
@@ -266,6 +291,28 @@ Google Gemini™ è un marchio registrato di Google LLC</value>
   </data>
   <data name="button_fork_me_on_github.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
+  </data>
+  <data name="richTextBox_credit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 120</value>
+  </data>
+  <data name="richTextBox_credit.Text" xml:space="preserve">
+    <value>© 2023-2025 GeniusPilot2016
+NeoBleeper è concesso in licenza con GNU General Public License v3.0
+Per maggiori dettagli consultare https://www.gnu.org/licenses/
+Ispirato a Bleeper Music Maker di Robbi-985 (alias SomethingUnreal)
+Progettato e programmato da GeniusPilot2016
+Tutte le icone di questo programma sono scaricabili da icons8.com
+Google Gemini™ è un marchio registrato di Google LLC</value>
+  </data>
+  <data name="lbl_credit.Text" xml:space="preserve">
+    <value>© 2023-2025 GeniusPilot2016
+NeoBleeper è concesso in licenza con GNU General Public License v3.0
+Per maggiori dettagli consultare https://www.gnu.org/licenses/
+Ispirato a Bleeper Music Maker di Robbi-985 (alias SomethingUnreal)
+Progettato e programmato da GeniusPilot2016
+Tutte le icone di questo programma sono scaricabili da icons8.com
+Google Gemini™ è un marchio registrato di Google LLC
+</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
