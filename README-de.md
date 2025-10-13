@@ -36,7 +36,7 @@ Mit NeoBleeper können Nutzer einfach und schnell Notizen hinzufügen. Dank der 
 
   ![image](https://github.com/user-attachments/assets/c30e352d-d9a9-4b59-bd88-30b8a165e6f0)
 
-  ![image](https://github.com/user-attachments/assets/c4bdc5f5-0a8a-4d17-a8d5-158724cd1be7)
+  ![image](https://github.com/user-attachments/assets/812fc4cb-2663-4bd5-8270-f671e9ff3a07)
 
   ![image](https://github.com/user-attachments/assets/d7a055ec-958b-46ae-94d0-01ca5859da83)
 
