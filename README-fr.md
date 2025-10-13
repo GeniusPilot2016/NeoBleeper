@@ -88,7 +88,7 @@ NeoBleeper permet aux utilisateurs d'ajouter et de modifier des notes facilement
 
   - #### Détecte le haut-parleur système pour vous
 
-    Si NeoBleeper ne détecte pas le haut-parleur système de la carte mère de votre ordinateur, il activera automatiquement et définitivement l'option « Utiliser un périphérique audio pour créer le bip » afin d'éviter tout problème.
+    Si NeoBleeper ne détecte pas le haut-parleur système de la carte mère de votre ordinateur, il activera automatiquement l'option « Utiliser un périphérique audio pour créer le bip » afin d'éviter tout problème.
 
     ![image](https://github.com/user-attachments/assets/c68b854a-2b6b-478e-bef3-1d22bcec6e1d)
 
