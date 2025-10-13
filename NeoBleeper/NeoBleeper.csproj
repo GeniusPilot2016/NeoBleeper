@@ -146,7 +146,7 @@
     <None Update="Music\Adele - Skyfall.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Music\another love.NBPML">
+    <None Update="Music\Another Love.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Music\Clementi Sonatina No. 3, Op 36.NBPML">
