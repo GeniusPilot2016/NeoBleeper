@@ -1554,18 +1554,22 @@ namespace NeoBleeper
     Variables.note_silence_ratio, Variables.time_signature);
                 isModified = false;
                 UpdateFormTitle();
-                if (Settings1.Default.RecentFiles == null)
-                {
-                    Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
-                }
-
-                if (!Settings1.Default.RecentFiles.Contains(filename))
-                {
-                    Settings1.Default.RecentFiles.Add(filename);
-                    Settings1.Default.Save();
-                }
-                UpdateRecentFilesMenu();
+                addFileToRecentFilesMenu(filename);
             }
+        }
+        private void addFileToRecentFilesMenu(string fileName)
+        {
+            if (Settings1.Default.RecentFiles == null)
+            {
+                Settings1.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+            }
+
+            if (!Settings1.Default.RecentFiles.Contains(fileName))
+            {
+                Settings1.Default.RecentFiles.Add(fileName);
+                Settings1.Default.Save();
+            }
+            UpdateRecentFilesMenu();
         }
         public static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
@@ -1649,6 +1653,11 @@ namespace NeoBleeper
                 {
                     isSaved = true;
                     SaveToNBPML(saveFileDialog.FileName);
+                    addFileToRecentFilesMenu(saveFileDialog.FileName);
+                    if(saveAsToolStripMenuItem.Enabled == false)
+                    {
+                        saveAsToolStripMenuItem.Enabled = true;
+                    }
                     currentFilePath = saveFileDialog.FileName;
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
                     isModified = false;
