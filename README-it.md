@@ -6,7 +6,7 @@ NeoBleeper è un software di creazione di melodie basato sull'intelligenza artif
 
 ## Stato
 
-Questo progetto è ancora in fase di sviluppo e alcune funzionalità e componenti non sono ancora stati completati, con alcune parti non ancora create. La prossima versione pubblicata sarà l'ultima versione alpha. Con il successivo aggiornamento, NeoBleeper passerà alla sua prima versione beta. Si prega di utilizzare il programma tenendo presente questo aspetto e di fornire feedback per contribuire a migliorare le versioni future.
+Questo progetto è **ancora in fase di sviluppo** e alcune funzionalità e componenti non sono ancora stati completati, con alcune parti non ancora create. La prossima versione pubblicata sarà l'**ultima versione alpha**. Con il successivo aggiornamento, NeoBleeper passerà alla sua **prima versione beta**. Si prega di utilizzare il programma tenendo presente questo aspetto e di fornire feedback per contribuire a migliorare le versioni future.
 
 ## Caratteristiche
 

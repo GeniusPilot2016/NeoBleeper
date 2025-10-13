@@ -159,6 +159,12 @@
   <data name="button_d_s5.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
   </data>
+  <data name="red_felt.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label_bpm.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trackBar_time_signature.ToolTip" xml:space="preserve">
     <value>Afecta a la tabla de posición ubicada en la esquina inferior derecha de esta ventana.</value>
   </data>
@@ -169,41 +175,38 @@
   <data name="label_time_signature.Text" xml:space="preserve">
     <value>Signatura Rítmica</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Archivo</value>
+  <data name="label_time_signature.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="newToolStripMenuItem1.Text" xml:space="preserve">
     <value>Nuevo</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Abrir</value>
   </data>
   <data name="openRecentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="openRecentToolStripMenuItem.Text" xml:space="preserve">
     <value>Abrir Reciente</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 6</value>
+    <value>246, 6</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Guarda</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Guarda Como...</value>
@@ -222,43 +225,43 @@
 </value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="playMIDIFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Reproducir Archivo MIDI</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 6</value>
+    <value>246, 6</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
+    <value>249, 22</value>
   </data>
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
     <value>Crea Música con IA</value>
   </data>
-  <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 26</value>
-  </data>
-  <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
-    <value>Convertir a...</value>
-  </data>
   <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 26</value>
+    <value>357, 22</value>
   </data>
   <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
     <value>Convertir a GCode</value>
   </data>
   <data name="convertToBeepCommandForLinuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 26</value>
+    <value>357, 22</value>
   </data>
   <data name="convertToBeepCommandForLinuxToolStripMenuItem.Text" xml:space="preserve">
     <value>Convertir al comando Beep para Linux</value>
   </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 20</value>
+  <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>249, 22</value>
   </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Editar</value>
+  <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
+    <value>Convertir a...</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Archivo</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>424, 22</value>
@@ -278,6 +281,12 @@
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Revertir todos los cambios y volver a la versión guardada</value>
   </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 20</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Editar</value>
+  </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 20</value>
   </data>
@@ -296,12 +305,15 @@
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>A&amp;yuda</value>
   </data>
+  <data name="menuStrip1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="imageList_main_window.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAH0ASUB9AElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAH8ASUB/AElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -676,20 +688,14 @@
   <data name="checkBox_triplet.ToolTip" xml:space="preserve">
     <value>Reduzca la duración de la nota a un tercio de su duración original.</value>
   </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 264</value>
+  <data name="length.Text" xml:space="preserve">
+    <value>Longitud</value>
   </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Línea en blanco</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Borrar notas</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 26</value>
@@ -714,6 +720,12 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Borrar Nota 4</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Borrar notas</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 26</value>
@@ -757,12 +769,6 @@
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Deseleccionar todas las notas</value>
   </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Controles de reproducción</value>
-  </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>353, 26</value>
   </data>
@@ -781,6 +787,21 @@
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Dejen de jugar</value>
   </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Controles de reproducción</value>
+  </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>326, 264</value>
+  </data>
+  <data name="notes_list_right_click.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listViewNotes.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 3</value>
   </data>
@@ -789,6 +810,9 @@
   </data>
   <data name="label_note_length.Text" xml:space="preserve">
     <value>Longitud de la Nota</value>
+  </data>
+  <data name="label_note_length.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="trackBar_note_silence_ratio.ToolTip" xml:space="preserve">
     <value>Determina la proporción entre notas y silencios en cada línea.</value>
@@ -802,17 +826,29 @@
   <data name="label_note_silence_ratio.Text" xml:space="preserve">
     <value>Relación Nota/Silencio</value>
   </data>
+  <data name="label_note_silence_ratio.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_silence.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 16</value>
   </data>
   <data name="label_silence.Text" xml:space="preserve">
     <value>Silencio</value>
   </data>
+  <data name="label_silence.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_note.Text" xml:space="preserve">
     <value>Nota</value>
   </data>
+  <data name="label_note.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_alternating_notes_switch.Text" xml:space="preserve">
     <value>Alternar entre las notas de forma sucesiva cada:</value>
+  </data>
+  <data name="label_alternating_notes_switch.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_mods.Location" type="System.Drawing.Point, System.Drawing">
     <value>322, 514</value>
@@ -822,6 +858,9 @@
   </data>
   <data name="label_mods.Text" xml:space="preserve">
     <value>Modificaciones</value>
+  </data>
+  <data name="label_mods.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 536</value>
@@ -875,6 +914,60 @@ rítmico</value>
   <data name="lbl_alternating_note_options.Text" xml:space="preserve">
     <value>Opciones para tocar notas alternadas</value>
   </data>
+  <data name="lbl_alternating_note_options.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_f3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_b3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_b4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_f4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_c4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_g5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_e5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_d5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_c5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
     <value>874, 366</value>
   </data>
@@ -911,20 +1004,35 @@ rítmico</value>
   <data name="lbl_beat.Text" xml:space="preserve">
     <value>Ritmo</value>
   </data>
+  <data name="lbl_beat.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 32</value>
   </data>
   <data name="lbl_beat_traditional.Text" xml:space="preserve">
     <value>Ritmo (Tradicional)</value>
   </data>
+  <data name="lbl_beat_traditional.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 1</value>
+  </data>
+  <data name="lbl_measure_value.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 22</value>
   </data>
+  <data name="lbl_beat_value.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 39</value>
+  </data>
+  <data name="lbl_beat_traditional_value.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_c3.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
@@ -977,6 +1085,12 @@ rítmico</value>
   <data name="button_a5.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
   </data>
+  <data name="lbl_b5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_a5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_b5.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
   </data>
@@ -989,8 +1103,8 @@ rítmico</value>
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Reproducir nota</value>
   </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Añadir nota</value>
+  <data name="checkbox_play_note.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 20</value>
@@ -998,11 +1112,17 @@ rítmico</value>
   <data name="add_as_note4.Text" xml:space="preserve">
     <value>Añadir como Nota 4</value>
   </data>
+  <data name="add_as_note4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="add_as_note3.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 20</value>
   </data>
   <data name="add_as_note3.Text" xml:space="preserve">
     <value>Añadir como Nota 3</value>
+  </data>
+  <data name="add_as_note3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_replace_length.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 134</value>
@@ -1013,11 +1133,17 @@ rítmico</value>
   <data name="checkBox_replace_length.Text" xml:space="preserve">
     <value>Reemplazar también la longitud</value>
   </data>
+  <data name="checkBox_replace_length.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_replace.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 20</value>
   </data>
   <data name="checkBox_replace.Text" xml:space="preserve">
     <value>Reemplazar en lugar de insertar</value>
+  </data>
+  <data name="checkBox_replace.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 20</value>
@@ -1025,11 +1151,17 @@ rítmico</value>
   <data name="add_as_note2.Text" xml:space="preserve">
     <value>Añadir como Nota 2</value>
   </data>
+  <data name="add_as_note2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="add_as_note1.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 20</value>
   </data>
   <data name="add_as_note1.Text" xml:space="preserve">
     <value>Añadir como Nota 1</value>
+  </data>
+  <data name="add_as_note1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_add_note_to_list.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 20</value>
@@ -1037,11 +1169,20 @@ rítmico</value>
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Añadir nota a la lista de música</value>
   </data>
+  <data name="checkBox_add_note_to_list.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Añadir nota</value>
+  </data>
+  <data name="group_adding_note.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>Cuando se hace clic en la tecla</value>
   </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>Cuando se hace clic en una línea</value>
+  <data name="group_key_is_clicked.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
@@ -1049,11 +1190,17 @@ rítmico</value>
   <data name="checkBox_play_note4_clicked.Text" xml:space="preserve">
     <value>Reproducir Nota 4</value>
   </data>
+  <data name="checkBox_play_note4_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note3_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
   </data>
   <data name="checkBox_play_note3_clicked.Text" xml:space="preserve">
     <value>Reproducir Nota 3</value>
+  </data>
+  <data name="checkBox_play_note3_clicked.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note2_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
@@ -1061,11 +1208,23 @@ rítmico</value>
   <data name="checkBox_play_note2_clicked.Text" xml:space="preserve">
     <value>Reproducir Nota 2</value>
   </data>
+  <data name="checkBox_play_note2_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note1_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
   </data>
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Reproducir Nota 1</value>
+  </data>
+  <data name="checkBox_play_note1_clicked.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>Cuando se hace clic en una línea</value>
+  </data>
+  <data name="group_line_clicked.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
@@ -1073,11 +1232,17 @@ rítmico</value>
   <data name="checkBox_play_note4_played.Text" xml:space="preserve">
     <value>Reproducir Nota 4</value>
   </data>
+  <data name="checkBox_play_note4_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note1_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
   </data>
   <data name="checkBox_play_note1_played.Text" xml:space="preserve">
     <value>Reproducir Nota 1</value>
+  </data>
+  <data name="checkBox_play_note1_played.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_play_note3_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
@@ -1085,17 +1250,32 @@ rítmico</value>
   <data name="checkBox_play_note3_played.Text" xml:space="preserve">
     <value>Reproducir Nota 3</value>
   </data>
+  <data name="checkBox_play_note3_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 20</value>
   </data>
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Reproducir Nota 2</value>
   </data>
+  <data name="checkBox_play_note2_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="group_music_played.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_notes.Text" xml:space="preserve">
     <value>Qué notas de la lista se deben tocar</value>
   </data>
+  <data name="group_notes.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_g5.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
+  </data>
+  <data name="lbl_f5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_g4.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
@@ -1103,17 +1283,32 @@ rítmico</value>
   <data name="button_f4.ToolTip" xml:space="preserve">
     <value>Pulse cualquier tecla de este teclado para escuchar la nota/añadirla a la lista (según las opciones que aparecen en el lado izquierdo de la ventana).</value>
   </data>
-  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>853, 555</value>
+  <data name="lbl_ms.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 77</value>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 16</value>
   </data>
   <data name="lbl_measure.Text" xml:space="preserve">
     <value>Medida</value>
+  </data>
+  <data name="lbl_measure.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>853, 555</value>
+  </data>
+  <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 77</value>
+  </data>
+  <data name="position_table.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 598</value>
@@ -1133,12 +1328,18 @@ rítmico</value>
   <data name="btn_octave_increase.ToolTip" xml:space="preserve">
     <value>Desplazar 1 octava hacia la derecha</value>
   </data>
+  <data name="lbl_c3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="keyboard_panel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="help_icon.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        nAElAZwBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        pAElAaQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1177,11 +1378,26 @@ rítmico</value>
   <data name="button_synchronized_play_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 536</value>
   </data>
+  <data name="button_synchronized_play_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button_play_beat_sound_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_bleeper_portamento_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 598</value>
   </data>
+  <data name="button_bleeper_portamento_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_use_keyboard_as_piano_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 620</value>
+  </data>
+  <data name="button_use_keyboard_as_piano_help.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button_do_not_update_help.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 437</value>
@@ -1256,11 +1472,26 @@ piano</value>
   <data name="radioButtonPlay_alternating_notes1.ToolTip" xml:space="preserve">
     <value>Cuando se selecciona esta opción, las notas alternas se reproducen en el siguiente orden: Nota 1, Nota 2, Nota 3 y Nota 4.</value>
   </data>
+  <data name="lbl_note_silence_ratio.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_time_signature.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>293, 282</value>
   </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 657</value>
+  </data>
+  <data name="button_use_voice_system_help.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1575,5 +1806,8 @@ piano</value>
         iUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCK5YPx/FGDb+Y+IaKgAAAAASUVORK5C
         YII=
 </value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>
