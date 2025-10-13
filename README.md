@@ -68,7 +68,7 @@ This project is **still in development** and some features and components are un
   - #### More precise position display
     NeoBleeper offers a position display that compatible with 1/32 note length.
 
-    ![image](https://github.com/user-attachments/assets/23d1e9ae-52e5-460c-bb2f-f5e8d8fa71d6)
+    ![image](https://github.com/user-attachments/assets/c0568320-6a7f-445b-a50f-3024fa64a2ff)
 
   - #### Also, you can use your regular keyboard as piano
     
