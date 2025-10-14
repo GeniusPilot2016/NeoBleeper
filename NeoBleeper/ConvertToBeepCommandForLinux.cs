@@ -83,7 +83,7 @@ namespace NeoBleeper
         }
         private void light_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, false);
+            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             buttonCopyBeepCommandToClipboard.BackColor = Color.Transparent;
