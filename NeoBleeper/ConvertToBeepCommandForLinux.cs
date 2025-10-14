@@ -92,7 +92,9 @@ namespace NeoBleeper
         }
         private void buttonCopyBeepCommandToClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(richTextBoxBeepCommand.Text);
+            string textToCopy = richTextBoxBeepCommand.Text.Trim();
+            textToCopy = textToCopy.Replace("\n", string.Empty);
+            Clipboard.SetText(textToCopy);
             Toast toast = new Toast(this, Resources.MessageConvertedBeepCommandCopied, 2000);
             toast.Show();
         }
@@ -344,11 +346,11 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
         private (string frequencyAndLength, int totalDuration) CreateFrequencyAndDurationDuo(int frequency, int duration, bool endOfLine, bool nonStopping = false)
         {
             string result = string.Empty;
+            result += $" -f {frequency} -l {duration}"; // Add frequency and duration
             if (!nonStopping)
             {
-                result += " -f 0 -l 5 -n"; // Add a small delay before the beep to ensure it plays correctly
+                result += " -n -f 0 -l 0 -D 5"; // Add a small delay before the beep to ensure it plays correctly
             }
-            result += $" -f {frequency} -l {duration}"; // Add frequency and duration
             if (!endOfLine)
             {
                 result += " -n"; // Add -n to start new beep if not end of line
@@ -357,7 +359,7 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
         }
         private (string duration, int totalDuration) createDelay(int duration, bool endOfLine)
         {
-            string result = $" -f 0 -l {duration}"; // Add delay
+            string result = $" -f 0 -l 0 -D {duration}"; // Add delay
             if (!endOfLine)
             {
                 result += " -n"; // Add -n to start new beep if not end of line
@@ -379,7 +381,9 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
             {
                 try
                 {
-                    System.IO.File.WriteAllText(saveFileDialog.FileName, richTextBoxBeepCommand.Text);
+                    string textToSave = richTextBoxBeepCommand.Text.Trim();
+                    textToSave = textToSave.Replace("\n", string.Empty);
+                    System.IO.File.WriteAllText(saveFileDialog.FileName, textToSave);
                     Logger.Log("Beep command saved as shell script: " + saveFileDialog.FileName, Logger.LogTypes.Info);
                     MessageBox.Show(Resources.MessageBeepCommandSaved, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
