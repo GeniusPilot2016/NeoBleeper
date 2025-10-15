@@ -1,4 +1,4 @@
-# NeoBleeper Handbuch
+<img width="1920" height="1152" alt="image" src="https://github.com/user-attachments/assets/c7d7e71c-2377-49da-85b8-33e924976331" /><img width="1920" height="1152" alt="image" src="https://github.com/user-attachments/assets/1e768d6a-3c2f-4010-990a-b62ded8a4373" /># NeoBleeper Handbuch
 - ## Wie benutzt man NeoBleeper?
   Die beiden Hauptbereiche sind die Tastatur (horizontaler Bereich oben auf dem Bildschirm) und die Musikliste (die dreispaltige Listenansicht unten rechts).
   Die Tastatur ist in drei farbige Bereiche unterteilt, die jeweils eine Oktave darstellen.
@@ -428,7 +428,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
 
       Der MIDI-Dateiplayer von NeoBleeper bietet eine Funktion zur Anzeige von in MIDI-Dateien eingebetteten Liedtexten oder Textereignissen und bietet visuelles Echtzeit-Feedback von Gesangslinien oder Cues für Karaoke- und Performance-Anwendungen.
 
-      ![image1](https://github.com/user-attachments/assets/ae608636-8106-4d7e-b00a-79cd606ecb33)
+      ![image1](https://github.com/user-attachments/assets/5c96601a-03e5-4665-838e-692f749a7f80)
 
       Wenn das Kontrollkästchen „Text oder Textereignisse anzeigen“ im Fenster „MIDI-Datei abspielen“ aktiviert ist, werden alle in der aktuell wiedergegebenen MIDI-Datei eingebetteten Text- oder Textereignisse deutlich sichtbar am unteren Rand des Anwendungsfensters angezeigt. Diese Ereignisse erscheinen als große, übersichtliche Textüberlagerungen und aktualisieren sich synchron zum Songverlauf.
 
