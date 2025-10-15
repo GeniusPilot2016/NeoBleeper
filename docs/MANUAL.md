@@ -83,7 +83,7 @@
   Saved files use the ".NBPML" extension and are XML text-based. These files can be edited with text editors such as Notepad.
   Also, NeoBleeper can open ".BMM" files, which is file format of Bleeper Music Maker, but it can't be overwrited and it should be saved as seperate ".NBPML" file.
 
-  ![image](https://github.com/user-attachments/assets/da465b77-70a0-483a-9855-a6af17db9159)
+  ![image](https://github.com/user-attachments/assets/e1bf6628-de78-4e81-bcf3-9c7d18ca8e70)
 
  - ## Tips for While Editing Music
    Both NBPML and BMM files are text-based and compatible with standard text editors. Copy-and-paste and find-and-replace functions can assist with repetitive tasks or correcting errors.
@@ -281,9 +281,12 @@
   
   - ### General Settings
     This tab focuses on foundational preferences and system-level integration:
-    
-    ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
-    
+
+    ![image](https://github.com/user-attachments/assets/96d082ed-c0e5-4dd2-8b18-56e7a20b5995)
+
+    - #### Language
+      **Language Selector:** Lets you choose language of NeoBleeper between English, German, French, Italian, Spanish, Turkish, Russian, Ukrainian and Vietnamese.
+      
     - #### General Appearance
       **Theme Selector:** Lets you choose between NeoBleeper's custom themes or default to your operating system's look.
       
