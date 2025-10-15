@@ -3708,7 +3708,7 @@ namespace NeoBleeper
         private Color set_traditional_beat_color(string text)
         {
             Color text_color;
-            if (text.Contains("Error"))
+            if (text.Contains(Resources.TextBeatError))
             {
                 text_color = Color.Red;
             }
