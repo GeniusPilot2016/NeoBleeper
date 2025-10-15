@@ -1,4 +1,4 @@
-<img width="331" height="398" alt="image" src="https://github.com/user-attachments/assets/132b3b33-0262-4e7b-af8b-40eaf3a0d878" /># NeoBleeper Handbuch
+# NeoBleeper Handbuch
 - ## Wie benutzt man NeoBleeper?
   Die beiden Hauptbereiche sind die Tastatur (horizontaler Bereich oben auf dem Bildschirm) und die Musikliste (die dreispaltige Listenansicht unten rechts).
   Die Tastatur ist in drei farbige Bereiche unterteilt, die jeweils eine Oktave darstellen.
