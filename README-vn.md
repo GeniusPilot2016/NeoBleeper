@@ -2,56 +2,56 @@
 
 NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI sử dụng loa hệ thống (hay còn gọi là Loa PC) trên bo mạch chủ, lấy cảm hứng từ phần mềm Bleeper Music Maker mà Robbi-985 (hay còn gọi là SomethingUnreal) phát triển vào khoảng cuối năm 2007 - đầu năm 2008 nhưng đã bị ngừng phát triển vào năm 2011 do tiếng bíp được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn. NeoBleeper mang đến trải nghiệm tạo nhạc ổn định hơn bằng cách giải quyết vấn đề tiếng bíp hệ thống được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn bằng cách truy cập vào cổng vật lý của loa hệ thống 🖥️🎶
 
-![image](https://github.com/user-attachments/assets/6d0e2c17-0741-48b9-929f-401a81ad75a2)
+![image](https://github.com/user-attachments/assets/da50377a-e684-499f-bfd2-584f5d4bb5b6)
 
 ## Trạng thái
 
-Dự án này **vẫn đang trong quá trình phát triển** và một số tính năng và thành phần vẫn chưa hoàn thiện, thậm chí một số phần của nó vẫn chưa được tạo ra. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi về các lỗi hoặc thiếu sót có thể xảy ra.
+Dự án này **vẫn đang trong quá trình phát triển** và một số tính năng và thành phần vẫn chưa hoàn thiện, một số phần khác vẫn chưa được tạo. Phiên bản sắp phát hành sẽ là **bản phát hành alpha cuối cùng**. Sau bản cập nhật tiếp theo, NeoBleeper sẽ chuyển sang **phiên bản beta đầu tiên**. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi để giúp cải thiện các bản phát hành trong tương lai.
 
 ## Tính năng
 
 - ### Giao diện thân thiện, quen thuộc, tiện dụng hơn và tự nhiên hơn
   NeoBleeper mang đến giao diện thân thiện, quen thuộc, tiện dụng và tự nhiên hơn, tương thích với màn hình độ phân giải cao, đồng thời tăng tốc quá trình thích ứng cho những người dùng Bleeper Music Maker trước đây.
+
+  ![image](https://github.com/user-attachments/assets/bf1b2da4-ed9a-44a0-9d7e-4ccc30104a07)
   
-  ![image](https://github.com/user-attachments/assets/dd83138f-2a06-4ed4-b866-5424a909becb)
+  ![image](https://github.com/user-attachments/assets/98ff07e2-eed9-49f6-ae83-14ed129a026b)
 
-  ![image](https://github.com/user-attachments/assets/84f11ed0-1073-4a88-96c7-1c83ed4bab1b)
+  ![image](https://github.com/user-attachments/assets/7207bacd-cea5-4a74-8bd8-9634823920ea)
 
-  ![image](https://github.com/user-attachments/assets/1a9af30a-394d-4de2-adc5-2c1e25ef6e7c)
+  ![image](https://github.com/user-attachments/assets/7151129a-d145-4d22-b79b-43783c8cd511)
 
-  ![image](https://github.com/user-attachments/assets/554bf110-9de8-4128-8df8-b95b822a100f)
+  ![image](https://github.com/user-attachments/assets/eb7dca91-e8cb-4f7b-98ff-bb71f25e337c)
 
-  ![image](https://github.com/user-attachments/assets/d386916d-ab06-42b7-98a1-37902c625e64)
+  ![image](https://github.com/user-attachments/assets/7bcd3a4d-9314-44f1-8750-c37e1027ca44)
+  
+  ![image](https://github.com/user-attachments/assets/20f09a5a-d66e-4929-a08d-509f17f709dd)
 
-  ![image](https://github.com/user-attachments/assets/a6d193ae-c6f9-4ad6-85d8-b1c2d6fccb8e)
-
-  ![image](https://github.com/user-attachments/assets/61fdf6e2-e208-428c-becd-a761e3dc7986)
-
-  ![image](https://github.com/user-attachments/assets/b0923941-201e-42ea-a24f-29980312fe3e)
+  ![image](https://github.com/user-attachments/assets/70f7a957-e6e2-44e5-a2e4-25c3c4a9b7d7)
   
 - ### Thêm và chỉnh sửa nốt nhạc
   NeoBleeper cho phép người dùng thêm nốt nhạc một cách dễ dàng và nhanh chóng. Với giao diện thân thiện, quen thuộc và tự nhiên hơn, bạn có thể sáng tạo thêm nốt nhạc vào nhạc hoặc chỉnh sửa nốt nhạc trong nhạc.
-  
-  ![image](https://github.com/user-attachments/assets/17a89d8b-e082-4e8d-9b44-6d7ea7078a8c)
 
-  ![image](https://github.com/user-attachments/assets/c709c014-b73c-4570-b595-aa5beba84841)
+  ![image](https://github.com/user-attachments/assets/8c3c8ada-2a69-4f64-9d53-1d90db49d697)
 
-  ![image](https://github.com/user-attachments/assets/bcb5e8c3-367a-4d2d-a946-435c98d2e896)
+  ![image](https://github.com/user-attachments/assets/98bffdda-9906-4065-afaa-23d5fefb06e1)
+
+  ![image](https://github.com/user-attachments/assets/f4f88a58-ccdf-42f7-9d05-1712c1ae49c5)
 
 - ### Cài đặt nhịp điệu và BPM
   NeoBleeper cho phép người dùng điều chỉnh nhịp điệu của bản nhạc và chỉnh sửa nhịp điệu bằng máy đếm nhịp. Với giao diện thân thiện, quen thuộc và tự nhiên hơn, việc điều chỉnh nhịp điệu và sử dụng máy đếm nhịp giúp bạn tạo ra những bản nhạc chính xác và nhất quán hơn.
-  
-  ![image](https://github.com/user-attachments/assets/25361c79-aa69-4e27-89a3-dc8298daca49)
 
-- ### Nhập ghi chú dễ dàng bằng bàn phím ảo
-  NeoBleeper cho phép bạn nhập ghi chú nhanh chóng và dễ dàng bằng bàn phím ảo. Với giao diện thân thiện, quen thuộc và tự nhiên hơn, bạn có thể dễ dàng nhập và chỉnh sửa ghi chú, giúp tăng tốc quá trình sáng tạo của mình.
+  ![image](https://github.com/user-attachments/assets/9f6daff9-542a-4f24-82fe-c1a2390b0fbe)
+
+- ### Nhập nốt dễ dàng bằng bàn phím ảo
+  NeoBleeper cho phép bạn nhập nốt nhanh chóng và dễ dàng bằng bàn phím ảo. Với giao diện thân thiện, quen thuộc và tự nhiên hơn, bạn có thể dễ dàng nhập và chỉnh sửa nốt, giúp tăng tốc quá trình sáng tạo của mình.
   
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
 
 - ### Tương thích ngược
   NeoBleeper hỗ trợ định dạng tệp riêng (.NBPML) cũng như định dạng tệp của chương trình Bleeper Music Maker (.BMM), mà nó lấy cảm hứng từ đó.
-  
-  ![image](https://github.com/user-attachments/assets/e114bfa5-971f-4e22-9b31-face8952f49e)
+
+  ![image](https://github.com/user-attachments/assets/f228745a-7430-4eeb-a2d7-6e8c02daf88b)
 
 - ### Hơn cả một bản làm lại
 
@@ -59,40 +59,41 @@ Dự án này **vẫn đang trong quá trình phát triển** và một số tí
 
 - #### Loa hệ thống kết hợp AI
   Nhờ tính năng tạo nhạc hỗ trợ AI do Google Gemini™ cung cấp trong chương trình NeoBleeper, bạn có thể tạo nhạc bằng AI và phát qua loa hệ thống hoặc thiết bị đầu ra MIDI.
-  
-  ![image](https://github.com/user-attachments/assets/27f22d0a-37e0-4413-90aa-a8052c1f49ed)
+  <img width="1024" height="720" alt="image" src="" />
 
-  ![image](https://github.com/user-attachments/assets/bbb5bef9-7186-471e-b89d-397c240854e2)
+  ![image](https://github.com/user-attachments/assets/c580ef09-fb57-4951-a68c-6d4e298d63d5)
+
+  ![image](https://github.com/user-attachments/assets/ca16b391-87c5-40e7-9c0b-743c3b179f1e)
 
 - #### Hiển thị vị trí chính xác hơn
   NeoBleeper cung cấp màn hình hiển thị vị trí tương thích với độ dài nốt nhạc 1/32.
-  
-  ![image](https://github.com/user-attachments/assets/213b8caa-2559-436b-a4ae-4d8ec6ba9de8)
+
+  ![image](https://github.com/user-attachments/assets/cd1c2e40-8e88-4938-a70d-2109bcd2295b)
 
 - #### Ngoài ra, bạn có thể sử dụng bàn phím thường như đàn piano
 
   NeoBleeper biến bàn phím thường thành đàn piano, cho phép bạn dễ dàng chơi các nốt nhạc mà không cần thiết bị đầu vào MIDI.
-  
-  ![image](https://github.com/user-attachments/assets/f926bcd6-bf2e-4ced-886f-3f21986ed2f5)
+
+  ![image](https://github.com/user-attachments/assets/caad7555-c0d5-4293-841c-04936f5159db)
   
 - #### Bạn có thể cá nhân hóa theo ý muốn
   Bạn có thể cá nhân hóa chương trình NeoBleeper bằng cách thay đổi màu quãng tám, màu của một số nút và màu của đèn báo thành bất kỳ màu nào trong số hàng triệu màu, và bằng cách chọn giữa các chủ đề tối và sáng. Giới hạn duy nhất của tính năng này chính là trí tưởng tượng của bạn. Ngoài ra, bạn có thể bật "Chế độ Bleeper cổ điển" để chương trình trông giống với giao diện người dùng hoài cổ của Bleeper Music Maker.
   
-    ![image](https://github.com/user-attachments/assets/4541acb3-9db0-4db4-abc5-86a72de8dac9)
+    ![image](https://github.com/user-attachments/assets/81b2ef56-4af1-4841-82d7-5050547753a2)
 
-    ![image](https://github.com/user-attachments/assets/fb337ecd-a01b-4ddb-b6c0-7bf78be0b593)
+    ![image](https://github.com/user-attachments/assets/9a33fb3a-baf6-47bf-b7e8-4303849165f5)
 
-    ![image](https://github.com/user-attachments/assets/400a4698-b88f-4d22-bac4-ab72116806d9)
+    ![image](https://github.com/user-attachments/assets/c8f44c05-1ac1-478e-ab92-8c4112c3c7b2)
 
 - #### Tự động phát hiện loa hệ thống
-  Nếu NeoBleeper không phát hiện được loa hệ thống trên bo mạch chủ máy tính của bạn, nó sẽ tự động bật tùy chọn 'Sử dụng thiết bị âm thanh để tạo tiếng bíp' vĩnh viễn.
-  
-  ![image](https://github.com/user-attachments/assets/6fb56353-c2f3-4fe5-824f-9a07c415f929)
+  Nếu NeoBleeper không phát hiện loa hệ thống trên bo mạch chủ máy tính của bạn, nó sẽ tự động bật tùy chọn 'Sử dụng thiết bị âm thanh để tạo tiếng bíp' để ngăn ngừa các tình huống không mong muốn có thể xảy ra.
+
+  ![image](https://github.com/user-attachments/assets/297a1c0e-8ae2-46e2-ad91-899f3ba0511f)
 
 - #### Thông minh hơn bạn nghĩ
   NeoBleeper nhận dạng loại máy tính của bạn và ngăn ngừa các tình huống không mong muốn có thể xảy ra bằng cách tự động kích hoạt tùy chọn 'Sử dụng thiết bị âm thanh để tạo tiếng bíp' trên các máy tính nhỏ gọn.
-  
-  ![image](https://github.com/user-attachments/assets/9f5b6680-3ee0-4423-9056-e9218080ecbc)
+
+  ![image](https://github.com/user-attachments/assets/759714ed-0fef-4b12-9eb6-36aa3f72c17d)
 
 ## Yêu cầu hệ thống
 
