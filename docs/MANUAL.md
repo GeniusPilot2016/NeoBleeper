@@ -399,8 +399,8 @@
       
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
-    
-    ![image](https://github.com/user-attachments/assets/745efab0-c7c7-4731-ae57-bde327243e6c)
+
+    ![image](https://github.com/user-attachments/assets/96e98471-f754-4521-b1d1-183bd27ff48e)
 
     - ### Play MIDI File - `Ctrl + M`
       Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external MIDI data into your workflow.
@@ -484,3 +484,35 @@
       When activated, the system generates GCode that triggers the assigned components in accordance with the selected note pattern. Timing and modulation are determined by the playback logic.
 
       Use the "Export As GCode" button to save the output. Ensure compatibility with your target machine before execution.
+
+    - ### Convert to Beep Command for Linux - `Ctrl + Shift + B`
+
+      Quickly convert your musical compositions into a Linux-compatible beep command script for easy playback on Linux systems.
+
+      ![image1](https://github.com/user-attachments/assets/bb76a21f-516f-4a3e-832a-a31c67975ba4)
+
+      **Feature Overview:**
+      - NeoBleeper generates a sequence of beep commands representing your music, formatted for the Linux `beep` utility.
+      - Each note and rest is translated into appropriate beep parameters (`-f` for frequency, `-l` for length/duration, `-D` for delay, and `-n` for chaining notes).
+      - The result is a single command (or a series of commands) that can be executed in a Linux terminal to reproduce your music using the system speaker.
+
+      **How To Use:**
+      1. Compose your music in NeoBleeper as usual.
+      2. Open the "Convert to Beep Command for Linux" tool from the File menu.
+      3. Your music will be instantly converted into a beep command script and displayed in a text area.
+      4. Use the "Copy Beep Command to Clipboard" button to copy the command for use in your terminal.
+      5. Alternatively, save the command as a `.sh` file by clicking "Save As .sh File" for later execution on any compatible Linux system.
+
+      **Example Output:**
+      - The command may look like:
+        ```
+        beep -f 554 -l 195 -n -f 0 -l 0 -D 5 -n -f 523 -l 195 -n ...
+        ```
+        Each group of parameters corresponds to a musical note or rest.
+
+      **Integration & Tips:**
+      - Ideal for sharing music with users on Linux or for use in shell scripts.
+      - The command is compatible with the standard Linux `beep` utility (make sure it's installed and you have permissions to use the system speaker).
+      - Editing the generated command allows quick adjustments to tempo, pitch, or rhythm.
+
+      This feature streamlines the process of bringing your music to Linux environments and enables creative uses such as musical notifications, alert systems, or simply enjoying your compositions outside NeoBleeper.
