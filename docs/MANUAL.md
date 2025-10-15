@@ -83,7 +83,7 @@
   Saved files use the ".NBPML" extension and are XML text-based. These files can be edited with text editors such as Notepad.
   Also, NeoBleeper can open ".BMM" files, which is file format of Bleeper Music Maker, but it can't be overwrited and it should be saved as seperate ".NBPML" file.
 
-  ![image](https://github.com/user-attachments/assets/da465b77-70a0-483a-9855-a6af17db9159)
+  ![image](https://github.com/user-attachments/assets/e1bf6628-de78-4e81-bcf3-9c7d18ca8e70)
 
  - ## Tips for While Editing Music
    Both NBPML and BMM files are text-based and compatible with standard text editors. Copy-and-paste and find-and-replace functions can assist with repetitive tasks or correcting errors.
@@ -281,9 +281,12 @@
   
   - ### General Settings
     This tab focuses on foundational preferences and system-level integration:
-    
-    ![image](https://github.com/user-attachments/assets/f216a677-b0af-4920-976b-b7081f246f0d)
-    
+
+    ![image](https://github.com/user-attachments/assets/96d082ed-c0e5-4dd2-8b18-56e7a20b5995)
+
+    - #### Language
+      **Language Selector:** Lets you choose language of NeoBleeper between English, German, French, Italian, Spanish, Turkish, Russian, Ukrainian and Vietnamese.
+      
     - #### General Appearance
       **Theme Selector:** Lets you choose between NeoBleeper's custom themes or default to your operating system's look.
       
@@ -399,8 +402,8 @@
       
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
-    
-    ![image](https://github.com/user-attachments/assets/745efab0-c7c7-4731-ae57-bde327243e6c)
+
+    ![image](https://github.com/user-attachments/assets/96e98471-f754-4521-b1d1-183bd27ff48e)
 
     - ### Play MIDI File - `Ctrl + M`
       Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external MIDI data into your workflow.
@@ -484,3 +487,35 @@
       When activated, the system generates GCode that triggers the assigned components in accordance with the selected note pattern. Timing and modulation are determined by the playback logic.
 
       Use the "Export As GCode" button to save the output. Ensure compatibility with your target machine before execution.
+
+    - ### Convert to Beep Command for Linux - `Ctrl + Shift + B`
+
+      Quickly convert your musical compositions into a Linux-compatible beep command script for easy playback on Linux systems.
+
+      ![image1](https://github.com/user-attachments/assets/bb76a21f-516f-4a3e-832a-a31c67975ba4)
+
+      **Feature Overview:**
+      - NeoBleeper generates a sequence of beep commands representing your music, formatted for the Linux `beep` utility.
+      - Each note and rest is translated into appropriate beep parameters (`-f` for frequency, `-l` for length/duration, `-D` for delay, and `-n` for chaining notes).
+      - The result is a single command (or a series of commands) that can be executed in a Linux terminal to reproduce your music using the system speaker.
+
+      **How To Use:**
+      1. Compose your music in NeoBleeper as usual.
+      2. Open the "Convert to Beep Command for Linux" tool from the File menu.
+      3. Your music will be instantly converted into a beep command script and displayed in a text area.
+      4. Use the "Copy Beep Command to Clipboard" button to copy the command for use in your terminal.
+      5. Alternatively, save the command as a `.sh` file by clicking "Save As .sh File" for later execution on any compatible Linux system.
+
+      **Example Output:**
+      - The command may look like:
+        ```
+        beep -f 554 -l 195 -n -f 0 -l 0 -D 5 -n -f 523 -l 195 -n ...
+        ```
+        Each group of parameters corresponds to a musical note or rest.
+
+      **Integration & Tips:**
+      - Ideal for sharing music with users on Linux or for use in shell scripts.
+      - The command is compatible with the standard Linux `beep` utility (make sure it's installed and you have permissions to use the system speaker).
+      - Editing the generated command allows quick adjustments to tempo, pitch, or rhythm.
+
+      This feature streamlines the process of bringing your music to Linux environments and enables creative uses such as musical notifications, alert systems, or simply enjoying your compositions outside NeoBleeper.
