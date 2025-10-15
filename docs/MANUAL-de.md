@@ -491,7 +491,6 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
     - ### Konvertieren in einen Beep-Befehl für Linux - Strg + Umschalt + B
 
       Konvertieren Sie Ihre Musikkompositionen schnell in ein Linux-kompatibles Beep-Befehlsskript für die einfache Wiedergabe auf Linux-Systemen.
-<img width="924" height="566" alt="image" src="" />
 
       ![image1](https://github.com/user-attachments/assets/e25bb253-7c60-4ca1-9a25-a4b1ba5940ff)
 
