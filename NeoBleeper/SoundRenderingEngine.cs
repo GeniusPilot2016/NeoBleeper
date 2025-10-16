@@ -378,11 +378,10 @@ namespace NeoBleeper
             {
                 // No system speaker, no problem.
                 // Because it's falling back to sound card beep if no system speaker is found.
-                
-                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
-                bool isSystemSpeakerPresentInWMI = false;
 
                 // Step 1: Check for the presence of a system speaker device using WMI
+                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
+                bool isSystemSpeakerPresentInWMI = false;
                 string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                 using (var searcher = new ManagementObjectSearcher(query))
                 {
