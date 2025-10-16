@@ -21,7 +21,7 @@ namespace NeoBleeper
         }
         public void updateStatus(string status, int percent = 0, bool completed = false)
         {
-            ResponsiveWait(2000);
+            ResponsiveWait(1000);
             Application.DoEvents();
             labelStatus.Text = status;
             if (completed)
@@ -40,6 +40,7 @@ namespace NeoBleeper
                 }
             }
             Application.DoEvents();
+            ResponsiveWait(1000);
         }
         public void ResponsiveWait(int milliseconds)
         {
