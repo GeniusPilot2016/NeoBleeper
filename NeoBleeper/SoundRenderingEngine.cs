@@ -205,7 +205,7 @@ namespace NeoBleeper
                 Thread.Sleep(10);
             }
 
-            public static bool CheckElectricalFeedbackOnPort()
+            private static bool CheckElectricalFeedbackOnPort()
             {
                 try
                 {
@@ -251,7 +251,7 @@ namespace NeoBleeper
                 }
             }
 
-            public static bool CheckPortStateStability()
+            private static bool CheckPortStateStability()
             {
                 try
                 {
@@ -293,7 +293,7 @@ namespace NeoBleeper
                     return false;
                 }
             }
-            public static bool AdvancedFrequencySweepTest()
+            private static bool AdvancedFrequencySweepTest()
             {
                 try
                 {
@@ -362,7 +362,10 @@ namespace NeoBleeper
                 }
             }
 
-            public static bool IsFunctionalSystemSpeaker() // Second layer check to ensure the system speaker (aka PC speaker) is functional
+            private static bool IsFunctionalSystemSpeaker() // Second layer check to ensure the system speaker (aka PC speaker) is functional
+            // Added according to feedback of M084MM4D on comments of one of my YouTube videos
+            // It detects the system speaker output by checking electrical feedback on port 0x61, checking port state stability and advanced frequency sweep test
+            // It can cause clicking noises on some systems, especially in computers with piezo buzzer as system speaker (aka PC speaker)
             {
                 bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
                 bool portStateStable = CheckPortStateStability();

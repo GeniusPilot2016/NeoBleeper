@@ -48,9 +48,9 @@
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
@@ -73,8 +73,8 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackColor = Color.Transparent;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
             // splash
@@ -89,6 +89,7 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "splash";
             ShowIcon = false;
