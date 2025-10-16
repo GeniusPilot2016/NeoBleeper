@@ -366,6 +366,7 @@ namespace NeoBleeper
             // Added according to feedback of M084MM4D on comments of one of my YouTube videos
             // It detects the system speaker output by checking electrical feedback on port 0x61, checking port state stability and advanced frequency sweep test
             // It can cause clicking noises on some systems, especially in computers with piezo buzzer as system speaker (aka PC speaker)
+            // So, don't worry if you hear some clicking noises during this test during startup, it's normal
             {
                 bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
                 bool portStateStable = CheckPortStateStability();
@@ -377,8 +378,10 @@ namespace NeoBleeper
             {
                 // No system speaker, no problem.
                 // Because it's falling back to sound card beep if no system speaker is found.
+                
                 Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
                 bool isSystemSpeakerPresentInWMI = false;
+
                 // Step 1: Check for the presence of a system speaker device using WMI
                 string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                 using (var searcher = new ManagementObjectSearcher(query))
@@ -390,6 +393,8 @@ namespace NeoBleeper
                 // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
                 Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
                 bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
+
+                // Return true if electrical feedback is detected or if WMI check confirms presence
                 bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
                 if(result == true)
                 {
