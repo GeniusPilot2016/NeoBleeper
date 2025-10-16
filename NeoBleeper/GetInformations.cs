@@ -18,6 +18,7 @@ namespace NeoBleeper
 {
     public class GetInformations
     {
+        static bool is_system_speaker_present = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present;
         public static (string version, string status) GetVersionAndStatus()
         {
             int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
@@ -228,7 +229,7 @@ namespace NeoBleeper
                 $"Total Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024}\r\n" +
                 $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
                 $"Power Status: {powerStatus}\r\n" +
-                $"Presence of a system speaker: {(SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist() == true ? "Yes" : "No")}\r\n" +
+                $"Presence of a system speaker: {(is_system_speaker_present == true ? "Yes" : "No")}\r\n" +
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;

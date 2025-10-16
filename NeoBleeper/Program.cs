@@ -31,6 +31,7 @@ namespace NeoBleeper
         // Powered by nostalgia and a passion for sound, this program brings the classic system speaker beeps back to life with modern enhancements - Thanks Robbi-985 (aka SomethingUnreal)!
         public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
+        public static splash splashScreen = new splash();
         [STAThread]
         static void Main(string[] args)
         {
@@ -38,15 +39,16 @@ namespace NeoBleeper
             {
                 filePath = args[0];
             }
+            // Initialize application configuration
+            ApplicationConfiguration.Initialize();
+            splashScreen.Show();
             bool shouldRun = false;
+            TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             Logger.Log("NeoBleeper is starting up.", LogTypes.Info);
             SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
             // Configure application before ApplicationConfiguration.Initialize()
             ConfigureApplication();
-
-            // Initialize application configuration
-            ApplicationConfiguration.Initialize();
 
             // Initialize audio after application configuration
             var dummyWaveOut = SoundRenderingEngine.WaveSynthEngine.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
@@ -58,34 +60,38 @@ namespace NeoBleeper
             {
                 try
                 {
+                    splashScreen.updateStatus(Resources.StatusAPIKeyValidating);
                     string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     Logger.Log("API key validation successful", LogTypes.Info);
+                    splashScreen.updateStatus(Resources.StatusAPIKeyValidationSuccessful, 10);
                 }
                 catch (CryptographicException ex)
                 {
                     Logger.Log($"API key validation failed: {ex.Message}\nThis may be due to a corrupted API key or a change in encryption keys. The API key has been reset.", LogTypes.Error);
+                    splashScreen.updateStatus(Resources.MessageAPIKeyIsCorrupted);
                     if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
                     {
                         Settings1.Default.geminiAPIKey = String.Empty;
                         Settings1.Default.Save(); // Save the settings after clearing the API key
                         EncryptionHelper.ChangeKeyAndIV();
                     }
-                    MessageBox.Show(Resources.MessageAPIKeyIsCorrupted,
-                        String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
+            splashScreen.updateStatus(Resources.StatusDisplayResolutionCheck);
             switch (GetInformations.isResolutionSupported())
             {
                 case false:
                     {
+                        Logger.Log("Display resolution is not supported. NeoBleeper requires a minimum resolution of 1024x768 to run properly.", LogTypes.Error);
+                        splashScreen.updateStatus(Resources.StatusDisplayResolutionNotSupported);
                         ShowCentralizedWarning(WarningType.DisplayResolution);
                         break;
                     }
 
                 case true:
                     {
-                        TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
+                        Logger.Log("Display resolution is supported.", LogTypes.Info);
+                        splashScreen.updateStatus(Resources.StatusDisplayResolutionIsSupported, 10);
                         switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
                         {
                             case false:
@@ -104,6 +110,7 @@ namespace NeoBleeper
                                     break;
                                 }
                             case true:
+                                splashScreen.updateStatus(Resources.StatusComputerTypeDetecting);
                                 switch (GetInformations.getTypeOfComputer())
                                 {
                                     case GetInformations.computerTypes.ModularComputer:
@@ -111,6 +118,7 @@ namespace NeoBleeper
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
                                             TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                             shouldRun = true;
+                                            splashScreen.updateStatus(Resources.StatusModularComputerDetected, 10);
                                             break;
                                         }
                                     case GetInformations.computerTypes.CompactComputer:
@@ -118,6 +126,7 @@ namespace NeoBleeper
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                             TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
                                             Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
+                                            splashScreen.updateStatus(Resources.StatusCompactComputerDetected, 10);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                             {
                                                 shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
@@ -134,6 +143,7 @@ namespace NeoBleeper
                                             TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
                                             TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                             Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
+                                            splashScreen.updateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
                                             if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                             {
                                                 shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
@@ -157,20 +167,30 @@ namespace NeoBleeper
             {
                 try
                 {
+                    splashScreen.updateStatus(Resources.StatusInitializationCompleted, 0, true);
+                    splashScreen.ResponsiveWait(2000);
+                    splashScreen.Hide();
                     Application.Run(new main_window());
                 }
                 catch (Exception ex)
                 {
+                    splashScreen.Hide();
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
                     MessageBox.Show(Resources.AnErrorOccurredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                finally
+                {
+                    MIDIIOUtils.DisposeMidiOutput();
                 }
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit when both normal exit and fatal error
             }
             else
             {
+                MIDIIOUtils.DisposeMidiOutput();
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit due to user choice or resolution issue
             }
-            MIDIIOUtils.DisposeMidiOutput();
+
         }
         enum WarningType
         {
@@ -206,6 +226,8 @@ namespace NeoBleeper
         }
         private static bool ShowWarningAndGetUserDecision(Form warningForm)
         {
+            splashScreen.updateStatus(Resources.StatusInitializationCompleted, 0, true);
+            splashScreen.Hide();
             DialogResult result = warningForm.ShowDialog();
             if (result == DialogResult.Yes)
             {
@@ -226,14 +248,17 @@ namespace NeoBleeper
                 case true:
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
                     Logger.Log("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.", LogTypes.Info);
+                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeEnabled, 10);
                     break;
                 case false:
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
                     Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
+                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeDisabled, 10);
                     break;
             }
             UIHelper.setLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
             Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
+            splashScreen.updateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
             try
             {
                 var synchronizedSettings = SynchronizedSettings.Load();

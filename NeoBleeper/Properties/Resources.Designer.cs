@@ -1261,6 +1261,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap neobleeper_splash_background {
+            get {
+                object obj = ResourceManager.GetObject("neobleeper_splash_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   This feature allows you to play beat like sounds from system speaker/sound device. 
         ///
         ///You can choose the sound to play by clicking the &apos;Change Beat Sound&apos; button. benzeri yerelleştirilmiş bir dize arar.
@@ -1352,6 +1362,204 @@ namespace NeoBleeper.Properties {
         public static string StaccatoArticulation {
             get {
                 return ResourceManager.GetString("StaccatoArticulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API key is validating... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusAPIKeyValidating {
+            get {
+                return ResourceManager.GetString("StatusAPIKeyValidating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Google Gemini™ API key is validation is successful benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusAPIKeyValidationSuccessful {
+            get {
+                return ResourceManager.GetString("StatusAPIKeyValidationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusClassicBleeperModeDisabled {
+            get {
+                return ResourceManager.GetString("StatusClassicBleeperModeDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusClassicBleeperModeEnabled {
+            get {
+                return ResourceManager.GetString("StatusClassicBleeperModeEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusCompactComputerDetected {
+            get {
+                return ResourceManager.GetString("StatusCompactComputerDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Detecting type of computer... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusComputerTypeDetecting {
+            get {
+                return ResourceManager.GetString("StatusComputerTypeDetecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Checking for display resolution... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusDisplayResolutionCheck {
+            get {
+                return ResourceManager.GetString("StatusDisplayResolutionCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Display resolution is supported. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusDisplayResolutionIsSupported {
+            get {
+                return ResourceManager.GetString("StatusDisplayResolutionIsSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Display resolution is not supported. NeoBleeper requires a minimum resolution of 1024x768 to run properly. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusDisplayResolutionNotSupported {
+            get {
+                return ResourceManager.GetString("StatusDisplayResolutionNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Detected HDD storage. Avoiding resonance frequency of {value} Hz. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusHDDStorageType {
+            get {
+                return ResourceManager.GetString("StatusHDDStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper initialization is completed benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusInitializationCompleted {
+            get {
+                return ResourceManager.GetString("StatusInitializationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output is present and it is a modular computer. NeoBleeper will use system speaker to create beeps. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusModularComputerDetected {
+            get {
+                return ResourceManager.GetString("StatusModularComputerDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Detected NVMe storage. Resonance prevention is not necessary. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusNVMeStorageType {
+            get {
+                return ResourceManager.GetString("StatusNVMeStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper is starting with language:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusProgramLanguage {
+            get {
+                return ResourceManager.GetString("StatusProgramLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Specifying storage type for resonance prevention... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSpecifyingStorageType {
+            get {
+                return ResourceManager.GetString("StatusSpecifyingStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Detected SSD storage. Resonance prevention is not necessary. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSSDStorageType {
+            get {
+                return ResourceManager.GetString("StatusSSDStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output is not present. Sound device will be used to create beeps benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemSpeakerOutputNotPresent {
+            get {
+                return ResourceManager.GetString("StatusSystemSpeakerOutputNotPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output is present. System speaker will be used to create beeps benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemSpeakerOutputPresent {
+            get {
+                return ResourceManager.GetString("StatusSystemSpeakerOutputPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Checking for system speaker (PC speaker) output presence in step 1/2... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemSpeakerSensorStep1 {
+            get {
+                return ResourceManager.GetString("StatusSystemSpeakerSensorStep1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking sounds) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemSpeakerSensorStep2 {
+            get {
+                return ResourceManager.GetString("StatusSystemSpeakerSensorStep2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusUnknownComputerTypeDetected {
+            get {
+                return ResourceManager.GetString("StatusUnknownComputerTypeDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusUnknownStorageType {
+            get {
+                return ResourceManager.GetString("StatusUnknownStorageType", resourceCulture);
             }
         }
         

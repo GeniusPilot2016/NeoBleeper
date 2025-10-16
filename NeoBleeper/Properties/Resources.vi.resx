@@ -130,8 +130,14 @@
   <data name="FermataArticulation" xml:space="preserve">
     <value>Fer</value>
   </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>Không có phiên bản đã lưu để tua lại.</value>
+  </data>
   <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
     <value>Lỗi khi chuyển đổi sang lệnh Beep cho Linux: </value>
+  </data>
+  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -147,6 +153,9 @@
   </data>
   <data name="EighthNote" xml:space="preserve">
     <value>Nốt móc đơn</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Âm nhạc được tạo ra bởi AI</value>
   </data>
   <data name="TextPercent" xml:space="preserve">
     <value>{number}%</value>
@@ -175,9 +184,6 @@
   <data name="GoogleGeminiServerDown" xml:space="preserve">
     <value>Máy chủ Google Gemini™ hiện không thể truy cập được. Vui lòng thử lại sau.</value>
   </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Shell Script (*.sh)|*.sh</value>
-  </data>
   <data name="UseVoiceSystemHelp" xml:space="preserve">
     <value>Tính năng này cho phép chương trình sử dụng hệ thống giọng nói để mô phỏng các dạng giọng nói nhằm làm cho các nốt nhạc được chọn bắt chước "tiếng hát".</value>
   </data>
@@ -187,8 +193,8 @@
   <data name="MessageNonValidMIDIFile" xml:space="preserve">
     <value>Tệp này không phải là tệp MIDI hợp lệ hoặc bị hỏng hoặc đang được một tiến trình khác sử dụng.</value>
   </data>
-  <data name="TextCurrentlyWaiting" xml:space="preserve">
-    <value>Hiện đang chờ</value>
+  <data name="TitleOpenMIDIFile" xml:space="preserve">
+    <value>Mở tệp MIDI</value>
   </data>
   <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
     <value>Các sự kiện MIDI đang được thu thập...</value>
@@ -215,9 +221,6 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
   </data>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Lỗi khi đóng biểu mẫu:</value>
-  </data>
-  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,8 +262,11 @@ Nhấp lại để ẩn khóa.</value>
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessagePlaybackStartingError" xml:space="preserve">
-    <value>Lỗi khi bắt đầu phát lại:</value>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>Tệp MIDI|*.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
     <value>Không thể mở trình phát tệp MIDI khi hộp kiểm "Tắt tiếng phát lại" được chọn, hộp kiểm "Sử dụng động cơ hoặc còi (qua Arduino, Raspberry Pi hoặc ESP32)" không được chọn và hộp kiểm "Sử dụng đầu ra MIDI" không được chọn.
@@ -297,8 +303,8 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sử dụng Hệ thống giọng nói</value>
   </data>
-  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
+    <value>Hiện tại không chờ đợi</value>
   </data>
   <data name="TextMIDIFileLoadingError" xml:space="preserve">
     <value>Đã xảy ra lỗi khi tải tệp MIDI.</value>
@@ -330,9 +336,6 @@ Nhấp lại để hiển thị.</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
     <value>Tạo nhạc nền cho game phiêu lưu</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Đã thiết lập lại khóa API Google Gemini™ thành công.</value>
   </data>
   <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -383,8 +386,8 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="FilterGCodeFile" xml:space="preserve">
     <value>Tệp GCode (*.gcode)|*.gcode</value>
   </data>
-  <data name="TextAIGeneratedMusic" xml:space="preserve">
-    <value>Âm nhạc được tạo ra bởi AI</value>
+  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
+    <value>Đã thiết lập lại khóa API Google Gemini™ thành công.</value>
   </data>
   <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
     <value>Định dạng khóa API không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
@@ -406,9 +409,6 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextStopPlaying" xml:space="preserve">
-    <value>Dừng chơi</value>
   </data>
   <data name="MessageBeepCommandSaved" xml:space="preserve">
     <value>Lệnh Beep dưới dạng tập lệnh shell đã được lưu thành công.</value>
@@ -448,8 +448,8 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Lệnh Beep đã chuyển đổi được sao chép vào bảng tạm.</value>
   </data>
-  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -521,6 +521,9 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
     <value>Chơi đồng bộ</value>
   </data>
+  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ThirtySecondNote" xml:space="preserve">
     <value>Nốt móc ba</value>
   </data>
@@ -542,8 +545,8 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="TextHide" xml:space="preserve">
     <value>Trốn</value>
   </data>
-  <data name="PortamentoHelpTitle" xml:space="preserve">
-    <value>Bleeper Portamento</value>
+  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
+    <value>Shell Script (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>Không thể khởi động thiết bị đầu vào MIDI:</value>
@@ -568,14 +571,17 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
 
 Bạn có muốn mở tệp này không?</value>
   </data>
+  <data name="MessagePlaybackStartingError" xml:space="preserve">
+    <value>Lỗi khi bắt đầu phát lại:</value>
+  </data>
   <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
     <value>Hãy thử làm mới danh sách thiết bị.</value>
   </data>
   <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
-    <value>Hiện tại không chờ đợi</value>
+  <data name="TextCurrentlyWaiting" xml:space="preserve">
+    <value>Hiện đang chờ</value>
   </data>
   <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -637,14 +643,14 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageErrorRewinding" xml:space="preserve">
     <value>Lỗi khi tua lại phiên bản đã lưu:</value>
   </data>
-  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Bleeper Portamento</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
     <value>Say</value>
   </data>
-  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -658,13 +664,73 @@ Bạn có muốn mở tệp này không?</value>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>Không có phiên bản đã lưu để tua lại.</value>
+  <data name="TextStopPlaying" xml:space="preserve">
+    <value>Dừng chơi</value>
   </data>
-  <data name="TitleOpenMIDIFile" xml:space="preserve">
-    <value>Mở tệp MIDI</value>
+  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
+    <value>Khóa API Google Gemini™ đã được xác thực thành công</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>Tệp MIDI|*.mid</value>
+  <data name="StatusAPIKeyValidating" xml:space="preserve">
+    <value>Khóa API Google Gemini™ đang được xác thực...</value>
+  </data>
+  <data name="StatusDisplayResolutionCheck" xml:space="preserve">
+    <value>Đang kiểm tra độ phân giải màn hình...</value>
+  </data>
+  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
+    <value>Độ phân giải màn hình không được hỗ trợ. NeoBleeper yêu cầu độ phân giải tối thiểu là 1024x768 để chạy bình thường.</value>
+  </data>
+  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
+    <value>Độ phân giải màn hình được hỗ trợ.</value>
+  </data>
+  <data name="StatusComputerTypeDetecting" xml:space="preserve">
+    <value>Đang phát hiện loại máy tính...</value>
+  </data>
+  <data name="StatusModularComputerDetected" xml:space="preserve">
+    <value>L'uscita dell'altoparlante di sistema è presente e si tratta di un computer modulare. NeoBleeper utilizzerà l'altoparlante di sistema per emettere segnali acustici.</value>
+  </data>
+  <data name="StatusCompactComputerDetected" xml:space="preserve">
+    <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un computer compatto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i computer compatti.</value>
+  </data>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un tipo di computer sconosciuto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i tipi di computer sconosciuti.</value>
+  </data>
+  <data name="StatusInitializationCompleted" xml:space="preserve">
+    <value>Quá trình khởi tạo NeoBleeper đã hoàn tất</value>
+  </data>
+  <data name="StatusSpecifyingStorageType" xml:space="preserve">
+    <value>Đang chỉ định loại bộ nhớ để ngăn ngừa cộng hưởng...</value>
+  </data>
+  <data name="StatusNVMeStorageType" xml:space="preserve">
+    <value>Đã phát hiện bộ nhớ NVMe. Không cần ngăn ngừa cộng hưởng.</value>
+  </data>
+  <data name="StatusSSDStorageType" xml:space="preserve">
+    <value>Đã phát hiện bộ nhớ SSD. Không cần ngăn ngừa cộng hưởng.</value>
+  </data>
+  <data name="StatusUnknownStorageType" xml:space="preserve">
+    <value>Không xác định được loại bộ nhớ. Tính năng ngăn ngừa cộng hưởng được áp dụng ở các tần số cộng hưởng có thể xảy ra để đảm bảo an toàn.</value>
+  </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>Đã phát hiện bộ nhớ HDD. Tránh tần số cộng hưởng {value} Hz.</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 1/2...</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng tách tách)</value>
+  </data>
+  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
+    <value>Có ngõ ra loa hệ thống. Loa hệ thống sẽ được sử dụng để tạo tiếng bíp.</value>
+  </data>
+  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
+    <value>Không có ngõ ra loa hệ thống. Thiết bị âm thanh sẽ được sử dụng để tạo tiếng bíp.</value>
+  </data>
+  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
+    <value>Chế độ Bleeper Cổ điển đã được bật. NeoBleeper sẽ chạy ở chế độ Bleeper Cổ điển.</value>
+  </data>
+  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
+    <value>Chế độ Bleeper Cổ điển đã bị tắt. NeoBleeper sẽ chạy ở chế độ tiêu chuẩn.</value>
+  </data>
+  <data name="StatusProgramLanguage" xml:space="preserve">
+    <value>NeoBleeper bắt đầu bằng ngôn ngữ: </value>
   </data>
 </root>

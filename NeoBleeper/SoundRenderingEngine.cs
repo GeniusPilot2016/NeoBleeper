@@ -18,6 +18,7 @@ using NAudio.CoreAudioApi;
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using NeoBleeper.Properties;
 using System.Management;
 using System.Runtime.InteropServices;
 using static NeoBleeper.TemporarySettings;
@@ -42,6 +43,7 @@ namespace NeoBleeper
                 try
                 {
                     Logger.Log("Specifying storage type for resonance prevention...", Logger.LogTypes.Info);
+                    Program.splashScreen.updateStatus(Resources.StatusSpecifyingStorageType);
                     string query = "SELECT * FROM Win32_DiskDrive";
                     using (var searcher = new ManagementObjectSearcher(query))
                     {
@@ -55,6 +57,7 @@ namespace NeoBleeper
                                 StorageType = systemStorageType.NVMe;
                                 resonanceFrequency = 0; // NVMe drives have no resonance issues
                                 Logger.Log("Detected NVMe storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                Program.splashScreen.updateStatus(Resources.StatusNVMeStorageType, 5);
                                 return;
                             }
                             else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("SATA", StringComparison.OrdinalIgnoreCase) || model.Contains("SSD", StringComparison.OrdinalIgnoreCase))
@@ -62,6 +65,7 @@ namespace NeoBleeper
                                 StorageType = systemStorageType.SSD;
                                 resonanceFrequency = 0; // SSDs have no resonance issues
                                 Logger.Log("Detected SSD storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                Program.splashScreen.updateStatus(Resources.StatusSSDStorageType, 5);
                                 return;
                             }
                             else if (interfaceType.Equals("IDE", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("ATA", StringComparison.OrdinalIgnoreCase) || model.Contains("HDD", StringComparison.OrdinalIgnoreCase) || model.Contains("Hard Drive", StringComparison.OrdinalIgnoreCase))
@@ -72,18 +76,22 @@ namespace NeoBleeper
                                 // Default to 5400 RPM for simplicity
                                 storageRPM = 5400;
                                 resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
+                                string localizedResonanceMessage = Resources.StatusHDDStorageType.Replace("{value}", resonanceFrequency.ToString());
                                 Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
+                                Program.splashScreen.updateStatus(localizedResonanceMessage, 5);
                                 return;
                             }
                         }
                         StorageType = systemStorageType.Other; // If no known type is found
                         resonanceFrequency = 0; // Assume no resonance issues for unknown types
                         Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
+                        Program.splashScreen.updateStatus(Resources.StatusUnknownStorageType, 5);
                     }
                 }
                 catch (Exception ex)
                 {
                     Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
+                    Program.splashScreen.updateStatus("Error specifying storage type. Falling back to HDD settings.");
                     StorageType = systemStorageType.HDD; // Fallback to HDD on error
                 }
             }
@@ -166,16 +174,229 @@ namespace NeoBleeper
                     return false; // If an error occurs, assume the speaker is not stuck
                 }
             }
+            private const int ULTRASONIC_FREQ = 30000; // 30 kHz - Inaudible frequency to users but can still cause electrical feedback if the speaker is functional
+            private const int PIT_BASE_FREQ = 1193180;
+            private static void UltraSoftEnableSpeaker(byte originalState)
+            {
+                // Configure PIT channel 2 for the ultrasonic frequency
+                Out32(0x43, 0xB6);
+                int div = PIT_BASE_FREQ / ULTRASONIC_FREQ;
+                Out32(0x42, (byte)(div & 0xFF));
+                Out32(0x42, (byte)(div >> 8));
+
+                Thread.Sleep(10); // To stabilize the timer
+
+                // Open only the gate (bit 0), keep speaker data (bit 1) off
+                Out32(0x61, (byte)(originalState | 0x01)); // Bit 1 = 0
+                Thread.Sleep(10);
+
+                // Open speaker data (bit 1) now
+                Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
+            }
+
+            private static void UltraSoftDisableSpeaker(byte originalState)
+            {
+                // Close speaker data (bit 1) first
+                Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
+                Thread.Sleep(10);
+
+                // Then close the gate (bit 0)
+                Out32(0x61, (byte)(originalState & 0xFC));
+                Thread.Sleep(10);
+            }
+
+            public static bool CheckElectricalFeedbackOnPort()
+            {
+                try
+                {
+                    byte originalState = (byte)Inp32(0x61);
+
+                    // Ultra soft start
+                    UltraSoftEnableSpeaker(originalState);
+                    Thread.Sleep(50);
+
+                    List<byte> enabledSamples = new List<byte>();
+                    for (int i = 0; i < 20; i++)
+                    {
+                        enabledSamples.Add((byte)Inp32(0x61));
+                        Thread.Sleep(1);
+                    }
+                    byte stateEnabled = enabledSamples[enabledSamples.Count / 2];
+
+                    // Ultra soft close
+                    UltraSoftDisableSpeaker(originalState);
+                    Thread.Sleep(50);
+
+                    List<byte> disabledSamples = new List<byte>();
+                    for (int i = 0; i < 20; i++)
+                    {
+                        disabledSamples.Add((byte)Inp32(0x61));
+                        Thread.Sleep(1);
+                    }
+                    byte stateDisabled = disabledSamples[disabledSamples.Count / 2];
+
+                    // Restore original state
+                    Out32(0x61, originalState);
+                    Thread.Sleep(20);
+
+                    bool bit5VariesWhenEnabled = enabledSamples.Select(s => (byte)(s & 0x20)).Distinct().Count() > 1;
+                    bool feedbackPresent = ((stateEnabled & 0x20) != (stateDisabled & 0x20)) || bit5VariesWhenEnabled;
+                    bool gateResponsive = ((stateEnabled & 0x03) == 0x03) && ((stateDisabled & 0x03) == 0x00);
+
+                    return feedbackPresent && gateResponsive;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+
+            public static bool CheckPortStateStability()
+            {
+                try
+                {
+                    byte originalState = (byte)Inp32(0x61);
+
+                    // Ultra soft start
+                    UltraSoftEnableSpeaker(originalState);
+                    Thread.Sleep(50);
+
+                    List<byte> samples = new List<byte>();
+                    for (int i = 0; i < 100; i++)
+                    {
+                        samples.Add((byte)Inp32(0x61));
+                    }
+
+                    // Ultra soft close
+                    UltraSoftDisableSpeaker(originalState);
+                    Out32(0x61, originalState);
+                    Thread.Sleep(20);
+
+                    var bit5Values = samples.Select(s => (byte)(s & 0x20)).Distinct().ToList();
+                    bool bit5Varies = bit5Values.Count > 1;
+
+                    int bit5Transitions = 0;
+                    for (int i = 0; i < samples.Count - 1; i++)
+                    {
+                        if ((samples[i] & 0x20) != (samples[i + 1] & 0x20))
+                        {
+                            bit5Transitions++;
+                        }
+                    }
+
+                    bool sufficientTransitions = bit5Transitions >= 3;
+
+                    return bit5Varies && sufficientTransitions;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            public static bool AdvancedFrequencySweepTest()
+            {
+                try
+                {
+                    byte originalState = (byte)Inp32(0x61);
+                    bool anyFrequencyWorks = false;
+
+                    // Only high frequencies to avoid audible noise to users
+                    int[] testFrequencies = { 30000, 35000, 38000 };
+
+                    foreach (int freq in testFrequencies)
+                    {
+                        int div = PIT_BASE_FREQ / freq;
+                        if (div < 1) continue;
+
+                        // Configure the timer
+                        Out32(0x43, 0xB6);
+                        Out32(0x42, (byte)(div & 0xFF));
+                        Out32(0x42, (byte)(div >> 8));
+                        Thread.Sleep(10);
+
+                        // Open the gate
+                        Out32(0x61, (byte)(originalState | 0x01));
+                        Thread.Sleep(10);
+
+                        // Open the speaker data
+                        Out32(0x61, (byte)(originalState | 0x03));
+                        Thread.Sleep(30);
+
+                        List<byte> samples = new List<byte>();
+                        for (int i = 0; i < 50; i++)
+                        {
+                            samples.Add((byte)Inp32(0x61));
+                        }
+
+                        // Close the speaker data
+                        Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
+                        Thread.Sleep(10);
+
+                        // Close the gate
+                        Out32(0x61, (byte)(originalState & 0xFC));
+                        Thread.Sleep(10);
+
+                        int transitions = 0;
+                        for (int i = 0; i < samples.Count - 1; i++)
+                        {
+                            if ((samples[i] & 0x20) != (samples[i + 1] & 0x20))
+                                transitions++;
+                        }
+
+                        Console.WriteLine($"  {freq} Hz: {transitions} transitions (SILENT)");
+
+                        if (transitions >= 2)
+                        {
+                            anyFrequencyWorks = true;
+                            break;
+                        }
+                    }
+
+                    Out32(0x61, originalState);
+                    Thread.Sleep(20);
+                    return anyFrequencyWorks;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+
+            public static bool IsFunctionalSystemSpeaker() // Second layer check to ensure the system speaker (aka PC speaker) is functional
+            {
+                bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
+                bool portStateStable = CheckPortStateStability();
+                bool frequencySweepWorks = AdvancedFrequencySweepTest();
+
+                return electricalFeedbackValid || portStateStable || frequencySweepWorks;
+            }
             public static bool isSystemSpeakerExist()
             {
                 // No system speaker, no problem.
                 // Because it's falling back to sound card beep if no system speaker is found.
+                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
+                bool isSystemSpeakerPresentInWMI = false;
+                // Step 1: Check for the presence of a system speaker device using WMI
                 string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                 using (var searcher = new ManagementObjectSearcher(query))
                 {
                     var devices = searcher.Get();
-                    return (devices.Count > 0);
+                    isSystemSpeakerPresentInWMI = (devices.Count > 0);
                 }
+
+                // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
+                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
+                bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
+                bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
+                if(result == true)
+                {
+                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                }
+                else
+                {
+                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                }
+                return result;
             }
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD that is used in Bleeper Music Maker using NAudio

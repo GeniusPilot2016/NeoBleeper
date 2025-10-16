@@ -130,8 +130,14 @@
   <data name="FermataArticulation" xml:space="preserve">
     <value>Fer</value>
   </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>Aucune version enregistrée pour revenir en arrière.</value>
+  </data>
   <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
     <value>Erreur lors de la conversion en commande Beep pour Linux: </value>
+  </data>
+  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -147,6 +153,9 @@
   </data>
   <data name="EighthNote" xml:space="preserve">
     <value>Croche</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>Musique Générée par l'IA</value>
   </data>
   <data name="TextPercent" xml:space="preserve">
     <value>{number}%</value>
@@ -175,9 +184,6 @@
   <data name="GoogleGeminiServerDown" xml:space="preserve">
     <value>Le serveur Google Gemini™ est actuellement inaccessible. Veuillez réessayer ultérieurement.</value>
   </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Script Shell (*.sh)|*.sh</value>
-  </data>
   <data name="UseVoiceSystemHelp" xml:space="preserve">
     <value>Cette fonctionnalité permet au programme d'utiliser le système vocal pour imiter les formants de la parole afin de faire en sorte que les notes sélectionnées imitent le « chant ».</value>
   </data>
@@ -187,8 +193,8 @@
   <data name="MessageNonValidMIDIFile" xml:space="preserve">
     <value>Ce fichier n'est pas un fichier MIDI valide, il est corrompu ou est utilisé par un autre processus.</value>
   </data>
-  <data name="TextCurrentlyWaiting" xml:space="preserve">
-    <value>En attente actuellement</value>
+  <data name="TitleOpenMIDIFile" xml:space="preserve">
+    <value>Ouvrir un fichier MIDI</value>
   </data>
   <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
     <value>Les événements MIDI sont collectés...</value>
@@ -215,9 +221,6 @@ Vous pouvez choisir le son à reproduire en cliquant sur le bouton « Modifier 
   </data>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Erreur lors de la fermeture du formulaire: </value>
-  </data>
-  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,8 +262,11 @@ Cliquez à nouveau pour la masquer.</value>
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessagePlaybackStartingError" xml:space="preserve">
-    <value>Erreur lors du démarrage de la lecture :</value>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>Fichiers MIDI|*.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
     <value>Le lecteur de fichiers MIDI ne peut pas être ouvert lorsque la case « Couper la lecture » ​​est cochée, que la case « Utiliser un moteur ou un buzzer (via Arduino, Raspberry Pi ou ESP32) » est décochée et que la case « Utiliser la sortie MIDI » est décochée.
@@ -297,8 +303,8 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Utiliser le système vocal</value>
   </data>
-  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
+    <value>N'est pas en attente actuellement</value>
   </data>
   <data name="TextMIDIFileLoadingError" xml:space="preserve">
     <value>Une erreur s'est produite lors du chargement du fichier MIDI.</value>
@@ -330,9 +336,6 @@ Cliquez à nouveau pour la réafficher.</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
     <value>Génère une berceuse douce pour bébés</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>La clé API Google Gemini™ a été réinitialisée avec succès.</value>
   </data>
   <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -383,8 +386,8 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   <data name="FilterGCodeFile" xml:space="preserve">
     <value>Fichiers GCode (*.gcode)|*.gcode</value>
   </data>
-  <data name="TextAIGeneratedMusic" xml:space="preserve">
-    <value>Musique Générée par l'IA</value>
+  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
+    <value>La clé API Google Gemini™ a été réinitialisée avec succès.</value>
   </data>
   <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
     <value>Le format de la clé API est invalide. Veuillez vérifier et réessayer.</value>
@@ -406,9 +409,6 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextStopPlaying" xml:space="preserve">
-    <value>Arrêtez de jouer</value>
   </data>
   <data name="MessageBeepCommandSaved" xml:space="preserve">
     <value>La commande Bip a été enregistrée correctement en tant que script shell.</value>
@@ -448,8 +448,8 @@ Cette fonctionnalité permet au haut-parleur/au périphérique audio du système
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>La commande Bip convertie est copiée dans le presse-papiers.</value>
   </data>
-  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -520,6 +520,9 @@ Si vous rencontrez des problèmes de fluidité ou de sauts lors de la lecture de
   <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
     <value>Jeu synchronisé</value>
   </data>
+  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ThirtySecondNote" xml:space="preserve">
     <value>Triple-croche</value>
   </data>
@@ -541,8 +544,8 @@ Si vous rencontrez des problèmes de fluidité ou de sauts lors de la lecture de
   <data name="TextHide" xml:space="preserve">
     <value>Cacher</value>
   </data>
-  <data name="PortamentoHelpTitle" xml:space="preserve">
-    <value>Portamento de bip</value>
+  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
+    <value>Script Shell (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>Impossible de démarrer le périphérique d'entrée MIDI:</value>
@@ -567,14 +570,17 @@ Si vous rencontrez des problèmes de fluidité ou de sauts lors de la lecture de
 
 Voulez-vous quand même ouvrir ce fichier ?</value>
   </data>
+  <data name="MessagePlaybackStartingError" xml:space="preserve">
+    <value>Erreur lors du démarrage de la lecture :</value>
+  </data>
   <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
     <value>Essayez d'actualiser la liste des appareils.</value>
   </data>
   <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
-    <value>N'est pas en attente actuellement</value>
+  <data name="TextCurrentlyWaiting" xml:space="preserve">
+    <value>En attente actuellement</value>
   </data>
   <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -636,14 +642,14 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageErrorRewinding" xml:space="preserve">
     <value>Erreur lors du retour à la version enregistrée :</value>
   </data>
-  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Portamento de bip</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
     <value>Pnt</value>
   </data>
-  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -657,13 +663,74 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>Aucune version enregistrée pour revenir en arrière.</value>
+  <data name="TextStopPlaying" xml:space="preserve">
+    <value>Arrêtez de jouer</value>
   </data>
-  <data name="TitleOpenMIDIFile" xml:space="preserve">
-    <value>Ouvrir un fichier MIDI</value>
+  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
+    <value>La validation de la clé API Google Gemini™ a réussi</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>Fichiers MIDI|*.mid</value>
+  <data name="StatusAPIKeyValidating" xml:space="preserve">
+    <value>La clé API Google Gemini™ est en cours de validation</value>
+  </data>
+  <data name="StatusDisplayResolutionCheck" xml:space="preserve">
+    <value>Vérification de la résolution d'affichage...</value>
+  </data>
+  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
+    <value>La résolution d'affichage n'est pas prise en charge. NeoBleeper nécessite une résolution minimale de 1024 x 768 pour fonctionner correctement.</value>
+  </data>
+  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
+    <value>La résolution d'affichage est prise en charge.</value>
+  </data>
+  <data name="StatusComputerTypeDetecting" xml:space="preserve">
+    <value>Détection du type d'ordinateur...</value>
+  </data>
+  <data name="StatusModularComputerDetected" xml:space="preserve">
+    <value>Une sortie haut-parleur système est présente et il s'agit d'un ordinateur modulaire. NeoBleeper utilisera le haut-parleur système pour émettre des bips.</value>
+  </data>
+  <data name="StatusCompactComputerDetected" xml:space="preserve">
+    <value>Une sortie haut-parleur système est présente, mais il s'agit d'un ordinateur compact. NeoBleeper utilisera la carte son pour émettre des bips afin d'éviter les problèmes avec les ordinateurs compacts.</value>
+  </data>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>Une sortie haut-parleur système est présente, mais il s'agit d'un ordinateur de type inconnu. NeoBleeper utilisera la carte son pour émettre des bips afin d'éviter les problèmes avec les ordinateurs de type inconnu.
+</value>
+  </data>
+  <data name="StatusInitializationCompleted" xml:space="preserve">
+    <value>L'initialisation de NeoBleeper est terminée</value>
+  </data>
+  <data name="StatusSpecifyingStorageType" xml:space="preserve">
+    <value>Spécification du type de stockage pour la prévention de la résonance…</value>
+  </data>
+  <data name="StatusNVMeStorageType" xml:space="preserve">
+    <value>Stockage NVMe détecté. La prévention de la résonance n'est pas nécessaire.</value>
+  </data>
+  <data name="StatusSSDStorageType" xml:space="preserve">
+    <value>Stockage SSD détecté. La prévention de la résonance n'est pas nécessaire.</value>
+  </data>
+  <data name="StatusUnknownStorageType" xml:space="preserve">
+    <value>Le type de stockage est inconnu. La prévention de la résonance est appliquée aux fréquences de résonance probables par mesure de sécurité.</value>
+  </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>Stockage sur disque dur détecté. Fréquence de résonance évitée de {value} Hz.</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Vérification de la présence du haut-parleur système (PC) à l'étape 1/2…</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Vérification de la présence du haut-parleur système (PC) à l'étape 2/2… (Vous pourriez entendre des clics)</value>
+  </data>
+  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
+    <value>Sortie haut-parleur système présente. Le haut-parleur système sera utilisé pour émettre des bips.</value>
+  </data>
+  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
+    <value>Sortie haut-parleur système absente. Le périphérique audio sera utilisé pour émettre des bips.</value>
+  </data>
+  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
+    <value>Le mode Bleeper classique est activé. NeoBleeper fonctionnera en mode Bleeper classique.</value>
+  </data>
+  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
+    <value>Le mode Bleeper classique est désactivé. NeoBleeper fonctionnera en mode standard.</value>
+  </data>
+  <data name="StatusProgramLanguage" xml:space="preserve">
+    <value>NeoBleeper commence avec le langage: </value>
   </data>
 </root>

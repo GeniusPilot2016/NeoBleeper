@@ -2,42 +2,42 @@
 
 namespace SystemSpeakerSensorTest
 {
-    internal class Program
+    internal class Program // Console program for testing silent system speaker detection using ultrasonic frequencies to help development of system speaker sensor in NeoBleeper
     {
         [DllImport("inpoutx64.dll")]
         extern static void Out32(short PortAddress, short Data);
         [DllImport("inpoutx64.dll")]
         extern static char Inp32(short PortAddress);
 
-        private const int ULTRASONIC_FREQ = 30000; // 30 kHz - daha yüksek, daha sessiz
+        private const int ULTRASONIC_FREQ = 30000; // 30 kHz - high enough to be inaudible to users
         private const int PIT_BASE_FREQ = 1193180;
 
-        // Çok yumuşak geçiş - rampa ile başlat
+        // Very soft enable/disable to minimize audible clicks
         private static void UltraSoftEnableSpeaker(byte originalState)
         {
-            // Timer'ı yapılandır AMA gate kapalı
+            // Configure Timer 2 for square wave mode
             Out32(0x43, 0xB6);
             int div = PIT_BASE_FREQ / ULTRASONIC_FREQ;
             Out32(0x42, (byte)(div & 0xFF));
             Out32(0x42, (byte)(div >> 8));
 
-            Thread.Sleep(10); // Timer'ın tamamen stabilize olması için
+            Thread.Sleep(10); // To stabilize the timer
 
-            // Sadece Timer 2 gate'i aç (bit 0), Speaker data'yı kapalı tut (bit 1)
+            // Open only the gate first (bit 0), keep speaker data off
             Out32(0x61, (byte)(originalState | 0x01)); // Bit 1 = 0
             Thread.Sleep(10);
 
-            // Şimdi Speaker data'yı da aç (bit 1)
+            // Open speaker data (bit 1) to start sound generation
             Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
         }
 
         private static void UltraSoftDisableSpeaker(byte originalState)
         {
-            // Önce Speaker data'yı kapat (bit 1), gate açık kalsın
+            // Close speaker data first (bit 1)
             Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
             Thread.Sleep(10);
 
-            // Şimdi gate'i de kapat (bit 0)
+            // Then close the gate (bit 0)
             Out32(0x61, (byte)(originalState & 0xFC));
             Thread.Sleep(10);
         }
@@ -48,7 +48,7 @@ namespace SystemSpeakerSensorTest
             {
                 byte originalState = (byte)Inp32(0x61);
 
-                // Ultra yumuşak başlatma
+                // Ultra soft start
                 UltraSoftEnableSpeaker(originalState);
                 Thread.Sleep(50);
 
@@ -60,7 +60,7 @@ namespace SystemSpeakerSensorTest
                 }
                 byte stateEnabled = enabledSamples[enabledSamples.Count / 2];
 
-                // Ultra yumuşak kapatma
+                // Ultra soft close
                 UltraSoftDisableSpeaker(originalState);
                 Thread.Sleep(50);
 
@@ -72,7 +72,7 @@ namespace SystemSpeakerSensorTest
                 }
                 byte stateDisabled = disabledSamples[disabledSamples.Count / 2];
 
-                // Orijinal durumu geri yükle
+                // Restore original state
                 Out32(0x61, originalState);
                 Thread.Sleep(20);
 
@@ -95,7 +95,7 @@ namespace SystemSpeakerSensorTest
             {
                 byte originalState = (byte)Inp32(0x61);
 
-                // Ultra yumuşak başlatma
+                // Ultra soft start
                 UltraSoftEnableSpeaker(originalState);
                 Thread.Sleep(50);
 
@@ -105,7 +105,7 @@ namespace SystemSpeakerSensorTest
                     samples.Add((byte)Inp32(0x61));
                 }
 
-                // Ultra yumuşak kapatma
+                // Ultra soft close
                 UltraSoftDisableSpeaker(originalState);
                 Out32(0x61, originalState);
                 Thread.Sleep(20);
@@ -141,7 +141,7 @@ namespace SystemSpeakerSensorTest
                 byte originalState = (byte)Inp32(0x61);
                 bool anyFrequencyWorks = false;
 
-                // Sadece çok yüksek frekanslar - 30 kHz ve üstü
+                // Higher frequencies to avoid audible range
                 int[] testFrequencies = { 30000, 35000, 38000 };
 
                 foreach (int freq in testFrequencies)
@@ -149,17 +149,17 @@ namespace SystemSpeakerSensorTest
                     int div = PIT_BASE_FREQ / freq;
                     if (div < 1) continue;
 
-                    // Timer'ı yapılandır
+                    // Configure Timer 2 for square wave mode
                     Out32(0x43, 0xB6);
                     Out32(0x42, (byte)(div & 0xFF));
                     Out32(0x42, (byte)(div >> 8));
                     Thread.Sleep(10);
 
-                    // Sadece gate'i aç (bit 0), speaker data kapalı
+                    // Open gate first (bit 0), keep speaker data off
                     Out32(0x61, (byte)(originalState | 0x01));
                     Thread.Sleep(10);
 
-                    // Şimdi speaker data'yı aç
+                    // Then open speaker data (bit 1)
                     Out32(0x61, (byte)(originalState | 0x03));
                     Thread.Sleep(30);
 
@@ -169,11 +169,11 @@ namespace SystemSpeakerSensorTest
                         samples.Add((byte)Inp32(0x61));
                     }
 
-                    // Speaker data'yı kapat
+                    // Close speaker data first
                     Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
                     Thread.Sleep(10);
 
-                    // Gate'i kapat
+                    // Close gate
                     Out32(0x61, (byte)(originalState & 0xFC));
                     Thread.Sleep(10);
 
