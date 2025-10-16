@@ -88,7 +88,7 @@ namespace SystemSpeakerSensorTest
             bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
             bool portStateStable = CheckPortStateStability();
 
-            return electricalFeedbackValid && portStateStable;
+            return electricalFeedbackValid || portStateStable;
         }
         public static void LogSystemSpeakerStatus()
         {
@@ -98,7 +98,7 @@ namespace SystemSpeakerSensorTest
             bool portStateStable = CheckPortStateStability();
             Console.WriteLine($"Port state stable: {portStateStable}");
 
-            if (electricalFeedbackValid && portStateStable)
+            if (electricalFeedbackValid || portStateStable)
             {
                 Console.WriteLine("Functional system speaker or buzzer detected.");
             }
