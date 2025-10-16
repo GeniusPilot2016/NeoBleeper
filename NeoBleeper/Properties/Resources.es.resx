@@ -733,4 +733,10 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper comienza con el lenguaje: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Recopilando información del sistema...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Se está recopilando información del sistema.</value>
+  </data>
 </root>

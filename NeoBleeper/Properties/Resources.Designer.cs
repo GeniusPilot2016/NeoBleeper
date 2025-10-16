@@ -1510,6 +1510,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System informations are gathered. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemInformationsGathered {
+            get {
+                return ResourceManager.GetString("StatusSystemInformationsGathered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Gathering system informations... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemInformationsGathering {
+            get {
+                return ResourceManager.GetString("StatusSystemInformationsGathering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System speaker output is not present. Sound device will be used to create beeps benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusSystemSpeakerOutputNotPresent {

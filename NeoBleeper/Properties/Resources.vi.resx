@@ -733,4 +733,10 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper bắt đầu bằng ngôn ngữ: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Đang thu thập thông tin hệ thống...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Thông tin hệ thống đang được thu thập.</value>
+  </data>
 </root>

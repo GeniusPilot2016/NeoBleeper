@@ -736,4 +736,10 @@
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper запускается с языком: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Сбор информации о системе...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Сбор системной информации.</value>
+  </data>
 </root>

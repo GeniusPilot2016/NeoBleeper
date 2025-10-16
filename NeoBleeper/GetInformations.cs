@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using NeoBleeper.Properties;
+
 namespace NeoBleeper
 {
     public class GetInformations
@@ -164,6 +166,7 @@ namespace NeoBleeper
         }
         public static string getSystemInfo() 
         {
+            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathering);
             string systemInfo = "";
             String osVersion = System.Environment.OSVersion.VersionString;
             systemInfo += $"\r\nOperating System: {osVersion}\r\n";
@@ -233,6 +236,7 @@ namespace NeoBleeper
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
+            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered);
             return systemInfo;
         }
     }

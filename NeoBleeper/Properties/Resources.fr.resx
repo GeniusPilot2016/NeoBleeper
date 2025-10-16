@@ -733,4 +733,10 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper commence avec le langage: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Collecte des informations système…</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Les informations système sont collectées.</value>
+  </data>
 </root>

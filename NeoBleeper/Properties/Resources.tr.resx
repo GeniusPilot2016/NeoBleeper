@@ -734,4 +734,10 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper şu dilde başlatılıyor: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Sistem bilgileri toplanıyor...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Sistem bilgileri toplandı.</value>
+  </data>
 </root>

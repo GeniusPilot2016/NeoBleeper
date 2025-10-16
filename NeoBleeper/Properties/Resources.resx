@@ -738,4 +738,10 @@ Do you want to open this file anyway?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper is starting with language: </value>
   </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Gathering system informations...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>System informations are gathered.</value>
+  </data>
 </root>
