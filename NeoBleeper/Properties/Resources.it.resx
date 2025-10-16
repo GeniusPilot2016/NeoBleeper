@@ -554,7 +554,7 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
     <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TripletModifier" xml:space="preserve">
-    <value>Tri</value>
+    <value>Ter</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
     <value>Crea un'opera lirica nello stile di Verdi</value>
@@ -646,7 +646,7 @@ Vuoi aprire comunque questo file?</value>
     <value>Bleeper Portamento</value>
   </data>
   <data name="DottedModifier" xml:space="preserve">
-    <value>Dot</value>
+    <value>Pun</value>
   </data>
   <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
