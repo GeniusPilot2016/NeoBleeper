@@ -403,7 +403,7 @@ namespace NeoBleeper
                 {
                     Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
                 }
-                return !result;
+                return result;
             }
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD that is used in Bleeper Music Maker using NAudio
