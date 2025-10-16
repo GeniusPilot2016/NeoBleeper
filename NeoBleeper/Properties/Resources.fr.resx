@@ -713,10 +713,10 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
     <value>Stockage sur disque dur détecté. Fréquence de résonance évitée de {value} Hz.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
-    <value>Vérification de la présence du haut-parleur système (PC) à l'étape 1/2…</value>
+    <value>Vérification de la présence du haut-parleur système (Haut-parleur PC) à l'étape 1/2…</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Vérification de la présence du haut-parleur système (PC) à l'étape 2/2… (Vous pourriez entendre des clics)</value>
+    <value>Vérification de la présence du haut-parleur système (Haut-parleur PC) à l'étape 2/2… (Vous pourriez entendre des clics)</value>
   </data>
   <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
     <value>Sortie haut-parleur système présente. Le haut-parleur système sera utilisé pour émettre des bips.</value>
