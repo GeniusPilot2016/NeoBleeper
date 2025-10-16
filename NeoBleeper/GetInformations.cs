@@ -59,16 +59,6 @@ namespace NeoBleeper
                             {
                                 switch (type)
                                 {
-                                    case 3:
-                                    case 4:
-                                    case 5:
-                                    case 6:
-                                    case 7:
-                                    case 17:
-                                    case 18:
-                                    case 22:
-                                    case 23:
-                                        return computerTypes.ModularComputer;
                                     case 8:
                                     case 9:
                                     case 10:
@@ -81,7 +71,18 @@ namespace NeoBleeper
                                     case 30:
                                     case 31:
                                     case 32:
-                                        return computerTypes.CompactComputer;
+                                        return computerTypes.ModularComputer;
+
+                                case 3:
+                                case 4:
+                                case 5:
+                                case 6:
+                                case 7:
+                                case 17:
+                                case 18:
+                                case 22:
+                                case 23:
+                                    return computerTypes.CompactComputer;
                                     default:
                                         return computerTypes.Unknown;
                                 }
