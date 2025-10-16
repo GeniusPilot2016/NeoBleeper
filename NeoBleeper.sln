@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeoBleeper", "NeoBleeper\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeepStopper", "BeepStopper\BeepStopper.csproj", "{7F08DA73-A50F-47F7-8545-03D90165A46C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemSpeakerSensorTest", "SystemSpeakerSensorTest\SystemSpeakerSensorTest.csproj", "{967390EF-0125-4679-B9E7-B07C09FA1A07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -19,6 +21,10 @@ Global
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.ActiveCfg = Debug|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.Build.0 = Debug|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Release|x64.ActiveCfg = Release|x64
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|x64.Build.0 = Debug|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|x64.ActiveCfg = Release|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
