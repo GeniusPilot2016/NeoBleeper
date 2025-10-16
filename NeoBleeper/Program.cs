@@ -41,14 +41,24 @@ namespace NeoBleeper
             }
             // Initialize application configuration
             ApplicationConfiguration.Initialize();
+            ConfigureApplication();
             splashScreen.Show();
+            switch (Settings1.Default.ClassicBleeperMode)
+            {
+                case true:
+                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeEnabled, 10);
+                    break;
+                case false:
+                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeDisabled, 10);
+                    break;
+            }
+            splashScreen.updateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
             bool shouldRun = false;
             TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
             Logger.Log("NeoBleeper is starting up.", LogTypes.Info);
             SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
             // Configure application before ApplicationConfiguration.Initialize()
-            ConfigureApplication();
 
             // Initialize audio after application configuration
             var dummyWaveOut = SoundRenderingEngine.WaveSynthEngine.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
@@ -248,17 +258,14 @@ namespace NeoBleeper
                 case true:
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
                     Logger.Log("Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.", LogTypes.Info);
-                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeEnabled, 10);
                     break;
                 case false:
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
                     Logger.Log("Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.", LogTypes.Info);
-                    splashScreen.updateStatus(Resources.StatusClassicBleeperModeDisabled, 10);
                     break;
             }
             UIHelper.setLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
             Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
-            splashScreen.updateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
             try
             {
                 var synchronizedSettings = SynchronizedSettings.Load();
