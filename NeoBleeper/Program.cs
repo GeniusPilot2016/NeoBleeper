@@ -52,8 +52,10 @@ namespace NeoBleeper
             SetStatusForClassicBleeperModeAndLanguage();
             // Initialize audio after application configuration
             var dummyWaveOut = SoundRenderingEngine.WaveSynthEngine.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
+            Logger.Log("MIDI input/output is being initialized...", LogTypes.Info);
             splashScreen.updateStatus(Resources.StatusMIDIIOInitializing);
             MIDIIOUtils.InitializeMidi();
+            Logger.Log("MIDI input/output initialization completed.", LogTypes.Info);
             splashScreen.updateStatus(Resources.StatusMIDIIOInitializationCompleted, 10);
 
             // Check if it has an API key to verify
@@ -182,16 +184,21 @@ namespace NeoBleeper
                 }
                 finally
                 {
-                    MIDIIOUtils.DisposeMidiOutput();
+                    UninitializeMIDI();
                 }
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit when both normal exit and fatal error
             }
             else
             {
-                MIDIIOUtils.DisposeMidiOutput();
+                UninitializeMIDI();
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit due to user choice or resolution issue
             }
-
+        }
+        private static void UninitializeMIDI()
+        {
+            Logger.Log("Uninitializing MIDI input/output...", LogTypes.Info);
+            MIDIIOUtils.DisposeMidiOutput();
+            Logger.Log("MIDI input/output uninitialization completed.", LogTypes.Info);
         }
         enum WarningType
         {
