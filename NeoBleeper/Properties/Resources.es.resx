@@ -739,4 +739,10 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Se está recopilando información del sistema.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>Se está inicializando la entrada/salida MIDI...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>Inicialización de entrada/salida MIDI completada.</value>
+  </data>
 </root>

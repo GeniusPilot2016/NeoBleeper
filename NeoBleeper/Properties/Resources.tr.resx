@@ -740,4 +740,10 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Sistem bilgileri toplandı.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatılıyor...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
+  </data>
 </root>

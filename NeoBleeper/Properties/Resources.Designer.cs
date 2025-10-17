@@ -1465,6 +1465,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   MIDI input/output initialization completed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusMIDIIOInitializationCompleted {
+            get {
+                return ResourceManager.GetString("StatusMIDIIOInitializationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MIDI input/output is being initialized... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusMIDIIOInitializing {
+            get {
+                return ResourceManager.GetString("StatusMIDIIOInitializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System speaker output is present and it is a modular computer. NeoBleeper will use system speaker to create beeps. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusModularComputerDetected {

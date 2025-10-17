@@ -744,4 +744,10 @@ Do you want to open this file anyway?</value>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>System informations are gathered.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>MIDI input/output is being initialized...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>MIDI input/output initialization completed.</value>
+  </data>
 </root>

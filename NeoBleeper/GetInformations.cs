@@ -236,7 +236,7 @@ namespace NeoBleeper
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
-            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered);
+            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered, 10);
             return systemInfo;
         }
     }

@@ -52,8 +52,9 @@ namespace NeoBleeper
             SetStatusForClassicBleeperModeAndLanguage();
             // Initialize audio after application configuration
             var dummyWaveOut = SoundRenderingEngine.WaveSynthEngine.waveOut; // Dummy initialization to ensure the waveOut is created before any sound operations
-
+            splashScreen.updateStatus(Resources.StatusMIDIIOInitializing);
             MIDIIOUtils.InitializeMidi();
+            splashScreen.updateStatus(Resources.StatusMIDIIOInitializationCompleted, 10);
 
             // Check if it has an API key to verify
             if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))

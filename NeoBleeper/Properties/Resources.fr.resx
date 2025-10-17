@@ -739,4 +739,10 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Les informations système sont collectées.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>L'entrée/sortie MIDI est en cours d'initialisation…</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>Initialisation de l'entrée/sortie MIDI terminée.</value>
+  </data>
 </root>

@@ -741,4 +741,10 @@
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Зібрано системну інформацію.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>Ініціалізація входу/виходу MIDI...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>Ініціалізація входу/виходу MIDI завершена.</value>
+  </data>
 </root>

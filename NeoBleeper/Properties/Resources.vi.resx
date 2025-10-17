@@ -739,4 +739,10 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Thông tin hệ thống đang được thu thập.</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>Đầu vào/đầu ra MIDI đang được khởi tạo...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>Đã hoàn tất khởi tạo đầu vào/đầu ra MIDI.</value>
+  </data>
 </root>
