@@ -70,7 +70,7 @@
   La velocità di questa alternanza è controllata dal valore immesso nella casella di testo "Passa da una nota all'altra ogni: ... mS", situata a sinistra dell'elenco musicale.
   Inoltre, l'ordine delle note alternate può essere determinato tramite i pulsanti di opzione nella casella di testo "Passa da una nota all'altra ogni: ... mS".
 
-  ![image](https://github.com/user-attachments/assets/f8ccdb5e-2d58-4119-9733-a5763dc8a7e3)
+  ![image](https://github.com/user-attachments/assets/35f57f2e-b2d5-4c3f-87f6-26c51eb630a8)
 
 - ## Rapporto Nota/Silenzio
   Questa impostazione definisce la proporzione di tempo in cui una riga dell'elenco musicale produce suono rispetto al silenzio. Regolando questo rapporto è possibile ridurre l'emissione di toni continui.
