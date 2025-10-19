@@ -1,6 +1,6 @@
 # NeoBleeper Manual
 - ## How To Use NeoBleeper?
-  The two main areas are the keyboard (horizontal area at the top of the screen) and the music list (the listView near the bottom-right with three columns). 
+  The two main areas are the keyboard (horizontal area at the top of the screen) and the music list (the listView near the bottom-right with seven columns). 
   The keyboard is divided into three colored sections, each representing an octave. 
   To access notes outside the current range (higher than the green notes or lower than the red notes), adjust the 'Octave' value located to the right and left of the keyboard. 
   Increasing this value by one shifts the keyboard notes one octave higher.
@@ -40,7 +40,7 @@
   
     This addition streamlines both composition and editing, giving you more control over playback, voice effects, and batch manipulation of your music.
     
-  To switch between inserting a note or replacing the currently selected note, and to choose which of the two note columns a note is inserted into or replaces, use the options box under the left side of the keyboard titled "When key is clicked."
+  To switch between inserting a note or replacing the currently selected note, and to choose which of the four note columns a note is inserted into or replaces, use the options box under the left side of the keyboard titled "When key is clicked."
   This box also includes the option to play notes without inserting or replacing them.
 
   ![image](https://github.com/user-attachments/assets/0e4d2ede-24f1-490a-bd49-d20d500d1492)
