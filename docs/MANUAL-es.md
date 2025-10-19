@@ -66,10 +66,10 @@
 
 - ## Alternancia entre notas
   Dado que el altavoz del sistema solo puede reproducir una nota a la vez, el programa alterna entre "Nota 1", "Nota 2", "Nota 3" y "Nota 4" si varias columnas contienen una nota en la misma línea de la lista de música.
-  La velocidad de esta alternancia se controla mediante el valor introducido en el cuadro de texto "Cambiar entre notas alternas cada: ... mS", situado a la izquierda de la lista de música.
-  Además, el orden de las notas alternas se puede determinar mediante los botones de opción del cuadro de texto "Cambiar entre notas alternas cada: ... mS".
-  
-  ![image](https://github.com/user-attachments/assets/244d8ab7-93e6-4924-9621-1e0c6d343eb9)
+  La velocidad de esta alternancia se controla mediante el valor introducido en el cuadro de texto "Alternar entre las notas de forma sucesiva cada: ... mS", situado a la izquierda de la lista de música.
+  Además, el orden de las notas alternas se puede determinar mediante los botones de opción del cuadro de texto "Alternar entre las notas de forma sucesiva cada: ... mS".
+
+  ![image](https://github.com/user-attachments/assets/ea55c400-b070-4f24-a646-dafdf8e10c8f)
 
 - ## Relación nota/silencio
   Este ajuste define la proporción de tiempo que una línea de la lista de música produce sonido frente a silencio. Ajustar esta relación puede reducir la emisión de tono continuo.
