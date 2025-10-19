@@ -1,6 +1,6 @@
 # Manual de NeoBleeper
 - ## ¿Cómo usar NeoBleeper?
-  Las dos áreas principales son el teclado (área horizontal en la parte superior de la pantalla) y la lista de música (la vista de lista cerca de la esquina inferior derecha con tres columnas).
+  Las dos áreas principales son el teclado (área horizontal en la parte superior de la pantalla) y la lista de música (la vista de lista cerca de la esquina inferior derecha con siete columnas).
   El teclado está dividido en tres secciones de colores, cada una representando una octava.
   Para acceder a notas fuera del rango actual (más agudas que las notas verdes o más graves que las rojas), ajuste el valor de "Octava" ubicado a la derecha e izquierda del teclado.
   Al aumentar este valor en una unidad, las notas del teclado se desplazan una octava más aguda.
@@ -39,7 +39,7 @@
     - Estas casillas de verificación son independientes de la selección de línea para la entrada de notas: las líneas se pueden marcar para acciones por lotes incluso si se selecciona otra línea para editar.    
       Esta función optimiza tanto la composición como la edición, brindándote mayor control sobre la reproducción, los efectos de voz y la manipulación por lotes de tu música.
       
-  Para alternar entre insertar una nota o reemplazar la nota seleccionada, y elegir en cuál de las dos columnas de notas se insertará o reemplazará una nota, utilice el cuadro de opciones "Al pulsar la tecla" situado a la izquierda del teclado.
+  Para alternar entre insertar una nota o reemplazar la nota seleccionada, y elegir en cuál de las cuatro columnas de notas se insertará o reemplazará una nota, utilice el cuadro de opciones "Al pulsar la tecla" situado a la izquierda del teclado.
   Este cuadro también permite reproducir notas sin insertarlas ni reemplazarlas.
 
   ![image](https://github.com/user-attachments/assets/79ccc150-048f-4357-ae66-5dfab2eeaea9)
