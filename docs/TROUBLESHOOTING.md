@@ -38,17 +38,19 @@ The system speaker is controlled at a low hardware/software level. If the applic
 
   ![image3](https://github.com/user-attachments/assets/4f02f8e0-ac3b-4c9b-bed7-6835872a84e4)
   
-    **System speaker is not present. Therefore, stopping the beep is not possible.**  
-    This message is shown when the Beep Stopper utility is started and detects that your system does not have a system (PC) speaker. In this case, the tool cannot attempt to stop a stuck beep, as there is no speaker hardware to control.
+    **System speaker output is not present or non-standard system speaker output is present. Beep Stopper may cause instability or undesirable behaviors. Do you want to continue?**  
+    This message appears when the Beep Stopper utility is started and detects that your system either does not have a standard (PC) system speaker, or the system speaker output is "non-standard." In this case, the utility warns you that attempting to use the Beep Stopper may not work as expected and could potentially cause unexpected behavior or instability.
 
-    - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, and any beeping or buzzing you hear must be coming from another audio device. Use your standard sound device settings to address sound issues.
+If you proceed, the tool will try to stop the beep, but it may be ineffective or have side effects if your hardware is unsupported or non-standard.
+If you choose not to continue, the tool will exit without making any changes.
+
+    - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, or its output cannot be reliably controlled. Any beeping or buzzing you hear is likely coming from another audio device (such as your main speakers or headphones). Use your standard sound device settings to address sound issues, and close any applications that may be producing unwanted audio. If the problem persists, try restarting your computer or checking your device's sound settings.
 
 - **Restart your computer:**  
   If the Beep Stopper does not resolve the issue, a system restart will reset the speaker hardware.
 
 - **Prevention:**  
   Always close NeoBleeper normally. Avoid force-closing it via Task Manager or similar tools while sound is playing.
-
 ---
 
 ## 2. System Speaker Detection & Compatibility
