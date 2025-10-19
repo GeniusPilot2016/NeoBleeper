@@ -1,6 +1,6 @@
 # NeoBleeper Handbuch
 - ## Wie benutzt man NeoBleeper?
-  Die beiden Hauptbereiche sind die Tastatur (horizontaler Bereich oben auf dem Bildschirm) und die Musikliste (die dreispaltige Listenansicht unten rechts).
+  Die beiden Hauptbereiche sind die Tastatur (horizontaler Bereich oben auf dem Bildschirm) und die Musikliste (die siebenspaltige Listenansicht unten rechts).
   Die Tastatur ist in drei farbige Bereiche unterteilt, die jeweils eine Oktave darstellen.
   Um Noten außerhalb des aktuellen Bereichs (höher als die grünen Noten oder tiefer als die roten Noten) zu erreichen, passen Sie den Oktavwert rechts und links neben der Tastatur an.
   Erhöhen Sie diesen Wert um eins, verschieben Sie die Tastaturnoten eine Oktave höher.
@@ -55,9 +55,9 @@ In diesem Dropdown-Menü können Sie zwischen ganzen, halben, Viertel-, Achtel-,
   ![image](https://github.com/user-attachments/assets/aac9dee1-9b33-4b57-9ef5-30a732e52e6d)
 
   Wenn eine 1/32-Note nicht kurz genug ist, kann das Tempo (BPM) des Songs auf bis zu 600 BPM eingestellt werden. Das ist doppelt so viel wie bei den meisten MIDI-Sequenzern.
-Dies ermöglicht ein höheres Tempo und einen Ausgleich, indem jede zweite Note doppelt so lang ist.
-Der Temporegler befindet sich unten auf der Tastatur, rechts neben dem Taktregler.
-Er stellt die Anzahl der Schläge pro Minute ein und verfügt über eine Metronom-Taste zur akustischen Anzeige der Taktgeschwindigkeit.
+  Dies ermöglicht ein höheres Tempo und einen Ausgleich, indem jede zweite Note doppelt so lang ist.
+  Der Temporegler befindet sich unten auf der Tastatur, rechts neben dem Taktregler.
+  Er stellt die Anzahl der Schläge pro Minute ein und verfügt über eine Metronom-Taste zur akustischen Anzeige der Taktgeschwindigkeit.
 
   ![image](https://github.com/user-attachments/assets/6150e4cd-210b-4a06-aa89-0cf5dc036d05)
 
@@ -88,7 +88,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
  - ## Tipps zur Musikbearbeitung
    Sowohl NBPML- als auch BMM-Dateien sind textbasiert und mit Standard-Texteditoren kompatibel. Die Funktionen „Kopieren und Einfügen“ sowie „Suchen und Ersetzen“ unterstützen Sie bei wiederkehrenden Aufgaben oder der Fehlerkorrektur.
 
-   Um eine Zeile zu löschen, verwenden Sie die rote Schaltfläche „Ganze Zeile löschen“. Um nur eine Notenspalte zu löschen, verwenden Sie die beiden blauen Schaltflächen im selben Bereich.
+   Um eine Zeile zu löschen, verwenden Sie die rote Schaltfläche „Ganze Zeile löschen“. Um nur eine Notenspalte zu löschen, verwenden Sie die vier blauen Schaltflächen im selben Bereich.
 
    ![image](https://github.com/user-attachments/assets/be2836a4-10ec-4968-ac4e-b8b4b1608138)
   
