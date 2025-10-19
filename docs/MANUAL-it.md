@@ -1,6 +1,6 @@
 # Manuale di NeoBleeper
 - ## Come usare NeoBleeper?
-  Le due aree principali sono la tastiera (area orizzontale nella parte superiore dello schermo) e l'elenco musicale (la vista elenco in basso a destra con tre colonne).
+  Le due aree principali sono la tastiera (area orizzontale nella parte superiore dello schermo) e l'elenco musicale (la vista elenco in basso a destra con sette colonne).
   La ​​tastiera è divisa in tre sezioni colorate, ciascuna delle quali rappresenta un'ottava.
   Per accedere a note al di fuori dell'intervallo corrente (più alte delle note verdi o più basse delle note rosse), regola il valore "Ottava" situato a destra e a sinistra della tastiera.
   Aumentando questo valore di un'unità, le note della tastiera si spostano di un'ottava più in alto.
@@ -40,7 +40,7 @@
     
     Questa aggiunta semplifica sia la composizione che l'editing, offrendo un maggiore controllo sulla riproduzione, sugli effetti vocali e sulla manipolazione batch della musica.
     
-  Per passare dall'inserimento di una nota alla sostituzione della nota attualmente selezionata e per scegliere in quale delle due colonne di note inserire o sostituire una nota, utilizzare la casella delle opzioni sotto il lato sinistro della tastiera intitolata "Quando si preme il tasto".
+  Per passare dall'inserimento di una nota alla sostituzione della nota attualmente selezionata e per scegliere in quale delle quattro colonne di note inserire o sostituire una nota, utilizzare la casella delle opzioni sotto il lato sinistro della tastiera intitolata "Quando si preme il tasto".
   Questa casella include anche l'opzione per suonare le note senza inserirle o sostituirle.
 
   ![image](https://github.com/user-attachments/assets/284b8f5f-02ee-47ec-b735-64608c7a8fbb)
@@ -88,7 +88,7 @@
  - ## Suggerimenti per la modifica della musica
   Sia i file NBPML che BMM sono basati su testo e compatibili con gli editor di testo standard. Le funzioni di copia e incolla e di ricerca e sostituzione possono essere utili per le attività ripetitive o per correggere errori.
   
-  Per cancellare una riga, utilizzare il pulsante rosso "Cancella riga intera". Per cancellare solo una colonna di note, utilizzare i due pulsanti blu nella stessa area.
+  Per cancellare una riga, utilizzare il pulsante rosso "Cancella riga intera". Per cancellare solo una colonna di note, utilizzare i quattro pulsanti blu nella stessa area.
 
   ![immagine](https://github.com/user-attachments/assets/1e1adc29-93c5-4f1a-b505-becbb5fec8ba)
   
