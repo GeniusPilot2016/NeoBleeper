@@ -43,7 +43,7 @@ The system speaker is controlled at a low hardware/software level. If the applic
 
 If you proceed, the tool will try to stop the beep, but it may be ineffective or have side effects if your hardware is unsupported or non-standard.
 If you choose not to continue, the tool will exit without making any changes.
-    - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, or its output cannot be reliably controlled. Any beeping or buzzing you hear is likely coming from another audio device (such as your main speakers or headphones). Use your standard sound device settings to address sound issues, and close any applications that may be producing unwanted audio. If the problem persists, try restarting your computer or checking your device's sound settings.
+  - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, or its output cannot be reliably controlled. Any beeping or buzzing you hear is likely coming from another audio device (such as your main speakers or headphones). Use your standard sound device settings to address sound issues, and close any applications that may be producing unwanted audio. If the problem persists, try restarting your computer or checking your device's sound settings.
 
 - **Restart your computer:**  
   If the Beep Stopper does not resolve the issue, a system restart will reset the speaker hardware.
