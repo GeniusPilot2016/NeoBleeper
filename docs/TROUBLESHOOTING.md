@@ -36,7 +36,7 @@ The system speaker is controlled at a low hardware/software level. If the applic
     **Beep is successfully stopped!**  
     This message confirms that the Beep Stopper utility detected a stuck beep and was able to stop it successfully. No further action is required.
 
-  ![image3](https://github.com/user-attachments/assets/4f02f8e0-ac3b-4c9b-bed7-6835872a84e4)
+  ![image3](https://github.com/user-attachments/assets/7d7d678e-5937-49e0-a6d5-95cc8941a3cb)
   
     **System speaker output is not present or non-standard system speaker output is present. Beep Stopper may cause instability or undesirable behaviors. Do you want to continue?**  
     This message appears when the Beep Stopper utility is started and detects that your system either does not have a standard (PC) system speaker, or the system speaker output is "non-standard." In this case, the utility warns you that attempting to use the Beep Stopper may not work as expected and could potentially cause unexpected behavior or instability.
