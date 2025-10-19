@@ -24,6 +24,8 @@
     <PackageTags>music, beep, pc-speaker, buzzer, tune, pc-beeper, system-speaker, neobleeper, bleeper, motherboard-speaker, motherboard-buzzer</PackageTags>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <Description>NeoBleeper is an AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software by Robbi-985 (aka SomethingUnreal).</Description>
+    <PackageIcon>neobleeper_icon.png</PackageIcon>
+    <NeutralLanguage>en-001</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +37,13 @@
     <Content Include="inpoutx64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\OneDrive\Masaüstü\neobleeper_icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
