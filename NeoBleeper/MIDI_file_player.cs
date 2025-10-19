@@ -801,7 +801,7 @@ namespace NeoBleeper
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
-        private async void Rewind()
+        private async Task Rewind()
         {
             // Reset lyric state
             _lastLyricTime = DateTime.MinValue;
@@ -900,9 +900,9 @@ namespace NeoBleeper
             Stop();
         }
 
-        private void button_rewind_Click(object sender, EventArgs e)
+        private async void button_rewind_Click(object sender, EventArgs e)
         {
-            Rewind();
+            await Rewind();
         }
 
         private void MIDI_file_player_FormClosing(object sender, FormClosingEventArgs e)
@@ -1601,7 +1601,7 @@ namespace NeoBleeper
         }
 
         // Playback complete handler
-        private void HandlePlaybackComplete()
+        private async void HandlePlaybackComplete()
         {
             try
             {
@@ -1613,7 +1613,7 @@ namespace NeoBleeper
                 if (checkBox_loop.Checked)
                 {
                     Logger.Log("Playback loop enabled. Rewinding.", Logger.LogTypes.Info);
-                    Rewind();
+                    await Rewind();
                     // Restart playback if looping is enabled
                     Play();
                 }
@@ -1621,7 +1621,7 @@ namespace NeoBleeper
                 {
                     Logger.Log("Playback finished.", Logger.LogTypes.Info);
                     Stop();
-                    Rewind();
+                    await Rewind();
                 }
             }
             catch (Exception ex)
