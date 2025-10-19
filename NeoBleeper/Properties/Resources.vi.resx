@@ -686,7 +686,7 @@ Bạn có muốn mở tệp này không?</value>
     <value>Đang phát hiện loại máy tính...</value>
   </data>
   <data name="StatusModularComputerDetected" xml:space="preserve">
-    <value>L'uscita dell'altoparlante di sistema è presente e si tratta di un computer modulare. NeoBleeper utilizzerà l'altoparlante di sistema per emettere segnali acustici.</value>
+    <value>Có loa hệ thống và đây là máy tính dạng mô-đun. NeoBleeper sẽ sử dụng loa hệ thống để tạo ra tiếng bíp.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un computer compatto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i computer compatti.</value>

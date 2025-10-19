@@ -117,338 +117,353 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comboBox_component_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;label_note4.Name" xml:space="preserve">
-    <value>label_note4</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_alternating_note_options.TabIndex" type="System.Int32, mscorlib">
-    <value>115</value>
+  <data name="button_export_as_gcode.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lbl_alternating_note_options.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 134</value>
+  </data>
+  <data name="label_note3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="lbl_alternating_note_options.Text" xml:space="preserve">
+    <value>Playing Alternating Note Options</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note3.Name" xml:space="preserve">
     <value>checkBox_play_note3</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBox_play_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Convert File to GCode</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="checkBox_play_note3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_note1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
+    <value>Play alternating notes in order</value>
+  </data>
+  <data name="label_note3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 72</value>
+  </data>
+  <data name="checkBox_play_note3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBox_play_note4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="label_note4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="checkBox_play_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="lbl_alternating_note_options.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBox_play_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 73</value>
+  </data>
+  <data name="comboBox_component_note4.Items" xml:space="preserve">
+    <value>M3/M5 - Motor</value>
+  </data>
+  <data name="checkBox_play_note3.Text" xml:space="preserve">
+    <value>Play Note 3</value>
+  </data>
+  <data name="label_note2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBox_play_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="comboBox_component_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 24</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConvertToGCode</value>
+  </data>
+  <data name="button_export_as_gcode.Text" xml:space="preserve">
+    <value>Export As GCode</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Name" xml:space="preserve">
+    <value>radioButtonPlay_alternating_notes2</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note1.Name" xml:space="preserve">
+    <value>checkBox_play_note1</value>
+  </data>
+  <data name="comboBox_component_note2.Items" xml:space="preserve">
+    <value>M3/M5 - Motor</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>329, 366</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note2.Name" xml:space="preserve">
+    <value>comboBox_component_note2</value>
+  </data>
+  <data name="&gt;&gt;label_note1.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;label_note3.Name" xml:space="preserve">
+    <value>label_note3</value>
+  </data>
+  <data name="comboBox_component_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBox_component_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 101</value>
+  </data>
+  <data name="comboBox_component_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 165</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 32</value>
+  </data>
   <data name="radioButtonPlay_alternating_notes1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="label_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 167</value>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 18</value>
   </data>
-  <data name="checkBox_play_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+  <data name="&gt;&gt;exportGCodeFile.Name" xml:space="preserve">
+    <value>exportGCodeFile</value>
   </data>
-  <data name="&gt;&gt;label_note4.Parent" xml:space="preserve">
+  <data name="checkBox_play_note4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="label_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+  <data name="comboBox_component_note3.Items" xml:space="preserve">
+    <value>M3/M5 - Motor</value>
   </data>
-  <data name="checkBox_play_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="comboBox_component_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="label_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
+  <data name="button_export_as_gcode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="label_note3.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="comboBox_component_note3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 25</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox_play_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label_note3.Text" xml:space="preserve">
     <value>Note 3</value>
   </data>
-  <data name="&gt;&gt;label_note2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 60</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 257</value>
-  </data>
-  <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 199</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label_note1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="&gt;&gt;label_note3.Name" xml:space="preserve">
-    <value>label_note3</value>
-  </data>
-  <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 16</value>
-  </data>
-  <data name="lbl_alternating_note_options.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>240, 0</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBox_play_note3.Text" xml:space="preserve">
-    <value>Play Note 3</value>
-  </data>
-  <data name="label_note3.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lbl_alternating_note_options.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 32</value>
-  </data>
-  <data name="checkBox_play_note4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lbl_alternating_note_options.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBox_play_note4.Text" xml:space="preserve">
-    <value>Play Note 4</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 226</value>
   </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Name" xml:space="preserve">
-    <value>radioButtonPlay_alternating_notes2</value>
+  <data name="&gt;&gt;checkBox_play_note4.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="checkBox_play_note3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 60</value>
-  </data>
-  <data name="checkBox_play_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 104</value>
-  </data>
-  <data name="comboBox_component_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="label_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="comboBox_component_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 132</value>
+  <data name="label_note2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="checkBox_play_note2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="comboBox_component_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label_note4.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="&gt;&gt;exportGCodeFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_note4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="checkBox_play_note3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="checkBox_play_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="comboBox_component_note1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBox_play_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 25</value>
-  </data>
-  <data name="&gt;&gt;label_note1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comboBox_component_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 16</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>329, 366</value>
-  </data>
-  <data name="label_note3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="comboBox_component_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note2.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>260, 0</value>
-  </data>
-  <data name="button_export_as_gcode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="label_note4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBox_play_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
-  </data>
-  <data name="lbl_alternating_note_options.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button_export_as_gcode.Text" xml:space="preserve">
-    <value>Export As GCode</value>
-  </data>
-  <data name="label_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 134</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="label_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;label_note3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 16</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
-    <value>Play alternating notes in the odd numbered columns first, then in even numbered columns</value>
-  </data>
-  <data name="&gt;&gt;button_export_as_gcode.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="comboBox_component_note4.Items" xml:space="preserve">
-    <value>M3/M4 - Motor</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 25</value>
-  </data>
-  <data name="comboBox_component_note4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comboBox_component_note2.Items" xml:space="preserve">
-    <value>M3/M4 - Motor</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1.Name" xml:space="preserve">
-    <value>checkBox_play_note1</value>
-  </data>
-  <data name="&gt;&gt;label_note1.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="label_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="label_note1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label_note2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBox_play_note1.Text" xml:space="preserve">
-    <value>Play Note 1</value>
-  </data>
-  <data name="&gt;&gt;lbl_alternating_note_options.Name" xml:space="preserve">
-    <value>lbl_alternating_note_options</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;lbl_alternating_note_options.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_note3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comboBox_component_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note3.Name" xml:space="preserve">
-    <value>comboBox_component_note3</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4.Name" xml:space="preserve">
-    <value>checkBox_play_note4</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>260, 80</value>
   </data>
-  <data name="comboBox_component_note4.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;comboBox_component_note4.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="label_note4.Text" xml:space="preserve">
-    <value>Note 4</value>
+  <data name="&gt;&gt;comboBox_component_note2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label_note2.Text" xml:space="preserve">
-    <value>Note 2</value>
+  <data name="button_export_as_gcode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
-  <data name="checkBox_play_note2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="comboBox_component_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 24</value>
   </data>
-  <data name="&gt;&gt;label_note2.ZOrder" xml:space="preserve">
-    <value>14</value>
+  <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="comboBox_component_note3.Items1" xml:space="preserve">
+    <value>M300 - Buzzer</value>
+  </data>
+  <data name="comboBox_component_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 24</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;label_note2.Name" xml:space="preserve">
+    <value>label_note2</value>
+  </data>
+  <data name="checkBox_play_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="button_export_as_gcode.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
   </data>
+  <data name="label_note4.Text" xml:space="preserve">
+    <value>Note 4</value>
+  </data>
+  <data name="&gt;&gt;label_note2.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label_note1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="button_export_as_gcode.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="comboBox_component_note4.Items1" xml:space="preserve">
+    <value>M300 - Buzzer</value>
+  </data>
   <data name="label_note1.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 16</value>
   </data>
-  <data name="&gt;&gt;checkBox_play_note3.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBox_play_note2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label_note3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_alternating_note_options.Name" xml:space="preserve">
+    <value>lbl_alternating_note_options</value>
+  </data>
+  <data name="comboBox_component_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.TabIndex" type="System.Int32, mscorlib">
+    <value>117</value>
+  </data>
+  <data name="label_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_alternating_note_options.TabIndex" type="System.Int32, mscorlib">
+    <value>115</value>
+  </data>
+  <data name="label_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 16</value>
+  </data>
+  <data name="&gt;&gt;label_note2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="checkBox_play_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note2.Name" xml:space="preserve">
+    <value>checkBox_play_note2</value>
+  </data>
+  <data name="checkBox_play_note4.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;icons.Name" xml:space="preserve">
+    <value>icons</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note2.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;lbl_alternating_note_options.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="checkBox_play_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 25</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="comboBox_component_note1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="lbl_alternating_note_options.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="comboBox_component_note2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBox_play_note2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
@@ -456,7 +471,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPAcAAAJNU0Z0AUkBTAMBAQAB
-        SAEAAXwBAAEUAQABFAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wD/
+        iAEAAaQBAAEUAQABFAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wD/
         AJwAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYD
         PAFmAx0BKf8AAQADTwGZAXcBbQFiAf8BbAFjAVoB/wFsAWMBWgH/AYwBbgF0Af8BlAFwAXoB/wGTAXAB
         egH/AZMBcAF6Af8BkwFxAXoB/wGTAXEBegH/AZEBbQF3Af8BjwFrAXUB/wGIAWkBbwH/AWwBYwFaAf8B
@@ -489,362 +504,347 @@
         MAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAv8B8AkAAv8B8B8ACw==
 </value>
   </data>
-  <data name="&gt;&gt;button_export_as_gcode.Name" xml:space="preserve">
-    <value>button_export_as_gcode</value>
-  </data>
-  <data name="label_note2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="label_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 16</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.TabIndex" type="System.Int32, mscorlib">
-    <value>117</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBox_play_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 168</value>
-  </data>
-  <data name="comboBox_component_note1.Items1" xml:space="preserve">
-    <value>M300 - Buzzer</value>
-  </data>
-  <data name="label_note4.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comboBox_component_note3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="label_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;button_export_as_gcode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label_note4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="comboBox_component_note2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="comboBox_component_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="label5.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>285, 0</value>
-  </data>
-  <data name="checkBox_play_note3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;icons.Name" xml:space="preserve">
-    <value>icons</value>
-  </data>
-  <data name="checkBox_play_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 135</value>
-  </data>
-  <data name="comboBox_component_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 101</value>
-  </data>
-  <data name="button_export_as_gcode.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label_note1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label_note2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="comboBox_component_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 70</value>
-  </data>
-  <data name="label_note2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBox_play_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBox_play_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="checkBox_play_note2.Text" xml:space="preserve">
-    <value>Play Note 2</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="&gt;&gt;label_note2.Name" xml:space="preserve">
-    <value>label_note2</value>
-  </data>
-  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="button_export_as_gcode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="comboBox_component_note2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="comboBox_component_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_note1.Name" xml:space="preserve">
-    <value>label_note1</value>
-  </data>
-  <data name="checkBox_play_note4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;label_note3.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note1.Name" xml:space="preserve">
-    <value>comboBox_component_note1</value>
-  </data>
-  <data name="button_export_as_gcode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="comboBox_component_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 165</value>
-  </data>
-  <data name="lbl_alternating_note_options.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="checkBox_play_note2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
-    <value>Play alternating notes in order</value>
-  </data>
-  <data name="button_export_as_gcode.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="checkBox_play_note1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;exportGCodeFile.Name" xml:space="preserve">
-    <value>exportGCodeFile</value>
-  </data>
-  <data name="label_note1.Text" xml:space="preserve">
-    <value>Note 1</value>
-  </data>
-  <data name="checkBox_play_note4.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="comboBox_component_note1.Items" xml:space="preserve">
-    <value>M3/M4 - Motor</value>
-  </data>
-  <data name="button_export_as_gcode.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Convert File to GCode</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="checkBox_play_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 73</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.TabIndex" type="System.Int32, mscorlib">
-    <value>116</value>
-  </data>
-  <data name="comboBox_component_note3.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note2.Name" xml:space="preserve">
-    <value>comboBox_component_note2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 18</value>
-  </data>
-  <data name="button_export_as_gcode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 325</value>
-  </data>
-  <data name="checkBox_play_note1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="comboBox_component_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
-  </data>
-  <data name="comboBox_component_note3.Items" xml:space="preserve">
-    <value>M3/M4 - Motor</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note4.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="comboBox_component_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="lbl_alternating_note_options.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="&gt;&gt;comboBox_component_note4.Name" xml:space="preserve">
+    <value>comboBox_component_note4</value>
   </data>
   <data name="label_note2.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 103</value>
   </data>
-  <data name="&gt;&gt;comboBox_component_note4.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="checkBox_play_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="label_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 72</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note3.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="checkBox_play_note1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Select the notes and component type you want to play on the 3D printer/CNC machine.</value>
-  </data>
-  <data name="button_export_as_gcode.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="comboBox_component_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="comboBox_component_note4.Items1" xml:space="preserve">
-    <value>M300 - Buzzer</value>
-  </data>
-  <data name="button_export_as_gcode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 31</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbl_alternating_note_options.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="comboBox_component_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;label_note4.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ConvertToGCode</value>
-  </data>
-  <data name="radioButtonPlay_alternating_notes1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="lbl_alternating_note_options.Text" xml:space="preserve">
-    <value>Playing Alternating Note Options</value>
-  </data>
-  <data name="label_note1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBox_component_note1.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;icons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comboBox_component_note2.Items1" xml:space="preserve">
-    <value>M300 - Buzzer</value>
-  </data>
-  <data name="label_note1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="comboBox_component_note1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="checkBox_play_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lbl_alternating_note_options.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt, style=Bold</value>
-  </data>
   <data name="&gt;&gt;button_export_as_gcode.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+  <data name="comboBox_component_note1.Items" xml:space="preserve">
+    <value>M3/M5 - Motor</value>
   </data>
-  <data name="comboBox_component_note3.Items1" xml:space="preserve">
-    <value>M300 - Buzzer</value>
+  <data name="radioButtonPlay_alternating_notes2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 60</value>
   </data>
-  <data name="&gt;&gt;checkBox_play_note2.Name" xml:space="preserve">
-    <value>checkBox_play_note2</value>
+  <data name="label_note4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label_note3.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="comboBox_component_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="label_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;label_note2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;radioButtonPlay_alternating_notes1.Name" xml:space="preserve">
     <value>radioButtonPlay_alternating_notes1</value>
   </data>
-  <data name="&gt;&gt;comboBox_component_note4.Name" xml:space="preserve">
-    <value>comboBox_component_note4</value>
+  <data name="checkBox_play_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 135</value>
   </data>
-  <data name="lbl_alternating_note_options.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <data name="label_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
-  <data name="checkBox_play_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+  <data name="&gt;&gt;label_note4.Name" xml:space="preserve">
+    <value>label_note4</value>
   </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;lbl_alternating_note_options.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label_note4.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 199</value>
+  </data>
+  <data name="label_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 16</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 60</value>
+  </data>
+  <data name="checkBox_play_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="checkBox_play_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>tr</value>
+  <data name="checkBox_play_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBox_component_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="label_note2.Text" xml:space="preserve">
+    <value>Note 2</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note4.Name" xml:space="preserve">
+    <value>checkBox_play_note4</value>
+  </data>
+  <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 16</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 16</value>
+  </data>
+  <data name="checkBox_play_note4.Text" xml:space="preserve">
+    <value>Play Note 4</value>
+  </data>
+  <data name="comboBox_component_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 132</value>
+  </data>
+  <data name="button_export_as_gcode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note1.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="lbl_alternating_note_options.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 257</value>
+  </data>
+  <data name="&gt;&gt;button_export_as_gcode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label_note3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbl_alternating_note_options.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="button_export_as_gcode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 31</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="label_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;button_export_as_gcode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="comboBox_component_note4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="comboBox_component_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="lbl_alternating_note_options.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="button_export_as_gcode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 325</value>
+  </data>
+  <data name="checkBox_play_note1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label_note1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lbl_alternating_note_options.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="checkBox_play_note1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Select the notes and component type you want to play on the 3D printer/CNC machine.</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.TabIndex" type="System.Int32, mscorlib">
+    <value>116</value>
+  </data>
+  <data name="label5.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>285, 0</value>
+  </data>
+  <data name="comboBox_component_note4.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="checkBox_play_note1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="label_note2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note1.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="comboBox_component_note1.Items1" xml:space="preserve">
+    <value>M300 - Buzzer</value>
+  </data>
+  <data name="lbl_alternating_note_options.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>240, 0</value>
+  </data>
+  <data name="label_note1.Text" xml:space="preserve">
+    <value>Note 1</value>
+  </data>
+  <data name="checkBox_play_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 104</value>
+  </data>
+  <data name="comboBox_component_note2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note1.Name" xml:space="preserve">
+    <value>comboBox_component_note1</value>
+  </data>
+  <data name="&gt;&gt;exportGCodeFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBox_component_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 24</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBox_component_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="label_note3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="comboBox_component_note2.Items1" xml:space="preserve">
+    <value>M300 - Buzzer</value>
+  </data>
+  <data name="&gt;&gt;label_note4.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="comboBox_component_note3.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="checkBox_play_note1.Text" xml:space="preserve">
+    <value>Play Note 1</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox_play_note2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="comboBox_component_note1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note3.Name" xml:space="preserve">
+    <value>comboBox_component_note3</value>
+  </data>
+  <data name="comboBox_component_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 70</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>260, 0</value>
+  </data>
+  <data name="&gt;&gt;button_export_as_gcode.Name" xml:space="preserve">
+    <value>button_export_as_gcode</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="checkBox_play_note3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBox_play_note2.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="button_export_as_gcode.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
+    <value>Play alternating notes in the odd numbered columns first, then in even numbered columns</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 167</value>
+  </data>
+  <data name="checkBox_play_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 168</value>
+  </data>
+  <data name="&gt;&gt;label_note1.Name" xml:space="preserve">
+    <value>label_note1</value>
+  </data>
+  <data name="comboBox_component_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;radioButtonPlay_alternating_notes1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;icons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_note4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox_play_note2.Text" xml:space="preserve">
+    <value>Play Note 2</value>
+  </data>
+  <data name="&gt;&gt;comboBox_component_note1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label_note1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="checkBox_play_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="checkBox_play_note1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <metadata name="exportGCodeFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>111, 17</value>
   </metadata>
   <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -852,7 +852,7 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="exportGCodeFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>111, 17</value>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>vi</value>
   </metadata>
 </root>
