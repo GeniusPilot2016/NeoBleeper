@@ -1,6 +1,6 @@
 # NeoBleeper Kullanma Kılavuzu
 - ## NeoBleeper Nasıl Kullanılır?
-  İki ana alan klavye (ekranın üst kısmındaki yatay alan) ve müzik listesidir (sağ alt köşedeki sekiz sütunlu ListView).
+  İki ana alan klavye (ekranın üst kısmındaki yatay alan) ve müzik listesidir (sağ alt köşedeki yedi sütunlu ListView).
   Klavye, her biri bir oktavı temsil eden üç renkli bölüme ayrılmıştır.
   Mevcut aralığın dışındaki notalara (yeşil notalardan daha yüksek veya kırmızı notalardan daha düşük) erişmek için klavyenin sağında ve solunda bulunan 'Oktav' değerini ayarlayınız.
   Bu değeri bir artırmak, klavye notalarını bir oktav yukarı kaydırır.
