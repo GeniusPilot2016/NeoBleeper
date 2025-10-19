@@ -30,7 +30,6 @@ namespace BeepStopper
         static void Main()
         {
             Logger.Log("Beep stopper is starting...", LogTypes.Info);
-            ApplicationConfiguration.Initialize();
             loadSettings();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
