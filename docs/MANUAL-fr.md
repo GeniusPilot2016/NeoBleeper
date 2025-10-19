@@ -1,6 +1,6 @@
 # Manuel NeoBleeper
 - ## Comment utiliser NeoBleeper ?
-  Les deux zones principales sont le clavier (zone horizontale en haut de l'écran) et la liste musicale (la liste en bas à droite avec trois colonnes).
+  Les deux zones principales sont le clavier (zone horizontale en haut de l'écran) et la liste musicale (la liste en bas à droite avec sept colonnes).
   Le clavier est divisé en trois sections colorées, chacune représentant une octave.
   Pour accéder aux notes hors de la tessiture actuelle (plus hautes que les notes vertes ou plus basses que les notes rouges), ajustez la valeur « Octave » située à droite et à gauche du clavier.
   Augmenter cette valeur d'une unité décale les notes du clavier d'une octave plus haut.
@@ -92,7 +92,7 @@ alternees toutes les: ... ms ».
 - ## Conseils pour l'édition musicale
   Les fichiers NBPML et BMM sont au format texte et compatibles avec les éditeurs de texte standard. Les fonctions copier-coller et rechercher-remplacer peuvent faciliter les tâches répétitives ou la correction d'erreurs.
   
-  Pour effacer une ligne, utilisez le bouton rouge « Effacer toute la ligne ». Pour effacer une seule colonne de notes, utilisez les deux boutons bleus situés dans la même zone.
+  Pour effacer une ligne, utilisez le bouton rouge « Effacer toute la ligne ». Pour effacer une seule colonne de notes, utilisez les quatre boutons bleus situés dans la même zone.
 
    ![image](https://github.com/user-attachments/assets/d25f1329-7954-4b6a-a0ac-27e81ca925b5)
   
