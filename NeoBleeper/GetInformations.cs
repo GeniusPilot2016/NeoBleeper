@@ -166,7 +166,7 @@ namespace NeoBleeper
         }
         public static string getSystemInfo() 
         {
-            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathering);
+            Program.splashScreen.updateStatus(Resources.StatusSystemInformationGathering);
             string systemInfo = "";
             String osVersion = System.Environment.OSVersion.VersionString;
             systemInfo += $"\r\nOperating System: {osVersion}\r\n";
@@ -236,7 +236,7 @@ namespace NeoBleeper
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
-            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered, 10);
+            Program.splashScreen.updateStatus(Resources.StatusSystemInformationGathered, 10);
             return systemInfo;
         }
     }

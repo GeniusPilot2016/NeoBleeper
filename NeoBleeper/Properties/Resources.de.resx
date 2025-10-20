@@ -497,7 +497,7 @@ Deshalb empfiehlt es sich, die Systemuhren vor der Nutzung dieser Funktion zu sy
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Fehler beim Laden der MIDI-Datei:</value>
+    <value>Fehler beim Öffnen der Datei:</value>
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>Die geöffnete Datei ist beschädigt oder wird von einem anderen Prozess verwendet.</value>
@@ -563,7 +563,7 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
+  <data name="TextHeldNotes" xml:space="preserve">
     <value>Notizen, die derzeit gehalten werden auf:</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
@@ -733,16 +733,16 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper beginnt mit der Sprache: </value>
   </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Systeminformationen werden erfasst...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Systeminformationen werden erfasst.</value>
-  </data>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI-Ein-/Ausgang wird initialisiert...</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>MIDI-Ein-/Ausgangsinitialisierung abgeschlossen.</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Systeminformationen werden erfasst...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Systeminformationen werden erfasst.</value>
   </data>
 </root>

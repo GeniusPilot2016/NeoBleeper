@@ -375,7 +375,7 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
     <value>Nốt đen</value>
   </data>
   <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
-    <value>Lệnh Beep dưới dạng tập lệnh shell đã được lưu thành công.</value>
+    <value>Không thể chuyển đổi danh sách nốt trống thành lệnh Beep cho Linux</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Tệp bạn kéo không được trình phát MIDI NeoBleeper hỗ trợ hoặc bị hỏng.</value>
@@ -543,7 +543,7 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
     <value>Tệp MIDI đã được tải thành công.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
-    <value>Trốn</value>
+    <value>Ẩn</value>
   </data>
   <data name="FilterBeepCommandFileFormats" xml:space="preserve">
     <value>Shell Script (*.sh)|*.sh</value>
@@ -563,7 +563,7 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
+  <data name="TextHeldNotes" xml:space="preserve">
     <value>Nốt hiện đang được lưu giữ tại:</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
@@ -689,10 +689,10 @@ Bạn có muốn mở tệp này không?</value>
     <value>Có loa hệ thống và đây là máy tính dạng mô-đun. NeoBleeper sẽ sử dụng loa hệ thống để tạo ra tiếng bíp.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un computer compatto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i computer compatti.</value>
+    <value>Loa hệ thống có sẵn, nhưng đây là máy tính nhỏ gọn. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với máy tính nhỏ gọn.</value>
   </data>
   <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un tipo di computer sconosciuto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i tipi di computer sconosciuti.</value>
+    <value>Loa hệ thống có sẵn, nhưng không rõ loại máy tính nào. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với các loại máy tính không rõ.</value>
   </data>
   <data name="StatusInitializationCompleted" xml:space="preserve">
     <value>Quá trình khởi tạo NeoBleeper đã hoàn tất</value>
@@ -733,16 +733,16 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper bắt đầu bằng ngôn ngữ: </value>
   </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Đang thu thập thông tin hệ thống...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Thông tin hệ thống đang được thu thập.</value>
-  </data>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>Đầu vào/đầu ra MIDI đang được khởi tạo...</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Đã hoàn tất khởi tạo đầu vào/đầu ra MIDI.</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Đang thu thập thông tin hệ thống...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Thông tin hệ thống đang được thu thập.</value>
   </data>
 </root>

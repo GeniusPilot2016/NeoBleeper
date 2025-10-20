@@ -236,7 +236,7 @@
     <value>Немає підключення до Інтернету. Перевірте з’єднання.</value>
   </data>
   <data name="ToastMessageNotesCopy" xml:space="preserve">
-    <value>Нотатки копіюються в буфер обміну.</value>
+    <value>Ноти копіюються в буфер обміну.</value>
   </data>
   <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -351,7 +351,7 @@
     <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ToastMessageNotesCut" xml:space="preserve">
-    <value>Нотатки вирізаються в буфер обміну.</value>
+    <value>Ноти вирізаються в буфер обміну.</value>
   </data>
   <data name="TextEventsAreBeingSorted" xml:space="preserve">
     <value>Події впорядковуються...</value>
@@ -565,8 +565,8 @@
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
-    <value>Нотатки, які зараз зберігаються:</value>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Ноти, які зараз зберігаються:</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
     <value>Цей файл Bleeper Music Maker містить недійсні елементи, які не відповідають синтаксису формату файлу Bleeper Music Maker.
@@ -735,16 +735,16 @@
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper починає з мови: </value>
   </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Збір системної інформації...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Зібрано системну інформацію.</value>
-  </data>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>Ініціалізація входу/виходу MIDI...</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Ініціалізація входу/виходу MIDI завершена.</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Збір системної інформації...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Зібрано системну інформацію.</value>
   </data>
 </root>

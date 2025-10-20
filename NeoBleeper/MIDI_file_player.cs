@@ -459,7 +459,7 @@ namespace NeoBleeper
                 button_play.Enabled = true;
                 button_stop.Enabled = false;
                 UpdateNoteLabels(new HashSet<int>());
-                holded_note_label.Text = $"{Properties.Resources.TextHoldedNotes} (0)";
+                holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} (0)";
                 label_more_notes.Visible = false;
                 ClearLyrics();
                 // Reset drifts 
@@ -1570,7 +1570,7 @@ namespace NeoBleeper
             }
 
             // Update the label of notes that being held on
-            holded_note_label.Text = $"{Properties.Resources.TextHoldedNotes} ({filteredNotes.Count})";
+            holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} ({filteredNotes.Count})";
         }
         private void UpdatePositionLabel()
         {

@@ -542,7 +542,7 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
     <value>File MIDI caricato correttamente.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
-    <value>Nascondere</value>
+    <value>Nascondi</value>
   </data>
   <data name="FilterBeepCommandFileFormats" xml:space="preserve">
     <value>Script shell (*.sh)|*.sh</value>
@@ -562,7 +562,7 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
+  <data name="TextHeldNotes" xml:space="preserve">
     <value>Note attualmente detenute su:</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
@@ -732,16 +732,16 @@ Vuoi aprire comunque questo file?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper inizia con il linguaggio: </value>
   </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Raccolta informazioni di sistema in corso...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Vengono raccolte informazioni di sistema.</value>
-  </data>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>L'ingresso/uscita MIDI è in fase di inizializzazione...</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Inizializzazione dell'ingresso/uscita MIDI completata.</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Raccolta informazioni di sistema in corso...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Vengono raccolte informazioni di sistema.</value>
   </data>
 </root>

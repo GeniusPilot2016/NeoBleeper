@@ -236,7 +236,7 @@
     <value>Интернет-соединение отсутствует. Проверьте подключение.</value>
   </data>
   <data name="ToastMessageNotesCopy" xml:space="preserve">
-    <value>Заметки копируются в буфер обмена.</value>
+    <value>Ноты копируются в буфер обмена.</value>
   </data>
   <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -320,7 +320,7 @@
     <value>Перетащенный вами файл поврежден или используется другим процессом.</value>
   </data>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
-    <value>Пустой список заметок не может быть экспортирован.</value>
+    <value>Пустой список Ноты не может быть экспортирован.</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Ошибка преобразования в GCode:</value>
@@ -351,7 +351,7 @@
     <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ToastMessageNotesCut" xml:space="preserve">
-    <value>Заметки вырезаются в буфер обмена.</value>
+    <value>Ноты вырезаются в буфер обмена.</value>
   </data>
   <data name="TextEventsAreBeingSorted" xml:space="preserve">
     <value>События сортируются...</value>
@@ -565,8 +565,8 @@
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHoldedNotes" xml:space="preserve">
-    <value>Заметки, которые в настоящее время хранятся:</value>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Ноты, которые в настоящее время хранятся:</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
     <value>Этот файл Bleeper Music Maker содержит недопустимые элементы, которые не соответствуют синтаксису формата файла Bleeper Music Maker.
@@ -736,16 +736,16 @@
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper запускается с языком: </value>
   </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Сбор информации о системе...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Сбор системной информации.</value>
-  </data>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI-вход/выход инициализируется...</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Инициализация MIDI-входа/выхода завершена.</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Сбор информации о системе...</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Сбор системной информации.</value>
   </data>
 </root>

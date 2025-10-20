@@ -61,7 +61,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   An error occurred while running application:  benzeri yerelleştirilmiş bir dize arar.
+        ///   An error occurred while running the application:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccurredWhileRunningApplication {
             get {
@@ -900,7 +900,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The Beep command as shell script is saved successfully. benzeri yerelleştirilmiş bir dize arar.
+        ///   The Beep command as shell script has been saved successfully. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageBeepCommandSaved {
             get {
@@ -918,7 +918,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The converted Beep command is copied to clipboard benzeri yerelleştirilmiş bir dize arar.
+        ///   The converted Beep command has been copied to clipboard benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageConvertedBeepCommandCopied {
             get {
@@ -1008,7 +1008,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Firmware code is copied to clipboard benzeri yerelleştirilmiş bir dize arar.
+        ///   Firmware code has been copied to clipboard benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageFirmwareCopied {
             get {
@@ -1080,7 +1080,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The file you dragged is not supported by NeoBleeper MIDI player or is corrupted. benzeri yerelleştirilmiş bir dize arar.
+        ///   The file you dragged is not supported by the NeoBleeper MIDI player or is corrupted. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageMIDIFilePlayerNonSupportedFile {
             get {
@@ -1271,7 +1271,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   This feature allows you to play beat like sounds from system speaker/sound device. 
+        ///   This feature allows you to play beat-like sounds from the system speaker/sound device. 
         ///
         ///You can choose the sound to play by clicking the &apos;Change Beat Sound&apos; button. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -1375,7 +1375,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API key is validation is successful benzeri yerelleştirilmiş bir dize arar.
+        ///   Google Gemini™ API key validation is successful benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusAPIKeyValidationSuccessful {
             get {
@@ -1402,7 +1402,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers. benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker output is present, but it is a compact computer. NeoBleeper will use the sound card to create beeps to avoid issues with compact computers. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusCompactComputerDetected {
             get {
@@ -1483,7 +1483,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System speaker output is present and it is a modular computer. NeoBleeper will use system speaker to create beeps. benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker output is present and it is a modular computer. NeoBleeper will use the system speaker to create beeps. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusModularComputerDetected {
             get {
@@ -1528,7 +1528,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System informations are gathered. benzeri yerelleştirilmiş bir dize arar.
+        ///   System information has been gathered. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusSystemInformationsGathered {
             get {
@@ -1537,7 +1537,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Gathering system informations... benzeri yerelleştirilmiş bir dize arar.
+        ///   Gathering system information... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusSystemInformationsGathering {
             get {
@@ -1582,7 +1582,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers. benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker output is present, but it is an unknown types of computer. NeoBleeper will use the sound card to create beeps to avoid issues with unknown types of computers. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusUnknownComputerTypeDetected {
             get {
@@ -1694,20 +1694,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Notes which are currently being held on: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextHeldNotes {
+            get {
+                return ResourceManager.GetString("TextHeldNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Hide benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextHide {
             get {
                 return ResourceManager.GetString("TextHide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Notes which are currently being held on: benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string TextHoldedNotes {
-            get {
-                return ResourceManager.GetString("TextHoldedNotes", resourceCulture);
             }
         }
         
@@ -1914,7 +1914,7 @@ namespace NeoBleeper.Properties {
         ///
         ///When enabled, you can play notes by pressing the corresponding keys on your keyboard without any MIDI devices. 
         ///
-        ///You can see the key mappings in the buttons in the top of the window. benzeri yerelleştirilmiş bir dize arar.
+        ///You can see the key mappings on the buttons at the top of the window. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string UseKeyboardAsPianoHelp {
             get {

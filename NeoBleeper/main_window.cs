@@ -978,7 +978,7 @@ namespace NeoBleeper
                     }
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                     {
-                        checkBox_play_note3_clicked.Checked = true; // Default value
+                        checkBox_play_note4_clicked.Checked = true; // Default value
                         Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                     }
                     // Assign default values if no play note is found
@@ -1464,7 +1464,7 @@ namespace NeoBleeper
                                 }
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
                                 {
-                                    checkBox_play_note3_clicked.Checked = true; // Default value
+                                    checkBox_play_note4_clicked.Checked = true; // Default value
                                     Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
                                 }
                                 // Assign default values if no play note is found
