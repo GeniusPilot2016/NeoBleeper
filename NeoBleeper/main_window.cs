@@ -5864,9 +5864,47 @@ namespace NeoBleeper
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md") { UseShellExecute = true });
+            showHelp(); // Open the help manual in the preferred language
         }
-
+        private void showHelp() // Method to open the help manual in the preferred language
+        {
+            string language = Settings1.Default.preferredLanguage;
+            string manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md";
+            switch (language)
+            {
+                case "English":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md";
+                    break;
+                case "Deutsch":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-de.md";
+                    break;
+                case "Français":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-fr.md";
+                    break;
+                case "Español":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-es.md";
+                    break;
+                case "Italiano":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-it.md";
+                    break;
+                case "Türkçe":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-tr.md";
+                    break;
+                case "Русский":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-ru.md";
+                    break;
+                case "українська":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-ukr.md";
+                    break;
+                case "Tiếng Việt":
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL-vi.md";
+                    break;
+                default:
+                    manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md";
+                    break;
+            }
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(manualLink) { UseShellExecute = true });
+        }
         private void button_use_voice_system_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
