@@ -130,7 +130,7 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 **A:** When no standard system speaker output is detected (in older versions), NeoBleeper enforces this setting to ensure sound output is still possible.
 
 ### Q: Is there any workaround for missing system speaker?
-**A:** You must use your regular sound device (speakers/headphones) if a standard system speaker output can be found (in older versions).
+**A:** You must use your regular sound device (speakers/headphones) if a standard system speaker output can't be found (in older versions).
 
 ### Q: What if the Beep Stopper tool does not stop the stuck beep?
 **A:** Restart your computer to reset the speaker hardware if the Beep Stopper utility fails.
@@ -138,7 +138,7 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 ### Q: Why do I hear clicking sounds during startup?
 **A:** During the advanced system speaker output test (step 2), NeoBleeper sends ultrasonic signals to the hardware to detect hidden or non-standard speaker outputs. On some systems (especially those with piezo buzzers), this may cause faint clicking noises. This is normal and does not indicate a problem; it simply means the hardware test is running.
 
-### Q: Can the ultrasonic hardware test (step 2/2) detect broken (open circuit) or disconnected system speakers?
+### Q: Can the ultrasonic hardware test (step 2) detect broken (open circuit) or disconnected system speakers?
 **A:** This is currently untested and unknown. While the test checks for electrical feedback and port activity, it may not reliably distinguish between a physically present but broken (open circuit) or disconnected speaker and a missing speaker. If the speaker is completely broken or disconnected (open circuit), the test may return false, indicating no functional output detected. However, this behavior is not guaranteed and may depend on the specific hardware and failure mode. If you suspect your system speaker is not working, physical inspection or using a multimeter is recommended.
 
 **Potential future updates:**  
