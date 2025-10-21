@@ -41,9 +41,9 @@ The system speaker is controlled at a low hardware/software level. If the applic
     **System speaker output is not present or non-standard system speaker output is present. Beep Stopper may cause instability or undesirable behaviors. Do you want to continue?**  
     This message appears when the Beep Stopper utility is started and detects that your system either does not have a standard (PC) system speaker, or the system speaker output is "non-standard." In this case, the utility warns you that attempting to use the Beep Stopper may not work as expected and could potentially cause unexpected behavior or instability.
 
-If you proceed, the tool will try to stop the beep, but it may be ineffective or have side effects if your hardware is unsupported or non-standard.
-If you choose not to continue, the tool will exit without making any changes.
-  - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, or its output cannot be reliably controlled. Any beeping or buzzing you hear is likely coming from another audio device (such as your main speakers or headphones). Use your standard sound device settings to address sound issues, and close any applications that may be producing unwanted audio. If the problem persists, try restarting your computer or checking your device's sound settings.
+    If you proceed, the tool will try to stop the beep, but it may be ineffective or have side effects if your hardware is unsupported or non-standard.
+    If you choose not to continue, the tool will exit without making any changes.
+    - *Tip:* If you receive this message, it means your computer does not have a compatible system speaker, or its output cannot be reliably controlled. Any beeping or buzzing you hear is likely coming from another audio device (such as your main speakers or headphones). Use your standard sound device settings to address sound issues, and close any applications that may be producing unwanted audio. If the problem persists, try restarting your computer or checking your device's sound settings.
 
 - **Restart your computer:**  
   If the Beep Stopper does not resolve the issue, a system restart will reset the speaker hardware.
@@ -130,7 +130,7 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 **A:** When no standard system speaker output is detected (in older versions), NeoBleeper enforces this setting to ensure sound output is still possible.
 
 ### Q: Is there any workaround for missing system speaker?
-**A:** You must use your regular sound device (speakers/headphones) if a standard system speaker output can be found (in older versions).
+**A:** You must use your regular sound device (speakers/headphones) if a standard system speaker output can't be found (in older versions).
 
 ### Q: What if the Beep Stopper tool does not stop the stuck beep?
 **A:** Restart your computer to reset the speaker hardware if the Beep Stopper utility fails.
@@ -138,7 +138,7 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 ### Q: Why do I hear clicking sounds during startup?
 **A:** During the advanced system speaker output test (step 2), NeoBleeper sends ultrasonic signals to the hardware to detect hidden or non-standard speaker outputs. On some systems (especially those with piezo buzzers), this may cause faint clicking noises. This is normal and does not indicate a problem; it simply means the hardware test is running.
 
-### Q: Can the ultrasonic hardware test (step 2/2) detect broken (open circuit) or disconnected system speakers?
+### Q: Can the ultrasonic hardware test (step 2) detect broken (open circuit) or disconnected system speakers?
 **A:** This is currently untested and unknown. While the test checks for electrical feedback and port activity, it may not reliably distinguish between a physically present but broken (open circuit) or disconnected speaker and a missing speaker. If the speaker is completely broken or disconnected (open circuit), the test may return false, indicating no functional output detected. However, this behavior is not guaranteed and may depend on the specific hardware and failure mode. If you suspect your system speaker is not working, physical inspection or using a multimeter is recommended.
 
 **Potential future updates:**  
