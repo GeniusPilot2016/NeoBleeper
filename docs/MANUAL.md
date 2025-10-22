@@ -326,7 +326,7 @@
 
   - ### Devices Settings
     
-    This tab allows you to configure how NeoBleeper interacts with external MIDI hardware and virtual instruments. Whether you're integrating live input or routing output to a synth, this is where you define your signal flow
+    This tab allows you to configure how NeoBleeper interacts with external MIDI hardware, virtual instruments and other external hardwares. Whether you're integrating live input or routing output to a synth, this is where you define your signal flow
     
     ![image](https://github.com/user-attachments/assets/2cd17fd7-3c78-4f90-9e2e-2bc64e4eae85)
 
@@ -347,6 +347,29 @@
       **Instrument:** Defines the General MIDI instrument used for playback. Options range from pianos and strings to synths and percussion, giving you control over the timbre of the output.
       
       **Refresh:** Updates the list of available output devices, ensuring newly connected gear is recognized.
+
+    - #### Other Devices & Microcontroller Firmware
+
+      NeoBleeper also supports interaction with various external hardware devices—such as buzzers, motors, and microcontrollers—which expands its capabilities beyond traditional MIDI devices. The **Other devices** group within the Devices Settings tab provides configuration options and firmware generation tools for these external components.
+
+      ![image1](https://github.com/user-attachments/assets/9bf2a395-6cde-47a7-b1d9-b8da6ddbb583)
+
+      **Microcontroller Firmware Generator:**
+      - This feature allows you to quickly generate and copy ready-to-use firmware for microcontrollers (such as Arduino) directly from NeoBleeper.
+      - The firmware enables control of hardware like buzzers and stepper motors, allowing your musical compositions to trigger physical actions and sounds.
+      - You can select your microcontroller type (e.g., "Arduino (ino file)") from the dropdown menu.
+      - The code window displays the generated firmware tailored for the selected device.
+      - Click the "Copy Firmware to Clipboard" button to easily copy the code for uploading to your microcontroller.
+
+      **Example Use Case:**
+      - With this feature, you can synchronize music playback with hardware—such as activating buzzers or driving stepper motors—using the system's output signals or exported GCode.
+      - The generated Arduino firmware includes serial command handling for device identification and motor speed control, making it easy to integrate NeoBleeper with robotics or custom installations.
+
+      **Integration Tips:**
+      - Combine NeoBleeper's GCode export with the microcontroller firmware to translate music into mechanical movements or audible outputs.
+      - The "Other devices" group simplifies connecting your PC to external hardware, expanding creative possibilities for music-driven machines, kinetic performances, or experimental sound art.
+
+      > For further details or troubleshooting, refer to the NeoBleeper support channels or documentation for your microcontroller.
 
   - ### Appearance Settings
     This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It's organized into sections for keyboard, buttons, indicators, and text event display.
@@ -454,12 +477,12 @@
       **Prompt Guidance and AI Restrictions:**
       - The AI tool will only process prompts related to music composition. If your prompt is not related to music (e.g., "write a joke"), you will receive an error:  
 
-         ![image](https://github.com/user-attachments/assets/3741d41b-883a-4732-b80b-29939eb26492)
+        ![image](https://github.com/user-attachments/assets/7b147a34-d52a-44ad-a287-fadd8d49337f)
         
         *"The request is not related to music composition."*
-      - Prompts that contain offensive or inappropriate content are not allowed. If detected, an error will appear:  
-
-        ![image3](https://github.com/user-attachments/assets/3fe0e1f7-ed7c-4dca-a327-7141d874432e) 
+      - Prompts that contain offensive or inappropriate content are not allowed. If detected, an error will appear:
+      - 
+        ![image3](https://github.com/user-attachments/assets/e903ddc0-52c4-4e82-b421-1d8f9e9f36e7) 
 
         *"Your prompt contains offensive or inappropriate content. Please try again with a different request."*
       - Valid prompts should be specific and musically focused (e.g., "Generate a jazz melody for piano" or "Create a fast techno drum pattern").
