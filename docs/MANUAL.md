@@ -477,12 +477,12 @@
       **Prompt Guidance and AI Restrictions:**
       - The AI tool will only process prompts related to music composition. If your prompt is not related to music (e.g., "write a joke"), you will receive an error:  
 
-        ![image](https://github.com/user-attachments/assets/7b147a34-d52a-44ad-a287-fadd8d49337f)
+        ![image](https://github.com/user-attachments/assets/3741d41b-883a-4732-b80b-29939eb26492)
         
         *"The request is not related to music composition."*
       - Prompts that contain offensive or inappropriate content are not allowed. If detected, an error will appear:
-      - 
-        ![image3](https://github.com/user-attachments/assets/e903ddc0-52c4-4e82-b421-1d8f9e9f36e7) 
+        
+        ![image3](https://github.com/user-attachments/assets/3fe0e1f7-ed7c-4dca-a327-7141d874432e) 
 
         *"Your prompt contains offensive or inappropriate content. Please try again with a different request."*
       - Valid prompts should be specific and musically focused (e.g., "Generate a jazz melody for piano" or "Create a fast techno drum pattern").
