@@ -1,6 +1,6 @@
 # NeoBleeper Sorun Giderme Rehberi
 
-Bu kılavuz, NeoBleeper programını kullanırken karşılaşılan yaygın sorunlara, özellikle sistem hoparlör davranışı, ses çıkışı, donanım uyumluluğu ve sürekli sistem bip sesi ile ilgili sorunlara yönelik çözümler sağlar.
+Bu kılavuz, NeoBleeper programını kullanırken karşılaşılan yaygın sorunlara, özellikle sistem hoparlörü davranışı, ses çıkışı, donanım uyumluluğu ve sürekli sistem bip sesi ile ilgili sorunlara yönelik çözümler sağlar.
 
 ---
 
