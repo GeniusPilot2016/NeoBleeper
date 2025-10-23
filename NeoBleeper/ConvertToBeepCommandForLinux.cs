@@ -29,6 +29,7 @@ namespace NeoBleeper
         int note_silence_ratio = 50;
         main_window main_Window;
         bool nonStopping = false;
+        int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid because storage type can't be determined in Linux's beep command
         public ConvertToBeepCommandForLinux(string musicFile, main_window main_Window)
         {
             this.main_Window = main_Window;
@@ -345,6 +346,10 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
         }
         private (string frequencyAndLength, int totalDuration) CreateFrequencyAndDurationDuo(int frequency, int duration, bool endOfLine, bool nonStopping = false)
         {
+            if(probableResonantFrequencies.Contains(frequency))
+            {
+                frequency += 1; // Shift frequency by 1 Hz to avoid resonant frequency issues in computer that used with beep command
+            }
             string result = string.Empty;
             result += $" -f {frequency} -l {duration}"; // Add frequency and duration
             if (!nonStopping)

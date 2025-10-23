@@ -484,8 +484,8 @@
     - ### GCode'a Dönüştür - `Ctrl + Shift + G`
 
       Müzik verilerini CNC makinelerinin veya 3D yazıcıların buzzer'ları veya motorları için GCode'a dönüştürün. Bu, ses ve hareket arasındaki boşluğu doldurarak müzik dizilerinin fiziksel temsillerini mümkün kılar ve deneysel sanat veya eğitim araçları için mükemmeldir.
-      
-      ![image](https://github.com/user-attachments/assets/09f55f14-2318-49dd-bf68-db20fd0aa9ad)
+
+      ![image](https://github.com/user-attachments/assets/0d5025ae-2e1a-4bff-9593-925ce4d3e919)
       
       Bu özellik, seçili müzik notası yapılandırmalarını CNC makineleri veya 3D yazıcılarla kullanım için GCode talimatlarına dönüştürür. Her biri bir bileşen türüne (M3/M4 motor ve buzzer için M300) atanan en fazla dört nota tanımlanabilir. Notalar ayrı ayrı değiştirilebilir.
       
