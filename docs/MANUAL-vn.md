@@ -310,7 +310,7 @@
         **Tiếng ồn:** Tạo ra các xung tín hiệu ngẫu nhiên, hữu ích cho các hiệu ứng âm thanh như tiếng tĩnh, xung hoặc kết cấu giống như bộ gõ.
         
   - ### Cài đặt Thiết bị
-    Tab này cho phép bạn cấu hình cách NeoBleeper tương tác với phần cứng MIDI bên ngoài và nhạc cụ ảo. Cho dù bạn đang tích hợp đầu vào trực tiếp hay định tuyến đầu ra cho một bộ tổng hợp, đây là nơi bạn xác định luồng tín hiệu của mình
+    Tab này cho phép bạn cấu hình cách NeoBleeper tương tác với phần cứng MIDI bên ngoài, nhạc cụ ảo và các phần cứng bên ngoài khác. Cho dù bạn đang tích hợp đầu vào trực tiếp hay định tuyến đầu ra đến một bộ tổng hợp, đây là nơi bạn xác định luồng tín hiệu của mình.
 
     ![image](https://github.com/user-attachments/assets/4ba4981a-fcf4-49cf-99d0-268647d4d7ee)
 
@@ -331,6 +331,31 @@
       **Nhạc cụ:** Xác định nhạc cụ MIDI chung được sử dụng để phát lại. Các tùy chọn đa dạng từ piano và dây đến synth và bộ gõ, cho phép bạn kiểm soát âm sắc của đầu ra.
       
       **Làm mới:** Cập nhật danh sách các thiết bị đầu ra khả dụng, đảm bảo thiết bị mới được kết nối được nhận dạng.
+
+    - #### Thiết bị Khác & Phần mềm Vi điều khiển
+
+      NeoBleeper cũng hỗ trợ tương tác với nhiều thiết bị phần cứng bên ngoài khác nhau—chẳng hạn như còi báo, động cơ và vi điều khiển—điều này mở rộng khả năng của nó vượt ra ngoài các thiết bị MIDI truyền thống. Nhóm **Thiết bị Khác** trong tab Cài đặt Thiết bị cung cấp các tùy chọn cấu hình và công cụ tạo phần mềm cho các thành phần bên ngoài này.
+
+      ![image1](https://github.com/user-attachments/assets/22327df1-7030-4fb2-b140-154988c013b9)
+      
+      **Trình Tạo Phần mềm Vi điều khiển:**
+      - Tính năng này cho phép bạn nhanh chóng tạo và sao chép phần mềm sẵn sàng sử dụng cho vi điều khiển (như Arduino) trực tiếp từ NeoBleeper.
+      
+      - Phần mềm cho phép điều khiển phần cứng như còi báo động và động cơ bước, cho phép các tác phẩm âm nhạc của bạn kích hoạt các hành động vật lý và âm thanh.
+      - Bạn có thể chọn loại vi điều khiển (ví dụ: "Arduino (tệp ino)") từ menu thả xuống.
+      - Cửa sổ mã hiển thị phần mềm được tạo ra phù hợp với thiết bị đã chọn.
+      - Nhấp vào nút "Sao chép phần mềm vào bảng tạm" để dễ dàng sao chép mã để tải lên vi điều khiển của bạn.
+      
+      **Ví dụ về trường hợp sử dụng:**
+      - Với tính năng này, bạn có thể đồng bộ hóa việc phát nhạc với phần cứng—chẳng hạn như kích hoạt còi báo động hoặc điều khiển động cơ bước—bằng cách sử dụng tín hiệu đầu ra của hệ thống hoặc GCode đã xuất.
+      - Phần mềm Arduino được tạo ra bao gồm xử lý lệnh nối tiếp để nhận dạng thiết bị và điều khiển tốc độ động cơ, giúp dễ dàng tích hợp NeoBleeper với robot hoặc các cài đặt tùy chỉnh.
+      
+      **Mẹo tích hợp:**
+      - Kết hợp xuất GCode của NeoBleeper với phần mềm vi điều khiển để chuyển đổi âm nhạc thành các chuyển động cơ học hoặc đầu ra âm thanh.
+      
+      - Nhóm "Thiết bị khác" giúp đơn giản hóa việc kết nối PC của bạn với phần cứng bên ngoài, mở rộng khả năng sáng tạo cho các máy móc chạy bằng âm nhạc, biểu diễn động học hoặc nghệ thuật âm thanh thử nghiệm.
+      
+      > Để biết thêm chi tiết hoặc khắc phục sự cố, hãy tham khảo kênh hỗ trợ NeoBleeper hoặc tài liệu hướng dẫn dành cho vi điều khiển của bạn.
 
   - ### Cài đặt Giao diện
     Tab này cho phép bạn toàn quyền kiểm soát giao diện trực quan của NeoBleeper, cho phép bạn tùy chỉnh màu sắc của các thành phần giao diện chính để tăng độ rõ nét, tính thẩm mỹ hoặc thể hiện phong cách cá nhân. Tab này được tổ chức thành các phần dành cho bàn phím, nút bấm, đèn báo và hiển thị sự kiện văn bản.
