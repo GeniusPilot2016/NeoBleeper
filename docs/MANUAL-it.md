@@ -352,14 +352,27 @@
 
       NeoBleeper supporta anche l'interazione con vari dispositivi hardware esterni, come buzzer, motori e microcontrollori, espandendo le sue capacità oltre i tradizionali dispositivi MIDI. Il gruppo **Altri dispositivi** all'interno della scheda Impostazioni dispositivi fornisce opzioni di configurazione e strumenti di generazione del firmware per questi componenti esterni.
 
+      **Impostazioni per altri dispositivi:**
+      - **Abilita dispositivo:**
+      Casella di controllo per abilitare l'uso del motore o del buzzer (tramite Arduino, Raspberry Pi o ESP32). Questa casella deve essere selezionata per accedere ad altre opzioni del dispositivo.
+      - **Tipo di dispositivo:**
+      Pulsanti di opzione per selezionare tra:
+      - **Motore passo-passo**
+      - **Motore CC o Buzzer**
+      - **Ottava motore passo-passo:**
+      Controllo a scorrimento per regolare l'ottava di uscita del motore passo-passo, consentendo di adattare il movimento del motore alle gamme di tonalità musicali.
+      - **Pulsante Ottieni firmware:**
+      Cliccando su questo pulsante viene generato un firmware compatibile per il dispositivo selezionato. È necessario aggiornare questo firmware al microcontrollore prima di utilizzare la funzione. Se il microcontrollore non è aggiornato, la casella di controllo del dispositivo rimane disattivata.
+      
       ![image1](https://github.com/user-attachments/assets/12a1f12d-d24b-4431-a058-9ea0a3940496)
       
       **Generatore di firmware per microcontrollori:**
-      - Questa funzione consente di generare e copiare rapidamente firmware pronto all'uso per microcontrollori (come Arduino) direttamente da NeoBleeper. - Il firmware consente il controllo di hardware come buzzer e motori passo-passo, consentendo alle composizioni musicali di attivare azioni fisiche e suoni.
+      - Questa funzione consente di generare e copiare rapidamente firmware pronto all'uso per microcontrollori (come Arduino) direttamente da NeoBleeper.
+      - Il firmware consente il controllo di hardware come buzzer e motori passo-passo, consentendo alle composizioni musicali di attivare azioni fisiche e suoni.
       - È possibile selezionare il tipo di microcontrollore (ad esempio, "Arduino (file ino)") dal menu a discesa.
       - La finestra del codice visualizza il firmware generato, personalizzato per il dispositivo selezionato.
-      - Fare clic sul pulsante "Copia firmware negli appunti" per copiare facilmente il codice da caricare sul microcontrollore.
-      
+      - Fare clic sul pulsante "Copia firmware negli appunti" per copiare facilmente il codice e caricarlo sul microcontrollore.
+
       **Esempio di caso d'uso:**
       - Con questa funzione, è possibile sincronizzare la riproduzione musicale con l'hardware, ad esempio attivando buzzer o pilotando motori passo-passo, utilizzando i segnali di uscita del sistema o il GCode esportato.
       - Il firmware Arduino generato include la gestione dei comandi seriali per l'identificazione del dispositivo e il controllo della velocità del motore, semplificando l'integrazione di NeoBleeper con la robotica o installazioni personalizzate.
