@@ -351,6 +351,18 @@
     - #### Other Devices & Microcontroller Firmware
 
       NeoBleeper also supports interaction with various external hardware devices—such as buzzers, motors, and microcontrollers—which expands its capabilities beyond traditional MIDI devices. The **Other devices** group within the Devices Settings tab provides configuration options and firmware generation tools for these external components.
+   
+       **Settings for Other Devices:**
+      - **Enable Device:**  
+        Checkbox to enable use of motor or buzzer (via Arduino, Raspberry Pi, or ESP32). This must be checked to access further device options.
+      - **Type of Device:**  
+        Radio buttons to select between:
+        - **Stepper Motor**  
+        - **DC Motor or Buzzer**
+      - **Stepper Motor Octave:**  
+        Slider control to adjust the octave for stepper motor output, allowing you to match the motor's movement to musical pitch ranges.
+      - **Get Firmware Button:**  
+          Clicking this button generates compatible firmware for your selected device. You must flash this firmware to your microcontroller before using the feature. If the microcontroller is not flashed, the device checkbox remains grayed out.
 
       ![image1](https://github.com/user-attachments/assets/9bf2a395-6cde-47a7-b1d9-b8da6ddbb583)
 
