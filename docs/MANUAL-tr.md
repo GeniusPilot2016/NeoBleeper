@@ -298,8 +298,8 @@
     
       **Geri Dönüş Mesajı:** Sistem hoparlöründen ses gelmiyorsa alternatif bir ses cihazı kullanılmasını önerir.
   
-  - ### Ses Ayarları Oluşturma
-    Bu sekme, NeoBleeper'ın sisteminizin ses yeteneklerini kullanarak sesli uyarıları nasıl üreteceğini yapılandırmaya ayrılmıştır. Ürettiğiniz seslerin tonunu ve dokusunu şekillendirmek için hem teknik kontrol hem de yaratıcı esneklik sunar.
+  - ### Ses Oluşturma Ayarları
+    Bu sekme, NeoBleeper'ın sisteminizin ses yeteneklerini kullanarak bip seslerini nasıl üreteceğini yapılandırmaya ayrılmıştır. Ürettiğiniz seslerin tonunu ve dokusunu şekillendirmek için hem teknik kontrol hem de yaratıcı esneklik sunar.
 
     ![image](https://github.com/user-attachments/assets/906ecb46-7141-4a05-8496-be219f171946)
     
@@ -316,8 +316,8 @@
 
   - ### Cihaz Ayarları
 
-    Bu sekme, NeoBleeper'ın harici MIDI donanımı ve sanal enstrümanlarla nasıl etkileşim kuracağını yapılandırmanıza olanak tanır. İster canlı girişi entegre ediyor olun ister çıkışı bir sentezleyiciye yönlendiriyor olun, sinyal akışınızı burada tanımlayabilirsiniz.
-
+    Bu sekme, NeoBleeper'ın harici MIDI donanımı, sanal enstrümanlar ve diğer harici donanımlarla nasıl etkileşim kuracağını yapılandırmanıza olanak tanır. İster canlı girişi entegre ediyor olun ister çıkışı bir sentezleyiciye yönlendiriyor olun, sinyal akışınızı burada tanımlayabilirsiniz.
+    
     ![image](https://github.com/user-attachments/assets/b8d897be-9db7-4041-ab41-f7a6da3bbe96)
 
     - #### MIDI Giriş Aygıtları
@@ -331,6 +331,29 @@
       **Kanal:** Çıkış için kullanılan MIDI kanalını (1/16) seçer. Bu, çok kanallı kurulumlarda belirli enstrümanlara veya parçalara yönlendirmeye olanak tanır.      
       **Enstrüman:** Çalma için kullanılan Genel MIDI enstrümanını tanımlar. Seçenekler, piyanolardan ve yaylılardan synth'lere ve perküsyonlara kadar uzanır ve çıkışın tınısı üzerinde kontrol sahibi olmanızı sağlar.      
       **Yenile:** Mevcut çıkış cihazları listesini günceller ve yeni bağlanan cihazların tanınmasını sağlar.
+
+    - #### Diğer Aygıtlar ve Mikrodenetleyici Yazılımı
+
+      NeoBleeper ayrıca, buzzer'lar, motorlar ve mikrodenetleyiciler gibi çeşitli harici donanım aygıtlarıyla etkileşimi de destekler ve bu da yeteneklerini geleneksel MIDI aygıtlarının ötesine taşır. Aygıt Ayarları sekmesindeki **Diğer Aygıtlar** grubu, bu harici bileşenler için yapılandırma seçenekleri ve aygıt yazılımı oluşturma araçları sağlar.
+
+      ![image1](https://github.com/user-attachments/assets/9cf5aaad-f1ec-409a-8220-80f0b52b2b9f)
+      
+      **Mikrodenetleyici Aygıt Yazılımı Oluşturucu:**
+      - Bu özellik, mikrodenetleyiciler (Arduino gibi) için kullanıma hazır aygıt yazılımlarını doğrudan NeoBleeper'dan hızlı bir şekilde oluşturmanıza ve kopyalamanıza olanak tanır.
+      - Yazılım, sesli uyarılar ve adım motorları gibi donanımların kontrolünü sağlayarak müzik bestelerinizin fiziksel eylemleri ve sesleri tetiklemesini sağlar.
+      - Açılır menüden mikrodenetleyici türünüzü (örneğin, "Arduino (ino dosyası)") seçebilirsiniz.
+      - Kod penceresi, seçilen cihaz için özel olarak oluşturulmuş yazılımı görüntüler.
+      - Kodu mikrodenetleyicinize yüklemek üzere kolayca kopyalamak için "Yazılımı Panoya Kopyala" düğmesine tıklayın.
+      
+      **Örnek Kullanım Durumu:**
+      - Bu özellik sayesinde, sistemin çıkış sinyallerini veya dışa aktarılan GCode'u kullanarak müzik çalmayı, sesli uyarıları etkinleştirmek veya adım motorlarını sürmek gibi donanımlarla senkronize edebilirsiniz.
+      - Oluşturulan Arduino yazılımı, cihaz tanımlama ve motor hızı kontrolü için seri komut işleme özelliği içerir ve bu da NeoBleeper'ı robotik veya özel kurulumlarla entegre etmeyi kolaylaştırır.
+      
+      **Entegrasyon İpuçları:**
+      - Müziği mekanik hareketlere veya sesli çıkışlara dönüştürmek için NeoBleeper'ın GCode dışa aktarımını mikrodenetleyici yazılımıyla birleştirin.
+      - "Diğer cihazlar" grubu, bilgisayarınızı harici donanıma bağlamayı basitleştirerek müzik odaklı makineler, kinetik performanslar veya deneysel ses sanatları için yaratıcı olanakları genişletir.
+      
+      > Daha fazla ayrıntı veya sorun giderme için NeoBleeper destek kanallarına veya mikrodenetleyicinizin belgelerine bakınız.
 
   - ### Görünüm Ayarları
     Bu sekme, NeoBleeper'ın görsel kimliği üzerinde tam kontrol sağlayarak, temel arayüz öğelerinin renklerini netlik, estetik veya kişisel bir dokunuş katacak şekilde özelleştirmenize olanak tanır. Klavye, düğmeler, göstergeler ve metin etkinliği gösterimi için bölümler halinde düzenlenmiştir.
