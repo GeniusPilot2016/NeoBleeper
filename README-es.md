@@ -6,7 +6,7 @@ NeoBleeper es un software de creación de melodías con IA que utiliza el altavo
 
 ## Estado
 
-Este proyecto **aún está en desarrollo** y algunas características y componentes están incompletos, con algunas partes aún sin crear. La próxima versión publicada será la **última versión alfa**. Con la siguiente actualización, NeoBleeper pasará a su **primera versión beta**. Por favor, use el programa teniendo esto en cuenta y comparta sus comentarios para ayudar a mejorar futuras versiones.
+Este proyecto está **aún en desarrollo** y algunas características y componentes están incompletos. Esta versión es la **última versión alfa**. Con la próxima actualización, NeoBleeper pasará a su **primera versión beta**. Por favor, use el programa teniendo esto en cuenta y comparta sus comentarios para ayudarnos a mejorar futuras versiones.
 
 ## Características
 
