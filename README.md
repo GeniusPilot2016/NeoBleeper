@@ -7,7 +7,7 @@ NeoBleeper is an AI-enabled tune creation software using the system speaker (aka
 
 ## Status
 
-This project is **still in development** and some features and components are unfinished, with some parts not yet created. The upcoming published version will be the **last alpha release**. With the following update after that, NeoBleeper will move to its **first beta version**. Please use the program with this in mind and provide feedback to help improve future releases.
+This project is **still in development** and some features and components are unfinished. This version is the **last alpha release**. With the next update, NeoBleeper will move to its **first beta version**. Please use the program with this in mind and provide feedback to help improve future releases.
 
 ## Features
 
