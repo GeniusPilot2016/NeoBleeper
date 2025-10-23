@@ -6,7 +6,7 @@ NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systeml
 
 ## Status
 
-Dieses Projekt befindet sich **noch in der Entwicklung**. Einige Funktionen und Komponenten sind noch nicht fertig, und einige Teile müssen noch erstellt werden. Die nächste veröffentlichte Version ist die **letzte Alpha-Version**. Mit dem darauffolgenden Update wird NeoBleeper in die **erste Beta-Version** übergehen. Bitte beachten Sie dies bei der Nutzung des Programms und geben Sie uns Feedback, um zukünftige Versionen zu verbessern.
+Dieses Projekt befindet sich **noch in der Entwicklung** und einige Funktionen und Komponenten sind noch nicht fertig. Diese Version ist die **letzte Alpha-Version**. Mit dem nächsten Update wird NeoBleeper in die **erste Beta-Version** übergehen. Bitte nutzen Sie das Programm entsprechend und geben Sie Feedback, um zukünftige Versionen zu verbessern.
 
 ## Funktionen
 
