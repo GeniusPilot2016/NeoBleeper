@@ -513,7 +513,7 @@
 
       Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences, perfect for experimental art or educational tools.
 
-      ![image](https://github.com/user-attachments/assets/544a1664-56ee-4b67-9cde-cdf5dfbda767)
+      ![image](https://github.com/user-attachments/assets/340f6ab2-a148-46ad-b236-552849911067)
 
       This feature converts selected musical note configurations into GCode instructions for use with CNC machines or 3D printers. Up to four notes can be defined, each assigned to a component type (M3/M4 motor and M300 for buzzer). Notes can be toggled individually.
       
