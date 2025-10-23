@@ -343,17 +343,27 @@
 
       NeoBleeper también admite la interacción con diversos dispositivos externos, como zumbadores, motores y microcontroladores, lo que amplía sus capacidades más allá de los dispositivos MIDI tradicionales. El grupo **Otros dispositivos** dentro de la pestaña Configuración de dispositivos ofrece opciones de configuración y herramientas de generación de firmware para estos componentes externos.
 
+      **Configuración para otros dispositivos:**
+      - **Habilitar dispositivo:**
+      Casilla para habilitar el uso del motor o zumbador (mediante Arduino, Raspberry Pi o ESP32). Debe marcar esta casilla para acceder a más opciones del dispositivo.
+      - **Tipo de dispositivo:**
+      Botones de opción para seleccionar entre:
+      - **Motor paso a paso**
+      - **Motor de CC o zumbador**
+      - **Octava del motor paso a paso:**
+      Control deslizante para ajustar la octava de la salida del motor paso a paso, lo que permite adaptar el movimiento del motor a los rangos de tonos musicales.
+      - **Botón Obtener firmware:**
+      Al hacer clic en este botón, se genera el firmware compatible con el dispositivo seleccionado. Debe instalar este firmware en su microcontrolador antes de usar esta función. Si el microcontrolador no está instalado, la casilla del dispositivo permanece inactiva.
+
       ![image1](https://github.com/user-attachments/assets/4c38b045-efc0-4a30-92d4-8b6e23c28ebd)
       
-      **Generador de firmware de microcontroladores:**
-      - Esta función te permite generar y copiar rápidamente firmware listo para usar para microcontroladores (como Arduino) directamente desde NeoBleeper. El firmware permite controlar hardware como zumbadores y motores paso a paso, lo que permite que tus composiciones musicales activen acciones físicas y sonidos.
-      
-      Puedes seleccionar el tipo de microcontrolador (p. ej., "Arduino (archivo ino)") en el menú desplegable.
-      
-      La ventana de código muestra el firmware generado, adaptado al dispositivo seleccionado.
-      
-      Haz clic en el botón "Copiar firmware al portapapeles" para copiar fácilmente el código y subirlo a tu microcontrolador.
-      
+      **Generador de Firmware para Microcontroladores:**
+      - Esta función permite generar y copiar rápidamente firmware listo para usar para microcontroladores (como Arduino) directamente desde NeoBleeper.
+      - El firmware permite controlar hardware como zumbadores y motores paso a paso, lo que permite que tus composiciones musicales activen acciones físicas y sonidos.
+      - Puedes seleccionar el tipo de microcontrolador (p. ej., "Arduino (archivo ino)") en el menú desplegable.
+      - La ventana de código muestra el firmware generado, adaptado al dispositivo seleccionado.
+      - Haz clic en el botón "Copiar Firmware al Portapapeles" para copiar fácilmente el código y subirlo a tu microcontrolador.
+            
       **Ejemplo de uso:**
       
       Con esta función, puedes sincronizar la reproducción de música con el hardware, como activar zumbadores o controlar motores paso a paso, utilizando las señales de salida del sistema o el código G exportado.
