@@ -358,15 +358,31 @@ alternees toutes les: ... ms ».
 
       NeoBleeper prend également en charge l'interaction avec divers périphériques externes, tels que les buzzers, les moteurs et les microcontrôleurs, ce qui étend ses capacités au-delà des périphériques MIDI traditionnels. Le groupe **Autres périphériques** de l'onglet Paramètres des périphériques propose des options de configuration et des outils de génération de micrologiciel pour ces composants externes.
 
+      **Paramètres pour les autres appareils** :
+      - **Activer l'appareil** :
+      
+      Cochez la case pour activer l'utilisation d'un moteur ou d'un buzzer (via Arduino, Raspberry Pi ou ESP32). Cette case doit être cochée pour accéder aux autres options de l'appareil.
+      - **Type d'appareil** :
+      
+      Choix entre les boutons radio :
+      - **Moteur pas à pas**
+      - **Moteur CC ou buzzer**
+      - **Octave du moteur pas à pas** :
+      
+      Curseur permettant de régler l'octave de sortie du moteur pas à pas, vous permettant ainsi d'adapter le mouvement du moteur aux notes musicales.
+      - **Bouton Obtenir le micrologiciel** :
+      
+      Cliquer sur ce bouton génère un micrologiciel compatible pour l'appareil sélectionné. Vous devez installer ce micrologiciel sur votre microcontrôleur avant d'utiliser cette fonctionnalité. Si le microcontrôleur n'est pas installé, la case à cocher de l'appareil reste grisée.
+      
       ![image1](https://github.com/user-attachments/assets/0c30b469-a32c-43f4-8ecd-dbd3cc7ee462)
       
-      **Générateur de micrologiciel de microcontrôleur** :
-      - Cette fonctionnalité vous permet de générer et de copier rapidement un micrologiciel prêt à l'emploi pour les microcontrôleurs (comme Arduino) directement depuis NeoBleeper.
+      **Générateur de firmware pour microcontrôleur** :
+      - Cette fonctionnalité vous permet de générer et de copier rapidement un firmware prêt à l'emploi pour microcontrôleurs (comme Arduino) directement depuis NeoBleeper.
       - Le firmware permet de contrôler des composants matériels tels que des buzzers et des moteurs pas à pas, permettant ainsi à vos compositions musicales de déclencher des actions physiques et des sons.
       - Vous pouvez sélectionner votre type de microcontrôleur (par exemple, « Arduino (fichier ino) ») dans le menu déroulant.
       - La fenêtre de code affiche le firmware généré, adapté au périphérique sélectionné.
       - Cliquez sur le bouton « Copier le firmware dans le presse-papiers » pour copier facilement le code et le télécharger sur votre microcontrôleur.
-      
+
       **Exemple d'utilisation :**
       - Cette fonctionnalité vous permet de synchroniser la lecture musicale avec du matériel, comme l'activation de buzzers ou le pilotage de moteurs pas à pas, en utilisant les signaux de sortie du système ou le G-Code exporté.
       - Le firmware Arduino généré inclut la gestion des commandes série pour l'identification des périphériques et le contrôle de la vitesse des moteurs, facilitant ainsi l'intégration de NeoBleeper à des systèmes robotiques ou des installations personnalisées.
