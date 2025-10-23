@@ -6,7 +6,7 @@ NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le ha
 
 ## Statut
 
-Ce projet est **encore en développement** et certaines fonctionnalités et composants sont inachevés, certaines parties n'étant pas encore créées. La prochaine version publiée sera la **dernière version alpha**. Avec la mise à jour suivante, NeoBleeper passera à sa **première version bêta**. Veuillez utiliser le programme en conséquence et nous faire part de vos commentaires pour améliorer les prochaines versions.
+Ce projet est **encore en développement** et certaines fonctionnalités et composants sont inachevés. Cette version est la **dernière version alpha**. Avec la prochaine mise à jour, NeoBleeper passera à sa **première version bêta**. Merci d'utiliser le programme en conséquence et de nous faire part de vos commentaires pour améliorer les prochaines versions.
 
 ## Fonctionnalités
 
