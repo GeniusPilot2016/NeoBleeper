@@ -489,8 +489,8 @@
     - ### Chuyển đổi sang GCode - `Ctrl + Shift + G`
 
       Chuyển đổi dữ liệu âm nhạc thành GCode cho còi báo động hoặc động cơ của máy CNC hoặc máy in 3D. Điều này thu hẹp khoảng cách giữa âm thanh và chuyển động, cho phép biểu diễn vật lý các chuỗi âm nhạc, hoàn hảo cho nghệ thuật thử nghiệm hoặc công cụ giáo dục.
-      
-      ![image](https://github.com/user-attachments/assets/d68c8ac0-cfaf-48f2-80f0-75fa208512fb)
+
+      ![image](https://github.com/user-attachments/assets/50d5e15e-8c43-42e2-b893-4cf4ee551096)
       
       Tính năng này chuyển đổi các cấu hình nốt nhạc đã chọn thành các lệnh GCode để sử dụng với máy CNC hoặc máy in 3D. Có thể định nghĩa tối đa bốn nốt nhạc, mỗi nốt được gán cho một loại thành phần (động cơ M3/M4 và M300 cho còi báo động). Các nốt nhạc có thể được chuyển đổi riêng lẻ.
       
