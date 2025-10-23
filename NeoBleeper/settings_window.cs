@@ -1487,7 +1487,42 @@ namespace NeoBleeper
 
         private void button_show_reason_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility") { UseShellExecute = true });
+            string language = Settings1.Default.preferredLanguage;
+            string link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility";
+            switch (language)
+            {
+                case "English":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility";
+                    break;
+                case "Deutsch":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-de.md#2-systemlautsprechererkennung-und--kompatibilit%C3%A4t";
+                    break;
+                case "Français":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-fr.md#2-d%C3%A9tection-et-compatibilit%C3%A9-des-haut-parleurs-syst%C3%A8me";
+                    break;
+                case "Español":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-es.md#2-detecci%C3%B3n-y-compatibilidad-de-altavoces-del-sistema";
+                    break;
+                case "Italiano":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-it.md#2-rilevamento-e-compatibilit%C3%A0-degli-altoparlanti-di-sistema";
+                    break;
+                case "Türkçe":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-tr.md#2-sistem-hoparl%C3%B6r%C3%BC-alg%C4%B1lama-ve-uyumluluk";
+                    break;
+                case "Русский":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-ru.md#2-%D0%BE%D0%B1%D0%BD%D0%B0%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8-%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D1%85-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D0%BA%D0%BE%D0%B2";
+                    break;
+                case "українська":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-ukr.md#2-%D0%B2%D0%B8%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F-%D1%82%D0%B0-%D1%81%D1%83%D0%BC%D1%96%D1%81%D0%BD%D1%96%D1%81%D1%82%D1%8C-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D0%B8%D1%85-%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D1%96%D0%BA%D1%96%D0%B2";
+                    break;
+                case "Tiếng Việt":
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING-vn.md#2-ph%C3%A1t-hi%E1%BB%87n-v%C3%A0-t%C6%B0%C6%A1ng-th%C3%ADch-loa-h%E1%BB%87-th%E1%BB%91ng";
+                    break;
+                default:
+                    link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility";
+                    break;
+            }
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(link) { UseShellExecute = true });
         }
 
         private void numericUpDownLyricsSize_ValueChanged(object sender, EventArgs e)
