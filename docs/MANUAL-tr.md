@@ -314,7 +314,7 @@
         **Üçgen:** Kareden daha yumuşak, hafif boş bir sese sahiptir. Keskinlik ve pürüzsüzlük arasında dengelenmiştir.        
         **Gürültü:** Statik, patlamalar veya vurmalı çalgılar benzeri dokular gibi ses efektleri için kullanışlı olan rastgele sinyal patlamaları üretir.
 
-  - ### Cihaz Ayarları
+  - ### Aygıt Ayarları
 
     Bu sekme, NeoBleeper'ın harici MIDI donanımı, sanal enstrümanlar ve diğer harici donanımlarla nasıl etkileşim kuracağını yapılandırmanıza olanak tanır. İster canlı girişi entegre ediyor olun ister çıkışı bir sentezleyiciye yönlendiriyor olun, sinyal akışınızı burada tanımlayabilirsiniz.
     
@@ -335,16 +335,28 @@
     - #### Diğer Aygıtlar ve Mikrodenetleyici Yazılımı
 
       NeoBleeper ayrıca, buzzer'lar, motorlar ve mikrodenetleyiciler gibi çeşitli harici donanım aygıtlarıyla etkileşimi de destekler ve bu da yeteneklerini geleneksel MIDI aygıtlarının ötesine taşır. Aygıt Ayarları sekmesindeki **Diğer Aygıtlar** grubu, bu harici bileşenler için yapılandırma seçenekleri ve aygıt yazılımı oluşturma araçları sağlar.
-
+   
+      **Diğer Cihazlar İçin Ayarlar:**
+      - **Cihazı Etkinleştirme:**
+      Motor veya buzzer kullanımını etkinleştirmek için onay kutusu (Arduino, Raspberry Pi veya ESP32 üzerinden). Diğer cihaz seçeneklerine erişmek için bu onay kutusunun işaretlenmesi gerekir.
+      - **Cihaz Türü:**
+      Seçilebilecek radyo düğmeleri:
+      - **Step Motoru**
+      - **DC Motor veya Buzzer**
+      - **Step Motoru Oktavı:**
+      Step motor çıkışı için oktavı ayarlayan kaydırıcı kontrolü, motorun hareketini müzik perdesi aralıklarına göre ayarlamanıza olanak tanır.
+      - **Yazılımı Al Düğmesi:**
+      Bu düğmeye tıklamak, seçili cihazınız için uyumlu bir yazılım oluşturur. Özelliği kullanmadan önce bu yazılımı mikrodenetleyicinize yüklemeniz gerekir. Mikrodenetleyici yüklenmezse, cihaz onay kutusu gri renkte kalır.
+      
       ![image1](https://github.com/user-attachments/assets/9cf5aaad-f1ec-409a-8220-80f0b52b2b9f)
       
-      **Mikrodenetleyici Aygıt Yazılımı Oluşturucu:**
-      - Bu özellik, mikrodenetleyiciler (Arduino gibi) için kullanıma hazır aygıt yazılımlarını doğrudan NeoBleeper'dan hızlı bir şekilde oluşturmanıza ve kopyalamanıza olanak tanır.
+      **Mikrodenetleyici Yazılımı Oluşturucu:**
+      - Bu özellik, mikrodenetleyiciler (Arduino gibi) için kullanıma hazır yazılımları doğrudan NeoBleeper'dan hızlı bir şekilde oluşturmanıza ve kopyalamanıza olanak tanır.
       - Yazılım, sesli uyarılar ve adım motorları gibi donanımların kontrolünü sağlayarak müzik bestelerinizin fiziksel eylemleri ve sesleri tetiklemesini sağlar.
       - Açılır menüden mikrodenetleyici türünüzü (örneğin, "Arduino (ino dosyası)") seçebilirsiniz.
-      - Kod penceresi, seçilen cihaz için özel olarak oluşturulmuş yazılımı görüntüler.
+      - Kod penceresi, seçilen cihaza özel olarak oluşturulmuş yazılımı görüntüler.
       - Kodu mikrodenetleyicinize yüklemek üzere kolayca kopyalamak için "Yazılımı Panoya Kopyala" düğmesine tıklayın.
-      
+
       **Örnek Kullanım Durumu:**
       - Bu özellik sayesinde, sistemin çıkış sinyallerini veya dışa aktarılan GCode'u kullanarak müzik çalmayı, sesli uyarıları etkinleştirmek veya adım motorlarını sürmek gibi donanımlarla senkronize edebilirsiniz.
       - Oluşturulan Arduino yazılımı, cihaz tanımlama ve motor hızı kontrolü için seri komut işleme özelliği içerir ve bu da NeoBleeper'ı robotik veya özel kurulumlarla entegre etmeyi kolaylaştırır.
