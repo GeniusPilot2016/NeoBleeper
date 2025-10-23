@@ -348,19 +348,28 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
     - #### Andere Geräte & Mikrocontroller-Firmware
 
       NeoBleeper unterstützt auch die Interaktion mit verschiedenen externen Hardwaregeräten – wie Summern, Motoren und Mikrocontrollern – und erweitert damit seine Möglichkeiten über herkömmliche MIDI-Geräte hinaus. Die Gruppe **Andere Geräte** im Reiter „Geräteeinstellungen“ bietet Konfigurationsoptionen und Tools zur Firmware-Generierung für diese externen Komponenten.
-      
+   
+      **Einstellungen für andere Geräte:**
+      - **Gerät aktivieren:**
+      Kontrollkästchen zur Aktivierung der Verwendung von Motor oder Summer (über Arduino, Raspberry Pi oder ESP32). Dieses Kontrollkästchen muss aktiviert sein, um auf weitere Geräteoptionen zugreifen zu können.
+      - **Gerätetyp:**
+      Optionsfelder zur Auswahl zwischen:
+      - **Schrittmotor**
+      - **Gleichstrommotor oder Summer**
+      - **Schrittmotor-Oktave:**
+      Schieberegler zur Einstellung der Oktave für die Schrittmotorleistung, um die Motorbewegung an musikalische Tonhöhen anzupassen.
+      - **Schaltfläche „Firmware abrufen“:**
+      Durch Klicken auf diese Schaltfläche wird kompatible Firmware für das ausgewählte Gerät generiert. Sie müssen diese Firmware auf Ihren Mikrocontroller flashen, bevor Sie die Funktion nutzen können. Ist der Mikrocontroller nicht geflasht, bleibt das Kontrollkästchen für das Gerät ausgegraut.
+
       ![image1](https://github.com/user-attachments/assets/6ba9fd24-fb33-4abf-9fa0-9fc29a3c1132)
       
-      **Mikrocontroller-Firmware-Generator:**
-      - Mit dieser Funktion können Sie schnell und einfach einsatzbereite Firmware für Mikrocontroller (z. B. Arduino) direkt aus NeoBleeper generieren und kopieren.
-      Die Firmware ermöglicht die Steuerung von Hardware wie Summern und Schrittmotoren, sodass Ihre Musikkompositionen physikalische Aktionen und Klänge auslösen können.
-      
-      Sie können Ihren Mikrocontrollertyp (z. B. „Arduino (ino-Datei)“) aus dem Dropdown-Menü auswählen.
-      
-      Das Codefenster zeigt die generierte Firmware an, die auf das ausgewählte Gerät zugeschnitten ist.
-      
-      Klicken Sie auf „Firmware in die Zwischenablage kopieren“, um den Code einfach zu kopieren und auf Ihren Mikrocontroller hochzuladen.
-      
+     **Mikrocontroller-Firmware-Generator:**
+      – Mit dieser Funktion können Sie schnell und einfach einsatzbereite Firmware für Mikrocontroller (z. B. Arduino) direkt aus NeoBleeper generieren und kopieren.
+      – Die Firmware ermöglicht die Steuerung von Hardware wie Summern und Schrittmotoren, sodass Ihre Musikkompositionen physikalische Aktionen und Klänge auslösen können.
+      – Sie können Ihren Mikrocontrollertyp (z. B. „Arduino (ino-Datei)“) aus dem Dropdown-Menü auswählen.
+      – Das Codefenster zeigt die generierte Firmware an, die auf das ausgewählte Gerät zugeschnitten ist.
+      – Klicken Sie auf „Firmware in die Zwischenablage kopieren“, um den Code einfach zum Hochladen auf Ihren Mikrocontroller zu kopieren.
+            
       **Beispielanwendung:**
       Mit dieser Funktion können Sie die Musikwiedergabe mit Hardware synchronisieren – z. B. Summer aktivieren oder Schrittmotoren ansteuern – und zwar über die Ausgangssignale des Systems oder exportierten GCode.
       
