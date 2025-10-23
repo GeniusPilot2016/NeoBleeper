@@ -336,16 +336,27 @@
 
       NeoBleeper cũng hỗ trợ tương tác với nhiều thiết bị phần cứng bên ngoài khác nhau—chẳng hạn như còi báo, động cơ và vi điều khiển—điều này mở rộng khả năng của nó vượt ra ngoài các thiết bị MIDI truyền thống. Nhóm **Thiết bị Khác** trong tab Cài đặt Thiết bị cung cấp các tùy chọn cấu hình và công cụ tạo phần mềm cho các thành phần bên ngoài này.
 
+      **Cài đặt cho các thiết bị khác:**
+      - **Kích hoạt thiết bị:**
+      Hộp kiểm để kích hoạt sử dụng động cơ hoặc còi báo (thông qua Arduino, Raspberry Pi hoặc ESP32). Bạn phải chọn hộp kiểm này để truy cập các tùy chọn thiết bị khác.
+      - **Loại thiết bị:**
+      Các nút radio để lựa chọn giữa:
+      - **Động cơ bước**
+      - **Động cơ DC hoặc còi báo**
+      - **Quãng tám của động cơ bước:**
+      Thanh trượt điều khiển để điều chỉnh quãng tám cho đầu ra của động cơ bước, cho phép bạn khớp chuyển động của động cơ với các dải cao độ của nhạc.
+      - **Nút Lấy Phần mềm Hệ thống:**
+      Nhấp vào nút này sẽ tạo phần mềm hệ thống tương thích cho thiết bị bạn đã chọn. Bạn phải nạp phần mềm hệ thống này vào vi điều khiển trước khi sử dụng tính năng này. Nếu vi điều khiển không được nạp, hộp kiểm thiết bị sẽ vẫn có màu xám.
+      
       ![image1](https://github.com/user-attachments/assets/22327df1-7030-4fb2-b140-154988c013b9)
       
-      **Trình Tạo Phần mềm Vi điều khiển:**
-      - Tính năng này cho phép bạn nhanh chóng tạo và sao chép phần mềm sẵn sàng sử dụng cho vi điều khiển (như Arduino) trực tiếp từ NeoBleeper.
-      
-      - Phần mềm cho phép điều khiển phần cứng như còi báo động và động cơ bước, cho phép các tác phẩm âm nhạc của bạn kích hoạt các hành động vật lý và âm thanh.
-      - Bạn có thể chọn loại vi điều khiển (ví dụ: "Arduino (tệp ino)") từ menu thả xuống.
-      - Cửa sổ mã hiển thị phần mềm được tạo ra phù hợp với thiết bị đã chọn.
-      - Nhấp vào nút "Sao chép phần mềm vào bảng tạm" để dễ dàng sao chép mã để tải lên vi điều khiển của bạn.
-      
+      **Trình tạo Firmware cho Vi điều khiển:**
+      - Tính năng này cho phép bạn nhanh chóng tạo và sao chép firmware sẵn sàng sử dụng cho vi điều khiển (như Arduino) trực tiếp từ NeoBleeper.
+      - Firmware cho phép điều khiển phần cứng như còi báo động và động cơ bước, cho phép các tác phẩm âm nhạc của bạn kích hoạt các hành động vật lý và âm thanh.
+      - Bạn có thể chọn loại vi điều khiển của mình (ví dụ: "Arduino (tệp ino)") từ menu thả xuống.
+      - Cửa sổ mã hiển thị firmware đã tạo được điều chỉnh cho thiết bị đã chọn.
+      - Nhấp vào nút "Sao chép Firmware vào Bảng tạm" để dễ dàng sao chép mã để tải lên vi điều khiển của bạn.
+        
       **Ví dụ về trường hợp sử dụng:**
       - Với tính năng này, bạn có thể đồng bộ hóa việc phát nhạc với phần cứng—chẳng hạn như kích hoạt còi báo động hoặc điều khiển động cơ bước—bằng cách sử dụng tín hiệu đầu ra của hệ thống hoặc GCode đã xuất.
       - Phần mềm Arduino được tạo ra bao gồm xử lý lệnh nối tiếp để nhận dạng thiết bị và điều khiển tốc độ động cơ, giúp dễ dàng tích hợp NeoBleeper với robot hoặc các cài đặt tùy chỉnh.
