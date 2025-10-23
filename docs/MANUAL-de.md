@@ -513,8 +513,8 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
     - ### In GCode konvertieren - Strg + Umschalt + G
 
       Konvertieren Sie Musikdaten in GCode für Summer, Motoren von CNC-Maschinen oder 3D-Druckern. Dies schließt die Lücke zwischen Klang und Bewegung und ermöglicht die physische Darstellung von Musiksequenzen - ideal für experimentelle Kunst oder Lehrmittel.
-
-      ![image](https://github.com/user-attachments/assets/536bf7d3-9447-4e17-b558-b00111f98bfe)
+      
+      ![image](https://github.com/user-attachments/assets/de3f8759-cf22-4f82-9d40-6e7f607ef24b)
 
       Diese Funktion konvertiert ausgewählte Notenkonfigurationen in GCode-Anweisungen für CNC-Maschinen oder 3D-Drucker. Bis zu vier Noten können definiert und jeweils einem Komponententyp (M3/M4-Motor und M300 für den Summer) zugeordnet werden. Die Noten können einzeln umgeschaltet werden.
 
