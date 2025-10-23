@@ -6,7 +6,7 @@ NeoBleeper, Robbi-985'in (diğer adıyla SomethingUnreal) 2007 sonu-2008 başı 
 
 ## Durum
 
-Bu proje **hâlâ geliştirme aşamasında** olup, bazı özellikler ve bileşenler henüz tamamlanmamış, bazı kısımları ise henüz oluşturulmamıştır. Yayınlanacak olan sürüm **son alfa sürümü** olacaktır. Bunu takip eden güncellemeyle birlikte NeoBleeper **ilk beta sürümüne** geçecektir. Lütfen programı bu durumu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
+Bu proje **hâlâ geliştirme aşamasında** olup, bazı özellikler ve bileşenler henüz tamamlanmamıştır. Bu sürüm **son alfa sürümüdür**. NeoBleeper, bir sonraki güncellemeyle **ilk beta sürümüne** taşınacaktır. Lütfen programı bunu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
 
 ## Özellikler
 
