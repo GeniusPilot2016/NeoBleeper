@@ -6,7 +6,7 @@ NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI sử dụng loa h�
 
 ## Trạng thái
 
-Dự án này **vẫn đang trong quá trình phát triển** và một số tính năng và thành phần vẫn chưa hoàn thiện, một số phần khác vẫn chưa được tạo. Phiên bản sắp phát hành sẽ là **bản phát hành alpha cuối cùng**. Sau bản cập nhật tiếp theo, NeoBleeper sẽ chuyển sang **phiên bản beta đầu tiên**. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi để giúp cải thiện các bản phát hành trong tương lai.
+Dự án này **vẫn đang trong quá trình phát triển** và một số tính năng và thành phần vẫn chưa hoàn thiện. Phiên bản này là **bản phát hành alpha cuối cùng**. Với bản cập nhật tiếp theo, NeoBleeper sẽ chuyển sang **phiên bản beta đầu tiên**. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi để giúp cải thiện các bản phát hành trong tương lai.
 
 ## Tính năng
 
