@@ -526,8 +526,8 @@ alternees toutes les: ... ms ».
     - ### Convertir en GCode - `Ctrl + Majuscule + G`
 
       Transformez des données musicales en GCode pour les buzzers ou les moteurs de machines CNC ou d'imprimantes 3D. Cela comble le fossé entre le son et le mouvement, permettant des représentations physiques de séquences musicales, idéales pour l'art expérimental ou les outils pédagogiques.
-      
-      ![image](https://github.com/user-attachments/assets/89ba6efc-dc0a-4b86-b836-9616f0d9458a)
+
+      ![image](https://github.com/user-attachments/assets/cdf644fa-ba27-4575-827e-eb3b0f62429e)
 
       Cette fonctionnalité convertit les configurations de notes de musique sélectionnées en instructions GCode utilisables avec des machines CNC ou des imprimantes 3D. Jusqu'à quatre notes peuvent être définies, chacune affectée à un type de composant (moteur M3/M4 et M300 pour le buzzer). Les notes peuvent être modifiées individuellement.
 
