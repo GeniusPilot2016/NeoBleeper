@@ -317,8 +317,8 @@
 
   - ### Configuración de dispositivos
 
-    Esta pestaña te permite configurar cómo interactúa NeoBleeper con hardware MIDI externo e instrumentos virtuales. Ya sea que integres la entrada en vivo o dirijas la salida a un sintetizador, aquí es donde defines el flujo de señal.
-
+    Esta pestaña te permite configurar cómo interactúa NeoBleeper con hardware MIDI externo, instrumentos virtuales y otros dispositivos externos. Ya sea que integres entrada en vivo o enrutes la salida a un sintetizador, aquí es donde defines el flujo de señal.
+    
     ![image](https://github.com/user-attachments/assets/6147feec-cac3-463d-a381-937b94da3c8d)
 
     - #### Dispositivos de entrada MIDI
@@ -338,6 +338,33 @@
       **Instrumento:** Define el instrumento General MIDI utilizado para la reproducción. Las opciones van desde pianos y cuerdas hasta sintetizadores y percusión, lo que permite controlar el timbre de la salida.
       
       **Actualizar:** Actualiza la lista de dispositivos de salida disponibles, garantizando que se reconozcan los equipos recién conectados.
+
+    - #### Otros dispositivos y firmware de microcontroladores
+
+      NeoBleeper también admite la interacción con diversos dispositivos externos, como zumbadores, motores y microcontroladores, lo que amplía sus capacidades más allá de los dispositivos MIDI tradicionales. El grupo **Otros dispositivos** dentro de la pestaña Configuración de dispositivos ofrece opciones de configuración y herramientas de generación de firmware para estos componentes externos.
+
+      ![image1](https://github.com/user-attachments/assets/4c38b045-efc0-4a30-92d4-8b6e23c28ebd)
+      
+      **Generador de firmware de microcontroladores:**
+      - Esta función te permite generar y copiar rápidamente firmware listo para usar para microcontroladores (como Arduino) directamente desde NeoBleeper. El firmware permite controlar hardware como zumbadores y motores paso a paso, lo que permite que tus composiciones musicales activen acciones físicas y sonidos.
+      
+      Puedes seleccionar el tipo de microcontrolador (p. ej., "Arduino (archivo ino)") en el menú desplegable.
+      
+      La ventana de código muestra el firmware generado, adaptado al dispositivo seleccionado.
+      
+      Haz clic en el botón "Copiar firmware al portapapeles" para copiar fácilmente el código y subirlo a tu microcontrolador.
+      
+      **Ejemplo de uso:**
+      
+      Con esta función, puedes sincronizar la reproducción de música con el hardware, como activar zumbadores o controlar motores paso a paso, utilizando las señales de salida del sistema o el código G exportado.
+      
+      El firmware de Arduino generado incluye gestión de comandos serie para la identificación de dispositivos y el control de la velocidad del motor, lo que facilita la integración de NeoBleeper con robótica o instalaciones personalizadas.
+      
+      **Consejos de integración:**
+      
+      Combina la exportación de código G de NeoBleeper con el firmware del microcontrolador para convertir la música en movimientos mecánicos o salidas audibles. El grupo "Otros dispositivos" simplifica la conexión de tu PC a hardware externo, ampliando las posibilidades creativas para máquinas musicales, actuaciones cinéticas o arte sonoro experimental.
+      
+      > Para más detalles o resolución de problemas, consulta los canales de soporte de NeoBleeper o la documentación de tu microcontrolador.
 
   - ### Ajustes de apariencia
     Esta pestaña te da control total sobre la identidad visual de NeoBleeper, permitiéndote personalizar los colores de los elementos clave de la interfaz para mayor claridad, estética o estilo personal. Está organizada en secciones para teclado, botones, indicadores y visualización de eventos de texto.
