@@ -521,8 +521,8 @@
     - ### Convertir a comando de pitido para Linux - `Ctrl + Shift + B`
 
       Convierte rápidamente tus composiciones musicales en un script de comando de pitido compatible con Linux para una fácil reproducción en sistemas Linux.
-      
-      ![image1](https://github.com/user-attachments/assets/7e8c0439-ffdb-49b6-b7f3-e06776e64d2c)
+
+      ![image1](https://github.com/user-attachments/assets/45e323fd-4b9a-4311-919e-08b0cf3fecfd)
       
       **Resumen de funciones:**
       - NeoBleeper genera una secuencia de comandos de pitido que representan tu música, formateada para la utilidad `beep` de Linux.
