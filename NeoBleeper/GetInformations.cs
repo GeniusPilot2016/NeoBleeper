@@ -30,13 +30,26 @@ namespace NeoBleeper
 
             string version = $"{MajorVersion}.{MinorVersion}.{PatchVersion}{(RevisionVersion != 0 ? $" Revision {RevisionVersion}" : string.Empty)}";
 
-            // Extract the status (e.g., "alpha") and capitalize the first letter
+            // Extract the status (e.g., "alpha", "beta", "rc") and capitalize the first letter
             string status = System.Reflection.Assembly.GetExecutingAssembly()
                 .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
                 .Cast<System.Reflection.AssemblyInformationalVersionAttribute>()
-                .FirstOrDefault()?.InformationalVersion?.Split('-').Skip(1).FirstOrDefault()?.Split('+')[0] ?? string.Empty; // Default to empty string if not found
+                .FirstOrDefault()?.InformationalVersion?.Split('-').Skip(1).FirstOrDefault()?.Split('+')[0] ?? string.Empty;
 
-            status = char.ToUpper(status[0]) + status.Substring(1);
+            if (!string.IsNullOrEmpty(status))
+            {
+                // Handle specific statuses like "rc" (release candidate)
+                if (status.StartsWith("rc", StringComparison.OrdinalIgnoreCase) || 
+                    status.Contains("release-candidate", StringComparison.OrdinalIgnoreCase))
+                {
+                    status = "Release Candidate";
+                }
+                else
+                {
+                    status = char.ToUpper(status[0]) + status.Substring(1);
+                }
+            }
+
             return (version, status);
         }
         public enum computerTypes
