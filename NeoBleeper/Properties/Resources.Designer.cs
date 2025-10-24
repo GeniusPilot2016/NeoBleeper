@@ -146,6 +146,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Create an upbeat electronic dance track with energetic synth melodies benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt11 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a calm ambient soundscape for relaxation and meditation benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt12 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a retro 8-bit chiptune soundtrack inspired by classic video games benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt13 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Make a dramatic orchestral piece with epic crescendos benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt14 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Produce a funky bass-driven groove with rhythmic percussion benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt15 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Generate a rock song inspired by The Beatles benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ExamplePrompt2 {
@@ -1085,6 +1130,15 @@ namespace NeoBleeper.Properties {
         public static string MessageMIDIFilePlayerNonSupportedFile {
             get {
                 return ResourceManager.GetString("MessageMIDIFilePlayerNonSupportedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No valid Google Gemini™ models are available. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNoAvailableGeminiModel {
+            get {
+                return ResourceManager.GetString("MessageNoAvailableGeminiModel", resourceCulture);
             }
         }
         

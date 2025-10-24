@@ -192,10 +192,10 @@ namespace NeoBleeper {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int preferredAIModel {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string preferredAIModel {
             get {
-                return ((int)(this["preferredAIModel"]));
+                return ((string)(this["preferredAIModel"]));
             }
             set {
                 this["preferredAIModel"] = value;

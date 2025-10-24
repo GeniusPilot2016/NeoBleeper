@@ -83,7 +83,6 @@
             resources.ApplyResources(comboBox_ai_model, "comboBox_ai_model");
             comboBox_ai_model.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_ai_model.FormattingEnabled = true;
-            comboBox_ai_model.Items.AddRange(new object[] { resources.GetString("comboBox_ai_model.Items"), resources.GetString("comboBox_ai_model.Items1"), resources.GetString("comboBox_ai_model.Items2"), resources.GetString("comboBox_ai_model.Items3") });
             comboBox_ai_model.Name = "comboBox_ai_model";
             comboBox_ai_model.SelectedIndexChanged += comboBox_ai_model_SelectedIndexChanged;
             // 

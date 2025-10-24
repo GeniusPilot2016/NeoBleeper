@@ -442,6 +442,21 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Tạo một bản nhạc folk với guitar acoustic</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Tạo một bản nhạc dance điện tử sôi động với giai điệu synth đầy năng lượng</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Sản xuất một giai điệu funky dựa trên bass với bộ gõ nhịp nhàng</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Làm một tác phẩm dàn nhạc kịch tính với những crescendo hoành tráng</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Tạo ra một nhạc nền chiptune 8-bit retro lấy cảm hứng từ trò chơi điện tử cổ điển</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Sáng tác một khung cảnh âm thanh ambient yên tĩnh để thư giãn và thiền định</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -744,5 +759,8 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Thông tin hệ thống đang được thu thập.</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Không có mẫu Google Gemini™ nào hợp lệ.</value>
   </data>
 </root>

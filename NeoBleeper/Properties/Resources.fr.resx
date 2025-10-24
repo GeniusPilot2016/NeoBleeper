@@ -442,6 +442,21 @@ Cette fonctionnalité permet au haut-parleur/au périphérique audio du système
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Compose une musique électronique avec un rythme rapide</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Créer une piste électronique entraînante avec des mélodies synthétiques énergiques</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Produire un groove funky avec une basse puissante et des percussions rythmiques</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Faire une pièce orchestrale dramatique avec des crescendos épiques</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Générer une bande-son chiptune 8-bit rétro inspirée des jeux vidéo classiques</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Composer un paysage sonore ambiant calme pour la relaxation et la méditation</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -733,16 +748,19 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper commence avec le langage: </value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>L'entrée/sortie MIDI est en cours d'initialisation…</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>Initialisation de l'entrée/sortie MIDI terminée.</value>
+  </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Collecte des informations système…</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Les informations système sont collectées.</value>
   </data>
-  <data name="StatusMIDIIOInitializing" xml:space="preserve">
-    <value>L'entrée/sortie MIDI est en cours d'initialisation…</value>
-  </data>
-  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
-    <value>Initialisation de l'entrée/sortie MIDI terminée.</value>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Aucun modèle Google Gemini™ valide n'est disponible.</value>
   </data>
 </root>

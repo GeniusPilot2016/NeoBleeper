@@ -40,6 +40,7 @@ namespace NeoBleeper
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public event EventHandler MusicStopped;
         public event EventHandler NotesChanged;
+        string AIGeneratedMusicName = string.Empty;
         private int lastNotesCount = 0;
         protected virtual void OnNotesChanged(EventArgs e)
         {
@@ -853,9 +854,11 @@ namespace NeoBleeper
             }
         }
 
-        private void createMusicWithAIResponse(string createdMusic)
+        private void createMusicWithAIResponse(string createdMusic, string createdFileName)
         {
             createNewFile();
+            saveFileDialog.FileName = createdFileName;
+            AIGeneratedMusicName = createdFileName;
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -1007,7 +1010,7 @@ namespace NeoBleeper
                     {
                         octave10NoteLabelShiftToRight();
                     }
-                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic;
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic + " (" + AIGeneratedMusicName + ")" ;
                     listViewNotes.Items.Clear();
 
                     foreach (var line in projectFile.LineList.Lines)
@@ -1084,6 +1087,8 @@ namespace NeoBleeper
         private void FileParser(string filename)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
+            saveFileDialog.FileName = string.Empty;
+            AIGeneratedMusicName = string.Empty;
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -1642,11 +1647,8 @@ namespace NeoBleeper
             isSaved = false;
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             closeAllOpenWindows(); // Close all open windows before opening the Save As dialog
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = Resources.FilterProjectFileFormatsForSaving,
-                Title = Resources.TitleSaveProjectFile
-            };
+            saveFileDialog.Filter = Resources.FilterProjectFileFormatsForSaving;
+            saveFileDialog.Title = Resources.TitleSaveProjectFile;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1661,6 +1663,8 @@ namespace NeoBleeper
                     currentFilePath = saveFileDialog.FileName;
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
                     isModified = false;
+                    AIGeneratedMusicName = string.Empty;
+                    saveFileDialog.FileName = string.Empty;
                     UpdateFormTitle();
                     initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
     Variables.note_silence_ratio, Variables.time_signature);
@@ -2127,6 +2131,8 @@ namespace NeoBleeper
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             this.Text = System.AppDomain.CurrentDomain.FriendlyName;
+            saveFileDialog.FileName = string.Empty;
+            AIGeneratedMusicName = string.Empty;
             currentFilePath = String.Empty;
             if (Variables.octave == 9)
             {
@@ -2712,31 +2718,8 @@ namespace NeoBleeper
         }
         private void InitializeMetronome()
         {
-            // Pre-load sounds to eliminate initialization delay
-            try
-            {
-                // If NotePlayer uses SoundPlayer internally, consider replacing with direct SoundPlayer usage
-                // Or implement a mechanism to pre-buffer the sounds
-                PreloadSounds();
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Error initializing sounds: " + ex.Message, Logger.LogTypes.Error);
-            }
-
             metronomeTimer = new System.Timers.Timer();
             metronomeTimer.Elapsed += MetronomeTimer_Elapsed;
-        }
-
-        private void PreloadSounds()
-        {
-            // Option 1: If you can create WAV files for your metronome sounds
-            // accentBeatSound = new SoundPlayer(Properties.Resources.AccentBeat);
-            // normalBeatSound = new SoundPlayer(Properties.Resources.NormalBeat);
-            // accentBeatSound.LoadAsync();
-            // normalBeatSound.LoadAsync();
-
-            // Option 2: If using a different audio system, implement appropriate preloading
         }
 
         private void MetronomeTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -4685,24 +4668,27 @@ namespace NeoBleeper
                 stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 closeAllOpenWindows(); // Close all open windows before opening a new modal dialog
                 createMusicWithAI.ShowDialog();
+                string output = createMusicWithAI.output;
+                string fileName = createMusicWithAI.generatedFilename;
                 if (createMusicWithAI.output != string.Empty)
                 {
+                    
                     if (isModified)
                     {
                         DialogResult result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (result)
                         {
                             case DialogResult.Yes:
-                                saveRunAndRetry(new Action(() => { createMusicWithAIResponse(createMusicWithAI.output); }));
+                                saveRunAndRetry(new Action(() => { createMusicWithAIResponse(createMusicWithAI.output, fileName); }));
                                 break;
                             case DialogResult.No:
-                                createMusicWithAIResponse(createMusicWithAI.output);
+                                createMusicWithAIResponse(createMusicWithAI.output, fileName);
                                 break;
                         }
                     }
                     else
                     {
-                        createMusicWithAIResponse(createMusicWithAI.output);
+                        createMusicWithAIResponse(createMusicWithAI.output, fileName);
                     }
                 }
             }
@@ -4747,7 +4733,7 @@ namespace NeoBleeper
             }
             else if (this.Text.Contains(Resources.TextAIGeneratedMusic))
             {
-                title += " - " + Resources.TextAIGeneratedMusic;
+                title += " - " + Resources.TextAIGeneratedMusic + " (" + AIGeneratedMusicName + ")";
             }
 
             // Add an asterisk if the file is modified

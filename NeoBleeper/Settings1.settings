@@ -44,8 +44,8 @@
     <Setting Name="geminiAPIKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="preferredAIModel" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="preferredAIModel" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Key" Type="System.String" Scope="User">
       <Value Profile="(Default)">Ohf3aR688kaRYSTu7lMeXPoSVUTFcS+WgraFY3mxda0=</Value>

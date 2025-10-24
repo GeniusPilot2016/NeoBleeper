@@ -442,6 +442,21 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Hüzünlü bir piyano solosu yaz</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Enerjik synth melodileriyle neşeli bir elektronik dans parçası oluştur</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Ritmik perküsyonlu funky bas ağırlıklı bir groove üret</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Epik crescendo'larla dramatik bir orkestra parçası yarat</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Klasik video oyunlarından ilham alan retro 8-bit chiptune soundtrack üret</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Rahatlama ve meditasyon için sakin bir ambient ses manzarası bestele</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -734,16 +749,19 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper şu dilde başlatılıyor: </value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatılıyor...</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
+  </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Sistem bilgileri toplanıyor...</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Sistem bilgileri toplandı.</value>
   </data>
-  <data name="StatusMIDIIOInitializing" xml:space="preserve">
-    <value>MIDI giriş/çıkış başlatılıyor...</value>
-  </data>
-  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
-    <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
   </data>
 </root>

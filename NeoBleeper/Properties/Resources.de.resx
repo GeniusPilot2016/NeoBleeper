@@ -445,6 +445,21 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Komponiere eine entspannende Ambient-Soundlandschaft</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Erstelle einen fröhlichen elektronischen Dance-Track mit energiegeladenen Synth-Melodien</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Produziere einen funkigen Bass-getriebenen Groove mit rhythmischen Percussion</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Erzeuge ein dramatisches Orchesterstück mit epischen Crescendos</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Generiere einen Retro-8-Bit-Chiptune-Soundtrack inspiriert von klassischen Videospielen</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Komponiere eine ruhige Ambient-Klanglandschaft für Entspannung und Meditation</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -744,5 +759,8 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Systeminformationen werden erfasst.</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Es sind keine gültigen Google Gemini™-Modelle verfügbar.</value>
   </data>
 </root>

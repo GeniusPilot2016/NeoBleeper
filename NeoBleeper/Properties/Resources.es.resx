@@ -442,6 +442,21 @@ Esta función permite que el altavoz/dispositivo de sonido del sistema suba o ba
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Compone una marcha festiva</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Crear una pista de baile electrónica animada con melodías sintetizadas energéticas</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Producir un groove funky impulsado por el bajo con percusión rítmica</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Hacer una pieza orquestal dramática con crescendos épicos</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Generar una banda sonora chiptune de 8 bits retro inspirada en videojuegos clásicos</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Componer un paisaje sonoro ambiental tranquilo para relajación y meditación</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -744,5 +759,8 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Se está recopilando información del sistema.</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>No hay modelos válidos de Google Gemini™ disponibles.</value>
   </data>
 </root>

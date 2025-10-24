@@ -442,6 +442,21 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Componi una serenata classica italiana</value>
   </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Crea una traccia dance elettronica vivace con melodie synth energiche</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Produci un groove funky guidato dal basso con percussioni ritmiche</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Crea un brano orchestrale drammatico con crescendo epici</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Genera una colonna sonora chiptune 8-bit retrò ispirata ai videogiochi classici</value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Componi un paesaggio sonoro ambient rilassante per il relax e la meditazione</value>
+  </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -743,5 +758,8 @@ Vuoi aprire comunque questo file?</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Vengono raccolte informazioni di sistema.</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Non sono disponibili modelli Google Gemini™ validi.</value>
   </data>
 </root>
