@@ -307,7 +307,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAFsASYBbAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAGMASYBjAEmARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -1213,7 +1213,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        FAEmARQBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        NAEmATQBJgEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1337,6 +1337,18 @@
   </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>444, 639</value>
+  </data>
+  <data name="openFileDialog.Filter" xml:space="preserve">
+    <value>Файли мови розмітки проекту NeoBleeper|*.NBPML|Файли Bleeper Music Maker|*.BMM|Усі файли|*.*</value>
+  </data>
+  <data name="openFileDialog.Title" xml:space="preserve">
+    <value>Відкрити файл проекту</value>
+  </data>
+  <data name="saveFileDialog.Filter" xml:space="preserve">
+    <value>Файли мови розмітки проекту NeoBleeper|*.NBPML|Усі файли|*.*</value>
+  </data>
+  <data name="saveFileDialog.Title" xml:space="preserve">
+    <value>Зберегти файл проекту</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

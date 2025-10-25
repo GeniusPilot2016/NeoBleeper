@@ -112,6 +112,7 @@ namespace NeoBleeper
         };
         private async void listAndSelectAIModels()
         {
+            buttonCreate.Enabled = false; // Disable the create button while loading models
             var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
             var models = await generativeAI.ListModelsAsync();
 
@@ -181,7 +182,7 @@ namespace NeoBleeper
                 if (filteredDisplayNames.Count > 0)
                 {
                     AIModel = aiModelMapping[filteredDisplayNames[0]];
-                    comboBox_ai_model.SelectedItem = aiModelMapping[Settings1.Default.preferredAIModel];
+                    comboBox_ai_model.SelectedItem = filteredDisplayNames[0];
                     Logger.Log($"Using first available model: {AIModel}", Logger.LogTypes.Info);
                 }
                 else
@@ -191,6 +192,7 @@ namespace NeoBleeper
                     this.Close();
                 }
             }
+            buttonCreate.Enabled = true; // Enable the create button after loading models
         }
         private string selectedLanguageToLanguageName(string languageName)
         {
@@ -650,7 +652,7 @@ namespace NeoBleeper
                         $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
                         $"- The output should be a new composition inspired by the specified song. \r\n" +
-                        $"- The output should contain generated file name that each words are seperated with spaces in {selectedLanguageToLanguageName(selectedLanguage)}, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes, followed by the complete NeoBleeper XML content.\r\n" +
+                        $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes, followed by the complete NeoBleeper XML content.\r\n" +
                         $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
                         $"- Do not include text outside XML. Escape special characters properly.\r\n" +
                         $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +

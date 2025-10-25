@@ -43,6 +43,11 @@ namespace NeoBleeper
         {
             this.mainWindow = mainWindow;
             InitializeComponent();
+            typeof(Panel).InvokeMember("DoubleBuffered",
+        BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+        null, panel1, new object[] { true });
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
             UIFonts.setFonts(this);
             set_theme();
             _playbackStopwatch = new Stopwatch();
@@ -115,8 +120,6 @@ namespace NeoBleeper
         private async void button4_Click(object sender, EventArgs e)
         {
             Stop();
-            openFileDialog.Filter = Resources.FilterMIDIFileFormat;
-            openFileDialog.Title = Resources.TitleOpenMIDIFile;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
@@ -226,9 +229,7 @@ namespace NeoBleeper
                     _tempoEvents = new List<(long time, int tempo)>();
 
                     // Extract tempo information
-                    int microsecondsPerQuarterNote = 500000; // Default 120 BPM
                     int trackCount = midiFile.Events.Tracks;
-                    int trackIndex = 0;
 
                     foreach (var track in midiFile.Events)
                     {
@@ -281,7 +282,7 @@ namespace NeoBleeper
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.MetaEvent)
                             {
-                                // Collect lyric/text meta events so we can create frames at their times
+                                // Collect lyric/text meta events so it can create frames at their times
                                 var meta = (MetaEvent)midiEvent;
                                 if (meta.MetaEventType == MetaEventType.Lyric || meta.MetaEventType == MetaEventType.TextEvent)
                                 {
@@ -945,10 +946,9 @@ namespace NeoBleeper
             if (!_isUserScrolling)
             {
                 _isUserScrolling = true;
-                ClearLyrics();
-                return;
             }
 
+            ClearLyrics();
             _lastTrackBarScrollTime = DateTime.Now;
             _isTrackBarBeingDragged = true;
 
@@ -999,6 +999,7 @@ namespace NeoBleeper
             _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
             _playbackRestartTimer.AutoReset = false;
             _playbackRestartTimer.Start();
+            _isUserScrolling = false;
         }
 
         private void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)

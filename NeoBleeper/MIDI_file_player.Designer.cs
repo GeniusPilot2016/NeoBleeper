@@ -861,6 +861,7 @@
             Controls.Add(textBox1);
             Controls.Add(panelLoading);
             Controls.Add(groupBox1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;

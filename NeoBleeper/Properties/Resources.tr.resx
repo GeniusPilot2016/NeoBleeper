@@ -383,9 +383,6 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Proje Dosyasını Aç</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>GCode Dosyaları (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>Google Gemini™ API anahtarı başarıyla sıfırlandı.</value>
   </data>
@@ -523,9 +520,6 @@ Daha sonra bu pencereyi kullanarak bilgisayarınızdaki tüm NeoBleeper örnekle
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Proje Dosyasını Kaydet</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Bu özellik, müzik çalınırken konum tablosunun otomatik olarak güncellenmesini devre dışı bırakır. Ancak, düzenleme sırasında güncellenmeye devam eder.
 
@@ -551,17 +545,11 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>GCode Dosyasını Dışa Aktar</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI dosyası başarıyla yüklendi.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Gizle</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Kabuk Komut Dosyası (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>MIDI giriş aygıtı başlatılamıyor:</value>
@@ -609,9 +597,6 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Beep Komutunu Kabuk Komut Dosyası Olarak Kaydet</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Hareketli bir elektronik dans müziği yarat</value>
@@ -670,9 +655,6 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>NeoBleeper Proje İşaretleme Dili Dosyaları|*.NBPML|Tüm Dosyalar|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Çerçeveler oluşturuluyor...</value>

@@ -40,7 +40,6 @@ namespace NeoBleeper
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public event EventHandler MusicStopped;
         public event EventHandler NotesChanged;
-        string AIGeneratedMusicName = string.Empty;
         private int lastNotesCount = 0;
         protected virtual void OnNotesChanged(EventArgs e)
         {
@@ -858,7 +857,6 @@ namespace NeoBleeper
         {
             createNewFile();
             saveFileDialog.FileName = createdFileName;
-            AIGeneratedMusicName = createdFileName;
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -1010,7 +1008,7 @@ namespace NeoBleeper
                     {
                         octave10NoteLabelShiftToRight();
                     }
-                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic + " (" + AIGeneratedMusicName + ")" ;
+                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic;
                     listViewNotes.Items.Clear();
 
                     foreach (var line in projectFile.LineList.Lines)
@@ -1088,7 +1086,6 @@ namespace NeoBleeper
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             saveFileDialog.FileName = string.Empty;
-            AIGeneratedMusicName = string.Empty;
             lbl_measure_value.Text = "1";
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
@@ -1647,8 +1644,6 @@ namespace NeoBleeper
             isSaved = false;
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             closeAllOpenWindows(); // Close all open windows before opening the Save As dialog
-            saveFileDialog.Filter = Resources.FilterProjectFileFormatsForSaving;
-            saveFileDialog.Title = Resources.TitleSaveProjectFile;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1663,7 +1658,6 @@ namespace NeoBleeper
                     currentFilePath = saveFileDialog.FileName;
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
                     isModified = false;
-                    AIGeneratedMusicName = string.Empty;
                     saveFileDialog.FileName = string.Empty;
                     UpdateFormTitle();
                     initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternating_note_length,
@@ -2132,7 +2126,6 @@ namespace NeoBleeper
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             this.Text = System.AppDomain.CurrentDomain.FriendlyName;
             saveFileDialog.FileName = string.Empty;
-            AIGeneratedMusicName = string.Empty;
             currentFilePath = String.Empty;
             if (Variables.octave == 9)
             {
@@ -4733,7 +4726,7 @@ namespace NeoBleeper
             }
             else if (this.Text.Contains(Resources.TextAIGeneratedMusic))
             {
-                title += " - " + Resources.TextAIGeneratedMusic + " (" + AIGeneratedMusicName + ")";
+                title += " - " + Resources.TextAIGeneratedMusic;
             }
 
             // Add an asterisk if the file is modified

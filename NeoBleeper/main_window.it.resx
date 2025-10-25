@@ -233,17 +233,17 @@
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
     <value>Crea Musica Con IA</value>
   </data>
-  <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Converti in GCode</value>
-  </data>
-  <data name="convertToBeepCommandForLinuxToolStripMenuItem.Text" xml:space="preserve">
-    <value>Converti in comando Beep per Linux</value>
-  </data>
   <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>241, 22</value>
   </data>
   <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
     <value>Converti in...</value>
+  </data>
+  <data name="convertToGCodeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Converti in GCode</value>
+  </data>
+  <data name="convertToBeepCommandForLinuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Converti in comando Beep per Linux</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 20</value>
@@ -274,7 +274,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAHMASUBzAElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAHkASUB5AElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -667,11 +667,20 @@
   <data name="note4.Text" xml:space="preserve">
     <value>Nota 4</value>
   </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>295, 264</value>
+  </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Riga Vuota</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Cancella Nota</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>227, 26</value>
@@ -696,12 +705,6 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Cancella Nota 4</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Cancella Nota</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 26</value>
@@ -745,6 +748,12 @@
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Deseleziona Tutte la Nota</value>
   </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Controlli di Riproduzione</value>
+  </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>319, 26</value>
   </data>
@@ -762,15 +771,6 @@
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Smetti di Giocare</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Controlli di Riproduzione</value>
-  </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>295, 264</value>
   </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 2</value>
@@ -983,6 +983,9 @@ ritmico</value>
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Nota di gioco</value>
   </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Aggiunta di nota</value>
+  </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 20</value>
   </data>
@@ -1025,11 +1028,11 @@ ritmico</value>
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Aggiungi nota all'elenco della musica</value>
   </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Aggiunta di nota</value>
-  </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>Quando si fa clic sul tasto</value>
+  </data>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>Quando si fa clic su una linea</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 20</value>
@@ -1055,8 +1058,8 @@ ritmico</value>
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Suona Nota 1</value>
   </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>Quando si fa clic su una linea</value>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>Quando la musica viene riprodotta</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 20</value>
@@ -1082,9 +1085,6 @@ ritmico</value>
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Suona Nota 2</value>
   </data>
-  <data name="group_music_played.Text" xml:space="preserve">
-    <value>Quando la musica viene riprodotta</value>
-  </data>
   <data name="group_notes.Text" xml:space="preserve">
     <value>Quali note nell'elenco suonare</value>
   </data>
@@ -1097,17 +1097,17 @@ ritmico</value>
   <data name="button_f4.ToolTip" xml:space="preserve">
     <value>Premi un tasto qualsiasi su questa tastiera per ascoltare la nota/aggiungerla all'elenco (a seconda delle opzioni sul lato sinistro della finestra)</value>
   </data>
-  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 16</value>
-  </data>
-  <data name="lbl_measure.Text" xml:space="preserve">
-    <value>Misura</value>
-  </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
     <value>854, 555</value>
   </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 77</value>
+  </data>
+  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 16</value>
+  </data>
+  <data name="lbl_measure.Text" xml:space="preserve">
+    <value>Misura</value>
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 579</value>
@@ -1126,7 +1126,7 @@ ritmico</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        dAElAXQBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        jAElAYwBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B
@@ -1257,6 +1257,18 @@ ordine</value>
   </data>
   <data name="button_use_voice_system_help.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 638</value>
+  </data>
+  <data name="openFileDialog.Filter" xml:space="preserve">
+    <value>File del linguaggio di markup del progetto NeoBleeper|*.NBPML|File di Bleeper Music Maker|*.BMM|Tutti i file|*.*</value>
+  </data>
+  <data name="openFileDialog.Title" xml:space="preserve">
+    <value>Apri file di progetto</value>
+  </data>
+  <data name="saveFileDialog.Filter" xml:space="preserve">
+    <value>File del linguaggio di markup del progetto NeoBleeper|*.NBPML|Tutti i file|*.*</value>
+  </data>
+  <data name="saveFileDialog.Title" xml:space="preserve">
+    <value>Salva file di progetto</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

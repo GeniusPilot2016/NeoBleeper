@@ -383,9 +383,6 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Projektdatei öffnen</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>GCode-Dateien (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>Der Google Gemini™ API-Schlüssel wurde erfolgreich zurückgesetzt.</value>
   </data>
@@ -523,9 +520,6 @@ Deshalb empfiehlt es sich, die Systemuhren vor der Nutzung dieser Funktion zu sy
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Projektdatei speichern</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Diese Funktion deaktiviert die automatische Aktualisierung der Wiedergabeliste während der Musikwiedergabe. Während des Bearbeitens wird die Liste jedoch weiterhin aktualisiert.
 
@@ -551,17 +545,11 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>GCode-Datei exportieren</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI-Datei wurde erfolgreich geladen.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Verstecken</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Shell-Skript (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>MIDI-Eingabegerät kann nicht gestartet werden:</value>
@@ -609,9 +597,6 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Beep-Befehl als Shell-Skript speichern</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Erzeuge einen energiegeladenen Techno-Track</value>
@@ -669,9 +654,6 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>NeoBleeper Project Markup Language-Dateien|*.NBPML|Alle Dateien|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Es werden Frames erstellt...</value>
