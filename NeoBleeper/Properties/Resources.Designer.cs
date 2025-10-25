@@ -272,24 +272,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Shell Script (*.sh)|*.sh benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string FilterBeepCommandFileFormats {
-            get {
-                return ResourceManager.GetString("FilterBeepCommandFileFormats", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   GCode Files (*.gcode)|*.gcode benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string FilterGCodeFile {
-            get {
-                return ResourceManager.GetString("FilterGCodeFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   MIDI Files|*.mid benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string FilterMIDIFileFormat {
@@ -304,15 +286,6 @@ namespace NeoBleeper.Properties {
         public static string FilterProjectFileFormats {
             get {
                 return ResourceManager.GetString("FilterProjectFileFormats", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.* benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string FilterProjectFileFormatsForSaving {
-            get {
-                return ResourceManager.GetString("FilterProjectFileFormatsForSaving", resourceCulture);
             }
         }
         
@@ -1374,15 +1347,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Save Beep Command as Shell Script benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string SaveBeepCommandTitle {
-            get {
-                return ResourceManager.GetString("SaveBeepCommandTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Show the API key in the API key field.
         ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -1892,15 +1856,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Export GCode File benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string TitleExportGCodeFile {
-            get {
-                return ResourceManager.GetString("TitleExportGCodeFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Open MIDI File benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleOpenMIDIFile {
@@ -1915,15 +1870,6 @@ namespace NeoBleeper.Properties {
         public static string TitleOpenProjectFile {
             get {
                 return ResourceManager.GetString("TitleOpenProjectFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Save Project File benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string TitleSaveProjectFile {
-            get {
-                return ResourceManager.GetString("TitleSaveProjectFile", resourceCulture);
             }
         }
         

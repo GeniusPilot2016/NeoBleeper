@@ -379,17 +379,14 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
 
         private void buttonSaveAsShFile_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = Resources.FilterBeepCommandFileFormats;
-            saveFileDialog.Title = Resources.SaveBeepCommandTitle;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
                     string textToSave = richTextBoxBeepCommand.Text.Trim();
                     textToSave = textToSave.Replace("\n", string.Empty);
-                    System.IO.File.WriteAllText(saveFileDialog.FileName, textToSave);
-                    Logger.Log("Beep command saved as shell script: " + saveFileDialog.FileName, Logger.LogTypes.Info);
+                    System.IO.File.WriteAllText(saveFileDialog1.FileName, textToSave);
+                    Logger.Log("Beep command saved as shell script: " + saveFileDialog1.FileName, Logger.LogTypes.Info);
                     MessageBox.Show(Resources.MessageBeepCommandSaved, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)

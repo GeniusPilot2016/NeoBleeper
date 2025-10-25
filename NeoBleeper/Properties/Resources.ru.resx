@@ -384,9 +384,6 @@
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Открыть файл проекта</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>Файлы GCode (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>Ключ API Google Gemini™ успешно сброшен.</value>
   </data>
@@ -525,9 +522,6 @@
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Сохранить файл проекта</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Эта функция отключает автоматическое обновление таблицы позиций при воспроизведении музыки. Однако она продолжит обновляться во время редактирования.
 
@@ -553,17 +547,11 @@
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>Экспортировать файл GCode</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI-файл успешно загружен.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Скрывать</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Скрипт оболочки (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>Невозможно запустить устройство ввода MIDI:</value>
@@ -611,9 +599,6 @@
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Сохранить команду Beep как скрипт оболочки</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Сгенерируй джазовую композицию с импровизацией</value>
@@ -671,9 +656,6 @@
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>Файлы языка разметки проекта NeoBleeper|*.NBPML|Все файлы|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Кадры создаются...</value>

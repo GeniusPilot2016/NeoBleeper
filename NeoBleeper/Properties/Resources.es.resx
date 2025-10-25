@@ -383,9 +383,6 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Abrir archivo de proyecto</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>Archivos GCode (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>La clave API de Google Gemini™ se restableció correctamente.</value>
   </data>
@@ -523,9 +520,6 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Guardar archivo de proyecto</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Esta función desactiva la actualización automática de la tabla de posiciones al reproducir música. Sin embargo, seguirá actualizándose durante la edición.
 
@@ -551,17 +545,11 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>Exportar archivo GCode</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>Archivo MIDI cargado exitosamente.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Esconder</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Script de shell (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>No se puede iniciar el dispositivo de entrada MIDI:</value>
@@ -609,9 +597,6 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Guardar el comando Beep como script de shell</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Genera una melodía clásica inspirada en Chopin</value>
@@ -669,9 +654,6 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>Archivos de lenguaje de marcado del proyecto NeoBleeper|*.NBPML|Todos los archivos|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Se están creando los marcos...</value>

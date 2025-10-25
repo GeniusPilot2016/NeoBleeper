@@ -383,9 +383,6 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Mở tệp dự án</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>Tệp GCode (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>Đã thiết lập lại khóa API Google Gemini™ thành công.</value>
   </data>
@@ -523,9 +520,6 @@ Sau đó, bạn có thể sử dụng cửa sổ này để điều khiển vi�
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Lưu tệp dự án</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>Tính năng này vô hiệu hóa việc tự động cập nhật bảng vị trí khi phát nhạc. Tuy nhiên, bảng vị trí sẽ tiếp tục cập nhật trong quá trình chỉnh sửa.
 
@@ -551,17 +545,11 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>Xuất tệp GCode</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>Tệp MIDI đã được tải thành công.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Ẩn</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Shell Script (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>Không thể khởi động thiết bị đầu vào MIDI:</value>
@@ -609,9 +597,6 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Lưu lệnh Beep dưới dạng Shell Script</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Viết một giai điệu jazz với nhịp swing</value>
@@ -669,9 +654,6 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>Tệp Ngôn ngữ Đánh dấu Dự án NeoBleeper|*.NBPML|Tất cả Tệp|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Khung đang được tạo...</value>

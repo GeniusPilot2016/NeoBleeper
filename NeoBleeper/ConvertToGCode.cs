@@ -284,9 +284,7 @@ namespace NeoBleeper
             String notes = ExtractNotes(MusicString);
             if (!string.IsNullOrEmpty(notes))
             {
-                exportGCodeFile.Filter = "GCode Files (*.gcode)|*.gcode";
-                exportGCodeFile.Title = "Export GCode File";
-                DialogResult result = exportGCodeFile.ShowDialog();
+                DialogResult result = exportGCodeFile.ShowDialog(this);
                 if (result == DialogResult.OK)
                 {
                     string filePath = exportGCodeFile.FileName;

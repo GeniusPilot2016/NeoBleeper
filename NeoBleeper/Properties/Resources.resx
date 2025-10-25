@@ -383,9 +383,6 @@ You can see the key mappings on the buttons at the top of the window.</value>
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Open Project File</value>
   </data>
-  <data name="FilterGCodeFile" xml:space="preserve">
-    <value>GCode Files (*.gcode)|*.gcode</value>
-  </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
     <value>Google Gemini™ API key reset successfully.</value>
   </data>
@@ -525,9 +522,6 @@ You can then use this window to control the playback of all instances of NeoBlee
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleSaveProjectFile" xml:space="preserve">
-    <value>Save Project File</value>
-  </data>
   <data name="DoNotUpdateHelp" xml:space="preserve">
     <value>This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
 
@@ -553,17 +547,11 @@ If you are experiencing problems with fluidity or skipping while playing the mus
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleExportGCodeFile" xml:space="preserve">
-    <value>Export GCode File</value>
-  </data>
   <data name="TextMIDIFileLoaded" xml:space="preserve">
     <value>MIDI file loaded successfully.</value>
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Hide</value>
-  </data>
-  <data name="FilterBeepCommandFileFormats" xml:space="preserve">
-    <value>Shell Script (*.sh)|*.sh</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>Cannot start MIDI input device:</value>
@@ -611,9 +599,6 @@ Do you want to open this file anyway?</value>
   </data>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SaveBeepCommandTitle" xml:space="preserve">
-    <value>Save Beep Command as Shell Script</value>
   </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Compose a jazz melody with a swing rhythm</value>
@@ -671,9 +656,6 @@ Do you want to open this file anyway?</value>
   </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FilterProjectFileFormatsForSaving" xml:space="preserve">
-    <value>NeoBleeper Project Markup Language Files|*.NBPML|All Files|*.*</value>
   </data>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Frames are being created...</value>

@@ -433,13 +433,11 @@
             resources.ApplyResources(red_felt, "red_felt");
             red_felt.BackColor = Color.DarkRed;
             red_felt.Name = "red_felt";
-            toolTip1.SetToolTip(red_felt, resources.GetString("red_felt.ToolTip"));
             // 
             // label_bpm
             // 
             resources.ApplyResources(label_bpm, "label_bpm");
             label_bpm.Name = "label_bpm";
-            toolTip1.SetToolTip(label_bpm, resources.GetString("label_bpm.ToolTip"));
             // 
             // trackBar_time_signature
             // 
@@ -459,21 +457,19 @@
             // 
             resources.ApplyResources(label_time_signature, "label_time_signature");
             label_time_signature.Name = "label_time_signature";
-            toolTip1.SetToolTip(label_time_signature, resources.GetString("label_time_signature.ToolTip"));
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(menuStrip1, "menuStrip1");
             menuStrip1.BackColor = SystemColors.ControlLightLight;
+            resources.ApplyResources(menuStrip1, "menuStrip1");
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, settingsToolStripMenuItem, aboutNeoBleeperToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Name = "menuStrip1";
-            toolTip1.SetToolTip(menuStrip1, resources.GetString("menuStrip1.ToolTip"));
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(fileToolStripMenuItem, "fileToolStripMenuItem");
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem1, openToolStripMenuItem, openRecentToolStripMenuItem, toolStripSeparator1, saveToolStripMenuItem, saveAsToolStripMenuItem, playMIDIFileToolStripMenuItem, toolStripSeparator2, createMusicWithAIToolStripMenuItem, convertToToolStripMenuItem });
+            resources.ApplyResources(fileToolStripMenuItem, "fileToolStripMenuItem");
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             // 
             // newToolStripMenuItem1
@@ -497,8 +493,8 @@
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
             // saveToolStripMenuItem
             // 
@@ -521,40 +517,40 @@
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             // 
             // createMusicWithAIToolStripMenuItem
             // 
-            resources.ApplyResources(createMusicWithAIToolStripMenuItem, "createMusicWithAIToolStripMenuItem");
             createMusicWithAIToolStripMenuItem.Image = Properties.Resources.icons8_ai_48;
             createMusicWithAIToolStripMenuItem.Name = "createMusicWithAIToolStripMenuItem";
+            resources.ApplyResources(createMusicWithAIToolStripMenuItem, "createMusicWithAIToolStripMenuItem");
             createMusicWithAIToolStripMenuItem.Click += createMusicWithAIToolStripMenuItem_Click;
             // 
             // convertToToolStripMenuItem
             // 
-            resources.ApplyResources(convertToToolStripMenuItem, "convertToToolStripMenuItem");
             convertToToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { convertToGCodeToolStripMenuItem, convertToBeepCommandForLinuxToolStripMenuItem });
             convertToToolStripMenuItem.Name = "convertToToolStripMenuItem";
+            resources.ApplyResources(convertToToolStripMenuItem, "convertToToolStripMenuItem");
             // 
             // convertToGCodeToolStripMenuItem
             // 
-            resources.ApplyResources(convertToGCodeToolStripMenuItem, "convertToGCodeToolStripMenuItem");
             convertToGCodeToolStripMenuItem.Image = Properties.Resources.icons8_3d_printer_48;
             convertToGCodeToolStripMenuItem.Name = "convertToGCodeToolStripMenuItem";
+            resources.ApplyResources(convertToGCodeToolStripMenuItem, "convertToGCodeToolStripMenuItem");
             convertToGCodeToolStripMenuItem.Click += convertToGCodeToolStripMenuItem_Click;
             // 
             // convertToBeepCommandForLinuxToolStripMenuItem
             // 
-            resources.ApplyResources(convertToBeepCommandForLinuxToolStripMenuItem, "convertToBeepCommandForLinuxToolStripMenuItem");
             convertToBeepCommandForLinuxToolStripMenuItem.Image = Properties.Resources.icons8_linux_terminal_48;
             convertToBeepCommandForLinuxToolStripMenuItem.Name = "convertToBeepCommandForLinuxToolStripMenuItem";
+            resources.ApplyResources(convertToBeepCommandForLinuxToolStripMenuItem, "convertToBeepCommandForLinuxToolStripMenuItem");
             convertToBeepCommandForLinuxToolStripMenuItem.Click += convertToBeepCommandForLinuxToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
-            resources.ApplyResources(editToolStripMenuItem, "editToolStripMenuItem");
             editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem, rewindToSavedVersionToolStripMenuItem });
+            resources.ApplyResources(editToolStripMenuItem, "editToolStripMenuItem");
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             // 
             // undoToolStripMenuItem
@@ -573,9 +569,9 @@
             // 
             // rewindToSavedVersionToolStripMenuItem
             // 
-            resources.ApplyResources(rewindToSavedVersionToolStripMenuItem, "rewindToSavedVersionToolStripMenuItem");
             rewindToSavedVersionToolStripMenuItem.Image = Properties.Resources.icons8_rewind_button_round_48;
             rewindToSavedVersionToolStripMenuItem.Name = "rewindToSavedVersionToolStripMenuItem";
+            resources.ApplyResources(rewindToSavedVersionToolStripMenuItem, "rewindToSavedVersionToolStripMenuItem");
             rewindToSavedVersionToolStripMenuItem.Click += rewindToSavedVersionToolStripMenuItem_Click;
             // 
             // settingsToolStripMenuItem
@@ -797,7 +793,6 @@
             listViewNotes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listViewNotes.MultiSelect = false;
             listViewNotes.Name = "listViewNotes";
-            toolTip1.SetToolTip(listViewNotes, resources.GetString("listViewNotes.ToolTip"));
             listViewNotes.UseCompatibleStateImageBehavior = false;
             listViewNotes.View = View.Details;
             listViewNotes.SelectedIndexChanged += listViewNotes_SelectedIndexChanged;
@@ -839,115 +834,114 @@
             notes_list_right_click.ImageScalingSize = new Size(20, 20);
             notes_list_right_click.Items.AddRange(new ToolStripItem[] { blankLineToolStripMenuItem, clearNotesToolStripMenuItem, unselectLineToolStripMenuItem, eraseWholeLineToolStripMenuItem, cutToolStripMenuItem, copyToClipboardToolStripMenuItem, pasteToolStripMenuItem, checkAllNotesToolStripMenuItem, uncheckAllNotesToolStripMenuItem, playbackControlsToolStripMenuItem });
             notes_list_right_click.Name = "contextMenuStrip1";
-            toolTip1.SetToolTip(notes_list_right_click, resources.GetString("notes_list_right_click.ToolTip"));
             // 
             // blankLineToolStripMenuItem
             // 
-            resources.ApplyResources(blankLineToolStripMenuItem, "blankLineToolStripMenuItem");
             blankLineToolStripMenuItem.Image = Properties.Resources.icons8_line_48;
             blankLineToolStripMenuItem.Name = "blankLineToolStripMenuItem";
+            resources.ApplyResources(blankLineToolStripMenuItem, "blankLineToolStripMenuItem");
             blankLineToolStripMenuItem.Click += blankLineToolStripMenuItem_Click;
             // 
             // clearNotesToolStripMenuItem
             // 
-            resources.ApplyResources(clearNotesToolStripMenuItem, "clearNotesToolStripMenuItem");
             clearNotesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearNote1ToolStripMenuItem, clearNote2ToolStripMenuItem, clearNote3ToolStripMenuItem, clearNote4ToolStripMenuItem });
             clearNotesToolStripMenuItem.Image = Properties.Resources.icons8_clear_48;
             clearNotesToolStripMenuItem.Name = "clearNotesToolStripMenuItem";
+            resources.ApplyResources(clearNotesToolStripMenuItem, "clearNotesToolStripMenuItem");
             // 
             // clearNote1ToolStripMenuItem
             // 
-            resources.ApplyResources(clearNote1ToolStripMenuItem, "clearNote1ToolStripMenuItem");
             clearNote1ToolStripMenuItem.Image = Properties.Resources.icons8_1_48;
             clearNote1ToolStripMenuItem.Name = "clearNote1ToolStripMenuItem";
+            resources.ApplyResources(clearNote1ToolStripMenuItem, "clearNote1ToolStripMenuItem");
             clearNote1ToolStripMenuItem.Click += clearNote1ToolStripMenuItem_Click;
             // 
             // clearNote2ToolStripMenuItem
             // 
-            resources.ApplyResources(clearNote2ToolStripMenuItem, "clearNote2ToolStripMenuItem");
             clearNote2ToolStripMenuItem.Image = Properties.Resources.icons8_2_48;
             clearNote2ToolStripMenuItem.Name = "clearNote2ToolStripMenuItem";
+            resources.ApplyResources(clearNote2ToolStripMenuItem, "clearNote2ToolStripMenuItem");
             // 
             // clearNote3ToolStripMenuItem
             // 
-            resources.ApplyResources(clearNote3ToolStripMenuItem, "clearNote3ToolStripMenuItem");
             clearNote3ToolStripMenuItem.Image = Properties.Resources.icons8_3_48;
             clearNote3ToolStripMenuItem.Name = "clearNote3ToolStripMenuItem";
+            resources.ApplyResources(clearNote3ToolStripMenuItem, "clearNote3ToolStripMenuItem");
             // 
             // clearNote4ToolStripMenuItem
             // 
-            resources.ApplyResources(clearNote4ToolStripMenuItem, "clearNote4ToolStripMenuItem");
             clearNote4ToolStripMenuItem.Image = Properties.Resources.icons8_4_48;
             clearNote4ToolStripMenuItem.Name = "clearNote4ToolStripMenuItem";
+            resources.ApplyResources(clearNote4ToolStripMenuItem, "clearNote4ToolStripMenuItem");
             // 
             // unselectLineToolStripMenuItem
             // 
-            resources.ApplyResources(unselectLineToolStripMenuItem, "unselectLineToolStripMenuItem");
             unselectLineToolStripMenuItem.Image = Properties.Resources.icons8_select_none_48;
             unselectLineToolStripMenuItem.Name = "unselectLineToolStripMenuItem";
+            resources.ApplyResources(unselectLineToolStripMenuItem, "unselectLineToolStripMenuItem");
             unselectLineToolStripMenuItem.Click += unselectLineToolStripMenuItem_Click;
             // 
             // eraseWholeLineToolStripMenuItem
             // 
-            resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
             eraseWholeLineToolStripMenuItem.Image = Properties.Resources.icons8_eraser_tool_48;
             eraseWholeLineToolStripMenuItem.Name = "eraseWholeLineToolStripMenuItem";
+            resources.ApplyResources(eraseWholeLineToolStripMenuItem, "eraseWholeLineToolStripMenuItem");
             eraseWholeLineToolStripMenuItem.Click += eraseWholeLineToolStripMenuItem_Click;
             // 
             // cutToolStripMenuItem
             // 
-            resources.ApplyResources(cutToolStripMenuItem, "cutToolStripMenuItem");
             cutToolStripMenuItem.Image = Properties.Resources.icons8_cut_48;
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            resources.ApplyResources(cutToolStripMenuItem, "cutToolStripMenuItem");
             cutToolStripMenuItem.Click += cutToolStripMenuItem_Click;
             // 
             // copyToClipboardToolStripMenuItem
             // 
-            resources.ApplyResources(copyToClipboardToolStripMenuItem, "copyToClipboardToolStripMenuItem");
             copyToClipboardToolStripMenuItem.Image = Properties.Resources.icons8_copy_to_clipboard_48;
             copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
+            resources.ApplyResources(copyToClipboardToolStripMenuItem, "copyToClipboardToolStripMenuItem");
             copyToClipboardToolStripMenuItem.Click += copyToClipboardToolStripMenuItem_Click;
             // 
             // pasteToolStripMenuItem
             // 
-            resources.ApplyResources(pasteToolStripMenuItem, "pasteToolStripMenuItem");
             pasteToolStripMenuItem.Image = Properties.Resources.icons8_paste_48;
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            resources.ApplyResources(pasteToolStripMenuItem, "pasteToolStripMenuItem");
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
             // checkAllNotesToolStripMenuItem
             // 
-            resources.ApplyResources(checkAllNotesToolStripMenuItem, "checkAllNotesToolStripMenuItem");
             checkAllNotesToolStripMenuItem.Image = Properties.Resources.icons8_check_all_48;
             checkAllNotesToolStripMenuItem.Name = "checkAllNotesToolStripMenuItem";
+            resources.ApplyResources(checkAllNotesToolStripMenuItem, "checkAllNotesToolStripMenuItem");
             checkAllNotesToolStripMenuItem.Click += checkAllNotesToolStripMenuItem_Click;
             // 
             // uncheckAllNotesToolStripMenuItem
             // 
-            resources.ApplyResources(uncheckAllNotesToolStripMenuItem, "uncheckAllNotesToolStripMenuItem");
             uncheckAllNotesToolStripMenuItem.Image = Properties.Resources.icons8_uncheck_all_48;
             uncheckAllNotesToolStripMenuItem.Name = "uncheckAllNotesToolStripMenuItem";
+            resources.ApplyResources(uncheckAllNotesToolStripMenuItem, "uncheckAllNotesToolStripMenuItem");
             uncheckAllNotesToolStripMenuItem.Click += uncheckAllNotesToolStripMenuItem_Click;
             // 
             // playbackControlsToolStripMenuItem
             // 
-            resources.ApplyResources(playbackControlsToolStripMenuItem, "playbackControlsToolStripMenuItem");
             playbackControlsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { playAllToolStripMenuItem, playFromSelectedLineToolStripMenuItem, stopPlayingToolStripMenuItem });
             playbackControlsToolStripMenuItem.Image = Properties.Resources.icons8_play_property_48;
             playbackControlsToolStripMenuItem.Name = "playbackControlsToolStripMenuItem";
+            resources.ApplyResources(playbackControlsToolStripMenuItem, "playbackControlsToolStripMenuItem");
             // 
             // playAllToolStripMenuItem
             // 
-            resources.ApplyResources(playAllToolStripMenuItem, "playAllToolStripMenuItem");
             playAllToolStripMenuItem.Image = Properties.Resources.icons8_play_48;
             playAllToolStripMenuItem.Name = "playAllToolStripMenuItem";
+            resources.ApplyResources(playAllToolStripMenuItem, "playAllToolStripMenuItem");
             playAllToolStripMenuItem.Click += playAllToolStripMenuItem_Click;
             // 
             // playFromSelectedLineToolStripMenuItem
             // 
-            resources.ApplyResources(playFromSelectedLineToolStripMenuItem, "playFromSelectedLineToolStripMenuItem");
             playFromSelectedLineToolStripMenuItem.Image = Properties.Resources.icons8_playlist_48;
             playFromSelectedLineToolStripMenuItem.Name = "playFromSelectedLineToolStripMenuItem";
+            resources.ApplyResources(playFromSelectedLineToolStripMenuItem, "playFromSelectedLineToolStripMenuItem");
             playFromSelectedLineToolStripMenuItem.Click += playFromSelectedLineToolStripMenuItem_Click;
             // 
             // stopPlayingToolStripMenuItem
@@ -961,7 +955,6 @@
             // 
             resources.ApplyResources(label_note_length, "label_note_length");
             label_note_length.Name = "label_note_length";
-            toolTip1.SetToolTip(label_note_length, resources.GetString("label_note_length.ToolTip"));
             // 
             // trackBar_note_silence_ratio
             // 
@@ -980,34 +973,29 @@
             // 
             resources.ApplyResources(label_note_silence_ratio, "label_note_silence_ratio");
             label_note_silence_ratio.Name = "label_note_silence_ratio";
-            toolTip1.SetToolTip(label_note_silence_ratio, resources.GetString("label_note_silence_ratio.ToolTip"));
             // 
             // label_silence
             // 
             resources.ApplyResources(label_silence, "label_silence");
             label_silence.BackColor = Color.Transparent;
             label_silence.Name = "label_silence";
-            toolTip1.SetToolTip(label_silence, resources.GetString("label_silence.ToolTip"));
             // 
             // label_note
             // 
             resources.ApplyResources(label_note, "label_note");
             label_note.BackColor = Color.Transparent;
             label_note.Name = "label_note";
-            toolTip1.SetToolTip(label_note, resources.GetString("label_note.ToolTip"));
             // 
             // label_alternating_notes_switch
             // 
             resources.ApplyResources(label_alternating_notes_switch, "label_alternating_notes_switch");
             label_alternating_notes_switch.Name = "label_alternating_notes_switch";
-            toolTip1.SetToolTip(label_alternating_notes_switch, resources.GetString("label_alternating_notes_switch.ToolTip"));
             // 
             // label_mods
             // 
             resources.ApplyResources(label_mods, "label_mods");
             label_mods.BackColor = Color.Transparent;
             label_mods.Name = "label_mods";
-            toolTip1.SetToolTip(label_mods, resources.GetString("label_mods.ToolTip"));
             // 
             // checkBox_synchronized_play
             // 
@@ -1064,126 +1052,108 @@
             resources.ApplyResources(lbl_alternating_note_options, "lbl_alternating_note_options");
             lbl_alternating_note_options.BackColor = Color.Transparent;
             lbl_alternating_note_options.Name = "lbl_alternating_note_options";
-            toolTip1.SetToolTip(lbl_alternating_note_options, resources.GetString("lbl_alternating_note_options.ToolTip"));
             // 
             // lbl_d3
             // 
             resources.ApplyResources(lbl_d3, "lbl_d3");
             lbl_d3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_d3.Name = "lbl_d3";
-            toolTip1.SetToolTip(lbl_d3, resources.GetString("lbl_d3.ToolTip"));
             // 
             // lbl_e3
             // 
             resources.ApplyResources(lbl_e3, "lbl_e3");
             lbl_e3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_e3.Name = "lbl_e3";
-            toolTip1.SetToolTip(lbl_e3, resources.GetString("lbl_e3.ToolTip"));
             // 
             // lbl_f3
             // 
             resources.ApplyResources(lbl_f3, "lbl_f3");
             lbl_f3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_f3.Name = "lbl_f3";
-            toolTip1.SetToolTip(lbl_f3, resources.GetString("lbl_f3.ToolTip"));
             // 
             // lbl_g3
             // 
             resources.ApplyResources(lbl_g3, "lbl_g3");
             lbl_g3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_g3.Name = "lbl_g3";
-            toolTip1.SetToolTip(lbl_g3, resources.GetString("lbl_g3.ToolTip"));
             // 
             // lbl_a3
             // 
             resources.ApplyResources(lbl_a3, "lbl_a3");
             lbl_a3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_a3.Name = "lbl_a3";
-            toolTip1.SetToolTip(lbl_a3, resources.GetString("lbl_a3.ToolTip"));
             // 
             // lbl_b3
             // 
             resources.ApplyResources(lbl_b3, "lbl_b3");
             lbl_b3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_b3.Name = "lbl_b3";
-            toolTip1.SetToolTip(lbl_b3, resources.GetString("lbl_b3.ToolTip"));
             // 
             // lbl_b4
             // 
             resources.ApplyResources(lbl_b4, "lbl_b4");
             lbl_b4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_b4.Name = "lbl_b4";
-            toolTip1.SetToolTip(lbl_b4, resources.GetString("lbl_b4.ToolTip"));
             // 
             // lbl_a4
             // 
             resources.ApplyResources(lbl_a4, "lbl_a4");
             lbl_a4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_a4.Name = "lbl_a4";
-            toolTip1.SetToolTip(lbl_a4, resources.GetString("lbl_a4.ToolTip"));
             // 
             // lbl_g4
             // 
             resources.ApplyResources(lbl_g4, "lbl_g4");
             lbl_g4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_g4.Name = "lbl_g4";
-            toolTip1.SetToolTip(lbl_g4, resources.GetString("lbl_g4.ToolTip"));
             // 
             // lbl_f4
             // 
             resources.ApplyResources(lbl_f4, "lbl_f4");
             lbl_f4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_f4.Name = "lbl_f4";
-            toolTip1.SetToolTip(lbl_f4, resources.GetString("lbl_f4.ToolTip"));
             // 
             // lbl_e4
             // 
             resources.ApplyResources(lbl_e4, "lbl_e4");
             lbl_e4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_e4.Name = "lbl_e4";
-            toolTip1.SetToolTip(lbl_e4, resources.GetString("lbl_e4.ToolTip"));
             // 
             // lbl_d4
             // 
             resources.ApplyResources(lbl_d4, "lbl_d4");
             lbl_d4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_d4.Name = "lbl_d4";
-            toolTip1.SetToolTip(lbl_d4, resources.GetString("lbl_d4.ToolTip"));
             // 
             // lbl_c4
             // 
             resources.ApplyResources(lbl_c4, "lbl_c4");
             lbl_c4.BackColor = Color.FromArgb(192, 192, 255);
             lbl_c4.Name = "lbl_c4";
-            toolTip1.SetToolTip(lbl_c4, resources.GetString("lbl_c4.ToolTip"));
             // 
             // lbl_g5
             // 
             resources.ApplyResources(lbl_g5, "lbl_g5");
             lbl_g5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_g5.Name = "lbl_g5";
-            toolTip1.SetToolTip(lbl_g5, resources.GetString("lbl_g5.ToolTip"));
             // 
             // lbl_e5
             // 
             resources.ApplyResources(lbl_e5, "lbl_e5");
             lbl_e5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_e5.Name = "lbl_e5";
-            toolTip1.SetToolTip(lbl_e5, resources.GetString("lbl_e5.ToolTip"));
             // 
             // lbl_d5
             // 
             resources.ApplyResources(lbl_d5, "lbl_d5");
             lbl_d5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_d5.Name = "lbl_d5";
-            toolTip1.SetToolTip(lbl_d5, resources.GetString("lbl_d5.ToolTip"));
             // 
             // lbl_c5
             // 
             resources.ApplyResources(lbl_c5, "lbl_c5");
             lbl_c5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_c5.Name = "lbl_c5";
-            toolTip1.SetToolTip(lbl_c5, resources.GetString("lbl_c5.ToolTip"));
             // 
             // button_clear_note4
             // 
@@ -1222,34 +1192,29 @@
             // 
             resources.ApplyResources(lbl_beat, "lbl_beat");
             lbl_beat.Name = "lbl_beat";
-            toolTip1.SetToolTip(lbl_beat, resources.GetString("lbl_beat.ToolTip"));
             // 
             // lbl_beat_traditional
             // 
             resources.ApplyResources(lbl_beat_traditional, "lbl_beat_traditional");
             lbl_beat_traditional.Name = "lbl_beat_traditional";
-            toolTip1.SetToolTip(lbl_beat_traditional, resources.GetString("lbl_beat_traditional.ToolTip"));
             // 
             // lbl_measure_value
             // 
             resources.ApplyResources(lbl_measure_value, "lbl_measure_value");
             lbl_measure_value.ForeColor = Color.Green;
             lbl_measure_value.Name = "lbl_measure_value";
-            toolTip1.SetToolTip(lbl_measure_value, resources.GetString("lbl_measure_value.ToolTip"));
             // 
             // lbl_beat_value
             // 
             resources.ApplyResources(lbl_beat_value, "lbl_beat_value");
             lbl_beat_value.ForeColor = Color.Green;
             lbl_beat_value.Name = "lbl_beat_value";
-            toolTip1.SetToolTip(lbl_beat_value, resources.GetString("lbl_beat_value.ToolTip"));
             // 
             // lbl_beat_traditional_value
             // 
             resources.ApplyResources(lbl_beat_traditional_value, "lbl_beat_traditional_value");
             lbl_beat_traditional_value.ForeColor = Color.Green;
             lbl_beat_traditional_value.Name = "lbl_beat_traditional_value";
-            toolTip1.SetToolTip(lbl_beat_traditional_value, resources.GetString("lbl_beat_traditional_value.ToolTip"));
             // 
             // button_c3
             // 
@@ -1494,14 +1459,12 @@
             resources.ApplyResources(lbl_b5, "lbl_b5");
             lbl_b5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_b5.Name = "lbl_b5";
-            toolTip1.SetToolTip(lbl_b5, resources.GetString("lbl_b5.ToolTip"));
             // 
             // lbl_a5
             // 
             resources.ApplyResources(lbl_a5, "lbl_a5");
             lbl_a5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_a5.Name = "lbl_a5";
-            toolTip1.SetToolTip(lbl_a5, resources.GetString("lbl_a5.ToolTip"));
             // 
             // button_b5
             // 
@@ -1536,13 +1499,11 @@
             checkbox_play_note.Checked = true;
             checkbox_play_note.CheckState = CheckState.Checked;
             checkbox_play_note.Name = "checkbox_play_note";
-            toolTip1.SetToolTip(checkbox_play_note, resources.GetString("checkbox_play_note.ToolTip"));
             checkbox_play_note.UseVisualStyleBackColor = true;
             checkbox_play_note.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // group_adding_note
             // 
-            resources.ApplyResources(group_adding_note, "group_adding_note");
             group_adding_note.BackColor = Color.Transparent;
             group_adding_note.Controls.Add(add_as_note4);
             group_adding_note.Controls.Add(add_as_note3);
@@ -1551,16 +1512,15 @@
             group_adding_note.Controls.Add(add_as_note2);
             group_adding_note.Controls.Add(add_as_note1);
             group_adding_note.Controls.Add(checkBox_add_note_to_list);
+            resources.ApplyResources(group_adding_note, "group_adding_note");
             group_adding_note.Name = "group_adding_note";
             group_adding_note.TabStop = false;
-            toolTip1.SetToolTip(group_adding_note, resources.GetString("group_adding_note.ToolTip"));
             // 
             // add_as_note4
             // 
             resources.ApplyResources(add_as_note4, "add_as_note4");
             add_as_note4.Name = "add_as_note4";
             add_as_note4.TabStop = true;
-            toolTip1.SetToolTip(add_as_note4, resources.GetString("add_as_note4.ToolTip"));
             add_as_note4.UseVisualStyleBackColor = true;
             add_as_note4.CheckedChanged += add_as_note4_CheckedChanged;
             // 
@@ -1569,7 +1529,6 @@
             resources.ApplyResources(add_as_note3, "add_as_note3");
             add_as_note3.Name = "add_as_note3";
             add_as_note3.TabStop = true;
-            toolTip1.SetToolTip(add_as_note3, resources.GetString("add_as_note3.ToolTip"));
             add_as_note3.UseVisualStyleBackColor = true;
             add_as_note3.CheckedChanged += add_as_note3_CheckedChanged;
             // 
@@ -1577,7 +1536,6 @@
             // 
             resources.ApplyResources(checkBox_replace_length, "checkBox_replace_length");
             checkBox_replace_length.Name = "checkBox_replace_length";
-            toolTip1.SetToolTip(checkBox_replace_length, resources.GetString("checkBox_replace_length.ToolTip"));
             checkBox_replace_length.UseVisualStyleBackColor = true;
             checkBox_replace_length.CheckedChanged += checkBox_replace_length_CheckedChanged;
             // 
@@ -1585,7 +1543,6 @@
             // 
             resources.ApplyResources(checkBox_replace, "checkBox_replace");
             checkBox_replace.Name = "checkBox_replace";
-            toolTip1.SetToolTip(checkBox_replace, resources.GetString("checkBox_replace.ToolTip"));
             checkBox_replace.UseVisualStyleBackColor = true;
             checkBox_replace.CheckedChanged += checkBox1_CheckedChanged_1;
             // 
@@ -1594,7 +1551,6 @@
             resources.ApplyResources(add_as_note2, "add_as_note2");
             add_as_note2.Name = "add_as_note2";
             add_as_note2.TabStop = true;
-            toolTip1.SetToolTip(add_as_note2, resources.GetString("add_as_note2.ToolTip"));
             add_as_note2.UseVisualStyleBackColor = true;
             add_as_note2.CheckedChanged += add_as_note2_CheckedChanged;
             // 
@@ -1604,7 +1560,6 @@
             add_as_note1.Checked = true;
             add_as_note1.Name = "add_as_note1";
             add_as_note1.TabStop = true;
-            toolTip1.SetToolTip(add_as_note1, resources.GetString("add_as_note1.ToolTip"));
             add_as_note1.UseVisualStyleBackColor = true;
             add_as_note1.CheckedChanged += add_as_note1_CheckedChanged;
             // 
@@ -1614,7 +1569,6 @@
             checkBox_add_note_to_list.Checked = true;
             checkBox_add_note_to_list.CheckState = CheckState.Checked;
             checkBox_add_note_to_list.Name = "checkBox_add_note_to_list";
-            toolTip1.SetToolTip(checkBox_add_note_to_list, resources.GetString("checkBox_add_note_to_list.ToolTip"));
             checkBox_add_note_to_list.UseVisualStyleBackColor = true;
             checkBox_add_note_to_list.CheckedChanged += checkBox_add_note_to_list_CheckedChanged;
             // 
@@ -1626,7 +1580,6 @@
             group_key_is_clicked.Controls.Add(checkbox_play_note);
             group_key_is_clicked.Name = "group_key_is_clicked";
             group_key_is_clicked.TabStop = false;
-            toolTip1.SetToolTip(group_key_is_clicked, resources.GetString("group_key_is_clicked.ToolTip"));
             // 
             // group_line_clicked
             // 
@@ -1638,7 +1591,6 @@
             group_line_clicked.Controls.Add(checkBox_play_note1_clicked);
             group_line_clicked.Name = "group_line_clicked";
             group_line_clicked.TabStop = false;
-            toolTip1.SetToolTip(group_line_clicked, resources.GetString("group_line_clicked.ToolTip"));
             // 
             // checkBox_play_note4_clicked
             // 
@@ -1646,7 +1598,6 @@
             checkBox_play_note4_clicked.Checked = true;
             checkBox_play_note4_clicked.CheckState = CheckState.Checked;
             checkBox_play_note4_clicked.Name = "checkBox_play_note4_clicked";
-            toolTip1.SetToolTip(checkBox_play_note4_clicked, resources.GetString("checkBox_play_note4_clicked.ToolTip"));
             checkBox_play_note4_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note4_clicked.CheckedChanged += checkBox_play_note4_clicked_CheckedChanged;
             // 
@@ -1656,7 +1607,6 @@
             checkBox_play_note3_clicked.Checked = true;
             checkBox_play_note3_clicked.CheckState = CheckState.Checked;
             checkBox_play_note3_clicked.Name = "checkBox_play_note3_clicked";
-            toolTip1.SetToolTip(checkBox_play_note3_clicked, resources.GetString("checkBox_play_note3_clicked.ToolTip"));
             checkBox_play_note3_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note3_clicked.CheckedChanged += checkBox_play_note3_clicked_CheckedChanged;
             // 
@@ -1666,7 +1616,6 @@
             checkBox_play_note2_clicked.Checked = true;
             checkBox_play_note2_clicked.CheckState = CheckState.Checked;
             checkBox_play_note2_clicked.Name = "checkBox_play_note2_clicked";
-            toolTip1.SetToolTip(checkBox_play_note2_clicked, resources.GetString("checkBox_play_note2_clicked.ToolTip"));
             checkBox_play_note2_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note2_clicked.CheckedChanged += checkBox_play_note2_clicked_CheckedChanged;
             // 
@@ -1676,7 +1625,6 @@
             checkBox_play_note1_clicked.Checked = true;
             checkBox_play_note1_clicked.CheckState = CheckState.Checked;
             checkBox_play_note1_clicked.Name = "checkBox_play_note1_clicked";
-            toolTip1.SetToolTip(checkBox_play_note1_clicked, resources.GetString("checkBox_play_note1_clicked.ToolTip"));
             checkBox_play_note1_clicked.UseVisualStyleBackColor = true;
             checkBox_play_note1_clicked.CheckedChanged += checkBox_play_note1_clicked_CheckedChanged;
             // 
@@ -1689,7 +1637,6 @@
             group_music_played.Controls.Add(checkBox_play_note2_played);
             group_music_played.Name = "group_music_played";
             group_music_played.TabStop = false;
-            toolTip1.SetToolTip(group_music_played, resources.GetString("group_music_played.ToolTip"));
             // 
             // checkBox_play_note4_played
             // 
@@ -1697,7 +1644,6 @@
             checkBox_play_note4_played.Checked = true;
             checkBox_play_note4_played.CheckState = CheckState.Checked;
             checkBox_play_note4_played.Name = "checkBox_play_note4_played";
-            toolTip1.SetToolTip(checkBox_play_note4_played, resources.GetString("checkBox_play_note4_played.ToolTip"));
             checkBox_play_note4_played.UseVisualStyleBackColor = true;
             checkBox_play_note4_played.CheckedChanged += checkBox_play_note4_played_CheckedChanged;
             // 
@@ -1707,7 +1653,6 @@
             checkBox_play_note1_played.Checked = true;
             checkBox_play_note1_played.CheckState = CheckState.Checked;
             checkBox_play_note1_played.Name = "checkBox_play_note1_played";
-            toolTip1.SetToolTip(checkBox_play_note1_played, resources.GetString("checkBox_play_note1_played.ToolTip"));
             checkBox_play_note1_played.UseVisualStyleBackColor = true;
             checkBox_play_note1_played.CheckedChanged += checkBox_play_note1_played_CheckedChanged;
             // 
@@ -1717,7 +1662,6 @@
             checkBox_play_note3_played.Checked = true;
             checkBox_play_note3_played.CheckState = CheckState.Checked;
             checkBox_play_note3_played.Name = "checkBox_play_note3_played";
-            toolTip1.SetToolTip(checkBox_play_note3_played, resources.GetString("checkBox_play_note3_played.ToolTip"));
             checkBox_play_note3_played.UseVisualStyleBackColor = true;
             checkBox_play_note3_played.CheckedChanged += checkBox_play_note3_played_CheckedChanged;
             // 
@@ -1727,7 +1671,6 @@
             checkBox_play_note2_played.Checked = true;
             checkBox_play_note2_played.CheckState = CheckState.Checked;
             checkBox_play_note2_played.Name = "checkBox_play_note2_played";
-            toolTip1.SetToolTip(checkBox_play_note2_played, resources.GetString("checkBox_play_note2_played.ToolTip"));
             checkBox_play_note2_played.UseVisualStyleBackColor = true;
             checkBox_play_note2_played.CheckedChanged += checkBox_play_note2_played_CheckedChanged;
             // 
@@ -1739,7 +1682,6 @@
             group_notes.Controls.Add(group_line_clicked);
             group_notes.Name = "group_notes";
             group_notes.TabStop = false;
-            toolTip1.SetToolTip(group_notes, resources.GetString("group_notes.ToolTip"));
             // 
             // button_g5
             // 
@@ -1760,7 +1702,6 @@
             resources.ApplyResources(lbl_f5, "lbl_f5");
             lbl_f5.BackColor = Color.FromArgb(192, 255, 192);
             lbl_f5.Name = "lbl_f5";
-            toolTip1.SetToolTip(lbl_f5, resources.GetString("lbl_f5.ToolTip"));
             // 
             // button_g4
             // 
@@ -1792,19 +1733,17 @@
             // 
             // panel2
             // 
-            resources.ApplyResources(panel2, "panel2");
             panel2.BackColor = Color.Transparent;
             panel2.Controls.Add(lbl_ms);
             panel2.Controls.Add(numericUpDown_alternating_notes);
+            resources.ApplyResources(panel2, "panel2");
             panel2.Name = "panel2";
-            toolTip1.SetToolTip(panel2, resources.GetString("panel2.ToolTip"));
             // 
             // lbl_ms
             // 
             resources.ApplyResources(lbl_ms, "lbl_ms");
             lbl_ms.BackColor = Color.Transparent;
             lbl_ms.Name = "lbl_ms";
-            toolTip1.SetToolTip(lbl_ms, resources.GetString("lbl_ms.ToolTip"));
             // 
             // panel3
             // 
@@ -1812,7 +1751,6 @@
             panel3.Controls.Add(label_bpm);
             panel3.Controls.Add(numericUpDown_bpm);
             panel3.Name = "panel3";
-            toolTip1.SetToolTip(panel3, resources.GetString("panel3.ToolTip"));
             // 
             // position_table
             // 
@@ -1825,13 +1763,11 @@
             position_table.Controls.Add(lbl_beat_traditional_value, 1, 2);
             position_table.Controls.Add(lbl_beat_traditional, 0, 2);
             position_table.Name = "position_table";
-            toolTip1.SetToolTip(position_table, resources.GetString("position_table.ToolTip"));
             // 
             // lbl_measure
             // 
             resources.ApplyResources(lbl_measure, "lbl_measure");
             lbl_measure.Name = "lbl_measure";
-            toolTip1.SetToolTip(lbl_measure, resources.GetString("lbl_measure.ToolTip"));
             // 
             // checkBox_bleeper_portamento
             // 
@@ -1926,23 +1862,20 @@
             keyboard_panel.Controls.Add(button_b5);
             keyboard_panel.Controls.Add(button_g5);
             keyboard_panel.Name = "keyboard_panel";
-            toolTip1.SetToolTip(keyboard_panel, resources.GetString("keyboard_panel.ToolTip"));
             // 
             // lbl_c3
             // 
             resources.ApplyResources(lbl_c3, "lbl_c3");
             lbl_c3.BackColor = Color.FromArgb(255, 224, 192);
             lbl_c3.Name = "lbl_c3";
-            toolTip1.SetToolTip(lbl_c3, resources.GetString("lbl_c3.ToolTip"));
             // 
             // button_synchronized_play_help
             // 
-            resources.ApplyResources(button_synchronized_play_help, "button_synchronized_play_help");
             button_synchronized_play_help.BackColor = Color.Transparent;
             button_synchronized_play_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_synchronized_play_help, "button_synchronized_play_help");
             button_synchronized_play_help.ImageList = help_icon;
             button_synchronized_play_help.Name = "button_synchronized_play_help";
-            toolTip1.SetToolTip(button_synchronized_play_help, resources.GetString("button_synchronized_play_help.ToolTip"));
             button_synchronized_play_help.UseVisualStyleBackColor = false;
             button_synchronized_play_help.Click += button_synchronized_play_help_Click;
             // 
@@ -1955,45 +1888,41 @@
             // 
             // button_play_beat_sound_help
             // 
-            resources.ApplyResources(button_play_beat_sound_help, "button_play_beat_sound_help");
             button_play_beat_sound_help.BackColor = Color.Transparent;
             button_play_beat_sound_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_play_beat_sound_help, "button_play_beat_sound_help");
             button_play_beat_sound_help.ImageList = help_icon;
             button_play_beat_sound_help.Name = "button_play_beat_sound_help";
-            toolTip1.SetToolTip(button_play_beat_sound_help, resources.GetString("button_play_beat_sound_help.ToolTip"));
             button_play_beat_sound_help.UseVisualStyleBackColor = false;
             button_play_beat_sound_help.Click += button_play_beat_sound_help_Click;
             // 
             // button_bleeper_portamento_help
             // 
-            resources.ApplyResources(button_bleeper_portamento_help, "button_bleeper_portamento_help");
             button_bleeper_portamento_help.BackColor = Color.Transparent;
             button_bleeper_portamento_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_bleeper_portamento_help, "button_bleeper_portamento_help");
             button_bleeper_portamento_help.ImageList = help_icon;
             button_bleeper_portamento_help.Name = "button_bleeper_portamento_help";
-            toolTip1.SetToolTip(button_bleeper_portamento_help, resources.GetString("button_bleeper_portamento_help.ToolTip"));
             button_bleeper_portamento_help.UseVisualStyleBackColor = false;
             button_bleeper_portamento_help.Click += button_bleeper_portamento_help_Click;
             // 
             // button_use_keyboard_as_piano_help
             // 
-            resources.ApplyResources(button_use_keyboard_as_piano_help, "button_use_keyboard_as_piano_help");
             button_use_keyboard_as_piano_help.BackColor = Color.Transparent;
             button_use_keyboard_as_piano_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_use_keyboard_as_piano_help, "button_use_keyboard_as_piano_help");
             button_use_keyboard_as_piano_help.ImageList = help_icon;
             button_use_keyboard_as_piano_help.Name = "button_use_keyboard_as_piano_help";
-            toolTip1.SetToolTip(button_use_keyboard_as_piano_help, resources.GetString("button_use_keyboard_as_piano_help.ToolTip"));
             button_use_keyboard_as_piano_help.UseVisualStyleBackColor = false;
             button_use_keyboard_as_piano_help.Click += button_use_keyboard_as_piano_help_Click;
             // 
             // button_do_not_update_help
             // 
-            resources.ApplyResources(button_do_not_update_help, "button_do_not_update_help");
             button_do_not_update_help.BackColor = Color.Transparent;
             button_do_not_update_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_do_not_update_help, "button_do_not_update_help");
             button_do_not_update_help.ImageList = help_icon;
             button_do_not_update_help.Name = "button_do_not_update_help";
-            toolTip1.SetToolTip(button_do_not_update_help, resources.GetString("button_do_not_update_help.ToolTip"));
             button_do_not_update_help.UseVisualStyleBackColor = false;
             button_do_not_update_help.Click += button_do_not_update_help_Click;
             // 
@@ -2063,13 +1992,11 @@
             // 
             resources.ApplyResources(lbl_note_silence_ratio, "lbl_note_silence_ratio");
             lbl_note_silence_ratio.Name = "lbl_note_silence_ratio";
-            toolTip1.SetToolTip(lbl_note_silence_ratio, resources.GetString("lbl_note_silence_ratio.ToolTip"));
             // 
             // lbl_time_signature
             // 
             resources.ApplyResources(lbl_time_signature, "lbl_time_signature");
             lbl_time_signature.Name = "lbl_time_signature";
-            toolTip1.SetToolTip(lbl_time_signature, resources.GetString("lbl_time_signature.ToolTip"));
             // 
             // panel1
             // 
@@ -2078,7 +2005,6 @@
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(label_alternating_notes_switch);
             panel1.Name = "panel1";
-            toolTip1.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
             // 
             // panel4
             // 
@@ -2087,16 +2013,14 @@
             panel4.Controls.Add(label_note_length);
             panel4.Controls.Add(comboBox_note_length);
             panel4.Name = "panel4";
-            toolTip1.SetToolTip(panel4, resources.GetString("panel4.ToolTip"));
             // 
             // button_use_voice_system_help
             // 
-            resources.ApplyResources(button_use_voice_system_help, "button_use_voice_system_help");
             button_use_voice_system_help.BackColor = Color.Transparent;
             button_use_voice_system_help.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(button_use_voice_system_help, "button_use_voice_system_help");
             button_use_voice_system_help.ImageList = help_icon;
             button_use_voice_system_help.Name = "button_use_voice_system_help";
-            toolTip1.SetToolTip(button_use_voice_system_help, resources.GetString("button_use_voice_system_help.ToolTip"));
             button_use_voice_system_help.UseVisualStyleBackColor = false;
             button_use_voice_system_help.Click += button_use_voice_system_help_Click;
             // 
@@ -2114,8 +2038,8 @@
             // 
             // main_window
             // 
-            resources.ApplyResources(this, "$this");
             AllowDrop = true;
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             BackgroundImage = Properties.Resources.neobleeper_background_light;
             Controls.Add(radioButtonPlay_alternating_notes1);
@@ -2179,7 +2103,6 @@
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "main_window";
-            toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             Deactivate += main_window_Deactivate;
             FormClosing += main_window_FormClosing;
             FormClosed += main_window_FormClosed;
