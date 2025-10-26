@@ -28,13 +28,23 @@ namespace NeoBleeper
             set_theme();
             comboBoxMicrocontroller.SelectedIndex = 0; // Default to Arduino 
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void set_theme()
         {
             this.SuspendLayout();
             switch (Settings1.Default.theme)
             {
                 case 0: // System theme
-                    switch (check_system_theme.IsDarkTheme())
+                    switch (SystemThemeUtility.IsDarkTheme())
                     {
                         case true:
                             dark_theme();
@@ -55,7 +65,6 @@ namespace NeoBleeper
         }
         private void light_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             comboBoxMicrocontroller.BackColor = SystemColors.Window;
@@ -64,10 +73,10 @@ namespace NeoBleeper
             richTextBoxFirmware.ForeColor = SystemColors.WindowText;
             buttonCopyFirmwareToClipboard.BackColor = Color.Transparent;
             buttonCopyFirmwareToClipboard.ForeColor = SystemColors.ControlText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
         }
         private void dark_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             comboBoxMicrocontroller.BackColor = Color.Black;
@@ -75,6 +84,7 @@ namespace NeoBleeper
             richTextBoxFirmware.BackColor = Color.Black;
             richTextBoxFirmware.ForeColor = Color.White;
             buttonCopyFirmwareToClipboard.BackColor = Color.FromArgb(32, 32, 32);
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
         }
         private void buttonCopyFirmwareToClipboard_Click(object sender, EventArgs e)
         {

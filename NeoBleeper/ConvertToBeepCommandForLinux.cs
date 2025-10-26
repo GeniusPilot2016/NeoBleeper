@@ -40,6 +40,16 @@ namespace NeoBleeper
             String notes = ExtractNotes(musicFile);
             richTextBoxBeepCommand.Text = notes;
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void set_theme()
         {
             try
@@ -48,7 +58,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0: // System theme
-                        switch (check_system_theme.IsDarkTheme())
+                        switch (SystemThemeUtility.IsDarkTheme())
                         {
                             case true:
                                 dark_theme();
@@ -75,21 +85,21 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             buttonCopyBeepCommandToClipboard.BackColor = Color.FromArgb(32, 32, 32);
             buttonSaveAsShFile.BackColor = Color.FromArgb(32, 32, 32);
             richTextBoxBeepCommand.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
         }
         private void light_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             buttonCopyBeepCommandToClipboard.BackColor = Color.Transparent;
             buttonSaveAsShFile.BackColor = Color.Transparent;
             richTextBoxBeepCommand.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
         }
         private void buttonCopyBeepCommandToClipboard_Click(object sender, EventArgs e)
         {

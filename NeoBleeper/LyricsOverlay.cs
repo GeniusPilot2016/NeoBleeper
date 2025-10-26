@@ -67,9 +67,9 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0: // System
-                        textColor = check_system_theme.IsDarkTheme() == true ? Color.White : SystemColors.ControlText;
-                        backColor = check_system_theme.IsDarkTheme() == true ? Color.FromArgb(40, 40, 40) : SystemColors.ControlLight;
-                        borderColor = check_system_theme.IsDarkTheme() == true ? Color.Gray : Color.LightGray;
+                        textColor = SystemThemeUtility.IsDarkTheme() == true ? Color.White : SystemColors.ControlText;
+                        backColor = SystemThemeUtility.IsDarkTheme() == true ? Color.FromArgb(40, 40, 40) : SystemColors.ControlLight;
+                        borderColor = SystemThemeUtility.IsDarkTheme() == true ? Color.Gray : Color.LightGray;
                         break;
                     case 1: // Light
                         textColor = SystemColors.ControlText;

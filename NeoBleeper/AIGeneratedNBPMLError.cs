@@ -27,6 +27,16 @@ namespace NeoBleeper
             richTextBox1.Font = new Font("Consolas", richTextBox1.Font.Size);
             set_theme();
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void set_theme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -37,7 +47,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -64,20 +74,20 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             label1.ForeColor = Color.White;
             button1.BackColor = Color.FromArgb(32, 32, 32);
             button1.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             label1.ForeColor = SystemColors.ControlText;
             button1.BackColor = Color.Transparent;
             button1.ForeColor = SystemColors.ControlText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void button1_Click(object sender, EventArgs e)

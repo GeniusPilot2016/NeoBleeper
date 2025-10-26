@@ -90,6 +90,16 @@ namespace NeoBleeper
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
             BringToFront();
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void set_theme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -100,7 +110,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -127,7 +137,6 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             labelFormantControl.ForeColor = SystemColors.ControlText;
@@ -165,11 +174,11 @@ namespace NeoBleeper
             groupBoxPlayVoiceOnLineSettings.ForeColor = Color.White;
             comboBoxPlayNoteOnLineOption.BackColor = Color.Black;
             comboBoxPlayNoteOnLineOption.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             comboBoxNote1Option.BackColor = SystemColors.Window;
@@ -191,6 +200,7 @@ namespace NeoBleeper
             groupBoxPlayVoiceOnLineSettings.ForeColor = SystemColors.ControlText;
             comboBoxPlayNoteOnLineOption.BackColor = SystemColors.Window;
             comboBoxPlayNoteOnLineOption.ForeColor = SystemColors.WindowText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private int getTrackBarReverseValue(TrackBar trackBar) // Because TrackBar control does not support reversed direction natively
         {

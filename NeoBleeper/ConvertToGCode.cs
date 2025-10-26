@@ -65,10 +65,19 @@ namespace NeoBleeper
                 Art = art;
             }
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             label_note1.ForeColor = Color.White;
@@ -84,11 +93,11 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = Color.White;
             comboBox_component_note3.ForeColor = Color.White;
             comboBox_component_note4.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             label_note1.ForeColor = SystemColors.ControlText;
@@ -104,6 +113,7 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = SystemColors.WindowText;
             comboBox_component_note3.ForeColor = SystemColors.WindowText;
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void set_theme()
         {
@@ -115,7 +125,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }

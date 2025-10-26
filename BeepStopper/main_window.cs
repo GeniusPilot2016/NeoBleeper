@@ -32,12 +32,22 @@ namespace BeepStopper
         }
         private SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load();
         int themeIndex = 0;
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void set_theme()
         {
             switch (synchronizedSettings.Theme)
             {
                 case 0:
-                    switch (check_system_theme.IsDarkTheme())
+                    switch (SystemThemeUtility.IsDarkTheme())
                     {
                         case true:
                             dark_theme();
@@ -58,19 +68,19 @@ namespace BeepStopper
         }
         private void light_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             stopBeepButton.BackColor = Color.Transparent;
             stopBeepButton.ForeColor = SystemColors.ControlText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
         }
         private void dark_theme()
         {
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             stopBeepButton.BackColor = Color.FromArgb(64, 64, 64);
             stopBeepButton.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
         }
         private void button1_Click(object sender, EventArgs e)
         {
