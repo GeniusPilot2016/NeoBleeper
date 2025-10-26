@@ -18,7 +18,7 @@ using System.Diagnostics;
 
 namespace NeoBleeper
 {
-    public static class check_system_theme
+    public static class SystemThemeUtility
     {
         public static bool IsDarkTheme()
         {

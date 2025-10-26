@@ -119,7 +119,9 @@ namespace NeoBleeper
                 }
 
                 // Regular exit situations
-                AppDomain.CurrentDomain.ProcessExit += (s, e) => SafeStop();
+                AppDomain.CurrentDomain.ProcessExit += (s, e) => {
+                    SafeStop();
+                    };
                 System.Windows.Forms.Application.ApplicationExit += (s, e) => SafeStop();
                 Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */ };
 
@@ -361,18 +363,35 @@ namespace NeoBleeper
                     return false;
                 }
             }
+            private static readonly Mutex SystemSpeakerMutex = new Mutex(false, "Global\\NeoBleeperSystemSpeakerMutex"); // Mutex to prevent concurrent access to system speaker checks
 
-            private static bool IsFunctionalSystemSpeaker() // Second layer check to ensure the system speaker (aka PC speaker) is functional
-            // Added according to feedback of M084MM4D on comments of one of my YouTube videos
-            // It detects the system speaker output by checking electrical feedback on port 0x61, checking port state stability and advanced frequency sweep test
-            // It can cause clicking noises on some systems, especially in computers with piezo buzzer as system speaker (aka PC speaker)
-            // So, don't worry if you hear some clicking noises during this test during startup, it's normal
+            private static bool IsFunctionalSystemSpeaker()
             {
-                bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
-                bool portStateStable = CheckPortStateStability();
-                bool frequencySweepWorks = AdvancedFrequencySweepTest();
+                bool acquired = false;
+                try
+                {
+                    // Try to acquire the mutex with a timeout to avoid indefinite blocking
+                    acquired = SystemSpeakerMutex.WaitOne(TimeSpan.FromSeconds(5));
+                    if (!acquired)
+                    {
+                        // Handle the case where the mutex could not be acquired
+                        return false;
+                    }
 
-                return electricalFeedbackValid || portStateStable || frequencySweepWorks;
+                    // Perform the system speaker checks
+                    bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
+                    bool portStateStable = CheckPortStateStability();
+                    bool frequencySweepWorks = AdvancedFrequencySweepTest();
+
+                    return electricalFeedbackValid || portStateStable || frequencySweepWorks;
+                }
+                finally
+                {
+                    if (acquired)
+                    {
+                        SystemSpeakerMutex.ReleaseMutex();
+                    }
+                }
             }
             public static bool isSystemSpeakerExist()
             {

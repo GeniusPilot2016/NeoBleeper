@@ -32,6 +32,16 @@ namespace NeoBleeper
             PositionToast();
             ShowTimer.Interval = duration;
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         protected override CreateParams CreateParams
         {
             get
@@ -49,7 +59,7 @@ namespace NeoBleeper
             switch (Settings1.Default.theme)
             {
                 case 0: // System theme
-                    switch (check_system_theme.IsDarkTheme())
+                    switch (SystemThemeUtility.IsDarkTheme())
                     {
                         case true:
                             dark_theme();

@@ -51,5 +51,22 @@ namespace NeoBleeper
                 Thread.Sleep(1);
             }
         }
+
+        private void splash_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
+                Program.UninitializeMIDI(); // Uninitialize MIDI devices
+                Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
+                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
+                Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
+                Environment.Exit(0); // Force exit the application after cleaning up
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error during application closure: {ex.Message}", Logger.LogTypes.Error);
+            }
+        }
     }
 }

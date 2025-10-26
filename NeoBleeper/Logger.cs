@@ -83,7 +83,9 @@ namespace NeoBleeper
                 "The system speaker's distinctive sound has become an iconic part of computing history, evoking nostalgia for the early days of personal computers.",
                 "The system speaker's simplicity has made it a popular choice for educational purposes, helping students understand the basics of sound generation and audio programming.",
                 "The system speaker's sound can be modified by changing the duty cycle of the square wave, allowing for different timbres and effects.",
-                "SomethingUnreal's BaWaMI is a MIDI synthesizer that allows users to create music using the system speaker, showcasing the creative potential of this humble hardware component."
+                "SomethingUnreal's BaWaMI is a MIDI synthesizer that allows users to create music using the system speaker, showcasing the creative potential of this humble hardware component.",
+                "NeoBleeper continues the tradition of beep music by enabling users to compose tunes for the system speaker using modern AI technology.",
+                "NeoBleeper is world's first AI-enabled music creation software for the system speaker, bridging the gap between retro computing and cutting-edge AI advancements."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n"; 

@@ -96,6 +96,16 @@ namespace NeoBleeper
             }
             listAndSelectAIModels();
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         string[] wantedFeatures =
         {
             "generateContent", // Metin oluşturma yeteneği
@@ -243,7 +253,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -270,7 +280,6 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.BackColor = Color.FromArgb(32, 32, 32);
             buttonCreate.ForeColor = Color.White;
@@ -279,11 +288,11 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = Color.Black;
             comboBox_ai_model.ForeColor = Color.White;
             this.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             buttonCreate.BackColor = Color.Transparent;
             buttonCreate.ForeColor = SystemColors.ControlText;
@@ -292,6 +301,7 @@ namespace NeoBleeper
             comboBox_ai_model.BackColor = SystemColors.Window;
             comboBox_ai_model.ForeColor = SystemColors.WindowText;
             this.ForeColor = SystemColors.ControlText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         // Check internet connectivity and server status

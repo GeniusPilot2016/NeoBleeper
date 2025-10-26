@@ -95,6 +95,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             TopMost = true;
+            FormClosed += splash_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

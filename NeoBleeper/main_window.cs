@@ -118,6 +118,16 @@ namespace NeoBleeper
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
         {
             UpdateUndoRedoButtons();
@@ -158,7 +168,6 @@ namespace NeoBleeper
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             menuStrip1.BackColor = Color.Black;
             menuStrip1.ForeColor = Color.White;
             listViewNotes.BackColor = Color.Black;
@@ -201,13 +210,13 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = Color.White;
             notes_list_right_click.BackColor = Color.Black;
             notes_list_right_click.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
 
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             menuStrip1.BackColor = SystemColors.ControlLightLight;
             menuStrip1.ForeColor = SystemColors.ControlText;
             listViewNotes.BackColor = SystemColors.Window;
@@ -250,9 +259,10 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = SystemColors.ControlText;
             notes_list_right_click.BackColor = SystemColors.Window;
             notes_list_right_click.ForeColor = SystemColors.WindowText;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
-        private void set_theme()
+        private async void set_theme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -262,7 +272,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }
@@ -2836,7 +2846,7 @@ namespace NeoBleeper
                 {
                     case 0:
                         {
-                            if (check_system_theme.IsDarkTheme() == true)
+                            if (SystemThemeUtility.IsDarkTheme() == true)
                             {
                                 checkBox_metronome.ForeColor = SystemColors.ControlText;
                             }
@@ -2857,7 +2867,7 @@ namespace NeoBleeper
                 {
                     case 0:
                         {
-                            if (check_system_theme.IsDarkTheme() == true)
+                            if (SystemThemeUtility.IsDarkTheme() == true)
                             {
                                 checkBox_metronome.BackColor = Color.FromArgb(32, 32, 32);
                                 checkBox_metronome.ForeColor = Color.White;

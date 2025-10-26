@@ -133,10 +133,19 @@ namespace NeoBleeper
                 buttonResetAPIKey.Enabled = true;
             }
         }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SETTINGCHANGE = 0x001A;
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SETTINGCHANGE)
+            {
+                set_theme();
+            }
+        }
         private void dark_theme()
         {
             darkTheme = true;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
             this.BackColor = Color.Black;
             this.ForeColor = Color.White;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -206,11 +215,11 @@ namespace NeoBleeper
             buttonPreviewLyrics.BackColor = Color.FromArgb(32, 32, 32);
             buttonPreviewLyrics.ForeColor = Color.White;
             button_get_firmware.BackColor = Color.FromArgb(32, 32, 32);
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
             darkTheme = false;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             foreach (TabPage tabPage in tabControl_settings.TabPages)
@@ -278,6 +287,7 @@ namespace NeoBleeper
             buttonPreviewLyrics.BackColor = Color.Transparent;
             buttonPreviewLyrics.ForeColor = SystemColors.ControlText;
             button_get_firmware.BackColor = Color.Transparent;
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
         private void set_theme()
@@ -290,7 +300,7 @@ namespace NeoBleeper
                 switch (Settings1.Default.theme)
                 {
                     case 0:
-                        if (check_system_theme.IsDarkTheme())
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
                             dark_theme();
                         }

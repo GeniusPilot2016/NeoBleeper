@@ -194,7 +194,7 @@ namespace NeoBleeper
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit due to user choice or resolution issue
             }
         }
-        private static void UninitializeMIDI()
+        public static void UninitializeMIDI()
         {
             Logger.Log("Uninitializing MIDI input/output...", LogTypes.Info);
             MIDIIOUtils.DisposeMidiOutput();
