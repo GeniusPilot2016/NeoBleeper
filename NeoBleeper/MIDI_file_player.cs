@@ -1338,13 +1338,18 @@ namespace NeoBleeper
                 {
                     int instrument = 0;
                     _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
+
+                    int preciseDurationMs = Math.Max(1, (int)Math.Round(durationMs));
+
                     if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
                     {
-                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, instrument);
+                        // Regular channel
+                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, instrument, false);
                     }
                     else
                     {
-                        MIDIIOUtils.PlayMidiNoteAsync(noteNumber, durationMsInt, -1, false, 9); // Channel 10
+                        // Percussion channel
+                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, -1, false, 9);
                     }
                 }
             }

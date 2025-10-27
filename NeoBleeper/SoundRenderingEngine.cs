@@ -803,7 +803,7 @@ namespace NeoBleeper
                         double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange;
 
                         double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
-                        double finalPitchMultiplier = (1 + rawTimbre) * 0.3;
+                        double finalPitchMultiplier = (1 + rawTimbre) * 0.25;
                         double modulatedFrequency = ((baseFrequency * finalPitchMultiplier) / 4) + randomVariation;
 
                         // Update frequency of signal generators
@@ -897,7 +897,7 @@ namespace NeoBleeper
                 // Apply random variations
                 double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
 
-                double finalPitchMultiplier = (1 + rawTimbre) * 0.3;
+                double finalPitchMultiplier = (1 + rawTimbre) * 0.25;
 
                 double modulatedFrequency = ((baseFrequency * finalPitchMultiplier / 4)) + randomVariation;
 
