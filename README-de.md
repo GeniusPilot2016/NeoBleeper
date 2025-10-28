@@ -65,6 +65,7 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
   
   - #### Systemlautsprecher trifft KI
     
+    NeoBleeper ist die weltweit erste KI-fähige Musikplayer-Software für Systemlautsprecher.
     Dank der KI-gestützten Musikerstellungsfunktion von Google Gemini™ im NeoBleeper-Programm können Sie Musik mit KI erstellen und über den Systemlautsprecher oder ein MIDI-Ausgabegerät abspielen.
 
     ![image](https://github.com/user-attachments/assets/36eddae6-3c8f-49c9-a8c7-10fe3e72ed2f)
