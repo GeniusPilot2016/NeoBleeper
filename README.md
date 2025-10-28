@@ -59,6 +59,7 @@ This project is **still in development** and some features and components are un
   With its new features, NeoBleeper is more than just a remake of Bleeper Music Maker.
   
   - #### System speaker meets AI
+    NeoBleeper is world's first AI-enabled system speaker music player software.
     Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
     ![image](https://github.com/user-attachments/assets/e8d3b881-0cb3-4d4e-9e73-cd4de1ac73b0)
