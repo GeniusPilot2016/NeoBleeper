@@ -20,6 +20,7 @@ namespace NeoBleeper
 {
     public partial class GetFirmwareWindow : Form
     {
+        bool darkTheme = false;
         public GetFirmwareWindow()
         {
             InitializeComponent();
@@ -35,7 +36,10 @@ namespace NeoBleeper
 
             if (m.Msg == WM_SETTINGCHANGE)
             {
-                set_theme();
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
             }
         }
         private void set_theme()
@@ -65,6 +69,7 @@ namespace NeoBleeper
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             comboBoxMicrocontroller.BackColor = SystemColors.Window;
@@ -73,10 +78,11 @@ namespace NeoBleeper
             richTextBoxFirmware.ForeColor = SystemColors.WindowText;
             buttonCopyFirmwareToClipboard.BackColor = Color.Transparent;
             buttonCopyFirmwareToClipboard.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             comboBoxMicrocontroller.BackColor = Color.Black;
@@ -84,7 +90,7 @@ namespace NeoBleeper
             richTextBoxFirmware.BackColor = Color.Black;
             richTextBoxFirmware.ForeColor = Color.White;
             buttonCopyFirmwareToClipboard.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void buttonCopyFirmwareToClipboard_Click(object sender, EventArgs e)
         {

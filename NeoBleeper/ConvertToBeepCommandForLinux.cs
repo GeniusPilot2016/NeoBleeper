@@ -29,6 +29,7 @@ namespace NeoBleeper
         int note_silence_ratio = 50;
         main_window main_Window;
         bool nonStopping = false;
+        bool darkTheme = false;
         int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid because storage type can't be determined in Linux's beep command
         public ConvertToBeepCommandForLinux(string musicFile, main_window main_Window)
         {
@@ -47,7 +48,10 @@ namespace NeoBleeper
 
             if (m.Msg == WM_SETTINGCHANGE)
             {
-                set_theme();
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
             }
         }
         private void set_theme()
@@ -85,21 +89,23 @@ namespace NeoBleeper
         }
         private void dark_theme()
         {
+            darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             buttonCopyBeepCommandToClipboard.BackColor = Color.FromArgb(32, 32, 32);
             buttonSaveAsShFile.BackColor = Color.FromArgb(32, 32, 32);
             richTextBoxBeepCommand.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
+            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
         {
+            darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             buttonCopyBeepCommandToClipboard.BackColor = Color.Transparent;
             buttonSaveAsShFile.BackColor = Color.Transparent;
             richTextBoxBeepCommand.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
+            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void buttonCopyBeepCommandToClipboard_Click(object sender, EventArgs e)
         {

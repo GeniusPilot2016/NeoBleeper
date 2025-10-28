@@ -39,7 +39,10 @@ namespace NeoBleeper
 
             if (m.Msg == WM_SETTINGCHANGE)
             {
-                set_theme();
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
             }
         }
         protected override CreateParams CreateParams

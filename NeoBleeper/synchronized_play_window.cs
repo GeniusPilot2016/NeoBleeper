@@ -46,7 +46,10 @@ namespace NeoBleeper
 
             if (m.Msg == WM_SETTINGCHANGE)
             {
-                set_theme();
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
             }
         }
         private void synchronized_play_window_FormClosing(object sender, FormClosingEventArgs e)

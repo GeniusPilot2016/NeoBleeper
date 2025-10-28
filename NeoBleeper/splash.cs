@@ -14,6 +14,7 @@ namespace NeoBleeper
 {
     public partial class splash : Form
     {
+        bool completed = false;
         public splash()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace NeoBleeper
             }
             Application.DoEvents();
             ResponsiveWait(1000);
+            this.completed = completed;
         }
         public void ResponsiveWait(int milliseconds)
         {
@@ -55,25 +57,28 @@ namespace NeoBleeper
 
         private void splash_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
+            if(!completed)
             {
-                Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
-                Program.UninitializeMIDI(); // Uninitialize MIDI devices
-                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                try
                 {
-                    Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
-                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
-                }
-                else
-                {
-                    Logger.Log("Skipping system speaker beep stop on ARM64 architecture.", Logger.LogTypes.Info);
-                }
+                    Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
+                    Program.UninitializeMIDI(); // Uninitialize MIDI devices
+                    if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                    {
+                        Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
+                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
+                    }
+                    else
+                    {
+                        Logger.Log("Skipping system speaker beep stop on ARM64 architecture.", Logger.LogTypes.Info);
+                    }
                     Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
-                Environment.Exit(0); // Force exit the application after cleaning up
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"Error during application closure: {ex.Message}", Logger.LogTypes.Error);
+                    Environment.Exit(0); // Force exit the application after cleaning up
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"Error during application closure: {ex.Message}", Logger.LogTypes.Error);
+                }
             }
         }
     }

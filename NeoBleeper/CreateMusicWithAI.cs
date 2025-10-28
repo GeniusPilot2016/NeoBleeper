@@ -15,10 +15,11 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using GenerativeAI;
-using System.Text.RegularExpressions;
-using System.Net.NetworkInformation;
 using NeoBleeper.Properties;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 
 namespace NeoBleeper
 {
@@ -103,7 +104,10 @@ namespace NeoBleeper
 
             if (m.Msg == WM_SETTINGCHANGE)
             {
-                set_theme();
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
             }
         }
         string[] wantedFeatures =
@@ -648,6 +652,7 @@ namespace NeoBleeper
                         $"- \"classical\" → generate music\r\n" +
                         $"- \"rock song\" → generate music\r\n" +
                         $"- \"create Yesterday\" → generate music\r\n" +
+                        $"- Country / nationality names in MUSIC context (in non-political context) → ALLOW\r\n" +
                         $"Examples of NON-music or disallowed requests that should return error:\r\n" +
                         $"- \"What is the weather?\" → error\r\n" +
                         $"- \"How to cook pasta?\" → error\r\n" +
@@ -659,6 +664,7 @@ namespace NeoBleeper
                         $"- Any violent / weapon / explosive / phonetic disguised vulgar request → error\r\n" +
                         $"- Only return a JSON error. The error message must be impersonal, direct, and must not contain any personal pronouns (I, we, you) or apologies (sorry, unfortunately, etc.) in any language.\r\n" +
                         $"- When returning a JSON error, always include both \"title\" and \"errorMessage\" fields, even if the title is generic. and When returning a JSON error, always use a specific, direct, and impersonal error message describing the reason (e.g., \"Non-music prompt detected\", \"Inappropriate content detected\"). Do not use ambiguous phrases like \"the prompt can't be processed\".\r\n" +
+                        $"- Don't create JSON error if the prompt is a valid music request.\r\n" +
                         $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
                         $"- The output should be a new composition inspired by the specified song. \r\n" +
