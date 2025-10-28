@@ -11,18 +11,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemSpeakerSensorTest", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
+		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|ARM64.ActiveCfg = Debug|x64
+		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|ARM64.Build.0 = Debug|x64
 		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|x64.ActiveCfg = Debug|x64
 		{27F27829-E914-435C-A974-C1A01DAA5018}.Debug|x64.Build.0 = Debug|x64
+		{27F27829-E914-435C-A974-C1A01DAA5018}.Release|ARM64.ActiveCfg = Release|ARM64
+		{27F27829-E914-435C-A974-C1A01DAA5018}.Release|ARM64.Build.0 = Release|ARM64
 		{27F27829-E914-435C-A974-C1A01DAA5018}.Release|x64.ActiveCfg = Release|x64
+		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|ARM64.ActiveCfg = Debug|x64
+		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|ARM64.Build.0 = Debug|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.ActiveCfg = Debug|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Debug|x64.Build.0 = Debug|x64
+		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Release|ARM64.ActiveCfg = Release|x64
 		{7F08DA73-A50F-47F7-8545-03D90165A46C}.Release|x64.ActiveCfg = Release|x64
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|ARM64.Build.0 = Debug|Any CPU
 		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Debug|x64.Build.0 = Debug|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|ARM64.Build.0 = Release|Any CPU
 		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|x64.ActiveCfg = Release|Any CPU
 		{967390EF-0125-4679-B9E7-B07C09FA1A07}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection

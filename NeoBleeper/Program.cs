@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper.Properties;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using static NeoBleeper.Logger;
 
@@ -43,8 +44,11 @@ namespace NeoBleeper
             ApplicationConfiguration.Initialize();
             ConfigureApplication();
             splashScreen.Show();
-            TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
-            SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
+            if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+            {
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
+                SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
+            }
             SynchronizeSettings();
             bool shouldRun = false;
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
@@ -95,72 +99,81 @@ namespace NeoBleeper
                     {
                         Logger.Log("Display resolution is supported.", LogTypes.Info);
                         splashScreen.updateStatus(Resources.StatusDisplayResolutionIsSupported, 10);
-                        switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
+                        if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                         {
-                            case false:
-                                {
-                                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                    Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
-                                    if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                            switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
+                            {
+                                case false:
                                     {
-                                        shouldRun = ShowCentralizedWarning(WarningType.SystemSpeaker);
+                                        TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                        Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
+                                        if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                        {
+                                            shouldRun = ShowCentralizedWarning(WarningType.SystemSpeaker);
+                                        }
+                                        else
+                                        {
+                                            shouldRun = true;
+                                            Logger.Log("NeoBleeper is starting without system speaker warning.", LogTypes.Info);
+                                        }
+                                        break;
                                     }
-                                    else
+                                case true:
+                                    splashScreen.updateStatus(Resources.StatusComputerTypeDetecting);
+                                    switch (GetInformations.getTypeOfComputer())
                                     {
-                                        shouldRun = true;
-                                        Logger.Log("NeoBleeper is starting without system speaker warning.", LogTypes.Info);
+                                        case GetInformations.computerTypes.ModularComputer:
+                                            {
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                                                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
+                                                shouldRun = true;
+                                                splashScreen.updateStatus(Resources.StatusModularComputerDetected, 10);
+                                                break;
+                                            }
+                                        case GetInformations.computerTypes.CompactComputer:
+                                            {
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
+                                                Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
+                                                splashScreen.updateStatus(Resources.StatusCompactComputerDetected, 10);
+                                                if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                {
+                                                    shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
+                                                }
+                                                else
+                                                {
+                                                    shouldRun = true;
+                                                    Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                }
+                                                break;
+                                            }
+                                        default:
+                                            {
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
+                                                Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
+                                                splashScreen.updateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
+                                                if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                {
+                                                    shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
+                                                }
+                                                else
+                                                {
+                                                    shouldRun = true;
+                                                    Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                }
+                                                break;
+                                            }
+
                                     }
                                     break;
-                                }
-                            case true:
-                                splashScreen.updateStatus(Resources.StatusComputerTypeDetecting);
-                                switch (GetInformations.getTypeOfComputer())
-                                {
-                                    case GetInformations.computerTypes.ModularComputer:
-                                        {
-                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
-                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
-                                            shouldRun = true;
-                                            splashScreen.updateStatus(Resources.StatusModularComputerDetected, 10);
-                                            break;
-                                        }
-                                    case GetInformations.computerTypes.CompactComputer:
-                                        {
-                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
-                                            Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
-                                            splashScreen.updateStatus(Resources.StatusCompactComputerDetected, 10);
-                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                            {
-                                                shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
-                                            }
-                                            else
-                                            {
-                                                shouldRun = true;
-                                                Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
-                                            }
-                                            break;
-                                        }
-                                    default:
-                                        {
-                                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
-                                            TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
-                                            Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
-                                            splashScreen.updateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
-                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                            {
-                                                shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
-                                            }
-                                            else
-                                            {
-                                                shouldRun = true;
-                                                Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
-                                            }
-                                            break;
-                                        }
-
-                                }
-                                break;
+                            }
+                        }
+                        else
+                        {
+                            TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                            Logger.Log("Running on ARM64 architecture. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
+                            shouldRun = true;
                         }
                         break;
                     }

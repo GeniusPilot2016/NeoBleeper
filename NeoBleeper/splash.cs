@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,9 +59,16 @@ namespace NeoBleeper
             {
                 Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
                 Program.UninitializeMIDI(); // Uninitialize MIDI devices
-                Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
-                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
-                Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
+                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                {
+                    Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
+                }
+                else
+                {
+                    Logger.Log("Skipping system speaker beep stop on ARM64 architecture.", Logger.LogTypes.Info);
+                }
+                    Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
                 Environment.Exit(0); // Force exit the application after cleaning up
             }
             catch (Exception ex)

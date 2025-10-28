@@ -20,6 +20,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using NeoBleeper.Properties;
 using System.Management;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using static NeoBleeper.TemporarySettings;
 
@@ -40,59 +41,66 @@ namespace NeoBleeper
             static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
             public static void SpecifyStorageType()
             {
-                try
+                if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 {
-                    Logger.Log("Specifying storage type for resonance prevention...", Logger.LogTypes.Info);
-                    Program.splashScreen.updateStatus(Resources.StatusSpecifyingStorageType);
-                    string query = "SELECT * FROM Win32_DiskDrive";
-                    using (var searcher = new ManagementObjectSearcher(query))
+                    try
                     {
-                        var devices = searcher.Get();
-                        foreach (ManagementObject device in devices)
+                        Logger.Log("Specifying storage type for resonance prevention...", Logger.LogTypes.Info);
+                        Program.splashScreen.updateStatus(Resources.StatusSpecifyingStorageType);
+                        string query = "SELECT * FROM Win32_DiskDrive";
+                        using (var searcher = new ManagementObjectSearcher(query))
                         {
-                            string model = device["Model"]?.ToString() ?? "";
-                            string interfaceType = device["InterfaceType"]?.ToString() ?? "";
-                            if (interfaceType.Equals("NVMe", StringComparison.OrdinalIgnoreCase) || model.Contains("NVMe", StringComparison.OrdinalIgnoreCase))
+                            var devices = searcher.Get();
+                            foreach (ManagementObject device in devices)
                             {
-                                StorageType = systemStorageType.NVMe;
-                                resonanceFrequency = 0; // NVMe drives have no resonance issues
-                                Logger.Log("Detected NVMe storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
-                                Program.splashScreen.updateStatus(Resources.StatusNVMeStorageType, 5);
-                                return;
+                                string model = device["Model"]?.ToString() ?? "";
+                                string interfaceType = device["InterfaceType"]?.ToString() ?? "";
+                                if (interfaceType.Equals("NVMe", StringComparison.OrdinalIgnoreCase) || model.Contains("NVMe", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    StorageType = systemStorageType.NVMe;
+                                    resonanceFrequency = 0; // NVMe drives have no resonance issues
+                                    Logger.Log("Detected NVMe storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                    Program.splashScreen.updateStatus(Resources.StatusNVMeStorageType, 5);
+                                    return;
+                                }
+                                else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("SATA", StringComparison.OrdinalIgnoreCase) || model.Contains("SSD", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    StorageType = systemStorageType.SSD;
+                                    resonanceFrequency = 0; // SSDs have no resonance issues
+                                    Logger.Log("Detected SSD storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
+                                    Program.splashScreen.updateStatus(Resources.StatusSSDStorageType, 5);
+                                    return;
+                                }
+                                else if (interfaceType.Equals("IDE", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("ATA", StringComparison.OrdinalIgnoreCase) || model.Contains("HDD", StringComparison.OrdinalIgnoreCase) || model.Contains("Hard Drive", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    StorageType = systemStorageType.HDD;
+                                    string rpmStr = device["TotalCylinders"]?.ToString() ?? ""; // Placeholder, as RPM is not directly available
+                                                                                                // In real scenarios, RPM might be fetched from specific vendor tools or databases
+                                                                                                // Default to 5400 RPM for simplicity
+                                    storageRPM = 5400;
+                                    resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
+                                    string localizedResonanceMessage = Resources.StatusHDDStorageType.Replace("{value}", resonanceFrequency.ToString());
+                                    Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
+                                    Program.splashScreen.updateStatus(localizedResonanceMessage, 5);
+                                    return;
+                                }
                             }
-                            else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("SATA", StringComparison.OrdinalIgnoreCase) || model.Contains("SSD", StringComparison.OrdinalIgnoreCase))
-                            {
-                                StorageType = systemStorageType.SSD;
-                                resonanceFrequency = 0; // SSDs have no resonance issues
-                                Logger.Log("Detected SSD storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
-                                Program.splashScreen.updateStatus(Resources.StatusSSDStorageType, 5);
-                                return;
-                            }
-                            else if (interfaceType.Equals("IDE", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("ATA", StringComparison.OrdinalIgnoreCase) || model.Contains("HDD", StringComparison.OrdinalIgnoreCase) || model.Contains("Hard Drive", StringComparison.OrdinalIgnoreCase))
-                            {
-                                StorageType = systemStorageType.HDD;
-                                string rpmStr = device["TotalCylinders"]?.ToString() ?? ""; // Placeholder, as RPM is not directly available
-                                // In real scenarios, RPM might be fetched from specific vendor tools or databases
-                                // Default to 5400 RPM for simplicity
-                                storageRPM = 5400;
-                                resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
-                                string localizedResonanceMessage = Resources.StatusHDDStorageType.Replace("{value}", resonanceFrequency.ToString());
-                                Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
-                                Program.splashScreen.updateStatus(localizedResonanceMessage, 5);
-                                return;
-                            }
+                            StorageType = systemStorageType.Other; // If no known type is found
+                            resonanceFrequency = 0; // Assume no resonance issues for unknown types
+                            Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
+                            Program.splashScreen.updateStatus(Resources.StatusUnknownStorageType, 5);
                         }
-                        StorageType = systemStorageType.Other; // If no known type is found
-                        resonanceFrequency = 0; // Assume no resonance issues for unknown types
-                        Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
-                        Program.splashScreen.updateStatus(Resources.StatusUnknownStorageType, 5);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
+                        Program.splashScreen.updateStatus("Error specifying storage type. Falling back to HDD settings.");
+                        StorageType = systemStorageType.HDD; // Fallback to HDD on error
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
-                    Program.splashScreen.updateStatus("Error specifying storage type. Falling back to HDD settings.");
-                    StorageType = systemStorageType.HDD; // Fallback to HDD on error
+                    Logger.Log("Storage type specification skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
                 }
             }
             public enum systemStorageType // Enum for different types of storage devices to prevent critical crashes by preventing resonance frequencies on certain devices because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
@@ -137,31 +145,42 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                // This program contains 100% recycled beeps from the golden age of the PC audio.
-                int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
-                if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
-                    (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
-                                                                                                            // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
+                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 {
-                    freq += 1; // Shift frequency by 1 Hz to avoid resonance
+                    // This program contains 100% recycled beeps from the golden age of the PC audio.
+                    int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
+                    if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
+                        (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                                                                                                                // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
+                    {
+                        freq += 1; // Shift frequency by 1 Hz to avoid resonance
+                    }
+                    Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
+                    int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
+                    Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
+                    Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
+                    if (!nonStopping)
+                    {
+                        HighPrecisionSleep.Sleep(5); // Small delay if not nonStopping to ensure the PIT is set up before enabling the speaker
+                    }
+                    Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
+                    HighPrecisionSleep.Sleep(ms); // Wait for the specified duration
+                    if (!nonStopping) // If nonStopping is true, the beep will not stop
+                    {
+                        StopBeep();
+                    }
                 }
-                Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
-                int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
-                Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
-                Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
-                if (!nonStopping)
+                else
                 {
-                    HighPrecisionSleep.Sleep(5); // Small delay if not nonStopping to ensure the PIT is set up before enabling the speaker
-                }
-                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
-                HighPrecisionSleep.Sleep(ms); // Wait for the specified duration
-                if (!nonStopping) // If nonStopping is true, the beep will not stop
-                {
-                    StopBeep();
+                    HighPrecisionSleep.Sleep(ms); // On ARM64 architecture, just sleep for the duration as system speaker access is not supported
                 }
             }
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
+                if(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    return; // No operation on ARM64 architecture as system speaker access is not supported
+                }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
             public static bool isSystemSpeakerBeepStuck()
@@ -399,30 +418,38 @@ namespace NeoBleeper
                 // Because it's falling back to sound card beep if no system speaker is found.
 
                 // Step 1: Check for the presence of a system speaker device using WMI
-                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
-                bool isSystemSpeakerPresentInWMI = false;
-                string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
-                using (var searcher = new ManagementObjectSearcher(query))
+                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 {
-                    var devices = searcher.Get();
-                    isSystemSpeakerPresentInWMI = (devices.Count > 0);
-                }
+                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
+                    bool isSystemSpeakerPresentInWMI = false;
+                    string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
+                    using (var searcher = new ManagementObjectSearcher(query))
+                    {
+                        var devices = searcher.Get();
+                        isSystemSpeakerPresentInWMI = (devices.Count > 0);
+                    }
 
-                // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
-                Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
-                bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
+                    // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
+                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
+                    bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
 
-                // Return true if electrical feedback is detected or if WMI check confirms presence
-                bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
-                if(result == true)
-                {
-                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                    // Return true if electrical feedback is detected or if WMI check confirms presence
+                    bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
+                    if (result == true)
+                    {
+                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                    }
+                    else
+                    {
+                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                    }
+                    return result;
                 }
                 else
                 {
-                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                    Logger.Log("System speaker detection skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
+                    return false; // ARM64 architecture does not support system speaker access
                 }
-                return result;
             }
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD that is used in Bleeper Music Maker using NAudio
