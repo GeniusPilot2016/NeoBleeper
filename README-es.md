@@ -58,6 +58,7 @@ NeoBleeper admite su propio formato de archivo (.NBPML), así como el formato de
 Con sus nuevas funciones, NeoBleeper es mucho más que una simple nueva versión de Bleeper Music Maker.
   
   - #### El altavoz del sistema se integra con la IA
+    NeoBleeper es el primer software de reproducción de música con sistema de altavoces habilitado con IA del mundo.
     Gracias a la función de creación musical con IA de Google Gemini™ del programa NeoBleeper, puedes crear música con IA y reproducirla a través del altavoz del sistema o un dispositivo de salida MIDI.
 
     ![image](https://github.com/user-attachments/assets/f5c9e3a6-8a16-4a4f-9bc2-691c78ac96ab)
