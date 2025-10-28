@@ -1,5 +1,7 @@
 # NeoBleeper
 
+**🎉 NeoBleeper est le premier lecteur de musique capable de diffuser de la musique via le haut-parleur du système et prenant en charge la langue française**
+
 NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le haut-parleur système (aussi appelé PC Speaker) de la carte mère. Il s'inspire du logiciel Bleeper Music Maker développé par Robbi-985 (alias SomethingUnreal) fin 2007-début 2008, mais abandonné en 2011 car les bips étaient dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows. NeoBleeper offre une expérience musicale plus stable en résolvant le problème des bips système dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows, en accédant au port physique du haut-parleur système 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
