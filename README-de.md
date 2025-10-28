@@ -1,5 +1,7 @@
 # NeoBleeper
 
+**🎉 NeoBleeper ist der erste Musikplayer, der Musik über den Systemlautsprecher abspielen kann und über deutsche Sprachunterstützung verfügt**
+
 NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet. 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
