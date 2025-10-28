@@ -1,8 +1,6 @@
 # NeoBleeper
 
-# NeoBleeper
-
-**🎉 NeoBleeper, sistem hoparlöründen müzik çalabilen ve Türkçe dil desteğine sahip ilk müzik oynatıcıdır 🇹🇷**
+**🎉 NeoBleeper, sistem hoparlörü ile müzik çalabilen ve Türkçe dil desteğine sahip ilk müzik oynatıcısıdır**
 
 NeoBleeper, Robbi-985'in (diğer adıyla SomethingUnreal) 2007 sonu-2008 başı civarında geliştirdiği ancak yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında kullanımdan kaldırdığı Bleeper Music Maker yazılımından esinlenerek, anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan yapay zeka destekli bir melodi oluşturma yazılımıdır. NeoBleeper, yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilme sorununu çözerek daha kararlı bir müzik yapma deneyimi sunar 🖥️🎶
 
