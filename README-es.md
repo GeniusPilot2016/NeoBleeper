@@ -1,5 +1,7 @@
 # NeoBleeper
 
+**🎉 NeoBleeper es el primer reproductor de música que puede reproducir música a través del altavoz del sistema y tiene soporte para idioma español nativo**
+
 NeoBleeper es un software de creación de melodías con IA que utiliza el altavoz del sistema (también conocido como PC Speaker) de la placa base. Está inspirado en el software Bleeper Music Maker que Robbi-985 (también conocido como SomethingUnreal) desarrolló a finales de 2007 y principios de 2008, pero que abandonó en 2011 debido a que, en las versiones más recientes de Windows, los pitidos se dirigían al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base. NeoBleeper ofrece una experiencia de creación musical más estable al solucionar el problema de que, en las versiones más recientes de Windows, los pitidos se dirigieran al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base, accediendo al puerto físico del altavoz del sistema. 🖥️🎶
 
 ![image](https://github.com/user-attachments/assets/9df5277a-7ab0-4b3d-a9bd-fb5c1788be44)
