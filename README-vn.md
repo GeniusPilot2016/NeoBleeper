@@ -58,8 +58,8 @@ Dự án này **vẫn đang trong quá trình phát triển** và một số tí
   Với các tính năng mới, NeoBleeper không chỉ là một bản làm lại của Bleeper Music Maker.
 
 - #### Loa hệ thống kết hợp AI
+  NeoBleeper là phần mềm phát nhạc loa hệ thống hỗ trợ AI đầu tiên trên thế giới.
   Nhờ tính năng tạo nhạc hỗ trợ AI do Google Gemini™ cung cấp trong chương trình NeoBleeper, bạn có thể tạo nhạc bằng AI và phát qua loa hệ thống hoặc thiết bị đầu ra MIDI.
-  <img width="1024" height="720" alt="image" src="" />
 
   ![image](https://github.com/user-attachments/assets/c580ef09-fb57-4951-a68c-6d4e298d63d5)
 
