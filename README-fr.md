@@ -59,6 +59,7 @@ NeoBleeper permet aux utilisateurs d'ajouter et de modifier des notes facilement
   Avec ses nouvelles fonctionnalités, NeoBleeper est bien plus qu'un simple remake de Bleeper Music Maker.
   
   - #### Le système d'enceintes rencontre l'IA
+    NeoBleeper est le premier logiciel de lecture de musique pour haut-parleurs système basé sur l'IA au monde.
     Grâce à la fonctionnalité de création musicale basée sur l'IA, optimisée par Google Gemini™, du programme NeoBleeper, vous pouvez créer de la musique avec l'IA et la diffuser via le système d'enceintes ou un périphérique de sortie MIDI.
 
     ![image](https://github.com/user-attachments/assets/1999cd32-ae8f-4dc5-abcd-4fad64f45dae)
