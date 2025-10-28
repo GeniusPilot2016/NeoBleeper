@@ -16,6 +16,7 @@
 
 using NAudio.Midi;
 using NeoBleeper.Properties;
+using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
@@ -54,35 +55,37 @@ namespace NeoBleeper
                     radioButton_square.Checked = true;
                     break;
             }
-            if (TemporarySettings.creating_sounds.create_beep_with_soundcard == true)
+            if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
             {
-                checkBox_enable_create_beep_from_soundcard.Checked = true;
-            }
-            else if (TemporarySettings.creating_sounds.create_beep_with_soundcard == false)
-            {
-                checkBox_enable_create_beep_from_soundcard.Checked = false;
-            }
-            if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
-            {
-                label_test_system_speaker_message_2.Visible = true;
-                label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
-                button_show_reason.Visible = true;
-            }
-            else
-            {
-                if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
-                    TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
+                checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.creating_sounds.create_beep_with_soundcard;
+                if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
                 {
-                    label_test_system_speaker_message_3.Visible = true;
-                    label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
+                    label_test_system_speaker_message_2.Visible = true;
+                    label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
                     button_show_reason.Visible = true;
                 }
                 else
                 {
-                    flowLayoutPanelGeneralSettings.Controls.RemoveAt(flowLayoutPanelGeneralSettings.Controls.IndexOf(panelSystemSpeakerWarnings));
-                    group_beep_creation_from_sound_card_settings.Controls.Remove(flowLayoutPanelSoundDeviceBeepEnabledInfo);
-                    group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
+                    if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
+                        TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers)
+                    {
+                        label_test_system_speaker_message_3.Visible = true;
+                        label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
+                        button_show_reason.Visible = true;
+                    }
+                    else
+                    {
+                        flowLayoutPanelGeneralSettings.Controls.RemoveAt(flowLayoutPanelGeneralSettings.Controls.IndexOf(panelSystemSpeakerWarnings));
+                        group_beep_creation_from_sound_card_settings.Controls.Remove(flowLayoutPanelSoundDeviceBeepEnabledInfo);
+                        group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
+                    }
                 }
+            }
+            else
+            {
+                // Hide system speaker related settings on ARM64 systems
+                groupBox_system_speaker_test.Visible = false;
+                checkBox_enable_create_beep_from_soundcard.Visible = false;
             }
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {

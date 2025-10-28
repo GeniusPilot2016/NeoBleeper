@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper.Properties;
+using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
@@ -233,8 +234,8 @@ namespace NeoBleeper
             }
             string computerType = getFullTypeOfComputer();
             string powerStatus = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline ? "On battery power" : SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online ? "Plugged in" : "Unknown";
-            String systemProperties = $"64-bit OS: {Environment.Is64BitOperatingSystem}\r\n" +
-                $"64-bit Process: {Environment.Is64BitProcess}\r\n" +
+            String systemProperties = $"OS Architecture: {RuntimeInformation.OSArchitecture.ToString()}\r\n" +
+                $"Process Architecture: {RuntimeInformation.ProcessArchitecture.ToString()}\r\n" +
                 $"Device Manufacturer: {deviceManufacturer}\r\n" +
                 $"Device Model: {deviceModel}\r\n" +
                 $"Computer Type: {computerType}\r\n" +
@@ -245,7 +246,8 @@ namespace NeoBleeper
                 $"Total Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / 1024 / 1024}\r\n" +
                 $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
                 $"Power Status: {powerStatus}\r\n" +
-                $"Presence of a system speaker: {(is_system_speaker_present == true ? "Yes" : "No")}\r\n" +
+                // Don't show system speaker info on ARM64 devices as they don't have system speakers
+                ((!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)) ? $"Presence of a system speaker: {(is_system_speaker_present == true ? "Yes" : "No")}\r\n" : string.Empty) +
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;

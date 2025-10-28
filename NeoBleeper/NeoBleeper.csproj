@@ -15,9 +15,9 @@
     <Company>GeniusPilot2016</Company>
     <Authors>GeniusPilot2016</Authors>
     <Version>0.23.0-beta</Version>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Platforms>x64</Platforms>
+    <Platforms>x64;ARM64</Platforms>
     <Copyright>© 2023-2025 GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google_GenerativeAI" Version="3.3.0" />
+    <PackageReference Include="Google_GenerativeAI" Version="3.4.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.IO.Ports" Version="9.0.10" />
