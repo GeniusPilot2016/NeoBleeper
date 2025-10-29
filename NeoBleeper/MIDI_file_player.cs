@@ -311,7 +311,7 @@ namespace NeoBleeper
                         }
 
                         processedTracks++;
-                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between %30 and %50
+                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between 30% and 50%
                         UpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})");
                     }
 
@@ -347,7 +347,7 @@ namespace NeoBleeper
                         // Update progress bar every 5% of frames processed
                         if (i % Math.Max(1, totalTimePoints / 20) == 0)
                         {
-                            int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between %60 and %95
+                            int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between 60% and 95%
                             UpdateProgressBar(percent, $"{Resources.TextFramesAreBeingCreated} ({i + 1}/{totalTimePoints})");
                         }
                     }
@@ -546,43 +546,26 @@ namespace NeoBleeper
             _lastDrawnNotes = new HashSet<int>(activeNotes);
             panel1.SuspendLayout();
 
-            // Update only the labels that are currently active
             var sortedNotes = activeNotes.OrderBy(note => note).ToList();
-            int i = 0;
-            for (; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
-            {
-                int noteNumber = sortedNotes[i];
-                Label label = _noteLabels[i];
-                string noteName = MidiNoteToName(noteNumber);
-
-                if (!label.Visible) label.Visible = true;
-                if (label.Text != noteName) label.Text = noteName;
-                if (label.BackColor != _highlightColor) label.BackColor = _highlightColor;
-            }
-            // Reset remaining labels if any
-            for (; i < _noteLabels.Length; i++)
+            for (int i = 0; i < _noteLabels.Length; i++)
             {
                 Label label = _noteLabels[i];
-                if (label.Visible) label.Visible = false;
-                if (label.BackColor != _originalLabelColors[label]) label.BackColor = _originalLabelColors[label];
-                if (!string.IsNullOrEmpty(label.Text)) label.Text = "";
-            }
+                if (i < sortedNotes.Count)
+                {
+                    int noteNumber = sortedNotes[i];
+                    string noteName = MidiNoteToName(noteNumber);
 
-            // If there's more notes
-            if (sortedNotes.Count > _noteLabels.Length)
-            {
-                if (!label_more_notes.Visible) label_more_notes.Visible = true;
-                int extraNotes = sortedNotes.Count - _noteLabels.Length;
-                string localizedMoreText = Resources.MoreText; // ({number} More)
-                localizedMoreText = localizedMoreText.Replace("{number}", extraNotes.ToString());
-                string moreText = localizedMoreText;
-                if (label_more_notes.Text != moreText) label_more_notes.Text = moreText;
+                    if (!label.Visible) label.Visible = true;
+                    if (label.Text != noteName) label.Text = noteName;
+                    if (label.BackColor != _highlightColor) label.BackColor = _highlightColor;
+                }
+                else
+                {
+                    if (label.Visible) label.Visible = false;
+                    if (label.BackColor != _originalLabelColors[label]) label.BackColor = _originalLabelColors[label];
+                    if (!string.IsNullOrEmpty(label.Text)) label.Text = "";
+                }
             }
-            else
-            {
-                if (label_more_notes.Visible) label_more_notes.Visible = false;
-            }
-
             panel1.ResumeLayout();
         }
         private async void checkBox_channel_CheckedChanged(object sender, EventArgs e)
@@ -1179,19 +1162,37 @@ namespace NeoBleeper
             if (_isStopping || !_isPlaying || _frames == null)
                 return;
 
+            // --- UI Update Block ---
+            // Update the UI periodically on the UI thread if needed
+            if (IsHandleCreated && Visible)
+            {
+                var currentFrameIndexForUI = _currentFrameIndex;
+                if (currentFrameIndexForUI < _frames.Count)
+                {
+                    var currentFrameForUI = _frames[currentFrameIndexForUI];
+                    HashSet<int> filteredNotes = new HashSet<int>();
+                    foreach (var note in currentFrameForUI.ActiveNotes)
+                    {
+                        if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
+                            filteredNotes.Add(note);
+                    }
+                    UpdateAllUISync(currentFrameIndexForUI, filteredNotes);
+                }
+            }
+
             if (_currentFrameIndex >= _frames.Count - 1)
             {
                 HandlePlaybackComplete();
                 return;
             }
 
-            // Prevent re-entrancy. If the last task is still running, skip this tick.
+            // --- Sound Processing Block ---
+            // Skip if previous playback task is still running
             if (!_playbackTask.IsCompleted)
             {
                 return;
             }
 
-            // More robust null check for _cancellationTokenSource
             if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
             {
                 Logger.Log("CancellationTokenSource is null or canceled, stopping playback", Logger.LogTypes.Info);
@@ -1199,25 +1200,20 @@ namespace NeoBleeper
                 return;
             }
 
-            // Start a new task to process all due frames.
+            // Start a new playback task
             _playbackTask = Task.Run(async () =>
             {
                 try
                 {
-                    var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
-                    if (_cancellationTokenSource != null)
-                    {
-                        token.ThrowIfCancellationRequested();
-                    }
+                    var token = _cancellationTokenSource.Token;
+                    token.ThrowIfCancellationRequested();
 
                     var elapsedMs = _playbackStopwatch.ElapsedMilliseconds;
                     var songTimeMs = _playbackStartOffsetMs + elapsedMs;
 
-                    // Loop through all frames that should have been played by now
                     while (_currentFrameIndex < _frames.Count)
                     {
-                        // Check if we're still playing and token is valid
-                        if (!_isPlaying || _cancellationTokenSource == null)
+                        if (!_isPlaying || token.IsCancellationRequested)
                         {
                             Logger.Log("Playback stopped or token cancelled during frame processing", Logger.LogTypes.Info);
                             break;
@@ -1228,14 +1224,12 @@ namespace NeoBleeper
 
                         if (targetTimeMs <= songTimeMs)
                         {
-                            // This frame is due. Process it.
-                            await ProcessCurrentFrame();
+                            await ProcessCurrentFrame(); // This method handles note playback and UI updates
                             _currentFrameIndex++;
                         }
                         else
                         {
-                            // This frame is in the future. We've caught up.
-                            break;
+                            break; // Next frame is in the future, exit loop
                         }
                     }
                 }
@@ -1251,7 +1245,7 @@ namespace NeoBleeper
                         this.BeginInvoke((Action)Stop);
                     }
                 }
-            }, _cancellationTokenSource?.Token ?? CancellationToken.None);
+            }, _cancellationTokenSource.Token);
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
@@ -1294,7 +1288,7 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
 
-            int durationMsInt = Math.Max(1, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
+            int durationMsInt = Math.Max(10, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
             if (driftMs > 0)
             {
                 if (driftMs < durationMsInt)
@@ -1314,8 +1308,8 @@ namespace NeoBleeper
                 driftMs = 0; // Reset drift after adjustment
             }
 
-            // Update UI
-            UpdateAllUISync(_currentFrameIndex, filteredNotes);
+            // Update UI - BU SATIR KALDIRILDI
+            // UpdateAllUISync(_currentFrameIndex, filteredNotes);
 
             // Handle silent frames with better cancellation handling
             if (filteredNotes.Count == 0)
@@ -1363,7 +1357,6 @@ namespace NeoBleeper
             {
                 var noteNumber = filteredNotes.First();
                 int noteIndex = _noteToLabelMap[noteNumber];
-                HighlightNoteLabel(noteIndex);
                 if (checkBox_play_each_note.Checked)
                 {
                     if (checkBox_make_each_cycle_last_30ms.Checked)
@@ -1372,12 +1365,13 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
+                            this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
                             NotePlayer.play_note(frequencies[0], length);
-                            UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
                                 HighPrecisionSleep.Sleep(remainingTime);
                             }
+                            this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
                         }, token);
                     }
                     else
@@ -1386,12 +1380,13 @@ namespace NeoBleeper
                         int remainingTime = durationMsInt - length;
                         await Task.Run(() =>
                         {
+                            this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
                             NotePlayer.play_note(frequencies[0], length);
-                            UnHighlightNoteLabel(noteIndex);
                             if (remainingTime > 0)
                             {
                                 HighPrecisionSleep.Sleep(remainingTime);
                             }
+                            this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
                         }, token);
                     }
                 }
@@ -1399,9 +1394,10 @@ namespace NeoBleeper
                 {
                     await Task.Run(() =>
                     {
+                        this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
                         NotePlayer.play_note(frequencies[0], durationMsInt);
+                        this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
                     }, token);
-                    UnHighlightNoteLabel(noteIndex);
                 }
             }
             else
@@ -1440,8 +1436,8 @@ namespace NeoBleeper
             int melodySectionThreshold = (int)(baseMelodySection * tempoRatio);
 
             // Add bounds to thresholds
-            lyricGapThreshold = Math.Max(500, Math.Min(5000, lyricGapThreshold));    // 0.5-5 saniye arası
-            melodySectionThreshold = Math.Max(1000, Math.Min(10000, melodySectionThreshold)); // 1-10 saniye arası
+            lyricGapThreshold = Math.Max(500, Math.Min(5000, lyricGapThreshold));    // Between 0.5-5 seconds
+            melodySectionThreshold = Math.Max(1000, Math.Min(10000, melodySectionThreshold)); // Between 1-10 seconds
 
             return (lyricGapThreshold, melodySectionThreshold);
         }
