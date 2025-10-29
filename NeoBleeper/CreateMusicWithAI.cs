@@ -774,6 +774,16 @@ namespace NeoBleeper
                         output = Regex.Replace(output, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bD♭(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bE♭(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bG♭(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bA♭(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bB♭(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bC♯(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bD♯(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                         // Trim leading/trailing whitespace
                         output = output.Trim();
                         output = RewriteOutput(output).Trim();
