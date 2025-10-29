@@ -2836,6 +2836,15 @@ namespace NeoBleeper
             beatCount = 0;
             double interval = Math.Max(1, 60000.0 / (double)Variables.bpm);
             metronomeTimer.Interval = interval;
+            NotePlayer.play_note(500, 10);
+            // Play the appropriate sound first for minimal latency
+            PlayMetronomeBeat(beatCount == 0);
+
+            // Then update the UI (which is less time-critical)
+            ShowMetronomeBeatLabel();
+
+            // Update beat counter
+            beatCount = (beatCount + 1) % Variables.time_signature;
             metronomeTimer.Start();
         }
 
