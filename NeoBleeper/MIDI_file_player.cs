@@ -1308,9 +1308,6 @@ namespace NeoBleeper
                 driftMs = 0; // Reset drift after adjustment
             }
 
-            // Update UI - BU SATIR KALDIRILDI
-            // UpdateAllUISync(_currentFrameIndex, filteredNotes);
-
             // Handle silent frames with better cancellation handling
             if (filteredNotes.Count == 0)
             {
