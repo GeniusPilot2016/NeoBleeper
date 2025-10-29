@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(splash));
             label1 = new Label();
             pictureBox1 = new PictureBox();
             labelVersion = new Label();
             progressBar1 = new ProgressBar();
-            progressTimer = new System.Windows.Forms.Timer(components);
             labelStatus = new Label();
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -91,10 +89,9 @@
             Controls.Add(panel1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "splash";
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            TopMost = true;
             FormClosed += splash_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

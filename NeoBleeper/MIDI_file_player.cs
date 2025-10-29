@@ -132,10 +132,12 @@ namespace NeoBleeper
         private async void button4_Click(object sender, EventArgs e)
         {
             Stop();
+            openFileDialog.FileName = main_window.lastOpenedMIDIFileName;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
                 {
+                    main_window.lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                     textBox1.Text = openFileDialog.FileName;
                     await LoadMIDI(openFileDialog.FileName);
                 }
@@ -1263,7 +1265,8 @@ namespace NeoBleeper
             {
                 token.ThrowIfCancellationRequested();
             }
-            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            Stopwatch driftStopwatch = Stopwatch.StartNew();
             var currentFrame = _frames[_currentFrameIndex];
 
             // Filter active notes based on enabled channels
@@ -1291,10 +1294,10 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
 
-            int durationMsInt = Math.Max(1, (int)Math.Round(durationMs)); // Minimum 1ms
-            if(driftMs > 0)
+            int durationMsInt = Math.Max(1, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
+            if (driftMs > 0)
             {
-                if(driftMs < durationMsInt)
+                if (driftMs < durationMsInt)
                 {
                     durationMsInt = durationMsInt - driftMs; // Reduce duration to catch up
                     driftMs = 0; // Reset drift after adjustment
@@ -1305,7 +1308,7 @@ namespace NeoBleeper
                     durationMsInt = 0; // Skip this frame to catch up
                 }
             }
-            else if(driftMs < 0)
+            else if (driftMs < 0)
             {
                 durationMsInt = durationMsInt - driftMs; // Negative drift means we are ahead, so increase duration
                 driftMs = 0; // Reset drift after adjustment
@@ -1329,7 +1332,7 @@ namespace NeoBleeper
             }
 
             // Play notes
-            if(durationMs <= 0)
+            if (durationMs <= 0)
             {
                 return; // Skip if duration is zero or negative after drift adjustment
             }
@@ -1342,7 +1345,7 @@ namespace NeoBleeper
                     int instrument = 0;
                     _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
 
-                    int preciseDurationMs = Math.Max(1, (int)Math.Round(durationMs));
+                    int preciseDurationMs = Math.Max(1, (int)Math.Round(durationMs, MidpointRounding.AwayFromZero));
 
                     if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
                     {
@@ -1405,8 +1408,7 @@ namespace NeoBleeper
             {
                 await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
             }
-            stopwatch.Stop();
-            driftMs = (int)(stopwatch.ElapsedMilliseconds - durationMsInt);
+            driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
         }
         private int GetCurrentTempo(long currentTime)
         {

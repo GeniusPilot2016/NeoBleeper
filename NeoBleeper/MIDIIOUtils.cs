@@ -14,8 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using NAudio.Midi;
 using NAudio;
+using NAudio.Midi;
+using System.Threading.Channels;
 
 namespace NeoBleeper
 {
@@ -152,7 +153,6 @@ namespace NeoBleeper
             {
                 ChangeInstrument(_midiOut, instrument, midiChannel);
                 await PlayMidiNoteAsync(note, length, nonStopping);
-                ChangeInstrument(_midiOut, originalInstrument, midiChannel);
             }
         }
         public static int FrequencyToMidiNote(double frequency)
@@ -174,6 +174,13 @@ namespace NeoBleeper
             {
                 midiOut.Send(MidiMessage.StopNote(note, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             }
+        }
+        public static async Task PlayMetronomeBeatOnMIDI(MidiOut midiOut, bool isAccent, int length)
+        {
+            string noteStr = isAccent ? "A#1" : "A1";
+            double frequency = NoteFrequencies.GetFrequencyFromNoteName(noteStr);
+            int note = FrequencyToMidiNote(frequency);
+            await PlayMidiNoteAsync(note, length, 0, false, 9);
         }
 
         internal static void StopAllNotes()

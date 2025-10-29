@@ -18,8 +18,31 @@ namespace NeoBleeper
         public splash()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
             UIFonts.setFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
+        }
+        private const int cGrip = 16;
+        private const int cCaption = 32;
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x84)
+            {
+                Point pos = new Point(m.LParam.ToInt32());
+                pos = this.PointToClient(pos);
+                if (pos.Y < cCaption || true)
+                {
+                    m.Result = (IntPtr)2;
+                    return;
+                }
+
+                if (pos.X >= this.ClientSize.Width - cGrip && pos.Y >= this.ClientSize.Height - cGrip || true)
+                {
+                    m.Result = (IntPtr)17;
+                    return;
+                }
+            }
+            base.WndProc(ref m);
         }
         public void updateStatus(string status, int percent = 0, bool completed = false)
         {
@@ -57,7 +80,7 @@ namespace NeoBleeper
 
         private void splash_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(!completed)
+            if (!completed)
             {
                 try
                 {

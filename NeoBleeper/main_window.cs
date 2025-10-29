@@ -41,6 +41,8 @@ namespace NeoBleeper
         public event EventHandler MusicStopped;
         public event EventHandler NotesChanged;
         private int lastNotesCount = 0;
+        string lastOpenedProjectFileName = string.Empty;
+        public static string lastOpenedMIDIFileName = string.Empty;
         protected virtual void OnNotesChanged(EventArgs e)
         {
             NotesChanged?.Invoke(this, e);
@@ -1605,9 +1607,11 @@ namespace NeoBleeper
         {
             openFileDialog.Title = Resources.TitleOpenProjectFile;
             openFileDialog.Filter = Resources.FilterProjectFileFormats;
+            openFileDialog.FileName = lastOpenedProjectFileName;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
+                lastOpenedProjectFileName = System.IO.Path.GetFileName(filePath);
                 FileParser(filePath);
             }
         }
@@ -2715,11 +2719,11 @@ namespace NeoBleeper
             MusicStopped?.Invoke(this, e);
         }
 
-        private async void play_metronome_sound_from_midi_output(int frequency, int length)
+        private async void play_metronome_sound_from_midi_output(int frequency, int length, bool isAccent)
         {
             if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
             {
-                MIDIIOUtils.PlayMidiNote(MIDIIOUtils._midiOut, frequency, length);
+                MIDIIOUtils.PlayMetronomeBeatOnMIDI(MIDIIOUtils._midiOut, isAccent, length);
             }
         }
         private void InitializeMetronome()
@@ -2762,7 +2766,7 @@ namespace NeoBleeper
             ThreadPool.QueueUserWorkItem(state =>
             {
                 Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                play_metronome_sound_from_midi_output(frequency, 15);
+                play_metronome_sound_from_midi_output(frequency, 15, isAccent);
                 NotePlayer.play_note(frequency, 15);
             });
         }
@@ -4072,6 +4076,7 @@ namespace NeoBleeper
             {
                 if (MIDIFileValidator.IsMidiFile(fileName))
                 {
+                    lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                     MIDI_file_player midi_file_player = new MIDI_file_player(fileName, this);
                     midi_file_player.ShowDialog();
                     Logger.Log("MIDI file is opened.", Logger.LogTypes.Info);
@@ -4117,6 +4122,7 @@ namespace NeoBleeper
             {
                 openFileDialog.Filter = Resources.FilterMIDIFileFormat;
                 openFileDialog.Title = Resources.TitleOpenMIDIFile;
+                openFileDialog.FileName = lastOpenedMIDIFileName;
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     openMIDIFilePlayer(openFileDialog.FileName);
