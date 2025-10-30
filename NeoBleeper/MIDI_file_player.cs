@@ -217,7 +217,6 @@ namespace NeoBleeper
         }
 
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
-        private Dictionary<(int noteNumber, long time), int> _noteChannelsByTime = new Dictionary<(int noteNumber, long time), int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
         private async Task LoadMIDI(string filename)
@@ -233,7 +232,6 @@ namespace NeoBleeper
                 _currentFileName = filename;
                 Stop();
                 _noteChannels.Clear();
-                _noteChannelsByTime.Clear(); // YENİ: Zaman bazlı kanal takibini temizle
                 _metaEventsByTime.Clear();
 
                 // Offload heavy processing to a background thread
@@ -267,6 +265,7 @@ namespace NeoBleeper
                         _tempoEvents = _tempoEvents.OrderBy(t => t.time).ToList();
                     }
 
+
                     // Collect MIDI events
                     UpdateProgressBar(30, Resources.TextMIDIEventsAreBeingCollected);
                     var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
@@ -284,24 +283,15 @@ namespace NeoBleeper
                             {
                                 var noteEvent = (NoteOnEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
-
-                                // YENİ: Zaman bazlı kanal takibi
-                                _noteChannelsByTime[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = noteEvent.Channel;
-
-                                // Eski kod: Sadece son kanalı sakla (UI için)
                                 _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
                             {
                                 var noteEvent = (NoteEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
-
-                                // YENİ: NoteOff için de kanal bilgisi
-                                _noteChannelsByTime[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = noteEvent.Channel;
-
                                 if (!_noteChannels.ContainsKey(noteEvent.NoteNumber))
                                 {
-                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // or 0
                                 }
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.MetaEvent)
@@ -321,7 +311,7 @@ namespace NeoBleeper
                         }
 
                         processedTracks++;
-                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks);
+                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between 30% and 50%
                         UpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})");
                     }
 
@@ -329,87 +319,35 @@ namespace NeoBleeper
                     UpdateProgressBar(55, Resources.TextEventsAreBeingSorted);
                     allEvents = allEvents.OrderBy(e => e.Time).ToList();
 
-                    // Merge event times with meta event times (so lyrics produce frames)
+                    // Take distinct time points; include meta event times so lyrics have frames
                     var timePoints = allEvents.Select(e => e.Time)
                                               .Concat(metaDict.Keys)
                                               .Distinct()
                                               .OrderBy(t => t)
                                               .ToList();
 
-                    // Create frames using per-(note,channel) instance counting and split same-tick offs/ons
+                    // Create frames
                     UpdateProgressBar(60, Resources.TextFramesAreBeingCreated);
                     _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
-
-                    // Track active instances per (note, channel)
-                    var activeInstanceCounts = new Dictionary<(int note, int channel), int>();
+                    HashSet<int> currentlyActiveNotes = new HashSet<int>();
                     int totalTimePoints = timePoints.Count;
-                    HashSet<int> lastSnapshot = null;
 
                     for (int i = 0; i < totalTimePoints; i++)
                     {
                         var time = timePoints[i];
-                        var eventsAtTime = allEvents.Where(e => e.Time == time).ToList();
-
-                        // 1) Process NoteOffs first (decrement counts)
-                        foreach (var evt in eventsAtTime.Where(e => !e.IsNoteOn))
+                        foreach (var evt in allEvents.Where(e => e.Time == time))
                         {
-                            var key = (evt.NoteNumber, evt.Channel);
-                            if (activeInstanceCounts.TryGetValue(key, out var cnt))
-                            {
-                                cnt--;
-                                if (cnt <= 0)
-                                    activeInstanceCounts.Remove(key);
-                                else
-                                    activeInstanceCounts[key] = cnt;
-                            }
-                            // defensive: if not present, ignore
-                        }
-
-                        // Snapshot after NoteOffs
-                        var snapshotAfterOffs = new HashSet<int>(activeInstanceCounts.Keys.Select(k => k.note));
-
-                        // Add frame for after NoteOffs (but avoid exact duplicate consecutive frames)
-                        if (lastSnapshot == null || !lastSnapshot.SetEquals(snapshotAfterOffs))
-                        {
-                            _frames.Add((time, new HashSet<int>(snapshotAfterOffs)));
-                            lastSnapshot = new HashSet<int>(snapshotAfterOffs);
-                        }
-
-                        // 2) Process NoteOns (increment counts)
-                        foreach (var evt in eventsAtTime.Where(e => e.IsNoteOn))
-                        {
-                            var key = (evt.NoteNumber, evt.Channel);
-                            if (activeInstanceCounts.TryGetValue(key, out var cnt))
-                                activeInstanceCounts[key] = cnt + 1;
+                            if (evt.IsNoteOn)
+                                currentlyActiveNotes.Add(evt.NoteNumber);
                             else
-                                activeInstanceCounts[key] = 1;
+                                currentlyActiveNotes.Remove(evt.NoteNumber);
                         }
+                        _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
 
-                        // Snapshot after NoteOns
-                        var snapshotAfterOns = new HashSet<int>(activeInstanceCounts.Keys.Select(k => k.note));
-
-                        // Add frame for after NoteOns (if different)
-                        if (!lastSnapshot.SetEquals(snapshotAfterOns))
-                        {
-                            _frames.Add((time, new HashSet<int>(snapshotAfterOns)));
-                            lastSnapshot = new HashSet<int>(snapshotAfterOns);
-                        }
-
-                        // If there were no note events but there are meta events, ensure a frame exists at this time
-                        if (!eventsAtTime.Any() && metaDict.TryGetValue(time, out var metas) && metas.Count > 0)
-                        {
-                            // lastSnapshot already represents current active notes; ensure frame exists
-                            if (_frames.Count == 0 || _frames.Last().Time != time)
-                            {
-                                _frames.Add((time, new HashSet<int>(activeInstanceCounts.Keys.Select(k => k.note))));
-                                lastSnapshot = new HashSet<int>(activeInstanceCounts.Keys.Select(k => k.note));
-                            }
-                        }
-
-                        // Progress update
+                        // Update progress bar every 5% of frames processed
                         if (i % Math.Max(1, totalTimePoints / 20) == 0)
                         {
-                            int percent = 60 + (int)(35.0 * i / totalTimePoints);
+                            int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between 60% and 95%
                             UpdateProgressBar(percent, $"{Resources.TextFramesAreBeingCreated} ({i + 1}/{totalTimePoints})");
                         }
                     }
@@ -441,8 +379,6 @@ namespace NeoBleeper
             }
             finally
             {
-                _playbackStartOffsetMs = 0; // Reset playback offset
-                resetUI();
                 panelLoading.Visible = false;
             }
         }
@@ -524,17 +460,6 @@ namespace NeoBleeper
                 // Reset lyric state
                 _lastLyricTime = DateTime.MinValue;
                 _isInLyricSection = false;
-
-                // Stop all active MIDI output notes
-                if (TemporarySettings.MIDIDevices.useMIDIoutput)
-                {
-                    foreach (var noteNumber in _activeMidiOutputNotes.ToList())
-                    {
-                        MIDIIOUtils.StopMidiNote(noteNumber);
-                    }
-                    _activeMidiOutputNotes.Clear();
-                    _lastMidiNoteOnTime.Clear();
-                }
 
                 // Cancel the playback task
                 _cancellationTokenSource?.Cancel();
@@ -1322,52 +1247,14 @@ namespace NeoBleeper
                 }
             }, _cancellationTokenSource.Token);
         }
-        private int CalculateNoteDuration(int noteNumber, int startFrameIndex)
-        {
-            if (startFrameIndex >= _frames.Count - 1)
-            {
-                // Son frame ise, kalan süreyi döndür
-                long lastTick = _midiFile.Events
-                    .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
-                    .Max();
-                double totalDurationMs = TicksToMilliseconds(lastTick);
-                double remainingMs = totalDurationMs - TicksToMilliseconds(_frames[startFrameIndex].Time);
-                return Math.Max(1, (int)Math.Round(remainingMs));
-            }
-
-            // İleriye doğru tarayarak notanın ne zaman sona ereceğini bul
-            double startTimeMs = TicksToMilliseconds(_frames[startFrameIndex].Time);
-
-            for (int i = startFrameIndex + 1; i < _frames.Count; i++)
-            {
-                var frame = _frames[i];
-
-                // Eğer nota bu frame'de artık aktif değilse
-                if (!frame.ActiveNotes.Contains(noteNumber))
-                {
-                    double endTimeMs = TicksToMilliseconds(frame.Time);
-                    int duration = (int)Math.Round(endTimeMs - startTimeMs);
-                    return Math.Max(1, duration);
-                }
-            }
-
-            // Nota dosyanın sonuna kadar devam ediyor
-            long lastTick2 = _midiFile.Events
-                .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
-                .Max();
-            double totalDurationMs2 = TicksToMilliseconds(lastTick2);
-            double duration2 = totalDurationMs2 - startTimeMs;
-            return Math.Max(1, (int)Math.Round(duration2));
-        }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
         int driftMs = 0;
-        private Dictionary<int, long> _lastMidiNoteOnTime = new Dictionary<int, long>();
-        private HashSet<int> _activeMidiOutputNotes = new HashSet<int>();
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
 
+            // Cancellation check with null safety
             if (_cancellationTokenSource != null)
             {
                 token.ThrowIfCancellationRequested();
@@ -1376,22 +1263,12 @@ namespace NeoBleeper
             Stopwatch driftStopwatch = Stopwatch.StartNew();
             var currentFrame = _frames[_currentFrameIndex];
 
-            // Filter active notes based on enabled channels - YENİ: Zaman bazlı kanal kontrolü
+            // Filter active notes based on enabled channels
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
-                // Try to get the channel for this specific note at this specific time
-                int channel;
-                if (_noteChannelsByTime.TryGetValue((note, currentFrame.Time), out channel))
-                {
-                    if (_enabledChannels.Contains(channel))
-                        filteredNotes.Add(note);
-                }
-                else if (_noteChannels.TryGetValue(note, out channel) && _enabledChannels.Contains(channel))
-                {
-                    // Fallback to general note-channel mapping if time-based not found
+                if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
                     filteredNotes.Add(note);
-                }
             }
 
             // Calculate duration
@@ -1403,6 +1280,7 @@ namespace NeoBleeper
             }
             else
             {
+                // Find greatest tick in MIDI file
                 long lastTick = _midiFile.Events
                     .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
                     .Max();
@@ -1410,87 +1288,68 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
 
-            int durationMsInt = Math.Max(1, (int)main_window.FixRoundingErrors(Math.Floor(durationMs)));
+            int durationMsInt = Math.Max(10, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
             if (driftMs > 0)
             {
                 if (driftMs < durationMsInt)
                 {
-                    durationMsInt = durationMsInt - driftMs;
-                    driftMs = 0;
+                    durationMsInt = durationMsInt - driftMs; // Reduce duration to catch up
+                    driftMs = 0; // Reset drift after adjustment
                 }
                 else
                 {
-                    driftMs = driftMs - durationMsInt;
-                    durationMsInt = 0;
+                    driftMs = driftMs - durationMsInt; // Reduce drift accordingly
+                    durationMsInt = 0; // Skip this frame to catch up
                 }
             }
             else if (driftMs < 0)
             {
-                durationMsInt = durationMsInt - driftMs;
-                driftMs = 0;
+                durationMsInt = durationMsInt - driftMs; // Negative drift means we are ahead, so increase duration
+                driftMs = 0; // Reset drift after adjustment
             }
 
+            // Handle silent frames with better cancellation handling
+            if (filteredNotes.Count == 0)
+            {
+                // Use a more robust waiting mechanism for silent frames
+                await WaitPreciseWithCancellation(durationMsInt, token);
+                return; // Skip note playback for this frame
+            }
+
+            // Show lyrics if enabled — use pre-collected meta events for fast lookup
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
                 HandleLyricsDisplay(currentFrame.Time);
             }
 
+            // Play notes
+            if (durationMs <= 0)
+            {
+                return; // Skip if duration is zero or negative after drift adjustment
+            }
+            var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+            durationMsInt = Math.Max(1, durationMsInt); // Ensure at least 1ms after drift adjustment
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
-                var notesToStop = _activeMidiOutputNotes.Except(filteredNotes).ToList();
-                var notesToStart = filteredNotes.Except(_activeMidiOutputNotes).ToList();
-
-                foreach (var noteNumber in notesToStop)
-                {
-                    MIDIIOUtils.StopMidiNote(noteNumber);
-                    _activeMidiOutputNotes.Remove(noteNumber);
-                    _lastMidiNoteOnTime.Remove(noteNumber);
-                }
-
-                foreach (var noteNumber in notesToStart)
+                foreach (var noteNumber in filteredNotes)
                 {
                     int instrument = 0;
                     _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
 
-                    int noteDuration = CalculateNoteDuration(noteNumber, _currentFrameIndex);
+                    int preciseDurationMs = Math.Max(1, (int)Math.Round(durationMs, MidpointRounding.AwayFromZero));
 
-                    // YENİ: Zaman bazlı kanal bilgisini kullan
-                    int channel;
-                    if (!_noteChannelsByTime.TryGetValue((noteNumber, currentFrame.Time), out channel))
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
                     {
-                        // Fallback to general mapping
-                        _noteChannels.TryGetValue(noteNumber, out channel);
-                    }
-
-                    if (channel != 10) // Channel 10 is percussion (index 9 in 0-based)
-                    {
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, noteDuration, instrument, true);
+                        // Regular channel
+                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, instrument, false);
                     }
                     else
                     {
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, noteDuration, -1, false, 9);
+                        // Percussion channel
+                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, -1, false, 9);
                     }
-
-                    _activeMidiOutputNotes.Add(noteNumber);
-                    _lastMidiNoteOnTime[noteNumber] = currentFrame.Time;
                 }
             }
-
-            if (filteredNotes.Count == 0)
-            {
-                await WaitPreciseWithCancellation(durationMsInt, token);
-                driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
-                return;
-            }
-
-            if (durationMs <= 0)
-            {
-                return;
-            }
-
-            var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-            durationMsInt = Math.Max(1, durationMsInt);
-
             if (frequencies.Length == 1)
             {
                 var noteNumber = filteredNotes.First();
@@ -1542,7 +1401,6 @@ namespace NeoBleeper
             {
                 await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
             }
-
             driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
         }
         private int GetCurrentTempo(long currentTime)
@@ -1753,37 +1611,6 @@ namespace NeoBleeper
             {
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
-        }
-        private void resetUI()
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new Action(() => resetUI()));
-                return;
-            }
-
-            // Update the trackbar
-            trackBar1.Value = 0;
-
-            // Update the percentage label
-            string percentagestr = Resources.TextPercent.Replace("{number}", (0.ToString("0.00", CultureInfo.CurrentCulture)));
-            label_percentage.Text = percentagestr;
-
-            // Update the position label
-            string timeStr = $"{0:D2}:{0:D2}.{0:D2}";
-
-            if (label_position.InvokeRequired)
-            {
-                label_position.BeginInvoke(new Action(() =>
-                {
-                    label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
-                }));
-            }
-            else
-            {
-                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
-            }
-
         }
 
         // Playback complete handler
