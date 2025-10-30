@@ -367,18 +367,22 @@ namespace NeoBleeper
                 progressBar1.Visible = false;
                 PrecomputeTempoTimes();
                 AssignInstrumentsToNotes(_midiFile);
+                groupBox1.Enabled = true; // Enable controls after successful load
             }
             catch (Exception ex)
             {
                 labelStatus.Text = Resources.TextMIDIFileLoadingError;
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
+                groupBox1.Enabled = false; // Disable controls on error
                 MessageBox.Show($"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
             }
             finally
             {
+                _currentFrameIndex = 0; // Reset frame index
+                ResetLabelsAndTrackBar(); // Reset UI elements
                 panelLoading.Visible = false;
             }
         }
@@ -1288,7 +1292,7 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
             }
 
-            int durationMsInt = Math.Max(10, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
+            int durationMsInt = Math.Max(1, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
             if (driftMs > 0)
             {
                 if (driftMs < durationMsInt)
@@ -1544,6 +1548,36 @@ namespace NeoBleeper
             {
                 Logger.Log($"Silent frame wait was canceled after {milliseconds}ms", Logger.LogTypes.Info);
                 throw;
+            }
+        }
+        private void ResetLabelsAndTrackBar()
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => ResetLabelsAndTrackBar()));
+                return;
+            }
+
+            // Prevent the conflict during trackBar update
+            trackBar1.Value = 0;
+
+            // Update the percentage label
+            string percentagestr = Resources.TextPercent.Replace("{number}", (0.ToString("0.00", CultureInfo.CurrentCulture)));
+            label_percentage.Text = percentagestr;
+
+            // Update the position label
+            string timeStr = $"{0:D2}:{0:D2}.{0:D2}";
+
+            if (label_position.InvokeRequired)
+            {
+                label_position.BeginInvoke(new Action(() =>
+                {
+                    label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
+                }));
+            }
+            else
+            {
+                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
         private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
