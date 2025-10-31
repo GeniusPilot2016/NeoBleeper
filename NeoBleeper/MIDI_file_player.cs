@@ -197,6 +197,7 @@ namespace NeoBleeper
         private bool _isPlaying = false;
         private string _currentFileName;
         private HashSet<int> _enabledChannels = new HashSet<int>();
+        private HashSet<(int NoteNumber, long Time)> _rearticulatedNotes = new HashSet<(int, long)>();
 
         // Method to update enabled channels based on checkbox states
         private void UpdateEnabledChannels()
@@ -318,6 +319,20 @@ namespace NeoBleeper
                     // Sort events by time
                     UpdateProgressBar(55, Resources.TextEventsAreBeingSorted);
                     allEvents = allEvents.OrderBy(e => e.Time).ToList();
+
+                    // --- Detect rearticulated notes ---
+                    _rearticulatedNotes.Clear();
+                    var noteEventsByTime = allEvents.GroupBy(e => e.Time);
+                    foreach (var timeGroup in noteEventsByTime)
+                    {
+                        var noteOffs = timeGroup.Where(e => !e.IsNoteOn).Select(e => e.NoteNumber).ToHashSet();
+                        var noteOns = timeGroup.Where(e => e.IsNoteOn).Select(e => e.NoteNumber).ToHashSet();
+                        var rearticulated = noteOffs.Intersect(noteOns);
+                        foreach (var note in rearticulated)
+                        {
+                            _rearticulatedNotes.Add((note, timeGroup.Key));
+                        }
+                    }
 
                     // Take distinct time points; include meta event times so lyrics have frames
                     var timePoints = allEvents.Select(e => e.Time)
@@ -483,6 +498,7 @@ namespace NeoBleeper
                 ClearLyrics();
                 // Reset drifts 
                 driftMs = 0;
+                MIDIIOUtils.SendNoteOffToAllNotes();
             }
             catch (Exception ex)
             {
@@ -568,6 +584,17 @@ namespace NeoBleeper
                     if (label.Visible) label.Visible = false;
                     if (label.BackColor != _originalLabelColors[label]) label.BackColor = _originalLabelColors[label];
                     if (!string.IsNullOrEmpty(label.Text)) label.Text = "";
+                }
+                if (sortedNotes.Count > _noteLabels.Length)
+                {
+                    label_more_notes.Visible = true;
+                    int extraNotes = sortedNotes.Count - _noteLabels.Length;
+                    string localizedMoreText = Resources.MoreText.Replace("{number}", extraNotes.ToString());
+                    label_more_notes.Text = localizedMoreText;
+                }
+                else
+                {
+                    label_more_notes.Visible = false;
                 }
             }
             panel1.ResumeLayout();
@@ -814,6 +841,7 @@ namespace NeoBleeper
             await SetPosition(positionPercent);
             UpdateTimeAndPercentPosition(positionPercent);
             driftMs = 0; // Reset drifts
+            ResetLabelsAndTrackBar();
             if (_wasPlayingBeforeScroll)
             {
                 Play();
@@ -1253,7 +1281,8 @@ namespace NeoBleeper
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
-        int driftMs = 0;
+        int driftMs = 0; 
+        private HashSet<int> _previousMidiOutputNotes = new();
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
@@ -1273,6 +1302,52 @@ namespace NeoBleeper
             {
                 if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
                     filteredNotes.Add(note);
+            }
+
+            // --- Legato-Supported MIDI Output Logic ---
+            if (TemporarySettings.MIDIDevices.useMIDIoutput)
+            {
+                // 1. Finished Notes: Stop the notes that are no longer active.
+                var notesToStop = _previousMidiOutputNotes.Except(filteredNotes);
+                foreach (var noteNumber in notesToStop)
+                {
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
+                    {
+                        MIDIIOUtils.SendNoteOff(noteNumber, channel == 10 ? 9 : channel);
+                    }
+                }
+
+                // 2. Newly Started or Restarted Notes: Start notes that are now active but weren't before.
+                var notesToStart = filteredNotes.Except(_previousMidiOutputNotes);
+                foreach (var noteNumber in notesToStart)
+                {
+                    // This is a new note, send Note On
+                    int instrument = 0;
+                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
+                    {
+                        MIDIIOUtils.SendNoteOn(noteNumber, instrument, channel == 10 ? 9 : channel);
+                    }
+                }
+
+                // 3. Notes that will be rearticulated:
+                // Note should be retriggered if they are still active and marked for rearticulation.
+                var notesToRetrigger = filteredNotes.Intersect(_previousMidiOutputNotes)
+                                                    .Where(n => _rearticulatedNotes.Contains((n, currentFrame.Time)));
+                foreach (var noteNumber in notesToRetrigger)
+                {
+                    int instrument = 0;
+                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
+                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
+                    {
+                        // Send Note Off followed by Note On to retrigger the note
+                        MIDIIOUtils.SendNoteOff(noteNumber, channel == 10 ? 9 : channel);
+                        MIDIIOUtils.SendNoteOn(noteNumber, instrument, channel == 10 ? 9 : channel);
+                    }
+                }
+
+                // 4. Update the previous notes set for the next frame
+                _previousMidiOutputNotes = new HashSet<int>(filteredNotes);
             }
 
             // Calculate duration
@@ -1333,27 +1408,6 @@ namespace NeoBleeper
             }
             var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
             durationMsInt = Math.Max(1, durationMsInt); // Ensure at least 1ms after drift adjustment
-            if (TemporarySettings.MIDIDevices.useMIDIoutput)
-            {
-                foreach (var noteNumber in filteredNotes)
-                {
-                    int instrument = 0;
-                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
-
-                    int preciseDurationMs = Math.Max(1, (int)Math.Round(durationMs, MidpointRounding.AwayFromZero));
-
-                    if (_noteChannels.TryGetValue(noteNumber, out int channel) && channel != 10)
-                    {
-                        // Regular channel
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, instrument, false);
-                    }
-                    else
-                    {
-                        // Percussion channel
-                        _ = MIDIIOUtils.PlayMidiNoteAsync(noteNumber, preciseDurationMs, -1, false, 9);
-                    }
-                }
-            }
             if (frequencies.Length == 1)
             {
                 var noteNumber = filteredNotes.First();

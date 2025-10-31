@@ -83,7 +83,7 @@ namespace NeoBleeper
             }
             else
             {
-                // Hide system speaker related settings on ARM64 systems
+                // Hide system speaker related settings on ARM64 systems such as most of Copilot+ devices due to lack of support for system speaker
                 groupBox_system_speaker_test.Visible = false;
                 checkBox_enable_create_beep_from_soundcard.Visible = false;
             }
