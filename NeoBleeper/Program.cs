@@ -46,6 +46,7 @@ namespace NeoBleeper
             splashScreen.Show();
             if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
             {
+                // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
                 SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
             }
@@ -101,6 +102,7 @@ namespace NeoBleeper
                         splashScreen.updateStatus(Resources.StatusDisplayResolutionIsSupported, 10);
                         if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                         {
+                            // Open main form without any warnings on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
                             switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
                             {
                                 case false:

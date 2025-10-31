@@ -145,7 +145,7 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 {
                     // This program contains 100% recycled beeps from the golden age of the PC audio.
                     int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
@@ -172,14 +172,18 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    HighPrecisionSleep.Sleep(ms); // On ARM64 architecture, just sleep for the duration as system speaker access is not supported
+                    HighPrecisionSleep.Sleep(ms); // On ARM64 devices such as most of Copilot+ devices, just sleep for the duration as system speaker access is not supported
+
+                    // Sorry, your Copilot+ PC (most of Copilot+ PCs) with NPU can't "talk in beep language" :(
+                    // But at least it can run NeoBleeper without crashing, right? :)
                 }
             }
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
                 if(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
                 {
-                    return; // No operation on ARM64 architecture as system speaker access is not supported
+                    // Philosophical problem: How do you stop a beep that doesn't exist in most of Copilot+ devices?
+                    return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
@@ -187,6 +191,11 @@ namespace NeoBleeper
             {
                 try
                 {
+                    if(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    {
+                        // Can the non-existent beep of most of Copilot+ devices be stuck?
+                        return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
+                    }
                     // Check if the system speaker is currently beeping by reading the status of the speaker port
                     return ((Inp32(0x61) & 0x03) == 0x03);
                 }
@@ -448,11 +457,11 @@ namespace NeoBleeper
                 else
                 {
                     Logger.Log("System speaker detection skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
-                    return false; // ARM64 architecture does not support system speaker access
+                    return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
         }
-        public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD that is used in Bleeper Music Maker using NAudio
+        public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD, that is used in Bleeper Music Maker, using NAudio
         {
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
             private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };

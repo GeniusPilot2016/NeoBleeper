@@ -209,5 +209,28 @@ namespace NeoBleeper
                 Logger.Log("MIDI output device not initialized.", Logger.LogTypes.Error);
             }
         }
+
+        public static void SendNoteOff(int noteNumber, int channel)
+        {
+            if (_midiOut == null) return;
+            _midiOut.Send(MidiMessage.StopNote(noteNumber, 0, channel + 1).RawData);
+        }
+
+        public static void SendNoteOn(int noteNumber, int instrument, int channel)
+        {
+            if(_midiOut == null) return;
+            ChangeInstrument(_midiOut, instrument, channel);
+            _midiOut.Send(MidiMessage.StartNote(noteNumber, DynamicVelocity(), channel + 1).RawData);
+        }
+        public static void SendNoteOffToAllNotes()
+        {
+            for (int note = 0; note < 128; note++)
+            {
+                for (int channel = 0; channel < 16; channel++)
+                {
+                    SendNoteOff(note, channel);
+                }
+            }
+        }
     }
 }

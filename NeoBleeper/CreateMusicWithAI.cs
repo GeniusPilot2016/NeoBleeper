@@ -25,7 +25,7 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
-        // Created as byproduct of my old school project to create chaotic music with AI, which is the AI-powered Paint-like program called "ArtFusion" (however, our projects were prohibited to exhibit in school exhibition until final exam points are given, so I exhibited this program instead, instead of exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management system" which are boring and useless for normal users)
+        // Created as byproduct of my old school project, which is the AI-powered Paint-like program called "ArtFusion", to create chaotic music with AI without any expectation (however, our school projects were prohibited to exhibit in school exhibition until final exam points are given, so I exhibited this program instead, instead of exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management system" which are boring and useless for normal users)
         string[] examplePrompts =         {
             Resources.ExamplePrompt1,
             Resources.ExamplePrompt2,
@@ -112,17 +112,17 @@ namespace NeoBleeper
         }
         string[] wantedFeatures =
         {
-            "generateContent", // Metin oluşturma yeteneği
-            "countTokens"      // Token sayma yeteneği
+            "generateContent", // Content creation capability
+            "countTokens"      // Token counting capability
         };
 
         string[] unwantedFeatures =
         {
-            "predict",         // Görüntü oluşturma yeteneği
-            "embedContent",    // Metin gömme yeteneği
-            "embedText",       // Metin gömme yeteneği
-            "asyncBatchEmbedContent", // Asenkron gömme yeteneği
-            "generateAnswer"   // Soru yanıtlama yeteneği
+            "predict",         // Image generation capability
+            "embedContent",    // Content embedding capability
+            "embedText",       // Text embedding capability
+            "asyncBatchEmbedContent", // Async batch content embedding capability
+            "generateAnswer"   // Answer generation capability
         };
         private async void listAndSelectAIModels()
         {
@@ -626,7 +626,7 @@ namespace NeoBleeper
                     var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     var googleAI = new GoogleAi(apiKey);
                     var googleModel = googleAI.CreateGenerativeModel(AIModel);
-                    // System prompt and user prompt for generating NBPML content with strict rules and format
+                    // The "makeshift rubbish prompt template" (aka system prompt) to create "chaotic" music by creating NBPML text (Fun fact: I wasn't know what system prompt is. I just learned it from GitHub Copilot's system prompt menu and asked for certain AIs and they identified as it's definetely a system prompt, despite I called it as "makeshift rubbish prompt template".)
                     var googleResponse = await googleModel.GenerateContentAsync(
                         $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
                         $"--- AI Instructions ---\r\n" +
