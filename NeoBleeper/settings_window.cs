@@ -55,7 +55,7 @@ namespace NeoBleeper
                     radioButton_square.Checked = true;
                     break;
             }
-            if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+            if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.creating_sounds.create_beep_with_soundcard;
                 if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
@@ -439,7 +439,11 @@ namespace NeoBleeper
                 string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
                 Settings1.Default.theme = comboBox_theme.SelectedIndex;
                 Settings1.Default.Save();
-                synchronizedSettings.Theme = Settings1.Default.theme;
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    // Update synchronized settings for Beep Stopper if not running on ARM64 architecture
+                    synchronizedSettings.Theme = Settings1.Default.theme;
+                }
                 set_theme();
                 Logger.Log("Theme changed to: " + theme_names[comboBox_theme.SelectedIndex], Logger.LogTypes.Info);
                 ColorsAndThemeChanged?.Invoke(this, new EventArgs());
@@ -1587,7 +1591,11 @@ namespace NeoBleeper
                 var synchronizedSettings = SynchronizedSettings.Load();
                 Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
                 Settings1.Default.Save();
-                synchronizedSettings.Language = Settings1.Default.preferredLanguage;
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    // Also update synchronized settings for Beep Stopper if not on ARM64 architecture
+                    synchronizedSettings.Language = Settings1.Default.preferredLanguage;
+                }
                 MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }

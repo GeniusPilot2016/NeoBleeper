@@ -41,7 +41,7 @@ namespace NeoBleeper
             static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
             public static void SpecifyStorageType()
             {
-                if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
                     try
                     {
@@ -145,7 +145,7 @@ namespace NeoBleeper
             extern static char Inp32(short PortAddress);
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
                     // This program contains 100% recycled beeps from the golden age of the PC audio.
                     int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
@@ -427,7 +427,7 @@ namespace NeoBleeper
                 // Because it's falling back to sound card beep if no system speaker is found.
 
                 // Step 1: Check for the presence of a system speaker device using WMI
-                if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
                     Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
                     bool isSystemSpeakerPresentInWMI = false;

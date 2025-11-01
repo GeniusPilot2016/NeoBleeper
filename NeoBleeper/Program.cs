@@ -44,7 +44,7 @@ namespace NeoBleeper
             ApplicationConfiguration.Initialize();
             ConfigureApplication();
             splashScreen.Show();
-            if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+            if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
@@ -100,7 +100,7 @@ namespace NeoBleeper
                     {
                         Logger.Log("Display resolution is supported.", LogTypes.Info);
                         splashScreen.updateStatus(Resources.StatusDisplayResolutionIsSupported, 10);
-                        if(!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
+                        if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                         {
                             // Open main form without any warnings on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
                             switch (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present)
@@ -279,22 +279,26 @@ namespace NeoBleeper
         }
         private static void SynchronizeSettings()
         {
-            try
+            // Synchronize settings with beep stopper if not running on ARM64 architecture for sync Beep Stopper settings (language and theme)
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
-                var synchronizedSettings = SynchronizedSettings.Load();
-                // Load synchronized settings and check for mismatches for beep stopper to apply NeoBleeper's theme and language settings
-                if (synchronizedSettings.Language != Settings1.Default.preferredLanguage ||
-                    synchronizedSettings.Theme != Settings1.Default.theme)
+                try
                 {
-                    Logger.Log("Settings mismatch detected. Updating synchronized settings.", LogTypes.Warning);
-                    synchronizedSettings.Language = Settings1.Default.preferredLanguage;
-                    synchronizedSettings.Theme = Settings1.Default.theme;
-                    synchronizedSettings.Save();
+                    var synchronizedSettings = SynchronizedSettings.Load();
+                    // Load synchronized settings and check for mismatches for beep stopper to apply NeoBleeper's theme and language settings
+                    if (synchronizedSettings.Language != Settings1.Default.preferredLanguage ||
+                        synchronizedSettings.Theme != Settings1.Default.theme)
+                    {
+                        Logger.Log("Settings mismatch detected. Updating synchronized settings.", LogTypes.Warning);
+                        synchronizedSettings.Language = Settings1.Default.preferredLanguage;
+                        synchronizedSettings.Theme = Settings1.Default.theme;
+                        synchronizedSettings.Save();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Failed to load or save synchronized settings for beep stopper: " + ex.Message, LogTypes.Error);
+                catch (Exception ex)
+                {
+                    Logger.Log("Failed to load or save synchronized settings for beep stopper: " + ex.Message, LogTypes.Error);
+                }
             }
         }
         private static void SetStatusForClassicBleeperModeAndLanguage()
