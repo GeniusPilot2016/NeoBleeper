@@ -22,7 +22,7 @@ namespace NeoBleeper
             UIFonts.setFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
         }
-        private const int cGrip = 16;
+        /*private const int cGrip = 16;
         private const int cCaption = 32;
         protected override void WndProc(ref Message m)
         {
@@ -43,7 +43,7 @@ namespace NeoBleeper
                 }
             }
             base.WndProc(ref m);
-        }
+        }*/
         public void updateStatus(string status, int percent = 0, bool completed = false)
         {
             ResponsiveWait(1000);
@@ -102,6 +102,51 @@ namespace NeoBleeper
                 {
                     Logger.Log($"Error during application closure: {ex.Message}", Logger.LogTypes.Error);
                 }
+            }
+        }
+
+        Point mouseDownScreenPoint = Point.Empty;
+        Point formStartLocation = Point.Empty;
+        bool isDragging = false;
+
+        private void splash_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                // Start dragging
+                isDragging = true;
+                mouseDownScreenPoint = MousePosition;
+                formStartLocation = this.Location;
+            }
+        }
+
+        private void splash_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                // Use Cursor.Position for better reliability
+                Point currentMousePosition = Cursor.Position;
+
+                // Calculate the difference
+                Point diff = new Point(
+                    currentMousePosition.X - mouseDownScreenPoint.X,
+                    currentMousePosition.Y - mouseDownScreenPoint.Y
+                );
+
+                // Update the form's location
+                this.Location = new Point(
+                    formStartLocation.X + diff.X,
+                    formStartLocation.Y + diff.Y
+                );
+            }
+        }
+
+        private void splash_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Stop dragging
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
             }
         }
     }

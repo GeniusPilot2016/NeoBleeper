@@ -43,6 +43,9 @@
             resources.ApplyResources(label1, "label1");
             label1.BackColor = Color.Transparent;
             label1.Name = "label1";
+            label1.MouseDown += splash_MouseDown;
+            label1.MouseMove += splash_MouseMove;
+            label1.MouseUp += splash_MouseUp;
             // 
             // pictureBox1
             // 
@@ -51,23 +54,35 @@
             resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
+            pictureBox1.MouseDown += splash_MouseDown;
+            pictureBox1.MouseMove += splash_MouseMove;
+            pictureBox1.MouseUp += splash_MouseUp;
             // 
             // labelVersion
             // 
             resources.ApplyResources(labelVersion, "labelVersion");
             labelVersion.BackColor = Color.Transparent;
             labelVersion.Name = "labelVersion";
+            labelVersion.MouseDown += splash_MouseDown;
+            labelVersion.MouseMove += splash_MouseMove;
+            labelVersion.MouseUp += splash_MouseUp;
             // 
             // progressBar1
             // 
             resources.ApplyResources(progressBar1, "progressBar1");
             progressBar1.Name = "progressBar1";
+            progressBar1.MouseDown += splash_MouseDown;
+            progressBar1.MouseMove += splash_MouseMove;
+            progressBar1.MouseUp += splash_MouseUp;
             // 
             // labelStatus
             // 
             resources.ApplyResources(labelStatus, "labelStatus");
             labelStatus.BackColor = Color.Transparent;
             labelStatus.Name = "labelStatus";
+            labelStatus.MouseDown += splash_MouseDown;
+            labelStatus.MouseMove += splash_MouseMove;
+            labelStatus.MouseUp += splash_MouseUp;
             // 
             // panel1
             // 
@@ -93,6 +108,9 @@
             MinimizeBox = false;
             Name = "splash";
             FormClosed += splash_FormClosed;
+            MouseDown += splash_MouseDown;
+            MouseMove += splash_MouseMove;
+            MouseUp += splash_MouseUp;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
