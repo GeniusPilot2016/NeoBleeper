@@ -235,7 +235,7 @@ namespace NeoBleeper
                 Stop();
                 _noteChannels.Clear();
                 _metaEventsByTime.Clear();
-                _eventsByTime.Clear(); // Yeni sözlüğü temizle
+                _eventsByTime.Clear(); 
 
                 // Offload heavy processing to a background thread
                 await Task.Run(() =>
@@ -257,7 +257,7 @@ namespace NeoBleeper
                                 _tempoEvents.Add((tempoEvent.AbsoluteTime, tempoEvent.MicrosecondsPerQuarterNote));
                             }
 
-                            // Olayları zamana göre sözlüğe ekle
+                            // Add events to dictionary by time
                             if (!_eventsByTime.TryGetValue(midiEvent.AbsoluteTime, out var eventList))
                             {
                                 eventList = new List<MidiEvent>();
@@ -729,7 +729,7 @@ namespace NeoBleeper
             }
             else
             {
-                // --- Alternate notes for the whole duration ---
+                // --- Alternate notes for the whole duration (because the system speaker can't play multiple notes same time)---
                 int notesPerCycle = frequencies.Length;
                 double timePerNote = (double)interval / notesPerCycle;
                 int noteIndex = 0;
@@ -1302,28 +1302,28 @@ namespace NeoBleeper
             var currentFrame = _frames[_currentFrameIndex];
             var currentTime = currentFrame.Time;
 
-            // --- Olay Tabanlı Yeni MIDI Çıkış Mantığı ---
+            // --- Event-based MIDI output logic ---
             if (TemporarySettings.MIDIDevices.useMIDIoutput)
             {
-                // Önceden işlenmiş sözlükten olayları anında al (ÇOK HIZLI)
+                // Take events from preprocessed dictionary
                 if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime))
                 {
-                    // 1. Önce tüm 'Note Off' olaylarını işle
+                    // 1. Process Note Off events
                     var noteOffEvents = eventsAtThisTime.OfType<NoteEvent>().Where(n => !MidiEvent.IsNoteOn(n));
                     foreach (var noteOff in noteOffEvents)
                     {
-                        // Kanalın etkin olup olmadığını kontrol et
+                        // Check if this channel enabled
                         if (_enabledChannels.Contains(noteOff.Channel))
                         {
                             MIDIIOUtils.SendNoteOff(noteOff.NoteNumber, noteOff.Channel - 1);
                         }
                     }
 
-                    // 2. Sonra tüm 'Note On' olaylarını işle
+                    // 2. Process all Note On events
                     var noteOnEvents = eventsAtThisTime.OfType<NoteOnEvent>().Where(n => n.Velocity > 0);
                     foreach (var noteOn in noteOnEvents)
                     {
-                        // Kanalın etkin olup olmadığını kontrol et
+                        // Check if this channel enabled
                         if (_enabledChannels.Contains(noteOn.Channel))
                         {
                             _noteInstruments.TryGetValue((noteOn.NoteNumber, currentTime), out int instrument);
@@ -1333,7 +1333,7 @@ namespace NeoBleeper
                 }
             }
 
-            // --- PC Speaker Çalma Mantığı (Değişmedi) ---
+            // --- Playing with system speaker (aka PC speaker) logic ---
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
