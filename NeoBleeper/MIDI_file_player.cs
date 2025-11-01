@@ -25,7 +25,6 @@ namespace NeoBleeper
 {
     public partial class MIDI_file_player : Form
     {
-        private Dictionary<long, List<MetaEvent>> _metaEventsByTime = new Dictionary<long, List<MetaEvent>>();
         bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
         bool is_playing = false;
@@ -220,6 +219,8 @@ namespace NeoBleeper
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
+        private Dictionary<long, List<MetaEvent>> _metaEventsByTime = new Dictionary<long, List<MetaEvent>>();
+        private Dictionary<long, List<MidiEvent>> _eventsByTime = new Dictionary<long, List<MidiEvent>>();
         private async Task LoadMIDI(string filename)
         {
             try
@@ -234,6 +235,7 @@ namespace NeoBleeper
                 Stop();
                 _noteChannels.Clear();
                 _metaEventsByTime.Clear();
+                _eventsByTime.Clear(); // Yeni sözlüğü temizle
 
                 // Offload heavy processing to a background thread
                 await Task.Run(() =>
@@ -254,6 +256,14 @@ namespace NeoBleeper
                             {
                                 _tempoEvents.Add((tempoEvent.AbsoluteTime, tempoEvent.MicrosecondsPerQuarterNote));
                             }
+
+                            // Olayları zamana göre sözlüğe ekle
+                            if (!_eventsByTime.TryGetValue(midiEvent.AbsoluteTime, out var eventList))
+                            {
+                                eventList = new List<MidiEvent>();
+                                _eventsByTime[midiEvent.AbsoluteTime] = eventList;
+                            }
+                            eventList.Add(midiEvent);
                         }
                     }
                     // Sort tempo events by time and add a default if none are found
@@ -1286,68 +1296,49 @@ namespace NeoBleeper
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
-
-            // Cancellation check with null safety
-            if (_cancellationTokenSource != null)
-            {
-                token.ThrowIfCancellationRequested();
-            }
+            token.ThrowIfCancellationRequested();
 
             Stopwatch driftStopwatch = Stopwatch.StartNew();
             var currentFrame = _frames[_currentFrameIndex];
+            var currentTime = currentFrame.Time;
 
-            // Filter active notes based on enabled channels
+            // --- Olay Tabanlı Yeni MIDI Çıkış Mantığı ---
+            if (TemporarySettings.MIDIDevices.useMIDIoutput)
+            {
+                // Önceden işlenmiş sözlükten olayları anında al (ÇOK HIZLI)
+                if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime))
+                {
+                    // 1. Önce tüm 'Note Off' olaylarını işle
+                    var noteOffEvents = eventsAtThisTime.OfType<NoteEvent>().Where(n => !MidiEvent.IsNoteOn(n));
+                    foreach (var noteOff in noteOffEvents)
+                    {
+                        // Kanalın etkin olup olmadığını kontrol et
+                        if (_enabledChannels.Contains(noteOff.Channel))
+                        {
+                            MIDIIOUtils.SendNoteOff(noteOff.NoteNumber, noteOff.Channel - 1);
+                        }
+                    }
+
+                    // 2. Sonra tüm 'Note On' olaylarını işle
+                    var noteOnEvents = eventsAtThisTime.OfType<NoteOnEvent>().Where(n => n.Velocity > 0);
+                    foreach (var noteOn in noteOnEvents)
+                    {
+                        // Kanalın etkin olup olmadığını kontrol et
+                        if (_enabledChannels.Contains(noteOn.Channel))
+                        {
+                            _noteInstruments.TryGetValue((noteOn.NoteNumber, currentTime), out int instrument);
+                            MIDIIOUtils.SendNoteOn(noteOn.NoteNumber, instrument, noteOn.Channel - 1);
+                        }
+                    }
+                }
+            }
+
+            // --- PC Speaker Çalma Mantığı (Değişmedi) ---
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
                 if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
                     filteredNotes.Add(note);
-            }
-
-            // --- Legato-Supported MIDI Output Logic ---
-            if (TemporarySettings.MIDIDevices.useMIDIoutput)
-            {
-                // 1. Finished Notes: Stop the notes that are no longer active.
-                var notesToStop = _previousMidiOutputNotes.Except(filteredNotes);
-                foreach (var noteNumber in notesToStop)
-                {
-                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
-                    {
-                        MIDIIOUtils.SendNoteOff(noteNumber, channel == 10 ? 9 : channel);
-                    }
-                }
-
-                // 2. Newly Started or Restarted Notes: Start notes that are now active but weren't before.
-                var notesToStart = filteredNotes.Except(_previousMidiOutputNotes);
-                foreach (var noteNumber in notesToStart)
-                {
-                    // This is a new note, send Note On
-                    int instrument = 0;
-                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
-                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
-                    {
-                        MIDIIOUtils.SendNoteOn(noteNumber, instrument, channel == 10 ? 9 : channel);
-                    }
-                }
-
-                // 3. Notes that will be rearticulated:
-                // Note should be retriggered if they are still active and marked for rearticulation.
-                var notesToRetrigger = filteredNotes.Intersect(_previousMidiOutputNotes)
-                                                    .Where(n => _rearticulatedNotes.Contains((n, currentFrame.Time)));
-                foreach (var noteNumber in notesToRetrigger)
-                {
-                    int instrument = 0;
-                    _noteInstruments.TryGetValue((noteNumber, currentFrame.Time), out instrument);
-                    if (_noteChannels.TryGetValue(noteNumber, out int channel))
-                    {
-                        // Send Note Off followed by Note On to retrigger the note
-                        MIDIIOUtils.SendNoteOff(noteNumber, channel == 10 ? 9 : channel);
-                        MIDIIOUtils.SendNoteOn(noteNumber, instrument, channel == 10 ? 9 : channel);
-                    }
-                }
-
-                // 4. Update the previous notes set for the next frame
-                _previousMidiOutputNotes = new HashSet<int>(filteredNotes);
             }
 
             // Calculate duration
@@ -1359,105 +1350,49 @@ namespace NeoBleeper
             }
             else
             {
-                // Find greatest tick in MIDI file
-                long lastTick = _midiFile.Events
-                    .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
-                    .Max();
+                long lastTick = _midiFile.Events.SelectMany(t => t).Max(e => e.AbsoluteTime);
                 double totalDurationMs = TicksToMilliseconds(lastTick);
-                durationMs = totalDurationMs - TicksToMilliseconds(currentFrame.Time);
+                durationMs = totalDurationMs - TicksToMilliseconds(currentTime);
             }
 
-            int durationMsInt = Math.Max(1, (int)main_window.FixRoundingErrors(Math.Floor(durationMs))); // Minimum 1ms
+            int durationMsInt = Math.Max(0, (int)Math.Floor(durationMs));
             if (driftMs > 0)
             {
-                if (driftMs < durationMsInt)
-                {
-                    durationMsInt = durationMsInt - driftMs; // Reduce duration to catch up
-                    driftMs = 0; // Reset drift after adjustment
-                }
-                else
-                {
-                    driftMs = driftMs - durationMsInt; // Reduce drift accordingly
-                    durationMsInt = 0; // Skip this frame to catch up
-                }
+                durationMsInt = Math.Max(0, durationMsInt - driftMs);
+                driftMs = Math.Max(0, driftMs - (int)durationMs);
             }
             else if (driftMs < 0)
             {
-                durationMsInt = durationMsInt - driftMs; // Negative drift means we are ahead, so increase duration
-                driftMs = 0; // Reset drift after adjustment
+                durationMsInt -= driftMs;
+                driftMs = 0;
             }
 
-            // Handle silent frames with better cancellation handling
-            if (filteredNotes.Count == 0)
+            if (durationMsInt <= 0 && filteredNotes.Count == 0)
             {
-                // Use a more robust waiting mechanism for silent frames
-                await WaitPreciseWithCancellation(durationMsInt, token);
-                return; // Skip note playback for this frame
+                driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
+                return;
             }
 
-            // Show lyrics if enabled — use pre-collected meta events for fast lookup
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
-                HandleLyricsDisplay(currentFrame.Time);
+                HandleLyricsDisplay(currentTime);
             }
 
-            // Play notes
-            if (durationMs <= 0)
+            if (filteredNotes.Count == 0)
             {
-                return; // Skip if duration is zero or negative after drift adjustment
-            }
-            var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-            durationMsInt = Math.Max(1, durationMsInt); // Ensure at least 1ms after drift adjustment
-            if (frequencies.Length == 1)
-            {
-                var noteNumber = filteredNotes.First();
-                int noteIndex = _noteToLabelMap[noteNumber];
-                if (checkBox_play_each_note.Checked)
-                {
-                    if (checkBox_make_each_cycle_last_30ms.Checked)
-                    {
-                        int length = Math.Min(15, durationMsInt);
-                        int remainingTime = durationMsInt - length;
-                        await Task.Run(() =>
-                        {
-                            this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
-                            NotePlayer.play_note(frequencies[0], length);
-                            if (remainingTime > 0)
-                            {
-                                HighPrecisionSleep.Sleep(remainingTime);
-                            }
-                            this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
-                        }, token);
-                    }
-                    else
-                    {
-                        int length = Math.Min((int)numericUpDown_alternating_note.Value, durationMsInt);
-                        int remainingTime = durationMsInt - length;
-                        await Task.Run(() =>
-                        {
-                            this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
-                            NotePlayer.play_note(frequencies[0], length);
-                            if (remainingTime > 0)
-                            {
-                                HighPrecisionSleep.Sleep(remainingTime);
-                            }
-                            this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
-                        }, token);
-                    }
-                }
-                else
-                {
-                    await Task.Run(() =>
-                    {
-                        this.BeginInvoke(new Action(() => HighlightNoteLabel(noteIndex)));
-                        NotePlayer.play_note(frequencies[0], durationMsInt);
-                        this.BeginInvoke(new Action(() => UnHighlightNoteLabel(noteIndex)));
-                    }, token);
-                }
+                await WaitPreciseWithCancellation(durationMsInt, token);
             }
             else
             {
-                await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
+                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+                if (frequencies.Length == 1)
+                {
+                    await Task.Run(() => NotePlayer.play_note(frequencies[0], durationMsInt), token);
+                }
+                else
+                {
+                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
+                }
             }
             driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
         }

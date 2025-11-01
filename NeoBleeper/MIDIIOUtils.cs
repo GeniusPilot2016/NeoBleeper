@@ -213,14 +213,14 @@ namespace NeoBleeper
         public static void SendNoteOff(int noteNumber, int channel)
         {
             if (_midiOut == null) return;
-            _midiOut.Send(MidiMessage.StopNote(noteNumber, 0, channel + 1).RawData);
+            _midiOut.Send(MidiMessage.StopNote(noteNumber, 0, ClampChannel(channel + 1)).RawData);
         }
 
         public static void SendNoteOn(int noteNumber, int instrument, int channel)
         {
             if(_midiOut == null) return;
             ChangeInstrument(_midiOut, instrument, channel);
-            _midiOut.Send(MidiMessage.StartNote(noteNumber, DynamicVelocity(), channel + 1).RawData);
+            _midiOut.Send(MidiMessage.StartNote(noteNumber, DynamicVelocity(), ClampChannel(channel + 1)).RawData);
         }
         public static void SendNoteOffToAllNotes()
         {
@@ -231,6 +231,10 @@ namespace NeoBleeper
                     SendNoteOff(note, channel);
                 }
             }
+        }
+        private static int ClampChannel(int channel)
+        {
+            return Math.Min(channel, 16);
         }
     }
 }
