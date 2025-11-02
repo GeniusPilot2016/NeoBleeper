@@ -14,15 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using Microsoft.VisualBasic.Logging;
 using NAudio.Midi;
 using NeoBleeper.Properties;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Media;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace NeoBleeper
 {
@@ -43,6 +51,7 @@ namespace NeoBleeper
         private int lastNotesCount = 0;
         string lastOpenedProjectFileName = string.Empty;
         public static string lastOpenedMIDIFileName = string.Empty;
+        private string keyToolTip = string.Empty;
         protected virtual void OnNotesChanged(EventArgs e)
         {
             NotesChanged?.Invoke(this, e);
@@ -55,13 +64,13 @@ namespace NeoBleeper
             StringBuilder sb = new StringBuilder(listViewNotes.Items.Count * 32);
             foreach (ListViewItem item in listViewNotes.Items)
             {
-                // Her satırın tüm subitem metinlerini ekle
+                // Append each subitem's text to the string builder
                 for (int i = 0; i < item.SubItems.Count; i++)
                 {
                     sb.Append(item.SubItems[i].Text);
-                    sb.Append('\u001F'); // saha ayırıcı
+                    sb.Append('\u001F'); // Seperator for subitems
                 }
-                sb.Append('\u001E'); // satır ayırıcı
+                sb.Append('\u001E'); // Line separator
             }
             return sb.ToString();
         }
@@ -84,6 +93,7 @@ namespace NeoBleeper
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            keyToolTip = toolTip1.GetToolTip(button_c3) != null ? toolTip1.GetToolTip(button_c3) : string.Empty;
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
             originator = new Originator(listViewNotes);
@@ -164,6 +174,101 @@ namespace NeoBleeper
                 // Ignore exceptions during UI updates
             }
         }
+        private static string ConvertRawKeyNameToNoteName(string keyName)
+        {
+            // Example key names: "c4", "d4_s", "a5", "g3_s"
+            var match = Regex.Match(keyName, @"^([a-gA-G])(_s)?(\d+)$");
+            if (!match.Success)
+                return keyName; // Return the original key name if it doesn't match the expected pattern
+
+            string noteLetter = match.Groups[1].Value.ToUpper();
+            bool isSharp = match.Groups[2].Success;
+            string octave = match.Groups[3].Value;
+
+            return isSharp ? $"{noteLetter}#{octave}" : $"{noteLetter}{octave}";
+        }
+        private string ConvertButtonNameToRawNote(string ButtonName)
+        {
+            string buttonName = ButtonName.ToLower(); // "button_c3"
+            string keyName = buttonName.StartsWith("button_") ? buttonName.Substring(7) : buttonName; // "c3"
+            string noteName = ConvertRawKeyNameToNoteName(keyName); // "C3"
+            return noteName;
+        }
+        private void setToolTipForKeys()
+        {
+            string baseToolTip = keyToolTip;
+            string concatenatingToolTipLine = Resources.TextPercussionTooltip;
+            foreach (Control ctrl in keyboard_panel.Controls)
+            {
+                if (ctrl is Button key)
+                {
+                    if ((TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) &&
+                        TemporarySettings.MIDIDevices.useMIDIoutput) // Channel 9 is percussion in MIDI (0-based index)
+                    {
+                        Logger.Log("Tooltip is changing for percussion mode.", Logger.LogTypes.Info);
+                        int midiNoteNumber = CalculateMIDINumber(note_name_to_MIDI_number(ConvertButtonNameToRawNote(key.Name)));
+                        if (midiNoteNumber >= 27 && midiNoteNumber <= 93)
+                        {
+                            if (PercussionKeyToolTipLabels.TryGetValue(midiNoteNumber, out string percussionLabel))
+                            {
+                                string replacedToolTip = concatenatingToolTipLine.Replace("{percussionName}", percussionLabel);
+                                string finalToolTip = baseToolTip + replacedToolTip;
+                                toolTip1.SetToolTip(key, finalToolTip);
+                            }
+                            else
+                            {
+                                toolTip1.SetToolTip(key, baseToolTip);
+                            }
+                        }
+                        else
+                        {
+                            toolTip1.SetToolTip(key, baseToolTip);
+                        }
+                    }
+                    else
+                    {
+                        Logger.Log("Tooltip is changing for melodic mode.", Logger.LogTypes.Info);
+                        toolTip1.SetToolTip(key, baseToolTip);
+                    }
+                }
+            }
+        }
+        private static readonly Dictionary<int, string> PercussionKeyToolTipLabels = new Dictionary<int, string>
+        {
+            { 27, "Laser" }, { 60, "High Bongo" },
+            { 28, "Whip" }, { 61, "Low Bongo" },
+            { 29, "Scratch Push" }, { 62, "Conga Dead Stroke" },
+            { 30, "Scratch Pull" }, { 63, "Conga" },
+            { 32, "Side Stick" },
+            { 31, "Stick Click" }, { 64, "Tumba" },
+            { 33, "Metronome Click" }, { 65, "High Timbale" },
+            { 34, "Metronome Bell " }, { 66, "Low Timbale" },
+            { 35, "Bass Drum" }, { 67, "High Agogo" },
+            { 36, "Kick Drum " }, { 68, "Low Agogo" },
+            { 37, "Snare Cross Stick" }, { 69, "Cabasa" },
+            { 38, "Snare Drum" }, { 70, "Maracas" },
+            { 39, "Hand Clap" }, { 71, "Whistle Short" },
+            { 40, "Electric Snare Drum" }, { 72, "Whistle Long" },
+            { 41, "Floor Tom 2" }, { 73, "Guiro Short" },
+            { 42, "Hi-Hat Closed" }, { 74, "Guiro Long" },
+            { 43, "Floor Tom 1 " }, { 75, "Claves" },
+            { 44, "Hi-Hat Foot" }, { 76, "High Woodblock" },
+            { 45, "Low Tom" }, { 77, "Low Woodblock" },
+            { 46, "Hi-Hat Open " }, { 78, "Cuica High" },
+            { 47, "Low-Mid Tom" }, { 79, "Cuica Low" },
+            { 48, "High-Mid Tom" }, { 80, "Triangle Mute" },
+            { 49, "Crash Cymbal " }, { 81, "Triangle Open" },
+            { 50, "High Tom" }, { 82, "Shaker" },
+            { 51, "Ride Cymbal" }, { 83, "Sleigh Bell" },
+            { 52, "China Cymbal" }, { 84, "Bell Tree" },
+            { 53, "Ride Bell" }, { 85, "Castanets" },
+            { 54, "Tambourine" }, { 86, "Surdu Dead Stroke" },
+            { 55, "Splash cymbal" }, { 87, "Surdu" },
+            { 56, "Cowbell " }, { 91, "Snare Drum Rod" },
+            { 57, "Crash Cymbal  2" }, { 92, "Ocean Drum" },
+            { 58, "Vibraslap " }, { 93, "Snare Drum Brush" },
+            { 59, "Ride Cymbal 2 " }
+        };
         private async void UpdateUndoRedoButtons()
         {
             undoToolStripMenuItem.Enabled = commandManager.CanUndo;
@@ -448,6 +553,7 @@ namespace NeoBleeper
             };
             settings.ShowDialog();
             Logger.Log("Settings window is opened", Logger.LogTypes.Info);
+            setToolTipForKeys(); // Update tooltips based on the new MIDI channel
         }
         private void closeAllOpenWindows()
         {
@@ -834,7 +940,11 @@ namespace NeoBleeper
 
             return midiNumber;
         }
-
+        private int CalculateMIDINumber(int rawNumber)
+        {
+            int multiplier = Variables.octave - 4;
+            return rawNumber + (multiplier * 12);
+        }
 
         private async void play_note_in_line_from_MIDIOutput(int index, bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length)
         {
@@ -1915,7 +2025,7 @@ namespace NeoBleeper
                 }
                 btn_octave_increase.Enabled = true; // Enable the other button
             }
-
+            setToolTipForKeys(); // Update tooltips for keys
             isOctaveChanging = false; // The operation is complete
         }
 
@@ -1936,6 +2046,7 @@ namespace NeoBleeper
                 }
                 btn_octave_decrease.Enabled = true; // Enable the other button
             }
+            setToolTipForKeys(); // Update tooltips for keys
 
             isOctaveChanging = false; // The operation is complete
         }

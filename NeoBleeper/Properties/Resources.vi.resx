@@ -745,4 +745,8 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Không có mẫu Google Gemini™ nào hợp lệ.</value>
   </data>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Phím này phát ra âm thanh gõ này: {percussionName}</value>
+  </data>
 </root>

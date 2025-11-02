@@ -745,4 +745,8 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Aucun modèle Google Gemini™ valide n'est disponible.</value>
   </data>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Cette touche permet de jouer ce son de percussion: {percussionName}</value>
+  </data>
 </root>
