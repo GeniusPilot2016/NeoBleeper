@@ -58,7 +58,10 @@ namespace NeoBleeper
             preciseTimer?.Stop();
             preciseTimer?.Dispose();
             preciseTimer = null;
-            this.Dispose();
+            if (mainWindow != null)
+            {
+                mainWindow.MusicStopped -= MainWindow_MusicStopped;
+            }
         }
         private void preciseTimer_Tick(object sender, EventArgs e)
         {
@@ -156,23 +159,13 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        SuspendLayout();
-                        string current_time = DateTime.Now.ToString("HH:mm:ss");
-                        lbl_current_system_time.Text = current_time;
-                        ResumeLayout(performLayout: true);
-                    });
-                }
-                else
-                {
-                    SuspendLayout();
-                    string current_time = DateTime.Now.ToString("HH:mm:ss");
-                    lbl_current_system_time.Text = current_time;
-                    ResumeLayout(performLayout: true);
-                }
+               SafeBeginInvoke(() =>
+               {
+                   SuspendLayout();
+                   string current_time = DateTime.Now.ToString("HH:mm:ss");
+                   lbl_current_system_time.Text = current_time;
+                   ResumeLayout(performLayout: true);
+               });
             });
         }
 
@@ -208,27 +201,13 @@ namespace NeoBleeper
 
         private void UpdateUIForPlaying()
         {
-            Task.Run(() =>
+            SafeBeginInvoke(() =>
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        SuspendLayout();
-                        button_wait.Text = Resources.TextStopPlaying;
-                        lbl_waiting.Text = Resources.TextPlaying;
-                        lbl_waiting.BackColor = Color.Yellow;
-                        ResumeLayout(performLayout: true);
-                    });
-                }
-                else
-                {
-                    SuspendLayout();
-                    button_wait.Text = Resources.TextStopPlaying;
-                    lbl_waiting.Text = Resources.TextPlaying;
-                    lbl_waiting.BackColor = Color.Yellow;
-                    ResumeLayout(performLayout: true);
-                }
+                SuspendLayout();
+                button_wait.Text = Resources.TextStopPlaying;
+                lbl_waiting.Text = Resources.TextPlaying;
+                lbl_waiting.BackColor = Color.Yellow;
+                ResumeLayout(performLayout: true);
             });
         }
         private bool isCurrentTimeIsEqualOrGreaterThan()
@@ -272,31 +251,26 @@ namespace NeoBleeper
                 MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
             }
         }
-        private async void UpdateUIForStopped()
+        private void SafeBeginInvoke(Action action)
         {
-            Task.Run(() =>
+            if (this.IsDisposed || !this.IsHandleCreated) return;
+            try
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        SuspendLayout();
-                        dateTimePicker1.Enabled = true; // Enable the date time picker
-                        button_wait.Text = Resources.TextStartWaiting;
-                        lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
-                        lbl_waiting.BackColor = Color.Red;
-                        ResumeLayout(performLayout: true);
-                    });
-                }
-                else
-                {
-                    SuspendLayout();
-                    dateTimePicker1.Enabled = true; // Enable the date time picker
-                    button_wait.Text = Resources.TextStartWaiting;
-                    lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
-                    lbl_waiting.BackColor = Color.Red;
-                    ResumeLayout(performLayout: true);
-                }
+                // Use BeginInvoke to avoid cross-thread operation exceptions
+                this.BeginInvoke((MethodInvoker)delegate { if (!this.IsDisposed) action(); });
+            }
+            catch (ObjectDisposedException) { /* ignore */ }
+        }
+        private void UpdateUIForStopped()
+        {
+            SafeBeginInvoke(() =>
+            {
+                SuspendLayout();
+                dateTimePicker1.Enabled = true;
+                button_wait.Text = Resources.TextStartWaiting;
+                lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
+                lbl_waiting.BackColor = Color.Red;
+                ResumeLayout(true);
             });
         }
         private async void button_wait_Click(object sender, EventArgs e)
@@ -315,28 +289,14 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    Task.Run(() =>
+                    Logger.Log("Waiting for " + dateTimePicker1.Value.ToString("HH:mm:ss") + " to start playing music", Logger.LogTypes.Info);
+                    SafeBeginInvoke(() =>
                     {
-                        Logger.Log("Waiting for " + dateTimePicker1.Value.ToString("HH:mm:ss") + " to start playing music", Logger.LogTypes.Info);
-                        if (this.InvokeRequired)
-                        {
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                SuspendLayout();
-                                button_wait.Text = Properties.Resources.TextStopWaiting;
-                                lbl_waiting.Text = Properties.Resources.TextCurrentlyWaiting;
-                                lbl_waiting.BackColor = Color.Lime;
-                                ResumeLayout(performLayout: true);
-                            });
-                        }
-                        else
-                        {
-                            SuspendLayout();
-                            button_wait.Text = Properties.Resources.TextStopWaiting;
-                            lbl_waiting.Text = Properties.Resources.TextCurrentlyWaiting;
-                            lbl_waiting.BackColor = Color.Lime;
-                            ResumeLayout(performLayout: true);
-                        }
+                        SuspendLayout();
+                        button_wait.Text = Properties.Resources.TextStopWaiting;
+                        lbl_waiting.Text = Properties.Resources.TextCurrentlyWaiting;
+                        lbl_waiting.BackColor = Color.Lime;
+                        ResumeLayout(performLayout: true);
                     });
                 }
             }
@@ -353,28 +313,14 @@ namespace NeoBleeper
                 mainWindow.stop_playing();
             }
             waiting = false;
-            Task.Run(() =>
+            Logger.Log("Stopped waiting for music to play", Logger.LogTypes.Info);
+            SafeBeginInvoke(() =>
             {
-                Logger.Log("Stopped waiting for music to play", Logger.LogTypes.Info);
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        SuspendLayout();
-                        button_wait.Text = Resources.TextStartWaiting;
-                        lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
-                        lbl_waiting.BackColor = Color.Red;
-                        ResumeLayout(performLayout: true);
-                    });
-                }
-                else
-                {
-                    SuspendLayout();
-                    button_wait.Text = Resources.TextStartWaiting;
-                    lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
-                    lbl_waiting.BackColor = Color.Red;
-                    ResumeLayout(performLayout: true);
-                }
+                SuspendLayout();
+                button_wait.Text = Resources.TextStartWaiting;
+                lbl_waiting.Text = Resources.TextCurrentlyNotWaiting;
+                lbl_waiting.BackColor = Color.Red;
+                ResumeLayout(performLayout: true);
             });
         }
         private void radioButton_play_beginning_of_music_CheckedChanged(object sender, EventArgs e)

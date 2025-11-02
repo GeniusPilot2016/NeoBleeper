@@ -2517,7 +2517,7 @@ namespace NeoBleeper
                         {
                             if (listViewNotes.Items.Count == 0)
                             {
-                                EnableDisableCommonControls(true);
+                                stop_playing();
                                 return;
                             }
                             int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
@@ -2530,8 +2530,8 @@ namespace NeoBleeper
                             else
                             {
                                 // End of list reached and not looping - stop playback
+                                stop_playing();
                                 listViewNotes.SelectedItems.Clear();
-                                is_music_playing = false;
                                 break;
                             }
                         }
@@ -2571,8 +2571,8 @@ namespace NeoBleeper
                     else
                     {
                         // End of list reached and not looping - stop playback
+                        stop_playing();
                         listViewNotes.SelectedItems.Clear();
-                        is_music_playing = false;
                         break;
                     }
                 }
@@ -2582,7 +2582,6 @@ namespace NeoBleeper
                     UpdateListViewSelection(currentNoteIndex);
                 }
             }
-
             if (nonStopping)
             {
                 stopAllNotesAfterPlaying();

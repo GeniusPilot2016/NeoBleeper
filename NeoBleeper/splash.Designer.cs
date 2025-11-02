@@ -107,6 +107,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "splash";
+            Deactivate += splash_Deactivate;
             FormClosed += splash_FormClosed;
             MouseDown += splash_MouseDown;
             MouseMove += splash_MouseMove;

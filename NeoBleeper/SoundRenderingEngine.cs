@@ -214,11 +214,11 @@ namespace NeoBleeper
                 Out32(0x42, (byte)(div & 0xFF));
                 Out32(0x42, (byte)(div >> 8));
 
-                Thread.Sleep(10); // To stabilize the timer
+                Program.splashScreen.ResponsiveWait(10); // To stabilize the timer
 
                 // Open only the gate (bit 0), keep speaker data (bit 1) off
                 Out32(0x61, (byte)(originalState | 0x01)); // Bit 1 = 0
-                Thread.Sleep(10);
+                Program.splashScreen.ResponsiveWait(10);
 
                 // Open speaker data (bit 1) now
                 Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
@@ -228,11 +228,11 @@ namespace NeoBleeper
             {
                 // Close speaker data (bit 1) first
                 Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
-                Thread.Sleep(10);
+                Program.splashScreen.ResponsiveWait(10);
 
                 // Then close the gate (bit 0)
                 Out32(0x61, (byte)(originalState & 0xFC));
-                Thread.Sleep(10);
+                Program.splashScreen.ResponsiveWait(10);
             }
 
             private static bool CheckElectricalFeedbackOnPort()
@@ -243,31 +243,31 @@ namespace NeoBleeper
 
                     // Ultra soft start
                     UltraSoftEnableSpeaker(originalState);
-                    Thread.Sleep(50);
+                    Program.splashScreen.ResponsiveWait(50);
 
                     List<byte> enabledSamples = new List<byte>();
                     for (int i = 0; i < 20; i++)
                     {
                         enabledSamples.Add((byte)Inp32(0x61));
-                        Thread.Sleep(1);
+                        Program.splashScreen.ResponsiveWait(1);
                     }
                     byte stateEnabled = enabledSamples[enabledSamples.Count / 2];
 
                     // Ultra soft close
                     UltraSoftDisableSpeaker(originalState);
-                    Thread.Sleep(50);
+                    Program.splashScreen.ResponsiveWait(50);
 
                     List<byte> disabledSamples = new List<byte>();
                     for (int i = 0; i < 20; i++)
                     {
                         disabledSamples.Add((byte)Inp32(0x61));
-                        Thread.Sleep(1);
+                        Program.splashScreen.ResponsiveWait(1);
                     }
                     byte stateDisabled = disabledSamples[disabledSamples.Count / 2];
 
                     // Restore original state
                     Out32(0x61, originalState);
-                    Thread.Sleep(20);
+                    Program.splashScreen.ResponsiveWait(20);
 
                     bool bit5VariesWhenEnabled = enabledSamples.Select(s => (byte)(s & 0x20)).Distinct().Count() > 1;
                     bool feedbackPresent = ((stateEnabled & 0x20) != (stateDisabled & 0x20)) || bit5VariesWhenEnabled;
@@ -289,7 +289,7 @@ namespace NeoBleeper
 
                     // Ultra soft start
                     UltraSoftEnableSpeaker(originalState);
-                    Thread.Sleep(50);
+                    Program.splashScreen.ResponsiveWait(50);
 
                     List<byte> samples = new List<byte>();
                     for (int i = 0; i < 100; i++)
@@ -300,7 +300,7 @@ namespace NeoBleeper
                     // Ultra soft close
                     UltraSoftDisableSpeaker(originalState);
                     Out32(0x61, originalState);
-                    Thread.Sleep(20);
+                    Program.splashScreen.ResponsiveWait(20);
 
                     var bit5Values = samples.Select(s => (byte)(s & 0x20)).Distinct().ToList();
                     bool bit5Varies = bit5Values.Count > 1;
@@ -342,15 +342,15 @@ namespace NeoBleeper
                         Out32(0x43, 0xB6);
                         Out32(0x42, (byte)(div & 0xFF));
                         Out32(0x42, (byte)(div >> 8));
-                        Thread.Sleep(10);
+                        Program.splashScreen.ResponsiveWait(10);
 
                         // Open the gate
                         Out32(0x61, (byte)(originalState | 0x01));
-                        Thread.Sleep(10);
+                        Program.splashScreen.ResponsiveWait(10);
 
                         // Open the speaker data
                         Out32(0x61, (byte)(originalState | 0x03));
-                        Thread.Sleep(30);
+                        Program.splashScreen.ResponsiveWait(30);
 
                         List<byte> samples = new List<byte>();
                         for (int i = 0; i < 50; i++)
@@ -360,11 +360,11 @@ namespace NeoBleeper
 
                         // Close the speaker data
                         Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
-                        Thread.Sleep(10);
+                        Program.splashScreen.ResponsiveWait(10);
 
                         // Close the gate
                         Out32(0x61, (byte)(originalState & 0xFC));
-                        Thread.Sleep(10);
+                        Program.splashScreen.ResponsiveWait(10);
 
                         int transitions = 0;
                         for (int i = 0; i < samples.Count - 1; i++)
@@ -383,7 +383,7 @@ namespace NeoBleeper
                     }
 
                     Out32(0x61, originalState);
-                    Thread.Sleep(20);
+                    Program.splashScreen.ResponsiveWait(20);
                     return anyFrequencyWorks;
                 }
                 catch (Exception ex)

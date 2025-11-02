@@ -146,8 +146,17 @@ namespace NeoBleeper
             // Stop dragging
             if (e.Button == MouseButtons.Left)
             {
-                isDragging = false;
+                StopDragging();
             }
+        }
+
+        private void splash_Deactivate(object sender, EventArgs e)
+        {
+            StopDragging();
+        }
+        private void StopDragging()
+        {
+            isDragging = false;
         }
     }
 }
