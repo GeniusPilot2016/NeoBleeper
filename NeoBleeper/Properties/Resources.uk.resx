@@ -747,4 +747,8 @@
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Немає дійсних моделей Google Gemini™.</value>
   </data>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Ця клавіша відтворює цей ударний звук: {percussionName}</value>
+  </data>
 </root>

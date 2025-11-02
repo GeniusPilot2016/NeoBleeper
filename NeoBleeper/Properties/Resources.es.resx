@@ -745,4 +745,8 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>No hay modelos válidos de Google Gemini™ disponibles.</value>
   </data>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Esta tecla reproduce este sonido de percusión: {percussionName}</value>
+  </data>
 </root>

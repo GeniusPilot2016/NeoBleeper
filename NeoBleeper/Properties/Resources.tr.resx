@@ -746,4 +746,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
   </data>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
+  </data>
 </root>

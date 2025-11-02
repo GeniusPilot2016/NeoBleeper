@@ -1784,6 +1784,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   
+        ///This key plays this percussion sound: {percussionName} benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextPercussionTooltip {
+            get {
+                return ResourceManager.GetString("TextPercussionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Playing benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextPlaying {
