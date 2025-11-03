@@ -13,7 +13,7 @@ NeoBleeper, sistem (PC) hoparlöründen ses çalarken çökerse veya zorla kapat
 Sistem hoparlörü düşük donanım/yazılım seviyesinde kontrol edilir. Uygulama çıkışta hoparlörü düzgün bir şekilde serbest bırakmazsa veya sıfırlanmazsa ses devam edebilir.
 
 **Çözümler:**
-- **NeoBleeper Bip Sesi Durdurucu yardımcı programını kullanın:**
+- **NeoBleeper Bip Sesi Durdurucu yardımcı programını kullanın (64 bit sürümü için):**
   NeoBleeper, program klasöründe "NeoBleeper Bip Sesi Durdurucu" adlı bir araç ile birlikte gelir.
 
   ![image4](https://github.com/user-attachments/assets/b36256ad-916d-42ab-83ea-3271dd897ce1)
@@ -80,18 +80,7 @@ NeoBleeper, sisteminizde standart bir PC hoparlörü çıkışı olup olmadığ�
 #### "Standart dışı sistem hoparlörü çıkışı" ne anlama geliyor?
 Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde gerçek bir PC hoparlörü bulunmaz veya sinyal yönlendirmesi standart dışıdır. NeoBleeper artık bu tür gizli sistem hoparlörü çıkışlarını (PNP0800 cihazları olarak tanımlanmayan) algılayıp kullanmaya çalışır, ancak sistem hoparlörü seçeneğini yalnızca donanım düzeyinde erişilebilirse etkinleştirebilir. Kullanılabilir bir çıkış bulunamazsa, normal ses cihazınızı kullanmanız gerekecektir.
 
----
-
-## 3. Sistem Hoparlörü Varlığını Kontrol Etme
-
-- **Masaüstü bilgisayarlar:** Eski masaüstü bilgisayarların çoğunda anakart üzerinde bir PC hoparlörü başlığı bulunur. Daha yeni sistemlerde bu özellik bulunmayabilir veya çıkış, NeoBleeper'ın artık kullanabileceği gizli/PNP0800 olmayan bir biçimde sunulabilir.
-- **Dizüstü bilgisayarlar:** Çoğu dizüstü bilgisayarda ayrı bir sistem hoparlörü bulunmaz; tüm ses ana ses sistemi üzerinden yönlendirilir.
-- **Sanal makineler:** Sistem hoparlörü emülasyonu genellikle yoktur veya güvenilir değildir; PNP0800 olmayan çıkışlar kullanılamayabilir.
-- **Nasıl anlaşılır:** Yukarıdaki uyarıları görüyorsanız ancak NeoBleeper'da sistem hoparlörünü etkinleştirip test edebiliyorsanız, bilgisayarınızda muhtemelen gizli veya standart dışı bir çıkış vardır.
-  
----
-
-## 2.1 Sistem Hoparlör Çıkış Testi (Ultrasonik Frekans Algılama)
+## 2.1 Sistem Hoparlörü Çıkış Testi (Ultrasonik Frekans Algılama)
   NeoBleeper, cihaz Windows tarafından bildirilmese bile (PNP0800 yerine PNP0C02 gibi belirli kimliklerle), sistem hoparlörü (diğer adıyla PC hoparlörü) çıkışını algılamak için yeni ve gelişmiş bir donanım testi içeriyor. Bu test, ultrasonik frekansları (genellikle duyulamayan 30–38 kHz) kullanır ve sistem hoparlörü bağlantı noktasındaki elektriksel geri bildirimi analiz eder.
 
 - **Nasıl çalışır:**
@@ -104,10 +93,36 @@ Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde g
   
   *Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)*
 
-- **Bu test neden?**
+- **Bu test neden yapılmaktadır?**
   Birçok modern sistemde PNP0800 sistem hoparlörü aygıtı bulunmaz, ancak yine de kullanılabilir (gizli) bir hoparlör çıkışı vardır. NeoBleeper, daha fazla donanımda bip sesi özelliklerini etkinleştirmek için bu gelişmiş yöntemi kullanır.
 
-## 4. Hiç Ses Duyamıyorum!
+---
+
+## 3. ARM64 Desteği ve Sınırlamaları
+
+**ARM64 tabanlı cihazlar:**
+
+Windows ARM64 sistemlerinde, "Sistem Hoparlörü" testi ve "Bip sesi oluşturmak için ses aygıtını kullan" onay kutusu NeoBleeper'da **mevcut değildir**. Bunun yerine, tüm bip sesleri ve ses çıkışları her zaman standart ses aygıtınız (hoparlörler veya kulaklıklar) aracılığıyla üretilir.
+
+- "Sistem Hoparlörünü Test Et" düğmesi ve ilgili algılama özellikleri, ARM64 cihazlarındaki ayarlarda **görünmez**.
+- "Bip sesi oluşturmak için ses aygıtını kullan" seçeneği mevcut değildir çünkü bu davranış otomatik olarak uygulanır.
+- Bu sınırlama, ARM64 Windows platformlarında PC/sistem hoparlör donanımına doğrudan erişim sağlanamadığı için mevcuttur.
+- ARM64'te her zaman normal ses çıkış aygıtınızdan bip sesleri duyarsınız.
+
+**Bir ARM64 bilgisayar kullanıyorsanız ve NeoBleeper'da sistem hoparlörü seçeneklerini görmüyorsanız, bu beklenen bir durumdur ve bir hata değildir.**
+
+---
+
+## 4. Sistem Hoparlörü Varlığını Kontrol Etme
+
+- **Masaüstü bilgisayarlar:** Eski masaüstü bilgisayarların çoğunda anakart üzerinde bir PC hoparlörü başlığı bulunur. Daha yeni sistemlerde bu özellik bulunmayabilir veya çıkış, NeoBleeper'ın artık kullanabileceği gizli/PNP0800 olmayan bir biçimde sunulabilir.
+- **Dizüstü bilgisayarlar:** Çoğu dizüstü bilgisayarda ayrı bir sistem hoparlörü bulunmaz; tüm ses ana ses sistemi üzerinden yönlendirilir.
+- **Sanal makineler:** Sistem hoparlörü emülasyonu genellikle yoktur veya güvenilir değildir; PNP0800 olmayan çıkışlar kullanılamayabilir.
+- **Nasıl anlaşılır:** Yukarıdaki uyarıları görüyorsanız ancak NeoBleeper'da sistem hoparlörünü etkinleştirip test edebiliyorsanız, bilgisayarınızda muhtemelen gizli veya standart dışı bir çıkış vardır.
+  
+---
+
+## 5. Hiç Ses Duyamıyorum!
 
 - **NeoBleeper ayarlarınızı kontrol ediniz:**
   Sistem hoparlörünüz kullanılamıyorsa, ses cihazınızın (hoparlörler/kulaklıklar) doğru şekilde seçildiğinden ve çalıştığından emin olunuz.
@@ -120,7 +135,7 @@ Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde g
 
 ---
 
-## 5. Sıkça Sorulan Sorular
+## 6. Sıkça Sorulan Sorular
 
 ### S: Donanımımda PNP0800 aygıtı yoksa sistem hoparlörünü kullanabilir miyim?
 **C:** Evet! NeoBleeper artık mümkün olan yerlerde gizli veya PNP0800 olmayan sistem hoparlör çıkışlarını algılayıp kullanmaya çalışıyor. Başarılı olursa, Windows standart bir aygıt bildirmese bile sistem hoparlörünü kullanabilirsiniz.
@@ -140,12 +155,15 @@ Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde g
 ### S: Ultrasonik donanım testi (2. adım) bozuk (açık devre) veya bağlantısı kesilmiş sistem hoparlörlerini tespit edebilir mi?
 **C:** Bu şu anda test edilmemiştir ve bilinmemektedir. Test, elektriksel geri beslemeyi ve port etkinliğini kontrol etse de, fiziksel olarak mevcut ancak bozuk (açık devre) veya bağlantısı kesilmiş bir hoparlör ile eksik bir hoparlör arasında güvenilir bir şekilde ayrım yapamayabilir. Hoparlör tamamen bozuk veya bağlantısı kesilmişse (açık devre), test negatif olarak döndürebilir ve işlevsel bir çıkış algılanmadığını gösterebilir. Ancak, bu davranış garanti edilmez ve belirli donanıma ve arıza moduna bağlı olabilir. Sistem hoparlörünüzün çalışmadığından şüpheleniyorsanız, fiziksel inceleme yapmanız veya bir multimetre kullanmanız önerilir.
 
+### S: ARM64 cihazımda neden sistem hoparlörü veya bip sesi seçenekleri göremiyorum?
+**C:** Windows ARM64 sistemlerinde, NeoBleeper sistem hoparlörü ile ilgili ayarları devre dışı bırakır çünkü ARM64 platformları doğrudan sistem hoparlörü donanım erişimini desteklemez. Tüm bip sesleri normal ses çıkış cihazınızdan (hoparlörler veya kulaklıklar) çalınır ve "Sistem Hoparlörünü Test Et" ve "Bip sesi oluşturmak için ses cihazını kullan" seçenekleri otomatik olarak gizlenir. Bu davranış tasarım gereğidir ve bir hata değildir.
+
 **Potansiyel gelecekteki güncellemeler:**
 Gelecekteki testler veya geliştirmeler, NeoBleeper'ın ultrasonik donanım testi aracılığıyla bozuk veya bağlantısı kesilmiş sistem hoparlörlerini güvenilir bir şekilde tespit etmesini sağlarsa, bu SSS ve tespit mantığı bu geliştirmeleri yansıtacak şekilde güncellenecektir. Ayrıntılar için değişiklik günlüklerini veya yeni sürümleri takip ediniz.
 
 ---
 
-## 6. Yardım Alma
+## 7. Yardım Alma
 
 - **Bilgisayar ve ortam ayrıntılarını sağlayınız:** Donanım algılama veya ses sorunlarını bildirirken, lütfen bilgisayarınız (masaüstü/dizüstü bilgisayar, üretici/model, işletim sistemi) ve ilgili donanımlar hakkında ayrıntıları ekleyiniz.
 - **Ekran görüntüleri veya hata iletişim kutuları ekleyiniz:** Hata veya uyarı iletişim kutularının ekran görüntüleri çok faydalıdır. Sorunun tam olarak ne zaman ortaya çıktığını belirtiniz.
