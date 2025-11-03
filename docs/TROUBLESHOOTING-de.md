@@ -13,7 +13,7 @@ Wenn NeoBleeper abstürzt oder erzwungen geschlossen wird, während die Audiowie
 Der Systemlautsprecher wird auf niedriger Hardware-/Softwareebene gesteuert. Wenn die Anwendung den Lautsprecher beim Beenden nicht ordnungsgemäß freigibt oder zurücksetzt, kann der Ton bestehen bleiben.
 
 **Lösungen:**
-- **NeoBleeper Signalton-Stopper verwenden:**
+- **NeoBleeper Signalton-Stopper verwenden (für die 64-Bit-Version):**
   NeoBleeper enthält im Programmordner das Tool „NeoBleeper Signalton-Stopper“.
   
   ![image4](https://github.com/user-attachments/assets/b4f2bfce-ce16-4377-8884-5485ac04f9a8)
@@ -80,7 +80,24 @@ Manche moderne Computer, Laptops oder virtuelle Maschinen verfügen nicht über 
 
 ---
 
-## 3. So prüfen Sie, ob Systemlautsprecher vorhanden sind
+## 3. ARM64-Unterstützung und Einschränkungen
+
+**ARM64-basierte Geräte:**
+Auf Windows-ARM64-Systemen sind der Test „Systemlautsprecher“ und das Kontrollkästchen „Audiogerät zur Erzeugung von Pieptönen verwenden“ in NeoBleeper **nicht verfügbar**. Stattdessen werden alle Pieptöne und Tonausgaben immer über Ihr Standard-Audiogerät (Lautsprecher oder Kopfhörer) ausgegeben.
+
+- Die Schaltfläche „Systemlautsprecher testen“ und die zugehörigen Erkennungsfunktionen sind in den Einstellungen von ARM64-Geräten **nicht** sichtbar.
+
+- Die Option „Audiogerät zur Erzeugung von Pieptönen verwenden“ ist nicht vorhanden, da dieses Verhalten automatisch erzwungen wird.
+
+- Diese Einschränkung besteht, da auf ARM64-Windows-Plattformen kein direkter Zugriff auf die PC-/Systemlautsprecherhardware möglich ist.
+
+- Auf ARM64 hören Sie Pieptöne immer über Ihr normales Audioausgabegerät.
+
+**Wenn Sie einen ARM64-Rechner verwenden und die Systemlautsprecheroptionen in NeoBleeper nicht sehen, ist dies beabsichtigt und kein Fehler.**
+
+---
+
+## 4. So prüfen Sie, ob Systemlautsprecher vorhanden sind
 
 - **Desktop-Computer:** Die meisten älteren Desktop-Computer verfügen über einen PC-Lautsprecheranschluss auf dem Motherboard. Neuere Systeme verfügen möglicherweise nicht über diese Funktion oder stellen den Ausgang in einer versteckten/nicht PNP0800-fähigen Form dar, die NeoBleeper nun nutzen kann.
 - **Laptops:** Die meisten Laptops verfügen über keinen separaten Systemlautsprecher; der gesamte Ton wird über das Haupt-Audiosystem geleitet.
@@ -89,24 +106,7 @@ Manche moderne Computer, Laptops oder virtuelle Maschinen verfügen nicht über 
   
 ---
 
-## 2.1 Test der Systemlautsprecherausgabe (Ultraschallfrequenzerkennung)
-
-NeoBleeper bietet jetzt einen neuen, erweiterten Hardwaretest zur Erkennung der Systemlautsprecherausgabe (auch PC-Lautsprecher genannt), selbst wenn das Gerät von Windows nicht erkannt wird (z. B. mit bestimmten IDs wie PNP0C02 statt PNP0800). Dieser Test nutzt Ultraschallfrequenzen (typischerweise 30–38 kHz, die nicht hörbar sind) und analysiert die elektrische Rückkopplung am Systemlautsprecheranschluss.
-
-- **Funktionsweise:**
-  Beim Systemstart führt NeoBleeper nach der üblichen Geräte-ID-Prüfung einen zweiten Schritt durch. Es sendet Ultraschallsignale an den Systemlautsprecheranschluss und überwacht die Hardwarerückkopplung, um das Vorhandensein eines funktionierenden Lautsprecherausgangs zu erkennen – auch wenn dieser versteckt oder nicht standardmäßig ist.
-
-- **Was Ihnen auffallen könnte:**
-  Auf einigen Systemen, insbesondere solchen mit Piezo-Summern, können während dieser Phase leise Klickgeräusche zu hören sein. Dies ist normal und zeigt an, dass der Hardwaretest läuft.
-  
-  ![image4](https://github.com/user-attachments/assets/f1921ad9-faac-4023-94ac-1198288bd73e)
-  
-  *Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 2/2... (Klickgeräusche sind möglicherweise zu hören)*
-
-- **Warum dieser Test?**
-  Viele moderne Systeme verfügen nicht über einen PNP0800-Systemlautsprecher, haben aber dennoch einen nutzbaren (versteckten) Lautsprecherausgang. NeoBleeper nutzt diese fortschrittliche Methode, um Signaltonfunktionen auf mehr Hardware zu ermöglichen.
-
-## 4. Ich höre keinen Ton!
+## 5. Ich höre keinen Ton!
 
 - **Überprüfen Sie Ihre NeoBleeper-Einstellungen:**
   Wenn Ihr Systemlautsprecher nicht verfügbar ist, stellen Sie sicher, dass Ihr Audiogerät (Lautsprecher/Kopfhörer) richtig ausgewählt ist und funktioniert.
@@ -119,7 +119,7 @@ NeoBleeper bietet jetzt einen neuen, erweiterten Hardwaretest zur Erkennung der 
   
 ---
 
-## 5. Häufig gestellte Fragen
+## 6. Häufig gestellte Fragen
 
 ### F: Kann ich den Systemlautsprecher verwenden, wenn meine Hardware kein PNP0800-Gerät hat?
 **A:** Ja! NeoBleeper versucht nun, versteckte oder nicht PNP0800-Systemlautsprecherausgänge zu erkennen und zu verwenden, sofern möglich. Bei Erfolg können Sie den Systemlautsprecher auch dann verwenden, wenn Windows kein Standardgerät meldet.
@@ -139,12 +139,16 @@ NeoBleeper bietet jetzt einen neuen, erweiterten Hardwaretest zur Erkennung der 
 ### F: Kann der Ultraschall-Hardwaretest (Schritt 2) defekte (offene Leitung) oder nicht angeschlossene Systemlautsprecher erkennen?
 **A:** Dies ist derzeit nicht getestet und unbekannt. Der Test prüft zwar auf elektrische Rückkopplung und Portaktivität, unterscheidet jedoch möglicherweise nicht zuverlässig zwischen einem physisch vorhandenen, aber defekten (offenen Leitung) oder nicht angeschlossenen Lautsprecher und einem fehlenden Lautsprecher. Ist der Lautsprecher vollständig defekt oder nicht angeschlossen (offene Leitung), kann der Test „false“ zurückgeben, was bedeutet, dass kein funktionsfähiger Ausgang erkannt wurde. Dieses Verhalten ist jedoch nicht garantiert und kann von der jeweiligen Hardware und dem Fehlermodus abhängen. Wenn Sie vermuten, dass Ihr Systemlautsprecher nicht funktioniert, empfehlen wir eine physische Überprüfung oder die Verwendung eines Multimeters.
 
+### F: Warum sehe ich auf meinem ARM64-Gerät keine Optionen für Systemlautsprecher oder Signaltöne?
+
+**A:** Auf Windows-ARM64-Systemen deaktiviert NeoBleeper die Einstellungen für Systemlautsprecher, da ARM64-Plattformen keinen direkten Zugriff auf die Hardware der Systemlautsprecher unterstützen. Alle Signaltöne werden über Ihr reguläres Audioausgabegerät (Lautsprecher oder Kopfhörer) wiedergegeben, und die Optionen „Systemlautsprecher testen“ und „Audiogerät zum Erstellen eines Signaltons verwenden“ sind automatisch ausgeblendet. Dieses Verhalten ist beabsichtigt und kein Fehler.
+
 **Mögliche zukünftige Updates:**
 Sollte NeoBleeper durch zukünftige Tests oder Entwicklungen defekte oder nicht angeschlossene Systemlautsprecher zuverlässig über den Ultraschall-Hardwaretest erkennen können, werden diese FAQ und die Erkennungslogik entsprechend aktualisiert. Weitere Informationen finden Sie in Änderungsprotokollen oder neuen Versionen.
 
 ---
 
-## 6. Hilfe erhalten
+## 7. Hilfe erhalten
 
 - **Computer- und Umgebungsdetails angeben:** Wenn Sie Probleme mit der Hardwareerkennung oder dem Sound melden, geben Sie bitte Details zu Ihrem Computer (Desktop/Laptop, Hersteller/Modell, Betriebssystem) und der relevanten Hardware an.
 - **Screenshots oder Fehlerdialoge anhängen:** Screenshots von Fehler- oder Warndialogen sind sehr hilfreich. Geben Sie genau an, wann das Problem auftritt.
