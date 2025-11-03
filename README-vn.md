@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper là trình phát nhạc đầu tiên có thể phát nhạc qua loa hệ thống và hỗ trợ trực tiếp tiếng Việt**
 
-NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI sử dụng loa hệ thống (hay còn gọi là Loa PC) trên bo mạch chủ, lấy cảm hứng từ phần mềm Bleeper Music Maker mà Robbi-985 (hay còn gọi là SomethingUnreal) phát triển vào khoảng cuối năm 2007 - đầu năm 2008 nhưng đã bị ngừng phát triển vào năm 2011 do tiếng bíp được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn. NeoBleeper mang đến trải nghiệm tạo nhạc ổn định hơn bằng cách giải quyết vấn đề tiếng bíp hệ thống được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn bằng cách truy cập vào cổng vật lý của loa hệ thống 🖥️🎶
+NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI sử dụng loa hệ thống (hay còn gọi là Loa PC) trên bo mạch chủ, lấy cảm hứng từ phần mềm Bleeper Music Maker mà Robbi-985 (hay còn gọi là SomethingUnreal) phát triển vào khoảng cuối năm 2007 - đầu năm 2008 nhưng đã bị ngừng phát triển vào năm 2011 do tiếng bíp được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn. NeoBleeper mang đến trải nghiệm tạo nhạc ổn định hơn bằng cách giải quyết vấn đề tiếng bíp hệ thống được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn bằng cách truy cập vào cổng vật lý của loa hệ thống 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/da50377a-e684-499f-bfd2-584f5d4bb5b6)
 
 ## Trạng thái
 
-Dự án này **vẫn đang trong quá trình phát triển** và một số tính năng và thành phần vẫn chưa hoàn thiện. Phiên bản này là **bản phát hành alpha cuối cùng**. Với bản cập nhật tiếp theo, NeoBleeper sẽ chuyển sang **phiên bản beta đầu tiên**. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi để giúp cải thiện các bản phát hành trong tương lai.
+Dự án này **vẫn đang trong quá trình phát triển** và phiên bản này là **bản beta**. Vui lòng sử dụng chương trình với lưu ý này và cung cấp phản hồi để giúp cải thiện các bản phát hành trong tương lai.
 
 ## Tính năng
 
@@ -87,21 +87,23 @@ Dự án này **vẫn đang trong quá trình phát triển** và một số tí
 
     ![image](https://github.com/user-attachments/assets/c8f44c05-1ac1-478e-ab92-8c4112c3c7b2)
 
-- #### Tự động phát hiện loa hệ thống
+- #### Tự động phát hiện loa hệ thống*
   Nếu NeoBleeper không phát hiện loa hệ thống trên bo mạch chủ máy tính của bạn, nó sẽ tự động bật tùy chọn 'Sử dụng thiết bị âm thanh để tạo tiếng bíp' để ngăn ngừa các tình huống không mong muốn có thể xảy ra.
 
   ![image](https://github.com/user-attachments/assets/297a1c0e-8ae2-46e2-ad91-899f3ba0511f)
 
-- #### Thông minh hơn bạn nghĩ
+- #### Thông minh hơn bạn nghĩ*
   NeoBleeper nhận dạng loại máy tính của bạn và ngăn ngừa các tình huống không mong muốn có thể xảy ra bằng cách tự động kích hoạt tùy chọn 'Sử dụng thiết bị âm thanh để tạo tiếng bíp' trên các máy tính nhỏ gọn.
 
   ![image](https://github.com/user-attachments/assets/759714ed-0fef-4b12-9eb6-36aa3f72c17d)
+  
+*Các tính năng này chỉ khả dụng cho phiên bản kiến ​​trúc 64-bit và phiên bản kiến ​​trúc ARM64 không có khả năng tạo tiếng bíp qua loa hệ thống.
 
 ## Yêu cầu hệ thống
 
-**Phiên bản Windows:** Windows 10 (1809 trở lên) 64-bit (tối thiểu)/Windows 11 (khuyến nghị)
+**Phiên bản Windows:** Windows 10 (1809 trở lên) 64-bit/ARM64 (tối thiểu)/Windows 11 (khuyến nghị)
 
-**CPU:** Intel® Core i3 hoặc tương đương (tối thiểu)
+**CPU:** Intel® Core i3 hoặc tương đương (64-bit) hoặc ARM64 tương đương (ví dụ: Qualcomm Snapdragon) (tối thiểu)
 
 **RAM:** 2 GB (tối thiểu), 4 GB (khuyến nghị)
 
