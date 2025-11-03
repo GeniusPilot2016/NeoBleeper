@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper est le premier lecteur de musique capable de diffuser de la musique via le haut-parleur du système et prenant en charge la langue française native**
 
-NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le haut-parleur système (aussi appelé PC Speaker) de la carte mère. Il s'inspire du logiciel Bleeper Music Maker développé par Robbi-985 (alias SomethingUnreal) fin 2007-début 2008, mais abandonné en 2011 car les bips étaient dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows. NeoBleeper offre une expérience musicale plus stable en résolvant le problème des bips système dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows, en accédant au port physique du haut-parleur système 🖥️🎶
+NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le haut-parleur système (aussi appelé PC Speaker) de la carte mère. Il s'inspire du logiciel Bleeper Music Maker développé par Robbi-985 (alias SomethingUnreal) fin 2007-début 2008, mais abandonné en 2011 car les bips étaient dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows. NeoBleeper offre une expérience musicale plus stable en résolvant le problème des bips système dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows, en accédant au port physique du haut-parleur système 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
 
 ## Statut
 
-Ce projet est **encore en développement** et certaines fonctionnalités et composants sont inachevés. Cette version est la **dernière version alpha**. Avec la prochaine mise à jour, NeoBleeper passera à sa **première version bêta**. Merci d'utiliser le programme en conséquence et de nous faire part de vos commentaires pour améliorer les prochaines versions.
+Ce projet est **encore en développement** et cette version est une **version bêta**. Veuillez en tenir compte lors de son utilisation et nous faire part de vos commentaires afin d'améliorer les versions futures.
 
 ## Fonctionnalités
 
@@ -89,24 +89,25 @@ NeoBleeper permet aux utilisateurs d'ajouter et de modifier des notes facilement
 
     ![image](https://github.com/user-attachments/assets/583119dd-3a02-446a-8970-6280630fdfb1)
 
-  - #### Détecte le haut-parleur système pour vous
+  - #### Détecte le haut-parleur système pour vous*
 
     Si NeoBleeper ne détecte pas le haut-parleur système de la carte mère de votre ordinateur, il activera automatiquement l'option « Utiliser un périphérique audio pour créer le bip » afin d'éviter tout problème.
 
     ![image](https://github.com/user-attachments/assets/c68b854a-2b6b-478e-bef3-1d22bcec6e1d)
 
-  - #### Plus intelligent que vous ne le pensez
+  - #### Plus intelligent que vous ne le pensez*
 
     NeoBleeper reconnaît votre type d'ordinateur et prévient tout problème en activant automatiquement l'option « Utiliser un périphérique audio pour créer le bip » sur les ordinateurs compacts.
   
     ![image](https://github.com/user-attachments/assets/af5018a6-913f-4fb4-8d76-5034d3fdd93e)
 
+*Ces fonctionnalités sont uniquement disponibles pour la version à architecture 64 bits, et la version à architecture ARM64 ne permet pas de générer des bips via le haut-parleur du système.
 
 ## Configuration requise
 
-**Version Windows :** Windows 10 (1809 et supérieur) 64 bits (minimum)/Windows 11 (recommandé)
+**Version Windows :** Windows 10 (1809 et supérieur) 64 bits/ARM64 (minimum)/Windows 11 (recommandé)
 
-**Processeur :** Intel® Core i3 ou équivalent (minimum)
+**Processeur :** Intel® Core i3 ou équivalent (64 bits), ou équivalent ARM64 (par exemple, Qualcomm Snapdragon) (minimum)
 
 **RAM :** 2 GB (minimum), 4 GB (recommandé)
 
