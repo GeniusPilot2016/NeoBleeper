@@ -97,7 +97,7 @@ This project is **still in development** and this version is the **beta release*
 
     ![image](https://github.com/user-attachments/assets/9f5c5a79-5645-4a36-b3f5-f1f4da70259d)
 
-*These features are only available for the 64-bit architecture version, and the ARM64 version does not have the ability to generate beeps through the system speaker.
+*These features are only available for the 64-bit architecture version, and the ARM64 architecture version does not have the ability to generate beeps through the system speaker.
 
 ## System Requirements
 
