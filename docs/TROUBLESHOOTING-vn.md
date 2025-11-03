@@ -13,7 +13,7 @@ Nếu NeoBleeper gặp sự cố hoặc bị đóng mạnh trong khi âm thanh �
 Loa hệ thống được điều khiển ở mức phần cứng/phần mềm thấp. Nếu ứng dụng không nhả hoặc đặt lại loa đúng cách khi thoát, tiếng bíp có thể vẫn tiếp diễn.
 
 **Giải pháp:**
-- **Sử dụng tiện ích NeoBleeper Nút Chặn Tiếng Bíp:**
+- **Sử dụng tiện ích NeoBleeper Nút Chặn Tiếng Bíp (cho phiên bản 64-bit):**
 NeoBleeper đi kèm với một công cụ có tên "NeoBleeper Nút Chặn Tiếng Bíp" trong thư mục chương trình.
 
 ![image4](https://github.com/user-attachments/assets/3e46c8dd-62b9-4789-a7a0-ca245d365dce)
@@ -78,17 +78,6 @@ NeoBleeper bao gồm logic phát hiện để kiểm tra xem hệ thống của 
 #### "Đầu ra loa hệ thống không chuẩn" nghĩa là gì?
 Một số máy tính, máy tính xách tay hoặc máy ảo hiện đại không có loa PC thực sự, hoặc đường truyền tín hiệu không chuẩn. NeoBleeper hiện đang cố gắng phát hiện và sử dụng các đầu ra loa hệ thống ẩn này (không được xác định là thiết bị PNP0800), nhưng chỉ có thể bật tùy chọn loa hệ thống nếu nó thực sự có thể truy cập được ở cấp độ phần cứng. Nếu không tìm thấy đầu ra nào khả dụng, bạn sẽ cần sử dụng thiết bị âm thanh thông thường của mình.
 
----
-
-## 3. Cách kiểm tra sự hiện diện của loa hệ thống
-
-- **Máy tính để bàn:** Hầu hết các máy tính để bàn cũ đều có đầu cắm loa PC trên bo mạch chủ. Các hệ thống mới hơn có thể bỏ qua tính năng này hoặc có thể hiển thị đầu ra ở dạng ẩn/không phải PNP0800 mà NeoBleeper hiện có thể sử dụng.
-- **Máy tính xách tay:** Hầu hết máy tính xách tay không có loa hệ thống riêng; tất cả âm thanh đều được định tuyến qua hệ thống âm thanh chính.
-- **Máy ảo:** Tính năng mô phỏng loa hệ thống thường không có hoặc không đáng tin cậy; các đầu ra không phải PNP0800 có thể không khả dụng.
-- **Cách nhận biết:** Nếu bạn thấy các cảnh báo ở trên nhưng có thể bật và kiểm tra loa hệ thống trong NeoBleeper, máy tính của bạn có thể có đầu ra ẩn hoặc không chuẩn.
-  
----
-
 ## 2.1 Kiểm tra Đầu ra Loa Hệ thống (Phát hiện Tần số Siêu âm)
 NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao để phát hiện đầu ra loa hệ thống (hay còn gọi là loa PC), ngay cả khi thiết bị không được Windows báo cáo (trong một số ID nhất định như PNP0C02 thay vì PNP0800). Bài kiểm tra này sử dụng tần số siêu âm (thường là 30–38 kHz, không thể nghe thấy) và phân tích phản hồi điện trên cổng loa hệ thống.
 
@@ -103,7 +92,32 @@ NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao
 - **Tại sao phải kiểm tra?**
   Nhiều hệ thống hiện đại không có thiết bị loa hệ thống PNP0800, nhưng vẫn có đầu ra loa có thể sử dụng được (ẩn). NeoBleeper sử dụng phương pháp tiên tiến này để bật tính năng phát tiếng bíp trên nhiều phần cứng hơn.
 
-## 4. Tôi không nghe thấy âm thanh nào!
+---
+
+## 3. Hỗ trợ và Hạn chế ARM64
+
+**Thiết bị chạy ARM64:**
+Trên các hệ thống Windows ARM64, tính năng kiểm tra "Loa Hệ thống" và hộp kiểm "Sử dụng thiết bị âm thanh để tạo tiếng bíp" **không khả dụng** trong NeoBleeper. Thay vào đó, tất cả tiếng bíp và đầu ra âm thanh luôn được tạo ra thông qua thiết bị âm thanh tiêu chuẩn của bạn (loa hoặc tai nghe).
+
+- Nút "Kiểm tra Loa Hệ thống" và các tính năng phát hiện liên quan sẽ **không** hiển thị trong phần cài đặt trên các thiết bị ARM64.
+- Tùy chọn "Sử dụng thiết bị âm thanh để tạo tiếng bíp" không có sẵn vì hành vi này được áp dụng tự động.
+- Hạn chế này tồn tại vì không thể truy cập trực tiếp vào phần cứng loa máy tính/hệ thống trên nền tảng ARM64 Windows.
+- Bạn sẽ luôn nghe thấy tiếng bíp thông qua thiết bị đầu ra âm thanh thông thường trên ARM64.
+
+**Nếu bạn đang sử dụng máy ARM64 và không thấy các tùy chọn loa hệ thống trong NeoBleeper, điều này là bình thường và không phải là lỗi.**
+
+---
+
+## 4. Cách kiểm tra sự hiện diện của loa hệ thống
+
+- **Máy tính để bàn:** Hầu hết các máy tính để bàn cũ đều có đầu cắm loa PC trên bo mạch chủ. Các hệ thống mới hơn có thể bỏ qua tính năng này hoặc có thể hiển thị đầu ra ở dạng ẩn/không phải PNP0800 mà NeoBleeper hiện có thể sử dụng.
+- **Máy tính xách tay:** Hầu hết máy tính xách tay không có loa hệ thống riêng; tất cả âm thanh đều được định tuyến qua hệ thống âm thanh chính.
+- **Máy ảo:** Tính năng mô phỏng loa hệ thống thường không có hoặc không đáng tin cậy; các đầu ra không phải PNP0800 có thể không khả dụng.
+- **Cách nhận biết:** Nếu bạn thấy các cảnh báo ở trên nhưng có thể bật và kiểm tra loa hệ thống trong NeoBleeper, máy tính của bạn có thể có đầu ra ẩn hoặc không chuẩn.
+
+---
+
+## 5. Tôi không nghe thấy âm thanh nào!
 - **Kiểm tra cài đặt NeoBleeper của bạn:**
   Nếu loa hệ thống của bạn không khả dụng, hãy đảm bảo thiết bị âm thanh (loa/tai nghe) được chọn chính xác và đang hoạt động.
 - **Kiểm tra bộ trộn âm lượng của Windows:**
@@ -115,7 +129,7 @@ NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao
 
 ---
 
-## 5. Câu hỏi thường gặp
+## 6. Câu hỏi thường gặp
 
 ### H: Tôi có thể sử dụng loa hệ thống nếu phần cứng của tôi không có thiết bị PNP0800 không?
 **A:** Có! NeoBleeper hiện đang cố gắng phát hiện và sử dụng các đầu ra loa hệ thống ẩn hoặc không phải PNP0800 nếu có thể. Nếu thành công, bạn có thể sử dụng loa hệ thống ngay cả khi Windows không báo cáo thiết bị tiêu chuẩn.
@@ -135,12 +149,15 @@ NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao
 ### H: Bài kiểm tra phần cứng siêu âm (bước 2) có thể phát hiện loa hệ thống bị hỏng (hở mạch) hoặc bị ngắt kết nối không?
 **A:** Hiện tại, điều này chưa được kiểm tra và chưa rõ. Mặc dù bài kiểm tra này kiểm tra phản hồi điện và hoạt động của cổng, nhưng nó có thể không phân biệt chính xác giữa loa hiện diện nhưng bị hỏng (hở mạch) hoặc bị ngắt kết nối và loa bị mất. Nếu loa bị hỏng hoàn toàn hoặc bị ngắt kết nối (hở mạch), bài kiểm tra có thể trả về kết quả sai, cho biết không phát hiện thấy đầu ra hoạt động. Tuy nhiên, kết quả này không được đảm bảo và có thể phụ thuộc vào phần cứng và chế độ lỗi cụ thể. Nếu bạn nghi ngờ loa hệ thống của mình không hoạt động, hãy kiểm tra thực tế hoặc sử dụng đồng hồ vạn năng.
 
+### H: Tại sao tôi không thấy bất kỳ tùy chọn loa hệ thống hoặc âm thanh bíp nào trên thiết bị ARM64 của mình?
+**A:** Trên hệ thống Windows ARM64, NeoBleeper vô hiệu hóa các cài đặt liên quan đến loa hệ thống vì nền tảng ARM64 không hỗ trợ truy cập trực tiếp vào phần cứng loa hệ thống. Tất cả tiếng bíp đều được phát qua thiết bị đầu ra âm thanh thông thường của bạn (loa hoặc tai nghe), và các tùy chọn "Kiểm tra Loa Hệ thống" và "Sử dụng thiết bị âm thanh để tạo tiếng bíp" sẽ tự động bị ẩn. Hiện tượng này là do thiết kế chứ không phải lỗi.
+
 **Các bản cập nhật tiềm năng trong tương lai:**
 Nếu các thử nghiệm hoặc phát triển trong tương lai cho phép NeoBleeper phát hiện loa hệ thống bị hỏng hoặc ngắt kết nối một cách đáng tin cậy thông qua kiểm tra phần cứng siêu âm, Câu hỏi thường gặp này và logic phát hiện sẽ được cập nhật để phản ánh những cải tiến đó. Vui lòng theo dõi nhật ký thay đổi hoặc bản phát hành mới để biết thêm chi tiết.
 
 ---
 
-## 6. Nhận trợ giúp
+## 7. Nhận trợ giúp
 
 - **Cung cấp thông tin chi tiết về máy tính và môi trường:** Khi báo cáo sự cố phát hiện phần cứng hoặc âm thanh, vui lòng bao gồm thông tin chi tiết về máy tính của bạn (máy tính để bàn/máy tính xách tay, nhà sản xuất/mẫu máy, hệ điều hành) và bất kỳ phần cứng nào có liên quan.
 - **Đính kèm ảnh chụp màn hình hoặc hộp thoại báo lỗi:** Ảnh chụp màn hình hộp thoại báo lỗi hoặc cảnh báo rất hữu ích. Vui lòng chỉ rõ thời điểm sự cố xảy ra.
