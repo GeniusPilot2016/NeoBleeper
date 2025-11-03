@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper, sistem hoparlörü ile müzik çalabilen ve doğrudan Türkçe dil desteğine sahip ilk müzik oynatıcısıdır**
 
-NeoBleeper, Robbi-985'in (diğer adıyla SomethingUnreal) 2007 sonu-2008 başı civarında geliştirdiği ancak yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında kullanımdan kaldırdığı Bleeper Music Maker yazılımından esinlenerek, anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan yapay zeka destekli bir melodi oluşturma yazılımıdır. NeoBleeper, yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilme sorununu çözerek daha kararlı bir müzik yapma deneyimi sunar 🖥️🎶
+NeoBleeper, Robbi-985'in (diğer adıyla SomethingUnreal) 2007 sonu-2008 başı civarında geliştirdiği ancak yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında kullanımdan kaldırdığı Bleeper Music Maker yazılımından esinlenerek, anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan yapay zeka destekli bir melodi oluşturma yazılımıdır. NeoBleeper, yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilme sorununu çözerek daha kararlı bir müzik yapma deneyimi sunar 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/cb1b3752-cc6a-48f6-9daa-7411f5a2cbfb)
 
 ## Durum
 
-Bu proje **hâlâ geliştirme aşamasında** olup, bazı özellikler ve bileşenler henüz tamamlanmamıştır. Bu sürüm **son alfa sürümüdür**. NeoBleeper, bir sonraki güncellemeyle **ilk beta sürümüne** taşınacaktır. Lütfen programı bunu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
+Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürümüdür**. Lütfen programı bunu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
 
 ## Özellikler
 
@@ -87,21 +87,23 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
     ![image](https://github.com/user-attachments/assets/5484ebf3-6d30-48aa-a797-fd5469743c44)
 
-  - #### Sistem hoparlörünü sizin için algılar
+  - #### Sistem hoparlörünü sizin için algılar*
     NeoBleeper, bilgisayarınızın anakartındaki sistem hoparlörünü algılamazsa, olası istenmeyen durumları önlemek için 'Bip sesi oluşturmak için ses aygıtını kullan' seçeneğini otomatik olarak etkinleştirir.
 
     ![image](https://github.com/user-attachments/assets/6188c287-ec8a-4e72-95e7-0d8af5b970e4)
 
-  - #### Düşündüğünüzden daha akıllı
+  - #### Düşündüğünüzden daha akıllı*
     NeoBleeper, bilgisayar türünüzü tanır ve kompakt bilgisayarlarda 'Bip sesi oluşturmak için ses aygıtını kullan' seçeneğini otomatik olarak etkinleştirerek olası istenmeyen durumları önler.
 
     ![image](https://github.com/user-attachments/assets/87a9ef10-28c7-4884-8e25-6ddb53310889)
+    
+*Bu özellikler yalnızca 64-bit mimarisi sürümü için geçerlidir ve ARM64 mimarisi sürümünde sistem hoparlörü aracılığıyla bip sesi üretme özelliği yoktur.
 
 ## Sistem Gereksinimleri
 
-**Windows Sürümü:** Windows 10 (1809 ve üzeri) 64 bit (minimum)/Windows 11 (önerilen)
+**Windows Sürümü:** Windows 10 (1809 ve üzeri) 64 bit/ARM64 (minimum)/Windows 11 (önerilen)
 
-**İşlemci:** Intel® Core i3 veya eşdeğeri (minimum)
+**CPU:** Intel® Core i3 veya eşdeğeri (64 bit) ya da ARM64 eşdeğeri (örneğin Qualcomm Snapdragon) (minimum)
 
 **RAM:** 2 GB (minimum), 4 GB (önerilen)
 
