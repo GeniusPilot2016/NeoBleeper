@@ -13,7 +13,7 @@ Si NeoBleeper plante ou est fermé de force alors que le son est diffusé par le
 Le haut-parleur système est contrôlé à un niveau matériel/logiciel bas. Si l'application ne libère pas ou ne réinitialise pas correctement le haut-parleur à la fermeture, le bip peut persister.
 
 **Solutions** :
-- **Utiliser l'utilitaire Arrêt du bip NeoBleeper :**
+- **Utiliser l'utilitaire Arrêt du bip NeoBleeper (pour la version 64 bits):**
   NeoBleeper est fourni avec un outil appelé « Arrêt du bip NeoBleeper » dans le dossier du programme.
 
   ![image4](https://github.com/user-attachments/assets/fbf24bb4-5490-412e-bd03-d90acd11d483)
@@ -81,17 +81,6 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 #### Que signifie « sortie de haut-parleur système non standard » ? 
   Certains ordinateurs, ordinateurs portables ou machines virtuelles modernes ne disposent pas de véritable haut-parleur PC, ou le routage du signal est non standard. NeoBleeper tente désormais de détecter et d'utiliser ces sorties de haut-parleurs système cachées (non identifiées comme périphériques PNP0800), mais ne peut activer l'option haut-parleur système que si elle est accessible au niveau matériel. Si aucune sortie utilisable n'est trouvée, vous devrez utiliser votre périphérique audio habituel.
 
----
-
-## 3. Comment vérifier la présence d'un haut-parleur système
-
-- **Ordinateurs de bureau** : La plupart des anciens ordinateurs de bureau sont équipés d'un connecteur pour haut-parleur PC sur la carte mère. Les systèmes plus récents peuvent omettre cette fonctionnalité ou afficher la sortie sous une forme masquée/non PNP0800 que NeoBleeper peut désormais utiliser.
-- **Ordinateurs portables** : La plupart des ordinateurs portables ne disposent pas de haut-parleur système séparé ; tout le son est acheminé via le système audio principal.
-- **Machines virtuelles** : L'émulation des haut-parleurs système est souvent absente ou peu fiable ; les sorties non PNP0800 peuvent être indisponibles.
-- **Comment le savoir** : Si vous voyez les avertissements ci-dessus, mais que vous parvenez à activer et tester le haut-parleur système dans NeoBleeper, votre ordinateur dispose probablement d'une sortie masquée ou non standard.
-  
----
-
 ## 2.1 Test de sortie des haut-parleurs système (détection des fréquences ultrasoniques)
 
   NeoBleeper intègre désormais un nouveau test matériel avancé permettant de détecter la sortie des haut-parleurs système (également appelés haut-parleurs PC), même si le périphérique n'est pas signalé par Windows (avec certains identifiants comme PNP0C02 au lieu de PNP0800). Ce test utilise des fréquences ultrasoniques (généralement 30 à 38 kHz, inaudibles) et analyse le retour électrique sur le port du haut-parleur système.
@@ -112,7 +101,36 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 
   De nombreux systèmes modernes ne sont pas équipés d'un haut-parleur PNP0800, mais disposent tout de même d'une sortie haut-parleur utilisable (masquée). NeoBleeper utilise cette méthode avancée pour activer les fonctions de bip sur davantage de matériel.
 
-## 4. Je n'entends aucun son !
+---
+
+## 3. Compatibilité et limitations ARM64
+
+**Appareils ARM64 :**
+
+Sur les systèmes Windows ARM64, le test « Haut-parleur système » et la case à cocher « Utiliser un périphérique audio pour les bips » ne sont **pas disponibles** dans NeoBleeper. Tous les bips et les sorties audio sont toujours produits par votre périphérique audio standard (haut-parleurs ou casque).
+
+- Le bouton « Tester le haut-parleur système » et les fonctions de détection associées ne sont **pas** visibles dans les paramètres sur les appareils ARM64.
+
+- L'option « Utiliser un périphérique audio pour les bips » n'est pas présente car ce comportement est appliqué automatiquement.
+
+- Cette limitation est due à l'impossibilité d'accéder directement au matériel haut-parleur du PC/système sur les plateformes Windows ARM64.
+
+- Vous entendrez toujours les bips via votre périphérique de sortie audio habituel sur ARM64.
+
+**Si vous utilisez un ordinateur ARM64 et que les options du haut-parleur système ne s'affichent pas dans NeoBleeper, ceci est normal et ne constitue pas un bug.**
+
+---
+
+## 4. Comment vérifier la présence d'un haut-parleur système
+
+- **Ordinateurs de bureau** : La plupart des anciens ordinateurs de bureau sont équipés d'un connecteur pour haut-parleur PC sur la carte mère. Les systèmes plus récents peuvent omettre cette fonctionnalité ou afficher la sortie sous une forme masquée/non PNP0800 que NeoBleeper peut désormais utiliser.
+- **Ordinateurs portables** : La plupart des ordinateurs portables ne disposent pas de haut-parleur système séparé ; tout le son est acheminé via le système audio principal.
+- **Machines virtuelles** : L'émulation des haut-parleurs système est souvent absente ou peu fiable ; les sorties non PNP0800 peuvent être indisponibles.
+- **Comment le savoir** : Si vous voyez les avertissements ci-dessus, mais que vous parvenez à activer et tester le haut-parleur système dans NeoBleeper, votre ordinateur dispose probablement d'une sortie masquée ou non standard.
+  
+---
+
+## 5. Je n'entends aucun son !
 
 - **Vérifiez les paramètres de NeoBleeper :**
   Si le haut-parleur de votre système n'est pas disponible, assurez-vous que votre périphérique audio (haut-parleurs/casque) est correctement sélectionné et fonctionnel.
@@ -125,7 +143,7 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 
 ---
 
-## 5. Foire aux questions
+## 6. Foire aux questions
 
 ### Q : Puis-je utiliser le haut-parleur système si mon matériel ne possède pas de périphérique PNP0800 ?
 **R :** Oui ! NeoBleeper tente désormais de détecter et d’utiliser les sorties de haut-parleur système masquées ou non PNP0800, lorsque cela est possible. En cas de succès, vous pouvez utiliser le haut-parleur système même si Windows ne signale pas de périphérique standard.
@@ -144,12 +162,15 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 ### Q : Le test matériel par ultrasons (étape 2) peut-il détecter des haut-parleurs système défectueux (circuit ouvert) ou déconnectés ?
 **R :** Ce test n'a pas encore été testé et est inconnu. Bien que le test vérifie la rétroaction électrique et l'activité des ports, il peut ne pas faire la distinction entre un haut-parleur physiquement présent mais défectueux (circuit ouvert) ou déconnecté et un haut-parleur absent. Si le haut-parleur est complètement défectueux ou déconnecté (circuit ouvert), le test peut renvoyer un résultat erroné, indiquant qu'aucune sortie fonctionnelle n'est détectée. Cependant, ce comportement n'est pas garanti et peut dépendre du matériel et du mode de défaillance. Si vous pensez que votre haut-parleur système ne fonctionne pas, une inspection physique ou l'utilisation d'un multimètre est recommandée.
 
+### Q : Pourquoi les options de haut-parleur système et de bip sonore sont-elles absentes de mon appareil ARM64 ?
+**R :** Sur les systèmes Windows ARM64, NeoBleeper désactive les paramètres relatifs au haut-parleur système, car les plateformes ARM64 ne prennent pas en charge l’accès direct au matériel du haut-parleur système. Tous les bips sont diffusés via votre périphérique de sortie audio habituel (haut-parleurs ou casque), et les options « Tester le haut-parleur système » et « Utiliser un périphérique audio pour émettre un bip » sont automatiquement masquées. Ce comportement est normal et ne constitue pas une erreur.
+
 **Mises à jour potentielles** :
 Si des tests ou développements futurs permettent à NeoBleeper de détecter de manière fiable les haut-parleurs système défectueux ou déconnectés grâce au test matériel par ultrasons, cette FAQ et la logique de détection seront mises à jour pour refléter ces améliorations. Consultez les journaux des modifications ou les nouvelles versions pour plus de détails.
 
 ---
 
-## 6. Obtenir de l'aide
+## 7. Obtenir de l'aide
 
 - **Fournir des informations sur l'ordinateur et son environnement** : Lorsque vous signalez des problèmes de détection de matériel ou de son, veuillez inclure des informations sur votre ordinateur (ordinateur de bureau/portable, fabricant/modèle, système d'exploitation) et tout matériel concerné.
 - **Joindre des captures d'écran ou des messages d'erreur** : Les captures d'écran des messages d'erreur ou d'avertissement sont très utiles. Précisez précisément quand le problème survient.
