@@ -198,6 +198,15 @@ namespace NeoBleeper
         {
             string baseToolTip = keyToolTip;
             string concatenatingToolTipLine = Resources.TextPercussionTooltip;
+            if((TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) &&
+                        TemporarySettings.MIDIDevices.useMIDIoutput)
+            {
+                Logger.Log("MIDI Output Channel is set to 10 (Percussion) - Updating key tooltips to show percussion names where applicable.", Logger.LogTypes.Info);
+            }
+            else
+            {
+                Logger.Log("MIDI Output Channel is not set to 10 (Percussion) - Using standard key tooltips.", Logger.LogTypes.Info);
+            }
             foreach (Control ctrl in keyboard_panel.Controls)
             {
                 if (ctrl is Button key)
@@ -205,7 +214,6 @@ namespace NeoBleeper
                     if ((TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) &&
                         TemporarySettings.MIDIDevices.useMIDIoutput) // Channel 9 is percussion in MIDI (0-based index)
                     {
-                        Logger.Log("Tooltip is changing for percussion mode.", Logger.LogTypes.Info);
                         int midiNoteNumber = CalculateMIDINumber(note_name_to_MIDI_number(ConvertButtonNameToRawNote(key.Name)));
                         if (midiNoteNumber >= 27 && midiNoteNumber <= 93)
                         {
@@ -227,7 +235,6 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        Logger.Log("Tooltip is changing for melodic mode.", Logger.LogTypes.Info);
                         toolTip1.SetToolTip(key, baseToolTip);
                     }
                 }
