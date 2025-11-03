@@ -103,7 +103,7 @@ This project is **still in development** and this version is the **beta release*
 
 **Windows Version:** Windows 10 (1809 and above) 64-bit/ARM64 (minimum)/Windows 11 (recommended)
 
-**CPU:** Intel® Core i3 or equivalent, or Snapdrago (minimum)
+**CPU:** Intel® Core i3 or equivalent (64-bit), or ARM64 equivalent (e.g., Qualcomm Snapdragon) (minimum)
 
 **RAM:** 2 GB (minimum), 4 GB (recommended)
 
