@@ -119,7 +119,7 @@ On Windows ARM64 systems, the "System Speaker" test and the "Use sound device to
 
 ---
 
-## 4. I Don't Hear Any Sound!
+## 5. I Don't Hear Any Sound!
 
 - **Check your NeoBleeper settings:**  
   If your system speaker is unavailable, ensure your sound device (speakers/headphones) is correctly selected and working.
@@ -132,7 +132,7 @@ On Windows ARM64 systems, the "System Speaker" test and the "Use sound device to
 
 ---
 
-## 5. Frequently Asked Questions
+## 6. Frequently Asked Questions
 
 ### Q: Can I use the system speaker if my hardware doesn't have a PNP0800 device?
 **A:** Yes! NeoBleeper now attempts to detect and use hidden or non-PNP0800 system speaker outputs where possible. If successful, you can use the system speaker even if Windows doesn't report a standard device.
@@ -160,7 +160,7 @@ If future testing or development enables NeoBleeper to reliably detect broken or
 
 ---
 
-## 6. Getting Help
+## 7. Getting Help
 
 - **Provide computer and environment details:** When reporting hardware detection or sound issues, please include details about your computer (desktop/laptop, manufacturer/model, operating system) and any relevant hardware.
 - **Attach screenshots or error dialogs:** Screenshots of error or warning dialogs are very helpful. Specify exactly when the problem occurs.
