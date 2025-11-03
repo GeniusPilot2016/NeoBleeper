@@ -13,7 +13,7 @@ Se NeoBleeper si blocca o viene chiuso forzatamente mentre l'audio è in riprodu
 L'altoparlante di sistema è controllato a un livello hardware/software basso. Se l'applicazione non rilascia o ripristina correttamente l'altoparlante all'uscita, il suono potrebbe persistere.
 
 **Soluzioni:**
-- **Utilizzare l'utilità NeoBleeper Beep Stopper:**
+- **Utilizzare l'utilità NeoBleeper Beep Stopper (per la versione a 64 bit):**
   NeoBleeper include uno strumento chiamato "NeoBleeper Beep Stopper" nella cartella del programma.
   
   ![image4](https://github.com/user-attachments/assets/03a875b0-7ac3-4e53-a2c7-9a702d9dccb3)
@@ -78,17 +78,6 @@ Ora è possibile disabilitare questa funzione se viene rilevata un'uscita altopa
 #### Cosa significa "uscita altoparlante di sistema non standard"? 
 Alcuni computer, laptop o macchine virtuali moderni non dispongono di un vero altoparlante per PC, oppure il routing del segnale non è standard. NeoBleeper ora tenta di rilevare e utilizzare tali uscite nascoste degli altoparlanti di sistema (non identificate come dispositivi PNP0800), ma può abilitare l'opzione degli altoparlanti di sistema solo se è effettivamente accessibile a livello hardware. Se non viene trovata alcuna uscita utilizzabile, sarà necessario utilizzare il dispositivo audio standard.
 
----
-
-## 3. Come verificare la presenza dell'altoparlante di sistema
-
-- **Computer desktop:** La maggior parte dei desktop più vecchi ha un connettore per l'altoparlante del PC sulla scheda madre. I sistemi più recenti potrebbero non avere questa funzionalità o presentare l'uscita in un formato nascosto/non PNP0800 che NeoBleeper ora può utilizzare.
-- **Laptop:** La maggior parte dei laptop non ha un altoparlante di sistema separato; tutto l'audio viene instradato attraverso il sistema audio principale.
-- **Macchine virtuali:** L'emulazione dell'altoparlante di sistema è spesso assente o inaffidabile; le uscite non PNP0800 potrebbero non essere disponibili.
-- **Come riconoscerlo:** Se visualizzi gli avvisi sopra riportati ma riesci ad abilitare e testare l'altoparlante di sistema in NeoBleeper, è probabile che il tuo computer abbia un'uscita nascosta o non standard.
-  
----
-
 ## 2.1 Test di uscita degli altoparlanti di sistema (rilevamento della frequenza ultrasonica)
 
 NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita degli altoparlanti di sistema (ovvero degli altoparlanti del PC), anche se il dispositivo non è segnalato da Windows (con determinati ID come PNP0C02 anziché PNP0800). Questo test utilizza frequenze ultrasoniche (in genere 30-38 kHz, non udibili) e analizza il feedback elettrico sulla porta degli altoparlanti di sistema.
@@ -106,7 +95,32 @@ NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita deg
 - **Perché questo test?**
   Molti sistemi moderni non dispongono di un dispositivo altoparlante di sistema PNP0800, ma dispongono comunque di un'uscita altoparlante utilizzabile (nascosta). NeoBleeper utilizza questo metodo avanzato per abilitare le funzionalità di segnale acustico su più hardware.
 
-## 4. Non sento alcun suono!
+---
+
+## 3. Supporto e limitazioni di ARM64
+
+**Dispositivi basati su ARM64:**
+Sui sistemi Windows ARM64, il test "Altoparlante di sistema" e la casella di controllo "Usa dispositivo audio per creare segnali acustici" **non sono disponibili** in NeoBleeper. Tutti i segnali acustici e le uscite audio vengono sempre riprodotti tramite il dispositivo audio standard (altoparlanti o cuffie).
+
+- Il pulsante "Test altoparlante di sistema" e le relative funzionalità di rilevamento **non** saranno visibili nelle impostazioni dei dispositivi ARM64.
+- L'opzione "Usa dispositivo audio per creare segnali acustici" non è presente perché questo comportamento viene applicato automaticamente.
+- Questa limitazione esiste perché l'accesso diretto all'hardware degli altoparlanti del PC/sistema non è disponibile sulle piattaforme Windows ARM64.
+- Su ARM64, i segnali acustici verranno sempre riprodotti tramite il dispositivo di uscita audio standard.
+
+**Se si utilizza un computer ARM64 e non si vedono le opzioni degli altoparlanti di sistema in NeoBleeper, si tratta di un problema previsto e non di un bug.**
+
+---
+
+## 4. Come verificare la presenza dell'altoparlante di sistema
+
+- **Computer desktop:** La maggior parte dei desktop più vecchi ha un connettore per l'altoparlante del PC sulla scheda madre. I sistemi più recenti potrebbero non avere questa funzionalità o presentare l'uscita in un formato nascosto/non PNP0800 che NeoBleeper ora può utilizzare.
+- **Laptop:** La maggior parte dei laptop non ha un altoparlante di sistema separato; tutto l'audio viene instradato attraverso il sistema audio principale.
+- **Macchine virtuali:** L'emulazione dell'altoparlante di sistema è spesso assente o inaffidabile; le uscite non PNP0800 potrebbero non essere disponibili.
+- **Come riconoscerlo:** Se visualizzi gli avvisi sopra riportati ma riesci ad abilitare e testare l'altoparlante di sistema in NeoBleeper, è probabile che il tuo computer abbia un'uscita nascosta o non standard.
+  
+---
+
+## 5. Non sento alcun suono!
 
 - **Controlla le impostazioni di NeoBleeper:**
   Se l'altoparlante di sistema non è disponibile, assicurati che il dispositivo audio (altoparlanti/cuffie) sia selezionato correttamente e funzionante.
@@ -119,7 +133,7 @@ NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita deg
 
 ---
 
-## 5. Domande frequenti
+## 6. Domande frequenti
 
 ### D: Posso utilizzare l'altoparlante di sistema se il mio hardware non dispone di un dispositivo PNP0800?
 **R:** Sì! NeoBleeper ora tenta di rilevare e utilizzare le uscite degli altoparlanti di sistema nascoste o non PNP0800, ove possibile. In caso di successo, è possibile utilizzare l'altoparlante di sistema anche se Windows non segnala un dispositivo standard.
@@ -139,12 +153,15 @@ NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita deg
 ### D: Il test hardware a ultrasuoni (fase 2) può rilevare altoparlanti di sistema rotti (circuito aperto) o scollegati?
 **R:** Questa funzionalità non è attualmente testata e non è nota. Sebbene il test verifichi il feedback elettrico e l'attività delle porte, potrebbe non distinguere in modo affidabile tra un altoparlante fisicamente presente ma rotto (circuito aperto) o scollegato e un altoparlante mancante. Se l'altoparlante è completamente rotto o scollegato (circuito aperto), il test potrebbe restituire un risultato falso, indicando che non è stata rilevata alcuna uscita funzionale. Tuttavia, questo comportamento non è garantito e potrebbe dipendere dall'hardware specifico e dalla modalità di errore. Se si sospetta che l'altoparlante del sistema non funzioni, si consiglia un'ispezione fisica o l'utilizzo di un multimetro.
 
+### D: Perché non vedo alcuna opzione relativa agli altoparlanti di sistema o ai segnali acustici sul mio dispositivo ARM64?
+**R:** Sui sistemi Windows ARM64, NeoBleeper disabilita le impostazioni relative agli altoparlanti di sistema perché le piattaforme ARM64 non supportano l'accesso diretto all'hardware degli altoparlanti di sistema. Tutti i segnali acustici vengono riprodotti tramite il normale dispositivo di uscita audio (altoparlanti o cuffie) e le opzioni "Testa altoparlante di sistema" e "Usa dispositivo audio per creare un segnale acustico" vengono automaticamente nascoste. Questo comportamento è intenzionale e non si tratta di un errore.
+
 **Potenziali aggiornamenti futuri:**
 Se futuri test o sviluppi consentiranno a NeoBleeper di rilevare in modo affidabile gli altoparlanti del sistema rotti o scollegati tramite il test hardware a ultrasuoni, queste FAQ e la logica di rilevamento verranno aggiornate per riflettere tali miglioramenti. Per maggiori dettagli, consultare i changelog o le nuove versioni.
 
 ---
 
-## 6. Ottenere assistenza
+## 7. Ottenere assistenza
 
 - **Fornire dettagli sul computer e sull'ambiente:** Quando si segnalano problemi di rilevamento hardware o audio, si prega di includere dettagli sul computer (desktop/laptop, produttore/modello, sistema operativo) e su eventuali componenti hardware rilevanti.
 - **Allegare screenshot o finestre di dialogo di errore:** Gli screenshot di finestre di dialogo di errore o avviso sono molto utili. Specificare esattamente quando si verifica il problema.
