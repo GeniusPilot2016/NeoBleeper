@@ -44,7 +44,8 @@ namespace NeoBleeper
             ApplicationConfiguration.Initialize();
             ConfigureApplication();
             splashScreen.Show();
-            if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            CheckAndPlaceInpOutX64(); // Check presence of InpOutx64.dll and place it if not present
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
@@ -316,6 +317,32 @@ namespace NeoBleeper
             }
             Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
             splashScreen.updateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
+        }
+        private static void CheckAndPlaceInpOutX64()
+        {
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            {
+                var inpOutX64File = Resources.inpoutx64; // InpOutx64.dll binary resource
+                var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
+                splashScreen.updateStatus(Resources.StatusCheckingInpOutX64Presence, 5);
+                if (!File.Exists(inpOutX64Path))
+                {
+                    try
+                    {
+                        splashScreen.updateStatus(Resources.StatusInpOutX64NotFound);
+                        File.WriteAllBytes(inpOutX64Path, inpOutX64File);
+                        splashScreen.updateStatus(Resources.StatusInpOutX64Placed, 5);
+                    }
+                    catch (Exception ex)
+                    {
+                        splashScreen.updateStatus(Resources.InpOutX64PlaceError + ex.Message);
+                    }
+                }
+                else
+                {    
+                    splashScreen.updateStatus(Resources.StatusInpOutX64AlreadyPresent);
+                }
+            }
         }
     }
 }

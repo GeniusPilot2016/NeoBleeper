@@ -750,4 +750,22 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
     <value>
 Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
   </data>
+  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatusCheckingInpOutX64Presence" xml:space="preserve">
+    <value>InpOutx64.dll varlığı kontrol ediliyor...</value>
+  </data>
+  <data name="StatusInpOutX64NotFound" xml:space="preserve">
+    <value>InpOutx64.dll bulunamadı. InpOutx64.dll yerleştiriliyor...</value>
+  </data>
+  <data name="StatusInpOutX64Placed" xml:space="preserve">
+    <value>InpOutx64.dll başarıyla yerleştirildi.</value>
+  </data>
+  <data name="InpOutX64PlaceError" xml:space="preserve">
+    <value>InpOutx64.dll yerleştirilemedi: </value>
+  </data>
+  <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
+    <value>InpOutx64.dll zaten mevcut.</value>
+  </data>
 </root>

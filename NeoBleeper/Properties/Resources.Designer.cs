@@ -864,6 +864,25 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static byte[] inpoutx64 {
+            get {
+                object obj = ResourceManager.GetObject("inpoutx64", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to place InpOutx64.dll:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string InpOutX64PlaceError {
+            get {
+                return ResourceManager.GetString("InpOutX64PlaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Example text benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string LyricsExampleText {
@@ -1402,6 +1421,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Checking InpOutx64.dll presence... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusCheckingInpOutX64Presence {
+            get {
+                return ResourceManager.GetString("StatusCheckingInpOutX64Presence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusClassicBleeperModeDisabled {
@@ -1479,6 +1507,33 @@ namespace NeoBleeper.Properties {
         public static string StatusInitializationCompleted {
             get {
                 return ResourceManager.GetString("StatusInitializationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   InpOutx64.dll is already present. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusInpOutX64AlreadyPresent {
+            get {
+                return ResourceManager.GetString("StatusInpOutX64AlreadyPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   InpOutx64.dll not found. Placing InpOutx64.dll... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusInpOutX64NotFound {
+            get {
+                return ResourceManager.GetString("StatusInpOutX64NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   InpOutx64.dll has been placed successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusInpOutX64Placed {
+            get {
+                return ResourceManager.GetString("StatusInpOutX64Placed", resourceCulture);
             }
         }
         
