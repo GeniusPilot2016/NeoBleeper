@@ -13,7 +13,7 @@ Si NeoBleeper se bloquea o se cierra forzadamente mientras se reproduce audio a 
 El altavoz del sistema se controla a un nivel bajo de hardware/software. Si la aplicación no libera o reinicia correctamente el altavoz al salir, el sonido puede persistir.
 
 **Soluciones:**
-- **Usa la utilidad NeoBleeper - Detección de pitidos**
+- **Usa la utilidad NeoBleeper - Detección de pitidos (para la versión de 64 bits):**
   NeoBleeper incluye una herramienta llamada "NeoBleeper - Detección de pitidos" en la carpeta del programa.
   
   ![image4](https://github.com/user-attachments/assets/c6d0a5e1-07ed-4447-ad12-f6bb33fa33eb)
@@ -78,17 +78,6 @@ NeoBleeper incluye lógica de detección para comprobar si su sistema dispone de
 #### ¿Qué significa "salida de altavoz del sistema no estándar"?
 Algunas computadoras, portátiles o máquinas virtuales modernas no tienen un altavoz de PC real o el enrutamiento de la señal no es estándar. NeoBleeper ahora intenta detectar y utilizar estas salidas de altavoz del sistema ocultas (no identificadas como dispositivos PNP0800), pero solo puede habilitar la opción de altavoz del sistema si es realmente accesible a nivel de hardware. Si no se encuentra ninguna salida utilizable, deberá usar su dispositivo de sonido habitual.
 
----
-
-## 3. Cómo comprobar la presencia de altavoces del sistema
-
-- **Ordenadores de escritorio:** La mayoría de los ordenadores de escritorio antiguos tienen un conector para altavoces de PC en la placa base. Los sistemas más nuevos pueden omitir esta función o presentar la salida en un formato oculto/no PNP0800 que NeoBleeper ahora puede utilizar.
-- **Portátiles:** La mayoría de los portátiles no tienen un altavoz de sistema independiente; todo el sonido se enruta a través del sistema de audio principal.
-- **Máquinas virtuales:** La emulación de altavoces del sistema suele estar ausente o ser poco fiable; es posible que las salidas no PNP0800 no estén disponibles.
-- **Cómo saberlo:** Si ve las advertencias anteriores, pero puede habilitar y probar el altavoz del sistema en NeoBleeper, es probable que su ordenador tenga una salida oculta o no estándar.
-  
----
-
 ## 2.1 Prueba de Salida de Altavoz del Sistema (Detección de Frecuencia Ultrasónica)
 
 NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la salida del altavoz del sistema (también conocido como altavoz del PC), incluso si Windows no lo detecta (en ciertos identificadores como PNP0C02 en lugar de PNP0800). Esta prueba utiliza frecuencias ultrasónicas (normalmente de 30 a 38 kHz, que son inaudibles) y analiza la retroalimentación eléctrica en el puerto del altavoz del sistema.
@@ -105,8 +94,35 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 
 - **¿Por qué esta prueba?**
   Muchos sistemas modernos carecen de un altavoz del sistema PNP0800, pero aún tienen una salida de altavoz utilizable (oculta). NeoBleeper utiliza este método avanzado para habilitar funciones de pitido en más hardware.
+  
+---
 
-## 4. ¡No oigo ningún sonido!
+## 3. Compatibilidad y limitaciones con ARM64
+
+**Dispositivos basados ​​en ARM64:** En sistemas Windows ARM64, la prueba "Altavoz del sistema" y la casilla "Usar dispositivo de sonido para generar pitidos" **no están disponibles** en NeoBleeper. En su lugar, todos los pitidos y sonidos se reproducen siempre a través de su dispositivo de audio habitual (altavoces o auriculares).
+
+- El botón "Probar altavoz del sistema" y las funciones de detección relacionadas **no** estarán visibles en la configuración de dispositivos ARM64.
+
+- La opción "Usar dispositivo de sonido para generar pitidos" no está presente porque este comportamiento se aplica automáticamente.
+
+- Esta limitación se debe a que el acceso directo al hardware del altavoz del sistema no está disponible en plataformas Windows ARM64.
+
+- En ARM64, siempre escuchará los pitidos a través de su dispositivo de salida de audio habitual.
+
+**Si utiliza un equipo ARM64 y no ve las opciones del altavoz del sistema en NeoBleeper, esto es normal y no se trata de un error.**
+
+---
+
+## 4. Cómo comprobar la presencia de altavoces del sistema
+
+- **Ordenadores de escritorio:** La mayoría de los ordenadores de escritorio antiguos tienen un conector para altavoces de PC en la placa base. Los sistemas más nuevos pueden omitir esta función o presentar la salida en un formato oculto/no PNP0800 que NeoBleeper ahora puede utilizar.
+- **Portátiles:** La mayoría de los portátiles no tienen un altavoz de sistema independiente; todo el sonido se enruta a través del sistema de audio principal.
+- **Máquinas virtuales:** La emulación de altavoces del sistema suele estar ausente o ser poco fiable; es posible que las salidas no PNP0800 no estén disponibles.
+- **Cómo saberlo:** Si ve las advertencias anteriores, pero puede habilitar y probar el altavoz del sistema en NeoBleeper, es probable que su ordenador tenga una salida oculta o no estándar.
+  
+---
+
+## 5. ¡No oigo ningún sonido!
 
 - **Comprueba la configuración de NeoBleeper:**
 
@@ -121,7 +137,7 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 
 ---
 
-## 5. Preguntas frecuentes
+## 6. Preguntas frecuentes
 
 ### P: ¿Puedo usar el altavoz del sistema si mi hardware no tiene un dispositivo PNP0800?
 **R:** ¡Sí! NeoBleeper ahora intenta detectar y usar salidas de altavoz del sistema ocultas o que no sean PNP0800 siempre que sea posible. Si lo logra, podrá usar el altavoz del sistema incluso si Windows no detecta un dispositivo estándar.
@@ -140,12 +156,15 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 ### P: ¿Puede la prueba ultrasónica de hardware (paso 2) detectar altavoces del sistema rotos (circuito abierto) o desconectados?
 **R:** Esto no se ha probado actualmente y se desconoce. Si bien la prueba verifica la retroalimentación eléctrica y la actividad del puerto, es posible que no distinga de forma fiable entre un altavoz físicamente presente pero roto (circuito abierto) o desconectado y uno que falta. Si el altavoz está completamente roto o desconectado (circuito abierto), la prueba puede dar un resultado falso, lo que indica que no se detecta ninguna salida funcional. Sin embargo, este comportamiento no está garantizado y puede depender del hardware específico y del modo de fallo. Si sospecha que el altavoz de su sistema no funciona, se recomienda realizar una inspección física o usar un multímetro.
 
+### P: ¿Por qué no veo ninguna opción de altavoz del sistema ni de sonido de pitido en mi dispositivo ARM64?
+**R:** En sistemas Windows ARM64, NeoBleeper deshabilita la configuración relacionada con el altavoz del sistema porque las plataformas ARM64 no admiten el acceso directo al hardware del altavoz del sistema. Todos los pitidos se reproducen a través de su dispositivo de salida de sonido habitual (altavoces o auriculares), y las opciones «Probar altavoz del sistema» y «Usar dispositivo de sonido para crear pitido» se ocultan automáticamente. Este comportamiento es intencional y no se trata de un error.
+
 **Posibles actualizaciones futuras:**
 Si las pruebas o el desarrollo futuros permiten que NeoBleeper detecte de forma fiable los altavoces del sistema dañados o desconectados mediante la prueba ultrasónica de hardware, estas preguntas frecuentes y la lógica de detección se actualizarán para reflejar dichas mejoras. Esté atento a los registros de cambios o a las nuevas versiones para obtener más información.
 
 ---
 
-## 6. Obtener ayuda
+## 7. Obtener ayuda
 
 - **Proporcione detalles del equipo y el entorno:** Al reportar problemas de detección de hardware o sonido, incluya detalles sobre su equipo (ordenador de escritorio/portátil, fabricante/modelo, sistema operativo) y cualquier hardware relevante.
 - **Adjunte capturas de pantalla o cuadros de diálogo de error:** Las capturas de pantalla de los cuadros de diálogo de error o advertencia son muy útiles. Indique exactamente cuándo ocurrió el problema.
