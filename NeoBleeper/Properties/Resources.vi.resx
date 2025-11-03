@@ -767,7 +767,4 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
     <value>InpOutx64.dll đã có sẵn.</value>
   </data>
-  <data name="NotoColorEmoji-Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NotoColorEmoji-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

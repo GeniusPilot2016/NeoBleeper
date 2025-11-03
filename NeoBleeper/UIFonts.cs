@@ -42,7 +42,6 @@ namespace NeoBleeper
                 Path.GetTempFileName(),
                 Path.GetTempFileName(),
                 Path.GetTempFileName(),
-                Path.GetTempFileName(),
                 Path.GetTempFileName()
             };
 
@@ -69,10 +68,6 @@ namespace NeoBleeper
             privateFonts.AddFontFile(fontFiles[9]);
             File.WriteAllBytes(fontFiles[10], Resources.HarmonyOS_Sans_Thin_Italic);
             privateFonts.AddFontFile(fontFiles[10]);
-
-            // Emoji font
-            File.WriteAllBytes(fontFiles[11], Resources.NotoColorEmoji_Regular);
-            privateFonts.AddFontFile(fontFiles[11]);
         }
 
         public static UIFonts Instance
