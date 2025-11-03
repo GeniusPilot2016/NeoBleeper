@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 
@@ -26,7 +27,7 @@ namespace NeoBleeper
         public string Language { get; set; } = "English";
         public int Theme { get; set; } = 0;
 
-        public static SynchronizedSettings Load()
+        public static SynchronizedSettings Load(bool logToFile = true)
         {
             try
             {
@@ -34,13 +35,19 @@ namespace NeoBleeper
                 {
                     // Create default settings if the file doesn't exist
                     var defaultSettings = new SynchronizedSettings();
-                    defaultSettings.Save();
-                    Logger.Log("Settings file not found. Created default settings.", Logger.LogTypes.Info);
+                    defaultSettings.Save(logToFile);
+                    if(logToFile)
+                        Logger.Log("Settings file not found. Created default settings.", Logger.LogTypes.Info);
+                    else
+                        Debug.WriteLine("Settings file not found. Created default settings.");
                     return defaultSettings;
                 }
 
                 var json = File.ReadAllText(SettingsFilePath, System.Text.Encoding.UTF8); // Ensure UTF-8 encoding
-                Logger.Log("Synchronized settings loaded successfully.", Logger.LogTypes.Info);
+                if(logToFile)
+                    Logger.Log("Synchronized settings loaded successfully.", Logger.LogTypes.Info);
+                else
+                    Debug.WriteLine("Synchronized settings loaded successfully.");
                 return JsonSerializer.Deserialize<SynchronizedSettings>(json, new JsonSerializerOptions
                 {
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping // Allow direct UTF-8 characters
@@ -48,12 +55,15 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Logger.Log($"Failed to load settings: {ex.Message}", Logger.LogTypes.Error);
+                if(logToFile)
+                    Logger.Log($"Failed to load settings: {ex.Message}", Logger.LogTypes.Error);
+                else
+                    Debug.WriteLine($"Failed to load settings: {ex.Message}");
                 return new SynchronizedSettings();
             }
         }
 
-        public void Save()
+        public void Save(bool saveToFile = true)
         {
             try
             {
@@ -66,7 +76,10 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Logger.Log($"Failed to save settings: {ex.Message}", Logger.LogTypes.Error);
+                if(saveToFile)
+                    Logger.Log($"Failed to save settings: {ex.Message}", Logger.LogTypes.Error);
+                else
+                    Debug.WriteLine($"Failed to save settings: {ex.Message}");
             }
         }
     }

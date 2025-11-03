@@ -749,4 +749,25 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
     <value>
 Esta tecla reproduce este sonido de percusión: {percussionName}</value>
   </data>
+  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatusCheckingInpOutX64Presence" xml:space="preserve">
+    <value>Comprobando la presencia de InpOutx64.dll...</value>
+  </data>
+  <data name="StatusInpOutX64NotFound" xml:space="preserve">
+    <value>No se encontró InpOutx64.dll. Colocando InpOutx64.dll...</value>
+  </data>
+  <data name="StatusInpOutX64Placed" xml:space="preserve">
+    <value>El archivo InpOutx64.dll se ha colocado correctamente.</value>
+  </data>
+  <data name="InpOutX64PlaceError" xml:space="preserve">
+    <value>No se pudo colocar InpOutx64.dll: </value>
+  </data>
+  <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
+    <value>InpOutx64.dll ya está presente.</value>
+  </data>
+  <data name="NotoColorEmoji-Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotoColorEmoji-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -29,14 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="inpoutx64.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="inpoutx64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

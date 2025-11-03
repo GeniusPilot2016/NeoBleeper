@@ -17,6 +17,7 @@
 using BeepStopper.Properties;
 using NeoBleeper;
 using System.Drawing.Text;
+using System.Diagnostics;
 
 namespace BeepStopper
 {
@@ -30,7 +31,7 @@ namespace BeepStopper
             UIHelper.ApplyCustomTitleBar(this, Color.White);
             set_theme();
         }
-        private SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load();
+        private SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load(false);
         int themeIndex = 0;
         protected override void WndProc(ref Message m)
         {
@@ -90,20 +91,20 @@ namespace BeepStopper
                 if (SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerBeepStuck())
                 {
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
-                    Logger.Log("Stuck system speaker beep is stopped.", Logger.LogTypes.Info);
+                    Debug.WriteLine("Stuck system speaker beep is stopped.");
                     MessageBox.Show(Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    Logger.Log("System speaker is not stuck, nothing to stop.", Logger.LogTypes.Warning);
+                    Debug.WriteLine("System speaker is not stuck, nothing to stop.");
                     MessageBox.Show(Resources.SystemSpeakerIsNotStuckMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 // Show the error message
-                Logger.Log("Error stopping the beep: " + ex.Message, Logger.LogTypes.Error);
+                Debug.WriteLine("Error stopping the beep: " + ex.Message);
                 MessageBox.Show(Resources.AnErrorOccurredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
