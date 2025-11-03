@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper è il primo lettore musicale in grado di riprodurre musica tramite l'altoparlante di sistema e supporta direttamente la lingua italiana**
 
-NeoBleeper è un software di creazione di melodie basato sull'intelligenza artificiale che utilizza l'altoparlante di sistema (ovvero l'altoparlante del PC) sulla scheda madre, ispirato al software Bleeper Music Maker che Robbi-985 (ovvero SomethingUnreal) sviluppò tra la fine del 2007 e l'inizio del 2008, ma che fu abbandonato nel 2011 perché nelle versioni più recenti di Windows i segnali acustici venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre. NeoBleeper offre un'esperienza di creazione musicale più stabile risolvendo il problema dei segnali acustici di sistema che venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre nelle versioni più recenti di Windows, accedendo alla porta fisica dell'altoparlante di sistema 🖥️🎶
+NeoBleeper è un software di creazione di melodie basato sull'intelligenza artificiale che utilizza l'altoparlante di sistema (ovvero l'altoparlante del PC) sulla scheda madre, ispirato al software Bleeper Music Maker che Robbi-985 (ovvero SomethingUnreal) sviluppò tra la fine del 2007 e l'inizio del 2008, ma che fu abbandonato nel 2011 perché nelle versioni più recenti di Windows i segnali acustici venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre. NeoBleeper offre un'esperienza di creazione musicale più stabile risolvendo il problema dei segnali acustici di sistema che venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre nelle versioni più recenti di Windows, accedendo alla porta fisica dell'altoparlante di sistema 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/23a2692a-bd55-45f6-86e5-bc95babbb651)
 
 ## Stato
 
-Questo progetto è **ancora in fase di sviluppo** e alcune funzionalità e componenti non sono ancora completati. Questa versione è l'**ultima versione alpha**. Con il prossimo aggiornamento, NeoBleeper passerà alla sua **prima versione beta**. Si prega di utilizzare il programma tenendo presente questo aspetto e di fornire feedback per contribuire a migliorare le versioni future.
+Questo progetto è **ancora in fase di sviluppo** e questa versione è la **versione beta**. Si prega di utilizzare il programma tenendo presente questo aspetto e di fornire feedback per contribuire a migliorare le versioni future.
 
 ## Caratteristiche
 
@@ -88,21 +88,23 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
 
     ![image](https://github.com/user-attachments/assets/c1f00062-60c0-4b69-841b-873d97a09657)
 
-  - #### Rileva l'altoparlante di sistema per te
+  - #### Rileva l'altoparlante di sistema per te*
     Se NeoBleeper non rileva l'altoparlante di sistema sulla scheda madre del computer, abiliterà automaticamente l'opzione "Usa dispositivo audio per creare il segnale acustico" per prevenire possibili situazioni indesiderate.
 
     ![image](https://github.com/user-attachments/assets/615ac0fb-f9ef-495c-b7aa-894d0ac263fa)
 
-  - #### Più intelligente di quanto pensi
+  - #### Più intelligente di quanto pensi*
     NeoBleeper riconosce il tipo di computer e previene possibili situazioni indesiderate attivando automaticamente l'opzione "Usa dispositivo audio per creare il segnale acustico" sui computer compatti.
 
     ![image](https://github.com/user-attachments/assets/c54a8528-1734-42bb-a9e8-72f7a0111625)
 
+*Queste funzionalità sono disponibili solo per la versione con architettura a 64 bit; la versione con architettura ARM64 non è in grado di generare segnali acustici tramite l'altoparlante del sistema.
+
 ## Requisiti di sistema
 
-**Versione Windows:** Windows 10 (1809 e versioni successive) a 64 bit (minimo)/Windows 11 (consigliato)
+**Versione Windows:** Windows 10 (1809 e versioni successive) a 64 bit/ARM64 (minimo)/Windows 11 (consigliato)
 
-**CPU:** Intel® Core i3 o equivalente (minimo)
+**CPU:** Intel® Core i3 o equivalente (64 bit) o ​​equivalente ARM64 (ad esempio, Qualcomm Snapdragon) (minimo)
 
 **RAM:** 2 GB (minimo), 4 GB (consigliato)
 
