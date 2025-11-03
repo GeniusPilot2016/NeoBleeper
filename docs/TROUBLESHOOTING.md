@@ -13,7 +13,7 @@ If NeoBleeper crashes or is forcefully closed while audio is playing through the
 The system speaker is controlled at a low hardware/software level. If the application does not properly release or reset the speaker on exit, the tone may persist.
 
 **Solutions:**
-- **Use the NeoBleeper Beep Stopper utility:**  
+- **Use the NeoBleeper Beep Stopper utility (for 64 version):**  
   NeoBleeper comes with a tool called "NeoBleeper Beep Stopper" in the program folder.
  
   ![image4](https://github.com/user-attachments/assets/8503d816-3ec1-477f-8233-28971640a8b4)
@@ -21,7 +21,7 @@ The system speaker is controlled at a low hardware/software level. If the applic
   - Launch this tool and press the **Stop Beep** button to stop the stuck beep from the system speaker.
   - Only use this utility when the beep continues after a crash or force quit.
 
-  #### Beep Stopper Messages and Their Meanings (for 64-bit version)
+  #### Beep Stopper Messages and Their Meanings
 
   When you use the Beep Stopper utility, you may see the following messages:
 
