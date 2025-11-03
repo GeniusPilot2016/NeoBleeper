@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper ist der erste Musikplayer, der Musik über den Systemlautsprecher abspielen kann und über direkte deutsche Sprachunterstützung verfügt**
 
-NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet. 🖥️🎶
+NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
 
 ## Status
 
-Dieses Projekt befindet sich **noch in der Entwicklung** und einige Funktionen und Komponenten sind noch nicht fertig. Diese Version ist die **letzte Alpha-Version**. Mit dem nächsten Update wird NeoBleeper in die **erste Beta-Version** übergehen. Bitte nutzen Sie das Programm entsprechend und geben Sie Feedback, um zukünftige Versionen zu verbessern.
+Dieses Projekt befindet sich **noch in der Entwicklung** und diese Version ist die **Betaversion**. Bitte berücksichtigen Sie dies bei der Nutzung des Programms und geben Sie Feedback, um zukünftige Versionen zu verbessern.
 
 ## Funktionen
 
@@ -96,23 +96,25 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
 
     ![image](https://github.com/user-attachments/assets/6022ec1f-eb7d-45f5-b36a-2c560495e0e2)
 
-  - #### Erkennt den Systemlautsprecher
+  - #### Erkennt den Systemlautsprecher*
     
     Sollte NeoBleeper den Systemlautsprecher auf dem Motherboard Ihres Computers nicht erkennen, aktiviert es automatisch die Option „Soundgerät zum Erzeugen des Signaltons verwenden“, um mögliche unerwünschte Situationen zu vermeiden.
 
     ![image](https://github.com/user-attachments/assets/cd7126f7-fc64-474a-898c-e60ddf755565)
 
-  - #### Intelligenter als Sie denken
+  - #### Intelligenter als Sie denken*
     
     NeoBleeper erkennt Ihren Computertyp und verhindert mögliche unerwünschte Situationen, indem es die Option „Audiogerät zum Erzeugen des Signaltons verwenden“ auf kompakten Computern automatisch aktiviert.
 
     ![image](https://github.com/user-attachments/assets/47af940b-6468-4beb-ab5f-5cc55ad57c73)
 
+*Diese Funktionen sind nur für die 64-Bit-Architekturversion verfügbar, und die ARM64-Architekturversion ist nicht in der Lage, Pieptöne über den Systemlautsprecher zu erzeugen.
+
 ## Systemanforderungen
 
-**Windows-Version:** Windows 10 (ab Version 1809) 64-Bit (mindestens)/Windows 11 (empfohlen)
+**Windows-Version:** Windows 10 (ab Version 1809) 64-Bit/ARM64 (mindestens)/Windows 11 (empfohlen)
 
-**CPU:** Intel® Core i3 oder gleichwertig (mindestens)
+**CPU:** Intel® Core i3 oder gleichwertig (64-Bit) oder ARM64-Äquivalent (z. B. Qualcomm Snapdragon) (mindestens)
 
 **RAM:** 2 GB (mindestens), 4 GB (empfohlen)
 
