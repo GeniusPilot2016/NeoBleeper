@@ -21,7 +21,7 @@ The system speaker is controlled at a low hardware/software level. If the applic
   - Launch this tool and press the **Stop Beep** button to stop the stuck beep from the system speaker.
   - Only use this utility when the beep continues after a crash or force quit.
 
-  #### Beep Stopper Messages and Their Meanings
+  #### Beep Stopper Messages and Their Meanings (for 64-bit version)
 
   When you use the Beep Stopper utility, you may see the following messages:
 
@@ -65,11 +65,9 @@ NeoBleeper includes detection logic to check whether your system has a standard 
 
 ### Settings Dialogs (Images 2 and 3):
 
-
 ![image2](https://github.com/user-attachments/assets/0e66b563-6000-4018-b89a-9c4dfd6c1b30)
 
 ![image3](https://github.com/user-attachments/assets/a23935f9-bf26-43f6-b8ae-5fd79a74167e)
-
 
 - **"Test System Speaker" button availability:**  
   This option is enabled if NeoBleeper detects any usable system speaker output, including hidden or non-PNP0800 outputs. 
@@ -78,17 +76,6 @@ NeoBleeper includes detection logic to check whether your system has a standard 
 
 #### What does "non-standard system speaker output" mean?
 Some modern computers, laptops, or virtual machines do not have a true PC speaker, or the signal routing is non-standard. NeoBleeper now attempts to detect and use such hidden system speaker outputs (not identified as PNP0800 devices), but can only enable the system speaker option if it is actually accessible at the hardware level. If no usable output is found, you will need to use your regular sound device.
-
----
-
-## 3. How to Check for System Speaker Presence
-
-- **Desktop computers:** Most older desktops have a PC speaker header on the motherboard. Newer systems may omit this feature, or may present the output in a hidden/non-PNP0800 form that NeoBleeper can now utilize.
-- **Laptops:** Most laptops do not have a separate system speaker; all sound is routed through the main audio system.
-- **Virtual machines:** System speaker emulation is often absent or unreliable; non-PNP0800 outputs may not be available.
-- **How to tell:** If you see the warnings above but are able to enable and test the system speaker in NeoBleeper, your computer likely has a hidden or non-standard output.
-
----
 
 ## 2.1 System Speaker Output Test (Ultrasonic Frequency Detection)
 
@@ -100,13 +87,37 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 - **What you may notice:**  
   On some systems, especially those with piezo buzzers, you might hear faint clicking noises during this stage. This is normal and indicates the hardware test is running.
 
-
   ![image4](https://github.com/user-attachments/assets/f55de735-c506-4abb-8041-0795f25a529a)
   
   *Checking for system speaker (PC speaker) output presence in step 2/2… (you may hear clicking sounds)*
 
 - **Why this test?**  
   Many modern systems lack a PNP0800 system speaker device, but still have a usable (hidden) speaker output. NeoBleeper uses this advanced method to enable beep features on more hardware.
+
+---
+
+## 3. ARM64 Support and Limitations
+
+**ARM64-based devices:**  
+On Windows ARM64 systems, the "System Speaker" test and the "Use sound device to create beeps" checkbox are **not available** in NeoBleeper. Instead, all beeps and sound outputs are always produced through your standard audio device (speakers or headphones).
+
+- The "Test System Speaker" button and related detection features will **not** be visible in the settings on ARM64 devices.
+- The "Use sound device to create beep" option is not present because this behavior is enforced automatically.
+- This limitation exists because direct access to the PC/system speaker hardware is not available on ARM64 Windows platforms.
+- You will always hear beeps through your normal audio output device on ARM64.
+
+**If you are using an ARM64 machine and do not see the system speaker options in NeoBleeper, this is expected and not a bug.**
+
+---
+
+## 4. How to Check for System Speaker Presence
+
+- **Desktop computers:** Most older desktops have a PC speaker header on the motherboard. Newer systems may omit this feature, or may present the output in a hidden/non-PNP0800 form that NeoBleeper can now utilize.
+- **Laptops:** Most laptops do not have a separate system speaker; all sound is routed through the main audio system.
+- **Virtual machines:** System speaker emulation is often absent or unreliable; non-PNP0800 outputs may not be available.
+- **How to tell:** If you see the warnings above but are able to enable and test the system speaker in NeoBleeper, your computer likely has a hidden or non-standard output.
+
+---
 
 ## 4. I Don't Hear Any Sound!
 
@@ -140,6 +151,9 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 
 ### Q: Can the ultrasonic hardware test (step 2) detect broken (open circuit) or disconnected system speakers?
 **A:** This is currently untested and unknown. While the test checks for electrical feedback and port activity, it may not reliably distinguish between a physically present but broken (open circuit) or disconnected speaker and a missing speaker. If the speaker is completely broken or disconnected (open circuit), the test may return false, indicating no functional output detected. However, this behavior is not guaranteed and may depend on the specific hardware and failure mode. If you suspect your system speaker is not working, physical inspection or using a multimeter is recommended.
+
+### Q: Why don't I see any system speaker or beep sound options on my ARM64 device?
+**A:** On Windows ARM64 systems, NeoBleeper disables system speaker-related settings because ARM64 platforms do not support direct system speaker hardware access. All beeps are played through your regular sound output device (speakers or headphones), and the "Test System Speaker" and "Use sound device to create beep" options are automatically hidden. This behavior is by design and not an error.
 
 **Potential future updates:**  
 If future testing or development enables NeoBleeper to reliably detect broken or disconnected system speakers via the ultrasonic hardware test, this FAQ and detection logic will be updated to reflect those improvements. Watch for changelogs or new releases for details.
