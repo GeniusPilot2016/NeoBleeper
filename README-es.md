@@ -2,13 +2,13 @@
 
 **🎉 NeoBleeper es el primer reproductor de música que puede reproducir música a través del altavoz del sistema y tiene soporte para idioma español nativo**
 
-NeoBleeper es un software de creación de melodías con IA que utiliza el altavoz del sistema (también conocido como PC Speaker) de la placa base. Está inspirado en el software Bleeper Music Maker que Robbi-985 (también conocido como SomethingUnreal) desarrolló a finales de 2007 y principios de 2008, pero que abandonó en 2011 debido a que, en las versiones más recientes de Windows, los pitidos se dirigían al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base. NeoBleeper ofrece una experiencia de creación musical más estable al solucionar el problema de que, en las versiones más recientes de Windows, los pitidos se dirigieran al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base, accediendo al puerto físico del altavoz del sistema. 🖥️🎶
+NeoBleeper es un software de creación de melodías con IA que utiliza el altavoz del sistema (también conocido como PC Speaker) de la placa base. Está inspirado en el software Bleeper Music Maker que Robbi-985 (también conocido como SomethingUnreal) desarrolló a finales de 2007 y principios de 2008, pero que abandonó en 2011 debido a que, en las versiones más recientes de Windows, los pitidos se dirigían al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base. NeoBleeper ofrece una experiencia de creación musical más estable al solucionar el problema de que, en las versiones más recientes de Windows, los pitidos se dirigieran al dispositivo de sonido predeterminado en lugar del altavoz del sistema de la placa base, accediendo al puerto físico del altavoz del sistema 🖥️🎶*
 
 ![image](https://github.com/user-attachments/assets/9df5277a-7ab0-4b3d-a9bd-fb5c1788be44)
 
 ## Estado
 
-Este proyecto está **aún en desarrollo** y algunas características y componentes están incompletos. Esta versión es la **última versión alfa**. Con la próxima actualización, NeoBleeper pasará a su **primera versión beta**. Por favor, use el programa teniendo esto en cuenta y comparta sus comentarios para ayudarnos a mejorar futuras versiones.
+Este proyecto **aún está en desarrollo** y esta versión es la **versión beta**. Por favor, tenga esto en cuenta al usar el programa y envíe sus comentarios para ayudarnos a mejorar futuras versiones.
 
 ## Características
 
@@ -87,21 +87,23 @@ Con sus nuevas funciones, NeoBleeper es mucho más que una simple nueva versión
 
     ![image](https://github.com/user-attachments/assets/087be356-03e2-4c1e-a805-9aea925b50cf)
 
-  - #### Detecta el altavoz del sistema
+  - #### Detecta el altavoz del sistema*
     Si NeoBleeper no detecta el altavoz del sistema en la placa base de su ordenador, activará automáticamente la opción "Usar dispositivo de sonido para crear el pitido" para evitar posibles situaciones no deseadas.
 
     ![image](https://github.com/user-attachments/assets/d30d18db-6b04-4fb1-80e2-40f45314e520)
 
-  - #### Más inteligente de lo que crees
+  - #### Más inteligente de lo que crees*
     NeoBleeper reconoce su tipo de ordenador y evita posibles situaciones no deseadas activando automáticamente la opción "Usar dispositivo de sonido para crear el pitido" en ordenadores compactos.
 
     ![image](https://github.com/user-attachments/assets/2589c789-edba-4a23-be8f-35765cda3698)
 
+*Estas características solo están disponibles para la versión con arquitectura de 64 bits, y la versión con arquitectura ARM64 no tiene la capacidad de generar pitidos a través del altavoz del sistema.
+
 ## Requisitos del sistema
 
-**Versión de Windows:** Windows 10 (1809 y superior) de 64 bits (mínimo)/Windows 11 (recomendado)
+**Versión de Windows:** Windows 10 (1809 y superior) de 64 bits/ARM64 (mínimo)/Windows 11 (recomendado)
 
-**CPU:** Intel® Core i3 o equivalente (mínimo)
+**CPU:** Intel® Core i3 o equivalente (64 bits), o equivalente ARM64 (por ejemplo, Qualcomm Snapdragon) (mínimo)
 
 **RAM:** 2 GB (mínimo), 4 GB (recomendado)
 
