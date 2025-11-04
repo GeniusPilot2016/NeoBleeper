@@ -752,11 +752,11 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="StatusCheckingInpOutX64Presence" xml:space="preserve">
-    <value>Đang kiểm tra sự hiện diện của InpOutx64.dll...</value>
+  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
+    <value>Đang kiểm tra sự hiện diện và tính toàn vẹn của InpOutx64.dll...</value>
   </data>
-  <data name="StatusInpOutX64NotFound" xml:space="preserve">
-    <value>Không tìm thấy InpOutx64.dll. Đang đặt InpOutx64.dll...</value>
+  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
+    <value>InpOutx64.dll bị thiếu hoặc bị hỏng. Đang đặt InpOutx64.dll...</value>
   </data>
   <data name="StatusInpOutX64Placed" xml:space="preserve">
     <value>InpOutx64.dll đã được đặt thành công.</value>
@@ -764,7 +764,7 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   <data name="InpOutX64PlaceError" xml:space="preserve">
     <value>Không thể đặt InpOutx64.dll: </value>
   </data>
-  <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
-    <value>InpOutx64.dll đã có sẵn.</value>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll hiện diện và hợp lệ.</value>
   </data>
 </root>

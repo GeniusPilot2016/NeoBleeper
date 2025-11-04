@@ -320,16 +320,17 @@ namespace NeoBleeper
         }
         private static void CheckAndPlaceInpOutX64()
         {
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64) // Skip InpOutx64.dll placement on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
             {
                 var inpOutX64File = Resources.inpoutx64; // InpOutx64.dll binary resource
                 var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-                splashScreen.updateStatus(Resources.StatusCheckingInpOutX64Presence, 5);
-                if (!File.Exists(inpOutX64Path))
+                splashScreen.updateStatus(Resources.StatusCheckingInpOutX64PresenceAndIntegrity, 5);
+                if (!isInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
+                                                  // If not present or broken, place the DLL file
                 {
                     try
                     {
-                        splashScreen.updateStatus(Resources.StatusInpOutX64NotFound);
+                        splashScreen.updateStatus(Resources.StatusInpOutX64IsMissingOrCorrupted);
                         File.WriteAllBytes(inpOutX64Path, inpOutX64File);
                         splashScreen.updateStatus(Resources.StatusInpOutX64Placed, 5);
                     }
@@ -340,9 +341,30 @@ namespace NeoBleeper
                 }
                 else
                 {    
-                    splashScreen.updateStatus(Resources.StatusInpOutX64AlreadyPresent);
+                    splashScreen.updateStatus(Resources.StatusInpOutX64IsPresentAndValid);
                 }
             }
+        }
+        private static bool isInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
+        {
+            var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
+            if (File.Exists(inpOutX64Path)) // Check if file exists
+            {
+                string expectedSHA256Hash = string.Empty;
+                string actualSHA256Hash = string.Empty;
+                using (SHA256 sha256 = SHA256.Create()) // Create SHA256 instance to compute hash
+                {
+                    byte[] hashBytes = sha256.ComputeHash(Resources.inpoutx64);
+                    expectedSHA256Hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                    using (FileStream fs = File.OpenRead(inpOutX64Path))
+                    {
+                        byte[] existingHashBytes = sha256.ComputeHash(fs);
+                        actualSHA256Hash = BitConverter.ToString(existingHashBytes).Replace("-", "").ToLowerInvariant();
+                    }
+                    return expectedSHA256Hash == actualSHA256Hash; // Compare hashes and return result
+                }
+            }
+            return false; // File does not exist
         }
     }
 }

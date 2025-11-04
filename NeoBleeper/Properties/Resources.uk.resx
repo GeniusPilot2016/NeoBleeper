@@ -754,11 +754,11 @@
   <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="StatusCheckingInpOutX64Presence" xml:space="preserve">
-    <value>Перевірка наявності InpOutx64.dll...</value>
+  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
+    <value>Перевірка наявності та цілісності InpOutx64.dll...</value>
   </data>
-  <data name="StatusInpOutX64NotFound" xml:space="preserve">
-    <value>Файл InpOutx64.dll не знайдено. Розміщення InpOutx64.dll...</value>
+  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
+    <value>Файл InpOutx64.dll відсутній або пошкоджений. Розміщення InpOutx64.dll...</value>
   </data>
   <data name="StatusInpOutX64Placed" xml:space="preserve">
     <value>Файл InpOutx64.dll успішно розміщено.</value>
@@ -766,7 +766,7 @@
   <data name="InpOutX64PlaceError" xml:space="preserve">
     <value>Не вдалося розмістити InpOutx64.dll: </value>
   </data>
-  <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
-    <value>Файл InpOutx64.dll вже присутній.</value>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>Файл InpOutx64.dll присутній та дійсний.</value>
   </data>
 </root>
