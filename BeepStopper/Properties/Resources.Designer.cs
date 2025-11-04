@@ -89,16 +89,6 @@ namespace BeepStopper.Properties {
         }
         
         /// <summary>
-        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        internal static byte[] inpoutx64 {
-            get {
-                object obj = ResourceManager.GetObject("inpoutx64", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   System speaker is not beeping or the system speaker is beeping in a different way. 
         ///No action taken. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>

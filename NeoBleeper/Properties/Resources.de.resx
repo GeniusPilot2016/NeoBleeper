@@ -752,11 +752,11 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="StatusCheckingInpOutX64Presence" xml:space="preserve">
-    <value>Überprüfe Vorhandensein von InpOutx64.dll...</value>
+  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
+    <value>Überprüfe Vorhandensein und Integrität der Datei InpOutx64.dll...</value>
   </data>
-  <data name="StatusInpOutX64NotFound" xml:space="preserve">
-    <value>InpOutx64.dll nicht gefunden. Platziere InpOutx64.dll...</value>
+  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
+    <value>Die Datei InpOutx64.dll fehlt oder ist beschädigt. InpOutx64.dll wird platziert...</value>
   </data>
   <data name="StatusInpOutX64Placed" xml:space="preserve">
     <value>InpOutx64.dll wurde erfolgreich platziert.</value>
@@ -764,7 +764,7 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   <data name="InpOutX64PlaceError" xml:space="preserve">
     <value>Fehler beim Platzieren von InpOutx64.dll: </value>
   </data>
-  <data name="StatusInpOutX64AlreadyPresent" xml:space="preserve">
-    <value>InpOutx64.dll ist bereits vorhanden.</value>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll ist vorhanden und gültig.</value>
   </data>
 </root>

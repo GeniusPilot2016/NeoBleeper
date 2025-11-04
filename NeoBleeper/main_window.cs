@@ -198,7 +198,7 @@ namespace NeoBleeper
         {
             string baseToolTip = keyToolTip;
             string concatenatingToolTipLine = Resources.TextPercussionTooltip;
-            if((TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) &&
+            if ((TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) &&
                         TemporarySettings.MIDIDevices.useMIDIoutput)
             {
                 Logger.Log("MIDI Output Channel is set to 10 (Percussion) - Updating key tooltips to show percussion names where applicable.", Logger.LogTypes.Info);
@@ -1785,7 +1785,7 @@ namespace NeoBleeper
                     isSaved = true;
                     SaveToNBPML(saveFileDialog.FileName);
                     addFileToRecentFilesMenu(saveFileDialog.FileName);
-                    if(saveAsToolStripMenuItem.Enabled == false)
+                    if (saveAsToolStripMenuItem.Enabled == false)
                     {
                         saveAsToolStripMenuItem.Enabled = true;
                     }
@@ -4806,7 +4806,7 @@ namespace NeoBleeper
                 string fileName = createMusicWithAI.generatedFilename;
                 if (createMusicWithAI.output != string.Empty)
                 {
-                    
+
                     if (isModified)
                     {
                         DialogResult result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -5203,7 +5203,11 @@ namespace NeoBleeper
 
         private void main_window_KeyUp(object sender, KeyEventArgs e)
         {
-            pressedKeys.Remove((int)e.KeyCode);
+            RemoveKey((int)e.KeyCode);
+        }
+        private void RemoveKey(int keyCode) 
+        {
+            pressedKeys.Remove(keyCode);
             keyCharNum = pressedKeys.ToArray();
             keyCharNum = keyCharNum.Distinct().ToArray();
 
@@ -5233,6 +5237,13 @@ namespace NeoBleeper
                     MarkupTheKeyWhenKeyIsPressed(key);
                 }
                 playWithRegularKeyboard();
+            }
+        }
+        private void RemoveAllKeys()
+        {
+            foreach(int key in pressedKeys)
+            {
+                RemoveKey(key);
             }
         }
         private int GetFrequencyFromKeyCode(int keyCode)
@@ -5965,6 +5976,7 @@ namespace NeoBleeper
             // Stop alternating playback and reset flags
             isAlternatingPlayingRegularKeyboard = false;
             KeyPressed = false;
+            pressedKeys.Clear();
             singleNote = 0; // Reset singleNote to ensure no lingering playback
             UnmarkAllButtons(); // Unmark all buttons when a key is released
             stopAllNotesAfterPlaying(); // Stop all notes only when no keys remain
@@ -5973,6 +5985,7 @@ namespace NeoBleeper
         {
             if (checkBox_use_keyboard_as_piano.Checked)
             {
+                RemoveAllKeys();
                 StopAllSounds();
             }
         }

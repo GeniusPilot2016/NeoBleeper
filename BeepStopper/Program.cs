@@ -18,6 +18,7 @@ using BeepStopper.Properties;
 using NeoBleeper;
 using System.Diagnostics;
 using System.Management;
+using System.Security.Cryptography;
 using Windows.ApplicationModel.Activation;
 
 namespace BeepStopper
@@ -73,13 +74,14 @@ namespace BeepStopper
         }
         private static void checkAndPlaceInpOutX64()
         {
-            var inpOutX64File = Resources.inpoutx64; // InpOutx64.dll binary resource
+            var inpOutX64File = NeoBleeper.Properties.Resources.inpoutx64; // InpOutx64.dll binary resource
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-            if (!File.Exists(inpOutX64Path))
+            if (!isInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
+                                               // If not present or broken, place the DLL file
             {
                 try
                 {
-                    Debug.WriteLine("InpOutx64.dll not found. Placing the DLL file...");
+                    Debug.WriteLine("InpOutx64.dll not found or is corrupted. Placing the DLL file...");
                     File.WriteAllBytes(inpOutX64Path, inpOutX64File);
                     Debug.WriteLine("InpOutx64.dll placed successfully.");
                 }
@@ -90,8 +92,29 @@ namespace BeepStopper
             }
             else
             {
-                Debug.WriteLine("InpOutx64.dll already exists. No need to place the DLL file.");
+                Debug.WriteLine("InpOutx64.dll already exists and valid. No action needed.");
             }
+        }
+        private static bool isInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
+        {
+            var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
+            if (File.Exists(inpOutX64Path)) // Check if file exists
+            {
+                string expectedSHA256Hash = string.Empty;
+                string actualSHA256Hash = string.Empty;
+                using (SHA256 sha256 = SHA256.Create()) // Create SHA256 instance to compute hash
+                {
+                    byte[] hashBytes = sha256.ComputeHash(NeoBleeper.Properties.Resources.inpoutx64);
+                    expectedSHA256Hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                    using (FileStream fs = File.OpenRead(inpOutX64Path))
+                    {
+                        byte[] existingHashBytes = sha256.ComputeHash(fs);
+                        actualSHA256Hash = BitConverter.ToString(existingHashBytes).Replace("-", "").ToLowerInvariant();
+                    }
+                    return expectedSHA256Hash == actualSHA256Hash; // Compare hashes and return result
+                }
+            }
+            return false; // File does not exist
         }
     }
 }

@@ -1421,11 +1421,11 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Checking InpOutx64.dll presence... benzeri yerelleştirilmiş bir dize arar.
+        ///   Checking InpOutx64.dll presence and integrity... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string StatusCheckingInpOutX64Presence {
+        public static string StatusCheckingInpOutX64PresenceAndIntegrity {
             get {
-                return ResourceManager.GetString("StatusCheckingInpOutX64Presence", resourceCulture);
+                return ResourceManager.GetString("StatusCheckingInpOutX64PresenceAndIntegrity", resourceCulture);
             }
         }
         
@@ -1511,20 +1511,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   InpOutx64.dll is already present. benzeri yerelleştirilmiş bir dize arar.
+        ///   InpOutx64.dll is missing or corrupted. Placing InpOutx64.dll... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string StatusInpOutX64AlreadyPresent {
+        public static string StatusInpOutX64IsMissingOrCorrupted {
             get {
-                return ResourceManager.GetString("StatusInpOutX64AlreadyPresent", resourceCulture);
+                return ResourceManager.GetString("StatusInpOutX64IsMissingOrCorrupted", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   InpOutx64.dll not found. Placing InpOutx64.dll... benzeri yerelleştirilmiş bir dize arar.
+        ///   InpOutx64.dll is present and valid. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string StatusInpOutX64NotFound {
+        public static string StatusInpOutX64IsPresentAndValid {
             get {
-                return ResourceManager.GetString("StatusInpOutX64NotFound", resourceCulture);
+                return ResourceManager.GetString("StatusInpOutX64IsPresentAndValid", resourceCulture);
             }
         }
         
