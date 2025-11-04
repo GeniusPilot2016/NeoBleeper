@@ -145,9 +145,6 @@ namespace NeoBleeper
                 model.Name.Contains("computer-use", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("robotics", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("code", StringComparison.OrdinalIgnoreCase) ||
-                model.Name.Contains("experimental", StringComparison.OrdinalIgnoreCase) ||
-                model.Name.Contains("preview", StringComparison.OrdinalIgnoreCase) ||
-                model.Name.Contains("latest", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("001", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("tts", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("audio", StringComparison.OrdinalIgnoreCase) || 
@@ -155,9 +152,6 @@ namespace NeoBleeper
                 model.DisplayName.Contains("computer-use", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("robotics", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("code", StringComparison.OrdinalIgnoreCase) ||
-                model.DisplayName.Contains("experimental", StringComparison.OrdinalIgnoreCase) ||
-                model.DisplayName.Contains("preview", StringComparison.OrdinalIgnoreCase) ||
-                model.DisplayName.Contains("latest", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("001", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("tts", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("audio", StringComparison.OrdinalIgnoreCase))
