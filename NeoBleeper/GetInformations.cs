@@ -247,7 +247,11 @@ namespace NeoBleeper
                 $"Available Memory (MB): {new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory / 1024 / 1024}\r\n" +
                 $"Power Status: {powerStatus}\r\n" +
                 // Don't show system speaker info on ARM64 devices as they don't have system speakers
-                ((!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)) ? $"Presence of a system speaker: {(is_system_speaker_present == true ? "Yes" : "No")}\r\n" : string.Empty) +
+                ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ? 
+                $"Presence of a system speaker: {
+                    (Program.isExistenceOfSystemSpeakerChecked == true ? 
+                    (is_system_speaker_present == true ? "Yes" : "No") : 
+                    "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;

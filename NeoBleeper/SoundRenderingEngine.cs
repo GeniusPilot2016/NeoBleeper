@@ -427,32 +427,43 @@ namespace NeoBleeper
                 // Because it's falling back to sound card beep if no system speaker is found.
 
                 // Step 1: Check for the presence of a system speaker device using WMI
-                if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
-                    bool isSystemSpeakerPresentInWMI = false;
-                    string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
-                    using (var searcher = new ManagementObjectSearcher(query))
+                    try
                     {
-                        var devices = searcher.Get();
-                        isSystemSpeakerPresentInWMI = (devices.Count > 0);
-                    }
+                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
+                        bool isSystemSpeakerPresentInWMI = false;
+                        string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
+                        using (var searcher = new ManagementObjectSearcher(query))
+                        {
+                            var devices = searcher.Get();
+                            isSystemSpeakerPresentInWMI = (devices.Count > 0);
+                        }
 
-                    // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
-                    Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
-                    bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
+                        // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
+                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
+                        bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
 
-                    // Return true if electrical feedback is detected or if WMI check confirms presence
-                    bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
-                    if (result == true)
-                    {
-                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                        // Return true if electrical feedback is detected or if WMI check confirms presence
+                        bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
+                        if (result == true)
+                        {
+                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                        }
+                        else
+                        {
+                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                        }
+                        Program.isExistenceOfSystemSpeakerChecked = true; // Mark that the check has been performed
+                        return result;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                        Program.isExistenceOfSystemSpeakerChecked = false; // Mark that the check failed
+                        Logger.Log("Error during system speaker detection: " + ex.Message, Logger.LogTypes.Error);
+                        Program.splashScreen.updateStatus("Error during system speaker detection. Assuming no system speaker.");
+                        return false; // On error, assume no system speaker
                     }
-                    return result;
                 }
                 else
                 {

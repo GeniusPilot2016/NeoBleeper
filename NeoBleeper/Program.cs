@@ -33,6 +33,7 @@ namespace NeoBleeper
         public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
         public static splash splashScreen = new splash();
+        public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
         [STAThread]
         static void Main(string[] args)
         {

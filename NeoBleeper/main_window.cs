@@ -3627,10 +3627,12 @@ namespace NeoBleeper
                 beat_number = beat + 1;
                 Task.Run(() =>
                 {
+                    position_table.SuspendLayout();
                     lbl_measure_value.Text = measure.ToString();
                     lbl_beat_value.Text = Math.Round(beat_number, 4).ToString();
                     lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
                     lbl_beat_traditional_value.ForeColor = set_traditional_beat_color(lbl_beat_traditional_value.Text);
+                    position_table.ResumeLayout();
                 });
                 if (checkBox_play_beat_sound.Checked == true && clicked == false)
                 {
