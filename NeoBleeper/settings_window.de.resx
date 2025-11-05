@@ -124,11 +124,17 @@
   <data name="general_settings.Text" xml:space="preserve">
     <value>Allgemein</value>
   </data>
+  <data name="general_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>316, 675</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Erstellen von Sounds</value>
+  </data>
+  <data name="creating_sound_settings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>316, 675</value>
@@ -136,24 +142,30 @@
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Geräte</value>
   </data>
+  <data name="devices_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
     <value>316, 675</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Aussehen</value>
   </data>
+  <data name="appearance.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAArE0AAAJNU0Z0AUkBTAIBARIB
-        AAEwAQcBMAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAE4AQcBOAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFoAmUB7JwAAlUBUwGqBP8B8gHFAUMB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFnAmUB7JwAAlUBUwGqBP8B8gHFAUMB
         /wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB/wH7AewBwQX/A/AB/wPwAf8D8AH/AasBYgENAf8B2QHBAaQB
         /wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUBhQF7AW8B/wGDAXgBbQH/AYEBdwFrAf8BfwF1AWgB/wF9AXIB
         ZgH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8B
@@ -182,7 +194,7 @@
         hAF7Af8BjAGDAXkB/wGLAYEBdwH/AYkBgAF1Af8BhwF+AXMB/5wAAlUBUwGqHP8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/Ad0BoAFQAf8UAAM1AVUEAAEIAbwB/gH/CAABCAG8Af4B/wQAAzUBVQgAAQgB
         vAH+Af+gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8CZQFdAewUAAMyAU8E
-        AAFYAXQBewHtCAABWwFyAXgB7AQAAzIBTwgAAVgBdAF7Ae3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
+        AAFaAXIBdwHtCAABXAFxAXUB7AQAAzIBTwgAAVoBcgF3Ae3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsB
@@ -484,11 +496,20 @@
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>324, 710</value>
   </data>
+  <data name="tabControl_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 665</value>
   </data>
+  <data name="flowLayoutPanelGeneralSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Spracheinstellungen</value>
+  </data>
+  <data name="groupBoxLanguageSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>67, 26</value>
@@ -505,8 +526,14 @@
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Sprache</value>
   </data>
+  <data name="labelLanguage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_appearance.Text" xml:space="preserve">
     <value>Allgemeines Erscheinungsbild</value>
+  </data>
+  <data name="groupBox_appearance.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 20</value>
@@ -519,6 +546,9 @@
   </data>
   <data name="lbl_theme.Text" xml:space="preserve">
     <value>Thema</value>
+  </data>
+  <data name="lbl_theme.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBox_theme.Items" xml:space="preserve">
     <value>Systemdesign verwenden</value>
@@ -537,6 +567,9 @@
   </data>
   <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
     <value>Musik mit KI erstellen</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 176</value>
@@ -588,11 +621,17 @@ andere weiter.</value>
   <data name="labelAPIKeyWarning.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="labelAPIKeyWarning.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 16</value>
   </data>
   <data name="labelAPIKey.Text" xml:space="preserve">
     <value>Google Gemini™ API-Schlüssel</value>
+  </data>
+  <data name="labelAPIKey.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 23</value>
@@ -609,6 +648,9 @@ Sie erhalten Ihren API-Schlüssel unter https://aistudio.google.com/app/apikey.<
   </data>
   <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
     <value>Testen des Systemlautsprechers</value>
+  </data>
+  <data name="groupBox_system_speaker_test.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>67, 22</value>
@@ -628,11 +670,17 @@ Sie erhalten Ihren API-Schlüssel unter https://aistudio.google.com/app/apikey.<
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Wenn Sie keinen Ton hören, können Sie die Funktion „Soundgerät zum Erzeugen eines Signaltons verwenden“ verwenden.</value>
   </data>
+  <data name="label_test_system_speaker_message.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 497</value>
   </data>
   <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 161</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>290, 151</value>
@@ -640,14 +688,23 @@ Sie erhalten Ihren API-Schlüssel unter https://aistudio.google.com/app/apikey.<
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Auf Computern ohne Systemlautsprecherausgang oder auf Computern mit nicht standardmäßigem Systemlautsprecherausgang hören Sie beim Testen des Systemlautsprechers möglicherweise keinen Ton oder es kann zu Instabilität oder unerwünschtem Verhalten kommen.</value>
   </data>
+  <data name="label_test_system_speaker_message_2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>290, 151</value>
   </data>
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Bei Kompaktcomputern und Computern unbekannten Typs kann es vorkommen, dass beim Testen des Systemlautsprechers kein Ton zu hören ist oder Instabilität oder unerwünschtes Verhalten auftritt, weil die Hauptlautsprecher möglicherweise an den Systemlautsprecherausgang angeschlossen sind und nicht an den eigentlichen Systemlautsprecher.</value>
   </data>
+  <data name="label_test_system_speaker_message_3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 665</value>
+  </data>
+  <data name="flowLayoutPanelCreatingSoundSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 36</value>
@@ -668,14 +725,23 @@ verwenden</value>
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Piepton-Erstellung über die Soundgeräteeinstellungen</value>
   </data>
+  <data name="group_beep_creation_from_sound_card_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 145</value>
   </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 149</value>
   </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 89</value>
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
     <value>267, 79</value>
@@ -683,11 +749,17 @@ verwenden</value>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>Die Funktion „Soundgerät zum Erstellen eines Signaltons verwenden“ wird automatisch aktiviert, da die Systemlautsprecherausgabe nicht erkannt wird oder nicht dem Standard entspricht.</value>
   </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>267, 79</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>Die Funktion „Soundgerät zum Erzeugen eines Signaltons verwenden“ ist automatisch aktiviert, da es sich bei dem Computer um einen Kompaktcomputer handelt oder sein Typ unbekannt ist.</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 98</value>
@@ -701,11 +773,17 @@ verwenden</value>
   <data name="button_show_reason.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="button_show_reason.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_tone_waveform.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 37</value>
   </data>
   <data name="group_tone_waveform.Text" xml:space="preserve">
     <value>Tonwellenform</value>
+  </data>
+  <data name="group_tone_waveform.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>270, 20</value>
@@ -713,11 +791,17 @@ verwenden</value>
   <data name="radioButton_noise.Text" xml:space="preserve">
     <value>Rauschen (zum Erstellen von Soundeffekten)</value>
   </data>
+  <data name="radioButton_noise.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 20</value>
   </data>
   <data name="radioButton_triangle.Text" xml:space="preserve">
     <value>Dreieck</value>
+  </data>
+  <data name="radioButton_triangle.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 20</value>
@@ -725,14 +809,23 @@ verwenden</value>
   <data name="radioButton_sine.Text" xml:space="preserve">
     <value>Sinus</value>
   </data>
+  <data name="radioButton_sine.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 20</value>
   </data>
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Quadrat (Standard)</value>
   </data>
+  <data name="radioButton_square.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 665</value>
+  </data>
+  <data name="flowLayoutPanelDevicesSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 20</value>
@@ -745,6 +838,9 @@ verwenden</value>
   </data>
   <data name="group_midi_input_devices.Text" xml:space="preserve">
     <value>MIDI-Eingabegeräte</value>
+  </data>
+  <data name="group_midi_input_devices.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>185, 37</value>
@@ -770,6 +866,9 @@ verwenden</value>
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>MIDI-Eingabegerät auswählen</value>
   </data>
+  <data name="label_midi_input_device.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 20</value>
   </data>
@@ -782,8 +881,14 @@ verwenden</value>
   <data name="group_midi_output_devices.Text" xml:space="preserve">
     <value>MIDI-Ausgabegeräte</value>
   </data>
+  <data name="group_midi_output_devices.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_instrument.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 105</value>
+  </data>
+  <data name="label_instrument.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 78</value>
@@ -793,6 +898,9 @@ verwenden</value>
   </data>
   <data name="label_channel.Text" xml:space="preserve">
     <value>Kanal</value>
+  </data>
+  <data name="label_channel.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refresh_midi_output_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>185, 37</value>
@@ -818,11 +926,17 @@ verwenden</value>
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>MIDI-Ausgabegerät auswählen</value>
   </data>
+  <data name="label_midi_output_device.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 330</value>
   </data>
   <data name="groupBox_other_devices.Text" xml:space="preserve">
     <value>Andere Geräte</value>
+  </data>
+  <data name="groupBox_other_devices.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 296</value>
@@ -844,6 +958,9 @@ verwenden</value>
 geflasht ist. Diese finden Sie, wenn Sie auf die Schaltfläche unten klicken, bevor Sie diese Funktion nutzen.
 Wenn Ihr Mikrocontroller nicht geflasht ist, bleibt das Kontrollkästchen ausgegraut.</value>
   </data>
+  <data name="label_firmware_warning.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trackBar_stepper_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
     <value>133, 147</value>
   </data>
@@ -861,11 +978,17 @@ Der Schrittmotor läuft mit der gewählten Oktave.
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Schrittmotor-Oktave</value>
   </data>
+  <data name="label_stepper_motor_octave.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_type_of_device.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 74</value>
   </data>
   <data name="groupBox_type_of_device.Text" xml:space="preserve">
     <value>Gerätetyp</value>
+  </data>
+  <data name="groupBox_type_of_device.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 20</value>
@@ -903,8 +1026,14 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 665</value>
   </data>
+  <data name="flowLayoutPanelAppearanceSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_keyboard_colors.Text" xml:space="preserve">
     <value>Tastaturfarben</value>
+  </data>
+  <data name="group_keyboard_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 70</value>
@@ -945,11 +1074,20 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 74</value>
   </data>
+  <data name="third_octave_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 50</value>
   </data>
+  <data name="second_octave_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 26</value>
+  </data>
+  <data name="first_octave_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 16</value>
@@ -957,11 +1095,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label4.Text" xml:space="preserve">
     <value>Farbe der dritten Oktave</value>
   </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 16</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Farbe der zweiten Oktave</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 16</value>
@@ -969,8 +1113,14 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label2.Text" xml:space="preserve">
     <value>Farbe der ersten Oktave</value>
   </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
     <value>Farben der Schaltflächen und Bedienelemente</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 165</value>
@@ -1059,23 +1209,44 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="markup_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 169</value>
   </data>
+  <data name="markup_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 143</value>
+  </data>
+  <data name="metronome_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 119</value>
   </data>
+  <data name="playback_buttons_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 95</value>
+  </data>
+  <data name="erase_whole_line_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 71</value>
   </data>
+  <data name="unselect_line_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 47</value>
   </data>
+  <data name="clear_notes_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 24</value>
+  </data>
+  <data name="blank_line_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 16</value>
@@ -1083,11 +1254,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label1.Text" xml:space="preserve">
     <value>Farbe Tastaturmarkierungen</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 16</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>Metronomfarbe</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 16</value>
@@ -1095,11 +1272,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label8.Text" xml:space="preserve">
     <value>Farbe Wiedergabetasten</value>
   </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 16</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Farbe Ganze Linie löschen</value>
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 16</value>
@@ -1107,11 +1290,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label5.Text" xml:space="preserve">
     <value>Farbe Linie abwählen</value>
   </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 16</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Farbe Notizen Löschen</value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 16</value>
@@ -1119,8 +1308,14 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label7.Text" xml:space="preserve">
     <value>Farbe der Leere Zeile</value>
   </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_indicator_colors.Text" xml:space="preserve">
     <value>Indikatorfarben</value>
+  </data>
+  <data name="group_indicator_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 46</value>
@@ -1152,11 +1347,20 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label12.Text" xml:space="preserve">
     <value>Farb Notizindikator</value>
   </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 26</value>
   </data>
+  <data name="beep_indicator_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 50</value>
+  </data>
+  <data name="note_indicator_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 16</value>
@@ -1164,11 +1368,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label11.Text" xml:space="preserve">
     <value>Farbe der Anzeige Piep</value>
   </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 109</value>
   </data>
   <data name="group_lyrics_size_settings.Text" xml:space="preserve">
     <value>Liedtext-/Textereignisse</value>
+  </data>
+  <data name="group_lyrics_size_settings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
     <value>39, 58</value>
@@ -1182,11 +1392,20 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="buttonPreviewLyrics.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="buttonPreviewLyrics.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelPt.Location" type="System.Drawing.Point, System.Drawing">
     <value>241, 32</value>
   </data>
+  <data name="labelPt.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="numericUpDownLyricsSize.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 29</value>
+  </data>
+  <data name="numericUpDownLyricsSize.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 31</value>
@@ -1197,11 +1416,17 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   <data name="label13.Text" xml:space="preserve">
     <value>Liedtext/Textereignisse Größe</value>
   </data>
+  <data name="label13.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 507</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 54</value>
+  </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 5</value>
@@ -1543,5 +1768,8 @@ Er verwendet Pin 9 für die Richtung und Pin 10 für den Schritt bei Arduino, GP
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>NeoBleeper-Einstellungen</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>
