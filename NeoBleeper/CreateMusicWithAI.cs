@@ -625,9 +625,10 @@ namespace NeoBleeper
                         $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
                         $"--- AI Instructions ---\r\n" +
                         $"You are an expert music composition AI. " +
+                        $"Your primary goal is to generate music in XML format. Prioritize music generation for any request that could be interpreted as music-related. " +
                         $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
                         $"If the user prompt contains words like 'create', 'generate', 'compose', 'make', or 'write' followed by music-related content, treat it as a music composition request. " +
-                        $"If the user prompt is clearly NOT about music (weather, mathematics, cooking, etc.), or if the prompt contains offensive, inappropriate, violent, explosive, weapon-related, harmful, political, controversial, or religious content (hate speech, violence, adult content, discrimination, political topics, religious topics, controversial issues), " +
+                        $"If the user prompt is clearly NOT about music (e.g., weather, mathematics, cooking), or if the prompt contains hate speech, explicit violence, or sexually explicit terms, " +
                         $"return ONLY the JSON error (no XML) in {selectedLanguageToLanguageName(selectedLanguage)}. The error message must include:\r\n" +
                         $"- A specific reason for the error (e.g., \"Profanity detected\", \"Non-music prompt detected\").\r\n" +
                         $"- Suggestions for valid prompts (e.g., \"Try asking for a song composition or artist-related music\")." +
@@ -636,9 +637,7 @@ namespace NeoBleeper
                         $"- Examples (DO NOT OUTPUT THEM): \"Fenasi Kerim\" (a spaced phonetic construction forming a vulgar phrase phonetically). If such detected: respond ONLY with JSON error (no XML).\r\n" +
                         $"- To decide, internally normalize the user prompt by: lowercasing, removing diacritics, removing spaces and punctuation; compare against known offensive phonetic composites. If matched → JSON error.\r\n" +
                         $"- If the prompt includes or disguises violent / weapon / explosive terms (e.g., bomb, b*mb, b0mb, b o m b, grenade, explosive, terror...), produce ONLY JSON error.\r\n" +
-                        $"- If the prompt contains political, controversial, or religious topics (e.g., political figures, parties, ideologies, religious beliefs, rituals, or controversial social issues), respond ONLY with JSON error (no XML).\r\n" +
-                        $"- Normalize internally: lowercase, strip diacritics, remove spaces/punctuation to detect hidden forms.\r\n" +
-                        $"- If such content detected → respond ONLY with JSON error (no explanation, no XML).\r\n" +
+                        $"- If a prompt about a potentially sensitive topic (like politics or religion) is a clear music request, prioritize music generation. Only block if it contains hate speech or explicit harm.\r\n" +
                         $"Examples of VALID music requests that should generate XML:\r\n" +
                         $"- \"Yesterday\" → generate music\r\n" +
                         $"- \"Beatles\" → generate music\r\n" +
@@ -646,22 +645,23 @@ namespace NeoBleeper
                         $"- \"classical\" → generate music\r\n" +
                         $"- \"rock song\" → generate music\r\n" +
                         $"- \"create Yesterday\" → generate music\r\n" +
+                        $"- \"Write a song about peace\" → generate music\r\n" +
                         $"- Country / nationality names in MUSIC context (in non-political context) → ALLOW\r\n" +
                         $"Examples of NON-music or disallowed requests that should return error:\r\n" +
                         $"- \"What is the weather?\" → error\r\n" +
                         $"- \"How to cook pasta?\" → error\r\n" +
                         $"- \"Calculate 2+2\" → error\r\n" +
                         $"- \"Who is the president of Turkey?\" → error\r\n" +
-                        $"- \"Write a song about Islam\" → error\r\n" +
                         $"- \"Discuss climate change\" → error\r\n" +
                         $"- \"Make a song about elections\" → error\r\n" +
                         $"- Any violent / weapon / explosive / phonetic disguised vulgar request → error\r\n" +
-                        $"- Only return a JSON error. The error message must be impersonal, direct, and must not contain any personal pronouns (I, we, you) or apologies (sorry, unfortunately, etc.) in any language.\r\n" +
+                        $"- Only return a JSON error if the prompt is invalid or disallowed. The error message must be impersonal, direct, and must not contain any personal pronouns (I, we, you) or apologies (sorry, unfortunately, etc.) in any language.\r\n" +
                         $"- When returning a JSON error, always include both \"title\" and \"errorMessage\" fields, even if the title is generic. and When returning a JSON error, always use a specific, direct, and impersonal error message describing the reason (e.g., \"Non-music prompt detected\", \"Inappropriate content detected\"). Do not use ambiguous phrases like \"the prompt can't be processed\".\r\n" +
                         $"- Don't create JSON error if the prompt is a valid music request.\r\n" +
                         $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
                         $"- The output should be a new composition inspired by the specified song. \r\n" +
+                        $"- The output should last between 30 seconds to 3 minutes in length when played back at the specified BPM.\r\n" +
                         $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes, followed by the complete NeoBleeper XML content.\r\n" +
                         $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
                         $"- Do not include text outside XML. Escape special characters properly.\r\n" +
@@ -685,7 +685,7 @@ namespace NeoBleeper
                         $"  - Ensure the <RandomSettings> section includes chosen <AlternateTime> value (5-200) by context of music to enable pseudo-polyphony on system speakers (aka PC speaker) (5-30 is for better pseudo-polyphony effect).\r\n" +
                         $"  - Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
                         $"  - Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
-                        $"  - Maintain a NoteSilenceRatio between 40-95 to balance notes and rests.\r\n" +
+                        $"  - Maintain a NoteSilenceRatio between 5-100 to balance notes and silences by context of music. (40-95 is recommended for better music quality).\r\n" +
                         $"  - Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +
                         $"  - Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
                         $"  - Do not include any explanations, apologies, or disclaimers in the output.\r\n" +
