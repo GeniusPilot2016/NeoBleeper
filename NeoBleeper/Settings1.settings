@@ -71,14 +71,5 @@
     <Setting Name="lyricsSize" Type="System.Single" Scope="User">
       <Value Profile="(Default)">32</Value>
     </Setting>
-    <Setting Name="cachedProfileImageBase64" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="cachedUserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="cachedEMail" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
   </Settings>
 </SettingsFile>

@@ -297,41 +297,5 @@ namespace NeoBleeper {
                 this["lyricsSize"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string cachedProfileImageBase64 {
-            get {
-                return ((string)(this["cachedProfileImageBase64"]));
-            }
-            set {
-                this["cachedProfileImageBase64"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string cachedUserName {
-            get {
-                return ((string)(this["cachedUserName"]));
-            }
-            set {
-                this["cachedUserName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string cachedEMail {
-            get {
-                return ((string)(this["cachedEMail"]));
-            }
-            set {
-                this["cachedEMail"] = value;
-            }
-        }
     }
 }
