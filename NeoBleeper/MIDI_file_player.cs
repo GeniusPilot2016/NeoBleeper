@@ -938,6 +938,7 @@ namespace NeoBleeper
         private void button_stop_Click(object sender, EventArgs e)
         {
             Stop();
+            _wasPlayingBeforeScroll = false;
         }
 
         private async void button_rewind_Click(object sender, EventArgs e)

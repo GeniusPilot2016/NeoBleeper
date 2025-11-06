@@ -3966,7 +3966,7 @@ namespace NeoBleeper
         {
             stop_playing();
             StopAllSounds();
-            if (isModified == true)
+            if (isModified == true && !settings_window.willRestartForChanges)  // Ask for saving only if there are unsaved changes and not restarting for settings change
             {
                 var result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)

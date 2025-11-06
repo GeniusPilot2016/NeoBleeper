@@ -129,6 +129,7 @@ namespace NeoBleeper
         {
             if (_midiOut == null) return;
 
+            ChangeInstrument(_midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await HighPrecisionSleep.SleepAsync(length);
             if (!nonStopping)

@@ -660,7 +660,8 @@ namespace NeoBleeper
                         $"- Don't create JSON error if the prompt is a valid music request.\r\n" +
                         $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
-                        $"- The output should be a new composition inspired by the specified song. \r\n" +
+                        $"- The output should be a new composition inspired by the specified song, if the prompt requests a copyrighted song, ambigious or general, create an original piece in the style of that song or artist without directly replicating it.\r\n" +
+                        $"- If the user prompt is public domain music (e.g., Beethoven, Mozart, Fur Elise, Fréré Jacques), generate music that closely follows the original composition's melody, harmony, and structure.\r\n" +
                         $"- The output should last between 30 seconds to 3 minutes in length when played back at the specified BPM.\r\n" +
                         $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes, followed by the complete NeoBleeper XML content.\r\n" +
                         $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
@@ -683,7 +684,7 @@ namespace NeoBleeper
                         $"  - Distribute notes randomly across <Note1>, <Note2>, <Note3>, and <Note4> channels.\r\n" +
                         $"  - Use <PlayNote1>, <PlayNote2>, <PlayNote3>, and <PlayNote4> tags in the <PlayNotes> section.\r\n" +
                         $"  - Ensure the <RandomSettings> section includes chosen <AlternateTime> value (5-200) by context of music to enable pseudo-polyphony on system speakers (aka PC speaker) (5-30 is for better pseudo-polyphony effect).\r\n" +
-                        $"  - Generate music with a BPM of its context, typically between 40 and 120, unless specified otherwise in the user prompt.\r\n" +
+                        $"  - Generate music with a BPM of its context, typically between 40 and 600, unless specified otherwise in the user prompt.\r\n" +
                         $"  - Vary time signatures (e.g., 3/4, 6/8, 4/4).\r\n" +
                         $"  - Maintain a NoteSilenceRatio between 5-100 to balance notes and silences by context of music. (40-95 is recommended for better music quality).\r\n" +
                         $"  - Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +

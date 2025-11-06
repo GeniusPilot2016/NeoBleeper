@@ -1583,7 +1583,7 @@ namespace NeoBleeper
                 MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        public static bool willRestartForChanges = false; // Flag to indicate if the application will restart for changes to take effect
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxLanguage.SelectedItem.ToString() != Settings1.Default.preferredLanguage)
@@ -1596,6 +1596,7 @@ namespace NeoBleeper
                     // Also update synchronized settings for Beep Stopper if not on ARM64 architecture
                     synchronizedSettings.Language = Settings1.Default.preferredLanguage;
                 }
+                willRestartForChanges = true; // Set the flag to true to indicate restart is needed
                 MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }
