@@ -467,7 +467,20 @@ namespace NeoBleeper
                     Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                 }
             }
-            else if(TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
+            else if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues)
+            {
+                if (checkBox_enable_create_beep_from_soundcard.Checked == false)
+                {
+                    disable_create_beep_from_sound_device_warning_on_affected_motherboards warningForm = new disable_create_beep_from_sound_device_warning_on_affected_motherboards();
+                    DisableSoundDeviceBeepWithWarning(warningForm);
+                }
+                else if (checkBox_enable_create_beep_from_soundcard.Checked == true)
+                {
+                    TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                    Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
+                }
+            }
+            else if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {
@@ -1390,19 +1403,19 @@ namespace NeoBleeper
 
                     buttonUpdateAPIKey.Enabled = false;
                     buttonResetAPIKey.Enabled = true;
-                    MessageBox.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageForm.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
                 }
                 else
                 {
                     Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
-                    MessageBox.Show(Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log("Error saving API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show(Resources.ErrorSavingAPIKey + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.ErrorSavingAPIKey + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1430,12 +1443,12 @@ namespace NeoBleeper
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
                 Logger.Log("Google Gemini™ API key reset successfully.", Logger.LogTypes.Info);
-                MessageBox.Show(Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show(Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 Logger.Log("Error resetting API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show(Resources.ErrorResettingAPIKey + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.ErrorResettingAPIKey + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1558,7 +1571,7 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"An error occurred while lyrics/text event size is changing: {ex.Message}", Logger.LogTypes.Error);
-                    MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1580,7 +1593,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"An error occurred while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public static bool willRestartForChanges = false; // Flag to indicate if the application will restart for changes to take effect
@@ -1597,7 +1610,7 @@ namespace NeoBleeper
                     synchronizedSettings.Language = Settings1.Default.preferredLanguage;
                 }
                 willRestartForChanges = true; // Set the flag to true to indicate restart is needed
-                MessageBox.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }
         }

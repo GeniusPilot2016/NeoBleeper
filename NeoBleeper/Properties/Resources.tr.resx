@@ -139,11 +139,14 @@
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışı mevcut. Bip sesleri oluşturmak için sistem hoparlörü kullanılacak.</value>
   </data>
   <data name="TextStartWaiting" xml:space="preserve">
     <value>Beklemeye Başla</value>
+  </data>
+  <data name="SpiccatoArticulation" xml:space="preserve">
+    <value>Spi</value>
   </data>
   <data name="ExamplePrompt8" xml:space="preserve">
     <value>Barok dönem tarzında klasik bir eser bestele</value>
@@ -169,14 +172,23 @@
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>MIDI dosyası yükleniyor...</value>
   </data>
-  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StatusCompactComputerDetected" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışı mevcut, ancak bilgisayarın türü bilinmiyor. NeoBleeper, bilinmeyen bilgisayar türlerinde sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
   </data>
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Bir Vuruş Sesi Çal</value>
+  </data>
+  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusSSDStorageType" xml:space="preserve">
+    <value>SSD depolama algılandı. Rezonans önleme gerekli değil.</value>
   </data>
   <data name="HalfNote" xml:space="preserve">
     <value>İkilik</value>
@@ -184,8 +196,8 @@
   <data name="GoogleGeminiServerDown" xml:space="preserve">
     <value>Google Gemini™ sunucusuna şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin.</value>
   </data>
-  <data name="UseVoiceSystemHelp" xml:space="preserve">
-    <value>Bu özellik, programın ses sistemini kullanarak konuşma formantlarını taklit etmesini ve seçili notaların "şarkı söyleme" gibi algılanmasını sağlar.</value>
+  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışı mevcut değil. Bip sesleri oluşturmak için ses aygıtı kullanılacak.</value>
   </data>
   <data name="MessageLanguageChanged" xml:space="preserve">
     <value>Programın dili değiştirildi ve uygulama şimdi yeni dili uygulamak için yeniden başlatılacak, ve açık projelerdeki değişiklikler silinecektir.</value>
@@ -205,8 +217,8 @@
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Rahatlatıcı bir ninni bestele</value>
+  <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
+    <value>Dönüştürülmüş Beep komutu panoya kopyalandı.</value>
   </data>
   <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Google Gemini™ API anahtar biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
@@ -219,11 +231,30 @@
 
 'Ritmi Değiştir' düğmesine tıklayarak çalınacak sesi seçebilirsiniz.</value>
   </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Bir hata oluştu:</value>
+  </data>
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Form kapatırken hata oluştu: </value>
   </data>
+  <data name="DoNotUpdateHelp" xml:space="preserve">
+    <value>Bu özellik, müzik çalınırken konum tablosunun otomatik olarak güncellenmesini devre dışı bırakır. Ancak, düzenleme sırasında güncellenmeye devam eder.
+
+Etkinleştirildiğinde, müzik çalınırken konum tablosu güncellenmez.
+
+Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız, bu seçeneği devre dışı bırakmanız önerilir.</value>
+  </data>
+  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Şu anda tutulan notalar:</value>
+  </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
+    <value>InpOutx64.dll eksik veya bozuk. InpOutx64.dll yerleştiriliyor...</value>
   </data>
   <data name="TextPlaying" xml:space="preserve">
     <value>Oynatılıyor</value>
@@ -232,17 +263,23 @@
     <value>API anahtarı alanındaki API anahtarını görüntüle
 Gizlemek için tekrar tıklayınız</value>
   </data>
-  <data name="MessageNoInternet" xml:space="preserve">
-    <value>İnternet bağlantısı mevcut değil. Lütfen bağlantınızı kontrol ediniz.</value>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Rahatlama ve meditasyon için sakin bir ambient ses manzarası bestele</value>
   </data>
   <data name="ToastMessageNotesCopy" xml:space="preserve">
     <value>Notalar panoya kopyalandı.</value>
   </data>
-  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StatusSpecifyingStorageType" xml:space="preserve">
+    <value>Rezonans önleme için depolama türü belirtiliyor...</value>
+  </data>
+  <data name="StatusComputerTypeDetecting" xml:space="preserve">
+    <value>Bilgisayar türü algılanıyor...</value>
   </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HarmonyOS_Sans_Regular_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Regular_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -256,6 +293,9 @@ Gizlemek için tekrar tıklayınız</value>
   <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
     <value>Sürüklediğiniz dosya NeoBleeper tarafından desteklenmiyor veya bozuk.</value>
   </data>
+  <data name="StatusAPIKeyValidating" xml:space="preserve">
+    <value>Google Gemini™ API anahtarı doğrulanıyor...</value>
+  </data>
   <data name="ErrorSavingAPIKey" xml:space="preserve">
     <value>API anahtarı kaydedilirken hata oluştu: </value>
   </data>
@@ -268,6 +308,9 @@ Gizlemek için tekrar tıklayınız</value>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ExamplePrompt9" xml:space="preserve">
+    <value>Ambient tarzda meditasyon müziği oluştur</value>
+  </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
     <value>"Sessiz oynatma" onay kutusu işaretliyken, "Motor veya buzzer kullan (Arduino, Raspberry Pi veya ESP32 üzerinden)" onay kutusu işaretli değilken ve "MIDI çıkışını kullan" onay kutusu işaretli değilken MIDI dosya oynatıcısı açılamaz.
 
@@ -279,8 +322,14 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StatusDisplayResolutionCheck" xml:space="preserve">
+    <value>Ekran çözünürlüğü kontrol ediliyor...</value>
+  </data>
   <data name="TextBeatError" xml:space="preserve">
     <value>(Hata)</value>
+  </data>
+  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
+    <value>Klasik Bleeper Modu etkin. NeoBleeper Klasik Bleeper modunda başlatılacak.</value>
   </data>
   <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -294,11 +343,23 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="FilterProjectFileFormats" xml:space="preserve">
     <value>NeoBleeper Proje İşaretleme Dili Dosyaları|*.NBPML|Bleeper Music Maker Dosyaları|*.BMM|Tüm Dosyalar|*.*</value>
   </data>
+  <data name="MessageFileNotFoundError" xml:space="preserve">
+    <value>Dosya bulunamadı:</value>
+  </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>HDD depolama algılandı. {value} Hz rezonans frekansından kaçınılıyor.</value>
+  </data>
   <data name="ExamplePrompt5" xml:space="preserve">
     <value>Fantezi oyunu için epik bir soundtrack oluştur</value>
   </data>
   <data name="TextError" xml:space="preserve">
     <value>Hata</value>
+  </data>
+  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
+    <value>Google Gemini™ API anahtarı doğrulaması başarılı</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Klasik video oyunlarından ilham alan retro 8-bit chiptune soundtrack üret</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Ses Sistemini Kullan</value>
@@ -334,11 +395,23 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>API anahtarı alanındaki API anahtarını gizle
 Görüntülemek için tekrar tıklayınız</value>
   </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)</value>
+  </data>
   <data name="ExamplePrompt7" xml:space="preserve">
     <value>Rock tarzında enerjik bir parça yarat</value>
   </data>
-  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
+  </data>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll mevcut ve geçerli.</value>
+  </data>
+  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
+    <value>Google Gemini™ API anahtarı başarıyla sıfırlandı.</value>
+  </data>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışı mevcut, ancak kompakt bir bilgisayar. NeoBleeper, kompakt bilgisayarlarda sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
   </data>
   <data name="TitleUnsavedChanges" xml:space="preserve">
     <value>Kaydedilmemiş Değişiklikler</value>
@@ -364,6 +437,9 @@ Görüntülemek için tekrar tıklayınız</value>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
   </data>
+  <data name="StatusUnknownStorageType" xml:space="preserve">
+    <value>Depolama türü bilinmiyor. Rezonans önleme, güvenlik amacıyla olası rezonans frekanslarında uygulanıyor.</value>
+  </data>
   <data name="UseKeyboardAsPianoHelp" xml:space="preserve">
     <value>Bu özellik, bilgisayar klavyenizi piyano klavyesi olarak kullanmanıza olanak tanır.
 
@@ -374,6 +450,9 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="QuarterNote" xml:space="preserve">
     <value>Dörtlük</value>
   </data>
+  <data name="ExamplePrompt4" xml:space="preserve">
+    <value>Rahatlatıcı bir ninni bestele</value>
+  </data>
   <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
     <value>Boş nota listesi Linux için Beep komutuna dönüştürülemez</value>
   </data>
@@ -383,8 +462,8 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="TitleOpenProjectFile" xml:space="preserve">
     <value>Proje Dosyasını Aç</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı başarıyla sıfırlandı.</value>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>Sistem bilgileri toplandı.</value>
   </data>
   <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
     <value>API anahtar biçimi geçersiz. Lütfen kontrol edip tekrar deneyiniz</value>
@@ -392,11 +471,17 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="icons8-cut-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-cut-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
+    <value>Ekran çözünürlüğü desteklenmektedir.</value>
+  </data>
   <data name="icons8-uncheck-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-uncheck-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
+    <value>Anakart üreticisinin {manufacturer} sistem hoparlörü sorunları yaşadığı biliniyor. Sistem hoparlörü algılanmıyor veya düzgün çalışmıyor olabilir.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>MIDI dosyası yüklenirken hata oluştu:</value>
@@ -406,6 +491,15 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InpOutX64PlaceError" xml:space="preserve">
+    <value>InpOutx64.dll yerleştirilemedi: </value>
+  </data>
+  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
+    <value>Ekran çözünürlüğü desteklenmiyor. NeoBleeper'ın düzgün çalışması için en az 1024x768 çözünürlük gereklidir</value>
+  </data>
+  <data name="DottedModifier" xml:space="preserve">
+    <value>Nok</value>
   </data>
   <data name="MessageBeepCommandSaved" xml:space="preserve">
     <value>Beep komutu kabuk betiği olarak başarıyla kaydedildi.</value>
@@ -424,44 +518,38 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
   <data name="MessageGCodeExported" xml:space="preserve">
     <value>GCode dosyası başarıyla dışarı aktarıldı!</value>
   </data>
+  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
+    <value>Klasik Bleeper Modu devre dışı. NeoBleeper standart modda başlatılacak.</value>
+  </data>
+  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
+    <value>Sistem hoparlörü sorunları için anakart üreticisi kontrol ediliyor...</value>
+  </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Google Gemini™ API anahtarı başarıyla kaydedildi.</value>
   </data>
   <data name="ErrorResettingAPIKey" xml:space="preserve">
     <value>API anahtarı sıfırlanırken hata oluştu: </value>
   </data>
+  <data name="icons8-information-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\Downloads\icons8-information-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Konum:</value>
   </data>
-  <data name="SpiccatoArticulation" xml:space="preserve">
-    <value>Spi</value>
+  <data name="MessageNoInternet" xml:space="preserve">
+    <value>İnternet bağlantısı mevcut değil. Lütfen bağlantınızı kontrol ediniz.</value>
   </data>
-  <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Hüzünlü bir piyano solosu yaz</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Enerjik synth melodileriyle neşeli bir elektronik dans parçası oluştur</value>
-  </data>
-  <data name="ExamplePrompt15" xml:space="preserve">
-    <value>Ritmik perküsyonlu funky bas ağırlıklı bir groove üret</value>
-  </data>
-  <data name="ExamplePrompt14" xml:space="preserve">
-    <value>Epik crescendo'larla dramatik bir orkestra parçası yarat</value>
-  </data>
-  <data name="ExamplePrompt13" xml:space="preserve">
-    <value>Klasik video oyunlarından ilham alan retro 8-bit chiptune soundtrack üret</value>
-  </data>
-  <data name="ExamplePrompt12" xml:space="preserve">
-    <value>Rahatlama ve meditasyon için sakin bir ambient ses manzarası bestele</value>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 1/2. adımda kontrol ediliyor...</value>
   </data>
   <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
-    <value>Dönüştürülmüş Beep komutu panoya kopyalandı.</value>
+  <data name="SixteenthNote" xml:space="preserve">
+    <value>Onaltılık</value>
   </data>
-  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Epik crescendo'larla dramatik bir orkestra parçası yarat</value>
   </data>
   <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -469,14 +557,21 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
   <data name="TextNotFound" xml:space="preserve">
     <value>(Bulunamadı)</value>
   </data>
-  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="UseVoiceSystemHelp" xml:space="preserve">
+    <value>Bu özellik, programın ses sistemini kullanarak konuşma formantlarını taklit etmesini ve seçili notaların "şarkı söyleme" gibi algılanmasını sağlar.</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
+  </data>
+  <data name="StatusNVMeStorageType" xml:space="preserve">
+    <value>NVMe depolama algılandı. Rezonans önleme gerekli değil.</value>
   </data>
   <data name="TextMilliseconds" xml:space="preserve">
     <value> mS</value>
   </data>
-  <data name="MessageFileNotFoundError" xml:space="preserve">
-    <value>Dosya bulunamadı:</value>
+  <data name="TextPercussionTooltip" xml:space="preserve">
+    <value>
+Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
   </data>
   <data name="MessageNonStandardNeoBleeperFile" xml:space="preserve">
     <value>Bu NeoBleeper dosyası, NeoBleeper dosya biçiminin sözdizimine uymayan geçersiz öğeler içeriyor.
@@ -489,11 +584,17 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MIDIDeviceErrorTitle" xml:space="preserve">
     <value>MIDI Aygıtı Hatası</value>
   </data>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>MIDI giriş/çıkış başlatılıyor...</value>
+  </data>
+  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
+    <value>Anakart üreticisi kontrol edilirken hata oluştu. Bu nedenle etkilenip etkilenmediği bilinmiyor.</value>
+  </data>
   <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StatusInitializationCompleted" xml:space="preserve">
+    <value>NeoBleeper'ı başlatma işlemi tamamlandı</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Bu özellik, birden fazla NeoBleeper örneğinin oynatımını senkronize etmenizi sağlar.
@@ -514,24 +615,20 @@ Daha sonra bu pencereyi kullanarak bilgisayarınızdaki tüm NeoBleeper örnekle
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>Açtığınız dosya bozuk veya başka bir işlem tarafından kullanılıyor.</value>
   </data>
-  <data name="MessageAnErrorOccurred" xml:space="preserve">
-    <value>Bir hata oluştu:</value>
+  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DoNotUpdateHelp" xml:space="preserve">
-    <value>Bu özellik, müzik çalınırken konum tablosunun otomatik olarak güncellenmesini devre dışı bırakır. Ancak, düzenleme sırasında güncellenmeye devam eder.
-
-Etkinleştirildiğinde, müzik çalınırken konum tablosu güncellenmez.
-
-Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız, bu seçeneği devre dışı bırakmanız önerilir.</value>
+  <data name="ExamplePrompt10" xml:space="preserve">
+    <value>Hüzünlü bir piyano solosu yaz</value>
   </data>
   <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
     <value>Eş Zamanlı Oynatma</value>
   </data>
-  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ThirtySecondNote" xml:space="preserve">
     <value>Otuzikilik</value>
@@ -542,6 +639,9 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Ritmik perküsyonlu funky bas ağırlıklı bir groove üret</value>
+  </data>
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -550,6 +650,15 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   </data>
   <data name="TextHide" xml:space="preserve">
     <value>Gizle</value>
+  </data>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Bleeper Portamento</value>
+  </data>
+  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatusInpOutX64Placed" xml:space="preserve">
+    <value>InpOutx64.dll başarıyla yerleştirildi.</value>
   </data>
   <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
     <value>MIDI giriş aygıtı başlatılamıyor:</value>
@@ -566,8 +675,14 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Şu anda tutulan notalar:</value>
+  <data name="MessageErrorRewinding" xml:space="preserve">
+    <value>Kaydedilen sürüme geri dönerken hata oluştu:</value>
+  </data>
+  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusModularComputerDetected" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışı mevcut ve modüler bir bilgisayar. NeoBleeper, bip sesleri oluşturmak için sistem hoparlörünü kullanacaktır.</value>
   </data>
   <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
     <value>Bu Bleeper Music Maker dosyası, Bleeper Music Maker dosya biçiminin sözdizimine uymayan geçersiz öğeler içeriyor.
@@ -586,8 +701,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Şu anda bekliyor</value>
   </data>
-  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
+    <value>Anakart üreticisinin sistem hoparlörü sorunları yaşadığına dair bir bilgi bulunmamaktadır.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -598,6 +713,9 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="StatusProgramLanguage" xml:space="preserve">
+    <value>NeoBleeper şu dilde başlatılıyor: </value>
+  </data>
   <data name="ExamplePrompt3" xml:space="preserve">
     <value>Hareketli bir elektronik dans müziği yarat</value>
   </data>
@@ -607,17 +725,14 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Olaylar toplanıyor...</value>
   </data>
-  <data name="SixteenthNote" xml:space="preserve">
-    <value>Onaltılık</value>
-  </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Beklemeyi Bırak</value>
   </data>
   <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Ambient tarzda meditasyon müziği oluştur</value>
+  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
     <value>Uygulama çalışırken bir hata oluştu: 
@@ -635,20 +750,23 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="HarmonyOS_Sans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
     <value>Yapay zeka ile müzik oluşturma başarısız oldu:</value>
   </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageErrorRewinding" xml:space="preserve">
-    <value>Kaydedilen sürüme geri dönerken hata oluştu:</value>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Sistem bilgileri toplanıyor...</value>
   </data>
-  <data name="PortamentoHelpTitle" xml:space="preserve">
-    <value>Bleeper Portamento</value>
+  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DottedModifier" xml:space="preserve">
-    <value>Nok</value>
+  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
+    <value>InpOutx64.dll'nin varlığı ve bütünlüğü kontrol ediliyor...</value>
   </data>
   <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -659,113 +777,28 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Çerçeveler oluşturuluyor...</value>
   </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Enerjik synth melodileriyle neşeli bir elektronik dans parçası oluştur</value>
   </data>
   <data name="TextStopPlaying" xml:space="preserve">
     <value>Oynatmayı Durdur</value>
   </data>
-  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı doğrulaması başarılı</value>
+  <data name="ButtonYes" xml:space="preserve">
+    <value>&amp;Evet</value>
   </data>
-  <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı doğrulanıyor...</value>
+  <data name="ButtonNo" xml:space="preserve">
+    <value>&amp;Hayır</value>
   </data>
-  <data name="StatusDisplayResolutionCheck" xml:space="preserve">
-    <value>Ekran çözünürlüğü kontrol ediliyor...</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;Tamam</value>
   </data>
-  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
-    <value>Ekran çözünürlüğü desteklenmiyor. NeoBleeper'ın düzgün çalışması için en az 1024x768 çözünürlük gereklidir</value>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>&amp;İptal</value>
   </data>
-  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
-    <value>Ekran çözünürlüğü desteklenmektedir.</value>
+  <data name="ButtonRetry" xml:space="preserve">
+    <value>&amp;Yeniden dene</value>
   </data>
-  <data name="StatusComputerTypeDetecting" xml:space="preserve">
-    <value>Bilgisayar türü algılanıyor...</value>
-  </data>
-  <data name="StatusModularComputerDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut ve modüler bir bilgisayar. NeoBleeper, bip sesleri oluşturmak için sistem hoparlörünü kullanacaktır.</value>
-  </data>
-  <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut, ancak bilgisayarın türü bilinmiyor. NeoBleeper, bilinmeyen bilgisayar türlerinde sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
-  </data>
-  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut, ancak kompakt bir bilgisayar. NeoBleeper, kompakt bilgisayarlarda sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
-  </data>
-  <data name="StatusInitializationCompleted" xml:space="preserve">
-    <value>NeoBleeper'ı başlatma işlemi tamamlandı</value>
-  </data>
-  <data name="StatusSpecifyingStorageType" xml:space="preserve">
-    <value>Rezonans önleme için depolama türü belirtiliyor...</value>
-  </data>
-  <data name="StatusNVMeStorageType" xml:space="preserve">
-    <value>NVMe depolama algılandı. Rezonans önleme gerekli değil.</value>
-  </data>
-  <data name="StatusSSDStorageType" xml:space="preserve">
-    <value>SSD depolama algılandı. Rezonans önleme gerekli değil.</value>
-  </data>
-  <data name="StatusUnknownStorageType" xml:space="preserve">
-    <value>Depolama türü bilinmiyor. Rezonans önleme, güvenlik amacıyla olası rezonans frekanslarında uygulanıyor.</value>
-  </data>
-  <data name="StatusHDDStorageType" xml:space="preserve">
-    <value>HDD depolama algılandı. {value} Hz rezonans frekansından kaçınılıyor.</value>
-  </data>
-  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
-    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 1/2. adımda kontrol ediliyor...</value>
-  </data>
-  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)</value>
-  </data>
-  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut. Bip sesleri oluşturmak için sistem hoparlörü kullanılacak.</value>
-  </data>
-  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut değil. Bip sesleri oluşturmak için ses aygıtı kullanılacak.</value>
-  </data>
-  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
-    <value>Klasik Bleeper Modu etkin. NeoBleeper Klasik Bleeper modunda başlatılacak.</value>
-  </data>
-  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
-    <value>Klasik Bleeper Modu devre dışı. NeoBleeper standart modda başlatılacak.</value>
-  </data>
-  <data name="StatusProgramLanguage" xml:space="preserve">
-    <value>NeoBleeper şu dilde başlatılıyor: </value>
-  </data>
-  <data name="StatusMIDIIOInitializing" xml:space="preserve">
-    <value>MIDI giriş/çıkış başlatılıyor...</value>
-  </data>
-  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
-    <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
-  </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Sistem bilgileri toplanıyor...</value>
-  </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>Sistem bilgileri toplandı.</value>
-  </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
-  </data>
-  <data name="TextPercussionTooltip" xml:space="preserve">
-    <value>
-Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
-  </data>
-  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
-    <value>InpOutx64.dll'nin varlığı ve bütünlüğü kontrol ediliyor...</value>
-  </data>
-  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
-    <value>InpOutx64.dll eksik veya bozuk. InpOutx64.dll yerleştiriliyor...</value>
-  </data>
-  <data name="StatusInpOutX64Placed" xml:space="preserve">
-    <value>InpOutx64.dll başarıyla yerleştirildi.</value>
-  </data>
-  <data name="InpOutX64PlaceError" xml:space="preserve">
-    <value>InpOutx64.dll yerleştirilemedi: </value>
-  </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll mevcut ve geçerli.</value>
+  <data name="MessageAnErrorOccurredWhileStoppingMusic" xml:space="preserve">
+    <value>Müzik durdurulurken bir hata oluştu: </value>
   </data>
 </root>

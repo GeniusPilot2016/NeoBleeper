@@ -122,7 +122,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYgUAAAJNU0Z0AUkBTAIBAQIB
-        AAE4AQEBOAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEYAQEBGAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AB8AA+oB/wPqAf8cAAGZATMBzAH/1AAD6gH/AlAC/wIzAv8D6gH/FAABZgEzAcwB/wFmAQABzAH/AWYB
         AAHMAf8cAAGZAcwBMwH/AZkBzAEzAf8B8AHKAaYB/6gAAlAC/wIzAv8CUAL/AjMC/wPqAf8MAAFmATMB
         zAH/AWYBAAHMAf8BZgEAAcwB/wFmAQABzAH/AZkBMwHMAf8UAAFmAcwBAAH/AZkBzAEzAf8BmQHMATMB
@@ -147,26 +147,48 @@
         AAHgAYMB/wHgBAACwQH/AfAEAAHDAeEB/wH5BAAB5wHzAv8EAAT/BAAE/wQACw==
 </value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button_yes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 260</value>
+  </data>
   <data name="button_yes.Text" xml:space="preserve">
-    <value>&amp;Đúng</value>
+    <value>&amp;Да</value>
+  </data>
+  <data name="button_no.Location" type="System.Drawing.Point, System.Drawing">
+    <value>213, 260</value>
   </data>
   <data name="button_no.Text" xml:space="preserve">
-    <value>&amp;Không</value>
+    <value>&amp;Нет</value>
   </data>
-  <data name="label_unknown_type_of_computer_warning.Text" xml:space="preserve">
-    <value>Vì máy tính của bạn là máy tính nhỏ gọn hoặc không rõ loại máy tính, và trong những máy tính như vậy, loa chính có thể được kết nối với đầu ra loa hệ thống thay vì loa hệ thống thực tế và khi bạn cố gắng tạo tiếng bíp qua loa hệ thống, có thể không có âm thanh nào phát ra từ đầu ra loa hệ thống, gây ra sự bất ổn hoặc hành vi không mong muốn.</value>
+  <data name="label_affected_motherboard_warning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 163</value>
+  </data>
+  <data name="label_affected_motherboard_warning.Text" xml:space="preserve">
+    <value>На этой материнской плате могут возникнуть проблемы с функцией системного звукового сигнала. Звуковой сигнал может воспроизводиться некорректно из-за аппаратных ограничений или проблем совместимости. Если у вас возникнут проблемы, попробуйте отключить функцию звукового сигнала или обратитесь к документации к материнской плате за дополнительной помощью.</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 176</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 56</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Mặc dù vậy, bạn có muốn tắt tùy chọn "Sử dụng thiết bị âm thanh để tạo tiếng bíp" không?</value>
+    <value>Несмотря на это, вы хотите отключить опцию «Использовать звуковое устройство для создания звуковых сигналов»?</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="checkBoxDontShowAgain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 189</value>
+    <value>104, 235</value>
   </data>
   <data name="checkBoxDontShowAgain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 20</value>
+    <value>156, 20</value>
   </data>
   <data name="checkBoxDontShowAgain.Text" xml:space="preserve">
-    <value>Không hiển thị lại</value>
+    <value>Больше не показывать</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>362, 291</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
 </root>

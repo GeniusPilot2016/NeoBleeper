@@ -307,13 +307,13 @@ namespace NeoBleeper
                         writer.Close();
                     }
                     Logger.Log("GCode exported to " + filePath, Logger.LogTypes.Info);
-                    MessageBox.Show(Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageForm.Show(Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
                 Logger.Log("No notes found to convert to GCode.", Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

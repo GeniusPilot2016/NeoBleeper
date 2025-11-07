@@ -25,6 +25,7 @@ namespace BeepStopper
 {
     internal static class Program
     {
+        public static int themeIndex = 0;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -35,6 +36,7 @@ namespace BeepStopper
             Debug.WriteLine("Beep stopper is starting...");
             checkAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
             loadSettings();
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             string query = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
@@ -50,7 +52,7 @@ namespace BeepStopper
             else
             {
                 Debug.WriteLine("System speaker output is not present or non-standard system speaker output is present. Beep stopper may cause instability or undesirable behaviors.");
-                DialogResult dialogResult = MessageBox.Show(Resources.SystemSpeakerNotPresentMessage, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dialogResult = MessageForm.Show(Program.themeIndex, Resources.SystemSpeakerNotPresentMessage, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 switch (dialogResult)
                 {
                     case DialogResult.Yes:
@@ -69,6 +71,7 @@ namespace BeepStopper
         private static void loadSettings()
         {
             var synchronizedSettings = SynchronizedSettings.Load(false);
+            themeIndex = synchronizedSettings.Theme;
             UIHelper.setLanguageByName(synchronizedSettings.Language);
             Debug.WriteLine($"Beep stopper is starting with language: {synchronizedSettings.Language}");
         }
