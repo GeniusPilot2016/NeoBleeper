@@ -119,19 +119,22 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="warningLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 20</value>
+    <value>107, 23</value>
   </data>
   <data name="warningLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>508, 80</value>
+    <value>400, 64</value>
   </data>
   <data name="warningLabel.Text" xml:space="preserve">
     <value>Uyarı: NeoBleeper Bip Sesi Durdurucu, yalnızca programın çökmesi veya zorla kapatılması gibi durumlarda sistemin sistem hoparlörünün kontrolünü kaybetmesi nedeniyle bip sesinin durmadığı durumlarda kullanılmalıdır.</value>
   </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 23</value>
+  </data>
   <data name="instructionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 113</value>
+    <value>107, 99</value>
   </data>
   <data name="instructionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 40</value>
+    <value>376, 32</value>
   </data>
   <data name="instructionLabel.Text" xml:space="preserve">
     <value>Sistem hoparlöründen gelen bip sesini durdurmak için "Bip Sesini Durdur" düğmesine basınız.</value>
@@ -140,8 +143,8 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAZAQAAAJNU0Z0AUkBTAMBAQAB
-        dAEAAXQBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYAQAAAJNU0Z0AUkBTAMBAQAB
+        hAEAAYQBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
         AANcAcMUAAMCAQMBMAEgAeUB/9wAAysBQQGeAZcBjwH/DAACWgFXAcICYQFdAc8BMAEgAeUB/wMDAQTY
         AAMPARQBhgF9AXIB/wGfAZgBkAH/CAACWgFXAcIB0wF3AQMB/wEwASAB5QH/AykBPdgABAEBhgF9AXIB
         /wGGAX0BcgH/AaEBmgGSAf8EAANRAZ4B4AGZARwB/wEwASAB5QH/AdIBdgEEAf8B1AF4AQAB/9AAAWUC
@@ -149,30 +152,30 @@
         IAHlAf8B3wGZAR0B/wNaAb8B1AF4AQAB/wMJAQzMAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0B
         cgH/AYYBfQFyAf8BpQGdAZUB/wH9AeMBUgH/ATABIAHlAf8B7gG+ATgB/wHiAZsBGQH/AeIBmwEZAf8B
         1AF4AQAB/wJXAVUBscwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wGmAZ0B
-        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZ0BeAEyAfjM
+        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZkBeAE4AfjM
         AAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wH8AeIBUwH/AfEB
-        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFiAV8BWwHYzAABaQFjAVwB/wFpAWMB
-        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWIBYQFbAdgB
-        4gGbARkB/wFlAWMBXQHfAdQBeAEAAf8CMQEwAUzUAANMAY4BMAEgAeUB/wGFAXsBdAH/AawBpAGbAf8E
-        AAHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AdQBeAEAAf/UAAMCAQMBMAEgAeUB/wNeAc0B
-        hgF9AXIB/wGuAaYBnQH/CAAB4gGbARkB/wJcAVoBxAHUAXgBAAH/AmEBXAHW0AADAgEDATABIAHlAf8D
-        AwEEBAABbQJrAfIBsAGnAZ4B/wwAAdQBeAEAAf8B1AF4AQAB/9AAAwIBAwEwASAB5QH/AwMBBAwAAbIB
-        qQGgAf/kAAMCAQMDAgED/wD1AAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAC
-        /wYAAf4B+QYAAfwB4QYAAfgBwwYAAfABgwYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAcABAQYAAfAB
-        gwYAAeABwwYAAcQB5wYAAY4B/wYAAZ8B/wYAAv8GAAs=
+        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFgAV8BWwHYzAABaQFjAVwB/wFpAWMB
+        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWABXwFbAdgB
+        4gGbARkB/wJjAV0B3wHUAXgBAAH/AjEBMAFM1AADTAGOATABIAHlAf8BhQF7AXQB/wGsAaQBmwH/BAAB
+        8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wHUAXgBAAH/1AADAgEDATABIAHlAf8DXgHNAYYB
+        fQFyAf8BrgGmAZ0B/wgAAeIBmwEZAf8CXAFaAcQB1AF4AQAB/wJhAVwB1tAAAwIBAwEwASAB5QH/AwMB
+        BAQAA2sB8gGwAacBngH/DAAB1AF4AQAB/wHUAXgBAAH/0AADAgEDATABIAHlAf8DAwEEDAABsgGpAaAB
+        /+QAAwIBAwMCAQP/APUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAL/BgAB
+        /gH5BgAB/AHhBgAB+AHDBgAB8AGDBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgAB8AGDBgAB
+        4AHDBgABxAHnBgABjgH/BgABnwH/BgAC/wYACw==
 </value>
   </data>
   <data name="stopBeepButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>253, 169</value>
+    <value>178, 142</value>
   </data>
   <data name="stopBeepButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 46</value>
+    <value>186, 37</value>
   </data>
   <data name="stopBeepButton.Text" xml:space="preserve">
     <value>Bip Sesini Durdur</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>669, 227</value>
+    <value>551, 190</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

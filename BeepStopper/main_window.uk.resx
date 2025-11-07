@@ -118,17 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="warningLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 22</value>
+  </data>
   <data name="warningLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>509, 100</value>
+    <value>401, 80</value>
   </data>
   <data name="warningLabel.Text" xml:space="preserve">
     <value>Попередження: NeoBleeper Зупинка звукових сигналів слід використовувати лише у випадках, коли звуковий сигнал не припиняється через втрату контролю над системним динаміком, наприклад, коли програма аварійно завершує роботу або примусово закривається.</value>
   </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 22</value>
+  </data>
   <data name="instructionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 142</value>
+    <value>92, 112</value>
   </data>
   <data name="instructionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 40</value>
+    <value>369, 32</value>
   </data>
   <data name="instructionLabel.Text" xml:space="preserve">
     <value>Натисніть кнопку «Зупинити звуковий сигнал», щоб зупинити звуковий сигнал із системного динаміка.</value>
@@ -137,8 +143,8 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYAQAAAJNU0Z0AUkBTAMBAQAB
-        hAEAAYQBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAXAQAAAJNU0Z0AUkBTAMBAQAB
+        lAEAAZQBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
         AANcAcMUAAMCAQMBMAEgAeUB/9wAAysBQQGeAZcBjwH/DAACWgFXAcICYQFdAc8BMAEgAeUB/wMDAQTY
         AAMPARQBhgF9AXIB/wGfAZgBkAH/CAACWgFXAcIB0wF3AQMB/wEwASAB5QH/AykBPdgABAEBhgF9AXIB
         /wGGAX0BcgH/AaEBmgGSAf8EAANRAZ4B4AGZARwB/wEwASAB5QH/AdIBdgEEAf8B1AF4AQAB/9AAAWUC
@@ -146,30 +152,30 @@
         IAHlAf8B3wGZAR0B/wNaAb8B1AF4AQAB/wMJAQzMAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0B
         cgH/AYYBfQFyAf8BpQGdAZUB/wH9AeMBUgH/ATABIAHlAf8B7gG+ATgB/wHiAZsBGQH/AeIBmwEZAf8B
         1AF4AQAB/wJXAVUBscwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wGmAZ0B
-        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZsBeAE1AfjM
+        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZcBeAE5AfjM
         AAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wH8AeIBUwH/AfEB
-        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFhAV8BWwHYzAABaQFjAVwB/wFpAWMB
-        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWEBYAFbAdgB
-        4gGbARkB/wJjAV0B3wHUAXgBAAH/AjEBMAFM1AADTAGOATABIAHlAf8BhQF7AXQB/wGsAaQBmwH/BAAB
-        8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wHUAXgBAAH/1AADAgEDATABIAHlAf8DXgHNAYYB
-        fQFyAf8BrgGmAZ0B/wgAAeIBmwEZAf8CXAFaAcQB1AF4AQAB/wJhAVwB1tAAAwIBAwEwASAB5QH/AwMB
-        BAQAA2sB8gGwAacBngH/DAAB1AF4AQAB/wHUAXgBAAH/0AADAgEDATABIAHlAf8DAwEEDAABsgGpAaAB
-        /+QAAwIBAwMCAQP/APUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAL/BgAB
-        /gH5BgAB/AHhBgAB+AHDBgAB8AGDBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgABwAEBBgAB8AGDBgAB
-        4AHDBgABxAHnBgABjgH/BgABnwH/BgAC/wYACw==
+        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wJfAVsB2MwAAWkBYwFcAf8BaQFjAVwB
+        /wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wGoAZ8BnAH/AfEBwQE1Af8B8QHBATUB/wJfAVsB2AHiAZsB
+        GQH/AmMBXQHfAdQBeAEAAf8CMQEwAUzUAANMAY4BMAEgAeUB/wGFAXsBdAH/AawBpAGbAf8EAAHxAcEB
+        NQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AdQBeAEAAf/UAAMCAQMBMAEgAeUB/wNeAc0BhgF9AXIB
+        /wGuAaYBnQH/CAAB4gGbARkB/wJcAVoBxAHUAXgBAAH/AmEBXAHW0AADAgEDATABIAHlAf8DAwEEBAAD
+        awHyAbABpwGeAf8MAAHUAXgBAAH/AdQBeAEAAf/QAAMCAQMBMAEgAeUB/wMDAQQMAAGyAakBoAH/5AAD
+        AgEDAwIBA/8A9QABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH+AfkG
+        AAH8AeEGAAH4AcMGAAHwAYMGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHwAYMGAAHgAcMG
+        AAHEAecGAAGOAf8GAAGfAf8GAAL/BgAL
 </value>
   </data>
   <data name="stopBeepButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>211, 200</value>
+    <value>144, 152</value>
   </data>
   <data name="stopBeepButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 46</value>
+    <value>248, 37</value>
   </data>
   <data name="stopBeepButton.Text" xml:space="preserve">
     <value>Зупинити звуковий сигнал</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>669, 258</value>
+    <value>546, 200</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

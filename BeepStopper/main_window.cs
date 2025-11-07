@@ -78,7 +78,7 @@ namespace BeepStopper
         {
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
-            stopBeepButton.BackColor = Color.FromArgb(64, 64, 64);
+            stopBeepButton.BackColor = Color.FromArgb(32, 32, 32);
             stopBeepButton.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
         }

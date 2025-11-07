@@ -119,13 +119,13 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="warningLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>505, 60</value>
+    <value>408, 48</value>
   </data>
   <data name="warningLabel.Text" xml:space="preserve">
     <value>Cảnh báo: NeoBleeper Nút Chặn Tiếng Bíp chỉ nên được sử dụng trong trường hợp tiếng bíp không dừng do hệ thống mất quyền kiểm soát loa hệ thống, chẳng hạn như khi chương trình bị treo hoặc bị buộc thoát.</value>
   </data>
   <data name="instructionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 20</value>
+    <value>353, 16</value>
   </data>
   <data name="instructionLabel.Text" xml:space="preserve">
     <value>Nhấn nút "Dừng tiếng bíp" để dừng tiếng bíp từ loa hệ thống.</value>
@@ -135,7 +135,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAYAQAAAJNU0Z0AUkBTAMBAQAB
-        iAEAAYgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
+        kAEAAZABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAv
         AANcAcMUAAMCAQMBMAEgAeUB/9wAAysBQQGeAZcBjwH/DAACWgFXAcICYQFdAc8BMAEgAeUB/wMDAQTY
         AAMPARQBhgF9AXIB/wGfAZgBkAH/CAACWgFXAcIB0wF3AQMB/wEwASAB5QH/AykBPdgABAEBhgF9AXIB
         /wGGAX0BcgH/AaEBmgGSAf8EAANRAZ4B4AGZARwB/wEwASAB5QH/AdIBdgEEAf8B1AF4AQAB/9AAAWUC
@@ -143,10 +143,10 @@
         IAHlAf8B3wGZAR0B/wNaAb8B1AF4AQAB/wMJAQzMAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0B
         cgH/AYYBfQFyAf8BpQGdAZUB/wH9AeMBUgH/ATABIAHlAf8B7gG+ATgB/wHiAZsBGQH/AeIBmwEZAf8B
         1AF4AQAB/wJXAVUBscwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wGmAZ0B
-        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZsBeAE1AfjM
+        lwH/ATABIAHlAf8B7gG+ATgB/wHxAcEBNQH/AeIBmwEZAf8B4gGbARkB/wHUAXgBAAH/AZkBeAE4AfjM
         AAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYUBfAF0Af8BMAEgAeUB/wH8AeIBUwH/AfEB
-        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFhAV8BWwHYzAABaQFjAVwB/wFpAWMB
-        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWEBYAFbAdgB
+        wQE1Af8B8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wFgAV8BWwHYzAABaQFjAVwB/wFpAWMB
+        XAH/AYYBfQFyAf8BhQF8AXQB/wEwASAB5QH/AagBnwGcAf8B8QHBATUB/wHxAcEBNQH/AWABXwFbAdgB
         4gGbARkB/wJjAV0B3wHUAXgBAAH/AjEBMAFM1AADTAGOATABIAHlAf8BhQF7AXQB/wGsAaQBmwH/BAAB
         8QHBATUB/wHiAZsBGQH/AeIBmwEZAf8B1AF4AQAB/wHUAXgBAAH/1AADAgEDATABIAHlAf8DXgHNAYYB
         fQFyAf8BrgGmAZ0B/wgAAeIBmwEZAf8CXAFaAcQB1AF4AQAB/wJhAVwB1tAAAwIBAwEwASAB5QH/AwMB
