@@ -1165,7 +1165,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"AI music creation failed: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private string convertNoteLengthIntoLocalized(string noteLength)
@@ -1460,7 +1460,7 @@ namespace NeoBleeper
                         catch (Exception ex)
                         {
                             Logger.Log("Error opening Bleeper Music Maker file: " + ex.Message, Logger.LogTypes.Error);
-                            DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardBleeperMusicMakerFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            DialogResult dialogResult = MessageForm.Show(Resources.MessageNonStandardBleeperMusicMakerFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
                                 Logger.Log("User chose not to open the file", Logger.LogTypes.Info);
@@ -1650,7 +1650,7 @@ namespace NeoBleeper
                         catch (Exception ex)
                         {
                             Logger.Log("Error opening NeoBleeper file: " + ex.Message, Logger.LogTypes.Error);
-                            DialogResult dialogResult = MessageBox.Show(Resources.MessageNonStandardNeoBleeperFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            DialogResult dialogResult = MessageForm.Show(Resources.MessageNonStandardNeoBleeperFile, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialogResult != DialogResult.Yes)
                             {
                                 Logger.Log("User chose not to open the file", Logger.LogTypes.Info);
@@ -1674,7 +1674,7 @@ namespace NeoBleeper
                     {
                         is_file_valid = false;
                         Logger.Log("Invalid or corrupted music file", Logger.LogTypes.Error);
-                        MessageBox.Show(Resources.MessageInvalidOrCorruptedMusicFile, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageForm.Show(Resources.MessageInvalidOrCorruptedMusicFile, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
             }
@@ -1869,7 +1869,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log("Error saving NeoBleeper file: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageErrorSavingFile + " " + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageErrorSavingFile + " " + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3968,7 +3968,7 @@ namespace NeoBleeper
             StopAllSounds();
             if (isModified == true && !settings_window.willRestartForChanges)  // Ask for saving only if there are unsaved changes and not restarting for settings change
             {
-                var result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                var result = MessageForm.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SaveTheFile();
@@ -4006,7 +4006,7 @@ namespace NeoBleeper
             int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
             if (initialMemento == null)
             {
-                MessageBox.Show(Resources.MessageNoSavedVersion, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageNoSavedVersion, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -4039,7 +4039,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"Error rewinding: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageErrorRewinding} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show($"{Resources.MessageErrorRewinding} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -4170,11 +4170,11 @@ namespace NeoBleeper
                     {
                         case FileOpenMode.DragAndDrop:
                             Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                            MessageBox.Show(Resources.MessageNonSupportedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageForm.Show(Resources.MessageNonSupportedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         case FileOpenMode.OpenedAsArg:
                             Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                            MessageBox.Show(Resources.MessageNonSupportedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageForm.Show(Resources.MessageNonSupportedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
                 }
@@ -4185,11 +4185,11 @@ namespace NeoBleeper
                 {
                     case FileOpenMode.DragAndDrop:
                         Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                        MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageForm.Show(Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case FileOpenMode.OpenedAsArg:
                         Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                        MessageBox.Show(Resources.MessageCorruptedOrCurrentlyUsedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageForm.Show(Resources.MessageCorruptedOrCurrentlyUsedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
@@ -4207,14 +4207,14 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageBox.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Logger.Log("This file is not a valid MIDI file, or it is corrupted or is being used by another process.", Logger.LogTypes.Error);
                 }
             }
             else
             {
                 Logger.Log("\"Mute playback\" is checked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private static void SerializeXML(string filePath, NBPML_File.NeoBleeperProjectFile projectFile)
@@ -4255,7 +4255,7 @@ namespace NeoBleeper
             else
             {
                 Logger.Log("\"Mute playback\" is checkbox is checked, \"Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)\" checkbox is unchecked and \"Use MIDI output\" checkbox is unchecked, so it cannot be opened.", Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -4523,31 +4523,31 @@ namespace NeoBleeper
         private void button_synchronized_play_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.SynchronizedPlayHelp, Resources.SynchronizedPlayHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.SynchronizedPlayHelp, Resources.SynchronizedPlayHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_play_beat_sound_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.PlayBeatSoundHelp, Resources.PlayBeatSoundHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.PlayBeatSoundHelp, Resources.PlayBeatSoundHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_bleeper_portamento_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.PortamentoHelp, Resources.PortamentoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.PortamentoHelp, Resources.PortamentoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_use_keyboard_as_piano_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.UseKeyboardAsPianoHelp, Resources.UseKeyboardAsPianoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.UseKeyboardAsPianoHelp, Resources.UseKeyboardAsPianoHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_do_not_update_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.DoNotUpdateHelp, Resources.DoNotUpdateHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.DoNotUpdateHelp, Resources.DoNotUpdateHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4629,7 +4629,7 @@ namespace NeoBleeper
             {
                 stop_playing(); // Stop playing if music is playing
                 stopAllNotesAfterPlaying(); // Stop all notes if any note is still playing to prevent stuck notes
-                var result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                var result = MessageForm.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SaveTheFile();
@@ -4663,7 +4663,7 @@ namespace NeoBleeper
                 else
                 {
                     Logger.Log("The recent file you are trying to open is not found.", Logger.LogTypes.Error);
-                    MessageBox.Show(Resources.MessageFileNotFoundError + " " + filePath, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(Resources.MessageFileNotFoundError + " " + filePath, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Settings1.Default.RecentFiles.Remove(filePath);
                     Settings1.Default.Save();
                     UpdateRecentFilesMenu();
@@ -4672,7 +4672,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"Error opening recent file: {ex.Message}", Logger.LogTypes.Error);
-                MessageBox.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void openAFile(string filePath)
@@ -4811,7 +4811,7 @@ namespace NeoBleeper
 
                     if (isModified)
                     {
-                        DialogResult result = MessageBox.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult result = MessageForm.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (result)
                         {
                             case DialogResult.Yes:
@@ -5114,7 +5114,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log("Error converting to GCode: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageConvertToGCodeError + " " + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageConvertToGCodeError + " " + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -5746,7 +5746,7 @@ namespace NeoBleeper
                         {
                             Logger.Log($"Failed to start MIDI input: {ex.Message}", Logger.LogTypes.Error);
                             // Update UI or show a message to the user that MIDI input is unavailable
-                            MessageBox.Show($"{Resources.MessageStartMIDIInputDeviceError} {ex.Message}\n {Resources.MessageStartMIDIInputDeviceErrorPart2}",
+                            MessageForm.Show($"{Resources.MessageStartMIDIInputDeviceError} {ex.Message}\n {Resources.MessageStartMIDIInputDeviceErrorPart2}",
                                 Resources.MIDIDeviceErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                             // Reset the MIDI device reference
@@ -6043,7 +6043,7 @@ namespace NeoBleeper
         private void button_use_voice_system_help_Click(object sender, EventArgs e)
         {
             stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            MessageBox.Show(Resources.UseVoiceSystemHelp, Resources.UseVoiceSystemHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageForm.Show(Resources.UseVoiceSystemHelp, Resources.UseVoiceSystemHelpTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void checkBox_use_voice_system_CheckedChanged(object sender, EventArgs e)
@@ -6099,7 +6099,7 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count == 0)
             {
-                MessageBox.Show(Resources.MessageEmptyNoteListCannotBeExportedAsLinuxBeep, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageEmptyNoteListCannotBeExportedAsLinuxBeep, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -6112,7 +6112,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log("Error converting to Beep command for Linux: " + ex.Message, Logger.LogTypes.Error);
-                MessageBox.Show(Resources.MessageLinuxBeepCommandConvertError + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Resources.MessageLinuxBeepCommandConvertError + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         int previous_time_signature = Variables.time_signature;

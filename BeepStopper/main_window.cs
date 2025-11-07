@@ -31,7 +31,6 @@ namespace BeepStopper
             UIHelper.ApplyCustomTitleBar(this, Color.White);
             set_theme();
         }
-        private SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load(false);
         int themeIndex = 0;
         protected override void WndProc(ref Message m)
         {
@@ -45,7 +44,7 @@ namespace BeepStopper
         }
         private void set_theme()
         {
-            switch (synchronizedSettings.Theme)
+            switch (Program.themeIndex)
             {
                 case 0:
                     switch (SystemThemeUtility.IsDarkTheme())
@@ -65,7 +64,7 @@ namespace BeepStopper
                     dark_theme();
                     break;
             }
-            themeIndex = synchronizedSettings.Theme;
+            themeIndex = Program.themeIndex;
         }
         private void light_theme()
         {
@@ -92,26 +91,26 @@ namespace BeepStopper
                 {
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
                     Debug.WriteLine("Stuck system speaker beep is stopped.");
-                    MessageBox.Show(Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageForm.Show(Program.themeIndex, Resources.BeepStoppedMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
                     Debug.WriteLine("System speaker is not stuck, nothing to stop.");
-                    MessageBox.Show(Resources.SystemSpeakerIsNotStuckMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(Program.themeIndex, Resources.SystemSpeakerIsNotStuckMessage, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 // Show the error message
                 Debug.WriteLine("Error stopping the beep: " + ex.Message);
-                MessageBox.Show(Resources.AnErrorOccurredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(Program.themeIndex, Resources.AnErrorOccurredMessage + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void settingsChangeTimer_Tick(object sender, EventArgs e)
         {
-            if(synchronizedSettings.Theme != themeIndex)
+            if(Program.themeIndex != themeIndex)
             {
                 set_theme(); // Apply theme if changed
             }

@@ -70,6 +70,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   &amp;Cancel benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;No benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonNo {
+            get {
+                return ResourceManager.GetString("ButtonNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;OK benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonOK {
+            get {
+                return ResourceManager.GetString("ButtonOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;Retry benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonRetry {
+            get {
+                return ResourceManager.GetString("ButtonRetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;Yes benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonYes {
+            get {
+                return ResourceManager.GetString("ButtonYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
         ///
         ///When enabled, the position table will not update when the music is playing.
@@ -636,6 +681,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_information_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-information-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_laptop_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-laptop-48", resourceCulture);
@@ -749,6 +804,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_processor_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-processor-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_question_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-question-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -915,6 +980,15 @@ namespace NeoBleeper.Properties {
         public static string MessageAnErrorOccurred {
             get {
                 return ResourceManager.GetString("MessageAnErrorOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error occurred while stopping the music:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAnErrorOccurredWhileStoppingMusic {
+            get {
+                return ResourceManager.GetString("MessageAnErrorOccurredWhileStoppingMusic", resourceCulture);
             }
         }
         
@@ -1430,6 +1504,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Checking motherboard manufacturer for system speaker issues... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusCheckingMotherboardManufacturerForSystemSpeakerIssues {
+            get {
+                return ResourceManager.GetString("StatusCheckingMotherboardManufacturerForSystemSpeakerIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusClassicBleeperModeDisabled {
@@ -1493,6 +1576,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Error checking motherboard manufacturer. So, it&apos;s unknown if it&apos;s affected. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusErrorCheckingManufacturer {
+            get {
+                return ResourceManager.GetString("StatusErrorCheckingManufacturer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Detected HDD storage. Avoiding resonance frequency of {value} Hz. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusHDDStorageType {
@@ -1534,6 +1626,24 @@ namespace NeoBleeper.Properties {
         public static string StatusInpOutX64Placed {
             get {
                 return ResourceManager.GetString("StatusInpOutX64Placed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Motherboard manufacturer {manufacturer} is known to have system speaker issues. The system speaker may not detected or function properly. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusManufacturerHasKnownIssues {
+            get {
+                return ResourceManager.GetString("StatusManufacturerHasKnownIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Motherboard manufacturer is not known to have system speaker issues. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusManufacturerIsNotAffected {
+            get {
+                return ResourceManager.GetString("StatusManufacturerIsNotAffected", resourceCulture);
             }
         }
         

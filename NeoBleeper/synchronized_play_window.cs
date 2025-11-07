@@ -248,7 +248,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while stopping the music: " + ex.Message);
+                MessageForm.Show(Resources.MessageAnErrorOccurredWhileStoppingMusic + ex.Message);
             }
         }
         private void SafeBeginInvoke(Action action)

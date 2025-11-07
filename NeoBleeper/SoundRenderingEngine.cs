@@ -20,7 +20,6 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using NeoBleeper.Properties;
 using System.Management;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using static NeoBleeper.TemporarySettings;
 
@@ -468,6 +467,46 @@ namespace NeoBleeper
                 else
                 {
                     Logger.Log("System speaker detection skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
+                    return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
+                }
+            }
+            public static bool checkMotherboardAffectedFromSystemSpeakerIssues() // Check if the motherboard is from a manufacturer known to have system speaker issues
+            // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
+            // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
+            {
+                if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    try
+                    {
+                        Program.splashScreen.updateStatus(Resources.StatusCheckingMotherboardManufacturerForSystemSpeakerIssues);
+                        string[] affectedManufacturers = new string[] { "ASUSTek Computer Inc." }; // Such as ASUS motherboards
+                        var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
+                        var boards = searcher.Get();
+                        foreach (ManagementObject board in boards)
+                        {
+                            string manufacturer = board["Manufacturer"]?.ToString() ?? "";
+                            if (affectedManufacturers.Contains(manufacturer))
+                            {
+                                string message = Resources.StatusManufacturerHasKnownIssues.Replace("{manufacturer}", manufacturer);
+                                Program.splashScreen.updateStatus(message, 5);
+                                Program.isAffectedMotherboardManufacturerChecked = true; // Mark that the motherboard is affected
+                                return true; // Return true if the manufacturer is in the affected list
+                            }
+                        }
+                        Program.splashScreen.updateStatus(Resources.StatusManufacturerIsNotAffected, 5);
+                        Program.isAffectedMotherboardManufacturerChecked = true; // Mark that the check has been performed
+                        return false; // Return false if no match is found
+                    }
+                    catch
+                    {
+                        Program.splashScreen.updateStatus(Resources.StatusErrorCheckingManufacturer);
+                        Program.isAffectedMotherboardManufacturerChecked = false; // Mark that the check failed
+                        return false; // On error, assume not affected
+                    }
+                }
+                else
+                {
+                    Logger.Log("Motherboard manufacturer check skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }

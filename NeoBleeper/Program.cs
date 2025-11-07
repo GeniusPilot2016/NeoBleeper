@@ -33,6 +33,7 @@ namespace NeoBleeper
         public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
         public static splash splashScreen = new splash();
+        public static bool isAffectedMotherboardManufacturerChecked = false; // Flag to indicate if the affected motherboard manufacturer has been checked
         public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
         [STAThread]
         static void Main(string[] args)
@@ -49,6 +50,7 @@ namespace NeoBleeper
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues = SoundRenderingEngine.SystemSpeakerBeepEngine.checkMotherboardAffectedFromSystemSpeakerIssues();
                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present = SoundRenderingEngine.SystemSpeakerBeepEngine.isSystemSpeakerExist();
                 SoundRenderingEngine.SystemSpeakerBeepEngine.SpecifyStorageType(); // Specify storage type for system speaker beep engine to prevent critical errors in some systems where uses mechanical storage drives
             }
@@ -63,7 +65,7 @@ namespace NeoBleeper
             splashScreen.updateStatus(Resources.StatusMIDIIOInitializing);
             MIDIIOUtils.InitializeMidi();
             Logger.Log("MIDI input/output initialization completed.", LogTypes.Info);
-            splashScreen.updateStatus(Resources.StatusMIDIIOInitializationCompleted, 10);
+            splashScreen.updateStatus(Resources.StatusMIDIIOInitializationCompleted, 5);
 
             // Check if it has an API key to verify
             if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
@@ -73,7 +75,7 @@ namespace NeoBleeper
                     splashScreen.updateStatus(Resources.StatusAPIKeyValidating);
                     string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     Logger.Log("API key validation successful", LogTypes.Info);
-                    splashScreen.updateStatus(Resources.StatusAPIKeyValidationSuccessful, 10);
+                    splashScreen.updateStatus(Resources.StatusAPIKeyValidationSuccessful, 5);
                 }
                 catch (CryptographicException ex)
                 {
@@ -128,18 +130,26 @@ namespace NeoBleeper
                                     {
                                         case GetInformations.computerTypes.ModularComputer:
                                             {
-                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = false;
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = false || TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues;
                                                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.ModularComputers;
                                                 shouldRun = true;
-                                                splashScreen.updateStatus(Resources.StatusModularComputerDetected, 10);
+                                                if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues)
+                                                {
+                                                    Logger.Log("System speaker output is present, but the motherboard manufacturer is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", LogTypes.Info);
+                                                }
+                                                else
+                                                {
+                                                    Logger.Log("System speaker output is present and the motherboard manufacturer is not known to have issues with system speaker. NeoBleeper will use system speaker to create beeps.", LogTypes.Info);
+                                                }
+                                                splashScreen.updateStatus(Resources.StatusModularComputerDetected, 5);
                                                 break;
                                             }
                                         case GetInformations.computerTypes.CompactComputer:
                                             {
-                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true || TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues;
                                                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers;
                                                 Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
-                                                splashScreen.updateStatus(Resources.StatusCompactComputerDetected, 10);
+                                                splashScreen.updateStatus(Resources.StatusCompactComputerDetected, 5);
                                                 if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                                 {
                                                     shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
@@ -153,7 +163,7 @@ namespace NeoBleeper
                                             }
                                         default:
                                             {
-                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true;
+                                                TemporarySettings.creating_sounds.create_beep_with_soundcard = true || TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues; ;
                                                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType = TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown;
                                                 Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
                                                 splashScreen.updateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
@@ -196,7 +206,7 @@ namespace NeoBleeper
                 {
                     splashScreen.Hide();
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
-                    MessageBox.Show(Resources.AnErrorOccurredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(Resources.AnErrorOccurredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
                 finally

@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using NeoBleeper;
 using System.Globalization;
 using System.Runtime.InteropServices;
 public static class UIHelper
@@ -148,5 +149,15 @@ public static class UIHelper
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.DefaultThreadCurrentCulture = culture;
         }
+    }
+
+    internal static double GetDPIScaleFactor(MessageForm messageForm)
+    {
+        int dpi = 96; // Default DPI
+        using (Graphics g = messageForm.CreateGraphics())
+        {
+            dpi = (int)g.DpiX;
+        }
+        return dpi / 96.0;
     }
 }
