@@ -72,8 +72,8 @@ namespace NeoBleeper
                     Program.UninitializeMIDI(); // Uninitialize MIDI devices
                     if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                     {
-                        Logger.Log("System speaker beep is being stopped...", Logger.LogTypes.Info);
-                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); // Ensure system speaker is stopped
+                        Logger.Log("System speaker beep is being stopped if needed...", Logger.LogTypes.Info);
+                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeepIfNeeded();
                     }
                     else
                     {

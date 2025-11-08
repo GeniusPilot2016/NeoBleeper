@@ -186,6 +186,20 @@ namespace NeoBleeper
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
+            public static void StopBeepIfNeeded()
+            {
+                try
+                {
+                    if (isSystemSpeakerBeepStuck())
+                    {
+                        StopBeep();
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
             public static bool isSystemSpeakerBeepStuck()
             {
                 try
@@ -234,7 +248,7 @@ namespace NeoBleeper
                 Program.splashScreen.ResponsiveWait(10);
             }
 
-            private static bool CheckElectricalFeedbackOnPort()
+            public static bool CheckElectricalFeedbackOnPort()
             {
                 try
                 {
@@ -280,7 +294,7 @@ namespace NeoBleeper
                 }
             }
 
-            private static bool CheckPortStateStability()
+            public static bool CheckPortStateStability()
             {
                 try
                 {
@@ -322,7 +336,7 @@ namespace NeoBleeper
                     return false;
                 }
             }
-            private static bool AdvancedFrequencySweepTest()
+            public static bool AdvancedFrequencySweepTest()
             {
                 try
                 {

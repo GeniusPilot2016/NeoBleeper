@@ -172,6 +172,9 @@
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Phát âm thanh nhịp điệu</value>
   </data>
@@ -229,11 +232,11 @@
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Lỗi khi đóng biểu mẫu:</value>
   </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Nốt hiện đang được lưu giữ tại:</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -287,8 +290,8 @@ Nhấp lại để ẩn khóa.</value>
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>Tệp MIDI|*.mid</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;Cám ơn</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -343,9 +346,6 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sử dụng Hệ thống giọng nói</value>
   </data>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>&amp;Cám ơn</value>
-  </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>&amp;Không</value>
   </data>
@@ -363,9 +363,6 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Tệp bạn kéo bị hỏng hoặc tệp đang được một tiến trình khác sử dụng.</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Tạo một bản nhạc dance điện tử sôi động với giai điệu synth đầy năng lượng</value>
   </data>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>Không thể xuất danh sách ghi chú trống.</value>
@@ -584,11 +581,20 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
     <value>Lỗi kiểm tra nhà sản xuất bo mạch chủ. Vì vậy, không biết có bị ảnh hưởng hay không.</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Nốt hiện đang được lưu giữ tại:</value>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>Tệp MIDI|*.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Lỗi khi mở tệp:</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Tính năng này cho phép bạn đồng bộ hóa việc phát lại nhiều phiên bản NeoBleeper.
@@ -599,12 +605,6 @@ Do đó, bạn nên đồng bộ hóa đồng hồ trước khi sử dụng tín
 Khi bạn bật tính năng này, một cửa sổ mới sẽ mở ra, hiển thị các nút điều khiển phát lại đã được đồng bộ hóa.
 
 Sau đó, bạn có thể sử dụng cửa sổ này để điều khiển việc phát lại tất cả các phiên bản NeoBleeper trên máy tính của mình.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Lỗi khi mở tệp:</value>
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>Tệp bạn đã mở bị hỏng hoặc tệp đang được một tiến trình khác sử dụng.</value>
@@ -768,8 +768,8 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
     <value>Việc tạo nhạc bằng AI đã thất bại:</value>
   </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Đang thu thập thông tin hệ thống...</value>
@@ -791,10 +791,34 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Khung đang được tạo...</value>
   </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Tạo một bản nhạc dance điện tử sôi động với giai điệu synth đầy năng lượng</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Không có phiên bản đã lưu để tua lại.</value>
+  </data>
+  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
+    <value>Kiểm tra loa hệ thống nâng cao đã bắt đầu.</value>
+  </data>
+  <data name="TextPassed" xml:space="preserve">
+    <value>ĐI QUA</value>
+  </data>
+  <data name="TextFailed" xml:space="preserve">
+    <value>THẤT ​​BẠI</value>
+  </data>
+  <data name="OverallResult" xml:space="preserve">
+    <value>Kết quả chung cuộc: </value>
+  </data>
+  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
+    <value>Đã xảy ra lỗi trong quá trình kiểm tra. Vui lòng kiểm tra nhật ký để biết chi tiết.</value>
+  </data>
+  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
+    <value>Kiểm tra quét tần số nâng cao: </value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Kiểm tra độ ổn định trạng thái cổng: </value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Kiểm tra phản hồi điện: </value>
   </data>
 </root>

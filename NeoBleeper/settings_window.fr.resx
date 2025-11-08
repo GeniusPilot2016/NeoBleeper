@@ -147,13 +147,13 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAArE0AAAJNU0Z0AUkBTAIBARIB
-        AAFAAQcBQAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAFIAQcBSAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
         AAEQAccB/gH/oAACVQFTAaoc/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0B
         KQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFqAmUB7JwAAlUBUwGqBP8B8gHFAUMB
+        cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wFpAmUB7JwAAlUBUwGqBP8B8gHFAUMB
         /wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB/wH7AewBwQX/A/AB/wPwAf8D8AH/AasBYgENAf8B2QHBAaQB
         /wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUBhQF7AW8B/wGDAXgBbQH/AYEBdwFrAf8BfwF1AWgB/wF9AXIB
         ZgH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8B
@@ -182,7 +182,7 @@
         hAF7Af8BjAGDAXkB/wGLAYEBdwH/AYkBgAF1Af8BhwF+AXMB/5wAAlUBUwGqHP8D8AH/A/AB/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/Ad0BoAFQAf8UAAM1AVUEAAEIAbwB/gH/CAABCAG8Af4B/wQAAzUBVQgAAQgB
         vAH+Af+gAAMjATIB+gHwAdwZ/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8CZQFdAewUAAMyAU8E
-        AAFUAXoBgwHtCAABVwF4AX4B7AQAAzIBTwgAAVQBeQGDAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
+        AAFWAXYBfwHtCAABWgF1AXsB7AQAAzIBTwgAAVYBdgF/Ae3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUD
         NQFVAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8B
         oQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsB
         GgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsB
@@ -1355,6 +1355,27 @@ Il utilise la broche 9 pour la direction et la broche 10 pour le pas sur Arduino
   </data>
   <data name="reset_appearance_settings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
+  </data>
+  <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 48</value>
+  </data>
+  <data name="standardTuneTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>303, 22</value>
+  </data>
+  <data name="standardTuneTestToolStripMenuItem.Text" xml:space="preserve">
+    <value>Test de jeu d'un air standard</value>
+  </data>
+  <data name="standardTuneTestToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Ce bouton émet une courte mélodie via le haut-parleur du système pour tester le haut-parleur du système sur votre ordinateur.</value>
+  </data>
+  <data name="advancedSystemSpeakerTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>303, 22</value>
+  </data>
+  <data name="advancedSystemSpeakerTestToolStripMenuItem.Text" xml:space="preserve">
+    <value>Test avancé des haut-parleurs du système</value>
+  </data>
+  <data name="advancedSystemSpeakerTestToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Testez les fonctionnalités avancées des haut-parleurs et les diagnostics.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>364, 689</value>

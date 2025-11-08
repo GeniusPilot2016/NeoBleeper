@@ -137,6 +137,26 @@ namespace NeoBleeper
         {
             UIFonts uiFonts = UIFonts.Instance;
             SetFontsRecursive(form, uiFonts);
+            foreach (var field in form.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
+            {
+                if (field.FieldType == typeof(ContextMenuStrip))
+                {
+                    if (field.GetValue(form) is ContextMenuStrip cms)
+                    {
+                        foreach (ToolStripMenuItem item in cms.Items)
+                        {
+                            try
+                            {
+                                item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log($"Error setting font for context menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private static void SetFontsRecursive(Control parent, UIFonts uiFonts)
