@@ -172,6 +172,9 @@
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Bir Vuruş Sesi Çal</value>
   </data>
@@ -229,11 +232,11 @@
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Form kapatırken hata oluştu: </value>
   </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Şu anda tutulan notalar:</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -287,8 +290,8 @@ Gizlemek için tekrar tıklayınız</value>
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>MIDI Dosyaları|*.mid</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;Tamam</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -343,9 +346,6 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Ses Sistemini Kullan</value>
   </data>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>&amp;Tamam</value>
-  </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>&amp;Hayır</value>
   </data>
@@ -363,9 +363,6 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Sürüklediğiniz dosya bozuk veya dosya başka bir işlem tarafından kullanılıyor.</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Enerjik synth melodileriyle neşeli bir elektronik dans parçası oluştur</value>
   </data>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>Boş nota listesi dışarı aktarılamaz.</value>
@@ -584,11 +581,20 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
     <value>Anakart üreticisi kontrol edilirken hata oluştu. Bu nedenle etkilenip etkilenmediği bilinmiyor.</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Şu anda tutulan notalar:</value>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>MIDI Dosyaları|*.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Dosya açılırken hata oluştu:</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Bu özellik, birden fazla NeoBleeper örneğinin oynatımını senkronize etmenizi sağlar.
@@ -599,12 +605,6 @@ Bu nedenle, bu özelliği kullanmadan önce saatinizi senkronize etmeniz öneril
 Bu özelliği etkinleştirdiğinizde, senkronize oynatma kontrollerini gösteren yeni bir pencere açılır.
 
 Daha sonra bu pencereyi kullanarak bilgisayarınızdaki tüm NeoBleeper örneklerinin oynatımını kontrol edebilirsiniz.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Dosya açılırken hata oluştu:</value>
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>Açtığınız dosya bozuk veya başka bir işlem tarafından kullanılıyor.</value>
@@ -769,8 +769,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
     <value>Yapay zeka ile müzik oluşturma başarısız oldu:</value>
   </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Sistem bilgileri toplanıyor...</value>
@@ -792,10 +792,34 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Çerçeveler oluşturuluyor...</value>
   </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Enerjik synth melodileriyle neşeli bir elektronik dans parçası oluştur</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Geri dönmek için kayıtlı bir sürüm yok.</value>
+  </data>
+  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
+    <value>Gelişmiş sistem hoparlörü testi başlatıldı.</value>
+  </data>
+  <data name="TextPassed" xml:space="preserve">
+    <value>GEÇTİ</value>
+  </data>
+  <data name="TextFailed" xml:space="preserve">
+    <value>BAŞARISIZ</value>
+  </data>
+  <data name="OverallResult" xml:space="preserve">
+    <value>Genel sonuç: </value>
+  </data>
+  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
+    <value>Test sırasında bir hata oluştu. Ayrıntılar için günlükleri kontrol edin.</value>
+  </data>
+  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
+    <value>Gelişmiş frekans tarama testi: </value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Bağlantı noktası durumu kararlılık testi: </value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Elektriksel geri besleme testi: </value>
   </data>
 </root>

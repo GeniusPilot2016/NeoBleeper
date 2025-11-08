@@ -172,6 +172,9 @@
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Reproducir un sonido rítmico</value>
   </data>
@@ -229,11 +232,11 @@
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Error al cerrar el formulario: </value>
   </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Notas que se encuentran actualmente en espera:</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -287,8 +290,8 @@ Haz clic de nuevo para ocultarla.</value>
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>Archivos MIDI|*.mid</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;Oklahoma</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -343,9 +346,6 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Utilice el sistema de voz</value>
   </data>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>&amp;Oklahoma</value>
-  </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>&amp;No</value>
   </data>
@@ -363,9 +363,6 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>El archivo que arrastró está dañado o está siendo utilizado por otro proceso.</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Crear una pista de baile electrónica animada con melodías sintetizadas energéticas</value>
   </data>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>La lista de notas vacía no se puede exportar.</value>
@@ -584,11 +581,20 @@ Esta tecla reproduce este sonido de percusión: {percussionName}</value>
   <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
     <value>Error al comprobar el fabricante de la placa base. Por lo tanto, se desconoce si está afectada.</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Notas que se encuentran actualmente en espera:</value>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>Archivos MIDI|*.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Error al abrir el archivo:</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Esta función permite sincronizar la reproducción de varias instancias de NeoBleeper.
@@ -599,12 +605,6 @@ Por lo tanto, se recomienda sincronizar el reloj antes de usar esta función. Pu
 Al activar esta función, se abrirá una nueva ventana con los controles de reproducción sincronizada.
 
 Puede usar esta ventana para controlar la reproducción de todas las instancias de NeoBleeper en su ordenador.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Error al abrir el archivo:</value>
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>El archivo que abriste está dañado o está siendo utilizado por otro proceso.</value>
@@ -768,8 +768,8 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
     <value>La creación de música con IA falló:</value>
   </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Recopilando información del sistema...</value>
@@ -791,10 +791,34 @@ Puedes elegir el sonido que quieres reproducir haciendo clic en el botón "Cambi
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Se están creando los marcos...</value>
   </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Crear una pista de baile electrónica animada con melodías sintetizadas energéticas</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>No hay ninguna versión guardada a la cual rebobinar.</value>
+  </data>
+  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
+    <value>Se ha iniciado la prueba avanzada de los altavoces del sistema.</value>
+  </data>
+  <data name="TextPassed" xml:space="preserve">
+    <value>APROBADO</value>
+  </data>
+  <data name="TextFailed" xml:space="preserve">
+    <value>FALLIDA</value>
+  </data>
+  <data name="OverallResult" xml:space="preserve">
+    <value>Resultado general: </value>
+  </data>
+  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
+    <value>Se produjo un error durante la prueba. Consulte los registros para obtener más detalles.</value>
+  </data>
+  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
+    <value>Prueba avanzada de barrido de frecuencia: </value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Prueba de estabilidad del estado del puerto: </value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Prueba de retroalimentación eléctrica: </value>
   </data>
 </root>

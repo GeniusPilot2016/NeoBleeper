@@ -61,6 +61,33 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Advanced frequency sweep test:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AdvancedFrequencySweepTest {
+            get {
+                return ResourceManager.GetString("AdvancedFrequencySweepTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Advanced system speaker test is started. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AdvancedSystemSpeakerTestStarted {
+            get {
+                return ResourceManager.GetString("AdvancedSystemSpeakerTestStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error occurred during the test. Check logs for details. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AnErrorOccurredDuringAdvancedSystemSpeakerTest {
+            get {
+                return ResourceManager.GetString("AnErrorOccurredDuringAdvancedSystemSpeakerTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   An error occurred while running the application:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccurredWhileRunningApplication {
@@ -151,6 +178,15 @@ namespace NeoBleeper.Properties {
         public static string EighthNote {
             get {
                 return ResourceManager.GetString("EighthNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Electrical feedback test:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ElectricalFeedbackTest {
+            get {
+                return ResourceManager.GetString("ElectricalFeedbackTest", resourceCulture);
             }
         }
         
@@ -671,6 +707,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_hardware_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-hardware-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_help_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-help-48", resourceCulture);
@@ -854,6 +900,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_rewind_button_round_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-rewind-button-round-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_rhythm_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-rhythm-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1391,6 +1447,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Overall result:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string OverallResult {
+            get {
+                return ResourceManager.GetString("OverallResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature allows you to play beat-like sounds from the system speaker/sound device. 
         ///
         ///You can choose the sound to play by clicking the &apos;Change Beat Sound&apos; button. benzeri yerelleştirilmiş bir dize arar.
@@ -1427,6 +1492,15 @@ namespace NeoBleeper.Properties {
         public static string PortamentoHelpTitle {
             get {
                 return ResourceManager.GetString("PortamentoHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port state stability test:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PortStateStabilityTest {
+            get {
+                return ResourceManager.GetString("PortStateStabilityTest", resourceCulture);
             }
         }
         
@@ -1868,6 +1942,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   FAILED benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextFailed {
+            get {
+                return ResourceManager.GetString("TextFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Frames are being created... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextFramesAreBeingCreated {
@@ -1936,6 +2019,15 @@ namespace NeoBleeper.Properties {
         public static string TextNotFound {
             get {
                 return ResourceManager.GetString("TextNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PASSED benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextPassed {
+            get {
+                return ResourceManager.GetString("TextPassed", resourceCulture);
             }
         }
         

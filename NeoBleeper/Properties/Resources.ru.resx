@@ -172,6 +172,9 @@
   <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Воспроизвести звук бита</value>
   </data>
@@ -229,11 +232,11 @@
   <data name="MessageErrorClosingForm" xml:space="preserve">
     <value>Ошибка закрытия формы: </value>
   </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Ноты, которые в настоящее время хранятся:</value>
   </data>
   <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -288,8 +291,8 @@
   <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>Файлы MIDI| *.mid</value>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;Oдобрение</value>
   </data>
   <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -345,9 +348,6 @@
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Использовать голосовую систему</value>
   </data>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>&amp;Oдобрение</value>
-  </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>&amp;Нет</value>
   </data>
@@ -365,9 +365,6 @@
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
     <value>Перетащенный вами файл поврежден или используется другим процессом.</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Создай веселый электронный танцевальный трек с энергичными синтезаторными мелодиями</value>
   </data>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>Пустой список Ноты не может быть экспортирован.</value>
@@ -586,11 +583,20 @@
   <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
     <value>Ошибка проверки производителя материнской платы. Поэтому неизвестно, затронуто ли это.</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Ноты, которые в настоящее время хранятся:</value>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>Файлы MIDI| *.mid</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageErrorFileOpening" xml:space="preserve">
+    <value>Ошибка открытия файла:</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Эта функция позволяет синхронизировать воспроизведение нескольких копий NeoBleeper.
@@ -602,12 +608,6 @@
 При включении этой функции откроется новое окно с элементами управления синхронизированным воспроизведением.
 
 Это окно можно использовать для управления воспроизведением всех копий NeoBleeper на вашем компьютере.</value>
-  </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageErrorFileOpening" xml:space="preserve">
-    <value>Ошибка открытия файла:</value>
   </data>
   <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
     <value>Открытый вами файл повреждён или используется другим процессом.</value>
@@ -771,8 +771,8 @@
   <data name="MessageAIMusicCreationFailed" xml:space="preserve">
     <value>Создание музыки с помощью ИИ не удалось:</value>
   </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusSystemInformationsGathering" xml:space="preserve">
     <value>Сбор информации о системе...</value>
@@ -794,10 +794,34 @@
   <data name="TextFramesAreBeingCreated" xml:space="preserve">
     <value>Кадры создаются...</value>
   </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Создай веселый электронный танцевальный трек с энергичными синтезаторными мелодиями</value>
   </data>
   <data name="MessageNoSavedVersion" xml:space="preserve">
     <value>Сохраненной версии для перемотки нет.</value>
+  </data>
+  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
+    <value>Начат расширенный тест динамиков системы.</value>
+  </data>
+  <data name="TextPassed" xml:space="preserve">
+    <value>ПРОШЕДШИЙ</value>
+  </data>
+  <data name="TextFailed" xml:space="preserve">
+    <value>НЕВДАЛОСЯ</value>
+  </data>
+  <data name="OverallResult" xml:space="preserve">
+    <value>Общий результат: </value>
+  </data>
+  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
+    <value>Во время теста произошла ошибка. Подробности смотрите в журналах.</value>
+  </data>
+  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
+    <value>Расширенный тест качающейся частоты: </value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Испытание на остойчивость состояния порта: </value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Тест электрической обратной связи: </value>
   </data>
 </root>

@@ -16,6 +16,7 @@
 
 using NAudio.Midi;
 using NeoBleeper.Properties;
+using System.Media;
 using System.Runtime.InteropServices;
 
 namespace NeoBleeper
@@ -32,7 +33,7 @@ namespace NeoBleeper
             InitializeComponent();
             this.mainWindow = mainWindow;
             checkBox_use_microcontroller.Enabled = SerialPortHelper.IsAnyPortThatIsMicrocontrollerAvailable(); // Enable or disable the microcontroller checkbox based on availability
-            if(!checkBox_use_microcontroller.Enabled)
+            if (!checkBox_use_microcontroller.Enabled)
             {
                 checkBox_use_microcontroller.Checked = false;
                 TemporarySettings.MicrocontrollerSettings.useMicrocontroller = checkBox_use_microcontroller.Checked;
@@ -55,7 +56,7 @@ namespace NeoBleeper
                     radioButton_square.Checked = true;
                     break;
             }
-            if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.creating_sounds.create_beep_with_soundcard;
                 if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
@@ -221,6 +222,8 @@ namespace NeoBleeper
             buttonPreviewLyrics.BackColor = Color.FromArgb(32, 32, 32);
             buttonPreviewLyrics.ForeColor = Color.White;
             button_get_firmware.BackColor = Color.FromArgb(32, 32, 32);
+            contextMenuStripSystemSpeakerTests.BackColor = Color.Black;
+            contextMenuStripSystemSpeakerTests.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void light_theme()
@@ -293,6 +296,8 @@ namespace NeoBleeper
             buttonPreviewLyrics.BackColor = Color.Transparent;
             buttonPreviewLyrics.ForeColor = SystemColors.ControlText;
             button_get_firmware.BackColor = Color.Transparent;
+            contextMenuStripSystemSpeakerTests.BackColor = SystemColors.Window;
+            contextMenuStripSystemSpeakerTests.ForeColor = SystemColors.WindowText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
@@ -415,8 +420,12 @@ namespace NeoBleeper
                 });
                 isTestingSystemSpeaker = false; // Reset the flag after the tune is played
             }
+            else
+            {
+                SystemSounds.Beep.Play(); // Play a simple beep sound to indicate that a test is already in progress
+                Logger.Log("System speaker test is already in progress. Ignoring additional test request.", Logger.LogTypes.Warning);
+            }
         }
-
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true)
@@ -425,10 +434,9 @@ namespace NeoBleeper
             }
         }
         bool isTestingSystemSpeaker = false;
-        private async void btn_test_system_speaker_Click(object sender, EventArgs e)
+        private void btn_test_system_speaker_Click(object sender, EventArgs e)
         {
-            Logger.Log("Testing system speaker...", Logger.LogTypes.Info);
-            await system_speaker_test_tune();
+            contextMenuStripSystemSpeakerTests.Show(btn_test_system_speaker, new Point(0, btn_test_system_speaker.Height));
         }
 
         private void comboBox_theme_SelectedIndexChanged(object sender, EventArgs e)
@@ -453,7 +461,7 @@ namespace NeoBleeper
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
             if ((TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.Unknown ||
-                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers) && 
+                TemporarySettings.eligibility_of_create_beep_from_system_speaker.deviceType == TemporarySettings.eligibility_of_create_beep_from_system_speaker.DeviceType.CompactComputers) &&
                 TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == true)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
@@ -1600,7 +1608,7 @@ namespace NeoBleeper
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxLanguage.SelectedItem.ToString() != Settings1.Default.preferredLanguage)
-            {   
+            {
                 var synchronizedSettings = SynchronizedSettings.Load();
                 Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
                 Settings1.Default.Save();
@@ -1619,6 +1627,32 @@ namespace NeoBleeper
         {
             GetFirmwareWindow getFirmwareWindow = new GetFirmwareWindow();
             getFirmwareWindow.ShowDialog();
+        }
+
+        private async void standardTuneTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.Log("Testing system speaker with standard tune test...", Logger.LogTypes.Info);
+            await system_speaker_test_tune();
+        }
+
+        private void advancedSystemSpeakerTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!isTestingSystemSpeaker)
+            // Debounce check to prevent multiple clicks to test the system speaker
+            {
+                isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
+                Logger.Log("Opening advanced system speaker test window...", Logger.LogTypes.Info);
+                isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
+                AdvancedSystemSpeakerTest advancedSystemSpeakerTest = new AdvancedSystemSpeakerTest();
+                advancedSystemSpeakerTest.ShowDialog();
+                isTestingSystemSpeaker = false; // Reset the flag after the tune is played
+                isTestingSystemSpeaker = false; // Reset the flag after the tune is played
+            }
+            else
+            {
+                SystemSounds.Beep.Play(); // Play a simple beep sound to indicate that a test is already in progress
+                Logger.Log("System speaker test is already in progress. Ignoring additional test request.", Logger.LogTypes.Warning);
+            }
         }
     }
 }
