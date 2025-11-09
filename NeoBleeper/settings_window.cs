@@ -56,6 +56,7 @@ namespace NeoBleeper
                     radioButton_square.Checked = true;
                     break;
             }
+
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.creating_sounds.create_beep_with_soundcard;
@@ -131,6 +132,13 @@ namespace NeoBleeper
                 groupBoxCreateMusicWithAI.Visible = false; // Hide the group box if the feature is not available in the user's country
                 Logger.Log("Create Music with AI feature is not available in this country. Hiding the settings.", Logger.LogTypes.Info);
             }
+            else
+            {
+                if (IsPotentiallyPaidApiCountry())
+                {
+                    labelGoogleGeminiAPIWarning.Visible = true;
+                }
+            }
             textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
             if (Settings1.Default.geminiAPIKey != String.Empty)
             {
@@ -148,6 +156,29 @@ namespace NeoBleeper
                 {
                     set_theme();
                 }
+            }
+        }
+        private static readonly HashSet<string> PotentiallyPaidApiCountries = new()
+        {
+            // European Economic Area (EEA) countries (ISO 3166-1 alpha-2 codes)
+            "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
+            "IS", "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO",
+            "SK", "SI", "ES", "SE",
+            // Additionally Switzerland and the United Kingdom
+            "CH", "GB"
+        };
+
+        public static bool IsPotentiallyPaidApiCountry()
+        {
+            try
+            {
+                string countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
+                return PotentiallyPaidApiCountries.Contains(countryCode);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error determining user's country for API pricing: " + ex.Message, Logger.LogTypes.Error);
+                return false; // Default to false if there's an error
             }
         }
         private void dark_theme()
@@ -1402,17 +1433,32 @@ namespace NeoBleeper
             {
                 if (CreateMusicWithAI.isAPIKeyValidFormat(textBoxAPIKey.Text))
                 {
-                    // Generate new encryption keys first
-                    EncryptionHelper.ChangeKeyAndIV();
+                    Action acceptAction = () =>
+                    { // Generate new encryption keys first
+                        EncryptionHelper.ChangeKeyAndIV();
 
-                    // Now encrypt and save the API key with the new keys
-                    Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
-                    Settings1.Default.Save();
+                        // Now encrypt and save the API key with the new keys
+                        Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
+                        Settings1.Default.Save();
 
-                    buttonUpdateAPIKey.Enabled = false;
-                    buttonResetAPIKey.Enabled = true;
-                    MessageForm.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
+                        buttonUpdateAPIKey.Enabled = false;
+                        buttonResetAPIKey.Enabled = true;
+                        MessageForm.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
+                    };
+                    Action rejectAction = () =>
+                    {
+                        textBoxAPIKey.Text = string.Empty;
+                        Logger.Log("User rejected the Google Gemini™ Terms of Service. API key not saved.", Logger.LogTypes.Info);
+                    };
+                    if (!Settings1.Default.googleGeminiTermsOfServiceAccepted)
+                    {
+                        GoogleGeminiTermsOfServiceAgreement.AskToAgreeTermsAndDoAction(acceptAction, rejectAction);
+                    }
+                    else
+                    {
+                        acceptAction();
+                    }
                 }
                 else
                 {

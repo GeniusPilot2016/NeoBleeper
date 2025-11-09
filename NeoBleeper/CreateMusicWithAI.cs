@@ -303,7 +303,7 @@ namespace NeoBleeper
         }
 
         // Check internet connectivity and server status
-        private bool IsInternetAvailable()
+        public static bool IsInternetAvailable()
         {
             try
             {
