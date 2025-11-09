@@ -48,6 +48,7 @@
             labelAPIKeyWarning = new Label();
             labelAPIKey = new Label();
             textBoxAPIKey = new TextBox();
+            labelGoogleGeminiAPIWarning = new Label();
             groupBox_system_speaker_test = new GroupBox();
             btn_test_system_speaker = new Button();
             label_test_system_speaker_message = new Label();
@@ -180,40 +181,45 @@
             // 
             // tabControl_settings
             // 
+            resources.ApplyResources(tabControl_settings, "tabControl_settings");
             tabControl_settings.Controls.Add(general_settings);
             tabControl_settings.Controls.Add(creating_sound_settings);
             tabControl_settings.Controls.Add(devices_settings);
             tabControl_settings.Controls.Add(appearance);
-            resources.ApplyResources(tabControl_settings, "tabControl_settings");
             tabControl_settings.ImageList = imageList_settings;
             tabControl_settings.Name = "tabControl_settings";
             tabControl_settings.SelectedIndex = 0;
+            toolTip1.SetToolTip(tabControl_settings, resources.GetString("tabControl_settings.ToolTip"));
             tabControl_settings.SelectedIndexChanged += tabControl_settings_SelectedIndexChanged;
             // 
             // general_settings
             // 
-            general_settings.Controls.Add(flowLayoutPanelGeneralSettings);
             resources.ApplyResources(general_settings, "general_settings");
+            general_settings.Controls.Add(flowLayoutPanelGeneralSettings);
             general_settings.Name = "general_settings";
+            toolTip1.SetToolTip(general_settings, resources.GetString("general_settings.ToolTip"));
             general_settings.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelGeneralSettings
             // 
+            resources.ApplyResources(flowLayoutPanelGeneralSettings, "flowLayoutPanelGeneralSettings");
             flowLayoutPanelGeneralSettings.Controls.Add(groupBoxLanguageSettings);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBox_appearance);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBoxCreateMusicWithAI);
+            flowLayoutPanelGeneralSettings.Controls.Add(labelGoogleGeminiAPIWarning);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBox_system_speaker_test);
             flowLayoutPanelGeneralSettings.Controls.Add(panelSystemSpeakerWarnings);
-            resources.ApplyResources(flowLayoutPanelGeneralSettings, "flowLayoutPanelGeneralSettings");
             flowLayoutPanelGeneralSettings.Name = "flowLayoutPanelGeneralSettings";
+            toolTip1.SetToolTip(flowLayoutPanelGeneralSettings, resources.GetString("flowLayoutPanelGeneralSettings.ToolTip"));
             // 
             // groupBoxLanguageSettings
             // 
+            resources.ApplyResources(groupBoxLanguageSettings, "groupBoxLanguageSettings");
             groupBoxLanguageSettings.Controls.Add(comboBoxLanguage);
             groupBoxLanguageSettings.Controls.Add(labelLanguage);
-            resources.ApplyResources(groupBoxLanguageSettings, "groupBoxLanguageSettings");
             groupBoxLanguageSettings.Name = "groupBoxLanguageSettings";
             groupBoxLanguageSettings.TabStop = false;
+            toolTip1.SetToolTip(groupBoxLanguageSettings, resources.GetString("groupBoxLanguageSettings.ToolTip"));
             // 
             // comboBoxLanguage
             // 
@@ -229,6 +235,7 @@
             // 
             resources.ApplyResources(labelLanguage, "labelLanguage");
             labelLanguage.Name = "labelLanguage";
+            toolTip1.SetToolTip(labelLanguage, resources.GetString("labelLanguage.ToolTip"));
             // 
             // groupBox_appearance
             // 
@@ -238,6 +245,7 @@
             groupBox_appearance.Controls.Add(comboBox_theme);
             groupBox_appearance.Name = "groupBox_appearance";
             groupBox_appearance.TabStop = false;
+            toolTip1.SetToolTip(groupBox_appearance, resources.GetString("groupBox_appearance.ToolTip"));
             // 
             // checkBoxClassicBleeperMode
             // 
@@ -251,6 +259,7 @@
             // 
             resources.ApplyResources(lbl_theme, "lbl_theme");
             lbl_theme.Name = "lbl_theme";
+            toolTip1.SetToolTip(lbl_theme, resources.GetString("lbl_theme.ToolTip"));
             // 
             // comboBox_theme
             // 
@@ -273,6 +282,7 @@
             groupBoxCreateMusicWithAI.Controls.Add(textBoxAPIKey);
             groupBoxCreateMusicWithAI.Name = "groupBoxCreateMusicWithAI";
             groupBoxCreateMusicWithAI.TabStop = false;
+            toolTip1.SetToolTip(groupBoxCreateMusicWithAI, resources.GetString("groupBoxCreateMusicWithAI.ToolTip"));
             // 
             // buttonResetAPIKey
             // 
@@ -330,11 +340,13 @@
             resources.ApplyResources(labelAPIKeyWarning, "labelAPIKeyWarning");
             labelAPIKeyWarning.ImageList = imageList_settings;
             labelAPIKeyWarning.Name = "labelAPIKeyWarning";
+            toolTip1.SetToolTip(labelAPIKeyWarning, resources.GetString("labelAPIKeyWarning.ToolTip"));
             // 
             // labelAPIKey
             // 
             resources.ApplyResources(labelAPIKey, "labelAPIKey");
             labelAPIKey.Name = "labelAPIKey";
+            toolTip1.SetToolTip(labelAPIKey, resources.GetString("labelAPIKey.ToolTip"));
             // 
             // textBoxAPIKey
             // 
@@ -344,19 +356,28 @@
             textBoxAPIKey.UseSystemPasswordChar = true;
             textBoxAPIKey.TextChanged += textBoxAPIKey_TextChanged;
             // 
+            // labelGoogleGeminiAPIWarning
+            // 
+            resources.ApplyResources(labelGoogleGeminiAPIWarning, "labelGoogleGeminiAPIWarning");
+            labelGoogleGeminiAPIWarning.ImageList = imageList_settings;
+            labelGoogleGeminiAPIWarning.Name = "labelGoogleGeminiAPIWarning";
+            toolTip1.SetToolTip(labelGoogleGeminiAPIWarning, resources.GetString("labelGoogleGeminiAPIWarning.ToolTip"));
+            // 
             // groupBox_system_speaker_test
             // 
+            resources.ApplyResources(groupBox_system_speaker_test, "groupBox_system_speaker_test");
             groupBox_system_speaker_test.Controls.Add(btn_test_system_speaker);
             groupBox_system_speaker_test.Controls.Add(label_test_system_speaker_message);
-            resources.ApplyResources(groupBox_system_speaker_test, "groupBox_system_speaker_test");
             groupBox_system_speaker_test.Name = "groupBox_system_speaker_test";
             groupBox_system_speaker_test.TabStop = false;
+            toolTip1.SetToolTip(groupBox_system_speaker_test, resources.GetString("groupBox_system_speaker_test.ToolTip"));
             // 
             // btn_test_system_speaker
             // 
             resources.ApplyResources(btn_test_system_speaker, "btn_test_system_speaker");
             btn_test_system_speaker.ImageList = imageList_settings;
             btn_test_system_speaker.Name = "btn_test_system_speaker";
+            toolTip1.SetToolTip(btn_test_system_speaker, resources.GetString("btn_test_system_speaker.ToolTip"));
             btn_test_system_speaker.UseVisualStyleBackColor = true;
             btn_test_system_speaker.Click += btn_test_system_speaker_Click;
             // 
@@ -364,39 +385,45 @@
             // 
             resources.ApplyResources(label_test_system_speaker_message, "label_test_system_speaker_message");
             label_test_system_speaker_message.Name = "label_test_system_speaker_message";
+            toolTip1.SetToolTip(label_test_system_speaker_message, resources.GetString("label_test_system_speaker_message.ToolTip"));
             // 
             // panelSystemSpeakerWarnings
             // 
+            resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_2);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
-            resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
+            toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
             // 
             // label_test_system_speaker_message_2
             // 
             resources.ApplyResources(label_test_system_speaker_message_2, "label_test_system_speaker_message_2");
             label_test_system_speaker_message_2.ForeColor = Color.FromArgb(255, 128, 0);
             label_test_system_speaker_message_2.Name = "label_test_system_speaker_message_2";
+            toolTip1.SetToolTip(label_test_system_speaker_message_2, resources.GetString("label_test_system_speaker_message_2.ToolTip"));
             // 
             // label_test_system_speaker_message_3
             // 
             resources.ApplyResources(label_test_system_speaker_message_3, "label_test_system_speaker_message_3");
             label_test_system_speaker_message_3.ForeColor = Color.FromArgb(255, 128, 0);
             label_test_system_speaker_message_3.Name = "label_test_system_speaker_message_3";
+            toolTip1.SetToolTip(label_test_system_speaker_message_3, resources.GetString("label_test_system_speaker_message_3.ToolTip"));
             // 
             // creating_sound_settings
             // 
-            creating_sound_settings.Controls.Add(flowLayoutPanelCreatingSoundSettings);
             resources.ApplyResources(creating_sound_settings, "creating_sound_settings");
+            creating_sound_settings.Controls.Add(flowLayoutPanelCreatingSoundSettings);
             creating_sound_settings.Name = "creating_sound_settings";
+            toolTip1.SetToolTip(creating_sound_settings, resources.GetString("creating_sound_settings.ToolTip"));
             creating_sound_settings.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelCreatingSoundSettings
             // 
+            resources.ApplyResources(flowLayoutPanelCreatingSoundSettings, "flowLayoutPanelCreatingSoundSettings");
             flowLayoutPanelCreatingSoundSettings.Controls.Add(checkBox_enable_create_beep_from_soundcard);
             flowLayoutPanelCreatingSoundSettings.Controls.Add(group_beep_creation_from_sound_card_settings);
-            resources.ApplyResources(flowLayoutPanelCreatingSoundSettings, "flowLayoutPanelCreatingSoundSettings");
             flowLayoutPanelCreatingSoundSettings.Name = "flowLayoutPanelCreatingSoundSettings";
+            toolTip1.SetToolTip(flowLayoutPanelCreatingSoundSettings, resources.GetString("flowLayoutPanelCreatingSoundSettings.ToolTip"));
             // 
             // checkBox_enable_create_beep_from_soundcard
             // 
@@ -414,6 +441,7 @@
             group_beep_creation_from_sound_card_settings.Controls.Add(group_tone_waveform);
             group_beep_creation_from_sound_card_settings.Name = "group_beep_creation_from_sound_card_settings";
             group_beep_creation_from_sound_card_settings.TabStop = false;
+            toolTip1.SetToolTip(group_beep_creation_from_sound_card_settings, resources.GetString("group_beep_creation_from_sound_card_settings.ToolTip"));
             // 
             // flowLayoutPanelSoundDeviceBeepEnabledInfo
             // 
@@ -421,29 +449,34 @@
             flowLayoutPanelSoundDeviceBeepEnabledInfo.Controls.Add(panel1);
             flowLayoutPanelSoundDeviceBeepEnabledInfo.Controls.Add(button_show_reason);
             flowLayoutPanelSoundDeviceBeepEnabledInfo.Name = "flowLayoutPanelSoundDeviceBeepEnabledInfo";
+            toolTip1.SetToolTip(flowLayoutPanelSoundDeviceBeepEnabledInfo, resources.GetString("flowLayoutPanelSoundDeviceBeepEnabledInfo.ToolTip"));
             // 
             // panel1
             // 
+            resources.ApplyResources(panel1, "panel1");
             panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
             panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
-            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
+            toolTip1.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label_create_beep_from_soundcard_automatically_activated_message_1
             // 
             resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_1, "label_create_beep_from_soundcard_automatically_activated_message_1");
             label_create_beep_from_soundcard_automatically_activated_message_1.Name = "label_create_beep_from_soundcard_automatically_activated_message_1";
+            toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_1, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_1.ToolTip"));
             // 
             // label_create_beep_from_soundcard_automatically_activated_message_2
             // 
             resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_2, "label_create_beep_from_soundcard_automatically_activated_message_2");
             label_create_beep_from_soundcard_automatically_activated_message_2.Name = "label_create_beep_from_soundcard_automatically_activated_message_2";
+            toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_2, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip"));
             // 
             // button_show_reason
             // 
             resources.ApplyResources(button_show_reason, "button_show_reason");
             button_show_reason.ImageList = imageList_settings;
             button_show_reason.Name = "button_show_reason";
+            toolTip1.SetToolTip(button_show_reason, resources.GetString("button_show_reason.ToolTip"));
             button_show_reason.UseVisualStyleBackColor = true;
             button_show_reason.Click += button_show_reason_Click;
             // 
@@ -456,11 +489,13 @@
             group_tone_waveform.Controls.Add(radioButton_square);
             group_tone_waveform.Name = "group_tone_waveform";
             group_tone_waveform.TabStop = false;
+            toolTip1.SetToolTip(group_tone_waveform, resources.GetString("group_tone_waveform.ToolTip"));
             // 
             // radioButton_noise
             // 
             resources.ApplyResources(radioButton_noise, "radioButton_noise");
             radioButton_noise.Name = "radioButton_noise";
+            toolTip1.SetToolTip(radioButton_noise, resources.GetString("radioButton_noise.ToolTip"));
             radioButton_noise.UseVisualStyleBackColor = true;
             radioButton_noise.CheckedChanged += soundcard_beep_waveform_selection;
             // 
@@ -468,6 +503,7 @@
             // 
             resources.ApplyResources(radioButton_triangle, "radioButton_triangle");
             radioButton_triangle.Name = "radioButton_triangle";
+            toolTip1.SetToolTip(radioButton_triangle, resources.GetString("radioButton_triangle.ToolTip"));
             radioButton_triangle.UseVisualStyleBackColor = true;
             radioButton_triangle.CheckedChanged += soundcard_beep_waveform_selection;
             // 
@@ -475,6 +511,7 @@
             // 
             resources.ApplyResources(radioButton_sine, "radioButton_sine");
             radioButton_sine.Name = "radioButton_sine";
+            toolTip1.SetToolTip(radioButton_sine, resources.GetString("radioButton_sine.ToolTip"));
             radioButton_sine.UseVisualStyleBackColor = true;
             radioButton_sine.CheckedChanged += soundcard_beep_waveform_selection;
             // 
@@ -484,25 +521,28 @@
             radioButton_square.Checked = true;
             radioButton_square.Name = "radioButton_square";
             radioButton_square.TabStop = true;
+            toolTip1.SetToolTip(radioButton_square, resources.GetString("radioButton_square.ToolTip"));
             radioButton_square.UseVisualStyleBackColor = true;
             radioButton_square.CheckedChanged += soundcard_beep_waveform_selection;
             // 
             // devices_settings
             // 
-            devices_settings.Controls.Add(flowLayoutPanelDevicesSettings);
             resources.ApplyResources(devices_settings, "devices_settings");
+            devices_settings.Controls.Add(flowLayoutPanelDevicesSettings);
             devices_settings.Name = "devices_settings";
+            toolTip1.SetToolTip(devices_settings, resources.GetString("devices_settings.ToolTip"));
             devices_settings.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelDevicesSettings
             // 
+            resources.ApplyResources(flowLayoutPanelDevicesSettings, "flowLayoutPanelDevicesSettings");
             flowLayoutPanelDevicesSettings.Controls.Add(checkBox_use_midi_input);
             flowLayoutPanelDevicesSettings.Controls.Add(group_midi_input_devices);
             flowLayoutPanelDevicesSettings.Controls.Add(checkBox_use_midi_output);
             flowLayoutPanelDevicesSettings.Controls.Add(group_midi_output_devices);
             flowLayoutPanelDevicesSettings.Controls.Add(groupBox_other_devices);
-            resources.ApplyResources(flowLayoutPanelDevicesSettings, "flowLayoutPanelDevicesSettings");
             flowLayoutPanelDevicesSettings.Name = "flowLayoutPanelDevicesSettings";
+            toolTip1.SetToolTip(flowLayoutPanelDevicesSettings, resources.GetString("flowLayoutPanelDevicesSettings.ToolTip"));
             // 
             // checkBox_use_midi_input
             // 
@@ -521,6 +561,7 @@
             group_midi_input_devices.Controls.Add(label_midi_input_device);
             group_midi_input_devices.Name = "group_midi_input_devices";
             group_midi_input_devices.TabStop = false;
+            toolTip1.SetToolTip(group_midi_input_devices, resources.GetString("group_midi_input_devices.ToolTip"));
             // 
             // refresh_midi_input_button
             // 
@@ -544,6 +585,7 @@
             // 
             resources.ApplyResources(label_midi_input_device, "label_midi_input_device");
             label_midi_input_device.Name = "label_midi_input_device";
+            toolTip1.SetToolTip(label_midi_input_device, resources.GetString("label_midi_input_device.ToolTip"));
             // 
             // checkBox_use_midi_output
             // 
@@ -566,6 +608,7 @@
             group_midi_output_devices.Controls.Add(label_midi_output_device);
             group_midi_output_devices.Name = "group_midi_output_devices";
             group_midi_output_devices.TabStop = false;
+            toolTip1.SetToolTip(group_midi_output_devices, resources.GetString("group_midi_output_devices.ToolTip"));
             // 
             // comboBox_midi_output_instrument
             // 
@@ -589,11 +632,13 @@
             // 
             resources.ApplyResources(label_instrument, "label_instrument");
             label_instrument.Name = "label_instrument";
+            toolTip1.SetToolTip(label_instrument, resources.GetString("label_instrument.ToolTip"));
             // 
             // label_channel
             // 
             resources.ApplyResources(label_channel, "label_channel");
             label_channel.Name = "label_channel";
+            toolTip1.SetToolTip(label_channel, resources.GetString("label_channel.ToolTip"));
             // 
             // refresh_midi_output_button
             // 
@@ -617,6 +662,7 @@
             // 
             resources.ApplyResources(label_midi_output_device, "label_midi_output_device");
             label_midi_output_device.Name = "label_midi_output_device";
+            toolTip1.SetToolTip(label_midi_output_device, resources.GetString("label_midi_output_device.ToolTip"));
             // 
             // groupBox_other_devices
             // 
@@ -629,6 +675,7 @@
             groupBox_other_devices.Controls.Add(checkBox_use_microcontroller);
             groupBox_other_devices.Name = "groupBox_other_devices";
             groupBox_other_devices.TabStop = false;
+            toolTip1.SetToolTip(groupBox_other_devices, resources.GetString("groupBox_other_devices.ToolTip"));
             // 
             // button_get_firmware
             // 
@@ -644,6 +691,7 @@
             resources.ApplyResources(label_firmware_warning, "label_firmware_warning");
             label_firmware_warning.ImageList = imageList_settings;
             label_firmware_warning.Name = "label_firmware_warning";
+            toolTip1.SetToolTip(label_firmware_warning, resources.GetString("label_firmware_warning.ToolTip"));
             // 
             // trackBar_stepper_motor_octave
             // 
@@ -659,6 +707,7 @@
             // 
             resources.ApplyResources(label_stepper_motor_octave, "label_stepper_motor_octave");
             label_stepper_motor_octave.Name = "label_stepper_motor_octave";
+            toolTip1.SetToolTip(label_stepper_motor_octave, resources.GetString("label_stepper_motor_octave.ToolTip"));
             // 
             // groupBox_type_of_device
             // 
@@ -667,6 +716,7 @@
             groupBox_type_of_device.Controls.Add(radioButtonStepperMotor);
             groupBox_type_of_device.Name = "groupBox_type_of_device";
             groupBox_type_of_device.TabStop = false;
+            toolTip1.SetToolTip(groupBox_type_of_device, resources.GetString("groupBox_type_of_device.ToolTip"));
             // 
             // radioButtonDCMotorOrBuzzer
             // 
@@ -697,20 +747,22 @@
             // 
             // appearance
             // 
-            appearance.Controls.Add(flowLayoutPanelAppearanceSettings);
             resources.ApplyResources(appearance, "appearance");
+            appearance.Controls.Add(flowLayoutPanelAppearanceSettings);
             appearance.Name = "appearance";
+            toolTip1.SetToolTip(appearance, resources.GetString("appearance.ToolTip"));
             appearance.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelAppearanceSettings
             // 
+            resources.ApplyResources(flowLayoutPanelAppearanceSettings, "flowLayoutPanelAppearanceSettings");
             flowLayoutPanelAppearanceSettings.Controls.Add(group_keyboard_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_buttons_and_controls_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_indicator_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_lyrics_size_settings);
             flowLayoutPanelAppearanceSettings.Controls.Add(panel2);
-            resources.ApplyResources(flowLayoutPanelAppearanceSettings, "flowLayoutPanelAppearanceSettings");
             flowLayoutPanelAppearanceSettings.Name = "flowLayoutPanelAppearanceSettings";
+            toolTip1.SetToolTip(flowLayoutPanelAppearanceSettings, resources.GetString("flowLayoutPanelAppearanceSettings.ToolTip"));
             // 
             // group_keyboard_colors
             // 
@@ -726,6 +778,7 @@
             group_keyboard_colors.Controls.Add(label2);
             group_keyboard_colors.Name = "group_keyboard_colors";
             group_keyboard_colors.TabStop = false;
+            toolTip1.SetToolTip(group_keyboard_colors, resources.GetString("group_keyboard_colors.ToolTip"));
             // 
             // third_octave_color_change
             // 
@@ -757,6 +810,7 @@
             third_octave_color.BackColor = Color.FromArgb(192, 255, 192);
             third_octave_color.BorderStyle = BorderStyle.FixedSingle;
             third_octave_color.Name = "third_octave_color";
+            toolTip1.SetToolTip(third_octave_color, resources.GetString("third_octave_color.ToolTip"));
             // 
             // second_octave_color
             // 
@@ -764,6 +818,7 @@
             second_octave_color.BackColor = Color.FromArgb(192, 192, 255);
             second_octave_color.BorderStyle = BorderStyle.FixedSingle;
             second_octave_color.Name = "second_octave_color";
+            toolTip1.SetToolTip(second_octave_color, resources.GetString("second_octave_color.ToolTip"));
             // 
             // first_octave_color
             // 
@@ -771,21 +826,25 @@
             first_octave_color.BackColor = Color.FromArgb(255, 224, 192);
             first_octave_color.BorderStyle = BorderStyle.FixedSingle;
             first_octave_color.Name = "first_octave_color";
+            toolTip1.SetToolTip(first_octave_color, resources.GetString("first_octave_color.ToolTip"));
             // 
             // label4
             // 
             resources.ApplyResources(label4, "label4");
             label4.Name = "label4";
+            toolTip1.SetToolTip(label4, resources.GetString("label4.ToolTip"));
             // 
             // label3
             // 
             resources.ApplyResources(label3, "label3");
             label3.Name = "label3";
+            toolTip1.SetToolTip(label3, resources.GetString("label3.ToolTip"));
             // 
             // label2
             // 
             resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
+            toolTip1.SetToolTip(label2, resources.GetString("label2.ToolTip"));
             // 
             // group_buttons_and_controls_colors
             // 
@@ -813,6 +872,7 @@
             group_buttons_and_controls_colors.Controls.Add(label7);
             group_buttons_and_controls_colors.Name = "group_buttons_and_controls_colors";
             group_buttons_and_controls_colors.TabStop = false;
+            toolTip1.SetToolTip(group_buttons_and_controls_colors, resources.GetString("group_buttons_and_controls_colors.ToolTip"));
             // 
             // markup_color_change
             // 
@@ -876,6 +936,7 @@
             markup_color.BackColor = Color.LightBlue;
             markup_color.BorderStyle = BorderStyle.FixedSingle;
             markup_color.Name = "markup_color";
+            toolTip1.SetToolTip(markup_color, resources.GetString("markup_color.ToolTip"));
             // 
             // metronome_color
             // 
@@ -883,6 +944,7 @@
             metronome_color.BackColor = Color.FromArgb(192, 255, 192);
             metronome_color.BorderStyle = BorderStyle.FixedSingle;
             metronome_color.Name = "metronome_color";
+            toolTip1.SetToolTip(metronome_color, resources.GetString("metronome_color.ToolTip"));
             // 
             // playback_buttons_color
             // 
@@ -890,6 +952,7 @@
             playback_buttons_color.BackColor = Color.FromArgb(128, 255, 128);
             playback_buttons_color.BorderStyle = BorderStyle.FixedSingle;
             playback_buttons_color.Name = "playback_buttons_color";
+            toolTip1.SetToolTip(playback_buttons_color, resources.GetString("playback_buttons_color.ToolTip"));
             // 
             // erase_whole_line_color
             // 
@@ -897,6 +960,7 @@
             erase_whole_line_color.BackColor = Color.FromArgb(255, 128, 128);
             erase_whole_line_color.BorderStyle = BorderStyle.FixedSingle;
             erase_whole_line_color.Name = "erase_whole_line_color";
+            toolTip1.SetToolTip(erase_whole_line_color, resources.GetString("erase_whole_line_color.ToolTip"));
             // 
             // unselect_line_color
             // 
@@ -904,6 +968,7 @@
             unselect_line_color.BackColor = Color.FromArgb(128, 255, 255);
             unselect_line_color.BorderStyle = BorderStyle.FixedSingle;
             unselect_line_color.Name = "unselect_line_color";
+            toolTip1.SetToolTip(unselect_line_color, resources.GetString("unselect_line_color.ToolTip"));
             // 
             // clear_notes_color
             // 
@@ -911,6 +976,7 @@
             clear_notes_color.BackColor = Color.FromArgb(128, 128, 255);
             clear_notes_color.BorderStyle = BorderStyle.FixedSingle;
             clear_notes_color.Name = "clear_notes_color";
+            toolTip1.SetToolTip(clear_notes_color, resources.GetString("clear_notes_color.ToolTip"));
             // 
             // blank_line_color
             // 
@@ -918,41 +984,49 @@
             blank_line_color.BackColor = Color.FromArgb(255, 224, 192);
             blank_line_color.BorderStyle = BorderStyle.FixedSingle;
             blank_line_color.Name = "blank_line_color";
+            toolTip1.SetToolTip(blank_line_color, resources.GetString("blank_line_color.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
+            toolTip1.SetToolTip(label1, resources.GetString("label1.ToolTip"));
             // 
             // label10
             // 
             resources.ApplyResources(label10, "label10");
             label10.Name = "label10";
+            toolTip1.SetToolTip(label10, resources.GetString("label10.ToolTip"));
             // 
             // label8
             // 
             resources.ApplyResources(label8, "label8");
             label8.Name = "label8";
+            toolTip1.SetToolTip(label8, resources.GetString("label8.ToolTip"));
             // 
             // label9
             // 
             resources.ApplyResources(label9, "label9");
             label9.Name = "label9";
+            toolTip1.SetToolTip(label9, resources.GetString("label9.ToolTip"));
             // 
             // label5
             // 
             resources.ApplyResources(label5, "label5");
             label5.Name = "label5";
+            toolTip1.SetToolTip(label5, resources.GetString("label5.ToolTip"));
             // 
             // label6
             // 
             resources.ApplyResources(label6, "label6");
             label6.Name = "label6";
+            toolTip1.SetToolTip(label6, resources.GetString("label6.ToolTip"));
             // 
             // label7
             // 
             resources.ApplyResources(label7, "label7");
             label7.Name = "label7";
+            toolTip1.SetToolTip(label7, resources.GetString("label7.ToolTip"));
             // 
             // group_indicator_colors
             // 
@@ -965,6 +1039,7 @@
             group_indicator_colors.Controls.Add(label11);
             group_indicator_colors.Name = "group_indicator_colors";
             group_indicator_colors.TabStop = false;
+            toolTip1.SetToolTip(group_indicator_colors, resources.GetString("group_indicator_colors.ToolTip"));
             // 
             // note_indicator_color_change
             // 
@@ -986,6 +1061,7 @@
             // 
             resources.ApplyResources(label12, "label12");
             label12.Name = "label12";
+            toolTip1.SetToolTip(label12, resources.GetString("label12.ToolTip"));
             // 
             // beep_indicator_color
             // 
@@ -993,6 +1069,7 @@
             beep_indicator_color.BackColor = Color.Red;
             beep_indicator_color.BorderStyle = BorderStyle.FixedSingle;
             beep_indicator_color.Name = "beep_indicator_color";
+            toolTip1.SetToolTip(beep_indicator_color, resources.GetString("beep_indicator_color.ToolTip"));
             // 
             // note_indicator_color
             // 
@@ -1000,11 +1077,13 @@
             note_indicator_color.BackColor = Color.Red;
             note_indicator_color.BorderStyle = BorderStyle.FixedSingle;
             note_indicator_color.Name = "note_indicator_color";
+            toolTip1.SetToolTip(note_indicator_color, resources.GetString("note_indicator_color.ToolTip"));
             // 
             // label11
             // 
             resources.ApplyResources(label11, "label11");
             label11.Name = "label11";
+            toolTip1.SetToolTip(label11, resources.GetString("label11.ToolTip"));
             // 
             // group_lyrics_size_settings
             // 
@@ -1015,12 +1094,14 @@
             group_lyrics_size_settings.Controls.Add(label13);
             group_lyrics_size_settings.Name = "group_lyrics_size_settings";
             group_lyrics_size_settings.TabStop = false;
+            toolTip1.SetToolTip(group_lyrics_size_settings, resources.GetString("group_lyrics_size_settings.ToolTip"));
             // 
             // buttonPreviewLyrics
             // 
             resources.ApplyResources(buttonPreviewLyrics, "buttonPreviewLyrics");
             buttonPreviewLyrics.ImageList = imageList_settings;
             buttonPreviewLyrics.Name = "buttonPreviewLyrics";
+            toolTip1.SetToolTip(buttonPreviewLyrics, resources.GetString("buttonPreviewLyrics.ToolTip"));
             buttonPreviewLyrics.UseVisualStyleBackColor = true;
             buttonPreviewLyrics.Click += buttonPreviewLyrics_Click;
             // 
@@ -1028,6 +1109,7 @@
             // 
             resources.ApplyResources(labelPt, "labelPt");
             labelPt.Name = "labelPt";
+            toolTip1.SetToolTip(labelPt, resources.GetString("labelPt.ToolTip"));
             // 
             // numericUpDownLyricsSize
             // 
@@ -1036,6 +1118,7 @@
             numericUpDownLyricsSize.Maximum = new decimal(new int[] { 105, 0, 0, 0 });
             numericUpDownLyricsSize.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericUpDownLyricsSize.Name = "numericUpDownLyricsSize";
+            toolTip1.SetToolTip(numericUpDownLyricsSize, resources.GetString("numericUpDownLyricsSize.ToolTip"));
             numericUpDownLyricsSize.Value = new decimal(new int[] { 32, 0, 0, 0 });
             numericUpDownLyricsSize.ValueChanged += numericUpDownLyricsSize_ValueChanged;
             // 
@@ -1043,12 +1126,14 @@
             // 
             resources.ApplyResources(label13, "label13");
             label13.Name = "label13";
+            toolTip1.SetToolTip(label13, resources.GetString("label13.ToolTip"));
             // 
             // panel2
             // 
             resources.ApplyResources(panel2, "panel2");
             panel2.Controls.Add(reset_appearance_settings);
             panel2.Name = "panel2";
+            toolTip1.SetToolTip(panel2, resources.GetString("panel2.ToolTip"));
             // 
             // reset_appearance_settings
             // 
@@ -1064,12 +1149,13 @@
             resources.ApplyResources(contextMenuStripSystemSpeakerTests, "contextMenuStripSystemSpeakerTests");
             contextMenuStripSystemSpeakerTests.Items.AddRange(new ToolStripItem[] { standardTuneTestToolStripMenuItem, advancedSystemSpeakerTestToolStripMenuItem });
             contextMenuStripSystemSpeakerTests.Name = "contextMenuStripSystemSpeakerTests";
+            toolTip1.SetToolTip(contextMenuStripSystemSpeakerTests, resources.GetString("contextMenuStripSystemSpeakerTests.ToolTip"));
             // 
             // standardTuneTestToolStripMenuItem
             // 
+            resources.ApplyResources(standardTuneTestToolStripMenuItem, "standardTuneTestToolStripMenuItem");
             standardTuneTestToolStripMenuItem.Image = Properties.Resources.icons8_rhythm_48;
             standardTuneTestToolStripMenuItem.Name = "standardTuneTestToolStripMenuItem";
-            resources.ApplyResources(standardTuneTestToolStripMenuItem, "standardTuneTestToolStripMenuItem");
             standardTuneTestToolStripMenuItem.Click += standardTuneTestToolStripMenuItem_Click;
             // 
             // advancedSystemSpeakerTestToolStripMenuItem
@@ -1095,6 +1181,7 @@
             Name = "settings_window";
             ShowIcon = false;
             ShowInTaskbar = false;
+            toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             FormClosing += settings_window_FormClosing;
             SystemColorsChanged += settings_window_SystemColorsChanged;
             tabControl_settings.ResumeLayout(false);
@@ -1263,5 +1350,6 @@
         private ContextMenuStrip contextMenuStripSystemSpeakerTests;
         private ToolStripMenuItem standardTuneTestToolStripMenuItem;
         private ToolStripMenuItem advancedSystemSpeakerTestToolStripMenuItem;
+        private Label labelGoogleGeminiAPIWarning;
     }
 }

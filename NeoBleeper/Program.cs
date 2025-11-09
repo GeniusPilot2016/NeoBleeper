@@ -88,6 +88,13 @@ namespace NeoBleeper
                         EncryptionHelper.ChangeKeyAndIV();
                     }
                 }
+                finally
+                {
+                    if(!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey) && !Settings1.Default.googleGeminiTermsOfServiceAccepted)
+                    {
+                        Settings1.Default.googleGeminiTermsOfServiceAccepted = true; // Assume accepted if API key is valid but Terms of Service acceptance is not recorded in older versions that did not have this setting
+                    }
+                }
             }
             splashScreen.updateStatus(Resources.StatusDisplayResolutionCheck);
             switch (GetInformations.isResolutionSupported())

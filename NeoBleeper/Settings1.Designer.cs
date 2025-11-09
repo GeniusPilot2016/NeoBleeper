@@ -297,5 +297,29 @@ namespace NeoBleeper {
                 this["lyricsSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool googleGeminiTermsOfServiceAccepted {
+            get {
+                return ((bool)(this["googleGeminiTermsOfServiceAccepted"]));
+            }
+            set {
+                this["googleGeminiTermsOfServiceAccepted"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string cachedGoogleGeminiTermsOfService {
+            get {
+                return ((string)(this["cachedGoogleGeminiTermsOfService"]));
+            }
+            set {
+                this["cachedGoogleGeminiTermsOfService"] = value;
+            }
+        }
     }
 }
