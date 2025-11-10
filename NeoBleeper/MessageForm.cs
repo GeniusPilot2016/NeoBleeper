@@ -164,7 +164,7 @@ namespace NeoBleeper
         }
         private void RemoveSelectedCell(Button[] button)
         {
-            int cellSize = tableLayoutPanelActionButtons.GetColumnWidths()[0];
+            int cellSize = (int)(tableLayoutPanelActionButtons.Width / tableLayoutPanelActionButtons.ColumnCount);
             foreach (var btn in button)
             {
                 tableLayoutPanelActionButtons.Controls.Remove(btn);
@@ -203,12 +203,30 @@ namespace NeoBleeper
             {
                 double dpiScaleFactor = UIHelper.GetDPIScaleFactor(this);
                 int padding = (int)(50 * dpiScaleFactor);
-                Size formerPreferredSize = labelMessage.PreferredSize; // Store former size
-                labelMessage.AutoSize = true; // Ensure label resizes to fit text
+
+                labelMessage.AutoSize = true;
                 labelMessage.Text = message;
 
                 // Use PreferredSize to get the actual size required for the text
                 Size preferredSize = labelMessage.PreferredSize;
+
+                // Calculate single line height
+                int singleLineHeight = TextRenderer.MeasureText("A", labelMessage.Font).Height;
+
+                // If label is multi-line, adjust its Y position to center it with pictureBoxIcon
+                if (preferredSize.Height > singleLineHeight)
+                {
+                    // Set label's Y position to pictureBoxIcon's Top
+                    if (preferredSize.Height >= pictureBoxIcon.Height)
+                    {
+                        labelMessage.Location = new Point(labelMessage.Location.X, pictureBoxIcon.Top);
+                    }
+                    else
+                    {
+                        int newY = pictureBoxIcon.Top + (pictureBoxIcon.Height - preferredSize.Height) / 2;
+                        labelMessage.Location = new Point(labelMessage.Location.X, newY);
+                    }
+                }
 
                 // Adjust form size based on the label's preferred size
                 this.Width = Math.Max(this.Width, preferredSize.Width + labelMessage.Location.X * 2);
@@ -258,6 +276,57 @@ namespace NeoBleeper
                     break;
 
             }
+            resizeCellsByText(); // Resize cells based on button text length for some languages such as German
+        }
+        private void resizeCellsByText()
+        {
+            double dpi = UIHelper.GetDPIScaleFactor(this);
+            double padding = 20.0 * dpi; // Padding around text
+            double iconSize = 25.0 * dpi;
+            float totalWidth = 0;
+
+            // Suspend layout to avoid flickering during resize
+            tableLayoutPanelActionButtons.SuspendLayout();
+
+            for (int columnNumber = 0; columnNumber < tableLayoutPanelActionButtons.ColumnCount; columnNumber++)
+            {
+                Control control = tableLayoutPanelActionButtons.GetControlFromPosition(columnNumber, 0);
+                if (control is Button button)
+                {
+                    Size textSize = TextRenderer.MeasureText(button.Text, button.Font);
+
+                    // Start width with text and base padding
+                    float buttonWidth = textSize.Width + (float)padding;
+
+                    // Add icon size if button has an image
+                    if (button.Image != null || button.ImageIndex >= 0)
+                    {
+                        buttonWidth += (float)iconSize;
+                    }
+
+                    tableLayoutPanelActionButtons.ColumnStyles[columnNumber].Width = buttonWidth;
+                    totalWidth += buttonWidth;
+                }
+            }
+
+            // Resume layout after resizing
+            tableLayoutPanelActionButtons.ResumeLayout(false);
+
+            // Reset panel width
+            tableLayoutPanelActionButtons.Width = (int)Math.Ceiling(totalWidth);
+
+            // Resize window if necessary
+            int requiredWidth = tableLayoutPanelActionButtons.Width + tableLayoutPanelActionButtons.Margin.Horizontal;
+            if (this.ClientSize.Width < requiredWidth)
+            {
+                this.Width += requiredWidth - this.ClientSize.Width;
+            }
+
+            // Middle the panel
+            tableLayoutPanelActionButtons.Location = new Point(
+                (this.ClientSize.Width - tableLayoutPanelActionButtons.Width) / 2,
+                tableLayoutPanelActionButtons.Location.Y
+            );
         }
         public static DialogResult Show(String message, String title = "",
             MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None)
