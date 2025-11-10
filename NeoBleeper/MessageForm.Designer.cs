@@ -54,7 +54,7 @@
             // 
             labelMessage.AutoSize = true;
             labelMessage.Font = new Font("HarmonyOS Sans", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelMessage.Location = new Point(66, 22);
+            labelMessage.Location = new Point(66, 28);
             labelMessage.MaximumSize = new Size(250, 896);
             labelMessage.Name = "labelMessage";
             labelMessage.Size = new Size(184, 16);
@@ -64,7 +64,6 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            button1.AutoSize = true;
             button1.Font = new Font("HarmonyOS Sans", 9F);
             button1.ImageList = icons;
             button1.Location = new Point(3, 7);
@@ -106,7 +105,6 @@
             // button3
             // 
             button3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            button3.AutoSize = true;
             button3.Font = new Font("HarmonyOS Sans", 9F);
             button3.ImageList = icons;
             button3.Location = new Point(180, 7);
@@ -121,7 +119,6 @@
             // button2
             // 
             button2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            button2.AutoSize = true;
             button2.Font = new Font("HarmonyOS Sans", 9F);
             button2.ImageList = icons;
             button2.Location = new Point(92, 7);
@@ -164,7 +161,6 @@
             SystemColorsChanged += MessageForm_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             tableLayoutPanelActionButtons.ResumeLayout(false);
-            tableLayoutPanelActionButtons.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
