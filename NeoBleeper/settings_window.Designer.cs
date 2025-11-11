@@ -615,6 +615,7 @@
             resources.ApplyResources(comboBox_midi_output_instrument, "comboBox_midi_output_instrument");
             comboBox_midi_output_instrument.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_instrument.FormattingEnabled = true;
+            comboBox_midi_output_instrument.Items.AddRange(new object[] { resources.GetString("comboBox_midi_output_instrument.Items"), resources.GetString("comboBox_midi_output_instrument.Items1"), resources.GetString("comboBox_midi_output_instrument.Items2"), resources.GetString("comboBox_midi_output_instrument.Items3"), resources.GetString("comboBox_midi_output_instrument.Items4"), resources.GetString("comboBox_midi_output_instrument.Items5"), resources.GetString("comboBox_midi_output_instrument.Items6"), resources.GetString("comboBox_midi_output_instrument.Items7"), resources.GetString("comboBox_midi_output_instrument.Items8"), resources.GetString("comboBox_midi_output_instrument.Items9"), resources.GetString("comboBox_midi_output_instrument.Items10"), resources.GetString("comboBox_midi_output_instrument.Items11"), resources.GetString("comboBox_midi_output_instrument.Items12"), resources.GetString("comboBox_midi_output_instrument.Items13"), resources.GetString("comboBox_midi_output_instrument.Items14"), resources.GetString("comboBox_midi_output_instrument.Items15"), resources.GetString("comboBox_midi_output_instrument.Items16"), resources.GetString("comboBox_midi_output_instrument.Items17"), resources.GetString("comboBox_midi_output_instrument.Items18"), resources.GetString("comboBox_midi_output_instrument.Items19"), resources.GetString("comboBox_midi_output_instrument.Items20"), resources.GetString("comboBox_midi_output_instrument.Items21"), resources.GetString("comboBox_midi_output_instrument.Items22"), resources.GetString("comboBox_midi_output_instrument.Items23"), resources.GetString("comboBox_midi_output_instrument.Items24"), resources.GetString("comboBox_midi_output_instrument.Items25"), resources.GetString("comboBox_midi_output_instrument.Items26"), resources.GetString("comboBox_midi_output_instrument.Items27"), resources.GetString("comboBox_midi_output_instrument.Items28"), resources.GetString("comboBox_midi_output_instrument.Items29"), resources.GetString("comboBox_midi_output_instrument.Items30"), resources.GetString("comboBox_midi_output_instrument.Items31"), resources.GetString("comboBox_midi_output_instrument.Items32"), resources.GetString("comboBox_midi_output_instrument.Items33"), resources.GetString("comboBox_midi_output_instrument.Items34"), resources.GetString("comboBox_midi_output_instrument.Items35"), resources.GetString("comboBox_midi_output_instrument.Items36"), resources.GetString("comboBox_midi_output_instrument.Items37"), resources.GetString("comboBox_midi_output_instrument.Items38"), resources.GetString("comboBox_midi_output_instrument.Items39"), resources.GetString("comboBox_midi_output_instrument.Items40"), resources.GetString("comboBox_midi_output_instrument.Items41"), resources.GetString("comboBox_midi_output_instrument.Items42"), resources.GetString("comboBox_midi_output_instrument.Items43"), resources.GetString("comboBox_midi_output_instrument.Items44"), resources.GetString("comboBox_midi_output_instrument.Items45"), resources.GetString("comboBox_midi_output_instrument.Items46"), resources.GetString("comboBox_midi_output_instrument.Items47"), resources.GetString("comboBox_midi_output_instrument.Items48"), resources.GetString("comboBox_midi_output_instrument.Items49"), resources.GetString("comboBox_midi_output_instrument.Items50"), resources.GetString("comboBox_midi_output_instrument.Items51"), resources.GetString("comboBox_midi_output_instrument.Items52"), resources.GetString("comboBox_midi_output_instrument.Items53"), resources.GetString("comboBox_midi_output_instrument.Items54"), resources.GetString("comboBox_midi_output_instrument.Items55"), resources.GetString("comboBox_midi_output_instrument.Items56"), resources.GetString("comboBox_midi_output_instrument.Items57"), resources.GetString("comboBox_midi_output_instrument.Items58"), resources.GetString("comboBox_midi_output_instrument.Items59"), resources.GetString("comboBox_midi_output_instrument.Items60"), resources.GetString("comboBox_midi_output_instrument.Items61"), resources.GetString("comboBox_midi_output_instrument.Items62"), resources.GetString("comboBox_midi_output_instrument.Items63"), resources.GetString("comboBox_midi_output_instrument.Items64"), resources.GetString("comboBox_midi_output_instrument.Items65"), resources.GetString("comboBox_midi_output_instrument.Items66"), resources.GetString("comboBox_midi_output_instrument.Items67"), resources.GetString("comboBox_midi_output_instrument.Items68"), resources.GetString("comboBox_midi_output_instrument.Items69"), resources.GetString("comboBox_midi_output_instrument.Items70"), resources.GetString("comboBox_midi_output_instrument.Items71"), resources.GetString("comboBox_midi_output_instrument.Items72"), resources.GetString("comboBox_midi_output_instrument.Items73"), resources.GetString("comboBox_midi_output_instrument.Items74"), resources.GetString("comboBox_midi_output_instrument.Items75"), resources.GetString("comboBox_midi_output_instrument.Items76"), resources.GetString("comboBox_midi_output_instrument.Items77"), resources.GetString("comboBox_midi_output_instrument.Items78"), resources.GetString("comboBox_midi_output_instrument.Items79"), resources.GetString("comboBox_midi_output_instrument.Items80"), resources.GetString("comboBox_midi_output_instrument.Items81"), resources.GetString("comboBox_midi_output_instrument.Items82"), resources.GetString("comboBox_midi_output_instrument.Items83"), resources.GetString("comboBox_midi_output_instrument.Items84"), resources.GetString("comboBox_midi_output_instrument.Items85"), resources.GetString("comboBox_midi_output_instrument.Items86"), resources.GetString("comboBox_midi_output_instrument.Items87"), resources.GetString("comboBox_midi_output_instrument.Items88"), resources.GetString("comboBox_midi_output_instrument.Items89"), resources.GetString("comboBox_midi_output_instrument.Items90"), resources.GetString("comboBox_midi_output_instrument.Items91"), resources.GetString("comboBox_midi_output_instrument.Items92"), resources.GetString("comboBox_midi_output_instrument.Items93"), resources.GetString("comboBox_midi_output_instrument.Items94"), resources.GetString("comboBox_midi_output_instrument.Items95"), resources.GetString("comboBox_midi_output_instrument.Items96"), resources.GetString("comboBox_midi_output_instrument.Items97"), resources.GetString("comboBox_midi_output_instrument.Items98"), resources.GetString("comboBox_midi_output_instrument.Items99"), resources.GetString("comboBox_midi_output_instrument.Items100"), resources.GetString("comboBox_midi_output_instrument.Items101"), resources.GetString("comboBox_midi_output_instrument.Items102"), resources.GetString("comboBox_midi_output_instrument.Items103"), resources.GetString("comboBox_midi_output_instrument.Items104"), resources.GetString("comboBox_midi_output_instrument.Items105"), resources.GetString("comboBox_midi_output_instrument.Items106"), resources.GetString("comboBox_midi_output_instrument.Items107"), resources.GetString("comboBox_midi_output_instrument.Items108"), resources.GetString("comboBox_midi_output_instrument.Items109"), resources.GetString("comboBox_midi_output_instrument.Items110"), resources.GetString("comboBox_midi_output_instrument.Items111"), resources.GetString("comboBox_midi_output_instrument.Items112"), resources.GetString("comboBox_midi_output_instrument.Items113"), resources.GetString("comboBox_midi_output_instrument.Items114"), resources.GetString("comboBox_midi_output_instrument.Items115"), resources.GetString("comboBox_midi_output_instrument.Items116"), resources.GetString("comboBox_midi_output_instrument.Items117"), resources.GetString("comboBox_midi_output_instrument.Items118"), resources.GetString("comboBox_midi_output_instrument.Items119"), resources.GetString("comboBox_midi_output_instrument.Items120"), resources.GetString("comboBox_midi_output_instrument.Items121"), resources.GetString("comboBox_midi_output_instrument.Items122"), resources.GetString("comboBox_midi_output_instrument.Items123"), resources.GetString("comboBox_midi_output_instrument.Items124"), resources.GetString("comboBox_midi_output_instrument.Items125"), resources.GetString("comboBox_midi_output_instrument.Items126"), resources.GetString("comboBox_midi_output_instrument.Items127") });
             comboBox_midi_output_instrument.Name = "comboBox_midi_output_instrument";
             toolTip1.SetToolTip(comboBox_midi_output_instrument, resources.GetString("comboBox_midi_output_instrument.ToolTip"));
             comboBox_midi_output_instrument.SelectedIndexChanged += comboBox_midi_output_instrument_SelectedIndexChanged;
@@ -624,6 +625,7 @@
             resources.ApplyResources(comboBox_midi_output_channel, "comboBox_midi_output_channel");
             comboBox_midi_output_channel.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_midi_output_channel.FormattingEnabled = true;
+            comboBox_midi_output_channel.Items.AddRange(new object[] { resources.GetString("comboBox_midi_output_channel.Items"), resources.GetString("comboBox_midi_output_channel.Items1"), resources.GetString("comboBox_midi_output_channel.Items2"), resources.GetString("comboBox_midi_output_channel.Items3"), resources.GetString("comboBox_midi_output_channel.Items4"), resources.GetString("comboBox_midi_output_channel.Items5"), resources.GetString("comboBox_midi_output_channel.Items6"), resources.GetString("comboBox_midi_output_channel.Items7"), resources.GetString("comboBox_midi_output_channel.Items8"), resources.GetString("comboBox_midi_output_channel.Items9"), resources.GetString("comboBox_midi_output_channel.Items10"), resources.GetString("comboBox_midi_output_channel.Items11"), resources.GetString("comboBox_midi_output_channel.Items12"), resources.GetString("comboBox_midi_output_channel.Items13"), resources.GetString("comboBox_midi_output_channel.Items14"), resources.GetString("comboBox_midi_output_channel.Items15") });
             comboBox_midi_output_channel.Name = "comboBox_midi_output_channel";
             toolTip1.SetToolTip(comboBox_midi_output_channel, resources.GetString("comboBox_midi_output_channel.ToolTip"));
             comboBox_midi_output_channel.SelectedIndexChanged += comboBox_midi_output_channel_SelectedIndexChanged;
@@ -1194,7 +1196,6 @@
             groupBoxCreateMusicWithAI.ResumeLayout(false);
             groupBoxCreateMusicWithAI.PerformLayout();
             groupBox_system_speaker_test.ResumeLayout(false);
-            groupBox_system_speaker_test.PerformLayout();
             panelSystemSpeakerWarnings.ResumeLayout(false);
             creating_sound_settings.ResumeLayout(false);
             flowLayoutPanelCreatingSoundSettings.ResumeLayout(false);
@@ -1270,18 +1271,12 @@
         private Button blank_line_color_change;
         private Label label5;
         private Label label6;
-        private Label label7;
         private Button erase_whole_line_color_change;
         private Label label9;
         private Button playback_buttons_color_change;
         private Label label8;
         private Button metronome_color_change;
         private Label label10;
-        private GroupBox group_indicator_colors;
-        private Button note_indicator_color_change;
-        private Label label11;
-        private Button beep_indicator_color_change;
-        private Label label12;
         private ColorDialog colorDialog1;
         private Button reset_appearance_settings;
         private Button refresh_midi_input_button;
@@ -1341,8 +1336,6 @@
         private Panel unselect_line_color;
         private Panel clear_notes_color;
         private Panel blank_line_color;
-        private Panel beep_indicator_color;
-        private Panel note_indicator_color;
         private Button buttonUpdateAPIKey;
         private Button buttonResetAPIKey;
         private Label label_firmware_warning;
@@ -1351,5 +1344,13 @@
         private ToolStripMenuItem standardTuneTestToolStripMenuItem;
         private ToolStripMenuItem advancedSystemSpeakerTestToolStripMenuItem;
         private Label labelGoogleGeminiAPIWarning;
+        private GroupBox group_indicator_colors;
+        private Button note_indicator_color_change;
+        private Button beep_indicator_color_change;
+        private Label label12;
+        private Panel beep_indicator_color;
+        private Panel note_indicator_color;
+        private Label label11;
+        private Label label7;
     }
 }
