@@ -684,6 +684,9 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Bu durumun nedenini göster</value>
   </data>
+  <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>501, 102</value>
+  </data>
   <data name="group_tone_waveform.Text" xml:space="preserve">
     <value>Ton Dalga Şekli</value>
   </data>

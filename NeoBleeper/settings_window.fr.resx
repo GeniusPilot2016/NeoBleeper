@@ -619,6 +619,10 @@ uniquement en tant que service payant. Veuillez vous assurer que votre clé API 
   <data name="label_test_system_speaker_message.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label_test_system_speaker_message.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 54</value>
   </data>
