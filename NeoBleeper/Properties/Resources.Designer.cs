@@ -178,6 +178,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Crash report copied to clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string CrashReportCopied {
+            get {
+                return ResourceManager.GetString("CrashReportCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
         ///
         ///When enabled, the position table will not update when the music is playing.
@@ -736,6 +745,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_error_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-error-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_error_481 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-error-481", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

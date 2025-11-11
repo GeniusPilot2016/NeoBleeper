@@ -95,8 +95,7 @@ namespace NeoBleeper
         private void buttonCopyFirmwareToClipboard_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(richTextBoxFirmware.Text);
-            Toast toast = new Toast(this, Resources.MessageFirmwareCopied, 2000);
-            toast.Show();
+            Toast.ShowToast(this, Resources.MessageFirmwareCopied, 2000);
         }
 
         private void comboBoxMicrocontroller_SelectedIndexChanged(object sender, EventArgs e)

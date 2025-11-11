@@ -21,6 +21,7 @@ namespace NeoBleeper
 {
     public class GetInformations
     {
+        public static string GlobalSystemInfo;
         static bool is_system_speaker_present = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present;
         static bool is_manufacturer_affected = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues;
         public static (string version, string status) GetVersionAndStatus()
@@ -261,6 +262,7 @@ namespace NeoBleeper
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
+            GlobalSystemInfo = systemInfo;
             Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered, 10);
             return systemInfo;
         }

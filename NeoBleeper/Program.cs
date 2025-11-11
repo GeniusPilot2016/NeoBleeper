@@ -213,7 +213,7 @@ namespace NeoBleeper
                 {
                     splashScreen.Hide();
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
-                    MessageForm.Show(Resources.AnErrorOccurredWhileRunningApplication + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CrashReportingForm.GenerateAndShowCrashReport(ex.GetType().ToString(), ex.Message, ex.StackTrace);
                     Application.Exit();
                 }
                 finally

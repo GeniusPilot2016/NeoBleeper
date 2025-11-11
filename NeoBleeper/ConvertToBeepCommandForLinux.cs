@@ -112,8 +112,7 @@ namespace NeoBleeper
             string textToCopy = richTextBoxBeepCommand.Text.Trim();
             textToCopy = textToCopy.Replace("\n", string.Empty);
             Clipboard.SetText(textToCopy);
-            Toast toast = new Toast(this, Resources.MessageConvertedBeepCommandCopied, 2000);
-            toast.Show();
+            Toast.ShowToast(this, Resources.MessageConvertedBeepCommandCopied, 2000);
         }
 
         StringBuilder beepCommandBuilder = new StringBuilder();
