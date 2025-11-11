@@ -550,7 +550,7 @@ Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
     <value>Bu özellik, programın ses sistemini kullanarak konuşma formantlarını taklit etmesini ve seçili notaların "şarkı söyleme" gibi algılanmasını sağlar.</value>
   </data>
   <data name="ButtonRetry" xml:space="preserve">
-    <value>&amp;Yeniden dene</value>
+    <value>&amp;Yeniden Dene</value>
   </data>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
@@ -821,5 +821,20 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Elektriksel geri besleme testi: </value>
+  </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Lazer, Kırbaç, Scratch İtme, Scratch Çekme, Baget Tıklaması, Yan Baget, Metronom Tıklaması, Metronom Zili, Bas Davul, Kick Davul, Trampet Kenar Vuruşu, Trampet, El Çırpma, Elektrikli Trampet, Taban Tom 2, Kapalı Hi-Hat, Taban Tom 1, Hi-Hat Pedal, Alçak Tom, Açık Hi-Hat, Alçak-Orta Tom, Yüksek-Orta Tom, Crash Zil, Yüksek Tom, Ride Zil, China Zil, Ride Çan, Tef, Splash Zil, İnek Çanı, Crash Zil 2, Vibraslap, Ride Zil 2, Yüksek Bongo, Alçak Bongo, Konga Boğuk Vuruş, Konga, Tumba, Yüksek Timbal, Alçak Timbal, Yüksek Agogo, Alçak Agogo, Kabasa, Marakas, Kısa Düdük, Uzun Düdük, Kısa Güiro, Uzun Güiro, Klavis, Yüksek Tahta Blok, Alçak Tahta Blok, Yüksek Cuica, Alçak Cuica, Susturulmuş Üçgen, Açık Üçgen, Shaker, Kızak Zili, Çan Ağacı, Kastanyet, Surdu Boğuk Vuruş, Surdu, Güiro, Klave, Tahta Blok, Trampet Çubuk, Okyanus Davulu, Trampet Fırça</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>&amp;Sonlandır</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>Y&amp;oksay</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>Y&amp;eniden Dene</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>&amp;Devam Et</value>
   </data>
 </root>

@@ -820,4 +820,19 @@ Vuoi aprire comunque questo file?</value>
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Test di feedback elettrico: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, Frusta, Scratch spinto, Scratch tirato, Click di bacchetta, Colpo di cerchio, Click di metronomo, Campana di metronomo, Gran cassa, Cassa, Bacchetta sul cerchio, Rullante, Battito di mani, Rullante elettrico, Tom basso 2, Charleston chiuso, Tom basso 1, Charleston a pedale, Tom grave, Charleston aperto, Tom medio-grave, Tom medio-acuto, Piatto crash, Tom acuto, Piatto ride, Piatto china, Campana ride, Tamburello, Piatto splash, Campanaccio, Piatto crash 2, Vibraslap, Piatto ride 2, Bongo acuto, Bongo grave, Conga colpo chiuso, Conga, Tumba, Timbales acuto, Timbales grave, Agogo acuto, Agogo grave, Cabasa, Maracas, Fischio corto, Fischio lungo, Güiro corto, Güiro lungo, Claves, Wood block acuto, Wood block grave, Cuíca acuta, Cuíca grave, Triangolo chiuso, Triangolo aperto, Shaker, Sonagli, Campane tubolari, Castagnette, Surdu colpo chiuso, Surdu, Güiro, Clave, Wood block, Rullante con bacchette, Ocean drum, Rullante con spazzole</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>I&amp;nterrompi</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignorare</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>R&amp;iprova</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>C&amp;ontinuare</value>
+  </data>
 </root>

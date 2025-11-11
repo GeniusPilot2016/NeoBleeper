@@ -274,7 +274,37 @@ namespace NeoBleeper
                     button2.Text = Resources.ButtonCancel;
                     button2.DialogResult = DialogResult.Cancel;
                     break;
-
+                case MessageBoxButtons.AbortRetryIgnore:
+                    button1.ImageIndex = 4;
+                    button1.Text = Resources.ButtonAbort;
+                    button1.DialogResult = DialogResult.Abort;
+                    button2.ImageIndex = 2;
+                    button2.Text = Resources.ButtonRetry;
+                    button2.DialogResult = DialogResult.Retry;
+                    button3.ImageIndex = 5;
+                    button3.Text = Resources.ButtonIgnore;
+                    button3.DialogResult = DialogResult.Ignore;
+                    break;
+                case MessageBoxButtons.OKCancel:
+                    RemoveSelectedCell(new Button[] { button3 });
+                    button1.ImageIndex = 0;
+                    button1.Text = Resources.ButtonOK;
+                    button1.DialogResult = DialogResult.OK;
+                    button2.ImageIndex = 3;
+                    button2.Text = Resources.ButtonCancel;
+                    button2.DialogResult = DialogResult.Cancel;
+                    break;
+                case MessageBoxButtons.CancelTryContinue:
+                    button1.ImageIndex = 3;
+                    button1.Text = Resources.ButtonCancel;
+                    button1.DialogResult = DialogResult.Cancel;
+                    button2.ImageIndex = 6;
+                    button2.Text = Resources.ButtonTryAgain;
+                    button2.DialogResult = DialogResult.TryAgain;
+                    button3.ImageIndex = 5;
+                    button3.Text = Resources.ButtonContinue;
+                    button3.DialogResult = DialogResult.Continue;
+                    break;
             }
             resizeCellsByText(); // Resize cells based on button text length for some languages such as German
         }

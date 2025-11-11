@@ -84,6 +84,9 @@
             icons.Images.SetKeyName(1, "icons8-no-48.png");
             icons.Images.SetKeyName(2, "icons8-retry-48.png");
             icons.Images.SetKeyName(3, "icons8-cancel-48.png");
+            icons.Images.SetKeyName(4, "icons8-exit-48.png");
+            icons.Images.SetKeyName(5, "icons8-forward-button-48.png");
+            icons.Images.SetKeyName(6, "icons8-refresh-48.png");
             // 
             // tableLayoutPanelActionButtons
             // 

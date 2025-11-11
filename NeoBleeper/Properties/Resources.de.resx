@@ -821,4 +821,19 @@ Sie können den gewünschten Klang auswählen, indem Sie auf die Schaltfläche �
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Elektrischer Rückkopplungstest: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, Peitsche, Scratch-Stoß, Scratch-Zug, Stock-Klick, Rimshot, Metronom-Klick, Metronom-Glocke, Basstrommel, Kick-Drum, Snare-Randschlag, Snare-Drum, Händeklatschen, Elektrische Snare-Drum, Standtom 2, Hi-Hat geschlossen, Standtom 1, Hi-Hat-Fußpedal, Tiefer Tom, Hi-Hat offen, Tief-mittlerer Tom, Hoch-mittlerer Tom, Crash-Becken, Hoher Tom, Ride-Becken, China-Becken, Ride-Kuppe, Tamburin, Splash-Becken, Kuhglocke, Crash-Becken 2, Vibraslap, Ride-Becken 2, Hohe Bongo, Tiefe Bongo, Conga gedämpft, Conga, Tumba, Hohe Timbale, Tiefe Timbale, Hohe Agogo, Tiefe Agogo, Cabasa, Maracas, Kurze Pfeife, Lange Pfeife, Kurzes Güiro, Langes Güiro, Claves, Hoher Holzblock, Tiefer Holzblock, Hohe Cuíca, Tiefe Cuíca, Triangel gedämpft, Triangel offen, Shaker, Schlittenglöckchen, Glockenstab, Kastagnetten, Surdu gedämpft, Surdu, Güiro, Clave, Holzblock, Snare-Drum-Rute, Oceandrum, Snare-Drum-Besen</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>&amp;Abbrechen</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignorieren</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>&amp;Versuchen Sie es erneut</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>W&amp;eitermachen</value>
+  </data>
 </root>

@@ -821,4 +821,19 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Kiểm tra phản hồi điện: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, 채찍, Cào đẩy, Cào kéo, Tiếng gõ dùi, Gõ thành, Tiếng tích nhịp, Chuông nhịp, Trống bass, Trống kick, Gõ vành trống snare, Trống snare, Vỗ tay, Trống snare điện, Tom sàn 2, Hi-hat đóng, Tom sàn 1, Hi-hat đạp chân, Tom thấp, Hi-hat mở, Tom trung thấp, Tom trung cao, Chũm crash, Tom cao, Chũm ride, Chũm china, Chuông ride, Lục lạc tay, Chũm splash, Chuông bò, Chũm crash 2, Vibraslap, Chũm ride 2, Bongo cao, Bongo thấp, Conga đánh câm, Conga, Tumba, Timbale cao, Timbale thấp, Agogo cao, Agogo thấp, Cabasa, Maracas, Còi ngắn, Còi dài, Güiro ngắn, Güiro dài, Claves, Mộc ngư cao, Mộc ngư thấp, Cuíca cao, Cuíca thấp, Tam giác câm, Tam giác mở, Lắc tay, Chuông trượt tuyết, Cây chuông, Phiến gỗ, Surdu đánh câm, Surdu, Güiro, Clave, Khối gỗ, Trống snare dùi, Trống đại dương, Trống snare chổi</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>H&amp;ủy bỏ</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Phớt lờ</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>T&amp;hử lại</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>T&amp;iếp tục</value>
+  </data>
 </root>

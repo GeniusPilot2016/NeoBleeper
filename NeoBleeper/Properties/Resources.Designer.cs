@@ -97,11 +97,38 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   &amp;Abort benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonAbort {
+            get {
+                return ResourceManager.GetString("ButtonAbort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   &amp;Cancel benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ButtonCancel {
             get {
                 return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   C&amp;ontinue benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonContinue {
+            get {
+                return ResourceManager.GetString("ButtonContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;Ignore benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonIgnore {
+            get {
+                return ResourceManager.GetString("ButtonIgnore", resourceCulture);
             }
         }
         
@@ -129,6 +156,15 @@ namespace NeoBleeper.Properties {
         public static string ButtonRetry {
             get {
                 return ResourceManager.GetString("ButtonRetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &amp;Try Again benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ButtonTryAgain {
+            get {
+                return ResourceManager.GetString("ButtonTryAgain", resourceCulture);
             }
         }
         
@@ -1452,6 +1488,15 @@ namespace NeoBleeper.Properties {
         public static string OverallResult {
             get {
                 return ResourceManager.GetString("OverallResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, Hi [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PercussionNames {
+            get {
+                return ResourceManager.GetString("PercussionNames", resourceCulture);
             }
         }
         

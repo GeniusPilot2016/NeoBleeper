@@ -821,4 +821,19 @@ Puedes elegir el sonido que quieres reproducir haciendo clic en el botón "Cambi
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Prueba de retroalimentación eléctrica: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Láser, Látigo, Scratch empujado, Scratch jalado, Clic de baqueta, Golpe de aro, Clic de metrónomo, Campana de metrónomo, Bombo, Bombo, Aro de caja, Caja, Palmada, Caja eléctrica, Tom de piso 2, Hi-hat cerrado, Tom de piso 1, Hi-hat con pedal, Tom grave, Hi-hat abierto, Tom medio-grave, Tom medio-agudo, Platillo crash, Tom agudo, Platillo ride, Platillo china, Campana ride, Pandereta, Platillo splash, Cencerro, Platillo crash 2, Vibraslap, Platillo ride 2, Bongó agudo, Bongó grave, Conga apagada, Conga, Tumba, Timbal agudo, Timbal grave, Agogó agudo, Agogó grave, Cabasa, Maracas, Silbato corto, Silbato largo, Güiro corto, Güiro largo, Claves, Bloque de madera agudo, Bloque de madera grave, Cuíca aguda, Cuíca grave, Triángulo apagado, Triángulo abierto, Shaker, Cascabeles, Campanas tubulares, Castañuelas, Surdu apagado, Surdu, Güiro, Clave, Bloque de madera, Caja con baquetas, Tambor oceánico, Caja con escobillas</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>&amp;Abortar</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignorar</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>&amp;Intentar otra vez</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>C&amp;ontinuar</value>
+  </data>
 </root>

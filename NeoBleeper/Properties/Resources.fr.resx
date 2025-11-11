@@ -821,4 +821,19 @@ Vous pouvez choisir le son à reproduire en cliquant sur le bouton « Modifier 
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Test de rétroaction électrique: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, Fouet, Scratch poussé, Scratch tiré, Clic de baguette, Rimshot, Clic de métronome, Cloche de métronome, Grosse caisse, Grosse caisse, Cercle de caisse claire, Caisse claire, Claquement de mains, Caisse claire électrique, Tom basse 2, Charleston fermé, Tom basse 1, Charleston au pied, Tom grave, Charleston ouvert, Tom médium-grave, Tom médium-aigu, Cymbale crash, Tom aigu, Cymbale ride, Cymbale china, Cloche de ride, Tambourin, Cymbale splash, Cloche de vache, Cymbale crash 2, Vibraslap, Cymbale ride 2, Bongo aigu, Bongo grave, Conga étouffé, Conga, Tumba, Timbale aiguë, Timbale grave, Agogo aigu, Agogo grave, Cabasa, Maracas, Sifflet court, Sifflet long, Güiro court, Güiro long, Claves, Woodblock aigu, Woodblock grave, Cuíca aiguë, Cuíca grave, Triangle étouffé, Triangle ouvert, Shaker, Grelots, Carillon tubulaire, Castagnettes, Surdu étouffé, Surdu, Güiro, Clave, Woodblock, Balais de caisse claire, Ocean drum, Balais de caisse claire</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>A&amp;vorter</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignorer</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>&amp;Essayer à nouveau</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>&amp;Continuer</value>
+  </data>
 </root>

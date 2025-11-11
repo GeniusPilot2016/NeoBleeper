@@ -838,4 +838,19 @@ You can choose the sound to play by clicking the 'Change Beat Sound' button.</va
   <data name="ElectricalFeedbackTest" xml:space="preserve">
     <value>Electrical feedback test: </value>
   </data>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, High Agogo, Low Agogo, Cabasa, Maracas, Whistle Short, Whistle Long, Guiro Short, Guiro Long, Claves, High Woodblock, Low Woodblock, Cuica High, Cuica Low, Triangle Mute, Triangle Open, Shaker, Sleigh Bell, Bell Tree, Castanets, Surdu Dead Stroke, Surdu, Güiro, Clave, Wood Block, Snare Drum Rod, Ocean Drum, Snare Drum Brush</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>&amp;Abort</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignore</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>&amp;Try Again</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>C&amp;ontinue</value>
+  </data>
 </root>
