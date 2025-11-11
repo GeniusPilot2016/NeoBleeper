@@ -138,5 +138,10 @@ namespace NeoBleeper
                 e.Graphics.DrawRectangle(pen, rectangle);
             }
         }
+        public static void ShowToast(Form parentForm, string Message, int duration)
+        {
+            Toast toast = new Toast(parentForm, Message, duration);
+            toast.Show();
+        }
     }
 }
