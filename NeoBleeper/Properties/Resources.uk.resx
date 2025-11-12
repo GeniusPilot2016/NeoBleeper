@@ -502,8 +502,8 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Виробник материнської плати {manufacturer}, як відомо, має проблеми із системними динаміками. Системний динамік може не розпізнаватися або не працювати належним чином.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Відомо, що чіпсет {chipset} має проблеми з системними динаміками. Системний динамік може не розпізнаватися або не працювати належним чином.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Помилка завантаження MIDI-файлу:</value>
@@ -546,8 +546,8 @@
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Класичний режим звукового сигналу вимкнено. NeoBleeper працюватиме у стандартному режимі.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Перевірка виробника материнської плати на наявність проблем із системними динаміками...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Перевірка чіпсета на наявність проблем із системними динаміками...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Ключ API Google Gemini™ успішно збережено.</value>
@@ -615,8 +615,8 @@
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>Ініціалізація входу/виходу MIDI...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Помилка перевірки виробника материнської плати. Тож невідомо, чи це стосується цього.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Помилка перевірки виробника чіпсета. Тож невідомо, чи це стосується цього.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>ПРОЙДЕНО</value>
@@ -748,8 +748,8 @@
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Наразі очікується</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Виробник материнських плат не має відомих проблем із системними динаміками.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Відомо, що чіпсет не має проблем із системними динаміками.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -840,5 +840,14 @@
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Звіт про збій скопійовано в буфер обміну.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Пробудження системного динаміка для уражених чипсетів... (можливо, ви чуєте клацання)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>Системний динамік прокинувся.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Помилка пробудження системного динаміка: </value>
   </data>
 </root>

@@ -21,7 +21,7 @@ namespace NeoBleeper
         public static class eligibility_of_create_beep_from_system_speaker
         {
             public static bool is_system_speaker_present;
-            public static bool is_manufacturer_of_motherboard_affecting_system_speaker_issues;
+            public static bool is_chipset_affecting_system_speaker_issues;
             public static DeviceType deviceType = DeviceType.Unknown;
 
             public enum DeviceType

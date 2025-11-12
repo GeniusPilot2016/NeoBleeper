@@ -501,8 +501,8 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Anakart üreticisinin {manufacturer} sistem hoparlörü sorunları yaşadığı biliniyor. Sistem hoparlörü algılanmıyor veya düzgün çalışmıyor olabilir.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Yonga setinin {chipset} sistem hoparlörü sorunları olduğu biliniyor. Sistem hoparlörü algılanamayabilir veya düzgün çalışmayabilir.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>MIDI dosyası yüklenirken hata oluştu:</value>
@@ -545,8 +545,8 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Klasik Bleeper Modu devre dışı. NeoBleeper standart modda başlatılacak.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Sistem hoparlörü sorunları için anakart üreticisi kontrol ediliyor...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Sistem hoparlörü sorunları için yonga seti kontrol ediliyor...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Google Gemini™ API anahtarı başarıyla kaydedildi.</value>
@@ -614,8 +614,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI giriş/çıkış başlatılıyor...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Anakart üreticisi kontrol edilirken hata oluştu. Bu nedenle etkilenip etkilenmediği bilinmiyor.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Yonga seti üreticisi kontrol edilirken hata oluştu. Bu nedenle etkilenip etkilenmediği bilinmiyor.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>GEÇTİ</value>
@@ -746,8 +746,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Şu anda bekliyor</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Anakart üreticisinin sistem hoparlörü sorunları yaşadığına dair bir bilgi bulunmamaktadır.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Yonga setinin sistem hoparlörü sorunlarına yol açtığı bilinmiyor.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -839,5 +839,14 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Çökme raporu panoya kopyalandı.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Etkilenen yonga setleri için sistem hoparlörü uyandırılıyor... (tıklama sesleri duyabilirsiniz)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>Sistem hoparlörü uyandırıldı.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Sistem hoparlörünü uyandırırken hata oluştu: </value>
   </data>
 </root>
