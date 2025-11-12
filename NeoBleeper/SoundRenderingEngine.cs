@@ -21,6 +21,7 @@ using NAudio.Wave.SampleProviders;
 using NeoBleeper.Properties;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using static NeoBleeper.TemporarySettings;
 
 namespace NeoBleeper
@@ -484,28 +485,54 @@ namespace NeoBleeper
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
+            enum ProcessorManufacturer // Enum for known processor manufacturers
+            {
+                Intel,
+                AMD,
+                Other
+            }
             public static bool checkChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    bool acquired = false;
-                    // Try to acquire the mutex with a timeout to avoid indefinite blocking
-                    acquired = SystemSpeakerMutex.WaitOne(TimeSpan.FromSeconds(5));
-                    if (!acquired)
-                    {
-                        // Handle the case where the mutex could not be acquired
-                        return false;
-                    }
                     try
                     {
+                        ProcessorManufacturer processorManufacturer = ProcessorManufacturer.Other;
                         Program.splashScreen.updateStatus(Resources.StatusCheckingChipsetForSystemSpeakerIssues);
-                        string[] affectedChipsets = new string[] { "B660", "H610", "Z790", "B760", "Q670" }; // Known affected chipsets with system speaker issues
-
+                        // Known affected chipset patterns with system speaker issues
+                        string affectedIntelChipsetPattern = @"\b([BZHQ][67][0-9]{2})\b"; // Affected Intel chipset pattern
+                        string affectedAMDChipsetPattern = @"\b([BX][56]50|X670)\b"; // Affected AMD chipset pattern
                         var identifiersToSearch = new List<string>();
 
-                        // 1. Take Win32_BaseBoard information
+                        // 1. Take Win32_Processor information
+                        using (var searcher = new ManagementObjectSearcher("SELECT Name, Manufacturer FROM Win32_Processor"))
+                        {
+                            foreach (var obj in searcher.Get())
+                            {
+                                identifiersToSearch.Add(obj["Name"]?.ToString() ?? string.Empty);
+                                identifiersToSearch.Add(obj["Manufacturer"]?.ToString() ?? string.Empty);
+                                if(obj["Manufacturer"] != null)
+                                {
+                                    string manufacturer = obj["Manufacturer"].ToString();
+                                    if (manufacturer.IndexOf("Intel", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    {
+                                        processorManufacturer = ProcessorManufacturer.Intel;
+                                    }
+                                    else if (manufacturer.IndexOf("AMD", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    {
+                                        processorManufacturer = ProcessorManufacturer.AMD;
+                                    }
+                                    else
+                                    {
+                                        processorManufacturer = ProcessorManufacturer.Other;
+                                    }
+                                }
+                            }
+                        }
+
+                        // 2. Take Win32_BaseBoard information
                         using (var searcher = new ManagementObjectSearcher("SELECT Product, Version, Name FROM Win32_BaseBoard"))
                         {
                             foreach (var obj in searcher.Get())
@@ -516,7 +543,7 @@ namespace NeoBleeper
                             }
                         }
 
-                        // 2. Take Win32_ComputerSystemProduct information
+                        // 3. Take Win32_ComputerSystemProduct information
                         using (var searcher = new ManagementObjectSearcher("SELECT Name, Version FROM Win32_ComputerSystemProduct"))
                         {
                             foreach (var obj in searcher.Get())
@@ -529,10 +556,22 @@ namespace NeoBleeper
                         // Search for affected chipsets in the collected identifiers
                         foreach (var identifier in identifiersToSearch.Where(s => !string.IsNullOrEmpty(s)))
                         {
-                            foreach (string chipset in affectedChipsets)
+                            if (processorManufacturer == ProcessorManufacturer.Intel)
                             {
-                                if (identifier.Contains(chipset, StringComparison.OrdinalIgnoreCase))
+                                if (Regex.IsMatch(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase))
                                 {
+                                    string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
+                                    string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
+                                    Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
+                                    Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
+                                    return true; // Affected chipset found
+                                }
+                            }
+                            else if (processorManufacturer == ProcessorManufacturer.AMD)
+                            {
+                                if (Regex.IsMatch(identifier, affectedAMDChipsetPattern, RegexOptions.IgnoreCase))
+                                {
+                                    string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
                                     string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
                                     Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
                                     Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
@@ -543,20 +582,13 @@ namespace NeoBleeper
 
                         Program.splashScreen.updateStatus(Resources.StatusChipsetIsNotAffected, 5);
                         Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
-                        return false; // Return false if no match is found
+                        return false; // Return false if no match is found or manufacturer of processor is neither Intel or AMD
                     }
                     catch
                     {
                         Program.splashScreen.updateStatus(Resources.StatusErrorCheckingChipset);
                         Program.isAffectedChipsetManufacturerChecked = false; // Mark that the check failed
                         return false; // On error, assume not affected
-                    }
-                    finally
-                    {
-                        if (acquired)
-                        {
-                            SystemSpeakerMutex.ReleaseMutex();
-                        }
                     }
                 }
                 else
@@ -570,6 +602,14 @@ namespace NeoBleeper
                 {
                     if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
                     {
+                        bool acquired = false;
+                        // Try to acquire the mutex with a timeout to avoid indefinite blocking
+                        acquired = SystemSpeakerMutex.WaitOne(TimeSpan.FromSeconds(5));
+                        if (!acquired)
+                        {
+                            // Handle the case where the mutex could not be acquired
+                            return;
+                        }
                         try
                         {
                             Program.splashScreen.updateStatus(Resources.StatusWakingUpSystemSpeaker);
@@ -601,6 +641,13 @@ namespace NeoBleeper
                         catch (Exception ex)
                         {
                             Program.splashScreen.updateStatus(Resources.StatusErrorWakingUpSystemSpeaker + ex.Message);
+                        }
+                        finally
+                        {
+                            if (acquired)
+                            {
+                                SystemSpeakerMutex.ReleaseMutex();
+                            }
                         }
                     }
                 }
