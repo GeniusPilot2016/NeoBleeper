@@ -510,8 +510,8 @@ You can see the key mappings on the buttons at the top of the window.</value>
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Motherboard manufacturer {manufacturer} is known to have system speaker issues. The system speaker may not detected or function properly.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Chipset {chipset} is known to have system speaker issues. The system speaker may not detected or function properly.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Error loading MIDI file:</value>
@@ -557,8 +557,8 @@ This feature makes the system speaker/sound device increase or decrease in pitch
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Checking motherboard manufacturer for system speaker issues...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Checking chipset for system speaker issues...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Google Gemini™ API key saved successfully.</value>
@@ -632,8 +632,8 @@ Do you want to open this file anyway?</value>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI input/output is being initialized...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Error checking motherboard manufacturer. So, it's unknown if it's affected.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Error checking chipset manufacturer. So, it's unknown if it's affected.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>PASSED</value>
@@ -763,8 +763,8 @@ Do you want to open this file anyway?</value>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Currently waiting</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Motherboard manufacturer is not known to have system speaker issues.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Chipset is not known to have system speaker issues.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -858,5 +858,14 @@ Do you want to open this file anyway?</value>
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Crash report copied to clipboard.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Waking up system speaker for affected chipsets... (you may hear clicking sounds)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>System speaker has been woken up.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Error waking up system speaker: </value>
   </data>
 </root>

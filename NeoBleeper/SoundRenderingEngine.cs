@@ -484,44 +484,125 @@ namespace NeoBleeper
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
-            public static bool checkMotherboardAffectedFromSystemSpeakerIssues() // Check if the motherboard is from a manufacturer known to have system speaker issues
+            public static bool checkChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
             {
-                if(RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
+                    bool acquired = false;
+                    // Try to acquire the mutex with a timeout to avoid indefinite blocking
+                    acquired = SystemSpeakerMutex.WaitOne(TimeSpan.FromSeconds(5));
+                    if (!acquired)
+                    {
+                        // Handle the case where the mutex could not be acquired
+                        return false;
+                    }
                     try
                     {
-                        Program.splashScreen.updateStatus(Resources.StatusCheckingMotherboardManufacturerForSystemSpeakerIssues);
-                        string[] affectedManufacturers = new string[] { "ASUSTek Computer Inc." }; // Such as ASUS motherboards
-                        var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
-                        var boards = searcher.Get();
-                        foreach (ManagementObject board in boards)
+                        Program.splashScreen.updateStatus(Resources.StatusCheckingChipsetForSystemSpeakerIssues);
+                        string[] affectedChipsets = new string[] { "B660", "H610", "Z790", "B760", "Q670" }; // Known affected chipsets with system speaker issues
+
+                        var identifiersToSearch = new List<string>();
+
+                        // 1. Take Win32_BaseBoard information
+                        using (var searcher = new ManagementObjectSearcher("SELECT Product, Version, Name FROM Win32_BaseBoard"))
                         {
-                            string manufacturer = board["Manufacturer"]?.ToString() ?? "";
-                            if (affectedManufacturers.Contains(manufacturer))
+                            foreach (var obj in searcher.Get())
                             {
-                                string message = Resources.StatusManufacturerHasKnownIssues.Replace("{manufacturer}", manufacturer);
-                                Program.splashScreen.updateStatus(message, 5);
-                                Program.isAffectedMotherboardManufacturerChecked = true; // Mark that the motherboard is affected
-                                return true; // Return true if the manufacturer is in the affected list
+                                identifiersToSearch.Add(obj["Product"]?.ToString() ?? string.Empty);
+                                identifiersToSearch.Add(obj["Version"]?.ToString() ?? string.Empty);
+                                identifiersToSearch.Add(obj["Name"]?.ToString() ?? string.Empty);
                             }
                         }
-                        Program.splashScreen.updateStatus(Resources.StatusManufacturerIsNotAffected, 5);
-                        Program.isAffectedMotherboardManufacturerChecked = true; // Mark that the check has been performed
+
+                        // 2. Take Win32_ComputerSystemProduct information
+                        using (var searcher = new ManagementObjectSearcher("SELECT Name, Version FROM Win32_ComputerSystemProduct"))
+                        {
+                            foreach (var obj in searcher.Get())
+                            {
+                                identifiersToSearch.Add(obj["Name"]?.ToString() ?? string.Empty);
+                                identifiersToSearch.Add(obj["Version"]?.ToString() ?? string.Empty);
+                            }
+                        }
+
+                        // Search for affected chipsets in the collected identifiers
+                        foreach (var identifier in identifiersToSearch.Where(s => !string.IsNullOrEmpty(s)))
+                        {
+                            foreach (string chipset in affectedChipsets)
+                            {
+                                if (identifier.Contains(chipset, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
+                                    Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
+                                    Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
+                                    return true; // Affected chipset found
+                                }
+                            }
+                        }
+
+                        Program.splashScreen.updateStatus(Resources.StatusChipsetIsNotAffected, 5);
+                        Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
                         return false; // Return false if no match is found
                     }
                     catch
                     {
-                        Program.splashScreen.updateStatus(Resources.StatusErrorCheckingManufacturer);
-                        Program.isAffectedMotherboardManufacturerChecked = false; // Mark that the check failed
+                        Program.splashScreen.updateStatus(Resources.StatusErrorCheckingChipset);
+                        Program.isAffectedChipsetManufacturerChecked = false; // Mark that the check failed
                         return false; // On error, assume not affected
+                    }
+                    finally
+                    {
+                        if (acquired)
+                        {
+                            SystemSpeakerMutex.ReleaseMutex();
+                        }
                     }
                 }
                 else
                 {
-                    Logger.Log("Motherboard manufacturer check skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
-                    return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
+                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
+                }
+            }
+            public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
+            {
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
+                    {
+                        try
+                        {
+                            Program.splashScreen.updateStatus(Resources.StatusWakingUpSystemSpeaker);
+                            byte originalState = (byte)Inp32(0x61);
+
+                            // 1. Close the speaker gate completely to ensure a clean state.
+                            Out32(0x61, (byte)(originalState & 0xFC));
+                            Program.splashScreen.ResponsiveWait(20);
+
+                            // 2. Reset PIT channel 2 to a known state (e.g., mode 0, terminal count).
+                            // This helps to stop any ongoing oscillations.
+                            Out32(0x43, 0xB0); // Channel 2, LSB/MSB access, mode 0, binary
+                            Out32(0x42, 0x00); // LSB
+                            Out32(0x42, 0x00); // MSB
+                            Program.splashScreen.ResponsiveWait(20);
+
+                            // 3. "Tickle" the speaker gate by toggling it. This can help wake up the circuitry.
+                            // Open only the gate (bit 0), keep speaker data (bit 1) off.
+                            Out32(0x61, (byte)(originalState | 0x01));
+                            Program.splashScreen.ResponsiveWait(50);
+                            // Close it again.
+                            Out32(0x61, (byte)(originalState & 0xFC));
+                            Program.splashScreen.ResponsiveWait(50);
+
+                            // 4. Restore the original state of the speaker port.
+                            Out32(0x61, originalState);
+                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerWokenUp, 2);
+                        }
+                        catch (Exception ex)
+                        {
+                            Program.splashScreen.updateStatus(Resources.StatusErrorWakingUpSystemSpeaker + ex.Message);
+                        }
+                    }
                 }
             }
         }

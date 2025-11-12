@@ -506,7 +506,7 @@ namespace NeoBleeper
                     Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
                 }
             }
-            else if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues)
+            else if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
                 {

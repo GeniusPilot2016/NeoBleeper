@@ -501,8 +501,8 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Il produttore della scheda madre {manufacturer} ha problemi noti con gli altoparlanti del sistema. Gli altoparlanti del sistema potrebbero non essere rilevati o non funzionare correttamente.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>È noto che il chipset {chipset} presenta problemi con gli altoparlanti di sistema. L'altoparlante di sistema potrebbe non essere rilevato o non funzionare correttamente.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Errore durante il caricamento del file MIDI:</value>
@@ -545,8 +545,8 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>La modalità Classic Bleeper è disabilitata. NeoBleeper funzionerà in modalità standard.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Controllo del produttore della scheda madre per problemi con gli altoparlanti del sistema...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Controllo del chipset per problemi con gli altoparlanti di sistema...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Chiave API di Google Gemini™ salvata correttamente.</value>
@@ -614,8 +614,8 @@ Vuoi aprire comunque questo file?</value>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>L'ingresso/uscita MIDI è in fase di inizializzazione...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Errore durante il controllo del produttore della scheda madre. Quindi non è noto se sia interessato.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Errore durante il controllo del produttore del chipset. Quindi non è noto se sia interessato.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>PASSATO</value>
@@ -745,8 +745,8 @@ Vuoi aprire comunque questo file?</value>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Attualmente in attesa</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Non è noto che il produttore della scheda madre abbia problemi con gli altoparlanti del sistema.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Non è noto che il chipset abbia problemi con gli altoparlanti del sistema.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -837,5 +837,14 @@ Vuoi aprire comunque questo file?</value>
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Segnalazione di arresto anomalo copiata negli appunti.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Riattivazione dell'altoparlante di sistema per i chipset interessati... (potresti sentire dei clic)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>L'altoparlante del sistema è stato riattivato.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Errore durante il riavvio dell'altoparlante di sistema: </value>
   </data>
 </root>

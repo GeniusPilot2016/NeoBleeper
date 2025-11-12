@@ -501,8 +501,8 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Der Mainboard-Hersteller {Hersteller} ist für Probleme mit den Systemlautsprechern bekannt. Die Systemlautsprecher werden möglicherweise nicht erkannt oder funktionieren nicht ordnungsgemäß.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Der Chipsatz {chipset} weist bekanntermaßen Probleme mit dem Systemlautsprecher auf. Der Systemlautsprecher wird möglicherweise nicht erkannt oder funktioniert nicht ordnungsgemäß.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Fehler beim Laden der MIDI-Datei:</value>
@@ -548,8 +548,8 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Der klassische Bleeper-Modus ist deaktiviert. NeoBleeper läuft im Standardmodus.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Überprüfung des Motherboard-Herstellers auf Systemlautsprecherprobleme...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Überprüfung des Chipsatzes auf Systemlautsprecherprobleme...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Der Google Gemini™ API-Schlüssel wurde erfolgreich gespeichert.</value>
@@ -617,8 +617,8 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI-Ein-/Ausgang wird initialisiert...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Fehler beim Überprüfen des Motherboard-Herstellers. Daher ist unklar, ob das System betroffen ist.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Fehler beim Überprüfen des Chipsatzherstellers. Daher ist unklar, ob das System betroffen ist.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>BESTANDEN</value>
@@ -746,8 +746,8 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Aktuell wird gewartet</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Dem Hersteller des Motherboards sind keine Probleme mit den Systemlautsprechern bekannt.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Es ist nicht bekannt, dass der Chip Probleme mit den Systemlautsprechern verursacht.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -838,5 +838,14 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Absturzbericht in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klickgeräusche zu hören)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>Der Systemlautsprecher wurde aktiviert.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Fehler beim Aufwecken eine Systemlautsprecher: </value>
   </data>
 </root>

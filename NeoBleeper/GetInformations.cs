@@ -23,7 +23,7 @@ namespace NeoBleeper
     {
         public static string GlobalSystemInfo;
         static bool is_system_speaker_present = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present;
-        static bool is_manufacturer_affected = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_manufacturer_of_motherboard_affecting_system_speaker_issues;
+        static bool is_manufacturer_affected = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues;
         public static (string version, string status) GetVersionAndStatus()
         {
             int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
@@ -250,7 +250,7 @@ namespace NeoBleeper
                 $"Power Status: {powerStatus}\r\n" +
                 // Don't show status of manufacturer check on ARM64 devices as they are not possibly affected from system speaker issues
                 ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ?
-                $"Status of affected motherboard manufacturer check: {(Program.isAffectedMotherboardManufacturerChecked == true ?
+                $"Status of affected motherboard manufacturer check: {(Program.isAffectedChipsetManufacturerChecked == true ?
                     (is_manufacturer_affected == true ? "Affected" : "Not Affected") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                 // Don't show system speaker info on ARM64 devices as they don't have system speakers

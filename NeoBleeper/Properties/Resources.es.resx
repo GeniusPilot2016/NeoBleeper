@@ -501,8 +501,8 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Se sabe que el fabricante de la placa base {manufacturer} tiene problemas con los altavoces del sistema. Es posible que los altavoces no se detecten o no funcionen correctamente.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Se sabe que el chipset {chipset} presenta problemas con el altavoz del sistema. Es posible que el altavoz del sistema no se detecte o no funcione correctamente.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Error al cargar el archivo MIDI:</value>
@@ -545,8 +545,8 @@ Esta función permite que el altavoz/dispositivo de sonido del sistema suba o ba
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>El modo Bleeper clásico está desactivado. NeoBleeper se ejecutará en modo estándar.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Comprobando si hay problemas con los altavoces del sistema según el fabricante de la placa base...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Comprobando el chipset por si hay problemas con los altavoces del sistema...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Clave API de Google Gemini™ guardada correctamente.</value>
@@ -614,8 +614,8 @@ Esta tecla reproduce este sonido de percusión: {percussionName}</value>
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>Se está inicializando la entrada/salida MIDI...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Error al comprobar el fabricante de la placa base. Por lo tanto, se desconoce si está afectada.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Error al comprobar el fabricante del chipset. Por lo tanto, se desconoce si está afectado.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>APROBADO</value>
@@ -746,8 +746,8 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>Actualmente esperando</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>No se sabe que el fabricante de la placa base tenga problemas con los altavoces del sistema.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>No se sabe que el chipset presente problemas con los altavoces del sistema.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -838,5 +838,14 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Informe de fallos copiado al portapapeles.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Activando el altavoz del sistema para los chipsets afectados... (es posible que escuche chasquidos)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>El altavoz del sistema se ha activado.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Error al activar el altavoz del sistema: </value>
   </data>
 </root>

@@ -1633,6 +1633,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Checking chipset for system speaker issues... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusCheckingChipsetForSystemSpeakerIssues {
+            get {
+                return ResourceManager.GetString("StatusCheckingChipsetForSystemSpeakerIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Checking InpOutx64.dll presence and integrity... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusCheckingInpOutX64PresenceAndIntegrity {
@@ -1642,11 +1651,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Checking motherboard manufacturer for system speaker issues... benzeri yerelleştirilmiş bir dize arar.
+        ///   Chipset {chipset} is known to have system speaker issues. The system speaker may not detected or function properly. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string StatusCheckingMotherboardManufacturerForSystemSpeakerIssues {
+        public static string StatusChipsetHasKnownIssues {
             get {
-                return ResourceManager.GetString("StatusCheckingMotherboardManufacturerForSystemSpeakerIssues", resourceCulture);
+                return ResourceManager.GetString("StatusChipsetHasKnownIssues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Chipset is not known to have system speaker issues. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusChipsetIsNotAffected {
+            get {
+                return ResourceManager.GetString("StatusChipsetIsNotAffected", resourceCulture);
             }
         }
         
@@ -1714,11 +1732,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Error checking motherboard manufacturer. So, it&apos;s unknown if it&apos;s affected. benzeri yerelleştirilmiş bir dize arar.
+        ///   Error checking chipset manufacturer. So, it&apos;s unknown if it&apos;s affected. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string StatusErrorCheckingManufacturer {
+        public static string StatusErrorCheckingChipset {
             get {
-                return ResourceManager.GetString("StatusErrorCheckingManufacturer", resourceCulture);
+                return ResourceManager.GetString("StatusErrorCheckingChipset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error waking up system speaker:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusErrorWakingUpSystemSpeaker {
+            get {
+                return ResourceManager.GetString("StatusErrorWakingUpSystemSpeaker", resourceCulture);
             }
         }
         
@@ -1764,24 +1791,6 @@ namespace NeoBleeper.Properties {
         public static string StatusInpOutX64Placed {
             get {
                 return ResourceManager.GetString("StatusInpOutX64Placed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Motherboard manufacturer {manufacturer} is known to have system speaker issues. The system speaker may not detected or function properly. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusManufacturerHasKnownIssues {
-            get {
-                return ResourceManager.GetString("StatusManufacturerHasKnownIssues", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Motherboard manufacturer is not known to have system speaker issues. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusManufacturerIsNotAffected {
-            get {
-                return ResourceManager.GetString("StatusManufacturerIsNotAffected", resourceCulture);
             }
         }
         
@@ -1903,6 +1912,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System speaker has been woken up. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusSystemSpeakerWokenUp {
+            get {
+                return ResourceManager.GetString("StatusSystemSpeakerWokenUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System speaker output is present, but it is an unknown types of computer. NeoBleeper will use the sound card to create beeps to avoid issues with unknown types of computers. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusUnknownComputerTypeDetected {
@@ -1917,6 +1935,15 @@ namespace NeoBleeper.Properties {
         public static string StatusUnknownStorageType {
             get {
                 return ResourceManager.GetString("StatusUnknownStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Waking up system speaker for affected chipsets... (you may hear clicking sounds) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string StatusWakingUpSystemSpeaker {
+            get {
+                return ResourceManager.GetString("StatusWakingUpSystemSpeaker", resourceCulture);
             }
         }
         

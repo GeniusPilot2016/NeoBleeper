@@ -503,8 +503,8 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusManufacturerHasKnownIssues" xml:space="preserve">
-    <value>Известно, что у производителя материнской платы {manufacturer} наблюдаются проблемы с системным динамиком. Системный динамик может не определяться или работать неправильно.</value>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Известно, что чипсет {chipset} имеет проблемы с системным динамиком. Системный динамик может не определяться или работать неправильно.</value>
   </data>
   <data name="MessageMIDIFileLoadingError" xml:space="preserve">
     <value>Ошибка загрузки MIDI-файла:</value>
@@ -547,8 +547,8 @@
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Режим Classic Bleeper отключен. NeoBleeper будет работать в стандартном режиме.</value>
   </data>
-  <data name="StatusCheckingMotherboardManufacturerForSystemSpeakerIssues" xml:space="preserve">
-    <value>Проверка производителя материнской платы на наличие проблем с динамиками системы...</value>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Проверка чипсета на наличие проблем с системными динамиками...</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Ключ API Google Gemini™ успешно сохранен.</value>
@@ -616,8 +616,8 @@
   <data name="StatusMIDIIOInitializing" xml:space="preserve">
     <value>MIDI-вход/выход инициализируется...</value>
   </data>
-  <data name="StatusErrorCheckingManufacturer" xml:space="preserve">
-    <value>Ошибка проверки производителя материнской платы. Поэтому неизвестно, затронуто ли это.</value>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Ошибка проверки производителя чипсета. Поэтому неизвестно, затронуто ли это.</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>ПРОШЕДШИЙ</value>
@@ -749,8 +749,8 @@
   <data name="TextCurrentlyWaiting" xml:space="preserve">
     <value>В настоящее время ожидание</value>
   </data>
-  <data name="StatusManufacturerIsNotAffected" xml:space="preserve">
-    <value>Производители материнских плат не знают о проблемах с динамиками системы.</value>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Неизвестно, есть ли у чипсета проблемы с системными динамиками.</value>
   </data>
   <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -841,5 +841,14 @@
   </data>
   <data name="CrashReportCopied" xml:space="preserve">
     <value>Отчет о сбое скопирован в буфер обмена.</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Активация системного динамика для затронутых чипсетов... (могут быть слышны щелчки)</value>
+  </data>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>Системный динамик активировался.</value>
+  </data>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Ошибка пробуждения системного динамика: </value>
   </data>
 </root>
