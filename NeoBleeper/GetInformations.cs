@@ -250,7 +250,7 @@ namespace NeoBleeper
                 $"Power Status: {powerStatus}\r\n" +
                 // Don't show status of manufacturer check on ARM64 devices as they are not possibly affected from system speaker issues
                 ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ?
-                $"Status of affected motherboard manufacturer check: {(Program.isAffectedChipsetManufacturerChecked == true ?
+                $"Status of affected chipset check: {(Program.isAffectedChipsetManufacturerChecked == true ?
                     (is_manufacturer_affected == true ? "Affected" : "Not Affected") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                 // Don't show system speaker info on ARM64 devices as they don't have system speakers
