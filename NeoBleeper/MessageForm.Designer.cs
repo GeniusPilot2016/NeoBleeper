@@ -152,13 +152,13 @@
             Controls.Add(pictureBoxIcon);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(550, 1024);
             MinimizeBox = false;
             MinimumSize = new Size(285, 150);
             Name = "MessageForm";
             ShowIcon = false;
-            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Title";
             SystemColorsChanged += MessageForm_SystemColorsChanged;

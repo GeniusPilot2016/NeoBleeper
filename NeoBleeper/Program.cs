@@ -33,7 +33,7 @@ namespace NeoBleeper
         public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.checkIfAnySoundDeviceExistAndEnabled();
         public static splash splashScreen = new splash();
-        public static bool isAffectedChipsetManufacturerChecked = false; // Flag to indicate if the affected motherboard manufacturer has been checked
+        public static bool isAffectedChipsetManufacturerChecked = false; // Flag to indicate if the affected chipset has been checked
         public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
         [STAThread]
         static void Main(string[] args)
@@ -143,11 +143,11 @@ namespace NeoBleeper
                                                 shouldRun = true;
                                                 if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
                                                 {
-                                                    Logger.Log("System speaker output is present, but the motherboard manufacturer is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", LogTypes.Info);
+                                                    Logger.Log("System speaker output is present, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", LogTypes.Info);
                                                 }
                                                 else
                                                 {
-                                                    Logger.Log("System speaker output is present and the motherboard manufacturer is not known to have issues with system speaker. NeoBleeper will use system speaker to create beeps.", LogTypes.Info);
+                                                    Logger.Log("System speaker output is present and the chipset is not known to have issues with system speaker. NeoBleeper will use system speaker to create beeps.", LogTypes.Info);
                                                 }
                                                 splashScreen.updateStatus(Resources.StatusModularComputerDetected, 5);
                                                 break;

@@ -140,7 +140,7 @@ namespace NeoBleeper
                     continue;
                 }
 
-                // Skip specific preview, experimental and special purpose models
+                // Skip specific preview, experimental, special and problematic models
                 if (model.Name.Contains("image", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("computer-use", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("robotics", StringComparison.OrdinalIgnoreCase) ||
@@ -148,13 +148,15 @@ namespace NeoBleeper
                 model.Name.Contains("001", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("tts", StringComparison.OrdinalIgnoreCase) ||
                 model.Name.Contains("audio", StringComparison.OrdinalIgnoreCase) || 
+                model.Name.Contains("2.0", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("image", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("computer-use", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("robotics", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("code", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("001", StringComparison.OrdinalIgnoreCase) ||
                 model.DisplayName.Contains("tts", StringComparison.OrdinalIgnoreCase) ||
-                model.DisplayName.Contains("audio", StringComparison.OrdinalIgnoreCase))
+                model.DisplayName.Contains("audio", StringComparison.OrdinalIgnoreCase) ||
+                model.DisplayName.Contains("2.0", StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
