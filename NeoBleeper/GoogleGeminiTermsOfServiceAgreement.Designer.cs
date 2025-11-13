@@ -36,6 +36,8 @@
             icons = new ImageList(components);
             panel1 = new Panel();
             label1 = new Label();
+            label2 = new Label();
+            dateTimePickerDateOfBirth = new DateTimePicker();
             SuspendLayout();
             // 
             // richTextBoxTerms
@@ -80,10 +82,24 @@
             resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
             // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
+            // 
+            // dateTimePickerDateOfBirth
+            // 
+            resources.ApplyResources(dateTimePickerDateOfBirth, "dateTimePickerDateOfBirth");
+            dateTimePickerDateOfBirth.MaxDate = new DateTime(2025, 12, 31, 0, 0, 0, 0);
+            dateTimePickerDateOfBirth.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
+            dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
+            // 
             // GoogleGeminiTermsOfServiceAgreement
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(dateTimePickerDateOfBirth);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(panel1);
             Controls.Add(buttonClose);
@@ -109,5 +125,7 @@
         private ImageList icons;
         private Panel panel1;
         private Label label1;
+        private Label label2;
+        private DateTimePicker dateTimePickerDateOfBirth;
     }
 }

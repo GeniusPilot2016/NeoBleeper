@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NeoBleeper.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,7 @@ namespace NeoBleeper
         private const int SCF_SELECTION = 1;
         private const uint CFM_LINK = 0x00000020;
         private const uint CFE_LINK = 0x00000020;
+        private DateTime DateOfBirth = DateTime.Now; // Date of birth to verify age
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         private struct CHARFORMAT2
@@ -56,6 +58,8 @@ namespace NeoBleeper
         {
             InitializeComponent();
             UIFonts.setFonts(this);
+            dateTimePickerDateOfBirth.MaxDate = DateTime.Now.AddYears(-13);
+            dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13);
             if (!string.IsNullOrEmpty(Settings1.Default.cachedGoogleGeminiTermsOfService))
             {
                 richTextBoxTerms.Text = Settings1.Default.cachedGoogleGeminiTermsOfService;
@@ -405,7 +409,15 @@ namespace NeoBleeper
             agreement.ShowDialog();
             if (agreement.agreedTermsOfServiceAgreement)
             {
-                action(); // Run the action if agreed
+                if(agreement.DateOfBirth.AddYears(18) > DateTime.Now)
+                {
+                    MessageForm.Show(Resources.AISettingsAgeRestrictionWarning, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    rejectAction();
+                }
+                else
+                {
+                    action(); // Run the action if agreed and age is above 18
+                }
             }
             else
             {
@@ -415,6 +427,7 @@ namespace NeoBleeper
         private void buttonClose_Click(object sender, EventArgs e)
         {
             agreedTermsOfServiceAgreement = checkBoxAccept.Checked;
+            DateOfBirth = dateTimePickerDateOfBirth.Value;
             Settings1.Default.googleGeminiTermsOfServiceAccepted = agreedTermsOfServiceAgreement;
             Settings1.Default.Save();
             this.Close();

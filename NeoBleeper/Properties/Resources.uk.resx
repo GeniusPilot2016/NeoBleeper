@@ -850,4 +850,7 @@
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Помилка пробудження системного динаміка: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Щоб користуватися цією функцією, вам має бути щонайменше 18 років.</value>
+  </data>
 </root>

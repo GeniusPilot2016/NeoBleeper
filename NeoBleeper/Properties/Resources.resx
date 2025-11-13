@@ -868,4 +868,7 @@ Do you want to open this file anyway?</value>
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Error waking up system speaker: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>You must be at least 18 years old to use this feature.</value>
+  </data>
 </root>

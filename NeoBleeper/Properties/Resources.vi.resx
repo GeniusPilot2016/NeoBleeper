@@ -848,4 +848,7 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Lỗi khi đánh thức loa hệ thống: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Bạn phải ít nhất 18 tuổi mới có thể sử dụng tính năng này.</value>
+  </data>
 </root>

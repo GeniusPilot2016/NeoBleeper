@@ -39,35 +39,41 @@ namespace NeoBleeper
         public static double GetFrequencyFromNoteName(string noteName)
         {
             if (string.IsNullOrEmpty(noteName))
-                return 0;
+                return NoteUtility.base_note_frequency_in_4th_octave.C;
+            try 
+            { 
+                // Disassemble note name into note and octave
+                string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
+                int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
+                // Basic frequency for the note in the 4th octave
+                double baseFrequency = note switch
+                {
+                    "C" => NoteUtility.base_note_frequency_in_4th_octave.C,
+                    "C#" => NoteUtility.base_note_frequency_in_4th_octave.CS,
+                    "D" => NoteUtility.base_note_frequency_in_4th_octave.D,
+                    "D#" => NoteUtility.base_note_frequency_in_4th_octave.DS,
+                    "E" => NoteUtility.base_note_frequency_in_4th_octave.E,
+                    "F" => NoteUtility.base_note_frequency_in_4th_octave.F,
+                    "F#" => NoteUtility.base_note_frequency_in_4th_octave.FS,
+                    "G" => NoteUtility.base_note_frequency_in_4th_octave.G,
+                    "G#" => NoteUtility.base_note_frequency_in_4th_octave.GS,
+                    "A" => NoteUtility.base_note_frequency_in_4th_octave.A,
+                    "A#" => NoteUtility.base_note_frequency_in_4th_octave.AS,
+                    "B" => NoteUtility.base_note_frequency_in_4th_octave.B,
+                    _ => 0 // Invalid note
+                };
 
-            // Disassemble note name into note and octave
-            string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
-            int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
-            // Basic frequency for the note in the 4th octave
-            double baseFrequency = note switch
+                if (baseFrequency == 0)
+                    return 0;
+
+                // Calculate the frequency based on the octave
+                int octaveDifference = octave - 4; // 4th octave is the reference octave
+                return baseFrequency * Math.Pow(2, octaveDifference); 
+            }
+            catch
             {
-                "C" => NoteUtility.base_note_frequency_in_4th_octave.C,
-                "C#" => NoteUtility.base_note_frequency_in_4th_octave.CS,
-                "D" => NoteUtility.base_note_frequency_in_4th_octave.D,
-                "D#" => NoteUtility.base_note_frequency_in_4th_octave.DS,
-                "E" => NoteUtility.base_note_frequency_in_4th_octave.E,
-                "F" => NoteUtility.base_note_frequency_in_4th_octave.F,
-                "F#" => NoteUtility.base_note_frequency_in_4th_octave.FS,
-                "G" => NoteUtility.base_note_frequency_in_4th_octave.G,
-                "G#" => NoteUtility.base_note_frequency_in_4th_octave.GS,
-                "A" => NoteUtility.base_note_frequency_in_4th_octave.A,
-                "A#" => NoteUtility.base_note_frequency_in_4th_octave.AS,
-                "B" => NoteUtility.base_note_frequency_in_4th_octave.B,
-                _ => 0 // Invalid note
-            };
-
-            if (baseFrequency == 0)
-                return 0;
-
-            // Calculate the frequency based on the octave
-            int octaveDifference = octave - 4; // 4th octave is the reference octave
-            return baseFrequency * Math.Pow(2, octaveDifference);
+                return NoteUtility.base_note_frequency_in_4th_octave.C;
+            }
         }
     }
     public static class NoteLengths

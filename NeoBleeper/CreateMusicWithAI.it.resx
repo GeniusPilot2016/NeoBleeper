@@ -137,8 +137,8 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAADAsAAAJNU0Z0AUkBTAIBAQMB
-        AAGIAQEBiAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARBC
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAACgsAAAJNU0Z0AUkBTAIBAQMB
+        AAGYAQEBmAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARBC
         AAMUARv8AAGJAWkByAH/AX4BZwF+AfxMAANRAf8DUAH/A08B/wNPAf8DTgH/A00B/wNNAf8DTAH/A0sB
         /wNLAf8DSgH/A0kB/wNJAf8DSAH/A0cB/2gAAxgBIAGxAW4BrQH/AawBbgGwAf8BoQFsAbcB/wGRAWoB
         wgH/AwQBBQgAAfABvQEyAf8B7gG4AS8B/wHsAbQBLAH/AeoBrwEoAf8B6AGqASUB/wHmAaUBIQH/AeQB
@@ -169,29 +169,29 @@
         9AH/AU4BkgHvAf8BaAFwAd4B/wGIAWgByAH/AasBbQGwAf8BywFzAZgB/wHQAX0BegH/AdUBhgFcAf8B
         2QGOAUgB/wHcAZQBOgH/AdwBlQE4Af8DOQFfFAAB8AG9ATIB/wHuAbgBLwH/AewBtAEsAf8B6gGvASgB
         /wHoAaoBJQH/AeYBpQEhAf8BuQGXATMB/wEAAb4B7QH/AQABvgHtAf8BGQG2AdEB/wHdAY4BEAH/AdsB
-        iQENAf8cAANdAf8BJAG4AdwB/wEWAdEC/wEVAdAC/wEVAdAC/wFYAloB/wNHAYBcAAKAAYMB/gF/AWcB
-        zwH/AaABbAG4Af8BwQFxAaIB/wHOAXgBiAH/AdIBgAFuAf8B1QGHAVkB/wNHAYAcAAHwAb0BMgH/Ae4B
-        uAEvAf8B7AG0ASwB/wHqAa8BKAH/AegBqgElAf8B5gGlASEB/wHkAaEBHgH/AbcBlAEwAf8BAAG+Ae0B
-        /wEAAb4B7QH/ARkBtgHRAf8B2wGJAQ0B/yAAA14B/wEYAdMC/wEXAdMC/wEXAdIC/wNbAf9kAANLAYoB
-        kAFqAcMB/wGvAW4BrgH/AcoBcgGbAf8BzgF5AYYB/yQAAfABvQEyAf8B7gG4AS8B/wHsAbQBLAH/AeoB
-        rwEoAf8B6AGqASUB/wHmAaUBIQH/AeQBoQEeAf8B4gGcARsB/wG2AZABLQH/AQABvgHtAf8BAAG+Ae0B
-        /wEYAbUB0AH/IAADVQGvAV4BYgFjAf8BGQHWAv8DXgH/bAABfAFnAdEB/wGYAWsBvgH/AbEBbgGtAf8D
-        DQERJAAB8AG9ATIB/wHuAbgBLwH/AewBtAEsAf8B6gGvASgB/wHoAaoBJQH/AeYBpQEhAf8B5AGhAR4B
-        /wHiAZwBGwH/AeABlwEXAf8BtQGLASoB/wEAAb4B7QH/AQABvgHtAf8DWgHCIAADYQH/ARsB2QL/A2AB
-        /3AAAX4BZwHPAf8BlAFqAcAB/ygAAzABSwHuAbgBLwH/AewBtAEsAf8B6gGvASgB/wHoAaoBJQH/AeYB
-        pQEhAf8B5AGhAR4B/wHiAZwBGwH/AeABlwEXAf8B3gGSARQB/wG0AYgBJgH/AdMBzgHCAf8D2gH/A2QB
-        2xwAAwMBBANjAf90AAFmAXMB4AH/Ay0BRFQAAxYBHQPdAf8BYAFPAckB//gAAxUBHAMUARuAAAFCAU0B
-        PgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAB/wH3BP8CAAH/AfMC/wGAAwAB/wLAAQMB
-        gAMAAf0BwQHAAQMBwAEBAgAB/AHzAcABAwHAAQMCAAH4AfcBwAEDAeABAwIAAfABfwHAAQMB8AEHAgAB
-        4AE/AcABAwHwAQcCAAGAAQcBwAEDAfgBDwIAAYABBwHAAQMB+AEPAgAB4AEfAcABAwH8AR8CAAHwAX8B
-        wAEDAfwBPwIAAfgBfwHAAQEB/gE/AgAB/AH/AcABAAH+AX8CAAH8Av8B+AL/AgAD/wH8Av8CAAs=
+        iQENAf8cAANdAf8BJAG4AdwB/wEWAdEC/wEVAdAC/wEVAdAC/wFYAloB/wNHAYBcAAOAAf4BfwFnAc8B
+        /wGgAWwBuAH/AcEBcQGiAf8BzgF4AYgB/wHSAYABbgH/AdUBhwFZAf8DRwGAHAAB8AG9ATIB/wHuAbgB
+        LwH/AewBtAEsAf8B6gGvASgB/wHoAaoBJQH/AeYBpQEhAf8B5AGhAR4B/wG3AZQBMAH/AQABvgHtAf8B
+        AAG+Ae0B/wEZAbYB0QH/AdsBiQENAf8gAANeAf8BGAHTAv8BFwHTAv8BFwHSAv8DWwH/ZAADSwGKAZAB
+        agHDAf8BrwFuAa4B/wHKAXIBmwH/Ac4BeQGGAf8kAAHwAb0BMgH/Ae4BuAEvAf8B7AG0ASwB/wHqAa8B
+        KAH/AegBqgElAf8B5gGlASEB/wHkAaEBHgH/AeIBnAEbAf8BtgGQAS0B/wEAAb4B7QH/AQABvgHtAf8B
+        GAG1AdAB/yAAA1UBrwFeAWIBYwH/ARkB1gL/A14B/2wAAXwBZwHRAf8BmAFrAb4B/wGxAW4BrQH/Aw0B
+        ESQAAfABvQEyAf8B7gG4AS8B/wHsAbQBLAH/AeoBrwEoAf8B6AGqASUB/wHmAaUBIQH/AeQBoQEeAf8B
+        4gGcARsB/wHgAZcBFwH/AbUBiwEqAf8BAAG+Ae0B/wEAAb4B7QH/A1oBwiAAA2EB/wEbAdkC/wNgAf9w
+        AAF+AWcBzwH/AZQBagHAAf8oAAMwAUsB7gG4AS8B/wHsAbQBLAH/AeoBrwEoAf8B6AGqASUB/wHmAaUB
+        IQH/AeQBoQEeAf8B4gGcARsB/wHgAZcBFwH/Ad4BkgEUAf8BtAGIASYB/wHTAc4BwgH/A9oB/wNkAdsc
+        AAMDAQQDYwH/dAABZgFzAeAB/wMtAURUAAMWAR0D3QH/AWABTwHJAf/4AAMVARwDFAEbgAABQgFNAT4H
+        AAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAf8B9wT/AgAB/wHzAv8BgAMAAf8CwAEDAYAD
+        AAH9AcEBwAEDAcABAQIAAfwB8wHAAQMBwAEDAgAB+AH3AcABAwHgAQMCAAHwAX8BwAEDAfABBwIAAeAB
+        PwHAAQMB8AEHAgABgAEHAcABAwH4AQ8CAAGAAQcBwAEDAfgBDwIAAeABHwHAAQMB/AEfAgAB8AF/AcAB
+        AwH8AT8CAAH4AX8BwAEBAf4BPwIAAfwB/wHAAQAB/gF/AgAB/AL/AfgC/wIAA/8B/AL/AgAL
 </value>
   </data>
   <data name="buttonCreate.Location" type="System.Drawing.Point, System.Drawing">
     <value>420, 49</value>
   </data>
   <data name="labelPoweredByGemini.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 140</value>
+    <value>175, 152</value>
   </data>
   <data name="comboBox_ai_model.Location" type="System.Drawing.Point, System.Drawing">
     <value>208, 17</value>
@@ -209,13 +209,13 @@
     <value>Modello di intelligenza artificiale</value>
   </data>
   <data name="progressBarCreating.Size" type="System.Drawing.Size, System.Drawing">
-    <value>529, 12</value>
+    <value>528, 12</value>
   </data>
   <data name="pictureBoxCreating.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 173</value>
+    <value>82, 185</value>
   </data>
   <data name="labelCreating.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 182</value>
+    <value>133, 196</value>
   </data>
   <data name="labelCreating.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 16</value>
@@ -224,17 +224,18 @@
     <value>La musica viene creata dall'intelligenza artificiale. Attendi...</value>
   </data>
   <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 95</value>
+    <value>18, 91</value>
   </data>
   <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>514, 32</value>
+    <value>514, 48</value>
   </data>
   <data name="labelWarning.Text" xml:space="preserve">
     <value>      Attenzione: l'intelligenza artificiale genera suggerimenti ispiratori, non riproduzioni esatte.
-I risultati potrebbero essere imperfetti o contenere errori.</value>
+I risultati potrebbero essere imperfetti o contenere errori.
+Non condividere dati sensibili o personali quando utilizzi questa funzione.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>551, 171</value>
+    <value>551, 181</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Crea Musica con l'Intelligenza Artificiale</value>

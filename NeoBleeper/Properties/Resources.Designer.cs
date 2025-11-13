@@ -79,6 +79,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   You must be at least 18 years old to use this feature. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AISettingsAgeRestrictionWarning {
+            get {
+                return ResourceManager.GetString("AISettingsAgeRestrictionWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   An error occurred during the test. Check logs for details. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccurredDuringAdvancedSystemSpeakerTest {

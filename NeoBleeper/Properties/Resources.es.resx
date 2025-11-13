@@ -848,4 +848,7 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Error al activar el altavoz del sistema: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Para utilizar esta función debes tener al menos 18 años.</value>
+  </data>
 </root>

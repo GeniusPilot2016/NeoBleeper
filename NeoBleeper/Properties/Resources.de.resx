@@ -848,4 +848,7 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Fehler beim Aufwecken eine Systemlautsprecher: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Um diese Funktion nutzen zu können, müssen Sie mindestens 18 Jahre alt sein.</value>
+  </data>
 </root>

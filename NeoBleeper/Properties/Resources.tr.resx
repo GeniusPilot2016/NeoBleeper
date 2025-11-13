@@ -849,4 +849,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
     <value>Sistem hoparlörünü uyandırırken hata oluştu: </value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Bu özelliği kullanabilmek için en az 18 yaşında olmanız gerekmektedir.</value>
+  </data>
 </root>
