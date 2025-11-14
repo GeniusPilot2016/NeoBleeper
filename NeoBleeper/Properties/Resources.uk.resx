@@ -853,4 +853,22 @@
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Щоб користуватися цією функцією, вам має бути щонайменше 18 років.</value>
   </data>
+  <data name="ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="TabKey" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="CtrlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="EscKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="SpaceKey" xml:space="preserve">
+    <value>Пробіл </value>
+  </data>
 </root>

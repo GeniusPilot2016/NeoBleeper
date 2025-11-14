@@ -851,4 +851,22 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Vous devez avoir au moins 18 ans pour utiliser cette fonctionnalité.</value>
   </data>
+  <data name="ShiftKey" xml:space="preserve">
+    <value>Maj</value>
+  </data>
+  <data name="TabKey" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="CtrlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="EscKey" xml:space="preserve">
+    <value>Échap</value>
+  </data>
+  <data name="SpaceKey" xml:space="preserve">
+    <value>Espace</value>
+  </data>
 </root>
