@@ -88,6 +88,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Alt benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AltKey {
+            get {
+                return ResourceManager.GetString("AltKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   An error occurred during the test. Check logs for details. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AnErrorOccurredDuringAdvancedSystemSpeakerTest {
@@ -196,6 +205,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Ctrl benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string CtrlKey {
+            get {
+                return ResourceManager.GetString("CtrlKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
         ///
         ///When enabled, the position table will not update when the music is playing.
@@ -259,6 +277,15 @@ namespace NeoBleeper.Properties {
         public static string ErrorSavingAPIKey {
             get {
                 return ResourceManager.GetString("ErrorSavingAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Esc benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string EscKey {
+            get {
+                return ResourceManager.GetString("EscKey", resourceCulture);
             }
         }
         
@@ -1587,6 +1614,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Shift benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ShiftKey {
+            get {
+                return ResourceManager.GetString("ShiftKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show the API key in the API key field.
         ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -1602,6 +1638,15 @@ namespace NeoBleeper.Properties {
         public static string SixteenthNote {
             get {
                 return ResourceManager.GetString("SixteenthNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Space benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SpaceKey {
+            get {
+                return ResourceManager.GetString("SpaceKey", resourceCulture);
             }
         }
         
@@ -1975,6 +2020,15 @@ namespace NeoBleeper.Properties {
         public static string SynchronizedPlayHelpTitle {
             get {
                 return ResourceManager.GetString("SynchronizedPlayHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tab benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TabKey {
+            get {
+                return ResourceManager.GetString("TabKey", resourceCulture);
             }
         }
         

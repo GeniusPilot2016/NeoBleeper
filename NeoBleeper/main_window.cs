@@ -134,6 +134,7 @@ namespace NeoBleeper
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
+            const int WM_INPUTLANGCHANGE = 0x0051;
             base.WndProc(ref m);
 
             if (m.Msg == WM_SETTINGCHANGE)
@@ -142,6 +143,10 @@ namespace NeoBleeper
                 {
                     set_theme();
                 }
+            }
+            if(m.Msg == WM_INPUTLANGCHANGE)
+            {
+                InitializeButtonShortcuts();
             }
         }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
@@ -5121,45 +5126,114 @@ namespace NeoBleeper
             }
         }
         private readonly Dictionary<Button, string> buttonShortcuts = new Dictionary<Button, string>();
+        [DllImport("user32.dll")]
+        private static extern int ToUnicodeEx(
+    uint wVirtKey, uint wScanCode, byte[] lpKeyState,
+    [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder pwszBuff,
+    int cchBuff, uint wFlags, IntPtr dwhkl);
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetKeyboardLayout(uint idThread);
+
+        private string GetKeyDisplayText(Keys key)
+        {
+            // Label specialized keys manually
+            switch (key)
+            {
+                case Keys.ShiftKey:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                    return Resources.ShiftKey;
+                case Keys.Tab:
+                    return Resources.TabKey;
+                case Keys.ControlKey:
+                case Keys.LControlKey:
+                case Keys.RControlKey:
+                    return Resources.CtrlKey;
+                case Keys.Menu:
+                case Keys.LMenu:
+                case Keys.RMenu:
+                    return Resources.AltKey;
+                case Keys.Escape:
+                    return Resources.EscKey;
+                case Keys.Space:
+                    return Resources.SpaceKey;
+            }
+
+            uint virtualKey = (uint)key;
+            IntPtr keyboardLayout = GetKeyboardLayout(0);
+            byte[] keyState = new byte[256];
+            StringBuilder sb = new StringBuilder(5);
+
+            int result = ToUnicodeEx(virtualKey, 0, keyState, sb, sb.Capacity, 0, keyboardLayout);
+
+            if (result > 0)
+            {
+                string label = sb.ToString();
+                // Only capitalize single letter keys
+                if (label.Length == 1 && char.IsLetter(label[0]))
+                    return label.ToUpper();
+                return label;
+            }
+            else
+            {
+                // Capitalize single letter keys
+                string fallback = key.ToString();
+                if (fallback.Length == 1 && char.IsLetter(fallback[0]))
+                    return fallback.ToUpper();
+                return fallback;
+            }
+        }
         private void InitializeButtonShortcuts()
         {
-            buttonShortcuts.Add(button_c3, "Tab");
-            buttonShortcuts.Add(button_c_s3, "`");
-            buttonShortcuts.Add(button_d3, "Q");
-            buttonShortcuts.Add(button_d_s3, "1");
-            buttonShortcuts.Add(button_e3, "W");
-            buttonShortcuts.Add(button_f3, "E");
-            buttonShortcuts.Add(button_f_s3, "3");
-            buttonShortcuts.Add(button_g3, "R");
-            buttonShortcuts.Add(button_g_s3, "4");
-            buttonShortcuts.Add(button_a3, "T");
-            buttonShortcuts.Add(button_a_s3, "5");
-            buttonShortcuts.Add(button_b3, "Y");
-            buttonShortcuts.Add(button_c4, "U");
-            buttonShortcuts.Add(button_c_s4, "7");
-            buttonShortcuts.Add(button_d4, "I");
-            buttonShortcuts.Add(button_d_s4, "8");
-            buttonShortcuts.Add(button_e4, "O");
-            buttonShortcuts.Add(button_f4, "P");
-            buttonShortcuts.Add(button_f_s4, "0");
-            buttonShortcuts.Add(button_g4, "[");
-            buttonShortcuts.Add(button_g_s4, "-");
-            buttonShortcuts.Add(button_a4, "]");
-            buttonShortcuts.Add(button_a_s4, "+");
-            buttonShortcuts.Add(button_b4, "|");
-            buttonShortcuts.Add(button_c5, "Shift");
-            buttonShortcuts.Add(button_c_s5, "A");
-            buttonShortcuts.Add(button_d5, "Z");
-            buttonShortcuts.Add(button_d_s5, "S");
-            buttonShortcuts.Add(button_e5, "X");
-            buttonShortcuts.Add(button_f5, "C");
-            buttonShortcuts.Add(button_f_s5, "F");
-            buttonShortcuts.Add(button_g5, "V");
-            buttonShortcuts.Add(button_g_s5, "G");
-            buttonShortcuts.Add(button_a5, "B");
-            buttonShortcuts.Add(button_a_s5, "H");
-            buttonShortcuts.Add(button_b5, "N");
+            // Key code and button mapping
+            var keyButtonMap = new Dictionary<Keys, Button>
+    {
+        { Keys.Tab, button_c3 },
+        { Keys.Oemtilde, button_c_s3 },
+        { Keys.Q, button_d3 },
+        { Keys.D1, button_d_s3 },
+        { Keys.W, button_e3 },
+        { Keys.E, button_f3 },
+        { Keys.D3, button_f_s3 },
+        { Keys.R, button_g3 },
+        { Keys.D4, button_g_s3 },
+        { Keys.T, button_a3 },
+        { Keys.D5, button_a_s3 },
+        { Keys.Y, button_b3 },
+        { Keys.U, button_c4 },
+        { Keys.D7, button_c_s4 },
+        { Keys.I, button_d4 },
+        { Keys.D8, button_d_s4 },
+        { Keys.O, button_e4 },
+        { Keys.P, button_f4 },
+        { Keys.D0, button_f_s4 },
+        { Keys.OemOpenBrackets, button_g4 },
+        { Keys.Oem8, button_g_s4 },
+        { Keys.OemCloseBrackets, button_a4 },
+        { Keys.OemMinus, button_a_s4 },
+        { Keys.OemPipe, button_b4 },
+        { Keys.ShiftKey, button_c5 },
+        { Keys.A, button_c_s5 },
+        { Keys.Z, button_d5 },
+        { Keys.S, button_d_s5 },
+        { Keys.X, button_e5 },
+        { Keys.C, button_f5 },
+        { Keys.F, button_f_s5 },
+        { Keys.V, button_g5 },
+        { Keys.G, button_g_s5 },
+        { Keys.B, button_a5 },
+        { Keys.H, button_a_s5 },
+        { Keys.N, button_b5 }
+    };
+
+            buttonShortcuts.Clear();
+
+            foreach (var pair in keyButtonMap)
+            {
+                string keyLabel = GetKeyDisplayText(pair.Key);
+                buttonShortcuts.Add(pair.Value, keyLabel);
+            }
         }
         private HashSet<int> pressedKeys = new HashSet<int>();
         private void main_window_KeyDown(object sender, KeyEventArgs e)
@@ -5253,16 +5327,16 @@ namespace NeoBleeper
                 { (int)Keys.D5, (NoteUtility.base_note_frequency_in_4th_octave.AS, -1) }, // A#3
                 { (int)Keys.Y, (NoteUtility.base_note_frequency_in_4th_octave.B, -1) }, // B3
                 { (int)Keys.U, (NoteUtility.base_note_frequency_in_4th_octave.C, 0) }, // C4
-                { (int)Keys.D6, (NoteUtility.base_note_frequency_in_4th_octave.CS, 0) }, // C#4
+                { (int)Keys.D7, (NoteUtility.base_note_frequency_in_4th_octave.CS, 0) }, // C#4
                 { (int)Keys.I, (NoteUtility.base_note_frequency_in_4th_octave.D, 0) }, // D4
-                { (int)Keys.D7, (NoteUtility.base_note_frequency_in_4th_octave.DS, 0) }, // D#4
+                { (int)Keys.D8, (NoteUtility.base_note_frequency_in_4th_octave.DS, 0) }, // D#4
                 { (int)Keys.O, (NoteUtility.base_note_frequency_in_4th_octave.E, 0) }, // E4
                 { (int)Keys.P, (NoteUtility.base_note_frequency_in_4th_octave.F, 0) }, // F4
-                { (int)Keys.D8, (NoteUtility.base_note_frequency_in_4th_octave.FS, 0) }, // F#4
+                { (int)Keys.D0, (NoteUtility.base_note_frequency_in_4th_octave.FS, 0) }, // F#4
                 { (int)Keys.OemOpenBrackets, (NoteUtility.base_note_frequency_in_4th_octave.G, 0) }, // G4
-                { (int)Keys.OemMinus, (NoteUtility.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
+                { (int)Keys.Oem8, (NoteUtility.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
                 { (int)Keys.OemCloseBrackets, (NoteUtility.base_note_frequency_in_4th_octave.A, 0) }, // A4
-                { (int)Keys.Oemplus, (NoteUtility.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
+                { (int)Keys.OemMinus, (NoteUtility.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
                 { (int)Keys.OemPipe, (NoteUtility.base_note_frequency_in_4th_octave.B, 0) }, // B4
                 { (int)Keys.ShiftKey, (NoteUtility.base_note_frequency_in_4th_octave.C, 1) }, // C5
                 { (int)Keys.A, (NoteUtility.base_note_frequency_in_4th_octave.CS, 1) }, // C#5
@@ -5485,7 +5559,7 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_c_s4, out shortcut))
             {
-                if (keyCode == (int)Keys.D6)
+                if (keyCode == (int)Keys.D7)
                 {
                     button_c_s4.BackColor = markdownColor;
                 }
@@ -5499,7 +5573,7 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_d_s4, out shortcut))
             {
-                if (keyCode == (int)Keys.D7)
+                if (keyCode == (int)Keys.D8)
                 {
                     button_d_s4.BackColor = markdownColor;
                 }
@@ -5520,7 +5594,7 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_f_s4, out shortcut))
             {
-                if (keyCode == (int)Keys.D8)
+                if (keyCode == (int)Keys.D0)
                 {
                     button_f_s4.BackColor = markdownColor;
                 }
@@ -5534,7 +5608,7 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_g_s4, out shortcut))
             {
-                if (keyCode == (int)Keys.OemMinus)
+                if (keyCode == (int)Keys.Oem8)
                 {
                     button_g_s4.BackColor = markdownColor;
                 }
@@ -5548,7 +5622,7 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_a_s4, out shortcut))
             {
-                if (keyCode == (int)Keys.Oemplus)
+                if (keyCode == (int)Keys.OemMinus)
                 {
                     button_a_s4.BackColor = markdownColor;
                 }
@@ -5677,7 +5751,7 @@ namespace NeoBleeper
         
             // Black keys
             Keys.Oemtilde, Keys.D1, Keys.D3, Keys.D4, Keys.D5,
-            Keys.D6, Keys.D7, Keys.D8, Keys.OemMinus, Keys.Oemplus,
+            Keys.D7, Keys.D8, Keys.D0, Keys.Oem8, Keys.OemMinus,
             Keys.A, Keys.S, Keys.F, Keys.G, Keys.H
         };
 

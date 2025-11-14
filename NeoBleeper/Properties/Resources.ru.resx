@@ -854,4 +854,22 @@
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Для использования этой функции вам должно быть не менее 18 лет.</value>
   </data>
+  <data name="ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="TabKey" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="CtrlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="EscKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="SpaceKey" xml:space="preserve">
+    <value>Пробел </value>
+  </data>
 </root>

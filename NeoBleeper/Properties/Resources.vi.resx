@@ -851,4 +851,22 @@ Bạn có muốn mở tệp này không?</value>
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Bạn phải ít nhất 18 tuổi mới có thể sử dụng tính năng này.</value>
   </data>
+  <data name="ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="TabKey" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="CtrlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="EscKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="SpaceKey" xml:space="preserve">
+    <value>Space</value>
+  </data>
 </root>
