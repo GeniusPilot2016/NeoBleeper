@@ -207,12 +207,12 @@ namespace NeoBleeper
                 {
                     splashScreen.updateStatus(Resources.StatusInitializationCompleted, 0, true);
                     splashScreen.ResponsiveWait(2000);
-                    splashScreen.Hide();
+                    splashScreen.Close();
                     Application.Run(new main_window());
                 }
                 catch (Exception ex)
                 {
-                    splashScreen.Hide();
+                    splashScreen.Close();
                     Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
                     CrashReportingForm.GenerateAndShowCrashReport(ex.GetType().ToString(), ex.Message, ex.StackTrace);
                     Application.Exit();
@@ -270,7 +270,7 @@ namespace NeoBleeper
         private static bool ShowWarningAndGetUserDecision(Form warningForm)
         {
             splashScreen.updateStatus(Resources.StatusInitializationCompleted, 0, true);
-            splashScreen.Hide();
+            splashScreen.Close();
             DialogResult result = warningForm.ShowDialog();
             if (result == DialogResult.Yes)
             {
