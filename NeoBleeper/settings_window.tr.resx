@@ -119,13 +119,13 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 603</value>
+    <value>423, 617</value>
   </data>
   <data name="general_settings.Text" xml:space="preserve">
     <value>Genel</value>
   </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 603</value>
+    <value>423, 617</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Ses Oluşturma</value>
@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAHsAQcB7AEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAH0AQcB9AEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -482,10 +482,10 @@
 </value>
   </data>
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 638</value>
+    <value>431, 652</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 593</value>
+    <value>413, 607</value>
   </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Dil Ayarları</value>
@@ -639,8 +639,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Kompakt bilgisayarlarda ve bilinmeyen tipteki bilgisayarlarda, ana hoparlörler gerçek sistem hoparlörü yerine sistem hoparlörü çıkışına bağlanmış olabilir ve sistem hoparlörü test edildiğinde hiçbir ses duymayabilirsiniz veya kararsızlıklara ya da istenmeyen davranışlara neden olabilir</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Eğer hiçbir ses duymuyorsanız veya ses bozuksa, bilgisayarınızı uyku moduna alıp uyandırmayı deneyin. Bu, etkilenen yonga setlerinde sistem hoparlörünün yeniden başlatılmasına yardımcı olabilir.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 593</value>
+    <value>413, 607</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 20</value>
@@ -667,17 +670,23 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>389, 58</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 48</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
-    <value>"Bip sesi oluşturmak için ses aygıtını kullan özelliği" sistem hoparlörü çıkışının algılanamaması veya sistem hoparlörü çıkışının standart dışı olması nedeniyle otomatik olarak etkinleştirilmiştir.</value>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>Sistem sınırlamaları veya yonga seti uyumluluk sorunları nedeniyle, kararlı ses çıkışı sağlamak için "Bip sesi oluşturmak için ses aygıtını kullan" özelliği otomatik olarak etkinleştirilmiştir.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 48</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>"Bip sesi oluşturmak için ses aygıtını kullan" özelliği bilgisayarın kompakt bir bilgisayar olması veya tipinin bilinmemesi nedeniyle otomatik olarak etkinleştirilmiştir</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>379, 48</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
+    <value>"Bip sesi oluşturmak için ses aygıtını kullan özelliği" sistem hoparlörü çıkışının algılanamaması veya sistem hoparlörü çıkışının standart dışı olması nedeniyle otomatik olarak etkinleştirilmiştir.</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 67</value>
@@ -1606,7 +1615,7 @@ Boyutu</value>
     <value>Gelişmiş sistem hoparlörü özelliklerini ve tanılamalarını test et</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>439, 646</value>
+    <value>439, 660</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -144,7 +144,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApk0AAAJNU0Z0AUkBTAIBARIB
-        AAGUAQcBlAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAGkAQcBpAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -179,7 +179,7 @@
         ewH/AYwBgwF5Af8BiwGBAXcB/wGJAYABdQH/AYcBfgFzAf+cAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wHdAaABUAH/FAADNQFVBAABCAG8Af4B/wgAAQgBvAH+Af8EAAM1AVUIAAEIAbwB
         /gH/oAADIwEyAfoB8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAAB
-        XgJqAe0IAAFdAWkBawHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
+        XgJqAe0IAAFdAWcBaQHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -648,6 +648,12 @@ como servicio de pago. Asegúrese de que su clave API corresponda a una cuenta d
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>En computadoras compactas y computadoras de tipo desconocido, es posible que no escuche ningún sonido o que se produzca inestabilidad o un comportamiento no deseado cuando se prueba el altavoz del sistema porque los altavoces principales pueden estar conectados a la salida del altavoz del sistema en lugar de al altavoz del sistema real.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 100</value>
+  </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Si no oye ningún sonido o el sonido está distorsionado, intente poner el ordenador en modo de suspensión y volver a activarlo. Esto puede ayudar a reiniciar el altavoz del sistema en los chipsets afectados.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 633</value>
   </data>
@@ -661,31 +667,37 @@ como servicio de pago. Asegúrese de que su clave API corresponda a una cuenta d
     <value>Utilice un dispositivo de sonido en lugar del altavoz del sistema para crear un pitido</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 236</value>
+    <value>407, 247</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Creación de pitidos desde la configuración del dispositivo de sonido</value>
   </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 104</value>
+    <value>394, 115</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 57</value>
+    <value>389, 71</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 47</value>
+    <value>379, 61</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>La función "Usar dispositivo de sonido para crear un pitido" se habilita automáticamente porque no se detecta la salida del altavoz del sistema o porque la salida del altavoz del sistema no es estándar.</value>
   </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>379, 61</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>La función "Usar dispositivo de sonido para crear un pitido" se activa automáticamente debido a limitaciones del sistema o problemas de compatibilidad del chipset para garantizar una salida de audio estable.</value>
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 47</value>
+    <value>379, 61</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>La función "Usar dispositivo de sonido para crear un pitido" se habilita automáticamente porque la computadora es compacta o se desconoce su tipo.</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 66</value>
+    <value>75, 80</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Muestra la razón de esta situación.</value>

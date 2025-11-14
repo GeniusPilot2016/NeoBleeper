@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApk0AAAJNU0Z0AUkBTAIBARIB
-        AAGwAQcBsAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAG4AQcBuAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -182,7 +182,7 @@
         ewH/AYwBgwF5Af8BiwGBAXcB/wGJAYABdQH/AYcBfgFzAf+cAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wHdAaABUAH/FAADNQFVBAABCAG8Af4B/wgAAQgBvAH+Af8EAAM1AVUIAAEIAbwB
         /gH/oAADIwEyAfoB8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAAB
-        XgJqAe0IAAFdAWYBaAHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
+        XgJqAe0IAAFdAWUBZwHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -663,6 +663,12 @@ solo come servizio a pagamento. Assicurati che la tua chiave API sia per un acco
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Nei computer compatti e nei computer di tipo sconosciuto, potrebbe non essere udibile alcun suono o potrebbe verificarsi instabilità o un comportamento indesiderato quando si testa l'altoparlante di sistema, perché gli altoparlanti principali potrebbero essere collegati all'uscita dell'altoparlante di sistema anziché all'altoparlante di sistema vero e proprio.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 98</value>
+  </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Se non senti alcun suono o l'audio è disturbato, prova a mettere il computer in modalità sospensione e poi a riattivarlo. Questo può aiutare a reinizializzare l'altoparlante di sistema sui chipset interessati.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 648</value>
   </data>
@@ -676,7 +682,7 @@ solo come servizio a pagamento. Assicurati che la tua chiave API sia per un acco
     <value>Utilizzare il dispositivo audio invece dell'altoparlante di sistema per creare un segnale acustico</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 235</value>
+    <value>407, 249</value>
   </data>
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Creazione di segnali acustici dalle impostazioni del dispositivo audio</value>
@@ -685,25 +691,31 @@ solo come servizio a pagamento. Assicurati che la tua chiave API sia per un acco
     <value>7, 130</value>
   </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 100</value>
+    <value>392, 116</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>387, 58</value>
+    <value>387, 73</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 48</value>
+    <value>377, 63</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>La funzione "Usa dispositivo audio per creare un segnale acustico" viene abilitata automaticamente perché l'uscita dell'altoparlante di sistema non viene rilevata oppure non è standard.</value>
   </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>377, 63</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>La funzione "Usa dispositivo audio per creare un segnale acustico" viene abilitata automaticamente a causa di limitazioni del sistema o problemi di compatibilità del chipset per garantire un'uscita audio stabile.</value>
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 48</value>
+    <value>377, 63</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>La funzione "Usa dispositivo audio per creare un segnale acustico" è abilitata automaticamente perché il computer è un computer compatto o il suo tipo è sconosciuto.</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 67</value>
+    <value>74, 82</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Mostra il motivo di questa situazione</value>

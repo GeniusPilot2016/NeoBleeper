@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApk0AAAJNU0Z0AUkBTAIBARIB
-        AAGkAQcBpAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAGsAQcBrAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -182,7 +182,7 @@
         ewH/AYwBgwF5Af8BiwGBAXcB/wGJAYABdQH/AYcBfgFzAf+cAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wHdAaABUAH/FAADNQFVBAABCAG8Af4B/wgAAQgBvAH+Af8EAAM1AVUIAAEIAbwB
         /gH/oAADIwEyAfoB8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAAB
-        XgJqAe0IAAFdAWkBawHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
+        XgJqAe0IAAFdAWgBagHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -664,6 +664,12 @@
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>На компактных компьютерах и компьютерах неизвестного типа вы можете не услышать звук или столкнуться с нестабильностью или нежелательным поведением при проверке системного динамика, поскольку основные динамики могут быть подключены к выходу системного динамика вместо самого системного динамика.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 99</value>
+  </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Если звука нет или он искажён, попробуйте перевести компьютер в спящий режим и вывести его из него. Это может помочь повторно инициализировать системный динамик на проблемных чипсетах.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
   </data>
@@ -701,6 +707,12 @@
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>Функция «Использовать звуковое устройство для создания звукового сигнала» включается автоматически, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 62</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» автоматически включается из-за системных ограничений или проблем совместимости чипсета для обеспечения стабильного вывода звука.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 62</value>

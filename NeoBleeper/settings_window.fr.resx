@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAHQAQcB0AEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAHYAQcB2AEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -646,6 +646,12 @@ uniquement en tant que service payant. Veuillez vous assurer que votre clé API 
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Sur les ordinateurs compacts et les ordinateurs de type inconnu, vous risquez de ne pas entendre de son ou de provoquer une instabilité ou un comportement indésirable lorsque le haut-parleur du système est testé, car les haut-parleurs principaux peuvent être connectés à la sortie du haut-parleur du système au lieu du haut-parleur du système réel.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 97</value>
+  </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Si vous n'entendez aucun son ou si le son est corrompu, essayez de mettre votre ordinateur en veille puis de le réactiver. Cela peut permettre de réinitialiser le haut-parleur système sur les puces concernées.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 628</value>
   </data>
@@ -678,6 +684,12 @@ uniquement en tant que service payant. Veuillez vous assurer que votre clé API 
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>La fonction « Utiliser un périphérique audio pour créer un bip » est automatiquement activée car la sortie du haut-parleur du système n'est pas détectée ou la sortie du haut-parleur du système n'est pas standard.</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 60</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>La fonction « Utiliser un périphérique audio pour créer un bip » est automatiquement activée en raison de limitations système ou de problèmes de compatibilité du chipset afin de garantir une sortie audio stable.</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 60</value>

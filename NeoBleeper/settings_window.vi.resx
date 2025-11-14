@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAEEAQgBBAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEMAQgBDAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -655,6 +655,12 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Trên máy tính nhỏ gọn và máy tính loại không xác định, bạn có thể không nghe thấy bất kỳ âm thanh nào hoặc có thể gây ra sự bất ổn hoặc hành vi không mong muốn khi kiểm tra loa hệ thống vì loa chính có thể được kết nối với đầu ra loa hệ thống thay vì loa hệ thống thực tế.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 85</value>
+  </data>
+  <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
+    <value>Nếu bạn không nghe thấy âm thanh hoặc âm thanh bị hỏng, hãy thử đặt máy tính ở chế độ ngủ và đánh thức nó. Thao tác này có thể giúp khởi động lại loa hệ thống trên các chipset bị ảnh hưởng.</value>
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 613</value>
   </data>
@@ -679,17 +685,23 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>388, 55</value>
   </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 45</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
+    <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được tự động bật vì máy tính là máy tính nhỏ gọn hoặc không xác định được loại máy.</value>
+  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 45</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được tự động bật vì đầu ra loa hệ thống không được phát hiện hoặc đầu ra loa hệ thống không chuẩn.</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 45</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
-    <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được tự động bật vì máy tính là máy tính nhỏ gọn hoặc không xác định được loại máy.</value>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được tự động bật do hạn chế của hệ thống hoặc sự cố tương thích của chipset để đảm bảo đầu ra âm thanh ổn định.</value>
   </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 64</value>

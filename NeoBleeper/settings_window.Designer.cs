@@ -55,14 +55,16 @@
             panelSystemSpeakerWarnings = new Panel();
             label_test_system_speaker_message_2 = new Label();
             label_test_system_speaker_message_3 = new Label();
+            label_test_system_speaker_message_4 = new Label();
             creating_sound_settings = new TabPage();
             flowLayoutPanelCreatingSoundSettings = new FlowLayoutPanel();
             checkBox_enable_create_beep_from_soundcard = new CheckBox();
             group_beep_creation_from_sound_card_settings = new GroupBox();
             flowLayoutPanelSoundDeviceBeepEnabledInfo = new FlowLayoutPanel();
             panel1 = new Panel();
-            label_create_beep_from_soundcard_automatically_activated_message_1 = new Label();
             label_create_beep_from_soundcard_automatically_activated_message_2 = new Label();
+            label_create_beep_from_soundcard_automatically_activated_message_1 = new Label();
+            label_create_beep_from_soundcard_automatically_activated_message_3 = new Label();
             button_show_reason = new Button();
             group_tone_waveform = new GroupBox();
             radioButton_noise = new RadioButton();
@@ -392,6 +394,7 @@
             resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_2);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
+            panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_4);
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
             // 
@@ -408,6 +411,13 @@
             label_test_system_speaker_message_3.ForeColor = Color.FromArgb(255, 128, 0);
             label_test_system_speaker_message_3.Name = "label_test_system_speaker_message_3";
             toolTip1.SetToolTip(label_test_system_speaker_message_3, resources.GetString("label_test_system_speaker_message_3.ToolTip"));
+            // 
+            // label_test_system_speaker_message_4
+            // 
+            resources.ApplyResources(label_test_system_speaker_message_4, "label_test_system_speaker_message_4");
+            label_test_system_speaker_message_4.ForeColor = Color.DeepSkyBlue;
+            label_test_system_speaker_message_4.Name = "label_test_system_speaker_message_4";
+            toolTip1.SetToolTip(label_test_system_speaker_message_4, resources.GetString("label_test_system_speaker_message_4.ToolTip"));
             // 
             // creating_sound_settings
             // 
@@ -454,10 +464,17 @@
             // panel1
             // 
             resources.ApplyResources(panel1, "panel1");
-            panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
             panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_2);
+            panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_1);
+            panel1.Controls.Add(label_create_beep_from_soundcard_automatically_activated_message_3);
             panel1.Name = "panel1";
             toolTip1.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
+            // 
+            // label_create_beep_from_soundcard_automatically_activated_message_2
+            // 
+            resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_2, "label_create_beep_from_soundcard_automatically_activated_message_2");
+            label_create_beep_from_soundcard_automatically_activated_message_2.Name = "label_create_beep_from_soundcard_automatically_activated_message_2";
+            toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_2, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip"));
             // 
             // label_create_beep_from_soundcard_automatically_activated_message_1
             // 
@@ -465,11 +482,11 @@
             label_create_beep_from_soundcard_automatically_activated_message_1.Name = "label_create_beep_from_soundcard_automatically_activated_message_1";
             toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_1, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_1.ToolTip"));
             // 
-            // label_create_beep_from_soundcard_automatically_activated_message_2
+            // label_create_beep_from_soundcard_automatically_activated_message_3
             // 
-            resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_2, "label_create_beep_from_soundcard_automatically_activated_message_2");
-            label_create_beep_from_soundcard_automatically_activated_message_2.Name = "label_create_beep_from_soundcard_automatically_activated_message_2";
-            toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_2, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip"));
+            resources.ApplyResources(label_create_beep_from_soundcard_automatically_activated_message_3, "label_create_beep_from_soundcard_automatically_activated_message_3");
+            label_create_beep_from_soundcard_automatically_activated_message_3.Name = "label_create_beep_from_soundcard_automatically_activated_message_3";
+            toolTip1.SetToolTip(label_create_beep_from_soundcard_automatically_activated_message_3, resources.GetString("label_create_beep_from_soundcard_automatically_activated_message_3.ToolTip"));
             // 
             // button_show_reason
             // 
@@ -1352,5 +1369,7 @@
         private Panel note_indicator_color;
         private Label label11;
         private Label label7;
+        public Label label_test_system_speaker_message_4;
+        public Label label_create_beep_from_soundcard_automatically_activated_message_3;
     }
 }

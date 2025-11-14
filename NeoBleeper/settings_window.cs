@@ -62,9 +62,18 @@ namespace NeoBleeper
                 checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.creating_sounds.create_beep_with_soundcard;
                 if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present == false)
                 {
-                    label_test_system_speaker_message_2.Visible = true;
-                    label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
-                    button_show_reason.Visible = true;
+                    if (!TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
+                    {
+                        label_test_system_speaker_message_2.Visible = true;
+                        label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
+                        button_show_reason.Visible = true;
+                    }
+                    else
+                    {
+                        label_test_system_speaker_message_4.Visible = true;
+                        label_create_beep_from_soundcard_automatically_activated_message_3.Visible = true;
+                        button_show_reason.Visible = true;
+                    }
                 }
                 else
                 {
@@ -77,9 +86,18 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        flowLayoutPanelGeneralSettings.Controls.RemoveAt(flowLayoutPanelGeneralSettings.Controls.IndexOf(panelSystemSpeakerWarnings));
-                        group_beep_creation_from_sound_card_settings.Controls.Remove(flowLayoutPanelSoundDeviceBeepEnabledInfo);
-                        group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
+                        if (!TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
+                        {
+                            flowLayoutPanelGeneralSettings.Controls.RemoveAt(flowLayoutPanelGeneralSettings.Controls.IndexOf(panelSystemSpeakerWarnings));
+                            group_beep_creation_from_sound_card_settings.Controls.Remove(flowLayoutPanelSoundDeviceBeepEnabledInfo);
+                            group_beep_creation_from_sound_card_settings.Size = new Size(group_beep_creation_from_sound_card_settings.Size.Width, group_beep_creation_from_sound_card_settings.Size.Height - flowLayoutPanelSoundDeviceBeepEnabledInfo.Height);
+                        }
+                        else
+                        {
+                            label_test_system_speaker_message_4.Visible = true;
+                            label_create_beep_from_soundcard_automatically_activated_message_3.Visible = true;
+                            button_show_reason.Visible = true;
+                        }
                     }
                 }
             }
