@@ -15,7 +15,7 @@ NeoBleeper — это программа для создания мелодий 
 - ### Удобный, знакомый, более эргономичный и более естественный интерфейс
   NeoBleeper предлагает удобный, знакомый, эргономичный и более естественный интерфейс, совместимый с дисплеями высокого разрешения, и ускоряет процесс адаптации для бывших пользователей Bleeper Music Maker.
 
-  ![image](https://github.com/user-attachments/assets/9337ed56-56f1-45fd-8640-e89210eb7e77)
+  ![image](https://github.com/user-attachments/assets/8108be4a-d404-4553-aaed-6a18e4f1f3c4)
   
   ![image](https://github.com/user-attachments/assets/74a30890-ca06-430d-9d62-08459518b2da)
 
@@ -63,9 +63,9 @@ NeoBleeper — это программа для создания мелодий 
     NeoBleeper — первое в мире программное обеспечение для системного музыкального проигрывателя с поддержкой искусственного интеллекта.
     Благодаря функции создания музыки с использованием ИИ на базе Google Gemini™ в программе NeoBleeper вы можете создавать музыку с помощью ИИ и воспроизводить её через системный динамик или MIDI-устройство вывода.
 
-    ![image](https://github.com/user-attachments/assets/f659de93-7d80-4021-8dd1-876d527d1eb0)
+    ![image](https://github.com/user-attachments/assets/be9e156a-7bc3-421a-bf55-0e4908282538)
 
-    ![image](https://github.com/user-attachments/assets/22aa84de-fecd-400e-beda-a5b3fe9380d7)
+    ![image](https://github.com/user-attachments/assets/312e9317-3f05-4758-abde-6cde0e2755dd)
 
   - #### Более точное отображение позиции
     NeoBleeper предлагает отображение позиции, совместимое с нотами длительностью 1/32.
