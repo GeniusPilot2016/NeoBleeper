@@ -14,7 +14,7 @@ This project is **still in development** and this version is the **beta release*
 - ### User-friendly, familiar, more ergonomic and more natural interface
   NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays, and speeds up the adaptation process for former Bleeper Music Maker users.
 
-  ![image](https://github.com/user-attachments/assets/5589b9b6-f481-4047-91db-8c09d6aece0d)
+  ![image](https://github.com/user-attachments/assets/e7cbe4c0-6d5c-46ad-aec5-ad37cf3c9cd4)
 
   ![image](https://github.com/user-attachments/assets/474a2d6c-4977-4555-8026-eea213a8bee6)
 
@@ -62,9 +62,9 @@ This project is **still in development** and this version is the **beta release*
     NeoBleeper is world's first AI-enabled system speaker music player software.
     Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
-    ![image](https://github.com/user-attachments/assets/e8d3b881-0cb3-4d4e-9e73-cd4de1ac73b0)
+    ![image](https://github.com/user-attachments/assets/a093f4ca-fb12-49d4-b3a5-19d46ef8ce1b)
 
-    ![image](https://github.com/user-attachments/assets/01a94f56-f3cd-477b-9aa5-82f7e37c4680)
+    ![image](https://github.com/user-attachments/assets/660784f6-9c32-4e61-bc4a-74a3eba5c428)
     
   - #### More precise position display
     NeoBleeper offers a position display that compatible with 1/32 note length.
