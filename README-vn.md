@@ -15,7 +15,7 @@ Dự án này **vẫn đang trong quá trình phát triển** và phiên bản n
 - ### Giao diện thân thiện, quen thuộc, tiện dụng hơn và tự nhiên hơn
   NeoBleeper mang đến giao diện thân thiện, quen thuộc, tiện dụng và tự nhiên hơn, tương thích với màn hình độ phân giải cao, đồng thời tăng tốc quá trình thích ứng cho những người dùng Bleeper Music Maker trước đây.
 
-  ![image](https://github.com/user-attachments/assets/bf1b2da4-ed9a-44a0-9d7e-4ccc30104a07)
+  ![image](https://github.com/user-attachments/assets/6cb5a9d4-850c-44d0-b860-99d8c77655d6)
   
   ![image](https://github.com/user-attachments/assets/98ff07e2-eed9-49f6-ae83-14ed129a026b)
 
@@ -63,9 +63,9 @@ Dự án này **vẫn đang trong quá trình phát triển** và phiên bản n
   NeoBleeper là phần mềm phát nhạc loa hệ thống hỗ trợ AI đầu tiên trên thế giới.
   Nhờ tính năng tạo nhạc hỗ trợ AI do Google Gemini™ cung cấp trong chương trình NeoBleeper, bạn có thể tạo nhạc bằng AI và phát qua loa hệ thống hoặc thiết bị đầu ra MIDI.
 
-  ![image](https://github.com/user-attachments/assets/c580ef09-fb57-4951-a68c-6d4e298d63d5)
+  ![image](https://github.com/user-attachments/assets/591dd6a8-df32-4708-8399-01ec4c1a6fdb)
 
-  ![image](https://github.com/user-attachments/assets/ca16b391-87c5-40e7-9c0b-743c3b179f1e)
+  ![image](https://github.com/user-attachments/assets/046d2856-1816-46bc-8c41-e23cf4055175)
 
 - #### Hiển thị vị trí chính xác hơn
   NeoBleeper cung cấp màn hình hiển thị vị trí tương thích với độ dài nốt nhạc 1/32.
