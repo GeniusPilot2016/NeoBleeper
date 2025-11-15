@@ -290,7 +290,20 @@
     **Campo de clave API de Google Gemini™:** Entrada segura para habilitar funciones de música generadas por IA.
     **Advertencia de seguridad:** Se recomienda a los usuarios no compartir su clave API.
     **Botones de actualización/reinicio:** Administra el ciclo de vida de la clave API. El botón de actualización está deshabilitado, probablemente pendiente de una entrada válida.
+
+    - ##### **Términos de la API de Google Gemini™ y verificación de edad**
     
+      Cuando se introduce una clave API por primera vez, aparece un cuadro de diálogo con el Acuerdo de Términos de Servicio de Google Gemini™. Para cumplir con los requisitos de la API y las restricciones de edad, los usuarios deben:
+      
+      - **Leer y aceptar los Términos de Servicio** antes de usar las funciones de la API de Google Gemini™.      
+      - **Introducir su fecha de nacimiento** para confirmar que tienen 18 años o más. Las personas menores de 18 años no pueden usar las funciones de la API de Google Gemini™ en NeoBleeper.
+      - Si la clave API proporcionada no es válida, si el usuario es menor de 18 años o si no acepta los términos de servicio, la clave será rechazada y las funciones de la API de Google Gemini™ no se habilitarán.
+      - **NeoBleeper no almacenará ni compartirá su fecha de nacimiento**; solo se utiliza una vez para verificar la edad y el cumplimiento de los términos.
+
+      ![image1](https://github.com/user-attachments/assets/f4df7736-c97c-4217-93f3-d6d78c7fb314)
+      
+      El requisito de edad y la aceptación de los Términos de Servicio son obligatorios al ingresar una nueva clave API por primera vez. Esto garantiza un uso responsable y el cumplimiento legal de las funciones de música generadas por IA. 
+
     - #### Probando el altavoz del sistema
     **Botón de prueba:** Emite un pitido para confirmar la funcionalidad del altavoz.
     **Mensaje de respaldo:** Sugiere utilizar un dispositivo de sonido alternativo si no se escucha ningún sonido desde el altavoz del sistema.
