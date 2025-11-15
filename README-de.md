@@ -16,7 +16,7 @@ Dieses Projekt befindet sich **noch in der Entwicklung** und diese Version ist d
   
 NeoBleeper bietet eine benutzerfreundliche, vertraute, ergonomischere und natürlichere Oberfläche, die mit hochauflösenden Displays kompatibel ist und die Eingewöhnung für ehemalige Bleeper Music Maker-Nutzer beschleunigt.
 
-  ![image](https://github.com/user-attachments/assets/c9d253c1-3ead-4fee-b7a9-e80e8ad941bf)
+  ![image](https://github.com/user-attachments/assets/2af7bdd7-1611-4df8-b0a6-fb23d8ea69e2)
 
   ![image](https://github.com/user-attachments/assets/65142fea-3c59-4625-9ad2-7c371589b3e8)
 
@@ -70,9 +70,9 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
     NeoBleeper ist die weltweit erste KI-fähige Musikplayer-Software für Systemlautsprecher.
     Dank der KI-gestützten Musikerstellungsfunktion von Google Gemini™ im NeoBleeper-Programm können Sie Musik mit KI erstellen und über den Systemlautsprecher oder ein MIDI-Ausgabegerät abspielen.
 
-    ![image](https://github.com/user-attachments/assets/36eddae6-3c8f-49c9-a8c7-10fe3e72ed2f)
+    ![image](https://github.com/user-attachments/assets/908fdddc-250a-47e2-b093-385dd0a65c2f)
 
-    ![image](https://github.com/user-attachments/assets/4a8bbc36-46a6-4f43-8516-83c959d0880a)
+    ![image](https://github.com/user-attachments/assets/d84ef475-3da5-4aa0-a146-5a97639ccc46)
 
   - #### Präzisere Positionsanzeige
     
