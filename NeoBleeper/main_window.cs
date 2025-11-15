@@ -5212,8 +5212,8 @@ namespace NeoBleeper
         { Keys.Oem8, button_g_s4 },
         { Keys.OemCloseBrackets, button_a4 },
         { Keys.OemMinus, button_a_s4 },
-        { Keys.OemPipe, button_b4 },
-        { Keys.ShiftKey, button_c5 },
+        { Keys.ShiftKey, button_b4 },
+        { Keys.Oem102, button_c5 },
         { Keys.A, button_c_s5 },
         { Keys.Z, button_d5 },
         { Keys.S, button_d_s5 },
@@ -5337,8 +5337,8 @@ namespace NeoBleeper
                 { (int)Keys.Oem8, (NoteUtility.base_note_frequency_in_4th_octave.GS, 0) }, // G#4
                 { (int)Keys.OemCloseBrackets, (NoteUtility.base_note_frequency_in_4th_octave.A, 0) }, // A4
                 { (int)Keys.OemMinus, (NoteUtility.base_note_frequency_in_4th_octave.AS, 0) }, // A#4
-                { (int)Keys.OemPipe, (NoteUtility.base_note_frequency_in_4th_octave.B, 0) }, // B4
-                { (int)Keys.ShiftKey, (NoteUtility.base_note_frequency_in_4th_octave.C, 1) }, // C5
+                { (int)Keys.ShiftKey, (NoteUtility.base_note_frequency_in_4th_octave.B, 0) }, // B4
+                { (int)Keys.Oem102, (NoteUtility.base_note_frequency_in_4th_octave.C, 1) }, // C5
                 { (int)Keys.A, (NoteUtility.base_note_frequency_in_4th_octave.CS, 1) }, // C#5
                 { (int)Keys.Z, (NoteUtility.base_note_frequency_in_4th_octave.D, 1) }, // D5
                 { (int)Keys.S, (NoteUtility.base_note_frequency_in_4th_octave.DS, 1) }, // D#5
@@ -5629,14 +5629,14 @@ namespace NeoBleeper
             }
             if (buttonShortcuts.TryGetValue(button_b4, out shortcut))
             {
-                if (keyCode == (int)Keys.OemPipe)
+                if (keyCode == (int)Keys.ShiftKey)
                 {
                     button_b4.BackColor = markdownColor;
                 }
             }
             if (buttonShortcuts.TryGetValue(button_c5, out shortcut))
             {
-                if (keyCode == (int)Keys.ShiftKey)
+                if (keyCode == (int)Keys.Oem102)
                 {
                     button_c5.BackColor = markdownColor;
                 }
@@ -5746,8 +5746,8 @@ namespace NeoBleeper
         {
             // White keys
             Keys.Tab, Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y,
-            Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.OemPipe,
-            Keys.ShiftKey, Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N,
+            Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.OemCloseBrackets, Keys.ShiftKey,
+            Keys.Oem102, Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N,
         
             // Black keys
             Keys.Oemtilde, Keys.D1, Keys.D3, Keys.D4, Keys.D5,

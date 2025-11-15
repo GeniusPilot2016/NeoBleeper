@@ -25,7 +25,7 @@ namespace NeoBleeper
         private const int SCF_SELECTION = 1;
         private const uint CFM_LINK = 0x00000020;
         private const uint CFE_LINK = 0x00000020;
-        private DateTime DateOfBirth = DateTime.Now; // Date of birth to verify age
+        private DateTime DateOfBirth = DateTime.Now.AddYears(-13);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         private struct CHARFORMAT2
@@ -59,7 +59,7 @@ namespace NeoBleeper
             InitializeComponent();
             UIFonts.setFonts(this);
             dateTimePickerDateOfBirth.MaxDate = DateTime.Now.AddYears(-13);
-            dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13);
+            dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13).Date;
             if (!string.IsNullOrEmpty(Settings1.Default.cachedGoogleGeminiTermsOfService))
             {
                 richTextBoxTerms.Text = Settings1.Default.cachedGoogleGeminiTermsOfService;
@@ -428,7 +428,7 @@ namespace NeoBleeper
         {
             agreedTermsOfServiceAgreement = checkBoxAccept.Checked;
             DateOfBirth = dateTimePickerDateOfBirth.Value;
-            Settings1.Default.googleGeminiTermsOfServiceAccepted = agreedTermsOfServiceAgreement;
+            Settings1.Default.googleGeminiTermsOfServiceAccepted = agreedTermsOfServiceAgreement && DateOfBirth.AddYears(18).Date < DateTime.Now;
             Settings1.Default.Save();
             this.Close();
         }

@@ -279,8 +279,7 @@
     <value>Ноты копируются в буфер обмена.</value>
   </data>
   <data name="StatusSpecifyingStorageType" xml:space="preserve">
-    <value>Указание типа накопителя для предотвращения резонанса...
-</value>
+    <value>Указание типа накопителя для предотвращения резонанса...</value>
   </data>
   <data name="StatusComputerTypeDetecting" xml:space="preserve">
     <value>Определение типа компьютера...</value>
