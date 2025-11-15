@@ -295,7 +295,22 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
       **Sicherheitswarnung:** Weist Nutzer an, ihren API-Schlüssel nicht weiterzugeben.
       
       **Schaltflächen zum Aktualisieren/Zurücksetzen:** Verwalten Sie den Lebenszyklus des API-Schlüssels. Die Schaltfläche zum Aktualisieren ist deaktiviert, da wahrscheinlich eine gültige Eingabe aussteht.
-      
+
+      - ##### **Google Gemini™ API-Nutzungsbedingungen & Altersverifizierung**
+        Bei der erstmaligen Eingabe eines API-Schlüssels erscheint ein Dialogfeld mit den Nutzungsbedingungen von Google Gemini™. Um die API-Anforderungen und Altersbeschränkungen zu erfüllen, müssen Nutzer Folgendes beachten:
+        
+        - **Lesen und akzeptieren Sie die Nutzungsbedingungen**, bevor Sie die Funktionen der Google Gemini™ API nutzen.
+        
+        - **Geben Sie Ihr Geburtsdatum ein**, um zu bestätigen, dass Sie mindestens 18 Jahre alt sind. Personen unter 18 Jahren dürfen die Funktionen der Google Gemini™ API in NeoBleeper nicht nutzen.
+        
+        - Wenn der angegebene API-Schlüssel ungültig ist, der Nutzer unter 18 Jahre alt ist oder die Nutzungsbedingungen nicht akzeptiert werden, wird der Schlüssel abgelehnt und die Funktionen der Google Gemini™ API werden nicht aktiviert.
+        
+        - **Ihr Geburtsdatum wird von NeoBleeper weder gespeichert noch weitergegeben**; es wird nur einmalig zur Überprüfung der Altersberechtigung und zur Einhaltung der Bestimmungen verwendet.
+
+        ![image1](https://github.com/user-attachments/assets/83adac46-46a1-4604-bddd-e552944f6883)
+        
+        Die Altersvoraussetzung und die Zustimmung zu den Nutzungsbedingungen sind bei der erstmaligen Eingabe eines neuen API-Schlüssels obligatorisch. Dies gewährleistet die verantwortungsvolle Nutzung und die Einhaltung der gesetzlichen Bestimmungen für KI-generierte Musikfunktionen.
+        
     - #### Systemlautsprecher testen
       **Schaltfläche zum Testen:** Gibt einen Signalton aus, um die Lautsprecherfunktion zu bestätigen.
       
