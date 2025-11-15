@@ -296,7 +296,19 @@
       **Avviso di Sicurezza:** Consiglia agli utenti di non condividere la propria chiave API.
     
       **Pulsanti Aggiorna/Reimposta:** Gestisce il ciclo di vita della chiave API. Il pulsante Aggiorna è disabilitato, probabilmente in attesa di un input valido.
-    
+
+      - ##### **Termini e verifica dell'età dell'API Google Gemini™**
+      Quando si inserisce una chiave API per la prima volta, viene visualizzata una finestra di dialogo con i Termini di servizio di Google Gemini™. Per rispettare i requisiti API e le restrizioni di età, gli utenti sono tenuti a:
+      
+        - **Leggere e accettare i Termini di servizio** prima di utilizzare le funzionalità dell'API Google Gemini™.
+        - **Inserire la propria data di nascita** per confermare di avere almeno 18 anni. I minori di 18 anni non sono autorizzati a utilizzare le funzionalità dell'API Google Gemini™ all'interno di NeoBleeper.
+        - Se la chiave API fornita non è valida, se l'utente ha meno di 18 anni o se i Termini di servizio non vengono accettati, la chiave verrà rifiutata e le funzionalità dell'API Google Gemini™ non saranno abilitate.
+        - **La data di nascita non verrà memorizzata né condivisa** da NeoBleeper; viene utilizzata una sola volta per la verifica dell'idoneità all'età e per la conformità.
+
+        ![image1](https://github.com/user-attachments/assets/106c88d2-0179-4d6b-8836-0325df9c984d)
+        
+        Il requisito di età e l'accettazione dei Termini di Servizio sono obbligatori al primo inserimento di una nuova chiave API. Questo garantisce un utilizzo responsabile e la conformità legale per le funzionalità musicali generate dall'IA.
+  
     - #### Altoparlante di Sistema di Test
       **Pulsante Test:** Emette un segnale acustico per confermare il funzionamento dell'altoparlante.
     
