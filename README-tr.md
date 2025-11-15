@@ -63,9 +63,9 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
     NeoBleeper, dünyanın ilk yapay zeka destekli sistem hoparlörü ile müzik çalma yazılımıdır.
     NeoBleeper programındaki Google Gemini™ destekli yapay zeka destekli müzik oluşturma özelliği sayesinde, yapay zeka ile müzik yaratabilir ve bunları sistem hoparlöründen veya MIDI çıkış cihazından çalabilirsiniz.
 
-    ![image](https://github.com/user-attachments/assets/7797c175-aff7-4cc9-947c-3b0d6b2a84bc)
-    
-    ![image](https://github.com/user-attachments/assets/35c84856-79cb-4ed4-aa13-2b44840334ee)
+    ![image](https://github.com/user-attachments/assets/50b80dbb-ef68-485e-94f6-56f89f596a9d)
+
+    ![image](https://github.com/user-attachments/assets/f1ec8508-57a4-43c7-8965-dc613950f773)
     
  - #### Daha hassas pozisyon gösterimi
     NeoBleeper, 1/32 nota uzunluğuyla uyumlu bir pozisyon gösterimi sunar.
