@@ -15,7 +15,7 @@ Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürüm�
 - ### Kullanıcı dostu, tanıdık, daha ergonomik ve daha doğal arayüz
   NeoBleeper, yüksek çözünürlüklü ekranlarla uyumlu, kullanıcı dostu, tanıdık, ergonomik ve daha doğal bir arayüz sunar ve eski Bleeper Music Maker kullanıcılarının uyum sürecini hızlandırır.
 
-  ![image](https://github.com/user-attachments/assets/5561c0e3-c528-4d3f-93cc-f0df0cd35cc2)
+  ![image](https://github.com/user-attachments/assets/27a96f21-3935-4949-ae7b-72414f52eecc)
 
   ![image](https://github.com/user-attachments/assets/746a6597-1b0e-4a77-b078-2b7ff19f1d53)
 
