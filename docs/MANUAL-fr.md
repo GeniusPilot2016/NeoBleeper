@@ -303,7 +303,23 @@ alternees toutes les: ... ms ».
       **Avertissement de sécurité** : recommande aux utilisateurs de ne pas partager leur clé API.
     
       **Boutons de mise à jour/réinitialisation** : gèrent le cycle de vie de la clé API. Le bouton de mise à jour est désactivé, probablement en attente d'une saisie valide.
-    
+
+      - ##### **Conditions d'utilisation et vérification de l'âge de l'API Google Gemini™**
+
+      Lors de la première saisie d'une clé API, une fenêtre d'acceptation des conditions d'utilisation de l'API Google Gemini™ s'affiche. Pour respecter les exigences de l'API et les restrictions d'âge, les utilisateurs doivent :
+      
+      - **Lire et accepter les conditions d'utilisation** avant d'utiliser les fonctionnalités de l'API Google Gemini™.
+      
+      - **Saisir leur date de naissance** pour confirmer qu'ils sont âgés de 18 ans ou plus. Les personnes de moins de 18 ans ne sont pas autorisées à utiliser les fonctionnalités de l'API Google Gemini™ dans NeoBleeper.
+      
+      - Si la clé API fournie n'est pas valide, si l'utilisateur est âgé de moins de 18 ans ou s'il n'accepte pas les conditions d'utilisation, la clé sera rejetée et les fonctionnalités de l'API Google Gemini™ ne seront pas activées.
+      
+      - **Votre date de naissance ne sera ni stockée ni partagée** par NeoBleeper ; elle est utilisée une seule fois à des fins de vérification d'âge et de conformité.
+
+      ![image1](https://github.com/user-attachments/assets/73f5b45f-a719-4d01-bd3d-71bdcb7cd9ee)
+      
+      L'âge minimum requis et l'acceptation des conditions d'utilisation sont obligatoires lors de la première saisie d'une nouvelle clé API. Ceci garantit une utilisation responsable et la conformité légale des fonctionnalités musicales générées par l'IA.
+  
     - #### Test du haut-parleur système
       **Bouton de test** : émet un bip pour confirmer le fonctionnement du haut-parleur.
     
