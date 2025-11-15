@@ -15,7 +15,7 @@ Questo progetto è **ancora in fase di sviluppo** e questa versione è la **vers
 - ### Interfaccia intuitiva, familiare, più ergonomica e naturale
 NeoBleeper offre un'interfaccia intuitiva, familiare, ergonomica e più naturale, compatibile con display ad alta risoluzione, e velocizza il processo di adattamento per gli ex utenti di Bleeper Music Maker.
 
-  ![image](https://github.com/user-attachments/assets/de08e7b9-2ed8-4c79-8ae1-75ab626e5c86)
+  ![image](https://github.com/user-attachments/assets/bbb54084-744d-46d9-b117-b279b73961eb)
 
   ![image](https://github.com/user-attachments/assets/c756324d-3104-4e34-8803-4d62d3b0b4b2)
 
@@ -63,9 +63,9 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
     NeoBleeper è il primo software al mondo per la riproduzione musicale di altoparlanti di sistema dotati di intelligenza artificiale.
     Grazie alla funzionalità di creazione musicale basata sull'intelligenza artificiale, supportata da Google Gemini™ nel programma NeoBleeper, puoi creare musica con l'intelligenza artificiale e riprodurla tramite l'altoparlante di sistema o un dispositivo di uscita MIDI.
 
-    ![image](https://github.com/user-attachments/assets/c256f59b-f513-48d1-b371-f42efb9922db)
+    ![image](https://github.com/user-attachments/assets/1b53a5b7-cd23-40e0-8113-1a63867b7d54)
 
-    ![image](https://github.com/user-attachments/assets/ec8329a0-4ee1-4dc2-843d-eaddae084156)
+    ![image](https://github.com/user-attachments/assets/74ce590f-037b-4c26-acb5-c85adaa1087a)
     
   - #### Visualizzazione della posizione più precisa
     NeoBleeper offre una visualizzazione della posizione compatibile con note di lunghezza pari a 1/32.
