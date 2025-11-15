@@ -16,7 +16,7 @@ Ce projet est **encore en développement** et cette version est une **version b�
   
 NeoBleeper offre une interface conviviale, familière, plus ergonomique et plus naturelle, compatible avec les écrans haute résolution, et accélère le processus d'adaptation pour les anciens utilisateurs de Bleeper Music Maker.
 
-  ![image](https://github.com/user-attachments/assets/2de08ad7-d608-426a-b8bc-12e2ed0aced8)
+  ![image](https://github.com/user-attachments/assets/2118c051-5c07-4b12-a933-b0b3dc4e6322)
 
   ![image](https://github.com/user-attachments/assets/4b90629c-57bc-466c-ae09-8997b1be0daa)
 
@@ -64,9 +64,9 @@ NeoBleeper permet aux utilisateurs d'ajouter et de modifier des notes facilement
     NeoBleeper est le premier logiciel de lecture de musique pour haut-parleurs système basé sur l'IA au monde.
     Grâce à la fonctionnalité de création musicale basée sur l'IA, optimisée par Google Gemini™, du programme NeoBleeper, vous pouvez créer de la musique avec l'IA et la diffuser via le système d'enceintes ou un périphérique de sortie MIDI.
 
-    ![image](https://github.com/user-attachments/assets/1999cd32-ae8f-4dc5-abcd-4fad64f45dae)
+    ![image](https://github.com/user-attachments/assets/a7feffcc-cd2d-4fe5-9ae3-b083a185229e)
 
-    ![image](https://github.com/user-attachments/assets/63d37be6-8d5d-4f5d-9fa2-fc8f10f9613f)
+    ![image](https://github.com/user-attachments/assets/5a1f747d-a410-436e-a7a5-dbdf5a741757)
     
   - #### Affichage de position plus précis
     NeoBleeper propose un affichage de position compatible avec une longueur de note de 1/32.
