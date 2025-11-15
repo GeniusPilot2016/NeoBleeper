@@ -284,7 +284,19 @@
       
       **Nút cập nhật/đặt lại:** Quản lý vòng đời khóa API. Nút cập nhật bị vô hiệu hóa, có thể đang chờ nhập liệu hợp lệ.
 
-    -#### Kiểm tra loa hệ thống
+      - ##### **Điều khoản API Google Gemini™ & Xác minh Độ tuổi**
+    Khi nhập khóa API lần đầu tiên, hộp thoại Thỏa thuận Điều khoản Dịch vụ Google Gemini™ sẽ xuất hiện. Để tuân thủ các yêu cầu của API và giới hạn độ tuổi, người dùng cần:
+    
+      - **Đọc và chấp nhận Điều khoản Dịch vụ** trước khi sử dụng các tính năng API Google Gemini™.
+      - **Nhập ngày sinh** để xác nhận họ đã đủ 18 tuổi trở lên. Người dùng dưới 18 tuổi không được phép sử dụng các tính năng API Google Gemini™ trong NeoBleeper.
+      - Nếu khóa API được cung cấp không hợp lệ hoặc nếu người dùng dưới 18 tuổi, hoặc các điều khoản dịch vụ không được chấp nhận, khóa sẽ bị từ chối và các tính năng API Google Gemini™ sẽ không được bật.
+      - **Ngày sinh của bạn sẽ không được lưu trữ hoặc chia sẻ** bởi NeoBleeper; thông tin này chỉ được sử dụng một lần để kiểm tra độ tuổi và tuân thủ.
+
+      ![image1](https://github.com/user-attachments/assets/3338edf4-1ed6-4c84-8c39-9a37b30ab8ca)
+      
+      Yêu cầu về độ tuổi và chấp nhận Điều khoản Dịch vụ (TOS) là bắt buộc. Vui lòng nhập khóa API mới lần đầu tiên. Điều này đảm bảo việc sử dụng có trách nhiệm và tuân thủ pháp luật đối với các tính năng âm nhạc do AI tạo ra.
+
+    - #### Kiểm tra loa hệ thống
       **Nút kiểm tra:** Phát tiếng bíp để xác nhận chức năng của loa.
       
       **Thông báo dự phòng:** Đề xuất sử dụng thiết bị âm thanh thay thế nếu không nghe thấy âm thanh từ loa hệ thống.
