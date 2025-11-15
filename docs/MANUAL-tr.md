@@ -292,8 +292,20 @@
       **Güvenlik Uyarısı:** Kullanıcıların API anahtarlarını paylaşmamalarını önerir.
     
       **Güncelleme/Sıfırlama Düğmeleri:** API anahtar yaşam döngüsünü yönetin. Güncelleme düğmesi devre dışı bırakıldı, muhtemelen geçerli bir giriş bekleniyor.
-    
-    - #### Sistem Hoparlörü Test Ediliyor
+
+      - ##### **Google Gemini™ API Şartları ve Yaş Doğrulaması**
+        Bir API anahtarı ilk kez girildiğinde, bir Google Gemini™ Hizmet Şartları Sözleşmesi iletişim kutusu görüntülenir. API gereksinimlerine ve yaş kısıtlamalarına uymak için kullanıcıların şunları yapması gerekir:
+        
+        - Google Gemini™ API özelliklerini kullanmadan önce **Hizmet Şartları'nı okuyup kabul edin**.
+        - 18 yaşında veya daha büyük olduklarını onaylamak için **doğum tarihlerini girin**. 18 yaşın altındaki kişilerin NeoBleeper'da Google Gemini™ API özelliklerini kullanmalarına izin verilmez.
+        - Sağlanan API anahtarı geçerli değilse veya kullanıcı 18 yaşından küçükse ya da hizmet şartları kabul edilmezse, anahtar reddedilir ve Google Gemini™ API özellikleri etkinleştirilmez.
+        - **Doğum tarihiniz NeoBleeper tarafından saklanmaz veya paylaşılmaz**; yalnızca yaş uygunluğu kontrolü ve uyumluluk için tek seferlik kullanılır.
+
+        ![image1](https://github.com/user-attachments/assets/84f0e104-ede3-4973-9f5d-7949d0e9da21)
+        
+        İlk kez yeni bir API anahtarı girildiğinde yaş sınırı ve TOS kabulü zorunludur. Bu, yapay zeka tarafından üretilen müzik özelliklerinin sorumlu kullanımını ve yasal uyumluluğunu sağlar.
+
+    - #### Sistem Hoparlörünü Test Etme
       **Test Düğmesi:** Hoparlörün çalıştığını onaylamak için bir bip sesi çalar.
     
       **Geri Dönüş Mesajı:** Sistem hoparlöründen ses gelmiyorsa alternatif bir ses cihazı kullanılmasını önerir.
