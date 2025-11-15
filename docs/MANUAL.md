@@ -298,6 +298,20 @@
       **Security Warning:** Advises users not to share their API key.
       
       **Update/Reset Buttons:** Manage the API key lifecycle. The update button is disabled, likely pending valid input.
+
+      - ##### **Google Gemini™ API Terms & Age Verification**
+      When an API key is entered for the first time, a Google Gemini™ Terms of Service Agreement dialog appears. To comply with the API requirements and age restrictions, users are required to:
+
+      - **Read and accept the Terms of Service** before using the Google Gemini™ API features.
+      - **Enter their date of birth** to confirm they are 18 years of age or older. Individuals under 18 are not permitted to use Google Gemini™ API features within NeoBleeper.
+      - If the provided API key is not valid or if the user is under 18, or terms of service isn't accepted, the key will be rejected, and Google Gemini™ API features will not be enabled.
+      - **Your date of birth will not be stored or shared** by NeoBleeper; it is used one-time for age eligibility check and compliance only.
+
+      ![image1](https://github.com/user-attachments/assets/63b8bbdf-5310-4a51-9475-d8f32fd3d8d3)
+
+
+      The age requirement and TOS acceptance are mandatory a new API key is entered first time. This ensures responsible use and legal compliance for AI-generated music features.
+
       
     - #### Testing System Speaker
       **Test Button:** Plays a beep to confirm speaker functionality.
