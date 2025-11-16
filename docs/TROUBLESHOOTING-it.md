@@ -143,7 +143,7 @@ La funzione "Crea musica con l'IA" di NeoBleeper utilizza l'API Google Gemini™
 
 **Messaggio di esempio:**
 ```
-Si è verificato un errore: RESOURCE_EXHAUSTED (Codice: 429): You exceeded your current quota, please check your plan and billing details...
+Si è verificato un errore: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
 ```
 
 **Potenziali motivi:**
