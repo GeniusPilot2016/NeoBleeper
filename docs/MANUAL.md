@@ -282,7 +282,7 @@
   - ### General Settings
     This tab focuses on foundational preferences and system-level integration:
 
-    ![image](https://github.com/user-attachments/assets/96d082ed-c0e5-4dd2-8b18-56e7a20b5995)
+    ![image](https://github.com/user-attachments/assets/aead8331-76cb-4ca4-8bdd-7905e840d052)
 
     - #### Language
       **Language Selector:** Lets you choose language of NeoBleeper between English, German, French, Italian, Spanish, Turkish, Russian, Ukrainian and Vietnamese.
@@ -313,15 +313,37 @@
       The age requirement and TOS acceptance are mandatory a new API key is entered first time. This ensures responsible use and legal compliance for AI-generated music features.
 
       
-    - #### Testing System Speaker
-      **Test Button:** Plays a beep to confirm speaker functionality.
-      
-      **Fallback Message:** Suggests using an alternative sound device if no sound is heard from system speaker.
+      - #### Testing System Speaker
+
+      NeoBleeper provides robust tools to check your system speaker output and diagnose connectivity or compatibility issues. Under “Testing System Speaker” in the General tab of Settings, you'll find two separate testing features:
   
+      ![image](https://github.com/user-attachments/assets/1c1394d0-3dda-47ef-a3f7-ee2c8d8e9792)
+
+  
+      **Test System Speaker:**  
+      - Press this button to display a dropdown with two options:
+        - **Standard Tune Playing Test:** Plays a simple tune to check if the system speaker produces sound as expected.
+        - **Advanced System Speaker Test:** Runs a series of diagnostic checks to thoroughly evaluate your speaker’s functionality and driver stability (see details below).
+  
+      **Advanced System Speaker Test Features**  
+      When you choose the "Advanced System Speaker Test" from the dropdown, NeoBleeper performs multiple checks of your hardware and software configuration, displaying results in a popup window:
+
+      ![image1](https://github.com/user-attachments/assets/fc987190-cd8f-48c1-a37b-3248305c7152)
+  
+      The following tests are run:
+      - **Electrical feedback test:** Verifies the expected electrical response from system speaker hardware.
+      - **Port state stability test:** Checks for consistent port state and driver stability.
+      - **Advanced frequency sweep test:** Runs varying frequencies to ensure a wide range of tones can be output.
+      - **Overall result:** A summary indicating if all tests passed or if a specific issue was found.
+  
+      Each check is shown with a status (✔️ PASSED or ❌ FAILED).
+  
+      > If you do not hear any sound, you may need to use the "Use sound device to create beep" feature.
+    
   - ### Creating Sounds Settings
     This tab is dedicated to configuring how NeoBleeper generates audio beeps using your system's sound capabilities. It offers both technical control and creative flexibility for shaping the tone and texture of the sounds you produce.
 
-    ![image](https://github.com/user-attachments/assets/f35e02a4-c1e3-4d03-9b02-bc4db01f6cdd)
+    ![image](https://github.com/user-attachments/assets/e9b02a61-ae79-4ee2-b4a7-9c4e64ea1905)
     
     - #### Use sound device to create beep:
       A checkbox that enables or disables the use of your system's sound device for beep generation instead of system speaker. When unchecked, NeoBleeper uses system speaker for creating sound. Enabling this option allows for richer, waveform-based sound synthesis.
@@ -341,8 +363,8 @@
   - ### Devices Settings
     
     This tab allows you to configure how NeoBleeper interacts with external MIDI hardware, virtual instruments and other external hardwares. Whether you're integrating live input or routing output to a synth, this is where you define your signal flow
-    
-    ![image](https://github.com/user-attachments/assets/2cd17fd7-3c78-4f90-9e2e-2bc64e4eae85)
+
+    ![image](https://github.com/user-attachments/assets/0a36ff45-d6c1-4367-a23e-68fa49f50295)
 
     - #### MIDI Input Devices
       **Use live MIDI input:** Enables real-time MIDI signal reception from external controllers or software. When checked, NeoBleeper listens for incoming MIDI messages to trigger sounds or actions.
@@ -400,7 +422,7 @@
   - ### Appearance Settings
     This tab gives you full control over the visual identity of NeoBleeper, allowing you to customize the colors of key interface elements for clarity, aesthetics, or personal flair. It's organized into sections for keyboard, buttons, indicators, and text event display.
 
-    ![image5](https://github.com/user-attachments/assets/183112ef-b1fa-40b5-9af3-50779946e223)
+    ![image5](https://github.com/user-attachments/assets/d261a071-bc58-49d0-a3db-b2a0d8815c65)
 
     - #### Keyboard Colors
       **Define the color scheme for different octaves on the virtual keyboard:**
@@ -490,7 +512,7 @@
     - ### Create Music with AI - `Ctrl + Alt + A`
       Harness the power of AI to generate musical ideas. Whether you're seeking inspiration, filling in gaps, or experimenting with new styles, this tool offers intelligent, context-aware suggestions for melodies, harmonies, and rhythms.
 
-      ![image](https://github.com/user-attachments/assets/3713c655-4e73-4828-9c7d-b4da65afb825)
+      ![image](https://github.com/user-attachments/assets/e6caf238-a298-4ce7-85d4-bcac6977e8f0)
 
       **How it works:**
       - Open the "Create Music with AI" window from the File menu or by using the shortcut.
@@ -503,14 +525,21 @@
       **Prompt Guidance and AI Restrictions:**
       - The AI tool will only process prompts related to music composition. If your prompt is not related to music (e.g., "write a joke"), you will receive an error:  
 
-        ![image](https://github.com/user-attachments/assets/3741d41b-883a-4732-b80b-29939eb26492)
+        ![image](https://github.com/user-attachments/assets/6445c2e2-da32-41f9-bd45-56a96a7b9298)
         
-        *"The request is not related to music composition."*
+        *"Non-music prompt detected. This Al specializes in music composition. Try asking for a song composition or artist-related music"*
       - Prompts that contain offensive or inappropriate content are not allowed. If detected, an error will appear:
-        
-        ![image3](https://github.com/user-attachments/assets/3fe0e1f7-ed7c-4dca-a327-7141d874432e) 
 
-        *"Your prompt contains offensive or inappropriate content. Please try again with a different request."*
+        ![image3](https://github.com/user-attachments/assets/7dc84821-bc3c-4d4d-a903-213129586ed7) 
+
+        *"Profanity detected. Try asking for a song composition or artist-related music."*
+   
+      - Attempting to bypass safety protocols, such as instructing the AI to ignore safety or security filters, will result in an invalid request error:
+        
+        ![image3](https://github.com/user-attachments/assets/7edb9baa-b4a8-47ff-bbab-f05f3cd17738)
+
+        *"Attempt to bypass safety detected. Prompt contains instructions to ignore safety protocols. Try asking for a song composition or artist-related music."*
+        
       - Valid prompts should be specific and musically focused (e.g., "Generate a jazz melody for piano" or "Create a fast techno drum pattern").
 
       **Notes:**
