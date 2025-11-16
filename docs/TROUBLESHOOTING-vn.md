@@ -25,18 +25,18 @@ NeoBleeper đi kèm với một công cụ có tên "NeoBleeper Nút Chặn Ti�
   
     Khi sử dụng tiện ích Dừng tiếng bíp, bạn có thể thấy các thông báo sau:
 
-  ![image1](https://github.com/user-attachments/assets/3ff161a2-ede8-4ce8-a10b-26eb8a0d7220)
+  ![image1](https://github.com/user-attachments/assets/325b1c12-ef89-43fc-955d-f6e5a8e7ec58)
     
     **Loa hệ thống không phát ra tiếng bíp hoặc loa hệ thống phát ra tiếng bíp theo cách khác. Không có hành động nào được thực hiện.**  
     Thông báo này xuất hiện khi tiện ích kiểm tra loa hệ thống và xác định loa không phát ra tiếng bíp hoặc phát ra tiếng bíp theo cách mà công cụ không thể điều khiển. Trong trường hợp này, Nút Chặn Tiếng Bíp sẽ không thực hiện bất kỳ hành động nào nữa.
     - *Mẹo:* Nếu bạn vẫn nghe thấy tiếng bíp liên tục, hãy thử khởi động lại máy tính.
 
-  ![image2](https://github.com/user-attachments/assets/98b1e3ea-bb53-4181-bb7f-a302d45079ab)
+  ![image2](https://github.com/user-attachments/assets/0206de42-8933-4ad1-9c73-84215062a9d3)
     
     **Tiếng bíp đã dừng thành công!**  
     Thông báo này xác nhận rằng tiện ích Nút Chặn Tiếng Bíp đã phát hiện tiếng bíp bị kẹt và đã dừng thành công. Không cần thực hiện thêm thao tác nào nữa.
 
-  ![image3](https://github.com/user-attachments/assets/6c1b890f-db60-48b4-84f0-531b00918a0a)
+  ![image3](https://github.com/user-attachments/assets/9f9cf0c9-8845-45d3-8627-a680f0c83b93)
   
     **Không có đầu ra loa hệ thống hoặc đầu ra loa hệ thống không chuẩn. Bộ chặn tiếng bíp có thể gây mất ổn định hoặc các hiện tượng không mong muốn. Bạn có muốn tiếp tục không??**  
     Thông báo này xuất hiện khi tiện ích Nút Chặn Tiếng Bíp được khởi động và phát hiện hệ thống của bạn không có loa hệ thống chuẩn (PC) hoặc đầu ra loa hệ thống "không chuẩn". Trong trường hợp này, tiện ích cảnh báo bạn rằng việc cố gắng sử dụng Nút Chặn Tiếng Bíp có thể không hoạt động như mong đợi và có khả năng gây ra hành vi bất ngờ hoặc mất ổn định.
@@ -66,9 +66,9 @@ NeoBleeper bao gồm logic phát hiện để kiểm tra xem hệ thống của 
 
 ### Hộp thoại Cài đặt (Hình ảnh 2 và 3):
 
-![image2](https://github.com/user-attachments/assets/eb286365-b9e5-4e97-a317-809513518c0c)
+![image2](https://github.com/user-attachments/assets/5dc2839d-9ea2-4f00-90bf-2c51ef5a06a2)
 
-![image3](https://github.com/user-attachments/assets/a727f9e1-c2b0-4979-bd5e-c82a8f840446)
+![image3](https://github.com/user-attachments/assets/b901b053-26ff-4429-b656-515fd90cc6d1)
 
 - **Tính khả dụng của nút "Kiểm tra Loa Hệ thống":**
   Tùy chọn này được bật nếu NeoBleeper phát hiện bất kỳ đầu ra loa hệ thống nào có thể sử dụng được, bao gồm cả đầu ra ẩn hoặc không phải PNP0800.
@@ -129,6 +129,94 @@ Trên các hệ thống Windows ARM64, tính năng kiểm tra "Loa Hệ thống"
 
 ---
 
+## 6. Cảnh báo, Lỗi AI và Khắc phục sự cố API Google Gemini™
+
+Tính năng "Sáng tác nhạc bằng AI" của NeoBleeper sử dụng API Google Gemini™. Bạn có thể gặp phải các hộp thoại lỗi hoặc cảnh báo cụ thể liên quan đến tính khả dụng của API, giới hạn sử dụng hoặc hạn chế quốc gia.
+
+### 6.1 Lỗi Hạn mức hoặc Giới hạn Tốc độ (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/92bb28a3-f30e-4e1f-9759-2fad99d935b4)
+
+**Thông báo Ví dụ:**
+```
+Đã xảy ra lỗi: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Nguyên nhân tiềm ẩn:**
+- **Hạn mức API cho tài khoản của bạn đã hết.** Nếu bạn đang sử dụng khóa API miễn phí, một số mô hình (chẳng hạn như `gemini-2.0-pro-exp`) có thể không khả dụng hoặc có thể có giới hạn sử dụng rất thấp/cứng đối với tài khoản miễn phí.
+- **Giới hạn cấp miễn phí:** Một số mô hình tạo mới hơn (như Gemini Pro Exp) *không* khả dụng đối với người dùng cấp miễn phí. Việc cố gắng sử dụng chúng sẽ dẫn đến lỗi hạn ngạch hoặc lỗi khả dụng.
+- **Vượt quá giới hạn tốc độ:** Nếu bạn gửi quá nhiều yêu cầu quá nhanh, bạn có thể đạt đến giới hạn tốc độ của API ngay cả khi sử dụng gói trả phí.
+
+**Cách khắc phục:**
+- **Kiểm tra hạn ngạch API và hóa đơn của bạn:** Đăng nhập vào tài khoản Google Cloud/Gemini của bạn để xác minh mức sử dụng và nâng cấp gói nếu cần.
+- **Chỉ sử dụng các mô hình được hỗ trợ:** Người dùng gói miễn phí có thể bị giới hạn ở một số mô hình nhất định. Kiểm tra tài liệu về các mô hình khả dụng hoặc chuyển sang mô hình được hỗ trợ.
+- **Chờ và thử lại sau:** Đôi khi, việc chờ một vài phút sẽ cho phép hạn ngạch tạm thời làm mới, như được chỉ ra bởi bộ đếm ngược của thông báo.
+
+- **Xem lại [Tài liệu API Gemini](https://ai.google.dev/gemini-api/docs/rate-limits) để biết các chính sách sử dụng và giới hạn tốc độ mới nhất.**
+
+---
+
+### 6.2 Giới hạn theo Khu vực hoặc Quốc gia
+
+#### "API không khả dụng tại quốc gia của bạn"
+
+![image4](https://github.com/user-attachments/assets/278c1e00-c1eb-4a10-9a82-f55eb3d55703)
+
+Một số khu vực không được hỗ trợ API Google Gemini™ do các hạn chế về khu vực hoặc pháp lý.
+
+**Nguyên nhân tiềm ẩn:**
+- Quốc gia của bạn là quốc gia mà API Gemini bị hạn chế.
+- Khóa API bạn đang sử dụng được đăng ký cho một khu vực không có quyền truy cập.
+
+**Cách khắc phục:**
+- **Kiểm tra các quốc gia được hỗ trợ API Google Gemini™** trong tài liệu chính thức.
+- Nếu bạn ở quốc gia bị hạn chế, các tính năng AI sẽ không thể sử dụng được.
+
+#### Cảnh báo theo khu vực (Bảng Cài đặt)
+
+![image3](https://github.com/user-attachments/assets/fa282623-685a-4e59-b124-eb47a2173451)
+
+Tại Khu vực Kinh tế Châu Âu, Thụy Sĩ hoặc Vương quốc Anh, API Gemini™ có thể yêu cầu tài khoản Google trả phí (không miễn phí).
+
+- Nếu bạn thấy cảnh báo này, hãy đảm bảo bạn đã nâng cấp gói API Gemini trước khi thử sử dụng các tính năng AI.
+
+---
+
+### 6.3 Lời khuyên chung về API AI
+
+- Chỉ nhập khóa API của riêng bạn; không chia sẻ khóa này vì lý do bảo mật.
+- NeoBleeper không truyền khóa API của bạn, ngoại trừ trực tiếp đến dịch vụ Gemini khi cần sử dụng tính năng.
+- Nếu bạn gặp lỗi lặp lại, hãy thử xóa và thêm lại khóa API, đồng thời kiểm tra lại xem khóa của bạn có đang hoạt động không.
+
+---
+
+## 7. Tư vấn về Loa Hệ thống và Âm thanh cho một số Chipset Cụ thể (bao gồm Intel B660)
+
+### Nếu bạn không nghe thấy âm thanh, âm thanh bị hỏng hoặc loa hệ thống không ổn định:
+
+Một số chipset hiện đại — bao gồm các chipset thuộc dòng Intel B660 và mới hơn — có thể gặp sự cố khi khởi tạo hoặc khởi tạo lại loa hệ thống (tiếng bíp PC), dẫn đến tình trạng máy tính im lặng hoặc không có tiếng.
+
+**Lời khuyên dành cho người dùng bị ảnh hưởng:**
+
+- **Thử đặt máy tính ở chế độ ngủ và đánh thức lại.**
+
+Điều này có thể giúp khởi tạo lại hoặc đặt lại cổng phần cứng cấp thấp chịu trách nhiệm cho loa hệ thống và khôi phục chức năng tiếng bíp.
+- **Sử dụng tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp"** như một giải pháp dự phòng nếu đầu ra loa hệ thống không ổn định.
+- **Kiểm tra bản cập nhật BIOS hoặc firmware:** Một số nhà cung cấp bo mạch chủ có thể phát hành các bản cập nhật cải thiện khả năng tương thích của cổng loa.
+- **Dành riêng cho máy tính để bàn:** Nếu bạn đã thêm, tháo hoặc kết nối lại phần cứng loa hệ thống, hãy thực hiện chu kỳ bật/tắt nguồn hoàn toàn.
+
+_Giải pháp thay thế này được nêu bật trong phần cài đặt:_
+
+![image2](https://github.com/user-attachments/assets/ea02721e-5f69-467f-a0e7-30a8b22e39af)
+
+> *Nếu bạn không nghe thấy âm thanh hoặc âm thanh bị hỏng, hãy thử đặt máy tính ở chế độ ngủ và đánh thức lại. Điều này có thể giúp khởi tạo lại loa hệ thống trên các chipset bị ảnh hưởng.*
+
+---
+
+*Đối với bất kỳ sự cố nào liên quan đến âm thanh hoặc AI không được đề cập ở đây, vui lòng bao gồm ảnh chụp màn hình lỗi, thông tin chi tiết về phần cứng máy tính của bạn (đặc biệt là hãng và model bo mạch chủ/chipset), cũng như quốc gia/khu vực của bạn khi yêu cầu hỗ trợ hoặc mở sự cố GitHub.*
+
+---
+
 ## 6. Câu hỏi thường gặp
 
 ### H: Tôi có thể sử dụng loa hệ thống nếu phần cứng của tôi không có thiết bị PNP0800 không?
@@ -151,6 +239,30 @@ Trên các hệ thống Windows ARM64, tính năng kiểm tra "Loa Hệ thống"
 
 ### H: Tại sao tôi không thấy bất kỳ tùy chọn loa hệ thống hoặc âm thanh bíp nào trên thiết bị ARM64 của mình?
 **A:** Trên hệ thống Windows ARM64, NeoBleeper vô hiệu hóa các cài đặt liên quan đến loa hệ thống vì nền tảng ARM64 không hỗ trợ truy cập trực tiếp vào phần cứng loa hệ thống. Tất cả tiếng bíp đều được phát qua thiết bị đầu ra âm thanh thông thường của bạn (loa hoặc tai nghe), và các tùy chọn "Kiểm tra Loa Hệ thống" và "Sử dụng thiết bị âm thanh để tạo tiếng bíp" sẽ tự động bị ẩn. Hiện tượng này là do thiết kế chứ không phải lỗi.
+
+### H: Khi tôi nhận được cảnh báo "có đầu ra loa hệ thống không chuẩn" thì điều đó có nghĩa là gì?
+**A:** NeoBleeper đã phát hiện phần cứng loa không tuân thủ các tiêu chuẩn loa PC truyền thống (ví dụ: không phải thiết bị PNP0800). Đây có thể là đầu ra loa "ẩn" được tìm thấy trên máy tính để bàn hoặc máy ảo hiện đại. Trong những trường hợp này, không phải tất cả các tính năng phát tiếng bíp đều hoạt động đáng tin cậy, nhưng NeoBleeper sẽ cố gắng sử dụng bất kỳ đầu ra tương thích nào mà nó có thể phát hiện.
+
+### H: Tại sao nút "Kiểm tra Loa Hệ thống" lại xuất hiện ngay cả khi Windows không liệt kê thiết bị loa PC?
+**A:** NeoBleeper bao gồm logic phát hiện cho các đầu ra loa hệ thống ẩn hoặc không chuẩn. Nếu nút này xuất hiện, điều đó có nghĩa là NeoBleeper đã tìm thấy một cổng phần cứng tiềm năng cho đầu ra loa, ngay cả khi Windows không báo cáo nó là một thiết bị.
+
+### H: Tôi đang sử dụng API Google Gemini™ cho các tính năng AI và tôi thấy thông báo "hết hạn ngạch" hoặc "API không khả dụng ở quốc gia của bạn". Tôi nên làm gì?
+**A:** Tham khảo mục 6 của hướng dẫn này. Đảm bảo khóa API và hóa đơn/hạn mức của bạn đang hoạt động tốt, đồng thời việc sử dụng của bạn tuân thủ các hạn chế khu vực của Google. Rất tiếc, nếu bạn ở trong khu vực bị hạn chế, các tính năng AI có thể không khả dụng.
+
+### H: Tôi có hệ thống Intel B660 (hoặc mới hơn) và loa máy tính của tôi đôi khi không hoạt động hoặc bị kẹt. Điều này có bình thường không?
+**A:** Một số chipset mới hơn có vấn đề tương thích đã biết khi khởi động lại loa hệ thống. Hãy thử để máy tính ở chế độ ngủ và đánh thức lại, hoặc sử dụng thiết bị âm thanh thông thường của bạn. Kiểm tra các bản cập nhật BIOS/firmware có thể cải thiện khả năng hỗ trợ loa.
+
+### H: Cách tốt nhất để báo cáo sự cố âm thanh hoặc AI để được hỗ trợ là gì?
+**A:** Luôn cung cấp càng nhiều thông tin càng tốt: hãng/model máy tính, khu vực, ảnh chụp màn hình hộp thoại lỗi và tệp `DebugLog.txt` từ thư mục NeoBleeper. Đối với các sự cố AI, hãy bao gồm toàn bộ văn bản hộp thoại lỗi và mô tả trạng thái tài khoản Gemini API của bạn.
+
+### H: Sau khi gặp sự cố hoặc buộc đóng, tính năng Beep Stopper của NeoBleeper không dừng tiếng bíp liên tục. Có cách nào khác để khắc phục sự cố này không?
+**A:** Nếu tính năng Beep Stopper không hiệu quả, việc khởi động lại máy tính sẽ đặt lại phần cứng loa hệ thống và dừng mọi tiếng bíp liên tục.
+
+### H: Có an toàn khi sử dụng tiện ích Beep Stopper nếu tôi thấy thông báo cảnh báo về đầu ra loa hệ thống không chuẩn hoặc bị thiếu không?
+**A:** Có, nhưng lưu ý rằng tiện ích này có thể không kiểm soát được phần cứng và trong một số trường hợp hiếm gặp có thể gây mất ổn định hoặc không có tác dụng. Nếu bạn không chắc chắn, hãy chọn không tiếp tục và khởi động lại máy tính.
+
+### H: Trên máy ảo, tôi không thể khiến loa hệ thống hoạt động. Đây có phải là lỗi không?
+**A:** Không nhất thiết. Nhiều máy ảo không mô phỏng đúng loa PC hoặc chúng hiển thị đầu ra theo cách không thể điều khiển bằng lập trình. Hãy sử dụng thiết bị đầu ra âm thanh chuẩn của bạn để có kết quả tốt nhất.
 
 **Các bản cập nhật tiềm năng trong tương lai:**
 Nếu các thử nghiệm hoặc phát triển trong tương lai cho phép NeoBleeper phát hiện loa hệ thống bị hỏng hoặc ngắt kết nối một cách đáng tin cậy thông qua kiểm tra phần cứng siêu âm, Câu hỏi thường gặp này và logic phát hiện sẽ được cập nhật để phản ánh những cải tiến đó. Vui lòng theo dõi nhật ký thay đổi hoặc bản phát hành mới để biết thêm chi tiết.
