@@ -276,7 +276,7 @@
   - ### Genel Ayarlar
     Bu sekme, temel tercihlere ve sistem düzeyinde entegrasyona odaklanır:
 
-    ![image](https://github.com/user-attachments/assets/c8b6d92e-767f-42d2-9044-df3bc47381b8)
+    ![image](https://github.com/user-attachments/assets/3a5c29e4-30e1-4db0-af7a-bceb60d9020c)
 
     - #### Dil
       **Dil Seçici:** NeoBleeper'ın dilini İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Türkçe, Rusça, Ukraynaca ve Vietnamca arasından seçmenizi sağlar.
@@ -306,14 +306,35 @@
         İlk kez yeni bir API anahtarı girildiğinde yaş sınırı ve TOS kabulü zorunludur. Bu, yapay zeka tarafından üretilen müzik özelliklerinin sorumlu kullanımını ve yasal uyumluluğunu sağlar.
 
     - #### Sistem Hoparlörünü Test Etme
-      **Test Düğmesi:** Hoparlörün çalıştığını onaylamak için bir bip sesi çalar.
+
+    NeoBleeper, sistem hoparlörünüzün çıkışını kontrol etmek ve bağlantı veya uyumluluk sorunlarını teşhis etmek için güçlü araçlar sunar. Ayarlar'ın Genel sekmesindeki "Sistem Hoparlörünü Test Et" altında iki ayrı test özelliği bulacaksınız:
+
+    ![image](https://github.com/user-attachments/assets/d3982138-3035-4b64-b1f4-641d54ab5650)
     
-      **Geri Dönüş Mesajı:** Sistem hoparlöründen ses gelmiyorsa alternatif bir ses cihazı kullanılmasını önerir.
+    **Sistem Hoparlörünü Test Etme:**
+    - İki seçenekli bir açılır menü görüntülemek için bu düğmeye basınız:
+    - **Standart Melodi Çalma Testi:** Sistem hoparlörünün beklendiği gibi ses üretip üretmediğini kontrol etmek için basit bir melodi çalar.
+    - **Gelişmiş Sistem Hoparlörü Testi:** Hoparlörünüzün işlevselliğini ve sürücü kararlılığını kapsamlı bir şekilde değerlendirmek için bir dizi tanılama kontrolü gerçekleştirir (ayrıntılar aşağıdadır).
+    
+    **Gelişmiş Sistem Hoparlörü Testi Özellikleri**
+    Açılır menüden "Gelişmiş Sistem Hoparlörü Testi"ni seçtiğinizde, NeoBleeper donanım ve yazılım yapılandırmanızda birden fazla kontrol gerçekleştirir ve sonuçları açılır bir pencerede görüntüler:
+    
+    ![image1](https://github.com/user-attachments/assets/f69fa30b-7c20-4c78-8e7c-e5291bd05d08)
+    
+    Aşağıdaki testler çalıştırılır:
+    - **Elektriksel geri besleme testi:** Sistem hoparlörü donanımından beklenen elektriksel tepkiyi doğrular.
+    - **Port durumu kararlılık testi:** Tutarlı port durumu ve sürücü kararlılığını kontrol eder.
+    - **Gelişmiş frekans tarama testi:** Geniş bir ton yelpazesinin çıkış verebilmesini sağlamak için farklı frekanslar çalıştırır.
+    - **Genel sonuç:** Tüm testlerin başarılı olup olmadığını veya belirli bir sorunun bulunup bulunmadığını gösteren bir özet.
+    
+    Her kontrol bir durumla gösterilir (✔️ GEÇTİ veya ❌ BAŞARISIZ).
+    
+    > Herhangi bir ses duymazsanız, "Bip sesi oluşturmak için ses cihazını kullan" özelliğini kullanmanız gerekebilir.
   
   - ### Ses Oluşturma Ayarları
     Bu sekme, NeoBleeper'ın sisteminizin ses yeteneklerini kullanarak bip seslerini nasıl üreteceğini yapılandırmaya ayrılmıştır. Ürettiğiniz seslerin tonunu ve dokusunu şekillendirmek için hem teknik kontrol hem de yaratıcı esneklik sunar.
 
-    ![image](https://github.com/user-attachments/assets/906ecb46-7141-4a05-8496-be219f171946)
+    ![image](https://github.com/user-attachments/assets/c00bb716-95e4-4f13-9d2d-4ffa11925844)
     
     - #### Bip sesi oluşturmak için ses aygıtını kullan:
       Sistem hoparlörü yerine sisteminizin ses aygıtının bip sesi oluşturmak için kullanılmasını etkinleştiren veya devre dışı bırakan bir onay kutusu. İşaretlenmediğinde, NeoBleeper ses oluşturmak için sistem hoparlörünü kullanır. Bu seçeneğin etkinleştirilmesi, daha zengin, dalga formu tabanlı ses sentezi sağlar.
@@ -329,8 +350,8 @@
   - ### Aygıt Ayarları
 
     Bu sekme, NeoBleeper'ın harici MIDI donanımı, sanal enstrümanlar ve diğer harici donanımlarla nasıl etkileşim kuracağını yapılandırmanıza olanak tanır. İster canlı girişi entegre ediyor olun ister çıkışı bir sentezleyiciye yönlendiriyor olun, sinyal akışınızı burada tanımlayabilirsiniz.
-    
-    ![image](https://github.com/user-attachments/assets/b8d897be-9db7-4041-ab41-f7a6da3bbe96)
+
+    ![image](https://github.com/user-attachments/assets/bda3663f-5e9a-4b45-b229-a05e2c7ca1c4)
 
     - #### MIDI Giriş Aygıtları
       **Canlı MIDI girişini kullan:** Harici kontrol cihazlarından veya yazılımlardan gerçek zamanlı MIDI sinyal alımını etkinleştirir. İşaretlendiğinde, NeoBleeper gelen MIDI mesajlarını dinleyerek sesleri veya eylemleri tetikler.   
@@ -382,7 +403,7 @@
   - ### Görünüm Ayarları
     Bu sekme, NeoBleeper'ın görsel kimliği üzerinde tam kontrol sağlayarak, temel arayüz öğelerinin renklerini netlik, estetik veya kişisel bir dokunuş katacak şekilde özelleştirmenize olanak tanır. Klavye, düğmeler, göstergeler ve metin etkinliği gösterimi için bölümler halinde düzenlenmiştir.
 
-    ![image5](https://github.com/user-attachments/assets/fbec4ec5-8203-4626-a98b-76695fd56a92)
+    ![image5](https://github.com/user-attachments/assets/90501ec5-98cc-492f-8271-7b229366edfd)
 
     - #### Klavye Renkleri
       **Sanal klavyede farklı oktavlar için renk şemasını tanımlayın:**      
@@ -457,10 +478,10 @@
       
       Şarkı sözleri/metin ekranı, çalma sırasında yeni olaylarla karşılaşıldığında otomatik olarak güncellenir ve çalma durdurulduğunda veya yeni bir dosya yüklendiğinde kaybolur.
 
-    - ### Yapay Zeka ile Müzik Yaratın - `Ctrl + Alt + A`
+    - ### Yapay Zeka ile Müzik Oluştur - `Ctrl + Alt + A`
       Müzik fikirleri üretmek için yapay zekanın gücünden yararlanın. İster ilham arıyor, ister boşlukları dolduruyor veya yeni stiller deniyor olun, bu araç melodiler, armoniler ve ritimler için akıllı ve bağlam farkında öneriler sunar.
-      
-      ![image](https://github.com/user-attachments/assets/e7f76ee7-b20d-43ca-9b61-63200160d216)
+
+      ![image](https://github.com/user-attachments/assets/f6d7d5f8-b147-401d-9f86-7606ec04bee5)
       
       **Nasıl çalışır:**
       - Dosya menüsünden veya kısayolu kullanarak "Yapay Zeka ile Müzik Yaratın" penceresini açın.
@@ -473,14 +494,19 @@
       **İstem Kuralları ve Yapay Zeka Kısıtlamaları:**
       - Yapay zeka aracı yalnızca müzik bestelemeyle ilgili istemleri işler. İsteminiz müzikle ilgili değilse (örneğin, "fıkra yaz") bir hata alırsınız:
 
-        ![image](https://github.com/user-attachments/assets/e7f0f0e9-ccfd-4b7f-8c2a-f79e3061cd8e)
+        ![image](https://github.com/user-attachments/assets/67372bb9-f14c-4006-920d-ed79389733f2)
         
-        *"Müzik dışı bir istek algılandı. Lütfen bir şarkı bestesi veya sanatçıyla ilgili müzik istemeyi deneyin."*
+        *"İstem müzik besteleme ile ilgili değil. Lütfen bir şarkı adı, sanatçı adı, besteci adı veya müzikle ilgili herhangi bir terim içeren bir istekte bulunun. Geçerli istem örnekleri: 'Beethoven', 'rock şarkısı oluştur", "Yesterday bestele."*
       - Rahatsız edici veya uygunsuz içerik barındıran istemlere izin verilmez. Tespit edilirse bir hata görüntülenir:
 
-        ![image3](https://github.com/user-attachments/assets/d3a83e8e-768a-4b76-981b-95d6cdac2f3b) 
+        ![image3](https://github.com/user-attachments/assets/6c3c1dcc-e3a3-4ada-a756-a567cb8bb102) 
 
-        *"Müstehcen içerik tespit edildi. Lütfen müzikle ilgili bir istekte bulunun veya bir şarkı bestesi ya da sanatçıya dayalı müzik isteyin."*
+        *"Küfür tespit edildi. Lütfen müzikle ilgili veya uygun içerikte bir istekte bulunun. Şarkı bestelemeyi veya sanatçıyla ilgili müzik istemeyi deneyin"*
+        - Yapay zekaya güvenlik veya emniyet filtrelerini yok sayması talimatı vermek gibi güvenlik protokollerini atlatmaya çalışmak, geçersiz istek hatasıyla sonuçlanır:
+
+        ![image3](https://github.com/user-attachments/assets/07ebc5c4-a8c2-4c2c-9647-73738f942aff)
+        
+        *"Güvenlik protokollerini atlatmaya yönelik bir talimat algılandı. Lütfen müzikle ilgili geçerli bir istekte bulunun. Örneğin, Bir rock şarkısı bestele veya 'klasik müzik oluştur gibi."*
       - Geçerli komutlar spesifik ve müzik odaklı olmalıdır (örneğin, "Piyano için bir caz melodisi üret" veya "Hızlı bir tekno davul ritmi oluştur").
         
       **Notlar:**
