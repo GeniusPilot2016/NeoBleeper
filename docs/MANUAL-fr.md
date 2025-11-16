@@ -287,7 +287,7 @@ alternees toutes les: ... ms ».
   - ### Paramètres généraux
     Cet onglet se concentre sur les préférences fondamentales et l'intégration au niveau système :
 
-    ![image](https://github.com/user-attachments/assets/d46d908e-04f0-444b-9cc3-b0757bd2e8e7)
+    ![image](https://github.com/user-attachments/assets/26a990a8-943c-4a03-8952-dc9574b297a4)
 
     - #### Langue
       **Sélecteur de langue** : vous permet de choisir la langue de NeoBleeper parmi l'anglais, l'allemand, le français, l'italien, l'espagnol, le turc, le russe, l'ukrainien et le vietnamien.
@@ -321,14 +321,43 @@ alternees toutes les: ... ms ».
         L'âge minimum requis et l'acceptation des conditions d'utilisation sont obligatoires lors de la première saisie d'une nouvelle clé API. Ceci garantit une utilisation responsable et la conformité légale des fonctionnalités musicales générées par l'IA.
   
     - #### Test du haut-parleur système
-      **Bouton de test** : émet un bip pour confirmer le fonctionnement du haut-parleur.
+
+    NeoBleeper propose des outils performants pour vérifier la sortie audio de votre haut-parleur système et diagnostiquer les problèmes de connectivité ou de compatibilité. Dans l'onglet Général des Paramètres, sous « Test du haut-parleur système », vous trouverez deux fonctions de test distinctes :
+
+    ![image](https://github.com/user-attachments/assets/e89017d3-46b4-4ba5-ac32-736874dd39d3)
     
-      **Message de secours :** suggère d'utiliser un périphérique audio alternatif si aucun son n'est entendu depuis le haut-parleur du système.
+    **Tester le haut-parleur système :**
+    
+    - Appuyez sur ce bouton pour afficher un menu déroulant avec deux options :
+    
+    - **Test de lecture d'un morceau standard :** Diffuse un morceau simple pour vérifier si le haut-parleur système produit le son attendu.
+    
+    - **Test avancé du haut-parleur système :** Exécute une série de tests de diagnostic pour évaluer en détail le fonctionnement de votre haut-parleur et la stabilité de ses pilotes (voir détails ci-dessous).
+    
+    **Fonctionnalités avancées de test des haut-parleurs système**
+    
+    Lorsque vous sélectionnez « Test avancé des haut-parleurs système » dans le menu déroulant, NeoBleeper effectue plusieurs vérifications de votre configuration matérielle et logicielle et affiche les résultats dans une fenêtre contextuelle :
+
+    ![image1](https://github.com/user-attachments/assets/d56eb1c4-b626-400b-80ef-be5366e7aab6)
+    
+    Les tests suivants sont exécutés :
+    
+    - **Test de retour électrique :** Vérifie la réponse électrique attendue des haut-parleurs du système.
+    
+    - **Test de stabilité de l'état des ports :** Vérifie la stabilité de l'état des ports et des pilotes.
+    
+    - **Test de balayage de fréquence avancé :** Teste différentes fréquences pour garantir la reproduction d'une large gamme de tonalités.
+    
+    - **Résultat global :** Un résumé indique si tous les tests ont réussi ou si un problème spécifique a été détecté.
+    
+    Chaque vérification est accompagnée d'un statut (✔️ PASSÉ ou ❌ ÉCHEC).
+    
+    > Si vous n'entendez aucun son, vous devrez peut-être utiliser la fonction « Utiliser un périphérique audio pour émettre un bip ».
   
   - ### Création de paramètres sonores
     Cet onglet permet de configurer la manière dont NeoBleeper génère des bips audio grâce aux capacités sonores de votre système. Il offre à la fois un contrôle technique et une flexibilité créative pour façonner le ton et la texture des sons produits.
 
-    ![image](https://github.com/user-attachments/assets/eaa14ed7-15a0-4a79-bb04-999fcd23cdcc)
+    ![image](https://github.com/user-attachments/assets/d285ab27-e04c-492f-9142-adab876426e9)
     
     - #### Utiliser le périphérique audio pour générer un bip
 
@@ -346,11 +375,11 @@ alternees toutes les: ... ms ».
         
         **Bruit :** Génère des rafales de signal aléatoires, utiles pour les effets sonores tels que les parasites, les rafales ou les textures de type percussion.
 
-  - ### Paramètres des périphériques
+  - ### Paramètres des appareils
 
   Cet onglet vous permet de configurer l'interaction de NeoBleeper avec le matériel MIDI externe, les instruments virtuels et autres périphériques. Que vous intégriez une entrée en direct ou routiez une sortie vers un synthétiseur, c'est ici que vous définissez le flux du signal.
-  
-    ![image](https://github.com/user-attachments/assets/1fb9face-43d2-456c-afd5-370d15c5640c)
+
+    ![image](https://github.com/user-attachments/assets/b863e209-628f-41bf-a0f9-ffaa4498c351)
 
     - #### Périphériques d'entrée MIDI
       **Utiliser l'entrée MIDI en direct** : Active la réception de signaux MIDI en temps réel depuis des contrôleurs ou logiciels externes. Lorsque cette option est cochée, NeoBleeper écoute les messages MIDI entrants pour déclencher des sons ou des actions.
@@ -413,7 +442,7 @@ alternees toutes les: ... ms ».
 
   Cet onglet vous offre un contrôle total sur l'identité visuelle de NeoBleeper, vous permettant de personnaliser les couleurs des éléments clés de l'interface pour plus de clarté, d'esthétique ou de style. Il est organisé en sections : clavier, boutons, indicateurs et affichage des événements textuels.
 
-  ![image5](https://github.com/user-attachments/assets/cb622a19-3d1e-42f7-8b7a-10e2aec5f02b)
+  ![image5](https://github.com/user-attachments/assets/f6667bdb-0ce1-45d3-906b-dc6705b1e304)
 
     - #### Couleurs du clavier
       **Définissez le jeu de couleurs pour les différentes octaves du clavier virtuel :**
@@ -506,7 +535,7 @@ alternees toutes les: ... ms ».
 
       Exploitez la puissance de l'IA pour générer des idées musicales. Que vous cherchiez l'inspiration, combliez des lacunes ou expérimentiez de nouveaux styles, cet outil propose des suggestions intelligentes et contextuelles de mélodies, d'harmonies et de rythmes.
 
-      ![image](https://github.com/user-attachments/assets/693e1fad-f855-491a-a97b-b0a58850d9e7)
+      ![image](https://github.com/user-attachments/assets/bc406962-b21b-4473-be1f-1a252b613c46)
 
       **Fonctionnement** :
       - Ouvrez la fenêtre « Créer de la musique avec l'IA » depuis le menu Fichier ou en utilisant le raccourci.
@@ -519,14 +548,21 @@ alternees toutes les: ... ms ».
       **Conseils rapides et restrictions de l'IA:**
       - L'outil d'IA ne traitera que les invites liées à la composition musicale. Si votre invite n'est pas liée à la musique (par exemple, « écrire une blague »), vous recevrez une erreur :
 
-        ![image](https://github.com/user-attachments/assets/e6917a1d-f1dd-41ed-b2b4-a6c3498643e9)
+        ![image](https://github.com/user-attachments/assets/b3572268-f419-4925-a6fb-fb451d4ccf1d)
         
-        *"Detection d'une requete non liee a la musique. Les demandes doivent concerner la composition musicale ou des artistes/œuvres musicales. Essayez de demander une composition de chanson ou de la musique liee a un artiste."*
+        *"Détection d'une requête sans rapport avec la musique. Les requêtes doivent concerner la composition musicale. Veuillez essayer de demander une composition de chanson ou de la musique liée à un artiste."*
       - Les messages contenant du contenu offensant ou inapproprié ne sont pas autorisés. Si vous en détectez, une erreur s'affichera :
 
-        ![image3](https://github.com/user-attachments/assets/2f69f98e-2182-4dc9-82fe-e247ead9809d) 
+        ![image3](https://github.com/user-attachments/assets/2335a810-9e81-4308-ac3b-68820b1f7957) 
 
-        *"Contenu offensant detecte. La demande contient des termes interdits."*
+        *"Un langage offensant a été détecté dans l'invite. Veuillez reformuler votre demande sans utiliser de termes vulgaires ou explicites. Essayez de demander une composition musicale ou de la musique liée à un artiste."*
+   
+        Toute tentative de contournement des protocoles de sécurité, comme demander à l'IA d'ignorer les filtres de sécurité, entraînera une erreur de requête invalide :
+
+        ![image3](https://github.com/user-attachments/assets/53d5197f-1978-4dc6-a1f1-f13b56a6cfdf)
+        
+        *"La requête contient des instructions visant à contourner les protocoles de sécurité. Ce type de demande n'est pas autorisé. Veuillez formuler une demande musicale valide, comme « créer une chanson rock >> ou << générer de la musique pour le piano >>."*
+
       - Les invites valides doivent être spécifiques et musicalement ciblées (par exemple, « Générer une mélodie jazz pour piano » ou « Créer un motif de batterie techno rapide »).
 
       **Remarques :**
