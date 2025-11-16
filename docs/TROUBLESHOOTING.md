@@ -132,7 +132,93 @@ On Windows ARM64 systems, the "System Speaker" test and the "Use sound device to
 
 ---
 
-## 6. Frequently Asked Questions
+## 6. AI Warnings, Errors, and Google Gemini™ API Troubleshooting
+
+NeoBleeper’s "Create Music With AI" feature utilizes the Google Gemini™ API. You may encounter specific error dialogs or warnings related to API availability, usage limits, or country restrictions.
+
+### 6.1 Quota or Rate Limit Errors (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/c6a28c4a-f96c-4aa1-8c88-d3ce5628c052)
+
+**Example Message:**  
+```
+An error occurred: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Potential Reasons:**
+- **API quota for your account has been exhausted.** If you’re using a free API key, certain models (such as `gemini-2.0-pro-exp`) may not be available or may have very low/hard limits on usage for free accounts.
+- **Free tier limitations:** Some newer generative models (like Gemini Pro Exp) are *not* available to free-tier users. Attempting to use them results in a quota or availability error.
+- **Exceeded rate limits:** If you send too many requests too quickly, you may hit the API’s rate limits even on a paid plan.
+
+**How to Fix:**
+- **Check your API quota and billing:** Log in to your Google Cloud/Gemini account to verify your usage and upgrade your plan if needed.
+- **Use only supported models:** Free-tier users may be limited to certain models. Check documentation for available models or switch to a supported one.
+- **Wait and retry later:** Sometimes, waiting a few moments will allow quota to refresh temporarily, as indicated by the message’s countdown.
+- **Review [Gemini API documentation](https://ai.google.dev/gemini-api/docs/rate-limits) for up-to-date usage policies and rate limits.**
+
+---
+
+### 6.2 Region or Country Restrictions
+
+#### "API is not available in your country"
+
+![image4](https://github.com/user-attachments/assets/e3ce3baf-a3a6-41b6-86ac-8f66d721adee)
+
+Some regions are not supported for the Google Gemini™ API due to regional or legal restrictions.
+
+**Potential Reasons:**
+- Your country is a country where Gemini API availability is restricted.
+- The API key you’re using is registered to a region that does not have access.
+
+**How to Fix:**
+- **Check Google Gemini™ API supported countries** in the official documentation.
+- If you are in a restricted country, the AI features will not be usable.
+
+#### Region-Specific Warning (Settings Panel)
+
+![image3](https://github.com/user-attachments/assets/03f8a849-489c-46a9-af2c-57bb003db7c6)
+
+In the European Economic Area, Switzerland, or United Kingdom, the Gemini™ API may require a paid (non-free) Google account.
+
+- If you see this warning, ensure you’ve upgraded your Gemini API plan before attempting to use AI features.
+
+---
+
+### 6.3 General AI API Advice
+
+- Only enter your own API key; do not share it for your security.
+- NeoBleeper does not transmit your API key except directly to the Gemini service as needed for feature use.
+- If you experience repeated errors, try removing and re-adding your API key, and double check that your key is active.
+
+---
+
+## 7. System Speaker and Sound Advice for Specific Chipsets (incl. Intel B660)
+
+### If you hear no sound, sound is corrupted, or system speaker is unreliable:
+
+Some modern chipsets — including those in the Intel B660 series and newer — may have issues with initializing or re-initializing the system speaker (PC beeper), resulting in silence or sound problems.
+
+**Advice for affected users:**
+
+- **Try putting your computer to sleep and waking it up again.**  
+  This may help reinitialize or reset the low-level hardware port responsible for the system speaker and restore beep functionality.
+- **Use the "Use sound device to create beep" feature** as a fallback if system speaker output is unreliable.
+- **Check for BIOS or firmware updates:** Some motherboard vendors may release updates improving speaker port compatibility.
+- **Desktop-specific:** If you have added, removed, or reconnected system speaker hardware, perform a full power cycle.
+
+_This workaround is highlighted in the settings:_ 
+
+![image2](https://github.com/user-attachments/assets/56f85637-ea14-4002-9e86-6d97730e211e)
+
+> *If you hear no sound or the sound is corrupted, try putting your computer to sleep and waking it up. This can help reinitialize the system speaker on affected chipsets.*
+
+---
+
+*For any sound or AI-related issues not covered here, please include error screenshots, details of your PC hardware (especially motherboard/chipset make and model), and your country/region when requesting support or opening a GitHub issue.*
+
+---
+
+## 8. Frequently Asked Questions
 
 ### Q: Can I use the system speaker if my hardware doesn't have a PNP0800 device?
 **A:** Yes! NeoBleeper now attempts to detect and use hidden or non-PNP0800 system speaker outputs where possible. If successful, you can use the system speaker even if Windows doesn't report a standard device.
@@ -160,7 +246,7 @@ If future testing or development enables NeoBleeper to reliably detect broken or
 
 ---
 
-## 7. Getting Help
+## 9. Getting Help
 
 - **Provide computer and environment details:** When reporting hardware detection or sound issues, please include details about your computer (desktop/laptop, manufacturer/model, operating system) and any relevant hardware.
 - **Attach screenshots or error dialogs:** Screenshots of error or warning dialogs are very helpful. Specify exactly when the problem occurs.
