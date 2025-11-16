@@ -24,6 +24,7 @@ The system speaker is controlled at a low hardware/software level. If the applic
   #### Beep Stopper Messages and Their Meanings
 
   When you use the Beep Stopper utility, you may see the following messages:
+  
   ![image1](https://github.com/user-attachments/assets/1bdcee2a-571e-4bbf-b97f-aa5835f22538)
 
     **System speaker is not beeping or the system speaker is beeping in a different way. No action taken.**  
