@@ -25,18 +25,18 @@ Sistem hoparlörü düşük donanım/yazılım seviyesinde kontrol edilir. Uygul
 
   Bip Sesi Durdurucu yardımcı programını kullandığınızda aşağıdaki mesajları görebilirsiniz:
 
-  ![image1](https://github.com/user-attachments/assets/e8a11d67-3a9c-424b-9eae-e50258408b98)
+  ![image1](https://github.com/user-attachments/assets/54de81c0-1ff0-4eb3-ace7-652110c2e5e9)
     
     **Sistem hoparlörü bip sesi çıkarmıyor veya sistem hoparlörü farklı bir şekilde bip sesi çıkarıyor. Herhangi bir işlem yapılmadı.**  
     Bu mesaj, yardımcı program sistem hoparlörünü kontrol ettiğinde ve hoparlörün bip sesi çıkarmadığını veya araç tarafından kontrol edilemeyen bir şekilde bip sesi çıkardığını tespit ettiğinde görüntülenir. Bu durumda, Bip Durdurucu başka bir işlem yapmaz.
     - *İpucu:* Hala sürekli bir bip sesi duyuyorsanız, bilgisayarınızı yeniden başlatmayı deneyin.
-      
-  ![image2](https://github.com/user-attachments/assets/a0064c46-b4b3-430d-bce6-36fa1c754685)
+
+  ![image2](https://github.com/user-attachments/assets/6b398155-f3f5-46dd-b05c-0d040c287dc5)
     
     **Bip sesi başarıyla durduruldu!**  
     Bu ileti, Bip Sesi DUrdurucu yardımcı programının takılı kalmış bir bip sesi algıladığını ve bunu başarıyla durdurabildiğini onaylar. Başka bir işlem yapmanıza gerek yoktur.
-
-  ![image3](https://github.com/user-attachments/assets/7c00d628-440a-414d-a1f1-b7860f9a061b)
+  
+  ![image3](https://github.com/user-attachments/assets/b43f46ca-a1e9-44f3-a835-833eab73d0dc)
   
     **Sistem hoparlörü çıkışı mevcut değil veya standart dışı bir sistem hoparlörü çıkışı mevcut. Bip sesi durdurucu, kararsızlıklara veya istenmeyen davranışlara neden olabilir. Devam etmek istiyor musunuz?**  
     Bu mesaj, Bip Sesi Durdurucu yardımcı programı başlatıldığında ve sisteminizde standart bir sistem (PC) hoparlörü olmadığı veya sistem hoparlörü çıkışının "standart dışı" olduğu tespit edildiğinde görüntülenir. Bu durumda, yardımcı program sizi Bip Sesi Durdurucu'yu kullanmaya çalışmanın beklendiği gibi çalışmayabileceği ve beklenmedik davranışlara veya dengesizliğe neden olabileceği konusunda uyarır.
@@ -66,9 +66,9 @@ NeoBleeper, sisteminizde standart bir PC hoparlörü çıkışı olup olmadığ�
 
 ### Ayarlar İletişim Kutuları (Resim 2 ve 3):
 
-![image2](https://github.com/user-attachments/assets/93c1144f-0201-4599-b892-b0f272456d07)
+![image2](https://github.com/user-attachments/assets/c5f72889-76c5-4088-80b3-d9a27413ee73)
 
-![image3](https://github.com/user-attachments/assets/5699b1b2-93d1-4f67-b5c1-319aabaccf0a)
+![image3](https://github.com/user-attachments/assets/b3db6fe9-04ae-4888-be99-2c6a2b156cfa)
 
 
 - **"Sistem Hoparlörünü Test Et" düğmesinin kullanılabilirliği:**
@@ -135,7 +135,92 @@ Windows ARM64 sistemlerinde, "Sistem Hoparlörü" testi ve "Bip sesi oluşturmak
 
 ---
 
-## 6. Sıkça Sorulan Sorular
+## 6. Yapay Zeka Uyarıları, Hatalar ve Google Gemini™ API Sorun Giderme
+
+NeoBleeper'ın "Yapay Zeka ile Müzik Oluştur" özelliği, Google Gemini™ API'sini kullanır. API kullanılabilirliği, kullanım sınırları veya ülke kısıtlamalarıyla ilgili belirli hata iletişim kutuları veya uyarılarla karşılaşabilirsiniz.
+
+### 6.1 Kota veya Oran Sınırı Hataları (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/4ff91ad0-ea3e-4080-85fb-7d82b3be5cb4)
+
+**Örnek Mesaj:**
+```
+Bir hata oluştu: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Olası Nedenler:**
+- **Hesabınızın API kotası tükendi.** Ücretsiz bir API anahtarı kullanıyorsanız, bazı modeller (örneğin `gemini-2.0-pro-exp`) kullanılamayabilir veya ücretsiz hesaplar için çok düşük/kesin kullanım sınırları olabilir. - **Ücretsiz katman sınırlamaları:** Bazı yeni jenerasyon modelleri (Gemini Pro Exp gibi) ücretsiz katman kullanıcıları tarafından kullanılamaz. Bunları kullanmaya çalışmak kota veya kullanılabilirlik hatasıyla sonuçlanır.
+- **Hız sınırlarının aşılması:** Çok fazla isteği çok hızlı gönderirseniz, ücretli bir planda bile API'nin hız sınırlarına ulaşabilirsiniz.
+
+**Nasıl Düzeltilir:**
+- **API kotanızı ve faturalandırmanızı kontrol edin:** Kullanımınızı doğrulamak ve gerekirse planınızı yükseltmek için Google Cloud/Gemini hesabınıza giriş yapınız.
+- **Yalnızca desteklenen modelleri kullanın:** Ücretsiz katman kullanıcıları belirli modellerle sınırlı olabilir. Kullanılabilir modeller için belgeleri kontrol edin veya desteklenen bir modele geçiniz.
+- **Bekleyin ve daha sonra tekrar deneyin:** Bazen, birkaç dakika beklemek, mesajın geri sayımında belirtildiği gibi kotanın geçici olarak yenilenmesine olanak tanır.
+- **Güncel kullanım politikaları ve hız sınırları için [Gemini API belgelerini](https://ai.google.dev/gemini-api/docs/rate-limits) inceleyiniz.**
+
+---
+
+### 6.2 Bölge veya Ülke Kısıtlamaları
+
+#### "API ülkenizde mevcut değil"
+
+![image4](https://github.com/user-attachments/assets/e3223ed6-9ad5-4cf5-b405-d80e64dd2dd9)
+
+Bölgesel veya yasal kısıtlamalar nedeniyle bazı bölgeler Google Gemini™ API için desteklenmemektedir.
+
+**Olası Nedenler:**
+- Ülkeniz, Gemini API kullanılabilirliğinin kısıtlı olduğu bir ülkedir.
+- Kullandığınız API anahtarı, erişimi olmayan bir bölgeye kayıtlıdır.
+
+**Nasıl Düzeltilir:**
+- Resmi belgelerde **Google Gemini™ API'nin desteklediği ülkeleri** kontrol ediniz. - Kısıtlı bir ülkedeyseniz, yapay zeka özellikleri kullanılamayacaktır.
+
+#### Bölgeye Özel Uyarı (Ayarlar Paneli)
+
+![image3](https://github.com/user-attachments/assets/a5b31462-fb27-496a-aea3-12eca84a43db)
+
+Avrupa Ekonomik Alanı, İsviçre veya Birleşik Krallık'ta, Google Gemini™ API ücretli (ücretsiz olmayan) bir hesap gerektirebilir.
+
+- Bu uyarıyı görürseniz, yapay zeka özelliklerini kullanmaya başlamadan önce Gemini API planınızı yükselttiğinizden emin olunuz.
+
+---
+
+### 6.3 Genel Yapay Zeka API Tavsiyeleri
+
+- Yalnızca kendi API anahtarınızı giriniz; güvenliğiniz için paylaşmayınız.
+- NeoBleeper, API anahtarınızı, özellik kullanımı için ihtiyaç duyulması dışında doğrudan Gemini hizmetine iletmez. - Tekrarlayan hatalarla karşılaşırsanız, API anahtarınızı kaldırıp yeniden eklemeyi deneyin ve anahtarınızın etkin olduğundan emin olun.
+
+---
+
+## 7. Belirli Yonga Setleri için Sistem Hoparlörü ve Ses Tavsiyeleri (Intel B660 dahil)
+
+### Ses duymuyorsanız, ses bozuksa veya sistem hoparlörü güvenilir değilse:
+
+Intel B660 serisi ve daha yenileri de dahil olmak üzere bazı modern yonga setlerinde, sistem hoparlörünün (PC bip sesi) başlatılması veya yeniden başlatılmasıyla ilgili sorunlar olabilir ve bu da sessizliğe veya ses sorunlarına neden olabilir.
+
+**Etkilenen kullanıcılar için tavsiyeler:**
+
+- **Bilgisayarınızı uyku moduna alıp tekrar uyandırmayı deneyin.**
+
+Bu, sistem hoparlöründen sorumlu düşük seviyeli donanım bağlantı noktasını yeniden başlatmanıza veya sıfırlamanıza ve bip sesi işlevini geri yüklemenize yardımcı olabilir.
+- Sistem hoparlörü çıkışı güvenilir değilse, **geri dönüş olarak "Bip sesi oluşturmak için ses aygıtını kullan" özelliğini kullanınız.**
+- **BIOS veya donanım yazılımı güncellemelerini kontrol edin:** Bazı anakart üreticileri, hoparlör bağlantı noktası uyumluluğunu iyileştiren güncellemeler yayınlayabilir.
+
+- **Masaüstüne özel:** Sistem hoparlörü donanımı eklediyseniz, çıkardıysanız veya yeniden bağladıysanız, tam bir güç döngüsü gerçekleştiriniz.
+
+_Bu geçici çözüm ayarlar bölümünde vurgulanmıştır:_
+
+![image2](https://github.com/user-attachments/assets/f6c107e0-d617-49e1-be1e-b24859eda282)
+
+> *Ses duymuyorsanız veya ses bozuksa, bilgisayarınızı uyku moduna alıp uyandırmayı deneyin. Bu, etkilenen yonga setlerinde sistem hoparlörünün yeniden başlatılmasına yardımcı olabilir.*
+
+---
+
+*Burada ele alınmayan herhangi bir ses veya yapay zeka sorunu için, lütfen destek talep ederken veya bir GitHub sorunu açarken hata ekran görüntülerini, bilgisayar donanımınızın ayrıntılarını (özellikle anakart/yonga seti marka ve modeli) ve ülkenizi/bölgenizi ekleyin.*
+
+---
+
+## 8. Sıkça Sorulan Sorular
 
 ### S: Donanımımda PNP0800 aygıtı yoksa sistem hoparlörünü kullanabilir miyim?
 **C:** Evet! NeoBleeper artık mümkün olan yerlerde gizli veya PNP0800 olmayan sistem hoparlör çıkışlarını algılayıp kullanmaya çalışıyor. Başarılı olursa, Windows standart bir aygıt bildirmese bile sistem hoparlörünü kullanabilirsiniz.
@@ -158,12 +243,36 @@ Windows ARM64 sistemlerinde, "Sistem Hoparlörü" testi ve "Bip sesi oluşturmak
 ### S: ARM64 cihazımda neden sistem hoparlörü veya bip sesi seçenekleri göremiyorum?
 **C:** Windows ARM64 sistemlerinde, NeoBleeper sistem hoparlörü ile ilgili ayarları devre dışı bırakır çünkü ARM64 platformları doğrudan sistem hoparlörü donanım erişimini desteklemez. Tüm bip sesleri normal ses çıkış cihazınızdan (hoparlörler veya kulaklıklar) çalınır ve "Sistem Hoparlörünü Test Et" ve "Bip sesi oluşturmak için ses cihazını kullan" seçenekleri otomatik olarak gizlenir. Bu davranış tasarım gereğidir ve bir hata değildir.
 
+### S: "Standart dışı sistem hoparlörü çıkışı mevcut" uyarısı aldığımda bu ne anlama geliyor?
+**C:** NeoBleeper, geleneksel PC hoparlör standartlarına uymayan hoparlör donanımı tespit etti (örneğin, bir PNP0800 aygıtı değil). Bu, modern masaüstlerinde veya sanal makinelerde bulunan "gizli" bir hoparlör çıkışı olabilir. Bu durumlarda, tüm bip sesi özellikleri güvenilir bir şekilde çalışmayabilir, ancak NeoBleeper tespit edebildiği herhangi bir uyumlu çıkışı kullanmaya çalışacaktır.
+
+### S: Windows bir PC hoparlörü aygıtı listelemese bile "Sistem Hoparlörünü Test Et" düğmesi neden mevcut?
+**C:** NeoBleeper, gizli veya standart dışı sistem hoparlör çıkışları için algılama mantığı içerir. Düğme görünüyorsa, Windows tarafından bir aygıt olarak bildirilmemiş olsa bile NeoBleeper'ın hoparlör çıkışı için olası bir donanım bağlantı noktası bulduğu anlamına gelir.
+
+### S: Yapay Zeka özellikleri için Google Gemini™ API'sini kullanıyorum ve "kota tükendi" veya "API ülkenizde kullanılamıyor" mesajını görüyorum. Ne yapmalıyım?
+**C:** Bu kılavuzun 6. bölümüne bakın. API anahtarınızın ve faturalandırma/kotanızın geçerli olduğundan ve kullanımınızın Google'ın bölgesel kısıtlamalarına uygun olduğundan emin olunuz. Kısıtlı bir bölgedeyseniz, maalesef yapay zeka özellikleri kullanılamayabilir.
+
+### S: Intel B660 (veya daha yeni) bir sistemim var ve PC hoparlörüm bazen çalışmıyor veya takılıyor. Bu normal mi?
+**C:** Bazı yeni yonga setlerinde, sistem hoparlörünü yeniden başlatmayla ilgili bilinen uyumluluk sorunları vardır. Bilgisayarınızı uyku moduna alıp uyandırmayı deneyin veya normal ses cihazınızı kullanınız. Hoparlör desteğini iyileştirebilecek BIOS/donanım güncellemelerini kontrol edin.
+
+### S: Destek için ses veya yapay zeka sorunlarını bildirmenin en iyi yolu nedir?
+**C:** Mümkün olduğunca fazla bilgi sağlayın: bilgisayarınızın markası/modeli, bölgesi, hata iletişim kutularının ekran görüntüleri ve NeoBleeper klasöründeki `DebugLog.txt` dosyanız. Yapay zeka sorunları için, hata iletişim kutularının tam metnini ekleyin ve Gemini API hesap durumunuzu açıklayın.
+
+### S: Bir çökme veya zorla kapatma sonrasında NeoBleeper'ın bip sesi durdurucusu sürekli bip sesini durdurmadı. Bunu düzeltmenin başka bir yolu var mı?
+**C:** Beep Stopper etkisizse, bilgisayarınızı yeniden başlatmak sistem hoparlörü donanımını sıfırlayacak ve sürekli bip sesini durduracaktır.
+
+### S: Standart dışı veya eksik sistem hoparlör çıkışı hakkında bir uyarı mesajı görürsem Beep Stopper yardımcı programını kullanmak güvenli midir?
+**C:** Evet, ancak yardımcı programın donanımı kontrol edemeyebileceğini ve nadir durumlarda kararsızlığa veya hiçbir etki göstermemesine neden olabileceğini unutmayınız. Emin değilseniz, devam etmemeyi ve bilgisayarınızı yeniden başlatmayı seçiniz.
+
+### S: Sanal makinelerde sistem hoparlörünü hiç çalıştıramıyorum. Bu bir hata mı?
+**C:** Kesinlikle değil. Birçok sanal makine, bir bilgisayar hoparlörünü düzgün bir şekilde taklit etmez veya çıkışı programlanabilir bir şekilde kontrol edilemeyecek şekilde sunar. En iyi sonuçlar için standart ses çıkış cihazınızı kullanın.
+
 **Potansiyel gelecekteki güncellemeler:**
 Gelecekteki testler veya geliştirmeler, NeoBleeper'ın ultrasonik donanım testi aracılığıyla bozuk veya bağlantısı kesilmiş sistem hoparlörlerini güvenilir bir şekilde tespit etmesini sağlarsa, bu SSS ve tespit mantığı bu geliştirmeleri yansıtacak şekilde güncellenecektir. Ayrıntılar için değişiklik günlüklerini veya yeni sürümleri takip ediniz.
 
 ---
 
-## 7. Yardım Alma
+## 9. Yardım Alma
 
 - **Bilgisayar ve ortam ayrıntılarını sağlayınız:** Donanım algılama veya ses sorunlarını bildirirken, lütfen bilgisayarınız (masaüstü/dizüstü bilgisayar, üretici/model, işletim sistemi) ve ilgili donanımlar hakkında ayrıntıları ekleyiniz.
 - **Ekran görüntüleri veya hata iletişim kutuları ekleyiniz:** Hata veya uyarı iletişim kutularının ekran görüntüleri çok faydalıdır. Sorunun tam olarak ne zaman ortaya çıktığını belirtiniz.
