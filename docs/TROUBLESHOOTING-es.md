@@ -25,18 +25,18 @@ El altavoz del sistema se controla a un nivel bajo de hardware/software. Si la a
 
   Al usar Detección de pitidos, es posible que vea los siguientes mensajes:
 
-  ![image1](https://github.com/user-attachments/assets/10b9d329-195b-41fb-8e13-772bcd2df1ae)
+  ![image1](https://github.com/user-attachments/assets/7e58e585-e4d3-4d27-91c6-2ce33a5efce8)
     
     **El altavoz del sistema no emite ningún pitido o emite un pitido diferente. No se realizó ninguna acción.**  
     Este mensaje aparece cuando la utilidad revisa el altavoz del sistema y determina que no emite ningún pitido o que emite un pitido que la herramienta no puede controlar. En este caso, Beep Stopper no realizará ninguna otra acción.
     - *Consejo:* Si el pitido persiste, intente reiniciar el ordenador.
 
-  ![image2](https://github.com/user-attachments/assets/53e2571d-f825-4cc0-8a3c-42d7dd3ed28b)
+  ![image2](https://github.com/user-attachments/assets/db7e26dc-934f-43e4-b74f-3fd009d647a3)
     
     **¡El pitido se detuvo correctamente!**  
     Este mensaje confirma que la utilidad Beep Stopper detectó un pitido atascado y logró detenerlo correctamente. No se requiere ninguna acción adicional.
 
-  ![image3](https://github.com/user-attachments/assets/12dcb625-3395-4488-8f8a-fc4bec3bce53)
+  ![image3](https://github.com/user-attachments/assets/460c876a-67a1-46da-ab71-2f88941ee59c)
   
     **La salida de los altavoces del sistema no está presente o la salida no es la estándar. El silenciador de pitidos puede causar inestabilidad o comportamientos indeseados. ¿Desea continuar?**  
     Este mensaje aparece cuando se inicia la utilidad Beep Stopper y detecta que su sistema no tiene un altavoz estándar (de PC) o que la salida del altavoz no es estándar. En este caso, la utilidad le advierte que intentar usar Beep Stopper podría no funcionar como se espera y podría causar un comportamiento inesperado o inestabilidad.
@@ -66,9 +66,9 @@ NeoBleeper incluye lógica de detección para comprobar si su sistema dispone de
 
 ### Diálogos de configuración (Imágenes 2 y 3):
 
-![image2](https://github.com/user-attachments/assets/03557983-51c4-4838-ad49-89c11009db15)
+![image2](https://github.com/user-attachments/assets/baf0fe49-0867-4bfc-a2cd-235bcedec924)
 
-![image3](https://github.com/user-attachments/assets/51ee6d34-0d20-4403-8a94-92cb586ee891)
+![image3](https://github.com/user-attachments/assets/eb9f518e-d79f-4899-994d-383f618a8f0c)
 
 - **Disponibilidad del botón "Probar altavoz del sistema":**
   Esta opción se activa si NeoBleeper detecta alguna salida de altavoz del sistema utilizable, incluidas las salidas ocultas o que no sean PNP0800.
@@ -137,7 +137,110 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 
 ---
 
-## 6. Preguntas frecuentes
+## 6. Advertencias, errores y solución de problemas de la API de Google Gemini™
+
+La función "Crea música con IA" de NeoBleeper utiliza la API de Google Gemini™. Es posible que aparezcan mensajes de error o advertencias relacionados con la disponibilidad de la API, los límites de uso o las restricciones geográficas.
+
+### 6.1 Errores de cuota o límite de frecuencia (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/3750e0f1-9d75-45a6-a5fe-65ece7a25ddb)
+
+**Mensaje de ejemplo:**
+
+```
+Se ha producido un error: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Posibles causas:**
+
+- **Se ha agotado la cuota de la API de su cuenta.** Si utiliza una clave API gratuita, es posible que algunos modelos (como `gemini-2.0-pro-exp`) no estén disponibles o tengan límites de uso muy bajos o estrictos para las cuentas gratuitas.
+
+- **Limitaciones del plan gratuito:** Algunos modelos generativos más recientes (como Gemini Pro Exp) *no* están disponibles para los usuarios del plan gratuito. Si intenta usarlos, se producirá un error de cuota o disponibilidad.
+
+- **Límites de frecuencia excedidos:** Si envía demasiadas solicitudes con demasiada rapidez, puede alcanzar los límites de frecuencia de la API, incluso con un plan de pago.
+
+**Cómo solucionarlo:**
+- **Verifique su cuota y facturación de la API:** Inicie sesión en su cuenta de Google Cloud/Gemini para verificar su uso y actualizar su plan si es necesario.
+
+- **Use solo modelos compatibles:** Los usuarios del plan gratuito pueden tener limitaciones con respecto a ciertos modelos. Consulte la documentación para ver los modelos disponibles o cambie a uno compatible.
+
+- **Espere y vuelva a intentarlo más tarde:** A veces, esperar unos instantes permite que la cuota se actualice temporalmente, como indica la cuenta regresiva del mensaje.
+
+- **Consulta la [documentación de la API de Gemini](https://ai.google.dev/gemini-api/docs/rate-limits) para conocer las políticas de uso y los límites de frecuencia más recientes.**
+
+---
+
+### 6.2 Restricciones regionales o por país
+
+#### "La API no está disponible en tu país"
+
+![image4](https://github.com/user-attachments/assets/bdcb35e3-ddca-408f-a42e-25879a74f2fb)
+
+Algunas regiones no son compatibles con la API de Google Gemini™ debido a restricciones regionales o legales.
+
+**Posibles motivos:**
+
+- Tu país es uno de los que tiene acceso restringido a la API de Gemini.
+
+- La clave de API que estás usando está registrada en una región que no tiene acceso.
+
+**Cómo solucionarlo:**
+
+- **Consulta la lista de países compatibles con la API de Google Gemini™** en la documentación oficial.
+
+- Si te encuentras en un país con restricciones, las funciones de IA no estarán disponibles.
+
+#### Advertencia específica por región (Panel de configuración)
+
+![image3](https://github.com/user-attachments/assets/769d1e90-70dc-4a4e-9c50-a0849eefa02c)
+
+En el Espacio Económico Europeo, Suiza o el Reino Unido, la API de Gemini™ puede requerir una cuenta de Google de pago (no gratuita).
+
+- Si ves esta advertencia, asegúrate de haber actualizado tu plan de la API de Gemini antes de intentar usar las funciones de IA.
+
+--
+
+### 6.3 Consejos generales sobre la API de IA
+
+- Introduce solo tu propia clave de API; no la compartas por tu seguridad.
+
+- NeoBleeper no transmite tu clave de API, excepto directamente al servicio Gemini cuando sea necesario para el uso de las funciones.
+
+Si experimenta errores repetidos, intente eliminar y volver a agregar su clave API y verifique que esté activa.
+
+---
+
+## 7. Altavoz del sistema y consejos de sonido para chipsets específicos (incluido Intel B660)
+
+### Si no escucha ningún sonido, el sonido está distorsionado o el altavoz del sistema no funciona correctamente:
+
+Algunos chipsets modernos, incluidos los de la serie Intel B660 y posteriores, pueden tener problemas al inicializar o reinicializar el altavoz del sistema (aviso acústico del PC), lo que provoca silencio o problemas de sonido.
+
+**Consejos para los usuarios afectados:**
+
+- **Intente poner el ordenador en modo de suspensión y volver a activarlo.**
+
+Esto puede ayudar a reinicializar o restablecer el puerto de hardware de bajo nivel responsable del altavoz del sistema y restaurar la función de aviso acústico.
+
+- **Utilice la función "Usar dispositivo de sonido para crear un aviso acústico"** como alternativa si la salida del altavoz del sistema no funciona correctamente.
+
+- **Busque actualizaciones de BIOS o firmware:** Algunos fabricantes de placas base pueden publicar actualizaciones que mejoran la compatibilidad del puerto del altavoz.
+
+**Específico para equipos de escritorio:** Si ha añadido, eliminado o reconectado el hardware de los altavoces del sistema, reinicie el equipo por completo.
+
+_Esta solución alternativa se destaca en la configuración:_
+
+![image2](https://github.com/user-attachments/assets/0b50e3a2-d22a-40b0-8ffa-a7fab0056054)
+
+> *Si no escucha ningún sonido o el sonido está distorsionado, intente poner el equipo en modo de suspensión y reactivarlo. Esto puede ayudar a reinicializar los altavoces del sistema en los chipsets afectados.*
+
+---
+
+*Para cualquier problema relacionado con el sonido o la IA que no se trate aquí, incluya capturas de pantalla del error, detalles del hardware de su PC (especialmente la marca y el modelo de la placa base/chipset) y su país/región al solicitar asistencia o abrir un problema en GitHub.*
+
+---
+
+## 8. Preguntas frecuentes
 
 ### P: ¿Puedo usar el altavoz del sistema si mi hardware no tiene un dispositivo PNP0800?
 **R:** ¡Sí! NeoBleeper ahora intenta detectar y usar salidas de altavoz del sistema ocultas o que no sean PNP0800 siempre que sea posible. Si lo logra, podrá usar el altavoz del sistema incluso si Windows no detecta un dispositivo estándar.
@@ -159,12 +262,36 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 ### P: ¿Por qué no veo ninguna opción de altavoz del sistema ni de sonido de pitido en mi dispositivo ARM64?
 **R:** En sistemas Windows ARM64, NeoBleeper deshabilita la configuración relacionada con el altavoz del sistema porque las plataformas ARM64 no admiten el acceso directo al hardware del altavoz del sistema. Todos los pitidos se reproducen a través de su dispositivo de salida de sonido habitual (altavoces o auriculares), y las opciones «Probar altavoz del sistema» y «Usar dispositivo de sonido para crear pitido» se ocultan automáticamente. Este comportamiento es intencional y no se trata de un error.
 
+### P: ¿Qué significa recibir la advertencia "Salida de altavoz del sistema no estándar"?
+**R:** NeoBleeper ha detectado hardware de altavoz que no cumple con los estándares tradicionales de altavoces de PC (por ejemplo, no es un dispositivo PNP0800). Podría tratarse de una salida de altavoz "oculta" que se encuentra en ordenadores de escritorio modernos o máquinas virtuales. En estos casos, es posible que no todas las funciones de pitido funcionen correctamente, pero NeoBleeper intentará usar cualquier salida compatible que detecte.
+
+### P: ¿Por qué aparece el botón "Probar altavoz del sistema" si Windows no muestra ningún dispositivo de altavoz en la lista?
+**R:** NeoBleeper incluye lógica de detección para salidas de altavoz del sistema ocultas o no estándar. Si aparece el botón, significa que NeoBleeper ha encontrado un puerto de hardware potencial para la salida de altavoz, aunque Windows no lo identifique como un dispositivo.
+
+### P: Estoy usando la API de Google Gemini™ para funciones de IA y veo un mensaje de "cuota agotada" o "API no disponible en tu país". ¿Qué debo hacer?
+**R:** Consulta la sección 6 de esta guía. Asegúrate de que tu clave de API y tu facturación/cuota estén al día y de que tu uso cumpla con las restricciones regionales de Google. Si te encuentras en una región restringida, lamentablemente, es posible que las funciones de IA no estén disponibles.
+
+### P: Tengo un sistema Intel B660 (o posterior) y el altavoz de mi PC a veces no funciona o se bloquea. ¿Es normal?
+**R:** Algunos chipsets más recientes tienen problemas de compatibilidad conocidos al reiniciar el altavoz del sistema. Intenta poner tu ordenador en modo de suspensión y volver a activarlo, o usa tu dispositivo de sonido habitual. Busca actualizaciones de BIOS/firmware que puedan mejorar la compatibilidad con el altavoz.
+
+### P: ¿Cuál es la mejor manera de informar sobre problemas de sonido o IA para obtener asistencia técnica?
+**R:** Proporcione siempre la mayor cantidad de información posible: la marca y el modelo de su computadora, su región, capturas de pantalla de los cuadros de diálogo de error y su archivo `DebugLog.txt` de la carpeta de NeoBleeper. Para problemas con la IA, incluya el texto completo de los cuadros de diálogo de error y describa el estado de su cuenta de la API de Gemini.
+
+### P: Después de un fallo o un cierre forzado, el Beep Stopper de NeoBleeper no detuvo un pitido continuo. ¿Hay otra forma de solucionarlo?
+**R:** Si el Beep Stopper no funciona, reiniciar la computadora restablecerá el hardware del altavoz del sistema y detendrá cualquier pitido persistente.
+
+### P: ¿Es seguro usar la utilidad Beep Stopper si veo un mensaje de advertencia sobre una salida de altavoz del sistema no estándar o faltante?
+**R:** Sí, pero tenga en cuenta que la utilidad podría no ser capaz de controlar el hardware y, en raras ocasiones, podría causar inestabilidad o no tener ningún efecto. Si no está seguro, opte por no continuar y reinicie la computadora.
+
+### P: En las máquinas virtuales, no consigo que funcione el altavoz del sistema. ¿Es un error del sistema?
+**R:** No necesariamente. Muchas máquinas virtuales no emulan correctamente el altavoz de un PC o presentan la salida de audio de una forma que no se puede controlar mediante programación. Para obtener mejores resultados, utilice su dispositivo de salida de audio habitual.
+
 **Posibles actualizaciones futuras:**
 Si las pruebas o el desarrollo futuros permiten que NeoBleeper detecte de forma fiable los altavoces del sistema dañados o desconectados mediante la prueba ultrasónica de hardware, estas preguntas frecuentes y la lógica de detección se actualizarán para reflejar dichas mejoras. Esté atento a los registros de cambios o a las nuevas versiones para obtener más información.
 
 ---
 
-## 7. Obtener ayuda
+## 9. Obtener ayuda
 
 - **Proporcione detalles del equipo y el entorno:** Al reportar problemas de detección de hardware o sonido, incluya detalles sobre su equipo (ordenador de escritorio/portátil, fabricante/modelo, sistema operativo) y cualquier hardware relevante.
 - **Adjunte capturas de pantalla o cuadros de diálogo de error:** Las capturas de pantalla de los cuadros de diálogo de error o advertencia son muy útiles. Indique exactamente cuándo ocurrió el problema.
