@@ -25,18 +25,18 @@ L'altoparlante di sistema è controllato a un livello hardware/software basso. S
   
   Quando si utilizza l'utilità Beep Stopper, potrebbero essere visualizzati i seguenti messaggi:
 
-  ![image1](https://github.com/user-attachments/assets/d05d5a4c-1688-4a69-b9c0-234f880d8c95)
+  ![image1](https://github.com/user-attachments/assets/68ac83df-f644-4d0f-a759-b53d5a6e9653)
     
     **L'altoparlante di sistema non emette alcun segnale acustico oppure emette un segnale acustico diverso. Nessuna azione intrapresa.**  
     Questo messaggio appare quando l'utilità controlla l'altoparlante di sistema e rileva che non produce alcun segnale acustico o che il segnale acustico emesso non può essere controllato dallo strumento. In questo caso, Beep Stopper non intraprenderà ulteriori azioni.
     - *Suggerimento:* se il segnale acustico persiste, prova a riavviare il computer.
-  
-  ![image2](https://github.com/user-attachments/assets/6c22a450-597b-45a2-b55b-d3bdd97af712)
+
+  ![image2](https://github.com/user-attachments/assets/12d6faa1-695e-42da-9586-829348db0b70)
     
     **Il segnale acustico è stato interrotto correttamente!**  
     Questo messaggio conferma che l'utilità Beep Stopper ha rilevato un segnale acustico bloccato ed è riuscita a interromperlo correttamente. Non sono necessarie ulteriori azioni.
-  
-  ![image3](https://github.com/user-attachments/assets/9dde02ea-c904-4cf5-bc2f-b6d425aa911c)
+
+  ![image3](https://github.com/user-attachments/assets/ad9c8e3e-28f8-488e-abb5-b9da2973f67b)
   
     **L'uscita dell'altoparlante di sistema non è presente oppure è presente un'uscita dell'altoparlante di sistema non standard. Il blocco del segnale acustico potrebbe causare instabilità o comportamenti indesiderati. Vuoi continuare?**
     Questo messaggio viene visualizzato quando l'utilità Beep Stopper viene avviata e rileva che il sistema non dispone di un altoparlante di sistema standard (PC) oppure che l'uscita dell'altoparlante di sistema è "non standard". In questo caso, l'utilità avvisa che il tentativo di utilizzare Beep Stopper potrebbe non funzionare come previsto e potrebbe potenzialmente causare comportamenti imprevisti o instabilità.
@@ -66,9 +66,9 @@ NeoBleeper include una logica di rilevamento per verificare se il sistema dispon
 
 ### Finestre di dialogo delle impostazioni (immagini 2 e 3):
 
-![image2](https://github.com/user-attachments/assets/14878c30-d680-4b08-8100-933a8f2bcc6b)
+![image2](https://github.com/user-attachments/assets/68cd956b-0089-4ca8-93c8-3ccfbec541e0)
 
-![image3](https://github.com/user-attachments/assets/795e55a7-fa8d-4149-96e7-d52f4a213149)
+![image3](https://github.com/user-attachments/assets/ed586a9e-31c3-491f-b3ee-3dee2bc829a9)
 
 - **Disponibilità del pulsante "Test altoparlante di sistema":**
 Questa opzione è abilitata se NeoBleeper rileva un'uscita altoparlante di sistema utilizzabile, incluse uscite nascoste o non PNP0800.
@@ -133,7 +133,92 @@ Sui sistemi Windows ARM64, il test "Altoparlante di sistema" e la casella di con
 
 ---
 
-## 6. Domande frequenti
+## 6. Avvisi, errori e risoluzione dei problemi relativi all'API Google Gemini™ relativi all'IA
+
+La funzione "Crea musica con l'IA" di NeoBleeper utilizza l'API Google Gemini™. Potresti visualizzare finestre di dialogo di errore o avvisi specifici relativi alla disponibilità dell'API, ai limiti di utilizzo o alle restrizioni nazionali.
+
+### 6.1 Errori di quota o limite di velocità (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/be16a232-2eeb-4bcd-8384-289c89fe2af3)
+
+**Messaggio di esempio:**
+```
+Si è verificato un errore: RESOURCE_EXHAUSTED (Codice: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Potenziali motivi:**
+- **La quota API per il tuo account è esaurita.** Se utilizzi una chiave API gratuita, alcuni modelli (come `gemini-2.0-pro-exp`) potrebbero non essere disponibili o potrebbero avere limiti di utilizzo molto bassi/rigidi per gli account gratuiti.
+- **Limitazioni del livello gratuito:** Alcuni modelli generativi più recenti (come Gemini Pro Exp) *non* sono disponibili per gli utenti del livello gratuito. Il tentativo di utilizzarli genera un errore di quota o di disponibilità.
+- **Superamento dei limiti di frequenza:** Se invii troppe richieste troppo rapidamente, potresti raggiungere i limiti di frequenza dell'API anche con un piano a pagamento.
+
+**Come risolvere:**
+- **Controlla la quota e la fatturazione dell'API:** Accedi al tuo account Google Cloud/Gemini per verificare l'utilizzo e, se necessario, aggiorna il piano.
+- **Utilizza solo modelli supportati:** Gli utenti del livello gratuito potrebbero essere limitati a determinati modelli. Consulta la documentazione per i modelli disponibili o passa a uno supportato.
+- **Attendi e riprova più tardi:** A volte, attendere qualche istante può consentire l'aggiornamento temporaneo della quota, come indicato dal conto alla rovescia del messaggio. - **Consulta la [documentazione dell'API Gemini](https://ai.google.dev/gemini-api/docs/rate-limits) per policy di utilizzo e limiti di velocità aggiornati.**
+
+---
+
+### 6.2 Limitazioni regionali o nazionali
+
+#### "L'API non è disponibile nel tuo Paese"
+
+![image4](https://github.com/user-attachments/assets/7a80071c-7f0d-4080-9b97-c7129f4d2d92)
+
+Alcune regioni non sono supportate dall'API di Google Gemini™ a causa di restrizioni regionali o legali.
+
+**Potenziali motivi:**
+- Il tuo Paese è un Paese in cui la disponibilità dell'API Gemini è limitata.
+- La chiave API che stai utilizzando è registrata in una regione che non ha accesso.
+
+**Come risolvere:**
+- **Controlla i Paesi supportati dall'API di Google Gemini™** nella documentazione ufficiale.
+- Se ti trovi in ​​un Paese con restrizioni, le funzionalità di IA non saranno utilizzabili.
+
+#### Avviso specifico per regione (Pannello Impostazioni)
+
+![image3](https://github.com/user-attachments/assets/fe7d7b2d-6554-4ee2-bb8a-31aad7c34d31)
+
+Nello Spazio Economico Europeo, in Svizzera o nel Regno Unito, l'API Gemini™ potrebbe richiedere un account Google a pagamento (non gratuito).
+
+- Se visualizzi questo avviso, assicurati di aver aggiornato il tuo piano API Gemini prima di provare a utilizzare le funzionalità di IA.
+
+---
+
+### 6.3 Consigli generali per l'API di IA
+
+- Inserisci solo la tua chiave API; non condividerla per la tua sicurezza.
+- NeoBleeper non trasmette la tua chiave API se non direttamente al servizio Gemini, se necessario per l'utilizzo delle funzionalità.
+- Se riscontri errori ripetuti, prova a rimuovere e aggiungere nuovamente la tua chiave API e verifica che sia attiva.
+
+---
+
+## 7. Consigli per altoparlanti e audio di sistema per chipset specifici (incluso Intel B660)
+
+### Se non si sente alcun suono, l'audio è danneggiato o l'altoparlante di sistema non è affidabile:
+
+Alcuni chipset moderni, inclusi quelli della serie Intel B660 e successivi, potrebbero avere problemi con l'inizializzazione o la reinizializzazione dell'altoparlante di sistema (segnale acustico del PC), con conseguente silenzio o problemi audio.
+
+**Consigli per gli utenti interessati:**
+
+- **Provare a mettere il computer in modalità sospensione e a riattivarlo.**
+Questo potrebbe aiutare a reinizializzare o ripristinare la porta hardware di basso livello responsabile dell'altoparlante di sistema e a ripristinare la funzionalità del segnale acustico.
+- **Utilizzare la funzione "Usa dispositivo audio per creare un segnale acustico"** come soluzione alternativa se l'uscita dell'altoparlante di sistema non è affidabile.
+- **Verificare la disponibilità di aggiornamenti del BIOS o del firmware:** Alcuni produttori di schede madri potrebbero rilasciare aggiornamenti che migliorano la compatibilità delle porte degli altoparlanti.
+- **Specifico per desktop:** Se hai aggiunto, rimosso o ricollegato l'hardware degli altoparlanti di sistema, esegui un ciclo di accensione/spegnimento completo.
+
+_Questa soluzione alternativa è evidenziata nelle impostazioni:_
+
+![image2](https://github.com/user-attachments/assets/782dae29-9cc8-444e-b473-9513888df725)
+
+> *Se non senti alcun suono o l'audio è corrotto, prova a mettere il computer in modalità sospensione e poi a riattivarlo. Questo può aiutare a reinizializzare l'altoparlante di sistema sui chipset interessati.*
+
+---
+
+*Per qualsiasi problema relativo all'audio o all'intelligenza artificiale non trattato qui, includi screenshot di errore, dettagli sull'hardware del tuo PC (in particolare marca e modello della scheda madre/chipset) e il tuo paese/regione quando richiedi supporto o apri un problema su GitHub.*
+
+---
+
+## 8. Domande frequenti
 
 ### D: Posso utilizzare l'altoparlante di sistema se il mio hardware non dispone di un dispositivo PNP0800?
 **R:** Sì! NeoBleeper ora tenta di rilevare e utilizzare le uscite degli altoparlanti di sistema nascoste o non PNP0800, ove possibile. In caso di successo, è possibile utilizzare l'altoparlante di sistema anche se Windows non segnala un dispositivo standard.
@@ -156,12 +241,36 @@ Sui sistemi Windows ARM64, il test "Altoparlante di sistema" e la casella di con
 ### D: Perché non vedo alcuna opzione relativa agli altoparlanti di sistema o ai segnali acustici sul mio dispositivo ARM64?
 **R:** Sui sistemi Windows ARM64, NeoBleeper disabilita le impostazioni relative agli altoparlanti di sistema perché le piattaforme ARM64 non supportano l'accesso diretto all'hardware degli altoparlanti di sistema. Tutti i segnali acustici vengono riprodotti tramite il normale dispositivo di uscita audio (altoparlanti o cuffie) e le opzioni "Testa altoparlante di sistema" e "Usa dispositivo audio per creare un segnale acustico" vengono automaticamente nascoste. Questo comportamento è intenzionale e non si tratta di un errore.
 
+### D: Cosa significa quando ricevo un avviso "è presente un'uscita per altoparlanti di sistema non standard"?
+**R:** NeoBleeper ha rilevato hardware per altoparlanti non conforme agli standard tradizionali per gli altoparlanti per PC (ad esempio, non un dispositivo PNP0800). Potrebbe trattarsi di un'uscita per altoparlanti "nascosta" presente su desktop o macchine virtuali moderni. In questi casi, non tutte le funzionalità di segnalazione acustica potrebbero funzionare in modo affidabile, ma NeoBleeper tenterà di utilizzare qualsiasi uscita compatibile che riesca a rilevare.
+
+### D: Perché il pulsante "Test altoparlante di sistema" è presente anche se Windows non elenca un dispositivo altoparlante per PC?
+**R:** NeoBleeper include una logica di rilevamento per le uscite per altoparlanti di sistema nascoste o non standard. Se il pulsante viene visualizzato, significa che NeoBleeper ha trovato una potenziale porta hardware per l'uscita degli altoparlanti, anche se non è segnalata da Windows come dispositivo.
+
+### D: Sto utilizzando l'API Google Gemini™ per le funzionalità di intelligenza artificiale e visualizzo il messaggio "Quota esaurita" o "API non disponibile nel tuo Paese". Cosa devo fare?
+**R:** Consulta la sezione 6 di questa guida. Assicurati che la tua chiave API e la fatturazione/quota siano in regola e che il tuo utilizzo sia conforme alle restrizioni regionali di Google. Se ti trovi in ​​un'area geografica con restrizioni, purtroppo le funzionalità di intelligenza artificiale potrebbero non essere disponibili.
+
+### D: Ho un sistema Intel B660 (o più recente) e l'altoparlante del mio PC a volte non funziona o si blocca. È normale?
+**R:** Alcuni chipset più recenti presentano problemi di compatibilità noti con la reinizializzazione dell'altoparlante di sistema. Prova a mettere il computer in modalità sospensione e poi a riattivarlo, oppure utilizza il tuo dispositivo audio abituale. Verifica la presenza di aggiornamenti BIOS/firmware che potrebbero migliorare il supporto degli altoparlanti.
+
+### D: Qual è il modo migliore per segnalare problemi audio o di intelligenza artificiale al supporto?
+**R:** Fornisci sempre quante più informazioni possibili: marca/modello del computer, regione, screenshot delle finestre di dialogo di errore e il file `DebugLog.txt` dalla cartella NeoBleeper. Per problemi di intelligenza artificiale, includi il testo completo delle finestre di dialogo di errore e descrivi lo stato del tuo account API Gemini.
+
+### D: Dopo un crash o una chiusura forzata, il Beep Stopper di NeoBleeper non ha interrotto il segnale acustico continuo. Esiste un altro modo per risolvere il problema?
+**R:** Se il Beep Stopper non funziona, riavviando il computer si ripristinerà l'hardware degli altoparlanti di sistema e si interromperanno eventuali segnali acustici persistenti.
+
+### D: È sicuro utilizzare l'utilità Beep Stopper se visualizzo un messaggio di avviso relativo a un'uscita audio non standard o mancante per gli altoparlanti di sistema?
+**R:** Sì, ma tieni presente che l'utilità potrebbe non essere in grado di controllare l'hardware e, in rari casi, potrebbe causare instabilità o nessun effetto. In caso di dubbi, scegli di non procedere e riavvia il computer.
+
+### D: Sulle macchine virtuali, non riesco a far funzionare l'altoparlante di sistema. È un bug?
+**R:** Non necessariamente. Molte macchine virtuali non emulano correttamente l'altoparlante di un PC o presentano l'output in un modo che non può essere controllato a livello di programmazione. Utilizza il tuo dispositivo di output audio standard per ottenere risultati ottimali.
+
 **Potenziali aggiornamenti futuri:**
 Se futuri test o sviluppi consentiranno a NeoBleeper di rilevare in modo affidabile gli altoparlanti del sistema rotti o scollegati tramite il test hardware a ultrasuoni, queste FAQ e la logica di rilevamento verranno aggiornate per riflettere tali miglioramenti. Per maggiori dettagli, consultare i changelog o le nuove versioni.
 
 ---
 
-## 7. Ottenere assistenza
+## 9. Ottenere assistenza
 
 - **Fornire dettagli sul computer e sull'ambiente:** Quando si segnalano problemi di rilevamento hardware o audio, si prega di includere dettagli sul computer (desktop/laptop, produttore/modello, sistema operativo) e su eventuali componenti hardware rilevanti.
 - **Allegare screenshot o finestre di dialogo di errore:** Gli screenshot di finestre di dialogo di errore o avviso sono molto utili. Specificare esattamente quando si verifica il problema.
