@@ -65,9 +65,9 @@ NeoBleeper includes detection logic to check whether your system has a standard 
 
 ### Settings Dialogs (Images 2 and 3):
 
-![image2](https://github.com/user-attachments/assets/0e66b563-6000-4018-b89a-9c4dfd6c1b30)
+![image2](https://github.com/user-attachments/assets/4246a2ec-6199-4bcc-acf2-65045dc53867)
 
-![image3](https://github.com/user-attachments/assets/a23935f9-bf26-43f6-b8ae-5fd79a74167e)
+![image3](https://github.com/user-attachments/assets/add9e411-5261-46e2-9762-821b0e31ff84)
 
 - **"Test System Speaker" button availability:**  
   This option is enabled if NeoBleeper detects any usable system speaker output, including hidden or non-PNP0800 outputs. 
