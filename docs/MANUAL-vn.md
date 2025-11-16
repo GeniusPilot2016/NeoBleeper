@@ -267,7 +267,7 @@
   - ### Cài đặt chung
     Tab này tập trung vào các tùy chọn cơ bản và tích hợp cấp hệ thống:
 
-    ![image](https://github.com/user-attachments/assets/6af26fcb-14b0-440d-822a-0b7f55b0889f)
+    ![image](https://github.com/user-attachments/assets/4c918ba9-63a2-4079-b4b1-d36ef1ed9abf)
 
     - #### Ngôn ngữ
       **Bộ chọn ngôn ngữ:** Cho phép bạn chọn ngôn ngữ của NeoBleeper giữa tiếng Anh, tiếng Đức, tiếng Pháp, tiếng Ý, tiếng Tây Ban Nha, tiếng Thổ Nhĩ Kỳ, tiếng Nga, tiếng Ukraina và tiếng Việt.
@@ -296,15 +296,36 @@
       
       Yêu cầu về độ tuổi và chấp nhận Điều khoản Dịch vụ (TOS) là bắt buộc. Vui lòng nhập khóa API mới lần đầu tiên. Điều này đảm bảo việc sử dụng có trách nhiệm và tuân thủ pháp luật đối với các tính năng âm nhạc do AI tạo ra.
 
-    - #### Kiểm tra loa hệ thống
-      **Nút kiểm tra:** Phát tiếng bíp để xác nhận chức năng của loa.
-      
-      **Thông báo dự phòng:** Đề xuất sử dụng thiết bị âm thanh thay thế nếu không nghe thấy âm thanh từ loa hệ thống.
+    - #### Kiểm tra Loa Hệ thống
+
+    NeoBleeper cung cấp các công cụ mạnh mẽ để kiểm tra đầu ra loa hệ thống và chẩn đoán các vấn đề về kết nối hoặc tương thích. Trong mục "Kiểm tra Loa Hệ thống" trong tab Chung của Cài đặt, bạn sẽ tìm thấy hai tính năng kiểm tra riêng biệt:
+    
+    ![image](https://github.com/user-attachments/assets/1c1394d0-3dda-47ef-a3f7-ee2c8d8e9792)
+    
+    **Kiểm tra Loa Hệ thống:**
+    - Nhấn nút này để hiển thị danh sách thả xuống với hai tùy chọn:
+    - **Kiểm tra Phát Giai điệu Chuẩn:** Phát một giai điệu đơn giản để kiểm tra xem loa hệ thống có phát ra âm thanh như mong đợi hay không.
+    - **Kiểm tra Loa Hệ thống Nâng cao:** Chạy một loạt các kiểm tra chẩn đoán để đánh giá kỹ lưỡng chức năng và độ ổn định của trình điều khiển loa (xem chi tiết bên dưới).
+    
+    **Các tính năng Kiểm tra Loa Hệ thống Nâng cao**
+    Khi bạn chọn "Kiểm tra Loa Hệ thống Nâng cao" từ menu thả xuống, NeoBleeper sẽ thực hiện nhiều lần kiểm tra cấu hình phần cứng và phần mềm của bạn, hiển thị kết quả trong một cửa sổ bật lên:
+
+    ![image1](https://github.com/user-attachments/assets/86af39f6-5f4e-4718-9ceb-e0c0ceb7a6b6)
+    
+    Các bài kiểm tra sau được chạy:
+    - **Kiểm tra phản hồi điện:** Xác minh phản hồi điện dự kiến ​​từ phần cứng loa hệ thống.
+    - **Kiểm tra độ ổn định trạng thái cổng:** Kiểm tra tính nhất quán của trạng thái cổng và độ ổn định của trình điều khiển.
+    - **Kiểm tra quét tần số nâng cao:** Chạy các tần số khác nhau để đảm bảo có thể phát ra nhiều âm thanh.
+    - **Kết quả chung:** Tóm tắt cho biết tất cả các bài kiểm tra đều đạt hay có phát hiện ra sự cố cụ thể nào không.
+    
+    Mỗi lần kiểm tra được hiển thị với trạng thái (✔️ ĐI QUA ❌ KHÔNG ĐẠT).
+    
+    > Nếu bạn không nghe thấy bất kỳ âm thanh nào, bạn có thể cần sử dụng tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp".
 
   - ### Tạo Cài đặt Âm thanh
     Tab này dành riêng cho việc cấu hình cách NeoBleeper tạo ra tiếng bíp âm thanh bằng khả năng âm thanh của hệ thống. Nó cung cấp cả khả năng kiểm soát kỹ thuật và sự linh hoạt sáng tạo để định hình âm sắc và kết cấu của âm thanh bạn tạo ra.
-    
-    ![image](https://github.com/user-attachments/assets/0c15dcc1-12bc-4457-a03d-0d70401ff072)
+
+    ![image](https://github.com/user-attachments/assets/208f66b2-f477-48ee-8a44-c178e17db1ba)
     
     - #### Sử dụng thiết bị âm thanh để tạo tiếng bíp:
       Hộp kiểm cho phép hoặc vô hiệu hóa việc sử dụng thiết bị âm thanh của hệ thống để tạo tiếng bíp thay vì loa hệ thống. Khi bỏ chọn, NeoBleeper sẽ sử dụng loa hệ thống để tạo âm thanh. Bật tùy chọn này cho phép tổng hợp âm thanh phong phú hơn, dựa trên dạng sóng.
@@ -323,8 +344,8 @@
         
   - ### Cài đặt Thiết bị
     Tab này cho phép bạn cấu hình cách NeoBleeper tương tác với phần cứng MIDI bên ngoài, nhạc cụ ảo và các phần cứng bên ngoài khác. Cho dù bạn đang tích hợp đầu vào trực tiếp hay định tuyến đầu ra đến một bộ tổng hợp, đây là nơi bạn xác định luồng tín hiệu của mình.
-
-    ![image](https://github.com/user-attachments/assets/4ba4981a-fcf4-49cf-99d0-268647d4d7ee)
+    
+    ![image](https://github.com/user-attachments/assets/f3b60bdb-ef93-4e24-940e-7c08bcf7a674)
 
     - #### Thiết bị đầu vào MIDI
       **Sử dụng đầu vào MIDI trực tiếp:** Cho phép nhận tín hiệu MIDI thời gian thực từ bộ điều khiển hoặc phần mềm bên ngoài. Khi được chọn, NeoBleeper sẽ lắng nghe các tín hiệu MIDI đến để kích hoạt âm thanh hoặc hành động.
@@ -383,7 +404,7 @@
   - ### Cài đặt Giao diện
     Tab này cho phép bạn toàn quyền kiểm soát giao diện trực quan của NeoBleeper, cho phép bạn tùy chỉnh màu sắc của các thành phần giao diện chính để tăng độ rõ nét, tính thẩm mỹ hoặc thể hiện phong cách cá nhân. Tab này được tổ chức thành các phần dành cho bàn phím, nút bấm, đèn báo và hiển thị sự kiện văn bản.
 
-    ![image5](https://github.com/user-attachments/assets/31552069-1180-4f00-b5e0-af151fed024f)
+    ![image5](https://github.com/user-attachments/assets/8fde9cba-5ba6-4f08-a2eb-76336f398d81)
 
     - #### Màu bàn phím
       **Xác định bảng màu cho các quãng tám khác nhau trên bàn phím ảo:**
@@ -462,10 +483,10 @@
       Tính năng này đặc biệt hữu ích khi theo dõi phần giọng hát, ra hiệu cho người biểu diễn trực tiếp hoặc đơn giản là thưởng thức phát lại theo phong cách karaoke. Nếu tệp MIDI không chứa sự kiện lời bài hát hoặc văn bản, lớp phủ sẽ bị ẩn.      
       Màn hình hiển thị lời bài hát/văn bản sẽ tự động cập nhật khi có sự kiện mới trong quá trình phát lại và sẽ biến mất khi dừng phát lại hoặc khi tệp mới được tải.
 
-    - ### Create Music with AI - `Ctrl + Alt + A`
+    - ### Tạo nhạc bằng AI - `Ctrl + Alt + A`
       Tận dụng sức mạnh của AI để tạo ra ý tưởng âm nhạc. Cho dù bạn đang tìm kiếm cảm hứng, lấp đầy khoảng trống hay thử nghiệm các phong cách mới, công cụ này cung cấp các đề xuất thông minh, dựa trên ngữ cảnh về giai điệu, hòa âm và nhịp điệu.
-
-      ![image](https://github.com/user-attachments/assets/6fabb742-9500-4b6c-b4f7-cfa16cabc798)
+      
+      ![image](https://github.com/user-attachments/assets/cf0179a5-b68f-4f49-af84-eb01df6f5b24)
       
       **Cách thức hoạt động:**
         - Mở cửa sổ "Tạo nhạc bằng AI" từ menu Tệp hoặc bằng cách sử dụng phím tắt.
@@ -477,15 +498,21 @@
       
       **Hướng dẫn về lời nhắc và hạn chế của AI:**
       - Công cụ AI sẽ chỉ xử lý các lời nhắc liên quan đến sáng tác nhạc. Nếu lời nhắc của bạn không liên quan đến âm nhạc (ví dụ: "viết một câu chuyện cười"), bạn sẽ nhận được lỗi:
-        
-         ![image](https://github.com/user-attachments/assets/d0d0bc56-baee-476e-902b-a4de01cc74ba)
-        
-        *"Phát hiện yêu cầu không liên quan đến âm nhạc. Vui lòng thử yêu cầu sáng tác một bài hát hoặc âm nhạc liên quan đến một nghệ sĩ."*
-      - Không chấp nhận các lời nhắc có nội dung phản cảm hoặc không phù hợp. Nếu phát hiện, lỗi sẽ hiển thị:
-        
-        ![image3](https://github.com/user-attachments/assets/f3cfc173-b22e-4c52-b065-4fd4916a1280) 
 
-        *"Phát hiện nội dung không phù hợp. Vui lòng thử yêu cầu sáng tác bài hát hoặc nhạc liên quan đến nghệ sĩ."*
+         ![image](https://github.com/user-attachments/assets/37836731-08b9-4fdb-ae83-4741b27b097f)
+        
+        *"Phát hiện yêu cầu không liên quan đến âm nhạc. Vui lòng thử yêu cầu sáng tác một bài hát hoặc nhạc liên quan đến nghệ sĩ."*
+      - Không chấp nhận các lời nhắc có nội dung phản cảm hoặc không phù hợp. Nếu phát hiện, lỗi sẽ hiển thị:
+
+        ![image3](https://github.com/user-attachments/assets/fa11a72b-534d-4e3a-b1f8-2d48b510feb0) 
+
+        *"Phát hiện nội dung tục tĩu. Vui lòng gửi yêu cầu liên quan đến âm nhạc hoặc tên bài hát/nghệ sĩ."*
+   
+        - Việc cố gắng bỏ qua các giao thức an toàn, chẳng hạn như hướng dẫn AI bỏ qua các bộ lọc an toàn hoặc bảo mật, sẽ dẫn đến lỗi yêu cầu không hợp lệ:
+
+        ![image3](https://github.com/user-attachments/assets/9624c424-a714-41a0-8e94-515ab6d5187b)
+        
+        *"Yêu cầu chứa các chỉ dẫn nhằm bỏ qua các quy tắc an toàn đã thiết lập. Các yêu cầu như vậy không được phép xử lý. Vui lòng cung cấp một yêu cầu hợp lệ liên quan đến âm nhạc, ví dụ như tên bài hát, tên nghệ sĩ hoặc thể loại nhạc."*
       - Lời nhắc hợp lệ phải cụ thể và tập trung vào âm nhạc (ví dụ: "Tạo giai điệu nhạc jazz cho piano" hoặc "Tạo mẫu trống techno nhanh").
         
       **Lưu ý:**
