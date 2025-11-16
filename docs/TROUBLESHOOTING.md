@@ -24,19 +24,18 @@ The system speaker is controlled at a low hardware/software level. If the applic
   #### Beep Stopper Messages and Their Meanings
 
   When you use the Beep Stopper utility, you may see the following messages:
+  ![image1](https://github.com/user-attachments/assets/1bdcee2a-571e-4bbf-b97f-aa5835f22538)
 
-  ![image1](https://github.com/user-attachments/assets/a703c888-c4eb-4387-b713-a18b3c6e213c)
-    
     **System speaker is not beeping or the system speaker is beeping in a different way. No action taken.**  
     This message appears when the utility checks the system speaker and determines that it is either not producing a beep, or is beeping in a manner that cannot be controlled by the tool. In this case, the Beep Stopper will not take any further action.  
     - *Tip:* If you still hear a persistent beep, try restarting your computer.
 
-  ![image2](https://github.com/user-attachments/assets/7ecf60b1-6c6e-464a-9f36-df0e821c2ae9)
+  ![image2](https://github.com/user-attachments/assets/64cd126a-4f88-40fe-aad1-eb4fe1e569a3)
     
     **Beep is successfully stopped!**  
     This message confirms that the Beep Stopper utility detected a stuck beep and was able to stop it successfully. No further action is required.
 
-  ![image3](https://github.com/user-attachments/assets/7d7d678e-5937-49e0-a6d5-95cc8941a3cb)
+  ![image3](https://github.com/user-attachments/assets/cd8a671d-d289-4249-bedf-a273a82f73d2)
   
     **System speaker output is not present or non-standard system speaker output is present. Beep Stopper may cause instability or undesirable behaviors. Do you want to continue?**  
     This message appears when the Beep Stopper utility is started and detects that your system either does not have a standard (PC) system speaker, or the system speaker output is "non-standard." In this case, the utility warns you that attempting to use the Beep Stopper may not work as expected and could potentially cause unexpected behavior or instability.
