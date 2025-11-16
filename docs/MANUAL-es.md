@@ -277,7 +277,7 @@
   - ### Configuración general
     Esta pestaña se centra en las preferencias básicas y la integración a nivel de sistema:
 
-    ![image](https://github.com/user-attachments/assets/dc8bc88c-734f-46b5-9dd7-0681bc225d1e)
+    ![image](https://github.com/user-attachments/assets/f520e8b4-86ee-4014-936f-28b8244e63b9)
 
     - #### Idioma
     **Selector de idioma:** Permite elegir el idioma de NeoBleeper entre inglés, alemán, francés, italiano, español, turco, ruso, ucraniano y vietnamita.
@@ -304,14 +304,44 @@
       
       El requisito de edad y la aceptación de los Términos de Servicio son obligatorios al ingresar una nueva clave API por primera vez. Esto garantiza un uso responsable y el cumplimiento legal de las funciones de música generadas por IA. 
 
-    - #### Probando el altavoz del sistema
-    **Botón de prueba:** Emite un pitido para confirmar la funcionalidad del altavoz.
-    **Mensaje de respaldo:** Sugiere utilizar un dispositivo de sonido alternativo si no se escucha ningún sonido desde el altavoz del sistema.
+    - #### Prueba del altavoz del sistema
+
+    NeoBleeper ofrece herramientas robustas para comprobar la salida de audio del altavoz del sistema y diagnosticar problemas de conectividad o compatibilidad. En la pestaña General de Configuración, en "Prueba del altavoz del sistema", encontrará dos funciones de prueba independientes:
+
+    ![image](https://github.com/user-attachments/assets/e76f2615-a631-4ffb-9c7d-89cfe4685feb)
+    
+    **Probar el altavoz del sistema:**
+    
+    - Pulse este botón para desplegar un menú con dos opciones:
+    
+    - **Prueba estándar de reproducción de melodía:** Reproduce una melodía sencilla para comprobar si el altavoz del sistema emite el sonido correctamente.
+    
+    - **Prueba avanzada del altavoz del sistema:** Realiza una serie de comprobaciones de diagnóstico para evaluar exhaustivamente la funcionalidad del altavoz y la estabilidad del controlador (consulte los detalles a continuación).
+    
+    **Funciones avanzadas de prueba de altavoces del sistema**
+    
+    Al seleccionar "Prueba avanzada de altavoces del sistema" en el menú desplegable, NeoBleeper realiza varias comprobaciones de la configuración de hardware y software, mostrando los resultados en una ventana emergente:
+
+    ![image1](https://github.com/user-attachments/assets/d3d13315-ff1a-486a-915f-7cf5bc1010b2)
+    
+    Se ejecutan las siguientes pruebas:
+    
+    - **Prueba de respuesta eléctrica:** Verifica la respuesta eléctrica esperada del hardware de los altavoces del sistema.
+    
+    - **Prueba de estabilidad del estado del puerto:** Comprueba la estabilidad del estado del puerto y del controlador.
+    
+    - **Prueba avanzada de barrido de frecuencia:** Ejecuta pruebas con diferentes frecuencias para garantizar la reproducción de una amplia gama de tonos.
+    
+    - **Resultado general:** Un resumen que indica si todas las pruebas se superaron correctamente o si se detectó algún problema.
+    
+    Cada comprobación se muestra con un estado (✔️ APROBADO o ❌ FALLIDA).
+    
+    > Si no oye ningún sonido, puede que necesite usar la función "Usar dispositivo de sonido para emitir un pitido".
 
   - ### Configuración de creación de sonidos
     Esta pestaña permite configurar cómo NeoBleeper genera pitidos de audio utilizando las capacidades de sonido de su sistema. Ofrece control técnico y flexibilidad creativa para moldear el tono y la textura de los sonidos que produce.
 
-    ![image](https://github.com/user-attachments/assets/f5371da1-4983-4416-ab02-5b0e09057377)
+    ![image](https://github.com/user-attachments/assets/1e1ee8ab-63c5-41b4-8492-063e2e42b492)
     
     - #### Usar dispositivo de sonido para crear pitidos:
       Esta casilla habilita o deshabilita el uso del dispositivo de sonido del sistema para generar pitidos en lugar del altavoz. Si no está marcada, NeoBleeper usa el altavoz del sistema para crear sonido. Al habilitar esta opción, se obtiene una síntesis de sonido más rica, basada en formas de onda.
@@ -331,8 +361,8 @@
   - ### Configuración de dispositivos
 
     Esta pestaña te permite configurar cómo interactúa NeoBleeper con hardware MIDI externo, instrumentos virtuales y otros dispositivos externos. Ya sea que integres entrada en vivo o enrutes la salida a un sintetizador, aquí es donde defines el flujo de señal.
-    
-    ![image](https://github.com/user-attachments/assets/6147feec-cac3-463d-a381-937b94da3c8d)
+
+    ![image](https://github.com/user-attachments/assets/869fb2d9-14f8-47d9-a9a3-f0ec848eee60)
 
     - #### Dispositivos de entrada MIDI
       **Usar entrada MIDI en vivo:** Habilita la recepción de señales MIDI en tiempo real desde controladores externos o software. Al marcar esta opción, NeoBleeper detecta los mensajes MIDI entrantes para activar sonidos o acciones.
@@ -391,8 +421,8 @@
 
   - ### Ajustes de apariencia
     Esta pestaña te da control total sobre la identidad visual de NeoBleeper, permitiéndote personalizar los colores de los elementos clave de la interfaz para mayor claridad, estética o estilo personal. Está organizada en secciones para teclado, botones, indicadores y visualización de eventos de texto.
-        
-    ![image5](https://github.com/user-attachments/assets/210bac21-692a-4124-b45c-c83aafce588a)
+
+    ![image5](https://github.com/user-attachments/assets/50201c2c-2970-4a9e-acc2-af0aeba6963d)
 
     - #### Colores del teclado
       **Define el esquema de colores para las diferentes octavas del teclado virtual:**
@@ -482,8 +512,8 @@
     - ### Crea música con IA - `Ctrl + Alt + A`
       Aprovecha el poder de la IA para generar ideas musicales. Ya sea que busques inspiración, completes tus huecos o experimentes con nuevos estilos, esta herramienta ofrece sugerencias inteligentes y contextuales para melodías, armonías y ritmos.
       
-      ![image](https://github.com/user-attachments/assets/9d27cb8a-2f9a-44df-b99c-11edeaaf235d)
-      
+      ![image](https://github.com/user-attachments/assets/40af00ef-e42a-4e59-900a-96d5646f5419)
+
       **Cómo funciona:**
       - Abre la ventana "Crear música con IA" desde el menú Archivo o usando el acceso directo.
       - Elige el **modelo de IA** que desees (p. ej., Gemini 2.5 Flash) en el menú desplegable.
@@ -494,16 +524,22 @@
 
       **Guía de indicaciones y restricciones de la IA:**
       - La herramienta de IA solo procesará indicaciones relacionadas con la composición musical. Si tu indicación no está relacionada con la música (p. ej., "escribe un chiste"), recibirás un error:
+
+        ![image](https://github.com/user-attachments/assets/cce32122-efdf-4852-831c-c804b48a245f)
         
-        ![image](https://github.com/user-attachments/assets/c3c8dbfb-09ef-4bfb-942c-ca5f25afca73)
-        
-        *"Solicitud no relacionada con musica detectada. Las solicitudes deben ser sobre composicion musical, artistas o generos musicales."*
+        *"La solicitud no se relaciona con la composición musical. Intente pedir una composición de canción, música de un artista o un término musical."*
 
       - No se permiten mensajes con contenido ofensivo o inapropiado. Si se detectan, se mostrará un error:
 
-        ![image3](https://github.com/user-attachments/assets/759c9d2e-73f3-4028-bc8e-2e9a3216d8be) 
+        ![image3](https://github.com/user-attachments/assets/ac0649d8-6ef9-4722-ba74-20b76fd9193f) 
 
-        *"Contenido inapropiado detectado. Intente solicitar una composicion musical o informacion musical relacionada con un artista."*
+        *"Se detectó contenido inapropiado. Por favor, evite el uso de lenguaje ofensivo. Intente solicitar una composición musical o música relacionada con un artista."*
+
+        Intentar eludir los protocolos de seguridad, como indicar a la IA que ignore los filtros de seguridad, dará lugar a un error de solicitud no válida:
+
+        ![image3](https://github.com/user-attachments/assets/97f387a5-c0de-4047-81a6-5f5664e78403)
+        
+        *"Se detectó una instrucción para anular las reglas de seguridad. Este tipo de solicitud no está permitido. Intente solicitando una composición musical o música relacionada con un artista."*
 
       - Las indicaciones válidas deben ser específicas y estar centradas en la música (por ejemplo, "Genera una melodía de jazz para piano" o "Crea un patrón de batería techno rápido").
       
