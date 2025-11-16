@@ -241,6 +241,30 @@ _This workaround is highlighted in the settings:_
 ### Q: Why don't I see any system speaker or beep sound options on my ARM64 device?
 **A:** On Windows ARM64 systems, NeoBleeper disables system speaker-related settings because ARM64 platforms do not support direct system speaker hardware access. All beeps are played through your regular sound output device (speakers or headphones), and the "Test System Speaker" and "Use sound device to create beep" options are automatically hidden. This behavior is by design and not an error.
 
+#### Q: What does it mean when I receive a "non-standard system speaker output is present" warning?
+**A:** NeoBleeper has detected speaker hardware that does not conform to traditional PC speaker standards (e.g., not a PNP0800 device). This could be a "hidden" speaker output found on modern desktops or virtual machines. In these cases, not all beep features may work reliably, but NeoBleeper will attempt to use any compatible output it can detect.
+
+#### Q: Why is the "Test System Speaker" button present even if Windows doesn't list a PC speaker device?
+**A:** NeoBleeper includes detection logic for hidden or non-standard system speaker outputs. If the button appears, it means NeoBleeper has found a potential hardware port for speaker output, even if it is not reported by Windows as a device.
+
+#### Q: I am using the Google Gemini™ API for AI features, and I see a "quota exhausted" or "API not available in your country" message. What should I do?
+**A:** Refer to section 6 of this guide. Make sure your API key and billing/quota are in good standing, and that your usage complies with Google's regional restrictions. If you are in a restricted region, unfortunately, AI features may not be available.
+
+#### Q: I have an Intel B660 (or newer) system and my PC speaker sometimes does not work or gets stuck. Is this normal?
+**A:** Some newer chipsets have known compatibility issues with reinitializing the system speaker. Try putting your computer to sleep and waking it up, or use your regular sound device. Check for BIOS/firmware updates that may improve speaker support.
+
+#### Q: What is the best way to report sound or AI issues for support?
+**A:** Always provide as much information as possible: your computer make/model, region, screenshots of error dialogs, and your `DebugLog.txt` from the NeoBleeper folder. For AI issues, include the full text of error dialogs and describe your Gemini API account status.
+
+#### Q: After a crash or force-close, NeoBleeper's Beep Stopper did not stop a continuous beep. Is there another way to fix this?
+**A:** If the Beep Stopper is ineffective, restarting your computer will reset the system speaker hardware and stop any persistent beeping.
+
+#### Q: Is it safe to use the Beep Stopper utility if I see a message warning about non-standard or missing system speaker output?
+**A:** Yes, but be aware that the utility may not be able to control the hardware, and in rare cases may cause instability or no effect. If you are unsure, choose not to proceed and restart your computer instead.
+
+#### Q: On virtual machines, I cannot get the system speaker to work at all. Is this a bug?
+**A:** Not necessarily. Many virtual machines do not properly emulate a PC speaker, or they present the output in a way that cannot be controlled programmatically. Use your standard sound output device for best results.
+
 **Potential future updates:**  
 If future testing or development enables NeoBleeper to reliably detect broken or disconnected system speakers via the ultrasonic hardware test, this FAQ and detection logic will be updated to reflect those improvements. Watch for changelogs or new releases for details.
 
