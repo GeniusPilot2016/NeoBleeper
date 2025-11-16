@@ -25,18 +25,19 @@ Der Systemlautsprecher wird auf niedriger Hardware-/Softwareebene gesteuert. Wen
 
   Wenn Sie das Signalton-Stopper-Dienstprogramm verwenden, werden möglicherweise die folgenden Meldungen angezeigt:
 
-  ![image1](https://github.com/user-attachments/assets/e810ada3-e70d-4920-97d5-a3906ca58e45)
+
+  ![image1](https://github.com/user-attachments/assets/ea3e2056-0c18-4424-ab97-79fd898f8179)
     
     **Der Systemlautsprecher piept nicht oder anders. Keine Aktion ausgeführt.**  
     Diese Meldung erscheint, wenn das Dienstprogramm den Systemlautsprecher überprüft und feststellt, dass dieser entweder keinen Piepton erzeugt oder auf eine Art und Weise piept, die vom Tool nicht gesteuert werden kann. In diesem Fall ergreift der Beep Stopper keine weiteren Maßnahmen.
     - *Tipp:* Wenn der Piepton weiterhin anhält, starten Sie Ihren Computer neu.
 
-  ![image2](https://github.com/user-attachments/assets/7b72bde9-739c-494d-919d-fd24615afdfc)
+  ![image2](https://github.com/user-attachments/assets/be29f4de-cc1f-4a72-b9d4-7c53aa0ef94f)
     
     **Signalton erfolgreich gestoppt!**  
     Diese Meldung bestätigt, dass das Dienstprogramm „Beep Stopper“ einen feststeckenden Piepton erkannt und erfolgreich gestoppt hat. Es sind keine weiteren Maßnahmen erforderlich.
 
-  ![image3](https://github.com/user-attachments/assets/319f662d-feda-46f0-9cc4-a24474958e0f)
+  ![image3](https://github.com/user-attachments/assets/8c2493b3-5938-4d56-9ce9-9c41fdba0809)
   
     **Es ist kein Systemlautsprecherausgang vorhanden oder es liegt ein nicht standardmäßiger Systemlautsprecherausgang vor. Der Signaltonstopper kann zu Instabilität oder unerwünschtem Verhalten führen. Möchten Sie fortfahren?**  
     Diese Meldung wird angezeigt, wenn das Dienstprogramm „Signalton-Stopper“ gestartet wird und feststellt, dass Ihr System entweder nicht über einen Standard-Systemlautsprecher (PC-lautsprecher) verfügt oder der Systemlautsprecherausgang nicht dem Standard entspricht. In diesem Fall warnt Sie das Dienstprogramm, dass die Verwendung von „Signalton-Stopper“ möglicherweise nicht wie erwartet funktioniert und zu unerwartetem Verhalten oder Instabilität führen kann.
@@ -65,9 +66,9 @@ NeoBleeper verfügt über eine Erkennungslogik, die prüft, ob Ihr System über 
 
 ### Einstellungsdialoge (Bilder 2 und 3):
 
-![image2](https://github.com/user-attachments/assets/2638fee1-aec0-4cfd-a6db-7976b3ff6813)
+![image2](https://github.com/user-attachments/assets/08f58d2d-0dab-4c4b-a74c-bd6903906211)
 
-![image3](https://github.com/user-attachments/assets/1df6c197-8e94-4eae-8fe7-cdfd9bab6ba5)
+![image3](https://github.com/user-attachments/assets/521316cf-d69a-4c4e-8727-3af322df805c)
 
 
 - **Verfügbarkeit der Schaltfläche „Systemlautsprecher testen“:**
@@ -119,7 +120,110 @@ Auf Windows-ARM64-Systemen sind der Test „Systemlautsprecher“ und das Kontro
   
 ---
 
-## 6. Häufig gestellte Fragen
+## 6. KI-Warnungen, Fehler und Fehlerbehebung der Google Gemini™ API
+
+Die Funktion „Musik mit KI erstellen“ von NeoBleeper nutzt die Google Gemini™ API. Es können Fehlermeldungen oder Warnungen bezüglich der API-Verfügbarkeit, Nutzungsbeschränkungen oder Länderbeschränkungen auftreten.
+
+### 6.1 Kontingent- oder Ratenbegrenzungsfehler (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/063735a9-aedb-4c98-8803-ee8885e1fecb)
+
+**Beispielmeldung:**
+
+```
+Es ist ein Fehler aufgetreten: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
+```
+
+**Mögliche Ursachen:**
+
+- **Das API-Kontingent für Ihr Konto ist erschöpft.** Wenn Sie einen kostenlosen API-Schlüssel verwenden, sind bestimmte Modelle (z. B. `gemini-2.0-pro-exp`) möglicherweise nicht verfügbar oder unterliegen sehr niedrigen/festen Nutzungsbeschränkungen für kostenlose Konten.
+
+- **Einschränkungen im kostenlosen Tarif:** Einige neuere generative Modelle (wie Gemini Pro Exp) stehen Nutzern des kostenlosen Tarifs *nicht* zur Verfügung. Bei dem Versuch, diese zu verwenden, tritt ein Kontingent- oder Verfügbarkeitsfehler auf.
+
+- **Überschreitung der Ratenbegrenzungen:** Wenn Sie zu viele Anfragen zu schnell senden, können Sie die Ratenbegrenzungen der API erreichen, selbst mit einem kostenpflichtigen Tarif.
+
+**Lösung:**
+- **Überprüfen Sie Ihr API-Kontingent und Ihre Abrechnung:** Melden Sie sich in Ihrem Google Cloud-/Gemini-Konto an, um Ihre Nutzung zu überprüfen und Ihren Tarif gegebenenfalls zu aktualisieren.
+
+- **Nur unterstützte Modelle verwenden:** Nutzer des kostenlosen Tarifs sind möglicherweise auf bestimmte Modelle beschränkt. Informationen zu verfügbaren Modellen finden Sie in der Dokumentation. Alternativ können Sie zu einem unterstützten Modell wechseln.
+
+- **Warten und später erneut versuchen:** Manchmal kann ein kurzes Warten das Kontingent vorübergehend auffüllen, wie der Countdown in der Meldung anzeigt.
+
+- **Bitte lesen Sie die [Gemini API-Dokumentation](https://ai.google.dev/gemini-api/docs/rate-limits) für aktuelle Nutzungsrichtlinien und Ratenbegrenzungen.**
+
+---
+
+### 6.2 Regionale oder länderspezifische Einschränkungen
+
+#### "API ist in Ihrem Land nicht verfügbar"
+
+![image4](https://github.com/user-attachments/assets/45fc0002-ae4d-4c06-8ba5-37a9cdae536f)
+
+Die Google Gemini™ API wird aufgrund regionaler oder rechtlicher Beschränkungen in einigen Regionen nicht unterstützt.
+
+**Mögliche Gründe:**
+
+- Die Verfügbarkeit der Gemini API ist in Ihrem Land eingeschränkt.
+
+- Ihr API-Schlüssel ist in einer Region registriert, die keinen Zugriff hat.
+
+**Lösung:**
+
+- **Prüfen Sie die Liste der von der Google Gemini™ API unterstützten Länder in der offiziellen Dokumentation.**
+
+- Wenn Sie sich in einem Land mit Einschränkungen befinden, können die KI-Funktionen nicht genutzt werden.
+
+#### Regionsspezifischer Hinweis (Einstellungen)
+
+![image3](https://github.com/user-attachments/assets/72494c96-ff61-4965-9189-b03800d8557e)
+
+Im Europäischen Wirtschaftsraum, in der Schweiz oder im Vereinigten Königreich kann für die Gemini™ API ein kostenpflichtiges Google-Konto erforderlich sein.
+
+- Wenn diese Warnung angezeigt wird, stellen Sie sicher, dass Sie Ihren Gemini API-Plan aktualisiert haben, bevor Sie die KI-Funktionen nutzen.
+
+---
+
+### 6.3 Allgemeine Hinweise zur KI-API
+
+- Geben Sie nur Ihren eigenen API-Schlüssel ein; geben Sie ihn aus Sicherheitsgründen nicht weiter.
+
+- NeoBleeper übermittelt Ihren API-Schlüssel nur direkt an den Gemini-Dienst, wenn dies für die Nutzung der Funktionen erforderlich ist.
+
+- Wenn wiederholt Fehler auftreten, entfernen Sie Ihren API-Schlüssel und fügen Sie ihn erneut hinzu. Überprüfen Sie außerdem, ob Ihr Schlüssel aktiv ist.
+
+---
+
+## 7. Hinweise zu Systemlautsprechern und Sound für bestimmte Chipsätze (inkl. Intel B660)
+
+### Wenn Sie keinen Ton hören, der Ton verzerrt ist oder der Systemlautsprecher unzuverlässig funktioniert:
+
+Einige moderne Chipsätze – darunter die der Intel B660-Serie und neuer – können Probleme beim Initialisieren oder Reinitialisieren des Systemlautsprechers (PC-Piepton) haben, was zu Stille oder Tonproblemen führen kann.
+
+**Hinweise für betroffene Benutzer:**
+
+- **Versetzen Sie Ihren Computer in den Ruhemodus und wecken Sie ihn wieder auf.**
+
+Dies kann helfen, den für den Systemlautsprecher zuständigen Hardware-Port neu zu initialisieren oder zurückzusetzen und die Pieptonfunktion wiederherzustellen.
+
+- **Verwenden Sie die Funktion „Audiogerät zum Erzeugen eines Pieptons verwenden“** als Ausweichmöglichkeit, falls die Ausgabe des Systemlautsprechers unzuverlässig ist.
+
+- **Prüfen Sie, ob BIOS- oder Firmware-Updates verfügbar sind:** Einige Mainboard-Hersteller veröffentlichen möglicherweise Updates, die die Kompatibilität des Lautsprecheranschlusses verbessern.
+
+**Desktop-spezifisch:** Wenn Sie Systemlautsprecher hinzugefügt, entfernt oder neu angeschlossen haben, führen Sie einen vollständigen Neustart durch.
+
+_Diese Problemumgehung ist in den Einstellungen hervorgehoben:_
+
+![image2](https://github.com/user-attachments/assets/2b858348-c5e5-41a1-b381-4415b286b1f1)
+
+> *Wenn Sie keinen Ton hören oder der Ton verzerrt ist, versetzen Sie Ihren Computer in den Ruhemodus und wecken Sie ihn anschließend wieder auf. Dies kann helfen, die Systemlautsprecher auf betroffenen Chipsätzen neu zu initialisieren.*
+
+---
+
+*Bei allen Ton- oder KI-bezogenen Problemen, die hier nicht behandelt werden, fügen Sie bitte Screenshots der Fehlermeldung, Details zu Ihrer PC-Hardware (insbesondere Hersteller und Modell des Motherboards/Chipsatzes) sowie Ihr Land/Ihre Region bei, wenn Sie Support anfordern oder ein GitHub-Issue erstellen.*
+
+---
+
+## 8. Häufig gestellte Fragen
 
 ### F: Kann ich den Systemlautsprecher verwenden, wenn meine Hardware kein PNP0800-Gerät hat?
 **A:** Ja! NeoBleeper versucht nun, versteckte oder nicht PNP0800-Systemlautsprecherausgänge zu erkennen und zu verwenden, sofern möglich. Bei Erfolg können Sie den Systemlautsprecher auch dann verwenden, wenn Windows kein Standardgerät meldet.
@@ -140,15 +244,38 @@ Auf Windows-ARM64-Systemen sind der Test „Systemlautsprecher“ und das Kontro
 **A:** Dies ist derzeit nicht getestet und unbekannt. Der Test prüft zwar auf elektrische Rückkopplung und Portaktivität, unterscheidet jedoch möglicherweise nicht zuverlässig zwischen einem physisch vorhandenen, aber defekten (offenen Leitung) oder nicht angeschlossenen Lautsprecher und einem fehlenden Lautsprecher. Ist der Lautsprecher vollständig defekt oder nicht angeschlossen (offene Leitung), kann der Test „false“ zurückgeben, was bedeutet, dass kein funktionsfähiger Ausgang erkannt wurde. Dieses Verhalten ist jedoch nicht garantiert und kann von der jeweiligen Hardware und dem Fehlermodus abhängen. Wenn Sie vermuten, dass Ihr Systemlautsprecher nicht funktioniert, empfehlen wir eine physische Überprüfung oder die Verwendung eines Multimeters.
 
 ### F: Warum sehe ich auf meinem ARM64-Gerät keine Optionen für Systemlautsprecher oder Signaltöne?
-
 **A:** Auf Windows-ARM64-Systemen deaktiviert NeoBleeper die Einstellungen für Systemlautsprecher, da ARM64-Plattformen keinen direkten Zugriff auf die Hardware der Systemlautsprecher unterstützen. Alle Signaltöne werden über Ihr reguläres Audioausgabegerät (Lautsprecher oder Kopfhörer) wiedergegeben, und die Optionen „Systemlautsprecher testen“ und „Audiogerät zum Erstellen eines Signaltons verwenden“ sind automatisch ausgeblendet. Dieses Verhalten ist beabsichtigt und kein Fehler.
+
+### F: Was bedeutet die Warnung „Nicht standardmäßiger Systemlautsprecherausgang vorhanden“?
+**A:** NeoBleeper hat Lautsprecherhardware erkannt, die nicht den gängigen PC-Lautsprecherstandards entspricht (z. B. kein PNP0800-Gerät). Dies kann ein „versteckter“ Lautsprecherausgang moderner Desktop-PCs oder virtueller Maschinen sein. In diesen Fällen funktionieren möglicherweise nicht alle Signaltonfunktionen zuverlässig. NeoBleeper versucht jedoch, jeden erkannten kompatiblen Ausgang zu verwenden.
+
+### F: Warum wird die Schaltfläche „Systemlautsprecher testen“ angezeigt, obwohl Windows kein PC-Lautsprechergerät auflistet?
+**A:** NeoBleeper erkennt versteckte oder nicht standardmäßige Systemlautsprecherausgänge. Wenn die Schaltfläche angezeigt wird, bedeutet dies, dass NeoBleeper einen potenziellen Hardwareanschluss für die Lautsprecherausgabe gefunden hat, auch wenn dieser von Windows nicht als Gerät erkannt wird.
+
+### F: Ich verwende die Google Gemini™ API für KI-Funktionen und erhalte die Meldung „Kontingent erschöpft“ oder „API in Ihrem Land nicht verfügbar“. Was soll ich tun?
+**A:** Lesen Sie Abschnitt 6 dieses Leitfadens. Stellen Sie sicher, dass Ihr API-Schlüssel und Ihr Abrechnungskonto/Kontingent gültig sind und Ihre Nutzung den regionalen Beschränkungen von Google entspricht. Wenn Sie sich in einer eingeschränkten Region befinden, stehen Ihnen KI-Funktionen möglicherweise nicht zur Verfügung.
+
+### F: Ich habe ein System mit Intel B660 (oder neuer) und mein PC-Lautsprecher funktioniert manchmal nicht oder hängt sich auf. Ist das normal?
+**A:** Bei einigen neueren Chipsätzen sind Kompatibilitätsprobleme mit der Neuinitialisierung des Systemlautsprechers bekannt. Versuchen Sie, Ihren Computer in den Ruhemodus zu versetzen und ihn dann wieder aufzuwecken oder verwenden Sie Ihr gewohntes Audiogerät. Prüfen Sie, ob BIOS-/Firmware-Updates verfügbar sind, die die Lautsprecherunterstützung verbessern könnten.
+
+### F: Wie melde ich am besten Probleme mit Ton oder KI an den Support?
+**A:** Geben Sie immer so viele Informationen wie möglich an: Hersteller und Modell Ihres Computers, Region, Screenshots von Fehlermeldungen und Ihre Datei „DebugLog.txt“ aus dem NeoBleeper-Ordner. Bei Problemen mit der KI geben Sie bitte den vollständigen Text der Fehlermeldungen an und beschreiben Sie Ihren Gemini-API-Kontostatus.
+
+### F: Nach einem Absturz oder erzwungenem Schließen hat der Beep Stopper von NeoBleeper den Dauerton nicht gestoppt. Gibt es eine andere Möglichkeit, das Problem zu beheben?
+**A:** Sollte der Beep Stopper nicht funktionieren, setzt ein Neustart Ihres Computers die Systemlautsprecher zurück und beendet den Dauerton.
+
+### F: Kann ich den Beep Stopper bedenkenlos verwenden, wenn eine Warnmeldung über eine nicht standardmäßige oder fehlende Systemlautsprecherausgabe erscheint?
+**A:** Ja, aber beachten Sie, dass das Dienstprogramm die Hardware möglicherweise nicht steuern kann und in seltenen Fällen zu Instabilität oder fehlender Wirkung führen kann. Wenn Sie sich unsicher sind, brechen Sie die Verwendung ab und starten Sie stattdessen Ihren Computer neu.
+
+### F: Auf virtuellen Maschinen funktioniert der Systemlautsprecher überhaupt nicht. Handelt es sich um einen Fehler?
+**A:** Nicht unbedingt. Viele virtuelle Maschinen emulieren PC-Lautsprecher nicht korrekt oder geben den Ton auf eine Weise aus, die sich nicht programmatisch steuern lässt. Verwenden Sie Ihr Standard-Audioausgabegerät für optimale Ergebnisse.
 
 **Mögliche zukünftige Updates:**
 Sollte NeoBleeper durch zukünftige Tests oder Entwicklungen defekte oder nicht angeschlossene Systemlautsprecher zuverlässig über den Ultraschall-Hardwaretest erkennen können, werden diese FAQ und die Erkennungslogik entsprechend aktualisiert. Weitere Informationen finden Sie in Änderungsprotokollen oder neuen Versionen.
 
 ---
 
-## 7. Hilfe erhalten
+## 9. Hilfe erhalten
 
 - **Computer- und Umgebungsdetails angeben:** Wenn Sie Probleme mit der Hardwareerkennung oder dem Sound melden, geben Sie bitte Details zu Ihrem Computer (Desktop/Laptop, Hersteller/Modell, Betriebssystem) und der relevanten Hardware an.
 - **Screenshots oder Fehlerdialoge anhängen:** Screenshots von Fehler- oder Warndialogen sind sehr hilfreich. Geben Sie genau an, wann das Problem auftritt.
