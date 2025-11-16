@@ -313,6 +313,10 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
         
     **Systemlautsprecher testen:**
 
+    NeoBleeper bietet leistungsstarke Tools zur Überprüfung der Systemlautsprecherausgabe und zur Diagnose von Verbindungs- oder Kompatibilitätsproblemen. Unter „Systemlautsprecher testen“ im Tab „Allgemein“ der Einstellungen finden Sie zwei separate Testfunktionen:
+
+    ![image](https://github.com/user-attachments/assets/f54fe7b1-6461-4236-8110-a0db3e1136c0)
+
     - Drücken Sie diese Schaltfläche, um ein Dropdown-Menü mit zwei Optionen anzuzeigen:
     
     - **Standard-Musikwiedergabetest:** Spielt eine einfache Melodie ab, um zu prüfen, ob der Systemlautsprecher wie erwartet Ton erzeugt.
