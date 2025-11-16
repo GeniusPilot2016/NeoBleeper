@@ -282,7 +282,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
   - ### Allgemeine Einstellungen
   Diese Registerkarte konzentriert sich auf grundlegende Einstellungen und die Integration auf Systemebene:
 
-  ![image](https://github.com/user-attachments/assets/f85a2dc7-ef76-4903-b46f-b64bf0fd7364)
+  ![image](https://github.com/user-attachments/assets/cf140ad5-0afe-445e-9391-e878732c1aff)
     
   - #### Allgemeines Erscheinungsbild
       **Themenauswahl:** Hier können Sie zwischen den benutzerdefinierten Themes von NeoBleeper oder dem Standarddesign Ihres Betriebssystems wählen.
@@ -311,15 +311,37 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
         
         Die Altersvoraussetzung und die Zustimmung zu den Nutzungsbedingungen sind bei der erstmaligen Eingabe eines neuen API-Schlüssels obligatorisch. Dies gewährleistet die verantwortungsvolle Nutzung und die Einhaltung der gesetzlichen Bestimmungen für KI-generierte Musikfunktionen.
         
-    - #### Systemlautsprecher testen
-      **Schaltfläche zum Testen:** Gibt einen Signalton aus, um die Lautsprecherfunktion zu bestätigen.
-      
-      **Fallback-Meldung:** Schlägt die Verwendung eines alternativen Audiogeräts vor, wenn kein Ton über den Systemlautsprecher zu hören ist.
+    **Systemlautsprecher testen:**
+
+    - Drücken Sie diese Schaltfläche, um ein Dropdown-Menü mit zwei Optionen anzuzeigen:
+    
+    - **Standard-Musikwiedergabetest:** Spielt eine einfache Melodie ab, um zu prüfen, ob der Systemlautsprecher wie erwartet Ton erzeugt.
+    
+    - **Erweiterter Systemlautsprechertest:** Führt eine Reihe von Diagnoseprüfungen durch, um die Funktionalität und Treiberstabilität Ihres Lautsprechers gründlich zu bewerten (siehe Details unten).
+    
+    **Funktionen des erweiterten Systemlautsprechertests:**
+    Wenn Sie im Dropdown-Menü den „Erweiterten Systemlautsprechertest“ auswählen, führt NeoBleeper mehrere Prüfungen Ihrer Hardware- und Softwarekonfiguration durch und zeigt die Ergebnisse in einem Popup-Fenster an:
+
+    ![image1](https://github.com/user-attachments/assets/b0aa40cd-3d5e-4add-a336-fb109875c9b4)
+    
+    Folgende Tests werden durchgeführt:
+    
+    - **Test der elektrischen Rückkopplung:** Überprüft die erwartete elektrische Reaktion der Systemlautsprecherhardware.
+    
+    - **Stabilitätstest des Portstatus:** Prüft den konsistenten Portstatus und die Treiberstabilität.
+    
+    **Erweiterter Frequenzdurchlauftest:** Testet verschiedene Frequenzen, um sicherzustellen, dass ein breites Spektrum an Tönen ausgegeben werden kann.
+    
+    **Gesamtergebnis:** Eine Zusammenfassung, die anzeigt, ob alle Tests bestanden wurden oder ob ein spezifisches Problem festgestellt wurde.
+    
+    Jede Prüfung wird mit einem Status angezeigt (✔️ BESTANDEN oder ❌ FEHLGESCHLAGEN).
+    
+    > Falls Sie keinen Ton hören, müssen Sie möglicherweise die Funktion „Audiogerät verwenden, um einen Signalton zu erzeugen“ aktivieren.
   
    - ### Soundeinstellungen erstellen
      Dieser Reiter dient der Konfiguration der Signaltonerzeugung durch NeoBleeper mithilfe der Soundfunktionen Ihres Systems. Er bietet sowohl technische Kontrolle als auch kreative Flexibilität bei der Gestaltung von Klang und Textur der von Ihnen erzeugten Sounds.
 
-    ![image](https://github.com/user-attachments/assets/41211865-f542-41b4-8d97-fcf688d8a9ec)
+    ![image](https://github.com/user-attachments/assets/009d300e-7d46-4f4f-869c-4ee45e1e1e59)
     
     - #### Audiogerät zur Signaltonerzeugung verwenden:
       Dieses Kontrollkästchen aktiviert oder deaktiviert die Verwendung des Audiogeräts Ihres Systems zur Signaltonerzeugung anstelle des Systemlautsprechers. Ist dieses Kontrollkästchen deaktiviert, verwendet NeoBleeper den Systemlautsprecher zur Tonerzeugung. Die Aktivierung dieser Option ermöglicht eine reichhaltigere, wellenformbasierte Klangsynthese.
@@ -339,8 +361,8 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
   - ### Geräteeinstellungen
 
     In diesem Reiter konfigurieren Sie die Interaktion von NeoBleeper mit externer MIDI-Hardware, virtuellen Instrumenten und anderer externer Hardware. Ob Live-Eingabe oder Routing der Ausgabe an einen Synthesizer – hier definieren Sie Ihren Signalfluss.
-    
-    ![image](https://github.com/user-attachments/assets/673e83a4-bd8b-4377-9200-ba976e924b29)
+
+    ![image](https://github.com/user-attachments/assets/8dc30dca-728a-48e0-9eec-33b152905083)
 
     - #### MIDI-Eingabegeräte
       **Live-MIDI-Eingang verwenden:** Aktiviert den Echtzeit-Empfang von MIDI-Signalen von externen Controllern oder Software. Ist diese Option aktiviert, wartet NeoBleeper auf eingehende MIDI-Nachrichten, um Sounds oder Aktionen auszulösen.
@@ -400,7 +422,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
 
     Dieser Reiter gibt Ihnen die volle Kontrolle über die visuelle Identität von NeoBleeper und ermöglicht Ihnen, die Farben wichtiger Oberflächenelemente für mehr Übersichtlichkeit, Ästhetik oder persönliches Flair anzupassen. Er ist in Abschnitte für Tastatur, Schaltflächen, Anzeigen und Textereignisanzeige unterteilt.
 
-    ![image5](https://github.com/user-attachments/assets/80a7f5af-7b21-4016-9a65-fdbd9d95a30b)
+    ![image5](https://github.com/user-attachments/assets/1f2592a1-f4f8-4233-b3b0-0101cca7312f)
 
     - #### Tastaturfarben
       **Definieren Sie das Farbschema für die verschiedenen Oktaven auf der virtuellen Tastatur:**
@@ -490,7 +512,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
     - ### Musik mit KI erstellen - Strg + Alt + A
       Nutzen Sie die Kraft der KI, um musikalische Ideen zu entwickeln. Ob Sie Inspiration suchen, Lücken füllen oder mit neuen Stilen experimentieren - dieses Tool bietet intelligente, kontextbezogene Vorschläge für Melodien, Harmonien und Rhythmen.
 
-      ![image](https://github.com/user-attachments/assets/f363f0eb-ceeb-4711-aa38-e2fde0c8b186)
+      ![image](https://github.com/user-attachments/assets/bae1c03a-0862-463b-9f2b-4e2f15a9ef02)
 
      **So funktioniert es:**
       - Öffnen Sie das Fenster „Musik mit KI erstellen“ über das Menü „Datei“ oder über die Tastenkombination.
@@ -503,15 +525,21 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
       **Hinweise und KI-Einschränkungen:**
       - Das KI-Tool verarbeitet nur Aufforderungen zum Komponieren von Musik. Wenn Ihre Aufforderung nicht mit Musik zu tun hat (z. B. „Schreib einen Witz“), erhalten Sie eine Fehlermeldung:
 
-         ![image](https://github.com/user-attachments/assets/01f4db60-d0c8-4635-a3b8-a656f1a19c42)
+        ![image](https://github.com/user-attachments/assets/bd9e2b2e-55fa-425e-9013-ce84838c7961)
         
-        *"Nicht-Musik-Anfrage erkannt. Es werden nur Anfragen zur Musikkomposition unterstutzt. Versuchen Sie, eine Liedkomposition oder musikbezogene Inhalte anzufordern."*
+        *"Die Anfrage ist kein musikbezogener Inhalt. Versuchen Sie, eine Musikkreation oder musikbezogene Inhalte anzufordern."*
         
       - Eingabeaufforderungen mit anstößigen oder unangemessenen Inhalten sind nicht zulässig. Wenn sie erkannt werden, wird ein Fehler angezeigt:
 
-        ![image3](https://github.com/user-attachments/assets/477c8775-70b4-47ae-ab5c-cfb53a1bd2bb) 
+        ![image3](https://github.com/user-attachments/assets/0b1a8308-7ed5-4633-aac1-acfb70937aa2) 
 
-        *"Grund für den Fehler: Obszonitat erkannt. Gultige Vorschlage: Versuchen Sie, eine Musikkreation oder musikbezogene Inhalte anzufordern."*
+        *"Beleidigung erkannt. Die Anfrage enthält unangemessene Inhalte. Bitte versuchen Sie, eine musikalische Komposition oder einen Musikstil anzufordern."*
+ 
+        Der Versuch, Sicherheitsprotokolle zu umgehen, beispielsweise durch Anweisung an die KI, Sicherheits- oder Filter zu ignorieren, führt zu einer Fehlermeldung:
+
+        ![image3](https://github.com/user-attachments/assets/e436987b-e392-4162-87ba-1e32d7af963c)
+        
+        *"Anfrage zur Umgehung von Sicherheitsmaßnahmen erkannt. Bitte stellen Sie musikalische Anfragen wie das Erstellen eines Liedes oder die Nennung eines Künstlers."*
         
       - Gültige Aufforderungen sollten spezifisch und musikalisch ausgerichtet sein (z. B. „Erstellen Sie eine Jazzmelodie für Klavier“ oder „Erstellen Sie ein schnelles Techno-Schlagzeugmuster“).
 
