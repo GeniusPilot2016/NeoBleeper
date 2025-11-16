@@ -25,18 +25,18 @@ Le haut-parleur système est contrôlé à un niveau matériel/logiciel bas. Si 
 
   Lorsque vous utilisez l'utilitaire Beep Stopper, les messages suivants peuvent s'afficher :
 
-  ![image1](https://github.com/user-attachments/assets/5a80254f-abba-4072-a70e-6c625f87601a)
+  ![image1](https://github.com/user-attachments/assets/ed788ed7-60f0-4dd4-8c40-b84cdc5685b2)
     
     **Le haut-parleur système n'émet pas de bip ou son bip est émis différemment. Aucune action n'a été effectuée.**  
     Ce message apparaît lorsque l'utilitaire vérifie le haut-parleur système et constate qu'il n'émet aucun bip, ou qu'il émet des bips d'une manière qui ne peut être contrôlée par l'outil. Dans ce cas, le bip stopper n'intervient pas.
     - *Conseil:* Si vous entendez toujours un bip persistant, essayez de redémarrer votre ordinateur.
 
-  ![image2](https://github.com/user-attachments/assets/01611036-50ec-4730-b724-5f0ece8a9ce4)
+  ![image2](https://github.com/user-attachments/assets/c94edf0e-4401-4f8d-a899-6c9ecb446934)
     
     **Le bip sonore a été arrêté!**  
     Ce message confirme que l'utilitaire Beep Stopper a détecté un bip bloqué et a réussi à l'arrêter. Aucune autre action n'est requise.
 
-  ![image3](https://github.com/user-attachments/assets/00107703-8527-4a26-ab02-1c530492a083)
+  ![image3](https://github.com/user-attachments/assets/55a2d5e4-3d71-4cb3-8b82-b6a380e73d44)
   
     **La sortie des haut-parleurs système est absente ou présente une sortie non standard. L'arrêt du bip sonore peut entraîner une instabilité ou des comportements indésirables. Voulez-vous continuer ?**  
     Ce message apparaît lorsque l'utilitaire Beep Stopper est lancé et détecte que votre système ne dispose pas de haut-parleur standard (PC) ou que la sortie de ce dernier est « non standard ». Dans ce cas, l'utilitaire vous avertit que l'utilisation de Beep Stopper pourrait ne pas fonctionner comme prévu et entraîner un comportement inattendu ou une instabilité.
@@ -66,9 +66,9 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 
 ### Boîtes de dialogue Paramètres (Images 2 et 3) :
 
-  ![image2](https://github.com/user-attachments/assets/f232fc11-bbc8-4570-a33b-ef30f9cdc6cc)
-  
-  ![image3](https://github.com/user-attachments/assets/6796e215-5cf6-4b9d-89cf-113f3b52db19)
+  ![image2](https://github.com/user-attachments/assets/b9084ebb-20c2-4a13-b8be-a46055df5060)
+
+  ![image3](https://github.com/user-attachments/assets/e7bd12cf-148e-4d61-9b9e-6a02d793ba31)
 
 - **Disponibilité du bouton « Tester le haut-parleur système »** :
 
@@ -143,7 +143,108 @@ Sur les systèmes Windows ARM64, le test « Haut-parleur système » et la cas
 
 ---
 
-## 6. Foire aux questions
+## 6. Avertissements, erreurs et dépannage de l'API Google Gemini™
+
+La fonctionnalité « Créer de la musique avec l'IA » de NeoBleeper utilise l'API Google Gemini™. Vous pourriez rencontrer des messages d'erreur ou des avertissements spécifiques concernant la disponibilité de l'API, ses limites d'utilisation ou les restrictions géographiques.
+
+### 6.1 Erreurs de quota ou de limite de débit (429 RESOURCE_EXHAUSTED)
+
+![image1](https://github.com/user-attachments/assets/aa60558d-0efd-4abe-b9b9-72d15f7ad8d5)
+
+**Exemple de message :**
+
+```
+Une erreur s'est produite : RESOURCE_EXHAUSTED (Code : 429) : You exceeded your current quota, please check your plan and billing details...
+
+```
+
+**Causes possibles :**
+
+- **Le quota API de votre compte est épuisé.** Si vous utilisez une clé API gratuite, certains modèles (comme `gemini-2.0-pro-exp`) peuvent ne pas être disponibles ou présenter des limites d'utilisation très faibles, voire strictes, pour les comptes gratuits.
+
+- **Limitations du niveau gratuit :** Certains modèles génératifs récents (comme Gemini Pro Exp) ne sont *pas* disponibles pour les utilisateurs du niveau gratuit. Leur utilisation entraînera une erreur de quota ou d'indisponibilité.
+
+- **Dépassement des limites de requêtes :** Si vous envoyez trop de requêtes trop rapidement, vous risquez d'atteindre les limites de requêtes de l'API, même avec un forfait payant.
+
+**Solutions :**
+
+- **Vérifiez votre quota API et votre facturation :** Connectez-vous à votre compte Google Cloud/Gemini pour vérifier votre consommation et passer à un forfait supérieur si nécessaire.
+
+- **Utilisez uniquement les modèles compatibles :** Les utilisateurs du niveau gratuit peuvent être limités à certains modèles. Consultez la documentation pour connaître les modèles disponibles ou choisissez un modèle compatible.
+
+- **Patientez et réessayez plus tard :** Patienter quelques instants permet parfois de réinitialiser temporairement votre quota, comme indiqué par le compte à rebours du message. - **Consultez la [documentation de l'API Gemini](https://ai.google.dev/gemini-api/docs/rate-limits) pour connaître les politiques d'utilisation et les limites de débit les plus récentes.**
+
+---
+
+### 6.2 Restrictions régionales ou nationales
+
+#### « L'API n'est pas disponible dans votre pays »
+
+![image4](https://github.com/user-attachments/assets/24d5ea3c-0f86-4543-a390-65cee209b073)
+
+L'API Google Gemini™ n'est pas prise en charge dans certaines régions en raison de restrictions régionales ou légales.
+
+**Raisons possibles :**
+
+- Votre pays fait partie des pays où l'API Gemini est disponible.
+
+- La clé API que vous utilisez est enregistrée pour une région qui n'y a pas accès.
+
+**Solution :**
+
+- **Consultez la liste des pays pris en charge par l'API Google Gemini™** dans la documentation officielle.
+
+- Si vous vous trouvez dans un pays soumis à des restrictions, les fonctionnalités d'IA ne seront pas utilisables.
+
+#### Avertissement relatif à la région (Panneau des paramètres)
+
+![image3](https://github.com/user-attachments/assets/37eb7ac0-8bbc-4ef7-9685-73c7a17efcc1)
+
+Dans l'Espace économique européen, en Suisse ou au Royaume-Uni, l'API Gemini™ peut nécessiter un compte Google payant.
+
+- Si cet avertissement s'affiche, assurez-vous d'avoir souscrit un abonnement à l'API Gemini avant d'utiliser les fonctionnalités d'IA.
+
+---
+
+### 6.3 Conseils généraux concernant l'API d'IA
+
+- Saisissez uniquement votre propre clé API ; ne la partagez pas pour des raisons de sécurité.
+
+- NeoBleeper ne transmet votre clé API qu'au service Gemini lorsque cela est nécessaire à l'utilisation des fonctionnalités. - Si vous rencontrez des erreurs répétées, essayez de supprimer puis de rajouter votre clé API et vérifiez qu'elle est bien active.
+
+---
+
+## 7. Conseils concernant le haut-parleur système et le son pour certains chipsets (dont Intel B660)
+
+### Si vous n'entendez aucun son, si le son est corrompu ou si le haut-parleur système est instable :
+
+Certains chipsets modernes, notamment ceux de la série Intel B660 et plus récents, peuvent rencontrer des problèmes d'initialisation ou de réinitialisation du haut-parleur système (bip sonore du PC), ce qui peut entraîner des coupures ou des problèmes de son.
+
+**Conseils aux utilisateurs concernés :**
+
+- **Essayez de mettre votre ordinateur en veille puis de le réactiver.**
+
+Cela peut permettre de réinitialiser le port matériel de bas niveau responsable du haut-parleur système et de rétablir le fonctionnement du bip sonore.
+
+- **Utilisez la fonction « Utiliser un périphérique audio pour émettre un bip »** si la sortie audio du haut-parleur système est instable.
+
+- **Vérifiez les mises à jour du BIOS ou du firmware :** Certains fabricants de cartes mères peuvent publier des mises à jour améliorant la compatibilité du port audio.
+
+**Spécifique aux ordinateurs de bureau :** Si vous avez ajouté, retiré ou reconnecté des haut-parleurs système, redémarrez complètement votre ordinateur.
+
+_Cette solution est indiquée dans les paramètres :_
+
+![image2](https://github.com/user-attachments/assets/75159915-5491-4630-855d-6a9897d7bb47)
+
+> *Si vous n'entendez aucun son ou si le son est corrompu, essayez de mettre votre ordinateur en veille puis de le réactiver. Cela peut réinitialiser les haut-parleurs système sur les chipsets concernés.*
+
+---
+
+*Pour tout problème audio ou lié à l'IA non traité ici, veuillez inclure des captures d'écran de l'erreur, les détails de votre matériel (en particulier la marque et le modèle de la carte mère/du chipset) et votre pays/région lorsque vous demandez de l'aide ou ouvrez un ticket sur GitHub.*
+
+---
+
+## 8. Foire aux questions
 
 ### Q : Puis-je utiliser le haut-parleur système si mon matériel ne possède pas de périphérique PNP0800 ?
 **R :** Oui ! NeoBleeper tente désormais de détecter et d’utiliser les sorties de haut-parleur système masquées ou non PNP0800, lorsque cela est possible. En cas de succès, vous pouvez utiliser le haut-parleur système même si Windows ne signale pas de périphérique standard.
@@ -165,12 +266,36 @@ Sur les systèmes Windows ARM64, le test « Haut-parleur système » et la cas
 ### Q : Pourquoi les options de haut-parleur système et de bip sonore sont-elles absentes de mon appareil ARM64 ?
 **R :** Sur les systèmes Windows ARM64, NeoBleeper désactive les paramètres relatifs au haut-parleur système, car les plateformes ARM64 ne prennent pas en charge l’accès direct au matériel du haut-parleur système. Tous les bips sont diffusés via votre périphérique de sortie audio habituel (haut-parleurs ou casque), et les options « Tester le haut-parleur système » et « Utiliser un périphérique audio pour émettre un bip » sont automatiquement masquées. Ce comportement est normal et ne constitue pas une erreur.
 
+### Q : Que signifie l'avertissement « Sortie haut-parleur système non standard présente » ?
+**R :** NeoBleeper a détecté un matériel audio non conforme aux normes PC traditionnelles (par exemple, un périphérique autre que PNP0800). Il peut s'agir d'une sortie haut-parleur « cachée » présente sur les ordinateurs de bureau modernes ou les machines virtuelles. Dans ce cas, certaines fonctions sonores peuvent ne pas fonctionner correctement, mais NeoBleeper tentera d'utiliser toute sortie compatible détectée.
+
+### Q : Pourquoi le bouton « Tester le haut-parleur système » est-il présent même si Windows ne détecte aucun périphérique audio ?
+**R :** NeoBleeper intègre une logique de détection des sorties haut-parleurs système cachées ou non standard. Si le bouton apparaît, cela signifie que NeoBleeper a détecté un port matériel potentiel pour la sortie audio, même s'il n'est pas reconnu par Windows.
+
+### Q : J'utilise l'API Google Gemini™ pour les fonctionnalités d'IA et je reçois un message « Quota atteint » ou « API non disponible dans votre pays ». Que dois-je faire ?
+**R :** Consultez la section 6 de ce guide. Assurez-vous que votre clé API et votre facturation/quota sont valides et que votre utilisation respecte les restrictions régionales de Google. Si vous vous trouvez dans une région soumise à des restrictions, certaines fonctionnalités d'IA peuvent malheureusement ne pas être disponibles.
+
+### Q : Je possède un système Intel B660 (ou plus récent) et le haut-parleur de mon PC ne fonctionne parfois pas ou se bloque. Est-ce normal ?
+**R :** Certains chipsets récents présentent des problèmes de compatibilité connus lors de la réinitialisation du haut-parleur système. Essayez de mettre votre ordinateur en veille puis de le réactiver, ou utilisez votre périphérique audio habituel. Vérifiez si des mises à jour du BIOS/micrologiciel sont disponibles afin d'améliorer la prise en charge du haut-parleur.
+
+### Q : Quel est le meilleur moyen de signaler les problèmes de son ou d'IA au support technique ?
+**R :** Fournissez toujours autant d'informations que possible : la marque et le modèle de votre ordinateur, votre région, des captures d'écran des boîtes de dialogue d'erreur et votre fichier `DebugLog.txt` situé dans le dossier NeoBleeper. Pour les problèmes d'IA, veuillez inclure le texte intégral des boîtes de dialogue d'erreur et décrire l'état de votre compte API Gemini.
+
+### Q : Après un plantage ou une fermeture forcée, l'utilitaire Beep Stopper de NeoBleeper n'a pas arrêté un bip continu. Existe-t-il une autre solution ?
+**R :** Si Beep Stopper est inefficace, redémarrer votre ordinateur réinitialisera le matériel du haut-parleur système et arrêtera tout bip persistant.
+
+### Q : Est-il sûr d'utiliser l'utilitaire Beep Stopper si un message d'avertissement concernant une sortie haut-parleur système non standard ou manquante s'affiche ?
+**R :** Oui, mais sachez que l'utilitaire peut ne pas être en mesure de contrôler le matériel et, dans de rares cas, peut entraîner une instabilité ou être sans effet. En cas de doute, n'allez pas plus loin et redémarrez votre ordinateur.
+
+### Q : Sur les machines virtuelles, je n'arrive pas du tout à faire fonctionner le haut-parleur système. Est-ce un bug ?
+**R :** Pas nécessairement. De nombreuses machines virtuelles n'émulent pas correctement les haut-parleurs d'un PC, ou bien elles présentent le son d'une manière non contrôlable par programmation. Pour un résultat optimal, utilisez votre périphérique de sortie audio standard.
+
 **Mises à jour potentielles** :
 Si des tests ou développements futurs permettent à NeoBleeper de détecter de manière fiable les haut-parleurs système défectueux ou déconnectés grâce au test matériel par ultrasons, cette FAQ et la logique de détection seront mises à jour pour refléter ces améliorations. Consultez les journaux des modifications ou les nouvelles versions pour plus de détails.
 
 ---
 
-## 7. Obtenir de l'aide
+## 9. Obtenir de l'aide
 
 - **Fournir des informations sur l'ordinateur et son environnement** : Lorsque vous signalez des problèmes de détection de matériel ou de son, veuillez inclure des informations sur votre ordinateur (ordinateur de bureau/portable, fabricant/modèle, système d'exploitation) et tout matériel concerné.
 - **Joindre des captures d'écran ou des messages d'erreur** : Les captures d'écran des messages d'erreur ou d'avertissement sont très utiles. Précisez précisément quand le problème survient.
