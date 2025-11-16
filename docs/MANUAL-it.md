@@ -279,8 +279,8 @@
   
   - ### Impostazioni generali
     Questa scheda si concentra sulle preferenze di base e sull'integrazione a livello di sistema:
-    
-    ![image](https://github.com/user-attachments/assets/5108bb51-fa53-414e-9ee1-50c545b5017c)
+
+    ![image](https://github.com/user-attachments/assets/c33e27ad-fdb8-4ada-83c7-db332301a523)
 
     - #### Lingua
       **Selettore Lingua:** Consente di scegliere la lingua di NeoBleeper tra inglese, tedesco, francese, italiano, spagnolo, turco, russo, ucraino e vietnamita.
@@ -309,16 +309,38 @@
         
         Il requisito di età e l'accettazione dei Termini di Servizio sono obbligatori al primo inserimento di una nuova chiave API. Questo garantisce un utilizzo responsabile e la conformità legale per le funzionalità musicali generate dall'IA.
   
-    - #### Altoparlante di Sistema di Test
-      **Pulsante Test:** Emette un segnale acustico per confermare il funzionamento dell'altoparlante.
+    - #### Test dell'altoparlante di sistema
+
+    NeoBleeper offre strumenti affidabili per verificare l'uscita dell'altoparlante di sistema e diagnosticare problemi di connettività o compatibilità. Nella sezione "Test dell'altoparlante di sistema" della scheda Generale delle Impostazioni, troverai due funzionalità di test separate:
+
+    ![image](https://github.com/user-attachments/assets/bd516112-8ad0-4b62-ab9b-d7a6fd769309)
     
-      **Messaggio di fallback:** suggerisce di utilizzare un dispositivo audio alternativo se non si sente alcun suono dall'altoparlante del sistema.
+    **Test dell'altoparlante di sistema:**
+    - Premi questo pulsante per visualizzare un menu a discesa con due opzioni:
+    - **Test di riproduzione melodia standard:** Riproduce una melodia semplice per verificare se l'altoparlante di sistema produce il suono previsto.
+    - **Test avanzato dell'altoparlante di sistema:** Esegue una serie di controlli diagnostici per valutare approfonditamente la funzionalità dell'altoparlante e la stabilità del driver (vedi dettagli di seguito).
+    
+    **Funzionalità avanzate del test degli altoparlanti di sistema**
+    Selezionando "Test avanzato degli altoparlanti di sistema" dal menu a discesa, NeoBleeper esegue diversi controlli della configurazione hardware e software, visualizzando i risultati in una finestra popup:
+    <img width="1022" height="731" alt="image" src="" />
+
+    ![image1](https://github.com/user-attachments/assets/0ed24cf8-7065-471e-bae7-ace0013109a6)
+    
+    Vengono eseguiti i seguenti test:
+    - **Test di feedback elettrico:** verifica la risposta elettrica prevista dall'hardware degli altoparlanti di sistema.
+    - **Test di stabilità dello stato delle porte:** verifica la coerenza dello stato delle porte e la stabilità del driver.
+    - **Test avanzato di sweep di frequenza:** esegue diverse frequenze per garantire l'emissione di un'ampia gamma di toni.
+    - **Risultato complessivo:** un riepilogo che indica se tutti i test sono stati superati o se è stato rilevato un problema specifico.
+    
+    Ogni controllo viene visualizzato con uno stato (✔️ PASSATO o ❌ FALLITO).
+    
+    > Se non senti alcun suono, potresti dover utilizzare la funzione "Usa dispositivo audio per creare un segnale acustico".
   
   - ### Creazione delle impostazioni audio
 
     Questa scheda è dedicata alla configurazione del modo in cui NeoBleeper genera segnali acustici utilizzando le funzionalità audio del sistema. Offre sia controllo tecnico che flessibilità creativa per modellare il tono e la consistenza dei suoni prodotti.
 
-    ![image](https://github.com/user-attachments/assets/0b9169e4-0f08-475e-9c79-329613a6da58)
+    ![image](https://github.com/user-attachments/assets/95078fa2-03e6-413d-9dce-843a76bfb324)
     
     - #### Usa dispositivo audio per creare un segnale acustico:
       Una casella di controllo che abilita o disabilita l'uso del dispositivo audio del sistema per la generazione di segnali acustici al posto dell'altoparlante di sistema. Se non selezionata, NeoBleeper utilizza l'altoparlante di sistema per la creazione del suono. Abilitando questa opzione è possibile ottenere una sintesi sonora più ricca e basata sulla forma d'onda.
@@ -339,8 +361,8 @@
   - ### Impostazioni Dispositivi
 
     Questa scheda consente di configurare l'interazione di NeoBleeper con hardware MIDI esterno, strumenti virtuali e altri hardware esterni. Che si tratti di integrare input live o di indirizzare l'output a un synth, è qui che si definisce il flusso del segnale.
-    
-    ![image](https://github.com/user-attachments/assets/137c15a5-d410-42e8-b52e-9e75434e0ab4)
+
+    ![image](https://github.com/user-attachments/assets/2e1a4df6-a2d1-4854-aae3-d65f69f8b98a)
 
     - #### Dispositivi di ingresso MIDI
       **Usa ingresso MIDI live:** Abilita la ricezione del segnale MIDI in tempo reale da controller o software esterni. Se selezionato, NeoBleeper ascolta i messaggi MIDI in arrivo per attivare suoni o azioni.
@@ -397,7 +419,7 @@
   - ### Impostazioni Aspetto
     Questa scheda ti offre il pieno controllo sull'identità visiva di NeoBleeper, consentendoti di personalizzare i colori degli elementi chiave dell'interfaccia per maggiore chiarezza, estetica o personalizzazione. È organizzata in sezioni per la visualizzazione di tastiera, pulsanti, indicatori ed eventi di testo.
 
-    ![image5](https://github.com/user-attachments/assets/ed93aeb4-5380-4b76-825d-568464cd3745)
+    ![image5](https://github.com/user-attachments/assets/bfbb1ba2-b293-4757-a1d2-56cd4f209bfe)
 
     - #### Colori della tastiera
       **Definisci lo schema di colori per le diverse ottave sulla tastiera virtuale:**
@@ -487,7 +509,7 @@
     - ### Crea musica con l'IA - `Ctrl + Alt + A`
       Sfrutta la potenza dell'IA per generare idee musicali. Che tu stia cercando ispirazione, colmando lacune o sperimentando nuovi stili, questo strumento offre suggerimenti intelligenti e contestuali per melodie, armonie e ritmi.
 
-      ![image](https://github.com/user-attachments/assets/c548c21a-2b55-4d90-88cf-09fc2a5d1164)
+      ![image](https://github.com/user-attachments/assets/80257714-802b-48a1-a230-44ad13edea7a)
       
       **Come funziona:**
       - Apri la finestra "Crea musica con l'IA" dal menu File o utilizzando la scorciatoia.
@@ -500,14 +522,19 @@
       **Guida ai prompt e restrizioni dell'IA:**
       - Lo strumento di IA elaborerà solo i prompt relativi alla composizione musicale. Se il prompt non è correlato alla musica (ad esempio, "scrivi una barzelletta"), riceverai un errore:
 
-        ![image](https://github.com/user-attachments/assets/20606e82-87af-468a-812a-de97aa14d4a4)
+        ![image](https://github.com/user-attachments/assets/10be99d9-5b3b-4896-b1cc-df85526b2ba5)
         
-        *"Rilevato un prompt non musicale. Inserire un nome di brano, artista, compositore o qualsiasi termine correlato alla musica per una composizione. Suggerimenti per prompt validi: 'componi una canzone rock', 'Beethoven', "Yellow Submarine'."*
+        *"Rilevata una richiesta non musicale. Prova a chiedere una composizione musicale o musica relativa a un artista."*
       - Non sono consentiti prompt con contenuti offensivi o inappropriati. Se rilevati, verrà visualizzato un errore:
 
-        ![image3](https://github.com/user-attachments/assets/65912dc4-3b45-4aad-b7ae-f31c5b4861b5) 
+        ![image3](https://github.com/user-attachments/assets/6a09aae6-4051-4649-a6f1-0b4413ffb650) 
 
-        *"Profanita rilevata. Provare a richiedere una composizione musicale o musica relativa a un artista."*
+        *"È stato rilevato un linguaggio inappropriato. Si prega di provare con una richiesta di composizione musicale o relativa a un artista."*
+      - Il tentativo di aggirare i protocolli di sicurezza, ad esempio chiedendo all'IA di ignorare i filtri di sicurezza, genererà un errore di richiesta non valida:
+
+        ![image3](https://github.com/user-attachments/assets/be693f9d-58e8-4189-bff3-d81fb628ecc9)
+        
+        *"Rilevato un tentativo di iniezione di istruzioni per ignorare i protocolli di sicurezza. Le istruzioni del prompt non sono valide. Prova a richiedere una composizione musicale o musica correlata a un artista o genere"*
       - I prompt validi devono essere specifici e incentrati sulla musica (ad esempio, "Genera una melodia jazz per pianoforte" o "Crea un pattern di batteria techno veloce").
 
      **Note:**
