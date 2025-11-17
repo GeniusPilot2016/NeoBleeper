@@ -124,11 +124,17 @@
   <data name="general_settings.Text" xml:space="preserve">
     <value>Общий</value>
   </data>
+  <data name="general_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 653</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Создание звуков</value>
+  </data>
+  <data name="creating_sound_settings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 653</value>
@@ -136,18 +142,24 @@
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Устройства</value>
   </data>
+  <data name="devices_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 653</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Появление</value>
   </data>
+  <data name="appearance.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApk0AAAJNU0Z0AUkBTAIBARIB
-        AAGsAQcBrAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAG0AQcBtAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -182,7 +194,7 @@
         ewH/AYwBgwF5Af8BiwGBAXcB/wGJAYABdQH/AYcBfgFzAf+cAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wHdAaABUAH/FAADNQFVBAABCAG8Af4B/wgAAQgBvAH+Af8EAAM1AVUIAAEIAbwB
         /gH/oAADIwEyAfoB8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAAB
-        XgJqAe0IAAFdAWgBagHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
+        XgJqAe0IAAFdAWcBaQHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -484,11 +496,20 @@
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>431, 688</value>
   </data>
+  <data name="tabControl_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
   </data>
+  <data name="flowLayoutPanelGeneralSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Настройки языка</value>
+  </data>
+  <data name="groupBoxLanguageSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 26</value>
@@ -505,8 +526,14 @@
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Язык</value>
   </data>
+  <data name="labelLanguage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_appearance.Text" xml:space="preserve">
     <value>Общий вид</value>
+  </data>
+  <data name="groupBox_appearance.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 20</value>
@@ -522,6 +549,9 @@
   </data>
   <data name="lbl_theme.Text" xml:space="preserve">
     <value>Тема</value>
+  </data>
+  <data name="lbl_theme.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBox_theme.Items" xml:space="preserve">
     <value>Использовать системную тему</value>
@@ -546,6 +576,9 @@
   </data>
   <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
     <value>Создавайте музыку с помощью ИИ</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 143</value>
@@ -595,11 +628,17 @@
     <value>Внимание: в целях безопасности не передавайте свой 
 ключ API Google Gemini™ третьим лицам.</value>
   </data>
+  <data name="labelAPIKeyWarning.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 16</value>
   </data>
   <data name="labelAPIKey.Text" xml:space="preserve">
     <value>API-ключ Google Gemini™</value>
+  </data>
+  <data name="labelAPIKey.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>278, 23</value>
@@ -619,6 +658,9 @@
 Швейцария или Великобритания) API Google Gemini™ может 
 быть доступен только как платный сервис. Убедитесь, что ваш ключ API относится к платной учётной записи.</value>
   </data>
+  <data name="labelGoogleGeminiAPIWarning.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 410</value>
   </data>
@@ -627,6 +669,9 @@
   </data>
   <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
     <value>Тестирование системного динамика</value>
+  </data>
+  <data name="groupBox_system_speaker_test.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>102, 23</value>
@@ -637,14 +682,20 @@
   <data name="btn_test_system_speaker.Text" xml:space="preserve">
     <value>Тестовая система динамика</value>
   </data>
+  <data name="btn_test_system_speaker.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 55</value>
+    <value>5, 55</value>
   </data>
   <data name="label_test_system_speaker_message.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 49</value>
+    <value>396, 49</value>
   </data>
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Если вы не слышите никакого звука, вы можете воспользоваться функцией «Использовать звуковое устройство для создания звукового сигнала».</value>
+  </data>
+  <data name="label_test_system_speaker_message.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 528</value>
@@ -652,11 +703,17 @@
   <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 109</value>
   </data>
+  <data name="panelSystemSpeakerWarnings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 99</value>
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>На компьютерах без выхода на системный динамик или на компьютерах с нестандартным выходом на системный динамик вы можете не услышать звук при проверке системного динамика, или это может привести к нестабильной работе или нежелательному поведению.</value>
+  </data>
+  <data name="label_test_system_speaker_message_2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_test_system_speaker_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 99</value>
@@ -664,14 +721,23 @@
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>На компактных компьютерах и компьютерах неизвестного типа вы можете не услышать звук или столкнуться с нестабильностью или нежелательным поведением при проверке системного динамика, поскольку основные динамики могут быть подключены к выходу системного динамика вместо самого системного динамика.</value>
   </data>
+  <data name="label_test_system_speaker_message_3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_test_system_speaker_message_4.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 99</value>
   </data>
   <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
     <value>Если звука нет или он искажён, попробуйте перевести компьютер в спящий режим и вывести его из него. Это может помочь повторно инициализировать системный динамик на проблемных чипсетах.</value>
   </data>
+  <data name="label_test_system_speaker_message_4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
+  </data>
+  <data name="flowLayoutPanelCreatingSoundSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>382, 36</value>
@@ -696,23 +762,20 @@
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Создание звукового сигнала из настроек звукового устройства</value>
   </data>
+  <data name="group_beep_creation_from_sound_card_settings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 115</value>
+  </data>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>388, 72</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 62</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
-    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» включается автоматически, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 62</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
-    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» автоматически включается из-за системных ограничений или проблем совместимости чипсета для обеспечения стабильного вывода звука.</value>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 62</value>
@@ -720,14 +783,41 @@
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>Функция «Использовать звуковое устройство для создания звукового сигнала» включается автоматически, поскольку компьютер представляет собой компактный компьютер или его тип неизвестен.</value>
   </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 62</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
+    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» включается автоматически, поскольку выход системного динамика не обнаружен или выход системного динамика нестандартен.</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 62</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
+    <value>Функция «Использовать звуковое устройство для создания звукового сигнала» автоматически включается из-за системных ограничений или проблем совместимости чипсета для обеспечения стабильного вывода звука.</value>
+  </data>
+  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 81</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Покажите причину этой ситуации</value>
   </data>
+  <data name="button_show_reason.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_tone_waveform.Text" xml:space="preserve">
     <value>Форма тональной волны</value>
+  </data>
+  <data name="group_tone_waveform.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>250, 20</value>
@@ -735,11 +825,17 @@
   <data name="radioButton_noise.Text" xml:space="preserve">
     <value>Шум (для создания звуковых эффектов)</value>
   </data>
+  <data name="radioButton_noise.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 20</value>
   </data>
   <data name="radioButton_triangle.Text" xml:space="preserve">
     <value>Треугольник</value>
+  </data>
+  <data name="radioButton_triangle.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
@@ -747,14 +843,23 @@
   <data name="radioButton_sine.Text" xml:space="preserve">
     <value>Синус</value>
   </data>
+  <data name="radioButton_sine.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 20</value>
   </data>
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Квадрат (по умолчанию)</value>
   </data>
+  <data name="radioButton_square.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
+  </data>
+  <data name="flowLayoutPanelDevicesSettings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 20</value>
@@ -768,6 +873,9 @@
   </data>
   <data name="group_midi_input_devices.Text" xml:space="preserve">
     <value>Устройства ввода MIDI</value>
+  </data>
+  <data name="group_midi_input_devices.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>306, 37</value>
@@ -794,8 +902,14 @@
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>Выберите устройство ввода MIDI</value>
   </data>
+  <data name="label_midi_input_device.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_midi_output_devices.Text" xml:space="preserve">
     <value>Устройства вывода MIDI</value>
+  </data>
+  <data name="group_midi_output_devices.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBox_midi_output_instrument.Items" xml:space="preserve">
     <value>Акустический рояль</value>
@@ -1258,6 +1372,9 @@
   <data name="label_instrument.Text" xml:space="preserve">
     <value>Инструмент</value>
   </data>
+  <data name="label_instrument.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 78</value>
   </data>
@@ -1266,6 +1383,9 @@
   </data>
   <data name="label_channel.Text" xml:space="preserve">
     <value>Канал</value>
+  </data>
+  <data name="label_channel.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="refresh_midi_output_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>306, 38</value>
@@ -1292,11 +1412,17 @@
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>Выберите выходное MIDI-устройство</value>
   </data>
+  <data name="label_midi_output_device.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 268</value>
   </data>
   <data name="groupBox_other_devices.Text" xml:space="preserve">
     <value>Другие устройства</value>
+  </data>
+  <data name="groupBox_other_devices.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
     <value>105, 234</value>
@@ -1318,6 +1444,9 @@
 что микроконтроллерпрошит совместимой прошивкой, 
 которую можно найти, нажав кнопку ниже.Если ваш микроконтроллер не перепрошит, флажок останется неактивным.</value>
   </data>
+  <data name="label_firmware_warning.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trackBar_stepper_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
     <value>179, 128</value>
   </data>
@@ -1335,8 +1464,14 @@
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Октава шагового двигателя</value>
   </data>
+  <data name="label_stepper_motor_octave.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="groupBox_type_of_device.Text" xml:space="preserve">
     <value>Тип устройства</value>
+  </data>
+  <data name="groupBox_type_of_device.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 20</value>
@@ -1372,6 +1507,9 @@
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
   </data>
+  <data name="flowLayoutPanelAppearanceSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 2</value>
   </data>
@@ -1380,6 +1518,9 @@
   </data>
   <data name="group_keyboard_colors.Text" xml:space="preserve">
     <value>Цвета клавиатуры</value>
+  </data>
+  <data name="group_keyboard_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>297, 66</value>
@@ -1414,17 +1555,26 @@
   <data name="third_octave_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="third_octave_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 46</value>
   </data>
   <data name="second_octave_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="second_octave_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 22</value>
   </data>
   <data name="first_octave_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
+  </data>
+  <data name="first_octave_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 70</value>
@@ -1435,11 +1585,17 @@
   <data name="label4.Text" xml:space="preserve">
     <value>Цвет третьей октавы</value>
   </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 46</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Цвет второй октавы</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 22</value>
@@ -1450,6 +1606,9 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Цвет первой октавы</value>
   </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 109</value>
   </data>
@@ -1458,6 +1617,9 @@
   </data>
   <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
     <value>Цвета кнопок и элементов управления</value>
+  </data>
+  <data name="group_buttons_and_controls_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>297, 168</value>
@@ -1528,11 +1690,17 @@
   <data name="markup_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="markup_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 146</value>
   </data>
   <data name="metronome_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
+  </data>
+  <data name="metronome_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 122</value>
@@ -1540,11 +1708,17 @@
   <data name="playback_buttons_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="playback_buttons_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 98</value>
   </data>
   <data name="erase_whole_line_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
+  </data>
+  <data name="erase_whole_line_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 74</value>
@@ -1552,17 +1726,26 @@
   <data name="unselect_line_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="unselect_line_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 50</value>
   </data>
   <data name="clear_notes_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="clear_notes_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 27</value>
   </data>
   <data name="blank_line_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
+  </data>
+  <data name="blank_line_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1576,6 +1759,9 @@
   <data name="label1.Text" xml:space="preserve">
     <value>Цвет разметки клавиатуры</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1584,6 +1770,9 @@
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>Цвет метронома</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1597,6 +1786,9 @@
   <data name="label8.Text" xml:space="preserve">
     <value>Цвет кнопок воспроизведения</value>
   </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1608,6 +1800,9 @@
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Стереть весь цвет линии</value>
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1621,6 +1816,9 @@
   <data name="label5.Text" xml:space="preserve">
     <value>Отменить выбор цвета линии</value>
   </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1632,6 +1830,9 @@
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Очистить цвет заметок</value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1645,6 +1846,9 @@
   <data name="label7.Text" xml:space="preserve">
     <value>Цвет пустой строки</value>
   </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 309</value>
   </data>
@@ -1653,6 +1857,9 @@
   </data>
   <data name="group_indicator_colors.Text" xml:space="preserve">
     <value>Цвета индикаторов</value>
+  </data>
+  <data name="group_indicator_colors.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>297, 46</value>
@@ -1681,17 +1888,26 @@
   <data name="label12.Text" xml:space="preserve">
     <value>Цвет индикатора Нота</value>
   </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 26</value>
   </data>
   <data name="beep_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
   </data>
+  <data name="beep_indicator_color.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 50</value>
   </data>
   <data name="note_indicator_color.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 16</value>
+  </data>
+  <data name="note_indicator_color.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 26</value>
@@ -1702,6 +1918,9 @@
   <data name="label11.Text" xml:space="preserve">
     <value>Цвет индикатора бип</value>
   </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="group_lyrics_size_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 393</value>
   </data>
@@ -1710,6 +1929,9 @@
   </data>
   <data name="group_lyrics_size_settings.Text" xml:space="preserve">
     <value>Тексты песен/текстовые события</value>
+  </data>
+  <data name="group_lyrics_size_settings.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
     <value>48, 59</value>
@@ -1723,6 +1945,9 @@
   <data name="buttonPreviewLyrics.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="buttonPreviewLyrics.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="labelPt.Location" type="System.Drawing.Point, System.Drawing">
     <value>289, 33</value>
   </data>
@@ -1732,11 +1957,17 @@
   <data name="labelPt.Text" xml:space="preserve">
     <value>пт</value>
   </data>
+  <data name="labelPt.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="numericUpDownLyricsSize.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 30</value>
   </data>
   <data name="numericUpDownLyricsSize.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 23</value>
+  </data>
+  <data name="numericUpDownLyricsSize.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 24</value>
@@ -1748,11 +1979,17 @@
     <value>Размер текстов/текстовых 
 событий</value>
   </data>
+  <data name="label13.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 509</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 55</value>
+  </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>62, 7</value>
@@ -1768,6 +2005,9 @@
   </data>
   <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 48</value>
+  </data>
+  <data name="contextMenuStripSystemSpeakerTests.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="standardTuneTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>319, 22</value>
@@ -2112,5 +2352,8 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Настройки NeoBleeper</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

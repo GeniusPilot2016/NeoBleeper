@@ -46,6 +46,7 @@ namespace NeoBleeper
                 }
                 // Initialize application configuration
                 ApplicationConfiguration.Initialize();
+                LoadSettingsIfNeeded(); // Load settings if needed (upgrade from previous versions)
                 ConfigureApplication();
                 splashScreen.Show();
                 CheckAndPlaceInpOutX64(); // Check presence of InpOutx64.dll and place it if not present
@@ -379,6 +380,15 @@ namespace NeoBleeper
                 }
             }
             return false; // File does not exist
+        }
+        private static void LoadSettingsIfNeeded()
+        {
+            if (!Settings1.Default.HasSettingsUpgraded)
+            {
+                Settings1.Default.Upgrade();
+                Settings1.Default.HasSettingsUpgraded = true;
+                Settings1.Default.Save();
+            }
         }
     }
 }

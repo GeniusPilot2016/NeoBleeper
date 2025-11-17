@@ -14,7 +14,7 @@
     <AssemblyVersion></AssemblyVersion>
     <Company>GeniusPilot2016</Company>
     <Authors>GeniusPilot2016</Authors>
-    <Version>0.24.0.1-beta</Version>
+    <Version>0.24.1-beta</Version>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x64;ARM64</Platforms>
