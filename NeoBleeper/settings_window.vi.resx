@@ -118,36 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 623</value>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 26</value>
   </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>Tổng quan</value>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>319, 24</value>
   </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 623</value>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>Thay đổi ngôn ngữ của chương trình</value>
   </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Tạo âm thanh</value>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 16</value>
   </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 623</value>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Ngôn ngữ</value>
   </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Thiết bị</value>
+  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
+    <value>Cài đặt ngôn ngữ</value>
   </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 623</value>
+  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 20</value>
   </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Vẻ bề ngoài</value>
+  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
+    <value>Chế độ Bleeper cổ điển</value>
+  </data>
+  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 16</value>
+  </data>
+  <data name="lbl_theme.Text" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="comboBox_theme.Items" xml:space="preserve">
+    <value>Sử dụng giao diện hệ thống</value>
+  </data>
+  <data name="comboBox_theme.Items1" xml:space="preserve">
+    <value>Sáng</value>
+  </data>
+  <data name="comboBox_theme.Items2" xml:space="preserve">
+    <value>Tối</value>
+  </data>
+  <data name="comboBox_theme.ToolTip" xml:space="preserve">
+    <value>Thay đổi chủ đề của chương trình</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>Ngoại hình chung</value>
   </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAEMAQgBDAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEUAQgBFAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -481,63 +502,6 @@
         /wMACw==
 </value>
   </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 658</value>
-  </data>
-  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 613</value>
-  </data>
-  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
-    <value>Cài đặt ngôn ngữ</value>
-  </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 26</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 24</value>
-  </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>Thay đổi ngôn ngữ của chương trình</value>
-  </data>
-  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 16</value>
-  </data>
-  <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Ngôn ngữ</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>Ngoại hình chung</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
-    <value>Chế độ Bleeper cổ điển</value>
-  </data>
-  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 16</value>
-  </data>
-  <data name="lbl_theme.Text" xml:space="preserve">
-    <value>Chủ đề</value>
-  </data>
-  <data name="comboBox_theme.Items" xml:space="preserve">
-    <value>Sử dụng giao diện hệ thống</value>
-  </data>
-  <data name="comboBox_theme.Items1" xml:space="preserve">
-    <value>Sáng</value>
-  </data>
-  <data name="comboBox_theme.Items2" xml:space="preserve">
-    <value>Tối</value>
-  </data>
-  <data name="comboBox_theme.ToolTip" xml:space="preserve">
-    <value>Thay đổi chủ đề của chương trình</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 178</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Tạo nhạc bằng AI</value>
-  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>92, 144</value>
   </data>
@@ -599,6 +563,12 @@ Gemini™ của bạn với bất kỳ ai khác.</value>
     <value>Đặt khóa API của bạn tại đây để sử dụng tính năng tạo nhạc AI.
 Bạn có thể lấy khóa API từ https://aistudio.google.com/app/apikey.</value>
   </data>
+  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 178</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Tạo nhạc bằng AI</value>
+  </data>
   <data name="labelGoogleGeminiAPIWarning.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 343</value>
   </data>
@@ -609,15 +579,6 @@ Bạn có thể lấy khóa API từ https://aistudio.google.com/app/apikey.</va
     <value>Tại khu vực của bạn (Khu vực Kinh tế Châu Âu, Thụy Sĩ hoặc 
 Vương quốc Anh), API Google Gemini™ có thể chỉ khả dụng dưới 
 dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dành cho tài khoản trả phí.</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 410</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 99</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Hệ thống kiểm tra loa</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 22</value>
@@ -637,11 +598,14 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Nếu bạn không nghe thấy bất kỳ âm thanh nào, bạn có thể sử dụng tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp".</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 515</value>
+  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 410</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 95</value>
+  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 99</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Hệ thống kiểm tra loa</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 85</value>
@@ -661,8 +625,20 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
     <value>Nếu bạn không nghe thấy âm thanh hoặc âm thanh bị hỏng, hãy thử đặt máy tính ở chế độ ngủ và đánh thức nó. Thao tác này có thể giúp khởi động lại loa hệ thống trên các chipset bị ảnh hưởng.</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 515</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 95</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 613</value>
+  </data>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 623</value>
+  </data>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>Tổng quan</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>274, 20</value>
@@ -672,18 +648,6 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.ToolTip" xml:space="preserve">
     <value>Sử dụng âm thanh thiết bị để tạo bíp âm thanh</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 231</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Tạo tiếng bíp từ Cài đặt thiết bị âm thanh</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 97</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 55</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 45</value>
@@ -703,14 +667,17 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
     <value>Tính năng "Sử dụng thiết bị âm thanh để tạo tiếng bíp" được tự động bật do hạn chế của hệ thống hoặc sự cố tương thích của chipset để đảm bảo đầu ra âm thanh ổn định.</value>
   </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 55</value>
+  </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 64</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Trình bày lý do cho tình huống này</value>
   </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Dạng sóng âm thanh</value>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 97</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>225, 20</value>
@@ -736,8 +703,23 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Hình vuông (Mặc định)</value>
   </data>
-  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Dạng sóng âm thanh</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 231</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Tạo tiếng bíp từ Cài đặt thiết bị âm thanh</value>
+  </data>
+  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 613</value>
+  </data>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 623</value>
+  </data>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Tạo âm thanh</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 20</value>
@@ -747,9 +729,6 @@ dạng dịch vụ trả phí. Vui lòng đảm bảo khóa API của bạn dàn
   </data>
   <data name="checkBox_use_midi_input.ToolTip" xml:space="preserve">
     <value>Sử dụng thiết bị đầu vào MIDI để gửi nốt nhạc đến NeoBleeper.</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>Thiết bị đầu vào MIDI</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>270, 37</value>
@@ -776,6 +755,9 @@ Nếu bạn có nhiều thiết bị, hãy chọn thiết bị bạn muốn sử
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>Chọn thiết bị đầu vào MIDI</value>
   </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>Thiết bị đầu vào MIDI</value>
+  </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
     <value>154, 20</value>
   </data>
@@ -785,9 +767,6 @@ Nếu bạn có nhiều thiết bị, hãy chọn thiết bị bạn muốn sử
   <data name="checkBox_use_midi_output.ToolTip" xml:space="preserve">
     <value>Sử dụng thiết bị đầu ra MIDI để chơi các nốt nhạc.
 Điều này sẽ cho phép bạn sử dụng các thiết bị MIDI bên ngoài hoặc phần mềm tổng hợp.</value>
-  </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>Thiết bị đầu ra MIDI</value>
   </data>
   <data name="comboBox_midi_output_instrument.Items" xml:space="preserve">
     <value>Đàn Piano Acoustic Grand</value>
@@ -1260,11 +1239,8 @@ Nếu bạn đã kết nối thiết bị MIDI, thiết bị đó sẽ xuất hi
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>Chọn thiết bị đầu ra MIDI</value>
   </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 278</value>
-  </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Các thiết bị khác</value>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>Thiết bị đầu ra MIDI</value>
   </data>
   <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 245</value>
@@ -1304,9 +1280,6 @@ Nếu vi điều khiển của bạn không được flash, hộp kiểm sẽ v�
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Quãng tám của động cơ bước</value>
   </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Loại thiết bị</value>
-  </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
   </data>
@@ -1331,6 +1304,9 @@ Nó sử dụng chân 8 trong Arduino, GPIO 18 trong Raspberry Pi và chân 25 t
 Ngoài ra, nó có thể được sử dụng để tạo ra âm thanh bằng cách điều chỉnh tốc độ quay để tạo ra các tần số khác nhau.
 Động cơ này sử dụng chân 9 để điều khiển hướng và chân 10 để điều khiển bước trong Arduino, GPIO 21 để điều khiển hướng và GPIO 20 để điều khiển bước trong Raspberry Pi, và chân 27 để điều khiển hướng và chân 26 để điều khiển bước trong ESP32.</value>
   </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Loại thiết bị</value>
+  </data>
   <data name="checkBox_use_microcontroller.Text" xml:space="preserve">
     <value>Sử dụng động cơ hoặc còi (thông qua Arduino, Raspberry Pi hoặc ESP32)</value>
   </data>
@@ -1338,14 +1314,20 @@ Ngoài ra, nó có thể được sử dụng để tạo ra âm thanh bằng c�
     <value>Sử dụng vi điều khiển để sử dụng với động cơ hoặc còi báo động.
 Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ của nó bằng thanh trượt điều chỉnh tốc độ động cơ.</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 278</value>
+  </data>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Các thiết bị khác</value>
+  </data>
+  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 613</value>
   </data>
-  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 103</value>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 623</value>
   </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Màu sắc bàn phím</value>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Thiết bị</value>
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>318, 67</value>
@@ -1419,11 +1401,11 @@ Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ
   <data name="label2.Text" xml:space="preserve">
     <value>Màu quãng tám đầu tiên</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 196</value>
+  <data name="group_keyboard_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>409, 103</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Màu sắc của các nút và điều khiển</value>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Màu sắc bàn phím</value>
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>318, 163</value>
@@ -1593,11 +1575,11 @@ Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ
   <data name="label7.Text" xml:space="preserve">
     <value>Màu dòng trống</value>
   </data>
-  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 80</value>
+  <data name="group_buttons_and_controls_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>409, 196</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Màu chỉ báo</value>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Màu sắc của các nút và điều khiển</value>
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>318, 48</value>
@@ -1647,11 +1629,11 @@ Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ
   <data name="label11.Text" xml:space="preserve">
     <value>Màu đèn báo bíp</value>
   </data>
-  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 88</value>
+  <data name="group_indicator_colors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>409, 80</value>
   </data>
-  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
-    <value>Sự kiện Lời bài hát/Văn bản</value>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Màu chỉ báo</value>
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
     <value>64, 57</value>
@@ -1680,14 +1662,29 @@ Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ
   <data name="label13.Text" xml:space="preserve">
     <value>Lời bài hát/Sự kiện văn bản Kích thước</value>
   </data>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>409, 88</value>
+  </data>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Sự kiện Lời bài hát/Văn bản</value>
+  </data>
   <data name="reset_appearance_settings.Text" xml:space="preserve">
     <value>Đặt lại cài đặt giao diện về giá trị mặc định</value>
   </data>
   <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
     <value>Đặt lại tất cả cài đặt giao diện về giá trị mặc định</value>
   </data>
-  <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 48</value>
+  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>413, 613</value>
+  </data>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 623</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Vẻ bề ngoài</value>
+  </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>431, 658</value>
   </data>
   <data name="standardTuneTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>245, 22</value>
@@ -1706,6 +1703,9 @@ Nếu bạn sử dụng động cơ, bạn có thể điều khiển tốc độ
   </data>
   <data name="advancedSystemSpeakerTestToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Kiểm tra các tính năng và chẩn đoán loa hệ thống tiên tiến.</value>
+  </data>
+  <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 48</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>439, 666</value>

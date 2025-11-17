@@ -321,5 +321,17 @@ namespace NeoBleeper {
                 this["cachedGoogleGeminiTermsOfService"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HasSettingsUpgraded {
+            get {
+                return ((bool)(this["HasSettingsUpgraded"]));
+            }
+            set {
+                this["HasSettingsUpgraded"] = value;
+            }
+        }
     }
 }
