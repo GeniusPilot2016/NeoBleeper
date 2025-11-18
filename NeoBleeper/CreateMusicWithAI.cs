@@ -784,6 +784,7 @@ namespace NeoBleeper
                         output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"N(\d)([A-G])", "$2$1");
                         output = Regex.Replace(output, @"N(\d)([A-G]#?)", "$2$1");
                         output = Regex.Replace(output, @"N(\d)([A-G][#b]?)", "$2$1");
@@ -1158,13 +1159,6 @@ namespace NeoBleeper
                 output,
                 @"<(Mod|Art)>\s*</(Mod|Art)>",
                 "<$1 />",
-                RegexOptions.Multiline);
-
-            // Clean up whitespace between tags
-            output = Regex.Replace(
-                output,
-                @">\s+<",
-                "><",
                 RegexOptions.Multiline);
 
             // Remove XML declaration if present

@@ -160,7 +160,28 @@ Bir hata oluştu: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quot
 
 ---
 
-### 6.2 Bölge veya Ülke Kısıtlamaları
+### 6.2 Çok Yeni veya Belgelenmemiş Gemini Modelleri için Sorun Giderme (örneğin, Gemini 3 Pro Preview)
+
+Bazı Gemini modelleri, özellikle de **Gemini 3 Pro Preview** gibi yepyeni sürümler, lansman sırasında resmi Gemini API fiyatlandırma veya kota belgelerinde görünmeyebilir. Genel hesap kotanız kullanılmamış gibi görünse bile kota, erişim veya "RESOURCE_EXHAUSTED" hatalarıyla karşılaşabilirsiniz.
+
+**Çok yeni modeller için önemli hususlar:**
+- Google, önizleme modellerine (Gemini 3 Pro Preview gibi) erişimi genellikle belirli hesaplarla veya belirli bölgelerle sınırlar ve çok daha katı istek ve kullanım sınırları uygulayabilir.
+- Ücretsiz hesaplarda bu modeller için kota sıfır olabilir veya istekler tamamen engellenebilir.
+- Model, yayınlandıktan sonraki birkaç hafta boyunca kota/fiyatlandırma sekmelerinde veya Google belgelerinde görünmeyebilir.
+- Yeni Gemini modellerinin fiyatlandırması, erişimi ve kullanılabilirliği sık sık değişebilir.
+
+**Hatalarla karşılaşırsanız ne yapmalısınız?**
+- [API kullanımınızı ve kotalarınızı](https://ai.dev/usage?tab=rate-limit) ve yeni modelin konsolunuzda görünüp görünmediğini tekrar kontrol ediniz.
+- [Gemini API belgelerini](https://ai.google.dev/gemini-api/docs/rate-limits) inceleyin, ancak belgelerin yeni yayınlanan modellerin gerisinde kalabileceğini unutmayınız.
+- Resmi fiyatlandırma tablolarında belgelenmemiş bir model için "RESOURCE_EXHAUSTED" gibi hatalar görüyorsanız, bu muhtemelen modelin henüz genel kullanıma sunulmadığı veya çok kısıtlı önizleme erişimine sahip olduğu anlamına gelir.
+- Bu deneysel modelleri kullanmanız gerekiyorsa, Google'ın belgelerini güncellemesini ve daha geniş bir kullanıma sunulmasını bekleyiniz.
+
+> **Not:**
+> NeoBleeper ve benzeri uygulamalar bu sınırlamaları aşamaz. Hesabınız veya bölgeniz uygun değilse, Google'ın seçtiğiniz Gemini modeli için erişimi resmi olarak etkinleştirmesini veya kotayı artırmasını beklemelisiniz.
+
+---
+
+### 6.3 Bölge veya Ülke Kısıtlamaları
 
 #### "API ülkenizde mevcut değil"
 
@@ -185,7 +206,7 @@ Avrupa Ekonomik Alanı, İsviçre veya Birleşik Krallık'ta, Google Gemini™ A
 
 ---
 
-### 6.3 Genel Yapay Zeka API Tavsiyeleri
+### 6.4 Genel Yapay Zeka API Tavsiyeleri
 
 - Yalnızca kendi API anahtarınızı giriniz; güvenliğiniz için paylaşmayınız.
 - NeoBleeper, API anahtarınızı, özellik kullanımı için ihtiyaç duyulması dışında doğrudan Gemini hizmetine iletmez. - Tekrarlayan hatalarla karşılaşırsanız, API anahtarınızı kaldırıp yeniden eklemeyi deneyin ve anahtarınızın etkin olduğundan emin olun.

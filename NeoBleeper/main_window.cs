@@ -4080,28 +4080,32 @@ namespace NeoBleeper
             if (checkBox_use_keyboard_as_piano.Checked == true)
             {
                 show_keyboard_keys_shortcut();
+                this.ActiveControl = null; // Remove focus from any control to prevent accidental typing
             }
             else if (checkBox_use_keyboard_as_piano.Checked == false)
             {
                 hide_keyboard_keys_shortcut();
                 StopAllSounds();
             }
-            foreach (Control control in this.Controls)
+            enableDisableTabStopOnEntireForm(this);
+        }
+        private void enableDisableTabStopOnEntireForm(Form form)
+        {
+            foreach (Control control in form.Controls)
             {
-                enableDisableTabStop(control, !checkBox_use_keyboard_as_piano.Checked);
+                enableDisableTabStop(control);
             }
         }
-        private void enableDisableTabStop(Control parent, bool enabled)
+        private void enableDisableTabStop(Control ctrl)
         {
-            // Corrected the type check to ensure it checks for Control, not TabStop
-            if (parent is Control control)
+            ctrl.TabStop = !checkBox_use_keyboard_as_piano.Checked;
+            ctrl.CausesValidation = !checkBox_use_keyboard_as_piano.Checked;
+            if (ctrl.HasChildren)
             {
-                control.TabStop = enabled;
-            }
-
-            foreach (Control ctrl in parent.Controls)
-            {
-                enableDisableTabStop(ctrl, enabled);
+                foreach (Control childCtrl in ctrl.Controls)
+                {
+                    enableDisableTabStop(childCtrl);
+                }
             }
         }
         private void main_window_DragEnter(object sender, DragEventArgs e)
@@ -5242,6 +5246,7 @@ namespace NeoBleeper
             if (IsKeyboardPianoKey(e.KeyCode))
             {
                 e.Handled = true; // Prevent the key press from being processed further
+                e.SuppressKeyPress = true; // Suppress the key press sound
                 HashSet<int> currentlyPressedKeys = new HashSet<int>();
                 currentlyPressedKeys.Add((int)e.KeyCode);
                 if (currentlyPressedKeys == pressedKeys)
