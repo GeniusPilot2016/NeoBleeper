@@ -158,7 +158,28 @@ An error occurred: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quo
 
 ---
 
-### 6.2 Region or Country Restrictions
+### 6.2 Troubleshooting for Very New or Undocumented Gemini Models (e.g., Gemini 3 Pro Preview)
+
+Some Gemini models—especially brand new releases such as **Gemini 3 Pro Preview**—may not appear in the official Gemini API pricing or quota documentation at launch. You may encounter quota, access, or "RESOURCE_EXHAUSTED" errors even if your overall account quota appears unused.
+
+**Important considerations for very new models:**
+- Google often limits access to preview models (like Gemini 3 Pro Preview) to select accounts or specific regions and may enforce much stricter request and usage limits.
+- Free-tier accounts may have zero quota for these models, or requests may be blocked entirely.
+- The model may not be visible in quota/pricing tabs or Google documentation for several weeks after release.
+- Pricing, access, and availability for new Gemini models may change frequently.
+
+**What to do if you encounter errors:**
+- Double-check your [API usage and quotas](https://ai.dev/usage?tab=rate-limit) and whether the new model appears in your console.
+- Review the [Gemini API documentation](https://ai.google.dev/gemini-api/docs/rate-limits), but be aware that documentation may lag behind newly released models.
+- If you see errors like "RESOURCE_EXHAUSTED" for a model that is not documented in official pricing tables, it likely means the model is not yet generally available or has very restricted preview access.
+- Wait for Google to update their documentation and for broader rollout if you need to use these experimental models.
+
+> **Note:**  
+> NeoBleeper and similar applications cannot bypass these limitations. If your account or region is not eligible, you must wait until Google officially enables access or increases quota for your chosen Gemini model.
+
+---
+
+### 6.3 Region or Country Restrictions
 
 #### "API is not available in your country"
 
@@ -184,7 +205,7 @@ In the European Economic Area, Switzerland, or United Kingdom, the Gemini™ API
 
 ---
 
-### 6.3 General AI API Advice
+### 6.4 General AI API Advice
 
 - Only enter your own API key; do not share it for your security.
 - NeoBleeper does not transmit your API key except directly to the Gemini service as needed for feature use.

@@ -170,7 +170,34 @@ Se ha producido un error: RESOURCE_EXHAUSTED (Code: 429): You exceeded your curr
 
 ---
 
-### 6.2 Restricciones regionales o por país
+### 6.2 Solución de problemas para modelos Gemini muy nuevos o no documentados (p. ej., Gemini 3 Pro Preview)
+
+Algunos modelos Gemini, especialmente los lanzamientos más recientes como **Gemini 3 Pro Preview**, podrían no aparecer en la documentación oficial de precios o cuotas de la API de Gemini en el momento de su lanzamiento. Es posible que se produzcan errores de cuota, acceso o "RESOURCE_EXHAUSTED" incluso si la cuota total de su cuenta parece estar sin usar.
+
+**Consideraciones importantes para los modelos muy nuevos:**
+- Google suele limitar el acceso a los modelos de vista previa (como Gemini 3 Pro Preview) a cuentas o regiones específicas y puede imponer límites de solicitud y uso mucho más estrictos.
+
+- Las cuentas gratuitas podrían tener cuota cero para estos modelos o las solicitudes podrían estar bloqueadas por completo.
+
+- Es posible que el modelo no esté visible en las pestañas de cuota/precios ni en la documentación de Google durante varias semanas después de su lanzamiento.
+
+- Los precios, el acceso y la disponibilidad de los nuevos modelos Gemini pueden cambiar con frecuencia.
+
+**Qué hacer si encuentra errores:**
+- Verifique su [uso de la API y cuotas](https://ai.dev/usage?tab=rate-limit) y si el nuevo modelo aparece en su consola.
+
+- Revise la [documentación de la API de Gemini](https://ai.google.dev/gemini-api/docs/rate-limits), pero tenga en cuenta que la documentación puede estar desactualizada con respecto a los modelos recién lanzados.
+
+- Si ve errores como "RESOURCE_EXHAUSTED" para un modelo que no está documentado en las tablas de precios oficiales, probablemente significa que el modelo aún no está disponible para el público general o que el acceso a la vista previa es muy restringido.
+
+- Espere a que Google actualice su documentación y a que se implemente de forma generalizada si necesita usar estos modelos experimentales.
+
+> **Nota:**
+> NeoBleeper y aplicaciones similares no pueden eludir estas limitaciones. Si su cuenta o región no cumple con los requisitos, debe esperar hasta que Google habilite oficialmente el acceso o aumente la cuota para el modelo de Gemini que haya elegido.
+
+---
+
+### 6.3 Restricciones regionales o por país
 
 #### "La API no está disponible en tu país"
 
@@ -200,7 +227,7 @@ En el Espacio Económico Europeo, Suiza o el Reino Unido, la API de Gemini™ pu
 
 --
 
-### 6.3 Consejos generales sobre la API de IA
+### 6.4 Consejos generales sobre la API de IA
 
 - Introduce solo tu propia clave de API; no la compartas por tu seguridad.
 

@@ -153,7 +153,37 @@ Es ist ein Fehler aufgetreten: RESOURCE_EXHAUSTED (Code: 429): You exceeded your
 
 ---
 
-### 6.2 Regionale oder länderspezifische Einschränkungen
+### 6.2 Fehlerbehebung für sehr neue oder undokumentierte Gemini-Modelle (z. B. Gemini 3 Pro Preview)
+
+Einige Gemini-Modelle – insbesondere brandneue Versionen wie **Gemini 3 Pro Preview** – werden möglicherweise bei Veröffentlichung nicht in der offiziellen Gemini-API-Preis- oder Kontingentdokumentation angezeigt. Es können Kontingent-, Zugriffs- oder „RESOURCE_EXHAUSTED“-Fehler auftreten, selbst wenn Ihr Gesamtkontingent scheinbar ungenutzt ist.
+
+**Wichtige Hinweise zu sehr neuen Modellen:**
+
+- Google beschränkt den Zugriff auf Preview-Modelle (wie Gemini 3 Pro Preview) häufig auf ausgewählte Konten oder bestimmte Regionen und kann deutlich strengere Anfrage- und Nutzungslimits festlegen.
+
+- Kostenlose Konten haben möglicherweise kein Kontingent für diese Modelle, oder Anfragen werden vollständig blockiert.
+
+- Das Modell ist möglicherweise erst mehrere Wochen nach Veröffentlichung in den Tabs für Kontingent/Preise oder in der Google-Dokumentation sichtbar.
+
+- Preise, Zugriff und Verfügbarkeit neuer Gemini-Modelle können sich häufig ändern.
+
+**Was tun bei Fehlern?**
+
+- Überprüfen Sie Ihre [API-Nutzung und -Kontingente](https://ai.dev/usage?tab=rate-limit) und ob das neue Modell in Ihrer Konsole angezeigt wird.
+
+- Lesen Sie die [Gemini-API-Dokumentation](https://ai.google.dev/gemini-api/docs/rate-limits). Beachten Sie jedoch, dass die Dokumentation möglicherweise nicht mit neu veröffentlichten Modellen übereinstimmt.
+
+- Wenn Sie Fehler wie „RESOURCE_EXHAUSTED“ für ein Modell sehen, das nicht in den offiziellen Preistabellen aufgeführt ist, bedeutet dies wahrscheinlich, dass das Modell noch nicht allgemein verfügbar ist oder nur eingeschränkten Zugriff auf die Vorschau hat.
+
+- Warten Sie, bis Google die Dokumentation aktualisiert und die Modelle breiter verfügbar gemacht hat, falls Sie diese experimentellen Modelle verwenden müssen.
+
+> **Hinweis:**
+
+> NeoBleeper und ähnliche Anwendungen können diese Beschränkungen nicht umgehen. Wenn Ihr Konto oder Ihre Region nicht berechtigt ist, müssen Sie warten, bis Google den Zugriff offiziell freigibt oder das Kontingent für Ihr gewähltes Gemini-Modell erhöht.
+
+---
+
+### 6.3 Regionale oder länderspezifische Einschränkungen
 
 #### "API ist in Ihrem Land nicht verfügbar"
 
@@ -183,7 +213,7 @@ Im Europäischen Wirtschaftsraum, in der Schweiz oder im Vereinigten Königreich
 
 ---
 
-### 6.3 Allgemeine Hinweise zur KI-API
+### 6.4 Allgemeine Hinweise zur KI-API
 
 - Geben Sie nur Ihren eigenen API-Schlüssel ein; geben Sie ihn aus Sicherheitsgründen nicht weiter.
 

@@ -156,7 +156,28 @@ Tính năng "Sáng tác nhạc bằng AI" của NeoBleeper sử dụng API Googl
 
 ---
 
-### 6.2 Giới hạn theo Khu vực hoặc Quốc gia
+### 6.2 Khắc phục sự cố cho các mô hình Gemini rất mới hoặc chưa được ghi chép (ví dụ: Bản xem trước Gemini 3 Pro)
+
+Một số mô hình Gemini—đặc biệt là các bản phát hành hoàn toàn mới như **Bản xem trước Gemini 3 Pro**—có thể không xuất hiện trong tài liệu định giá hoặc hạn ngạch API Gemini chính thức khi ra mắt. Bạn có thể gặp lỗi hạn ngạch, quyền truy cập hoặc lỗi "RESOURCE_EXHAUSTED" ngay cả khi hạn ngạch tài khoản tổng thể của bạn dường như chưa được sử dụng.
+
+**Những cân nhắc quan trọng đối với các mô hình rất mới:**
+- Google thường giới hạn quyền truy cập vào các mô hình xem trước (như Bản xem trước Gemini 3 Pro) cho một số tài khoản hoặc khu vực cụ thể và có thể áp dụng các giới hạn yêu cầu và sử dụng nghiêm ngặt hơn nhiều.
+- Tài khoản miễn phí có thể không có hạn ngạch cho các mô hình này hoặc các yêu cầu có thể bị chặn hoàn toàn.
+- Mô hình có thể không hiển thị trong các tab hạn ngạch/giá hoặc tài liệu của Google trong vài tuần sau khi phát hành.
+- Giá cả, quyền truy cập và tính khả dụng của các mô hình Gemini mới có thể thay đổi thường xuyên.
+
+**Cần làm gì nếu gặp lỗi:**
+- Kiểm tra kỹ [mức sử dụng API và hạn ngạch](https://ai.dev/usage?tab=rate-limit) của bạn và xem mô hình mới có xuất hiện trong bảng điều khiển của bạn hay không.
+- Xem lại [tài liệu API Gemini](https://ai.google.dev/gemini-api/docs/rate-limits), nhưng lưu ý rằng tài liệu có thể chậm hơn so với các mô hình mới phát hành.
+- Nếu bạn thấy lỗi như "RESOURCE_EXHAUSTED" đối với một mô hình không được ghi trong bảng giá chính thức, điều đó có thể có nghĩa là mô hình đó chưa được cung cấp rộng rãi hoặc có quyền truy cập xem trước rất hạn chế.
+- Chờ Google cập nhật tài liệu của họ và triển khai rộng rãi hơn nếu bạn cần sử dụng các mô hình thử nghiệm này.
+
+> **Lưu ý:**
+> NeoBleeper và các ứng dụng tương tự không thể vượt qua những hạn chế này. Nếu tài khoản hoặc khu vực của bạn không đủ điều kiện, bạn phải đợi cho đến khi Google chính thức cho phép truy cập hoặc tăng hạn ngạch cho mô hình Gemini bạn đã chọn.
+
+---
+
+### 6.3 Giới hạn theo Khu vực hoặc Quốc gia
 
 #### "API không khả dụng tại quốc gia của bạn"
 
@@ -182,7 +203,7 @@ Tại Khu vực Kinh tế Châu Âu, Thụy Sĩ hoặc Vương quốc Anh, API G
 
 ---
 
-### 6.3 Lời khuyên chung về API AI
+### 6.4 Lời khuyên chung về API AI
 
 - Chỉ nhập khóa API của riêng bạn; không chia sẻ khóa này vì lý do bảo mật.
 - NeoBleeper không truyền khóa API của bạn, ngoại trừ trực tiếp đến dịch vụ Gemini khi cần sử dụng tính năng.
