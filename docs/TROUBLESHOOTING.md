@@ -156,6 +156,8 @@ An error occurred: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quo
 - **Wait and retry later:** Sometimes, waiting a few moments will allow quota to refresh temporarily, as indicated by the message’s countdown.
 - **Review [Gemini API documentation](https://ai.google.dev/gemini-api/docs/rate-limits) for up-to-date usage policies and rate limits.**
 
+---
+
 ### 6.2 Troubleshooting for Very New or Undocumented Gemini Models (e.g., Gemini 3 Pro Preview)
 
 Some Gemini models—especially brand new releases such as **Gemini 3 Pro Preview**—may not appear in the official Gemini API pricing or quota documentation at launch. You may encounter quota, access, or "RESOURCE_EXHAUSTED" errors even if your overall account quota appears unused.
