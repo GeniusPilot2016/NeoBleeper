@@ -682,6 +682,7 @@ namespace NeoBleeper
                         $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +
                         $"- Use UTF-8 encoding and escape special characters (&lt;, &gt;, &amp;, &apos;, &quot;) correctly.\r\n" +
                         $"- Ensure all tags are properly closed and formatted.\r\n" +
+                        $"- Use self-closing tags, if a tag is empty.\r\n" +
                         $"- Use the provided <Settings> as context for parameters like BPM and Time Signature unless overridden by the user prompt.\r\n" +
                         $"- Populate the <LineList> section with <Line> elements representing musical events or rests.\r\n" +
                         $"- Each <Line> must include:\r\n" +
@@ -1091,7 +1092,6 @@ namespace NeoBleeper
             output = Regex.Replace(output, @"</Note3\s*</Note3>", "</Note3>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</Note2\s*</Note2>", "</Note2>", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"</Note1\s*</Note1>", "</Note1>", RegexOptions.IgnoreCase);
-
             // Apply additional transformations to ensure NBPML format compliance
             output = Regex.Replace(output, @"<\s*/?\s*alternatetime\s*>", m =>
             {
@@ -1145,6 +1145,27 @@ namespace NeoBleeper
             output = output.Trim();
             output = SynchronizeLengths(output);
             output = output.Trim();
+
+            // Make empty note tags self-closing
+            output = Regex.Replace(
+                output,
+                @"<(Note1|Note2|Note3|Note4)>\s*</(Note1|Note2|Note3|Note4)>",
+                "<$1 />",
+                RegexOptions.Multiline);
+
+            // Clean up other tags like Mod and Art
+            output = Regex.Replace(
+                output,
+                @"<(Mod|Art)>\s*</(Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
+
+            // Clean up whitespace between tags
+            output = Regex.Replace(
+                output,
+                @">\s+<",
+                "><",
+                RegexOptions.Multiline);
 
             // Remove XML declaration if present
             output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
