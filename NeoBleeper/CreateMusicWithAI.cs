@@ -744,7 +744,7 @@ namespace NeoBleeper
                         $"    </LineList>\r\n" +
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
-                    if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text))
+                    if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
                         // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
                         string rawOutput = googleResponse.Text();
@@ -1030,6 +1030,18 @@ namespace NeoBleeper
         private string RewriteOutput(string output)
         {
             // Regex spaghetti to fix common issues in the AI-generated XML output
+            // Make empty note tags self-closing
+            output = Regex.Replace(
+                output,
+                @"<(Note1|Note2|Note3|Note4)>\s*</(Note1|Note2|Note3|Note4)>",
+                "<$1 />",
+                RegexOptions.Multiline);
+            // Clean up other tags like Mod and Art
+            output = Regex.Replace(
+                output,
+                @"<(Mod|Art)>\s*</(Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
             // Ensure all tags are properly closed and formatted
             output = Regex.Replace(output, @"(?<!<)(NeoBleeperProjectFile>.*?</NeoBleeperProjectFile>)", "<$1", RegexOptions.IgnoreCase);
             output = Regex.Replace(output, @"(?<!<)(Settings>.*?</Settings>)", "<$1", RegexOptions.IgnoreCase);
