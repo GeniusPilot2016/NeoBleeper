@@ -204,6 +204,8 @@ Certains modèles Gemini, notamment les toutes nouvelles versions comme **Gemini
 
 > NeoBleeper et les applications similaires ne peuvent pas contourner ces limitations. Si votre compte ou votre région n'est pas éligible, vous devez attendre que Google active officiellement l'accès ou augmente le quota pour le modèle Gemini choisi.
 
+---
+
 ### 6.3 Restrictions régionales ou nationales
 
 #### « L'API n'est pas disponible dans votre pays »
