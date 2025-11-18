@@ -181,6 +181,8 @@ Einige Gemini-Modelle – insbesondere brandneue Versionen wie **Gemini 3 Pro Pr
 
 > NeoBleeper und ähnliche Anwendungen können diese Beschränkungen nicht umgehen. Wenn Ihr Konto oder Ihre Region nicht berechtigt ist, müssen Sie warten, bis Google den Zugriff offiziell freigibt oder das Kontingent für Ihr gewähltes Gemini-Modell erhöht.
 
+---
+
 ### 6.3 Regionale oder länderspezifische Einschränkungen
 
 #### "API ist in Ihrem Land nicht verfügbar"
