@@ -135,8 +135,15 @@ namespace NeoBleeper
         {
             const int WM_SETTINGCHANGE = 0x001A;
             const int WM_INPUTLANGCHANGE = 0x0051;
-            base.WndProc(ref m);
+            const int WM_POWERBROADCAST = 0x0218;
+            const int WM_QUERYENDSESSION = 0x0011;
+            const int WM_ENDSESSION = 0x0016;
 
+            const int PBT_APMSUSPEND = 0x0004; // System is suspending (sleep/hibernate)
+            const int PBT_APMRESUMESUSPEND = 0x0007; // System is resuming from suspend
+            const uint ENDSESSION_LOGOFF = 0x80000000; // Logoff flag in WM_QUERYENDSESSION/WM_ENDSESSION
+
+            base.WndProc(ref m);
             if (m.Msg == WM_SETTINGCHANGE)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
@@ -144,9 +151,54 @@ namespace NeoBleeper
                     set_theme();
                 }
             }
-            if(m.Msg == WM_INPUTLANGCHANGE)
+            if (m.Msg == WM_INPUTLANGCHANGE)
             {
                 InitializeButtonShortcuts();
+            }
+            switch (m.Msg)
+            {
+                case WM_POWERBROADCAST:
+                    if (m.WParam.ToInt32() == PBT_APMSUSPEND)
+                    {
+                        // Handle system sleep/hibernate
+                        stop_playing(); // Stop playing sounds
+                        stopPlayingAllSounds(); // Stop all sounds
+                    }
+                    else if (m.WParam.ToInt32() == PBT_APMRESUMESUSPEND)
+                    {
+                        // Handle system resume
+                        // Do nothing special on resume for now
+                    }
+                    break;
+                case WM_QUERYENDSESSION:
+                    if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
+                    {
+                        // Handle logoff preparation
+                        stop_playing(); // Stop playing sounds
+                        stopPlayingAllSounds(); // Stop all sounds
+                    }
+                    else
+                    {
+                        // Handle shutdown preparation
+                        AskForSavingIfModified(() => { Application.Exit(); });
+                    }
+                    break;
+                case WM_ENDSESSION:
+                    if (m.WParam.ToInt32() != 0)
+                    {
+                        if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
+                        {
+                            // Handle actual logoff
+                            stop_playing(); // Stop playing sounds
+                            stopPlayingAllSounds(); // Stop all sounds
+                        }
+                        else
+                        {
+                            // Handle actual shutdown
+                            AskForSavingIfModified(() => { Application.Exit(); });
+                        }
+                    }
+                    break;
             }
         }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
@@ -2229,7 +2281,7 @@ namespace NeoBleeper
         {
             AskForSavingIfModified(new Action(() => createNewFile()));
         }
-        private async void stopPlayingAllSounds()
+        public async void stopPlayingAllSounds()
         {
             if (is_music_playing == true)
             {
@@ -2898,32 +2950,14 @@ namespace NeoBleeper
                 {
                     label_beep.BeginInvoke(() =>
                     {
-                        SuspendLayout();
-                        if (label_beep.InvokeRequired)
-                        {
-                            label_beep.Invoke(new Action(() => label_beep.Visible = visible));
-                        }
-                        else
-                        {
-                            label_beep.Visible = visible;
-                        }
-                        ResumeLayout(performLayout: true);
-                        return;
+                        UpdateLabelVisible(visible);
                     });
                 }
                 else
                 {
-                    SuspendLayout();
-                    if (label_beep.InvokeRequired)
-                    {
-                        label_beep.Invoke(new Action(() => label_beep.Visible = visible));
-                    }
-                    else
-                    {
-                        label_beep.Visible = visible;
-                    }
-                    ResumeLayout(performLayout: true);
-                    return;
+                    label_beep.SuspendLayout();
+                    label_beep.Visible = visible;
+                    label_beep.ResumeLayout(performLayout: true);
                 }
             }
             catch
@@ -4091,6 +4125,8 @@ namespace NeoBleeper
         }
         private void enableDisableTabStopOnEntireForm(Form form)
         {
+            this.TabStop = !checkBox_use_keyboard_as_piano.Checked;
+            this.CausesValidation = !checkBox_use_keyboard_as_piano.Checked;
             foreach (Control control in form.Controls)
             {
                 enableDisableTabStop(control);

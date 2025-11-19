@@ -56,8 +56,15 @@ namespace NeoBleeper
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
+            const int WM_POWERBROADCAST = 0x0218;
+            const int WM_QUERYENDSESSION = 0x0011;
+            const int WM_ENDSESSION = 0x0016;
 
+            const int PBT_APMSUSPEND = 0x0004; // System is suspending (sleep/hibernate)
+            const int PBT_APMRESUMESUSPEND = 0x0007; // System is resuming from suspend
+            const uint ENDSESSION_LOGOFF = 0x80000000; // Logoff flag in WM_QUERYENDSESSION/WM_ENDSESSION
+
+            base.WndProc(ref m);
             if (m.Msg == WM_SETTINGCHANGE)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
@@ -65,6 +72,60 @@ namespace NeoBleeper
                     set_theme();
                 }
             }
+            switch (m.Msg)
+            {
+                case WM_POWERBROADCAST:
+                    if (m.WParam.ToInt32() == PBT_APMSUSPEND)
+                    {
+                        // Handle system sleep/hibernate
+                        stopImmediately(); // Stop playing MIDI file and notes immediately
+                    }
+                    else if (m.WParam.ToInt32() == PBT_APMRESUMESUSPEND)
+                    {
+                        // Handle system resume
+                        // Do nothing special on resume for now
+                    }
+                    break;
+                case WM_QUERYENDSESSION:
+                    if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
+                    {
+                        // Handle logoff preparation
+                        stopImmediately(); // Stop playing MIDI file and notes immediately
+                    }
+                    else
+                    {
+                        stopImmediately(); // Stop playing MIDI file and notes immediately
+                        Application.Exit();
+                    }
+                    break;
+                case WM_ENDSESSION:
+                    if (m.WParam.ToInt32() != 0)
+                    {
+                        if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
+                        {
+                            // Handle actual logoff
+                            stopImmediately(); // Stop playing MIDI file and notes immediately
+                        }
+                        else
+                        {
+                            // Handle actual shutdown
+                            stopImmediately(); // Stop playing MIDI file and notes immediately
+                            Application.Exit();
+                        }
+                    }
+                    break;
+            }
+        }
+        private void stopNotesImmediately()
+        {
+            NotePlayer.StopAllNotes();
+            NotePlayer.StopMicrocontrollerSound();
+            MIDIIOUtils.StopAllNotes();
+        }
+        private void stopImmediately()
+        {
+            Stop();
+            stopNotesImmediately();
         }
         private void set_theme()
         {

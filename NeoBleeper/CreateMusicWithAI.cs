@@ -814,6 +814,7 @@ namespace NeoBleeper
                         output = Regex.Replace(output, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"<Note(\d)>(.*?)</Note(\d)>", m =>
                         {
                             var open = m.Groups[1].Value;
