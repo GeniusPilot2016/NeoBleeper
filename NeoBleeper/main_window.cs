@@ -88,7 +88,6 @@ namespace NeoBleeper
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
-        string openedFilePath = Program.filePath;
         public main_window()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -122,6 +121,7 @@ namespace NeoBleeper
                 InitializeMidiInput();
             }
             InitializePercussionNames();
+            this.Icon = Resources.icon;
         }
         private void resizeColumn()
         {

@@ -804,6 +804,16 @@ namespace NeoBleeper
                         output = Regex.Replace(output, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bDflat(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bEflat(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bGflat(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bAflat(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bBflat(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bCsharp(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bDsharp(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"<Note(\d)>(.*?)</Note(\d)>", m =>
                         {
                             var open = m.Groups[1].Value;
@@ -1033,13 +1043,7 @@ namespace NeoBleeper
             // Make empty note tags self-closing
             output = Regex.Replace(
                 output,
-                @"<(Note1|Note2|Note3|Note4)>\s*</(Note1|Note2|Note3|Note4)>",
-                "<$1 />",
-                RegexOptions.Multiline);
-            // Clean up other tags like Mod and Art
-            output = Regex.Replace(
-                output,
-                @"<(Mod|Art)>\s*</(Mod|Art)>",
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
                 "<$1 />",
                 RegexOptions.Multiline);
             // Ensure all tags are properly closed and formatted
@@ -1162,14 +1166,7 @@ namespace NeoBleeper
             // Make empty note tags self-closing
             output = Regex.Replace(
                 output,
-                @"<(Note1|Note2|Note3|Note4)>\s*</(Note1|Note2|Note3|Note4)>",
-                "<$1 />",
-                RegexOptions.Multiline);
-
-            // Clean up other tags like Mod and Art
-            output = Regex.Replace(
-                output,
-                @"<(Mod|Art)>\s*</(Mod|Art)>",
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
                 "<$1 />",
                 RegexOptions.Multiline);
 
@@ -1246,7 +1243,38 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"</playnote4>", "</PlayNote4>", RegexOptions.IgnoreCase);
             // Fix for mismatched tags like <Note3>...<Note4>
             xmlContent = Regex.Replace(xmlContent, @"<(?<tag1>Note\d)>(?<content>.*?)<(?<tag2>Note\d)>", "</${tag1}><${tag2}>", RegexOptions.IgnoreCase);
-
+            // Fix for reversed tags like </Note1>...<Note1>
+            xmlContent = Regex.Replace(xmlContent, @"</(?<tag1>Note\d)>(?<content>.*?)</(?<tag2>Note\d)>", "<${tag1}>${content}</${tag2}>", RegexOptions.IgnoreCase);
+            // Fix for wrong closing tags
+            xmlContent = Regex.Replace(
+                xmlContent,
+               @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
+            "</$1>", RegexOptions.IgnoreCase); 
+            xmlContent = Regex.Replace(
+               xmlContent,
+               @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>>", "</$1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+               xmlContent,
+               @"<<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>>", "<$1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+               xmlContent,
+               @"<<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>", "<$1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+               xmlContent,
+               @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)", "<$1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+              xmlContent,
+              @"</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)", "</$1>", RegexOptions.IgnoreCase);
+            // Make empty note tags self-closing
+            xmlContent = Regex.Replace(
+                xmlContent,
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
+            xmlContent = Regex.Replace(
+              xmlContent,
+              @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>/>", "<$1/>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(output, @"<(\w+)\s*>[\s]*/>", "<$1 />");
             return xmlContent;
         }
         private string SynchronizeLengths(string xmlContent)
