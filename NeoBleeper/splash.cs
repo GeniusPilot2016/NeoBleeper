@@ -80,7 +80,8 @@ namespace NeoBleeper
                         Logger.Log("Skipping system speaker beep stop on ARM64 architecture.", Logger.LogTypes.Info);
                     }
                     Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
-                    Environment.Exit(0); // Force exit the application after cleaning up
+                    Application.Exit(); // Signal application exit
+                    Environment.Exit(0); // Ensure the process is terminated immediately
                 }
                 catch (Exception ex)
                 {
