@@ -88,7 +88,6 @@ namespace NeoBleeper
         string currentFilePath;
         public Boolean is_music_playing = false;
         Boolean is_file_valid = false;
-        string openedFilePath = Program.filePath;
         public main_window()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -122,6 +121,7 @@ namespace NeoBleeper
                 InitializeMidiInput();
             }
             InitializePercussionNames();
+            this.Icon = Resources.icon;
         }
         private void resizeColumn()
         {
@@ -4685,6 +4685,7 @@ namespace NeoBleeper
         {
             InitializeMetronome();
             UpdateRecentFilesMenu();
+            this.Icon = Resources.icon;
         }
 
         private void checkBox_add_note_to_list_CheckedChanged(object sender, EventArgs e)
@@ -6159,6 +6160,7 @@ namespace NeoBleeper
             {
                 openFiles(Program.filePath, FileOpenMode.OpenedAsArg);
             }
+            this.Icon = Resources.icon;
         }
 
         private void convertToBeepCommandForLinuxToolStripMenuItem_Click(object sender, EventArgs e)
