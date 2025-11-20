@@ -1161,7 +1161,7 @@ namespace NeoBleeper
             // Additional transformations for NBPML compliance
             output = FixParameterNames(output);
             output = output.Trim();
-            Debug.WriteLine(output);
+            //Debug.WriteLine(output);
             output = SynchronizeLengths(output);
             output = output.Trim();
 
