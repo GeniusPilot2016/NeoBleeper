@@ -1277,6 +1277,7 @@ namespace NeoBleeper
               xmlContent,
               @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>/>", "<$1/>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(output, @"<(\w+)\s*>[\s]*/>", "<$1 />");
+            xmlContent = Regex.Replace(xmlContent, @"<(\w+)\s*/>\s*</\1>", "<$1 />", RegexOptions.Multiline);
             return xmlContent;
         }
         private string SynchronizeLengths(string xmlContent)
