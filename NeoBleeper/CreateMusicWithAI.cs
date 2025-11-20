@@ -761,6 +761,7 @@ namespace NeoBleeper
                             generatedFilename = string.Empty; // Clear the filename if it's an error message
                             output = String.Empty; // Clear the output if it's an error message
                             this.Close(); // Close the form after handling the error message
+                            return;
                         }
                         var xmlMatch = Regex.Match(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>");
                         if (xmlMatch.Success)
