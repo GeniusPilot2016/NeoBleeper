@@ -4396,13 +4396,29 @@ namespace NeoBleeper
                 }
 
                 // Copy to clipboard
-                Clipboard.SetText(clipboardText.ToString());
+                string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
+                Clipboard.SetText(standardizedText);
                 Toast toast = new Toast(this, Resources.ToastMessageNotesCopy, 2000);
                 toast.Show();
                 Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
             }
         }
-
+        private string StandardizeLocalizedLengthModsAndArticulations(string rawClipboardText)
+        {
+            string standardizedText = rawClipboardText
+                .Replace(Resources.WholeNote, "Whole")
+                .Replace(Resources.HalfNote, "Half")
+                .Replace(Resources.QuarterNote, "Quarter")
+                .Replace(Resources.EighthNote, "1/8")
+                .Replace(Resources.SixteenthNote, "1/16")
+                .Replace(Resources.ThirtySecondNote, "1/32")
+                .Replace(Resources.DottedModifier, "Dot")
+                .Replace(Resources.TripletModifier, "Tri")
+                .Replace(Resources.StaccatoArticulation, "Sta")
+                .Replace(Resources.SpiccatoArticulation, "Spi")
+                .Replace(Resources.FermataArticulation, "Fer");
+            return standardizedText;
+        }
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PasteFromClipboard();
@@ -4412,7 +4428,7 @@ namespace NeoBleeper
         {
             if (!Clipboard.ContainsText()) return;
 
-            string clipboardText = Clipboard.GetText();
+            string clipboardText = LocalizeLengthModsAndArticulations(Clipboard.GetText());
             string[] lines = clipboardText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int insertIndex = -1;
@@ -4456,6 +4472,21 @@ namespace NeoBleeper
 
                 Logger.Log("Paste is executed.", Logger.LogTypes.Info);
             }
+        }
+        private string LocalizeLengthModsAndArticulations(string standardizedClipboardText)
+        {
+            string localizedText = standardizedClipboardText.Replace("Whole", Resources.WholeNote)
+                .Replace("Half", Resources.HalfNote)
+                .Replace("Quarter", Resources.QuarterNote)
+                .Replace("1/8", Resources.EighthNote)
+                .Replace("1/16", Resources.SixteenthNote)
+                .Replace("1/32", Resources.ThirtySecondNote)
+                .Replace("Dot", Resources.DottedModifier)
+                .Replace("Tri", Resources.TripletModifier)
+                .Replace("Sta", Resources.StaccatoArticulation)
+                .Replace("Spi", Resources.SpiccatoArticulation)
+                .Replace("Fer", Resources.FermataArticulation);
+            return localizedText;
         }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4612,8 +4643,8 @@ namespace NeoBleeper
                 {
                     clipboardText.Length--;
                 }
-
-                Clipboard.SetText(clipboardText.ToString());
+                string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
+                Clipboard.SetText(standardizedText);
 
                 var removeCommand = new RemoveNoteCommand(listViewNotes, Target.Both);
                 commandManager.ExecuteCommand(removeCommand);
