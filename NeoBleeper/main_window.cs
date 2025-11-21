@@ -133,23 +133,7 @@ namespace NeoBleeper
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
         }
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Enable WS_EX_COMPOSITED style
-                return cp;
-            }
-        }
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
-        private const int WM_SETICON = 0x0080;
-        private static readonly IntPtr ICON_SMALL = new IntPtr(0);
-        private static readonly IntPtr ICON_BIG = new IntPtr(1);
-
-       
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
@@ -5360,7 +5344,7 @@ namespace NeoBleeper
         {
             RemoveKey((int)e.KeyCode);
         }
-        private void RemoveKey(int keyCode) 
+        private void RemoveKey(int keyCode)
         {
             pressedKeys.Remove(keyCode);
             keyCharNum = pressedKeys.ToArray();
@@ -5396,7 +5380,7 @@ namespace NeoBleeper
         }
         private void RemoveAllKeys()
         {
-            foreach(int key in pressedKeys)
+            foreach (int key in pressedKeys)
             {
                 RemoveKey(key);
             }
@@ -6335,6 +6319,12 @@ namespace NeoBleeper
         private void trackBar_note_silence_ratio_MouseUp(object sender, MouseEventArgs e)
         {
             setNoteSilenceValueChanged();
+        }
+
+        private void main_window_Paint(object sender, PaintEventArgs e)
+        {
+            trackBar_note_silence_ratio.Refresh();
+            trackBar_time_signature.Refresh();
         }
     }
 }
