@@ -103,6 +103,8 @@ namespace NeoBleeper
             lastListHash = ComputeListHash();
             listViewNotes.DoubleBuffering(true);
             label_beep.DoubleBuffering(true);
+            trackBar_note_silence_ratio.DoubleBuffering(true);
+            trackBar_time_signature.DoubleBuffering(true);
             UpdateUndoRedoButtons();
             resizeColumn();
             main_window_refresh();
@@ -5313,6 +5315,11 @@ namespace NeoBleeper
         private HashSet<int> pressedKeys = new HashSet<int>();
         private void main_window_KeyDown(object sender, KeyEventArgs e)
         {
+            if(e.KeyCode == Keys.Tab)
+            {
+                trackBar_note_silence_ratio.Refresh();
+                trackBar_time_signature.Refresh();
+            }
             // Check if the key is one we want to use for piano playing
             if (IsKeyboardPianoKey(e.KeyCode))
             {
@@ -6319,12 +6326,6 @@ namespace NeoBleeper
         private void trackBar_note_silence_ratio_MouseUp(object sender, MouseEventArgs e)
         {
             setNoteSilenceValueChanged();
-        }
-
-        private void main_window_Paint(object sender, PaintEventArgs e)
-        {
-            trackBar_note_silence_ratio.Refresh();
-            trackBar_time_signature.Refresh();
         }
     }
 }

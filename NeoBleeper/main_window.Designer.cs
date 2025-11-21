@@ -2108,7 +2108,6 @@
             Shown += main_window_Shown;
             DragDrop += main_window_DragDrop;
             DragEnter += main_window_DragEnter;
-            Paint += main_window_Paint;
             KeyDown += main_window_KeyDown;
             KeyUp += main_window_KeyUp;
             SystemColorsChanged += main_window_SystemColorsChanged;
