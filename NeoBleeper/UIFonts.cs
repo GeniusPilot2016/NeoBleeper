@@ -135,6 +135,7 @@ namespace NeoBleeper
         }
         public static void setFonts(Form form)
         {
+            form.SuspendLayout();
             UIFonts uiFonts = UIFonts.Instance;
             SetFontsRecursive(form, uiFonts);
             foreach (var field in form.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
@@ -157,6 +158,7 @@ namespace NeoBleeper
                     }
                 }
             }
+            form.ResumeLayout();
         }
 
         private static void SetFontsRecursive(Control parent, UIFonts uiFonts)

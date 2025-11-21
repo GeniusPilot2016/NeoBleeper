@@ -92,6 +92,7 @@ namespace NeoBleeper
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            this.SuspendLayout();
             keyToolTip = toolTip1.GetToolTip(button_c3) != null ? toolTip1.GetToolTip(button_c3) : string.Empty;
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
@@ -122,6 +123,7 @@ namespace NeoBleeper
             }
             InitializePercussionNames();
             this.Icon = Resources.icon;
+            this.ResumeLayout();
         }
         private void resizeColumn()
         {
@@ -131,6 +133,23 @@ namespace NeoBleeper
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Enable WS_EX_COMPOSITED style
+                return cp;
+            }
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        private const int WM_SETICON = 0x0080;
+        private static readonly IntPtr ICON_SMALL = new IntPtr(0);
+        private static readonly IntPtr ICON_BIG = new IntPtr(1);
+
+       
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
