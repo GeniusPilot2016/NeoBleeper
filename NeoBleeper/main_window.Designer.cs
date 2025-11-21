@@ -630,7 +630,6 @@
             // numericUpDown_alternating_notes
             // 
             resources.ApplyResources(numericUpDown_alternating_notes, "numericUpDown_alternating_notes");
-            numericUpDown_alternating_notes.BorderStyle = BorderStyle.FixedSingle;
             numericUpDown_alternating_notes.Increment = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_alternating_notes.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numericUpDown_alternating_notes.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
@@ -730,7 +729,6 @@
             // numericUpDown_bpm
             // 
             resources.ApplyResources(numericUpDown_bpm, "numericUpDown_bpm");
-            numericUpDown_bpm.BorderStyle = BorderStyle.FixedSingle;
             numericUpDown_bpm.Increment = new decimal(new int[] { 5, 0, 0, 0 });
             numericUpDown_bpm.Maximum = new decimal(new int[] { 600, 0, 0, 0 });
             numericUpDown_bpm.Minimum = new decimal(new int[] { 40, 0, 0, 0 });

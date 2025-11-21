@@ -1489,6 +1489,46 @@ namespace NeoBleeper
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
                 Logger.Log("Classic Bleeper Mode disabled.", Logger.LogTypes.Info);
             }
+            foreach (Form openForm in Application.OpenForms)
+            {
+                openForm.SuspendLayout();
+                foreach (Control ctrl in openForm.Controls)
+                {
+                    RefreshControls(ctrl); // Refresh controls to apply the visual style change properly
+                }
+                openForm.ResumeLayout();
+            }
+        }
+        private void RefreshControls(Control ctrl)
+        {
+            if (ctrl.HasChildren)
+            {
+                foreach (Control child in ctrl.Controls.OfType<Control>().ToList())
+                {
+                    RefreshControls(child);
+                }
+            }
+
+            if (ctrl is NumericUpDown numericUpDown)
+            {
+                if (numericUpDown.IsHandleCreated)
+                {
+                    typeof(Control)
+                        .GetMethod("RecreateHandle", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                        ?.Invoke(numericUpDown, null); // Recreate the handle to apply visual style changes
+                }
+            }
+            if (ctrl is TextBox textBox)
+            {
+                if (textBox.IsHandleCreated)
+                {
+                    typeof(Control)
+                        .GetMethod("RecreateHandle", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                        ?.Invoke(textBox, null); // Recreate the handle to apply visual style changes
+                }
+            }
+
+            ctrl.Refresh();
         }
 
         private void markup_color_change_Click(object sender, EventArgs e)
