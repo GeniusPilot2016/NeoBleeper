@@ -1,19 +1,4 @@
-﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
-// Copyright (C) 2023 GeniusPilot2016
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program. If not, see <https://www.gnu.org/licenses/>.
-
+﻿using Microsoft.Win32;
 using NeoBleeper;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -30,10 +15,10 @@ public static class UIHelper
 
     [DllImport("user32.dll")]
     private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-    
+
     [DllImport("user32.dll")]
     private static extern bool LockWindowUpdate(IntPtr hWndLock);
-    
+
     [DllImport("user32.dll")]
     private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
@@ -159,5 +144,170 @@ public static class UIHelper
             dpi = (int)g.DpiX;
         }
         return dpi / 96.0;
+    }
+    public static class ThemeManager
+    {
+        public static event EventHandler? ThemeChanged;
+
+        private static bool initialized = false;
+        private static IMessageFilter? filter;
+
+        // Windows messages to listen for theme changes
+        private const int WM_SETTINGCHANGE = 0x001A;
+        private const int WM_THEMECHANGED = 0x031A;
+        private const int WM_SYSCOLORCHANGE = 0x0015;
+
+        public static void Initialize()
+        {
+            if (initialized) return;
+            initialized = true;
+
+            // Add application-wide message filter to catch theme change messages
+            filter = new ThemeMessageFilter();
+            Application.AddMessageFilter(filter);
+
+            // Also catch user preference changes from SystemEvents
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+            // Initialize input language manager together so consumers need only call one initializer in common cases
+            InputLanguageManager.Initialize();
+        }
+
+        private static void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
+        {
+            NotifyThemeChanged();
+        }
+
+        private static void SystemEvents_UserPreferenceChanged(object? sender, UserPreferenceChangedEventArgs e)
+        {
+            NotifyThemeChanged();
+        }
+
+        public static void Cleanup()
+        {
+            if (!initialized) return;
+            initialized = false;
+            if (filter != null)
+            {
+                try { Application.RemoveMessageFilter(filter); } catch { }
+                filter = null;
+            }
+            SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
+            SystemEvents.DisplaySettingsChanged -= SystemEvents_DisplaySettingsChanged;
+            InputLanguageManager.Cleanup();
+        }
+
+        // Instead of invoking the event synchronously for all subscribers,
+        // invoke each subscriber in a safe/asynchronous way:
+        private static void NotifyThemeChanged()
+        {
+            var handlers = ThemeChanged;
+            if (handlers == null) return;
+
+            foreach (Delegate d in handlers.GetInvocationList())
+            {
+                if (d is EventHandler handler)
+                {
+                    try
+                    {
+                        // If the target is a WinForms Control, marshal to its UI thread using BeginInvoke
+                        if (handler.Target is System.Windows.Forms.Control ctrl && ctrl.IsHandleCreated)
+                        {
+                            try
+                            {
+                                ctrl.BeginInvoke(new Action(() =>
+                                {
+                                    try { handler.Invoke(null, EventArgs.Empty); } catch { }
+                                }));
+                            }
+                            catch
+                            {
+                                // ignore any BeginInvoke failures and fallback to ThreadPool
+                                System.Threading.ThreadPool.QueueUserWorkItem(_ =>
+                                {
+                                    try { handler.Invoke(null, EventArgs.Empty); } catch { }
+                                });
+                            }
+                        }
+                        else
+                        {
+                            // Non-control targets: run on ThreadPool to avoid blocking the message loop
+                            System.Threading.ThreadPool.QueueUserWorkItem(_ =>
+                            {
+                                try { handler.Invoke(null, EventArgs.Empty); } catch { }
+                            });
+                        }
+                    }
+                    catch
+                    {
+                        // Swallow per-handler exceptions to avoid breaking other subscribers
+                    }
+                }
+            }
+        }
+
+        // IMessageFilter implementation to catch Windows messages
+        private class ThemeMessageFilter : IMessageFilter
+        {
+            public bool PreFilterMessage(ref Message m)
+            {
+                if (m.Msg == WM_SETTINGCHANGE || m.Msg == WM_THEMECHANGED || m.Msg == WM_SYSCOLORCHANGE)
+                {
+                    NotifyThemeChanged();
+                }
+                return false; // Continue processing other messages
+            }
+        }
+    }
+    public static class InputLanguageManager
+    {
+        public static event EventHandler? InputLanguageChanged;
+
+        private static bool initialized = false;
+        private static IMessageFilter? filter;
+
+        // Windows message for input language change
+        private const int WM_INPUTLANGCHANGE = 0x0051;
+
+        public static void Initialize()
+        {
+            if (initialized) return;
+            initialized = true;
+
+            // Add a message filter to catch WM_INPUTLANGCHANGE globally
+            filter = new InputLangMessageFilter();
+            Application.AddMessageFilter(filter);
+
+            // NOTE:
+            // There is no static member called 'InputLanguage.InputLanguageChanged' in WinForms.
+            // Per-control events exist (Control.InputLanguageChanged) but not a static global event.
+            // We therefore only rely on the WM_INPUTLANGCHANGE message filter for a global notification.
+        }
+
+        // Cleanup method to remove filters/subscriptions if needed
+        public static void Cleanup()
+        {
+            if (!initialized) return;
+            initialized = false;
+
+            if (filter != null)
+            {
+                try { Application.RemoveMessageFilter(filter); } catch { }
+                filter = null;
+            }
+        }
+
+        private class InputLangMessageFilter : IMessageFilter
+        {
+            public bool PreFilterMessage(ref Message m)
+            {
+                if (m.Msg == WM_INPUTLANGCHANGE)
+                {
+                    InputLanguageChanged?.Invoke(null, EventArgs.Empty);
+                }
+                return false;
+            }
+        }
     }
 }

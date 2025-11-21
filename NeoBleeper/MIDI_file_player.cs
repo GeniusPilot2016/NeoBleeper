@@ -20,6 +20,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -42,6 +43,13 @@ namespace NeoBleeper
         {
             this.mainWindow = mainWindow;
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
+            PowerManager.SystemSleeping += PowerManager_SystemSleeping;
+            PowerManager.PreparingToShutdown += PowerManager_PreparingToShutdown;
+            PowerManager.PreparingToLogoff += PowerManager_PreparingToLogoff;
+            PowerManager.SystemHibernating += PowerManager_SystemHibernating;
+            PowerManager.Logoff += PowerManager_Logoff;
+            PowerManager.Shutdown += PowerManager_Shutdown;
             typeof(Panel).InvokeMember("DoubleBuffered",
         BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
         null, panel1, new object[] { true });
@@ -53,69 +61,55 @@ namespace NeoBleeper
             textBox1.Text = filename;
             LoadMIDI(filename);
         }
-        protected override void WndProc(ref Message m)
+
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
         {
-            const int WM_SETTINGCHANGE = 0x001A;
-            const int WM_POWERBROADCAST = 0x0218;
-            const int WM_QUERYENDSESSION = 0x0011;
-            const int WM_ENDSESSION = 0x0016;
-
-            const int PBT_APMSUSPEND = 0x0004; // System is suspending (sleep/hibernate)
-            const int PBT_APMRESUMESUSPEND = 0x0007; // System is resuming from suspend
-            const uint ENDSESSION_LOGOFF = 0x80000000; // Logoff flag in WM_QUERYENDSESSION/WM_ENDSESSION
-
-            base.WndProc(ref m);
-            if (m.Msg == WM_SETTINGCHANGE)
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
                     set_theme();
                 }
             }
-            switch (m.Msg)
-            {
-                case WM_POWERBROADCAST:
-                    if (m.WParam.ToInt32() == PBT_APMSUSPEND)
-                    {
-                        // Handle system sleep/hibernate
-                        stopImmediately(); // Stop playing MIDI file and notes immediately
-                    }
-                    else if (m.WParam.ToInt32() == PBT_APMRESUMESUSPEND)
-                    {
-                        // Handle system resume
-                        // Do nothing special on resume for now
-                    }
-                    break;
-                case WM_QUERYENDSESSION:
-                    if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
-                    {
-                        // Handle logoff preparation
-                        stopImmediately(); // Stop playing MIDI file and notes immediately
-                    }
-                    else
-                    {
-                        stopImmediately(); // Stop playing MIDI file and notes immediately
-                        Application.Exit();
-                    }
-                    break;
-                case WM_ENDSESSION:
-                    if (m.WParam.ToInt32() != 0)
-                    {
-                        if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
-                        {
-                            // Handle actual logoff
-                            stopImmediately(); // Stop playing MIDI file and notes immediately
-                        }
-                        else
-                        {
-                            // Handle actual shutdown
-                            stopImmediately(); // Stop playing MIDI file and notes immediately
-                            Application.Exit();
-                        }
-                    }
-                    break;
-            }
         }
+        private void PowerManager_Shutdown(object? sender, EventArgs e)
+        {
+            // Handle actual shutdown
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+            Application.Exit();
+        }
+
+        private void PowerManager_Logoff(object? sender, EventArgs e)
+        {
+            // Handle actual logoff
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+        }
+
+        private void PowerManager_SystemHibernating(object? sender, EventArgs e)
+        {
+            // Handle system sleep/hibernate
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+        }
+
+        private void PowerManager_PreparingToLogoff(object? sender, EventArgs e)
+        {
+            // Handle logoff preparation
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+        }
+
+        private void PowerManager_SystemSleeping(object? sender, EventArgs e)
+        {
+            // Handle system sleep/hibernate
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+        }
+
+        private void PowerManager_PreparingToShutdown(object? sender, EventArgs e)
+        {
+            // Handle shutdown preparation
+            stopImmediately(); // Stop playing MIDI file and notes immediately
+            Application.Exit();
+        }
+        
         private void stopNotesImmediately()
         {
             NotePlayer.StopAllNotes();
@@ -159,6 +153,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         private void dark_theme()

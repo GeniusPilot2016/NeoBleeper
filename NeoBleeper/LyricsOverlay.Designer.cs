@@ -45,6 +45,7 @@
             Text = "LyricsOverlay";
             TopMost = true;
             TransparencyKey = Color.Lime;
+            Paint += LyricsOverlay_Paint;
             ResumeLayout(false);
         }
 

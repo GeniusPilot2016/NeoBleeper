@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using static UIHelper;
+
 namespace NeoBleeper
 {
     public partial class Toast : Form
@@ -25,6 +27,7 @@ namespace NeoBleeper
         {
             this.parentForm = parentForm;
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             set_theme();
             labelMessage.Font = uiFonts.SetUIFont(labelMessage.Font.Size, labelMessage.Font.Style);
             labelMessage.Text = Message;
@@ -32,12 +35,10 @@ namespace NeoBleeper
             PositionToast();
             ShowTimer.Interval = duration;
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -79,6 +80,7 @@ namespace NeoBleeper
                     dark_theme();
                     break;
             }
+            this.ResumeLayout();
         }
         private void dark_theme()
         {

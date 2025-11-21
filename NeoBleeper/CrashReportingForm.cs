@@ -1,4 +1,19 @@
-﻿using NeoBleeper.Properties;
+﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+// Copyright (C) 2023 GeniusPilot2016
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+using NeoBleeper.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +24,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -22,17 +38,16 @@ namespace NeoBleeper
         public CrashReportingForm(string CrashType, string CrashMessage, string StackTrace)
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             richTextBoxCrashReport.Font = new Font("Courier New", richTextBoxCrashReport.Font.Size);
             set_theme();
             GenerateCrashReport(CrashType, CrashMessage, StackTrace);
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -72,6 +87,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         private void dark_theme()

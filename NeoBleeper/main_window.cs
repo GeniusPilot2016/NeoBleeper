@@ -31,6 +31,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -93,6 +94,14 @@ namespace NeoBleeper
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             this.SuspendLayout();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
+            PowerManager.SystemSleeping += PowerManager_SystemSleeping;
+            PowerManager.PreparingToShutdown += PowerManager_PreparingToShutdown;
+            PowerManager.PreparingToLogoff += PowerManager_PreparingToLogoff;
+            PowerManager.SystemHibernating += PowerManager_SystemHibernating;
+            PowerManager.Logoff += PowerManager_Logoff;
+            PowerManager.Shutdown += PowerManager_Shutdown;
+            InputLanguageManager.InputLanguageChanged += InputLanguageManager_InputLanguageChanged;
             keyToolTip = toolTip1.GetToolTip(button_c3) != null ? toolTip1.GetToolTip(button_c3) : string.Empty;
             InitializeButtonShortcuts();
             UIFonts.setFonts(this);
@@ -124,9 +133,55 @@ namespace NeoBleeper
                 InitializeMidiInput();
             }
             InitializePercussionNames();
-            this.Icon = Resources.icon;
+            //this.Icon = Resources.icon;
             this.ResumeLayout();
         }
+
+        private void InputLanguageManager_InputLanguageChanged(object? sender, EventArgs e)
+        {
+            InitializeButtonShortcuts();
+        }
+
+        private void PowerManager_Shutdown(object? sender, EventArgs e)
+        {
+            // Handle actual shutdown
+            AskForSavingIfModified(() => { Application.Exit(); });
+        }
+
+        private void PowerManager_Logoff(object? sender, EventArgs e)
+        {
+            // Handle actual logoff
+            stop_playing(); // Stop playing sounds
+            stopPlayingAllSounds(); // Stop all sounds
+        }
+
+        private void PowerManager_SystemHibernating(object? sender, EventArgs e)
+        {
+            // Handle system sleep/hibernate
+            stop_playing(); // Stop playing sounds
+            stopPlayingAllSounds(); // Stop all sounds
+        }
+
+        private void PowerManager_PreparingToLogoff(object? sender, EventArgs e)
+        {
+            // Handle logoff preparation
+            stop_playing(); // Stop playing sounds
+            stopPlayingAllSounds(); // Stop all sounds
+        }
+
+        private void PowerManager_SystemSleeping(object? sender, EventArgs e)
+        {
+            // Handle system sleep/hibernate
+            stop_playing(); // Stop playing sounds
+            stopPlayingAllSounds(); // Stop all sounds
+        }
+
+        private void PowerManager_PreparingToShutdown(object? sender, EventArgs e)
+        {
+            // Handle shutdown preparation
+            AskForSavingIfModified(() => { Application.Exit(); });
+        }
+
         private void resizeColumn()
         {
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -135,75 +190,14 @@ namespace NeoBleeper
                 listViewNotes.Columns[listViewNotes.Columns.Count - 1].Width = 45;
             }
         }
-
-        protected override void WndProc(ref Message m)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
         {
-            const int WM_SETTINGCHANGE = 0x001A;
-            const int WM_INPUTLANGCHANGE = 0x0051;
-            const int WM_POWERBROADCAST = 0x0218;
-            const int WM_QUERYENDSESSION = 0x0011;
-            const int WM_ENDSESSION = 0x0016;
-
-            const int PBT_APMSUSPEND = 0x0004; // System is suspending (sleep/hibernate)
-            const int PBT_APMRESUMESUSPEND = 0x0007; // System is resuming from suspend
-            const uint ENDSESSION_LOGOFF = 0x80000000; // Logoff flag in WM_QUERYENDSESSION/WM_ENDSESSION
-
-            base.WndProc(ref m);
-            if (m.Msg == WM_SETTINGCHANGE)
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
                     set_theme();
                 }
-            }
-            if (m.Msg == WM_INPUTLANGCHANGE)
-            {
-                InitializeButtonShortcuts();
-            }
-            switch (m.Msg)
-            {
-                case WM_POWERBROADCAST:
-                    if (m.WParam.ToInt32() == PBT_APMSUSPEND)
-                    {
-                        // Handle system sleep/hibernate
-                        stop_playing(); // Stop playing sounds
-                        stopPlayingAllSounds(); // Stop all sounds
-                    }
-                    else if (m.WParam.ToInt32() == PBT_APMRESUMESUSPEND)
-                    {
-                        // Handle system resume
-                        // Do nothing special on resume for now
-                    }
-                    break;
-                case WM_QUERYENDSESSION:
-                    if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
-                    {
-                        // Handle logoff preparation
-                        stop_playing(); // Stop playing sounds
-                        stopPlayingAllSounds(); // Stop all sounds
-                    }
-                    else
-                    {
-                        // Handle shutdown preparation
-                        AskForSavingIfModified(() => { Application.Exit(); });
-                    }
-                    break;
-                case WM_ENDSESSION:
-                    if (m.WParam.ToInt32() != 0)
-                    {
-                        if ((m.LParam.ToInt32() & ENDSESSION_LOGOFF) != 0)
-                        {
-                            // Handle actual logoff
-                            stop_playing(); // Stop playing sounds
-                            stopPlayingAllSounds(); // Stop all sounds
-                        }
-                        else
-                        {
-                            // Handle actual shutdown
-                            AskForSavingIfModified(() => { Application.Exit(); });
-                        }
-                    }
-                    break;
             }
         }
         private async void CommandManager_StateChanged(object sender, EventArgs e)
@@ -2953,7 +2947,7 @@ namespace NeoBleeper
             {
                 if (label_beep.InvokeRequired)
                 {
-                    label_beep.BeginInvoke(() =>
+                    label_beep.Invoke(() =>
                     {
                         UpdateLabelVisible(visible);
                     });
@@ -4026,7 +4020,7 @@ namespace NeoBleeper
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
-            stop_all_sounds_before_closing();
+            stop_all_sounds_before_closing(); 
         }
         private void rewindToSavedVersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4757,7 +4751,7 @@ namespace NeoBleeper
         {
             InitializeMetronome();
             UpdateRecentFilesMenu();
-            this.Icon = Resources.icon;
+            //this.Icon = Resources.icon;
         }
 
         private void checkBox_add_note_to_list_CheckedChanged(object sender, EventArgs e)
@@ -6237,7 +6231,7 @@ namespace NeoBleeper
             {
                 openFiles(Program.filePath, FileOpenMode.OpenedAsArg);
             }
-            this.Icon = Resources.icon;
+            //this.Icon = Resources.icon;
         }
 
         private void convertToBeepCommandForLinuxToolStripMenuItem_Click(object sender, EventArgs e)

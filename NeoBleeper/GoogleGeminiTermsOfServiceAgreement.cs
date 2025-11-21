@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -57,6 +58,7 @@ namespace NeoBleeper
         public GoogleGeminiTermsOfServiceAgreement()
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             dateTimePickerDateOfBirth.MaxDate = DateTime.Now.AddYears(-13);
             dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13).Date;
@@ -68,12 +70,10 @@ namespace NeoBleeper
             FormatTerms();
             set_theme();
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -81,6 +81,7 @@ namespace NeoBleeper
                 }
             }
         }
+
         private void dark_theme()
         {
             darkTheme = true;
@@ -135,6 +136,7 @@ namespace NeoBleeper
                 richTextBoxTerms.Text = unformattedText;
                 FormatTerms();
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         private void InsertLink(string text, string url)

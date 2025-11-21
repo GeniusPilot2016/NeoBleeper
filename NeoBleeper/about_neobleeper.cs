@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using static UIHelper;
+
 namespace NeoBleeper
 {
     public partial class about_neobleeper : Form
@@ -23,15 +25,14 @@ namespace NeoBleeper
         {
             InitializeComponent();
             UIFonts.setFonts(this);
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             lbl_version.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}";
             set_theme();
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -39,6 +40,7 @@ namespace NeoBleeper
                 }
             }
         }
+
         private void set_theme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -71,6 +73,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
 

@@ -70,6 +70,7 @@ namespace NeoBleeper
                 {
                     Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
                     Program.UninitializeMIDI(); // Uninitialize MIDI devices
+                    Program.UninitializeExtendedEvents(); // Uninitialize extended events
                     if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                     {
                         Logger.Log("System speaker beep is being stopped if needed...", Logger.LogTypes.Info);

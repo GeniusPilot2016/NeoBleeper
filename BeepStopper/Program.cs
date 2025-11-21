@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Management;
 using System.Security.Cryptography;
 using Windows.ApplicationModel.Activation;
+using static UIHelper;
 
 namespace BeepStopper
 {
@@ -34,9 +35,10 @@ namespace BeepStopper
         {
             ApplicationConfiguration.Initialize();
             Debug.WriteLine("Beep stopper is starting...");
+            
             checkAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
             loadSettings();
-
+            ThemeManager.Initialize();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             string query = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
@@ -67,6 +69,8 @@ namespace BeepStopper
                         break;
                 }
             }
+            ThemeManager.Cleanup();
+            Debug.WriteLine("Beep stopper application has exited.");
         }
         private static void loadSettings()
         {

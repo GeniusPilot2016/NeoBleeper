@@ -17,6 +17,7 @@
 using NeoBleeper.Properties;
 using System.Data;
 using System.Text;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -36,6 +37,7 @@ namespace NeoBleeper
         public ConvertToGCode(String musicFile)
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             set_theme();
             MusicString = musicFile;
@@ -44,6 +46,18 @@ namespace NeoBleeper
             comboBox_component_note3.SelectedIndex = 0;
             comboBox_component_note4.SelectedIndex = 0;
         }
+
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
+            }
+        }
+
         public class NoteInfo
         {
             public String Length { get; set; }
@@ -63,19 +77,6 @@ namespace NeoBleeper
                 Note4 = note4;
                 Mod = mod;
                 Art = art;
-            }
-        }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
-
-            if (m.Msg == WM_SETTINGCHANGE)
-            {
-                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
-                {
-                    set_theme();
-                }
             }
         }
         private void dark_theme()
@@ -150,6 +151,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         StringBuilder gcodeBuilder = new StringBuilder();

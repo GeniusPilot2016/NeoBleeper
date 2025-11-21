@@ -18,6 +18,7 @@ using NeoBleeper.Properties;
 using System.Data;
 using System.Text;
 using static NeoBleeper.ConvertToGCode;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -35,12 +36,25 @@ namespace NeoBleeper
         {
             this.main_Window = main_Window;
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             richTextBoxBeepCommand.Font = new Font("Consolas", richTextBoxBeepCommand.Font.Size); // Set a monospaced font for better readability
             set_theme();
             String notes = ExtractNotes(musicFile);
             richTextBoxBeepCommand.Text = notes;
         }
+
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                {
+                    set_theme();
+                }
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             const int WM_SETTINGCHANGE = 0x001A;
@@ -56,36 +70,38 @@ namespace NeoBleeper
         }
         private void set_theme()
         {
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
             try
             {
-                this.SuspendLayout();
                 switch (Settings1.Default.theme)
                 {
-                    case 0: // System theme
-                        switch (SystemThemeUtility.IsDarkTheme())
+                    case 0:
+                        if (SystemThemeUtility.IsDarkTheme())
                         {
-                            case true:
-                                dark_theme();
-                                break;
-                            case false:
-                                light_theme();
-                                break;
+                            dark_theme();
+                        }
+                        else
+                        {
+                            light_theme();
                         }
                         break;
-                    case 1: // Light theme
+
+                    case 1:
                         light_theme();
                         break;
-                    case 2: // Dark theme
+
+                    case 2:
                         dark_theme();
                         break;
                 }
-                this.ResumeLayout();
             }
             finally
             {
-                UIHelper.ForceUpdateUI(this);
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
-
         }
         private void dark_theme()
         {

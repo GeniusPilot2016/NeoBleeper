@@ -18,6 +18,7 @@ using BeepStopper.Properties;
 using NeoBleeper;
 using System.Drawing.Text;
 using System.Diagnostics;
+using static UIHelper;
 
 namespace BeepStopper
 {
@@ -27,21 +28,22 @@ namespace BeepStopper
         public main_window()
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             UIHelper.ApplyCustomTitleBar(this, Color.White);
             set_theme();
         }
-        int themeIndex = 0;
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 set_theme();
             }
         }
+
+        int themeIndex = 0;
+        
         private void set_theme()
         {
             switch (Program.themeIndex)

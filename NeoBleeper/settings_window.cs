@@ -18,6 +18,7 @@ using NAudio.Midi;
 using NeoBleeper.Properties;
 using System.Media;
 using System.Runtime.InteropServices;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -32,6 +33,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             checkBox_use_microcontroller.Enabled = SerialPortHelper.IsAnyPortThatIsMicrocontrollerAvailable(); // Enable or disable the microcontroller checkbox based on availability
             if (!checkBox_use_microcontroller.Enabled)
             {
@@ -163,12 +165,10 @@ namespace NeoBleeper
                 buttonResetAPIKey.Enabled = true;
             }
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -382,6 +382,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         private async Task system_speaker_test_tune()

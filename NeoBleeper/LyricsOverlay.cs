@@ -50,10 +50,9 @@ namespace NeoBleeper
             Invalidate(); // Trigger a repaint
         }
         UIFonts uiFonts = UIFonts.Instance;
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
 
+        private void LyricsOverlay_Paint(object sender, PaintEventArgs e)
+        {
             if (!string.IsNullOrWhiteSpace(_currentLyrics))
             {
                 var g = e.Graphics;

@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper.Properties;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -24,17 +25,16 @@ namespace NeoBleeper
         public GetFirmwareWindow()
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.setFonts(this);
             richTextBoxFirmware.Font = new Font("Courier New", richTextBoxFirmware.Font.Size);
             set_theme();
             comboBoxMicrocontroller.SelectedIndex = 0; // Default to Arduino 
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -44,28 +44,38 @@ namespace NeoBleeper
         }
         private void set_theme()
         {
-            this.SuspendLayout();
-            switch (Settings1.Default.theme)
+            this.SuspendLayout(); // Suspend layout to batch updates
+            this.DoubleBuffered = true; // Enable double buffering for smoother rendering
+
+            try
             {
-                case 0: // System theme
-                    switch (SystemThemeUtility.IsDarkTheme())
-                    {
-                        case true:
+                switch (Settings1.Default.theme)
+                {
+                    case 0:
+                        if (SystemThemeUtility.IsDarkTheme())
+                        {
                             dark_theme();
-                            break;
-                        case false:
+                        }
+                        else
+                        {
                             light_theme();
-                            break;
-                    }
-                    break;
-                case 1: // Light theme
-                    light_theme();
-                    break;
-                case 2: // Dark theme
-                    dark_theme();
-                    break;
+                        }
+                        break;
+
+                    case 1:
+                        light_theme();
+                        break;
+
+                    case 2:
+                        dark_theme();
+                        break;
+                }
             }
-            this.ResumeLayout();
+            finally
+            {
+                UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
+            }
         }
         private void light_theme()
         {

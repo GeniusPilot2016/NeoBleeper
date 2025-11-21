@@ -18,6 +18,7 @@ using NeoBleeper.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using static NeoBleeper.Logger;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -225,6 +226,14 @@ namespace NeoBleeper
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit from application when main form is closed, on error or user chooses to exit from warning
             }
         }
+        public static void UninitializeExtendedEvents()
+        {
+            Logger.Log("Uninitializing extended event managers...", LogTypes.Info);
+            ThemeManager.Cleanup();
+            PowerManager.Cleanup();
+            InputLanguageManager.Cleanup();
+            Logger.Log("Extended event managers uninitialization completed.", LogTypes.Info);
+        }
         public static void UninitializeMIDI()
         {
             Logger.Log("Uninitializing MIDI input/output...", LogTypes.Info);
@@ -282,6 +291,9 @@ namespace NeoBleeper
         }
         private static void ConfigureApplication()
         {
+            PowerManager.Initialize();
+            ThemeManager.Initialize();
+            InputLanguageManager.Initialize();
             switch (Settings1.Default.ClassicBleeperMode)
             {
                 case true:

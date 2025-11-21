@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using static UIHelper;
 
 namespace NeoBleeper
 {
@@ -61,6 +62,7 @@ namespace NeoBleeper
         public CreateMusicWithAI()
         {
             InitializeComponent();
+            ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             NormalWindowSize = this.Size;
             LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height + (NormalWindowSize.Height * scaleFraction)));
             UIFonts.setFonts(this);
@@ -97,12 +99,10 @@ namespace NeoBleeper
             }
             listAndSelectAIModels();
         }
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
 
-            if (m.Msg == WM_SETTINGCHANGE)
+        private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
+        {
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
@@ -110,6 +110,7 @@ namespace NeoBleeper
                 }
             }
         }
+
         string[] wantedFeatures =
         {
             "generateContent", // Content creation capability
@@ -267,6 +268,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout();
             }
         }
         private void dark_theme()
