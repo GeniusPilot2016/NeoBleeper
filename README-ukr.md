@@ -4,6 +4,15 @@
 
 NeoBleeper — це програмне забезпечення для створення мелодій на основі штучного інтелекту, яке використовує системний динамік (він же PC Speaker) на материнській платі, натхненне програмним забезпеченням Bleeper Music Maker, яке Robbi-985 (він же SomethingUnreal) розробив приблизно наприкінці 2007 — початку 2008 років, але від якого відмовився у 2011 році через те, що в новіших версіях Windows звукові сигнали спрямовувалися на звуковий пристрій за замовчуванням, а не на системний динамік на материнській платі. NeoBleeper забезпечує стабільніший процес створення музики, вирішуючи проблему системних звукових сигналів, що спрямовуються на звуковий пристрій за замовчуванням, а не на системний динамік на материнській платі в новіших версіях Windows, шляхом доступу до фізичного порту системного динаміка 🖥️🎶*
 
+[![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
+[![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
+[![Top language](https://img.shields.io/github/languages/top/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
+[![Last commit](https://img.shields.io/github/last-commit/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/commits/main)
+[![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
+[![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
+[![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
 ![image](https://github.com/user-attachments/assets/242c542e-63f6-4f6e-a794-db2d4b3c1c58)
 
 ## Статус
