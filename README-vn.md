@@ -4,6 +4,15 @@
 
 NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI sử dụng loa hệ thống (hay còn gọi là Loa PC) trên bo mạch chủ, lấy cảm hứng từ phần mềm Bleeper Music Maker mà Robbi-985 (hay còn gọi là SomethingUnreal) phát triển vào khoảng cuối năm 2007 - đầu năm 2008 nhưng đã bị ngừng phát triển vào năm 2011 do tiếng bíp được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn. NeoBleeper mang đến trải nghiệm tạo nhạc ổn định hơn bằng cách giải quyết vấn đề tiếng bíp hệ thống được chuyển hướng đến thiết bị âm thanh mặc định thay vì loa hệ thống trên bo mạch chủ trong các phiên bản Windows mới hơn bằng cách truy cập vào cổng vật lý của loa hệ thống 🖥️🎶*
 
+[![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
+[![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
+[![Top language](https://img.shields.io/github/languages/top/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
+[![Last commit](https://img.shields.io/github/last-commit/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/commits/main)
+[![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
+[![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
+[![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
 ![image](https://github.com/user-attachments/assets/da50377a-e684-499f-bfd2-584f5d4bb5b6)
 
 ## Trạng thái
