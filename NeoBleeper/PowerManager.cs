@@ -14,9 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-using System.Threading;
-using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace NeoBleeper
@@ -119,8 +116,8 @@ namespace NeoBleeper
             {
                 RaiseOnUi(PreparingToLogoff);
             }
-            else 
-            { 
+            else
+            {
                 RaiseOnUi(PreparingToShutdown);
             }
         }

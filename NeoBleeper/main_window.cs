@@ -14,23 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using Microsoft.VisualBasic.Logging;
 using NAudio.Midi;
 using NeoBleeper.Properties;
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -2840,7 +2833,7 @@ namespace NeoBleeper
         }
         private void EnableDisableCommonControls(bool enable)
         {
-            if(this.InvokeRequired)
+            if (this.InvokeRequired)
             {
                 this.Invoke(new Action(() => EnableDisableCommonControls(enable)));
                 return;
@@ -2877,8 +2870,6 @@ namespace NeoBleeper
         private volatile bool isLabelVisible = false;
 
         // Prepare sound buffers in advance
-        private SoundPlayer accentBeatSound; // For first beat
-        private SoundPlayer normalBeatSound; // For other beats
         protected virtual void OnMusicStopped(EventArgs e)
         {
             MusicStopped?.Invoke(this, e);
@@ -3143,7 +3134,6 @@ namespace NeoBleeper
         {
             unselect_line();
         }
-        bool is_clicked = false;
         bool right_clicked = false;
         private async void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
@@ -4023,7 +4013,7 @@ namespace NeoBleeper
             checkBox_metronome.Checked = false;
             cancellationTokenSource.Cancel();
             isClosing = true;
-            stop_all_sounds_before_closing(); 
+            stop_all_sounds_before_closing();
         }
         private void rewindToSavedVersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5312,7 +5302,7 @@ namespace NeoBleeper
         private HashSet<int> pressedKeys = new HashSet<int>();
         private void main_window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Tab)
+            if (e.KeyCode == Keys.Tab)
             {
                 trackBar_note_silence_ratio.Refresh();
                 trackBar_time_signature.Refresh();

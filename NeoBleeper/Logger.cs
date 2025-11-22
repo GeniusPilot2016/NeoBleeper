@@ -88,7 +88,7 @@ namespace NeoBleeper
                 "NeoBleeper is world's first AI-enabled music creation software for the system speaker, bridging the gap between retro computing and cutting-edge AI advancements."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
-            LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n"; 
+            LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";
             Debug.WriteLine(LogText);
             WriteLogToFile(LogText.TrimEnd());
         }

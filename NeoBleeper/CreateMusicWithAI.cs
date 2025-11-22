@@ -16,8 +16,6 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using static UIHelper;
@@ -48,7 +46,7 @@ namespace NeoBleeper
         bool isCreatedAnything = false; // Flag to indicate if anything was created by AI
         bool darkTheme = false;
         public string output = "";
-        public string generatedFilename = "";   
+        public string generatedFilename = "";
         String AIModel = Settings1.Default.preferredAIModel;
         Size NormalWindowSize;
         double scaleFraction = 0.355; // Scale factor for the window size
@@ -829,7 +827,7 @@ namespace NeoBleeper
                         // Trim leading/trailing whitespace
                         output = output.Trim();
                         output = RewriteOutput(output).Trim();
-                        if (!checkIfOutputIsJSONErrorMessage(JSONText)) 
+                        if (!checkIfOutputIsJSONErrorMessage(JSONText))
                         {
                             Logger.Log("Output: " + output, Logger.LogTypes.Info);
                         }
@@ -1177,7 +1175,7 @@ namespace NeoBleeper
 
             // Remove XML declaration if present
             output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
-            
+
             // Remove unnecessary comments if present
             output = Regex.Replace(output, @"<!--.*?-->", String.Empty, RegexOptions.Singleline); // Remove single-line comments
             output = Regex.Replace(output, @"/\*.*?\*/", String.Empty, RegexOptions.Singleline); // Remove multi-line comments
@@ -1254,7 +1252,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(
                 xmlContent,
                @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
-            "</$1>", RegexOptions.IgnoreCase); 
+            "</$1>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(
                xmlContent,
                @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>>", "</$1>", RegexOptions.IgnoreCase);
@@ -1342,7 +1340,7 @@ namespace NeoBleeper
             }
             foreach (Control ctrl in Controls)
             {
-                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating || 
+                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating ||
                     ctrl == labelPoweredByGemini || ctrl == labelWarning)
                     continue;
 
@@ -1419,7 +1417,7 @@ namespace NeoBleeper
             if (!isCreatedAnything)
             {
                 if (!cts.IsCancellationRequested)
-                { 
+                {
                     cts.Cancel(); // Cancel any ongoing AI requests
                 }
                 generatedFilename = string.Empty; // Clear filename if the form is closed if anything aren't created properly

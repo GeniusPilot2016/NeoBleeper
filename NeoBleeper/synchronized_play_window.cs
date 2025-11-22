@@ -160,13 +160,13 @@ namespace NeoBleeper
         {
             Task.Run(() =>
             {
-               SafeBeginInvoke(() =>
-               {
-                   SuspendLayout();
-                   string current_time = DateTime.Now.ToString("HH:mm:ss");
-                   lbl_current_system_time.Text = current_time;
-                   ResumeLayout(performLayout: true);
-               });
+                SafeBeginInvoke(() =>
+                {
+                    SuspendLayout();
+                    string current_time = DateTime.Now.ToString("HH:mm:ss");
+                    lbl_current_system_time.Text = current_time;
+                    ResumeLayout(performLayout: true);
+                });
             });
         }
 

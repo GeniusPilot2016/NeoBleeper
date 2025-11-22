@@ -16,8 +16,8 @@
 
 using BeepStopper.Properties;
 using NeoBleeper;
-using System.Drawing.Text;
 using System.Diagnostics;
+using System.Drawing.Text;
 using static UIHelper;
 
 namespace BeepStopper
@@ -43,7 +43,7 @@ namespace BeepStopper
         }
 
         int themeIndex = 0;
-        
+
         private void set_theme()
         {
             switch (Program.themeIndex)
@@ -112,7 +112,7 @@ namespace BeepStopper
 
         private void settingsChangeTimer_Tick(object sender, EventArgs e)
         {
-            if(Program.themeIndex != themeIndex)
+            if (Program.themeIndex != themeIndex)
             {
                 set_theme(); // Apply theme if changed
             }

@@ -377,7 +377,7 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
         }
         private (string frequencyAndLength, int totalDuration) CreateFrequencyAndDurationDuo(int frequency, int duration, bool endOfLine, bool nonStopping = false)
         {
-            if(probableResonantFrequencies.Contains(frequency))
+            if (probableResonantFrequencies.Contains(frequency))
             {
                 frequency += 1; // Shift frequency by 1 Hz to avoid resonant frequency issues in computer that used with beep command
             }

@@ -109,7 +109,7 @@ namespace NeoBleeper
             stopImmediately(); // Stop playing MIDI file and notes immediately
             Application.Exit();
         }
-        
+
         private void stopNotesImmediately()
         {
             NotePlayer.StopAllNotes();
@@ -291,7 +291,7 @@ namespace NeoBleeper
                 Stop();
                 _noteChannels.Clear();
                 _metaEventsByTime.Clear();
-                _eventsByTime.Clear(); 
+                _eventsByTime.Clear();
 
                 // Offload heavy processing to a background thread
                 await Task.Run(() =>
@@ -1348,7 +1348,7 @@ namespace NeoBleeper
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
-        int driftMs = 0; 
+        int driftMs = 0;
         private HashSet<int> _previousMidiOutputNotes = new();
         private async Task ProcessCurrentFrame()
         {
@@ -1770,8 +1770,8 @@ namespace NeoBleeper
         {
             lyricRow = string.Empty;
             if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
-            { 
-                lyricsOverlay.ClearLyrics(); 
+            {
+                lyricsOverlay.ClearLyrics();
             }
         }
         private void ShowLyricsOverlay()
@@ -1784,7 +1784,7 @@ namespace NeoBleeper
 
             if (!lyricsOverlay.Visible)
             {
-                lyricsOverlay.Show(this); 
+                lyricsOverlay.Show(this);
             }
 
             BeginInvoke((Action)(() => this.Activate()));
@@ -1805,7 +1805,7 @@ namespace NeoBleeper
             }
             else
             {
-                Logger.Log("Show lyrics is disabled.", Logger.LogTypes.Info); 
+                Logger.Log("Show lyrics is disabled.", Logger.LogTypes.Info);
                 HideLyricsOverlay();
             }
         }

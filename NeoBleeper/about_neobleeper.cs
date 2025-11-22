@@ -142,7 +142,10 @@ namespace NeoBleeper
 
         private void richTextBox_credit_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.LinkText) { UseShellExecute = true });
+            if (!string.IsNullOrEmpty(e.LinkText))
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.LinkText) { UseShellExecute = true });
+            }
         }
     }
 }

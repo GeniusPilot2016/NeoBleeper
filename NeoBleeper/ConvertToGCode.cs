@@ -202,9 +202,9 @@ namespace NeoBleeper
                 int note_length = (int)Math.Truncate(rawNoteLength);
                 int silence = (int)Math.Truncate(noteDuration - rawNoteLength);
                 int drift = 0;
-                if(drift > 0)
+                if (drift > 0)
                 {
-                    if(drift < note_length)
+                    if (drift < note_length)
                     {
                         note_length -= drift; // Reduce note length by drift amount
                     }
@@ -217,7 +217,7 @@ namespace NeoBleeper
                 // Add GCode line
                 elapsedLineTime = insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
                     true, true, true, true, note_length);
-                if(drift < 0)
+                if (drift < 0)
                 {
                     silence -= drift; // Add drift to silence if drift is negative
                 }
@@ -344,7 +344,7 @@ namespace NeoBleeper
             int rpm = FrequencyToRPM(frequency);
             string delay = nonStopping ? "G4 P5\n" : string.Empty;
             // Start the motor, then wait for the specified length, then stop the motor
-            return (delay + $"G4 P5\nM3 S{rpm}\nG4 P{length}\nM5", nonStopping? length : length + 5); 
+            return (delay + $"G4 P5\nM3 S{rpm}\nG4 P{length}\nM5", nonStopping ? length : length + 5);
         }
         private int FrequencyToRPM(double frequency)
         {

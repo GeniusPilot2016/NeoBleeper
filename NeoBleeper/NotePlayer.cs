@@ -90,7 +90,7 @@ namespace NeoBleeper
                     }
                 case true: // Soundcard
                     {
-                        SoundRenderingEngine.WaveSynthEngine.StopSynth(); 
+                        SoundRenderingEngine.WaveSynthEngine.StopSynth();
                         break;
                     }
             }

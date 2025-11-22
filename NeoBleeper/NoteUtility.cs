@@ -40,8 +40,8 @@ namespace NeoBleeper
         {
             if (string.IsNullOrEmpty(noteName))
                 return NoteUtility.base_note_frequency_in_4th_octave.C;
-            try 
-            { 
+            try
+            {
                 // Disassemble note name into note and octave
                 string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
                 int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
@@ -68,7 +68,7 @@ namespace NeoBleeper
 
                 // Calculate the frequency based on the octave
                 int octaveDifference = octave - 4; // 4th octave is the reference octave
-                return baseFrequency * Math.Pow(2, octaveDifference); 
+                return baseFrequency * Math.Pow(2, octaveDifference);
             }
             catch
             {

@@ -68,7 +68,7 @@ public class RewindCommand : ICommand
             // Reload the BPM and alternating note length values
             if (savedState is SavedStateMemento state && mainWindow != null)
             {
-                mainWindow.RestoreVariableValues(state.BpmValue, state.AlternatingNoteLength, 
+                mainWindow.RestoreVariableValues(state.BpmValue, state.AlternatingNoteLength,
                     state.TimeSignature, state.NoteSilenceRatio);
             }
         }
