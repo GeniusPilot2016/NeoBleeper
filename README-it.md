@@ -4,8 +4,6 @@
 
 NeoBleeper è un software di creazione di melodie basato sull'intelligenza artificiale che utilizza l'altoparlante di sistema (ovvero l'altoparlante del PC) sulla scheda madre, ispirato al software Bleeper Music Maker che Robbi-985 (ovvero SomethingUnreal) sviluppò tra la fine del 2007 e l'inizio del 2008, ma che fu abbandonato nel 2011 perché nelle versioni più recenti di Windows i segnali acustici venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre. NeoBleeper offre un'esperienza di creazione musicale più stabile risolvendo il problema dei segnali acustici di sistema che venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre nelle versioni più recenti di Windows, accedendo alla porta fisica dell'altoparlante di sistema 🖥️🎶*
 
-![image](https://github.com/user-attachments/assets/23a2692a-bd55-45f6-86e5-bc95babbb651)
-
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
 [![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
@@ -14,6 +12,8 @@ NeoBleeper è un software di creazione di melodie basato sull'intelligenza artif
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
+![image](https://github.com/user-attachments/assets/23a2692a-bd55-45f6-86e5-bc95babbb651)
 
 ## Stato
 
