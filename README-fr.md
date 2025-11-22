@@ -4,8 +4,6 @@
 
 NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le haut-parleur système (aussi appelé PC Speaker) de la carte mère. Il s'inspire du logiciel Bleeper Music Maker développé par Robbi-985 (alias SomethingUnreal) fin 2007-début 2008, mais abandonné en 2011 car les bips étaient dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows. NeoBleeper offre une expérience musicale plus stable en résolvant le problème des bips système dirigés vers le périphérique audio par défaut plutôt que vers le haut-parleur système de la carte mère dans les versions plus récentes de Windows, en accédant au port physique du haut-parleur système 🖥️🎶*
 
-![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
-
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
 [![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
@@ -14,6 +12,8 @@ NeoBleeper est un logiciel de création musicale basé sur l'IA, utilisant le ha
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
+![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
 
 ## Statut
 
