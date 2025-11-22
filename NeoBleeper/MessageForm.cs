@@ -1,15 +1,5 @@
-﻿using GenerativeAI.Types;
-using NeoBleeper.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using NeoBleeper.Properties;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static UIHelper;
 
 namespace NeoBleeper

@@ -36,7 +36,7 @@ namespace NeoBleeper
                     // Create default settings if the file doesn't exist
                     var defaultSettings = new SynchronizedSettings();
                     defaultSettings.Save(logToFile);
-                    if(logToFile)
+                    if (logToFile)
                         Logger.Log("Settings file not found. Created default settings.", Logger.LogTypes.Info);
                     else
                         Debug.WriteLine("Settings file not found. Created default settings.");
@@ -44,7 +44,7 @@ namespace NeoBleeper
                 }
 
                 var json = File.ReadAllText(SettingsFilePath, System.Text.Encoding.UTF8); // Ensure UTF-8 encoding
-                if(logToFile)
+                if (logToFile)
                     Logger.Log("Synchronized settings loaded successfully.", Logger.LogTypes.Info);
                 else
                     Debug.WriteLine("Synchronized settings loaded successfully.");
@@ -55,7 +55,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                if(logToFile)
+                if (logToFile)
                     Logger.Log($"Failed to load settings: {ex.Message}", Logger.LogTypes.Error);
                 else
                     Debug.WriteLine($"Failed to load settings: {ex.Message}");
@@ -76,7 +76,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                if(saveToFile)
+                if (saveToFile)
                     Logger.Log($"Failed to save settings: {ex.Message}", Logger.LogTypes.Error);
                 else
                     Debug.WriteLine($"Failed to save settings: {ex.Message}");

@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
 using NeoBleeper;
 using NeoBleeper.Properties;
+using System.ComponentModel;
 
 public class ValueChangeCommand : ICommand
 {
@@ -71,14 +71,14 @@ public class ValueChangeCommand : ICommand
     }
     public void Execute()
     {
-        if(isDouble)
+        if (isDouble)
         {
             UpdateValue(newDoubleValue);
         }
         else
         {
             UpdateValue(newValue);
-        }  
+        }
     }
 
     public void Undo()
@@ -106,7 +106,7 @@ public class ValueChangeCommand : ICommand
             default:
                 throw new InvalidEnumArgumentException();
         }
-        
+
     }
     private void UpdateValue(double value)
     {
@@ -158,7 +158,7 @@ public class ValueChangeCommand : ICommand
         int percent = (int)(value * 100);
         if (label != null)
         {
-            if (isNoteSilenceRatio) 
+            if (isNoteSilenceRatio)
             {
                 label.Text = Resources.TextPercent.Replace("{number}", percent.ToString());
             }

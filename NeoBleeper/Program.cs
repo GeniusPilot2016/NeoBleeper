@@ -287,7 +287,7 @@ namespace NeoBleeper
                 Logger.Log("User has chosen to exit NeoBleeper.", LogTypes.Info);
                 return false;
             }
-                return false;
+            return false;
         }
         private static void ConfigureApplication()
         {
@@ -353,7 +353,7 @@ namespace NeoBleeper
                 var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
                 splashScreen.updateStatus(Resources.StatusCheckingInpOutX64PresenceAndIntegrity, 5);
                 if (!isInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
-                                                  // If not present or broken, place the DLL file
+                                                   // If not present or broken, place the DLL file
                 {
                     try
                     {
@@ -367,7 +367,7 @@ namespace NeoBleeper
                     }
                 }
                 else
-                {    
+                {
                     splashScreen.updateStatus(Resources.StatusInpOutX64IsPresentAndValid);
                 }
             }

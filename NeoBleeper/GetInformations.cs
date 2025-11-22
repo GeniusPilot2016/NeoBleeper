@@ -42,7 +42,7 @@ namespace NeoBleeper
             if (!string.IsNullOrEmpty(status))
             {
                 // Handle specific statuses like "rc" (release candidate)
-                if (status.StartsWith("rc", StringComparison.OrdinalIgnoreCase) || 
+                if (status.StartsWith("rc", StringComparison.OrdinalIgnoreCase) ||
                     status.Contains("release-candidate", StringComparison.OrdinalIgnoreCase))
                 {
                     status = "Release Candidate";
@@ -77,29 +77,29 @@ namespace NeoBleeper
                             {
                                 switch (type)
                                 {
-                                case 3:
-                                case 4:
-                                case 5:
-                                case 6:
-                                case 7:
-                                case 17:
-                                case 18:
-                                case 22:
-                                case 23:
-                                    return computerTypes.ModularComputer;
-                                case 8:
-                                case 9:
-                                case 10:
-                                case 11:
-                                case 13:
-                                case 14:
-                                case 15:
-                                case 16:
-                                case 24:
-                                case 30:
-                                case 31:
-                                case 32:
-                                    return computerTypes.CompactComputer;
+                                    case 3:
+                                    case 4:
+                                    case 5:
+                                    case 6:
+                                    case 7:
+                                    case 17:
+                                    case 18:
+                                    case 22:
+                                    case 23:
+                                        return computerTypes.ModularComputer;
+                                    case 8:
+                                    case 9:
+                                    case 10:
+                                    case 11:
+                                    case 13:
+                                    case 14:
+                                    case 15:
+                                    case 16:
+                                    case 24:
+                                    case 30:
+                                    case 31:
+                                    case 32:
+                                        return computerTypes.CompactComputer;
                                     default:
                                         return computerTypes.Unknown;
                                 }
@@ -125,29 +125,29 @@ namespace NeoBleeper
             string[] chassisTypes = new string[]
             {
                 "Other",
-                "Unknown", 
-                "Desktop", 
-                "Low Profile Desktop", 
-                "Pizza Box", 
-                "Mini Tower", 
-                "Tower", 
-                "Portable", 
-                "Laptop", 
-                "Notebook", 
-                "Hand Held", 
-                "Docking Station", 
-                "All in One", 
-                "Sub Notebook", 
-                "Space-Saving", 
-                "Lunch Box", 
-                "Main System Chassis", 
-                "Expansion Chassis", 
-                "SubChassis", 
-                "Bus Expansion Chassis", 
-                "Peripheral Chassis", 
-                "Storage Chassis", 
-                "Rack Mount Chassis", 
-                "Sealed-Case PC", 
+                "Unknown",
+                "Desktop",
+                "Low Profile Desktop",
+                "Pizza Box",
+                "Mini Tower",
+                "Tower",
+                "Portable",
+                "Laptop",
+                "Notebook",
+                "Hand Held",
+                "Docking Station",
+                "All in One",
+                "Sub Notebook",
+                "Space-Saving",
+                "Lunch Box",
+                "Main System Chassis",
+                "Expansion Chassis",
+                "SubChassis",
+                "Bus Expansion Chassis",
+                "Peripheral Chassis",
+                "Storage Chassis",
+                "Rack Mount Chassis",
+                "Sealed-Case PC",
                 "Tablet",
                 "Convertible",
                 "Detachable",
@@ -166,7 +166,7 @@ namespace NeoBleeper
                             {
                                 if (type < chassisTypes.Length)
                                 {
-                                    typeNames.Add(chassisTypes[type-1]);
+                                    typeNames.Add(chassisTypes[type - 1]);
                                 }
                             }
                             return string.Join(", ", typeNames.Distinct());
@@ -180,7 +180,7 @@ namespace NeoBleeper
                 return "Unknown";
             }
         }
-        public static string getSystemInfo() 
+        public static string getSystemInfo()
         {
             Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathering);
             string systemInfo = "";
@@ -253,11 +253,10 @@ namespace NeoBleeper
                 $"Status of affected chipset check: {(Program.isAffectedChipsetManufacturerChecked == true ?
                     (is_manufacturer_affected == true ? "Affected" : "Not Affected") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
-                // Don't show system speaker info on ARM64 devices as they don't have system speakers
-                ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ? 
-                $"Presence of a system speaker: {
-                    (Program.isExistenceOfSystemSpeakerChecked == true ? 
-                    (is_system_speaker_present == true ? "Yes" : "No") : 
+                                                       // Don't show system speaker info on ARM64 devices as they don't have system speakers
+                ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ?
+                $"Presence of a system speaker: {(Program.isExistenceOfSystemSpeakerChecked == true ?
+                    (is_system_speaker_present == true ? "Yes" : "No") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";

@@ -127,9 +127,10 @@ namespace NeoBleeper
                 }
 
                 // Regular exit situations
-                AppDomain.CurrentDomain.ProcessExit += (s, e) => {
+                AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+                {
                     SafeStop();
-                    };
+                };
                 System.Windows.Forms.Application.ApplicationExit += (s, e) => SafeStop();
                 Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */ };
 
@@ -180,7 +181,7 @@ namespace NeoBleeper
             }
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
-                if(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
                 {
                     // Philosophical problem: How do you stop a beep that doesn't exist in most of Copilot+ devices?
                     return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
@@ -205,7 +206,7 @@ namespace NeoBleeper
             {
                 try
                 {
-                    if(RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
                     {
                         // Can the non-existent beep of most of Copilot+ devices be stuck?
                         return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
@@ -513,7 +514,7 @@ namespace NeoBleeper
                             {
                                 identifiersToSearch.Add(obj["Name"]?.ToString() ?? string.Empty);
                                 identifiersToSearch.Add(obj["Manufacturer"]?.ToString() ?? string.Empty);
-                                if(obj["Manufacturer"] != null)
+                                if (obj["Manufacturer"] != null)
                                 {
                                     string manufacturer = obj["Manufacturer"].ToString();
                                     if (manufacturer.IndexOf("Intel", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -593,7 +594,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
+                    return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
             public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
@@ -1147,7 +1148,7 @@ namespace NeoBleeper
                 if (read < totalSamples) Array.Clear(renderBuffer, read, totalSamples - read);
                 var cachedVoiced = new CachedSound(renderBuffer, wf);
 
-                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = (masterVolume * (VoiceInternalSettings.NoiseVolume / 100.0))/10 };
+                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = (masterVolume * (VoiceInternalSettings.NoiseVolume / 100.0)) / 10 };
                 float[] noiseBuffer = new float[totalSamples];
                 read = 0;
                 while (read < totalSamples)

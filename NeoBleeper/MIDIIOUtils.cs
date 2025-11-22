@@ -16,7 +16,6 @@
 
 using NAudio;
 using NAudio.Midi;
-using System.Threading.Channels;
 
 namespace NeoBleeper
 {
@@ -140,7 +139,7 @@ namespace NeoBleeper
         public static async Task PlayMidiNoteAsync(int note, int length, int instrument, bool nonStopping = false, int? channel = null)
         {
             if (_midiOut == null) return;
-            
+
             int midiChannel = channel ?? TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
             int originalInstrument = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
             if (midiChannel == 9) // Channel 10 (percussion)
@@ -219,7 +218,7 @@ namespace NeoBleeper
 
         public static void SendNoteOn(int noteNumber, int instrument, int channel)
         {
-            if(_midiOut == null) return;
+            if (_midiOut == null) return;
             ChangeInstrument(_midiOut, instrument, channel);
             _midiOut.Send(MidiMessage.StartNote(noteNumber, DynamicVelocity(), ClampChannel(channel + 1)).RawData);
         }

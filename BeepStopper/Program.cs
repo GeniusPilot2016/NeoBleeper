@@ -19,7 +19,6 @@ using NeoBleeper;
 using System.Diagnostics;
 using System.Management;
 using System.Security.Cryptography;
-using Windows.ApplicationModel.Activation;
 using static UIHelper;
 
 namespace BeepStopper
@@ -35,7 +34,7 @@ namespace BeepStopper
         {
             ApplicationConfiguration.Initialize();
             Debug.WriteLine("Beep stopper is starting...");
-            
+
             checkAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
             loadSettings();
             ThemeManager.Initialize();
