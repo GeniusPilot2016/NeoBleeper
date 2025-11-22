@@ -6,6 +6,15 @@ NeoBleeper es un software de creación de melodías con IA que utiliza el altavo
 
 ![image](https://github.com/user-attachments/assets/9df5277a-7ab0-4b3d-a9bd-fb5c1788be44)
 
+[![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
+[![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
+[![Top language](https://img.shields.io/github/languages/top/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
+[![Last commit](https://img.shields.io/github/last-commit/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/commits/main)
+[![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
+[![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
+[![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
 ## Estado
 
 Este proyecto **aún está en desarrollo** y esta versión es la **versión beta**. Por favor, tenga esto en cuenta al usar el programa y envíe sus comentarios para ayudarnos a mejorar futuras versiones.
