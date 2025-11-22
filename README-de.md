@@ -6,6 +6,15 @@ NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systeml
 
 ![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
 
+[![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
+[![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
+[![Top language](https://img.shields.io/github/languages/top/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
+[![Last commit](https://img.shields.io/github/last-commit/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/commits/main)
+[![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
+[![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
+[![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
 ## Status
 
 Dieses Projekt befindet sich **noch in der Entwicklung** und diese Version ist die **Betaversion**. Bitte berücksichtigen Sie dies bei der Nutzung des Programms und geben Sie Feedback, um zukünftige Versionen zu verbessern.
