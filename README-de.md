@@ -4,8 +4,6 @@
 
 NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systemlautsprecher (auch PC-Lautsprecher genannt) auf dem Motherboard nutzt. Sie ist inspiriert von der Software Bleeper Music Maker, der Robbi-985 (auch bekannt als SomethingUnreal) Ende 2007/Anfang 2008 entwickelte, aber 2011 wieder aufgab, da in neueren Windows-Versionen die Signaltöne an das Standard-Audiogerät und nicht an den Systemlautsprecher auf dem Motherboard weitergeleitet wurden. NeoBleeper sorgt für ein stabileres Musikerlebnis, indem es das Problem löst, dass Systemtöne in neueren Windows-Versionen an das Standard-Audiogerät statt an den Systemlautsprecher auf dem Motherboard weitergeleitet werden. Dafür wird der physische Anschluss des Systemlautsprechers verwendet 🖥️🎶*
 
-![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
-
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
 [![License](https://img.shields.io/github/license/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/blob/main/LICENSE)
@@ -14,6 +12,8 @@ NeoBleeper ist eine KI-gestützte Software zur Musikgenerierung, die den Systeml
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+
+![image](https://github.com/user-attachments/assets/5831942b-be33-4b7d-8dce-4aca21dc7b33)
 
 ## Status
 
