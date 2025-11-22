@@ -2840,6 +2840,11 @@ namespace NeoBleeper
         }
         private void EnableDisableCommonControls(bool enable)
         {
+            if(this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => EnableDisableCommonControls(enable)));
+                return;
+            }
             keyboard_panel.Enabled = enable;
             checkBox_do_not_update.Enabled = enable;
             numericUpDown_bpm.Enabled = enable;
@@ -2950,14 +2955,12 @@ namespace NeoBleeper
                     label_beep.Invoke(() =>
                     {
                         UpdateLabelVisible(visible);
+                        return;
                     });
                 }
-                else
-                {
-                    label_beep.SuspendLayout();
-                    label_beep.Visible = visible;
-                    label_beep.ResumeLayout(performLayout: true);
-                }
+                label_beep.SuspendLayout();
+                label_beep.Visible = visible;
+                label_beep.ResumeLayout(performLayout: true);
             }
             catch
             {
