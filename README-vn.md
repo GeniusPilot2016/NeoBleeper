@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Phần cứng gần như bị lãng quên gặp gỡ công nghệ hiện đại
 
 **🎉 NeoBleeper là trình phát nhạc đầu tiên có thể phát nhạc qua loa hệ thống và hỗ trợ trực tiếp tiếng Việt**
 
