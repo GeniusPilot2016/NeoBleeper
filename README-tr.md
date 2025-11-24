@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Unutulmaya Yüz Tutmuş Bir Donanım Modern Teknolojiler ile Buluşuyor
 
 **🎉 NeoBleeper, sistem hoparlörü ile müzik çalabilen ve doğrudan Türkçe dil desteğine sahip ilk müzik oynatıcısıdır**
 
