@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Un hardware casi olvidado se encuentra con tecnologías modernas
 
 **🎉 NeoBleeper es el primer reproductor de música que puede reproducir música a través del altavoz del sistema y tiene soporte para idioma español nativo**
 
