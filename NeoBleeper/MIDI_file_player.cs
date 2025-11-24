@@ -877,7 +877,7 @@ namespace NeoBleeper
             double totalDurationMs = TicksToMilliseconds(lastTick);
 
             double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
-            double percent = (currentTimeMs / totalDurationMs) * 100.0;
+            double percent = ((double)_currentFrameIndex + 1 / _frames.Count) * 100.0;
 
             string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
 
@@ -1048,6 +1048,8 @@ namespace NeoBleeper
             _lastTrackBarScrollTime = DateTime.Now;
             _isTrackBarBeingDragged = true;
 
+            // Save playback state
+            bool wasPlaying = _isPlaying;
             if (!_wasPlayingBeforeScroll && _isPlaying)
             {
                 _wasPlayingBeforeScroll = true;
@@ -1058,6 +1060,7 @@ namespace NeoBleeper
             _playbackRestartTimer?.Stop();
             _playbackRestartTimer?.Dispose();
 
+            // Set the new position
             _ = Task.Run(async () =>
             {
                 await SetPosition(positionPercent);
@@ -1071,18 +1074,7 @@ namespace NeoBleeper
                     long frameTick = _frames[frameIndex].Time;
                     double currentTimeMs = TicksToMilliseconds(frameTick);
 
-                    // Corrected total duration calculation
-                    long lastTick = _midiFile.Events
-                        .SelectMany(track => track.Select(e => e.AbsoluteTime))
-                        .Max();
-                    double totalDurationMs = TicksToMilliseconds(lastTick);
-
-                    // Ensure totalDurationMs is not zero
-                    if (totalDurationMs <= 0) totalDurationMs = 1; // Avoid division by zero
-
-                    // Use positionPercent directly for UI consistency.
                     double percent = positionPercent;
-
                     string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
                     string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
 
@@ -1091,13 +1083,31 @@ namespace NeoBleeper
                 }));
             });
 
+            // Start in new position if restart timer is used
             _playbackRestartTimer = new System.Timers.Timer(300);
-            _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
+            _playbackRestartTimer.Elapsed += (s, ev) =>
+            {
+                _playbackRestartTimer?.Stop();
+                _playbackRestartTimer?.Dispose();
+                _playbackRestartTimer = null;
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    _isTrackBarBeingDragged = false;
+                    _isUserScrolling = false;
+
+                    // If the playback will restarted, start from new position
+                    if (_wasPlayingBeforeScroll)
+                    {
+                        _wasPlayingBeforeScroll = false;
+                        Play(); // The Play always starts from current frame
+                    }
+                }));
+            };
             _playbackRestartTimer.AutoReset = false;
             _playbackRestartTimer.Start();
             _isUserScrolling = false;
         }
-
         private void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
             _playbackRestartTimer?.Stop();
@@ -1669,11 +1679,24 @@ namespace NeoBleeper
         {
             if (!_isPlaying) return;
 
-            // Actual playing duration (starting offset + elapsed time)
+            // Playback time based on stopwatch
             double songTimeMs = _playbackStartOffsetMs + _playbackStopwatch.ElapsedMilliseconds;
 
-            // Show the time as minute:seconds:split seconds format
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(songTimeMs);
+            // Frame time based on current frame
+            double frameTimeMs = 0;
+            if (_frames != null && _frames.Count > 0 && _currentFrameIndex < _frames.Count)
+            {
+                frameTimeMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
+            }
+            else
+            {
+                frameTimeMs = songTimeMs;
+            }
+
+            // Use average or frame time for more accuracy
+            double accurateMs = (songTimeMs + frameTimeMs) / 2.0;
+
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(accurateMs);
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
             int milliseconds = timeSpan.Milliseconds / 10;
