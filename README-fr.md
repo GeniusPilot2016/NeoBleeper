@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Un matériel informatique presque oublié rencontre les technologies modernes
 
 **🎉 NeoBleeper est le premier lecteur de musique capable de diffuser de la musique via le haut-parleur du système et prenant en charge la langue française native**
 
