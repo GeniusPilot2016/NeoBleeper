@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Eine fast vergessene Hardware trifft auf moderne Technologien
 
 **🎉 NeoBleeper ist der erste Musikplayer, der Musik über den Systemlautsprecher abspielen kann und über direkte deutsche Sprachunterstützung verfügt**
 
