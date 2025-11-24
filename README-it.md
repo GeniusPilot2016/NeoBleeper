@@ -1,4 +1,4 @@
-# NeoBleeper
+# NeoBleeper: Un hardware quasi dimenticato incontra le tecnologie moderne
 
 **🎉 NeoBleeper è il primo lettore musicale in grado di riprodurre musica tramite l'altoparlante di sistema e supporta direttamente la lingua italiana**
 
