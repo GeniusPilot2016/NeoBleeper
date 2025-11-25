@@ -6,6 +6,7 @@ namespace NeoBleeper
     public partial class splash : Form
     {
         bool completed = false;
+        bool willTerminated = false; // Flag to indicate if termination is in progress when form is closed
         public splash()
         {
             InitializeComponent();
@@ -15,7 +16,7 @@ namespace NeoBleeper
         }
         public void updateStatus(string status, int percent = 0, bool completed = false)
         {
-            if (!this.IsHandleCreated || this.IsDisposed) return;
+            if (!this.IsHandleCreated || this.IsDisposed || willTerminated) return;
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action(() => updateStatus(status, percent, completed)));
@@ -46,7 +47,7 @@ namespace NeoBleeper
         public void ResponsiveWait(int milliseconds)
         {
             var sw = Stopwatch.StartNew();
-            while (sw.ElapsedMilliseconds < milliseconds)
+            while ((sw.ElapsedMilliseconds < milliseconds) && !willTerminated)
             {
                 Application.DoEvents();
                 Thread.Sleep(1);
@@ -59,6 +60,7 @@ namespace NeoBleeper
             {
                 try
                 {
+                    willTerminated = true; // Set the flag to indicate termination is in progress to prevent status updates
                     Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
                     Program.UninitializeMIDI(); // Uninitialize MIDI devices
                     Program.UninitializeExtendedEvents(); // Uninitialize extended events
@@ -72,12 +74,15 @@ namespace NeoBleeper
                         Logger.Log("Skipping system speaker beep stop on ARM64 architecture.", Logger.LogTypes.Info);
                     }
                     Logger.Log("Application is closing. Cleanup done.", Logger.LogTypes.Info);
-                    Application.Exit(); // Signal application exit
-                    Environment.Exit(0); // Ensure the process is terminated immediately
                 }
                 catch (Exception ex)
                 {
                     Logger.Log($"Error during application closure: {ex.Message}", Logger.LogTypes.Error);
+                }
+                finally
+                {
+                    Application.Exit(); // Signal application exit
+                    Environment.Exit(0); // Ensure the process is terminated immediately
                 }
             }
         }

@@ -6114,7 +6114,7 @@ namespace NeoBleeper
         }
         private void main_window_Deactivate(object sender, EventArgs e)
         {
-            if (checkBox_use_keyboard_as_piano.Checked)
+            if (checkBox_use_keyboard_as_piano.Checked && pressedKeys.Count > 0) // If piano mode is enabled and there are pressed keys
             {
                 RemoveAllKeys();
                 StopAllSounds();

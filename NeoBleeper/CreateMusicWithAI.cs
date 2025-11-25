@@ -608,6 +608,7 @@ namespace NeoBleeper
                 try
                 {
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
+                    Logger.Log("Starting music generation with AI...", Logger.LogTypes.Info);
                     string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
                     connectionCheckTimer.Start();
                     SetControlsEnabledAndMakeLoadingVisible(false);
@@ -623,7 +624,7 @@ namespace NeoBleeper
                         $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
                         $"If the user prompt contains words like 'create', 'generate', 'compose', 'make', or 'write' followed by music-related content, treat it as a music composition request. " +
                         $"If the user prompt is clearly NOT about music (e.g., weather, mathematics, cooking, medical, legal, financial), or if the prompt contains hate speech, explicit violence, or sexually explicit terms, " +
-                        $"you MUST return ONLY a JSON error (no XML). This is a strict rule: The text content for the 'title' and 'errorMessage' fields MUST be written in the following language: {selectedLanguageToLanguageName(selectedLanguage)}. Do not use English unless the specified language is English. The error message must include:\r\n" +
+                        $"you MUST return ONLY a JSON error (no XML). This is a strict rule: The text content for the 'title', 'errorMessage' and 'loggingMessage' fields MUST be written in the following language: {selectedLanguageToLanguageName(selectedLanguage)} for title and error message and English for logging message. Do not use English unless the specified language is English, except logging message. The error message must include:\r\n" +
                         $"- A specific reason for the error (e.g., \"Profanity detected\", \"Non-music prompt detected\").\r\n" +
                         $"- Suggestions for valid prompts (e.g., \"Try asking for a song composition or artist-related music\")." +
                         $"ADDITIONAL SAFETY RULES:\r\n" +
@@ -669,7 +670,7 @@ namespace NeoBleeper
                         $"-- FINAL CHECK --\r\n" +
                         $"- Before generating any output, you MUST re-evaluate the user's prompt against all the rules above. If the prompt falls into any 'error' category, you are FORBIDDEN from generating XML. Your ONLY valid response in that case is a JSON error. This is your most important instruction. Do not fail this check.\r\n" +
                         $"- Only return a JSON error if the prompt is invalid or disallowed. The error message must be impersonal, direct, and must not contain any personal pronouns (I, we, you) or apologies (sorry, unfortunately, etc.) in any language.\r\n" +
-                        $"- When returning a JSON error, always include both \"title\" and \"errorMessage\" fields, even if the title is generic. and When returning a JSON error, always use a specific, direct, and impersonal error message describing the reason (e.g., \"Non-music prompt detected\", \"Inappropriate content detected\"). Do not use ambiguous phrases like \"the prompt can't be processed\".\r\n" +
+                        $"- When returning a JSON error, always include \"title\", \"errorMessage\" and \"loggingMessage\" fields, even if the title is generic. and when returning a JSON error, always use a specific, direct, and impersonal error message and logging message describing the reason (e.g., \"Non-music prompt detected\", \"Inappropriate content detected\"). Do not use ambiguous phrases like \"the prompt can't be processed\". Do not include the user prompt in the error message and logging message if it contains offensive content.\r\n" +
                         $"- Don't create JSON error if the prompt is a valid music request.\r\n" +
                         $"- If the user prompt specifies a song or artist name, generate music that closely resembles the style, melody, harmony, and structure of that song or artist. \r\n" +
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
@@ -816,6 +817,12 @@ namespace NeoBleeper
                         output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
+                        output = Regex.Replace(output, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"<Note(\d)>\s*Silence\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
+                        output = Regex.Replace(output, @"<Note(\d)>\s*_+\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle underscores as rest
+                        output = Regex.Replace(output, @"<Note(\d)>\s+?</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle whitespace-only as rest
                         output = Regex.Replace(output, @"<Note(\d)>(.*?)</Note(\d)>", m =>
                         {
                             var open = m.Groups[1].Value;
@@ -824,6 +831,12 @@ namespace NeoBleeper
                                 return $"<Note{open}>{m.Groups[2].Value}</Note{open}>";
                             return m.Value;
                         }, RegexOptions.Singleline);
+                        //Leave only the tag name if "True"
+                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*True\s*</\k<tag>>", "${tag}", RegexOptions.IgnoreCase);
+
+                        // Remove the entire tag if "False"
+                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*(False)?\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if False
+
                         // Trim leading/trailing whitespace
                         output = output.Trim();
                         output = RewriteOutput(output).Trim();
@@ -980,13 +993,16 @@ namespace NeoBleeper
 
                 string title = "Error";
                 string errorMessage = "";
+                string loggingMessage = "";
 
                 // Check for new format first (title + errorMessage)
                 if (jsonDoc.RootElement.TryGetProperty("title", out var titleProp) &&
-                    jsonDoc.RootElement.TryGetProperty("errorMessage", out var errorMessageProp))
+                    jsonDoc.RootElement.TryGetProperty("errorMessage", out var errorMessageProp) &&
+                    jsonDoc.RootElement.TryGetProperty("loggingMessage", out var loggingMessageProp))
                 {
                     title = titleProp.GetString();
                     errorMessage = errorMessageProp.GetString();
+                    loggingMessage = loggingMessageProp.GetString();
                 }
                 // Check for old format (error)
                 else if (jsonDoc.RootElement.TryGetProperty("error", out var errorProp))
@@ -994,7 +1010,7 @@ namespace NeoBleeper
                     errorMessage = errorProp.GetString();
                 }
 
-                Logger.Log($"AI Error - {errorMessage}", Logger.LogTypes.Error);
+                Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
                 MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1244,10 +1260,23 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"</playnote3>", "</PlayNote3>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<playnote4>", "<PlayNote4>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</playnote4>", "</PlayNote4>", RegexOptions.IgnoreCase);
+            
             // Fix for mismatched tags like <Note3>...<Note4>
-            xmlContent = Regex.Replace(xmlContent, @"<(?<tag1>Note\d)>(?<content>.*?)<(?<tag2>Note\d)>", "</${tag1}><${tag2}>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+            xmlContent,
+            @"<(?<tag1>\w+)>(?<content>.*?)<(?<tag2>\w+)>",
+            "</${tag1}><${tag2}>",
+            RegexOptions.Singleline | RegexOptions.IgnoreCase
+            );
+
             // Fix for reversed tags like </Note1>...<Note1>
-            xmlContent = Regex.Replace(xmlContent, @"</(?<tag1>Note\d)>(?<content>.*?)</(?<tag2>Note\d)>", "<${tag1}>${content}</${tag2}>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+            xmlContent,
+            @"</(?<tag1>\w+)>(?<content>.*?)</(?<tag2>\w+)>",
+            "<${tag1}>${content}</${tag2}>",
+            RegexOptions.Singleline | RegexOptions.IgnoreCase
+            );       
+            
             // Fix for wrong closing tags
             xmlContent = Regex.Replace(
                 xmlContent,
@@ -1268,6 +1297,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(
               xmlContent,
               @"</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)", "</$1>", RegexOptions.IgnoreCase);
+            
             // Make empty note tags self-closing
             xmlContent = Regex.Replace(
                 xmlContent,
@@ -1279,12 +1309,17 @@ namespace NeoBleeper
               @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>/>", "<$1/>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(output, @"<(\w+)\s*>[\s]*/>", "<$1 />");
             xmlContent = Regex.Replace(xmlContent, @"<(\w+)\s*/>\s*</\1>", "<$1 />", RegexOptions.Multiline);
+            
             // Remove any spaces before closing tags
             xmlContent = Regex.Replace(xmlContent, @"</(\w+)\s+>", "</$1>", RegexOptions.Multiline);
 
             // Make sure all opening and closing tags are properly formatted
             xmlContent = Regex.Replace(xmlContent, @"(?<=^|\s)([A-Za-z_][\w\-\.]*>)", "<$1", RegexOptions.Multiline);
             xmlContent = Regex.Replace(xmlContent, @"(?<=^|\s)/([A-Za-z_][\w\-\.]*>)", "</$1", RegexOptions.Multiline);
+            
+            // Filter foreign texts before "<NeoBleeperProjectFile>" tag and after "</NeoBleeperProjectFile>" tag
+            xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
             return xmlContent;
         }
         private string SynchronizeLengths(string xmlContent)
