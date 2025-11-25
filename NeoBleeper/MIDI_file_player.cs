@@ -587,7 +587,7 @@ namespace NeoBleeper
                 return;
 
             // Store playing state before any changes
-            if (!_wasPlayingBeforeScroll) // Only store if not already stored
+            if (!_wasPlayingBeforeScroll)
             {
                 _wasPlayingBeforeScroll = _isPlaying;
             }
@@ -597,7 +597,7 @@ namespace NeoBleeper
             {
                 Stop();
 
-                // Wait for the previous task to truly complete
+                // Wait for the previous task to complete
                 if (_playbackTask != null && !_playbackTask.IsCompleted)
                 {
                     try
@@ -613,14 +613,22 @@ namespace NeoBleeper
 
             // Calculate new position
             _currentFrameIndex = (int)(positionPercent * _frames.Count / 100.0);
-
-            // Clamp the index to valid range
             _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
 
-            Logger.Log($"Position set to {positionPercent.ToString("0.00")}% (frame {_currentFrameIndex} of {_frames.Count})", Logger.LogTypes.Info);
+            // Reset the playback offset
+            if (_currentFrameIndex < _frames.Count)
+            {
+                _playbackStartOffsetMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
+            }
+            else
+            {
+                _playbackStartOffsetMs = 0;
+            }
 
-            // Don't restart playback immediately if trackbar is being dragged
-            // The timer in trackBar1_Scroll will handle restart after user stops dragging
+            // Reset the stopwatch
+            _playbackStopwatch?.Reset();
+
+            Logger.Log($"Position set to {positionPercent:0.00}% (frame {_currentFrameIndex} of {_frames.Count}, offset: {_playbackStartOffsetMs:0.00}ms)", Logger.LogTypes.Info);
         }
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
@@ -1037,7 +1045,7 @@ namespace NeoBleeper
 
         private bool _isUserScrolling = false; // To seperate user scroll from program scroll
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private async void trackBar1_Scroll(object sender, EventArgs e)
         {
             if (!_isUserScrolling)
             {
@@ -1049,7 +1057,6 @@ namespace NeoBleeper
             _isTrackBarBeingDragged = true;
 
             // Save playback state
-            bool wasPlaying = _isPlaying;
             if (!_wasPlayingBeforeScroll && _isPlaying)
             {
                 _wasPlayingBeforeScroll = true;
@@ -1057,55 +1064,42 @@ namespace NeoBleeper
 
             double positionPercent = (double)trackBar1.Value / trackBar1.Maximum * 100.0;
 
+            // Stop any existing timer
             _playbackRestartTimer?.Stop();
             _playbackRestartTimer?.Dispose();
+            _playbackRestartTimer = null;
 
-            // Set the new position
-            _ = Task.Run(async () =>
+            try
             {
+                // Set new position and wait for it to complete
                 await SetPosition(positionPercent);
 
-                this.BeginInvoke(new Action(() =>
-                {
-                    int frameIndex = (int)(positionPercent * _frames.Count / 100.0);
-                    frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
-                    if (_frames.Count == 0) return; // Prevent division by zero
+                // Update the UI labels
+                int frameIndex = (int)(positionPercent * _frames.Count / 100.0);
+                frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
 
+                if (_frames.Count > 0)
+                {
                     long frameTick = _frames[frameIndex].Time;
                     double currentTimeMs = TicksToMilliseconds(frameTick);
-
-                    double percent = positionPercent;
                     string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
-                    string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
+                    string percentagestr = Resources.TextPercent.Replace("{number}", positionPercent.ToString("0.00", CultureInfo.CurrentCulture));
 
                     label_percentage.Text = percentagestr;
                     label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
-                }));
-            });
-
-            // Start in new position if restart timer is used
-            _playbackRestartTimer = new System.Timers.Timer(300);
-            _playbackRestartTimer.Elapsed += (s, ev) =>
+                }
+            }
+            catch (Exception ex)
             {
-                _playbackRestartTimer?.Stop();
-                _playbackRestartTimer?.Dispose();
-                _playbackRestartTimer = null;
+                Logger.Log($"Error in trackBar1_Scroll: {ex.Message}", Logger.LogTypes.Error);
+            }
 
-                this.BeginInvoke(new Action(() =>
-                {
-                    _isTrackBarBeingDragged = false;
-                    _isUserScrolling = false;
-
-                    // If the playback will restarted, start from new position
-                    if (_wasPlayingBeforeScroll)
-                    {
-                        _wasPlayingBeforeScroll = false;
-                        Play(); // The Play always starts from current frame
-                    }
-                }));
-            };
+            // Start the playback restart timer
+            _playbackRestartTimer = new System.Timers.Timer(300);
+            _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
             _playbackRestartTimer.AutoReset = false;
             _playbackRestartTimer.Start();
+
             _isUserScrolling = false;
         }
         private void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
