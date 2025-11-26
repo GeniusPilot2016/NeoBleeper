@@ -122,6 +122,32 @@ This project is **still in development** and this version is the **beta release*
 
 **Required Hardware:** System speaker or any kind of sound device (minimum)
 
+## Running the Released Executable
+
+You can run NeoBleeper easily without compiling by using the pre-built executable available in the [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) section.
+
+### Execution Instructions
+
+1. **Go to the Releases Page**
+   - Visit the [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) page on GitHub.
+
+2. **Download the Zip File**
+   - Find the latest release, then download the zip file (for example: `NeoBleeper-win-x64.zip` or similar, depending on your system).
+
+3. **Extract the Zip File**
+   - Right-click the downloaded zip file and choose "Extract All..." (on Windows), or use your preferred zip extractor.
+
+4. **Run the Executable**
+   - Open the extracted folder.
+   - Go to the `NeoBleeper` folder
+   - Find and double-click `NeoBleeper.exe` to launch the program.
+
+5. **(Optional) Allow Security Prompts**
+   - If Windows identifies the program as coming from the Internet, you may need to accept a security prompt or click "More info" and then "Run anyway".
+
+**No installation is required.**  
+If you encounter issues running NeoBleeper, make sure your system meets the requirements listed above.
+
 ## Cloning
 
 1. Open Visual Studio.
@@ -172,7 +198,7 @@ Contributions are always welcome! You can contribute by submitting a pull reques
    - Create a pull request on the main repository on GitHub.
    - Add a title and description explaining your changes.
 
-### General Instructions
+### General Contribution Instructions
 Start by forking.
 
 Create a new Branch: `git checkout -b feature/AmazingFeature`
@@ -182,3 +208,7 @@ Commit your changes: `git commit -m 'Add feature: AmazingFeature'`
 Do a Push: `git push origin feature/AmazingFeature`
 
 Open a Pull Request.
+
+## ⭐️ Support NeoBleeper!
+
+If you like this project, please consider [leaving a star ⭐️ on GitHub](https://github.com/GeniusPilot2016/NeoBleeper) to help others discover it!
