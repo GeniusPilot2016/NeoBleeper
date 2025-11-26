@@ -1,4 +1,4 @@
-![neobleeper_banner](https://github.com/user-attachments/assets/b0fea0a5-c565-47e6-83c8-e55763fbaa0d)
+![neobleeper_banner](https://github.com/user-attachments/assets/e5e4cd96-eb41-41f3-a576-90f6195461d3)
 
 # 🖥️🎶🎹🤖 NeoBleeper: Eine fast vergessene Hardware trifft auf moderne Technologien
 
