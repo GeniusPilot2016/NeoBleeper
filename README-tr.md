@@ -1,3 +1,5 @@
+![neobleeper_banner](https://github.com/user-attachments/assets/9cf73252-793e-42f0-b4d3-0d430827fb77)
+
 # 🖥️🎶🎹🤖 NeoBleeper: Unutulmaya Yüz Tutmuş Bir Donanım Modern Teknolojiler ile Buluşuyor
 
 **🎉 NeoBleeper, sistem hoparlörü ile müzik çalabilen ve doğrudan Türkçe dil desteğine sahip ilk müzik oynatıcısıdır**
