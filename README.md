@@ -1,6 +1,6 @@
-# NeoBleeper: A Nearly Forgotten Hardware Meets Modern Technologies
+# 🖥️🎶🎹🤖 NeoBleeper: A Nearly Forgotten Hardware Meets Modern Technologies
 
-NeoBleeper is an AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software that [Robbi-985 (aka SomethingUnreal)](https://youtube.com/@SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶*
+NeoBleeper is world's first AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard, inspired by the Bleeper Music Maker software that [Robbi-985 (aka SomethingUnreal)](https://youtube.com/@SomethingUnreal) developed around late 2007-early 2008 but abandoned in 2011 due to the fact that beeps were directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions. NeoBleeper provides a more stable music making experience by solving the problem of system beeps being directed to the default sound device instead of the system speaker on the motherboard in newer Windows versions by accessing the physical port of the system speaker 🖥️🎶*
 
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
@@ -11,16 +11,17 @@ NeoBleeper is an AI-enabled tune creation software using the system speaker (aka
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+[![Beta](https://img.shields.io/badge/status-beta-orange?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
 
 ![image](https://github.com/user-attachments/assets/efe2efff-f6b5-49d4-a0d7-424e47a997ce)
 
-## Status
+## 🚧 Status
 
 This project is **still in development** and this version is the **beta release**. Please use the program with this in mind and provide feedback to help improve future releases.
 
-## Features
+## ✨ Features
 
-- ### User-friendly, familiar, more ergonomic and more natural interface
+- ### 🖥️ User-friendly, familiar, more ergonomic and more natural interface
   NeoBleeper offers a user-friendly, familiar, ergonomic and more natural interface that compatible with high resolution displays, and speeds up the adaptation process for former Bleeper Music Maker users.
 
   ![image](https://github.com/user-attachments/assets/e7cbe4c0-6d5c-46ad-aec5-ad37cf3c9cd4)
@@ -39,7 +40,7 @@ This project is **still in development** and this version is the **beta release*
 
   ![image](https://github.com/user-attachments/assets/b0923941-201e-42ea-a24f-29980312fe3e)
 
-- ### Add and edit notes
+- ### 🎵 Add and edit notes
   NeoBleeper allows users to add and notes easily and quickly. With its user-friendly, familiar and more natural interface, you can creatively add notes to your music or edit notes in your music.
 
   ![image](https://github.com/user-attachments/assets/e0afa613-f423-40cb-aeaa-a8d72774fdc3)
@@ -48,26 +49,26 @@ This project is **still in development** and this version is the **beta release*
 
   ![image](https://github.com/user-attachments/assets/bcb5e8c3-367a-4d2d-a946-435c98d2e896)
 
-- ### Time signature and BPM settings
+- ### ⏱️ Time signature and BPM settings
   NeoBleeper allows users to adjust the time signature of music and edit rhythm using a metronome. With its user-friendly, familiar and more natural interface, time signature adjustments and metronome usage help you create more accurate and consistent musics.
 
   ![image](https://github.com/user-attachments/assets/f6a1a8ba-3979-48a9-9e35-2a8e44a98f5a)
 
-- ### Easy note entry with virtual keyboard
+- ### 🎹 Easy note entry with virtual keyboard
   NeoBleeper allows you to enter notes quickly and easily with a virtual keyboard. With its user-friendly, familiar and more natural interface, you can effortlessly enter and edit notes, speeding up your creative processes.
   
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
 
-- ### Backwards Compatible
+- ### 🔙 Backwards Compatible
   NeoBleeper supports its own file format (.NBPML) as well as the file format of the Bleeper Music Maker program (.BMM), from which it was inspired.
 
   ![image](https://github.com/user-attachments/assets/3308e7dc-ac85-4c6c-bca0-94179a7c554e)
 
-- ### More Than a Remake
+- ### 🚀 More Than a Remake
   
   With its new features, NeoBleeper is more than just a remake of Bleeper Music Maker.
   
-  - #### System speaker meets AI
+  - #### 🤖 System speaker meets AI
     NeoBleeper is world's first AI-enabled system speaker music player software.
     Thanks to the AI-enabled music creation feature powered by Google Gemini™ in the NeoBleeper program, you can create music with AI and play it through the system speaker or MIDI output device.
 
@@ -75,18 +76,18 @@ This project is **still in development** and this version is the **beta release*
 
     ![image](https://github.com/user-attachments/assets/660784f6-9c32-4e61-bc4a-74a3eba5c428)
     
-  - #### More precise position display
+  - #### 🎼 More precise position display
     NeoBleeper offers a position display that compatible with 1/32 note length.
 
     ![image](https://github.com/user-attachments/assets/c0568320-6a7f-445b-a50f-3024fa64a2ff)
 
-  - #### Also, you can use your regular keyboard as piano
+  - #### ⌨️ Also, you can use your regular keyboard as piano
     
     NeoBleeper turns your regular keyboard into a piano, allowing you to easily play notes without needing a MIDI input device.
 
     ![image](https://github.com/user-attachments/assets/f97f56e0-3d61-4c22-8aad-5533dc6d5562)
     
-  - #### You can personalize as you wish
+  - #### 🎨 You can personalize as you wish
     You can personalize the NeoBleeper program by changing the octave colors, some buttons' colors and indicators' colors to any of millions of colors and by choosing between dark and light themes. The only     
     limit to this feature is your imagination. Also, you can enable the "Classic Bleeper mode" to make the program resemble the nostalgic user interface of Bleeper Music Maker.
 
@@ -96,19 +97,19 @@ This project is **still in development** and this version is the **beta release*
 
     ![image](https://github.com/user-attachments/assets/4fd60c0b-bce7-4fe4-abc3-851b277f5803)
 
-  - #### Detects system speaker for you*
+  - #### 🔊 Detects system speaker for you*
     If NeoBleeper doesn't detect the system speaker on your computer's motherboard, it will automatically enable the 'Use sound device to create the beep' option to prevent possible undesired situations.
     
     ![image](https://github.com/user-attachments/assets/6ad58cdb-70ce-4eba-aea5-8d200a6e1f2e)
 
-  - #### Smarter than you think*
+  - #### 🧠 Smarter than you think*
     NeoBleeper recognizes your computer type and prevents possible undesired situations by automatically activating the 'Use sound device to create the beep' option on compact computers.
 
     ![image](https://github.com/user-attachments/assets/9f5c5a79-5645-4a36-b3f5-f1f4da70259d)
 
 *These features are only available for the 64-bit architecture version, and the ARM64 architecture version does not have the ability to generate beeps through the system speaker.
 
-## System Requirements
+## 🖥️📃 System Requirements
 
 **Windows Version:** Windows 10 (1809 and above) 64-bit/ARM64 (minimum)/Windows 11 (recommended)
 
@@ -122,11 +123,11 @@ This project is **still in development** and this version is the **beta release*
 
 **Required Hardware:** System speaker or any kind of sound device (minimum)
 
-## Running the Released Executable
+## ▶️ Running the Released Executable
 
 You can run NeoBleeper easily without compiling by using the pre-built executable available in the [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) section.
 
-### Execution Instructions
+### ⚙️ Execution Instructions
 
 1. **Go to the Releases Page**
    - Visit the [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) page on GitHub.
@@ -148,7 +149,7 @@ You can run NeoBleeper easily without compiling by using the pre-built executabl
 **No installation is required.**  
 If you encounter issues running NeoBleeper, make sure your system meets the requirements listed above.
 
-## Cloning
+## 🌱 Cloning
 
 1. Open Visual Studio.
 
@@ -163,7 +164,7 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. If you have contributed to NeoBleeper, don't forget to select the `listView1` component in the `about_neobleeper.cs` file, select the small arrow in the upper right corner, select `Edit Items`, add a ListViewItem, write your name/nickname in the `Text` property, select the triple dots to the right of `(Collection)` in the `SubItems` property, and write the tasks you have done while contributing to NeoBleeper in the `Text` property or edit your own existing `ListViewItem`, before committing the project.
 
-## Contributing
+## 🤝 Contributing
 Contributions are always welcome! You can contribute by submitting a pull request or opening an issue.
 
 ### Using Visual Studio
@@ -198,7 +199,7 @@ Contributions are always welcome! You can contribute by submitting a pull reques
    - Create a pull request on the main repository on GitHub.
    - Add a title and description explaining your changes.
 
-### General Contribution Instructions
+### 📑 General Contribution Instructions
 Start by forking.
 
 Create a new Branch: `git checkout -b feature/AmazingFeature`
