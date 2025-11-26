@@ -301,6 +301,7 @@ namespace NeoBleeper
         {
             try
             {
+                Application.DoEvents();
                 using (var ping = new Ping())
                 {
                     var reply = ping.Send("info.cern.ch"); // Pinging the first website ever
@@ -334,6 +335,7 @@ namespace NeoBleeper
         {
             try
             {
+                Application.DoEvents();
                 using (var ping = new Ping())
                 {
                     var reply = ping.Send("generativelanguage.googleapis.com");
@@ -745,7 +747,7 @@ namespace NeoBleeper
                         $"    </LineList>\r\n" +
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
-                    if (googleResponse != null || !string.IsNullOrWhiteSpace(googleResponse.Text()))
+                    if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
                         // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
                         string rawOutput = googleResponse.Text();
@@ -986,6 +988,10 @@ namespace NeoBleeper
         }
         private void TurnJSONErrorIntoMessageBoxAndLog(String output)
         {
+            if (string.IsNullOrEmpty(output))
+            {
+                return;
+            }
             if (checkIfOutputIsJSONErrorMessage(output))
             {
                 isErrorMessageShown = true; // Set the flag to true to indicate an error message has been shown
@@ -1057,6 +1063,10 @@ namespace NeoBleeper
         }
         private string RewriteOutput(string output)
         {
+            if (string.IsNullOrEmpty(output))
+            {
+                return string.Empty;
+            }
             // Regex spaghetti to fix common issues in the AI-generated XML output
             // Make empty note tags self-closing
             output = Regex.Replace(
@@ -1200,6 +1210,10 @@ namespace NeoBleeper
         }
         private string FixParameterNames(string xmlContent)
         {
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                return string.Empty;
+            }
             // Another batch of regex spaghetti to fix parameter names
             // Fix all parameter names according to Clementi Sonatina No. 3, Op 36.NBPML syntax
             xmlContent = Regex.Replace(xmlContent, @"<length>", "<Length>", RegexOptions.IgnoreCase);
@@ -1324,6 +1338,10 @@ namespace NeoBleeper
         }
         private string SynchronizeLengths(string xmlContent)
         {
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                return string.Empty;
+            }
             xmlContent = xmlContent.TrimStart();
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = System.Text.RegularExpressions.Regex.Replace(

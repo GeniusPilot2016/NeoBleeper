@@ -564,7 +564,7 @@ namespace NeoBleeper
                                     string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
                                     string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
                                     Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
-                                    Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
+                                    Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                                     return true; // Affected chipset found
                                 }
                             }
@@ -575,20 +575,20 @@ namespace NeoBleeper
                                     string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
                                     string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
                                     Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
-                                    Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
+                                    Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                                     return true; // Affected chipset found
                                 }
                             }
                         }
 
                         Program.splashScreen.updateStatus(Resources.StatusChipsetIsNotAffected, 5);
-                        Program.isAffectedChipsetManufacturerChecked = true; // Mark that the check has been performed
+                        Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                         return false; // Return false if no match is found or manufacturer of processor is neither Intel or AMD
                     }
                     catch
                     {
                         Program.splashScreen.updateStatus(Resources.StatusErrorCheckingChipset);
-                        Program.isAffectedChipsetManufacturerChecked = false; // Mark that the check failed
+                        Program.isAffectedChipsetChecked = false; // Mark that the check failed
                         return false; // On error, assume not affected
                     }
                 }

@@ -85,7 +85,13 @@ namespace NeoBleeper
                 "The system speaker's sound can be modified by changing the duty cycle of the square wave, allowing for different timbres and effects.",
                 "SomethingUnreal's BaWaMI is a MIDI synthesizer that allows users to create music using the system speaker, showcasing the creative potential of this humble hardware component.",
                 "NeoBleeper continues the tradition of beep music by enabling users to compose tunes for the system speaker using modern AI technology.",
-                "NeoBleeper is world's first AI-enabled music creation software for the system speaker, bridging the gap between retro computing and cutting-edge AI advancements."
+                "NeoBleeper is world's first AI-enabled music creation software for the system speaker, bridging the gap between retro computing and cutting-edge AI advancements.",
+                "NeoBleeper's development was inspired by the pioneering work of Robbi-985 (aka SomethingUnreal) and other early beep music composers, highlighting the enduring appeal of system speaker music.",
+                "NeoBleeper aims to revive interest in the system speaker by making it accessible to a new generation of musicians and programmers.",
+                "NeoBleeper's AI capabilities allow users to generate complex musical arrangements for the system speaker, pushing the boundaries of what this classic hardware can achieve.",
+                "The system speaker's enduring legacy is a testament to the creativity and innovation of early computer enthusiasts, whose work continues to inspire new generations of musicians and programmers.",
+                "NeoBleeper's fusion of AI technology with the system speaker represents a unique blend of past and future, celebrating the rich history of computer audio while embracing the possibilities of modern innovation.",
+                "NeoBleeper not only pays homage to the pioneers of beep music but also paves the way for future explorations in the realm of system speaker compositions."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";
