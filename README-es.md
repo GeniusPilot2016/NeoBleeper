@@ -123,6 +123,31 @@ Con sus nuevas funciones, NeoBleeper es mucho más que una simple nueva versión
 
 **Hardware necesario:** Altavoces del sistema o cualquier dispositivo de sonido (mínimo)
 
+### Instrucciones de ejecución
+
+1. **Vaya a la página de versiones**
+- Visite la página [Versiones](https://github.com/GeniusPilot2016/NeoBleeper/releases) en GitHub.
+
+2. **Descargue el archivo zip**
+- Busque la versión más reciente y descargue el archivo zip (por ejemplo: `neobleeper-1.0.0-beta-x64.zip` o similar, según su sistema).
+
+3. **Extraiga el archivo zip**
+- Haga clic derecho en el archivo zip descargado y seleccione "Extraer todo..." (en Windows), o use su extractor de archivos zip preferido.
+
+4. **Ejecute el ejecutable**
+- Abra la carpeta extraída.
+- Vaya a la carpeta `NeoBleeper`
+- Busque `NeoBleeper.exe` y haga doble clic para iniciar el programa.
+
+5. **(Opcional) Permitir avisos de seguridad**
+
+Si Windows identifica que el programa proviene de Internet, puede que tengas que aceptar un aviso de seguridad o hacer clic en "Más información" y luego en "Ejecutar de todos modos".
+
+**No requiere instalación.**
+
+Si tienes problemas al ejecutar NeoBleeper, asegúrate de que tu sistema cumpla con los requisitos mencionados anteriormente.
+
+
 ## Clonación
 
 1. Abra Visual Studio.
@@ -201,3 +226,7 @@ Confirma los cambios: `git commit -m 'Add feature: AmazingFeature'`
 Haz una solicitud de extracción: `git push origin feature/AmazingFeature`
 
 Abre una solicitud de extracción.
+
+## ⭐️ ¡Apoya a NeoBleeper!
+
+Si te gusta este proyecto, considera [dejar una estrella ⭐️ en GitHub](https://github.com/GeniusPilot2016/NeoBleeper) para que otros lo descubran.
