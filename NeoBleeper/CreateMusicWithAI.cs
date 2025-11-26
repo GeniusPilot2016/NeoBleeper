@@ -838,7 +838,10 @@ namespace NeoBleeper
 
                         // Remove the entire tag if "False"
                         output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*(False)?\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if False
-
+                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if empty
+                        // Remove self-closing tags at the end of lines
+                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer) />(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
+                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)/>(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
                         // Trim leading/trailing whitespace
                         output = output.Trim();
                         output = RewriteOutput(output).Trim();
