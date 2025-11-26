@@ -1,8 +1,8 @@
-# NeoBleeper: Un hardware quasi dimenticato incontra le tecnologie moderne
+# 🖥️🎶🎹🤖 NeoBleeper: Un hardware quasi dimenticato incontra le tecnologie moderne
 
 **🎉 NeoBleeper è il primo lettore musicale in grado di riprodurre musica tramite l'altoparlante di sistema e supporta direttamente la lingua italiana**
 
-NeoBleeper è un software di creazione di melodie basato sull'intelligenza artificiale che utilizza l'altoparlante di sistema (ovvero l'altoparlante del PC) sulla scheda madre, ispirato al software Bleeper Music Maker che [Robbi-985 (ovvero SomethingUnreal)](https://youtube.com/@SomethingUnreal) sviluppò tra la fine del 2007 e l'inizio del 2008, ma che fu abbandonato nel 2011 perché nelle versioni più recenti di Windows i segnali acustici venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre. NeoBleeper offre un'esperienza di creazione musicale più stabile risolvendo il problema dei segnali acustici di sistema che venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre nelle versioni più recenti di Windows, accedendo alla porta fisica dell'altoparlante di sistema 🖥️🎶*
+NeoBleeper è il primo software al mondo per la creazione di brani musicali basato sull'intelligenza artificiale che utilizza l'altoparlante di sistema (ovvero l'altoparlante del PC) sulla scheda madre, ispirato al software Bleeper Music Maker che [Robbi-985 (ovvero SomethingUnreal)](https://youtube.com/@SomethingUnreal) sviluppò tra la fine del 2007 e l'inizio del 2008, ma che fu abbandonato nel 2011 perché nelle versioni più recenti di Windows i segnali acustici venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre. NeoBleeper offre un'esperienza di creazione musicale più stabile risolvendo il problema dei segnali acustici di sistema che venivano indirizzati al dispositivo audio predefinito anziché all'altoparlante di sistema sulla scheda madre nelle versioni più recenti di Windows, accedendo alla porta fisica dell'altoparlante di sistema 🖥️🎶*
 
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
@@ -16,13 +16,13 @@ NeoBleeper è un software di creazione di melodie basato sull'intelligenza artif
 
 ![image](https://github.com/user-attachments/assets/23a2692a-bd55-45f6-86e5-bc95babbb651)
 
-## Stato
+## 🚧 Stato
 
 Questo progetto è **ancora in fase di sviluppo** e questa versione è la **versione beta**. Si prega di utilizzare il programma tenendo presente questo aspetto e di fornire feedback per contribuire a migliorare le versioni future.
 
-## Caratteristiche
+## ✨ Caratteristiche
 
-- ### Interfaccia intuitiva, familiare, più ergonomica e naturale
+- ### 🖥️ Interfaccia intuitiva, familiare, più ergonomica e naturale
 NeoBleeper offre un'interfaccia intuitiva, familiare, ergonomica e più naturale, compatibile con display ad alta risoluzione, e velocizza il processo di adattamento per gli ex utenti di Bleeper Music Maker.
 
   ![image](https://github.com/user-attachments/assets/bbb54084-744d-46d9-b117-b279b73961eb)
@@ -41,7 +41,7 @@ NeoBleeper offre un'interfaccia intuitiva, familiare, ergonomica e più naturale
 
   ![image](https://github.com/user-attachments/assets/df86a733-18e3-45bc-9adc-ce8a6054bb18)
   
-- ### Aggiungi e modifica note
+- ### 🎵 Aggiungi e modifica note
 NeoBleeper consente agli utenti di aggiungere note in modo semplice e veloce. Grazie alla sua interfaccia intuitiva, familiare e naturale, puoi aggiungere note alla tua musica in modo creativo o modificarle.
 
   ![image](https://github.com/user-attachments/assets/0503e329-0d1b-47c7-9e61-5885032309f9)
@@ -50,26 +50,26 @@ NeoBleeper consente agli utenti di aggiungere note in modo semplice e veloce. Gr
 
   ![image](https://github.com/user-attachments/assets/1121736c-ef7c-4b6b-a526-37c59e8ebb88)
 
-- ### Impostazioni di indicazione di tempo e BPM
+- ### ⏱️ Impostazioni di indicazione di tempo e BPM
 NeoBleeper consente agli utenti di regolare l'indicazione di tempo della musica e di modificarne il ritmo utilizzando un metronomo. Grazie alla sua interfaccia intuitiva, familiare e più naturale, le regolazioni dell'indicazione di tempo e l'uso del metronomo aiutano a creare musiche più precise e coerenti.
 
   ![image](https://github.com/user-attachments/assets/375b303b-a618-4013-b09c-f2cd313ee13a)
 
-- ### Inserimento di note semplice con la tastiera virtuale
+- ### 🎹 Inserimento di note semplice con la tastiera virtuale
 NeoBleeper ti consente di inserire note in modo rapido e semplice con una tastiera virtuale. Grazie alla sua interfaccia intuitiva, familiare e più naturale, puoi inserire e modificare note senza sforzo, accelerando i tuoi processi creativi.
 
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
 
-- ### Retrocompatibile
+- ### 🔙 Retrocompatibile
 NeoBleeper supporta il proprio formato di file (.NBPML) e il formato di file del programma Bleeper Music Maker (.BMM), da cui trae ispirazione.
 
   ![image](https://github.com/user-attachments/assets/96fb1cd4-9e05-4547-aa32-e49dc3e137f0)
 
-- ### Più di un remake
+- ### 🚀 Più di un remake
 
 Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Bleeper Music Maker.
   
-  - #### L'altoparlante di sistema incontra l'intelligenza artificiale
+  - #### 🤖 L'altoparlante di sistema incontra l'intelligenza artificiale
     NeoBleeper è il primo software al mondo per la riproduzione musicale di altoparlanti di sistema dotati di intelligenza artificiale.
     Grazie alla funzionalità di creazione musicale basata sull'intelligenza artificiale, supportata da Google Gemini™ nel programma NeoBleeper, puoi creare musica con l'intelligenza artificiale e riprodurla tramite l'altoparlante di sistema o un dispositivo di uscita MIDI.
 
@@ -77,18 +77,18 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
 
     ![image](https://github.com/user-attachments/assets/74ce590f-037b-4c26-acb5-c85adaa1087a)
     
-  - #### Visualizzazione della posizione più precisa
+  - #### 🎼 Visualizzazione della posizione più precisa
     NeoBleeper offre una visualizzazione della posizione compatibile con note di lunghezza pari a 1/32.
 
     ![image](https://github.com/user-attachments/assets/4bb973a5-4e99-4576-852c-1a5cc6f50e80)
 
-  - #### Inoltre, puoi usare la tua normale tastiera come pianoforte.
+  - #### ⌨️ Inoltre, puoi usare la tua normale tastiera come pianoforte.
 
     NeoBleeper trasforma la tua normale tastiera in un pianoforte, permettendoti di suonare facilmente le note senza bisogno di un dispositivo di input MIDI.
 
     ![image](https://github.com/user-attachments/assets/3cfbb89e-a539-4062-ac26-1e8b330cc248)
     
-  - #### Puoi personalizzare a tuo piacimento
+  - #### 🎨 Puoi personalizzare a tuo piacimento
     Puoi personalizzare il programma NeoBleeper cambiando i colori delle ottave, i colori di alcuni pulsanti e degli indicatori con milioni di colori e scegliendo tra temi chiari e scuri. L'unico
     limite a questa funzione è la tua immaginazione. Inoltre, puoi abilitare la "Modalità Classic Bleeper" per far sì che il programma assomigli alla nostalgica interfaccia utente di Bleeper Music Maker.
 
@@ -98,19 +98,19 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
 
     ![image](https://github.com/user-attachments/assets/c1f00062-60c0-4b69-841b-873d97a09657)
 
-  - #### Rileva l'altoparlante di sistema per te*
+  - #### 🔊 Rileva l'altoparlante di sistema per te*
     Se NeoBleeper non rileva l'altoparlante di sistema sulla scheda madre del computer, abiliterà automaticamente l'opzione "Usa dispositivo audio per creare il segnale acustico" per prevenire possibili situazioni indesiderate.
 
     ![image](https://github.com/user-attachments/assets/615ac0fb-f9ef-495c-b7aa-894d0ac263fa)
 
-  - #### Più intelligente di quanto pensi*
+  - #### 🧠 Più intelligente di quanto pensi*
     NeoBleeper riconosce il tipo di computer e previene possibili situazioni indesiderate attivando automaticamente l'opzione "Usa dispositivo audio per creare il segnale acustico" sui computer compatti.
 
     ![image](https://github.com/user-attachments/assets/c54a8528-1734-42bb-a9e8-72f7a0111625)
 
 *Queste funzionalità sono disponibili solo per la versione con architettura a 64 bit; la versione con architettura ARM64 non è in grado di generare segnali acustici tramite l'altoparlante del sistema.
 
-## Requisiti di sistema
+## 🖥️📃 Requisiti di sistema
 
 **Versione Windows:** Windows 10 (1809 e versioni successive) a 64 bit/ARM64 (minimo)/Windows 11 (consigliato)
 
@@ -124,7 +124,10 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
 
 **Hardware richiesto:** Altoparlante di sistema o qualsiasi tipo di dispositivo audio (minimo)
 
-### Istruzioni per l'esecuzione
+## ▶️ Esecuzione dell'eseguibile rilasciato
+È possibile eseguire NeoBleeper facilmente senza compilarlo utilizzando l'eseguibile predefinito disponibile nella sezione Release.
+
+### ⚙️ Istruzioni per l'esecuzione
 
 1. **Vai alla pagina delle release**
 - Visita la pagina [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) su GitHub.
@@ -146,7 +149,7 @@ Con le sue nuove funzionalità, NeoBleeper è più di un semplice remake di Blee
 **Non è richiesta alcuna installazione.**
 Se riscontri problemi durante l'esecuzione di NeoBleeper, assicurati che il tuo sistema soddisfi i requisiti elencati sopra.
 
-## Clonazione
+## 🌱 Clonazione
 
 1. Apri Visual Studio.
 
@@ -161,7 +164,7 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. Se hai contribuito a NeoBleeper, non dimenticare di selezionare il componente `listView1` nel file `about_neobleeper.cs`, selezionare la piccola freccia nell'angolo in alto a destra, selezionare `Modifica elementi`, aggiungere un ListViewItem, scrivere il tuo nome/nickname nella proprietà `Text`, selezionare i tre punti a destra di `(Collection)` nella proprietà `SubItems` e scrivere le attività svolte durante il contributo a NeoBleeper nella proprietà `Text` o modificare il tuo `ListViewItem` esistente, prima di inviare il progetto.
 
-## Contribuire
+## 🤝 Contribuire
 I contributi sono sempre benvenuti! Puoi contribuire inviando una pull request o aprendo una issue.
 
 ### Utilizzo di Visual Studio
@@ -195,7 +198,7 @@ I contributi sono sempre benvenuti! Puoi contribuire inviando una pull request o
 - Crea una Pull Request sul repository principale su GitHub.
 - Aggiungi un titolo e una descrizione che spieghino le modifiche.
 
-### Istruzioni generali
+### 📑 Istruzioni generali
 Inizia con un fork.
 
 Crea un nuovo Branch: `git checkout -b feature/AmazingFeature`
