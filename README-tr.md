@@ -15,6 +15,7 @@ NeoBleeper, [Robbi-985 (diğer adıyla SomethingUnreal)](https://youtube.com/@So
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+[![Beta](https://img.shields.io/badge/status-beta-orange?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
 
 ![image](https://github.com/user-attachments/assets/cb1b3752-cc6a-48f6-9daa-7411f5a2cbfb)
 
