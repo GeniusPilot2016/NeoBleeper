@@ -123,6 +123,29 @@ Dự án này **vẫn đang trong quá trình phát triển** và phiên bản n
 
 **Phần cứng bắt buộc:** Loa hệ thống hoặc bất kỳ loại thiết bị âm thanh nào (tối thiểu)
 
+### Hướng dẫn thực thi
+
+1. **Truy cập Trang Bản phát hành**
+- Truy cập trang [Bản phát hành](https://github.com/GeniusPilot2016/NeoBleeper/releases) trên GitHub.
+
+2. **Tải xuống Tệp Zip**
+- Tìm phiên bản phát hành mới nhất, sau đó tải xuống tệp zip (ví dụ: `neobleeper-1.0.0-beta-x64.zip` hoặc tương tự, tùy thuộc vào hệ thống của bạn).
+
+3. **Giải nén Tệp Zip**
+- Nhấp chuột phải vào tệp zip đã tải xuống và chọn "Giải nén Tất cả..." (trên Windows) hoặc sử dụng trình giải nén zip ưa thích của bạn.
+
+4. **Chạy tệp thực thi**
+- Mở thư mục đã giải nén.
+- Truy cập thư mục `NeoBleeper`
+- Tìm và nhấp đúp vào `NeoBleeper.exe` để khởi chạy chương trình.
+
+5. **(Tùy chọn) Cho phép Thông báo Bảo mật**
+- Nếu Windows xác định chương trình đến từ Internet, bạn có thể cần chấp nhận thông báo bảo mật hoặc nhấp vào "Thêm thông tin" rồi chọn "Chạy vẫn chạy".
+
+**Không cần cài đặt.**
+
+Nếu bạn gặp sự cố khi chạy NeoBleeper, hãy đảm bảo hệ thống của bạn đáp ứng các yêu cầu được liệt kê ở trên.
+
 ## Nhân bản
 
 1. Mở Visual Studio.
@@ -183,3 +206,7 @@ Cam kết các thay đổi của bạn: `git commit -m 'Add feature: AmazingFeat
 Thực hiện Đẩy: `git push origin feature/AmazingFeature`
 
 Mở một Yêu cầu Kéo.
+
+## ⭐️ Hãy ủng hộ NeoBleeper!
+
+Nếu bạn thích dự án này, vui lòng [để lại một ngôi sao ⭐️ trên GitHub](https://github.com/GeniusPilot2016/NeoBleeper) để giúp những người khác khám phá ra nó!
