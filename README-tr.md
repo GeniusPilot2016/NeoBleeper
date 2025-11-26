@@ -1,8 +1,8 @@
-# NeoBleeper: Unutulmaya Yüz Tutmuş Bir Donanım Modern Teknolojiler ile Buluşuyor
+# 🖥️🎶🎹🤖 NeoBleeper: Unutulmaya Yüz Tutmuş Bir Donanım Modern Teknolojiler ile Buluşuyor
 
 **🎉 NeoBleeper, sistem hoparlörü ile müzik çalabilen ve doğrudan Türkçe dil desteğine sahip ilk müzik oynatıcısıdır**
 
-NeoBleeper, [Robbi-985'in (diğer adıyla SomethingUnreal)](https://youtube.com/@SomethingUnreal) 2007 sonu-2008 başı civarında geliştirdiği ancak yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında kullanımdan kaldırdığı Bleeper Music Maker yazılımından esinlenerek, anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan yapay zeka destekli bir melodi oluşturma yazılımıdır. NeoBleeper, yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilme sorununu çözerek daha kararlı bir müzik yapma deneyimi sunar 🖥️🎶*
+NeoBleeper, [Robbi-985 (diğer adıyla SomethingUnreal)](https://youtube.com/@SomethingUnreal) tarafından 2007 sonu-2008 başı civarında geliştirilen ancak daha yeni Windows sürümlerinde bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi nedeniyle 2011 yılında terk edilen Bleeper Music Maker yazılımından esinlenerek anakarttaki sistem hoparlörünü (diğer adıyla PC Hoparlörü) kullanan dünyanın ilk yapay zeka destekli melodi oluşturma yazılımıdır. NeoBleeper, daha yeni Windows sürümlerinde sistem hoparlörünün fiziksel portuna erişerek sistem bip seslerinin anakarttaki sistem hoparlörü yerine varsayılan ses aygıtına yönlendirilmesi sorununu çözerek daha istikrarlı bir müzik yapma deneyimi sağlar 🖥️🎶*
 
 [![GitHub stars](https://img.shields.io/github/stars/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/stargazers)
 [![Downloads](https://img.shields.io/github/downloads/GeniusPilot2016/NeoBleeper/total?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/releases)
@@ -16,13 +16,13 @@ NeoBleeper, [Robbi-985'in (diğer adıyla SomethingUnreal)](https://youtube.com/
 
 ![image](https://github.com/user-attachments/assets/cb1b3752-cc6a-48f6-9daa-7411f5a2cbfb)
 
-## Durum
+## 🚧 Durum
 
 Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürümüdür**. Lütfen programı bunu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
 
-## Özellikler
+## ✨ Özellikler
 
-- ### Kullanıcı dostu, tanıdık, daha ergonomik ve daha doğal arayüz
+- ### 🖥️ Kullanıcı dostu, tanıdık, daha ergonomik ve daha doğal arayüz
   NeoBleeper, yüksek çözünürlüklü ekranlarla uyumlu, kullanıcı dostu, tanıdık, ergonomik ve daha doğal bir arayüz sunar ve eski Bleeper Music Maker kullanıcılarının uyum sürecini hızlandırır.
 
   ![image](https://github.com/user-attachments/assets/27a96f21-3935-4949-ae7b-72414f52eecc)
@@ -41,7 +41,7 @@ Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürüm�
 
   ![image](https://github.com/user-attachments/assets/517cc4af-8891-4336-8500-d9f987a29d4f)
   
-- ### Nota ekleyin ve düzenleyin
+- ### 🎵 Nota ekleyin ve düzenleyin
   NeoBleeper, kullanıcıların kolayca ve hızlı bir şekilde nota eklemesine olanak tanır. Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle müziğinize yaratıcı bir şekilde nota ekleyebilir veya müziğinizdeki notaları düzenleyebilirsiniz.
 
   ![image](https://github.com/user-attachments/assets/041326af-1462-4c96-805b-3b91a8475212)
@@ -50,26 +50,27 @@ Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürüm�
 
   ![image](https://github.com/user-attachments/assets/bed0e8fc-4ab3-4663-b921-a459a827db2d)
 
-- ### Zaman işareti ve BPM ayarları
+- ### ⏱️ Zaman işareti ve BPM ayarları
   NeoBleeper, kullanıcıların müziğin zaman işaretini ayarlamasına ve metronom kullanarak ritmi düzenlemesine olanak tanır. 
 Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlamaları ve metronom kullanımı daha doğru ve tutarlı müzikler oluşturmanıza yardımcı olur.
 
   ![image](https://github.com/user-attachments/assets/f035863e-2898-426a-bcea-1e69d961041b)
 
-- ### Sanal klavye ile kolay nota girişi
+- ### 🎹 Sanal klavye ile kolay nota girişi
   NeoBleeper, sanal klavye ile notalarınızı hızlı ve kolay bir şekilde girmenizi sağlar. Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle notalarınızı zahmetsizce girip düzenleyebilir, yaratıcı süreçlerinizi hızlandırabilirsiniz.
 
   ![image](https://github.com/user-attachments/assets/d42b9f00-5d95-4057-a59a-a5ad5c4323b9)
 
-- ### Geriye Dönük Uyumluluk
+- ### 🔙 Geriye Dönük Uyumluluk
   NeoBleeper, kendi dosya formatının (.NBPML) yanı sıra esinlenildiği Bleeper Music Maker programının dosya formatını (.BMM) da destekler.
 
   ![image](https://github.com/user-attachments/assets/3a2fe357-b658-4f0e-a757-b3e9e1d8be7c)
 
-- ### Bir Yeniden Yapımdan Daha Fazlası
+- ### 🚀 Bir Yeniden Yapımdan Daha Fazlası
 
-  Yeni özellikleriyle NeoBleeper, Bleeper Music Maker'ın yeniden yapılmış bir versiyonundan çok daha fazlası. 
-  - #### Sistem hoparlörü yapay zeka ile buluşuyor
+  Yeni özellikleriyle NeoBleeper, Bleeper Music Maker'ın yeniden yapılmış bir versiyonundan çok daha fazlası.
+  
+  - #### 🤖 Sistem hoparlörü yapay zeka ile buluşuyor
     NeoBleeper, dünyanın ilk yapay zeka destekli sistem hoparlörü ile müzik çalma yazılımıdır.
     NeoBleeper programındaki Google Gemini™ destekli yapay zeka destekli müzik oluşturma özelliği sayesinde, yapay zeka ile müzik yaratabilir ve bunları sistem hoparlöründen veya MIDI çıkış cihazından çalabilirsiniz.
 
@@ -77,18 +78,18 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
     ![image](https://github.com/user-attachments/assets/f1ec8508-57a4-43c7-8965-dc613950f773)
     
- - #### Daha hassas pozisyon gösterimi
+ - #### 🎼 Daha hassas pozisyon gösterimi
     NeoBleeper, 1/32 nota uzunluğuyla uyumlu bir pozisyon gösterimi sunar.
    
     ![image](https://github.com/user-attachments/assets/8a04812f-19c5-4e15-9d54-52cc910ddc3d)
 
-  - #### Ayrıca, normal klavyenizi piyano olarak da kullanabilirsiniz.
+  - #### ⌨️ Ayrıca, normal klavyenizi piyano olarak da kullanabilirsiniz.
 
     NeoBleeper, normal klavyenizi piyanoya dönüştürerek MIDI giriş cihazına ihtiyaç duymadan kolayca nota çalmanızı sağlar.
 
     ![image](https://github.com/user-attachments/assets/b57e24d1-097a-4381-bb6b-067e0a748ce9)
     
-  - #### Dilediğiniz gibi kişiselleştirebilirsiniz
+  - #### 🎨 Dilediğiniz gibi kişiselleştirebilirsiniz
     NeoBleeper programını, oktav renklerini, bazı düğmelerin renklerini ve göstergelerin renklerini milyonlarca renkten herhangi biriyle değiştirerek ve koyu ve açık temalar arasında seçim yaparak kişiselleştirebilirsiniz. Bu özelliğin tek sınırı hayal gücünüzdür. Ayrıca, programın nostaljik Bleeper Music Maker kullanıcı arayüzüne benzemesi için "Klasik Bleeper modu"nu etkinleştirebilirsiniz.
     
     ![image](https://github.com/user-attachments/assets/c3db0fc6-af97-4237-86fb-b161e430ae48)
@@ -97,19 +98,19 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
     ![image](https://github.com/user-attachments/assets/5484ebf3-6d30-48aa-a797-fd5469743c44)
 
-  - #### Sistem hoparlörünü sizin için algılar*
+  - #### 🔊 Sistem hoparlörünü sizin için algılar*
     NeoBleeper, bilgisayarınızın anakartındaki sistem hoparlörünü algılamazsa, olası istenmeyen durumları önlemek için 'Bip sesi oluşturmak için ses aygıtını kullan' seçeneğini otomatik olarak etkinleştirir.
 
     ![image](https://github.com/user-attachments/assets/6188c287-ec8a-4e72-95e7-0d8af5b970e4)
 
-  - #### Düşündüğünüzden daha akıllı*
+  - #### 🧠 Düşündüğünüzden daha akıllı*
     NeoBleeper, bilgisayar türünüzü tanır ve kompakt bilgisayarlarda 'Bip sesi oluşturmak için ses aygıtını kullan' seçeneğini otomatik olarak etkinleştirerek olası istenmeyen durumları önler.
 
     ![image](https://github.com/user-attachments/assets/87a9ef10-28c7-4884-8e25-6ddb53310889)
     
 *Bu özellikler yalnızca 64-bit mimarisi sürümü için geçerlidir ve ARM64 mimarisi sürümünde sistem hoparlörü aracılığıyla bip sesi üretme özelliği yoktur.
 
-## Sistem Gereksinimleri
+## 🖥️📃 Sistem Gereksinimleri
 
 **Windows Sürümü:** Windows 10 (1809 ve üzeri) 64 bit/ARM64 (minimum)/Windows 11 (önerilen)
 
@@ -123,7 +124,11 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
 **Gereken Donanım:** Sistem hoparlörü veya herhangi bir ses aygıtı (minimum)
 
-### Çalıştırma Talimatları
+## ▶️ Yayımlanmış Yürütülebilir Dosyayı Çalıştırma
+
+Sürümler bölümünde bulunan önceden oluşturulmuş yürütülebilir dosyayı kullanarak NeoBleeper'ı derlemeye gerek kalmadan kolayca çalıştırabilirsiniz.
+
+### ⚙️ Çalıştırma Talimatları
 
 1. **Sürümler Sayfasına Git**
 - GitHub'daki [Sürümler](https://github.com/GeniusPilot2016/NeoBleeper/releases) sayfasını ziyaret ediniz.
@@ -146,7 +151,7 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
 NeoBleeper'ı çalıştırırken sorun yaşarsanız, sisteminizin yukarıda listelenen gereksinimleri karşıladığından emin olunuz.
 
-## Klonlama
+## 🌱 Klonlama
 
 1. Visual Studio'yu açın.
 
@@ -161,7 +166,7 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. NeoBleeper'a katkıda bulunduysanız, `about_neobleeper.cs` dosyasındaki `listView1` bileşenini seçmeyi, sağ üst köşedeki küçük oku seçip `Öğeleri Düzenle`yi seçmeyi, bir ListViewItem eklemeyi, `Text` özelliğine adınızı/takma adınızı yazmayı, `SubItems` özelliğindeki `(Collection)` öğesinin sağındaki üç noktayı seçmeyi ve projeyi onaylamadan önce `Text` özelliğine NeoBleeper'a katkıda bulunurken yaptığınız görevleri yazmayı veya mevcut `ListViewItem` öğenizi düzenlemeyi unutmayın.
 
-## Katkıda Bulunma
+## 🤝 Katkıda Bulunma
 Katkılarınız her zaman memnuniyetle karşılanır! Bir çekme isteği göndererek veya bir sorun açarak katkıda bulunabilirsiniz.
 
 ### Visual Studio Kullanımı
@@ -196,7 +201,7 @@ Katkılarınız her zaman memnuniyetle karşılanır! Bir çekme isteği gönder
 - GitHub'daki ana depoda bir çekme isteği oluşturun.
 - Değişikliklerinizi açıklayan bir başlık ve açıklama ekleyin.
 
-### Genel Talimatlar
+### 📑 Genel Talimatlar
 Çaplandırmayla başlayın.
 
 Yeni bir Dal oluşturun: `git checkout -b feature/AmazingFeature`
