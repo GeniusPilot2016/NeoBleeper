@@ -313,14 +313,18 @@ namespace NeoBleeper
                     {
                         if (reply.RoundtripTime > 500) // 500 ms and above is considered slow
                         {
-                            Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                            if(reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
+                                Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                            else
+                                Logger.Log($"The internet connection test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
+                            return false; // Return false if timeout to prevent deadlock
                         }
                         return true;
                     }
                     else
                     {
                         Logger.Log("Internet connection failed.", Logger.LogTypes.Error);
-                        return true; // Return true in all cases
+                        return false; // Return false if ping fails
                     }
                 }
             }
@@ -343,14 +347,18 @@ namespace NeoBleeper
                     {
                         if (reply.RoundtripTime > 500)
                         {
-                            Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                            if(reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
+                                Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                            else
+                                Logger.Log($"The server access test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
+                                return false; // Return false to prevent deadlock
                         }
                         return true;
                     }
                     else
                     {
                         Logger.Log("Access to server failed.", Logger.LogTypes.Error);
-                        return true; // Return true in all cases
+                        return false; // Return true in all cases
                     }
                 }
             }
@@ -747,6 +755,8 @@ namespace NeoBleeper
                         $"    </LineList>\r\n" +
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
+                    connectionCheckTimer.Stop();
+                    connectionCheckTimer.
                     if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
                         // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content

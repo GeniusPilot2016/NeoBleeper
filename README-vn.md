@@ -15,6 +15,7 @@ NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI đầu tiên trên 
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+[![Beta](https://img.shields.io/badge/status-beta-orange?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
 
 ![image](https://github.com/user-attachments/assets/da50377a-e684-499f-bfd2-584f5d4bb5b6)
 
