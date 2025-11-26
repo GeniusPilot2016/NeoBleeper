@@ -132,7 +132,7 @@ You can run NeoBleeper easily without compiling by using the pre-built executabl
    - Visit the [Releases](https://github.com/GeniusPilot2016/NeoBleeper/releases) page on GitHub.
 
 2. **Download the Zip File**
-   - Find the latest release, then download the zip file (for example: `NeoBleeper-win-x64.zip` or similar, depending on your system).
+   - Find the latest release, then download the zip file (for example: `neobleeper-1.0.0-beta-x64.zip` or similar, depending on your system).
 
 3. **Extract the Zip File**
    - Right-click the downloaded zip file and choose "Extract All..." (on Windows), or use your preferred zip extractor.
