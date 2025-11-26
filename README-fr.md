@@ -15,6 +15,7 @@ NeoBleeper est le premier logiciel de création musicale au monde utilisant l'IA
 [![Issues](https://img.shields.io/github/issues-raw/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/issues)
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
+[![Beta](https://img.shields.io/badge/status-beta-orange?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
 
 ![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
 
