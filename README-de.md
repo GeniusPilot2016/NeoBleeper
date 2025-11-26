@@ -1,3 +1,5 @@
+![neobleeper_banner](https://github.com/user-attachments/assets/b0fea0a5-c565-47e6-83c8-e55763fbaa0d)
+
 # 🖥️🎶🎹🤖 NeoBleeper: Eine fast vergessene Hardware trifft auf moderne Technologien
 
 **🎉 NeoBleeper ist der erste Musikplayer, der Musik über den Systemlautsprecher abspielen kann und über direkte deutsche Sprachunterstützung verfügt**
