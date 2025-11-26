@@ -226,4 +226,4 @@ Führen Sie einen Push aus: `git push origin feature/AmazingFeature`
 
 ## ⭐️ Unterstützen Sie NeoBleeper!
 
-Wenn Ihnen dieses Projekt gefällt, geben [Sie ihm bitte einen Stern ⭐️ auf GitHub](https://github.com/GeniusPilot2016/NeoBleeper), damit auch andere es entdecken können!
+Wenn Ihnen dieses Projekt gefällt, [geben Sie ihm bitte einen Stern ⭐️ auf GitHub](https://github.com/GeniusPilot2016/NeoBleeper), damit auch andere es entdecken können!
