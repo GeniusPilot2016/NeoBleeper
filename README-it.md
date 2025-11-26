@@ -1,3 +1,5 @@
+![neobleeper_banner](https://github.com/user-attachments/assets/b74373aa-5d52-4ec7-b968-0bc2d0e8317d)
+
 # 🖥️🎶🎹🤖 NeoBleeper: Un hardware quasi dimenticato incontra le tecnologie moderne
 
 **🎉 NeoBleeper è il primo lettore musicale in grado di riprodurre musica tramite l'altoparlante di sistema e supporta direttamente la lingua italiana**
