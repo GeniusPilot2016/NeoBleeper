@@ -14,6 +14,7 @@ NeoBleeper is world's first AI-enabled tune creation software using the system s
 [![PRs](https://img.shields.io/github/issues-pr/GeniusPilot2016/NeoBleeper?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper/pulls)
 [![GitHub forks](https://img.shields.io/github/forks/GeniusPilot2016/NeoBleeper?style=social)](https://github.com/GeniusPilot2016/NeoBleeper/network/members)
 [![Beta](https://img.shields.io/badge/status-beta-orange?style=flat-square)](https://github.com/GeniusPilot2016/NeoBleeper)
+
 ![image](https://github.com/user-attachments/assets/efe2efff-f6b5-49d4-a0d7-424e47a997ce)
 
 ## 🚧 Status
