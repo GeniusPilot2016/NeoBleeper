@@ -1,3 +1,5 @@
+![neobleeper_banner](https://github.com/user-attachments/assets/d3bc91e2-12db-4f11-af7f-c0aba394ec42)
+
 # 🖥️🎶🎹🤖 NeoBleeper: Phần cứng gần như bị lãng quên gặp gỡ công nghệ hiện đại
 
 **🎉 NeoBleeper là trình phát nhạc đầu tiên có thể phát nhạc qua loa hệ thống và hỗ trợ trực tiếp tiếng Việt**
