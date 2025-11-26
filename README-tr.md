@@ -123,6 +123,29 @@ Kullanıcı dostu, tanıdık ve daha doğal arayüzüyle, zaman işareti ayarlam
 
 **Gereken Donanım:** Sistem hoparlörü veya herhangi bir ses aygıtı (minimum)
 
+### Çalıştırma Talimatları
+
+1. **Sürümler Sayfasına Git**
+- GitHub'daki [Sürümler](https://github.com/GeniusPilot2016/NeoBleeper/releases) sayfasını ziyaret ediniz.
+
+2. **Zip Dosyasını İndiriniz**
+- En son sürümü bulun ve ardından zip dosyasını indiriniz (örneğin: sisteminize bağlı olarak `neobleeper-1.0.0-beta-x64.zip` veya benzeri).
+
+3. **Zip Dosyasını Çıkarınız**
+- İndirilen zip dosyasına sağ tıklayın ve "Tümünü Çıkar..." seçeneğini seçiniz (Windows'ta) veya tercih ettiğiniz zip çıkarıcıyı kullanınız.
+
+4. **Yürütülebilir Dosyayı Çalıştırınız**
+- Çıkarılan klasörü açınız.
+- `NeoBleeper` klasörüne gidiniz
+- Programı başlatmak için `NeoBleeper.exe` dosyasını bulup çift tıklayınız.
+
+5. **(İsteğe bağlı) Güvenlik İstemlerine İzin Ver**
+- Windows, programın internetten geldiğini tespit ederse, bir güvenlik istemini kabul etmeniz veya "Daha fazla bilgi" ve ardından "Yine de çalıştır"a tıklamanız gerekebilir.
+
+**Kurulum gerekmez.**
+
+NeoBleeper'ı çalıştırırken sorun yaşarsanız, sisteminizin yukarıda listelenen gereksinimleri karşıladığından emin olunuz.
+
 ## Klonlama
 
 1. Visual Studio'yu açın.
@@ -183,3 +206,7 @@ Değişikliklerinizi gönderin: `git commit -m 'Add feature: AmazingFeature'`
 Bir Gönderin: `git push origin feature/AmazingFeature`
 
 Bir Çekme İsteği açın.
+
+## ⭐️ NeoBleeper'ı Destekleyin!
+
+Bu projeyi beğendiyseniz, lütfen başkalarının da keşfetmesine yardımcı olmak için [GitHub'da bir yıldız ⭐️ bırakmayı](https://github.com/GeniusPilot2016/NeoBleeper) düşünün!
