@@ -134,7 +134,9 @@ Mit seinen neuen Funktionen ist NeoBleeper mehr als nur ein Remake des Bleeper M
 
 **Erforderliche Hardware:** Systemlautsprecher oder ein beliebiges Audiogerät (mindestens)
 
-## ▶️ Ausführen der freigegebenen ausführbaren Datei
+## ▶️ Ausführen der veröffentlichten ausführbaren Datei
+
+Sie können NeoBleeper ganz einfach ohne Kompilierung ausführen, indem Sie die vorkompilierte ausführbare Datei im Bereich „Releases“ verwenden.
 
 ### ⚙️ Ausführungsanleitung
 
