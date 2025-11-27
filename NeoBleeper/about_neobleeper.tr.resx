@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAGYAQIBmAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGoAQIBqAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -246,7 +246,7 @@
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 418</value>
+    <value>12, 401</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>556, 133</value>
@@ -258,7 +258,7 @@
     <value>Görev</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 394</value>
+    <value>230, 377</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 16</value>
@@ -267,7 +267,7 @@
     <value>Katkıda Bulunanlar</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 341</value>
+    <value>85, 324</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 43</value>
@@ -279,7 +279,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 341</value>
+    <value>215, 324</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 43</value>
@@ -290,13 +290,13 @@
   <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 341</value>
+  <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 324</value>
   </data>
-  <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 43</value>
+  <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 43</value>
   </data>
-  <data name="button_fork_me_on_github.Text" xml:space="preserve">
+  <data name="button_explore_and_star_on_github.Text" xml:space="preserve">
     <value>GitHub'da Keşfet ve Yıldızla</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
@@ -306,7 +306,7 @@
     <value>20, 200</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>541, 130</value>
+    <value>541, 117</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023-2025 GeniusPilot2016
@@ -318,7 +318,7 @@ Bu programdaki tüm simgeler icons8.com'dan indirilmiştir
 Google Gemini™, Google LLC'nin bir ticari markasıdır</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>580, 563</value>
+    <value>580, 546</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

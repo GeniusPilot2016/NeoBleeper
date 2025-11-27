@@ -40,7 +40,7 @@
             label1 = new Label();
             button_visit_icons8 = new Button();
             button_view_license_text = new Button();
-            button_fork_me_on_github = new Button();
+            button_explore_and_star_on_github = new Button();
             panel1 = new Panel();
             lbl_credit = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -86,6 +86,7 @@
             listView1.Name = "listView1";
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            listView1.MouseDoubleClick += listView1_MouseDoubleClick;
             // 
             // columnHeader1
             // 
@@ -116,18 +117,18 @@
             button_view_license_text.UseVisualStyleBackColor = true;
             button_view_license_text.Click += button_view_license_text_Click;
             // 
-            // button_fork_me_on_github
+            // button_explore_and_star_on_github
             // 
-            resources.ApplyResources(button_fork_me_on_github, "button_fork_me_on_github");
-            button_fork_me_on_github.ImageList = imageList_about;
-            button_fork_me_on_github.Name = "button_fork_me_on_github";
-            button_fork_me_on_github.UseVisualStyleBackColor = true;
-            button_fork_me_on_github.Click += button_fork_me_on_github_Click;
+            resources.ApplyResources(button_explore_and_star_on_github, "button_explore_and_star_on_github");
+            button_explore_and_star_on_github.ImageList = imageList_about;
+            button_explore_and_star_on_github.Name = "button_explore_and_star_on_github";
+            button_explore_and_star_on_github.UseVisualStyleBackColor = true;
+            button_explore_and_star_on_github.Click += button_explore_and_star_on_github_Click;
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Controls.Add(lbl_name);
             panel1.Controls.Add(lbl_version);
             panel1.Controls.Add(pictureBox1);
@@ -142,7 +143,7 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            Controls.Add(button_fork_me_on_github);
+            Controls.Add(button_explore_and_star_on_github);
             Controls.Add(button_visit_icons8);
             Controls.Add(label1);
             Controls.Add(listView1);
@@ -175,7 +176,7 @@
         private ColumnHeader columnHeader2;
         private Button button_visit_icons8;
         private Button button_view_license_text;
-        private Button button_fork_me_on_github;
+        private Button button_explore_and_star_on_github;
         private Panel panel1;
         private Label lbl_credit;
     }

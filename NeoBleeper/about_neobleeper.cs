@@ -87,7 +87,7 @@ namespace NeoBleeper
             label1.ForeColor = Color.White;
             button_visit_icons8.BackColor = Color.FromArgb(32, 32, 32);
             button_view_license_text.BackColor = Color.FromArgb(32, 32, 32);
-            button_fork_me_on_github.BackColor = Color.FromArgb(32, 32, 32);
+            button_explore_and_star_on_github.BackColor = Color.FromArgb(32, 32, 32);
             listView1.BackColor = Color.Black;
             listView1.ForeColor = Color.White;
             foreach (ListViewItem item in listView1.Items)
@@ -108,7 +108,7 @@ namespace NeoBleeper
             label1.ForeColor = SystemColors.ControlText;
             button_visit_icons8.BackColor = Color.Transparent;
             button_view_license_text.BackColor = Color.Transparent;
-            button_fork_me_on_github.BackColor = Color.Transparent;
+            button_explore_and_star_on_github.BackColor = Color.Transparent;
             listView1.BackColor = SystemColors.Window;
             listView1.ForeColor = SystemColors.WindowText;
             foreach (ListViewItem item in listView1.Items)
@@ -130,7 +130,7 @@ namespace NeoBleeper
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://icons8.com/") { UseShellExecute = true });
         }
 
-        private void button_fork_me_on_github_Click(object sender, EventArgs e)
+        private void button_explore_and_star_on_github_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper") { UseShellExecute = true });
         }
@@ -145,6 +145,34 @@ namespace NeoBleeper
             if (!string.IsNullOrEmpty(e.LinkText))
             {
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.LinkText) { UseShellExecute = true });
+            }
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    int selectedIndex = listView1.SelectedItems[0].Index;
+                    string url = string.Empty; // Initialize URL variable for any social media links of contributors
+                    switch (selectedIndex)
+                    {
+                        case 0: // GeniusPilot2016 (the main developer of NeoBleeper)
+                            url = "https://www.github.com/GeniusPilot2016";
+                            break;
+                        case 1: // Robbi-985 (aka SomethingUnreal) (the original developer of Bleeper Music Maker, the predecessor of NeoBleeper with VB6)
+                            url = "https://www.youtube.com/@SomethingUnreal";
+                            break;
+                        case 2: // M084MM3D (the user who reported the system speaker issue in some chipsets and completed missing data about can computers that have system speaker, but doesn't listed as PNP0800 device)
+                            url = "https://www.youtube.com/@M084MM3D";
+                            break;
+                    }
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
+                    }
+                }
             }
         }
     }

@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAGkAQIBpAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAG0AQIBtAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -248,7 +248,7 @@
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 411</value>
+    <value>12, 408</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>603, 147</value>
@@ -260,7 +260,7 @@
     <value>Задача</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 387</value>
+    <value>286, 384</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 16</value>
@@ -269,7 +269,7 @@
     <value>Авторы</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 333</value>
+    <value>36, 330</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 47</value>
@@ -281,7 +281,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 333</value>
+    <value>215, 330</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 47</value>
@@ -292,13 +292,13 @@
   <data name="button_view_license_text.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 333</value>
+  <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
+    <value>400, 330</value>
   </data>
-  <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 47</value>
   </data>
-  <data name="button_fork_me_on_github.Text" xml:space="preserve">
+  <data name="button_explore_and_star_on_github.Text" xml:space="preserve">
     <value>Исследуйте и добавляйте в избранное на GitHub</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
@@ -321,7 +321,7 @@ Google Gemini™ является товарным знаком Google LLC
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>627, 570</value>
+    <value>627, 567</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
