@@ -117,255 +117,213 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButtonProduceSoundForManyMilliseconds.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 53</value>
+  <data name="&gt;&gt;trackBarLength.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="radioButtonAlwaysProduceSound.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="radioButtonAlwaysProduceSound.Text" xml:space="preserve">
-    <value>System speaker/sound device always produces sound</value>
+  <data name="&gt;&gt;finishTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="radioButtonAlwaysProduceSound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 29</value>
+  <data name="labelLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="trackBarLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 97</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelLength.Text" xml:space="preserve">
+    <value>250 mS</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="trackBarLength.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="trackBarLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>413, 31</value>
+  </data>
+  <data name="trackBarPitchChangeSpeed.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAlwaysProduceSound.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="radioButtonProduceSoundForManyMilliseconds.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="labelLength.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="radioButtonAlwaysProduceSound.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="trackBarLength.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Bleeper Portamento</value>
   </data>
-  <data name="&gt;&gt;trackBarPitchChangeSpeed.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;trackBarLength.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="radioButtonAlwaysProduceSound.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>171, 189</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelLength.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="trackBarLength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 97</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonAlwaysProduceSound.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;trackBarPitchChangeSpeed.Name" xml:space="preserve">
-    <value>trackBarPitchChangeSpeed</value>
-  </data>
-  <data name="trackBarPitchChangeSpeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="radioButtonProduceSoundForManyMilliseconds.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 0</value>
-  </data>
-  <data name="&gt;&gt;trackBarLength.Name" xml:space="preserve">
-    <value>trackBarLength</value>
-  </data>
-  <data name="trackBarPitchChangeSpeed.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 40</value>
-  </data>
-  <data name="&gt;&gt;labelLength.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;trackBarPitchChangeSpeed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;trackBarLength.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;finishTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="labelLength.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 11.999999pt, style=Bold</value>
-  </data>
-  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="trackBarPitchChangeSpeed.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="trackBarPitchChangeSpeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>444, 36</value>
-  </data>
-  <data name="&gt;&gt;finishTimer.Name" xml:space="preserve">
-    <value>finishTimer</value>
-  </data>
-  <data name="trackBarPitchChangeSpeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 211</value>
-  </data>
-  <data name="labelLength.Text" xml:space="preserve">
-    <value>250 mS</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="trackBarLength.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 31</value>
-  </data>
-  <data name="labelLength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 130</value>
+  <data name="&gt;&gt;trackBarPitchChangeSpeed.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 16</value>
   </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;labelLength.Name" xml:space="preserve">
     <value>labelLength</value>
   </data>
-  <data name="labelLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
+  <data name="trackBarLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="labelLength.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 21</value>
+  <data name="&gt;&gt;trackBarPitchChangeSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 11</value>
+  <data name="trackBarPitchChangeSpeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;trackBarPitchChangeSpeed.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="trackBarPitchChangeSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 211</value>
   </data>
-  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Name" xml:space="preserve">
-    <value>radioButtonAlwaysProduceSound</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.Text" xml:space="preserve">
-    <value>System speaker/sound device produces sound for roughly this many milliseconds</value>
-  </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="trackBarLength.TabIndex" type="System.Int32, mscorlib">
+  <data name="trackBarPitchChangeSpeed.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="radioButtonAlwaysProduceSound.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Length of sound</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>PortamentoWindow</value>
-  </data>
-  <data name="&gt;&gt;radioButtonAlwaysProduceSound.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="radioButtonAlwaysProduceSound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 29</value>
   </data>
   <data name="radioButtonAlwaysProduceSound.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="&gt;&gt;labelLength.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;trackBarPitchChangeSpeed.Name" xml:space="preserve">
+    <value>trackBarPitchChangeSpeed</value>
   </data>
-  <data name="trackBarLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="labelLength.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.999999pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;labelLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>444, 163</value>
+  <data name="labelLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 21</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="radioButtonAlwaysProduceSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 20</value>
-  </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 40</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelLength.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
   <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.Name" xml:space="preserve">
     <value>radioButtonProduceSoundForManyMilliseconds</value>
   </data>
-  <data name="labelLength.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
-  <data name="&gt;&gt;labelLength.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="radioButtonProduceSoundForManyMilliseconds.Text" xml:space="preserve">
+    <value>System speaker/sound device produces sound for roughly this many milliseconds</value>
   </data>
-  <data name="&gt;&gt;trackBarLength.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="labelLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;trackBarLength.Name" xml:space="preserve">
+    <value>trackBarLength</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 40</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;trackBarPitchChangeSpeed.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Speed of pitch change</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 11</value>
+  </data>
+  <data name="trackBarLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Name" xml:space="preserve">
+    <value>radioButtonAlwaysProduceSound</value>
+  </data>
+  <data name="&gt;&gt;trackBarLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="trackBarLength.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="trackBarPitchChangeSpeed.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="radioButtonAlwaysProduceSound.Text" xml:space="preserve">
+    <value>System speaker/sound device always produces sound</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>467, 258</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 40</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="labelLength.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 53</value>
+  </data>
+  <data name="labelLength.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonProduceSoundForManyMilliseconds.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
   </data>
   <data name="radioButtonAlwaysProduceSound.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>400, 0</value>
@@ -373,37 +331,79 @@
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="labelLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 132</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>444, 163</value>
+  </data>
+  <data name="&gt;&gt;labelLength.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
   <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="radioButtonProduceSoundForManyMilliseconds.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;trackBarLength.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="trackBarLength.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Bleeper Portamento</value>
+  <data name="radioButtonAlwaysProduceSound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>315, 20</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>467, 258</value>
+  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="trackBarPitchChangeSpeed.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
-  <data name="&gt;&gt;radioButtonProduceSoundForManyMilliseconds.ZOrder" xml:space="preserve">
+  <data name="trackBarPitchChangeSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>444, 36</value>
+  </data>
+  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAlwaysProduceSound.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelLength.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Length of sound</value>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButtonAlwaysProduceSound.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;labelLength.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;finishTimer.Name" xml:space="preserve">
+    <value>finishTimer</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PortamentoWindow</value>
   </data>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>vi</value>
   </metadata>
-  <metadata name="finishTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="finishTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
 </root>
