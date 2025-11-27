@@ -756,7 +756,6 @@ namespace NeoBleeper
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
                     connectionCheckTimer.Stop();
-                    connectionCheckTimer.
                     if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
                         // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
