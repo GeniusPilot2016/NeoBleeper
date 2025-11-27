@@ -122,7 +122,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAFwAQIBcAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGAAQIBgAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -235,6 +235,10 @@
         cmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
 </value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 420</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="columnHeader1.Width" type="System.Int32, mscorlib">
     <value>300</value>
@@ -242,15 +246,17 @@
   <data name="columnHeader2.Text" xml:space="preserve">
     <value>Aufgabe</value>
   </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, 396</value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Mitwirkende</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 326</value>
+    <value>52, 325</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 41</value>
+    <value>126, 60</value>
   </data>
   <data name="button_visit_icons8.Text" xml:space="preserve">
     <value>Besuchen Sie icons8.com</value>
@@ -259,10 +265,10 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 326</value>
+    <value>182, 325</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 41</value>
+    <value>132, 60</value>
   </data>
   <data name="button_view_license_text.Text" xml:space="preserve">
     <value>Lizenztext anzeigen</value>
@@ -271,28 +277,13 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>318, 326</value>
+    <value>318, 325</value>
   </data>
   <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 41</value>
+    <value>140, 60</value>
   </data>
   <data name="button_fork_me_on_github.Text" xml:space="preserve">
-    <value>Fork Me auf GitHub</value>
-  </data>
-  <data name="richTextBox_credit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 200</value>
-  </data>
-  <data name="richTextBox_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>475, 112</value>
-  </data>
-  <data name="richTextBox_credit.Text" xml:space="preserve">
-    <value>© 2023-2025 GeniusPilot2016
-NeoBleeper ist unter der GNU General Public License v3.0 lizenziert
-Weitere Informationen finden Sie unter https://www.gnu.org/licenses/
-Inspiriert von Robbi-985s (auch bekannt als SomethingUnreals) Bleeper Music Maker
-Design und Programmierung: GeniusPilot2016
-Alle Symbole in diesem Programm wurden von icons8.com heruntergeladen
-Google Gemini™ ist eine Marke von Google LLC</value>
+    <value>Auf GitHub entdecken und mit einem Stern markieren</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lbl_credit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -313,6 +304,9 @@ Design und Programmierung: GeniusPilot2016
 Alle Symbole in diesem Programm wurden von icons8.com heruntergeladen
 Google Gemini™ ist eine Marke von Google LLC
 </value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>506, 583</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

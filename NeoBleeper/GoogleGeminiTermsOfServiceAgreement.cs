@@ -170,7 +170,7 @@ namespace NeoBleeper
         private async Task DownloadActualTermsOfService()
         {
             string formerText = richTextBoxTerms.Text;
-            if (CreateMusicWithAI.IsInternetAvailable())
+            if (await CreateMusicWithAI.IsInternetAvailable())
             {
                 try
                 {

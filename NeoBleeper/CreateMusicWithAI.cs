@@ -72,30 +72,12 @@ namespace NeoBleeper
                 Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
-            else if (!IsInternetAvailable())
+            else
             {
-                ShowNoInternetMessage();
-                this.Close();
+                CheckConnectionsAndInitializeAsync();
             }
-            else if (!IsServerUp())
-            {
-                ShowServerDownMessage();
-                this.Close();
-            }
-            else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
-            {
-                Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
-            {
-                Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            listAndSelectAIModels();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -297,14 +279,14 @@ namespace NeoBleeper
         }
 
         // Check internet connectivity and server status
-        public static bool IsInternetAvailable()
+        public static async Task<bool> IsInternetAvailable()
         {
             try
             {
                 Application.DoEvents();
                 using (var ping = new Ping())
                 {
-                    var reply = ping.Send("info.cern.ch"); // Pinging the first website ever
+                    var reply = await ping.SendPingAsync("info.cern.ch"); // Pinging the first website ever
                     // Fun fact: info.cern.ch is the first website ever created, launched on August 6, 1991, by Tim Berners-Lee at CERN.
                     // It was originally used to provide information about the World Wide Web project.
                     // Today, it serves as a historical site and a tribute to the origins of the web.
@@ -334,15 +316,42 @@ namespace NeoBleeper
                 return false; // Return false
             }
         }
-
-        private bool IsServerUp()
+        private async void CheckConnectionsAndInitializeAsync()
+        {
+            if (!await IsInternetAvailable())
+            {
+                ShowNoInternetMessage();
+                this.Close();
+                return;
+            }
+            else if (!await IsServerUp())
+            {
+                ShowServerDownMessage();
+                this.Close();
+                return; 
+            }
+            else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+            {
+                Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
+                MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
+            {
+                Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
+                MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            listAndSelectAIModels();
+        }
+        private async Task<bool> IsServerUp()
         {
             try
             {
                 Application.DoEvents();
                 using (var ping = new Ping())
                 {
-                    var reply = ping.Send("generativelanguage.googleapis.com");
+                    var reply = await ping.SendPingAsync("generativelanguage.googleapis.com");
                     if (reply.Status == IPStatus.Success)
                     {
                         if (reply.RoundtripTime > 500)
@@ -1228,72 +1237,76 @@ namespace NeoBleeper
             }
             // Another batch of regex spaghetti to fix parameter names
             // Fix all parameter names according to Clementi Sonatina No. 3, Op 36.NBPML syntax
-            xmlContent = Regex.Replace(xmlContent, @"<length>", "<Length>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</length>", "</Length>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note1>", "<Note1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</note1>", "</Note1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note2>", "<Note2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</note2>", "</Note2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note3>", "<Note3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</note3>", "</Note3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note4>", "<Note4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</note4>", "</Note4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<mod>", "<Mod>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</mod>", "</Mod>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<art>", "<Art>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</art>", "</Art>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave>", "<KeyboardOctave>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</keyboardoctave>", "</KeyboardOctave>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<bpm>", "<BPM>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</bpm>", "</BPM>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<timesignature>", "<TimeSignature>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</timesignature>", "</TimeSignature>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio>", "<NoteSilenceRatio>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</notesilenceratio>", "</NoteSilenceRatio>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelength>", "<NoteLength>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</notelength>", "</NoteLength>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<alternatetime>", "<AlternateTime>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</alternatetime>", "</AlternateTime>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay>", "<NoteClickPlay>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</noteclickplay>", "</NoteClickPlay>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd>", "<NoteClickAdd>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</noteclickadd>", "</NoteClickAdd>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote1>", "<AddNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</addnote1>", "</AddNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote2>", "<AddNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</addnote2>", "</AddNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote3>", "<AddNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</addnote3>", "</AddNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote4>", "<AddNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</addnote4>", "</AddNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notereplace>", "<NoteReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</notereplace>", "</NoteReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>", "<NoteLengthReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</notelengthreplace>", "</NoteLengthReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1>", "<ClickPlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote1>", "</ClickPlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2>", "<ClickPlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote2>", "</ClickPlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3>", "<ClickPlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote3>", "</ClickPlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4>", "<ClickPlayNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</clickplaynote4>", "</ClickPlayNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote1>", "<PlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</playnote1>", "</PlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote2>", "<PlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</playnote2>", "</PlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote3>", "<PlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</playnote3>", "</PlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote4>", "<PlayNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</playnote4>", "</PlayNote4>", RegexOptions.IgnoreCase);
-            
+            xmlContent = Regex.Replace(xmlContent, @"<length>(.*?)</length>", "<Length>$1</Length>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note1>(.*?)</note1>", "<Note1>$1</Note1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note2>(.*?)</note2>", "<Note2>$1</Note2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note3>(.*?)</note3>", "<Note3>$1</Note3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note4>(.*?)</note4>", "<Note4>$1</Note4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<mod>(.*?)</mod>", "<Mod>$1</Mod>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<art>(.*?)</art>", "<Art>$1</Art>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave>(.*?)</keyboardoctave>", "<KeyboardOctave>$1</KeyboardOctave>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<bpm>(.*?)</bpm>", "<BPM>$1</BPM>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<timesignature>(.*?)</timesignature>", "<TimeSignature>$1</TimeSignature>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio>(.*?)</notesilenceratio>", "<NoteSilenceRatio>$1</NoteSilenceRatio>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelength>(.*?)</notelength>", "<NoteLength>$1</NoteLength>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<alternatetime>(.*?)</alternatetime>", "<AlternateTime>$1</AlternateTime>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay>(.*?)</noteclickplay>", "<NoteClickPlay>$1</NoteClickPlay>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd>(.*?)</noteclickadd>", "<NoteClickAdd>$1</NoteClickAdd>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote1>(.*?)</addnote1>", "<AddNote1>$1</AddNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote2>(.*?)</addnote2>", "<AddNote2>$1</AddNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote3>(.*?)</addnote3>", "<AddNote3>$1</AddNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote4>(.*?)</addnote4>", "<AddNote4>$1</AddNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notereplace>(.*?)</notereplace>", "<NoteReplace>$1</NoteReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>(.*?)</notelengthreplace>", "<NoteLengthReplace>$1</NoteLengthReplace>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1>(.*?)</clickplaynote1>", "<ClickPlayNote1>$1</ClickPlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2>(.*?)</clickplaynote2>", "<ClickPlayNote2>$1</ClickPlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3>(.*?)</clickplaynote3>", "<ClickPlayNote3>$1</ClickPlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4>(.*?)</clickplaynote4>", "<ClickPlayNote4>$1</ClickPlayNote4>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote1>(.*?)</playnote1>", "<PlayNote1>$1</PlayNote1>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote2>(.*?)</playnote2>", "<PlayNote2>$1</PlayNote2>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote3>(.*?)</playnote3>", "<PlayNote3>$1</PlayNote3>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote4>(.*?)</playnote4>", "<PlayNote4>$1</PlayNote4>", RegexOptions.IgnoreCase);
+
+            // Another batch of regex spaghetti to fix self-closing parameter names
+            xmlContent = Regex.Replace(xmlContent, @"<length\s*/>", "<Length />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note1\s*/>", "<Note1 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note2\s*/>", "<Note2 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note3\s*/>", "<Note3 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<note4\s*/>", "<Note4 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<mod\s*/>", "<Mod />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<art\s*/>", "<Art />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave\s*/>", "<KeyboardOctave />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<bpm\s*/>", "<BPM />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<timesignature\s*/>", "<TimeSignature />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio\s*/>", "<NoteSilenceRatio />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelength\s*/>", "<NoteLength />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<alternatetime\s*/>", "<AlternateTime />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay\s*/>", "<NoteClickPlay />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd\s*/>", "<NoteClickAdd />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote1\s*/>", "<AddNote1 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote2\s*/>", "<AddNote2 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote3\s*/>", "<AddNote3 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<addnote4\s*/>", "<AddNote4 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notereplace\s*/>", "<NoteReplace />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace\s*/>", "<NoteLengthReplace />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1\s*/>", "<ClickPlayNote1 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2\s*/>", "<ClickPlayNote2 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3\s*/>", "<ClickPlayNote3 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4\s*/>", "<ClickPlayNote4 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote1\s*/>", "<PlayNote1 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote2\s*/>", "<PlayNote2 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote3\s*/>", "<PlayNote3 />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<playnote4\s*/>", "<PlayNote4 />", RegexOptions.IgnoreCase);
+
             // Fix for mismatched tags like <Note3>...<Note4>
             xmlContent = Regex.Replace(
             xmlContent,
-            @"<(?<tag1>\w+)>(?<content>.*?)<(?<tag2>\w+)>",
-            "</${tag1}><${tag2}>",
+            @"<(?<openTag>\w+)>(.*?)</(?<closeTag>\w+)>",
+            m => m.Groups["openTag"].Value == m.Groups["closeTag"].Value
+                ? m.Value
+                : $"<{m.Groups["openTag"].Value}>{m.Groups[2].Value}</{m.Groups["openTag"].Value}>",
             RegexOptions.Singleline | RegexOptions.IgnoreCase
-            );
+        );
 
             // Fix for reversed tags like </Note1>...<Note1>
             xmlContent = Regex.Replace(
@@ -1442,10 +1455,10 @@ namespace NeoBleeper
             set_theme();
         }
 
-        private void connectionCheckTimer_Tick(object sender, EventArgs e)
+        private async void connectionCheckTimer_Tick(object sender, EventArgs e)
         {
             // No connection, no AI music generation
-            if (!IsInternetAvailable())
+            if (!await IsInternetAvailable())
             {
                 cts.Cancel();
                 generatedFilename = string.Empty; // Clear filename on internet failure
@@ -1455,7 +1468,7 @@ namespace NeoBleeper
                 ShowNoInternetMessage();
                 this.Close();
             }
-            else if (!IsServerUp())
+            else if (!await IsServerUp())
             {
                 cts.Cancel();
                 generatedFilename = string.Empty; // Clear filename on server failure

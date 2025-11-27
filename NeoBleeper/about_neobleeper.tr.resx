@@ -117,12 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>89, 28</value>
+  </data>
+  <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 47</value>
+  </data>
+  <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
+    <value>207, 111</value>
+  </data>
   <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAGIAQIBiAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGYAQIBmAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -235,12 +245,11 @@
         d2luZy5HcmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
 </value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 418</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 133</value>
+    <value>556, 133</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>İsim</value>
@@ -249,7 +258,7 @@
     <value>Görev</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 394</value>
+    <value>230, 394</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 16</value>
@@ -258,7 +267,7 @@
     <value>Katkıda Bulunanlar</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 341</value>
+    <value>85, 341</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 43</value>
@@ -270,7 +279,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 341</value>
+    <value>215, 341</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 43</value>
@@ -282,34 +291,22 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_fork_me_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 341</value>
+    <value>351, 341</value>
   </data>
   <data name="button_fork_me_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 43</value>
   </data>
   <data name="button_fork_me_on_github.Text" xml:space="preserve">
-    <value>GitHub'da Beni Çatallandır</value>
+    <value>GitHub'da Keşfet ve Yıldızla</value>
   </data>
-  <data name="button_fork_me_on_github.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="richTextBox_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 130</value>
-  </data>
-  <data name="richTextBox_credit.Text" xml:space="preserve">
-    <value>© 2023-2025 GeniusPilot2016
-NeoBleeper, GNU General Public License v3.0 lisansı altındadır
-Ayrıntılar için https://www.gnu.org/licenses/ adresine bakınız
-Robbi-985'in (diğer adıyla SomethingUnreal'ın) Bleeper Music Maker programından esinlenilmiştir
-GeniusPilot2016 tarafından tasarlanmış ve geliştirilmiştir
-Bu programdaki tüm simgeler icons8.com'dan indirilmiştir
-Google Gemini™, Google LLC'nin bir ticari markasıdır</value>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 183</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 200</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 130</value>
+    <value>541, 130</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023-2025 GeniusPilot2016
@@ -321,7 +318,7 @@ Bu programdaki tüm simgeler icons8.com'dan indirilmiştir
 Google Gemini™, Google LLC'nin bir ticari markasıdır</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>506, 563</value>
+    <value>580, 563</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
