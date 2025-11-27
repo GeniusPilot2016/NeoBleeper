@@ -173,9 +173,11 @@ namespace NeoBleeper
                     Logger.Log("ERROR: No valid models available!", Logger.LogTypes.Error);
                     MessageForm.Show(Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
+                    return; // Close the form and exit the method if no models are available
                 }
             }
             buttonCreate.Enabled = true; // Enable the create button after loading models
+            comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
         }
         private string selectedLanguageToLanguageName(string languageName)
         {
