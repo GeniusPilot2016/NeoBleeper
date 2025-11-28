@@ -1,6 +1,6 @@
 # Contributing to NeoBleeper
 
-First off, thank you for considering contributing to NeoBleeper! Your contributions are integral to the success of this project. Whether you're reporting a bug, proposing a feature, improving documentation, or submitting code, your involvement is highly valued.
+First off, thank you for considering contributing to NeoBleeper! Your contributions are integral to the success of this project. Whether you're reporting a bug, proposing a feature, improving documentation, uploading legacy BMM file or NBPML file, or submitting code, your involvement is highly valued.
 
 ## Table of Contents
 1. [Code of Conduct](#code-of-conduct)
