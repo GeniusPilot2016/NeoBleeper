@@ -166,52 +166,6 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. If you have contributed to NeoBleeper, don't forget to select the `listView1` component in the `about_neobleeper.cs` file, select the small arrow in the upper right corner, select `Edit Items`, add a ListViewItem, write your name/nickname in the `Text` property, select the triple dots to the right of `(Collection)` in the `SubItems` property, and write the tasks you have done while contributing to NeoBleeper in the `Text` property or edit your own existing `ListViewItem`, before committing the project.
 
-## 🤝 Contributing
-Contributions are always welcome! You can contribute by submitting a pull request or opening an issue.
-
-### Using Visual Studio
-
-1. **Fork the Repository**: 
-   - Fork the NeoBleeper repository on GitHub to your own account.
-
-2. **Clone the Repository**:
-   - Open Visual Studio.
-   - Clone the GitHub repository to your local machine from the `File > Clone Repository` menu.
-
-3. **Create a New Branch**:
-   - Create a new branch with `Git > New Branch`.
-   - Specify the branch name and click "Create".
-   - Alternatively, open the terminal and use the command: `git checkout -b feature/AmazingFeature`
-
-4. **Make Your Changes**:
-   - Edit the project and make necessary code changes.
-   - Save and test your changes regularly.
-
-5. **Commit Your Changes**:
-   - Click `Git > Commit` to save the changes made.
-   - Add the commit message and click the "Commit" button.
-   - Alternatively, use the following command in the terminal: `git commit -m 'Add feature: AmazingFeature'`
-
-6. **Push Your Changes**:
-   - Use `Git > Push` to push your local changes to the remote repository.
-   - Select which remote branch you want to push your changes to and click the "Push" button.
-   - Alternatively, use the following command in terminal: `git push origin feature/AmazingFeature`
-
-7. **Open a Pull Request**:
-   - Create a pull request on the main repository on GitHub.
-   - Add a title and description explaining your changes.
-
-### 📑 General Contribution Instructions
-Start by forking.
-
-Create a new Branch: `git checkout -b feature/AmazingFeature`
-
-Commit your changes: `git commit -m 'Add feature: AmazingFeature'`
-
-Do a Push: `git push origin feature/AmazingFeature`
-
-Open a Pull Request.
-
 ## ⭐️ Support NeoBleeper!
 
 If you like this project, please consider [leaving a star ⭐️ on GitHub](https://github.com/GeniusPilot2016/NeoBleeper) to help others discover it!
