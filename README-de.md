@@ -185,52 +185,6 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. Wenn Sie bereits zu NeoBleeper beigetragen haben, wählen Sie bitte die Komponente „listView1“ in der Datei „about_neobleeper.cs“ aus. Klicken Sie auf den kleinen Pfeil in der oberen rechten Ecke und wählen Sie „Elemente bearbeiten“. Fügen Sie ein ListViewItem hinzu, geben Sie Ihren Namen/Spitznamen in die Eigenschaft „Text“ ein, wählen Sie die drei Punkte rechts neben „(Sammlung)“ in der Eigenschaft „Unterelemente“ aus und geben Sie die Aufgaben an, die Sie während Ihrer Mitarbeit an NeoBleeper erledigt haben, oder bearbeiten Sie Ihr eigenes vorhandenes „ListViewItem“, bevor Sie das Projekt committen.
 
-## 🤝 Mitwirken
-Beiträge sind immer willkommen! Sie können einen Pull Request einreichen oder ein Issue erstellen.
-
-### Visual Studio verwenden
-
-1. **Repository forken**:
-- Forken Sie das NeoBleeper-Repository auf GitHub auf Ihr eigenes Konto.
-
-2. **Repository klonen**:
-- Öffnen Sie Visual Studio.
-Klonen Sie das GitHub-Repository über „Datei > Repository klonen“ auf Ihren lokalen Rechner.
-
-3. **Neuen Branch erstellen**:
-– Erstellen Sie einen neuen Branch über „Git > Neuer Branch“.
-– Geben Sie den Branch-Namen an und klicken Sie auf „Erstellen“.
-– Alternativ können Sie das Terminal öffnen und den Befehl „git checkout -b feature/AmazingFeature“ verwenden.
-
-4. **Änderungen vornehmen**:
-– Bearbeiten Sie das Projekt und nehmen Sie die erforderlichen Codeänderungen vor.
-– Speichern und testen Sie Ihre Änderungen regelmäßig.
-
-5. **Änderungen committen**:
-– Klicken Sie auf „Git > Commit“, um die Änderungen zu speichern.
-– Fügen Sie die Commit-Nachricht hinzu und klicken Sie auf die Schaltfläche „Commit“.
-– Alternativ können Sie den folgenden Befehl im Terminal verwenden: „git commit -m 'Add feature: AmazingFeature'“
-
-6. **Änderungen pushen**:
-– Verwenden Sie „Git > Push“, um Ihre lokalen Änderungen in das Remote-Repository zu pushen.
-– Wählen Sie den Remote-Branch aus, in den Sie Ihre Änderungen pushen möchten, und klicken Sie auf die Schaltfläche „Pushen“.
-– Alternativ können Sie im Terminal den folgenden Befehl verwenden: „git push origin feature/AmazingFeature“.
-
-7. **Pull Request öffnen**:
-– Erstellen Sie einen Pull Request im Haupt-Repository auf GitHub.
-– Fügen Sie einen Titel und eine Beschreibung Ihrer Änderungen hinzu.
-
-### 📑 Allgemeine Anweisungen
-Forken Sie zunächst.
-
-Erstellen Sie einen neuen Branch: `git checkout -b feature/AmazingFeature`
-
-Commitieren Sie Ihre Änderungen: `git commit -m 'Add feature: AmazingFeature'`
-
-Führen Sie einen Push aus: `git push origin feature/AmazingFeature`
-
-Öffnen Sie einen Pull Request.
-
 ## ⭐️ Unterstützen Sie NeoBleeper!
 
 Wenn Ihnen dieses Projekt gefällt, [geben Sie ihm bitte einen Stern ⭐️ auf GitHub](https://github.com/GeniusPilot2016/NeoBleeper), damit auch andere es entdecken können!
