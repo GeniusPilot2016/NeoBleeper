@@ -76,7 +76,7 @@ namespace NeoBleeper
             }
             else
             {
-                CheckConnectionsAndInitializeAsync();
+                CheckConnectionsAndIsAPIKeyWorkingThenInitializeAsync();
             }
         }
 
@@ -107,7 +107,6 @@ namespace NeoBleeper
         };
         private async void listAndSelectAIModels()
         {
-            buttonCreate.Enabled = false; // Disable the create button while loading models
             var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
             var models = await generativeAI.ListModelsAsync();
 
@@ -180,6 +179,21 @@ namespace NeoBleeper
             comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
             textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
             this.ActiveControl = buttonCreate; // Set focus to the create button
+        }
+        private async Task<bool> IsAPIKeyWorking()
+        {
+            try
+            {
+                var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
+                var models = generativeAI.ListModelsAsync(); // Attempt to list models to validate API key
+                await models;
+                return models != null && models?.Result?.Models?.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"The Google Gemini™ API key validation failed. The API key may be invalid or there may be an issue with the connection. Error: {ex.Message}", Logger.LogTypes.Error);
+                return false;
+            }
         }
         private string selectedLanguageToLanguageName(string languageName)
         {
@@ -320,31 +334,40 @@ namespace NeoBleeper
                 return false; // Return false
             }
         }
-        private async void CheckConnectionsAndInitializeAsync()
+        private async void CheckConnectionsAndIsAPIKeyWorkingThenInitializeAsync()
         {
             if (!await IsInternetAvailable())
             {
                 ShowNoInternetMessage();
                 this.Close();
-                return;
+                return; // Close the form if no internet
             }
             else if (!await IsServerUp())
             {
                 ShowServerDownMessage();
                 this.Close();
-                return; 
+                return; // Close the form if server is down
             }
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return; // Close the form if API key is not set
             }
             else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return; // Close the form if API key format is invalid
+            }
+            else if (!await IsAPIKeyWorking())
+            {
+                Logger.Log("The Google Gemini™ API key is not working. Please check the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
+                MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return; // Close the form if API key is not working
             }
             listAndSelectAIModels();
         }

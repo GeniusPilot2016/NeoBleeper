@@ -892,4 +892,7 @@ Do you want to open this file anyway?</value>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
+  </data>
 </root>

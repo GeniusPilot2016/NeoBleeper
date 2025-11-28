@@ -868,4 +868,7 @@ Vuoi aprire comunque questo file?</value>
   <data name="SpaceKey" xml:space="preserve">
     <value>Spazio</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>La chiave API di Google Gemini™ non funziona. Controlla e sostituisci la chiave API nella scheda "Generale" delle impostazioni.</value>
+  </data>
 </root>

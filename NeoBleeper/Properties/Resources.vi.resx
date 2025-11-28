@@ -869,4 +869,7 @@ Bạn có muốn mở tệp này không?</value>
   <data name="SpaceKey" xml:space="preserve">
     <value>Space</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Khóa API Google Gemini™ không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "Chung" trong cài đặt.</value>
+  </data>
 </root>

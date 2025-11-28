@@ -1312,6 +1312,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The Google Gemini™ API key is not working. Please check and replace the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageGoogleGeminiAPIKeyIsNotWorking {
+            get {
+                return ResourceManager.GetString("MessageGoogleGeminiAPIKeyIsNotWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Invalid or corrupted music file benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageInvalidOrCorruptedMusicFile {

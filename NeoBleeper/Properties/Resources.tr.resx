@@ -870,4 +870,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="SpaceKey" xml:space="preserve">
     <value>Boşluk</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Google Gemini™ API anahtarı çalışmıyor. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını kontrol edip değiştiriniz.</value>
+  </data>
 </root>

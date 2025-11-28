@@ -871,4 +871,7 @@
   <data name="SpaceKey" xml:space="preserve">
     <value>Пробел </value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Ключ API Google Gemini™ не работает. Проверьте и замените ключ API на вкладке «Общие» в настройках.</value>
+  </data>
 </root>

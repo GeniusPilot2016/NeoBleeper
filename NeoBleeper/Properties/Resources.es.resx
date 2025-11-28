@@ -869,4 +869,7 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="SpaceKey" xml:space="preserve">
     <value>Espacio</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>La clave API de Google Gemini™ no funciona. Compruébela y reemplácela en la pestaña "General" de la configuración.</value>
+  </data>
 </root>
