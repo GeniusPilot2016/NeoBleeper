@@ -171,69 +171,6 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 5. Si has contribuido a NeoBleeper, no olvides seleccionar el componente `listView1` en el archivo `about_neobleeper.cs`, seleccionar la flecha pequeña en la esquina superior derecha, seleccionar `Editar elementos`, agregar un ListViewItem, escribir tu nombre/apodo en la propiedad `Text`, seleccionar los tres puntos a la derecha de `(Collection)` en la propiedad `SubItems` y escribir las tareas que has realizado mientras contribuías a NeoBleeper en la propiedad `Text` o editar tu propio `ListViewItem` antes de confirmar el proyecto.
 
 
-## 🤝 Contribuciones
-
-¡Las contribuciones siempre son bienvenidas! Puedes contribuir enviando una solicitud de extracción o abriendo una incidencia.
-
-
-### Uso de Visual Studio
-
-
-1. **Bifurcar el repositorio**:
-
-- Bifurca el repositorio de NeoBleeper en GitHub a tu propia cuenta.
-
-
-2. **Clonar el repositorio**:
-- Abre Visual Studio.
-
-
-3. **Clonar el repositorio**:
-
-- Abre Visual Studio. Clona el repositorio de GitHub en tu equipo local desde el menú «Archivo > Clonar repositorio».
-
-3. **Crea una nueva rama**:
-
-Crea una nueva rama con «Git > Nueva rama».
-
-Especifica el nombre de la rama y haz clic en «Crear».
-
-Alternativamente, abre la terminal y usa el comando «git checkout -b feature/AmazingFeature».
-
-4. **Realiza los cambios**:
-
-Edita el proyecto y realiza los cambios necesarios en el código.
-
-Guarda y prueba los cambios periódicamente.
-
-5. **Confirma los cambios**:
-
-Haz clic en «Git > Confirmar» para guardar los cambios.
-
-Agrega el mensaje de confirmación y haz clic en el botón «Confirmar».
-
-Alternativamente, usa el siguiente comando en la terminal: «git commit -m 'Add feature: AmazingFeature'».
-
-6. **Envía los cambios**:
-
-Usa «Git > Enviar» para enviar los cambios locales al repositorio remoto. - Selecciona la rama remota a la que quieres enviar los cambios y haz clic en el botón "Enviar".
-- También puedes usar el siguiente comando en la terminal: `git push origin feature/AmazingFeature`
-
-7. **Abre una solicitud de extracción**:
-- Crea una solicitud de extracción en el repositorio principal de GitHub.
-- Agrega un título y una descripción que explique los cambios.
-
-### 📑 Instrucciones generales
-Comienza por bifurcar.
-
-Crea una nueva rama: `git checkout -b feature/AmazingFeature`
-
-Confirma los cambios: `git commit -m 'Add feature: AmazingFeature'`
-
-Haz una solicitud de extracción: `git push origin feature/AmazingFeature`
-
-Abre una solicitud de extracción.
-
 ## ⭐️ ¡Apoya a NeoBleeper!
 
 Si te gusta este proyecto, considera [dejar una estrella ⭐️ en GitHub](https://github.com/GeniusPilot2016/NeoBleeper) para que otros lo descubran.
