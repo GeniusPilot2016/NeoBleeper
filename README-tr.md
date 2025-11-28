@@ -169,52 +169,6 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. NeoBleeper'a katkıda bulunduysanız, `about_neobleeper.cs` dosyasındaki `listView1` bileşenini seçmeyi, sağ üst köşedeki küçük oku seçip `Öğeleri Düzenle`yi seçmeyi, bir ListViewItem eklemeyi, `Text` özelliğine adınızı/takma adınızı yazmayı, `SubItems` özelliğindeki `(Collection)` öğesinin sağındaki üç noktayı seçmeyi ve projeyi onaylamadan önce `Text` özelliğine NeoBleeper'a katkıda bulunurken yaptığınız görevleri yazmayı veya mevcut `ListViewItem` öğenizi düzenlemeyi unutmayın.
 
-## 🤝 Katkıda Bulunma
-Katkılarınız her zaman memnuniyetle karşılanır! Bir çekme isteği göndererek veya bir sorun açarak katkıda bulunabilirsiniz.
-
-### Visual Studio Kullanımı
-
-1. **Depoyu Çatallandırın**:
-
-- GitHub'daki NeoBleeper deposunu kendi hesabınıza çatallandırın.
-
-2. **Depoyu Klonlayın**:
-- Visual Studio'yu açın.
-- GitHub deposunu `Dosya > Depoyu Klonla` menüsünden yerel makinenize klonlayın.
-
-3. **Yeni Bir Dal Oluşturun**:
-- `Git > Yeni Dal` ile yeni bir dal oluşturun.
-- Dal adını belirtin ve "Oluştur"a tıklayın.
-- Alternatif olarak, terminali açın ve `git checkout -b feature/AmazingFeature` komutunu kullanın.
-
-4. **Değişikliklerinizi Yapın**:
-- Projeyi düzenleyin ve gerekli kod değişikliklerini yapın.
-- Değişikliklerinizi düzenli olarak kaydedin ve test edin.
-
-5. **Değişikliklerinizi Kaydedin**:
-- Yapılan değişiklikleri kaydetmek için `Git > Kaydedin`e tıklayın.
-- Kaydedin mesajını ekleyin ve "Kaydedin" düğmesine tıklayın. - Alternatif olarak, terminalde şu komutu kullanın: `git commit -m 'Add feature: AmazingFeature'`
-
-6. **Değişikliklerinizi Gönderin**:
-- Yerel değişikliklerinizi uzak depoya göndermek için `Git > Gönderin` komutunu kullanın.
-- Değişikliklerinizi göndermek istediğiniz uzak dalı seçin ve "Gönder" düğmesine tıklayın.
-- Alternatif olarak, terminalde şu komutu kullanın: `git push origin feature/AmazingFeature`
-
-7. **Bir Çekme İsteği Açın**:
-- GitHub'daki ana depoda bir çekme isteği oluşturun.
-- Değişikliklerinizi açıklayan bir başlık ve açıklama ekleyin.
-
-### 📑 Genel Talimatlar
-Çaplandırmayla başlayın.
-
-Yeni bir Dal oluşturun: `git checkout -b feature/AmazingFeature`
-
-Değişikliklerinizi gönderin: `git commit -m 'Add feature: AmazingFeature'`
-
-Bir Gönderin: `git push origin feature/AmazingFeature`
-
-Bir Çekme İsteği açın.
-
 ## ⭐️ NeoBleeper'ı Destekleyin!
 
 Bu projeyi beğendiyseniz, lütfen başkalarının da keşfetmesine yardımcı olmak için [GitHub'da bir yıldız ⭐️ bırakmayı](https://github.com/GeniusPilot2016/NeoBleeper) düşünün!
