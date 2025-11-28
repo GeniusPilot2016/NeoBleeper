@@ -486,12 +486,25 @@ namespace NeoBleeper
         }
 
         private double _playbackStartOffsetMs = 0;
-        public void Play()
+        public async void Play()
         {
             Logger.Log($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}", Logger.LogTypes.Info);
 
             if (_isPlaying || _frames == null || _frames.Count == 0)
                 return;
+
+            // Wait for any previous playback task to complete, with a timeout to avoid blocking indefinitely
+            if (_playbackTask != null && !_playbackTask.IsCompleted)
+            {
+                try
+                {
+                    await Task.WhenAny(_playbackTask, Task.Delay(5000)); // 5-second timeout
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"Error waiting for previous playback task: {ex.Message}", Logger.LogTypes.Error);
+                }
+            }
 
             try
             {
@@ -499,7 +512,6 @@ namespace NeoBleeper
                 // Reinitialize the cancellation token source
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-
 
                 if (_currentFrameIndex < _frames.Count)
                 {
@@ -1126,13 +1138,13 @@ namespace NeoBleeper
                 }
             }, token);
         }
-        private void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
+        private async void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
             _playbackRestartTimer?.Stop();
             _playbackRestartTimer?.Dispose();
             _playbackRestartTimer = null;
 
-            this.BeginInvoke(new Action(() =>
+            this.BeginInvoke(async () =>
             {
                 _isTrackBarBeingDragged = false;
                 _isUserScrolling = false;
@@ -1141,13 +1153,13 @@ namespace NeoBleeper
                 if (_wasPlayingBeforeScroll && !_isPlaying)
                 {
                     _wasPlayingBeforeScroll = false; // Reset the flag
-                    Play();
+                    Play(); 
                 }
                 else
                 {
                     _wasPlayingBeforeScroll = false; // Reset in any condition
                 }
-            }));
+            });
         }
 
         private Label[] _noteLabels;
