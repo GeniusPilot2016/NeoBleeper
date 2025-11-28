@@ -178,6 +178,8 @@ namespace NeoBleeper
             }
             buttonCreate.Enabled = true; // Enable the create button after loading models
             comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
+            textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
+            this.ActiveControl = buttonCreate; // Set focus to the create button
         }
         private string selectedLanguageToLanguageName(string languageName)
         {
