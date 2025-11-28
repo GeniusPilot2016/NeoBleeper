@@ -1249,6 +1249,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   AI model listing failed. Please check your Google Gemini™ API key and internet connection. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageErrorListingAImodels {
+            get {
+                return ResourceManager.GetString("MessageErrorListingAImodels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error rewinding to saved version: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageErrorRewinding {

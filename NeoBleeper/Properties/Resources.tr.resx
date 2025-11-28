@@ -873,4 +873,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>Google Gemini™ API anahtarı çalışmıyor. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını kontrol edip değiştiriniz.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>Yapay zeka modellerini listeleme işlemi başarısız oldu. Lütfen Google Gemini™ API anahtarınızı ve internet bağlantınızı kontrol ediniz.</value>
+  </data>
 </root>

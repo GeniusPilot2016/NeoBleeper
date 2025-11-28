@@ -895,4 +895,7 @@ Do you want to open this file anyway?</value>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>AI model listing failed. Please check your Google Gemini™ API key and internet connection.</value>
+  </data>
 </root>

@@ -872,4 +872,7 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>La clé API Google Gemini™ ne fonctionne pas. Veuillez vérifier et remplacer la clé API dans l'onglet « Général » des paramètres.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>L'inscription du modèle d'IA a échoué. Veuillez vérifier votre clé API Google Gemini™ et votre connexion Internet.</value>
+  </data>
 </root>

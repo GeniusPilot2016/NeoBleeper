@@ -872,4 +872,7 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>La clave API de Google Gemini™ no funciona. Compruébela y reemplácela en la pestaña "General" de la configuración.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>Error al incluir el modelo de IA. Comprueba tu clave API de Google Gemini™ y tu conexión a internet.</value>
+  </data>
 </root>

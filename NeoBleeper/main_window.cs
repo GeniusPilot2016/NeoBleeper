@@ -4850,35 +4850,51 @@ namespace NeoBleeper
             Logger.Log($"Checked state of fermata is changed to: {checkBox_fermata.Checked}", Logger.LogTypes.Info);
         }
 
-        private void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
                 stopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 closeAllOpenWindows(); // Close all open windows before opening a new modal dialog
-                createMusicWithAI.ShowDialog();
-                string output = createMusicWithAI.output;
-                string fileName = createMusicWithAI.generatedFilename;
-                if (createMusicWithAI.output != string.Empty)
+                CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI();
+                if (!CreateMusicWithAI.IsAvailableInCountry())
                 {
-
-                    if (isModified)
+                    Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
+                    MessageForm.Show(Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Exit the method if not available
+                }
+                else
+                {
+                    if (await createMusicWithAI.CheckWillItOpened())
                     {
-                        DialogResult result = MessageForm.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        switch (result)
+                        createMusicWithAI.ShowDialog();
+                        string output = createMusicWithAI.output;
+                        string fileName = createMusicWithAI.generatedFilename;
+                        if (createMusicWithAI.output != string.Empty)
                         {
-                            case DialogResult.Yes:
-                                saveRunAndRetry(new Action(() => { createMusicWithAIResponse(createMusicWithAI.output, fileName); }));
-                                break;
-                            case DialogResult.No:
+
+                            if (isModified)
+                            {
+                                DialogResult result = MessageForm.Show(Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                switch (result)
+                                {
+                                    case DialogResult.Yes:
+                                        saveRunAndRetry(new Action(() => { createMusicWithAIResponse(createMusicWithAI.output, fileName); }));
+                                        break;
+                                    case DialogResult.No:
+                                        createMusicWithAIResponse(createMusicWithAI.output, fileName);
+                                        break;
+                                }
+                            }
+                            else
+                            {
                                 createMusicWithAIResponse(createMusicWithAI.output, fileName);
-                                break;
+                            }
                         }
                     }
                     else
                     {
-                        createMusicWithAIResponse(createMusicWithAI.output, fileName);
+                        return;
                     }
                 }
             }

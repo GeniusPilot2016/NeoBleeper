@@ -872,4 +872,7 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>Khóa API Google Gemini™ không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "Chung" trong cài đặt.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>Danh sách mô hình AI không thành công. Vui lòng kiểm tra khóa API Google Gemini™ và kết nối internet của bạn.</value>
+  </data>
 </root>

@@ -874,4 +874,7 @@
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>Ключ API Google Gemini™ не працює. Перевірте та замініть ключ API на вкладці «Загальні» в налаштуваннях.</value>
   </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>Не вдалося внести модель штучного інтелекту. Перевірте ключ API Google Gemini™ та підключення до Інтернету.</value>
+  </data>
 </root>

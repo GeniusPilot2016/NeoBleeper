@@ -67,17 +67,7 @@ namespace NeoBleeper
             set_theme();
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
-            if (!IsAvailableInCountry())
-            {
-                Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return;
-            }
-            else
-            {
-                CheckConnectionsAndIsAPIKeyWorkingThenInitializeAsync();
-            }
+            listAndSelectAIModels();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -107,78 +97,88 @@ namespace NeoBleeper
         };
         private async void listAndSelectAIModels()
         {
-            var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
-            var models = await generativeAI.ListModelsAsync();
-
-            List<string> filteredDisplayNames = new List<string>();
-            string[] specialModelDefiners = { "computer-use", "robotics", "code", "image" }; // Special purpose models to exclude
-            string[] duplicateModelDefiners = { "001" }; // Duplicate models to exclude
-            string[] audioModels = { "tts", "audio" }; // Audio generation and text-to-speech models to exclude
-            string[] problematicModels = { "2.0" }; // Known problematic models to exclude
-            foreach (var model in models.Models)
+            try
             {
-                // Skip models that don't contain "gemini" in the name (case-insensitive)
-                if (string.IsNullOrEmpty(model.Name) || !model.Name.Contains("gemini", StringComparison.OrdinalIgnoreCase))
+                var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
+                var models = await generativeAI.ListModelsAsync();
+
+                List<string> filteredDisplayNames = new List<string>();
+                string[] specialModelDefiners = { "computer-use", "robotics", "code", "image" }; // Special purpose models to exclude
+                string[] duplicateModelDefiners = { "001" }; // Duplicate models to exclude
+                string[] audioModels = { "tts", "audio" }; // Audio generation and text-to-speech models to exclude
+                string[] problematicModels = { "2.0" }; // Known problematic models to exclude
+                foreach (var model in models.Models)
                 {
-                    continue;
+                    // Skip models that don't contain "gemini" in the name (case-insensitive)
+                    if (string.IsNullOrEmpty(model.Name) || !model.Name.Contains("gemini", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    // Skip specific special purpose, duplicate, audio, and problematic models
+                    // such as robotics, code generation, computer-use, text-to-speech, audio generation, and known problematic models
+                    if (specialModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
+                        duplicateModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
+                        audioModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
+                        problematicModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        continue;
+                    }
+
+                    // Check for required features and absence of unwanted features
+                    if (model.SupportedGenerationMethods != null &&
+                        wantedFeatures.All(feature => model.SupportedGenerationMethods.Contains(feature)) &&
+                        unwantedFeatures.All(feature => !model.SupportedGenerationMethods.Contains(feature)))
+                    {
+                        aiModelMapping[model.Name] = model.DisplayName;
+                        aiModelMapping[model.DisplayName] = model.Name;
+                        filteredDisplayNames.Add(model.DisplayName);
+                    }
                 }
 
-                // Skip specific special purpose, duplicate, audio, and problematic models
-                // such as robotics, code generation, computer-use, text-to-speech, audio generation, and known problematic models
-                if (specialModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                    duplicateModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                    audioModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                    problematicModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)))
+                Logger.Log($"Total filtered models: {filteredDisplayNames.Count}", Logger.LogTypes.Info);
+
+                comboBox_ai_model.Items.AddRange(filteredDisplayNames.ToArray());
+
+                if (filteredDisplayNames.Count == 0)
                 {
-                    continue;
+                    Logger.Log("WARNING: No valid Gemini models found!", Logger.LogTypes.Warning);
                 }
 
-                // Check for required features and absence of unwanted features
-                if (model.SupportedGenerationMethods != null &&
-                    wantedFeatures.All(feature => model.SupportedGenerationMethods.Contains(feature)) &&
-                    unwantedFeatures.All(feature => !model.SupportedGenerationMethods.Contains(feature)))
+                if (aiModelMapping.ContainsKey(Settings1.Default.preferredAIModel))
                 {
-                    aiModelMapping[model.Name] = model.DisplayName;
-                    aiModelMapping[model.DisplayName] = model.Name;
-                    filteredDisplayNames.Add(model.DisplayName);
-                }
-            }
-
-            Logger.Log($"Total filtered models: {filteredDisplayNames.Count}", Logger.LogTypes.Info);
-
-            comboBox_ai_model.Items.AddRange(filteredDisplayNames.ToArray());
-
-            if (filteredDisplayNames.Count == 0)
-            {
-                Logger.Log("WARNING: No valid Gemini models found!", Logger.LogTypes.Warning);
-            }
-
-            if (aiModelMapping.ContainsKey(Settings1.Default.preferredAIModel))
-            {
-                AIModel = Settings1.Default.preferredAIModel;
-                comboBox_ai_model.SelectedItem = aiModelMapping[Settings1.Default.preferredAIModel];
-                Logger.Log($"Using preferred model: {AIModel}", Logger.LogTypes.Info);
-            }
-            else
-            {
-                if (filteredDisplayNames.Count > 0)
-                {
-                    AIModel = aiModelMapping[filteredDisplayNames[0]];
-                    comboBox_ai_model.SelectedItem = filteredDisplayNames[0];
-                    Logger.Log($"Using first available model: {AIModel}", Logger.LogTypes.Info);
+                    AIModel = Settings1.Default.preferredAIModel;
+                    comboBox_ai_model.SelectedItem = aiModelMapping[Settings1.Default.preferredAIModel];
+                    Logger.Log($"Using preferred model: {AIModel}", Logger.LogTypes.Info);
                 }
                 else
                 {
-                    Logger.Log("ERROR: No valid models available!", Logger.LogTypes.Error);
-                    MessageForm.Show(Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    return; // Close the form and exit the method if no models are available
+                    if (filteredDisplayNames.Count > 0)
+                    {
+                        AIModel = aiModelMapping[filteredDisplayNames[0]];
+                        comboBox_ai_model.SelectedItem = filteredDisplayNames[0];
+                        Logger.Log($"Using first available model: {AIModel}", Logger.LogTypes.Info);
+                    }
+                    else
+                    {
+                        Logger.Log("ERROR: No valid models available!", Logger.LogTypes.Error);
+                        MessageForm.Show(Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                        return; // Close the form and exit the method if no models are available
+                    }
                 }
+                buttonCreate.Enabled = true; // Enable the create button after loading models
+                comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
+                textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
+                this.ActiveControl = buttonCreate; // Set focus to the create button
             }
-            buttonCreate.Enabled = true; // Enable the create button after loading models
-            comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
-            textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
-            this.ActiveControl = buttonCreate; // Set focus to the create button
+            catch (Exception ex)
+            {
+                Logger.Log($"Error listing AI models: {ex.Message}", Logger.LogTypes.Error);
+                MessageForm.Show(Resources.MessageErrorListingAImodels, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return; // Close the form and exit the method on error
+            }
         }
         private async Task<bool> IsAPIKeyWorking()
         {
@@ -334,42 +334,43 @@ namespace NeoBleeper
                 return false; // Return false
             }
         }
-        private async void CheckConnectionsAndIsAPIKeyWorkingThenInitializeAsync()
+        public async Task<bool> CheckWillItOpened()
         {
             if (!await IsInternetAvailable())
             {
                 ShowNoInternetMessage();
-                this.Close();
-                return; // Close the form if no internet
+                return false; // Return false if no internet
             }
             else if (!await IsServerUp())
             {
                 ShowServerDownMessage();
-                this.Close();
-                return; // Close the form if server is down
+                return false; // Return false if server is down
             }
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-                return; // Close the form if API key is not set
+                return false; // Return false if API key is not set
             }
             else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-                return; // Close the form if API key format is invalid
+                return false; // Return false if API key format is invalid  
             }
             else if (!await IsAPIKeyWorking())
             {
                 Logger.Log("The Google Gemini™ API key is not working. Please check the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
-                return; // Close the form if API key is not working
+                return false; // Return false if API key is not working
             }
-            listAndSelectAIModels();
+            else
+            {
+                return true; // All checks passed
+            }
         }
         private async Task<bool> IsServerUp()
         {
@@ -649,7 +650,7 @@ namespace NeoBleeper
         }
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(AIModel))
+            if (!string.IsNullOrEmpty(AIModel) && (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) || !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
             {
                 try
                 {
