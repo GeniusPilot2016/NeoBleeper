@@ -168,52 +168,6 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 
 5. Nếu bạn đã đóng góp cho NeoBleeper, đừng quên chọn thành phần `listView1` trong tệp `about_neobleeper.cs`, chọn mũi tên nhỏ ở góc trên bên phải, chọn `Chỉnh sửa Mục`, thêm một ListViewItem, viết tên/biệt danh của bạn vào thuộc tính `Text`, chọn ba dấu chấm bên phải `(Collection)` trong thuộc tính `SubItems`, và viết các tác vụ bạn đã thực hiện khi đóng góp cho NeoBleeper vào thuộc tính `Text` hoặc chỉnh sửa `ListViewItem` hiện có của bạn trước khi cam kết dự án.
 
-## 🤝 Đóng góp
-Chúng tôi luôn hoan nghênh mọi đóng góp! Bạn có thể đóng góp bằng cách gửi yêu cầu kéo hoặc mở một vấn đề.
-
-### Sử dụng Visual Studio
-
-1. **Phân nhánh Kho lưu trữ**:
-- Phân nhánh kho lưu trữ NeoBleeper trên GitHub vào tài khoản của bạn.
-
-2. **Nhân bản Kho lưu trữ**:
-- Mở Visual Studio.
-- Nhân bản kho lưu trữ GitHub vào máy cục bộ của bạn từ menu `File > Clone Repository`.
-
-3. **Tạo Nhánh Mới**:
-- Tạo một nhánh mới bằng `Git > Nhánh Mới`.
-- Chỉ định tên nhánh và nhấp vào "Tạo".
-- Hoặc, mở terminal và sử dụng lệnh: `git checkout -b feature/AmazingFeature`
-
-4. **Thực hiện Thay đổi**:
-- Chỉnh sửa dự án và thực hiện các thay đổi mã cần thiết.
-- Lưu và kiểm tra các thay đổi thường xuyên.
-
-5. **Cam kết Thay đổi**:
-- Nhấp vào `Git > Cam kết` để lưu các thay đổi đã thực hiện.
-- Thêm thông báo cam kết và nhấp vào nút "Cam kết".
-- Hoặc, sử dụng lệnh sau trong terminal: `git commit -m 'Add feature: AmazingFeature'`
-
-6. **Đẩy các thay đổi của bạn**:
-- Sử dụng `Git > Push` để đẩy các thay đổi cục bộ của bạn lên kho lưu trữ từ xa.
-- Chọn nhánh từ xa bạn muốn đẩy các thay đổi của mình lên và nhấp vào nút "Đẩy".
-- Hoặc, sử dụng lệnh sau trong terminal: `git push origin feature/AmazingFeature`
-
-7. **Mở một Yêu cầu Kéo**:
-- Tạo một yêu cầu kéo trên kho lưu trữ chính trên GitHub.
-- Thêm tiêu đề và mô tả giải thích các thay đổi của bạn.
-
-### 📑 Hướng dẫn Chung
-Bắt đầu bằng cách phân nhánh.
-
-Tạo một Nhánh mới: `git checkout -b feature/AmazingFeature`
-
-Cam kết các thay đổi của bạn: `git commit -m 'Add feature: AmazingFeature'`
-
-Thực hiện Đẩy: `git push origin feature/AmazingFeature`
-
-Mở một Yêu cầu Kéo.
-
 ## ⭐️ Hãy ủng hộ NeoBleeper!
 
 Nếu bạn thích dự án này, vui lòng [để lại một ngôi sao ⭐️ trên GitHub](https://github.com/GeniusPilot2016/NeoBleeper) để giúp những người khác khám phá ra nó!
