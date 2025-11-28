@@ -9,6 +9,7 @@ First off, thank you for considering contributing to NeoBleeper! Your contributi
    - [Feature Requests](#feature-requests)
    - [Code Contributions](#code-contributions)
    - [Documentation](#documentation)
+   - [BMM and NBPML File Contributions](#bmm-and-nbpml-file-contributions)
 3. [Pull Request Process](#pull-request-process)
 4. [Style Guides](#style-guides)
    - [Code Style](#code-style)
@@ -46,6 +47,14 @@ We welcome your ideas! To request a feature:
 
 ### Documentation
 Improving our documentation is one of the easiest ways to contribute! Feel free to add or update examples, clarify sections, or enhance overall readability.
+
+### BMM and NBPML File Contributions
+NeoBleeper supports legacy BMM (Bleeper Music Maker) and NBPML (NeoBleeper Project Markup Language) files. If you're contributing or working with these file types, ensure the following:
+- Validate that BMM files are parsed correctly and render as expected in NeoBleeper.
+- Test compatibility with both legacy formats and the current implementation.
+- For NBPML files, maintain adherence to the latest NeoBleeper Project Markup Language specifications.
+
+If you encounter any issues specific to these file formats, please follow the guidelines in the "Bug Reports" section. Feature requests for enhanced support for BMM and NBPML files are also welcome!
 
 ## Pull Request Process
 All submissions should be made via pull requests. Here’s the process:
