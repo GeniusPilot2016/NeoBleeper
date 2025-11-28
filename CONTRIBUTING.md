@@ -39,12 +39,36 @@ We welcome your ideas! To request a feature:
 
 ### 👩‍💻 Code Contributions
 1. Fork the repository and create a new branch off `main`. Name your branch something descriptive, such as `feature/add-tune-filter`.
-2. Add your changes, ensuring proper tests are included and all existing tests pass.
-3. Ensure your code adheres to the style guide.
-4. Commit your changes with clear and concise messages.
-5. Push your branch and open a pull request in the repository.
-6. Be prepared to work with reviewers and revise as needed.
-
+2. Open the repository folder in Visual Studio:
+   - Make sure you have [Visual Studio](https://visualstudio.microsoft.com/) installed with the required workloads (e.g., ".NET desktop development" for NeoBleeper).
+   - Clone your fork of the repository to your local machine (you can use Visual Studio's integrated Git tools or the Git CLI).
+   - Once cloned, open the solution (`.sln`) file in Visual Studio.
+3. Install NuGet Packages:
+   - Restore any required dependencies by clicking on `Restore NuGet Packages` in the top bar or running `dotnet restore` from the terminal.
+4. Add your changes:
+   - Use Visual Studio's features such as IntelliSense, debugging, and code formatting to contribute effectively.
+   - Ensure proper tests are included and all existing tests pass.
+   - Make sure your code adheres to the style guide.
+5. Add your name or nickname to the About Page:
+   - Open the `about_neobleeper.cs` file and locate the `listView1` component.
+   - Select the `listView1` component in the Visual Studio designer.
+   - Click the small arrow in the upper-right corner of the component to open the dropdown menu.
+   - Select **Edit Items** to open the ListView items collection editor.
+   - Add a new `ListViewItem`:
+      - Write your name or nickname in the **Text** property.
+      - For your contributions/tasks:
+         - Locate the **SubItems** property.
+         - Click the triple dots (`...`) to the right of the `(Collection)` field.
+         - Add or edit the **SubItem** with a short description of your tasks.
+   - If you've already added your name, edit the SubItem or update your existing entry before committing your changes.
+6. Test your code:
+   - Run the tests using Visual Studio's Test Explorer.
+   - Fix any failing tests and validate your changes.
+7. Commit your changes with clear and concise messages.
+   - Use Visual Studio’s integrated Git tools to stage and commit your changes.
+8. Push your branch and open a pull request in the repository.
+9. Be prepared to work with reviewers and revise as needed.
+    
 ### 🧾 Documentation
 Improving our documentation is one of the easiest ways to contribute! Feel free to add or update examples, clarify sections, or enhance overall readability.
 
