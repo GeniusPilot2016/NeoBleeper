@@ -3,18 +3,18 @@
 First off, thank you for considering contributing to NeoBleeper! Your contributions are integral to the success of this project. Whether you're reporting a bug, proposing a feature, improving documentation, uploading legacy BMM file or NBPML file, or submitting code, your involvement is highly valued.
 
 ## 📑 Table of Contents
-1. [Code of Conduct](#code-of-conduct)
-2. [How Can I Contribute?](#how-can-i-contribute)
-   - [Bug Reports](#bug-reports)
-   - [Feature Requests](#feature-requests)
-   - [Code Contributions](#code-contributions)
-   - [Documentation](#documentation)
-   - [BMM and NBPML File Contributions](#bmm-and-nbpml-file-contributions)
-3. [Pull Request Process](#pull-request-process)
-4. [Style Guides](#style-guides)
-   - [Code Style](#code-style)
-   - [C# Specific Notes](#c-sharp-specific-notes)
-5. [Community Support](#community-support)
+1. [Code of Conduct](#-code-of-conduct)
+2. [How Can I Contribute?](#%E2%80%8D%EF%B8%8F-how-can-i-contribute)
+   - [Bug Reports](#-bug-reports)
+   - [Feature Requests](#-feature-requests)
+   - [Code Contributions](#%E2%80%8D-code-contributions)
+   - [Documentation](#-documentation)
+   - [BMM and NBPML File Contributions](#-bmm-and-nbpml-file-contributions)
+3. [Pull Request Process](#%EF%B8%8F-pull-request-process)
+4. [Style Guides](#-style-guides)
+   - [Code Style](#-code-style)
+   - [C# Specific Notes](#-c-specific-notes)
+5. [Community Support](#%E2%80%8D%E2%80%8D%E2%80%8D-community-support)
 
 ## 🌟 Code of Conduct
 By participating in this project, you agree to abide by the Code of Conduct. Please be respectful and considerate to others in the community. See the `CODE_OF_CONDUCT.md` file for details.
