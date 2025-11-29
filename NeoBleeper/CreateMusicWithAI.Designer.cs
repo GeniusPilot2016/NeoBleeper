@@ -143,6 +143,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             FormClosed += CreateMusicWithAI_FormClosed;
+            Shown += CreateMusicWithAI_Shown;
             SystemColorsChanged += CreateMusicWithAI_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).EndInit();
             ResumeLayout(false);

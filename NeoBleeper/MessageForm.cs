@@ -1,5 +1,7 @@
 ﻿using NeoBleeper.Properties;
+using System.Drawing;
 using System.Media;
+using System.Runtime.InteropServices;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -9,8 +11,10 @@ namespace NeoBleeper
         bool darkTheme = false;
         bool IsThemeManuallySet = false; // Flag to indicate if theme is manually set
         int theme = 0; // 0: System, 1: Light, 2: Dark
+        MessageBoxIcon iconType = MessageBoxIcon.None;
         public MessageForm(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
+            iconType = icon;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             this.Text = title;
@@ -20,9 +24,24 @@ namespace NeoBleeper
             writeMessage(message);
             set_theme();
             UIFonts.setFonts(this);
-            PlaySound(icon);
+            notifyIconMessage.BalloonTipTitle = title;
+            notifyIconMessage.BalloonTipText = message;
+            notifyIconMessage.BalloonTipIcon = ConvertToToolTipIcon(icon);
         }
-
+        private ToolTipIcon ConvertToToolTipIcon(MessageBoxIcon icon)
+        {
+            switch (icon)
+            {
+                case MessageBoxIcon.Information:
+                    return ToolTipIcon.Info;
+                case MessageBoxIcon.Warning:
+                    return ToolTipIcon.Warning;
+                case MessageBoxIcon.Error:
+                    return ToolTipIcon.Error;
+                default:
+                    return ToolTipIcon.None;
+            }
+        }
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
         {
             if (this.IsHandleCreated && !this.IsDisposed)
@@ -385,10 +404,44 @@ namespace NeoBleeper
             DialogResult dialogResult = messageForm.ShowDialog();
             return dialogResult;
         }
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
+        private bool IsWindowObscured()
+        {
+            IntPtr foregroundWindow = GetForegroundWindow();
+            return foregroundWindow != this.Handle; // Returns true if another window is in the foreground
+        }
         private void MessageForm_SystemColorsChanged(object sender, EventArgs e)
         {
             set_theme();
+        }
+
+        private async void MessageForm_Shown(object sender, EventArgs e)
+        {
+            if (IsWindowObscured()) // Useful when the computer hasn't any audio device or muted
+            {
+                notifyIconMessage.Visible = true; // Show notify icon
+                notifyIconMessage.ShowBalloonTip(3000); // Show balloon tip for 3 seconds
+                await Task.Delay(3000); // Wait for disappear
+                notifyIconMessage.Visible = false; // Hide notify icon
+            }
+            else
+            {
+                PlaySound(iconType); // Play sound when the form is shown
+            }
+        }
+
+        private void notifyIconMessage_BalloonTipClicked(object sender, EventArgs e) // Bring the form to front when balloon tip is clicked
+        {
+            foreach (Form openForm in Application.OpenForms) // Bring all open forms to front
+            {
+                openForm.BringToFront();
+                openForm.Activate();
+                break;
+            }
+            this.BringToFront();
+            this.Activate();
         }
     }
 }

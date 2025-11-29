@@ -67,7 +67,6 @@ namespace NeoBleeper
             set_theme();
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
-            listAndSelectAIModels();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -313,7 +312,7 @@ namespace NeoBleeper
                     {
                         if (reply.RoundtripTime > 500) // 500 ms and above is considered slow
                         {
-                            if(reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
+                            if (reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
                                 Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
                             else
                                 Logger.Log($"The internet connection test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
@@ -350,21 +349,18 @@ namespace NeoBleeper
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
                 return false; // Return false if API key is not set
             }
             else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
                 return false; // Return false if API key format is invalid  
             }
             else if (!await IsAPIKeyWorking())
             {
                 Logger.Log("The Google Gemini™ API key is not working. Please check the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
                 return false; // Return false if API key is not working
             }
             else
@@ -384,11 +380,11 @@ namespace NeoBleeper
                     {
                         if (reply.RoundtripTime > 500)
                         {
-                            if(reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
+                            if (reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
                                 Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
                             else
                                 Logger.Log($"The server access test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
-                                return false; // Return false to prevent deadlock
+                            return false; // Return false to prevent deadlock
                         }
                         return true;
                     }
@@ -1342,8 +1338,8 @@ namespace NeoBleeper
             @"</(?<tag1>\w+)>(?<content>.*?)</(?<tag2>\w+)>",
             "<${tag1}>${content}</${tag2}>",
             RegexOptions.Singleline | RegexOptions.IgnoreCase
-            );       
-            
+            );
+
             // Fix for wrong closing tags
             xmlContent = Regex.Replace(
                 xmlContent,
@@ -1364,7 +1360,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(
               xmlContent,
               @"</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)", "</$1>", RegexOptions.IgnoreCase);
-            
+
             // Make empty note tags self-closing
             xmlContent = Regex.Replace(
                 xmlContent,
@@ -1376,14 +1372,14 @@ namespace NeoBleeper
               @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>/>", "<$1/>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(output, @"<(\w+)\s*>[\s]*/>", "<$1 />");
             xmlContent = Regex.Replace(xmlContent, @"<(\w+)\s*/>\s*</\1>", "<$1 />", RegexOptions.Multiline);
-            
+
             // Remove any spaces before closing tags
             xmlContent = Regex.Replace(xmlContent, @"</(\w+)\s+>", "</$1>", RegexOptions.Multiline);
 
             // Make sure all opening and closing tags are properly formatted
             xmlContent = Regex.Replace(xmlContent, @"(?<=^|\s)([A-Za-z_][\w\-\.]*>)", "<$1", RegexOptions.Multiline);
             xmlContent = Regex.Replace(xmlContent, @"(?<=^|\s)/([A-Za-z_][\w\-\.]*>)", "</$1", RegexOptions.Multiline);
-            
+
             // Filter foreign texts before "<NeoBleeperProjectFile>" tag and after "</NeoBleeperProjectFile>" tag
             xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
@@ -1529,6 +1525,11 @@ namespace NeoBleeper
                 generatedFilename = string.Empty; // Clear filename if the form is closed if anything aren't created properly
                 output = String.Empty; // Clear output if the form is closed if anything aren't created properly
             }
+        }
+
+        private void CreateMusicWithAI_Shown(object sender, EventArgs e)
+        {
+            listAndSelectAIModels(); // List and select AI models when the form is shown
         }
     }
 }

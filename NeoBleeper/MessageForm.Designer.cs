@@ -38,6 +38,7 @@
             button3 = new Button();
             button2 = new Button();
             panel1 = new Panel();
+            notifyIconMessage = new NotifyIcon(components);
             ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).BeginInit();
             tableLayoutPanelActionButtons.SuspendLayout();
             SuspendLayout();
@@ -141,6 +142,12 @@
             panel1.Size = new Size(35, 35);
             panel1.TabIndex = 4;
             // 
+            // notifyIconMessage
+            // 
+            notifyIconMessage.Icon = (Icon)resources.GetObject("notifyIconMessage.Icon");
+            notifyIconMessage.Text = "NeoBleeper";
+            notifyIconMessage.BalloonTipClicked += notifyIconMessage_BalloonTipClicked;
+            // 
             // MessageForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -161,6 +168,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Title";
+            Shown += MessageForm_Shown;
             SystemColorsChanged += MessageForm_SystemColorsChanged;
             ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             tableLayoutPanelActionButtons.ResumeLayout(false);
@@ -178,5 +186,6 @@
         private Button button3;
         private Button button2;
         private Panel panel1;
+        private NotifyIcon notifyIconMessage;
     }
 }
