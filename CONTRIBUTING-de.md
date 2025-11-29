@@ -3,28 +3,28 @@
 Zunächst einmal vielen Dank, dass Sie eine Mitarbeit bei NeoBleeper in Erwägung ziehen! Ihre Beiträge sind für den Erfolg dieses Projekts unerlässlich. Ob Sie einen Fehler melden, eine Funktion vorschlagen, die Dokumentation verbessern, eine ältere BMM- oder NBPML-Datei hochladen oder Code einreichen – Ihre Unterstützung ist uns sehr wichtig.
 
 ## 📑 Inhaltsverzeichnis
-1. [Verhaltenskodex](#code-of-conduct)
-2. [Wie kann ich mitwirken?](#how-can-i-contribute)
+1. [Verhaltenskodex](#-verhaltenskodex)
+2. [Wie kann ich mitwirken?](#%E2%80%8D%EF%B8%8F-wie-kann-ich-mitwirken)
 
-- [Fehlerberichte](#bug-reports)
+    - [Fehlerberichte](#-fehlerberichte)
+    
+    - [Funktionsanfragen](#-funktionsw%C3%BCnsche)
+    
+    - [Codebeiträge](#%E2%80%8D-codebeitr%C3%A4ge)
+    
+    - [Dokumentation](#-dokumentation)
+  
+    - [Beiträge zu BMM- und NBPML-Dateien](#-beitr%C3%A4ge-zu-bmm--und-nbpml-dateien)
+3. [Pull-Request-Prozess](#%EF%B8%8F-pull-request-prozess)
+4. [Styleguides](#-styleguides)
 
-- [Funktionsanfragen](#feature-requests)
-
-- [Codebeiträge](#code-contributions)
-
-- [Dokumentation](#documentation)
-
-- [Beiträge zu BMM- und NBPML-Dateien](#bmm-and-nbpml-file-contributions)
-3. [Pull-Request-Prozess](#pull-request-process)
-4. [Styleguides](#style-guides)
-
-- [Codestil](#code-style)
-
-- [C#-spezifische Hinweise](#c-sharp-specific-notes)
-5. [Community-Support](#community-support)
+    - [Codestil](#-programmierstil)
+    
+    - [C#-spezifische Hinweise](#-c-spezifische-hinweise)
+5. [Community-Support](#%E2%80%8D%E2%80%8D%E2%80%8D-community-support)
 
 ## 🌟 Verhaltenskodex
-Durch Ihre Teilnahme an dieser Community erklären Sie sich mit den folgenden Bedingungen einverstanden: Mit der Teilnahme an diesem Projekt erklären Sie sich mit dem Verhaltenskodex einverstanden. Bitte verhalten Sie sich respektvoll und rücksichtsvoll gegenüber anderen Mitgliedern der Community. Details finden Sie in der Datei `CODE_OF_CONDUCT.md`.
+Durch Ihre Teilnahme an dieser Community erklären Sie sich mit den folgenden Bedingungen einverstanden: Mit der Teilnahme an diesem Projekt erklären Sie sich mit dem Verhaltenskodex einverstanden. Bitte verhalten Sie sich respektvoll und rücksichtsvoll gegenüber anderen Mitgliedern der Community. Details finden Sie in der Datei `CODE_OF_CONDUCT-de.md`.
 
 ## 🤝🙋‍♂️ Wie kann ich mitwirken?
 
@@ -58,58 +58,58 @@ Mögliche Auswirkungen, Risiken oder zu berücksichtigende Aspekte.
 1. Forken Sie das Repository und erstellen Sie einen neuen Branch von `main`. Benennen Sie Ihren Branch aussagekräftig, z. B. `feature/add-tune-filter`.
 
 2. Öffnen Sie den Repository-Ordner in Visual Studio:
-
-Stellen Sie sicher, dass Sie [Visual Studio](https://visualstudio.microsoft.com/) mit den erforderlichen Workloads (z. B. „.NET-Desktopentwicklung“ für NeoBleeper) installiert haben.
-
-Klonen Sie Ihren Fork des Repositorys auf Ihren lokalen Rechner (Sie können die in Visual Studio integrierten Git-Tools oder die Git-Befehlszeilenschnittstelle verwenden).
-
-Öffnen Sie nach dem Klonen die Projektmappendatei (`.sln`) in Visual Studio.
+    
+    - Stellen Sie sicher, dass Sie [Visual Studio](https://visualstudio.microsoft.com/) mit den erforderlichen Workloads (z. B. „.NET-Desktopentwicklung“ für NeoBleeper) installiert haben.
+    
+    - Klonen Sie Ihren Fork des Repositorys auf Ihren lokalen Rechner (Sie können die in Visual Studio integrierten Git-Tools oder die Git-Befehlszeilenschnittstelle verwenden).
+    
+    - Öffnen Sie nach dem Klonen die Projektmappendatei (`.sln`) in Visual Studio.
 
 3. NuGet-Pakete installieren:
 
-- Stellen Sie alle erforderlichen Abhängigkeiten wieder her, indem Sie in der oberen Leiste auf „NuGet-Pakete wiederherstellen“ klicken oder im Terminal „dotnet restore“ ausführen.
+    - Stellen Sie alle erforderlichen Abhängigkeiten wieder her, indem Sie in der oberen Leiste auf „NuGet-Pakete wiederherstellen“ klicken oder im Terminal „dotnet restore“ ausführen.
 
 4. Änderungen hinzufügen:
 
-- Nutzen Sie die Funktionen von Visual Studio wie IntelliSense, Debugging und Codeformatierung, um effektiv mitzuwirken.
-
-- Stellen Sie sicher, dass alle erforderlichen Tests enthalten sind und erfolgreich durchlaufen werden.
-
-- Achten Sie darauf, dass Ihr Code dem Styleguide entspricht.
+    - Nutzen Sie die Funktionen von Visual Studio wie IntelliSense, Debugging und Codeformatierung, um effektiv mitzuwirken.
+    
+    - Stellen Sie sicher, dass alle erforderlichen Tests enthalten sind und erfolgreich durchlaufen werden.
+    
+    - Achten Sie darauf, dass Ihr Code dem Styleguide entspricht.
 
 5. Namen oder Spitznamen zur Infoseite hinzufügen:
-
-- Öffnen Sie die Datei „about_neobleeper.cs“ und suchen Sie die Komponente „listView1“.
-
-- Wählen Sie die Komponente „listView1“ im Visual Studio-Designer aus.
-
-- Klicken Sie auf den kleinen Pfeil in der oberen rechten Ecke der Komponente, um das Dropdown-Menü zu öffnen.
-
-- Wählen Sie „Elemente bearbeiten“, um den Editor für die ListView-Elemente zu öffnen.
-
-- Fügen Sie ein neues „ListViewItem“ hinzu:
-
-- Geben Sie Ihren Namen oder Spitznamen in die Eigenschaft „Text“ ein.
-
-- Für Ihre Beiträge/Aufgaben:
-
-Suchen Sie die **SubItems**-Eigenschaft.
-
-Klicken Sie auf die drei Punkte (`...`) rechts neben dem Feld `(Collection)`.
-
-Fügen Sie ein **SubItem** mit einer kurzen Beschreibung Ihrer Aufgaben hinzu oder bearbeiten Sie es.
-
-Wenn Sie Ihren Namen bereits hinzugefügt haben, bearbeiten Sie das SubItem oder aktualisieren Sie Ihren bestehenden Eintrag, bevor Sie Ihre Änderungen speichern.
+  
+    - Öffnen Sie die Datei „about_neobleeper.cs“ und suchen Sie die Komponente „listView1“.
+    
+    - Wählen Sie die Komponente „listView1“ im Visual Studio-Designer aus.
+    
+    - Klicken Sie auf den kleinen Pfeil in der oberen rechten Ecke der Komponente, um das Dropdown-Menü zu öffnen.
+    
+    - Wählen Sie „Elemente bearbeiten“, um den Editor für die ListView-Elemente zu öffnen.
+    
+    - Fügen Sie ein neues „ListViewItem“ hinzu:
+    
+      - Geben Sie Ihren Namen oder Spitznamen in die Eigenschaft „Text“ ein.
+      
+      - Für Ihre Beiträge/Aufgaben:
+    
+        - Suchen Sie die **SubItems**-Eigenschaft.
+        
+        - Klicken Sie auf die drei Punkte (`...`) rechts neben dem Feld `(Collection)`.
+        
+        - Fügen Sie ein **SubItem** mit einer kurzen Beschreibung Ihrer Aufgaben hinzu oder bearbeiten Sie es.
+    
+    - Wenn Sie Ihren Namen bereits hinzugefügt haben, bearbeiten Sie das SubItem oder aktualisieren Sie Ihren bestehenden Eintrag, bevor Sie Ihre Änderungen speichern.
 
 6. Testen Sie Ihren Code:
 
-Führen Sie die Tests mit dem Test-Explorer von Visual Studio aus.
-
-Beheben Sie alle fehlgeschlagenen Tests und validieren Sie Ihre Änderungen.
+    - Führen Sie die Tests mit dem Test-Explorer von Visual Studio aus.
+  
+    - Beheben Sie alle fehlgeschlagenen Tests und validieren Sie Ihre Änderungen.
 
 7. Speichern Sie Ihre Änderungen mit klaren und prägnanten Nachrichten.
 
-Verwenden Sie die in Visual Studio integrierten Git-Tools, um Ihre Änderungen bereitzustellen und zu speichern.
+  -   Verwenden Sie die in Visual Studio integrierten Git-Tools, um Ihre Änderungen bereitzustellen und zu speichern.
 
 8. Pushen Sie Ihren Branch und öffnen Sie einen Pull Request im Repository.
 
