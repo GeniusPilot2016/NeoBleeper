@@ -24,8 +24,10 @@ namespace NeoBleeper
         bool darkTheme = false;
         public long wantedPitch;
         public bool needToStopSound;
+        private main_window main_Window;
         public PortamentoWindow(main_window main_Window)
         {
+            this.main_Window = main_Window;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             switch (TemporarySettings.PortamentoSettings.portamentoType)
@@ -174,6 +176,7 @@ namespace NeoBleeper
             else if (radioButtonProduceSoundForManyMilliseconds.Checked)
             {
                 NotePlayer.StopAllNotes(); // Stop all notes when switching to this mode
+                main_Window.UpdateLabelVisible(false); // Hide the "BEEP" label in the main window
                 TemporarySettings.PortamentoSettings.portamentoType = TemporarySettings.PortamentoSettings.PortamentoType.ProduceSoundForLength;
                 Logger.Log("Portamento type set to \"System speaker/sound produces sound for roughly this many milliseconds\"", Logger.LogTypes.Info);
             }

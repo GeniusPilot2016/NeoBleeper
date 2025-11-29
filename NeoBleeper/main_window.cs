@@ -2936,7 +2936,7 @@ namespace NeoBleeper
         }
 
 
-        private void UpdateLabelVisible(bool visible)
+        public void UpdateLabelVisible(bool visible)
         {
             try
             {
