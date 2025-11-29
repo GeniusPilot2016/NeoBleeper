@@ -4,48 +4,48 @@ Tout d'abord, merci de l'intérêt que vous portez à NeoBleeper ! Votre contri
 
 ## 📑 Sommaire
 
-1. Code de conduite
+1. [Code de conduite](#-code-de-conduite)
 
-2. Comment contribuer ?
+2. [Comment contribuer ?](#%E2%80%8D%EF%B8%8F-comment-contribuer)
 
-- Signalement de bogues
+    - [Signalement de bogues](#-signalement-de-bugs)
+    
+    - [Demandes de fonctionnalités](#-suggestions-de-fonctionnalit%C3%A9s)
+    
+    - [Contributions au code](#%E2%80%8D-contributions-au-code)
+    
+    - [Documentation](#-documentation)
+    
+    - [Contributions aux fichiers BMM et NBPML](#-contributions-aux-fichiers-bmm-et-nbpml)
 
-- Demandes de fonctionnalités
+3. [Processus de demande de fusion](#%EF%B8%8F-processus-de-demande-de-fusion)
 
-- Contributions au code
+4. [Guides de style](#-guides-de-style)
 
-- Documentation
+    - [Style de code](#-style-de-code)
+    
+    - [Notes spécifiques à C#](#-remarques-sp%C3%A9cifiques-%C3%A0-c)
 
-- Contributions aux fichiers BMM et NBPML
-
-3. Processus de demande de fusion
-
-4. Guides de style
-
-- Style de code
-
-- Notes spécifiques à C#
-
-5. Support communautaire
+5. [Support communautaire](#%E2%80%8D%E2%80%8D%E2%80%8D-assistance-communautaire)
 
 ## 🌟 Code de conduite
 
-En participant à ce projet, vous acceptez le Code de conduite. Veuillez respecter le Code de conduite. Soyez respectueux et attentionné envers les autres membres de la communauté. Consultez le fichier `CODE_OF_CONDUCT.md` pour plus de détails.
+En participant à ce projet, vous acceptez le Code de conduite. Veuillez respecter le Code de conduite. Soyez respectueux et attentionné envers les autres membres de la communauté. Consultez le fichier `CODE_OF_CONDUCT-fr.md` pour plus de détails.
 
 ## 🤝🙋‍♂️ Comment contribuer ?
 
 ### 🪲 Signalement de bugs
 Si vous avez trouvé un bug dans NeoBleeper, veuillez créer un ticket et inclure les informations suivantes :
 
-- Un titre clair et descriptif.
-
-- La version de NeoBleeper ou le hachage du commit, le cas échéant.
-
-- Les étapes pour reproduire le problème, ou un extrait de code.
-
-- Le comportement attendu et le comportement constaté.
-
-- Toute autre information pertinente, y compris des captures d'écran ou des rapports de plantage.
+  - Un titre clair et descriptif.
+  
+  - La version de NeoBleeper ou le hachage du commit, le cas échéant.
+  
+  - Les étapes pour reproduire le problème, ou un extrait de code.
+  
+  - Le comportement attendu et le comportement constaté.
+  
+  - Toute autre information pertinente, y compris des captures d'écran ou des rapports de plantage.
 
 ### 💭 Suggestions de fonctionnalités
 Vos idées sont les bienvenues ! Pour suggérer une fonctionnalité :
@@ -53,10 +53,10 @@ Vos idées sont les bienvenues ! Pour suggérer une fonctionnalité :
 1. Vérifiez si quelqu'un d'autre l'a déjà demandée.
 
 2. Si ce n'est pas le cas, ouvrez un nouveau ticket et fournissez une description détaillée incluant :
-
-- Le contexte de votre demande. - Pourquoi c'est utile.
-
-- Impacts, risques et points à prendre en compte.
+  
+  - Le contexte de votre demande. - Pourquoi c'est utile.
+  
+  - Impacts, risques et points à prendre en compte.
 
 ### 👩‍💻 Contributions au code
 
@@ -64,53 +64,53 @@ Vos idées sont les bienvenues ! Pour suggérer une fonctionnalité :
 
 2. Ouvrez le dossier du dépôt dans Visual Studio :
 
-- Assurez-vous d'avoir installé [Visual Studio](https://visualstudio.microsoft.com/) avec les charges de travail requises (par exemple, « Développement .NET Desktop » pour NeoBleeper).
-
-- Clonez votre copie du dépôt sur votre machine locale (vous pouvez utiliser les outils Git intégrés à Visual Studio ou l'interface de ligne de commande Git).
-
-- Une fois le dépôt cloné, ouvrez le fichier de solution (`.sln`) dans Visual Studio.
+  - Assurez-vous d'avoir installé [Visual Studio](https://visualstudio.microsoft.com/) avec les charges de travail requises (par exemple, « Développement .NET Desktop » pour NeoBleeper).
+  
+  - Clonez votre copie du dépôt sur votre machine locale (vous pouvez utiliser les outils Git intégrés à Visual Studio ou l'interface de ligne de commande Git).
+  
+  - Une fois le dépôt cloné, ouvrez le fichier de solution (`.sln`) dans Visual Studio.
 
 3. Installez les packages NuGet :
 
-- Restaurez les dépendances requises en cliquant sur « Restaurer les packages NuGet » dans la barre supérieure ou en exécutant `dotnet restore` dans le terminal. 4. Ajoutez vos modifications :
-
-- Utilisez les fonctionnalités de Visual Studio telles qu'IntelliSense, le débogage et la mise en forme du code pour contribuer efficacement.
-
-- Assurez-vous que les tests appropriés sont inclus et que tous les tests existants réussissent.
-
-- Vérifiez que votre code respecte le guide de style.
+  - Restaurez les dépendances requises en cliquant sur « Restaurer les packages NuGet » dans la barre supérieure ou en exécutant `dotnet restore` dans le terminal. 4. Ajoutez vos modifications :
+  
+  - Utilisez les fonctionnalités de Visual Studio telles qu'IntelliSense, le débogage et la mise en forme du code pour contribuer efficacement.
+  
+  - Assurez-vous que les tests appropriés sont inclus et que tous les tests existants réussissent.
+  
+  - Vérifiez que votre code respecte le guide de style.
 
 5. Ajoutez votre nom ou pseudonyme à la page « À propos » :
 
-- Ouvrez le fichier `about_neobleeper.cs` et localisez le composant `listView1`.
+  - Ouvrez le fichier `about_neobleeper.cs` et localisez le composant `listView1`.
+  
+  - Sélectionnez le composant `listView1` dans le concepteur de Visual Studio.
+  
+  - Cliquez sur la petite flèche dans le coin supérieur droit du composant pour ouvrir le menu déroulant.
+  
+  - Sélectionnez **Modifier les éléments** pour ouvrir l'éditeur de collection des éléments ListView.
+  
+  - Ajoutez un nouvel élément `ListViewItem` :
 
-- Sélectionnez le composant `listView1` dans le concepteur de Visual Studio.
-
-- Cliquez sur la petite flèche dans le coin supérieur droit du composant pour ouvrir le menu déroulant.
-
-- Sélectionnez **Modifier les éléments** pour ouvrir l'éditeur de collection des éléments ListView.
-
-- Ajoutez un nouvel élément `ListViewItem` :
-
-- Saisissez votre nom ou pseudonyme dans la propriété **Texte**.
-
-- Pour vos contributions/tâches :
-
-- Localisez la propriété **SubItems**.
-
-- Cliquez sur les trois points (« ... ») à droite du champ `(Collection)`. - Ajoutez ou modifiez le **SubItem** avec une brève description de vos tâches.
-
-- Si vous avez déjà ajouté votre nom, modifiez le SubItem ou mettez à jour votre entrée existante avant de valider vos modifications.
+    - Saisissez votre nom ou pseudonyme dans la propriété **Texte**.
+    
+    - Pour vos contributions/tâches :
+    
+      - Localisez la propriété **SubItems**.
+      
+      - Cliquez sur les trois points (« ... ») à droite du champ `(Collection)`. - Ajoutez ou modifiez le **SubItem** avec une brève description de vos tâches.
+      
+      - Si vous avez déjà ajouté votre nom, modifiez le SubItem ou mettez à jour votre entrée existante avant de valider vos modifications.
 
 6. Testez votre code :
 
-- Exécutez les tests à l’aide de l’Explorateur de tests de Visual Studio.
-
-- Corrigez les tests ayant échoué et validez vos modifications.
+  - Exécutez les tests à l’aide de l’Explorateur de tests de Visual Studio.
+  
+  - Corrigez les tests ayant échoué et validez vos modifications.
 
 7. Validez vos modifications avec des messages clairs et concis.
 
-- Utilisez les outils Git intégrés à Visual Studio pour indexer et valider vos modifications.
+  - Utilisez les outils Git intégrés à Visual Studio pour indexer et valider vos modifications.
 
 8. Envoyez votre branche et ouvrez une demande de fusion dans le dépôt.
 
@@ -122,12 +122,12 @@ Améliorer notre documentation est l’une des manières les plus simples de con
 
 ### 🎼 Contributions aux fichiers BMM et NBPML
 NeoBleeper prend en charge les anciens fichiers BMM (Bleeper Music Maker) et NBPML (NeoBleeper Project Markup Language). Si vous contribuez au projet ou travaillez avec ces types de fichiers, veuillez vous assurer des points suivants :
-
-- Vérifiez que les fichiers BMM sont correctement analysés et rendus comme prévu dans NeoBleeper.
-
-- Testez la compatibilité avec les anciens formats et l'implémentation actuelle.
-
-- Pour les fichiers NBPML, assurez-vous de respecter les dernières spécifications du langage de balisage du projet NeoBleeper.
+  
+  - Vérifiez que les fichiers BMM sont correctement analysés et rendus comme prévu dans NeoBleeper.
+  
+  - Testez la compatibilité avec les anciens formats et l'implémentation actuelle.
+  
+  - Pour les fichiers NBPML, assurez-vous de respecter les dernières spécifications du langage de balisage du projet NeoBleeper.
 
 Si vous rencontrez des problèmes spécifiques à ces formats de fichiers, veuillez suivre les instructions de la section « Rapports de bogues ». Les demandes de fonctionnalités pour une meilleure prise en charge des fichiers BMM et NBPML sont également les bienvenues !
 
@@ -150,19 +150,19 @@ Toutes les soumissions doivent être effectuées via des demandes de fusion. Voi
 
 Suivez les [Conventions de codage .NET](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions). Points clés :
 
-- Privilégiez les propriétés automatiques aux champs publics.
-
-- Utilisez `var` pour les variables locales lorsque leur type est évident.
-
-- Évitez les chaînes de caractères et les nombres magiques. Utilisez des constantes ou des énumérations.
+  - Privilégiez les propriétés automatiques aux champs publics.
+  
+  - Utilisez `var` pour les variables locales lorsque leur type est évident.
+  
+  - Évitez les chaînes de caractères et les nombres magiques. Utilisez des constantes ou des énumérations.
 
 ### 📒 Remarques spécifiques à C#
 
-- Placez les accolades `{` sur la même ligne que le code précédent.
-
-- Utilisez la notation PascalCase pour les noms de classes et de méthodes, et la notation camelCase pour les variables locales.
-
-- Suivez les [Consignes de nommage Microsoft](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines).
+  - Placez les accolades `{` sur la même ligne que le code précédent.
+  
+  - Utilisez la notation PascalCase pour les noms de classes et de méthodes, et la notation camelCase pour les variables locales.
+  
+  - Suivez les [Consignes de nommage Microsoft](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines).
 
 ## 👨‍👩‍👧‍👦 Assistance communautaire
 
