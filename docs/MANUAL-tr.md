@@ -301,7 +301,7 @@
         - Sağlanan API anahtarı geçerli değilse veya kullanıcı 18 yaşından küçükse ya da hizmet şartları kabul edilmezse, anahtar reddedilir ve Google Gemini™ API özellikleri etkinleştirilmez.
         - **Doğum tarihiniz NeoBleeper tarafından saklanmaz veya paylaşılmaz**; yalnızca yaş uygunluğu kontrolü ve uyumluluk için tek seferlik kullanılır.
 
-        ![image1](https://github.com/user-attachments/assets/84f0e104-ede3-4973-9f5d-7949d0e9da21)
+        ![image1](https://github.com/user-attachments/assets/bea90b38-d0f3-45b3-94d0-dfb1e7b86f93)
         
         İlk kez yeni bir API anahtarı girildiğinde yaş sınırı ve TOS kabulü zorunludur. Bu, yapay zeka tarafından üretilen müzik özelliklerinin sorumlu kullanımını ve yasal uyumluluğunu sağlar.
 
