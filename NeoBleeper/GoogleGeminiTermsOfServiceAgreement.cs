@@ -169,71 +169,94 @@ namespace NeoBleeper
             var rtf = new System.Text.StringBuilder();
             rtf.Append(@"{\rtf1\ansi ");
 
-            // Markkdown headers and formatting conversions
-            // Headers
+            // Blockquote
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"^> (.*)$",
+                @"{\i\cf2 $1}",
+                System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Strikethrough
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"~~(.+?)~~",
+                @"{\strike $1}");
+
+            // Horizontal rule
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"^(\s*)(---|\*\*\*)\s*$",
+                @"{\par\qr\brdrb\brdrs\brdrw10\par}",
+                System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Inline image (shows alt text and URL, as RTF can't embed images directly)
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"!\[(.*?)\]\((.*?)\)",
+                @"[Image: $1]($2)");
+
+            // Nested bullet list (basic support)
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"^(\s*)[-*] (.*)$",
+                m =>
+                {
+                    int indent = m.Groups[1].Value.Length;
+                    return new string(' ', indent * 2) + "• " + m.Groups[2].Value;
+                },
+                System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Nested numbered list (basic support)
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"^(\s*)(\d+)\. (.*)$",
+                m =>
+                {
+                    int indent = m.Groups[1].Value.Length;
+                    return new string(' ', indent * 2) + $"{m.Groups[2].Value}. {m.Groups[3].Value}";
+                },
+                System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Escaped characters
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"\\([*_`~>])",
+                "$1");
+
+            // Markdown conversions
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^# (.*)$", @"{\b\fs40 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^## (.*)$", @"{\b\fs32 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^### (.*)$", @"{\b\fs24 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
-
-            // Bold
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^#### (.*)$", @"{\b\fs20 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^##### (.*)$", @"{\b\fs16 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"\*\*(.+?)\*\*", @"{\b $1}");
-
-            // Italic
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"_(.+?)_", @"{\i $1}");
-
-            // Underline
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"__(.+?)__", @"{\ul $1}");
-
-            // Code
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"`(.+?)`", @"{\f1 $1}");
-
-            // Links 
             markdown = System.Text.RegularExpressions.Regex.Replace(
-            markdown,
+                markdown,
                 @"\[(.+?)\]\((.+?)\)",
-                @"{\field{\*\fldinst{HYPERLINK ""$2""}}{\fldrslt{$1}}}"
-            );
-
-            // Bullet list 
+                @"{\field{\*\fldinst{HYPERLINK ""$2""}}{\fldrslt{$1}}}");
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^\s*[-*] (.*)$", @"• $1", System.Text.RegularExpressions.RegexOptions.Multiline);
-
-            // Numbered list
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^\s*(\d+)\. (.*)$", @"$1. $2", System.Text.RegularExpressions.RegexOptions.Multiline);
 
             // Convert new lines to RTF line breaks
             markdown = markdown.Replace("\r\n", @"\par ").Replace("\n", @"\par ");
 
-            // HTML headers and formatting conversions that might be in the markdown
-            
-            // Headers
+            // HTML conversions 
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h1>(.*?)</h1>", @"{\b\fs40 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h2>(.*?)</h2>", @"{\b\fs32 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h3>(.*?)</h3>", @"{\b\fs24 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Bold
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<b>(.*?)</b>", @"{\b $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Italic
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<i>(.*?)</i>", @"{\i $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Underline
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<u>(.*?)</u>", @"{\ul $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Code
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<code>(.*?)</code>", @"{\f1 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Links
             markdown = System.Text.RegularExpressions.Regex.Replace(
                 markdown,
                 @"<a\s+href=[""'](.*?)[""'].*?>(.*?)</a>",
                 @"{\field{\*\fldinst{HYPERLINK ""$1""}}{\fldrslt{$2}}}",
-                System.Text.RegularExpressions.RegexOptions.IgnoreCase
-            );
-            
-            // Bullet list
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<li>(.*?)</li>", @"• $1", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
-            // Numbered list
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<ol>\s*(<li>.*?</li>\s*)+</ol>", match =>
             {
                 var items = System.Text.RegularExpressions.Regex.Matches(match.Value, @"<li>(.*?)</li>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
@@ -244,7 +267,7 @@ namespace NeoBleeper
                 }
                 return result.ToString();
             }, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            
+
             // Convert new lines to RTF line breaks for HTML
             markdown = markdown.Replace("\r\n", @"\par ").Replace("\n", @"\par ");
             markdown = markdown.Replace("\r", @"\par ");
