@@ -47,9 +47,7 @@
             richTextBoxTerms.DetectUrls = false;
             richTextBoxTerms.Name = "richTextBoxTerms";
             richTextBoxTerms.ReadOnly = true;
-            richTextBoxTerms.MouseClick += RichTextBoxTerms_MouseClick;
-            richTextBoxTerms.MouseLeave += richTextBoxTerms_MouseLeave;
-            richTextBoxTerms.MouseMove += richTextBoxTerms_MouseMove;
+            richTextBoxTerms.LinkClicked += richTextBoxTerms_LinkClicked;
             // 
             // checkBoxAccept
             // 

@@ -117,115 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dateTimePickerDateOfBirth.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
+  <data name="&gt;&gt;icons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 463</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonClose.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="richTextBoxTerms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>776, 331</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 16</value>
-  </data>
-  <data name="checkBoxAccept.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;richTextBoxTerms.Name" xml:space="preserve">
-    <value>richTextBoxTerms</value>
-  </data>
-  <data name="buttonClose.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 429</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>768, 431</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="checkBoxAccept.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="checkBoxAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 403</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerDateOfBirth.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="dateTimePickerDateOfBirth.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="buttonClose.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="dateTimePickerDateOfBirth.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>244, 355</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>By clicking the checkbox below, you agree to the Google Gemini™ Terms of Service.</value>
-  </data>
-  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/AQAAAJNU0Z0AUkBTAMBAQAB
-        6AEAAQgBAQEQAQABEAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
-        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wJeAWUB4uQAAUQBNgHsAf8BQgE0AesB
-        /wE/ATEB6gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/wNOAZTYAAFJATwB
-        7gH/AUcBOQHtAf8BRAE2AewB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8B
-        NQEmAecB/wEzASMB5gH/A04BlNAAAk4BTwGXAUsBPgHuAf8BSQE8Ae4B/wFHATkB7QH/AUIBNQHlAf8B
-        QgE0AesB/wE/ATEB6gH/AT0BLgHpAf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/9AAAU8B
-        QwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzBf8BQQE0AeIB/wFCATQB6wH/AXwBdAHhBf8BNwEoAd0B
-        /wE4ASkB6AH/ATUBJgHnAf8DYgHhzAABUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wL8Af4F
-        /wF9AXQB4gX/AYABeAHiAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/8wAAVMBRwHxAf8B
-        UQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wL9Af4F/wGDAXsB5AH/AUIBNAHrAf8BPwExAeoB
-        /wE9AS4B6QH/AToBKwHpAf8BOAEpAegB/8wAAVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8B
-        ggF6AeQF/wL9Af4F/wFBATQB4gH/AUIBNAHrAf8BPwExAeoB/wE9AS4B6QH/AToBKwHpAf/MAAFXAUsB
-        8wH/AVUBSQHyAf8BUwFHAfEB/wGDAXwB5QX/AYQBfQHlAf8BSwE+Ae4B/wL8Af4F/wFCATUB5QH/AUIB
-        NAHrAf8BPwExAeoB/wE9AS4B6QH/zAABaAFMAZUB+QFXAUsB8wH/AVUBSQHyAf8BUQFGAesB/wGDAXwB
-        5QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzAf8BRwE5Ae0B/wFEATYB7AH/AUIBNAHrAf8D
-        FgEe0AABWQFNAfMB/wFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B
-        /wFLAT4B7gH/AUkBPAHuAf8BRwE5Ae0B/wFEATYB7AH/1AADCAEKAVkBTQHzAf8BVwFLAfMB/wFVAUkB
-        8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wFJATwB7gH/4AABaAFMAZUB
-        +QFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8CTgFPAZf/AP8A0gABQgFNAT4H
-        AAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcGAAHgAQMGAAHAAQMG
-        AAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHgAQMGAAHgAQcGAAH4AQ8GAAL/BgAC
-        /xwACw==
-</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
   <data name="richTextBoxTerms.Text" xml:space="preserve">
     <value>Effective October 17, 2025
@@ -562,175 +458,279 @@ informational purposes only and is not a substitute for advice from a qualified
 professional. Content does not constitute medical treatment or diagnosis.**
 | **Note:** Previous versions of these Additional Terms are [archived here](https://ai.google.dev/gemini-api/terms-archive).</value>
   </data>
-  <data name="&gt;&gt;checkBoxAccept.Name" xml:space="preserve">
-    <value>checkBoxAccept</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="checkBoxAccept.Text" xml:space="preserve">
-    <value>I have read and accept these terms of service</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerDateOfBirth.Name" xml:space="preserve">
-    <value>dateTimePickerDateOfBirth</value>
-  </data>
-  <data name="&gt;&gt;richTextBoxTerms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;icons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAccept.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="richTextBoxTerms.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="richTextBoxTerms.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>GoogleGeminiTermsOfServiceAgreement</value>
-  </data>
-  <data name="dateTimePickerDateOfBirth.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 351</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
-    <value>buttonClose</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;icons.Name" xml:space="preserve">
+    <value>icons</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Google Gemini™ Terms of Service Agreement</value>
   </data>
-  <data name="&gt;&gt;richTextBoxTerms.Parent" xml:space="preserve">
-    <value>$this</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonClose.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="buttonClose.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBoxAccept.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>By clicking the checkbox below, you agree to the Google Gemini™ Terms of Service.</value>
+  </data>
+  <data name="buttonClose.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 380</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 16</value>
+  </data>
+  <data name="checkBoxAccept.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 403</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;richTextBoxTerms.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>768, 431</value>
   </data>
-  <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 26</value>
+  <data name="&gt;&gt;dateTimePickerDateOfBirth.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="richTextBoxTerms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+  <data name="richTextBoxTerms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>776, 331</value>
   </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>800, 463</value>
+  </data>
+  <data name="dateTimePickerDateOfBirth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 351</value>
   </data>
   <data name="&gt;&gt;checkBoxAccept.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;dateTimePickerDateOfBirth.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxAccept.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="dateTimePickerDateOfBirth.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="richTextBoxTerms.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
   </data>
   <data name="checkBoxAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>273, 20</value>
   </data>
-  <data name="checkBoxAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="&gt;&gt;richTextBoxTerms.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="buttonClose.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
+  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="checkBoxAccept.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 429</value>
+  </data>
+  <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/AQAAAJNU0Z0AUkBTAMBAQAB
+        6AEAARQBAQEQAQABEAEABP8BIQEQCP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wJeAWUB4uQAAUQBNgHsAf8BQgE0AesB
+        /wE/ATEB6gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/wNOAZTYAAFJATwB
+        7gH/AUcBOQHtAf8BRAE2AewB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8B
+        NQEmAecB/wEzASMB5gH/A04BlNAAAk4BTwGXAUsBPgHuAf8BSQE8Ae4B/wFHATkB7QH/AUIBNQHlAf8B
+        QgE0AesB/wE/ATEB6gH/AT0BLgHpAf8BNwEoAd0B/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/9AAAU8B
+        QwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzBf8BQQE0AeIB/wFCATQB6wH/AXwBdAHhBf8BNwEoAd0B
+        /wE4ASkB6AH/ATUBJgHnAf8DYgHhzAABUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wL8Af4F
+        /wF9AXQB4gX/AYABeAHiAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/8wAAVMBRwHxAf8B
+        UQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wL9Af4F/wGDAXsB5AH/AUIBNAHrAf8BPwExAeoB
+        /wE9AS4B6QH/AToBKwHpAf8BOAEpAegB/8wAAVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8B
+        ggF6AeQF/wL9Af4F/wFBATQB4gH/AUIBNAHrAf8BPwExAeoB/wE9AS4B6QH/AToBKwHpAf/MAAFXAUsB
+        8wH/AVUBSQHyAf8BUwFHAfEB/wGDAXwB5QX/AYQBfQHlAf8BSwE+Ae4B/wL8Af4F/wFCATUB5QH/AUIB
+        NAHrAf8BPwExAeoB/wE9AS4B6QH/zAABaAFMAZUB+QFXAUsB8wH/AVUBSQHyAf8BUQFGAesB/wGDAXwB
+        5QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzAf8BRwE5Ae0B/wFEATYB7AH/AUIBNAHrAf8D
+        FgEe0AABWQFNAfMB/wFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B
+        /wFLAT4B7gH/AUkBPAHuAf8BRwE5Ae0B/wFEATYB7AH/1AADCAEKAVkBTQHzAf8BVwFLAfMB/wFVAUkB
+        8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wFJATwB7gH/4AABaAFMAZUB
+        +QFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8CTgFPAZf/AP8A0gABQgFNAT4H
+        AAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcGAAHgAQMGAAHAAQMG
+        AAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHgAQMGAAHgAQcGAAH4AQ8GAAL/BgAC
+        /xwACw==
+</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxTerms.Name" xml:space="preserve">
+    <value>richTextBoxTerms</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="richTextBoxTerms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;dateTimePickerDateOfBirth.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dateTimePickerDateOfBirth.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAccept.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="checkBoxAccept.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>461, 16</value>
   </data>
+  <data name="&gt;&gt;dateTimePickerDateOfBirth.Name" xml:space="preserve">
+    <value>dateTimePickerDateOfBirth</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 355</value>
+  </data>
+  <data name="dateTimePickerDateOfBirth.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>GoogleGeminiTermsOfServiceAgreement</value>
+  </data>
+  <data name="buttonClose.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="checkBoxAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="dateTimePickerDateOfBirth.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Date of Birth</value>
   </data>
-  <data name="&gt;&gt;icons.Name" xml:space="preserve">
-    <value>icons</value>
+  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 380</value>
+  </data>
+  <data name="buttonClose.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="dateTimePickerDateOfBirth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxTerms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePickerDateOfBirth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAccept.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 26</value>
+  </data>
+  <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
+    <value>buttonClose</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="dateTimePickerDateOfBirth.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;richTextBoxTerms.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="richTextBoxTerms.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="checkBoxAccept.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAccept.Name" xml:space="preserve">
+    <value>checkBoxAccept</value>
+  </data>
+  <data name="richTextBoxTerms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="checkBoxAccept.Text" xml:space="preserve">
+    <value>I have read and accept these terms of service</value>
+  </data>
+  <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>tr</value>
   </metadata>
   <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>vi</value>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
 </root>

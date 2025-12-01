@@ -467,7 +467,7 @@ professional. Content does not constitute medical treatment or diagnosis.**
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/AQAAAJNU0Z0AUkBTAMBAQAB
-        qAEAAagBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
+        uAEAAbgBAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQ/wAn
         AAMUARsBPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8BNQEmAecB/wJeAWUB4uQAAUQBNgHsAf8BQgE0AesB
         /wE/ATEB6gH/AT0BLgHpAf8BOgErAekB/wE4ASkB6AH/ATUBJgHnAf8BMwEjAeYB/wNOAZTYAAFJATwB
         7gH/AUcBOQHtAf8BRAE2AewB/wFCATQB6wH/AT8BMQHqAf8BPQEuAekB/wE6ASsB6QH/ATgBKQHoAf8B
@@ -480,11 +480,11 @@ professional. Content does not constitute medical treatment or diagnosis.**
         /wE9AS4B6QH/AToBKwHpAf8BOAEpAegB/8wAAVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8B
         ggF6AeQF/wL9Af4F/wFBATQB4gH/AUIBNAHrAf8BPwExAeoB/wE9AS4B6QH/AToBKwHpAf/MAAFXAUsB
         8wH/AVUBSQHyAf8BUwFHAfEB/wGDAXwB5QX/AYQBfQHlAf8BSwE+Ae4B/wL8Af4F/wFCATUB5QH/AUIB
-        NAHrAf8BPwExAeoB/wE9AS4B6QH/zAABaAFMAZ0B+QFXAUsB8wH/AVUBSQHyAf8BUQFGAesB/wGDAXwB
+        NAHrAf8BPwExAeoB/wE9AS4B6QH/zAABaAFMAZUB+QFXAUsB8wH/AVUBSQHyAf8BUQFGAesB/wGDAXwB
         5QH/AU8BQwHwAf8BTQFAAe8B/wFLAT4B7gH/AcgBxAHzAf8BRwE5Ae0B/wFEATYB7AH/AUIBNAHrAf8D
         FgEe0AABWQFNAfMB/wFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8BTQFAAe8B
         /wFLAT4B7gH/AUkBPAHuAf8BRwE5Ae0B/wFEATYB7AH/1AADCAEKAVkBTQHzAf8BVwFLAfMB/wFVAUkB
-        8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wFJATwB7gH/4AABaAFMAZ0B
+        8gH/AVMBRwHxAf8BUQFFAfEB/wFPAUMB8AH/AU0BQAHvAf8BSwE+Ae4B/wFJATwB7gH/4AABaAFMAZUB
         +QFXAUsB8wH/AVUBSQHyAf8BUwFHAfEB/wFRAUUB8QH/AU8BQwHwAf8CTgFPAZf/AP8A0gABQgFNAT4H
         AAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8GAAH4AR8GAAHwAQcGAAHgAQMGAAHAAQMG
         AAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHAAQEGAAHgAQMGAAHgAQcGAAH4AQ8GAAL/BgAC
@@ -504,13 +504,13 @@ professional. Content does not constitute medical treatment or diagnosis.**
     <value>Aşağıdaki onay kutusuna tıkladığınızda Google Gemini™ Hizmet Şartları'nı kabul etmiş sayılırsınız.</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 354</value>
+    <value>242, 354</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 16</value>
+    <value>80, 16</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Doğu Tarihi</value>
+    <value>Doğum Tarihi</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Google Gemini™ Hizmet Şartları Sözleşmesi</value>

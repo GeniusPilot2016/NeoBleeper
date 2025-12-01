@@ -7,11 +7,6 @@ namespace NeoBleeper
 {
     public partial class GoogleGeminiTermsOfServiceAgreement : Form
     {
-        private readonly List<(int Start, int Length, string Url)> _links = new();
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref CHARFORMAT2 lParam);
-
         string unformattedText = string.Empty;
         private const int EM_SETCHARFORMAT = 1092;
         private const int SCF_SELECTION = 1;
@@ -130,43 +125,6 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void InsertLink(string text, string url)
-        {
-            int start = richTextBoxTerms.TextLength;
-            richTextBoxTerms.AppendText(text);
-
-            // Select and format the link
-            richTextBoxTerms.Select(start, text.Length);
-            richTextBoxTerms.SelectionColor = darkTheme != true ? Color.Blue : SystemColors.MenuHighlight;
-            richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Underline);
-
-            // Save link info for click handling
-            _links.Add((start, text.Length, url));
-
-            // Select end of text
-            richTextBoxTerms.Select(richTextBoxTerms.TextLength, 0);
-            richTextBoxTerms.SelectionColor = richTextBoxTerms.ForeColor;
-            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-        }
-        private void RichTextBoxTerms_MouseClick(object? sender, MouseEventArgs e)
-        {
-            try
-            {
-                // Get character index from mouse position
-                int charIndex = richTextBoxTerms.GetCharIndexFromPosition(e.Location);
-
-                // Check if the character index is within any link range
-                var info = _links.FirstOrDefault(x => charIndex >= x.Start && charIndex < x.Start + x.Length);
-                if (!string.IsNullOrEmpty(info.Url))
-                {
-                    Process.Start(new ProcessStartInfo(info.Url) { UseShellExecute = true });
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Failed to open link (mouse click): " + ex.Message, Logger.LogTypes.Error);
-            }
-        }
         private async Task DownloadActualTermsOfService()
         {
             string formerText = richTextBoxTerms.Text;
@@ -203,198 +161,104 @@ namespace NeoBleeper
         private const int WM_SETREDRAW = 0x0B;
         private void FormatTerms()
         {
-            SendMessage(richTextBoxTerms.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+            richTextBoxTerms.Rtf = MarkdownToRichTextFile(unformattedText);
+        }
+        private string MarkdownToRichTextFile(string markdown)
+        {
+            // Beginning of RTF document
+            var rtf = new System.Text.StringBuilder();
+            rtf.Append(@"{\rtf1\ansi ");
 
-            _links.Clear(); // Clear previous links
+            // Markkdown headers and formatting conversions
+            // Headers
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^# (.*)$", @"{\b\fs40 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^## (.*)$", @"{\b\fs32 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^### (.*)$", @"{\b\fs24 $1}", System.Text.RegularExpressions.RegexOptions.Multiline);
 
-            var lines = richTextBoxTerms.Lines;
-            richTextBoxTerms.Clear();
+            // Bold
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"\*\*(.+?)\*\*", @"{\b $1}");
 
-            foreach (var line in lines)
+            // Italic
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"_(.+?)_", @"{\i $1}");
+
+            // Underline
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"__(.+?)__", @"{\ul $1}");
+
+            // Code
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"`(.+?)`", @"{\f1 $1}");
+
+            // Links 
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+            markdown,
+                @"\[(.+?)\]\((.+?)\)",
+                @"{\field{\*\fldinst{HYPERLINK ""$2""}}{\fldrslt{$1}}}"
+            );
+
+            // Bullet list 
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^\s*[-*] (.*)$", @"• $1", System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Numbered list
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^\s*(\d+)\. (.*)$", @"$1. $2", System.Text.RegularExpressions.RegexOptions.Multiline);
+
+            // Convert new lines to RTF line breaks
+            markdown = markdown.Replace("\r\n", @"\par ").Replace("\n", @"\par ");
+
+            // HTML headers and formatting conversions that might be in the markdown
+            
+            // Headers
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h1>(.*?)</h1>", @"{\b\fs40 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h2>(.*?)</h2>", @"{\b\fs32 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<h3>(.*?)</h3>", @"{\b\fs24 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Bold
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<b>(.*?)</b>", @"{\b $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Italic
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<i>(.*?)</i>", @"{\i $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Underline
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<u>(.*?)</u>", @"{\ul $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Code
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<code>(.*?)</code>", @"{\f1 $1}", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Links
+            markdown = System.Text.RegularExpressions.Regex.Replace(
+                markdown,
+                @"<a\s+href=[""'](.*?)[""'].*?>(.*?)</a>",
+                @"{\field{\*\fldinst{HYPERLINK ""$1""}}{\fldrslt{$2}}}",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase
+            );
+            
+            // Bullet list
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<li>(.*?)</li>", @"• $1", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Numbered list
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"<ol>\s*(<li>.*?</li>\s*)+</ol>", match =>
             {
-                int start = richTextBoxTerms.TextLength;
+                var items = System.Text.RegularExpressions.Regex.Matches(match.Value, @"<li>(.*?)</li>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                var result = new System.Text.StringBuilder();
+                for (int i = 0; i < items.Count; i++)
+                {
+                    result.AppendFormat("{0}. {1}\r\n", i + 1, items[i].Groups[1].Value);
+                }
+                return result.ToString();
+            }, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            
+            // Convert new lines to RTF line breaks for HTML
+            markdown = markdown.Replace("\r\n", @"\par ").Replace("\n", @"\par ");
+            markdown = markdown.Replace("\r", @"\par ");
+            markdown = markdown.Replace("<br>", @"\par ").Replace("<br/>", @"\par ").Replace("<br />", @"\par ");
+            markdown = markdown.Replace("<p>", @"\par ").Replace("</p>", @"\par ");
 
-                // Titles
-                if (line.StartsWith("# "))
-                {
-                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 16, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(2) + Environment.NewLine);
-                }
-                else if (line.StartsWith("## "))
-                {
-                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 14, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(3) + Environment.NewLine);
-                }
-                else if (line.StartsWith("### "))
-                {
-                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 12, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(4) + Environment.NewLine);
-                }
-                // Bullet list
-                else if (line.TrimStart().StartsWith("- ") || line.TrimStart().StartsWith("* "))
-                {
-                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Regular);
-                    richTextBoxTerms.AppendText("• " + line.TrimStart().Substring(2) + Environment.NewLine);
-                }
-                // Numbered list
-                else if (System.Text.RegularExpressions.Regex.IsMatch(line.TrimStart(), @"^\d+\.\s"))
-                {
-                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Regular);
-                    richTextBoxTerms.AppendText(line.TrimStart() + Environment.NewLine);
-                }
-                // Inline link markdown: [title](url)
-                else if (line.Contains("[") && line.Contains("]("))
-                {
-                    int idx = 0;
-                    var regex = new System.Text.RegularExpressions.Regex(@"\[([^\]]+)\]\(([^)]+)\)");
-                    var matches = regex.Matches(line);
-                    if (matches.Count == 0)
-                    {
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line + Environment.NewLine);
-                    }
-                    else
-                    {
-                        foreach (System.Text.RegularExpressions.Match m in matches)
-                        {
-                            if (m.Index > idx)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(idx, m.Index - idx));
-                            }
-                            string title = m.Groups[1].Value;
-                            string url = m.Groups[2].Value;
-                            InsertLink(title, url);
-                            idx = m.Index + m.Length;
-                        }
-                        if (idx < line.Length)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                        }
-                        richTextBoxTerms.AppendText(Environment.NewLine);
-                    }
-                }
-                // Inline code
-                else if (line.Contains("`"))
-                {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int codeStart = line.IndexOf('`', idx);
-                        if (codeStart == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line.Substring(idx, codeStart - idx));
-                        int codeEnd = line.IndexOf('`', codeStart + 1);
-                        if (codeEnd == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(codeStart));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
-                        richTextBoxTerms.AppendText(line.Substring(codeStart + 1, codeEnd - codeStart - 1));
-                        idx = codeEnd + 1;
-                    }
-                    richTextBoxTerms.AppendText(Environment.NewLine);
-                }
-                // Bold and Italic
-                else if (line.Contains("**") || line.Contains("_"))
-                {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int boldStart = line.IndexOf("**", idx);
-                        int italicStart = line.IndexOf("_", idx);
+            // Trim extra breaks in beginning and end of rich text
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"^(\\par\s*)+", string.Empty);
+            markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"(\\par\s*)+$", string.Empty);
 
-                        if ((boldStart == -1) && (italicStart == -1))
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-
-                        if (boldStart != -1 && (italicStart == -1 || boldStart < italicStart))
-                        {
-                            // Bold
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx, boldStart - idx));
-                            int boldEnd = line.IndexOf("**", boldStart + 2);
-                            if (boldEnd == -1)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(boldStart));
-                                break;
-                            }
-                            richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Bold);
-                            richTextBoxTerms.AppendText(line.Substring(boldStart + 2, boldEnd - boldStart - 2));
-                            idx = boldEnd + 2;
-                        }
-                        else
-                        {
-                            // Italic
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx, italicStart - idx));
-                            int italicEnd = line.IndexOf("_", italicStart + 1);
-                            if (italicEnd == -1)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(italicStart));
-                                break;
-                            }
-                            richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
-                            richTextBoxTerms.AppendText(line.Substring(italicStart + 1, italicEnd - italicStart - 1));
-                            idx = italicEnd + 1;
-                        }
-                    }
-                    richTextBoxTerms.AppendText(Environment.NewLine);
-                }
-                // Underline (custom: __text__)
-                else if (line.Contains("__"))
-                {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int ulStart = line.IndexOf("__", idx);
-                        if (ulStart == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line.Substring(idx, ulStart - idx));
-                        int ulEnd = line.IndexOf("__", ulStart + 2);
-                        if (ulEnd == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(ulStart));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Underline);
-                        richTextBoxTerms.AppendText(line.Substring(ulStart + 2, ulEnd - ulStart - 2));
-                        idx = ulEnd + 2;
-                    }
-                    richTextBoxTerms.AppendText(Environment.NewLine);
-                }
-                // Regular text
-                else
-                {
-                    richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                    richTextBoxTerms.AppendText(line + Environment.NewLine);
-                }
-            }
-            // Scroll to caret
-            richTextBoxTerms.SelectionStart = 0;
-            richTextBoxTerms.SelectionLength = 0;
-            SendMessage(richTextBoxTerms.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
-            richTextBoxTerms.Invalidate();
-            richTextBoxTerms.BeginInvoke(new Action(() => richTextBoxTerms.ScrollToCaret()));
+            // End of RTF document
+            rtf.Append(markdown);
+            rtf.Append("}");
+            return rtf.ToString();
         }
         public static void AskToAgreeTermsAndDoAction(Action action, Action rejectAction)
         {
@@ -428,9 +292,11 @@ namespace NeoBleeper
 
         private async void GoogleGeminiTermsOfServiceAgreement_Load(object sender, EventArgs e)
         {
+            richTextBoxTerms.SuspendLayout();
             await DownloadActualTermsOfService();
             richTextBoxTerms.Text = unformattedText;
             FormatTerms();
+            richTextBoxTerms.ResumeLayout();
         }
 
         private void GoogleGeminiTermsOfServiceAgreement_SystemColorsChanged(object sender, EventArgs e)
@@ -438,30 +304,20 @@ namespace NeoBleeper
             set_theme();
         }
 
-        private void richTextBoxTerms_MouseMove(object sender, MouseEventArgs e)
+        private void richTextBoxTerms_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            int charIndex = richTextBoxTerms.GetCharIndexFromPosition(e.Location);
-            var info = _links.FirstOrDefault(x => charIndex >= x.Start && charIndex < x.Start + x.Length);
-
-            if (!string.IsNullOrEmpty(info.Url))
+            try
             {
-                if (richTextBoxTerms.Cursor != Cursors.Hand)
+                Process.Start(new ProcessStartInfo
                 {
-                    richTextBoxTerms.Cursor = Cursors.Hand;
-                }
+                    FileName = e.LinkText,
+                    UseShellExecute = true
+                });
             }
-            else
+            catch (Exception ex)
             {
-                if (richTextBoxTerms.Cursor != Cursors.IBeam)
-                {
-                    richTextBoxTerms.Cursor = Cursors.IBeam;
-                }
+                Logger.Log("Failed to open link: " + ex.Message, Logger.LogTypes.Error);
             }
-        }
-
-        private void richTextBoxTerms_MouseLeave(object sender, EventArgs e)
-        {
-            richTextBoxTerms.Cursor = Cursors.IBeam;
         }
     }
 }

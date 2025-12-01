@@ -3,7 +3,7 @@
   <PropertyGroup>
 	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,7 +12,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <BaseOutputPath>NeoBleeper\bin</BaseOutputPath>
     <Platforms>x64</Platforms>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Description>Co-program of NeoBleeper to stop stuck system speaker beeps when program is forcibly closed or crashed.</Description>
     <Copyright>© 2023-2025 GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
