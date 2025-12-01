@@ -205,196 +205,216 @@ namespace NeoBleeper
         {
             SendMessage(richTextBoxTerms.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
 
-            _links.Clear(); // Clear previous links
-
-            var lines = richTextBoxTerms.Lines;
+            _links.Clear();
             richTextBoxTerms.Clear();
 
-            foreach (var line in lines)
-            {
-                int start = richTextBoxTerms.TextLength;
+            var lines = unformattedText.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            int i = 0;
 
-                // Titles
+            while (i < lines.Length)
+            {
+                var line = lines[i];
+
+                // Code blocks (```)
+                if (line.TrimStart().StartsWith("```"))
+                {
+                    i++;
+                    var codeLines = new List<string>();
+                    while (i < lines.Length && !lines[i].TrimStart().StartsWith("```"))
+                    {
+                        codeLines.Add(lines[i]);
+                        i++;
+                    }
+
+                    richTextBoxTerms.SelectionFont = new Font("Consolas", richTextBoxTerms.Font.Size, FontStyle.Regular);
+                    richTextBoxTerms.SelectionBackColor = darkTheme ? Color.FromArgb(45, 45, 45) : Color.FromArgb(240, 240, 240);
+                    richTextBoxTerms.AppendText(string.Join(Environment.NewLine, codeLines) + Environment.NewLine);
+                    richTextBoxTerms.SelectionBackColor = richTextBoxTerms.BackColor;
+                    i++;
+                    continue;
+                }
+
+                // Block quotes (>)
+                if (line.TrimStart().StartsWith(">"))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
+                    richTextBoxTerms.SelectionColor = darkTheme ? Color.LightGray : Color.Gray;
+                    ProcessInlineMarkdown(line.TrimStart().Substring(1).Trim());
+                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    richTextBoxTerms.SelectionColor = richTextBoxTerms.ForeColor;
+                    i++;
+                    continue;
+                }
+
+                // Headers
                 if (line.StartsWith("# "))
                 {
                     richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 16, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(2) + Environment.NewLine);
+                    ProcessInlineMarkdown(line.Substring(2));
+                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    i++;
+                    continue;
                 }
                 else if (line.StartsWith("## "))
                 {
                     richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 14, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(3) + Environment.NewLine);
+                    ProcessInlineMarkdown(line.Substring(3));
+                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    i++;
+                    continue;
                 }
                 else if (line.StartsWith("### "))
                 {
                     richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font.FontFamily, 12, FontStyle.Bold);
-                    richTextBoxTerms.AppendText(line.Substring(4) + Environment.NewLine);
+                    ProcessInlineMarkdown(line.Substring(4));
+                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    i++;
+                    continue;
                 }
-                // Bullet list
-                else if (line.TrimStart().StartsWith("- ") || line.TrimStart().StartsWith("* "))
+
+                // Bullet lists
+                var trimmed = line.TrimStart();
+                if (trimmed.StartsWith("- ") || trimmed.StartsWith("* "))
                 {
                     richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Regular);
-                    richTextBoxTerms.AppendText("• " + line.TrimStart().Substring(2) + Environment.NewLine);
+                    richTextBoxTerms.AppendText("• ");
+                    ProcessInlineMarkdown(trimmed.Substring(2));
+                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    i++;
+                    continue;
                 }
-                // Numbered list
-                else if (System.Text.RegularExpressions.Regex.IsMatch(line.TrimStart(), @"^\d+\.\s"))
+
+                // Numbered lists
+                if (System.Text.RegularExpressions.Regex.IsMatch(trimmed, @"^\d+\.\s"))
                 {
+                    var match = System.Text.RegularExpressions.Regex.Match(trimmed, @"^(\d+\.\s)(.*)");
                     richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Regular);
-                    richTextBoxTerms.AppendText(line.TrimStart() + Environment.NewLine);
-                }
-                // Inline link markdown: [title](url)
-                else if (line.Contains("[") && line.Contains("]("))
-                {
-                    int idx = 0;
-                    var regex = new System.Text.RegularExpressions.Regex(@"\[([^\]]+)\]\(([^)]+)\)");
-                    var matches = regex.Matches(line);
-                    if (matches.Count == 0)
-                    {
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line + Environment.NewLine);
-                    }
-                    else
-                    {
-                        foreach (System.Text.RegularExpressions.Match m in matches)
-                        {
-                            if (m.Index > idx)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(idx, m.Index - idx));
-                            }
-                            string title = m.Groups[1].Value;
-                            string url = m.Groups[2].Value;
-                            InsertLink(title, url);
-                            idx = m.Index + m.Length;
-                        }
-                        if (idx < line.Length)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                        }
-                        richTextBoxTerms.AppendText(Environment.NewLine);
-                    }
-                }
-                // Inline code
-                else if (line.Contains("`"))
-                {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int codeStart = line.IndexOf('`', idx);
-                        if (codeStart == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line.Substring(idx, codeStart - idx));
-                        int codeEnd = line.IndexOf('`', codeStart + 1);
-                        if (codeEnd == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(codeStart));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
-                        richTextBoxTerms.AppendText(line.Substring(codeStart + 1, codeEnd - codeStart - 1));
-                        idx = codeEnd + 1;
-                    }
+                    richTextBoxTerms.AppendText(match.Groups[1].Value);
+                    ProcessInlineMarkdown(match.Groups[2].Value);
                     richTextBoxTerms.AppendText(Environment.NewLine);
+                    i++;
+                    continue;
                 }
-                // Bold and Italic
-                else if (line.Contains("**") || line.Contains("_"))
-                {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int boldStart = line.IndexOf("**", idx);
-                        int italicStart = line.IndexOf("_", idx);
 
-                        if ((boldStart == -1) && (italicStart == -1))
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-
-                        if (boldStart != -1 && (italicStart == -1 || boldStart < italicStart))
-                        {
-                            // Bold
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx, boldStart - idx));
-                            int boldEnd = line.IndexOf("**", boldStart + 2);
-                            if (boldEnd == -1)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(boldStart));
-                                break;
-                            }
-                            richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Bold);
-                            richTextBoxTerms.AppendText(line.Substring(boldStart + 2, boldEnd - boldStart - 2));
-                            idx = boldEnd + 2;
-                        }
-                        else
-                        {
-                            // Italic
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx, italicStart - idx));
-                            int italicEnd = line.IndexOf("_", italicStart + 1);
-                            if (italicEnd == -1)
-                            {
-                                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                                richTextBoxTerms.AppendText(line.Substring(italicStart));
-                                break;
-                            }
-                            richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
-                            richTextBoxTerms.AppendText(line.Substring(italicStart + 1, italicEnd - italicStart - 1));
-                            idx = italicEnd + 1;
-                        }
-                    }
-                    richTextBoxTerms.AppendText(Environment.NewLine);
-                }
-                // Underline (custom: __text__)
-                else if (line.Contains("__"))
+                // Horizontal rule
+                if (line.Trim() == "---" || line.Trim() == "***" || line.Trim() == "___")
                 {
-                    int idx = 0;
-                    while (idx < line.Length)
-                    {
-                        int ulStart = line.IndexOf("__", idx);
-                        if (ulStart == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(idx));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                        richTextBoxTerms.AppendText(line.Substring(idx, ulStart - idx));
-                        int ulEnd = line.IndexOf("__", ulStart + 2);
-                        if (ulEnd == -1)
-                        {
-                            richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                            richTextBoxTerms.AppendText(line.Substring(ulStart));
-                            break;
-                        }
-                        richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Underline);
-                        richTextBoxTerms.AppendText(line.Substring(ulStart + 2, ulEnd - ulStart - 2));
-                        idx = ulEnd + 2;
-                    }
-                    richTextBoxTerms.AppendText(Environment.NewLine);
+                    richTextBoxTerms.AppendText("─────────────────────────────────────" + Environment.NewLine);
+                    i++;
+                    continue;
                 }
-                // Regular text
-                else
+
+                // Regular text with inline formatting
+                if (!string.IsNullOrWhiteSpace(line))
                 {
                     richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
-                    richTextBoxTerms.AppendText(line + Environment.NewLine);
+                    ProcessInlineMarkdown(line);
                 }
+
+                richTextBoxTerms.AppendText(Environment.NewLine);
+                i++;
             }
-            // Scroll to caret
+
             richTextBoxTerms.SelectionStart = 0;
             richTextBoxTerms.SelectionLength = 0;
             SendMessage(richTextBoxTerms.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
             richTextBoxTerms.Invalidate();
             richTextBoxTerms.BeginInvoke(new Action(() => richTextBoxTerms.ScrollToCaret()));
+        }
+
+        private void ProcessInlineMarkdown(string text)
+        {
+            // Parse inline elements: links, bold, italic, code, strikethrough
+            var regex = new System.Text.RegularExpressions.Regex(
+                @"(\[([^\]]+)\]\(([^)]+)\))" +  // [text](url)
+                @"\*\*\*(.+?)\*\*\*|" +         // ***bold italic***
+                @"\*\*(.+?)\*\*|" +              // **bold**
+                @"__(.+?)__|" +                  // __underline__ (custom)
+                @"\*(.+?)\*|" +                  // *italic*
+                @"_(.+?)_|" +                    // _italic_
+                @"~~(.+?)~~|" +                  // ~~strikethrough~~
+                @"`([^`]+)`"                     // `code`
+            );
+
+            int lastIndex = 0;
+            foreach (System.Text.RegularExpressions.Match match in regex.Matches(text))
+            {
+                // Add text before match
+                if (match.Index > lastIndex)
+                {
+                    richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
+                    richTextBoxTerms.SelectionColor = richTextBoxTerms.ForeColor;
+                    richTextBoxTerms.AppendText(text.Substring(lastIndex, match.Index - lastIndex));
+                }
+
+                // Link [text](url)
+                if (!string.IsNullOrEmpty(match.Groups[1].Value))
+                {
+                    if(richTextBoxTerms.TextLength > 0 && match.Groups[1].Value.StartsWith(" "))
+                    {
+                        richTextBoxTerms.AppendText(" ");
+                    }
+                    InsertLink(match.Groups[2].Value, match.Groups[3].Value);
+                    if(richTextBoxTerms.TextLength > 0 && match.Groups[1].Value.EndsWith(" "))
+                    {
+                        richTextBoxTerms.AppendText(" ");
+                    }
+                }
+                // ***bold italic***
+                else if (!string.IsNullOrEmpty(match.Groups[3].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Bold | FontStyle.Italic);
+                    richTextBoxTerms.AppendText(match.Groups[3].Value);
+                }
+                // **bold**
+                else if (!string.IsNullOrEmpty(match.Groups[4].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Bold);
+                    richTextBoxTerms.AppendText(match.Groups[4].Value);
+                }
+                // __underline__
+                else if (!string.IsNullOrEmpty(match.Groups[5].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Underline);
+                    richTextBoxTerms.AppendText(match.Groups[5].Value);
+                }
+                // *italic* or _italic_
+                else if (!string.IsNullOrEmpty(match.Groups[6].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
+                    richTextBoxTerms.AppendText(match.Groups[6].Value);
+                }
+                else if (!string.IsNullOrEmpty(match.Groups[7].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Italic);
+                    richTextBoxTerms.AppendText(match.Groups[7].Value);
+                }
+                // ~~strikethrough~~
+                else if (!string.IsNullOrEmpty(match.Groups[8].Value))
+                {
+                    richTextBoxTerms.SelectionFont = new Font(richTextBoxTerms.Font, FontStyle.Strikeout);
+                    richTextBoxTerms.AppendText(match.Groups[8].Value);
+                }
+                // `code`
+                else if (!string.IsNullOrEmpty(match.Groups[9].Value))
+                {
+                    var prevFont = richTextBoxTerms.SelectionFont;
+                    richTextBoxTerms.SelectionFont = new Font("Consolas", richTextBoxTerms.Font.Size, FontStyle.Regular);
+                    richTextBoxTerms.SelectionBackColor = darkTheme ? Color.FromArgb(60, 60, 60) : Color.FromArgb(245, 245, 245);
+                    richTextBoxTerms.AppendText(match.Groups[9].Value);
+                    richTextBoxTerms.SelectionBackColor = richTextBoxTerms.BackColor;
+                }
+
+                lastIndex = match.Index + match.Length;
+            }
+
+            // Add remaining text
+            if (lastIndex < text.Length)
+            {
+                richTextBoxTerms.SelectionFont = richTextBoxTerms.Font;
+                richTextBoxTerms.SelectionColor = richTextBoxTerms.ForeColor;
+                richTextBoxTerms.AppendText(text.Substring(lastIndex));
+            }
         }
         public static void AskToAgreeTermsAndDoAction(Action action, Action rejectAction)
         {
