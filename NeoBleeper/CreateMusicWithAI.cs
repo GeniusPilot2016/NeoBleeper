@@ -53,6 +53,7 @@ namespace NeoBleeper
         Size LoadingWindowSize;
         string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
+        CancellationTokenSource connectionCts = new CancellationTokenSource(); // CancellationTokenSource for cancelling connection checks
         bool isErrorMessageShown = false; // Flag to prevent invalid NBPML error message when JSON error message is shown
         Dictionary<string, string> aiModelMapping = new Dictionary<string, string>
         {
@@ -148,7 +149,7 @@ namespace NeoBleeper
                 {
                     AIModel = Settings1.Default.preferredAIModel;
                     comboBox_ai_model.SelectedItem = aiModelMapping[Settings1.Default.preferredAIModel];
-                    Logger.Log($"Using preferred model: {AIModel}", Logger.LogTypes.Info);
+                    Logger.Log($"Using preferred model: {comboBox_ai_model.SelectedItem} ({AIModel})", Logger.LogTypes.Info);
                 }
                 else
                 {
@@ -295,44 +296,7 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
-        // Check internet connectivity and server status
-        public static async Task<bool> IsInternetAvailable()
-        {
-            try
-            {
-                Application.DoEvents();
-                using (var ping = new Ping())
-                {
-                    var reply = await ping.SendPingAsync("info.cern.ch"); // Pinging the first website ever
-                    // Fun fact: info.cern.ch is the first website ever created, launched on August 6, 1991, by Tim Berners-Lee at CERN.
-                    // It was originally used to provide information about the World Wide Web project.
-                    // Today, it serves as a historical site and a tribute to the origins of the web.
-                    // Pinging this site is a nod to the history of the internet.
-                    if (reply.Status == IPStatus.Success)
-                    {
-                        if (reply.RoundtripTime > 500) // 500 ms and above is considered slow
-                        {
-                            if (reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
-                                Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
-                            else
-                                Logger.Log($"The internet connection test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
-                            return false; // Return false if timeout to prevent deadlock
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        Logger.Log("Internet connection failed.", Logger.LogTypes.Error);
-                        return false; // Return false if ping fails
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"Internet connection check error: {ex.Message}", Logger.LogTypes.Error);
-                return false; // Return false
-            }
-        }
+        
         public async Task<bool> CheckWillItOpened()
         {
             if (!await IsInternetAvailable())
@@ -368,37 +332,135 @@ namespace NeoBleeper
                 return true; // All checks passed
             }
         }
-        private async Task<bool> IsServerUp()
+        public static async Task<bool> IsInternetAvailable(CancellationTokenSource token = null)
         {
             try
             {
                 Application.DoEvents();
+                token?.Token.ThrowIfCancellationRequested();
+
                 using (var ping = new Ping())
                 {
-                    var reply = await ping.SendPingAsync("generativelanguage.googleapis.com");
-                    if (reply.Status == IPStatus.Success)
+                    // Limit the ping operation with a timeout (10000 ms, 10 seconds)
+                    var pingTask = ping.SendPingAsync("info.cern.ch", 10000);
+
+                    // Continue when either the ping completes or the token is canceled
+                    var completedTask = await Task.WhenAny(
+                        pingTask,
+                        Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
+                    );
+
+                    // Cancelation check
+                    token?.Token.ThrowIfCancellationRequested();
+
+                    // Get the result if ping completed
+                    if (completedTask == pingTask)
                     {
-                        if (reply.RoundtripTime > 500)
+                        var reply = await pingTask;
+
+                        if (reply.Status == IPStatus.Success)
                         {
-                            if (reply.RoundtripTime <= 10000) // 500 ms to 10000 ms is warning
-                                Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
-                            else
-                                Logger.Log($"The server access test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
-                            return false; // Return false to prevent deadlock
+                            if (reply.RoundtripTime > 500)
+                            {
+                                if (reply.RoundtripTime <= 10000)
+                                    Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                                else
+                                    Logger.Log($"The internet connection test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
+                                return false;
+                            }
+                            return true;
                         }
-                        return true;
+                        else
+                        {
+                            Logger.Log("Internet connection failed.", Logger.LogTypes.Error);
+                            return false;
+                        }
                     }
-                    else
-                    {
-                        Logger.Log("Access to server failed.", Logger.LogTypes.Error);
-                        return false; // Return true in all cases
-                    }
+
+                    // Token was canceled
+                    return false;
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                Logger.Log("Internet connection check was canceled.", Logger.LogTypes.Warning);
+                return false;
+            }
+            catch (OperationCanceledException)
+            {
+                Logger.Log("Internet connection check was canceled.", Logger.LogTypes.Warning);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Internet connection check error: {ex.Message}", Logger.LogTypes.Error);
+                return false;
+            }
+        }
+
+        private async Task<bool> IsServerUp(CancellationTokenSource token = null)
+        {
+            try
+            {
+                Application.DoEvents();
+                token?.Token.ThrowIfCancellationRequested();
+
+                using (var ping = new Ping())
+                {
+                    // Limit the ping operation with a timeout (10000 ms, 10 seconds)
+                    var pingTask = ping.SendPingAsync("generativelanguage.googleapis.com", 10000);
+
+                    // Continue when either the ping completes or the token is canceled
+                    var completedTask = await Task.WhenAny(
+                        pingTask,
+                        Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
+                    );
+
+                    // Cancelation check
+                    token?.Token.ThrowIfCancellationRequested();
+
+                    // Get the result if ping completed
+                    if (completedTask == pingTask)
+                    {
+                        var reply = await pingTask;
+
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            if (reply.RoundtripTime > 500)
+                            {
+                                if (reply.RoundtripTime <= 10000)
+                                    Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
+                                else
+                                    Logger.Log($"The server access test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
+                                return false;
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            Logger.Log("Access to server failed.", Logger.LogTypes.Error);
+                            return false;
+                        }
+                    }
+
+                    // Token was canceled
+                    return false;
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Logger.Log("Server status check was canceled.", Logger.LogTypes.Warning);
+                return false;
+            }
+            catch (OperationCanceledException)
+            {
+                Logger.Log("Server status check was canceled.", Logger.LogTypes.Warning);
+                return false;
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error checking server status: {ex.Message}", Logger.LogTypes.Error);
-                return false; // Return false
+                return false;
             }
         }
         public static bool isAPIKeyValidFormat(string APIKey)
@@ -788,9 +850,10 @@ namespace NeoBleeper
                         $"    </LineList>\r\n" +
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
-                    connectionCheckTimer.Stop();
+                    StopConnectionCheck();
                     if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
+                        Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
                         // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
                         string rawOutput = googleResponse.Text();
                         string JSONText = string.Empty;
@@ -820,6 +883,7 @@ namespace NeoBleeper
                         }
                         splitFileNameAndOutput(rawOutput);
                         // Remove ```xml and any surrounding text
+                        Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
                         output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
                         output = Regex.Replace(output, @"\s*```\s*$", String.Empty);
@@ -915,7 +979,7 @@ namespace NeoBleeper
                 finally
                 {
                     // Stop the timer, re-enable controls, and handle the output
-                    connectionCheckTimer.Stop();
+                    StopConnectionCheck(); // Stop the connection check due to operation completion
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     if (checkIfOutputIsValidNBPML(output))
                     {
@@ -939,6 +1003,7 @@ namespace NeoBleeper
         }
         private void splitFileNameAndOutput(string rawOutput)
         {
+            Logger.Log("Splitting generated filename and generated output...", Logger.LogTypes.Info);
             if (string.IsNullOrWhiteSpace(rawOutput))
             {
                 generatedFilename = string.Empty;
@@ -1391,11 +1456,32 @@ namespace NeoBleeper
             {
                 return string.Empty;
             }
+
+            // Fix mismatched tags (case-insensitive) to prevent exceptions during XML parsing
+            xmlContent = Regex.Replace(
+                xmlContent,
+                // Catch opening tag and closing tag
+                @"<(?<tag>\w+)((?:[^<]|<(?!\/\k<tag>))*)?</(?<wrongTag>\w+)>",
+                m =>
+                {
+                    // If tags do not match, replace the closing tag with the correct one
+                    if (!m.Groups["tag"].Value.Equals(m.Groups["wrongTag"].Value, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>";
+                    }
+                    // If tags match, return the original match
+                    return m.Value;
+                },
+                RegexOptions.Multiline | RegexOptions.IgnoreCase // Multiline and case-insensitive even for multi-line content
+            );
+
+            // Trim and normalize the XML content
             xmlContent = xmlContent.TrimStart();
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = System.Text.RegularExpressions.Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
+            // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
 
@@ -1460,7 +1546,11 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private void StopConnectionCheck() // Stop the connection check timer and cancel the task
+        {
+            connectionCheckTimer.Stop(); // Stop the timer
+            connectionCts.Cancel(); // Cancel the connection check task
+        }
         private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedDisplayName = comboBox_ai_model.SelectedItem?.ToString();
@@ -1468,7 +1558,7 @@ namespace NeoBleeper
                 (aiModelMapping[selectedDisplayName] != Settings1.Default.preferredAIModel))
             {
                 AIModel = aiModelMapping[selectedDisplayName];
-                Logger.Log($"AI Model changed to: {selectedDisplayName}", Logger.LogTypes.Info);
+                Logger.Log($"AI Model changed to: {selectedDisplayName} ({AIModel})", Logger.LogTypes.Info);
                 Settings1.Default.preferredAIModel = AIModel;
                 Settings1.Default.Save();
             }
@@ -1482,22 +1572,26 @@ namespace NeoBleeper
         private async void connectionCheckTimer_Tick(object sender, EventArgs e)
         {
             // No connection, no AI music generation
-            if (!await IsInternetAvailable())
+            if (connectionCts == null || connectionCts.IsCancellationRequested)
+            {
+                return; // If already cancelled, do nothing
+            }
+            if (!await IsInternetAvailable(connectionCts))
             {
                 cts.Cancel();
                 generatedFilename = string.Empty; // Clear filename on internet failure
                 output = String.Empty; // Clear output on internet failure
-                connectionCheckTimer.Stop();
+                StopConnectionCheck(); // Stop the timer and cancel the task
                 SetControlsEnabledAndMakeLoadingVisible(true);
                 ShowNoInternetMessage();
                 this.Close();
             }
-            else if (!await IsServerUp())
+            else if (!await IsServerUp(connectionCts))
             {
                 cts.Cancel();
                 generatedFilename = string.Empty; // Clear filename on server failure
                 output = String.Empty; // Clear output on server failure
-                connectionCheckTimer.Stop();
+                StopConnectionCheck(); // Stop the timer and cancel the task
                 SetControlsEnabledAndMakeLoadingVisible(true);
                 ShowServerDownMessage();
                 this.Close();
@@ -1516,6 +1610,7 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
         {
+            StopConnectionCheck(); // Stop the connection check timer and cancel the task
             if (!isCreatedAnything)
             {
                 if (!cts.IsCancellationRequested)
