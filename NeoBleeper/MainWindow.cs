@@ -569,10 +569,10 @@ namespace NeoBleeper
             settings.ColorsAndThemeChanged += RefreshMainWindowElementsColors;
             settings.ColorsAndThemeChanged += (s, args) =>
             {
-                synchronized_play_window synchronizedPlayWindow = checkBox_synchronized_play.Tag as synchronized_play_window;
+                SynchronizedPlayWindow synchronizedPlayWindow = checkBox_synchronized_play.Tag as SynchronizedPlayWindow;
                 if (synchronizedPlayWindow != null)
                 {
-                    synchronizedPlayWindow.set_theme();
+                    synchronizedPlayWindow.SetTheme();
                 }
                 PlayBeatWindow playBeatWindow = checkBox_play_beat_sound.Tag as PlayBeatWindow;
                 if (playBeatWindow != null)
@@ -3939,13 +3939,13 @@ namespace NeoBleeper
         }
         private void OpenSynchronizedPlayWindow()
         {
-            synchronized_play_window syncPlayWindow = new synchronized_play_window(this);
+            SynchronizedPlayWindow syncPlayWindow = new SynchronizedPlayWindow(this);
             syncPlayWindow.Show();
             checkBox_synchronized_play.Tag = syncPlayWindow;
         }
         private void CloseSynchronizedPlayWindow()
         {
-            synchronized_play_window syncPlayWindow = checkBox_synchronized_play.Tag as synchronized_play_window;
+            SynchronizedPlayWindow syncPlayWindow = checkBox_synchronized_play.Tag as SynchronizedPlayWindow;
             syncPlayWindow.Close();
         }
         private void checkBox_synchronized_play_CheckedChanged(object sender, EventArgs e)

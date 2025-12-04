@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class synchronized_play_window
+    partial class SynchronizedPlayWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(synchronized_play_window));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SynchronizedPlayWindow));
             groupBox_time = new GroupBox();
             lbl_current_system_time = new Label();
             lbl_current_time = new Label();

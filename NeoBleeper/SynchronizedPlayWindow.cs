@@ -19,15 +19,15 @@ using static UIHelper;
 
 namespace NeoBleeper
 {
-    public partial class synchronized_play_window : Form
+    public partial class SynchronizedPlayWindow : Form
     {
         bool darkTheme = false;
         bool waiting = false;
-        bool is_playing = false;
+        bool isPlaying = false;
         private MainWindow mainWindow;
         private PreciseTimer preciseTimer;
 
-        public synchronized_play_window(MainWindow mainWindow)
+        public SynchronizedPlayWindow(MainWindow mainWindow)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
@@ -36,7 +36,7 @@ namespace NeoBleeper
             dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
             lbl_current_system_time.Text = DateTime.Now.ToString("HH:mm:ss");
             UIFonts.SetFonts(this);
-            set_theme();
+            SetTheme();
             preciseTimer = new PreciseTimer(1); // Store as field
             preciseTimer.Tick += preciseTimer_Tick;
             preciseTimer.Start();
@@ -48,7 +48,7 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace NeoBleeper
         {
             if (waiting)
             {
-                if (mainWindow.listViewNotes.Items.Count > 0 && !is_playing)
+                if (mainWindow.listViewNotes.Items.Count > 0 && !isPlaying)
                 {
                     var targetTime = dateTimePicker1.Value.ToUniversalTime();
                     var currentTime = DateTime.UtcNow;
@@ -81,11 +81,11 @@ namespace NeoBleeper
                         // Start playing music and update the UI
                         if (this.InvokeRequired)
                         {
-                            this.Invoke((MethodInvoker)start_playing);
+                            this.Invoke((MethodInvoker)StartPlaying);
                         }
                         else
                         {
-                            start_playing();
+                            StartPlaying();
                         }
                     }
                 }
@@ -97,10 +97,10 @@ namespace NeoBleeper
         }
         private void MainWindow_MusicStopped(object sender, EventArgs e)
         {
-            stop_playing();
+            StopPlaying();
         }
 
-        public void set_theme()
+        public void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -112,20 +112,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -136,7 +136,7 @@ namespace NeoBleeper
             }
         }
 
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -146,7 +146,7 @@ namespace NeoBleeper
             button_wait.BackColor = Color.FromArgb(32, 32, 32);
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -170,7 +170,7 @@ namespace NeoBleeper
             });
         }
 
-        private async void start_playing()
+        private async void StartPlaying()
         {
             if (waiting)
             {
@@ -182,7 +182,7 @@ namespace NeoBleeper
                 Logger.Log($"Target was {targetTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
                 Logger.Log($"Start delay: {startDelay}ms", Logger.LogTypes.Info);
 
-                is_playing = true;
+                isPlaying = true;
                 waiting = false;
 
                 // Update UI
@@ -232,18 +232,18 @@ namespace NeoBleeper
             }
         }
 
-        private async void stop_playing()
+        private async void StopPlaying()
         {
             try
             {
-                if (is_playing)
+                if (isPlaying)
                 {
                     // Disable the event handler to prevent the music from stopping again
                     mainWindow.MusicStopped -= MainWindow_MusicStopped;
                     mainWindow.StopPlaying(); // Stop the music
                     mainWindow.MusicStopped += MainWindow_MusicStopped;
                 }
-                is_playing = false;
+                isPlaying = false;
                 waiting = false; // Set waiting to false
                 UpdateUIForStopped(); // Update the UI to reflect that music has stopped
             }
@@ -286,7 +286,7 @@ namespace NeoBleeper
                 }
                 if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
                 {
-                    start_playing();
+                    StartPlaying();
                 }
                 else
                 {
@@ -309,7 +309,7 @@ namespace NeoBleeper
         private void StopWaiting()
         {
             dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting
-            if (is_playing == true || mainWindow.isMusicPlaying)
+            if (isPlaying == true || mainWindow.isMusicPlaying)
             {
                 mainWindow.StopPlaying();
             }
@@ -347,7 +347,7 @@ namespace NeoBleeper
 
         private void synchronized_play_window_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private void synchronized_play_window_FormClosed(object sender, FormClosedEventArgs e)

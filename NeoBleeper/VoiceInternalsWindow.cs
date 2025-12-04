@@ -22,38 +22,38 @@ namespace NeoBleeper
 {
     public partial class VoiceInternalsWindow : Form
     {
-        MainWindow main_Window;
+        MainWindow mainWindow;
         bool darkTheme = false;
-        public VoiceInternalsWindow(MainWindow main_Window)
+        public VoiceInternalsWindow(MainWindow mainWindow)
         {
-            this.main_Window = main_Window;
+            this.mainWindow = mainWindow;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
-            set_theme();
-            trackBarFormant1Vol.Value = setReverseTrackBarValue(trackBarFormant1Vol, TemporarySettings.VoiceInternalSettings.Formant1Volume);
-            trackBarFormant2Vol.Value = setReverseTrackBarValue(trackBarFormant2Vol, TemporarySettings.VoiceInternalSettings.Formant2Volume);
-            trackBarFormant3Vol.Value = setReverseTrackBarValue(trackBarFormant3Vol, TemporarySettings.VoiceInternalSettings.Formant3Volume);
-            trackBarFormant4Vol.Value = setReverseTrackBarValue(trackBarFormant4Vol, TemporarySettings.VoiceInternalSettings.Formant4Volume);
-            trackBarFormant1Hz.Value = setReverseTrackBarValue(trackBarFormant1Hz, TemporarySettings.VoiceInternalSettings.Formant1Frequency);
-            trackBarFormant2Hz.Value = setReverseTrackBarValue(trackBarFormant2Hz, TemporarySettings.VoiceInternalSettings.Formant2Frequency);
-            trackBarFormant3Hz.Value = setReverseTrackBarValue(trackBarFormant3Hz, TemporarySettings.VoiceInternalSettings.Formant3Frequency);
-            trackBarFormant4Hz.Value = setReverseTrackBarValue(trackBarFormant4Hz, TemporarySettings.VoiceInternalSettings.Formant4Frequency);
-            trackBarVoiceVol.Value = setReverseTrackBarValue(trackBarVoiceVol, TemporarySettings.VoiceInternalSettings.VoiceVolume);
-            trackBarSawVol.Value = setReverseTrackBarValue(trackBarSawVol, TemporarySettings.VoiceInternalSettings.SawVolume);
-            trackBarNoiseVol.Value = setReverseTrackBarValue(trackBarNoiseVol, TemporarySettings.VoiceInternalSettings.NoiseVolume);
-            trackBarSybillance1Ra.Value = setReverseTrackBarValue(trackBarSybillance1Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance1Range * 1000));
-            trackBarSybillance2Ra.Value = setReverseTrackBarValue(trackBarSybillance2Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance2Range * 1000));
-            trackBarSybillance3Ra.Value = setReverseTrackBarValue(trackBarSybillance3Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance3Range * 1000));
-            trackBarSybillance4Ra.Value = setReverseTrackBarValue(trackBarSybillance4Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance4Range * 1000));
-            trackBarSybillance1Vol.Value = setReverseTrackBarValue(trackBarSybillance1Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance1Volume * 1000));
-            trackBarSybillance2Vol.Value = setReverseTrackBarValue(trackBarSybillance2Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance2Volume * 1000));
-            trackBarSybillance3Vol.Value = setReverseTrackBarValue(trackBarSybillance3Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance3Volume * 1000));
-            trackBarSybillance4Vol.Value = setReverseTrackBarValue(trackBarSybillance4Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance4Volume * 1000));
-            trackBarSybillance1Hz.Value = setReverseTrackBarValue(trackBarSybillance1Hz, TemporarySettings.VoiceInternalSettings.Sybillance1Frequency);
-            trackBarSybillance2Hz.Value = setReverseTrackBarValue(trackBarSybillance2Hz, TemporarySettings.VoiceInternalSettings.Sybillance2Frequency);
-            trackBarSybillance3Hz.Value = setReverseTrackBarValue(trackBarSybillance3Hz, TemporarySettings.VoiceInternalSettings.Sybillance3Frequency);
-            trackBarSybillance4Hz.Value = setReverseTrackBarValue(trackBarSybillance4Hz, TemporarySettings.VoiceInternalSettings.Sybillance4Frequency);
+            SetTheme();
+            trackBarFormant1Vol.Value = SetReverseTrackBarValue(trackBarFormant1Vol, TemporarySettings.VoiceInternalSettings.Formant1Volume);
+            trackBarFormant2Vol.Value = SetReverseTrackBarValue(trackBarFormant2Vol, TemporarySettings.VoiceInternalSettings.Formant2Volume);
+            trackBarFormant3Vol.Value = SetReverseTrackBarValue(trackBarFormant3Vol, TemporarySettings.VoiceInternalSettings.Formant3Volume);
+            trackBarFormant4Vol.Value = SetReverseTrackBarValue(trackBarFormant4Vol, TemporarySettings.VoiceInternalSettings.Formant4Volume);
+            trackBarFormant1Hz.Value = SetReverseTrackBarValue(trackBarFormant1Hz, TemporarySettings.VoiceInternalSettings.Formant1Frequency);
+            trackBarFormant2Hz.Value = SetReverseTrackBarValue(trackBarFormant2Hz, TemporarySettings.VoiceInternalSettings.Formant2Frequency);
+            trackBarFormant3Hz.Value = SetReverseTrackBarValue(trackBarFormant3Hz, TemporarySettings.VoiceInternalSettings.Formant3Frequency);
+            trackBarFormant4Hz.Value = SetReverseTrackBarValue(trackBarFormant4Hz, TemporarySettings.VoiceInternalSettings.Formant4Frequency);
+            trackBarVoiceVol.Value = SetReverseTrackBarValue(trackBarVoiceVol, TemporarySettings.VoiceInternalSettings.VoiceVolume);
+            trackBarSawVol.Value = SetReverseTrackBarValue(trackBarSawVol, TemporarySettings.VoiceInternalSettings.SawVolume);
+            trackBarNoiseVol.Value = SetReverseTrackBarValue(trackBarNoiseVol, TemporarySettings.VoiceInternalSettings.NoiseVolume);
+            trackBarSybillance1Ra.Value = SetReverseTrackBarValue(trackBarSybillance1Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance1Range * 1000));
+            trackBarSybillance2Ra.Value = SetReverseTrackBarValue(trackBarSybillance2Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance2Range * 1000));
+            trackBarSybillance3Ra.Value = SetReverseTrackBarValue(trackBarSybillance3Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance3Range * 1000));
+            trackBarSybillance4Ra.Value = SetReverseTrackBarValue(trackBarSybillance4Ra, (int)(TemporarySettings.VoiceInternalSettings.Sybillance4Range * 1000));
+            trackBarSybillance1Vol.Value = SetReverseTrackBarValue(trackBarSybillance1Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance1Volume * 1000));
+            trackBarSybillance2Vol.Value = SetReverseTrackBarValue(trackBarSybillance2Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance2Volume * 1000));
+            trackBarSybillance3Vol.Value = SetReverseTrackBarValue(trackBarSybillance3Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance3Volume * 1000));
+            trackBarSybillance4Vol.Value = SetReverseTrackBarValue(trackBarSybillance4Vol, (int)(TemporarySettings.VoiceInternalSettings.Sybillance4Volume * 1000));
+            trackBarSybillance1Hz.Value = SetReverseTrackBarValue(trackBarSybillance1Hz, TemporarySettings.VoiceInternalSettings.Sybillance1Frequency);
+            trackBarSybillance2Hz.Value = SetReverseTrackBarValue(trackBarSybillance2Hz, TemporarySettings.VoiceInternalSettings.Sybillance2Frequency);
+            trackBarSybillance3Hz.Value = SetReverseTrackBarValue(trackBarSybillance3Hz, TemporarySettings.VoiceInternalSettings.Sybillance3Frequency);
+            trackBarSybillance4Hz.Value = SetReverseTrackBarValue(trackBarSybillance4Hz, TemporarySettings.VoiceInternalSettings.Sybillance4Frequency);
             comboBoxNote1Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex;
             comboBoxNote2Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex;
             comboBoxNote3Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex;
@@ -88,7 +88,7 @@ namespace NeoBleeper
             double minRange = 0, maxRange = 1.0;
             int rangeSpan = trackBarRandomizedFormantFreqRange.Maximum - trackBarRandomizedFormantFreqRange.Minimum;
             trackBarRandomizedFormantFreqRange.Value = trackBarRandomizedFormantFreqRange.Minimum + (int)Math.Round(((TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange - minRange) / (maxRange - minRange)) * (rangeSpan > 0 ? rangeSpan : 1));
-            trackBarCutoffHz.Value = setReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
+            trackBarCutoffHz.Value = SetReverseTrackBarValue(trackBarCutoffHz, TemporarySettings.VoiceInternalSettings.CutoffFrequency);
             labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
             BringToFront();
         }
@@ -99,12 +99,12 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
 
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -116,20 +116,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -139,7 +139,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -181,7 +181,7 @@ namespace NeoBleeper
             comboBoxPlayNoteOnLineOption.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -207,20 +207,20 @@ namespace NeoBleeper
             comboBoxPlayNoteOnLineOption.ForeColor = SystemColors.WindowText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private int getTrackBarReverseValue(TrackBar trackBar) // Because TrackBar control does not support reversed direction natively
+        private int GetTrackBarReverseValue(TrackBar trackBar) // Because TrackBar control does not support reversed direction natively
         {
             return trackBar.Maximum - trackBar.Value + trackBar.Minimum;
         }
-        private int setReverseTrackBarValue(TrackBar trackBar, int value) // Because TrackBar control does not support reversed direction natively
+        private int SetReverseTrackBarValue(TrackBar trackBar, int value) // Because TrackBar control does not support reversed direction natively
         {
             return trackBar.Maximum - value + trackBar.Minimum;
         }
 
         private void trackBarFormant1Vol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant1Volume != getTrackBarReverseValue(trackBarFormant1Vol))
+            if (TemporarySettings.VoiceInternalSettings.Formant1Volume != GetTrackBarReverseValue(trackBarFormant1Vol))
             {
-                TemporarySettings.VoiceInternalSettings.Formant1Volume = getTrackBarReverseValue(trackBarFormant1Vol);
+                TemporarySettings.VoiceInternalSettings.Formant1Volume = GetTrackBarReverseValue(trackBarFormant1Vol);
                 labelFormant1Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString());
                 Logger.Log("Formant 1 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant1Volume.ToString() + "%", Logger.LogTypes.Info);
             }
@@ -228,9 +228,9 @@ namespace NeoBleeper
 
         private void trackBarFormant1Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant1Frequency != getTrackBarReverseValue(trackBarFormant1Hz))
+            if (TemporarySettings.VoiceInternalSettings.Formant1Frequency != GetTrackBarReverseValue(trackBarFormant1Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Formant1Frequency = getTrackBarReverseValue(trackBarFormant1Hz);
+                TemporarySettings.VoiceInternalSettings.Formant1Frequency = GetTrackBarReverseValue(trackBarFormant1Hz);
                 labelFormant1Hz.Text = TemporarySettings.VoiceInternalSettings.Formant1Frequency.ToString() + " Hz";
                 Logger.Log("Formant 1 Frequency set to " + TemporarySettings.VoiceInternalSettings.Formant1Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -238,9 +238,9 @@ namespace NeoBleeper
 
         private void trackBarFormant2Vol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant2Volume != getTrackBarReverseValue(trackBarFormant2Vol))
+            if (TemporarySettings.VoiceInternalSettings.Formant2Volume != GetTrackBarReverseValue(trackBarFormant2Vol))
             {
-                TemporarySettings.VoiceInternalSettings.Formant2Volume = getTrackBarReverseValue(trackBarFormant2Vol);
+                TemporarySettings.VoiceInternalSettings.Formant2Volume = GetTrackBarReverseValue(trackBarFormant2Vol);
                 labelFormant2Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString());
                 Logger.Log("Formant 2 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant2Volume.ToString() + "%", Logger.LogTypes.Info);
             }
@@ -248,9 +248,9 @@ namespace NeoBleeper
 
         private void trackBarFormant2Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant2Frequency != getTrackBarReverseValue(trackBarFormant2Hz))
+            if (TemporarySettings.VoiceInternalSettings.Formant2Frequency != GetTrackBarReverseValue(trackBarFormant2Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Formant2Frequency = getTrackBarReverseValue(trackBarFormant2Hz);
+                TemporarySettings.VoiceInternalSettings.Formant2Frequency = GetTrackBarReverseValue(trackBarFormant2Hz);
                 labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
                 Logger.Log("Formant 2 Frequency set to " + TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -258,9 +258,9 @@ namespace NeoBleeper
 
         private void trackBarFormant3Vol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant3Volume != getTrackBarReverseValue(trackBarFormant3Vol))
+            if (TemporarySettings.VoiceInternalSettings.Formant3Volume != GetTrackBarReverseValue(trackBarFormant3Vol))
             {
-                TemporarySettings.VoiceInternalSettings.Formant3Volume = getTrackBarReverseValue(trackBarFormant3Vol);
+                TemporarySettings.VoiceInternalSettings.Formant3Volume = GetTrackBarReverseValue(trackBarFormant3Vol);
                 labelFormant3Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString());
                 Logger.Log("Formant 3 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant3Volume.ToString() + "%", Logger.LogTypes.Info);
             }
@@ -268,9 +268,9 @@ namespace NeoBleeper
 
         private void trackBarFormant3Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant3Frequency != getTrackBarReverseValue(trackBarFormant3Hz))
+            if (TemporarySettings.VoiceInternalSettings.Formant3Frequency != GetTrackBarReverseValue(trackBarFormant3Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Formant3Frequency = getTrackBarReverseValue(trackBarFormant3Hz);
+                TemporarySettings.VoiceInternalSettings.Formant3Frequency = GetTrackBarReverseValue(trackBarFormant3Hz);
                 labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
                 Logger.Log("Formant 3 Frequency set to " + TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -278,9 +278,9 @@ namespace NeoBleeper
 
         private void trackBarFormant4Vol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant4Volume != getTrackBarReverseValue(trackBarFormant4Vol))
+            if (TemporarySettings.VoiceInternalSettings.Formant4Volume != GetTrackBarReverseValue(trackBarFormant4Vol))
             {
-                TemporarySettings.VoiceInternalSettings.Formant4Volume = getTrackBarReverseValue(trackBarFormant4Vol);
+                TemporarySettings.VoiceInternalSettings.Formant4Volume = GetTrackBarReverseValue(trackBarFormant4Vol);
                 labelFormant4Vol.Text = Resources.TextPercent.Replace("{number}", TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString());
                 Logger.Log("Formant 4 Volume set to " + TemporarySettings.VoiceInternalSettings.Formant4Volume.ToString() + "%", Logger.LogTypes.Info);
             }
@@ -288,9 +288,9 @@ namespace NeoBleeper
 
         private void trackBarFormant4Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Formant4Frequency != getTrackBarReverseValue(trackBarFormant4Hz))
+            if (TemporarySettings.VoiceInternalSettings.Formant4Frequency != GetTrackBarReverseValue(trackBarFormant4Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Formant4Frequency = getTrackBarReverseValue(trackBarFormant4Hz);
+                TemporarySettings.VoiceInternalSettings.Formant4Frequency = GetTrackBarReverseValue(trackBarFormant4Hz);
                 labelFormant4Hz.Text = TemporarySettings.VoiceInternalSettings.Formant4Frequency.ToString() + " Hz";
                 Logger.Log("Formant 4 Frequency set to " + TemporarySettings.VoiceInternalSettings.Formant4Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -298,9 +298,9 @@ namespace NeoBleeper
 
         private void trackBarVoiceVol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.VoiceVolume != getTrackBarReverseValue(trackBarVoiceVol))
+            if (TemporarySettings.VoiceInternalSettings.VoiceVolume != GetTrackBarReverseValue(trackBarVoiceVol))
             {
-                TemporarySettings.VoiceInternalSettings.VoiceVolume = getTrackBarReverseValue(trackBarVoiceVol);
+                TemporarySettings.VoiceInternalSettings.VoiceVolume = GetTrackBarReverseValue(trackBarVoiceVol);
                 labelVoiceVol.Text = TemporarySettings.VoiceInternalSettings.VoiceVolume.ToString();
                 Logger.Log("Voice Volume set to " + TemporarySettings.VoiceInternalSettings.VoiceVolume.ToString(), Logger.LogTypes.Info);
             }
@@ -308,9 +308,9 @@ namespace NeoBleeper
 
         private void trackBarSawVol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.SawVolume != getTrackBarReverseValue(trackBarSawVol))
+            if (TemporarySettings.VoiceInternalSettings.SawVolume != GetTrackBarReverseValue(trackBarSawVol))
             {
-                TemporarySettings.VoiceInternalSettings.SawVolume = getTrackBarReverseValue(trackBarSawVol);
+                TemporarySettings.VoiceInternalSettings.SawVolume = GetTrackBarReverseValue(trackBarSawVol);
                 labelSawVol.Text = TemporarySettings.VoiceInternalSettings.SawVolume.ToString();
                 Logger.Log("Saw Volume set to " + TemporarySettings.VoiceInternalSettings.SawVolume.ToString(), Logger.LogTypes.Info);
             }
@@ -318,9 +318,9 @@ namespace NeoBleeper
 
         private void trackBarNoiseVol_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.NoiseVolume != getTrackBarReverseValue(trackBarNoiseVol))
+            if (TemporarySettings.VoiceInternalSettings.NoiseVolume != GetTrackBarReverseValue(trackBarNoiseVol))
             {
-                TemporarySettings.VoiceInternalSettings.NoiseVolume = getTrackBarReverseValue(trackBarNoiseVol);
+                TemporarySettings.VoiceInternalSettings.NoiseVolume = GetTrackBarReverseValue(trackBarNoiseVol);
                 labelNoiseVol.Text = TemporarySettings.VoiceInternalSettings.NoiseVolume.ToString();
                 Logger.Log("Noise Volume set to " + TemporarySettings.VoiceInternalSettings.NoiseVolume.ToString(), Logger.LogTypes.Info);
             }
@@ -328,7 +328,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance1Ra_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance1Ra) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance1Ra) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance1Range != value)
             {
                 {
@@ -341,7 +341,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance1Vol_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance1Vol) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance1Vol) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance1Volume != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance1Volume = value;
@@ -352,9 +352,9 @@ namespace NeoBleeper
 
         private void trackBarSybillance1Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Sybillance1Frequency != getTrackBarReverseValue(trackBarSybillance1Hz))
+            if (TemporarySettings.VoiceInternalSettings.Sybillance1Frequency != GetTrackBarReverseValue(trackBarSybillance1Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Sybillance1Frequency = getTrackBarReverseValue(trackBarSybillance1Hz);
+                TemporarySettings.VoiceInternalSettings.Sybillance1Frequency = GetTrackBarReverseValue(trackBarSybillance1Hz);
                 labelSybillance1Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance1Frequency.ToString() + " Hz";
                 Logger.Log("Sybillance 1 Frequency set to " + TemporarySettings.VoiceInternalSettings.Sybillance1Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -362,7 +362,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance2Ra_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance2Ra) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance2Ra) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance2Range != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance2Range = value;
@@ -373,7 +373,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance2Vol_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance2Vol) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance2Vol) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance2Volume != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance2Volume = value;
@@ -384,9 +384,9 @@ namespace NeoBleeper
 
         private void trackBarSybillance2Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Sybillance2Frequency != getTrackBarReverseValue(trackBarSybillance2Hz))
+            if (TemporarySettings.VoiceInternalSettings.Sybillance2Frequency != GetTrackBarReverseValue(trackBarSybillance2Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Sybillance2Frequency = getTrackBarReverseValue(trackBarSybillance2Hz);
+                TemporarySettings.VoiceInternalSettings.Sybillance2Frequency = GetTrackBarReverseValue(trackBarSybillance2Hz);
                 labelSybillance2Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance2Frequency.ToString() + " Hz";
                 Logger.Log("Sybillance 2 Frequency set to " + TemporarySettings.VoiceInternalSettings.Sybillance2Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -394,7 +394,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance3Ra_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance3Ra) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance3Ra) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance2Range != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance3Range = value;
@@ -405,7 +405,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance3Vol_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance3Vol) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance3Vol) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance3Volume != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance3Volume = value;
@@ -416,9 +416,9 @@ namespace NeoBleeper
 
         private void trackBarSybillance3Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Sybillance3Frequency != getTrackBarReverseValue(trackBarSybillance3Hz))
+            if (TemporarySettings.VoiceInternalSettings.Sybillance3Frequency != GetTrackBarReverseValue(trackBarSybillance3Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Sybillance3Frequency = getTrackBarReverseValue(trackBarSybillance3Hz);
+                TemporarySettings.VoiceInternalSettings.Sybillance3Frequency = GetTrackBarReverseValue(trackBarSybillance3Hz);
                 labelSybillance3Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz";
                 Logger.Log("Sybillance 3 Frequency set to " + TemporarySettings.VoiceInternalSettings.Sybillance3Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -426,7 +426,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance4Ra_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance4Ra) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance4Ra) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance4Range != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance4Range = value;
@@ -437,7 +437,7 @@ namespace NeoBleeper
 
         private void trackBarSybillance4Vol_Scroll(object sender, EventArgs e)
         {
-            double value = getTrackBarReverseValue(trackBarSybillance4Vol) / 1000.0;
+            double value = GetTrackBarReverseValue(trackBarSybillance4Vol) / 1000.0;
             if (TemporarySettings.VoiceInternalSettings.Sybillance4Volume != value)
             {
                 TemporarySettings.VoiceInternalSettings.Sybillance4Volume = value;
@@ -448,9 +448,9 @@ namespace NeoBleeper
 
         private void trackBarSybillance4Hz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.Sybillance4Frequency != getTrackBarReverseValue(trackBarSybillance4Hz))
+            if (TemporarySettings.VoiceInternalSettings.Sybillance4Frequency != GetTrackBarReverseValue(trackBarSybillance4Hz))
             {
-                TemporarySettings.VoiceInternalSettings.Sybillance4Frequency = getTrackBarReverseValue(trackBarSybillance4Hz);
+                TemporarySettings.VoiceInternalSettings.Sybillance4Frequency = GetTrackBarReverseValue(trackBarSybillance4Hz);
                 labelSybillance4Hz.Text = TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz";
                 Logger.Log("Sybillance 4 Frequency set to " + TemporarySettings.VoiceInternalSettings.Sybillance4Frequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -537,9 +537,9 @@ namespace NeoBleeper
 
         private void trackBarCutoffHz_Scroll(object sender, EventArgs e)
         {
-            if (TemporarySettings.VoiceInternalSettings.CutoffFrequency != getTrackBarReverseValue(trackBarCutoffHz))
+            if (TemporarySettings.VoiceInternalSettings.CutoffFrequency != GetTrackBarReverseValue(trackBarCutoffHz))
             {
-                TemporarySettings.VoiceInternalSettings.CutoffFrequency = getTrackBarReverseValue(trackBarCutoffHz);
+                TemporarySettings.VoiceInternalSettings.CutoffFrequency = GetTrackBarReverseValue(trackBarCutoffHz);
                 labelCutoffHz.Text = TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString();
                 Logger.Log("Cutoff Frequency set to " + TemporarySettings.VoiceInternalSettings.CutoffFrequency.ToString() + " Hz", Logger.LogTypes.Info);
             }
@@ -547,22 +547,22 @@ namespace NeoBleeper
         private void SetPresets(int FormantVol1, int FormantVol2, int FormantVol3, int FormantVol4,
             int Formant1Freq, int Formant2Freq, int Formant3Freq, int Formant4Freq)
         {
-            trackBarFormant1Vol.Value = setReverseTrackBarValue(trackBarFormant1Vol, FormantVol1);
-            trackBarFormant2Vol.Value = setReverseTrackBarValue(trackBarFormant2Vol, FormantVol2);
-            trackBarFormant3Vol.Value = setReverseTrackBarValue(trackBarFormant3Vol, FormantVol3);
-            trackBarFormant4Vol.Value = setReverseTrackBarValue(trackBarFormant4Vol, FormantVol4);
-            trackBarFormant1Hz.Value = setReverseTrackBarValue(trackBarFormant1Hz, Formant1Freq);
-            trackBarFormant2Hz.Value = setReverseTrackBarValue(trackBarFormant2Hz, Formant2Freq);
-            trackBarFormant3Hz.Value = setReverseTrackBarValue(trackBarFormant3Hz, Formant3Freq);
-            trackBarFormant4Hz.Value = setReverseTrackBarValue(trackBarFormant4Hz, Formant4Freq);
-            TemporarySettings.VoiceInternalSettings.Formant1Volume = getTrackBarReverseValue(trackBarFormant1Vol);
-            TemporarySettings.VoiceInternalSettings.Formant2Volume = getTrackBarReverseValue(trackBarFormant2Vol);
-            TemporarySettings.VoiceInternalSettings.Formant3Volume = getTrackBarReverseValue(trackBarFormant3Vol);
-            TemporarySettings.VoiceInternalSettings.Formant4Volume = getTrackBarReverseValue(trackBarFormant4Vol);
-            TemporarySettings.VoiceInternalSettings.Formant1Frequency = getTrackBarReverseValue(trackBarFormant1Hz);
-            TemporarySettings.VoiceInternalSettings.Formant2Frequency = getTrackBarReverseValue(trackBarFormant2Hz);
-            TemporarySettings.VoiceInternalSettings.Formant3Frequency = getTrackBarReverseValue(trackBarFormant3Hz);
-            TemporarySettings.VoiceInternalSettings.Formant4Frequency = getTrackBarReverseValue(trackBarFormant4Hz);
+            trackBarFormant1Vol.Value = SetReverseTrackBarValue(trackBarFormant1Vol, FormantVol1);
+            trackBarFormant2Vol.Value = SetReverseTrackBarValue(trackBarFormant2Vol, FormantVol2);
+            trackBarFormant3Vol.Value = SetReverseTrackBarValue(trackBarFormant3Vol, FormantVol3);
+            trackBarFormant4Vol.Value = SetReverseTrackBarValue(trackBarFormant4Vol, FormantVol4);
+            trackBarFormant1Hz.Value = SetReverseTrackBarValue(trackBarFormant1Hz, Formant1Freq);
+            trackBarFormant2Hz.Value = SetReverseTrackBarValue(trackBarFormant2Hz, Formant2Freq);
+            trackBarFormant3Hz.Value = SetReverseTrackBarValue(trackBarFormant3Hz, Formant3Freq);
+            trackBarFormant4Hz.Value = SetReverseTrackBarValue(trackBarFormant4Hz, Formant4Freq);
+            TemporarySettings.VoiceInternalSettings.Formant1Volume = GetTrackBarReverseValue(trackBarFormant1Vol);
+            TemporarySettings.VoiceInternalSettings.Formant2Volume = GetTrackBarReverseValue(trackBarFormant2Vol);
+            TemporarySettings.VoiceInternalSettings.Formant3Volume = GetTrackBarReverseValue(trackBarFormant3Vol);
+            TemporarySettings.VoiceInternalSettings.Formant4Volume = GetTrackBarReverseValue(trackBarFormant4Vol);
+            TemporarySettings.VoiceInternalSettings.Formant1Frequency = GetTrackBarReverseValue(trackBarFormant1Hz);
+            TemporarySettings.VoiceInternalSettings.Formant2Frequency = GetTrackBarReverseValue(trackBarFormant2Hz);
+            TemporarySettings.VoiceInternalSettings.Formant3Frequency = GetTrackBarReverseValue(trackBarFormant3Hz);
+            TemporarySettings.VoiceInternalSettings.Formant4Frequency = GetTrackBarReverseValue(trackBarFormant4Hz);
             labelFormant1Hz.Text = TemporarySettings.VoiceInternalSettings.Formant1Frequency.ToString() + " Hz";
             labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
             labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
@@ -599,7 +599,7 @@ namespace NeoBleeper
 
         private void VoiceInternalsWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            main_Window.checkBox_use_voice_system.Checked = false;
+            mainWindow.checkBox_use_voice_system.Checked = false;
         }
 
         private async void comboBoxPlayNoteOnLineOption_SelectedIndexChanged(object sender, EventArgs e)
@@ -613,7 +613,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    await main_Window.StopAllVoices(); // Stop all voices when switching to this mode
+                    await mainWindow.StopAllVoices(); // Stop all voices when switching to this mode
                     TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions = TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines;
                     Logger.Log("Set to play voice on checked lines only", Logger.LogTypes.Info);
                 }
