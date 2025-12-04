@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class NeobleeperInitDisplayResolutionWarning
+    partial class InitDisplayResolutionWarning
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NeobleeperInitDisplayResolutionWarning));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitDisplayResolutionWarning));
             button_close = new Button();
             imageList_display_resolution_warning = new ImageList(components);
             label_display_resolution_warning = new Label();

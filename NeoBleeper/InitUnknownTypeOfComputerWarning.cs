@@ -19,10 +19,10 @@ using static UIHelper;
 
 namespace NeoBleeper
 {
-    public partial class NeobleeperInitCompactComputerWarning : Form
+    public partial class InitUnknownTypeOfComputerWarning : Form
     {
         bool darkTheme = false;
-        public NeobleeperInitCompactComputerWarning()
+        public InitUnknownTypeOfComputerWarning()
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
@@ -111,12 +111,12 @@ namespace NeoBleeper
             this.Dispose();
         }
 
-        private void neobleeper_init_compact_computer_warning_SystemColorsChanged(object sender, EventArgs e)
+        private void neobleeper_init_unknown_type_of_computer_warning_SystemColorsChanged(object sender, EventArgs e)
         {
             SetTheme();
         }
 
-        private void neobleeper_init_compact_computer_warning_Shown(object sender, EventArgs e)
+        private void neobleeper_init_unknown_type_of_computer_warning_Shown(object sender, EventArgs e)
         {
             SystemSounds.Exclamation.Play();
         }

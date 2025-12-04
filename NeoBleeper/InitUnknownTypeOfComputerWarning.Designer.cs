@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class NeobleeperInitUnknownTypeOfComputerWarning
+    partial class InitUnknownTypeOfComputerWarning
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NeobleeperInitUnknownTypeOfComputerWarning));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitUnknownTypeOfComputerWarning));
             checkBoxDontShowAgain = new CheckBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();

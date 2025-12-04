@@ -254,16 +254,16 @@ namespace NeoBleeper
             switch (type)
             {
                 case WarningType.DisplayResolution:
-                    warningForm = new NeobleeperInitDisplayResolutionWarning();
+                    warningForm = new InitDisplayResolutionWarning();
                     break;
                 case WarningType.SystemSpeaker:
-                    warningForm = new NeobleeperInitSystemSpeakerWarning();
+                    warningForm = new InitSystemSpeakerWarning();
                     break;
                 case WarningType.CompactComputer:
-                    warningForm = new NeobleeperInitCompactComputerWarning();
+                    warningForm = new InitCompactComputerWarning();
                     break;
                 case WarningType.UnknownComputer:
-                    warningForm = new NeobleeperInitUnknownTypeOfComputerWarning();
+                    warningForm = new InitUnknownTypeOfComputerWarning();
                     break;
             }
             if (warningForm != null)

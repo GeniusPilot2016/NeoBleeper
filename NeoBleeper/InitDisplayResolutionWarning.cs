@@ -19,10 +19,10 @@ using static UIHelper;
 
 namespace NeoBleeper
 {
-    public partial class NeobleeperInitUnknownTypeOfComputerWarning : Form
+    public partial class InitDisplayResolutionWarning : Form
     {
         bool darkTheme = false;
-        public NeobleeperInitUnknownTypeOfComputerWarning()
+        public InitDisplayResolutionWarning()
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
@@ -80,8 +80,7 @@ namespace NeoBleeper
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
-            button_yes.BackColor = Color.FromArgb(32, 32, 32);
-            button_no.BackColor = Color.FromArgb(32, 32, 32);
+            button_close.BackColor = Color.FromArgb(32, 32, 32);
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
@@ -90,35 +89,24 @@ namespace NeoBleeper
             darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
-            button_yes.BackColor = Color.Transparent;
-            button_no.BackColor = Color.Transparent;
+            button_close.BackColor = Color.Transparent;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void button_yes_Click(object sender, EventArgs e)
+
+        private void button_close_the_program_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Yes;
-            if (checkBoxDontShowAgain.Checked)
-            {
-                Settings1.Default.dont_show_system_speaker_warnings_again = true;
-                Settings1.Default.Save();
-            }
+            this.DialogResult = DialogResult.Abort;
             this.Dispose();
         }
 
-        private void button_no_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.No;
-            this.Dispose();
-        }
-
-        private void neobleeper_init_unknown_type_of_computer_warning_SystemColorsChanged(object sender, EventArgs e)
+        private void neobleeper_init_display_resolution_warning_SystemColorsChanged(object sender, EventArgs e)
         {
             SetTheme();
         }
 
-        private void neobleeper_init_unknown_type_of_computer_warning_Shown(object sender, EventArgs e)
+        private void neobleeper_init_display_resolution_warning_Shown(object sender, EventArgs e)
         {
-            SystemSounds.Exclamation.Play();
+            SystemSounds.Hand.Play();
         }
     }
 }
