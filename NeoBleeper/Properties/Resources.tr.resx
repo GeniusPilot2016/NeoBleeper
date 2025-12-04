@@ -876,4 +876,16 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Yapay zeka modellerini listeleme işlemi başarısız oldu. Lütfen Google Gemini™ API anahtarınızı ve internet bağlantınızı kontrol ediniz.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Yapay Zeka Müziği Oluşturuldu</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI Dosyası Yüklendi</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Yapay zeka tarafından müzik başarıyla oluşturuldu.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI dosyası başarıyla yüklendi.</value>
+  </data>
 </root>

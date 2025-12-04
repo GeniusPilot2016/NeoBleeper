@@ -60,7 +60,7 @@ public class EncryptionHelper
         }
     }
 
-    // Remove static constructor as we're using properties now
+    // Encrypts a string and returns the encrypted data as a base64-encoded string
 
     public static string EncryptString(string plainText)
     {

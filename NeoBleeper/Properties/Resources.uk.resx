@@ -877,4 +877,16 @@
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Не вдалося внести модель штучного інтелекту. Перевірте ключ API Google Gemini™ та підключення до Інтернету.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Музику за допомогою штучного інтелекту створено</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-файл завантажено</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Музику, згенеровану штучним інтелектом, успішно створено.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-файл успішно завантажено.</value>
+  </data>
 </root>

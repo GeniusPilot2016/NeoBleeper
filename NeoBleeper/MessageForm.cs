@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -11,22 +12,21 @@ namespace NeoBleeper
         bool darkTheme = false;
         bool IsThemeManuallySet = false; // Flag to indicate if theme is manually set
         int theme = 0; // 0: System, 1: Light, 2: Dark
-        MessageBoxIcon iconType = MessageBoxIcon.None;
+        MessageBoxIcon icon = MessageBoxIcon.None;
+        string title = string.Empty;
+        string message = string.Empty;
         public MessageForm(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
-            iconType = icon;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             this.Text = title;
+            this.title = title;
             labelMessage.Text = message;
             AssignButtons(buttons);
             AssignIcon(icon);
-            writeMessage(message);
-            set_theme();
-            UIFonts.setFonts(this);
-            notifyIconMessage.BalloonTipTitle = title;
-            notifyIconMessage.BalloonTipText = message;
-            notifyIconMessage.BalloonTipIcon = ConvertToToolTipIcon(icon);
+            WriteMessage(message);
+            SetTheme();
+            UIFonts.SetFonts(this);
         }
         private ToolTipIcon ConvertToToolTipIcon(MessageBoxIcon icon)
         {
@@ -48,15 +48,15 @@ namespace NeoBleeper
             {
                 if (IsThemeManuallySet && theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme_manually(theme);
+                    SetThemeManually(theme);
                 }
                 else if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -68,20 +68,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -91,7 +91,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void set_theme_manually(int theme)
+        private void SetThemeManually(int theme)
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -103,20 +103,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -125,7 +125,7 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -140,7 +140,7 @@ namespace NeoBleeper
         }
 
 
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -188,6 +188,7 @@ namespace NeoBleeper
         }
         private void AssignIcon(MessageBoxIcon icon)
         {
+            this.icon = icon;
             switch (icon)
             {
                 case MessageBoxIcon.Information:
@@ -207,10 +208,11 @@ namespace NeoBleeper
                     break;
             }
         }
-        private void writeMessage(string message)
+        private void WriteMessage(string message)
         {
             if (message != null)
             {
+                this.message = message;
                 double dpiScaleFactor = UIHelper.GetDPIScaleFactor(this);
                 int padding = (int)(50 * dpiScaleFactor);
 
@@ -316,9 +318,9 @@ namespace NeoBleeper
                     button3.DialogResult = DialogResult.Continue;
                     break;
             }
-            resizeCellsByText(); // Resize cells based on button text length for some languages such as German
+            ResizeCellsByText(); // Resize cells based on button text length for some languages such as German
         }
-        private void resizeCellsByText()
+        private void ResizeCellsByText()
         {
             double dpi = UIHelper.GetDPIScaleFactor(this);
             double padding = 20.0 * dpi; // Padding around text
@@ -389,7 +391,7 @@ namespace NeoBleeper
         {
             MessageForm messageForm = new MessageForm(message, title, buttons, icon);
             messageForm.IsThemeManuallySet = true;
-            messageForm.set_theme_manually(theme);
+            messageForm.SetThemeManually(theme);
             DialogResult dialogResult = messageForm.ShowDialog();
             return dialogResult;
         }
@@ -400,48 +402,25 @@ namespace NeoBleeper
             messageForm.StartPosition = FormStartPosition.CenterParent; // Center on parent form
             messageForm.Owner = form; // Set the owner to the provided form
             messageForm.IsThemeManuallySet = true;
-            messageForm.set_theme_manually(theme);
+            messageForm.SetThemeManually(theme);
             DialogResult dialogResult = messageForm.ShowDialog();
             return dialogResult;
         }
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        private bool IsWindowObscured()
-        {
-            IntPtr foregroundWindow = GetForegroundWindow();
-            return foregroundWindow != this.Handle; // Returns true if another window is in the foreground
-        }
         private void MessageForm_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private async void MessageForm_Shown(object sender, EventArgs e)
         {
-            if (IsWindowObscured()) // Useful when the computer hasn't any audio device or muted
+            if (NotificationUtils.IsWindowObscured(this)) // Useful when the computer hasn't any audio device or muted
             {
-                notifyIconMessage.Visible = true; // Show notify icon
-                notifyIconMessage.ShowBalloonTip(3000); // Show balloon tip for 3 seconds
-                await Task.Delay(3000); // Wait for disappear
-                notifyIconMessage.Visible = false; // Hide notify icon
+                NotificationUtils.CreateAndShowNotification(this, title, message, ConvertToToolTipIcon(icon), 3000);
             }
             else
             {
-                PlaySound(iconType); // Play sound when the form is shown
+                PlaySound(icon); // Play sound when the form is shown
             }
-        }
-
-        private void notifyIconMessage_BalloonTipClicked(object sender, EventArgs e) // Bring the form to front when balloon tip is clicked
-        {
-            foreach (Form openForm in Application.OpenForms) // Bring all open forms to front
-            {
-                openForm.BringToFront();
-                openForm.Activate();
-                break;
-            }
-            this.BringToFront();
-            this.Activate();
         }
     }
 }

@@ -22,8 +22,8 @@ namespace NeoBleeper
     public class GetInformations
     {
         public static string GlobalSystemInfo;
-        static bool is_system_speaker_present = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_system_speaker_present;
-        static bool is_chipset_affected = TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues;
+        static bool IsSystemSpeakerPresent = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent;
+        static bool IsChipsetAffected = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
         public static (string version, string status) GetVersionAndStatus()
         {
             int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
@@ -61,8 +61,8 @@ namespace NeoBleeper
             CompactComputer,
             Unknown,
         }
-        public static Enum ComputerType = computerTypes.Unknown;
-        public static Enum getTypeOfComputer()
+        public static Enum computerType = computerTypes.Unknown;
+        public static Enum GetTypeOfComputer()
         {
             try
             {
@@ -114,13 +114,13 @@ namespace NeoBleeper
                 return computerTypes.Unknown;
             }
         }
-        public static bool isResolutionSupported()
+        public static bool IsResolutionSupported()
         {
             int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             return width >= 1024 && height >= 768;
         }
-        public static string getFullTypeOfComputer()
+        public static string GetFullTypeOfComputer()
         {
             string[] chassisTypes = new string[]
             {
@@ -180,9 +180,9 @@ namespace NeoBleeper
                 return "Unknown";
             }
         }
-        public static string getSystemInfo()
+        public static string GetSystemInfo()
         {
-            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathering);
+            Program.splashScreen.UpdateStatus(Resources.StatusSystemInformationsGathering);
             string systemInfo = "";
             String osVersion = System.Environment.OSVersion.VersionString;
             systemInfo += $"\r\nOperating System: {osVersion}\r\n";
@@ -234,7 +234,7 @@ namespace NeoBleeper
             {
                 deviceManufacturer = "Unavailable";
             }
-            string computerType = getFullTypeOfComputer();
+            string computerType = GetFullTypeOfComputer();
             string powerStatus = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline ? "On battery power" : SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online ? "Plugged in" : "Unknown";
             String systemProperties = $"OS Architecture: {RuntimeInformation.OSArchitecture.ToString()}\r\n" +
                 $"Process Architecture: {RuntimeInformation.ProcessArchitecture.ToString()}\r\n" +
@@ -251,18 +251,18 @@ namespace NeoBleeper
                 // Don't show status of manufacturer check on ARM64 devices as they are not possibly affected from system speaker issues
                 ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ?
                 $"Status of affected chipset check: {(Program.isAffectedChipsetChecked == true ?
-                    (is_chipset_affected == true ? "Affected" : "Not Affected") :
+                    (IsChipsetAffected == true ? "Affected" : "Not Affected") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                                                        // Don't show system speaker info on ARM64 devices as they don't have system speakers
                 ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) ?
-                $"Presence of a system speaker{(is_chipset_affected == true && Program.isAffectedChipsetChecked == true ? " (may be inaccurate due to affected chipset)" : string.Empty)}: {(Program.isExistenceOfSystemSpeakerChecked == true ?
-                    (is_system_speaker_present == true ? "Yes" : "No") :
+                $"Presence of a system speaker{(IsChipsetAffected == true && Program.isAffectedChipsetChecked == true ? " (may be inaccurate due to affected chipset)" : string.Empty)}: {(Program.isExistenceOfSystemSpeakerChecked == true ?
+                    (IsSystemSpeakerPresent == true ? "Yes" : "No") :
                     "Unknown")}\r\n" : string.Empty) + // Conditional inclusion to determine unknown status if not checked yet and ARM64 architecture devices
                 $"System Directory: {Environment.SystemDirectory}\r\n" +
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
             GlobalSystemInfo = systemInfo;
-            Program.splashScreen.updateStatus(Resources.StatusSystemInformationsGathered, 10);
+            Program.splashScreen.UpdateStatus(Resources.StatusSystemInformationsGathered, 10);
             return systemInfo;
         }
     }

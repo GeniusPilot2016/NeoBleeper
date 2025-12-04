@@ -35,20 +35,20 @@ namespace BeepStopper
             ApplicationConfiguration.Initialize();
             Debug.WriteLine("Beep stopper is starting...");
 
-            checkAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
-            loadSettings();
+            CheckAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
+            LoadSettings();
             ThemeManager.Initialize();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             string query = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
             Debug.WriteLine("Checking for system speaker presence...");
             ManagementObjectSearcher searcher1 = new ManagementObjectSearcher(query);
-            ManagementObjectCollection number_of_system_speaker_devices = searcher1.Get();
-            bool is_system_speaker_present = number_of_system_speaker_devices.Count >= 1;
-            if (is_system_speaker_present)
+            ManagementObjectCollection numberOfSystemSpeakerDevices = searcher1.Get();
+            bool isSystemSpeakerPresent = numberOfSystemSpeakerDevices.Count >= 1;
+            if (isSystemSpeakerPresent)
             {
                 Debug.WriteLine("System speaker is present. Starting the beep stopper application.");
-                Application.Run(new main_window());
+                Application.Run(new MainWindow());
             }
             else
             {
@@ -58,7 +58,7 @@ namespace BeepStopper
                 {
                     case DialogResult.Yes:
                         Debug.WriteLine("User chose to continue despite the warning. Starting the beep stopper application.");
-                        Application.Run(new main_window());
+                        Application.Run(new MainWindow());
                         break;
                     case DialogResult.No:
                         Debug.WriteLine("User chose not to continue. Exiting the application.");
@@ -71,18 +71,18 @@ namespace BeepStopper
             ThemeManager.Cleanup();
             Debug.WriteLine("Beep stopper application has exited.");
         }
-        private static void loadSettings()
+        private static void LoadSettings()
         {
-            var synchronizedSettings = SynchronizedSettings.Load(false);
-            themeIndex = synchronizedSettings.Theme;
-            UIHelper.setLanguageByName(synchronizedSettings.Language);
-            Debug.WriteLine($"Beep stopper is starting with language: {synchronizedSettings.Language}");
+            var SynchronizedSettings = NeoBleeper.SynchronizedSettings.Load(false);
+            themeIndex = SynchronizedSettings.Theme;
+            UIHelper.SetLanguageByName(SynchronizedSettings.Language);
+            Debug.WriteLine($"Beep stopper is starting with language: {SynchronizedSettings.Language}");
         }
-        private static void checkAndPlaceInpOutX64()
+        private static void CheckAndPlaceInpOutX64()
         {
             var inpOutX64File = NeoBleeper.Properties.Resources.inpoutx64; // InpOutx64.dll binary resource
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-            if (!isInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
+            if (!IsInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
                                                // If not present or broken, place the DLL file
             {
                 try
@@ -101,7 +101,7 @@ namespace BeepStopper
                 Debug.WriteLine("InpOutx64.dll already exists and valid. No action needed.");
             }
         }
-        private static bool isInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
+        private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
         {
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
             if (File.Exists(inpOutX64Path)) // Check if file exists

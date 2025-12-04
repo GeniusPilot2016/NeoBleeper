@@ -26,9 +26,9 @@ namespace NeoBleeper
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             richTextBox1.Text = text;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             richTextBox1.Font = new Font("Consolas", richTextBox1.Font.Size);
-            set_theme();
+            SetTheme();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -37,11 +37,11 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -53,20 +53,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -76,7 +76,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -85,7 +85,7 @@ namespace NeoBleeper
             button1.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -102,7 +102,7 @@ namespace NeoBleeper
 
         private void AIGeneratedNBPMLError_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
     }
 }

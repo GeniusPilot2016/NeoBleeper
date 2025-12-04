@@ -48,9 +48,9 @@ namespace NeoBleeper
         public string output = "";
         public string generatedFilename = "";
         String AIModel = Settings1.Default.preferredAIModel;
-        Size NormalWindowSize;
+        Size normalWindowSize;
         double scaleFraction = 0.355; // Scale factor for the window size
-        Size LoadingWindowSize;
+        Size loadingWindowSize;
         string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
         CancellationTokenSource connectionCts = new CancellationTokenSource(); // CancellationTokenSource for cancelling connection checks
@@ -62,10 +62,10 @@ namespace NeoBleeper
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            NormalWindowSize = this.Size;
-            LoadingWindowSize = new Size(NormalWindowSize.Width, (int)(NormalWindowSize.Height + (NormalWindowSize.Height * scaleFraction)));
-            UIFonts.setFonts(this);
-            set_theme();
+            normalWindowSize = this.Size;
+            loadingWindowSize = new Size(normalWindowSize.Width, (int)(normalWindowSize.Height + (normalWindowSize.Height * scaleFraction)));
+            UIFonts.SetFonts(this);
+            SetTheme();
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
         }
@@ -76,7 +76,7 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
@@ -234,7 +234,7 @@ namespace NeoBleeper
             }
             return language;
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -246,20 +246,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -269,7 +269,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -282,7 +282,7 @@ namespace NeoBleeper
             this.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -315,7 +315,7 @@ namespace NeoBleeper
                 MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Return false if API key is not set
             }
-            else if (!isAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
+            else if (!IsAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -463,7 +463,7 @@ namespace NeoBleeper
                 return false;
             }
         }
-        public static bool isAPIKeyValidFormat(string APIKey)
+        public static bool IsAPIKeyValidFormat(string APIKey)
         {
             // Google API keys typically start with "AIzaSy" followed by 33 alphanumeric characters, underscores, or hyphens
             if (string.IsNullOrWhiteSpace(APIKey))
@@ -863,7 +863,7 @@ namespace NeoBleeper
                         {
                             JSONText = jsonMatch.Value;
                         }
-                        if (checkIfOutputIsJSONErrorMessage(JSONText))
+                        if (CheckIfOutputIsJSONErrorMessage(JSONText))
                         {
                             TurnJSONErrorIntoMessageBoxAndLog(JSONText);
                             generatedFilename = string.Empty; // Clear the filename if it's an error message
@@ -881,7 +881,7 @@ namespace NeoBleeper
                             // Preserve current behaivor if no valid XML is found.
                             output = rawOutput.Trim();
                         }
-                        splitFileNameAndOutput(rawOutput);
+                        SplitFileNameAndOutput(rawOutput);
                         // Remove ```xml and any surrounding text
                         Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
                         output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
@@ -951,7 +951,7 @@ namespace NeoBleeper
                         // Trim leading/trailing whitespace
                         output = output.Trim();
                         output = RewriteOutput(output).Trim();
-                        if (!checkIfOutputIsJSONErrorMessage(JSONText))
+                        if (!CheckIfOutputIsJSONErrorMessage(JSONText))
                         {
                             Logger.Log("Output: " + output, Logger.LogTypes.Info);
                         }
@@ -981,7 +981,7 @@ namespace NeoBleeper
                     // Stop the timer, re-enable controls, and handle the output
                     StopConnectionCheck(); // Stop the connection check due to operation completion
                     SetControlsEnabledAndMakeLoadingVisible(true);
-                    if (checkIfOutputIsValidNBPML(output))
+                    if (CheckIfOutputIsValidNBPML(output))
                     {
                         this.Close();
                     }
@@ -1001,7 +1001,7 @@ namespace NeoBleeper
                 }
             }
         }
-        private void splitFileNameAndOutput(string rawOutput)
+        private void SplitFileNameAndOutput(string rawOutput)
         {
             Logger.Log("Splitting generated filename and generated output...", Logger.LogTypes.Info);
             if (string.IsNullOrWhiteSpace(rawOutput))
@@ -1065,7 +1065,7 @@ namespace NeoBleeper
             // Fallback: generate timestamp-based filename
             return $"NeoBleeperMusic_{DateTime.Now:yyyyMMdd_HHmmss}";
         }
-        private bool checkIfOutputIsJSONErrorMessage(String output)
+        private bool CheckIfOutputIsJSONErrorMessage(String output)
         {
             if (string.IsNullOrWhiteSpace(output))
             {
@@ -1102,7 +1102,7 @@ namespace NeoBleeper
             {
                 return;
             }
-            if (checkIfOutputIsJSONErrorMessage(output))
+            if (CheckIfOutputIsJSONErrorMessage(output))
             {
                 isErrorMessageShown = true; // Set the flag to true to indicate an error message has been shown
                 var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
@@ -1130,7 +1130,7 @@ namespace NeoBleeper
                 MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private bool checkIfOutputIsValidNBPML(String output)
+        private bool CheckIfOutputIsValidNBPML(String output)
         {
             if (string.IsNullOrWhiteSpace(output))
             {
@@ -1520,11 +1520,11 @@ namespace NeoBleeper
             progressBarCreating.Visible = !enabled;
             if (enabled)
             {
-                this.Size = NormalWindowSize;
+                this.Size = normalWindowSize;
             }
             else
             {
-                this.Size = LoadingWindowSize;
+                this.Size = loadingWindowSize;
             }
             foreach (Control ctrl in Controls)
             {
@@ -1566,7 +1566,7 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private async void connectionCheckTimer_Tick(object sender, EventArgs e)

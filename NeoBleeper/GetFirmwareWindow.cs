@@ -26,9 +26,9 @@ namespace NeoBleeper
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             richTextBoxFirmware.Font = new Font("Courier New", richTextBoxFirmware.Font.Size);
-            set_theme();
+            SetTheme();
             comboBoxMicrocontroller.SelectedIndex = 0; // Default to Arduino 
         }
 
@@ -38,11 +38,11 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -54,20 +54,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -77,7 +77,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -90,7 +90,7 @@ namespace NeoBleeper
             buttonCopyFirmwareToClipboard.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -126,7 +126,7 @@ namespace NeoBleeper
 
         private void GetFirmwareWindow_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme(); // Apply the theme again in case of system theme changes
+            SetTheme(); // Apply the theme again in case of system theme changes
         }
     }
 }

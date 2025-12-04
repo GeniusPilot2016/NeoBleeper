@@ -30,9 +30,9 @@ namespace NeoBleeper
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             richTextBoxCrashReport.Font = new Font("Courier New", richTextBoxCrashReport.Font.Size);
-            set_theme();
+            SetTheme();
             GenerateCrashReport(CrashType, CrashMessage, StackTrace);
         }
 
@@ -42,11 +42,11 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -58,20 +58,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -81,7 +81,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -94,7 +94,7 @@ namespace NeoBleeper
         }
 
 
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -146,7 +146,7 @@ namespace NeoBleeper
 
         private void CrashReportingForm_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private void richTextBoxCrashReport_LinkClicked(object sender, LinkClickedEventArgs e)

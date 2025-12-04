@@ -877,4 +877,16 @@
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Не удалось добавить модель ИИ в список. Проверьте ключ API Google Gemini™ и подключение к интернету.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Музыка, созданная ИИ</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-файл загружен.</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Музыка, сгенерированная ИИ, успешно создана.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-файл успешно загружен.</value>
+  </data>
 </root>

@@ -24,10 +24,10 @@ namespace NeoBleeper
         bool darkTheme = false;
         public long wantedPitch;
         public bool needToStopSound;
-        private main_window main_Window;
-        public PortamentoWindow(main_window main_Window)
+        private MainWindow mainWindow;
+        public PortamentoWindow(MainWindow mainWindow)
         {
-            this.main_Window = main_Window;
+            this.mainWindow = mainWindow;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             switch (TemporarySettings.PortamentoSettings.portamentoType)
@@ -42,9 +42,9 @@ namespace NeoBleeper
             trackBarLength.Value = TemporarySettings.PortamentoSettings.length;
             trackBarPitchChangeSpeed.Value = TemporarySettings.PortamentoSettings.pitchChangeSpeed;
             labelLength.Text = TemporarySettings.PortamentoSettings.length.ToString() + Resources.TextMilliseconds;
-            setLabelsToMiddle();
-            UIFonts.setFonts(this);
-            set_theme();
+            SetLabelsToMiddle();
+            UIFonts.SetFonts(this);
+            SetTheme();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -53,11 +53,11 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -69,20 +69,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -92,7 +92,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -120,7 +120,7 @@ namespace NeoBleeper
             }
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -148,7 +148,7 @@ namespace NeoBleeper
             }
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void setLabelsToMiddle()
+        private void SetLabelsToMiddle()
         {
             labelLength.Location = new Point((int)((groupBox1.Width - labelLength.Width) / 2), (labelLength.Location.Y));
             label2.Location = new Point((int)((this.Width - label2.Width) / 2), (label2.Location.Y));
@@ -158,7 +158,7 @@ namespace NeoBleeper
             TemporarySettings.PortamentoSettings.length = trackBarLength.Value;
             finishTimer.Interval = TemporarySettings.PortamentoSettings.length;
             labelLength.Text = trackBarLength.Value.ToString() + Resources.TextMilliseconds;
-            setLabelsToMiddle();
+            SetLabelsToMiddle();
             Logger.Log("Portamento length set to " + trackBarLength.Value.ToString() + " mS", Logger.LogTypes.Info);
         }
 
@@ -169,14 +169,14 @@ namespace NeoBleeper
                 TemporarySettings.PortamentoSettings.portamentoType = TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound;
                 if (wantedPitch > 37 && wantedPitch < 32767)
                 {
-                    NotePlayer.play_note((int)wantedPitch, 1, true); // Play the note immediately if the wanted pitch is valid
+                    NotePlayer.PlayNote((int)wantedPitch, 1, true); // Play the note immediately if the wanted pitch is valid
                 }
                 Logger.Log("Portamento type set to \"System speaker/sound device always produces sound\"", Logger.LogTypes.Info);
             }
             else if (radioButtonProduceSoundForManyMilliseconds.Checked)
             {
                 NotePlayer.StopAllNotes(); // Stop all notes when switching to this mode
-                main_Window.UpdateLabelVisible(false); // Hide the "BEEP" label in the main window
+                mainWindow.UpdateLabelVisible(false); // Hide the "BEEP" label in the main window
                 TemporarySettings.PortamentoSettings.portamentoType = TemporarySettings.PortamentoSettings.PortamentoType.ProduceSoundForLength;
                 Logger.Log("Portamento type set to \"System speaker/sound produces sound for roughly this many milliseconds\"", Logger.LogTypes.Info);
             }
@@ -195,12 +195,12 @@ namespace NeoBleeper
 
         private void PortamentoWindow_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private void PortamentoWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            main_window mainWindow = new main_window();
+            MainWindow mainWindow = new MainWindow();
             mainWindow.checkBox_bleeper_portamento.Checked = false;
         }
     }

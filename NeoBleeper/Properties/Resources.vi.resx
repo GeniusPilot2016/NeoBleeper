@@ -875,4 +875,16 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Danh sách mô hình AI không thành công. Vui lòng kiểm tra khóa API Google Gemini™ và kết nối internet của bạn.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Âm nhạc do AI tạo ra</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>Tệp MIDI đã được tải</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Âm nhạc do AI tạo ra đã được tạo thành công.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>Tệp MIDI đã được tải thành công.</value>
+  </data>
 </root>

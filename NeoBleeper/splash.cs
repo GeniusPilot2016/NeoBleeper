@@ -3,23 +3,23 @@ using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
-    public partial class splash : Form
+    public partial class Splash : Form
     {
         bool completed = false;
         bool willTerminated = false; // Flag to indicate if termination is in progress when form is closed
-        public splash()
+        public Splash()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
         }
-        public void updateStatus(string status, int percent = 0, bool completed = false)
+        public void UpdateStatus(string status, int percent = 0, bool completed = false)
         {
             if (!this.IsHandleCreated || this.IsDisposed || willTerminated) return;
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => updateStatus(status, percent, completed)));
+                this.Invoke(new Action(() => UpdateStatus(status, percent, completed)));
                 return;
             }
             ResponsiveWait(1000);
@@ -62,6 +62,7 @@ namespace NeoBleeper
                 {
                     willTerminated = true; // Set the flag to indicate termination is in progress to prevent status updates
                     Logger.Log("Startup of application interrupted by user. Closing application...", Logger.LogTypes.Info);
+                    notifyIconNeoBleeper.Visible = false; // Hide the tray icon
                     Program.UninitializeMIDI(); // Uninitialize MIDI devices
                     Program.UninitializeExtendedEvents(); // Uninitialize extended events
                     if (!(RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
@@ -139,6 +140,16 @@ namespace NeoBleeper
         private void StopDragging()
         {
             isDragging = false;
+        }
+
+        private void splash_Load(object sender, EventArgs e)
+        {
+            NotificationUtils.SetPrimaryNotifyIcon(this, notifyIconNeoBleeper); // Set the primary notify icon for notifications
+        }
+
+        private void notifyIconNeoBleeper_BalloonTipClicked(object sender, EventArgs e)
+        {
+            NotificationUtils.ActivateWindowWhenShownIconIsClicked(); // Activate the application when the balloon tip is clicked
         }
     }
 }

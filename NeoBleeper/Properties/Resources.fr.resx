@@ -875,4 +875,16 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>L'inscription du modèle d'IA a échoué. Veuillez vérifier votre clé API Google Gemini™ et votre connexion Internet.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Musique générée par l'IA</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>Fichier MIDI chargé</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>La musique générée par l'IA a été créée avec succès.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>Le fichier MIDI a été chargé avec succès.</value>
+  </data>
 </root>

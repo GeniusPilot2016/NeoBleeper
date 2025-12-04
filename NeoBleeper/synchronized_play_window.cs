@@ -24,10 +24,10 @@ namespace NeoBleeper
         bool darkTheme = false;
         bool waiting = false;
         bool is_playing = false;
-        private main_window mainWindow;
+        private MainWindow mainWindow;
         private PreciseTimer preciseTimer;
 
-        public synchronized_play_window(main_window mainWindow)
+        public synchronized_play_window(MainWindow mainWindow)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
@@ -35,7 +35,7 @@ namespace NeoBleeper
             this.mainWindow.MusicStopped += MainWindow_MusicStopped;
             dateTimePicker1.Value = DateTime.Now.AddMinutes(1);
             lbl_current_system_time.Text = DateTime.Now.ToString("HH:mm:ss");
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             set_theme();
             preciseTimer = new PreciseTimer(1); // Store as field
             preciseTimer.Tick += preciseTimer_Tick;
@@ -191,11 +191,11 @@ namespace NeoBleeper
                 // Start music playback
                 if (radioButton_play_beginning_of_music.Checked)
                 {
-                    mainWindow.play_all();
+                    mainWindow.PlayAll();
                 }
                 else if (radioButton_play_currently_selected_line.Checked)
                 {
-                    mainWindow.play_from_selected_line();
+                    mainWindow.PlayFromSelectedLine();
                 }
             }
         }
@@ -240,7 +240,7 @@ namespace NeoBleeper
                 {
                     // Disable the event handler to prevent the music from stopping again
                     mainWindow.MusicStopped -= MainWindow_MusicStopped;
-                    mainWindow.stop_playing(); // Stop the music
+                    mainWindow.StopPlaying(); // Stop the music
                     mainWindow.MusicStopped += MainWindow_MusicStopped;
                 }
                 is_playing = false;
@@ -280,9 +280,9 @@ namespace NeoBleeper
             {
                 dateTimePicker1.Enabled = false; // Disable the date time picker while waiting
                 waiting = true;
-                if (mainWindow.is_music_playing)
+                if (mainWindow.isMusicPlaying)
                 {
-                    mainWindow.stop_playing(); // Stop the music if it is playing
+                    mainWindow.StopPlaying(); // Stop the music if it is playing
                 }
                 if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
                 {
@@ -309,9 +309,9 @@ namespace NeoBleeper
         private void StopWaiting()
         {
             dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting
-            if (is_playing == true || mainWindow.is_music_playing)
+            if (is_playing == true || mainWindow.isMusicPlaying)
             {
-                mainWindow.stop_playing();
+                mainWindow.StopPlaying();
             }
             waiting = false;
             Logger.Log("Stopped waiting for music to play", Logger.LogTypes.Info);

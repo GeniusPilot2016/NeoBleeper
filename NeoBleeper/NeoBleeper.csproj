@@ -14,7 +14,7 @@
     <AssemblyVersion></AssemblyVersion>
     <Company>GeniusPilot2016</Company>
     <Authors>GeniusPilot2016</Authors>
-    <Version>1.0.0.3-beta</Version>
+    <Version>1.0.0.4-beta</Version>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x64;ARM64</Platforms>
@@ -43,10 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="disable_create_beep_from_sound_device_warning_on_affected_motherboards.cs">
+    <Compile Update="DisableCreateBeepFromSoundDeviceWarningOnAffectedMotherboards.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="disable_create_beep_from_sound_device_warning_on_computers_without_system_speaker_output.cs">
+    <Compile Update="DisableCreateBeepFromSoundDeviceWarningOnComputersWithoutSystemSpeakerOutput.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.vi.Designer.cs">

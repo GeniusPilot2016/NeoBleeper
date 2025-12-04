@@ -875,4 +875,16 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Error al incluir el modelo de IA. Comprueba tu clave API de Google Gemini™ y tu conexión a internet.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Música generada por IA</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>Archivo MIDI cargado</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>La música generada por IA se ha creado correctamente.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>El archivo MIDI se ha cargado correctamente.</value>
+  </data>
 </root>

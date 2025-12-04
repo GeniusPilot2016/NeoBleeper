@@ -875,4 +875,16 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Das Auflisten des KI-Modells ist fehlgeschlagen. Bitte überprüfen Sie Ihren Google Gemini™ API-Schlüssel und Ihre Internetverbindung.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>KI-Musik erstellt</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI-Datei geladen</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Die KI-generierte Musik wurde erfolgreich erstellt.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>Die MIDI-Datei wurde erfolgreich geladen.</value>
+  </data>
 </root>

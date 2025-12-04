@@ -25,21 +25,21 @@ namespace NeoBleeper
     public partial class ConvertToBeepCommandForLinux : Form
     {
         // The class that I added for my old laptop, which doesn't support Windows 11, until I migrated to Avalonia UI to make NeoBleeper cross-platform.
-        int alternate_length = 30;
+        int alternateLength = 30;
         int bpm = 120; // Default BPM
         int note_silence_ratio = 50;
-        main_window main_Window;
+        MainWindow mainWindow;
         bool nonStopping = false;
         bool darkTheme = false;
         int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid because storage type can't be determined in Linux's beep command
-        public ConvertToBeepCommandForLinux(string musicFile, main_window main_Window)
+        public ConvertToBeepCommandForLinux(string musicFile, MainWindow mainWindow)
         {
-            this.main_Window = main_Window;
+            this.mainWindow = mainWindow;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             richTextBoxBeepCommand.Font = new Font("Consolas", richTextBoxBeepCommand.Font.Size); // Set a monospaced font for better readability
-            set_theme();
+            SetTheme();
             String notes = ExtractNotes(musicFile);
             richTextBoxBeepCommand.Text = notes;
         }
@@ -50,7 +50,7 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
@@ -64,11 +64,11 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -80,20 +80,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -103,7 +103,7 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -113,7 +113,7 @@ namespace NeoBleeper
             richTextBoxBeepCommand.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -144,12 +144,12 @@ namespace NeoBleeper
                 {
                     bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
                     note_silence_ratio = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                    alternate_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
+                    alternateLength = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
                     nonStopping = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio) == 100;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
                         note_silence_ratio = 50;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
-                        alternate_length = 30;
+                        alternateLength = 30;
 
                     notes.Clear();
                     if (projectFile.LineList?.Lines != null)
@@ -211,75 +211,75 @@ namespace NeoBleeper
             return trimmedOutput;
         }
         private int insert_note_to_beep_command(String note1, String note2, String note3, String note4,
-bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool endOfLine = false) // Play note in a line
+bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool endOfLine = false) // Play note in a line
         {
             int elapsedTime = 0;
-            double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+            double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
             String[] notes = new string[4];
             string Note1 = string.Empty, Note2 = string.Empty, Note3 = string.Empty, Note4 = string.Empty;
-            if (play_note1)
+            if (playNote1)
             {
                 Note1 = note1;
             }
-            if (play_note2)
+            if (playNote2)
             {
                 Note2 = note2;
             }
-            if (play_note3)
+            if (playNote3)
             {
                 Note3 = note3;
             }
-            if (play_note4)
+            if (playNote4)
             {
                 Note4 = note4;
             }
-            if (main_Window.radioButtonPlay_alternating_notes1.Checked)
+            if (mainWindow.radioButtonPlay_alternating_notes1.Checked)
             {
                 notes = new string[] { Note1, Note2, Note3, Note4 };
             }
-            else if (main_Window.radioButtonPlay_alternating_notes2.Checked)
+            else if (mainWindow.radioButtonPlay_alternating_notes2.Checked)
             {
                 notes = new string[] { Note1, Note3, Note2, Note4 };
             }
             notes = notes.Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToArray(); // Remove empty notes and duplicates
                                                                                           // Calculate frequencies from note names
             if (notes.Contains(note1) && !string.IsNullOrWhiteSpace(note1))
-                note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
+                note1Frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
             if (notes.Contains(note2) && !string.IsNullOrWhiteSpace(note2))
-                note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
+                note2Frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
 
             if (notes.Contains(note3) && !string.IsNullOrWhiteSpace(note3))
-                note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
+                note3Frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
 
             if (notes.Contains(note4) && !string.IsNullOrWhiteSpace(note4))
-                note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
+                note4Frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
             if (notes.Length == 1)
             {
                 if (notes[0] == note1)
                 {
-                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note1_frequency, length, endOfLine, nonStopping);
+                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note1Frequency, length, endOfLine, nonStopping);
                     beepCommandBuilder.Append(frequencyAndLength);
                     elapsedTime = totalDuration;
                     return elapsedTime;
                 }
                 else if (notes[0] == note2)
                 {
-                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note2_frequency, length, endOfLine, nonStopping);
+                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note2Frequency, length, endOfLine, nonStopping);
                     beepCommandBuilder.Append(frequencyAndLength);
                     elapsedTime = totalDuration;
                     return elapsedTime;
                 }
                 else if (notes[0] == note3)
                 {
-                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note3_frequency, length, endOfLine, nonStopping);
+                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note3Frequency, length, endOfLine, nonStopping);
                     beepCommandBuilder.Append(frequencyAndLength);
                     elapsedTime = totalDuration;
                     return elapsedTime;
                 }
                 else if (notes[0] == note4)
                 {
-                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note4_frequency, length, endOfLine, nonStopping);
+                    var (frequencyAndLength, totalDuration) = CreateFrequencyAndDurationDuo((int)note4Frequency, length, endOfLine, nonStopping);
                     beepCommandBuilder.Append(frequencyAndLength);
                     elapsedTime = totalDuration;
                     return elapsedTime;
@@ -288,27 +288,27 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
             else if (notes.Length > 1)
             {
                 string generatedBeepCommand = string.Empty;
-                int note_order = 1;
+                int noteOrder = 1;
                 int remainingLength = length;
                 bool willAnyNoteBeWritten = false;
                 do
                 {
-                    note_order = 1; // Reset order at each alternation cycle
+                    noteOrder = 1; // Reset order at each alternation cycle
                     foreach (string note in notes)
                     {
-                        if (remainingLength >= alternate_length)
+                        if (remainingLength >= alternateLength)
                         {
                             willAnyNoteBeWritten = true;
                         }
-                        if (remainingLength >= alternate_length || willAnyNoteBeWritten == false)
+                        if (remainingLength >= alternateLength || willAnyNoteBeWritten == false)
                         {
-                            int alternate_length_to_write = willAnyNoteBeWritten ? alternate_length : remainingLength;
+                            int alternate_length_to_write = willAnyNoteBeWritten ? alternateLength : remainingLength;
                             // Determine if this alternating chunk will be the last chunk of the last line.
                             bool isLastAlternatingNoteOfLastLine = endOfLine && (alternate_length_to_write == remainingLength);
                             double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
 
                             int currentDuration = 0; // duration for this single chunk
-                            switch (note_order)
+                            switch (noteOrder)
                             {
                                 case 1: // Note 1
                                     {
@@ -349,7 +349,7 @@ bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, 
                             }
 
                             elapsedTime += currentDuration;
-                            note_order++;
+                            noteOrder++;
                             beepCommandBuilder.Append(generatedBeepCommand);
                             remainingLength -= currentDuration; // Subtract only this chunk's duration
                         }

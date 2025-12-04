@@ -874,4 +874,16 @@ Vuoi aprire comunque questo file?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Errore nell'inserimento del modello AI. Controlla la tua chiave API Google Gemini™ e la tua connessione Internet.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Musica creata dall'IA</value>
+  </data>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>File MIDI caricato</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>La musica generata dall'IA è stata creata con successo.</value>
+  </data>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>Il file MIDI è stato caricato correttamente.</value>
+  </data>
 </root>

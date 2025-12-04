@@ -25,22 +25,22 @@ namespace NeoBleeper
     public partial class ConvertToGCode : Form
     {
         bool darkTheme = false;
-        int note1_component = 0;
-        int note2_component = 0;
-        int note3_component = 0;
-        int note4_component = 0;
-        String MusicString;
-        int alternate_length = 30;
+        int note1Component = 0;
+        int note2Component = 0;
+        int note3Component = 0;
+        int note4Component = 0;
+        String musicString;
+        int alternateLength = 30;
         int bpm = 120; // Default BPM
-        int note_silence_ratio = 50;
+        int noteSilenceRatio = 50;
         bool nonStopping = false;
         public ConvertToGCode(String musicFile)
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
-            set_theme();
-            MusicString = musicFile;
+            UIFonts.SetFonts(this);
+            SetTheme();
+            musicString = musicFile;
             comboBox_component_note1.SelectedIndex = 0;
             comboBox_component_note2.SelectedIndex = 0;
             comboBox_component_note3.SelectedIndex = 0;
@@ -53,7 +53,7 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace NeoBleeper
                 Art = art;
             }
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -99,7 +99,7 @@ namespace NeoBleeper
             comboBox_component_note4.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -119,7 +119,7 @@ namespace NeoBleeper
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -131,20 +131,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -166,13 +166,13 @@ namespace NeoBleeper
                 if (projectFile != null)
                 {
                     bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
-                    note_silence_ratio = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                    alternate_length = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
+                    noteSilenceRatio = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
+                    alternateLength = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
                     nonStopping = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio) == 100;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.NoteSilenceRatio))
-                        note_silence_ratio = 50;
+                        noteSilenceRatio = 50;
                     if (string.IsNullOrEmpty(projectFile.Settings.RandomSettings.AlternateTime))
-                        alternate_length = 30;
+                        alternateLength = 30;
 
                     notes.Clear();
                     if (projectFile.LineList?.Lines != null)
@@ -198,25 +198,25 @@ namespace NeoBleeper
             foreach (var note in notes)
             {
                 double noteDuration = NoteLengths.CalculateLineLength(bpm, note.Length, note.Mod, note.Art);
-                double rawNoteLength = NoteLengths.CalculateNoteLength(bpm, note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0);
-                int note_length = (int)Math.Truncate(rawNoteLength);
+                double rawNoteLength = NoteLengths.CalculateNoteLength(bpm, note.Length, note.Mod, note.Art) * (noteSilenceRatio / 100.0);
+                int noteLength = (int)Math.Truncate(rawNoteLength);
                 int silence = (int)Math.Truncate(noteDuration - rawNoteLength);
                 int drift = 0;
                 if (drift > 0)
                 {
-                    if (drift < note_length)
+                    if (drift < noteLength)
                     {
-                        note_length -= drift; // Reduce note length by drift amount
+                        noteLength -= drift; // Reduce note length by drift amount
                     }
                     else
                     {
-                        drift -= note_length; // Skip note length if drift is larger
+                        drift -= noteLength; // Skip note length if drift is larger
                         continue;
                     }
                 }
                 // Add GCode line
-                elapsedLineTime = insert_note_to_gcode(note.Note1, note.Note2, note.Note3, note.Note4,
-                    true, true, true, true, note_length);
+                elapsedLineTime = InsertNoteToGCode(note.Note1, note.Note2, note.Note3, note.Note4,
+                    true, true, true, true, noteLength);
                 if (drift < 0)
                 {
                     silence -= drift; // Add drift to silence if drift is negative
@@ -236,7 +236,7 @@ namespace NeoBleeper
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note1_component = comboBox_component_note1.SelectedIndex;
+            note1Component = comboBox_component_note1.SelectedIndex;
         }
         private void EnableDisableExportAsGCodeButton()
         {
@@ -296,7 +296,7 @@ namespace NeoBleeper
 
         private void button_export_as_gcode_Click(object sender, EventArgs e)
         {
-            String notes = ExtractNotes(MusicString);
+            String notes = ExtractNotes(musicString);
             if (!string.IsNullOrEmpty(notes))
             {
                 DialogResult result = exportGCodeFile.ShowDialog(this);
@@ -321,17 +321,17 @@ namespace NeoBleeper
 
         private void comboBox_component_note2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note2_component = comboBox_component_note2.SelectedIndex;
+            note2Component = comboBox_component_note2.SelectedIndex;
         }
 
         private void comboBox_component_note3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note3_component = comboBox_component_note3.SelectedIndex;
+            note3Component = comboBox_component_note3.SelectedIndex;
         }
 
         private void comboBox_component_note4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note4_component = comboBox_component_note4.SelectedIndex;
+            note4Component = comboBox_component_note4.SelectedIndex;
         }
         private (string output, int length) GenerateGCodeForBuzzerNote(double frequency, int length, bool nonStopping = false)
         {
@@ -350,26 +350,26 @@ namespace NeoBleeper
         {
             return (int)(frequency * 60); // Convert frequency to RPM
         }
-        private int insert_note_to_gcode(String note1, String note2, String note3, String note4,
-    bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length) // Play note in a line
+        private int InsertNoteToGCode(String note1, String note2, String note3, String note4,
+    bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length) // Play note in a line
         {
             int elapsedTime = 0;
-            double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+            double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
             String[] notes = new string[4];
             string Note1 = string.Empty, Note2 = string.Empty, Note3 = string.Empty, Note4 = string.Empty;
-            if (play_note1)
+            if (playNote1)
             {
                 Note1 = note1;
             }
-            if (play_note2)
+            if (playNote2)
             {
                 Note2 = note2;
             }
-            if (play_note3)
+            if (playNote3)
             {
                 Note3 = note3;
             }
-            if (play_note4)
+            if (playNote4)
             {
                 Note4 = note4;
             }
@@ -384,16 +384,16 @@ namespace NeoBleeper
             notes = notes.Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToArray(); // Remove empty notes and duplicates
             // Calculate frequencies from note names
             if (notes.Contains(note1) && !string.IsNullOrWhiteSpace(note1))
-                note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
+                note1Frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
             if (notes.Contains(note2) && !string.IsNullOrWhiteSpace(note2))
-                note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
+                note2Frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
 
             if (notes.Contains(note3) && !string.IsNullOrWhiteSpace(note3))
-                note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
+                note3Frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
 
             if (notes.Contains(note4) && !string.IsNullOrWhiteSpace(note4))
-                note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
+                note4Frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
             if (notes.Length == 1)
             {
                 if (notes[0] == note1)
@@ -401,12 +401,12 @@ namespace NeoBleeper
                     switch (comboBox_component_note1.SelectedIndex)
                     {
                         case 0:
-                            var motorNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                            var motorNote = GenerateGCodeForMotorNote((int)note1Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(motorNote.output);
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note1_frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note1Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -418,12 +418,12 @@ namespace NeoBleeper
                     switch (comboBox_component_note2.SelectedIndex)
                     {
                         case 0:
-                            var motorNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                            var motorNote = GenerateGCodeForMotorNote((int)note2Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(motorNote.output);
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note2_frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note2Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -435,12 +435,12 @@ namespace NeoBleeper
                     switch (comboBox_component_note3.SelectedIndex)
                     {
                         case 0:
-                            var motorNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                            var motorNote = GenerateGCodeForMotorNote((int)note3Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(motorNote.output);
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note3_frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note3Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -452,12 +452,12 @@ namespace NeoBleeper
                     switch (comboBox_component_note4.SelectedIndex)
                     {
                         case 0:
-                            var motorNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                            var motorNote = GenerateGCodeForMotorNote((int)note4Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(motorNote.output);
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note4_frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForMotorNote((int)note4Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -478,14 +478,14 @@ namespace NeoBleeper
                         if (remainingLength <= 0)
                             break;
 
-                        if (remainingLength >= alternate_length)
+                        if (remainingLength >= alternateLength)
                         {
                             willAnyNoteBeWritten = true;
                         }
 
-                        if (remainingLength >= alternate_length || willAnyNoteBeWritten == false)
+                        if (remainingLength >= alternateLength || willAnyNoteBeWritten == false)
                         {
-                            int alternate_length_to_write = willAnyNoteBeWritten ? alternate_length : remainingLength;
+                            int alternate_length_to_write = willAnyNoteBeWritten ? alternateLength : remainingLength;
                             double frequency = NoteFrequencies.GetFrequencyFromNoteName(note);
 
                             int currentDuration = 0;
@@ -496,13 +496,13 @@ namespace NeoBleeper
                                 case 1: // Note 1
                                     if (comboBox_component_note1.SelectedIndex == 0)
                                     {
-                                        var motor = GenerateGCodeForMotorNote((int)note1_frequency, alternate_length_to_write, nonStopping);
+                                        var motor = GenerateGCodeForMotorNote((int)note1Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = motor.output;
                                         currentDuration = motor.length;
                                     }
                                     else
                                     {
-                                        var buz = GenerateGCodeForBuzzerNote((int)note1_frequency, alternate_length_to_write, nonStopping);
+                                        var buz = GenerateGCodeForBuzzerNote((int)note1Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = buz.output;
                                         currentDuration = buz.length;
                                     }
@@ -511,13 +511,13 @@ namespace NeoBleeper
                                 case 2: // Note 2
                                     if (comboBox_component_note2.SelectedIndex == 0)
                                     {
-                                        var motor = GenerateGCodeForMotorNote((int)note2_frequency, alternate_length_to_write, nonStopping);
+                                        var motor = GenerateGCodeForMotorNote((int)note2Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = motor.output;
                                         currentDuration = motor.length;
                                     }
                                     else
                                     {
-                                        var buz = GenerateGCodeForBuzzerNote((int)note2_frequency, alternate_length_to_write, nonStopping);
+                                        var buz = GenerateGCodeForBuzzerNote((int)note2Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = buz.output;
                                         currentDuration = buz.length;
                                     }
@@ -526,13 +526,13 @@ namespace NeoBleeper
                                 case 3: // Note 3
                                     if (comboBox_component_note3.SelectedIndex == 0)
                                     {
-                                        var motor = GenerateGCodeForMotorNote((int)note3_frequency, alternate_length_to_write, nonStopping);
+                                        var motor = GenerateGCodeForMotorNote((int)note3Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = motor.output;
                                         currentDuration = motor.length;
                                     }
                                     else
                                     {
-                                        var buz = GenerateGCodeForBuzzerNote((int)note3_frequency, alternate_length_to_write, nonStopping);
+                                        var buz = GenerateGCodeForBuzzerNote((int)note3Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = buz.output;
                                         currentDuration = buz.length;
                                     }
@@ -541,13 +541,13 @@ namespace NeoBleeper
                                 case 4: // Note 4
                                     if (comboBox_component_note4.SelectedIndex == 0)
                                     {
-                                        var motor = GenerateGCodeForMotorNote((int)note4_frequency, alternate_length_to_write, nonStopping);
+                                        var motor = GenerateGCodeForMotorNote((int)note4Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = motor.output;
                                         currentDuration = motor.length;
                                     }
                                     else
                                     {
-                                        var buz = GenerateGCodeForBuzzerNote((int)note4_frequency, alternate_length_to_write, nonStopping);
+                                        var buz = GenerateGCodeForBuzzerNote((int)note4Frequency, alternate_length_to_write, nonStopping);
                                         generatedGCode = buz.output;
                                         currentDuration = buz.length;
                                     }
@@ -590,7 +590,7 @@ namespace NeoBleeper
         }
         private void ConvertToGCode_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
     }
 }

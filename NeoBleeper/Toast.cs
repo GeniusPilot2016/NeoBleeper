@@ -28,7 +28,7 @@ namespace NeoBleeper
             this.parentForm = parentForm;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            set_theme();
+            SetTheme();
             labelMessage.Font = uiFonts.SetUIFont(labelMessage.Font.Size, labelMessage.Font.Style);
             labelMessage.Text = Message;
             this.Size = new Size(labelMessage.Width + CalculatePaddingAfterText(20), this.Height);
@@ -42,7 +42,7 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace NeoBleeper
             }
         }
         protected override bool ShowWithoutActivation => true;
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout();
             switch (Settings1.Default.theme)
@@ -66,29 +66,29 @@ namespace NeoBleeper
                     switch (SystemThemeUtility.IsDarkTheme())
                     {
                         case true:
-                            dark_theme();
+                            DarkTheme();
                             break;
                         case false:
-                            light_theme();
+                            LightTheme();
                             break;
                     }
                     break;
                 case 1: // Light theme
-                    light_theme();
+                    LightTheme();
                     break;
                 case 2: // Dark theme
-                    dark_theme();
+                    DarkTheme();
                     break;
             }
             this.ResumeLayout();
         }
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(40, 40, 40);
             this.ForeColor = Color.White;
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.ControlLight;
@@ -109,9 +109,9 @@ namespace NeoBleeper
         private void ShowTimer_Tick(object sender, EventArgs e)
         {
             ShowTimer.Stop();
-            Toast_disappear();
+            ToastDisappear();
         }
-        private async void Toast_disappear()
+        private async void ToastDisappear()
         {
             for (int i = 0; i <= 10; i++)
             {

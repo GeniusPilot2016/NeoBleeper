@@ -39,9 +39,9 @@ public class RewindCommand : ICommand
     private readonly Originator originator;
     private readonly Memento savedState;
     private Memento currentState;
-    private readonly main_window mainWindow;
+    private readonly MainWindow mainWindow;
 
-    public RewindCommand(Originator originator, Memento savedState, main_window mainWindow = null)
+    public RewindCommand(Originator originator, Memento savedState, MainWindow mainWindow = null)
     {
         if (originator == null)
             throw new ArgumentNullException(nameof(originator));
@@ -52,7 +52,7 @@ public class RewindCommand : ICommand
         this.originator = originator;
         this.savedState = savedState;
         this.currentState = originator.CreateMemento();
-        this.mainWindow = mainWindow ?? (Application.OpenForms.Count > 0 ? Application.OpenForms[0] as main_window : null);
+        this.mainWindow = mainWindow ?? (Application.OpenForms.Count > 0 ? Application.OpenForms[0] as MainWindow : null);
     }
 
     public void Execute()
