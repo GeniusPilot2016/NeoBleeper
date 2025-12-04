@@ -51,7 +51,6 @@ namespace NeoBleeper
             NotesChanged?.Invoke(this, e);
         }
         private string lastListHash = string.Empty;
-
         private string ComputeListHash()
         {
             if (listViewNotes?.Items == null || listViewNotes.Items.Count == 0) return string.Empty;
@@ -2779,7 +2778,7 @@ namespace NeoBleeper
         }
         public void PlayAll()
         {
-            if (listViewNotes.Items.Count > 0)
+            if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
                 isMusicPlaying = true;
                 listViewNotes.Items[0].Selected = true;
@@ -2790,7 +2789,7 @@ namespace NeoBleeper
         }
         public void PlayFromSelectedLine()
         {
-            if (listViewNotes.Items.Count > 0)
+            if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
                 isMusicPlaying = true;
                 if (listViewNotes.SelectedItems.Count < 1)
@@ -4096,6 +4095,8 @@ namespace NeoBleeper
         {
             if (checkBox_use_keyboard_as_piano.Checked == true)
             {
+                StopPlaying();
+                StopPlayingAllSounds(); // Stop all sounds before enabling keyboard as piano
                 ShowKeyboardKeysShortcuts();
                 this.ActiveControl = null; // Remove focus from any control to prevent accidental typing
             }
