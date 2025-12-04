@@ -51,9 +51,9 @@
             // 
             // pictureBox1
             // 
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             pictureBox1.MouseDown += splash_MouseDown;
@@ -88,8 +88,8 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Transparent;
             resources.ApplyResources(panel1, "panel1");
+            panel1.BackColor = Color.Transparent;
             panel1.Name = "panel1";
             // 
             // notifyIconNeoBleeper
