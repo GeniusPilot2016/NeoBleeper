@@ -3,11 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
-    public partial class Splash : Form
+    public partial class SplashScreen : Form
     {
         bool completed = false;
         bool willTerminated = false; // Flag to indicate if termination is in progress when form is closed
-        public Splash()
+        public SplashScreen()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);

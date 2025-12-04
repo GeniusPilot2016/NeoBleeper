@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class Splash
+    partial class SplashScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             label1 = new Label();
             pictureBox1 = new PictureBox();
             labelVersion = new Label();

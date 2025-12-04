@@ -33,7 +33,7 @@ namespace NeoBleeper
         // Powered by nostalgia and a passion for sound, this program brings the classic system speaker beeps back to life with modern enhancements - Thanks Robbi-985 (aka SomethingUnreal)!
         public static string filePath = null;
         public static bool isAnySoundDeviceExist = SoundRenderingEngine.WaveSynthEngine.CheckIfAnySoundDeviceExistAndEnabled();
-        public static Splash splashScreen = new Splash();
+        public static SplashScreen splashScreen = new SplashScreen();
         public static bool isAffectedChipsetChecked = false; // Flag to indicate if the affected chipset has been checked
         public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
         [STAThread]
