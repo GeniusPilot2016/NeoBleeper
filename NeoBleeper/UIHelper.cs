@@ -116,7 +116,7 @@ public static class UIHelper
         {  "українська", "uk-UA" },
         {  "Tiếng Việt", "vi-VN" }
     };
-    public static void setLanguageByName(string languageName) // Set the application's culture based on a human-readable language name
+    public static void SetLanguageByName(string languageName) // Set the application's culture based on a human-readable language name
     {
         try
         {

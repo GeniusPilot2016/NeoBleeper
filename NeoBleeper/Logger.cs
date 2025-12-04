@@ -22,10 +22,10 @@ namespace NeoBleeper
     public static class Logger
     {
         // Out with legacy "logenable" file without extension to enable logging, in with "DebugLog.txt" that always logs.
-        static String LogText;
+        static String logText;
         static Logger()
         {
-            LogText += "\r\n  _   _            ____  _                           \r\n" +
+            logText += "\r\n  _   _            ____  _                           \r\n" +
                 " | \\ | |          |  _ \\| |                          \r\n" +
                 " |  \\| | ___  ___ | |_) | | ___  ___ _ __   ___ _ __ \r\n" +
                 " | . ` |/ _ \\/ _ \\|  _ <| |/ _ \\/ _ \\ '_ \\ / _ \\ '__|\r\n" +
@@ -33,10 +33,10 @@ namespace NeoBleeper
                 " |_| \\_|\\___|\\___/|____/|_|\\___|\\___| .__/ \\___|_|   \r\n" +
                 "                                    | |              \r\n" +
                 "                                    |_|              \r\n";
-            LogText += "\nFrom Something Unreal to Open Sound – Reviving the Legacy, One Note at a Time. \r\n";
-            LogText += "\nhttps://github.com/GeniusPilot2016/NeoBleeper \r\n\n";
-            LogText += $"NeoBleeper Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
-            LogText += GetInformations.getSystemInfo();
+            logText += "\nFrom Something Unreal to Open Sound – Reviving the Legacy, One Note at a Time. \r\n";
+            logText += "\nhttps://github.com/GeniusPilot2016/NeoBleeper \r\n\n";
+            logText += $"NeoBleeper Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
+            logText += GetInformations.GetSystemInfo();
             string[] funFacts = new string[]
             {
                 "The system speaker was introduced in 1981 as part of the original IBM PC.",
@@ -94,9 +94,9 @@ namespace NeoBleeper
                 "NeoBleeper not only pays homage to the pioneers of beep music but also paves the way for future explorations in the realm of system speaker compositions."
             };
             int funFactIndex = new Random().Next(funFacts.Length);
-            LogText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";
-            Debug.WriteLine(LogText);
-            WriteLogToFile(LogText.TrimEnd());
+            logText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";
+            Debug.WriteLine(logText);
+            WriteLogToFile(logText.TrimEnd());
         }
         public enum LogTypes
         {
@@ -123,8 +123,8 @@ namespace NeoBleeper
                     break;
             }
             string logMessage = $"[{DateTime.Now:HH:mm:ss}] - [{LoggingType}] {message}";
-            LogText += logMessage + "\r\n";
-            WriteLogToFile(LogText);
+            logText += logMessage + "\r\n";
+            WriteLogToFile(logText);
             Debug.WriteLine(logMessage);
         }
 

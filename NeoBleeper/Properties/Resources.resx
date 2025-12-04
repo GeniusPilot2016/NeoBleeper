@@ -898,4 +898,10 @@ Do you want to open this file anyway?</value>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>AI model listing failed. Please check your Google Gemini™ API key and internet connection.</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>AI Music Created</value>
+  </data>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>The AI-generated music has been created successfully.</value>
+  </data>
 </root>

@@ -18,10 +18,10 @@ namespace NeoBleeper
 {
     public class TemporarySettings
     {
-        public static class eligibility_of_create_beep_from_system_speaker
+        public static class EligibilityOfCreateBeepFromSystemSpeaker
         {
-            public static bool is_system_speaker_present;
-            public static bool is_chipset_affecting_system_speaker_issues;
+            public static bool isSystemSpeakerPresent;
+            public static bool isChipsetAffectedFromSystemSpeakerIssues;
             public static DeviceType deviceType = DeviceType.Unknown;
 
             public enum DeviceType
@@ -32,9 +32,9 @@ namespace NeoBleeper
             }
         }
 
-        public static class creating_sounds
+        public static class CreatingSounds
         {
-            public static bool create_beep_with_soundcard;
+            public static bool createBeepWithSoundDevice;
             public static SoundDeviceBeepWaveform soundDeviceBeepWaveform = SoundDeviceBeepWaveform.Square;
 
             public enum SoundDeviceBeepWaveform
@@ -44,7 +44,7 @@ namespace NeoBleeper
                 Triangle,
                 Noise
             }
-            public static bool is_playback_muted = false;
+            public static bool isPlaybackMuted = false;
         }
 
         public static class MIDIDevices
@@ -148,10 +148,10 @@ namespace NeoBleeper
             // Output device indexes
             // 0 = Voice system
             // 1 = System speaker/Sound device beep
-            public static int Note1OutputDeviceIndex = 1; // Default to system speaker/sound device beep
-            public static int Note2OutputDeviceIndex = 0; // Default to voice system
-            public static int Note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
-            public static int Note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static int note1OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static int note2OutputDeviceIndex = 0; // Default to voice system
+            public static int note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
+            public static int note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static PlayingVoiceOnLineOptions playingVoiceOnLineOptions = PlayingVoiceOnLineOptions.PlayVoiceOnAllLines;
             public enum PlayingVoiceOnLineOptions
             {

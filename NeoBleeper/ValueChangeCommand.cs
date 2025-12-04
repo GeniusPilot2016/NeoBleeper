@@ -128,11 +128,11 @@ public class ValueChangeCommand : ICommand
 
         if (isBpm)
         {
-            main_window.Variables.bpm = value;
+            MainWindow.Variables.bpm = value;
         }
         else
         {
-            main_window.Variables.alternating_note_length = value;
+            MainWindow.Variables.alternatingNoteLength = value;
         }
 
         numericUpDown.Tag = null;
@@ -142,7 +142,7 @@ public class ValueChangeCommand : ICommand
         // Usage of flag to prevent recursion
         trackBar.Tag = "SkipValueChanged";
         trackBar.Value = value;
-        main_window.Variables.time_signature = value;
+        MainWindow.Variables.timeSignature = value;
         if (label != null)
         {
             label.Text = value.ToString();
@@ -154,7 +154,7 @@ public class ValueChangeCommand : ICommand
         // Usage of flag to prevent recursion
         trackBar.Tag = "SkipValueChanged";
         trackBar.Value = (int)(value * 100);
-        main_window.Variables.note_silence_ratio = value;
+        MainWindow.Variables.noteSilenceRatio = value;
         int percent = (int)(value * 100);
         if (label != null)
         {

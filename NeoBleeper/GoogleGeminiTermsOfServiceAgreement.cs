@@ -8,44 +8,14 @@ namespace NeoBleeper
     public partial class GoogleGeminiTermsOfServiceAgreement : Form
     {
         string unformattedText = string.Empty;
-        private const int EM_SETCHARFORMAT = 1092;
-        private const int SCF_SELECTION = 1;
-        private const uint CFM_LINK = 0x00000020;
-        private const uint CFE_LINK = 0x00000020;
-        private DateTime DateOfBirth = DateTime.Now.AddYears(-13);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        private struct CHARFORMAT2
-        {
-            public int cbSize;
-            public uint dwMask;
-            public uint dwEffects;
-            public int yHeight;
-            public int yOffset;
-            public uint crTextColor;
-            public byte bCharSet;
-            public byte bPitchAndFamily;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public string szFaceName;
-            public ushort wWeight;
-            public ushort sSpacing;
-            public int crBackColor;
-            public int lcid;
-            public uint dwReserved;
-            public short sStyle;
-            public short wKerning;
-            public byte bUnderlineType;
-            public byte bAnimation;
-            public byte bRevAuthor;
-            public byte bReserved1;
-        }
+        private DateTime dateOfBirth = DateTime.Now.AddYears(-13);
         bool agreedTermsOfServiceAgreement = false;
         bool darkTheme = false;
         public GoogleGeminiTermsOfServiceAgreement()
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             dateTimePickerDateOfBirth.MaxDate = DateTime.Now.AddYears(-13);
             dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13).Date;
             if (!string.IsNullOrEmpty(Settings1.Default.cachedGoogleGeminiTermsOfService))
@@ -54,7 +24,7 @@ namespace NeoBleeper
             }
             unformattedText = richTextBoxTerms.Text;
             FormatTerms();
-            set_theme();
+            SetTheme();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -63,12 +33,12 @@ namespace NeoBleeper
             {
                 if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
                 {
-                    set_theme();
+                    SetTheme();
                 }
             }
         }
 
-        private void dark_theme()
+        private void DarkTheme()
         {
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
@@ -78,7 +48,7 @@ namespace NeoBleeper
             this.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
-        private void light_theme()
+        private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
@@ -88,7 +58,7 @@ namespace NeoBleeper
             this.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void set_theme()
+        private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
@@ -100,20 +70,20 @@ namespace NeoBleeper
                     case 0:
                         if (SystemThemeUtility.IsDarkTheme())
                         {
-                            dark_theme();
+                            DarkTheme();
                         }
                         else
                         {
-                            light_theme();
+                            LightTheme();
                         }
                         break;
 
                     case 1:
-                        light_theme();
+                        LightTheme();
                         break;
 
                     case 2:
-                        dark_theme();
+                        DarkTheme();
                         break;
                 }
             }
@@ -154,11 +124,6 @@ namespace NeoBleeper
                 Logger.Log("No internet connection.", Logger.LogTypes.Error);
             }
         }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
-
-        private const int WM_SETREDRAW = 0x0B;
         private void FormatTerms()
         {
             richTextBoxTerms.Rtf = MarkdownToRichTextFile(unformattedText);
@@ -289,7 +254,7 @@ namespace NeoBleeper
             agreement.ShowDialog();
             if (agreement.agreedTermsOfServiceAgreement)
             {
-                if (agreement.DateOfBirth.AddYears(18) > DateTime.Now)
+                if (agreement.dateOfBirth.AddYears(18) > DateTime.Now)
                 {
                     MessageForm.Show(Resources.AISettingsAgeRestrictionWarning, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     rejectAction();
@@ -307,8 +272,8 @@ namespace NeoBleeper
         private void buttonClose_Click(object sender, EventArgs e)
         {
             agreedTermsOfServiceAgreement = checkBoxAccept.Checked;
-            DateOfBirth = dateTimePickerDateOfBirth.Value;
-            Settings1.Default.googleGeminiTermsOfServiceAccepted = agreedTermsOfServiceAgreement && DateOfBirth.AddYears(18).Date < DateTime.Now;
+            dateOfBirth = dateTimePickerDateOfBirth.Value;
+            Settings1.Default.googleGeminiTermsOfServiceAccepted = agreedTermsOfServiceAgreement && dateOfBirth.AddYears(18).Date < DateTime.Now;
             Settings1.Default.Save();
             this.Close();
         }
@@ -324,7 +289,7 @@ namespace NeoBleeper
 
         private void GoogleGeminiTermsOfServiceAgreement_SystemColorsChanged(object sender, EventArgs e)
         {
-            set_theme();
+            SetTheme();
         }
 
         private void richTextBoxTerms_LinkClicked(object sender, LinkClickedEventArgs e)

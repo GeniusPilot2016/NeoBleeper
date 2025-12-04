@@ -133,7 +133,7 @@ namespace NeoBleeper
                 disposed = true;
             }
         }
-        public static void setFonts(Form form)
+        public static void SetFonts(Form form)
         {
             form.SuspendLayout();
             UIFonts uiFonts = UIFonts.Instance;

@@ -18,17 +18,17 @@ namespace NeoBleeper
 {
     public static class NotePlayer
     {
-        public static async void play_note(int frequency, int length, bool nonStopping = false) // Create a beep with the specified frequency and length
+        public static async void PlayNote(int frequency, int length, bool nonStopping = false) // Create a beep with the specified frequency and length
         {
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller) // If the microcontroller is enabled
             {
                 CreateSoundWithMicroController(frequency, length, nonStopping); // Create a sound with the microcontroller
             }
-            switch (TemporarySettings.creating_sounds.is_playback_muted) // Mute the system speaker
+            switch (TemporarySettings.CreatingSounds.isPlaybackMuted) // Mute the system speaker
             {
                 case false: // If the system speaker is not muted, create a beep with the system speaker
                     {
-                        switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
+                        switch (TemporarySettings.CreatingSounds.createBeepWithSoundDevice) // Create a beep with the soundcard or the system speaker
                         {
                             case false: // System speaker
                                 {
@@ -44,24 +44,24 @@ namespace NeoBleeper
                                 }
                             case true: // Soundcard
                                 {
-                                    switch (TemporarySettings.creating_sounds.soundDeviceBeepWaveform)
+                                    switch (TemporarySettings.CreatingSounds.soundDeviceBeepWaveform)
                                     {
-                                        case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Square: // Square wave
+                                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Square: // Square wave
                                             {
                                                 SoundRenderingEngine.WaveSynthEngine.SquareWave(frequency, length, nonStopping);
                                                 break;
                                             }
-                                        case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Sine: // Sine wave
+                                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Sine: // Sine wave
                                             {
                                                 SoundRenderingEngine.WaveSynthEngine.SineWave(frequency, length, nonStopping);
                                                 break;
                                             }
-                                        case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Triangle: // Triangle wave
+                                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Triangle: // Triangle wave
                                             {
                                                 SoundRenderingEngine.WaveSynthEngine.TriangleWave(frequency, length, nonStopping);
                                                 break;
                                             }
-                                        case TemporarySettings.creating_sounds.SoundDeviceBeepWaveform.Noise: // Noise
+                                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Noise: // Noise
                                             {
                                                 SoundRenderingEngine.WaveSynthEngine.Noise(frequency, length, nonStopping);
                                                 break;
@@ -81,7 +81,7 @@ namespace NeoBleeper
         }
         public static void StopAllNotes() // Stop all notes
         {
-            switch (TemporarySettings.creating_sounds.create_beep_with_soundcard) // Create a beep with the soundcard or the system speaker
+            switch (TemporarySettings.CreatingSounds.createBeepWithSoundDevice) // Create a beep with the soundcard or the system speaker
             {
                 case false: // System speaker
                     {

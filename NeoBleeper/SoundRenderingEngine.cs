@@ -46,7 +46,7 @@ namespace NeoBleeper
                     try
                     {
                         Logger.Log("Specifying storage type for resonance prevention...", Logger.LogTypes.Info);
-                        Program.splashScreen.updateStatus(Resources.StatusSpecifyingStorageType);
+                        Program.splashScreen.UpdateStatus(Resources.StatusSpecifyingStorageType);
                         string query = "SELECT * FROM Win32_DiskDrive";
                         using (var searcher = new ManagementObjectSearcher(query))
                         {
@@ -60,7 +60,7 @@ namespace NeoBleeper
                                     StorageType = systemStorageType.NVMe;
                                     resonanceFrequency = 0; // NVMe drives have no resonance issues
                                     Logger.Log("Detected NVMe storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
-                                    Program.splashScreen.updateStatus(Resources.StatusNVMeStorageType, 5);
+                                    Program.splashScreen.UpdateStatus(Resources.StatusNVMeStorageType, 5);
                                     return;
                                 }
                                 else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("SATA", StringComparison.OrdinalIgnoreCase) || model.Contains("SSD", StringComparison.OrdinalIgnoreCase))
@@ -68,7 +68,7 @@ namespace NeoBleeper
                                     StorageType = systemStorageType.SSD;
                                     resonanceFrequency = 0; // SSDs have no resonance issues
                                     Logger.Log("Detected SSD storage. Resonance prevention is not necessary.", Logger.LogTypes.Info);
-                                    Program.splashScreen.updateStatus(Resources.StatusSSDStorageType, 5);
+                                    Program.splashScreen.UpdateStatus(Resources.StatusSSDStorageType, 5);
                                     return;
                                 }
                                 else if (interfaceType.Equals("IDE", StringComparison.OrdinalIgnoreCase) || interfaceType.Equals("ATA", StringComparison.OrdinalIgnoreCase) || model.Contains("HDD", StringComparison.OrdinalIgnoreCase) || model.Contains("Hard Drive", StringComparison.OrdinalIgnoreCase))
@@ -81,20 +81,20 @@ namespace NeoBleeper
                                     resonanceFrequency = storageRPM / 120; // Approximate resonance frequency in Hz
                                     string localizedResonanceMessage = Resources.StatusHDDStorageType.Replace("{value}", resonanceFrequency.ToString());
                                     Logger.Log($"Detected HDD storage with approximate RPM of {storageRPM}. Avoiding resonance frequency of {resonanceFrequency} Hz.", Logger.LogTypes.Info);
-                                    Program.splashScreen.updateStatus(localizedResonanceMessage, 5);
+                                    Program.splashScreen.UpdateStatus(localizedResonanceMessage, 5);
                                     return;
                                 }
                             }
                             StorageType = systemStorageType.Other; // If no known type is found
                             resonanceFrequency = 0; // Assume no resonance issues for unknown types
                             Logger.Log("Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.", Logger.LogTypes.Warning);
-                            Program.splashScreen.updateStatus(Resources.StatusUnknownStorageType, 5);
+                            Program.splashScreen.UpdateStatus(Resources.StatusUnknownStorageType, 5);
                         }
                     }
                     catch (Exception ex)
                     {
                         Logger.Log("Error specifying storage type: " + ex.Message, Logger.LogTypes.Error);
-                        Program.splashScreen.updateStatus("Error specifying storage type. Falling back to HDD settings.");
+                        Program.splashScreen.UpdateStatus("Error specifying storage type. Falling back to HDD settings.");
                         StorageType = systemStorageType.HDD; // Fallback to HDD on error
                     }
                 }
@@ -192,7 +192,7 @@ namespace NeoBleeper
             {
                 try
                 {
-                    if (isSystemSpeakerBeepStuck())
+                    if (IsSystemSpeakerBeepStuck())
                     {
                         StopBeep();
                     }
@@ -202,7 +202,7 @@ namespace NeoBleeper
                     return;
                 }
             }
-            public static bool isSystemSpeakerBeepStuck()
+            public static bool IsSystemSpeakerBeepStuck()
             {
                 try
                 {
@@ -436,7 +436,7 @@ namespace NeoBleeper
                     }
                 }
             }
-            public static bool isSystemSpeakerExist()
+            public static bool IsSystemSpeakerExist()
             {
                 // No system speaker, no problem.
                 // Because it's falling back to sound card beep if no system speaker is found.
@@ -446,7 +446,7 @@ namespace NeoBleeper
                 {
                     try
                     {
-                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
+                        Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerSensorStep1, 10);
                         bool isSystemSpeakerPresentInWMI = false;
                         string query = "SELECT * FROM Win32_PNPEntity WHERE DeviceID LIKE '%PNP0800%'";
                         using (var searcher = new ManagementObjectSearcher(query))
@@ -456,18 +456,18 @@ namespace NeoBleeper
                         }
 
                         // Step 2: Check for electrical feedback on port 0x61 to determine if the system speaker output is physically functional if WMI check is inconclusive
-                        Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
+                        Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerSensorStep2, 10);
                         bool isSystemSpeakerOutputPhysicallyFunctional = IsFunctionalSystemSpeaker();
 
                         // Return true if electrical feedback is detected or if WMI check confirms presence
                         bool result = isSystemSpeakerPresentInWMI || isSystemSpeakerOutputPhysicallyFunctional;
                         if (result == true)
                         {
-                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputPresent);
+                            Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerOutputPresent);
                         }
                         else
                         {
-                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
+                            Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerOutputNotPresent);
                         }
                         Program.isExistenceOfSystemSpeakerChecked = true; // Mark that the check has been performed
                         return result;
@@ -476,7 +476,7 @@ namespace NeoBleeper
                     {
                         Program.isExistenceOfSystemSpeakerChecked = false; // Mark that the check failed
                         Logger.Log("Error during system speaker detection: " + ex.Message, Logger.LogTypes.Error);
-                        Program.splashScreen.updateStatus("Error during system speaker detection. Assuming no system speaker.");
+                        Program.splashScreen.UpdateStatus("Error during system speaker detection. Assuming no system speaker.");
                         return false; // On error, assume no system speaker
                     }
                 }
@@ -492,7 +492,7 @@ namespace NeoBleeper
                 AMD,
                 Other
             }
-            public static bool checkChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
+            public static bool CheckIfChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
             {
@@ -501,7 +501,7 @@ namespace NeoBleeper
                     try
                     {
                         ProcessorManufacturer processorManufacturer = ProcessorManufacturer.Other;
-                        Program.splashScreen.updateStatus(Resources.StatusCheckingChipsetForSystemSpeakerIssues);
+                        Program.splashScreen.UpdateStatus(Resources.StatusCheckingChipsetForSystemSpeakerIssues);
                         // Known affected chipset patterns with system speaker issues
                         string affectedIntelChipsetPattern = @"\b([BZHQ][67][0-9]{2})\b"; // Affected Intel chipset pattern
                         string affectedAMDChipsetPattern = @"\b([BX][56]50|X670)\b"; // Affected AMD chipset pattern
@@ -563,7 +563,7 @@ namespace NeoBleeper
                                 {
                                     string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
                                     string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
-                                    Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
+                                    Program.splashScreen.UpdateStatus(localizedAffectedMessage, 5);
                                     Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                                     return true; // Affected chipset found
                                 }
@@ -574,20 +574,20 @@ namespace NeoBleeper
                                 {
                                     string chipset = Regex.Match(identifier, affectedIntelChipsetPattern, RegexOptions.IgnoreCase).Value;
                                     string localizedAffectedMessage = Resources.StatusCheckingChipsetForSystemSpeakerIssues.Replace("{chipset}", chipset);
-                                    Program.splashScreen.updateStatus(localizedAffectedMessage, 5);
+                                    Program.splashScreen.UpdateStatus(localizedAffectedMessage, 5);
                                     Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                                     return true; // Affected chipset found
                                 }
                             }
                         }
 
-                        Program.splashScreen.updateStatus(Resources.StatusChipsetIsNotAffected, 5);
+                        Program.splashScreen.UpdateStatus(Resources.StatusChipsetIsNotAffected, 5);
                         Program.isAffectedChipsetChecked = true; // Mark that the check has been performed
                         return false; // Return false if no match is found or manufacturer of processor is neither Intel or AMD
                     }
                     catch
                     {
-                        Program.splashScreen.updateStatus(Resources.StatusErrorCheckingChipset);
+                        Program.splashScreen.UpdateStatus(Resources.StatusErrorCheckingChipset);
                         Program.isAffectedChipsetChecked = false; // Mark that the check failed
                         return false; // On error, assume not affected
                     }
@@ -601,7 +601,7 @@ namespace NeoBleeper
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    if (TemporarySettings.eligibility_of_create_beep_from_system_speaker.is_chipset_affecting_system_speaker_issues)
+                    if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
                     {
                         bool acquired = false;
                         // Try to acquire the mutex with a timeout to avoid indefinite blocking
@@ -613,7 +613,7 @@ namespace NeoBleeper
                         }
                         try
                         {
-                            Program.splashScreen.updateStatus(Resources.StatusWakingUpSystemSpeaker);
+                            Program.splashScreen.UpdateStatus(Resources.StatusWakingUpSystemSpeaker);
                             byte originalState = (byte)Inp32(0x61);
 
                             // 1. Close the speaker gate completely to ensure a clean state.
@@ -637,11 +637,11 @@ namespace NeoBleeper
 
                             // 4. Restore the original state of the speaker port.
                             Out32(0x61, originalState);
-                            Program.splashScreen.updateStatus(Resources.StatusSystemSpeakerWokenUp, 2);
+                            Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerWokenUp, 2);
                         }
                         catch (Exception ex)
                         {
-                            Program.splashScreen.updateStatus(Resources.StatusErrorWakingUpSystemSpeaker + ex.Message);
+                            Program.splashScreen.UpdateStatus(Resources.StatusErrorWakingUpSystemSpeaker + ex.Message);
                         }
                         finally
                         {
@@ -672,7 +672,7 @@ namespace NeoBleeper
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
                 waveOut.Init(signalGenerator);
             }
-            public static bool checkIfAnySoundDeviceExistAndEnabled()
+            public static bool CheckIfAnySoundDeviceExistAndEnabled()
             {
                 using (var enumerator = new MMDeviceEnumerator())
                 {

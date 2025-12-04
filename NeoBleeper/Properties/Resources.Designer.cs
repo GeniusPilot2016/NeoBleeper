@@ -19,7 +19,7 @@ namespace NeoBleeper.Properties {
     // sınıfı tarafından otomatik olarak oluşturuldu.
     // Üye eklemek veya kaldırmak için .ResX dosyanızı düzenleyin ve sonra da ResGen
     // komutunu /str seçeneğiyle yeniden çalıştırın veya VS projenizi yeniden oluşturun.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1562,6 +1562,24 @@ namespace NeoBleeper.Properties {
             get {
                 object obj = ResourceManager.GetObject("neobleeper_splash_background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   The AI-generated music has been created successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string NotificationMessageAIMusicCreated {
+            get {
+                return ResourceManager.GetString("NotificationMessageAIMusicCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   AI Music Created benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string NotificationTitleAIMusicCreated {
+            get {
+                return ResourceManager.GetString("NotificationTitleAIMusicCreated", resourceCulture);
             }
         }
         

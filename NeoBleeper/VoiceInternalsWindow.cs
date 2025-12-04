@@ -22,14 +22,14 @@ namespace NeoBleeper
 {
     public partial class VoiceInternalsWindow : Form
     {
-        main_window main_Window;
+        MainWindow main_Window;
         bool darkTheme = false;
-        public VoiceInternalsWindow(main_window main_Window)
+        public VoiceInternalsWindow(MainWindow main_Window)
         {
             this.main_Window = main_Window;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            UIFonts.setFonts(this);
+            UIFonts.SetFonts(this);
             set_theme();
             trackBarFormant1Vol.Value = setReverseTrackBarValue(trackBarFormant1Vol, TemporarySettings.VoiceInternalSettings.Formant1Volume);
             trackBarFormant2Vol.Value = setReverseTrackBarValue(trackBarFormant2Vol, TemporarySettings.VoiceInternalSettings.Formant2Volume);
@@ -54,10 +54,10 @@ namespace NeoBleeper
             trackBarSybillance2Hz.Value = setReverseTrackBarValue(trackBarSybillance2Hz, TemporarySettings.VoiceInternalSettings.Sybillance2Frequency);
             trackBarSybillance3Hz.Value = setReverseTrackBarValue(trackBarSybillance3Hz, TemporarySettings.VoiceInternalSettings.Sybillance3Frequency);
             trackBarSybillance4Hz.Value = setReverseTrackBarValue(trackBarSybillance4Hz, TemporarySettings.VoiceInternalSettings.Sybillance4Frequency);
-            comboBoxNote1Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex;
-            comboBoxNote2Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex;
-            comboBoxNote3Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex;
-            comboBoxNote4Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex;
+            comboBoxNote1Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex;
+            comboBoxNote2Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex;
+            comboBoxNote3Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex;
+            comboBoxNote4Option.SelectedIndex = TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex;
             labelFormant1Hz.Text = TemporarySettings.VoiceInternalSettings.Formant1Frequency.ToString() + " Hz";
             labelFormant2Hz.Text = TemporarySettings.VoiceInternalSettings.Formant2Frequency.ToString() + " Hz";
             labelFormant3Hz.Text = TemporarySettings.VoiceInternalSettings.Formant3Frequency.ToString() + " Hz";
@@ -485,53 +485,53 @@ namespace NeoBleeper
 
         private void comboBoxNote1Option_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxNote1Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex)
+            if (comboBoxNote1Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex)
             {
                 if (comboBoxNote1Option.SelectedIndex == 1)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(0);
                 }
-                TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex = comboBoxNote1Option.SelectedIndex;
-                Logger.Log("Note 1 Output Device set to index " + (TemporarySettings.VoiceInternalSettings.Note1OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex = comboBoxNote1Option.SelectedIndex;
+                Logger.Log("Note 1 Output Device set to index " + (TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
         }
 
         private void comboBoxNote2Option_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxNote2Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex)
+            if (comboBoxNote2Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex)
             {
                 if (comboBoxNote2Option.SelectedIndex == 1)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(1);
                 }
-                TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex = comboBoxNote2Option.SelectedIndex;
-                Logger.Log("Note 2 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note2OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex = comboBoxNote2Option.SelectedIndex;
+                Logger.Log("Note 2 Output Device set to " + (TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
         }
 
         private void comboBoxNote3Option_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxNote3Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex)
+            if (comboBoxNote3Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex)
             {
                 if (comboBoxNote3Option.SelectedIndex == 1)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(2);
                 }
-                TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex = comboBoxNote3Option.SelectedIndex;
-                Logger.Log("Note 3 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note3OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex = comboBoxNote3Option.SelectedIndex;
+                Logger.Log("Note 3 Output Device set to " + (TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
         }
 
         private void comboBoxNote4Option_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxNote4Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex)
+            if (comboBoxNote4Option.SelectedIndex != TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex)
             {
                 if (comboBoxNote4Option.SelectedIndex == 1)
                 {
                     SoundRenderingEngine.VoiceSynthesisEngine.StopVoice(3);
                 }
-                TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex = comboBoxNote4Option.SelectedIndex;
-                Logger.Log("Note 4 Output Device set to " + (TemporarySettings.VoiceInternalSettings.Note4OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
+                TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex = comboBoxNote4Option.SelectedIndex;
+                Logger.Log("Note 4 Output Device set to " + (TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 0 ? "Voice system" : "System speaker/Sound device beep"), Logger.LogTypes.Info);
             }
         }
 

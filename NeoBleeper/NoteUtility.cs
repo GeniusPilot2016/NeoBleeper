@@ -18,7 +18,7 @@ namespace NeoBleeper
 {
     public class NoteUtility
     {
-        public static class base_note_frequency_in_4th_octave
+        public static class BaseNoteFrequencyIn4thOctave
         {
             public static double C = 261.63;
             public static double CS = 277.18;
@@ -39,7 +39,7 @@ namespace NeoBleeper
         public static double GetFrequencyFromNoteName(string noteName)
         {
             if (string.IsNullOrEmpty(noteName))
-                return NoteUtility.base_note_frequency_in_4th_octave.C;
+                return NoteUtility.BaseNoteFrequencyIn4thOctave.C;
             try
             {
                 // Disassemble note name into note and octave
@@ -48,18 +48,18 @@ namespace NeoBleeper
                 // Basic frequency for the note in the 4th octave
                 double baseFrequency = note switch
                 {
-                    "C" => NoteUtility.base_note_frequency_in_4th_octave.C,
-                    "C#" => NoteUtility.base_note_frequency_in_4th_octave.CS,
-                    "D" => NoteUtility.base_note_frequency_in_4th_octave.D,
-                    "D#" => NoteUtility.base_note_frequency_in_4th_octave.DS,
-                    "E" => NoteUtility.base_note_frequency_in_4th_octave.E,
-                    "F" => NoteUtility.base_note_frequency_in_4th_octave.F,
-                    "F#" => NoteUtility.base_note_frequency_in_4th_octave.FS,
-                    "G" => NoteUtility.base_note_frequency_in_4th_octave.G,
-                    "G#" => NoteUtility.base_note_frequency_in_4th_octave.GS,
-                    "A" => NoteUtility.base_note_frequency_in_4th_octave.A,
-                    "A#" => NoteUtility.base_note_frequency_in_4th_octave.AS,
-                    "B" => NoteUtility.base_note_frequency_in_4th_octave.B,
+                    "C" => NoteUtility.BaseNoteFrequencyIn4thOctave.C,
+                    "C#" => NoteUtility.BaseNoteFrequencyIn4thOctave.CS,
+                    "D" => NoteUtility.BaseNoteFrequencyIn4thOctave.D,
+                    "D#" => NoteUtility.BaseNoteFrequencyIn4thOctave.DS,
+                    "E" => NoteUtility.BaseNoteFrequencyIn4thOctave.E,
+                    "F" => NoteUtility.BaseNoteFrequencyIn4thOctave.F,
+                    "F#" => NoteUtility.BaseNoteFrequencyIn4thOctave.FS,
+                    "G" => NoteUtility.BaseNoteFrequencyIn4thOctave.G,
+                    "G#" => NoteUtility.BaseNoteFrequencyIn4thOctave.GS,
+                    "A" => NoteUtility.BaseNoteFrequencyIn4thOctave.A,
+                    "A#" => NoteUtility.BaseNoteFrequencyIn4thOctave.AS,
+                    "B" => NoteUtility.BaseNoteFrequencyIn4thOctave.B,
                     _ => 0 // Invalid note
                 };
 
@@ -72,7 +72,7 @@ namespace NeoBleeper
             }
             catch
             {
-                return NoteUtility.base_note_frequency_in_4th_octave.C;
+                return NoteUtility.BaseNoteFrequencyIn4thOctave.C;
             }
         }
     }

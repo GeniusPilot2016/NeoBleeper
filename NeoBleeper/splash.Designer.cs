@@ -1,6 +1,6 @@
 ﻿namespace NeoBleeper
 {
-    partial class splash
+    partial class Splash
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(splash));
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
             label1 = new Label();
             pictureBox1 = new PictureBox();
             labelVersion = new Label();
             progressBar1 = new ProgressBar();
             labelStatus = new Label();
             panel1 = new Panel();
+            notifyIconNeoBleeper = new NotifyIcon(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -90,7 +92,12 @@
             resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
-            // splash
+            // notifyIconNeoBleeper
+            // 
+            resources.ApplyResources(notifyIconNeoBleeper, "notifyIconNeoBleeper");
+            notifyIconNeoBleeper.BalloonTipClicked += notifyIconNeoBleeper_BalloonTipClicked;
+            // 
+            // Splash
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -106,9 +113,10 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "splash";
+            Name = "Splash";
             Deactivate += splash_Deactivate;
             FormClosed += splash_FormClosed;
+            Load += splash_Load;
             MouseDown += splash_MouseDown;
             MouseMove += splash_MouseMove;
             MouseUp += splash_MouseUp;
@@ -126,5 +134,6 @@
         private System.Windows.Forms.Timer progressTimer;
         private Label labelStatus;
         private Panel panel1;
+        private NotifyIcon notifyIconNeoBleeper;
     }
 }
