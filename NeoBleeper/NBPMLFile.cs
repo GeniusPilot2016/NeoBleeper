@@ -16,7 +16,7 @@
 
 using System.Xml;
 using System.Xml.Serialization;
-public class NBPML_File
+public class NBPMLFile
 {
     [XmlRoot("NeoBleeperProjectFile")]
     public class NeoBleeperProjectFile

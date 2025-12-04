@@ -175,6 +175,12 @@
   <data name="label_time_signature.Text" xml:space="preserve">
     <value>Taktart</value>
   </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Datei</value>
+  </data>
   <data name="newToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>270, 22</value>
   </data>
@@ -236,6 +242,12 @@
   <data name="createMusicWithAIToolStripMenuItem.Text" xml:space="preserve">
     <value>Erstellen Sie Musik mit KI</value>
   </data>
+  <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
+    <value>Konvertieren in...</value>
+  </data>
   <data name="convertToGCodeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>355, 22</value>
   </data>
@@ -248,17 +260,11 @@
   <data name="convertToBeepCommandForLinuxToolStripMenuItem.Text" xml:space="preserve">
     <value>In Beep-Befehl für Linux konvertieren</value>
   </data>
-  <data name="convertToToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 20</value>
   </data>
-  <data name="convertToToolStripMenuItem.Text" xml:space="preserve">
-    <value>Konvertieren in...</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Datei</value>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Bearbeiten</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>481, 22</value>
@@ -277,12 +283,6 @@
   </data>
   <data name="rewindToSavedVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Alle Änderungen an der gespeicherten Version rückgängig machen</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 20</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Bearbeiten</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 20</value>
@@ -307,7 +307,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
-        AAHwASUB8AElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+        AAH4ASUB+AElARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
         ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
         /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
         lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
@@ -703,11 +703,26 @@
   <data name="length.Text" xml:space="preserve">
     <value>Länge</value>
   </data>
+  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 264</value>
+  </data>
+  <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 350</value>
+  </data>
+  <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>381, 334</value>
+  </data>
   <data name="blankLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>312, 26</value>
   </data>
   <data name="blankLineToolStripMenuItem.Text" xml:space="preserve">
     <value>Leere Zeile</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Löschen Notes</value>
   </data>
   <data name="clearNote1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>225, 26</value>
@@ -732,12 +747,6 @@
   </data>
   <data name="clearNote4ToolStripMenuItem.Text" xml:space="preserve">
     <value>Note 4 Löschen</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 26</value>
-  </data>
-  <data name="clearNotesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Löschen Notes</value>
   </data>
   <data name="unselectLineToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>312, 26</value>
@@ -778,6 +787,12 @@
   <data name="uncheckAllNotesToolStripMenuItem.Text" xml:space="preserve">
     <value>Deaktivieren Sie Alle Notizen</value>
   </data>
+  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 26</value>
+  </data>
+  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Wiedergabesteuerung</value>
+  </data>
   <data name="playAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 26</value>
   </data>
@@ -795,21 +810,6 @@
   </data>
   <data name="stopPlayingToolStripMenuItem.Text" xml:space="preserve">
     <value>Hör Auf Zu Spielen</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 26</value>
-  </data>
-  <data name="playbackControlsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Wiedergabesteuerung</value>
-  </data>
-  <data name="notes_list_right_click.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 264</value>
-  </data>
-  <data name="listViewNotes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 350</value>
-  </data>
-  <data name="listViewNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 334</value>
   </data>
   <data name="label_note_length.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 2</value>
@@ -1043,6 +1043,12 @@
   <data name="checkbox_play_note.Text" xml:space="preserve">
     <value>Note spielen</value>
   </data>
+  <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 160</value>
+  </data>
+  <data name="group_adding_note.Text" xml:space="preserve">
+    <value>Notiz hinzufügen</value>
+  </data>
   <data name="add_as_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 20</value>
   </data>
@@ -1085,17 +1091,17 @@
   <data name="checkBox_add_note_to_list.Text" xml:space="preserve">
     <value>Notiz zur Musikliste hinzufügen</value>
   </data>
-  <data name="group_adding_note.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 160</value>
-  </data>
-  <data name="group_adding_note.Text" xml:space="preserve">
-    <value>Notiz hinzufügen</value>
-  </data>
   <data name="group_key_is_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 208</value>
   </data>
   <data name="group_key_is_clicked.Text" xml:space="preserve">
     <value>Wenn die Taste angeklickt wird</value>
+  </data>
+  <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 102</value>
+  </data>
+  <data name="group_line_clicked.Text" xml:space="preserve">
+    <value>Wenn auf eine Zeile geklickt wird</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -1121,11 +1127,11 @@
   <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
     <value>Note 1 abspielen</value>
   </data>
-  <data name="group_line_clicked.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>204, 102</value>
   </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>Wenn auf eine Zeile geklickt wird</value>
+  <data name="group_music_played.Text" xml:space="preserve">
+    <value>Wenn die Musik gespielt wird</value>
   </data>
   <data name="checkBox_play_note4_played.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -1151,12 +1157,6 @@
   <data name="checkBox_play_note2_played.Text" xml:space="preserve">
     <value>Note 2 abspielen</value>
   </data>
-  <data name="group_music_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 102</value>
-  </data>
-  <data name="group_music_played.Text" xml:space="preserve">
-    <value>Wenn die Musik gespielt wird</value>
-  </data>
   <data name="group_notes.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 226</value>
   </data>
@@ -1175,14 +1175,14 @@
   <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="lbl_ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 5</value>
-  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>52, 40</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 27</value>
+  </data>
+  <data name="lbl_ms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 5</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>816, 237</value>
@@ -1194,17 +1194,17 @@
   <data name="position_table.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 16</value>
-  </data>
-  <data name="lbl_measure.Text" xml:space="preserve">
-    <value>Messen</value>
-  </data>
   <data name="position_table.Location" type="System.Drawing.Point, System.Drawing">
     <value>854, 555</value>
   </data>
   <data name="position_table.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 77</value>
+  </data>
+  <data name="lbl_measure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 16</value>
+  </data>
+  <data name="lbl_measure.Text" xml:space="preserve">
+    <value>Messen</value>
   </data>
   <data name="checkBox_bleeper_portamento.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 580</value>
@@ -1229,7 +1229,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA3gcAAAJNU0Z0AUkBTAMBAQAB
-        mAElAZgBJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
+        oAElAaABJQEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wBv
         AAQBAz0BaAJXAVYBtQJdAVoBxwJQAU8BmwMkATX/ACEAAw0BEQJdAVsBygHgAZYBFwH/Ad8BlAEVAf8B
         3gGSARQB/wHdAY8BEQH/AdwBjQEQAf8B2wGKAQ4B/wOAAf4DPQFo/wAVAAMtAUUB4wGeARwB/wHiAZsB
         GgH/AeEBmQEZAf8B4AGWARcB/wHfAZQBFQH/Ad4BkgEUAf8B3QGPAREB/wHcAY0BEAH/AdsBigEOAf8B

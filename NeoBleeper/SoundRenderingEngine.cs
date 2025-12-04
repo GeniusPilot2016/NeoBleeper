@@ -737,6 +737,21 @@ namespace NeoBleeper
                 }
             }
 
+            public static bool AreWavesMutedEarly() 
+            {                 
+                lock (AudioLock)
+                {
+                    if (currentProvider == signalGenerator)
+                    {
+                        return signalGenerator.Gain == 0;
+                    }
+                    else if (currentProvider == bandPassNoise)
+                    {
+                        return whiteNoiseGenerator.Gain == 0;
+                    }
+                    return true; // If no provider is active, consider it muted
+                }
+            }
             public static void StopSynth()
             {
                 lock (AudioLock)

@@ -229,10 +229,10 @@ namespace NeoBleeper
 
             return gcodeBuilder.ToString();
         }
-        private NBPML_File.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
+        private NBPMLFile.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
-            return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(stringReader);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
+            return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(stringReader);
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -820,7 +820,7 @@ namespace NeoBleeper
                 UpdateFormTitle();
             }
         }
-        int note_frequency;
+        int noteFrequency;
         private async void PlayNoteWhenAKeyIsClicked(int frequency)
         {
             if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
@@ -917,8 +917,8 @@ namespace NeoBleeper
                             rawFrequency = (int)(NoteUtility.BaseNoteFrequencyIn4thOctave.C);
                             break;
                     }
-                    note_frequency = Convert.ToInt16(rawFrequency * (Math.Pow(2, (currentOctave - 4))));
-                    PlayNoteWhenAKeyIsClicked(note_frequency);
+                    noteFrequency = Convert.ToInt16(rawFrequency * (Math.Pow(2, (currentOctave - 4))));
+                    PlayNoteWhenAKeyIsClicked(noteFrequency);
                 }
                 Logger.Log($"Key {noteName} is clicked", Logger.LogTypes.Info);
             }
@@ -997,12 +997,12 @@ namespace NeoBleeper
                 if (playNote4 && !string.IsNullOrWhiteSpace(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
             }
         }
-        private static NBPML_File.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
+        private static NBPMLFile.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
             using (StringReader reader = new StringReader(xmlContent))
             {
-                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader);
+                return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(reader);
             }
         }
 
@@ -1018,7 +1018,7 @@ namespace NeoBleeper
             try
             {
                 saveToolStripMenuItem.Enabled = true;
-                NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXMLFromString(createdMusic);
+                NBPMLFile.NeoBleeperProjectFile projectFile = DeserializeXMLFromString(createdMusic);
                 if (projectFile != null)
                 {
                     if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
@@ -1507,7 +1507,7 @@ namespace NeoBleeper
                             isFileValid = true;
                             saveToolStripMenuItem.Enabled = true;
                             saveAsToolStripMenuItem.Enabled = true;
-                            NBPML_File.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
+                            NBPMLFile.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
                             {
                                 if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
                                 {
@@ -1727,12 +1727,12 @@ namespace NeoBleeper
             }
             UpdateRecentFilesMenu();
         }
-        public static NBPML_File.NeoBleeperProjectFile DeserializeXML(string filePath)
+        public static NBPMLFile.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
             using (StreamReader reader = new StreamReader(filePath))
             {
-                return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(reader);
+                return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(reader);
             }
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1829,11 +1829,11 @@ namespace NeoBleeper
         {
             try
             {
-                NBPML_File.NeoBleeperProjectFile projectFile = new NBPML_File.NeoBleeperProjectFile
+                NBPMLFile.NeoBleeperProjectFile projectFile = new NBPMLFile.NeoBleeperProjectFile
                 {
-                    Settings = new NBPML_File.Settings
+                    Settings = new NBPMLFile.Settings
                     {
-                        RandomSettings = new NBPML_File.RandomSettings
+                        RandomSettings = new NBPMLFile.RandomSettings
                         {
                             KeyboardOctave = Variables.octave.ToString(),
                             BPM = Variables.bpm.ToString(),
@@ -1842,7 +1842,7 @@ namespace NeoBleeper
                             NoteLength = comboBox_note_length.SelectedIndex.ToString(),
                             AlternateTime = numericUpDown_alternating_notes.Value.ToString()
                         },
-                        PlaybackSettings = new NBPML_File.PlaybackSettings
+                        PlaybackSettings = new NBPMLFile.PlaybackSettings
                         {
                             NoteClickPlay = checkbox_play_note.Checked.ToString(),
                             NoteClickAdd = checkBox_add_note_to_list.Checked.ToString(),
@@ -1853,14 +1853,14 @@ namespace NeoBleeper
                             NoteReplace = checkBox_replace.Checked.ToString(),
                             NoteLengthReplace = checkBox_replace_length.Checked.ToString()
                         },
-                        PlayNotes = new NBPML_File.PlayNotes
+                        PlayNotes = new NBPMLFile.PlayNotes
                         {
                             PlayNote1 = checkBox_play_note1_played.Checked.ToString(),
                             PlayNote2 = checkBox_play_note2_played.Checked.ToString(),
                             PlayNote3 = checkBox_play_note3_played.Checked.ToString(),
                             PlayNote4 = checkBox_play_note4_played.Checked.ToString()
                         },
-                        ClickPlayNotes = new NBPML_File.ClickPlayNotes
+                        ClickPlayNotes = new NBPMLFile.ClickPlayNotes
                         {
                             ClickPlayNote1 = checkBox_play_note1_clicked.Checked.ToString(),
                             ClickPlayNote2 = checkBox_play_note2_clicked.Checked.ToString(),
@@ -1868,9 +1868,9 @@ namespace NeoBleeper
                             ClickPlayNote4 = checkBox_play_note4_clicked.Checked.ToString()
                         }
                     },
-                    LineList = new NBPML_File.List
+                    LineList = new NBPMLFile.List
                     {
-                        Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
+                        Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPMLFile.Line
                         {
                             Length = ConvertLocalizedNoteLengthIntoUnlocalized(item.SubItems[0].Text),
                             Note1 = item.SubItems[1].Text,
@@ -3418,33 +3418,33 @@ namespace NeoBleeper
             }
             UpdateLabelVisible(false);
         }
-        private async Task PlayNotesOfLine(bool play_note1, bool play_note2, bool play_note3, bool play_note4, int length, bool nonStopping = false) // Play note in a line
+        private async Task PlayNotesOfLine(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false) // Play note in a line
         {
             Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
-            double note1_frequency = 0, note2_frequency = 0, note3_frequency = 0, note4_frequency = 0;
+            double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
             String[] notes = new string[4];
             if (listViewNotes.SelectedItems.Count > 0)
             {
-                int selected_line = listViewNotes.SelectedIndices[0];
+                int selectedLine = listViewNotes.SelectedIndices[0];
 
                 // Take music note names from the selected line
-                note1 = play_note1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
-                note2 = play_note2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
-                note3 = play_note3 ? listViewNotes.Items[selected_line].SubItems[3].Text : string.Empty;
-                note4 = play_note4 ? listViewNotes.Items[selected_line].SubItems[4].Text : string.Empty;
+                note1 = playNote1 ? listViewNotes.Items[selectedLine].SubItems[1].Text : string.Empty;
+                note2 = playNote2 ? listViewNotes.Items[selectedLine].SubItems[2].Text : string.Empty;
+                note3 = playNote3 ? listViewNotes.Items[selectedLine].SubItems[3].Text : string.Empty;
+                note4 = playNote4 ? listViewNotes.Items[selectedLine].SubItems[4].Text : string.Empty;
                 // Calculate frequencies from note names
                 if (!string.IsNullOrWhiteSpace(note1))
-                    note1_frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
+                    note1Frequency = NoteFrequencies.GetFrequencyFromNoteName(note1);
 
                 if (!string.IsNullOrWhiteSpace(note2))
-                    note2_frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
+                    note2Frequency = NoteFrequencies.GetFrequencyFromNoteName(note2);
 
                 if (!string.IsNullOrWhiteSpace(note3))
-                    note3_frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
+                    note3Frequency = NoteFrequencies.GetFrequencyFromNoteName(note3);
 
                 if (!string.IsNullOrWhiteSpace(note4))
-                    note4_frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
+                    note4Frequency = NoteFrequencies.GetFrequencyFromNoteName(note4);
             }
             if (radioButtonPlay_alternating_notes1.Checked == true) // Odd column mode
             {
@@ -3459,19 +3459,19 @@ namespace NeoBleeper
             {
                 if (notes[0].Contains(note1) && !string.IsNullOrWhiteSpace(note1))
                 {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note1_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note1Frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note2) && !string.IsNullOrWhiteSpace(note2))
                 {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note2_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note2Frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note3) && !string.IsNullOrWhiteSpace(note3))
                 {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note3_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note3Frequency), length, nonStopping);
                 }
                 else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note4)))
                 {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note4_frequency), length, nonStopping);
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note4Frequency), length, nonStopping);
                 }
             }
             else if (notes.Length > 1)
@@ -3611,7 +3611,7 @@ namespace NeoBleeper
                 }
             }
         }
-        int beat_length = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
+        int beatLength = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
         private void UpdateDisplays(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
@@ -3649,44 +3649,44 @@ namespace NeoBleeper
                         case TemporarySettings.BeatTypes.BeatType.PlayOnAllBeats:
                             if (IsWholeNumber(beatNumber))
                             {
-                                beat_length = PlayBeatSound();
+                                beatLength = PlayBeatSound();
                             }
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnOddBeats:
                             if (beatNumber % 2 != 0 && IsWholeNumber(beatNumber))
                             {
-                                beat_length = PlayBeatSound();
+                                beatLength = PlayBeatSound();
                             }
                             else
                             {
-                                beat_length = 0; // Reset beat length if not playing on odd beats
+                                beatLength = 0; // Reset beat length if not playing on odd beats
                             }
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnEvenBeats:
                             if (beatNumber % 2 == 0 && IsWholeNumber(beatNumber))
                             {
-                                beat_length = PlayBeatSound();
+                                beatLength = PlayBeatSound();
                             }
                             else
                             {
-                                beat_length = 0; // Reset beat length if not playing on odd beats
+                                beatLength = 0; // Reset beat length if not playing on odd beats
                             }
                             break;
                         case TemporarySettings.BeatTypes.BeatType.PlayOnCheckedLines:
                             if (listViewNotes.Items[Line].Checked == true)
                             {
-                                beat_length = PlayBeatSound();
+                                beatLength = PlayBeatSound();
                             }
                             else
                             {
-                                beat_length = 0; // Reset beat length if not playing on checked lines
+                                beatLength = 0; // Reset beat length if not playing on checked lines
                             }
                             break;
                     }
                 }
                 else
                 {
-                    beat_length = 0; // Reset beat length if not playing beat sound
+                    beatLength = 0; // Reset beat length if not playing beat sound
                 }
             }
         }
@@ -3702,13 +3702,13 @@ namespace NeoBleeper
 
             // Calculate length based on BPM
             double calculatedLengthFactor = 0.1; // Factor to adjust the length of the sound
-            int miliseconds_per_whole_note = 0;
+            int milisecondsPerWholeNote = 0;
             if (Variables.bpm != 0)
             {
-                miliseconds_per_whole_note = (int)Math.Truncate(240000.0 / Variables.bpm);
+                milisecondsPerWholeNote = (int)Math.Truncate(240000.0 / Variables.bpm);
             }
 
-            int length = Math.Max(1, (int)Math.Truncate((miliseconds_per_whole_note / 15.0) * calculatedLengthFactor));
+            int length = Math.Max(1, (int)Math.Truncate((milisecondsPerWholeNote / 15.0) * calculatedLengthFactor));
 
             // Create a percussion sound
             for (int i = 0; i < 2; i++) // 2 beats
@@ -3832,16 +3832,16 @@ namespace NeoBleeper
         }
         private Color SetTraditionalBeatColor(string text)
         {
-            Color text_color;
+            Color textColor;
             if (text.Contains(Resources.TextBeatError))
             {
-                text_color = Color.Red;
+                textColor = Color.Red;
             }
             else
             {
-                text_color = Color.Green;
+                textColor = Color.Green;
             }
-            return text_color;
+            return textColor;
         }
         private double NoteLengthToBeats(ListViewItem listViewItem)
         {
@@ -4160,13 +4160,13 @@ namespace NeoBleeper
         {
             try
             {
-                string first_line = File.ReadLines(fileName).First();
+                string firstLine = File.ReadLines(fileName).First();
                 if (MIDIFileValidator.IsMidiFile(fileName))
                 {
                     OpenMIDIFilePlayer(fileName);
                 }
-                else if (first_line == "Bleeper Music Maker by Robbi-985 file format" ||
-                    first_line == "<NeoBleeperProjectFile>")
+                else if (firstLine == "Bleeper Music Maker by Robbi-985 file format" ||
+                    firstLine == "<NeoBleeperProjectFile>")
                 {
                     switch (fileOpenMode)
                     {
@@ -4233,9 +4233,9 @@ namespace NeoBleeper
                 MessageForm.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private static void SerializeXML(string filePath, NBPML_File.NeoBleeperProjectFile projectFile)
+        private static void SerializeXML(string filePath, NBPMLFile.NeoBleeperProjectFile projectFile)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+            XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
             XmlDocument xmlDoc = new XmlDocument();
 
             using (MemoryStream memoryStream = new MemoryStream())
@@ -4732,7 +4732,7 @@ namespace NeoBleeper
         }
         private void main_window_Load(object sender, EventArgs e)
         {
-            NotificationUtils.SetPrimaryNotifyIcon(this,notifyIconNeoBleeper); // Set the primary notify icon for notifications
+            NotificationUtils.SetPrimaryNotifyIcon(this, notifyIconNeoBleeper); // Set the primary notify icon for notifications
             InitializeMetronome();
             UpdateRecentFilesMenu();
         }
@@ -5012,8 +5012,8 @@ namespace NeoBleeper
         }
         private void ClosePlayBeatSoundWindow()
         {
-            PlayBeatWindow play_Beat_Window = checkBox_play_beat_sound.Tag as PlayBeatWindow;
-            play_Beat_Window.Close();
+            PlayBeatWindow playBeatWindow = checkBox_play_beat_sound.Tag as PlayBeatWindow;
+            playBeatWindow.Close();
         }
         private void ClosePortamentoWindow()
         {
@@ -5093,11 +5093,11 @@ namespace NeoBleeper
             try
             {
                 // Create NBPML file object
-                NBPML_File.NeoBleeperProjectFile projectFile = new NBPML_File.NeoBleeperProjectFile
+                NBPMLFile.NeoBleeperProjectFile projectFile = new NBPMLFile.NeoBleeperProjectFile
                 {
-                    Settings = new NBPML_File.Settings
+                    Settings = new NBPMLFile.Settings
                     {
-                        RandomSettings = new NBPML_File.RandomSettings
+                        RandomSettings = new NBPMLFile.RandomSettings
                         {
                             KeyboardOctave = Variables.octave.ToString(),
                             BPM = Variables.bpm.ToString(),
@@ -5106,7 +5106,7 @@ namespace NeoBleeper
                             NoteLength = comboBox_note_length.SelectedIndex.ToString(),
                             AlternateTime = numericUpDown_alternating_notes.Value.ToString()
                         },
-                        PlaybackSettings = new NBPML_File.PlaybackSettings
+                        PlaybackSettings = new NBPMLFile.PlaybackSettings
                         {
                             NoteClickPlay = checkbox_play_note.Checked.ToString(),
                             NoteClickAdd = checkBox_add_note_to_list.Checked.ToString(),
@@ -5117,14 +5117,14 @@ namespace NeoBleeper
                             NoteReplace = checkBox_replace.Checked.ToString(),
                             NoteLengthReplace = checkBox_replace_length.Checked.ToString()
                         },
-                        PlayNotes = new NBPML_File.PlayNotes
+                        PlayNotes = new NBPMLFile.PlayNotes
                         {
                             PlayNote1 = checkBox_play_note1_played.Checked.ToString(),
                             PlayNote2 = checkBox_play_note2_played.Checked.ToString(),
                             PlayNote3 = checkBox_play_note3_played.Checked.ToString(),
                             PlayNote4 = checkBox_play_note4_played.Checked.ToString()
                         },
-                        ClickPlayNotes = new NBPML_File.ClickPlayNotes
+                        ClickPlayNotes = new NBPMLFile.ClickPlayNotes
                         {
                             ClickPlayNote1 = checkBox_play_note1_clicked.Checked.ToString(),
                             ClickPlayNote2 = checkBox_play_note2_clicked.Checked.ToString(),
@@ -5132,9 +5132,9 @@ namespace NeoBleeper
                             ClickPlayNote4 = checkBox_play_note4_clicked.Checked.ToString()
                         }
                     },
-                    LineList = new NBPML_File.List
+                    LineList = new NBPMLFile.List
                     {
-                        Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPML_File.Line
+                        Lines = listViewNotes.Items.Cast<ListViewItem>().Select(item => new NBPMLFile.Line
                         {
                             Length = ConvertLocalizedNoteLengthIntoUnlocalized(item.SubItems[0].Text),
                             Note1 = item.SubItems[1].Text,
@@ -5150,7 +5150,7 @@ namespace NeoBleeper
                 // Serialize to string into XML format and remove namespace
                 using (StringWriter stringWriter = new StringWriter())
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
+                    XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
                     XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                     namespaces.Add(string.Empty, string.Empty); // Namespace'i kaldır
                     serializer.Serialize(stringWriter, projectFile, namespaces);
@@ -5320,26 +5320,67 @@ namespace NeoBleeper
                 e.SuppressKeyPress = true; // Suppress the key press sound
                 HashSet<int> currentlyPressedKeys = new HashSet<int>();
                 currentlyPressedKeys.Add((int)e.KeyCode);
-                if (currentlyPressedKeys == pressedKeys)
+                if (!isAlternatingPlaying)
                 {
-                    // If the key is already pressed, do nothing
-                    e.Handled = true;
-                    return;
+                    RestartBeepIfMutedEarly(GetFrequencyFromKeyCode((int)e.KeyCode));
+                    if (currentlyPressedKeys == pressedKeys)
+                    {
+                        // If the key is already pressed, do nothing
+                        e.Handled = true;
+                        return;
+                    }
+                    keyPressed = true; // Set KeyPressed to true when a key is pressed
+                    pressedKeys.Add((int)e.KeyCode);
+                    keyCharNum = pressedKeys.Distinct().ToArray();
+                    MarkupTheKeyWhenKeyIsPressed(e.KeyValue);
+                    PlayWithRegularKeyboard();
                 }
-                keyPressed = true; // Set KeyPressed to true when a key is pressed
-                pressedKeys.Add((int)e.KeyCode);
-                keyCharNum = pressedKeys.Distinct().ToArray();
-                MarkupTheKeyWhenKeyIsPressed(e.KeyValue);
-                PlayWithRegularKeyboard();
-            }
-            // Allow regular keyboard shortcuts to work
-            else
-            {
-                // Let other key presses pass through (like Ctrl+S, Ctrl+Z, etc.)
-                e.Handled = false;
+                // Allow regular keyboard shortcuts to work
+                else
+                {
+                    // Let other key presses pass through (like Ctrl+S, Ctrl+Z, etc.)
+                    e.Handled = false;
+                }
             }
         }
-
+        private async void RestartBeepIfMutedEarly(int frequency)
+        {
+            if (IsBeepMutedEarly())
+            {
+                // Only restart beep if portamento is disabled or set to always produce sound
+                Action restartBeepAction = async () =>
+                {
+                    await PlayBeepWithLabelAsync(frequency, 1, true);
+                };
+                if (checkBox_bleeper_portamento.Checked &&
+                       TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
+                {
+                    restartBeepAction(); // Play non-stopping beep to restart beep
+                }
+                else if (!checkBox_bleeper_portamento.Checked)
+                {
+                    restartBeepAction(); // Play non-stopping beep to restart beep
+                }
+            }
+        }
+        private bool IsBeepMutedEarly()
+        {
+            if (!TemporarySettings.CreatingSounds.isPlaybackMuted)
+            {
+                if (TemporarySettings.CreatingSounds.createBeepWithSoundDevice)
+                {
+                    return SoundRenderingEngine.WaveSynthEngine.AreWavesMutedEarly();
+                }
+                else
+                {
+                    return !SoundRenderingEngine.SystemSpeakerBeepEngine.IsSystemSpeakerBeepStuck();
+                }
+            }
+            else
+            {
+                return false; // Not muted early if playback is muted
+            }
+        }
         private void main_window_KeyUp(object sender, KeyEventArgs e)
         {
             RemoveKey((int)e.KeyCode);
@@ -6287,13 +6328,13 @@ namespace NeoBleeper
         }
         double previousNoteSilenceRatio = Variables.noteSilenceRatio;
         bool variableIsChanging = false;
-        private void setNoteSilenceValueChanging()
+        private void SetNoteSilenceValueChanging()
         {
             variableIsChanging = true;
             previousNoteSilenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100;
 
         }
-        private void setNoteSilenceValueChanged()
+        private void SetNoteSilenceValueChanged()
         {
             variableIsChanging = false;
             double currentNoteSilenceRatio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
@@ -6312,17 +6353,30 @@ namespace NeoBleeper
         }
         private void trackBar_note_silence_ratio_MouseDown(object sender, MouseEventArgs e)
         {
-            setNoteSilenceValueChanging();
+            SetNoteSilenceValueChanging();
         }
 
         private void trackBar_note_silence_ratio_MouseUp(object sender, MouseEventArgs e)
         {
-            setNoteSilenceValueChanged();
+            SetNoteSilenceValueChanged();
         }
 
         private void notifyIconNeoBleeper_BalloonTipClicked(object sender, EventArgs e)
         {
             NotificationUtils.ActivateWindowWhenShownIconIsClicked(); // Activate the main window when the notification is clicked
+        }
+
+        private void MIDIRestartBeepTimer_Tick(object sender, EventArgs e)
+        {
+            if (TemporarySettings.MIDIDevices.useMIDIinput && MIDIIOUtils._midiIn != null)
+            {
+                if (activeMidiNotes.Count == 1)
+                {
+                    int midiNote = activeMidiNotes[0];
+                    int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
+                    RestartBeepIfMutedEarly(GetFrequencyFromKeyCode(frequency));
+                }
+            }
         }
     }
 }

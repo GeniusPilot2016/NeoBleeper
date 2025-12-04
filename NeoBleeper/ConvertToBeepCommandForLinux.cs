@@ -402,10 +402,10 @@ bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool
             }
             return (result, duration);
         }
-        private NBPML_File.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
+        private NBPMLFile.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPML_File.NeoBleeperProjectFile));
-            return (NBPML_File.NeoBleeperProjectFile)serializer.Deserialize(stringReader);
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
+            return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(stringReader);
         }
 
         private void buttonSaveAsShFile_Click(object sender, EventArgs e)
