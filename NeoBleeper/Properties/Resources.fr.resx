@@ -887,4 +887,52 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>Le fichier MIDI a été chargé avec succès.</value>
   </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Argument invalide</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>La requête contient des paramètres invalides. Veuillez vérifier vos données et réessayer.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Condition préalable non remplie</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>L'offre gratuite de l'API Google Gemini™ n'est pas disponible dans votre pays/région. Veuillez envisager de passer à un abonnement payant pour accéder au service.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Accès refusé</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>Votre clé API ne vous autorise pas à accéder à la ressource demandée. Veuillez vérifier votre clé API et ses autorisations.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Introuvable</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>La ressource ou le modèle demandé est introuvable. Veuillez vérifier le point de terminaison et réessayer.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Ressource épuisée</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>Vous avez dépassé votre quota de requêtes API ou ce service n'est pas inclus dans votre forfait. Veuillez réessayer plus tard ou passer à un forfait supérieur.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Service/Modèle indisponible ou surchargé</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>Le service/modèle est actuellement indisponible ou surchargé. Veuillez réessayer plus tard.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Délai dépassé</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>Le service n'a pas pu terminer le traitement dans les délais impartis.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Erreur interne</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>Une erreur interne s'est produite dans le service Google Gemini™ ou votre texte est trop long. Veuillez réessayer plus tard ou raccourcir votre texte.</value>
+  </data>
 </root>

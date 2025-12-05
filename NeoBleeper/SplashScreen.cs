@@ -13,6 +13,8 @@ namespace NeoBleeper
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             UIFonts.SetFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
+            AddShadowToBackOfForm();
+            RoundCornersOfForm();
         }
         public void UpdateStatus(string status, int percent = 0, bool completed = false)
         {
@@ -56,6 +58,7 @@ namespace NeoBleeper
 
         private void splash_FormClosed(object sender, FormClosedEventArgs e)
         {
+            RemoveShadowFromBackOfForm();
             if (!completed)
             {
                 try
@@ -150,6 +153,50 @@ namespace NeoBleeper
         private void notifyIconNeoBleeper_BalloonTipClicked(object sender, EventArgs e)
         {
             NotificationUtils.ActivateWindowWhenShownIconIsClicked(); // Activate the application when the balloon tip is clicked
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void RoundCornersOfForm()
+        {
+            int dpi = (int)(96 * this.DeviceDpi / 96f); // Get the current DPI
+            int radius = 15 * dpi / 96; // Adjust radius based on DPI
+            System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.StartFigure();
+            path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90); // Top-left corner
+            path.AddArc(new Rectangle(this.Width - radius, 0, radius, radius), 270, 90); // Top-right corner
+            path.AddArc(new Rectangle(this.Width - radius, this.Height - radius, radius, radius), 0, 90); // Bottom-right corner
+            path.AddArc(new Rectangle(0, this.Height - radius, radius, radius), 90, 90); // Bottom-left corner
+            path.CloseFigure();
+            this.Region = new Region(path);
+        }
+        public const int GCL_STYLE = -26;
+        public const int CS_DROPSHADOW = 0x00020000;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetClassLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int SetClassLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        private void AddShadowToBackOfForm()
+        {
+            int classStyle = GetClassLong(this.Handle, GCL_STYLE);
+            classStyle |= CS_DROPSHADOW;
+            SetClassLong(this.Handle, GCL_STYLE, classStyle);
+        }
+        private void RemoveShadowFromBackOfForm()
+        {
+            int classStyle = GetClassLong(this.Handle, GCL_STYLE);
+            classStyle &= ~CS_DROPSHADOW;
+            SetClassLong(this.Handle, GCL_STYLE, classStyle);
         }
     }
 }

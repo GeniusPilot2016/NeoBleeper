@@ -886,4 +886,52 @@ Vuoi aprire comunque questo file?</value>
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>Il file MIDI è stato caricato correttamente.</value>
   </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Argomento non valido</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>La richiesta contiene parametri non validi. Controlla i dati inseriti e riprova.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Precondizione non riuscita</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>Il livello gratuito dell'API Google Gemini™ non è disponibile nel tuo Paese/regione. Valuta la possibilità di passare a un piano a pagamento per accedere al servizio.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Permesso negato</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>La tua chiave API non ha l'autorizzazione per accedere alla risorsa richiesta. Controlla la tua chiave API e le autorizzazioni.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Non trovato</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>La risorsa o il modello richiesto non è stato trovato. Controlla l'endpoint e riprova.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Risorsa esaurita</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>Hai superato la quota di richieste API o non è disponibile nel tuo livello. Riprova più tardi o aggiorna il tuo piano.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Servizio/Modello non disponibile o sovraccarico</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>Il servizio/modello non è attualmente disponibile o è sovraccarico. Riprova più tardi.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Scadenza superata</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>Il servizio non è in grado di completare l'elaborazione entro la scadenza.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Errore interno</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>Si è verificato un errore interno nel servizio Google Gemini™ oppure il testo inserito è troppo lungo. Riprova più tardi o abbrevialo.</value>
+  </data>
 </root>
