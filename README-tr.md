@@ -19,6 +19,10 @@ NeoBleeper, [Robbi-985 (diğer adıyla SomethingUnreal)](https://youtube.com/@So
 
 ![image](https://github.com/user-attachments/assets/cb1b3752-cc6a-48f6-9daa-7411f5a2cbfb)
 
+## Video
+
+[![Watch the video](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://www.youtube.com/watch?v=izg5NYQzuuM)
+
 ## 🚧 Durum
 
 Bu proje **hâlâ geliştirilme aşamasındadır** ve bu sürüm **beta sürümüdür**. Lütfen programı bunu göz önünde bulundurarak kullanınız ve gelecekteki sürümlerin iyileştirilmesine yardımcı olmak için geri bildirimde bulununuz.
