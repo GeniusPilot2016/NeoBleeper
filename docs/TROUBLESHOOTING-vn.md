@@ -86,7 +86,9 @@ NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao
 
 - **Những điều bạn có thể nhận thấy:**
   Trên một số hệ thống, đặc biệt là những hệ thống có còi áp điện, bạn có thể nghe thấy tiếng lách cách nhỏ trong giai đoạn này. Điều này là bình thường và cho biết bài kiểm tra phần cứng đang chạy.
-  ![image4](https://github.com/user-attachments/assets/81a8d6d8-565e-4fd3-aefc-6122c06d17a9)
+
+  ![image4](https://github.com/user-attachments/assets/e2eacab0-ddda-44fc-a9fb-737e8a2ccb6b)
+  
   *Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng tách tách)*
 
 - **Tại sao phải kiểm tra?**
@@ -135,12 +137,7 @@ Tính năng "Sáng tác nhạc bằng AI" của NeoBleeper sử dụng API Googl
 
 ### 6.1 Lỗi Hạn mức hoặc Giới hạn Tốc độ (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/92bb28a3-f30e-4e1f-9759-2fad99d935b4)
-
-**Thông báo Ví dụ:**
-```
-Đã xảy ra lỗi: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/0e88e187-ac3e-4768-a5d1-1e26312e3dac)
 
 **Nguyên nhân tiềm ẩn:**
 - **Hạn mức API cho tài khoản của bạn đã hết.** Nếu bạn đang sử dụng khóa API miễn phí, một số mô hình (chẳng hạn như `gemini-2.0-pro-exp`) có thể không khả dụng hoặc có thể có giới hạn sử dụng rất thấp/cứng đối với tài khoản miễn phí.
