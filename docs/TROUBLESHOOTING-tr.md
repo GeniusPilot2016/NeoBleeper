@@ -89,7 +89,7 @@ Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde g
 - **Neleri fark edebilirsiniz:**
   Bazı sistemlerde, özellikle piezo buzzer bulunan kısmında, bu aşamada hafif tıklama sesleri duyabilirsiniz. Bu normaldir ve donanım testinin çalıştığını gösterir.
 
-  ![image4](https://github.com/user-attachments/assets/d3e35c02-9e66-464d-84cd-c9d94955f248)
+  ![image4](https://github.com/user-attachments/assets/7c205527-8fe5-4ff4-9772-b8da11f2c521)
   
   *Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)*
 
@@ -141,12 +141,7 @@ NeoBleeper'ın "Yapay Zeka ile Müzik Oluştur" özelliği, Google Gemini™ API
 
 ### 6.1 Kota veya Oran Sınırı Hataları (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/4ff91ad0-ea3e-4080-85fb-7d82b3be5cb4)
-
-**Örnek Mesaj:**
-```
-Bir hata oluştu: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/29f073fa-b5fa-41a5-ae1b-26d78d0a9aad)
 
 **Olası Nedenler:**
 - **Hesabınızın API kotası tükendi.** Ücretsiz bir API anahtarı kullanıyorsanız, bazı modeller (örneğin `gemini-2.0-pro-exp`) kullanılamayabilir veya ücretsiz hesaplar için çok düşük/kesin kullanım sınırları olabilir. - **Ücretsiz katman sınırlamaları:** Bazı yeni jenerasyon modelleri (Gemini Pro Exp gibi) ücretsiz katman kullanıcıları tarafından kullanılamaz. Bunları kullanmaya çalışmak kota veya kullanılabilirlik hatasıyla sonuçlanır.
