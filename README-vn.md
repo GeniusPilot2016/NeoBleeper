@@ -21,7 +21,7 @@ NeoBleeper là phần mềm tạo giai điệu hỗ trợ AI đầu tiên trên 
 
 ## Video
 
-[![Xem video](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://www.youtube.com/watch?v=izg5NYQzuuM)
+[![Xem video](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Trạng thái
 
