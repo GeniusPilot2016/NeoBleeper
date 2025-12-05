@@ -11,6 +11,8 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
+            AddRadiusToCornerOfForm();
+            AddShadowToBackOfForm();
             UIFonts.SetFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
             AddShadowToBackOfForm();

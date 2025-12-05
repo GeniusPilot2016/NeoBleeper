@@ -55,9 +55,9 @@
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             toolTipButtons.SetToolTip(pictureBox1, resources.GetString("pictureBox1.ToolTip"));
@@ -96,8 +96,8 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackColor = Color.Transparent;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             toolTipButtons.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
             // 
@@ -131,6 +131,8 @@
             toolTipButtons.SetToolTip(buttonClose, resources.GetString("buttonClose.ToolTip"));
             buttonClose.UseVisualStyleBackColor = false;
             buttonClose.Click += buttonClose_Click;
+            // 
+            // SplashScreen
             // 
             // SplashScreen
             // 
