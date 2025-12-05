@@ -17,6 +17,8 @@ NeoBleeper is the world's first AI-enabled tune creation software using the syst
 
 ![image](https://github.com/user-attachments/assets/efe2efff-f6b5-49d4-a0d7-424e47a997ce)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/izg5NYQzuuM?si=06fognePzfNdESkH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## 🚧 Status
 
 This project is **still in development** and this version is the **beta release**. Please use the program with this in mind and provide feedback to help improve future releases.
