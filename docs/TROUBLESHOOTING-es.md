@@ -87,8 +87,8 @@ NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la 
 
 - **Qué puede notar:**
   En algunos sistemas, especialmente aquellos con zumbadores piezoeléctricos, es posible que escuche leves clics durante esta etapa. Esto es normal e indica que la prueba de hardware se está ejecutando.
-  
-  ![image4](https://github.com/user-attachments/assets/f4510db6-1f61-457c-85e0-93680d8287d7)
+
+  ![image4](https://github.com/user-attachments/assets/b6e06f36-6ffc-41e7-a020-a16693adf281)
   
   *Comprobando la presencia de la salida del altavoz del sistema (altavoz de PC) en el paso 2/2... (puede que oiga clics)*
 
@@ -143,13 +143,7 @@ La función "Crea música con IA" de NeoBleeper utiliza la API de Google Gemini�
 
 ### 6.1 Errores de cuota o límite de frecuencia (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/3750e0f1-9d75-45a6-a5fe-65ece7a25ddb)
-
-**Mensaje de ejemplo:**
-
-```
-Se ha producido un error: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/de27c81c-f840-42b4-b568-e25d62188322)
 
 **Posibles causas:**
 
