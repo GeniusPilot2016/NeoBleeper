@@ -21,7 +21,7 @@ NeoBleeper, [Robbi-985 (diğer adıyla SomethingUnreal)](https://youtube.com/@So
 
 ## Video
 
-[![Watch the video](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://www.youtube.com/watch?v=izg5NYQzuuM)
+[![Videoyu izle](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://www.youtube.com/watch?v=izg5NYQzuuM)
 
 ## 🚧 Durum
 
