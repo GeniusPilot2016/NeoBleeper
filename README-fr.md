@@ -20,8 +20,7 @@ NeoBleeper est le premier logiciel de création musicale au monde utilisant l'IA
 ![image](https://github.com/user-attachments/assets/ca20c31b-ec90-414c-8dba-6ca7677e6f60)
 
 ## Vidéo
-
-Regardez la vidéo : [https://img.youtube.com/vi/izg5NYQzuuM/0.jpg](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
+[![Regardez la vidéo](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Statut
 
