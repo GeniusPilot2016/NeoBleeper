@@ -87,7 +87,7 @@ NeoBleeper now includes a new, advanced hardware test to detect system speaker (
 - **What you may notice:**  
   On some systems, especially those with piezo buzzers, you might hear faint clicking noises during this stage. This is normal and indicates the hardware test is running.
 
-  ![image4](https://github.com/user-attachments/assets/f55de735-c506-4abb-8041-0795f25a529a)
+  ![image4](https://github.com/user-attachments/assets/2bccd68c-6ed6-4a7d-8c89-34da8996ef9f)
   
   *Checking for system speaker (PC speaker) output presence in step 2/2… (you may hear clicking sounds)*
 
@@ -138,12 +138,7 @@ NeoBleeper’s "Create Music With AI" feature utilizes the Google Gemini™ API.
 
 ### 6.1 Quota or Rate Limit Errors (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/c6a28c4a-f96c-4aa1-8c88-d3ce5628c052)
-
-**Example Message:**  
-```
-An error occurred: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/718e839e-18d5-450f-b65e-784648693675)
 
 **Potential Reasons:**
 - **API quota for your account has been exhausted.** If you’re using a free API key, certain models (such as `gemini-2.0-pro-exp`) may not be available or may have very low/hard limits on usage for free accounts.
