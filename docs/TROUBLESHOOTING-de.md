@@ -79,6 +79,22 @@ NeoBleeper verfügt über eine Erkennungslogik, die prüft, ob Ihr System über 
 #### Was bedeutet „nicht standardmäßiger Systemlautsprecherausgang“?
 Manche moderne Computer, Laptops oder virtuelle Maschinen verfügen nicht über einen echten PC-Lautsprecher, oder die Signalführung ist nicht standardmäßig. NeoBleeper versucht nun, solche versteckten Systemlautsprecherausgänge (nicht als PNP0800-Geräte identifiziert) zu erkennen und zu nutzen, kann die Systemlautsprecheroption jedoch nur aktivieren, wenn sie auf Hardwareebene tatsächlich zugänglich ist. Wenn kein nutzbarer Ausgang gefunden wird, müssen Sie Ihr normales Audiogerät verwenden.
 
+## 2.1 Systemlautsprecher-Ausgangstest (Ultraschallfrequenzerkennung)
+
+NeoBleeper enthält jetzt einen neuen, erweiterten Hardwaretest zur Erkennung des Systemlautsprecherausgangs (auch PC-Lautsprecher genannt), selbst wenn das Gerät von Windows nicht erkannt wird (z. B. bei bestimmten IDs wie PNP0C02 statt PNP0800). Dieser Test verwendet Ultraschallfrequenzen (typischerweise 30–38 kHz, die nicht hörbar sind) und analysiert die elektrische Rückkopplung am Systemlautsprecheranschluss.
+
+- **Funktionsweise:**
+Beim Start führt NeoBleeper nach der üblichen Geräte-ID-Prüfung einen zweiten Schritt durch. Es sendet Ultraschallsignale an den Systemlautsprecheranschluss und überwacht die Hardware-Rückkopplung, um das Vorhandensein eines funktionierenden Lautsprecherausgangs zu erkennen – auch wenn dieser versteckt oder nicht standardmäßig ist.
+
+- **Was Sie bemerken könnten:**
+Auf einigen Systemen, insbesondere solchen mit Piezo-Summern, können während dieser Phase leise Klickgeräusche auftreten. Dies ist normal und zeigt an, dass der Hardwaretest ausgeführt wird.
+
+![image4](https://github.com/user-attachments/assets/b6c4a7ea-5c7c-4c8e-ad70-9834f7610c33)
+
+*Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 2/2... (Klickgeräusche sind möglicherweise zu hören)*
+
+- **Warum dieser Test?** Viele moderne Systeme besitzen keinen PNP0800-Systemlautsprecher, haben aber dennoch einen nutzbaren (versteckten) Lautsprecherausgang. NeoBleeper verwendet diese fortschrittliche Methode, um die Piepton-Funktion auf mehr Hardware zu aktivieren.
+
 ---
 
 ## 3. ARM64-Unterstützung und Einschränkungen
@@ -126,13 +142,7 @@ Die Funktion „Musik mit KI erstellen“ von NeoBleeper nutzt die Google Gemini
 
 ### 6.1 Kontingent- oder Ratenbegrenzungsfehler (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/063735a9-aedb-4c98-8803-ee8885e1fecb)
-
-**Beispielmeldung:**
-
-```
-Es ist ein Fehler aufgetreten: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/8a1428b8-c78e-4ce4-abb3-2d6c987a40e9)
 
 **Mögliche Ursachen:**
 
