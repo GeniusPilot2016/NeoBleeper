@@ -888,4 +888,52 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>MIDI dosyası başarıyla yüklendi.</value>
   </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Geçersiz Argüman</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>İstek geçersiz parametreler içeriyor. Lütfen girdinizi kontrol edip tekrar deneyiniz.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Önkoşul Başarısız</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>Google Gemini™ API'nin ücretsiz katmanı ülkenizde/bölgenizde mevcut değil. Hizmete erişmek için lütfen ücretli bir plana yükseltmeyi düşününüz.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>İzin reddedildi</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>API anahtarınız istenen kaynağa erişim iznine sahip değil. Lütfen API anahtarınızı ve izinlerinizi kontrol edin.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Bulunamadı</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>İstenen kaynak veya model bulunamadı. Lütfen uç noktayı kontrol edip tekrar deneyin.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Kaynak Tükendi</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>API istek kotanızı aştınız veya katmanınızda mevcut değil. Lütfen daha sonra tekrar deneyiniz veya planınızı yükseltiniz.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Hizmet/Model Kullanılamıyor veya Aşırı Yüklendi</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>Hizmet/model şu anda kullanılamıyor veya aşırı yüklenmiş. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Son Tarih Aşıldı</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>Hizmet, son tarih içerisinde işlemi tamamlayamadı.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Dahili Hata</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>Google Gemini™ hizmetinde dahili bir hata oluştu veya girdiniz çok uzun. Lütfen daha sonra tekrar deneyiniz veya girdinizi kısaltınız.</value>
+  </data>
 </root>

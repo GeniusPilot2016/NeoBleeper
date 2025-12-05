@@ -16,6 +16,7 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using static UIHelper;
@@ -339,47 +340,66 @@ namespace NeoBleeper
                 Application.DoEvents();
                 token?.Token.ThrowIfCancellationRequested();
 
-                using (var ping = new Ping())
+                // Check network interface availability
+                if (!NetworkInterface.GetIsNetworkAvailable())
                 {
-                    // Limit the ping operation with a timeout (10000 ms, 10 seconds)
-                    var pingTask = ping.SendPingAsync("info.cern.ch", 10000);
-
-                    // Continue when either the ping completes or the token is canceled
-                    var completedTask = await Task.WhenAny(
-                        pingTask,
-                        Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
-                    );
-
-                    // Cancelation check
-                    token?.Token.ThrowIfCancellationRequested();
-
-                    // Get the result if ping completed
-                    if (completedTask == pingTask)
-                    {
-                        var reply = await pingTask;
-
-                        if (reply.Status == IPStatus.Success)
-                        {
-                            if (reply.RoundtripTime > 500)
-                            {
-                                if (reply.RoundtripTime <= 10000)
-                                    Logger.Log($"Internet connection is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
-                                else
-                                    Logger.Log($"The internet connection test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
-                                return false;
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            Logger.Log("Internet connection failed.", Logger.LogTypes.Error);
-                            return false;
-                        }
-                    }
-
-                    // Token was canceled
+                    Logger.Log("No network interfaces are available.", Logger.LogTypes.Error);
                     return false;
                 }
+
+                // Ping to multiple reliable hosts
+                string[] hosts = { "8.8.8.8", "1.1.1.1", "google.com" }; 
+                using (var ping = new Ping())
+                {
+                    foreach (var host in hosts)
+                    {
+                        try
+                        {
+                            var pingTask = ping.SendPingAsync(host, 5000);
+                            var completedTask = await Task.WhenAny(
+                                pingTask,
+                                Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
+                            );
+                            token?.Token.ThrowIfCancellationRequested();
+
+                            if (completedTask == pingTask)
+                            {
+                                var reply = await pingTask;
+                                if (reply.Status == IPStatus.Success && reply.RoundtripTime < 5000)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                        catch (PingException ex)
+                        {
+                            Logger.Log($"Ping hatası ({host}): {ex.Message}", Logger.LogTypes.Warning);
+                        }
+                    }
+                }
+
+                // Try DNS resolution as a fallback
+                try
+                {
+                    var dnsTask = Dns.GetHostEntryAsync("www.microsoft.com");
+                    var completedTask = await Task.WhenAny(
+                        dnsTask,
+                        Task.Delay(5000, token?.Token ?? CancellationToken.None)
+                    );
+                    token?.Token.ThrowIfCancellationRequested();
+
+                    if (completedTask == dnsTask && dnsTask.Result != null)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"DNS resolution error: {ex.Message}", Logger.LogTypes.Error);
+                }
+
+                Logger.Log("No Internet connection available or unreachable.", Logger.LogTypes.Error);
+                return false;
             }
             catch (TaskCanceledException)
             {
@@ -405,47 +425,46 @@ namespace NeoBleeper
                 Application.DoEvents();
                 token?.Token.ThrowIfCancellationRequested();
 
+                // Ping the server
                 using (var ping = new Ping())
                 {
-                    // Limit the ping operation with a timeout (10000 ms, 10 seconds)
-                    var pingTask = ping.SendPingAsync("generativelanguage.googleapis.com", 10000);
-
-                    // Continue when either the ping completes or the token is canceled
+                    var pingTask = ping.SendPingAsync("generativelanguage.googleapis.com", 5000);
                     var completedTask = await Task.WhenAny(
                         pingTask,
                         Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
                     );
-
-                    // Cancelation check
                     token?.Token.ThrowIfCancellationRequested();
 
-                    // Get the result if ping completed
                     if (completedTask == pingTask)
                     {
                         var reply = await pingTask;
-
-                        if (reply.Status == IPStatus.Success)
+                        if (reply.Status == IPStatus.Success && reply.RoundtripTime < 5000)
                         {
-                            if (reply.RoundtripTime > 500)
-                            {
-                                if (reply.RoundtripTime <= 10000)
-                                    Logger.Log($"Access to server is slow: {reply.RoundtripTime} ms.", Logger.LogTypes.Warning);
-                                else
-                                    Logger.Log($"The server access test is timed out: {reply.RoundtripTime} ms.", Logger.LogTypes.Error);
-                                return false;
-                            }
                             return true;
                         }
-                        else
+                    }
+                }
+
+                // Check HTTP response as a fallback
+                try
+                {
+                    using (var httpClient = new HttpClient())
+                    {
+                        httpClient.Timeout = TimeSpan.FromSeconds(5);
+                        var response = await httpClient.GetAsync("https://generativelanguage.googleapis.com", token?.Token ?? CancellationToken.None);
+                        if (response.IsSuccessStatusCode)
                         {
-                            Logger.Log("Access to server failed.", Logger.LogTypes.Error);
-                            return false;
+                            return true;
                         }
                     }
-
-                    // Token was canceled
-                    return false;
                 }
+                catch (Exception ex)
+                {
+                    Logger.Log($"HTTP server check error: {ex.Message}", Logger.LogTypes.Error);
+                }
+
+                Logger.Log("Unable to reach the Google Gemini™ server.", Logger.LogTypes.Error);
+                return false;
             }
             catch (TaskCanceledException)
             {
@@ -459,7 +478,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error checking server status: {ex.Message}", Logger.LogTypes.Error);
+                Logger.Log($"Server status check error: {ex.Message}", Logger.LogTypes.Error);
                 return false;
             }
         }
@@ -851,6 +870,7 @@ namespace NeoBleeper
                         $"</NeoBleeperProjectFile>\r\n"
                     , cts.Token);
                     StopConnectionCheck();
+                    await Task.Delay(2);
                     if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                     {
                         Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
@@ -969,17 +989,20 @@ namespace NeoBleeper
                 }
                 catch (Exception ex)
                 {
-                    // Show a generic error message and log the exception details
+                    // Show an error message and log the exception details
+                    StopConnectionCheck(); // Stop the connection check due to operation completion
+                    await Task.Delay(2);
                     Logger.Log($"Error: {ex.Message}", Logger.LogTypes.Error);
                     isCreatedAnything = false;
                     generatedFilename = string.Empty; // Clear the filename
                     output = String.Empty; // Clear the output
-                    MessageForm.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string title  = GetLocalizedAPIErrorTitleAndMessage(ex.Message).title;
+                    string message = GetLocalizedAPIErrorTitleAndMessage(ex.Message).message;
+                    MessageForm.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    // Stop the timer, re-enable controls, and handle the output
-                    StopConnectionCheck(); // Stop the connection check due to operation completion
+                    // Re-enable controls and handle the output
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     if (CheckIfOutputIsValidNBPML(output))
                     {
@@ -1625,6 +1648,49 @@ namespace NeoBleeper
         private void CreateMusicWithAI_Shown(object sender, EventArgs e)
         {
             listAndSelectAIModels(); // List and select AI models when the form is shown
+        }
+        private (string title, string message) GetLocalizedAPIErrorTitleAndMessage(string exceptionMessage)
+        {
+            if (exceptionMessage.Contains("(Code: 400)"))
+            {
+                if (exceptionMessage.Contains("INVALID_ARGUMENT"))
+                {
+                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for invalid argument
+                }
+                else if (exceptionMessage.Contains("FAILED_PRECONDITION"))
+                {
+                    return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition); // Localized message for failed precondition
+                }
+            }
+            else if (exceptionMessage.Contains("(Code: 403)") || exceptionMessage.Contains("PERMISSION_DENIED"))
+            {
+                return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for permission denied
+            }
+            else if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
+            {
+                return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for not found
+            }
+            else if (exceptionMessage.Contains("(Code: 429)") || exceptionMessage.Contains("RESOURCE_EXHAUSTED"))
+            {
+                return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for resource exhausted
+            }
+            else if (exceptionMessage.Contains("(Code: 500)") || exceptionMessage.Contains("INTERNAL"))
+            {
+                return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for internal server error
+            }
+            else if (exceptionMessage.Contains("(Code: 503)") || exceptionMessage.Contains("UNAVAILABLE"))
+            {
+                return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for service unavailable
+            }
+            else if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
+            {
+                return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for deadline exceeded
+            }
+            else
+            {
+                return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error message
+            }
+            return (string.Empty, string.Empty); // Fallback, should not reach here
         }
     }
 }

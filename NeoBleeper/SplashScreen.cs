@@ -11,6 +11,8 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
+            AddRadiusToCornerOfForm();
+            AddShadowToBackOfForm();
             UIFonts.SetFonts(this);
             labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
         }
@@ -151,5 +153,44 @@ namespace NeoBleeper
         {
             NotificationUtils.ActivateWindowWhenShownIconIsClicked(); // Activate the application when the balloon tip is clicked
         }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void AddRadiusToCornerOfForm()
+        {
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            int radius = 20; // Adjust the radius as needed
+            path.StartFigure();
+            path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90); // Top-left corner
+            path.AddArc(new Rectangle(this.Width - radius, 0, radius, radius), 270, 90); // Top-right corner
+            path.AddArc(new Rectangle(this.Width - radius, this.Height - radius, radius, radius), 0, 90); // Bottom-right corner
+            path.AddArc(new Rectangle(0, this.Height - radius, radius, radius), 90, 90); // Bottom-left corner
+            path.CloseFigure();
+            this.Region = new Region(path);
+        }
+        private void AddShadowToBackOfForm()
+        {
+            int classStyle = NativeMethods.GetClassLong(this.Handle, NativeMethods.GCL_STYLE);
+            classStyle |= NativeMethods.CS_DROPSHADOW;
+            NativeMethods.SetClassLong(this.Handle, NativeMethods.GCL_STYLE, classStyle);
+        }
+    }
+    public static class NativeMethods
+    {
+        public const int GCL_STYLE = -26;
+        public const int CS_DROPSHADOW = 0x00020000;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetClassLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int SetClassLong(IntPtr hWnd, int nIndex, int dwNewLong);
     }
 }

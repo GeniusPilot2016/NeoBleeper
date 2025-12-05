@@ -37,6 +37,9 @@
             labelStatus = new Label();
             panel1 = new Panel();
             notifyIconNeoBleeper = new NotifyIcon(components);
+            buttonMinimize = new Button();
+            buttonClose = new Button();
+            toolTipButtons = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -51,9 +54,9 @@
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             pictureBox1.MouseDown += splash_MouseDown;
@@ -88,8 +91,8 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackColor = Color.Transparent;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
             // notifyIconNeoBleeper
@@ -97,12 +100,40 @@
             resources.ApplyResources(notifyIconNeoBleeper, "notifyIconNeoBleeper");
             notifyIconNeoBleeper.BalloonTipClicked += notifyIconNeoBleeper_BalloonTipClicked;
             // 
-            // Splash
+            // buttonMinimize
+            // 
+            resources.ApplyResources(buttonMinimize, "buttonMinimize");
+            buttonMinimize.BackColor = Color.Transparent;
+            buttonMinimize.FlatAppearance.BorderSize = 0;
+            buttonMinimize.FlatAppearance.MouseDownBackColor = Color.Peru;
+            buttonMinimize.FlatAppearance.MouseOverBackColor = Color.DarkOrange;
+            buttonMinimize.Name = "buttonMinimize";
+            buttonMinimize.TabStop = false;
+            toolTipButtons.SetToolTip(buttonMinimize, resources.GetString("buttonMinimize.ToolTip"));
+            buttonMinimize.UseVisualStyleBackColor = false;
+            buttonMinimize.Click += buttonMinimize_Click;
+            // 
+            // buttonClose
+            // 
+            resources.ApplyResources(buttonClose, "buttonClose");
+            buttonClose.BackColor = Color.Transparent;
+            buttonClose.FlatAppearance.BorderSize = 0;
+            buttonClose.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 0, 0);
+            buttonClose.FlatAppearance.MouseOverBackColor = Color.Red;
+            buttonClose.Name = "buttonClose";
+            buttonClose.TabStop = false;
+            toolTipButtons.SetToolTip(buttonClose, resources.GetString("buttonClose.ToolTip"));
+            buttonClose.UseVisualStyleBackColor = false;
+            buttonClose.Click += buttonClose_Click;
+            // 
+            // SplashScreen
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             BackgroundImage = Properties.Resources.neobleeper_splash_background;
             ControlBox = false;
+            Controls.Add(buttonMinimize);
+            Controls.Add(buttonClose);
             Controls.Add(labelStatus);
             Controls.Add(progressBar1);
             Controls.Add(labelVersion);
@@ -113,7 +144,7 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Splash";
+            Name = "SplashScreen";
             Deactivate += splash_Deactivate;
             FormClosed += splash_FormClosed;
             Load += splash_Load;
@@ -135,5 +166,8 @@
         private Label labelStatus;
         private Panel panel1;
         private NotifyIcon notifyIconNeoBleeper;
+        private Button buttonMinimize;
+        private Button buttonClose;
+        private ToolTip toolTipButtons;
     }
 }

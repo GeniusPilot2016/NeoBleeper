@@ -887,4 +887,52 @@ Bạn có muốn mở tệp này không?</value>
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>Tệp MIDI đã được tải thành công.</value>
   </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Tham số không hợp lệ</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>Yêu cầu chứa tham số không hợp lệ. Vui lòng kiểm tra thông tin đầu vào và thử lại.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Điều kiện tiên quyết không đạt</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>Gói miễn phí của Google Gemini™ API không khả dụng tại quốc gia/khu vực của bạn. Vui lòng cân nhắc nâng cấp lên gói trả phí để sử dụng dịch vụ.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Quyền bị từ chối</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>Khóa API của bạn không có quyền truy cập vào tài nguyên được yêu cầu. Vui lòng kiểm tra khóa API và quyền của bạn.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Không tìm thấy</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>Không tìm thấy tài nguyên hoặc mô hình được yêu cầu. Vui lòng kiểm tra điểm cuối và thử lại.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Tài nguyên cạn kiệt</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>Bạn đã vượt quá hạn mức yêu cầu API hoặc không khả dụng trong gói dịch vụ của mình. Vui lòng thử lại sau hoặc nâng cấp gói dịch vụ.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Dịch vụ/Mô hình không khả dụng hoặc quá tải</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>Dịch vụ/mô hình hiện không khả dụng hoặc quá tải. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Đã quá hạn</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>Dịch vụ không thể xử lý xong trong thời hạn quy định.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Lỗi nội bộ</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>Đã xảy ra lỗi nội bộ trong dịch vụ Google Gemini™ hoặc thông tin bạn nhập quá dài. Vui lòng thử lại sau hoặc rút ngắn thông tin bạn nhập.</value>
+  </data>
 </root>

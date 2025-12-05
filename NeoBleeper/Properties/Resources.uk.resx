@@ -889,4 +889,52 @@
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>MIDI-файл успішно завантажено.</value>
   </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Недійсний аргумент</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>Запит містить недійсні параметри. Перевірте введені дані та повторіть спробу.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Невиконана передумова</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>Безкоштовний рівень Google Gemini™ API недоступний у вашій країні/регіоні. Будь ласка, розгляньте можливість переходу на платний план, щоб отримати доступ до сервісу.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Дозвіл відхилено</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>Ваш ключ API не має дозволу на доступ до запитуваного ресурсу. Перевірте свій ключ API та дозволи.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Не знайдено</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>Запитаний ресурс або модель не знайдено. Перевірте кінцеву точку та повторіть спробу.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Ресурс вичерпано</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>Ви перевищили квоту запитів API або недоступно на вашому рівні. Будь ласка, спробуйте пізніше або оновіть свій план.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Сервіс/модель недоступний або перевантажений</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>Сервіс/модель наразі недоступний або перевантажений. Будь ласка, спробуйте пізніше.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Термін перевищено</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>Сервіс не може завершити обробку у встановлений термін.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Внутрішня помилка</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>Сталася внутрішня помилка в сервісі Google Gemini™, або введений вами текст занадто довгий. Будь ласка, спробуйте пізніше або скоротіть його.</value>
+  </data>
 </root>

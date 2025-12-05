@@ -636,16 +636,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   (Simge) öğesine benzeyen System.Drawing.Icon türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        public static System.Drawing.Icon icon {
-            get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         public static System.Drawing.Bitmap icons8_1_48 {
@@ -1222,6 +1212,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The service is unable to finish processing within the deadline. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageDeadlineExceeded {
+            get {
+                return ResourceManager.GetString("MessageDeadlineExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Empty note list can&apos;t be converted to Beep command for Linux. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageEmptyNoteListCannotBeExportedAsLinuxBeep {
@@ -1276,6 +1275,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFailedPrecondition {
+            get {
+                return ResourceManager.GetString("MessageFailedPrecondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The file is not found: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageFileNotFoundError {
@@ -1326,6 +1334,24 @@ namespace NeoBleeper.Properties {
         public static string MessageGoogleGeminiAPIKeyIsNotWorking {
             get {
                 return ResourceManager.GetString("MessageGoogleGeminiAPIKeyIsNotWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageInternalError {
+            get {
+                return ResourceManager.GetString("MessageInternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The request contains invalid parameters. Please check your input and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageInvalidArgument {
+            get {
+                return ResourceManager.GetString("MessageInvalidArgument", resourceCulture);
             }
         }
         
@@ -1451,11 +1477,38 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The requested resource or model was not found. Please check the endpoint and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNotFound {
+            get {
+                return ResourceManager.GetString("MessageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your API key does not have permission to access the requested resource. Please check your API key and permissions. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessagePermissionDenied {
+            get {
+                return ResourceManager.GetString("MessagePermissionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error starting playback: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessagePlaybackStartingError {
             get {
                 return ResourceManager.GetString("MessagePlaybackStartingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageResourceExhausted {
+            get {
+                return ResourceManager.GetString("MessageResourceExhausted", resourceCulture);
             }
         }
         
@@ -1474,6 +1527,15 @@ namespace NeoBleeper.Properties {
         public static string MessageStartMIDIInputDeviceErrorPart2 {
             get {
                 return ResourceManager.GetString("MessageStartMIDIInputDeviceErrorPart2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The service/model is currently unavailable or overloaded. Please try again later. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageUnavailable {
+            get {
+                return ResourceManager.GetString("MessageUnavailable", resourceCulture);
             }
         }
         
@@ -2341,6 +2403,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Deadline Exceeded benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleDeadlineExceeded {
+            get {
+                return ResourceManager.GetString("TitleDeadlineExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed Precondition benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleFailedPrecondition {
+            get {
+                return ResourceManager.GetString("TitleFailedPrecondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Internal Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleInternalError {
+            get {
+                return ResourceManager.GetString("TitleInternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Invalid Argument benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleInvalidArgument {
+            get {
+                return ResourceManager.GetString("TitleInvalidArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Not Found benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleNotFound {
+            get {
+                return ResourceManager.GetString("TitleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Open MIDI File benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleOpenMIDIFile {
@@ -2355,6 +2462,33 @@ namespace NeoBleeper.Properties {
         public static string TitleOpenProjectFile {
             get {
                 return ResourceManager.GetString("TitleOpenProjectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Permission Denied benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitlePermissionDenied {
+            get {
+                return ResourceManager.GetString("TitlePermissionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Resource Exhausted benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleResourceExhausted {
+            get {
+                return ResourceManager.GetString("TitleResourceExhausted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Service/Model Unavailable or Overloaded benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleUnavailable {
+            get {
+                return ResourceManager.GetString("TitleUnavailable", resourceCulture);
             }
         }
         

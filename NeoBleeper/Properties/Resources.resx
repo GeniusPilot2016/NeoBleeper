@@ -889,9 +889,6 @@ Do you want to open this file anyway?</value>
   <data name="SpaceKey" xml:space="preserve">
     <value>Space</value>
   </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
     <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
   </data>
@@ -909,5 +906,53 @@ Do you want to open this file anyway?</value>
   </data>
   <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
     <value>The MIDI file has been loaded successfully.</value>
+  </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Invalid Argument</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>The request contains invalid parameters. Please check your input and try again.</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Failed Precondition</value>
+  </data>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service.</value>
+  </data>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Permission Denied</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>Your API key does not have permission to access the requested resource. Please check your API key and permissions.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>The requested resource or model was not found. Please check the endpoint and try again.</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Resource Exhausted</value>
+  </data>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan.</value>
+  </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Service/Model Unavailable or Overloaded</value>
+  </data>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>The service/model is currently unavailable or overloaded. Please try again later.</value>
+  </data>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Deadline Exceeded</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>The service is unable to finish processing within the deadline.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Internal Error</value>
+  </data>
+  <data name="MessageInternalError" xml:space="preserve">
+    <value>The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input.</value>
   </data>
 </root>
