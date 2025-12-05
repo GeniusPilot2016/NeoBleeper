@@ -92,8 +92,8 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 - **Remarques possibles** :
 
   Sur certains systèmes, notamment ceux équipés de buzzers piézoélectriques, vous pouvez entendre de légers clics pendant cette étape. Ce phénomène est normal et indique que le test matériel est en cours.
-
-  ![image4](https://github.com/user-attachments/assets/62e09438-ed58-4ce3-915f-95e095b293de)
+  
+  ![image4](https://github.com/user-attachments/assets/2eb416d0-bdb5-4d16-8899-1dbc3c9642fc)
   
   *Vérification de la présence du haut-parleur système (Haut-parleur PC) à l'étape 2/2... (Vous pourriez entendre des clics)*
 
@@ -149,14 +149,7 @@ La fonctionnalité « Créer de la musique avec l'IA » de NeoBleeper utilise 
 
 ### 6.1 Erreurs de quota ou de limite de débit (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/aa60558d-0efd-4abe-b9b9-72d15f7ad8d5)
-
-**Exemple de message :**
-
-```
-Une erreur s'est produite : RESOURCE_EXHAUSTED (Code : 429) : You exceeded your current quota, please check your plan and billing details...
-
-```
+![image1](https://github.com/user-attachments/assets/b06c4394-226f-4c18-85f1-1bf47afd1642)
 
 **Causes possibles :**
 
