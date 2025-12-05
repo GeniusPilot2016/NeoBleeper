@@ -88,7 +88,7 @@ NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita deg
 - **Cosa potresti notare:**
   Su alcuni sistemi, in particolare quelli con buzzer piezoelettrici, potresti udire lievi clic durante questa fase. Questo è normale e indica che il test hardware è in esecuzione.
 
-  ![image4](https://github.com/user-attachments/assets/2805e881-8a83-4563-8985-784a04be5147)
+  ![image4](https://github.com/user-attachments/assets/cc438e9a-fbdb-4438-b054-91f619482348)
   
   *Verifica della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire dei clic)*
 
@@ -139,12 +139,7 @@ La funzione "Crea musica con l'IA" di NeoBleeper utilizza l'API Google Gemini™
 
 ### 6.1 Errori di quota o limite di velocità (429 RESOURCE_EXHAUSTED)
 
-![image1](https://github.com/user-attachments/assets/be16a232-2eeb-4bcd-8384-289c89fe2af3)
-
-**Messaggio di esempio:**
-```
-Si è verificato un errore: RESOURCE_EXHAUSTED (Code: 429): You exceeded your current quota, please check your plan and billing details...
-```
+![image1](https://github.com/user-attachments/assets/ac4607b9-96c9-49a4-8927-a12fc0936172)
 
 **Potenziali motivi:**
 - **La quota API per il tuo account è esaurita.** Se utilizzi una chiave API gratuita, alcuni modelli (come `gemini-2.0-pro-exp`) potrebbero non essere disponibili o potrebbero avere limiti di utilizzo molto bassi/rigidi per gli account gratuiti.
