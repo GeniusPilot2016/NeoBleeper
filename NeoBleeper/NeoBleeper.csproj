@@ -145,10 +145,19 @@
     <None Update="Music\Another Love.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Music\Badinerie.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Music\Clementi Sonatina No. 3, Op 36.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Music\Eine Kleine Nachtmusik.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Music\Ozzy Osbourne - Crazy Train.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Music\Rush E.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\HarmonyOS_Sans_Black.ttf">
