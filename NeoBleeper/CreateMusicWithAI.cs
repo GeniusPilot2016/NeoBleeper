@@ -16,6 +16,7 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
@@ -871,121 +872,134 @@ namespace NeoBleeper
                     , cts.Token);
                     StopConnectionCheck();
                     await Task.Delay(2);
-                    if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
+                    if (!cts.IsCancellationRequested)
                     {
-                        Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
-                        // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
-                        string rawOutput = googleResponse.Text();
-                        string JSONText = string.Empty;
-                        // Parse JSON blocks
-                        var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
-                        if (jsonMatch.Success)
+                        if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
                         {
-                            JSONText = jsonMatch.Value;
-                        }
-                        if (CheckIfOutputIsJSONErrorMessage(JSONText))
-                        {
-                            TurnJSONErrorIntoMessageBoxAndLog(JSONText);
-                            generatedFilename = string.Empty; // Clear the filename if it's an error message
-                            output = String.Empty; // Clear the output if it's an error message
-                            this.Close(); // Close the form after handling the error message
-                            return;
-                        }
-                        var xmlMatch = Regex.Match(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>");
-                        if (xmlMatch.Success)
-                        {
-                            output = xmlMatch.Value.Trim();
+                            Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
+                            // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
+                            string rawOutput = googleResponse.Text();
+                            string JSONText = string.Empty;
+                            // Parse JSON blocks
+                            var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
+                            if (jsonMatch.Success)
+                            {
+                                JSONText = jsonMatch.Value;
+                            }
+                            if (CheckIfOutputIsJSONErrorMessage(JSONText))
+                            {
+                                TurnJSONErrorIntoMessageBoxAndLog(JSONText);
+                                generatedFilename = string.Empty; // Clear the filename if it's an error message
+                                output = String.Empty; // Clear the output if it's an error message
+                                this.Close(); // Close the form after handling the error message
+                                return;
+                            }
+                            var xmlMatch = Regex.Match(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>");
+                            if (xmlMatch.Success)
+                            {
+                                output = xmlMatch.Value.Trim();
+                            }
+                            else
+                            {
+                                // Preserve current behaivor if no valid XML is found.
+                                output = rawOutput.Trim();
+                            }
+                            SplitFileNameAndOutput(rawOutput);
+                            // Remove ```xml and any surrounding text
+                            Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
+                            output = Regex.Replace(output, @"<xml>", String.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"</xml>", String.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<xml />", String.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*```\s*$", String.Empty);
+                            output = Regex.Replace(output, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*1/2\s*$", "Half", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*1/4\s*$", "Quarter", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*Eighth\s*$", "1/8", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"N(\d)([A-G])", "$2$1");
+                            output = Regex.Replace(output, @"N(\d)([A-G]#?)", "$2$1");
+                            output = Regex.Replace(output, @"N(\d)([A-G][#b]?)", "$2$1");
+                            output = Regex.Replace(output, @"\b([A-G]#?)-(\d+)\b", "$1$2", RegexOptions.IgnoreCase); // Fix for "C-5" format
+                            output = Regex.Replace(output, @"\bDb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bEb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bD♭(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bE♭(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bG♭(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bA♭(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bB♭(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bC♯(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bD♯(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bDflat(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bEflat(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bGflat(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bAflat(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bBflat(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bCsharp(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bDsharp(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
+                            output = Regex.Replace(output, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<Note(\d)>\s*Silence\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
+                            output = Regex.Replace(output, @"<Note(\d)>\s*_+\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle underscores as rest
+                            output = Regex.Replace(output, @"<Note(\d)>\s+?</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle whitespace-only as rest
+                            output = Regex.Replace(output, @"<Note(\d)>(.*?)</Note(\d)>", m =>
+                            {
+                                var open = m.Groups[1].Value;
+                                var close = m.Groups[3].Value;
+                                if (open != close)
+                                    return $"<Note{open}>{m.Groups[2].Value}</Note{open}>";
+                                return m.Value;
+                            }, RegexOptions.Singleline);
+                            //Leave only the tag name if "True"
+                            output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*True\s*</\k<tag>>", "${tag}", RegexOptions.IgnoreCase);
+
+                            // Remove the entire tag if "False"
+                            output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*(False)?\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if False
+                            output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if empty
+                                                                                                                                                  // Remove self-closing tags at the end of lines
+                            output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer) />(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)/>(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
+                            output = Regex.Replace(
+                                output,
+                                @"<(?<tag>\w+)>\s*<\k<tag>>(.*?)</\k<tag>>\s*</\k<tag>>",
+                                "<${tag}>$2</${tag}>",
+                                RegexOptions.Singleline
+                            );
+                            // Trim leading/trailing whitespace
+                            output = output.Trim();
+                            output = RewriteOutput(output).Trim();
+                            if (!CheckIfOutputIsJSONErrorMessage(JSONText))
+                            {
+                                Logger.Log("Output: " + output, Logger.LogTypes.Info);
+                            }
+                            isCreatedAnything = true; // Set the flag to true
                         }
                         else
                         {
-                            // Preserve current behaivor if no valid XML is found.
-                            output = rawOutput.Trim();
+                            // AI response is null or empty - show an error message and log the error
+                            Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
+                            isCreatedAnything = false; // Set the flag to false
+                            generatedFilename = string.Empty; // Clear the filename
+                            output = String.Empty; // Clear the output
+                            MessageForm.Show(Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        SplitFileNameAndOutput(rawOutput);
-                        // Remove ```xml and any surrounding text
-                        Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
-                        output = Regex.Replace(output, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"^\s*```xml\s*", String.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*```\s*$", String.Empty);
-                        output = Regex.Replace(output, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*1/2\s*$", "Half", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*1/4\s*$", "Quarter", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*Eighth\s*$", "1/8", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"N(\d)([A-G])", "$2$1");
-                        output = Regex.Replace(output, @"N(\d)([A-G]#?)", "$2$1");
-                        output = Regex.Replace(output, @"N(\d)([A-G][#b]?)", "$2$1");
-                        output = Regex.Replace(output, @"\b([A-G]#?)-(\d+)\b", "$1$2", RegexOptions.IgnoreCase); // Fix for "C-5" format
-                        output = Regex.Replace(output, @"\bDb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bEb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bD♭(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bE♭(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bG♭(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bA♭(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bB♭(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bC♯(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bD♯(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bDflat(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bEflat(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bGflat(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bAflat(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bBflat(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bCsharp(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bDsharp(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
-                        output = Regex.Replace(output, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"<Note(\d)>\s*Silence\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
-                        output = Regex.Replace(output, @"<Note(\d)>\s*_+\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle underscores as rest
-                        output = Regex.Replace(output, @"<Note(\d)>\s+?</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle whitespace-only as rest
-                        output = Regex.Replace(output, @"<Note(\d)>(.*?)</Note(\d)>", m =>
-                        {
-                            var open = m.Groups[1].Value;
-                            var close = m.Groups[3].Value;
-                            if (open != close)
-                                return $"<Note{open}>{m.Groups[2].Value}</Note{open}>";
-                            return m.Value;
-                        }, RegexOptions.Singleline);
-                        //Leave only the tag name if "True"
-                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*True\s*</\k<tag>>", "${tag}", RegexOptions.IgnoreCase);
-
-                        // Remove the entire tag if "False"
-                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*(False)?\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if False
-                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if empty
-                        // Remove self-closing tags at the end of lines
-                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer) />(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
-                        output = Regex.Replace(output, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)/>(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
-                        // Trim leading/trailing whitespace
-                        output = output.Trim();
-                        output = RewriteOutput(output).Trim();
-                        if (!CheckIfOutputIsJSONErrorMessage(JSONText))
-                        {
-                            Logger.Log("Output: " + output, Logger.LogTypes.Info);
-                        }
-                        isCreatedAnything = true; // Set the flag to true
                     }
-                    else
-                    {
-                        // AI response is null or empty - show an error message and log the error
-                        Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
-                        isCreatedAnything = false; // Set the flag to false
-                        generatedFilename = string.Empty; // Clear the filename
-                        output = String.Empty; // Clear the output
-                        MessageForm.Show(Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    // If the operation was cancelled, do nothing
                 }
                 catch (Exception ex)
                 {
@@ -1480,30 +1494,48 @@ namespace NeoBleeper
                 return string.Empty;
             }
 
+            // Remove extra <NeoBleeperProjectFile> and </NeoBleeperProjectFile> tags
+            xmlContent = Regex.Replace(xmlContent, @"(<NeoBleeperProjectFile>)+", "<NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)+", "</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
             // Fix mismatched tags (case-insensitive) to prevent exceptions during XML parsing
             xmlContent = Regex.Replace(
+                   xmlContent,
+                   @"<(?<openTag>\w+)>.*?</(?<closeTag>\w+)>",
+                   m =>
+                   {
+                       string openTag = m.Groups["openTag"].Value;
+                       string closeTag = m.Groups["closeTag"].Value;
+
+                       // If the tags don't match, replace the closing tag with the correct one
+                       if (!openTag.Equals(closeTag, StringComparison.OrdinalIgnoreCase))
+                       {
+                           return $"<{openTag}>{m.Value.Substring(openTag.Length + 2, m.Value.Length - openTag.Length - closeTag.Length - 5)}</{openTag}>";
+                       }
+
+                       // If the tags match, return the original match
+                       return m.Value;
+                   },
+                   RegexOptions.Multiline | RegexOptions.IgnoreCase
+               );
+            xmlContent = Regex.Replace(
                 xmlContent,
-                // Catch opening tag and closing tag
-                @"<(?<tag>\w+)((?:[^<]|<(?!\/\k<tag>))*)?</(?<wrongTag>\w+)>",
-                m =>
-                {
-                    // If tags do not match, replace the closing tag with the correct one
-                    if (!m.Groups["tag"].Value.Equals(m.Groups["wrongTag"].Value, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>";
-                    }
-                    // If tags match, return the original match
-                    return m.Value;
-                },
-                RegexOptions.Multiline | RegexOptions.IgnoreCase // Multiline and case-insensitive even for multi-line content
+                @"(?<!<)(\w+>)</(\w+)>",
+                m => $"<{m.Groups[1].Value}</{m.Groups[2].Value}>",
+                RegexOptions.Singleline
             );
-
+            // Make empty note tags self-closing
+            xmlContent = Regex.Replace(
+                output,
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
             // Trim and normalize the XML content
-            xmlContent = xmlContent.TrimStart();
+            xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
-            xmlContent = System.Text.RegularExpressions.Regex.Replace(
-                xmlContent, @"<\?xml.*?\?>", string.Empty, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(
+                xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
 
+            Debug.WriteLine(xmlContent);
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
@@ -1601,23 +1633,35 @@ namespace NeoBleeper
             }
             if (!await IsInternetAvailable(connectionCts))
             {
-                cts.Cancel();
-                generatedFilename = string.Empty; // Clear filename on internet failure
-                output = String.Empty; // Clear output on internet failure
-                StopConnectionCheck(); // Stop the timer and cancel the task
-                SetControlsEnabledAndMakeLoadingVisible(true);
-                ShowNoInternetMessage();
-                this.Close();
+                if(!isCreatedAnything)
+                {
+                    if(!cts.IsCancellationRequested)
+                    {
+                        cts.Cancel(); // Cancel any ongoing AI requests
+                    }
+                    generatedFilename = string.Empty; // Clear filename on internet failure
+                    output = String.Empty; // Clear output on internet failure
+                    StopConnectionCheck(); // Stop the timer and cancel the task
+                    SetControlsEnabledAndMakeLoadingVisible(true);
+                    ShowNoInternetMessage();
+                    this.Close();
+                }
             }
             else if (!await IsServerUp(connectionCts))
             {
-                cts.Cancel();
-                generatedFilename = string.Empty; // Clear filename on server failure
-                output = String.Empty; // Clear output on server failure
-                StopConnectionCheck(); // Stop the timer and cancel the task
-                SetControlsEnabledAndMakeLoadingVisible(true);
-                ShowServerDownMessage();
-                this.Close();
+                if (!isCreatedAnything)
+                {
+                    if (!cts.IsCancellationRequested)
+                    {
+                        cts.Cancel(); // Cancel any ongoing AI requests
+                    }
+                    generatedFilename = string.Empty; // Clear filename on internet failure
+                    output = String.Empty; // Clear output on internet failure
+                    StopConnectionCheck(); // Stop the timer and cancel the task
+                    SetControlsEnabledAndMakeLoadingVisible(true);
+                    ShowServerDownMessage();
+                    this.Close();
+                }
             }
         }
         private void ShowNoInternetMessage()
