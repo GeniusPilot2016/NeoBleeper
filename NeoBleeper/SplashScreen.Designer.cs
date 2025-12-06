@@ -48,19 +48,17 @@
             resources.ApplyResources(label1, "label1");
             label1.BackColor = Color.Transparent;
             label1.Name = "label1";
-            toolTipButtons.SetToolTip(label1, resources.GetString("label1.ToolTip"));
             label1.MouseDown += splash_MouseDown;
             label1.MouseMove += splash_MouseMove;
             label1.MouseUp += splash_MouseUp;
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.neobleeper_icon;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
-            toolTipButtons.SetToolTip(pictureBox1, resources.GetString("pictureBox1.ToolTip"));
             pictureBox1.MouseDown += splash_MouseDown;
             pictureBox1.MouseMove += splash_MouseMove;
             pictureBox1.MouseUp += splash_MouseUp;
@@ -70,7 +68,6 @@
             resources.ApplyResources(labelVersion, "labelVersion");
             labelVersion.BackColor = Color.Transparent;
             labelVersion.Name = "labelVersion";
-            toolTipButtons.SetToolTip(labelVersion, resources.GetString("labelVersion.ToolTip"));
             labelVersion.MouseDown += splash_MouseDown;
             labelVersion.MouseMove += splash_MouseMove;
             labelVersion.MouseUp += splash_MouseUp;
@@ -79,7 +76,6 @@
             // 
             resources.ApplyResources(progressBar1, "progressBar1");
             progressBar1.Name = "progressBar1";
-            toolTipButtons.SetToolTip(progressBar1, resources.GetString("progressBar1.ToolTip"));
             progressBar1.MouseDown += splash_MouseDown;
             progressBar1.MouseMove += splash_MouseMove;
             progressBar1.MouseUp += splash_MouseUp;
@@ -89,17 +85,15 @@
             resources.ApplyResources(labelStatus, "labelStatus");
             labelStatus.BackColor = Color.Transparent;
             labelStatus.Name = "labelStatus";
-            toolTipButtons.SetToolTip(labelStatus, resources.GetString("labelStatus.ToolTip"));
             labelStatus.MouseDown += splash_MouseDown;
             labelStatus.MouseMove += splash_MouseMove;
             labelStatus.MouseUp += splash_MouseUp;
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             panel1.BackColor = Color.Transparent;
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
-            toolTipButtons.SetToolTip(panel1, resources.GetString("panel1.ToolTip"));
             // 
             // notifyIconNeoBleeper
             // 
@@ -151,7 +145,6 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "SplashScreen";
-            toolTipButtons.SetToolTip(this, resources.GetString("$this.ToolTip"));
             Deactivate += splash_Deactivate;
             FormClosed += splash_FormClosed;
             Load += splash_Load;
