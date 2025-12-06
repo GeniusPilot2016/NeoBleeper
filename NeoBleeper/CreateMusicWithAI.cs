@@ -16,7 +16,6 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
-using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
@@ -1535,7 +1534,6 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
 
-            Debug.WriteLine(xmlContent);
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
