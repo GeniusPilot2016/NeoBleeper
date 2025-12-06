@@ -935,4 +935,70 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="MessageInternalError" xml:space="preserve">
     <value>Im Google Gemini™-Dienst ist ein interner Fehler aufgetreten oder Ihre Eingabe ist zu lang. Bitte versuchen Sie es später erneut oder kürzen Sie Ihre Eingabe.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Außerhalb des zulässigen Bereichs</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Ein Wert liegt außerhalb des zulässigen Bereichs.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Nicht authentifiziert</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Die Authentifizierung ist erforderlich, ist aber fehlgeschlagen oder wurde noch nicht durchgeführt.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Abgebrochen</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>Die Operation wurde abgebrochen.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Existiert bereits</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Die Ressource ist bereits vorhanden.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Anfrage zu groß</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>Die Anfrage ist zu groß, um verarbeitet zu werden.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Verbotener Inhalt</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>Die Antwort wurde aufgrund verbotener Inhalte blockiert.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Abgesagt</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>Die Operation wurde abgesagt.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Datenverlust</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Unwiederbringlicher Datenverlust oder Datenbeschädigung.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Unbekannter Fehler</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Es ist ein unbekannter Fehler aufgetreten.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Nicht implementiert</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>Die angeforderte Funktionalität ist nicht implementiert.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Schlechtes Gateway</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Es wurde eine ungültige Antwort vom Upstream-Server empfangen.</value>
+  </data>
 </root>

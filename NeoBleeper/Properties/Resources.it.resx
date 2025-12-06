@@ -934,4 +934,70 @@ Vuoi aprire comunque questo file?</value>
   <data name="MessageInternalError" xml:space="preserve">
     <value>Si è verificato un errore interno nel servizio Google Gemini™ oppure il testo inserito è troppo lungo. Riprova più tardi o abbrevialo.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Fuori intervallo</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Un valore è fuori dall'intervallo consentito.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Non autenticato</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>L'autenticazione è obbligatoria e non è riuscita o non è ancora stata fornita.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Interrotto</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>L'operazione è stata interrotta.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Esiste già</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>La risorsa esiste già.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Richiesta troppo grande</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>La richiesta è troppo grande per essere elaborata.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Contenuti vietati</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>La risposta è stata bloccata a causa di contenuti vietati.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Annullato</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>L'operazione è stata annullata.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Perdita di dati</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Perdita o danneggiamento irrecuperabile dei dati.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Errore sconosciuto</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Si è verificato un errore sconosciuto.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Non implementato</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>La funzionalità richiesta non è implementata.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Gateway non valido</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Risposta non valida ricevuta dal server upstream.</value>
+  </data>
 </root>

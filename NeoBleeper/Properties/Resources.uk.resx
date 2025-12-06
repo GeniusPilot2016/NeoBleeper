@@ -937,4 +937,70 @@
   <data name="MessageInternalError" xml:space="preserve">
     <value>Сталася внутрішня помилка в сервісі Google Gemini™, або введений вами текст занадто довгий. Будь ласка, спробуйте пізніше або скоротіть його.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Поза діапазоном</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Значення виходить за межі дозволеного діапазону.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Неавтентифіковано</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Автентифікація обов'язкова, але вона не пройшла успішно або ще не була надана.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Перервано</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>Операцію перервано.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Вже існує</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Ресурс вже існує.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Занадто великий запит</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>Запит занадто великий для обробки.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Заборонений контент</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>Відповідь заблоковано через заборонений контент.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>Операцію скасовано.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Втрата даних</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Непоправна втрата або пошкодження даних.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Невідома помилка</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Сталася невідома помилка.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Не реалізовано</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>Запитана функціональність не реалізована.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Поганий шлюз</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Отримано недійсну відповідь від сервера вищого рівня.</value>
+  </data>
 </root>

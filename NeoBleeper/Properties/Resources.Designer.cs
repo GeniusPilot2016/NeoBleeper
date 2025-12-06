@@ -1104,6 +1104,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The operation was aborted. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAborted {
+            get {
+                return ResourceManager.GetString("MessageAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   AI music creation failed:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIMusicCreationFailed {
@@ -1118,6 +1127,15 @@ namespace NeoBleeper.Properties {
         public static string MessageAIResponseNullOrEmpty {
             get {
                 return ResourceManager.GetString("MessageAIResponseNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The resource already exists. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageAlreadyExists", resourceCulture);
             }
         }
         
@@ -1158,6 +1176,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Received an invalid response from the upstream server. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageBadGateway {
+            get {
+                return ResourceManager.GetString("MessageBadGateway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The Beep command as shell script has been saved successfully. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageBeepCommandSaved {
@@ -1172,6 +1199,15 @@ namespace NeoBleeper.Properties {
         public static string MessageBeepCommandSavingError {
             get {
                 return ResourceManager.GetString("MessageBeepCommandSavingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The operation was cancelled. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageCancelled {
+            get {
+                return ResourceManager.GetString("MessageCancelled", resourceCulture);
             }
         }
         
@@ -1208,6 +1244,15 @@ namespace NeoBleeper.Properties {
         public static string MessageCorruptedOrCurrentlyUsedOpenedFile {
             get {
                 return ResourceManager.GetString("MessageCorruptedOrCurrentlyUsedOpenedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unrecoverable data loss or corruption. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageDataLoss {
+            get {
+                return ResourceManager.GetString("MessageDataLoss", resourceCulture);
             }
         }
         
@@ -1486,6 +1531,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The requested functionality is not implemented. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNotImplemented {
+            get {
+                return ResourceManager.GetString("MessageNotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   A value is out of the allowed range. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageOutOfRange {
+            get {
+                return ResourceManager.GetString("MessageOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Your API key does not have permission to access the requested resource. Please check your API key and permissions. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessagePermissionDenied {
@@ -1500,6 +1563,24 @@ namespace NeoBleeper.Properties {
         public static string MessagePlaybackStartingError {
             get {
                 return ResourceManager.GetString("MessagePlaybackStartingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The response was blocked due to prohibited content. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageProhibitedContent {
+            get {
+                return ResourceManager.GetString("MessageProhibitedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The request is too large to be processed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageRequestTooLarge {
+            get {
+                return ResourceManager.GetString("MessageRequestTooLarge", resourceCulture);
             }
         }
         
@@ -1531,11 +1612,29 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Authentication is required and has failed or has not yet been provided. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageUnauthenticated {
+            get {
+                return ResourceManager.GetString("MessageUnauthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The service/model is currently unavailable or overloaded. Please try again later. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageUnavailable {
             get {
                 return ResourceManager.GetString("MessageUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An unknown error occurred. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageUnknownError {
+            get {
+                return ResourceManager.GetString("MessageUnknownError", resourceCulture);
             }
         }
         
@@ -2403,6 +2502,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Aborted benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleAborted {
+            get {
+                return ResourceManager.GetString("TitleAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Already Exists benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleAlreadyExists {
+            get {
+                return ResourceManager.GetString("TitleAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Bad Gateway benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleBadGateway {
+            get {
+                return ResourceManager.GetString("TitleBadGateway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancelled benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleCancelled {
+            get {
+                return ResourceManager.GetString("TitleCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Data Loss benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleDataLoss {
+            get {
+                return ResourceManager.GetString("TitleDataLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Deadline Exceeded benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleDeadlineExceeded {
@@ -2448,6 +2592,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Not Implemented benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleNotImplemented {
+            get {
+                return ResourceManager.GetString("TitleNotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Open MIDI File benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleOpenMIDIFile {
@@ -2466,11 +2619,38 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Out of Range benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleOutOfRange {
+            get {
+                return ResourceManager.GetString("TitleOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Permission Denied benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitlePermissionDenied {
             get {
                 return ResourceManager.GetString("TitlePermissionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Prohibited Content benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleProhibitedContent {
+            get {
+                return ResourceManager.GetString("TitleProhibitedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Request Too Large benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleRequestTooLarge {
+            get {
+                return ResourceManager.GetString("TitleRequestTooLarge", resourceCulture);
             }
         }
         
@@ -2484,11 +2664,29 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Unauthenticated benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleUnauthenticated {
+            get {
+                return ResourceManager.GetString("TitleUnauthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Service/Model Unavailable or Overloaded benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleUnavailable {
             get {
                 return ResourceManager.GetString("TitleUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unknown Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleUnknownError {
+            get {
+                return ResourceManager.GetString("TitleUnknownError", resourceCulture);
             }
         }
         
