@@ -935,4 +935,70 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageInternalError" xml:space="preserve">
     <value>Đã xảy ra lỗi nội bộ trong dịch vụ Google Gemini™ hoặc thông tin bạn nhập quá dài. Vui lòng thử lại sau hoặc rút ngắn thông tin bạn nhập.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Ngoài phạm vi</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Giá trị nằm ngoài phạm vi cho phép.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Chưa xác thực</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Yêu cầu xác thực nhưng không thành công hoặc chưa được xác thực.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>Phẫu thuật đã bị hủy.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Đã tồn tại</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Tài nguyên đã tồn tại.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Yêu cầu quá lớn</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>Yêu cầu quá lớn không thể xử lý.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Nội dung bị cấm</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>Phản hồi đã bị chặn do nội dung bị cấm.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>Phẫu thuật đã bị hủy.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Mất dữ liệu</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Mất hoặc hỏng dữ liệu không thể phục hồi.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Lỗi không xác định</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Đã xảy ra lỗi không xác định.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Chưa triển khai</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>Chức năng được yêu cầu chưa được triển khai.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Cổng kết nối bị lỗi</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Nhận được phản hồi không hợp lệ từ máy chủ thượng nguồn.</value>
+  </data>
 </root>

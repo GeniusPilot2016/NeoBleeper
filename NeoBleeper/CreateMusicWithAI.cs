@@ -1651,46 +1651,69 @@ namespace NeoBleeper
         }
         private (string title, string message) GetLocalizedAPIErrorTitleAndMessage(string exceptionMessage)
         {
+            // 400 - Bad Request
             if (exceptionMessage.Contains("(Code: 400)"))
             {
                 if (exceptionMessage.Contains("INVALID_ARGUMENT"))
-                {
-                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for invalid argument
-                }
-                else if (exceptionMessage.Contains("FAILED_PRECONDITION"))
-                {
-                    return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition); // Localized message for failed precondition
-                }
+                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for INVALID_ARGUMENT
+                if (exceptionMessage.Contains("FAILED_PRECONDITION"))
+                    return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition); // Localized message for FAILED_PRECONDITION
+                if (exceptionMessage.Contains("OUT_OF_RANGE"))
+                    return (Resources.TitleOutOfRange, Resources.MessageOutOfRange); // Localized message for OUT_OF_RANGE
             }
-            else if (exceptionMessage.Contains("(Code: 403)") || exceptionMessage.Contains("PERMISSION_DENIED"))
-            {
-                return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for permission denied
+            // 401 - Unauthenticated
+            if (exceptionMessage.Contains("(Code: 401)") || exceptionMessage.Contains("UNAUTHENTICATED"))
+                return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated); // Localized message for UNAUTHENTICATED
+            // 403 - Permission Denied
+            if (exceptionMessage.Contains("(Code: 403)") || exceptionMessage.Contains("PERMISSION_DENIED"))
+                return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for PERMISSION_DENIED
+            // 404 - Not Found
+            if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
+                return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for NOT_FOUND
+            // 409 - Aborted/Already Exists
+            if (exceptionMessage.Contains("(Code: 409)"))
+            {   
+                if (exceptionMessage.Contains("ABORTED"))
+                    return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
+                if (exceptionMessage.Contains("ALREADY_EXISTS"))
+                    return (Resources.TitleAlreadyExists, Resources.MessageAlreadyExists); // Localized message for ALREADY_EXISTS
             }
-            else if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
-            {
-                return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for not found
+            // 413 - Request Too Large
+            if (exceptionMessage.Contains("(Code: 413)") || exceptionMessage.Contains("REQUEST_TOO_LARGE"))
+                return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge); // Localized message for REQUEST_TOO_LARGE
+            // 423 - Prohibited Content
+            if (exceptionMessage.Contains("(Code: 423)") || exceptionMessage.Contains("PROHIBITED_CONTENT") || exceptionMessage.Contains("The response was blocked due to prohibited content."))
+                return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
+            // 429 - Resource Exhausted
+            if (exceptionMessage.Contains("(Code: 429)") || exceptionMessage.Contains("RESOURCE_EXHAUSTED"))
+                return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
+            // 499 - Cancelled
+            if (exceptionMessage.Contains("(Code: 499)") || exceptionMessage.Contains("CANCELLED"))
+                return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
+            // 500 - Internal Error
+            if (exceptionMessage.Contains("(Code: 500)"))
+            {   
+                if (exceptionMessage.Contains("INTERNAL"))
+                    return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
+                if (exceptionMessage.Contains("DATA_LOSS"))
+                    return (Resources.TitleDataLoss, Resources.MessageDataLoss); // Localized message for DATA_LOSS
+                if (exceptionMessage.Contains("UNKNOWN"))
+                    return (Resources.TitleUnknownError, Resources.MessageUnknownError); // Localized message for UNKNOWN
             }
-            else if (exceptionMessage.Contains("(Code: 429)") || exceptionMessage.Contains("RESOURCE_EXHAUSTED"))
-            {
-                return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for resource exhausted
-            }
-            else if (exceptionMessage.Contains("(Code: 500)") || exceptionMessage.Contains("INTERNAL"))
-            {
-                return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for internal server error
-            }
-            else if (exceptionMessage.Contains("(Code: 503)") || exceptionMessage.Contains("UNAVAILABLE"))
-            {
-                return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for service unavailable
-            }
-            else if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
-            {
-                return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for deadline exceeded
-            }
-            else
-            {
-                return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error message
-            }
-            return (string.Empty, string.Empty); // Fallback, should not reach here
+            // 501 - Not Implemented
+            if (exceptionMessage.Contains("(Code: 501)") || exceptionMessage.Contains("NOT_IMPLEMENTED")) 
+                return (Resources.TitleNotImplemented, Resources.MessageNotImplemented); // Localized message for NOT_IMPLEMENTED
+            // 502 - Bad Gateway
+            if (exceptionMessage.Contains("(Code: 502)") || exceptionMessage.Contains("BAD_GATEWAY"))
+                return (Resources.TitleBadGateway, Resources.MessageBadGateway); // Localized message for BAD_GATEWAY
+            // 503 - Unavailable
+            if (exceptionMessage.Contains("(Code: 503)") || exceptionMessage.Contains("UNAVAILABLE"))
+                return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for UNAVAILABLE
+            // 504 - Deadline Exceeded
+            if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
+                return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED
+            // Generic title and message
+            return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error title and message
         }
     }
 }

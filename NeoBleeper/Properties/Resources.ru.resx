@@ -937,4 +937,70 @@
   <data name="MessageInternalError" xml:space="preserve">
     <value>Произошла внутренняя ошибка в сервисе Google Gemini™, или введенный текст слишком длинный. Повторите попытку позже или сократите текст.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Вне диапазона</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Значение выходит за пределы допустимого диапазона.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Не аутентифицирован</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Требуется аутентификация, которая не пройдена или ещё не выполнена.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Прервано</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>Операция была прервана.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Уже существует</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Ресурс уже существует.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Запрос слишком большой</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>Запрос слишком большой для обработки.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Запрещённый контент</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>Ответ заблокирован из-за запрещённого контента.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>Операция отменена.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Потеря данных</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Невосстановимая потеря или повреждение данных.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Неизвестная ошибка</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Произошла неизвестная ошибка.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Не реализовано</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>Запрошенная функция не реализована.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Неверный шлюз</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Получен неверный ответ от вышестоящего сервера.</value>
+  </data>
 </root>

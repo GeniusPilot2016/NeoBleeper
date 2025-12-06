@@ -936,4 +936,70 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageInternalError" xml:space="preserve">
     <value>Google Gemini™ hizmetinde dahili bir hata oluştu veya girdiniz çok uzun. Lütfen daha sonra tekrar deneyiniz veya girdinizi kısaltınız.</value>
   </data>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Aralık Dışı</value>
+  </data>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>Bir değer izin verilen aralığın dışında.</value>
+  </data>
+  <data name="TitleUnauthenticated" xml:space="preserve">
+    <value>Kimlik Doğrulaması Yapılmadı</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Kimlik doğrulaması gerekli ancak başarısız oldu veya henüz sağlanmadı.</value>
+  </data>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>İptal Edildi</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>İşlem iptal edildi.</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Zaten Var</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Kaynak zaten var.</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>İstek Çok Büyük</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>İstek işlenemeyecek kadar büyük.</value>
+  </data>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Yasaklı İçerik</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>Yanıt, yasaklı içerik nedeniyle engellendi.</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>İptal Edildi</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>İşlem iptal edildi.</value>
+  </data>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Veri Kaybı</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Kurtarılamayan veri kaybı veya bozulması.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Bilinmeyen Hata</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Bilinmeyen bir hata oluştu.</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Uygulanmadı</value>
+  </data>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>İstenen işlevsellik uygulanmadı.</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Hatalı Ağ Geçidi</value>
+  </data>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Yukarı akış sunucusundan geçersiz bir yanıt alındı.</value>
+  </data>
 </root>
