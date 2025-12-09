@@ -1,0 +1,19 @@
+﻿{
+  "Scenario": "Forecasting",
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 3,
+    "OptimizeMetric": "RMSE",
+    "Subsampling": false,
+    "Type": "ForecastingTrainingOption",
+    "TrainingTime": 0,
+    "UseCrossValidation": false,
+    "Horizon": 10,
+    "UseDefaultIndex": false
+  }
+}

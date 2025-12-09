@@ -1078,6 +1078,75 @@ namespace NeoBleeper
             }
         }
 
+        enum InternalPromptErrorCodes // Internal prompt error codes for categorization for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
+        // Extremely primitive AI models may be used in NeoBleeper in the future due to risk of free tier of Google Gemini™ API is gone due to all Pro models are paid only and limits of free tier is decreased to dramatically low levels (according to https://discuss.ai.google.dev/t/is-gemini-2-5-pro-disabled-for-free-tier/111261)
+        {
+            None,
+            NonMusicPromptDetected,
+            ProfanityDetected,
+            InappropriateContentDetected,
+            PoliticalContentDetected,
+            InstructionToBypassSafetyDetected
+        }
+
+        // Internal prompt error code variable to hold the detected error code for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
+        private InternalPromptErrorCodes internalPromptErrorCode;
+        private InternalPromptErrorCodes ReturnInternalErrorCode(string errorCode)
+        {
+            switch (errorCode)
+            {
+                case "NON_MUSIC_PROMPT_DETECTED":
+                    return InternalPromptErrorCodes.NonMusicPromptDetected;
+                case "PROFANITY_DETECTED":
+                    return InternalPromptErrorCodes.ProfanityDetected;
+                case "INAPPROPRIATE_CONTENT_DETECTED":
+                    return InternalPromptErrorCodes.InappropriateContentDetected;
+                case "POLITICAL_CONTENT_DETECTED":
+                    return InternalPromptErrorCodes.PoliticalContentDetected;
+                case "INSTRUCTION_TO_BYPASS_SAFETY_DETECTED":
+                    return InternalPromptErrorCodes.InstructionToBypassSafetyDetected;
+                default:
+                    return InternalPromptErrorCodes.None;
+            }
+        }
+        
+        private void CreateAndShowErrorMessageBox(InternalPromptErrorCodes errorCode)
+        // Create and show error message box based on internal prompt error code for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found2Q5"YR5h%
+        {
+            string title = "Error";
+            string errorMessage = "";
+            string loggingMessage = "";
+            switch (errorCode)
+            {
+                case InternalPromptErrorCodes.NonMusicPromptDetected:
+                    errorMessage = "Non-music prompt detected. Please provide a valid music-related prompt, such as requesting a song composition or artist-related music.";
+                    loggingMessage = "Non-music prompt detected.";
+                    break;
+                case InternalPromptErrorCodes.ProfanityDetected:
+                    errorMessage = "Profanity detected in user prompt. Please avoid using offensive language.";
+                    loggingMessage = "Profanity detected in user prompt.";
+                    break;
+                case InternalPromptErrorCodes.InappropriateContentDetected:
+                    errorMessage = "Inappropriate content detected in user prompt. Please ensure your prompt adheres to community guidelines.";
+                    loggingMessage = "Inappropriate content detected in user prompt.";
+                    break;
+                case InternalPromptErrorCodes.PoliticalContentDetected:
+                    errorMessage = "Political content detected in user prompt. Please avoid political topics in your music requests.";
+                    loggingMessage = "Political content detected in user prompt.";
+                    break;
+                case InternalPromptErrorCodes.InstructionToBypassSafetyDetected:
+                    errorMessage = "Attempt to bypass safety protocols detected in user prompt. Such requests are not allowed.";
+                    loggingMessage = "Instruction to bypass safety detected in user prompt.";
+                    break;
+                default:
+                    errorMessage = "An unknown error occurred while processing your prompt.";
+                    loggingMessage = "An unknown error occurred.";
+                    break;
+            }
+            Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
+            MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private string GenerateFilenameFromPromptOrXml(string userPrompt)
         {
             if (!string.IsNullOrWhiteSpace(userPrompt))
