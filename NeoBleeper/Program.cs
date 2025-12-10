@@ -1,4 +1,4 @@
-// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
 // Copyright (C) 2023 GeniusPilot2016
 //
 // This program is free software: you can redistribute it and/or modify
@@ -393,11 +393,56 @@ namespace NeoBleeper
             }
             return false; // File does not exist
         }
+        private static void SetLanguageBasedOnOSLanguage() // Set application language based on OS language if no saved settings is found
+        {
+            var osLanguage = System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
+            switch (osLanguage)
+            { 
+                case "en":
+                    Settings1.Default.preferredLanguage = "English";
+                    break;
+                case "fr":
+                    Settings1.Default.preferredLanguage = "Français";
+                    break;
+                case "de":
+                    Settings1.Default.preferredLanguage = "Deutsch";
+                    break;
+                case "es":
+                    Settings1.Default.preferredLanguage = "Español";
+                    break;
+                case "ru":
+                    Settings1.Default.preferredLanguage = "Русский";
+                    break;
+                case "uk":
+                    Settings1.Default.preferredLanguage = "українська";
+                    break;
+                case "vi":
+                    Settings1.Default.preferredLanguage = "Tiếng Việt";
+                    break;
+                case "tr":
+                    Settings1.Default.preferredLanguage = "Türkçe";
+                    break;
+                case "it":
+                    Settings1.Default.preferredLanguage = "Italiano";
+                    break;
+                default:
+                    Settings1.Default.preferredLanguage = "English"; // Default to English if OS language is not supported
+                    break;
+            }
+            Settings1.Default.Save();
+        }
         private static void LoadSettingsIfNeeded()
         {
             if (!Settings1.Default.HasSettingsUpgraded)
             {
+                bool formerState = Settings1.Default.HasSettingsUpgraded;
                 Settings1.Default.Upgrade();
+                Settings1.Default.Save();
+                bool currentState = Settings1.Default.HasSettingsUpgraded;
+                if (formerState == currentState) // This means no saved settings is found from previous versions
+                {
+                    SetLanguageBasedOnOSLanguage(); // Set language based on OS language if no saved settings is found
+                }
                 Settings1.Default.HasSettingsUpgraded = true;
                 Settings1.Default.Save();
             }

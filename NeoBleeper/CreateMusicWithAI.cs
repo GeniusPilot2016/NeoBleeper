@@ -16,6 +16,7 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
@@ -1597,12 +1598,26 @@ namespace NeoBleeper
                 @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
                 "<$1 />",
                 RegexOptions.Multiline);
+            // Fix remaining mismatched tags
+            xmlContent = Regex.Replace(
+                xmlContent,
+                @"<(?<open>\w+)>(.*?)</(?<close>\w+)>",
+                m => {
+                    var open = m.Groups["open"].Value;
+                    var close = m.Groups["close"].Value;
+                    var content = m.Groups[2].Value;
+                    if (open != close)
+                        return $"<{open}>{content}</{open}>";
+                    return m.Value;
+                },
+                RegexOptions.Multiline | RegexOptions.IgnoreCase
+            );
             // Trim and normalize the XML content
             xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
-
+            //Debug.WriteLine(xmlContent); // For debugging purposes
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
