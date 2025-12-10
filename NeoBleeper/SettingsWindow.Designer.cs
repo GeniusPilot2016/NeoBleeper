@@ -1189,7 +1189,7 @@
             colorDialog1.AnyColor = true;
             colorDialog1.FullOpen = true;
             // 
-            // settings_window
+            // SettingsWindow
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -1197,7 +1197,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "settings_window";
+            Name = "SettingsWindow";
             ShowIcon = false;
             ShowInTaskbar = false;
             toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
