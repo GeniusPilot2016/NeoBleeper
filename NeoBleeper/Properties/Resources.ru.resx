@@ -1003,4 +1003,10 @@
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Получен неверный ответ от вышестоящего сервера.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Сгенерированный результат, по-видимому, содержит неполное содержимое NBPML и не может быть использован.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Неполное содержимое NBPML</value>
+  </data>
 </root>

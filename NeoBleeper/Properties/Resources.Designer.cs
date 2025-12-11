@@ -1383,6 +1383,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The generated output appears to be incomplete NBPML content and cannot be used. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageIncompleteNBPMLContent {
+            get {
+                return ResourceManager.GetString("MessageIncompleteNBPMLContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageInternalError {
@@ -2561,6 +2570,15 @@ namespace NeoBleeper.Properties {
         public static string TitleFailedPrecondition {
             get {
                 return ResourceManager.GetString("TitleFailedPrecondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Incomplete NBPML Content benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleIncompleteNBPMLContent {
+            get {
+                return ResourceManager.GetString("TitleIncompleteNBPMLContent", resourceCulture);
             }
         }
         
