@@ -1003,4 +1003,10 @@
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Отримано недійсну відповідь від сервера вищого рівня.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Згенерований вивід, схоже, є неповним вмістом NBPML і не може бути використаний.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Неповний вміст NBPML</value>
+  </data>
 </root>

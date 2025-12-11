@@ -1002,4 +1002,10 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Yukarı akış sunucusundan geçersiz bir yanıt alındı.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Oluşturulan çıktı eksik NBPML içeriği içeriyor gibi görünüyor ve kullanılamaz.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Eksik NBPML İçeriği</value>
+  </data>
 </root>

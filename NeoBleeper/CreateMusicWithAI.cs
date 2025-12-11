@@ -950,6 +950,11 @@ namespace NeoBleeper
                             output = Regex.Replace(output, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bCs(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bDs(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bFs(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bGs(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+                            output = Regex.Replace(output, @"\bAs(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
                             output = Regex.Replace(output, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -980,9 +985,25 @@ namespace NeoBleeper
                                 "<${tag}>$2</${tag}>",
                                 RegexOptions.Singleline
                             );
+                            // Fix TimeSignature if written as a fraction due to hallucination
+                            output =  Regex.Replace(
+                                output,
+                                @"<TimeSignature>\s*(\d+)\s*/\s*\d+\s*</TimeSignature>",
+                                m => $"<TimeSignature>{m.Groups[1].Value}</TimeSignature>",
+                                RegexOptions.IgnoreCase
+                            );
                             // Trim leading/trailing whitespace
                             output = output.Trim();
                             output = RewriteOutput(output).Trim();
+                            if(!IsCompleteNBPML(output)) // Check for completeness of NBPML content
+                            {
+                                Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
+                                MessageForm.Show(Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                generatedFilename = string.Empty; // Clear the filename if it's incomplete
+                                output = String.Empty; // Clear the output if it's incomplete
+                                this.Close(); // Close the form after handling the incomplete output
+                                return; // Exit the method
+                            }
                             if (!CheckIfOutputIsJSONErrorMessage(JSONText))
                             {
                                 Logger.Log("Output: " + output, Logger.LogTypes.Info);
@@ -1424,6 +1445,14 @@ namespace NeoBleeper
             output = output.Trim();
             return output;
         }
+        private bool IsCompleteNBPML(string NBPMLDocument) // Check if the NBPML document has all required sections
+        {
+            bool isComplete = Regex.Matches(NBPMLDocument, @"<NeoBleeperProjectFile>").Count == 1 &&
+                              Regex.Matches(NBPMLDocument, @"</NeoBleeperProjectFile>").Count == 1 &&
+                              Regex.Matches(NBPMLDocument, @"<LineList>").Count == 1 &&
+                              Regex.Matches(NBPMLDocument, @"</LineList>").Count == 1;
+            return isComplete; // Return true if all required sections are present
+        }
         private string FixParameterNames(string xmlContent)
         {
             if (string.IsNullOrEmpty(xmlContent))
@@ -1612,12 +1641,19 @@ namespace NeoBleeper
                 },
                 RegexOptions.Multiline | RegexOptions.IgnoreCase
             );
+            // Fix to remove extra space before tag names
+            output = Regex.Replace(output, @"<\s+/?", m => m.Value.Replace(" ", ""), RegexOptions.Multiline);
+            output = Regex.Replace(output, @"</\s+", "</", RegexOptions.Multiline);
             // Trim and normalize the XML content
             xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
             //Debug.WriteLine(xmlContent); // For debugging purposes
+            if(!IsCompleteNBPML(xmlContent))
+            {
+                return xmlContent; // Return original content if not complete
+            }
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);

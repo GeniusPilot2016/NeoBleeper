@@ -1001,4 +1001,10 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Nhận được phản hồi không hợp lệ từ máy chủ thượng nguồn.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Kết quả đầu ra có vẻ như là nội dung NBPML không đầy đủ và không thể sử dụng được.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Nội dung NBPML không đầy đủ</value>
+  </data>
 </root>

@@ -1000,4 +1000,10 @@ Vuoi aprire comunque questo file?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Risposta non valida ricevuta dal server upstream.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>L'output generato sembra essere un contenuto NBPML incompleto e non può essere utilizzato.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Contenuto NBPML incompleto</value>
+  </data>
 </root>

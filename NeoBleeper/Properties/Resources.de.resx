@@ -1001,4 +1001,10 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Es wurde eine ungültige Antwort vom Upstream-Server empfangen.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Die generierte Ausgabe ist unvollständiger NBPML-Inhalt und kann nicht verwendet werden.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Unvollständiger NBPML-Inhalt</value>
+  </data>
 </root>

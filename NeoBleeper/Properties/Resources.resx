@@ -1021,4 +1021,10 @@ Do you want to open this file anyway?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Received an invalid response from the upstream server.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>The generated output appears to be incomplete NBPML content and cannot be used.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Incomplete NBPML Content</value>
+  </data>
 </root>

@@ -1001,4 +1001,10 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageBadGateway" xml:space="preserve">
     <value>Réponse invalide reçue du serveur en amont.</value>
   </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>Le contenu NBPML généré est incomplet et ne peut être utilisé.</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Contenu NBPML incomplet</value>
+  </data>
 </root>
