@@ -1027,4 +1027,10 @@ Do you want to open this file anyway?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Incomplete NBPML Content</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Request Timeout</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>The request timed out before completion. Please try again later.</value>
+  </data>
 </root>

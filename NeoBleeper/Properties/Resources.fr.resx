@@ -1007,4 +1007,10 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Contenu NBPML incomplet</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Délai d'attente dépassé</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>La requête a expiré avant d'être terminée. Veuillez réessayer.</value>
+  </data>
 </root>

@@ -1007,4 +1007,10 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Contenido NBPML incompleto</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Tiempo de espera de la solicitud</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>La solicitud se agotó antes de completarse. Inténtelo de nuevo.</value>
+  </data>
 </root>

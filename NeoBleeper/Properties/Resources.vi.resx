@@ -1007,4 +1007,10 @@ Bạn có muốn mở tệp này không?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Nội dung NBPML không đầy đủ</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Yêu cầu bị hết thời gian chờ</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>Yêu cầu đã bị hết thời gian chờ trước khi hoàn thành. Vui lòng thử lại.</value>
+  </data>
 </root>

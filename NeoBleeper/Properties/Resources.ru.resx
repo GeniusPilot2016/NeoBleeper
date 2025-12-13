@@ -1009,4 +1009,10 @@
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Неполное содержимое NBPML</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Превышено время ожидания запроса</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>Запрос завершился по истечении времени ожидания. Пожалуйста, попробуйте снова.</value>
+  </data>
 </root>

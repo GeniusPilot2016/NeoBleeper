@@ -1007,4 +1007,10 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Unvollständiger NBPML-Inhalt</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Zeitüberschreitung bei der Anfrage</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>Die Anfrage konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.</value>
+  </data>
 </root>

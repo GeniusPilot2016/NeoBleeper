@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using System.Xml;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -726,6 +727,12 @@ namespace NeoBleeper
             var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
             return supportedCountries.Contains(countryCode);
         }
+        private string FixCollapsedLinesInNBPML(string nbpmlContent)
+        {
+            // This method fixes collapsed lines in NBPML by ensuring every element is on its own line
+            var regex = new Regex(@"><", RegexOptions.Singleline);
+            return regex.Replace(nbpmlContent, ">\r\n<");
+        }
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(AIModel) && (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) || !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
@@ -735,14 +742,8 @@ namespace NeoBleeper
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
                     Logger.Log("Starting music generation with AI...", Logger.LogTypes.Info);
                     string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
-                    connectionCheckTimer.Start();
-                    SetControlsEnabledAndMakeLoadingVisible(false);
-                    var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-                    var googleAI = new GoogleAi(apiKey);
-                    var googleModel = googleAI.CreateGenerativeModel(AIModel);
                     // The "makeshift rubbish prompt template" (aka system prompt) to create "chaotic" music by creating NBPML text (Fun fact: I wasn't know what system prompt is. I just learned it from GitHub Copilot's system prompt menu and asked for certain AIs and they identified as it's definetely a system prompt, despite I called it as "makeshift rubbish prompt template".)
-                    var googleResponse = await googleModel.GenerateContentAsync(
-                        $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
+                    string completePrompt = $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
                         $"--- AI Instructions ---\r\n" +
                         $"You are an expert music composition AI. " +
                         $"Your primary goal is to generate music in XML format. Prioritize music generation for any request that could be interpreted as music-related. " +
@@ -868,17 +869,39 @@ namespace NeoBleeper
                         $"    </Settings>\r\n" +
                         $"    <LineList>\r\n" +
                         $"    </LineList>\r\n" +
-                        $"</NeoBleeperProjectFile>\r\n"
-                    , cts.Token);
+                        $"</NeoBleeperProjectFile>\r\n";
+                    connectionCheckTimer.Start();
+                    SetControlsEnabledAndMakeLoadingVisible(false);
+                    string response = string.Empty;
+                    var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                    var googleAI = new GoogleAi(apiKey);
+                    var googleModel = googleAI.CreateGenerativeModel(AIModel);
+                    await foreach (var chunk in googleModel.StreamContentAsync(completePrompt, cts.Token))
+                    {
+                        // Clean up the chunk text by removing double newlines and trimming whitespace
+                        string cleanChunk = chunk.Text()?.Replace("\n\n", "\n").Trim() ?? string.Empty;
+                        response += cleanChunk;
+
+                        if (cts.IsCancellationRequested)
+                        {
+                            Logger.Log("AI music generation was cancelled", Logger.LogTypes.Warning);
+                            break;
+                        }
+                    }
+
+                    // Remove excessive newlines from the final response
+                    response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
+                    response = FixCollapsedLinesInNBPML(response); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
+                    //Debug.WriteLine("Full AI Response: " + response);
                     StopConnectionCheck();
                     await Task.Delay(2);
                     if (!cts.IsCancellationRequested)
                     {
-                        if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
+                        if (response != null && !string.IsNullOrWhiteSpace(response))
                         {
                             Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
                             // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
-                            string rawOutput = googleResponse.Text();
+                            string rawOutput = response;
                             string JSONText = string.Empty;
                             // Parse JSON blocks
                             var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
@@ -1832,6 +1855,8 @@ namespace NeoBleeper
             // 404 - Not Found
             if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
                 return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for NOT_FOUND
+            if (exceptionMessage.Contains("(Code: 408)") || exceptionMessage.Contains("REQUEST_TIMEOUT"))
+                return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT     
             // 409 - Aborted/Already Exists
             if (exceptionMessage.Contains("(Code: 409)"))
             {   
@@ -1874,7 +1899,37 @@ namespace NeoBleeper
             // 504 - Deadline Exceeded
             if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
                 return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED
-            // Generic title and message
+            if (exceptionMessage.Contains("Response status code does not indicate success:")) // Generic HTTP status code check for new variant of Google Gemini™ API error messages
+            {
+                if (exceptionMessage.Contains("400") || exceptionMessage.Contains("(Bad Request)"))
+                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for INVALID_ARGUMENT
+                if (exceptionMessage.Contains("401") || exceptionMessage.Contains("(Unauthorized)"))
+                    return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated); // Localized message for UNAUTHENTICATED
+                if (exceptionMessage.Contains("403") || exceptionMessage.Contains("(Forbidden)"))
+                    return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for PERMISSION_DENIED
+                if (exceptionMessage.Contains("404") || exceptionMessage.Contains("(Not Found)"))
+                    return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for Not Found
+                if (exceptionMessage.Contains("408") || exceptionMessage.Contains("(Request Timeout)"))
+                    return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT    
+                if (exceptionMessage.Contains("409") || exceptionMessage.Contains("(Conflict)"))
+                    return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
+                if (exceptionMessage.Contains("413") || exceptionMessage.Contains("(Payload Too Large)"))
+                    return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge); // Localized message for REQUEST_TOO_LARGE
+                if (exceptionMessage.Contains("423") || exceptionMessage.Contains("(Locked)"))
+                    return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
+                if (exceptionMessage.Contains("429") || exceptionMessage.Contains("(Too Many Requests)"))
+                    return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
+                if( exceptionMessage.Contains("499") || exceptionMessage.Contains("(Client Closed Request)"))
+                    return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
+                if (exceptionMessage.Contains("500") || exceptionMessage.Contains("(Internal Server Error)"))
+                    return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
+                if (exceptionMessage.Contains("502") || exceptionMessage.Contains("(Bad Gateway)"))
+                    return (Resources.TitleBadGateway, Resources.MessageBadGateway); // Localized message for Bad Gateway
+                if (exceptionMessage.Contains("503") || exceptionMessage.Contains("(Service Unavailable)"))
+                    return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for UNAVAILABLE
+                if (exceptionMessage.Contains("504") || exceptionMessage.Contains("(Gateway Timeout)"))
+                    return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED                                                          // Generic title and message
+            }
             return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error title and message
         }
     }

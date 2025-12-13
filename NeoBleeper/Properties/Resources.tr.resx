@@ -1008,4 +1008,10 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Eksik NBPML İçeriği</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>İstek Zaman Aşımı</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>İstek tamamlanmadan önce zaman aşımına uğradı. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
 </root>

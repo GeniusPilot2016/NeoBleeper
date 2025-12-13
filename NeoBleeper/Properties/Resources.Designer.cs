@@ -1585,6 +1585,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The request timed out before completion. Please try again later. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageRequestTimeout {
+            get {
+                return ResourceManager.GetString("MessageRequestTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The request is too large to be processed. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageRequestTooLarge {
@@ -2660,6 +2669,15 @@ namespace NeoBleeper.Properties {
         public static string TitleProhibitedContent {
             get {
                 return ResourceManager.GetString("TitleProhibitedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Request Timeout benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleRequestTimeout {
+            get {
+                return ResourceManager.GetString("TitleRequestTimeout", resourceCulture);
             }
         }
         
