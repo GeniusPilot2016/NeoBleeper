@@ -44,6 +44,12 @@ namespace BeepStopper
 
         int themeIndex = 0;
 
+        /// <summary>
+        /// Applies the current application theme based on the selected theme index and system settings.
+        /// </summary>
+        /// <remarks>If the theme index is set to automatic, the method selects a light or dark theme
+        /// according to the system's current theme preference. Otherwise, it applies the explicitly selected light or
+        /// dark theme. This method updates the internal theme state to match the applied theme.</remarks>
         private void SetTheme()
         {
             switch (Program.themeIndex)

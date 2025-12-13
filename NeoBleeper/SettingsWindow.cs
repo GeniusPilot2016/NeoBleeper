@@ -782,6 +782,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Greensleeves" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a fixed sequence of notes corresponding to the melody. The playback
+        /// uses the system speaker and may not be supported on all platforms or hardware configurations.</remarks>
         private void PlayGreensleeves()
         {
             int[][] melody = new int[][]
@@ -800,6 +806,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Row, Row, Row Your Boat" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a fixed sequence of notes corresponding to the melody. The playback
+        /// uses the system speaker and may not be supported on all platforms or hardware configurations.</remarks>
         private void PlayRowRowRowYourBoat()
         {
             int[][] melody = new int[][]
@@ -819,7 +831,12 @@ namespace NeoBleeper
             }
         }
 
-
+        /// <summary>
+        /// Plays the melody of the song "Jingle Bells" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a sequence of tones corresponding to the main theme of "Jingle
+        /// Bells" through the system speaker. The method is intended for simple audio feedback and does not support
+        /// advanced playback features or audio output devices beyond the system speaker.</remarks>
         private void PlayJingleBells()
         {
             int[][] melody = new int[][]
@@ -842,6 +859,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Mary Had a Little Lamb" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a sequence of tones corresponding to the notes of the song "Mary
+        /// Had a Little Lamb". Each note is played using the system speaker and may not be audible on all hardware or
+        /// operating systems. The method does not block or return any value.</remarks>
         private void PlayMaryHadALittleLamb()
         {
             int[][] melody = new int[][]
@@ -866,6 +890,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Ode to Joy" using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays a sequence of notes corresponding to the main theme of Beethoven's
+        /// "Ode to Joy". The playback uses the system speaker and may not be available or audible on all
+        /// systems.</remarks>
         private void PlayOdeToJoy()
         {
             int[][] melody = new int[][]
@@ -892,6 +923,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Yankee Doodle" using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays a sequence of notes corresponding to the main theme of "Yankee
+        /// Doodle" by invoking the system speaker for each note. The method is intended for use in environments where
+        /// system speaker output is supported.</remarks>
         private void PlayYankeeDoodle()
         {
             int[][] melody = new int[][]
@@ -917,6 +955,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Frère Jacques" using system speaker beeps.
+        /// </summary>
+        /// <remarks>Each note of the melody is played sequentially through the system speaker. This
+        /// method does not provide audio output on systems where the system beep is unavailable or disabled.</remarks>
         private void PlayFrereJacques()
         {
             int[][] melody = new int[][]
@@ -954,6 +998,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays a C minor chord using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays the notes C4, D#4, and G4 sequentially, each for 500 milliseconds,
+        /// through the system speaker. The method is intended for simple audio feedback and does not support polyphonic
+        /// playback.</remarks>
         private void PlayMinorChord()
         {
             int[] frequencies = { 261, 311, 392 }; // C4, D#4, G4
@@ -962,6 +1013,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each note
             }
         }
+
+        /// <summary>
+        /// Plays the notes of a C major chord sequentially using the system speaker.
+        /// </summary>
+        /// <remarks>Each note of the chord (C4, E4, G4) is played for 500 milliseconds in sequence. This
+        /// method uses the system speaker and may not produce sound on all hardware configurations.</remarks>
         private void PlayMajorChord()
         {
             int[] frequencies = { 261, 329, 392 }; // C4, E4, G4
@@ -970,6 +1027,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each note
             }
         }
+
+        /// <summary>
+        /// Plays a sequence of beeps with descending frequencies using the system speaker.
+        /// </summary>
+        /// <remarks>Each beep decreases in pitch, starting from a higher frequency and ending at a lower
+        /// frequency. This method is typically used to provide audible feedback or alerts to the user.</remarks>
         private void PlayDescendingBeeps()
         {
             for (int freq = 2000; freq >= 200; freq -= 200)
@@ -977,6 +1040,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each frequency
             }
         }
+
+        /// <summary>
+        /// Plays a sequence of beeps with ascending frequencies using the system speaker.
+        /// </summary>
+        /// <remarks>Each beep increases in frequency from 200 Hz to 2000 Hz in 200 Hz increments, with
+        /// each tone lasting 500 milliseconds. This method can be used to provide audible feedback or notifications
+        /// that indicate progression or escalation.</remarks>
         private void PlayAscendingBeeps()
         {
             for (int freq = 200; freq <= 2000; freq += 200)
@@ -984,6 +1054,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(freq, 500); // 500 ms for each frequency
             }
         }
+
+        /// <summary>
+        /// Plays a sequence of beeps with random frequencies and durations using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays ten beeps, each with a randomly selected frequency between 200 Hz
+        /// and 2000 Hz and a duration between 100 ms and 1000 ms. The beeps are played in succession and may block the
+        /// calling thread until all beeps have finished playing.</remarks>
         private void PlayRandomBeeps()
         {
             Random rnd = new Random();
@@ -994,6 +1071,14 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(frequency, duration);
             }
         }
+
+        /// <summary>
+        /// Plays the "Happy Birthday" melody using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays a simple version of the "Happy Birthday" tune by emitting a
+        /// sequence of beeps through the system speaker. The method is intended for environments where audio output is
+        /// available via the system beep functionality. No sound will be produced if the system speaker is unavailable
+        /// or disabled.</remarks>
         private void PlayHappyBirthday()
         {
             int[][] melody = new int[][]
@@ -1017,6 +1102,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the opening motif of Beethoven's Fifth Symphony using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a fixed sequence of notes corresponding to the recognizable
+        /// "short-short-short-long" motif. The method uses the system speaker and may not produce sound on all hardware
+        /// or operating systems.</remarks>
         private void PlayBeethovenFifth()
         {
             int[][] melody = new int[][]
@@ -1036,6 +1128,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Twinkle, Twinkle, Little Star" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method plays a fixed sequence of notes corresponding to the main theme of the
+        /// song. The method does not return until the entire melody has finished playing. The output is limited to the
+        /// capabilities of the system speaker and may not be available on all platforms.</remarks>
         private void PlayTwinkleTwinkle()
         {
             int[][] melody = new int[][]
@@ -1061,12 +1160,26 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays a simple sequence of three beeps with increasing frequencies using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays three distinct beeps at frequencies of 1000 Hz, 1500 Hz, and 2000 Hz,
+        /// each lasting for 500 milliseconds. The beeps are played sequentially through the system speaker and may not
+        /// be audible on all hardware configurations.</remarks>
         private void PlaySimpleBeepSequence()
         {
             NotePlayer.PlayOnlySystemSpeakerBeep(1000, 500); // Frequency: 1000 Hz, Duration: 500 ms
             NotePlayer.PlayOnlySystemSpeakerBeep(1500, 500); // Frequency: 1500 Hz, Duration: 500 ms
             NotePlayer.PlayOnlySystemSpeakerBeep(2000, 500); // Frequency: 2000 Hz, Duration: 500 ms
         }
+
+        /// <summary>
+        /// Plays a C major scale using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays the notes of the C major scale (C4 to C5) sequentially,
+        /// each for 500 milliseconds. The playback is done through the system speaker and may not be
+        /// supported on all platforms or hardware configurations.</remarks>
         private void PlayScale()
         {
             int[] frequencies = { 261, 293, 329, 349, 392, 440, 493, 523 }; // C4 to C5
@@ -1251,6 +1364,13 @@ namespace NeoBleeper
             Logger.Log("Colors reset to default.", Logger.LogTypes.Info);
         }
 
+        /// <summary>
+        /// Refreshes the list of available MIDI input devices and updates the related user interface controls to
+        /// reflect the current device state.
+        /// </summary>
+        /// <remarks>This method should be called whenever the set of connected MIDI input devices may
+        /// have changed, such as after connecting or disconnecting a device. The enabled state of related controls is
+        /// updated based on device availability.</remarks>
         private void RefreshMidiInputDevices()
         {
             comboBox_midi_input_devices.Items.Clear();
@@ -1276,6 +1396,12 @@ namespace NeoBleeper
             Logger.Log("MIDI input devices refreshed.", Logger.LogTypes.Info);
         }
 
+        /// <summary>
+        /// Refreshes the list of available MIDI output devices and updates the related user interface controls to
+        /// </summary>
+        /// <remarks>This method should be called whenever the set of connected MIDI output devices may
+        /// have changed, such as after connecting or disconnecting a device. The enabled state of related controls is
+        /// updated based on device availability.</remarks>
         private void RefreshMidiOutputDevices()
         {
             comboBox_midi_output_devices.Items.Clear();
@@ -1577,6 +1703,14 @@ namespace NeoBleeper
                 openForm.ResumeLayout();
             }
         }
+
+        /// <summary>
+        /// Refreshes the specified control and its child controls to apply visual style changes.
+        /// </summary>
+        /// <remarks>This method recursively traverses the control hierarchy, refreshing each control.
+        /// For NumericUpDown and TextBox controls, it invokes the non-public RecreateHandle method to ensure
+        /// that visual style changes are applied correctly.</remarks>
+        /// <param name="ctrl"></param>
         private void RefreshControls(Control ctrl)
         {
             if (ctrl.HasChildren)

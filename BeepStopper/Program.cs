@@ -71,6 +71,14 @@ namespace BeepStopper
             ThemeManager.Cleanup();
             Debug.WriteLine("Beep stopper application has exited.");
         }
+
+        /// <summary>
+        /// Loads application settings from the synchronized settings source and applies the theme and language
+        /// preferences.
+        /// </summary>
+        /// <remarks>This method updates the application's theme and language based on the current
+        /// synchronized settings. It should be called during application startup or when settings need to be
+        /// refreshed.</remarks>
         private static void LoadSettings()
         {
             var SynchronizedSettings = NeoBleeper.SynchronizedSettings.Load(false);
@@ -78,6 +86,13 @@ namespace BeepStopper
             UIHelper.SetLanguageByName(SynchronizedSettings.Language);
             Debug.WriteLine($"Beep stopper is starting with language: {SynchronizedSettings.Language}");
         }
+
+        /// <summary>
+        /// Checks if InpOutx64.dll is present and valid; if not, places the DLL file from embedded resources.
+        /// </summary>
+        /// <remarks> This method ensures that the InpOutx64.dll file is available in the application's base directory.
+        /// If the file is missing or corrupted, it writes the DLL from the embedded resources to the file system.
+        /// </remarks>
         private static void CheckAndPlaceInpOutX64()
         {
             var inpOutX64File = NeoBleeper.Properties.Resources.inpoutx64; // InpOutx64.dll binary resource
@@ -101,6 +116,15 @@ namespace BeepStopper
                 Debug.WriteLine("InpOutx64.dll already exists and valid. No action needed.");
             }
         }
+
+        /// <summary>
+        /// Determines whether the InpOutx64.dll file is present in the application's base directory and matches the
+        /// expected SHA256 hash.
+        /// </summary>
+        /// <remarks>This method verifies both the presence and integrity of InpOutx64.dll by comparing
+        /// its SHA256 hash to a known good value. Use this check before attempting to interact with the DLL to ensure
+        /// compatibility and prevent potential errors due to tampering or corruption.</remarks>
+        /// <returns>true if InpOutx64.dll exists and its SHA256 hash matches the embedded reference; otherwise, false.</returns>
         private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
         {
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
