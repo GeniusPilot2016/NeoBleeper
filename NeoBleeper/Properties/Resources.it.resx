@@ -1006,4 +1006,16 @@ Vuoi aprire comunque questo file?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Contenuto NBPML incompleto</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Timeout della richiesta</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>La richiesta è scaduta prima del completamento. Riprova.</value>
+  </data>
+  <data name="TitleInfiniteLoop" xml:space="preserve">
+    <value>Rilevato ciclo infinito</value>
+  </data>
+  <data name="MessageInfiniteLoop" xml:space="preserve">
+    <value>Il modello di IA appare in un ciclo infinito o continua a ripetersi. La creazione musicale con l'IA è stata annullata.</value>
+  </data>
 </root>

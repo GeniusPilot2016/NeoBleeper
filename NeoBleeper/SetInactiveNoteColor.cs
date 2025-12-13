@@ -18,6 +18,15 @@ namespace NeoBleeper
 {
     public static class SetInactiveNoteColor
     {
+        /// <summary>
+        /// Calculates an appropriate color for displaying inactive notes based on the specified background color.
+        /// </summary>
+        /// <remarks>This method ensures that inactive notes remain visible and distinguishable regardless
+        /// of the background color by adjusting the brightness of the returned color. The adjustment is based on the
+        /// perceived brightness of the input color.</remarks>
+        /// <param name="backgroundColor">The background color used as the basis for determining the inactive note color.</param>
+        /// <returns>A color that contrasts with the specified background color, adjusted to appear either lighter or darker
+        /// depending on the background's brightness.</returns>
         public static Color GetInactiveNoteColor(Color backgroundColor)
         {
             // Brightness calculation (YIQ Equation)

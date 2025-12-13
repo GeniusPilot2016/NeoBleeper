@@ -39,11 +39,21 @@ namespace NeoBleeper
         }
         private string _currentLyrics = string.Empty;
 
+        /// <summary>
+        /// Displays the specified lyrics in the control.
+        /// </summary>
+        /// <param name="lyrics">The lyrics text to display. If null, the display will be cleared.</param>
         public void PrintLyrics(string lyrics)
         {
             _currentLyrics = lyrics ?? string.Empty;
             Invalidate(); // Trigger a repaint
         }
+
+        /// <summary>
+        /// Clears the currently displayed lyrics from the control.
+        /// </summary>
+        /// <remarks>Call this method to remove any lyrics that are currently shown. The control will be
+        /// refreshed to reflect the change.</remarks>
         public void ClearLyrics()
         {
             _currentLyrics = string.Empty;

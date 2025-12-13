@@ -1007,4 +1007,16 @@ Bạn có muốn mở tệp này không?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Nội dung NBPML không đầy đủ</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Yêu cầu bị hết thời gian chờ</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>Yêu cầu đã bị hết thời gian chờ trước khi hoàn thành. Vui lòng thử lại.</value>
+  </data>
+  <data name="TitleInfiniteLoop" xml:space="preserve">
+    <value>Phát hiện vòng lặp vô hạn</value>
+  </data>
+  <data name="MessageInfiniteLoop" xml:space="preserve">
+    <value>Mô hình AI xuất hiện trong một vòng lặp vô hạn hoặc liên tục lặp lại chính nó. Quá trình tạo nhạc bằng AI đã bị hủy bỏ.</value>
+  </data>
 </root>

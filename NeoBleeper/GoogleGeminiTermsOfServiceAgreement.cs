@@ -58,6 +58,14 @@ namespace NeoBleeper
             this.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
+
+        /// <summary>
+        /// Applies the current application theme to the control and updates the user interface accordingly.
+        /// </summary>
+        /// <remarks>This method selects and applies a light or dark theme based on user settings and
+        /// system preferences. It also ensures that the control's layout and rendering are updated to reflect the new
+        /// theme. This method should be called whenever the theme setting changes to ensure consistent
+        /// appearance.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -124,10 +132,30 @@ namespace NeoBleeper
                 Logger.Log("No internet connection.", Logger.LogTypes.Error);
             }
         }
+
+        /// <summary>
+        /// Formats the unformatted terms text and updates the terms display with rich text formatting.
+        /// </summary>
+        /// <remarks>This method converts the current unformatted terms, assumed to be in Markdown format,
+        /// into rich text and updates the associated display control. Call this method after modifying the unformatted
+        /// terms to ensure the display reflects the latest content.</remarks>
         private void FormatTerms()
         {
             richTextBoxTerms.Rtf = MarkdownToRichTextFile(unformattedText);
         }
+
+        /// <summary>
+        /// Converts a Markdown-formatted string to a Rich Text Format (RTF) document string.
+        /// </summary>
+        /// <remarks>The conversion supports common Markdown features, including headings, bold, italics,
+        /// strikethrough, lists, blockquotes, code, and links. Images are represented as text with their alt text and
+        /// URL, as RTF does not support embedded images. Some HTML tags commonly found in Markdown output are also
+        /// recognized and converted. The output is intended for basic RTF rendering and may not preserve all advanced
+        /// Markdown or HTML features.</remarks>
+        /// <param name="markdown">The Markdown-formatted text to convert. May include standard Markdown elements such as headings, lists,
+        /// emphasis, links, and images.</param>
+        /// <returns>A string containing the equivalent content in Rich Text Format (RTF). The returned string can be used with
+        /// RTF-compatible controls or saved as an RTF file.</returns>
         private string MarkdownToRichTextFile(string markdown)
         {
             // Beginning of RTF document
@@ -248,6 +276,17 @@ namespace NeoBleeper
             rtf.Append("}");
             return rtf.ToString();
         }
+
+        /// <summary>
+        /// Displays the Google Gemini Terms of Service agreement dialog and executes the specified action if the user
+        /// agrees and meets the age requirement; otherwise, executes the rejection action.
+        /// </summary>
+        /// <remarks>This method prompts the user to accept the Google Gemini Terms of Service. If the
+        /// user is under 18 years of age or declines the agreement, the specified rejection action is invoked. The
+        /// method is synchronous and blocks until the user responds to the dialog.</remarks>
+        /// <param name="action">The action to perform if the user agrees to the terms of service and is at least 18 years old.</param>
+        /// <param name="rejectAction">The action to perform if the user does not agree to the terms of service or does not meet the age
+        /// requirement.</param>
         public static void AskToAgreeTermsAndDoAction(Action action, Action rejectAction)
         {
             GoogleGeminiTermsOfServiceAgreement agreement = new GoogleGeminiTermsOfServiceAgreement();

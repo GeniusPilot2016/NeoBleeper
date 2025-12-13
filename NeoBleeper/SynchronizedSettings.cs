@@ -27,6 +27,17 @@ namespace NeoBleeper
         public string Language { get; set; } = "English";
         public int Theme { get; set; } = 0;
 
+        /// <summary>
+        /// Loads the synchronized settings from the settings file, or creates default settings if the file does not
+        /// exist.
+        /// </summary>
+        /// <remarks>If the settings file is missing or cannot be read, this method creates and returns a
+        /// new SynchronizedSettings instance with default values. Status messages about the operation are either logged
+        /// to the application log file or written to the debug console, depending on the value of logToFile.</remarks>
+        /// <param name="logToFile">true to log status messages to the application log file; false to output status messages to the debug
+        /// console instead.</param>
+        /// <returns>A SynchronizedSettings instance loaded from the settings file, or a new instance with default values if the
+        /// file does not exist or cannot be read.</returns>
         public static SynchronizedSettings Load(bool logToFile = true)
         {
             try
@@ -63,6 +74,14 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Saves the current settings to persistent storage as a JSON file.
+        /// </summary>
+        /// <remarks>The settings are serialized in indented JSON format using UTF-8 encoding. If an error
+        /// occurs during saving, the error is logged either to the main logger or to the debug output, depending on the
+        /// value of saveToFile.</remarks>
+        /// <param name="saveToFile">true to write the settings to the settings file; false to perform the operation without writing to disk. If
+        /// false, errors are logged to the debug output instead of the main logger.</param>
         public void Save(bool saveToFile = true)
         {
             try

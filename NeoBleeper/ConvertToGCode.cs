@@ -119,6 +119,14 @@ namespace NeoBleeper
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
+
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method selects and applies a light or dark theme according to the user's theme
+        /// preference or the system's theme setting. It also enables double buffering to improve rendering performance
+        /// and ensures that all UI changes are applied immediately. This method should be called when the theme needs
+        /// to be updated, such as after a settings change.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -156,6 +164,16 @@ namespace NeoBleeper
         }
         StringBuilder gcodeBuilder = new StringBuilder();
         int elapsedLineTime = 0; // Equivalent of Stopwatch.ElapsedMilliseconds for text based timing
+
+        /// <summary>
+        /// Parses a music project string and generates a G-code representation of its note sequence.
+        /// </summary>
+        /// <remarks>The input string is expected to be in a specific XML format representing a music
+        /// project. The generated G-code encodes note timing and silence based on project settings such as BPM and note
+        /// silence ratio. If the input does not contain any valid notes, the result will be an empty string.</remarks>
+        /// <param name="musicString">A string containing the serialized music project data to be parsed. Must not be null or empty.</param>
+        /// <returns>A string containing the generated G-code for the notes in the music project. Returns an empty string if no
+        /// notes are found or if the input is invalid.</returns>
         private String ExtractNotes(string musicString)
         {
             List<NoteInfo> notes = new List<NoteInfo>();
@@ -229,6 +247,13 @@ namespace NeoBleeper
 
             return gcodeBuilder.ToString();
         }
+
+        /// <summary>
+        /// Deserializes an XML representation of a NeoBleeper project file from the specified string reader.
+        /// </summary>
+        /// <param name="stringReader">A StringReader containing the XML data to deserialize. Cannot be null.</param>
+        /// <returns>A NeoBleeperProjectFile object deserialized from the XML data, or null if the XML does not represent a valid
+        /// NeoBleeper project file.</returns>
         private NBPMLFile.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
@@ -238,6 +263,13 @@ namespace NeoBleeper
         {
             note1Component = comboBox_component_note1.SelectedIndex;
         }
+
+        /// <summary>
+        /// Enables or disables the Export as GCode button based on the selection state of note checkboxes.
+        /// </summary>
+        /// <remarks>The Export as GCode button is enabled only when at least one note checkbox is
+        /// selected. This method should be called whenever the selection state of the note checkboxes changes to ensure
+        /// the button's enabled state reflects the current selection.</remarks>
         private void EnableDisableExportAsGCodeButton()
         {
             if (checkBox_play_note1.Checked || checkBox_play_note2.Checked || checkBox_play_note3.Checked || checkBox_play_note4.Checked)
@@ -333,11 +365,33 @@ namespace NeoBleeper
         {
             note4Component = comboBox_component_note4.SelectedIndex;
         }
+
+        /// <summary>
+        /// Generates a G-code command sequence to play a buzzer note at the specified frequency and duration.
+        /// </summary>
+        /// <param name="frequency">The frequency of the buzzer note, in hertz. Must be a positive value.</param>
+        /// <param name="length">The duration of the note, in milliseconds. Must be a non-negative integer.</param>
+        /// <param name="nonStopping">If set to <see langword="true"/>, omits the additional delay after the note; otherwise, includes a 5 ms
+        /// delay to ensure proper timing.</param>
+        /// <returns>A tuple containing the generated G-code command string and the total duration in milliseconds. The duration
+        /// includes an additional 5 ms if <paramref name="nonStopping"/> is <see langword="false"/>.</returns>
         private (string output, int length) GenerateGCodeForBuzzerNote(double frequency, int length, bool nonStopping = false)
         {
             string delay = nonStopping ? "G4 P5\n" : string.Empty;
             return ($"G4 P5\nM300 S{frequency} P{length}", nonStopping ? length : length + 5);
         }
+
+        /// <summary>
+        /// Generates a G-code command sequence to control a motor for a specified duration and frequency.
+        /// </summary>
+        /// <param name="frequency">The frequency, in hertz, at which the motor should operate. Must be a positive integer.</param>
+        /// <param name="length">The duration, in milliseconds, for which the motor should run. Must be a non-negative integer.</param>
+        /// <param name="nonStopping">If set to <see langword="true"/>, the generated G-code will not include a stop command after the specified
+        /// duration; otherwise, the motor will be stopped at the end of the sequence. The default is <see
+        /// langword="false"/>.</param>
+        /// <returns>A tuple containing the generated G-code command sequence as a string and the total duration in milliseconds.
+        /// The duration reflects the time the motor will run, including any additional delay if the motor is stopped at
+        /// the end.</returns>
         private (string output, int length) GenerateGCodeForMotorNote(int frequency, int length, bool nonStopping = false)
         {
             // Convert frequency to RPM
@@ -346,12 +400,39 @@ namespace NeoBleeper
             // Start the motor, then wait for the specified length, then stop the motor
             return (delay + $"G4 P5\nM3 S{rpm}\nG4 P{length}\nM5", nonStopping ? length : length + 5);
         }
+
+        /// <summary>
+        /// Converts a frequency value, in hertz, to revolutions per minute (RPM).
+        /// </summary>
+        /// <param name="frequency">The frequency in hertz to convert to RPM. Must be a non-negative value.</param>
+        /// <returns>The equivalent value in revolutions per minute (RPM), calculated as frequency multiplied by 60.</returns>
         private int FrequencyToRPM(double frequency)
         {
             return (int)(frequency * 60); // Convert frequency to RPM
         }
+
+        /// <summary>
+        /// Generates and inserts G-code instructions to play up to four musical notes, using the specified note values,
+        /// play flags, and duration.
+        /// </summary>
+        /// <remarks>If multiple notes are selected to play, the method alternates between them according
+        /// to the current alternation mode. Notes that are not selected (with their play flag set to false) or are
+        /// empty are ignored. If no notes are selected, a G-code delay command is inserted for the specified
+        /// duration.</remarks>
+        /// <param name="note1">The name of the first note to play. This should be a valid note name recognized by the system (e.g., "C4",
+        /// "A#3").</param>
+        /// <param name="note2">The name of the second note to play. This should be a valid note name recognized by the system.</param>
+        /// <param name="note3">The name of the third note to play. This should be a valid note name recognized by the system.</param>
+        /// <param name="note4">The name of the fourth note to play. This should be a valid note name recognized by the system.</param>
+        /// <param name="playNote1">true to play the first note; otherwise, false.</param>
+        /// <param name="playNote2">true to play the second note; otherwise, false.</param>
+        /// <param name="playNote3">true to play the third note; otherwise, false.</param>
+        /// <param name="playNote4">true to play the fourth note; otherwise, false.</param>
+        /// <param name="length">The total duration, in milliseconds, for which the notes should be played. Must be a non-negative integer.</param>
+        /// <returns>The total elapsed time, in milliseconds, corresponding to the generated G-code instructions for the
+        /// specified notes and duration.</returns>
         private int InsertNoteToGCode(String note1, String note2, String note3, String note4,
-    bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length) // Play note in a line
+        bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length) // Play note in a line
         {
             int elapsedTime = 0;
             double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;

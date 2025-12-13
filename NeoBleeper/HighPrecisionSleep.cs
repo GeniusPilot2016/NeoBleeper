@@ -63,6 +63,13 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Blocks the current thread for the specified number of milliseconds.
+        /// </summary>
+        /// <remarks>If the value of milliseconds is less than or equal to zero, the method returns
+        /// immediately without blocking. This method suspends only the calling thread and does not affect other
+        /// threads.</remarks>
+        /// <param name="milliseconds">The number of milliseconds for which the current thread is to be suspended. Must be greater than zero.</param>
         public static void Sleep(int milliseconds)
         {
             if (milliseconds <= 0) return;
@@ -84,6 +91,12 @@ namespace NeoBleeper
             mre.Wait();
         }
 
+        /// <summary>
+        /// Asynchronously suspends execution for the specified number of milliseconds.
+        /// </summary>
+        /// <param name="milliseconds">The duration, in milliseconds, for which to suspend execution. Must be zero or greater.</param>
+        /// <returns>A task that represents the asynchronous delay operation. The task is completed immediately if the specified
+        /// duration is zero or negative.</returns>
         public static Task SleepAsync(int milliseconds)
         {
             // Return completed task for non-positive durations
@@ -91,6 +104,12 @@ namespace NeoBleeper
             return Task.Run(() => Sleep(milliseconds));
         }
 
+        /// <summary>
+        /// Shuts down the shared timer and releases all associated resources.
+        /// </summary>
+        /// <remarks>After calling this method, any scheduled operations managed by the shared timer are
+        /// cancelled and cannot be resumed. This method is thread-safe and can be called multiple times without
+        /// throwing exceptions.</remarks>
         public static void Shutdown()
         {
             lock (_sync)

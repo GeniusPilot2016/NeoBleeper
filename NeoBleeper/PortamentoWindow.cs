@@ -57,6 +57,13 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Applies the current application theme to the user interface based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the UI to reflect the selected theme, choosing between light and
+        /// dark modes according to user preferences or the system's theme setting. It should be called whenever the
+        /// theme needs to be refreshed to ensure consistent appearance throughout the application.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -148,11 +155,19 @@ namespace NeoBleeper
             }
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
+
+        /// <summary>
+        /// Positions the label controls horizontally centered within their respective containers.
+        /// </summary>
+        /// <remarks>This method adjusts the horizontal location of the labels so that they appear
+        /// centered within their parent controls. It does not affect the vertical position or other properties of the
+        /// labels.</remarks>
         private void SetLabelsToMiddle()
         {
             labelLength.Location = new Point((int)((groupBox1.Width - labelLength.Width) / 2), (labelLength.Location.Y));
             label2.Location = new Point((int)((this.Width - label2.Width) / 2), (label2.Location.Y));
         }
+
         private void trackBarLength_Scroll(object sender, EventArgs e)
         {
             TemporarySettings.PortamentoSettings.length = trackBarLength.Value;

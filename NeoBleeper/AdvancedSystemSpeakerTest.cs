@@ -27,6 +27,13 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the control's appearance to match the selected theme. If the
+        /// theme is set to follow the system, the method detects the system's light or dark mode and applies the
+        /// corresponding theme. The method should be called whenever the theme setting changes to ensure the control
+        /// reflects the correct appearance.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -76,6 +83,16 @@ namespace NeoBleeper
             this.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
+
+        /// <summary>
+        /// Initiates the advanced system speaker test sequence asynchronously, performing a series of diagnostic checks
+        /// and updating the user interface with progress and results.
+        /// </summary>
+        /// <remarks>This method runs multiple hardware and signal tests on the system speaker, including
+        /// electrical feedback, port state stability, and frequency sweep diagnostics. Progress and results are logged
+        /// and displayed to the user. The method is asynchronous and should not be called concurrently. If an error
+        /// occurs during testing, the user interface is updated to indicate the failure and details are
+        /// logged.</remarks>
         private async void StartTest()
         {
             try

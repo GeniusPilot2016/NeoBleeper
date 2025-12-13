@@ -52,6 +52,13 @@ public class ClearNoteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Clears the text of the note subitem for each item in the list view corresponding to the previously stored
+    /// states.
+    /// </summary>
+    /// <remarks>This method resets the text of the subitem at the specified note index to an empty string for
+    /// all items whose indices are present in the previousStates collection. If a subitem at the note index does not
+    /// exist, it is created. Items with indices outside the valid range of the list view are ignored.</remarks>
     public void Execute()
     {
         foreach (var (Index, _) in previousStates)
@@ -68,6 +75,12 @@ public class ClearNoteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Reverts the most recent changes made to the note text in the associated list view items.
+    /// </summary>
+    /// <remarks>Use this method to restore the previous state of note text for all affected items. This
+    /// operation does not raise events or notify listeners of the change. If an item's previous state cannot be
+    /// restored due to an invalid index, that item is skipped.</remarks>
     public void Undo()
     {
         foreach (var (Index, PreviousText) in previousStates)

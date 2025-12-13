@@ -24,6 +24,12 @@ namespace NeoBleeper
             public static bool isChipsetAffectedFromSystemSpeakerIssues;
             public static DeviceType deviceType = DeviceType.Unknown;
 
+            /// <summary>
+            /// Specifies the type of device used in the system.
+            /// </summary>
+            /// <remarks>Use this enumeration to distinguish between different categories of devices,
+            /// such as modular or compact computers. The value may be Unknown if the device type cannot be
+            /// determined.</remarks>
             public enum DeviceType
             {
                 Unknown,
@@ -37,6 +43,12 @@ namespace NeoBleeper
             public static bool createBeepWithSoundDevice;
             public static SoundDeviceBeepWaveform soundDeviceBeepWaveform = SoundDeviceBeepWaveform.Square;
 
+            /// <summary>
+            /// Specifies the waveform type used by a sound device when generating a beep.
+            /// </summary>
+            /// <remarks>Use this enumeration to select the desired waveform for beep sounds produced
+            /// by compatible sound devices. The available waveforms may affect the tonal quality and character of the
+            /// beep.</remarks>
             public enum SoundDeviceBeepWaveform
             {
                 Square,
@@ -66,6 +78,13 @@ namespace NeoBleeper
         public static class BeatTypes
         {
             public static BeatType beatType = BeatType.PlayOnAllBeats;
+
+            /// <summary>
+            /// Specifies the type of beat pattern to use when determining playback behavior.
+            /// </summary>
+            /// <remarks>Use this enumeration to select how beats are interpreted or triggered in
+            /// playback scenarios. The available values allow for playback on all beats, only odd or even beats, or on
+            /// user-checked lines, depending on the application's requirements.</remarks>
             public enum BeatType
             {
                 PlayOnAllBeats,
@@ -79,6 +98,13 @@ namespace NeoBleeper
             public static int length = 250;
             public static int pitchChangeSpeed = 12000;
             public static PortamentoType portamentoType = PortamentoType.ProduceSoundForLength;
+
+            /// <summary>
+            /// Specifies the behavior of portamento when transitioning between notes.
+            /// </summary>
+            /// <remarks>Portamento is a musical effect that creates a smooth glide between pitches.
+            /// The selected value determines whether sound is produced throughout the entire portamento or only for a
+            /// specified portion of its duration.</remarks>
             public enum PortamentoType
             {
                 AlwaysProduceSound,
@@ -99,51 +125,51 @@ namespace NeoBleeper
         public static class VoiceInternalSettings
         {
             // Formant volumes (60%-100%)
-            public static int Formant1Volume = 92;
-            public static int Formant2Volume = 100;
-            public static int Formant3Volume = 90;
-            public static int Formant4Volume = 60;
+            public static int formant1Volume = 92;
+            public static int formant2Volume = 100;
+            public static int formant3Volume = 90;
+            public static int formant4Volume = 60;
 
             // Formant frequencies (in Hz)
-            public static int Formant1Frequency = 3355;
-            public static int Formant2Frequency = 2558;
-            public static int Formant3Frequency = 1675;
-            public static int Formant4Frequency = 1180;
+            public static int formant1Frequency = 3355;
+            public static int formant2Frequency = 2558;
+            public static int formant3Frequency = 1675;
+            public static int formant4Frequency = 1180;
 
             // Voice Volume (1-400)
-            public static int VoiceVolume = 300;
+            public static int voiceVolume = 300;
 
             // Saw volume (1-1000)
-            public static int SawVolume = 1000;
+            public static int sawVolume = 1000;
 
             // Noise volume (1-1000)
-            public static int NoiseVolume = 100;
+            public static int noiseVolume = 100;
 
             // Cutoff frequency (in Hz)
-            public static int CutoffFrequency = 5000;
+            public static int cutoffFrequency = 5000;
 
             // Sybillance ranges (0.2-1.5)
-            public static double Sybillance1Range = 0.2;
-            public static double Sybillance2Range = 0.2;
-            public static double Sybillance3Range = 0.2;
-            public static double Sybillance4Range = 0.2;
+            public static double sybillance1Range = 0.2;
+            public static double sybillance2Range = 0.2;
+            public static double sybillance3Range = 0.2;
+            public static double sybillance4Range = 0.2;
 
             // Sybillance volumes (0x-1x)
-            public static double Sybillance1Volume = 1;
-            public static double Sybillance2Volume = 1;
-            public static double Sybillance3Volume = 1;
-            public static double Sybillance4Volume = 1;
+            public static double sybillance1Volume = 1;
+            public static double sybillance2Volume = 1;
+            public static double sybillance3Volume = 1;
+            public static double sybillance4Volume = 1;
 
             // Sybillance frequencies (in Hz)
-            public static int Sybillance1Frequency = 200;
-            public static int Sybillance2Frequency = 200;
-            public static int Sybillance3Frequency = 200;
-            public static int Sybillance4Frequency = 200;
+            public static int sybillance1Frequency = 200;
+            public static int sybillance2Frequency = 200;
+            public static int sybillance3Frequency = 200;
+            public static int sybillance4Frequency = 200;
 
             // Pitch (between 0.5 and 2.0)
-            public static double Timbre = 0.9875;
+            public static double timbre = 0.9875;
             // Range (between 0 and 1.0)
-            public static double RandomizedFrequencyRange = 0.105;
+            public static double randomizedFrequencyRange = 0.105;
 
             // Output device indexes
             // 0 = Voice system
@@ -153,6 +179,13 @@ namespace NeoBleeper
             public static int note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static int note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static PlayingVoiceOnLineOptions playingVoiceOnLineOptions = PlayingVoiceOnLineOptions.PlayVoiceOnAllLines;
+            
+            /// <summary>
+            /// Specifies the options for playing a voice message on one or more lines.
+            /// </summary>
+            /// <remarks>Use this enumeration to control whether a voice message is played on all
+            /// available lines or only on selected (checked) lines. The choice affects which lines will receive the
+            /// playback when initiating a voice operation.</remarks>
             public enum PlayingVoiceOnLineOptions
             {
                 PlayVoiceOnAllLines,

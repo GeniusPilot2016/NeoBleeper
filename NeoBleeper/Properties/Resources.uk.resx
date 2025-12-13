@@ -1009,4 +1009,16 @@
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Неповний вміст NBPML</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Час очікування запиту</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>Час очікування запиту минув до завершення. Будь ласка, спробуйте ще раз.</value>
+  </data>
+  <data name="TitleInfiniteLoop" xml:space="preserve">
+    <value>Виявлено нескінченний цикл</value>
+  </data>
+  <data name="MessageInfiniteLoop" xml:space="preserve">
+    <value>Модель штучного інтелекту відображається в нескінченному циклі або постійно повторюється. Створення музики за допомогою штучного інтелекту скасовано.</value>
+  </data>
 </root>

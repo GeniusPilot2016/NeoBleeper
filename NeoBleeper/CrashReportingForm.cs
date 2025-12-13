@@ -21,9 +21,9 @@ namespace NeoBleeper
 {
     public partial class CrashReportingForm : Form
     {
-        string CrashType;
-        string CrashMessage;
-        string StackTrace;
+        string crashType;
+        string crashMessage;
+        string stackTrace;
         DateTime CrashTime;
         bool darkTheme = false;
         public CrashReportingForm(string CrashType, string CrashMessage, string StackTrace)
@@ -46,6 +46,14 @@ namespace NeoBleeper
                 }
             }
         }
+        
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the control's appearance according to the selected theme in
+        /// application settings. If the theme is set to follow the system, the method applies a dark or light theme
+        /// based on the system's current theme preference. The method also enables double buffering to improve
+        /// rendering performance and forces a UI update to ensure changes take effect immediately.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -105,14 +113,24 @@ namespace NeoBleeper
             buttonCopyCrashReport.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
-        private void GenerateCrashReport(string CrashType, string CrashMessage, string StackTrace)
+
+        /// <summary>
+        /// Generates a detailed crash report and updates the crash report display with the provided crash information.
+        /// </summary>
+        /// <remarks>This method also plays a system notification sound to alert the user when a crash
+        /// occurs. The generated report includes application version, system information, and the supplied crash
+        /// details. The crash report is displayed in the user interface for review or further action.</remarks>
+        /// <param name="crashType">The type or category of the crash. Used to identify the nature of the error that occurred.</param>
+        /// <param name="crashMessage">A descriptive message explaining the cause or context of the crash.</param>
+        /// <param name="stackTrace">The stack trace associated with the crash, providing call sequence details for debugging purposes.</param>
+        private void GenerateCrashReport(string crashType, string crashMessage, string stackTrace)
         {
             SystemSounds.Hand.Play(); // Play a sound to notify the user of the crash
             string completeReport = string.Empty;
             CrashTime = DateTime.Now;
-            this.CrashType = CrashType;
-            this.CrashMessage = CrashMessage;
-            this.StackTrace = StackTrace;
+            this.crashType = crashType;
+            this.crashMessage = crashMessage;
+            this.stackTrace = stackTrace;
             completeReport = "\r\n  _   _            ____  _                           \r\n" +
                 " | \\ | |          |  _ \\| |                          \r\n" +
                 " |  \\| | ___  ___ | |_) | | ___  ___ _ __   ___ _ __ \r\n" +
@@ -127,11 +145,21 @@ namespace NeoBleeper
             completeReport += GetInformations.GlobalSystemInfo;
             completeReport += "Crash Report Generated on: " + CrashTime.ToString() + "\r\n";
             completeReport += "--- NeoBleeper Crash Report ---\r\n";
-            completeReport += $"Crash Type: {CrashType}\r\n";
-            completeReport += $"Crash Message: {CrashMessage}\r\n";
-            completeReport += $"Stack Trace: {StackTrace}\r\n";
+            completeReport += $"Crash Type: {crashType}\r\n";
+            completeReport += $"Crash Message: {crashMessage}\r\n";
+            completeReport += $"Stack Trace: {stackTrace}\r\n";
             richTextBoxCrashReport.Text = completeReport;
         }
+
+        /// <summary>
+        /// Displays a crash report dialog with the specified crash type, message, and stack trace information.
+        /// </summary>
+        /// <param name="CrashType">The category or type of the crash to display in the report. This value is shown to help identify the nature
+        /// of the error.</param>
+        /// <param name="CrashMessage">The error message describing the cause or details of the crash. This message is presented to the user in the
+        /// crash report dialog.</param>
+        /// <param name="StackTrace">The stack trace associated with the crash, providing context for debugging. This information is included in
+        /// the crash report dialog.</param>
         public static void GenerateAndShowCrashReport(string CrashType, string CrashMessage, string StackTrace)
         {
             CrashReportingForm crashForm = new CrashReportingForm(CrashType, CrashMessage, StackTrace);

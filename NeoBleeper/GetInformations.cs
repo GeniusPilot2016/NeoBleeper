@@ -24,6 +24,17 @@ namespace NeoBleeper
         public static string GlobalSystemInfo;
         static bool IsSystemSpeakerPresent = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent;
         static bool IsChipsetAffected = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+        
+        /// <summary>
+        /// Retrieves the current assembly's version number and release status as a tuple.
+        /// </summary>
+        /// <remarks>The release status is determined from the assembly's informational version attribute,
+        /// if available. If the status is not specified in the attribute, the returned status will be an empty string.
+        /// This method is typically used to display version and release information in application diagnostics or about
+        /// dialogs.</remarks>
+        /// <returns>A tuple containing the version string and the release status. The version string is formatted as
+        /// 'Major.Minor.Build' with an optional 'Revision' suffix if present. The status is a human-readable string
+        /// such as 'Alpha', 'Beta', 'Release Candidate', or an empty string if no status is specified.</returns>
         public static (string version, string status) GetVersionAndStatus()
         {
             int MajorVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major;
@@ -55,6 +66,13 @@ namespace NeoBleeper
 
             return (version, status);
         }
+
+        /// <summary>
+        /// Specifies the types of computers supported by the system.
+        /// </summary>
+        /// <remarks>Use this enumeration to indicate or determine the form factor or classification of a
+        /// computer within the application. The values represent distinct categories, including modular and compact
+        /// computers, as well as an unknown type for cases where the classification cannot be determined.</remarks>
         public enum computerTypes
         {
             ModularComputer,
@@ -62,6 +80,16 @@ namespace NeoBleeper
             Unknown,
         }
         public static Enum computerType = computerTypes.Unknown;
+
+        /// <summary>
+        /// Determines the type of computer chassis based on system enclosure information.
+        /// </summary>
+        /// <remarks>This method queries the system's enclosure information using Windows Management
+        /// Instrumentation (WMI) to identify the chassis type. If the chassis type cannot be determined or an error
+        /// occurs during the query, the method returns <c>computerTypes.Unknown</c>.</remarks>
+        /// <returns>An enumeration value representing the detected computer chassis type. Returns a value from the
+        /// <c>computerTypes</c> enumeration, such as <c>ModularComputer</c>, <c>CompactComputer</c>, or <c>Unknown</c>
+        /// if the type cannot be determined.</returns>
         public static Enum GetTypeOfComputer()
         {
             try
@@ -114,12 +142,46 @@ namespace NeoBleeper
                 return computerTypes.Unknown;
             }
         }
+
+        /// <summary>
+        /// Retrieves the horizontal DPI (dots per inch) of the primary display screen.
+        /// </summary>
+        /// <remarks>The returned value reflects the system's current DPI setting for the primary display.
+        /// This value is typically 96 on standard displays but may be higher on high-DPI screens. Use this method when
+        /// scaling graphics or UI elements to match the display's resolution.</remarks>
+        /// <returns>An integer representing the horizontal DPI of the primary screen.</returns>
+
+        public static int GetPrimaryScreenDpi()
+        {
+            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                // Return the horizontal DPI of the primary screen
+                return (int)g.DpiX;
+            }
+        }
+        /// <summary>
+        /// Determines whether the primary display supports a minimum resolution of 1024 by 768 pixels.
+        /// </summary>p
+        /// <remarks>This method checks only the primary display. Use this method to verify that the
+        /// application is running on a screen with sufficient resolution for certain UI layouts or features.</remarks>
+        /// <returns>true if the primary screen's width is at least 1024 pixels and its height is at least 768 pixels; otherwise,
+        /// false.</returns>
         public static bool IsResolutionSupported()
         {
+            double dpiScale = GetPrimaryScreenDpi() / 96.0; // 96 DPI is the standard scale
             int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-            return width >= 1024 && height >= 768;
+            return width >= (1024 * dpiScale) && height >= (768 * dpiScale); // Minimum required resolution adjusted for DPI scaling to prevent the main window is not fitting on screen
         }
+
+        /// <summary>
+        /// Retrieves a descriptive string representing the full chassis type or types of the current computer system.
+        /// </summary>
+        /// <remarks>This method queries the system's enclosure information using Windows Management
+        /// Instrumentation (WMI). If multiple chassis types are reported, all are included in the result. The method
+        /// returns "Unknown" if the information is unavailable or an error occurs during retrieval.</remarks>
+        /// <returns>A comma-separated list of chassis type names describing the computer's enclosure, such as "Desktop",
+        /// "Laptop", or "Tablet". Returns "Unknown" if the chassis type cannot be determined.</returns>
         public static string GetFullTypeOfComputer()
         {
             string[] chassisTypes = new string[]
@@ -180,6 +242,19 @@ namespace NeoBleeper
                 return "Unknown";
             }
         }
+
+        /// <summary>
+        /// Retrieves a formatted string containing detailed information about the current system, including operating
+        /// system, hardware, memory, power status, and environment details.
+        /// </summary>
+        /// <remarks>This method gathers information using various system APIs and may return partial or
+        /// unavailable data depending on the platform, permissions, or hardware configuration. The output is intended
+        /// for diagnostic or informational purposes and is not guaranteed to be stable across different operating
+        /// systems or environments. On ARM64 devices, certain chipset and system speaker details are omitted as they
+        /// are not applicable.</remarks>
+        /// <returns>A multi-line string with key system information such as operating system version, architecture, processor
+        /// details, memory statistics, power status, and other relevant properties. Some values may be reported as
+        /// "Unknown" or "Unavailable" if they cannot be determined.</returns>
         public static string GetSystemInfo()
         {
             Program.splashScreen.UpdateStatus(Resources.StatusSystemInformationsGathering);

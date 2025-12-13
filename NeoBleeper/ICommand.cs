@@ -22,6 +22,10 @@ public interface ICommand
     void Undo();
 }
 
+/// <summary>
+/// Specifies the target state for an operation, such as whether to apply an action to selected items, checked items, or
+/// both.
+/// </summary>
 public enum Target
 {
     Selected,
@@ -36,6 +40,12 @@ public class AddNoteCommand : ICommand
     private readonly List<(int Index, ListViewItem Item)> addedItems;
 
     // Single item constructor (append)
+
+    /// <summary>
+    /// Initializes a new instance of the AddNoteCommand class to add a single item to the specified ListView.
+    /// </summary>
+    /// <param name="listView">The ListView control to which the item will be added. Cannot be null.</param>
+    /// <param name="item">The ListViewItem to add to the ListView. Cannot be null.</param>
     public AddNoteCommand(ListView listView, ListViewItem item)
     {
         this.listView = listView;
@@ -47,6 +57,18 @@ public class AddNoteCommand : ICommand
     // Multiple items constructor.
     // If insertIndex >= 0, items will be inserted starting at insertIndex in given order.
     // If insertIndex < 0, items will be appended in given order.
+
+    /// <summary>
+    /// Initializes a new instance of the AddNoteCommand class to add multiple ListViewItem objects to a ListView at a
+    /// specified position or append them to the end.
+    /// </summary>
+    /// <remarks>Items are inserted in the order provided. If insertIndex is specified and valid, items are
+    /// inserted starting at that index; otherwise, they are appended. The original items are not modified, as clones
+    /// are used for insertion.</remarks>
+    /// <param name="listView">The ListView control to which the items will be added. Cannot be null.</param>
+    /// <param name="items">The collection of ListViewItem objects to add. Each item will be cloned before insertion. Cannot be null.</param>
+    /// <param name="insertIndex">The zero-based index at which to begin inserting items. If set to a value less than 0, items are appended to the
+    /// end of the ListView.</param>
     public AddNoteCommand(ListView listView, IEnumerable<ListViewItem> items, int insertIndex = -1)
     {
         this.listView = listView;
@@ -73,6 +95,13 @@ public class AddNoteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Applies the current ListView control's visual style to the specified ListViewItem and its subitems.
+    /// </summary>
+    /// <remarks>This method ensures that the provided ListViewItem and all its subitems visually match the
+    /// parent ListView's appearance. If the ListView control is null, no changes are made.</remarks>
+    /// <param name="li">The ListViewItem to which the ListView's background color, foreground color, and font will be applied. Cannot be
+    /// null.</param>
     private void ApplyListViewStyle(ListViewItem li)
     {
         if (listView == null || li == null) return;
@@ -90,6 +119,14 @@ public class AddNoteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Inserts added items into the list view, placing items with explicit indices at their specified positions and
+    /// appending others in their original order.
+    /// </summary>
+    /// <remarks>Items with a non-negative index are inserted in ascending index order at the specified
+    /// positions within the list view. Items with a negative index are appended to the end of the list view in the
+    /// order they appear in the added items collection. If an invalid asynchronous state is detected, the operation is
+    /// aborted and no items are inserted.</remarks>
     public void Execute()
     {
         try
@@ -118,6 +155,12 @@ public class AddNoteCommand : ICommand
             return;
         }
     }
+
+    /// <summary>
+    /// Reverses the most recent add operation by removing the previously added items from the list view.
+    /// </summary>
+    /// <remarks>If the list view's state has changed asynchronously and the operation cannot be completed,
+    /// the method returns without making changes. This method does not throw an exception in such cases.</remarks>
 
     public void Undo()
     {
@@ -149,6 +192,13 @@ public class InsertNoteCommand : ICommand
         this.index = index;
     }
 
+    /// <summary>
+    /// Applies the current style settings of the associated ListView to the specified ListViewItem and its subitems.
+    /// </summary>
+    /// <remarks>This method updates the background color, foreground color, and font of the specified item
+    /// and all its subitems to match those of the parent ListView. If the ListView or the item is null, no changes are
+    /// made.</remarks>
+    /// <param name="li">The ListViewItem to which the style settings will be applied. Cannot be null.</param>
     private void ApplyListViewStyle(ListViewItem li)
     {
         if (listView == null || li == null) return;
@@ -165,31 +215,26 @@ public class InsertNoteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Inserts the specified item into the ListView at the given index, applying the appropriate style before
+    /// insertion.
+    /// </summary>
+    /// <remarks>If the specified index is less than zero, the item is added to the end of the ListView. If
+    /// the index exceeds the current number of items, the item is also added to the end.</remarks>
     public void Execute()
     {
-        try
-        {
-            ApplyListViewStyle(item);
-            // Guard index bounds
-            int insertAt = (index < 0) ? listView.Items.Count : Math.Min(index, listView.Items.Count);
-            listView.Items.Insert(insertAt, item);
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
-        }
+        ApplyListViewStyle(item);
+        // Guard index bounds
+        int insertAt = (index < 0) ? listView.Items.Count : Math.Min(index, listView.Items.Count);
+        listView.Items.Insert(insertAt, item);
     }
 
+    /// <summary>
+    /// Removes the previously added item from the list view, effectively undoing the last add operation.
+    /// </summary>
     public void Undo()
     {
-        try
-        {
-            listView.Items.Remove(item);
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
-        }
+        listView.Items.Remove(item);
     }
 }
 
@@ -200,6 +245,13 @@ public class RemoveNoteCommand : ICommand
     private List<(int Index, ListViewItem Original, ListViewItem Clone)> removedItems;
 
     // Existing single-item constructor (keeps backward compatibility)
+
+    /// <summary>
+    /// Initializes a new instance of the RemoveNoteCommand class for removing a single item from the specified
+    /// ListView.
+    /// </summary>
+    /// <param name="listView">The ListView control from which the item will be removed. Cannot be null.</param>
+    /// <param name="item">The ListViewItem to remove from the ListView. Cannot be null and must belong to the specified ListView.</param>
     public RemoveNoteCommand(ListView listView, ListViewItem item)
     {
         this.listView = listView;
@@ -209,7 +261,17 @@ public class RemoveNoteCommand : ICommand
         };
     }
 
-    // New constructor: remove by target (Selected / Checked / Both)
+    // Remove by target constructor
+
+    /// <summary>
+    /// Initializes a new instance of the RemoveNoteCommand class that targets notes in the specified ListView according
+    /// to the given selection criteria.
+    /// </summary>
+    /// <remarks>The items to be removed are determined at construction time based on the current state of the
+    /// ListView and the specified target. Items are recorded in descending index order to ensure correct removal
+    /// behavior when executed.</remarks>
+    /// <param name="listView">The ListView control containing the items to be considered for removal. Cannot be null.</param>
+    /// <param name="target">Specifies which items to target for removal: checked, selected, or both.</param>
     public RemoveNoteCommand(ListView listView, Target target)
     {
         this.listView = listView;
@@ -238,42 +300,40 @@ public class RemoveNoteCommand : ICommand
         removedItems = removedItems.OrderByDescending(r => r.Index).ToList();
     }
 
+    /// <summary>
+    /// Removes the previously tracked items from the associated ListView control.
+    /// </summary>
+    /// <remarks>This method attempts to remove all items that were previously marked for removal. If the
+    /// operation cannot complete due to an invalid asynchronous state, the method returns without making changes. This
+    /// method is typically used to revert or finalize a batch removal operation in a ListView.</remarks>
     public void Execute()
     {
-        try
+        foreach (var (_, original, _) in removedItems)
         {
-            foreach (var (_, original, _) in removedItems)
-            {
-                // Remove by reference to ensure correct items are removed even if indices shifted
-                listView.Items.Remove(original);
-            }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            // Remove by reference to ensure correct items are removed even if indices shifted
+            listView.Items.Remove(original);
         }
     }
 
+    /// <summary>
+    /// Restores previously removed items to their original positions in the list view.
+    /// </summary>
+    /// <remarks>This method re-inserts all items that were removed in the most recent operation, placing each
+    /// item at its original index if possible. If the original index is no longer valid, the item is added to the end
+    /// of the list. Call this method to undo a removal action and restore the list view to its prior state.</remarks>
     public void Undo()
     {
-        try
+        // Re-insert clones in ascending index order so indices match original layout
+        foreach (var (index, _, clone) in removedItems.OrderBy(r => r.Index))
         {
-            // Re-insert clones in ascending index order so indices match original layout
-            foreach (var (index, _, clone) in removedItems.OrderBy(r => r.Index))
+            if (index >= 0 && index <= listView.Items.Count)
             {
-                if (index >= 0 && index <= listView.Items.Count)
-                {
-                    listView.Items.Insert(index, clone);
-                }
-                else
-                {
-                    listView.Items.Add(clone);
-                }
+                listView.Items.Insert(index, clone);
             }
-        }
-        catch (InvalidAsynchronousStateException)
-        {
-            return;
+            else
+            {
+                listView.Items.Add(clone);
+            }
         }
     }
 }

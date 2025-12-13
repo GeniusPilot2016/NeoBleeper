@@ -114,11 +114,22 @@ namespace NeoBleeper
             NotePlayer.StopMicrocontrollerSound();
             MIDIIOUtils.StopAllNotes();
         }
+
+        /// <summary>
+        /// Stops all processing and halts any ongoing operations immediately.
+        /// </summary>
         private void StopImmediately()
         {
             Stop();
             StopNotesImmediately();
         }
+
+        /// <summary>
+        /// Applies the current application theme to the user interface based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the UI to reflect the selected theme, such as light or dark mode,
+        /// according to application settings or the system's theme preference. It should be called when the theme needs
+        /// to be refreshed, such as after a settings change.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -252,6 +263,15 @@ namespace NeoBleeper
         private HashSet<(int NoteNumber, long Time)> _rearticulatedNotes = new HashSet<(int, long)>();
 
         // Method to update enabled channels based on checkbox states
+
+        /// <summary>
+        /// Updates the collection of enabled channels based on the current state of channel checkboxes in the user
+        /// interface.
+        /// </summary>
+        /// <remarks>This method clears the existing list of enabled channels and repopulates it by
+        /// checking which channel checkboxes are selected. It is typically called after the user modifies channel
+        /// selections in the UI. The method also logs the updated list of enabled channels for informational
+        /// purposes.</remarks>
         private void UpdateEnabledChannels()
         {
             _enabledChannels.Clear();
@@ -274,6 +294,17 @@ namespace NeoBleeper
         private int _ticksPerQuarterNote;
         private Dictionary<long, List<MetaEvent>> _metaEventsByTime = new Dictionary<long, List<MetaEvent>>();
         private Dictionary<long, List<MidiEvent>> _eventsByTime = new Dictionary<long, List<MidiEvent>>();
+
+        /// <summary>
+        /// Asynchronously loads a MIDI file and prepares it for playback and analysis.
+        /// </summary>
+        /// <remarks>This method resets the current playback state and updates the user interface to
+        /// reflect the loading progress. After loading, the MIDI data is parsed and internal structures are initialized
+        /// for playback, event analysis, and lyric display. If an error occurs during loading, the playback state is
+        /// reset and an error notification is shown. This method is not thread-safe and should be called from the UI
+        /// thread.</remarks>
+        /// <param name="filename">The path to the MIDI file to load. Must refer to a valid, accessible MIDI file.</param>
+        /// <returns>A task that represents the asynchronous load operation.</returns>
         private async Task LoadMIDI(string filename)
         {
             try
@@ -466,6 +497,13 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Updates the progress bar to the specified value and displays the provided status message.
+        /// </summary>
+        /// <remarks>If called from a thread other than the UI thread, the update is marshaled to the UI
+        /// thread automatically.</remarks>
+        /// <param name="value">The new value to set for the progress bar. Values greater than 100 are capped at 100.</param>
+        /// <param name="status">The status message to display alongside the progress bar.</param>
         private void UpdateProgressBar(int value, string status)
         {
             if (progressBar1.InvokeRequired)
@@ -484,6 +522,15 @@ namespace NeoBleeper
         }
 
         private double _playbackStartOffsetMs = 0;
+
+        /// <summary>
+        /// Begins playback of the loaded frames if playback is not already in progress and frames are available.
+        /// </summary>
+        /// <remarks>If playback is already active or no frames are loaded, this method has no effect.
+        /// Playback is started asynchronously, and any previous playback task is given up to five seconds to complete
+        /// before starting a new one. This method enables the stop button and disables the play button upon successful
+        /// start. If an error occurs while starting playback, an error message is displayed and playback does not
+        /// begin.</remarks>
         public async void Play()
         {
             Logger.Log($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}", Logger.LogTypes.Info);
@@ -537,6 +584,14 @@ namespace NeoBleeper
                 driftMs = 0; // Reset drifts
             }
         }
+
+        /// <summary>
+        /// Stops playback and resets the playback state asynchronously.
+        /// </summary>
+        /// <remarks>If playback is not currently active, this method has no effect. Calling this method
+        /// will reset playback-related UI elements, clear held notes and lyrics, and release any resources associated
+        /// with playback. This method is asynchronous but returns void; any exceptions that occur during the stop
+        /// process are logged and not propagated to the caller.</remarks>
         public async void Stop()
         {
             Logger.Log($"Stop called. IsPlaying: {_isPlaying}", Logger.LogTypes.Info);
@@ -591,6 +646,15 @@ namespace NeoBleeper
         private Task _playbackTask = Task.CompletedTask;
         private bool _wasPlayingBeforeScroll = false;
 
+        /// <summary>
+        /// Sets the current playback position to the specified percentage of the total duration.
+        /// </summary>
+        /// <remarks>If playback is in progress, it is temporarily stopped while the position is updated.
+        /// The method does not resume playback automatically after setting the position. If the specified percentage is
+        /// outside the valid range, it is clamped to the nearest valid value.</remarks>
+        /// <param name="positionPercent">The desired playback position as a percentage of the total duration. Must be between 0.0 and 100.0, where
+        /// 0.0 represents the start and 100.0 represents the end.</param>
+        /// <returns>A task that represents the asynchronous operation of setting the playback position.</returns>
         public async Task SetPosition(double positionPercent)
         {
             if (_frames == null || _frames.Count == 0)
@@ -642,6 +706,14 @@ namespace NeoBleeper
         }
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
+
+        /// <summary>
+        /// Updates the note labels displayed in the UI to reflect the specified set of active MIDI notes.
+        /// </summary>
+        /// <remarks>If the number of active notes exceeds the number of available labels, an additional
+        /// indicator is shown to represent the extra notes. The labels are updated only if the set of active notes has
+        /// changed since the last update.</remarks>
+        /// <param name="activeNotes">A set of MIDI note numbers that are currently active. Each integer represents a MIDI note to be displayed.</param>
         private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
         {
             if (_lastDrawnNotes.SetEquals(activeNotes))
@@ -701,6 +773,17 @@ namespace NeoBleeper
         }
 
         // Play multiple notes alternating
+
+        /// <summary>
+        /// Plays multiple musical notes in an alternating sequence for the specified duration.
+        /// </summary>
+        /// <remarks>This method alternates between the specified notes because the system speaker cannot
+        /// play multiple notes simultaneously. The playback pattern and timing are influenced by user interface
+        /// settings, such as cycle duration and whether each note is played individually per cycle. If the duration is
+        /// shorter than a full cycle, playback may be truncated.</remarks>
+        /// <param name="frequencies">An array of frequencies, in hertz, representing the notes to be played. Each frequency must be a positive
+        /// integer.</param>
+        /// <param name="duration">The total duration, in milliseconds, for which the notes are played. Must be a positive integer.</param>
         private void PlayMultipleNotes(int[] frequencies, int duration)
         {
             _isAlternatingPlayback = true;
@@ -844,12 +927,24 @@ namespace NeoBleeper
             _isAlternatingPlayback = false;
         }
 
+        /// <summary>
+        /// Converts a frequency in hertz to the corresponding MIDI note number using A4 (440 Hz) as the reference
+        /// pitch.
+        /// </summary>
+        /// <param name="frequency">The frequency, in hertz, to convert. Must be a positive value.</param>
+        /// <returns>The MIDI note number that most closely corresponds to the specified frequency.</returns>
         private int FrequencyToNoteNumber(int frequency)
         {
             // Convert frequency to MIDI note number using A4 = 440Hz as reference (MIDI note 69)
             return (int)Math.Round(69 + 12 * Math.Log2(frequency / 440.0));
         }
 
+        /// <summary>
+        /// Highlights the label corresponding to the specified note index by changing its background color.
+        /// </summary>
+        /// <remarks>If called from a thread other than the UI thread, the method automatically marshals
+        /// the call to the UI thread. No action is taken if the specified index is out of range.</remarks>
+        /// <param name="noteIndex">The zero-based index of the note label to highlight. Must be within the valid range of note labels.</param>
         private void HighlightNoteLabel(int noteIndex)
         {
             if (this.InvokeRequired)
@@ -865,6 +960,12 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Removes the highlight from the note label at the specified index, restoring its original background color.
+        /// </summary>
+        /// <remarks>If called from a thread other than the UI thread, the operation is marshaled to the
+        /// UI thread automatically.</remarks>
+        /// <param name="noteIndex">The zero-based index of the note label to unhighlight. Must be within the valid range of note labels.</param>
         private void UnHighlightNoteLabel(int noteIndex)
         {
             if (this.InvokeRequired)
@@ -879,11 +980,29 @@ namespace NeoBleeper
                 label.BackColor = _originalLabelColors[label];
             }
         }
+
+        /// <summary>
+        /// Converts a MIDI note number to its corresponding frequency in hertz.
+        /// </summary>
+        /// <remarks>This method assumes equal temperament tuning with A4 set to 440 Hz. Values outside
+        /// the typical MIDI note range may produce frequencies outside the standard audible range.</remarks>
+        /// <param name="noteNumber">The MIDI note number to convert. Typically ranges from 0 to 127, where 69 represents the standard A4 (440
+        /// Hz).</param>
+        /// <returns>The frequency in hertz corresponding to the specified MIDI note number, rounded to the nearest integer.</returns>
         private int NoteToFrequency(int noteNumber)
         {
             // MIDI note number to frequency conversion
             return (int)(880.0 * Math.Pow(2.0, (noteNumber - 69) / 12.0));
         }
+
+        /// <summary>
+        /// Updates the displayed time and percentage position labels based on the specified frame index.
+        /// </summary>
+        /// <remarks>This method updates UI labels to reflect the current playback position in both time
+        /// and percentage. If called from a non-UI thread, the update is marshaled to the UI thread. No action is taken
+        /// if there are no frames available.</remarks>
+        /// <param name="frameIndex">The zero-based index of the frame for which to update the time and percentage position labels. Must be
+        /// within the bounds of the available frames.</param>
         private void UpdateTimeAndPercentPosition(int frameIndex)
         {
             if (_frames == null || _frames.Count == 0)
@@ -914,6 +1033,13 @@ namespace NeoBleeper
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
+
+        /// <summary>
+        /// Resets the playback state and lyric display to the beginning of the track asynchronously.
+        /// </summary>
+        /// <remarks>If playback was active before rewinding, playback resumes automatically after the
+        /// operation completes. All lyric timing and progress indicators are reset to their initial states.</remarks>
+        /// <returns>A task that represents the asynchronous rewind operation.</returns>
         private async Task Rewind()
         {
             // Reset lyric state
@@ -933,6 +1059,14 @@ namespace NeoBleeper
             }
             Logger.Log("Rewind completed", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Converts a MIDI note number to its corresponding note name with octave notation.
+        /// </summary>
+        /// <remarks>The returned note name uses standard Western notation with sharps (e.g., "C#").
+        /// Octave numbers follow the convention where MIDI note 60 is C4 (middle C).</remarks>
+        /// <param name="noteNumber">The MIDI note number to convert. Must be in the range 0 to 127, where 60 represents middle C (C4).</param>
+        /// <returns>A string representing the note name and octave (for example, "C4" or "A#3").</returns>
         private string MidiNoteToName(int noteNumber)
         {
             // Define note names (C, C#, D, D#, E, F, F#, G, G#, A, A#, B)
@@ -951,6 +1085,14 @@ namespace NeoBleeper
         private Color _highlightColor = Settings1.Default.note_indicator_color; // You can choose any color
         private HashSet<int> _previousActiveNotes = new HashSet<int>();
 
+        /// <summary>
+        /// Updates the UI labels to reflect the currently active MIDI notes.
+        /// </summary>
+        /// <remarks>This method updates label visibility, text, and highlighting to match the provided
+        /// set of active notes. If the number of active notes exceeds the available labels, an additional label is
+        /// shown to indicate the number of extra notes. The update is performed on the UI thread if required.</remarks>
+        /// <param name="activeNotes">A set of MIDI note numbers representing the notes that are currently active. Each note number should
+        /// correspond to a valid MIDI note.</param>
         private void UpdateNoteLabels(HashSet<int> activeNotes)
         {
             if (_isUpdatingLabels) return; _isUpdatingLabels = true; try
@@ -1136,6 +1278,15 @@ namespace NeoBleeper
                 }
             }, token);
         }
+
+        /// <summary>
+        /// Handles the timer event that triggers playback restart after user interaction with the playback controls.
+        /// </summary>
+        /// <remarks>This method is intended to be used as an event handler for a System.Timers.Timer. It
+        /// resets relevant playback state and resumes playback if it was previously interrupted by user actions such as
+        /// scrolling or dragging the track bar.</remarks>
+        /// <param name="sender">The source of the event, typically the timer that initiated the callback.</param>
+        /// <param name="e">An ElapsedEventArgs object that contains the event data.</param>
         private async void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
             _playbackRestartTimer?.Stop();
@@ -1165,6 +1316,13 @@ namespace NeoBleeper
         private Dictionary<Label, Color> _originalLabelColors = new Dictionary<Label, Color>();
 
         // Initializes the note labels and their properties
+
+        /// <summary>
+        /// Initializes the note label controls and sets their default properties for use in the user interface.
+        /// </summary>
+        /// <remarks>This method prepares the note labels by assigning them to an internal array,
+        /// configuring their appearance, and mapping MIDI note numbers to label indices. It should be called before any
+        /// operations that depend on the note labels being initialized.</remarks>
         private void InitializeNoteLabels()
         {
             // Collect all labels
@@ -1234,6 +1392,16 @@ namespace NeoBleeper
             Logger.Log("Play each note checkbox changed.", Logger.LogTypes.Info);
         }
 
+        /// <summary>
+        /// Converts the specified number of MIDI ticks to the corresponding duration in milliseconds, taking into
+        /// account tempo changes.
+        /// </summary>
+        /// <remarks>If no tempo events have occurred before the specified tick position, the conversion
+        /// uses the default tempo of 120 BPM. The calculation accounts for all tempo changes up to and including the
+        /// specified tick.</remarks>
+        /// <param name="ticks">The number of MIDI ticks to convert. Must be greater than or equal to zero.</param>
+        /// <returns>The duration, in milliseconds, that corresponds to the specified number of ticks. The value reflects tempo
+        /// changes that may have occurred up to the given tick position.</returns>
         private double TicksToMilliseconds(long ticks)
         {
             // Find tempo events in right order
@@ -1258,6 +1426,14 @@ namespace NeoBleeper
             cumulativeMs += (double)(ticks - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
             return cumulativeMs;
         }
+
+        /// <summary>
+        /// Precomputes the cumulative elapsed time in milliseconds for each tempo event in the sequence.
+        /// </summary>
+        /// <remarks>This method prepares a lookup table mapping MIDI tick positions to their
+        /// corresponding elapsed time in milliseconds, based on the current tempo map. This enables efficient
+        /// conversion from MIDI ticks to real time for subsequent operations. If no tempo events are present, the
+        /// method does not perform any computation.</remarks>
         private void PrecomputeTempoTimes()
         {
             _precomputedTempoTimes = new List<(long time, double cumulativeMs)>();
@@ -1387,6 +1563,17 @@ namespace NeoBleeper
         private bool _isInLyricSection = false;
         int driftMs = 0;
         private HashSet<int> _previousMidiOutputNotes = new();
+
+        /// <summary>
+        /// Processes the current MIDI frame, handling MIDI output events and system speaker playback as appropriate.
+        /// Advances playback by sending note events and managing timing for the current frame.
+        /// </summary>
+        /// <remarks>This method should be called as part of a MIDI playback loop to process each frame in
+        /// sequence. It respects cancellation requests via the associated cancellation token. MIDI output and system
+        /// speaker playback are performed based on user settings and enabled channels. If no notes are active in the
+        /// current frame, the method waits for the frame's duration before returning.</remarks>
+        /// <returns>A task that represents the asynchronous operation of processing the current frame. The task completes when
+        /// all note events and timing for the frame have been handled.</returns>
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
@@ -1490,6 +1677,13 @@ namespace NeoBleeper
             }
             driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
         }
+
+        /// <summary>
+        /// Retrieves the tempo, in microseconds per quarter note, that is in effect at the specified time.
+        /// </summary>
+        /// <param name="currentTime">The current time, in ticks, for which to determine the active tempo. Must be greater than or equal to zero.</param>
+        /// <returns>The tempo in microseconds per quarter note that applies at the specified time. Returns 500,000 if no tempo
+        /// event is found, corresponding to a default of 120 BPM.</returns>
         private int GetCurrentTempo(long currentTime)
         {
             // Last tempo event before or at currentTime
@@ -1500,6 +1694,16 @@ namespace NeoBleeper
             return lastTempoEvent.tempo != 0 ? lastTempoEvent.tempo : 500000; // Default 120 BPM
         }
 
+        /// <summary>
+        /// Calculates adaptive threshold values for lyric gaps and melody sections based on the current tempo at the
+        /// specified time.
+        /// </summary>
+        /// <remarks>Thresholds decrease as tempo increases and are bounded to ensure reasonable minimum
+        /// and maximum values. This method is intended for internal use when dynamically segmenting lyrics and melody
+        /// sections based on tempo changes.</remarks>
+        /// <param name="currentTime">The current time, in ticks, used to determine the tempo for threshold calculation.</param>
+        /// <returns>A tuple containing the lyric gap threshold and the melody section threshold, both in milliseconds. The
+        /// thresholds are adjusted according to the tempo at the specified time.</returns>
         private (int lyricGapThreshold, int melodySectionThreshold) CalculateDynamicThresholds(long currentTime)
         {
             int currentTempo = GetCurrentTempo(currentTime);
@@ -1526,6 +1730,13 @@ namespace NeoBleeper
             return (lyricGapThreshold, melodySectionThreshold);
         }
 
+        /// <summary>
+        /// Handles the display and clearing of lyrics based on the current playback time.
+        /// </summary>
+        /// <remarks>This method updates the lyrics display according to the timing of lyric meta events
+        /// and dynamic thresholds. It ensures that lyrics are shown or cleared in response to playback position and
+        /// timing gaps between lyric events.</remarks>
+        /// <param name="currentTime">The current playback time, in ticks or milliseconds, used to determine which lyrics to display or clear.</param>
         private void HandleLyricsDisplay(long currentTime)
         {
             bool hasLyrics = false;
@@ -1579,6 +1790,15 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Extracts the lyrics text from the specified MIDI meta event, if available.
+        /// </summary>
+        /// <remarks>This method attempts to retrieve the lyrics from meta events that expose a 'Text'
+        /// property, such as TextEvent instances. If the meta event does not contain lyrics or does not have a 'Text'
+        /// property, the method returns null.</remarks>
+        /// <param name="metaEvent">The meta event from which to extract lyrics. Must not be null and should represent a text-based meta event.</param>
+        /// <returns>A string containing the lyrics text if present in the meta event; otherwise, null.</returns>
         private string ExtractLyricsFromMetaEvent(MetaEvent metaEvent)
         {
             string lyrics = null;
@@ -1598,6 +1818,14 @@ namespace NeoBleeper
         }
 
         // Process and display lyric text
+
+        /// <summary>
+        /// Processes the specified lyric text by removing control characters and formatting it for display.
+        /// </summary>
+        /// <remarks>If the input lyric text contains any control characters (such as newlines, tabs, or
+        /// slashes), the current lyric display is cleared before processing the new text.</remarks>
+        /// <param name="lyrics">The lyric text to process. May include control characters such as newlines, tabs, or slashes, which will be
+        /// removed before display.</param>
         private void ProcessLyricText(string lyrics)
         {
             if (lyrics.Contains("\n") || lyrics.Contains("\\") || lyrics.Contains("/") ||
@@ -1621,6 +1849,13 @@ namespace NeoBleeper
 
             PrintLyrics(lyricRow.Trim());
         }
+
+        /// <summary>
+        /// Asynchronously waits for the specified number of milliseconds or until the operation is canceled.
+        /// </summary>
+        /// <param name="milliseconds">The number of milliseconds to wait before completing the task. Must be non-negative.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the wait operation.</param>
+        /// <returns>A task that represents the asynchronous wait operation.</returns>
         private async Task WaitPreciseWithCancellation(int milliseconds, CancellationToken cancellationToken)
         {
             try
@@ -1633,6 +1868,13 @@ namespace NeoBleeper
                 throw;
             }
         }
+
+        /// <summary>
+        /// Resets the track bar and associated labels to their initial state, displaying zero values for position and
+        /// percentage.
+        /// </summary>
+        /// <remarks>This method is thread-safe and can be called from any thread. If invoked from a
+        /// non-UI thread, the updates are marshaled to the UI thread automatically.</remarks>
         private void ResetLabelsAndTrackBar()
         {
             if (this.InvokeRequired)
@@ -1663,6 +1905,16 @@ namespace NeoBleeper
                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
             }
         }
+
+        /// <summary>
+        /// Synchronizes all relevant UI elements to reflect the specified frame index and filtered notes.
+        /// </summary>
+        /// <remarks>This method ensures that UI updates occur on the UI thread. If called from a non-UI
+        /// thread, the update is marshaled to the UI thread automatically. The method updates the track bar, percentage
+        /// label, position label, note labels, and held notes label to match the specified frame and filtered notes.
+        /// Grid updates are skipped if the 'Don't update grid' option is enabled.</remarks>
+        /// <param name="frameIndex">The zero-based index of the frame to display. Must be within the range of available frames.</param>
+        /// <param name="filteredNotes">A set of note identifiers to be displayed or highlighted in the UI. Cannot be null.</param>
         private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
         {
             if (this.InvokeRequired)
@@ -1702,6 +1954,15 @@ namespace NeoBleeper
             // Update the label of notes that being held on
             holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} ({filteredNotes.Count})";
         }
+
+        /// <summary>
+        /// Updates the position label to display the current playback time in minutes, seconds, and hundredths of a
+        /// second.
+        /// </summary>
+        /// <remarks>This method calculates the playback time using both the elapsed stopwatch time and
+        /// the current frame's timestamp, providing a more accurate display. If called from a thread other than the UI
+        /// thread, the update is marshaled to the UI thread automatically. The label is only updated while playback is
+        /// active.</remarks>
         private void UpdatePositionLabel()
         {
             if (!_isPlaying) return;
@@ -1744,6 +2005,14 @@ namespace NeoBleeper
         }
 
         // Playback complete handler
+
+        /// <summary>
+        /// Handles the completion of audio playback, performing necessary cleanup and optionally restarting playback if
+        /// looping is enabled.
+        /// </summary>
+        /// <remarks>If looping is enabled, playback is rewound and restarted automatically. Otherwise,
+        /// playback is stopped and rewound. Any errors encountered during this process are logged, and playback is
+        /// stopped to ensure a consistent state.</remarks>
         private async void HandlePlaybackComplete()
         {
             try
@@ -1786,6 +2055,13 @@ namespace NeoBleeper
         private Dictionary<int, int> _channelInstruments = new();
         private Dictionary<(int note, long time), int> _noteInstruments = new();
 
+        /// <summary>
+        /// Assigns instrument identifiers to each note event in the specified MIDI file based on the most recent
+        /// program change for each channel.
+        /// </summary>
+        /// <remarks>Percussion notes on channel 10 are assigned a special instrument identifier of -1.
+        /// For channels without an explicit program change, the default instrument identifier is 0.</remarks>
+        /// <param name="midiFile">The MIDI file whose note events will be analyzed and assigned instrument identifiers. Cannot be null.</param>
         private void AssignInstrumentsToNotes(MidiFile midiFile)
         {
             var lastPatchPerChannel = new Dictionary<int, int>();
@@ -1812,10 +2088,19 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Displays the specified lyrics using the lyrics overlay.
+        /// </summary>
+        /// <param name="lyrics">The lyrics text to display. Cannot be null.</param>
         private void PrintLyrics(string lyrics)
         {
             lyricsOverlay.PrintLyrics(lyrics);
         }
+
+        /// <summary>
+        /// Clears the current lyrics from both the internal state and any associated lyrics overlay.
+        /// </summary>
         private void ClearLyrics()
         {
             lyricRow = string.Empty;
@@ -1824,6 +2109,12 @@ namespace NeoBleeper
                 lyricsOverlay.ClearLyrics();
             }
         }
+
+        /// <summary>
+        /// Displays the lyrics overlay window if it is not already visible.
+        /// </summary>
+        /// <remarks>If the lyrics overlay window has not been created or has been disposed, a new
+        /// instance is created and shown. The overlay is brought to the foreground when displayed.</remarks>
         private void ShowLyricsOverlay()
         {
             if (lyricsOverlay == null || lyricsOverlay.IsDisposed)
@@ -1839,6 +2130,10 @@ namespace NeoBleeper
 
             BeginInvoke((Action)(() => this.Activate()));
         }
+
+        /// <summary>
+        /// Hides the lyrics overlay if it is currently visible and not disposed.
+        /// </summary>
         private void HideLyricsOverlay()
         {
             if (lyricsOverlay != null && !lyricsOverlay.IsDisposed)

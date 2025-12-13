@@ -148,12 +148,28 @@ namespace NeoBleeper
             Debug.WriteLine(logText);
             WriteLogToFile(logText.TrimEnd());
         }
+
+        /// <summary>
+        /// Specifies the severity level of a log entry.
+        /// </summary>
+        /// <remarks>Use this enumeration to indicate the importance or type of information being logged.
+        /// The values represent informational messages, warnings, and error conditions.</remarks>
         public enum LogTypes
         {
             Info,
             Warning,
             Error
         }
+
+        /// <summary>
+        /// Writes a log entry with the specified message and log type to the log file and debug output.
+        /// </summary>
+        /// <remarks>The log entry is timestamped and appended to the log file as well as written to the
+        /// debug output. Use this method to record application events, warnings, or errors for diagnostic
+        /// purposes.</remarks>
+        /// <param name="message">The message to include in the log entry. This value can be any string to describe the event or information
+        /// to log.</param>
+        /// <param name="logTypes">The type of log entry to write. Specifies whether the message is informational, a warning, or an error.</param>
         public static void Log(string message, LogTypes logTypes)
         {
             string LoggingType;
@@ -178,6 +194,12 @@ namespace NeoBleeper
             Debug.WriteLine(logMessage);
         }
 
+        /// <summary>
+        /// Writes the specified log content to a file named "DebugLog.txt" in the application's directory.
+        /// </summary>
+        /// <remarks>If the log file does not exist, it is created. If it exists, its contents are
+        /// overwritten. This method is intended for diagnostic or debugging purposes and is not thread-safe.</remarks>
+        /// <param name="content">The log content to write to the file. Can be any string, including empty or null.</param>
         private static void WriteLogToFile(string content)
         {
             try

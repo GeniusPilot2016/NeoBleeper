@@ -69,6 +69,12 @@ public class ValueChangeCommand : ICommand
         type = Type.TrackBar;
         this.label = label;
     }
+
+    /// <summary>
+    /// Executes the update operation using the current value type.
+    /// </summary>
+    /// <remarks>This method selects the appropriate value to update based on whether the double value is
+    /// active. It should be called when the value needs to be refreshed or applied.</remarks>
     public void Execute()
     {
         if (isDouble)
@@ -81,6 +87,12 @@ public class ValueChangeCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Reverts the most recent change to the value, restoring it to its previous state.
+    /// </summary>
+    /// <remarks>Use this method to undo the last modification made to the value. This operation is typically
+    /// used to support undo functionality in user interfaces or data editing scenarios. If no changes have been made
+    /// since the last undo, calling this method has no effect.</remarks>
     public void Undo()
     {
         if (isDouble)
@@ -93,6 +105,11 @@ public class ValueChangeCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Updates the current value of the control based on the specified input.
+    /// </summary>
+    /// <param name="value">The new value to set for the control.</param>
+    /// <exception cref="InvalidEnumArgumentException">Thrown if the control type is not recognized.</exception>
     private void UpdateValue(int value)
     {
         switch (type)
@@ -108,6 +125,12 @@ public class ValueChangeCommand : ICommand
         }
 
     }
+
+    /// <summary>
+    /// Updates the current value based on the specified input and the configured type.
+    /// </summary>
+    /// <param name="value">The new value to apply. The interpretation of this value depends on the current type configuration.</param>
+    /// <exception cref="InvalidEnumArgumentException">Thrown if the current type is not a supported value.</exception>
     private void UpdateValue(double value)
     {
         switch (type)
@@ -120,6 +143,15 @@ public class ValueChangeCommand : ICommand
         }
 
     }
+
+    /// <summary>
+    /// Updates the value of the numeric up-down control and synchronizes the corresponding variable based on the
+    /// current mode.
+    /// </summary>
+    /// <remarks>If the control is in BPM mode, this method updates the BPM variable; otherwise, it updates
+    /// the alternating note length variable. The method temporarily sets a tag on the control to prevent recursive
+    /// value change events during the update.</remarks>
+    /// <param name="value">The new value to set for the numeric up-down control and the associated variable.</param>
     private void UpdateNumericUpDown(int value)
     {
         // Usage of flag to prevent recursion
@@ -137,6 +169,13 @@ public class ValueChangeCommand : ICommand
 
         numericUpDown.Tag = null;
     }
+
+    /// <summary>
+    /// Synchronizes the track bar control, associated label, and time signature variable with the specified value.
+    /// </summary>
+    /// <remarks>This method temporarily sets a tag on the track bar to prevent recursive value change events
+    /// while updating its value. If a label is associated, its text is also updated to reflect the new value.</remarks>
+    /// <param name="value">The new value to assign to the track bar, label, and time signature variable.</param>
     private void UpdateTrackBar(int value)
     {
         // Usage of flag to prevent recursion
@@ -149,6 +188,16 @@ public class ValueChangeCommand : ICommand
         }
         trackBar.Tag = null;
     }
+
+    /// <summary>
+    /// Updates the track bar and associated label to reflect the specified value, optionally formatting the label as a
+    /// percentage for note silence ratio settings.
+    /// </summary>
+    /// <remarks>This method temporarily sets the track bar's Tag property to prevent recursive value change
+    /// events while updating the control. The label is updated only if it is not null.</remarks>
+    /// <param name="value">The new value to set on the track bar. Typically expected to be between 0.0 and 1.0, representing a ratio or
+    /// percentage.</param>
+    /// <param name="isNoteSilenceRatio">true to format the label as a percentage for note silence ratio; otherwise, false to display the raw value.</param>
     private void UpdateTrackBar(double value, bool isNoteSilenceRatio)
     {
         // Usage of flag to prevent recursion

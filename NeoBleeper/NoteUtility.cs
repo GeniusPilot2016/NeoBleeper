@@ -36,6 +36,17 @@ namespace NeoBleeper
     }
     public class NoteFrequencies
     {
+        /// <summary>
+        /// Calculates the frequency, in hertz, corresponding to a given musical note name and octave.
+        /// </summary>
+        /// <remarks>The method supports natural notes (A–G) and sharps (e.g., "C#4"). The reference
+        /// octave is the 4th octave (e.g., "A4" for 440 Hz). Flat notes are not supported; use the equivalent sharp
+        /// notation (e.g., "D#" instead of "Eb").</remarks>
+        /// <param name="noteName">The note name and octave in standard format (e.g., "A4", "C#3"). The note must consist of a letter (A–G), an
+        /// optional sharp symbol ('#'), and a single-digit octave number. If null or empty, the frequency for middle C
+        /// (C4) is returned.</param>
+        /// <returns>The frequency in hertz for the specified note and octave. Returns 0 if the note name is invalid. Returns the
+        /// frequency for middle C (C4) if the input is null, empty, or cannot be parsed.</returns>
         public static double GetFrequencyFromNoteName(string noteName)
         {
             if (string.IsNullOrEmpty(noteName))
@@ -78,6 +89,21 @@ namespace NeoBleeper
     }
     public static class NoteLengths
     {
+        /// <summary>
+        /// Calculates the duration of a musical note in milliseconds based on tempo, note type, and optional modifiers.
+        /// </summary>
+        /// <remarks>If an unsupported note type, modifier, or articulation is provided, the method
+        /// defaults to the base note length without the corresponding adjustment. This method does not validate the
+        /// musical correctness of combined modifiers and articulations.</remarks>
+        /// <param name="bpm">The tempo in beats per minute. Must be greater than zero.</param>
+        /// <param name="noteType">The type of note to calculate the length for. Supported values include "Whole", "Half", "Quarter", "1/8",
+        /// "1/16", and "1/32".</param>
+        /// <param name="modifier">An optional modifier that alters the note length. Supported values are "Dot" (dotted note) and "Tri"
+        /// (triplet). If not specified or unrecognized, no modifier is applied.</param>
+        /// <param name="articulation">An optional articulation that further adjusts the note length. Supported values are "Sta" (staccato), "Spi"
+        /// (spiccato), and "Fer" (fermata). If not specified or unrecognized, no articulation is applied.</param>
+        /// <returns>The length of the note in milliseconds, adjusted for the specified tempo, note type, modifier, and
+        /// articulation.</returns>
         public static double CalculateNoteLength(int bpm, string noteType, string modifier = "", string articulation = "")
         {
             int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
@@ -118,6 +144,22 @@ namespace NeoBleeper
             }
             return baseLength;
         }
+
+        /// <summary>
+        /// Calculates the duration, in milliseconds, of a musical note based on tempo, note type, and optional
+        /// modifiers.
+        /// </summary>
+        /// <remarks>If an unsupported note type, modifier, or articulation is provided, the method
+        /// defaults to standard quarter note length and ignores unrecognized modifiers or articulations. This method
+        /// does not validate input strings beyond the supported values.</remarks>
+        /// <param name="bpm">The tempo in beats per minute. Must be greater than zero.</param>
+        /// <param name="noteType">The type of note to calculate the length for. Supported values include "Whole", "Half", "Quarter", "1/8",
+        /// "1/16", and "1/32".</param>
+        /// <param name="modifier">An optional modifier that alters the note length. Supported values are "Dot" (for dotted notes) and "Tri"
+        /// (for triplet notes). If not specified, no modifier is applied.</param>
+        /// <param name="articulation">An optional articulation that further modifies the note length. Use "Fer" to apply a fermata (doubling the
+        /// duration). If not specified, no articulation is applied.</param>
+        /// <returns>The calculated length of the note, in milliseconds.</returns>
         public static double CalculateLineLength(int bpm, string noteType, string modifier = "", string articulation = "")
         {
             int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);

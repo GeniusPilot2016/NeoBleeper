@@ -32,6 +32,17 @@ public static class UIHelper
     private static int cachedColorRef = -1;
     private static Color cachedColor;
 
+    /// <summary>
+    /// Applies a custom color and optional dark mode appearance to the title bar of a Windows Form on supported Windows
+    /// versions.
+    /// </summary>
+    /// <remarks>This method is supported only on Windows 11 (build 22000 and above). On unsupported operating
+    /// systems or Windows versions, the method has no effect. The method does not throw exceptions for unsupported
+    /// platforms; it simply returns without making changes. The form's handle will be created if it does not already
+    /// exist.</remarks>
+    /// <param name="form">The form whose title bar appearance will be modified. Must not be disposed or disposing.</param>
+    /// <param name="color">The color to apply to the form's title bar.</param>
+    /// <param name="darkMode">true to enable dark mode appearance for the title bar; otherwise, false.</param>
     public static void ApplyCustomTitleBar(Form form, Color color, bool darkMode = false)
     {
         if (!OperatingSystem.IsWindows()) // Only works on Windows
@@ -96,6 +107,14 @@ public static class UIHelper
             }
         }
     }
+
+    /// <summary>
+    /// Forces the specified form to immediately repaint its client area and all child controls.
+    /// </summary>
+    /// <remarks>This method is useful when changes to the form or its controls require an immediate visual
+    /// update, bypassing the normal paint scheduling. If the form is null, disposed, or disposing, this method does
+    /// nothing.</remarks>
+    /// <param name="form">The form to be updated. Must not be null, disposed, or disposing.</param>
     public static void ForceUpdateUI(Form form)
     {
         if (form == null || form.IsDisposed || form.Disposing)
@@ -116,6 +135,15 @@ public static class UIHelper
         {  "українська", "uk-UA" },
         {  "Tiếng Việt", "vi-VN" }
     };
+
+    /// <summary>
+    /// Sets the application's culture based on the specified human-readable language name.
+    /// </summary>
+    /// <remarks>If the specified language name is not found or is invalid, the application's culture defaults
+    /// to English (United States) ("en-US"). This method affects the default culture for all threads in the application
+    /// domain.</remarks>
+    /// <param name="languageName">The display name of the language to set as the application's culture. If the name is not recognized or is null
+    /// or whitespace, the culture is not changed.</param>
     public static void SetLanguageByName(string languageName) // Set the application's culture based on a human-readable language name
     {
         try
@@ -136,6 +164,14 @@ public static class UIHelper
         }
     }
 
+    /// <summary>
+    /// Calculates the DPI (dots per inch) scale factor for the specified message form relative to the standard 96 DPI.
+    /// </summary>
+    /// <remarks>This method is useful for adapting UI elements to different display scaling settings. The
+    /// returned value can be used to scale sizes or coordinates to match the display's DPI.</remarks>
+    /// <param name="messageForm">The message form for which to determine the DPI scale factor. Cannot be null.</param>
+    /// <returns>A double representing the scale factor of the form's DPI compared to 96 DPI. A value of 1.0 indicates standard
+    /// DPI; values greater or less than 1.0 indicate higher or lower DPI, respectively.</returns>
     internal static double GetDPIScaleFactor(MessageForm messageForm)
     {
         int dpi = 96; // Default DPI
@@ -157,6 +193,13 @@ public static class UIHelper
         private const int WM_THEMECHANGED = 0x031A;
         private const int WM_SYSCOLORCHANGE = 0x0015;
 
+        /// <summary>
+        /// Initializes application-wide theme and input language management services. This method sets up message
+        /// filters and event handlers required for responding to system theme and user preference changes.
+        /// </summary>
+        /// <remarks>Call this method once at application startup to enable automatic handling of theme
+        /// changes and user preference updates. Subsequent calls have no effect. This method also initializes the input
+        /// language manager, so separate initialization is not required in typical scenarios.</remarks>
         public static void Initialize()
         {
             if (initialized) return;
@@ -184,6 +227,13 @@ public static class UIHelper
             NotifyThemeChanged();
         }
 
+        /// <summary>
+        /// Releases resources and detaches event handlers associated with input language management. Call this method
+        /// to clean up static resources when input language functionality is no longer needed.
+        /// </summary>
+        /// <remarks>This method should be called before application shutdown or when input language
+        /// management is no longer required to prevent resource leaks. After calling this method, input language
+        /// features provided by this component will be disabled until re-initialized.</remarks>
         public static void Cleanup()
         {
             if (!initialized) return;
@@ -200,6 +250,15 @@ public static class UIHelper
 
         // Instead of invoking the event synchronously for all subscribers,
         // invoke each subscriber in a safe/asynchronous way:
+
+        /// <summary>
+        /// Notifies all subscribers that the application's theme has changed by raising the ThemeChanged event
+        /// asynchronously on each handler.
+        /// </summary>
+        /// <remarks>Each event handler is invoked asynchronously to avoid blocking the main thread. If a
+        /// handler targets a Windows Forms control, the notification is marshaled to the control's UI thread when
+        /// possible. Exceptions thrown by individual handlers are caught and do not prevent other subscribers from
+        /// being notified.</remarks>
         private static void NotifyThemeChanged()
         {
             var handlers = ThemeChanged;
@@ -248,6 +307,14 @@ public static class UIHelper
         }
 
         // IMessageFilter implementation to catch Windows messages
+
+        /// <summary>
+        /// Filters Windows messages to detect system theme or color changes and notifies the application when such
+        /// changes occur.
+        /// </summary>
+        /// <remarks>This class implements the IMessageFilter interface to monitor specific Windows
+        /// messages related to theme and system color changes. It is typically used to ensure that the application
+        /// responds appropriately when the user changes system themes or color settings.</remarks>
         private class ThemeMessageFilter : IMessageFilter
         {
             public bool PreFilterMessage(ref Message m)
@@ -270,6 +337,13 @@ public static class UIHelper
         // Windows message for input language change
         private const int WM_INPUTLANGCHANGE = 0x0051;
 
+        /// <summary>
+        /// Initializes global input language change monitoring for the application.
+        /// </summary>
+        /// <remarks>This method installs a message filter to detect input language changes at the
+        /// application level. It has no effect if called more than once. Call this method before relying on global
+        /// input language change notifications, as Windows Forms does not provide a static event for input language
+        /// changes.</remarks>
         public static void Initialize()
         {
             if (initialized) return;
@@ -286,6 +360,14 @@ public static class UIHelper
         }
 
         // Cleanup method to remove filters/subscriptions if needed
+
+        /// <summary>
+        /// Releases resources and removes any installed message filters or subscriptions associated with the current
+        /// context.
+        /// </summary>
+        /// <remarks>Call this method to clean up message filters or subscriptions that were previously
+        /// set up by the application. This method is safe to call multiple times; subsequent calls after the first have
+        /// no effect.</remarks>
         public static void Cleanup()
         {
             if (!initialized) return;
@@ -300,6 +382,16 @@ public static class UIHelper
 
         private class InputLangMessageFilter : IMessageFilter
         {
+            /// <summary>
+            /// Filters out a message before it is dispatched, allowing for custom processing of input language change
+            /// messages.
+            /// </summary>
+            /// <remarks>If the message corresponds to an input language change, the
+            /// InputLanguageChanged event is raised. This method can be used to monitor and respond to input language
+            /// changes in the application.</remarks>
+            /// <param name="m">A reference to the message to be processed. The message may be modified by the filter.</param>
+            /// <returns>Always returns false to indicate that the message should continue to be processed by the next filter and
+            /// the message loop.</returns>
             public bool PreFilterMessage(ref Message m)
             {
                 if (m.Msg == WM_INPUTLANGCHANGE)

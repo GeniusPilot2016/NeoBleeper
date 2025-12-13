@@ -16,6 +16,15 @@
 
 public class ListViewItemComparer : IEqualityComparer<ListViewItem>
 {
+    /// <summary>
+    /// Determines whether two specified ListViewItem instances are equal by comparing the text of their subitems.
+    /// </summary>
+    /// <remarks>The comparison is case-sensitive and considers the order and count of subitems. If either
+    /// parameter is null, the method returns false.</remarks>
+    /// <param name="x">The first ListViewItem to compare. Can be null.</param>
+    /// <param name="y">The second ListViewItem to compare. Can be null.</param>
+    /// <returns>true if both ListViewItem instances have the same number of subitems and the text of each corresponding subitem
+    /// is equal; otherwise, false.</returns>
     public bool Equals(ListViewItem x, ListViewItem y)
     {
         if (x == null || y == null)
@@ -33,6 +42,11 @@ public class ListViewItemComparer : IEqualityComparer<ListViewItem>
         return true;
     }
 
+    /// <summary>
+    /// Returns a hash code for the specified ListViewItem.
+    /// </summary>
+    /// <param name="obj">The ListViewItem for which to retrieve the hash code.</param>
+    /// <returns>A 32-bit signed integer hash code for the specified ListViewItem.</returns>
     public int GetHashCode(ListViewItem obj)
     {
         return obj.GetHashCode();

@@ -51,6 +51,15 @@ namespace NeoBleeper
             NotesChanged?.Invoke(this, e);
         }
         private string lastListHash = string.Empty;
+
+        /// <summary>
+        /// Generates a hash string representing the current contents of the notes list view.
+        /// </summary>
+        /// <remarks>The returned string can be used to detect changes in the list view's contents, such
+        /// as for caching or change tracking purposes. The format uses non-printable Unicode characters as separators
+        /// between subitems and items.</remarks>
+        /// <returns>A string that uniquely represents the concatenated text of all items and subitems in the list view. Returns
+        /// an empty string if the list is empty.</returns>
         private string ComputeListHash()
         {
             if (listViewNotes?.Items == null || listViewNotes.Items.Count == 0) return string.Empty;
@@ -217,6 +226,14 @@ namespace NeoBleeper
                 // Ignore exceptions during UI updates
             }
         }
+
+        /// <summary>
+        /// Converts a raw key name string to a standard musical note name format.
+        /// </summary>
+        /// <param name="keyName">The raw key name to convert. Expected to be in the format "[note][octave]" (e.g., "c4") or
+        /// "[note]_s[octave]" for sharps (e.g., "d4_s").</param>
+        /// <returns>A string representing the note name in standard format (e.g., "C4" or "D#4"). If the input does not match
+        /// the expected pattern, returns the original key name.</returns>
         private static string ConvertRawKeyNameToNoteName(string keyName)
         {
             // Example key names: "c4", "d4_s", "a5", "g3_s"
@@ -230,6 +247,12 @@ namespace NeoBleeper
 
             return isSharp ? $"{noteLetter}#{octave}" : $"{noteLetter}{octave}";
         }
+
+        /// <summary>
+        /// Converts a button name string to its corresponding raw musical note name.
+        /// </summary>
+        /// <param name="ButtonName">The button name to convert. The value should be in the format "button_<note>", such as "button_C3".</param>
+        /// <returns>A string representing the raw musical note name corresponding to the specified button name.</returns>
         private string ConvertButtonNameToRawNote(string ButtonName)
         {
             string buttonName = ButtonName.ToLower(); // "button_c3"
@@ -237,6 +260,15 @@ namespace NeoBleeper
             string noteName = ConvertRawKeyNameToNoteName(keyName); // "C3"
             return noteName;
         }
+
+        /// <summary>
+        /// Updates the tooltips for all key buttons on the keyboard panel to reflect the current MIDI output channel
+        /// and settings.
+        /// </summary>
+        /// <remarks>If the MIDI output channel is set to channel 10 (percussion) and MIDI output is
+        /// enabled, the tooltips for keys corresponding to percussion notes are updated to display percussion
+        /// instrument names. Otherwise, standard key tooltips are used. This method should be called whenever MIDI
+        /// output settings change to ensure tooltips remain accurate.</remarks>
         private void SetToolTipForKeys()
         {
             string baseToolTip = keyToolTip;
@@ -286,6 +318,13 @@ namespace NeoBleeper
         private static readonly Dictionary<int, string> PercussionKeyToolTipLabels = new Dictionary<int, string>
         {
         };
+
+        /// <summary>
+        /// Initializes the mapping of MIDI percussion note numbers to their corresponding instrument names.
+        /// </summary>
+        /// <remarks>This method populates the collection of percussion key tooltip labels using data from
+        /// the application's resources. It is intended to be called during initialization to ensure that percussion
+        /// instrument names are available for display in the user interface.</remarks>
         private void InitializePercussionNames()
         {
             string percussionNamesData = Resources.PercussionNames;
@@ -305,6 +344,13 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Updates the enabled state of the Undo and Redo menu items based on the current command history.
+        /// </summary>
+        /// <remarks>Call this method after actions that may affect the ability to undo or redo, such as
+        /// executing, undoing, or redoing commands. This ensures that the user interface accurately reflects the
+        /// available actions.</remarks>
         private async void UpdateUndoRedoButtons()
         {
             undoToolStripMenuItem.Enabled = commandManager.CanUndo;
@@ -359,7 +405,6 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
-
         private void LightTheme()
         {
             darkTheme = false;
@@ -408,6 +453,14 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
+        /// <summary>
+        /// Applies the current application theme based on user settings and system preferences.
+        /// </summary>
+        /// <remarks>This method updates the visual appearance of the application by selecting either a
+        /// light or dark theme. If the theme setting is set to automatic, the method determines the appropriate theme
+        /// based on the system's current theme preference. The method suspends layout updates and enables double
+        /// buffering to ensure a smooth transition. UI changes are forced to update immediately after the theme is
+        /// applied.</remarks>
         private async void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -442,6 +495,14 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
             }
         }
+
+        /// <summary>
+        /// Sets the background and foreground colors of the keyboard key labels according to the configured octave
+        /// color settings.
+        /// </summary>
+        /// <remarks>This method updates the appearance of the key labels to reflect the current color
+        /// preferences for each octave. It should be called whenever the octave color settings change to ensure the
+        /// keyboard display remains consistent with user preferences.</remarks>
         private void SetKeyboardKeyColors()
         {
             lbl_c3.BackColor = Settings1.Default.first_octave_color;
@@ -487,6 +548,14 @@ namespace NeoBleeper
             lbl_a5.ForeColor = SetTextColor.GetTextColor(lbl_a5.BackColor);
             lbl_b5.ForeColor = SetTextColor.GetTextColor(lbl_b5.BackColor);
         }
+
+        /// <summary>
+        /// Updates the background and foreground colors of all related buttons to match the current application
+        /// settings.
+        /// </summary>
+        /// <remarks>This method should be called after changing color-related settings to ensure that
+        /// button appearance reflects the latest configuration. It is typically used to synchronize the user interface
+        /// with user preferences or theme changes.</remarks>
         private void SetButtonsColors()
         {
             button_blank_line.BackColor = Settings1.Default.blank_line_color;
@@ -510,11 +579,20 @@ namespace NeoBleeper
             button_play_from_selected_line.ForeColor = SetTextColor.GetTextColor(button_play_from_selected_line.BackColor);
             button_stop_playing.ForeColor = SetTextColor.GetTextColor(button_stop_playing.BackColor);
         }
+
+        /// <summary>
+        /// Sets the background and foreground colors of the beep indicator label based on the current application
+        /// settings.
+        /// </summary>
         private void SetBeepLabelColor()
         {
             label_beep.BackColor = Settings1.Default.beep_indicator_color;
             label_beep.ForeColor = SetTextColor.GetTextColor(label_beep.BackColor);
         }
+
+        /// <summary>
+        /// Refreshes the appearance of the main window by updating theme and control colors.
+        /// </summary>
         private void RefreshMainWindow()
         {
             SetTheme();
@@ -583,6 +661,13 @@ namespace NeoBleeper
             Logger.Log("Settings window is opened", Logger.LogTypes.Info);
             SetToolTipForKeys(); // Update tooltips based on the new MIDI channel
         }
+
+        /// <summary>
+        /// Closes all open windows and resets related user interface options to their default state.
+        /// </summary>
+        /// <remarks>This method unchecks all relevant option checkboxes to ensure that no auxiliary
+        /// windows or features remain active. Call this method when a complete reset of the user interface state is
+        /// required, such as during application shutdown or when switching modes.</remarks>
         private void CloseAllOpenWindows()
         {
             if (checkBox_synchronized_play.Checked == true)
@@ -621,6 +706,12 @@ namespace NeoBleeper
         {
             public static bool synchronized_play = false;
         }
+        /// <summary>
+        /// Adds a new note to the notes list based on the selected note length and current line data.
+        /// </summary>
+        /// <remarks>If a note is selected in the list, the new note is inserted at the selected position;
+        /// otherwise, it is added to the end of the list. The method updates the modified state and refreshes the form
+        /// title to reflect changes.</remarks>
         private void AddNote()
         {
             if (comboBox_note_length.SelectedIndex == 5)
@@ -664,6 +755,14 @@ namespace NeoBleeper
             isModified = true;
             UpdateFormTitle();
         }
+
+        /// <summary>
+        /// Adds the specified note to the selected note field of the current line if note addition is enabled.
+        /// </summary>
+        /// <remarks>The note is assigned to one of four possible note fields (note1, note2, note3, or
+        /// note4) based on which option is selected. All other note fields are cleared. This method has no effect if
+        /// note addition is not enabled.</remarks>
+        /// <param name="note">The note text to add to the line. If null or empty, the note fields will be cleared.</param>
         private void AddNotesToList(string note)
         {
             if (checkBox_add_note_to_list.Checked == true)
@@ -699,6 +798,13 @@ namespace NeoBleeper
                 AddNote();
             }
         }
+
+        /// <summary>
+        /// Selects the next line in the notes list, or adds a new note if no item is currently selected.
+        /// </summary>
+        /// <remarks>If the last item in the list is selected, calling this method will deselect it. If no
+        /// items are selected, the specified note will be added to the list and selected.</remarks>
+        /// <param name="note">The note to add to the list if no item is currently selected. Cannot be null.</param>
         private void SelectNextLine(string note)
         {
             if (listViewNotes.SelectedItems.Count > 0)
@@ -720,6 +826,14 @@ namespace NeoBleeper
                 AddNotesToList(note);
             }
         }
+
+        /// <summary>
+        /// Replaces the length of the selected note in the list with the value specified by the note length selection.
+        /// </summary>
+        /// <remarks>This method updates the note length only if the replace length option is enabled and
+        /// at least one note is selected. The change is performed using a command pattern, which supports undo and redo
+        /// operations if implemented by the command manager. The form's modified state and title are also updated to
+        /// reflect the change.</remarks>
         private void ReplaceLengthOfLine()
         {
             if (checkBox_replace_length.Checked == true && listViewNotes.SelectedItems.Count > 0)
@@ -754,6 +868,14 @@ namespace NeoBleeper
                 UpdateFormTitle();
             }
         }
+
+        /// <summary>
+        /// Updates the length of the selected note based on the current selection in the note length combo box, without
+        /// saving the change to the undo history.
+        /// </summary>
+        /// <remarks>This method only updates the note length if the replace length option is checked and
+        /// at least one note is selected. The change is not recorded in the application's memento or undo system, so it
+        /// cannot be undone using standard undo operations.</remarks>
         private void ReplaceLengthWithoutSavingToMemento()
         {
             if (checkBox_replace_length.Checked == true && listViewNotes.SelectedItems.Count > 0)
@@ -784,6 +906,17 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Replaces the note and updates the length information for the selected line in the notes list, based on the
+        /// specified note text and user selection.
+        /// </summary>
+        /// <remarks>This method only performs an update if a note is selected in the list and the option
+        /// to add a note is enabled. The specific note field (note1, note2, note3, or note4) that is updated depends on
+        /// which corresponding option is checked. After updating, the method marks the data as modified and updates the
+        /// form title to reflect the change.</remarks>
+        /// <param name="note">The text to set as the new note for the selected line. If multiple note fields are available, the field to
+        /// update is determined by the user's selection.</param>
         private void ReplaceNoteAndLengthOfLine(string note)
         {
             if (checkBox_add_note_to_list.Checked == true && listViewNotes.SelectedItems.Count > 0)
@@ -821,6 +954,15 @@ namespace NeoBleeper
             }
         }
         int noteFrequency;
+
+        /// <summary>
+        /// Plays a musical note corresponding to the specified frequency when a key is clicked. The note is played
+        /// using both MIDI output (if enabled) and the internal note player.
+        /// </summary>
+        /// <remarks>If MIDI output is enabled in the application settings and a MIDI output device is
+        /// available, the note is played through the selected MIDI device and channel. The note is also played using
+        /// the application's internal sound system regardless of MIDI settings.</remarks>
+        /// <param name="frequency">The frequency of the note to play, in hertz. Must be a positive integer representing the desired pitch.</param>
         private async void PlayNoteWhenAKeyIsClicked(int frequency)
         {
             if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
@@ -831,6 +973,12 @@ namespace NeoBleeper
             }
             NotePlayer.PlayNote(frequency, 100);
         }
+
+        /// <summary>
+        /// Updates the display to reflect changes when a key is clicked, such as adding a new note to the list.
+        /// </summary>
+        /// <remarks>This method should be called in response to a key click event when the option to add
+        /// a note to the list is enabled. The display is updated only if the associated checkbox is checked.</remarks>
         private async void UpdateDisplayWhenKeyIsClicked()
         {
             if (checkBox_add_note_to_list.Checked == true)
@@ -838,6 +986,17 @@ namespace NeoBleeper
                 UpdateDisplays(listViewNotes.Items.Count - 1, true);
             }
         }
+
+        /// <summary>
+        /// Handles the logic for when a virtual piano key is clicked, updating the note list, display, and optionally
+        /// playing the corresponding note sound.
+        /// </summary>
+        /// <remarks>If the 'Replace' option is enabled, the method replaces the current note in the list;
+        /// otherwise, it adds the note to the end. If the 'Play Note' option is checked, the method plays the
+        /// corresponding note sound. The method also updates the display to reflect the key click and logs the action
+        /// for diagnostic purposes.</remarks>
+        /// <param name="keyName">The name of the key that was clicked. This should follow the expected naming convention for identifying the
+        /// note and octave (e.g., "btn_C4" or "btn_DS5").</param>
         private void TriggerKeyClick(string keyName)
         {
             try
@@ -934,6 +1093,16 @@ namespace NeoBleeper
                 TriggerKeyClick(control.Name);
             }
         }
+
+        /// <summary>
+        /// Converts a musical note name (such as "C4" or "A#3") to its corresponding MIDI note number.
+        /// </summary>
+        /// <remarks>The method expects note names in the format of a note letter (A–G), an optional sharp
+        /// sign (#), followed by a single-digit octave number. The calculation assumes that MIDI note 0 corresponds to
+        /// C-1. Returns -1 if the input is null, empty, incorrectly formatted, or represents an invalid note.</remarks>
+        /// <param name="noteName">The note name to convert, consisting of a note letter (A–G), an optional sharp sign (#), and a single-digit
+        /// octave number. For example, "C4" or "F#2".</param>
+        /// <returns>The MIDI note number corresponding to the specified note name, or -1 if the input is invalid.</returns>
         private int NoteNameToMIDINumber(string noteName)
         {
             // Define the base MIDI numbers for each note
@@ -968,12 +1137,32 @@ namespace NeoBleeper
 
             return midiNumber;
         }
+
+        /// <summary>
+        /// Calculates the MIDI note number adjusted for the current octave setting.
+        /// </summary>
+        /// <remarks>The calculation uses the current octave value from the Variables.octave property. The
+        /// result increases or decreases by 12 for each octave above or below 4.</remarks>
+        /// <param name="rawNumber">The base MIDI note number to adjust. Typically represents the note number before octave transposition.</param>
+        /// <returns>The MIDI note number after applying the octave adjustment.</returns>
         private int CalculateMIDINumber(int rawNumber)
         {
             int multiplier = Variables.octave - 4;
             return rawNumber + (multiplier * 12);
         }
 
+        /// <summary>
+        /// Plays one or more MIDI notes from the specified line in the notes list asynchronously.
+        /// </summary>
+        /// <remarks>This method requires that the MIDI output device is initialized. Notes are only
+        /// played if their corresponding play flag is set to true and the note value is valid. The method executes
+        /// asynchronously and does not block the calling thread.</remarks>
+        /// <param name="index">The zero-based index of the line in the notes list from which to retrieve note values.</param>
+        /// <param name="playNote1">true to play the first note in the line; otherwise, false.</param>
+        /// <param name="playNote2">true to play the second note in the line; otherwise, false.</param>
+        /// <param name="playNote3">true to play the third note in the line; otherwise, false.</param>
+        /// <param name="playNote4">true to play the fourth note in the line; otherwise, false.</param>
+        /// <param name="length">The duration, in milliseconds, for which each note should be played.</param>
         private async void PlayMidiNotesFromLineAsync(int index, bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length)
         {
 
@@ -997,6 +1186,12 @@ namespace NeoBleeper
                 if (playNote4 && !string.IsNullOrWhiteSpace(note4) && notes[3] != -1) MIDIIOUtils.PlayMidiNoteAsync(notes[3], length);
             }
         }
+
+        /// <summary>
+        /// Deserializes an XML string into a NeoBleeperProjectFile object.
+        /// </summary>
+        /// <param name="xmlContent">A string containing the XML representation of a NeoBleeperProjectFile. Cannot be null or empty.</param>
+        /// <returns>A NeoBleeperProjectFile object deserialized from the specified XML string.</returns>
         private static NBPMLFile.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
@@ -1006,6 +1201,18 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Initializes a new music project in the editor using the specified AI-generated music data and file name.
+        /// Updates the user interface and project state to reflect the loaded music.
+        /// </summary>
+        /// <remarks>If required project settings are missing from the AI-generated data, default values
+        /// are applied to ensure the project loads correctly. The method resets the current project, updates all
+        /// relevant controls, and notifies the user upon successful creation. If an error occurs during loading, an
+        /// error message is displayed and the failure is logged.</remarks>
+        /// <param name="createdMusic">A string containing the serialized music project data generated by AI, in the expected XML format. Must not
+        /// be null or empty.</param>
+        /// <param name="createdFileName">The file name to assign to the new project. Used to set the default file name in the save dialog. Must not
+        /// be null or empty.</param>
         private void CreateMusicWithAIResponse(string createdMusic, string createdFileName)
         {
             ClearOpenedProject(); // Clear current project data
@@ -1190,6 +1397,14 @@ namespace NeoBleeper
                 MessageForm.Show(Resources.MessageAIMusicCreationFailed + " " + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Converts a note length identifier to its localized display string.
+        /// </summary>
+        /// <param name="noteLength">The note length identifier to convert. Supported values include "Whole", "Half", "Quarter", "1/8", "1/16",
+        /// and "1/32".</param>
+        /// <returns>A localized string representing the specified note length. Returns the localized string for a whole note if
+        /// the identifier is not recognized.</returns>
         private string ConvertNoteLengthIntoLocalized(string noteLength)
         {
             switch (noteLength)
@@ -1210,6 +1425,14 @@ namespace NeoBleeper
                     return Resources.WholeNote;
             }
         }
+
+        /// <summary>
+        /// Converts a modifier code into its corresponding localized string representation.
+        /// </summary>
+        /// <remarks>Use this method to obtain a user-friendly, localized description for known modifier
+        /// codes. If the modifier is not recognized, the method returns an empty string.</remarks>
+        /// <param name="modifier">The modifier code to convert. Supported values are "Dot" and "Tri".</param>
+        /// <returns>A localized string representing the modifier if the code is recognized; otherwise, an empty string.</returns>
         private string ConvertModifiersIntoLocalized(string modifier)
         {
             switch (modifier)
@@ -1222,6 +1445,14 @@ namespace NeoBleeper
                     return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Converts an articulation code to its corresponding localized display string.
+        /// </summary>
+        /// <remarks>Use this method to obtain a user-friendly, localized name for a given articulation
+        /// code. If the code is not recognized, the method returns an empty string.</remarks>
+        /// <param name="articulation">The articulation code to convert. Supported values are "Sta", "Spi", and "Fer".</param>
+        /// <returns>A localized string representing the articulation if the code is recognized; otherwise, an empty string.</returns>
         private string ConvertArticulationsIntoLocalized(string articulation)
         {
             switch (articulation)
@@ -1236,6 +1467,16 @@ namespace NeoBleeper
                     return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Parses and loads a music project file, initializing the application's state based on the file's contents.
+        /// </summary>
+        /// <remarks>This method supports both legacy Bleeper Music Maker and modern NeoBleeper project
+        /// file formats. The application's settings and note list are updated to reflect the contents of the loaded
+        /// file. If required data is missing from the file, default values are applied. If the file is invalid or
+        /// corrupted, an error message is displayed and the project is not loaded. The method also updates the recent
+        /// files list and resets the undo history upon successful loading.</remarks>
+        /// <param name="filename">The path to the music project file to open. Must refer to a valid file in a supported format.</param>
         private void FileParser(string filename)
         {
             StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
@@ -1713,6 +1954,13 @@ namespace NeoBleeper
                 AddFileToRecentFilesMenu(filename);
             }
         }
+        
+        /// <summary>
+        /// Adds the specified file to the recent files menu if it is not already present.
+        /// </summary>
+        /// <remarks>If the file is successfully added, the recent files list is updated and persisted.
+        /// Duplicate entries are not added.</remarks>
+        /// <param name="fileName">The full path of the file to add to the recent files menu. Cannot be null or empty.</param>
         private void AddFileToRecentFilesMenu(string fileName)
         {
             if (Settings1.Default.RecentFiles == null)
@@ -1727,6 +1975,12 @@ namespace NeoBleeper
             }
             UpdateRecentFilesMenu();
         }
+
+        /// <summary>
+        /// Deserializes an XML file into a NeoBleeperProjectFile object.
+        /// </summary>
+        /// <param name="filePath">The path to the XML file to deserialize. Cannot be null or empty.</param>
+        /// <returns>A NeoBleeperProjectFile object representing the data contained in the specified XML file.</returns>
         public static NBPMLFile.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
@@ -1735,14 +1989,23 @@ namespace NeoBleeper
                 return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(reader);
             }
         }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StopPlaying();
             StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             CloseAllOpenWindows();
-            AskForSavingIfModified(new Action(() => openAFileFromDialog()));
+            AskForSavingIfModified(new Action(() => OpenAFileFromDialog()));
         }
-        private void openAFileFromDialog()
+
+        /// <summary>
+        /// Displays a file open dialog to allow the user to select a project file and opens the selected file if
+        /// confirmed.
+        /// </summary>
+        /// <remarks>The dialog uses the last opened project file name as the initial file name and
+        /// applies a filter for supported project file formats. If the user cancels the dialog, no file is
+        /// opened.</remarks>
+        private void OpenAFileFromDialog()
         {
             openFileDialog.Title = Resources.TitleOpenProjectFile;
             openFileDialog.Filter = Resources.FilterProjectFileFormats;
@@ -1759,6 +2022,15 @@ namespace NeoBleeper
         {
             SaveTheFile();
         }
+
+        /// <summary>
+        /// Saves the current file to the existing file path if it is set and has a valid ".NBPML" extension; otherwise,
+        /// prompts the user to specify a file location.
+        /// </summary>
+        /// <remarks>If the file is successfully saved, the current state is recorded for undo or state
+        /// management purposes, and the form title is updated to reflect the saved status. If the file path is not set
+        /// or does not have a ".NBPML" extension, a Save As dialog is displayed to allow the user to choose a location
+        /// and file name.</remarks>
         private void SaveTheFile()
         {
             if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
@@ -1795,6 +2067,15 @@ namespace NeoBleeper
                 OpenSaveAsDialog(); // Open Save As dialog if no file path is set or if the file is not a NBPML file
             }
         }
+
+        /// <summary>
+        /// Displays a Save As dialog box, allowing the user to specify a file name and location for saving the current
+        /// document.
+        /// </summary>
+        /// <remarks>If the user confirms the dialog, the current document is saved to the selected file,
+        /// and the application's state is updated accordingly. All sounds are stopped and open windows are closed
+        /// before displaying the dialog. The recent files list and form title are updated after a successful save. If
+        /// the save operation fails, the document is not marked as saved.</remarks>
         private void OpenSaveAsDialog()
         {
             isSaved = false;
@@ -1825,6 +2106,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Saves the current project data to a NeoBleeper Project Markup Language (NBPML) file at the specified path.
+        /// </summary>
+        /// <remarks>If a file already exists at the specified path, it will be overwritten. After saving,
+        /// the current file path and form title are updated. An error message is displayed if the save operation
+        /// fails.</remarks>
+        /// <param name="filename">The full file path where the NBPML project file will be saved. Must not be null or empty.</param>
         private void SaveToNBPML(string filename)
         {
             try
@@ -1948,90 +2237,88 @@ namespace NeoBleeper
             Logger.Log($"Time signature is set to {trackBar_time_signature.Value}", Logger.LogTypes.Info);
         }
 
-        private async void UpdateNoteLabels()
+        /// <summary>
+        /// Updates the text of note labels to reflect the current octave setting.
+        /// </summary>
+        /// <remarks>This method should be called whenever the octave value changes to ensure that the
+        /// displayed note labels correspond to the correct octave range.</remarks>
+        private void UpdateNoteLabels()
         {
+            lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
+            lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
+            lbl_e3.Text = "E" + (Variables.octave - 1).ToString();
+            lbl_f3.Text = "F" + (Variables.octave - 1).ToString();
+            lbl_g3.Text = "G" + (Variables.octave - 1).ToString();
+            lbl_a3.Text = "A" + (Variables.octave - 1).ToString();
+            lbl_b3.Text = "B" + (Variables.octave - 1).ToString();
+            lbl_c4.Text = "C" + Variables.octave.ToString();
+            lbl_d4.Text = "D" + Variables.octave.ToString();
+            lbl_e4.Text = "E" + Variables.octave.ToString();
+            lbl_f4.Text = "F" + Variables.octave.ToString();
+            lbl_g4.Text = "G" + Variables.octave.ToString();
+            lbl_a4.Text = "A" + Variables.octave.ToString();
+            lbl_b4.Text = "B" + Variables.octave.ToString();
+            lbl_c5.Text = "C" + (Variables.octave + 1).ToString();
+            lbl_d5.Text = "D" + (Variables.octave + 1).ToString();
+            lbl_e5.Text = "E" + (Variables.octave + 1).ToString();
+            lbl_f5.Text = "F" + (Variables.octave + 1).ToString();
+            lbl_g5.Text = "G" + (Variables.octave + 1).ToString();
+            lbl_a5.Text = "A" + (Variables.octave + 1).ToString();
+            lbl_b5.Text = "B" + (Variables.octave + 1).ToString();
+        }
+
+        /// <summary>
+        /// Shifts the note label controls for octave 9 to the right to accommodate display scaling.
+        /// </summary>
+        /// <remarks>This method adjusts the horizontal position of the C5, D5, E5, F5, G5, A5, and B5
+        /// label controls based on the current display DPI. Call this method when rendering octave 9 to ensure proper
+        /// alignment of note labels on high-DPI displays.</remarks>
+        private void ShiftNoteLabelsToRightForOctave9()
+        {
+            float dX;
+            Graphics g = this.CreateGraphics();
             try
             {
-                lbl_c3.Text = "C" + (Variables.octave - 1).ToString();
-                lbl_d3.Text = "D" + (Variables.octave - 1).ToString();
-                lbl_e3.Text = "E" + (Variables.octave - 1).ToString();
-                lbl_f3.Text = "F" + (Variables.octave - 1).ToString();
-                lbl_g3.Text = "G" + (Variables.octave - 1).ToString();
-                lbl_a3.Text = "A" + (Variables.octave - 1).ToString();
-                lbl_b3.Text = "B" + (Variables.octave - 1).ToString();
-                lbl_c4.Text = "C" + Variables.octave.ToString();
-                lbl_d4.Text = "D" + Variables.octave.ToString();
-                lbl_e4.Text = "E" + Variables.octave.ToString();
-                lbl_f4.Text = "F" + Variables.octave.ToString();
-                lbl_g4.Text = "G" + Variables.octave.ToString();
-                lbl_a4.Text = "A" + Variables.octave.ToString();
-                lbl_b4.Text = "B" + Variables.octave.ToString();
-                lbl_c5.Text = "C" + (Variables.octave + 1).ToString();
-                lbl_d5.Text = "D" + (Variables.octave + 1).ToString();
-                lbl_e5.Text = "E" + (Variables.octave + 1).ToString();
-                lbl_f5.Text = "F" + (Variables.octave + 1).ToString();
-                lbl_g5.Text = "G" + (Variables.octave + 1).ToString();
-                lbl_a5.Text = "A" + (Variables.octave + 1).ToString();
-                lbl_b5.Text = "B" + (Variables.octave + 1).ToString();
+                dX = g.DpiX;
             }
-            catch (InvalidAsynchronousStateException)
+            finally
             {
-                return;
+                g.Dispose();
             }
+            lbl_c5.Location = new Point(lbl_c5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
+            lbl_d5.Location = new Point(lbl_d5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
+            lbl_e5.Location = new Point(lbl_e5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
+            lbl_f5.Location = new Point(lbl_f5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
+            lbl_g5.Location = new Point(lbl_g5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
+            lbl_a5.Location = new Point(lbl_a5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
+            lbl_b5.Location = new Point(lbl_b5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
         }
-        private async void ShiftNoteLabelsToRightForOctave9()
-        {
-            try
-            {
-                float dX;
-                Graphics g = this.CreateGraphics();
-                try
-                {
-                    dX = g.DpiX;
-                }
-                finally
-                {
-                    g.Dispose();
-                }
-                lbl_c5.Location = new Point(lbl_c5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
-                lbl_d5.Location = new Point(lbl_d5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
-                lbl_e5.Location = new Point(lbl_e5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
-                lbl_f5.Location = new Point(lbl_f5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
-                lbl_g5.Location = new Point(lbl_g5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
-                lbl_a5.Location = new Point(lbl_a5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
-                lbl_b5.Location = new Point(lbl_b5.Location.X + Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
-            }
-            catch (InvalidAsynchronousStateException)
-            {
-                return;
-            }
-        }
+
+        /// <summary>
+        /// Shifts the note label controls for octave 9 to the left to adjust their horizontal alignment on the form.
+        /// </summary>
+        /// <remarks>This method recalculates the X-coordinate of each note label based on the current
+        /// display DPI to ensure consistent positioning across different screen resolutions. It is intended for
+        /// internal use when rendering note labels for octave 9.</remarks>
         private void ShiftNoteLabelsToLeftForOctave9()
         {
+            float dX;
+            Graphics g = this.CreateGraphics();
             try
             {
-                float dX;
-                Graphics g = this.CreateGraphics();
-                try
-                {
-                    dX = g.DpiX;
-                }
-                finally
-                {
-                    g.Dispose();
-                }
-                lbl_c5.Location = new Point(lbl_c5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
-                lbl_d5.Location = new Point(lbl_d5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
-                lbl_e5.Location = new Point(lbl_e5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
-                lbl_f5.Location = new Point(lbl_f5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
-                lbl_g5.Location = new Point(lbl_g5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
-                lbl_a5.Location = new Point(lbl_a5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
-                lbl_b5.Location = new Point(lbl_b5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
+                dX = g.DpiX;
             }
-            catch (InvalidAsynchronousStateException)
+            finally
             {
-                return;
+                g.Dispose();
             }
+            lbl_c5.Location = new Point(lbl_c5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_c5.Location.Y);
+            lbl_d5.Location = new Point(lbl_d5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_d5.Location.Y);
+            lbl_e5.Location = new Point(lbl_e5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_e5.Location.Y);
+            lbl_f5.Location = new Point(lbl_f5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_f5.Location.Y);
+            lbl_g5.Location = new Point(lbl_g5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_g5.Location.Y);
+            lbl_a5.Location = new Point(lbl_a5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_a5.Location.Y);
+            lbl_b5.Location = new Point(lbl_b5.Location.X - Convert.ToInt32(3 * (dX / 96)), lbl_b5.Location.Y);
         }
         private bool isOctaveChanging = false; // Flag for debouncing
 
@@ -2205,6 +2492,13 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Removes all checked items from the notes list if any are checked; otherwise, removes the currently selected
+        /// item.
+        /// </summary>
+        /// <remarks>After removal, the method updates the selection to the next available item and marks
+        /// the notes as modified. This method should be called when the user requests to erase lines from the notes
+        /// list, such as via a delete action.</remarks>
         private void EraseLine()
         {
             // If there's any checked item, remove all checked items
@@ -2257,8 +2551,17 @@ namespace NeoBleeper
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AskForSavingIfModified(new Action(() => createNewFile()));
+            AskForSavingIfModified(new Action(() => CreateNewFile()));
         }
+
+        /// <summary>
+        /// Stops all currently playing sounds, including music, notes, voices, and any sounds produced by a connected
+        /// microcontroller.
+        /// </summary>
+        /// <remarks>This method resets the playback state and ensures that no sound continues to play
+        /// from any source managed by the system. If a microcontroller is in use, its sound output is also stopped.
+        /// This method is asynchronous but returns void; exceptions thrown during asynchronous operations may not be
+        /// observed. Use with caution if you need to track completion or handle errors.</remarks>
         public async void StopPlayingAllSounds()
         {
             if (isMusicPlaying == true)
@@ -2278,6 +2581,15 @@ namespace NeoBleeper
             isAlternatingPlayingRegularKeyboard = false; // Reset the alternating playing state
             Logger.Log("All sounds stopped", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Resets the application state to its default values, clearing the currently opened project and restoring all
+        /// controls and settings to their initial state.
+        /// </summary>
+        /// <remarks>Call this method to discard any unsaved changes and prepare the application for a new
+        /// project or a clean start. This method stops all currently playing sounds, clears the note list, resets user
+        /// interface controls, and reinitializes relevant project parameters. Any unsaved data will be lost after
+        /// calling this method.</remarks>
         private void ClearOpenedProject()
         {
             StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
@@ -2411,11 +2723,27 @@ namespace NeoBleeper
             isModified = false;
             UpdateFormTitle();
         }
-        private void createNewFile()
+
+        /// <summary>
+        /// Creates a new file by clearing the currently opened project and resetting the application state.
+        /// </summary>
+        /// <remarks>This method should be called when starting a new project to ensure that any existing
+        /// project data is discarded. It also logs the creation of the new file for auditing purposes.</remarks>
+        private void CreateNewFile()
         {
             ClearOpenedProject(); // Clear the current project
             Logger.Log("New file created", Logger.LogTypes.Info); // Log the creation of a new file
         }
+
+        /// <summary>
+        /// Calculates the durations of the note sound and the following silence based on the specified base note
+        /// length.
+        /// </summary>
+        /// <param name="baseLength">The base length of the note, typically representing its duration in beats or time units. Must be a positive
+        /// value.</param>
+        /// <returns>A tuple containing the duration of the note sound and the duration of the silence, both as integers. The
+        /// first item is the note sound duration; the second item is the silence duration. Both values are in the same
+        /// units as the input.</returns>
         private (int noteSound_int, int silence_int) CalculateNoteDurations(double baseLength)
         {
             // Compute raw double values
@@ -2429,6 +2757,16 @@ namespace NeoBleeper
 
             return (noteSound_int, silence_int);
         }
+
+        /// <summary>
+        /// Adjusts the specified floating-point value to reduce the impact of minor rounding errors near zero.
+        /// </summary>
+        /// <remarks>This method is useful when small floating-point inaccuracies could affect subsequent
+        /// calculations or comparisons, particularly for values close to zero. The adjustment is only applied if the
+        /// absolute value of the input exceeds a small threshold.</remarks>
+        /// <param name="inputValue">The double-precision floating-point value to be corrected for potential rounding errors.</param>
+        /// <returns>A double value with minor rounding errors adjusted. The returned value may be slightly increased or
+        /// decreased if it is sufficiently far from zero; otherwise, it is returned unchanged.</returns>
         public static double FixRoundingErrors(double inputValue)
         {
             // Define the threshold and adjustment values based on the assembly constants
@@ -2453,6 +2791,12 @@ namespace NeoBleeper
             // Return the corrected value
             return inputValue;
         }
+
+        /// <summary>
+        /// Handles MIDI output by playing the selected MIDI notes with the specified note duration, if MIDI output is
+        /// enabled and a note is selected.
+        /// </summary>
+        /// <param name="noteSoundDuration">The duration, in milliseconds, for which each MIDI note should be played.</param>
         private void HandleMidiOutput(int noteSoundDuration)
         {
             if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
@@ -2467,6 +2811,16 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Handles the playback of standard notes for the selected line, using either the voice system or standard
+        /// playback based on the current settings.
+        /// </summary>
+        /// <remarks>Playback behavior depends on the current selection and user settings. If no notes are
+        /// selected, this method performs no action.</remarks>
+        /// <param name="noteSoundDuration">The duration, in milliseconds, for which each note sound should be played.</param>
+        /// <param name="rawNoteDuration">The original duration, in milliseconds, of the note before any processing or adjustments.</param>
+        /// <param name="nonStopping">true to play notes without stopping ongoing playback; otherwise, false. The default is false.</param>
+        /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
         private async Task HandleStandardNotePlayback(int noteSoundDuration, int rawNoteDuration, bool nonStopping = false)
         {
             if (listViewNotes.SelectedIndices.Count > 0)
@@ -2494,14 +2848,45 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Determines whether the first selected note in the list is checked.
+        /// </summary>
+        /// <remarks>This method is typically used to check the state of the currently selected note in a
+        /// list view. If no notes are selected, the method returns false.</remarks>
+        /// <returns>true if at least one note is selected and the first selected note is checked; otherwise, false.</returns>
         private bool IsSelectedNoteChecked()
         {
             return listViewNotes.SelectedIndices.Count > 0 && listViewNotes.SelectedItems[0].Checked;
         }
+
+        /// <summary>
+        /// Determines whether playing voice on checked lines is enabled in the current voice settings.
+        /// </summary>
+        /// <returns>true if playing voice on checked lines is enabled; otherwise, false.</returns>
         private bool IsPlayVoiceOnCheckedLineEnabled()
         {
             return TemporarySettings.VoiceInternalSettings.playingVoiceOnLineOptions == TemporarySettings.VoiceInternalSettings.PlayingVoiceOnLineOptions.PlayVoiceOnCheckedLines;
         }
+
+        /// <summary>
+        /// Plays the specified notes of a line using both the voice system and the system speaker, according to the
+        /// current output device settings.
+        /// </summary>
+        /// <remarks>The notes are routed to either the voice system or the system speaker based on the
+        /// current output device settings for each note. The method plays the notes concurrently on both systems as
+        /// appropriate. The actual behavior may depend on user or application settings such as selected notes and
+        /// output device configuration.</remarks>
+        /// <param name="playNote1">true to play the first note in the line; otherwise, false.</param>
+        /// <param name="playNote2">true to play the second note in the line; otherwise, false.</param>
+        /// <param name="playNote3">true to play the third note in the line; otherwise, false.</param>
+        /// <param name="playNote4">true to play the fourth note in the line; otherwise, false.</param>
+        /// <param name="length">The duration, in ticks or milliseconds depending on system configuration, for which the voice system should
+        /// play the notes.</param>
+        /// <param name="rawLength">The duration, in ticks or milliseconds depending on system configuration, for which the system speaker
+        /// should play the notes.</param>
+        /// <param name="nonStopping">true to prevent stopping currently playing notes before starting new ones; otherwise, false. Optional.</param>
+        /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
         private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
         {
             // System speaker notes
@@ -2529,6 +2914,21 @@ namespace NeoBleeper
                  nonStopping
                 );
         }
+
+        /// <summary>
+        /// Starts playback of up to four selected musical notes using the voice synthesis engine.
+        /// </summary>
+        /// <remarks>This method plays notes based on the currently selected item in the notes list. Only
+        /// notes corresponding to parameters set to true will be played. If no item is selected, no notes will be
+        /// played.</remarks>
+        /// <param name="playNote1">true to play the first note from the selected line; otherwise, false.</param>
+        /// <param name="playNote2">true to play the second note from the selected line; otherwise, false.</param>
+        /// <param name="playNote3">true to play the third note from the selected line; otherwise, false.</param>
+        /// <param name="playNote4">true to play the fourth note from the selected line; otherwise, false.</param>
+        /// <param name="length">The duration, in milliseconds, for which the notes should be played.</param>
+        /// <param name="nonStopping">true to prevent stopping currently playing voices before starting new ones; otherwise, false. The default is
+        /// false.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task StartVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false)
         {
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
@@ -2567,6 +2967,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Stops all active voice synthesis operations asynchronously.
+        /// </summary>
+        /// <remarks>This method stops all voices currently managed by the voice synthesis engine. The
+        /// operation is performed asynchronously and may take some time to complete, depending on the number of active
+        /// voices.</remarks>
+        /// <returns>A task that represents the asynchronous stop operation.</returns>
         public async Task StopAllVoices()
         {
             await Task.Run(() =>
@@ -2577,6 +2985,16 @@ namespace NeoBleeper
                 }
             });
         }
+
+        /// <summary>
+        /// Stops the voice synthesis for any of the four selected voices whose corresponding note parameter is null,
+        /// empty, or consists only of white-space characters.
+        /// </summary>
+        /// <param name="note1">The note assigned to the first voice. If null, empty, or white space, the first voice will be stopped.</param>
+        /// <param name="note2">The note assigned to the second voice. If null, empty, or white space, the second voice will be stopped.</param>
+        /// <param name="note3">The note assigned to the third voice. If null, empty, or white space, the third voice will be stopped.</param>
+        /// <param name="note4">The note assigned to the fourth voice. If null, empty, or white space, the fourth voice will be stopped.</param>
+        /// <returns>A task that represents the asynchronous stop operation.</returns>
         private async Task StopSelectedVoicesThatEmpty(string note1, string note2, string note3, string note4)
         {
             await Task.Run(() =>
@@ -2599,10 +3017,32 @@ namespace NeoBleeper
                 }
             });
         }
+
+        /// <summary>
+        /// Returns the fractional part of a double-precision floating-point number by removing its whole number
+        /// component.
+        /// </summary>
+        /// <remarks>The sign of the result matches the sign of the input number. For negative numbers,
+        /// the fractional part is negative or zero.</remarks>
+        /// <param name="number">The double-precision floating-point number from which to extract the fractional part.</param>
+        /// <returns>A double-precision floating-point number representing the fractional part of the input. Returns 0 if the
+        /// input is an integer value.</returns>
         public static double RemoveWholeNumber(double number)
         {
             return number - Math.Truncate(number);
         }
+
+        /// <summary>
+        /// Plays the sequence of musical notes starting from the specified index in the note list, handling timing,
+        /// looping, and playback controls asynchronously.
+        /// </summary>
+        /// <remarks>Playback timing is managed to maintain accurate note durations, compensating for
+        /// drift. If looping is enabled, playback will restart from the specified index upon reaching the end of the
+        /// list. Playback can be stopped by user action or when the end of the list is reached and looping is disabled.
+        /// This method disables certain UI controls during playback and restores them when playback
+        /// completes.</remarks>
+        /// <param name="startIndex">The zero-based index of the note in the list from which playback should begin. Must be within the bounds of
+        /// the note list.</param>
         private async void PlayMusic(int startIndex)
         {
             bool nonStopping = false;
@@ -2735,6 +3175,16 @@ namespace NeoBleeper
         }
 
         // ListView update method
+
+        /// <summary>
+        /// Updates the selection in the ListView to the item at the specified index.
+        /// </summary>
+        /// <remarks>If the specified index is valid, the method clears any existing selection and selects
+        /// the item at the given index. The method is thread-safe and can be called from any thread; if called from a
+        /// non-UI thread, the selection update is marshaled to the UI thread. If the index is out of range, no
+        /// selection is made.</remarks>
+        /// <param name="index">The zero-based index of the item to select. Must be greater than or equal to 0 and less than the total
+        /// number of items in the ListView.</param>
         private void UpdateListViewSelection(int index)
         {
             if (listViewNotes.InvokeRequired)
@@ -2762,6 +3212,14 @@ namespace NeoBleeper
                 EnsureSpecificIndexVisible(index);
             }
         }
+
+        /// <summary>
+        /// Ensures that the item at the specified index in the list view is visible to the user.
+        /// </summary>
+        /// <remarks>If called from a thread other than the UI thread, this method marshals the request to
+        /// the UI thread to ensure thread safety.</remarks>
+        /// <param name="index">The zero-based index of the item to make visible in the list view. Must be within the valid range of item
+        /// indices.</param>
         private void EnsureSpecificIndexVisible(int index)
         {
             if (listViewNotes.InvokeRequired)
@@ -2776,6 +3234,12 @@ namespace NeoBleeper
                 listViewNotes.EnsureVisible(index);
             }
         }
+
+        /// <summary>
+        /// Plays all notes in the list from the beginning, unless the keyboard is currently being used as a piano.
+        /// </summary>
+        /// <remarks>This method has no effect if the note list is empty or if the keyboard-as-piano mode
+        /// is enabled. Playback starts from the first note in the list.</remarks>
         public void PlayAll()
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
@@ -2787,6 +3251,12 @@ namespace NeoBleeper
                 PlayMusic(0);
             }
         }
+
+        /// <summary>
+        /// Starts playback of the music sequence from the currently selected line in the notes list.
+        /// </summary>
+        /// <remarks>If no line is selected, playback starts from the first line. Playback is only
+        /// initiated if there are notes in the list and the keyboard is not being used as a piano.</remarks>
         public void PlayFromSelectedLine()
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
@@ -2821,6 +3291,13 @@ namespace NeoBleeper
         {
             StopPlaying();
         }
+
+        /// <summary>
+        /// Enables or disables a set of common controls on the form based on the specified value.
+        /// </summary>
+        /// <remarks>This method ensures that control state changes are performed on the UI thread. When
+        /// controls are enabled, the stop controls are disabled, and vice versa.</remarks>
+        /// <param name="enable">true to enable the controls; false to disable them.</param>
         private void EnableDisableCommonControls(bool enable)
         {
             if (this.InvokeRequired)
@@ -2848,6 +3325,13 @@ namespace NeoBleeper
                     break;
             }
         }
+
+        /// <summary>
+        /// Stops music playback and raises the MusicStopped event.
+        /// </summary>
+        /// <remarks>Call this method to halt any currently playing music. If no music is playing, this
+        /// method has no effect. After stopping playback, the MusicStopped event is triggered to notify
+        /// subscribers.</remarks>
         public void StopPlaying()
         {
             isMusicPlaying = false;
@@ -2865,6 +3349,16 @@ namespace NeoBleeper
             MusicStopped?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Plays a metronome sound using the configured MIDI output device.
+        /// </summary>
+        /// <remarks>The metronome sound is played only if a MIDI output device is available and MIDI
+        /// output is enabled in the application settings. The frequency parameter is reserved for future use and does
+        /// not affect the sound.</remarks>
+        /// <param name="frequency">The frequency, in hertz, of the metronome sound. This parameter is currently not used.</param>
+        /// <param name="length">The duration, in milliseconds, for which the metronome sound is played.</param>
+        /// <param name="isAccent">A value indicating whether the metronome sound should be accented. Set to <see langword="true"/> to play an
+        /// accented beat; otherwise, <see langword="false"/>.</param>
         private async void PlayMetronomeSoundFromMIDIOutput(int frequency, int length, bool isAccent)
         {
             if (MIDIIOUtils._midiOut != null && TemporarySettings.MIDIDevices.useMIDIoutput == true)
@@ -2872,6 +3366,10 @@ namespace NeoBleeper
                 MIDIIOUtils.PlayMetronomeBeatOnMIDI(MIDIIOUtils._midiOut, isAccent, length);
             }
         }
+
+        /// <summary>
+        /// Initializes the metronome timer and configures its elapsed event handler.
+        /// </summary>
         private void InitializeMetronome()
         {
             metronomeTimer = new System.Timers.Timer();
@@ -2897,6 +3395,12 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Plays a metronome beat sound, using an accented or regular tone based on the specified parameter.
+        /// </summary>
+        /// <remarks>The metronome sound is played asynchronously on a high-priority thread to help ensure
+        /// timing accuracy. This method is intended for internal use within timing-sensitive audio routines.</remarks>
+        /// <param name="isAccent">true to play an accented beat; false to play a regular beat.</param>
         private void PlayMetronomeBeat(bool isAccent)
         {
             int frequency = isAccent ? 1000 : 500;
@@ -2910,6 +3414,12 @@ namespace NeoBleeper
             });
         }
 
+        /// <summary>
+        /// Displays the metronome beat label for a brief period to indicate the current beat visually.
+        /// </summary>
+        /// <remarks>If the label is already visible, this method does nothing. The label is shown for
+        /// approximately 75 milliseconds before being hidden automatically. This method is intended to provide a visual
+        /// cue synchronized with the metronome's beat.</remarks>
         private void ShowMetronomeBeatLabel()
         {
             if (isLabelVisible) return;
@@ -2926,7 +3436,12 @@ namespace NeoBleeper
             });
         }
 
-
+        /// <summary>
+        /// Sets the visibility of the label that indicates a beep state on the UI thread.
+        /// </summary>
+        /// <remarks>If called from a non-UI thread, this method automatically marshals the call to the UI
+        /// thread to ensure thread safety when updating the label's visibility.</remarks>
+        /// <param name="visible">true to make the label visible; otherwise, false.</param>
         public void UpdateLabelVisible(bool visible)
         {
             try
@@ -2949,7 +3464,12 @@ namespace NeoBleeper
             }
         }
 
-
+        /// <summary>
+        /// Starts the metronome and initializes the beat sequence based on the current tempo setting.
+        /// </summary>
+        /// <remarks>This method resets the internal beat count and configures the metronome timer
+        /// interval according to the current beats per minute (BPM) value. It also plays an initial sound to indicate
+        /// the start of the metronome. Call this method to begin metronome playback from the first beat.</remarks>
         private void StartMetronome()
         {
             beatCount = 0;
@@ -2959,6 +3479,14 @@ namespace NeoBleeper
             PlayMetronomeBeats();
             metronomeTimer.Start();
         }
+
+        /// <summary>
+        /// Advances the metronome by one beat, playing the appropriate sound and updating the user interface to reflect
+        /// the current beat.
+        /// </summary>
+        /// <remarks>This method should be called once per metronome tick to ensure accurate audio and
+        /// visual synchronization. It plays the metronome sound for the current beat and updates the beat display
+        /// accordingly.</remarks>
         private void PlayMetronomeBeats()
         {
             // Play the appropriate sound first for minimal latency
@@ -2970,6 +3498,10 @@ namespace NeoBleeper
             // Update beat counter
             beatCount = (beatCount + 1) % Variables.timeSignature;
         }
+
+        /// <summary>
+        /// Stops the metronome if it is currently running.
+        /// </summary>
         private void StopMetronome()
         {
             metronomeTimer.Stop();
@@ -3033,6 +3565,15 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Adds a blank line to the current list or selection, applying replacement or length options as specified by
+        /// the current settings.
+        /// </summary>
+        /// <remarks>The behavior of this method depends on the state of the associated checkboxes. If
+        /// both replacement and length options are enabled, the method replaces the length of the current line before
+        /// selecting the next line. If only the replacement option is enabled, it selects the next line without
+        /// modifying its length. Otherwise, it simply adds a blank note to the list. This method also logs the action
+        /// for informational purposes.</remarks>
         private void AddBlankLine()
         {
             if (checkBox_replace.Checked == true && checkBox_replace_length.Checked == true)
@@ -3051,6 +3592,10 @@ namespace NeoBleeper
             }
             Logger.Log("Blank line added", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Clears the contents of the first note in the notes list and updates the application state accordingly.
+        /// </summary>
         private void ClearNote1()
         {
             var clearNoteCommand = new ClearNoteCommand(listViewNotes, 1);
@@ -3059,6 +3604,10 @@ namespace NeoBleeper
             UpdateFormTitle();
             Logger.Log("Note 1 cleared", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Clears the contents of the second note in the notes list and updates the application state accordingly.
+        /// </summary>
         private void ClearNote2()
         {
             var clearNoteCommand = new ClearNoteCommand(listViewNotes, 2);
@@ -3067,6 +3616,10 @@ namespace NeoBleeper
             UpdateFormTitle();
             Logger.Log("Note 2 cleared", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Clears the contents of the third note in the notes list and updates the application state accordingly.
+        /// </summary>
         private void ClearNote3()
         {
             var clearNoteCommand = new ClearNoteCommand(listViewNotes, 3);
@@ -3075,6 +3628,10 @@ namespace NeoBleeper
             UpdateFormTitle();
             Logger.Log("Note 3 cleared", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Clears the contents of the fourth note in the notes list and updates the application state accordingly.
+        /// </summary>
         private void ClearNote4()
         {
             var clearNoteCommand = new ClearNoteCommand(listViewNotes, 4);
@@ -3083,6 +3640,12 @@ namespace NeoBleeper
             UpdateFormTitle();
             Logger.Log("Note 4 cleared", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Clears the selection from all selected items in the notes list view.
+        /// </summary>
+        /// <remarks>Call this method to ensure that no items remain selected in the list view. This can
+        /// be useful before performing operations that require a clear selection state.</remarks>
         private void UnselectLine()
         {
             for (int i = 0; i < listViewNotes.Items.Count; i++)
@@ -3237,6 +3800,13 @@ namespace NeoBleeper
 
             }
         }
+
+        /// <summary>
+        /// Returns the specified string if it is not null, empty, or consists only of white-space characters;
+        /// otherwise, returns a default value.
+        /// </summary>
+        /// <param name="value">The string to evaluate. Can be null, empty, or contain only white-space characters.</param>
+        /// <returns>The original string if it contains non-white-space characters; otherwise, the string "None".</returns>
         private string GetOrDefault(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? "None" : value;
@@ -3294,6 +3864,16 @@ namespace NeoBleeper
 
             Logger.Log($"Alternating note length: {Variables.alternatingNoteLength}", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Calculates the raw note length based on the specified base length and the currently selected note's
+        /// properties.
+        /// </summary>
+        /// <remarks>The calculation takes into account the selected note's type, modifier, and
+        /// articulation, as well as the current note-silence ratio. The result is always at least 1.</remarks>
+        /// <param name="baseLength">The base length of the note, typically representing the unmodified duration before applying note-specific
+        /// modifiers and articulations.</param>
+        /// <returns>The calculated raw note length as a double. Returns 0 if no note is selected or if the note list is empty.</returns>
         private double CalculateRawNoteLength(double baseLength)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
@@ -3330,6 +3910,18 @@ namespace NeoBleeper
             // Only round at the very end when converting to integer milliseconds
             return Math.Max(1, result);
         }
+
+        /// <summary>
+        /// Calculates the effective note length based on the specified base length and the current note-silence ratio
+        /// settings.
+        /// </summary>
+        /// <remarks>The result is always at least 1. The calculation takes into account the current
+        /// selection and the value of the note-silence ratio control. If no notes are selected or available, the method
+        /// returns 0.</remarks>
+        /// <param name="baseLength">The base length of the note, typically in milliseconds, before applying the note-silence ratio. Must be
+        /// greater than zero.</param>
+        /// <returns>The calculated note length after applying the note-silence ratio. Returns 0 if no notes are selected or
+        /// available.</returns>
         private double CalculateNoteLength(double baseLength)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
@@ -3349,6 +3941,15 @@ namespace NeoBleeper
             return Math.Max(1, result);
         }
 
+        /// <summary>
+        /// Calculates the duration, in milliseconds, of the currently selected line in the notes list, taking into
+        /// account note type, modifiers, and articulation.
+        /// </summary>
+        /// <remarks>A fermata articulation doubles the calculated line length. Staccato and spiccato
+        /// articulations do not affect the duration.</remarks>
+        /// <param name="quarterNoteMs">The duration of a quarter note, in milliseconds, used as the base for calculating the line length.</param>
+        /// <returns>The calculated line length in milliseconds. Returns 0 if no line is selected or the notes list is empty. The
+        /// value is always at least 1 millisecond.</returns>
         private double CalculateLineLength(double quarterNoteMs)
         {
             if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
@@ -3378,6 +3979,17 @@ namespace NeoBleeper
             // Should be at least 1 ms
             return Math.Max(1, result);
         }
+
+        /// <summary>
+        /// Calculates the duration of a musical note based on its type and a base note length.
+        /// </summary>
+        /// <remarks>This method uses localized resource strings to identify note types. If an
+        /// unrecognized note name is provided, the method defaults to treating it as a quarter note.</remarks>
+        /// <param name="rawNoteLength">The base duration value representing a quarter note length, typically in beats or seconds.</param>
+        /// <param name="lengthName">The name of the note length to calculate (for example, whole, half, quarter, eighth, sixteenth, or
+        /// thirty-second note). Must match a supported note name from the localized resources.</param>
+        /// <returns>The calculated duration of the specified note type. If the note type is not recognized, returns the duration
+        /// for a quarter note.</returns>
         public static double GetNoteLength(double rawNoteLength, String lengthName)
         {
             // Yerelleştirilmiş kaynaklardan alınan değerlerle karşılaştırma
@@ -3396,6 +4008,19 @@ namespace NeoBleeper
             else
                 return rawNoteLength * 1.0; // Default to quarter note if unrecognized
         }
+
+        /// <summary>
+        /// Calculates the effective note length after applying a musical modifier such as dotted or triplet.
+        /// </summary>
+        /// <remarks>A dotted modifier increases the note length by 50 percent, while a triplet modifier
+        /// reduces it to one third of the original length. The method does not validate the format of the modifier
+        /// string beyond checking for the presence of known modifier keywords.</remarks>
+        /// <param name="noteLength">The original length of the note, typically expressed in beats or fractions of a whole note. Must be a
+        /// non-negative value.</param>
+        /// <param name="modifier">A string representing the note modifier to apply. Supported values include dotted and triplet modifiers. The
+        /// comparison is case-insensitive. If null, empty, or unrecognized, no modification is applied.</param>
+        /// <returns>The modified note length after applying the specified modifier. Returns the original note length if the
+        /// modifier is null, empty, or unrecognized.</returns>
         public static double GetModifiedNoteLength(double noteLength, String modifier)
         {
             double modifierFactor = 1.0;
@@ -3408,6 +4033,14 @@ namespace NeoBleeper
             }
             return noteLength * modifierFactor; // Remove truncation
         }
+
+        /// <summary>
+        /// Stops all currently playing notes and voices, and updates the user interface to reflect that playback has
+        /// ended.
+        /// </summary>
+        /// <remarks>If microcontroller integration is enabled, this method also stops any sound output
+        /// from the connected microcontroller. This method is intended to be called after playback is complete to
+        /// ensure all audio sources are silenced and the UI is updated accordingly.</remarks>
         private async void StopAllNotesAfterPlaying()
         {
             NotePlayer.StopAllNotes();
@@ -3418,6 +4051,20 @@ namespace NeoBleeper
             }
             UpdateLabelVisible(false);
         }
+
+        /// <summary>
+        /// Plays the selected notes from a line in the note list according to the specified parameters and duration.
+        /// </summary>
+        /// <remarks>If multiple notes are selected, they are played in sequence within the specified
+        /// duration. The method respects the current alternating note mode and skips empty or duplicate notes. If no
+        /// notes are selected, the method waits for the specified duration without playing any sound.</remarks>
+        /// <param name="playNote1">true to play the first note in the selected line; otherwise, false.</param>
+        /// <param name="playNote2">true to play the second note in the selected line; otherwise, false.</param>
+        /// <param name="playNote3">true to play the third note in the selected line; otherwise, false.</param>
+        /// <param name="playNote4">true to play the fourth note in the selected line; otherwise, false.</param>
+        /// <param name="length">The total duration, in milliseconds, for which the notes should be played. Must be greater than zero.</param>
+        /// <param name="nonStopping">true to prevent stopping other notes after playback; otherwise, false. The default is false.</param>
+        /// <returns>A task that represents the asynchronous operation of playing the specified notes.</returns>
         private async Task PlayNotesOfLine(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false) // Play note in a line
         {
             Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
@@ -3539,6 +4186,14 @@ namespace NeoBleeper
                 await HighPrecisionSleep.SleepAsync(Math.Max(1, length));
             }
         }
+
+        /// <summary>
+        /// Plays a beep sound at the specified frequency and duration, displaying a label while the sound is playing.
+        /// </summary>
+        /// <param name="frequency">The frequency of the beep sound, in hertz. Must be a positive integer.</param>
+        /// <param name="length">The duration of the beep sound, in milliseconds. Must be a positive integer.</param>
+        /// <param name="nonStopping">true to keep the label visible after the beep finishes; otherwise, false to hide the label when the beep
+        /// completes. The default is false.</param>
         private void PlayBeepWithLabel(int frequency, int length, bool nonStopping = false)
         {
             UpdateLabelVisible(true);
@@ -3548,6 +4203,15 @@ namespace NeoBleeper
                 UpdateLabelVisible(false);
             }
         }
+
+        /// <summary>
+        /// Determines whether the specified double-precision floating-point value represents a whole number.
+        /// </summary>
+        /// <remarks>This method returns true for both positive and negative whole numbers, including
+        /// zero. It does not consider the sign of zero or special floating-point values such as NaN or infinity as
+        /// whole numbers.</remarks>
+        /// <param name="value">The double-precision floating-point value to evaluate.</param>
+        /// <returns>true if the value is a whole number; otherwise, false.</returns>
         public static bool IsWholeNumber(double value)
         {
             // Compare the value with its truncated version
@@ -3612,6 +4276,17 @@ namespace NeoBleeper
             }
         }
         int beatLength = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
+        
+        /// <summary>
+        /// Updates the measure and beat display values based on the specified line index, and optionally plays a beat
+        /// sound depending on user interaction and settings.
+        /// </summary>
+        /// <remarks>This method updates UI elements to reflect the current musical position and may play
+        /// a beat sound depending on the application's beat playback settings. If the notes list is empty, no updates
+        /// are performed.</remarks>
+        /// <param name="Line">The zero-based index of the line in the notes list for which to update the display values.</param>
+        /// <param name="clicked">Indicates whether the update was triggered by a user click. If set to <see langword="true"/>, the beat sound
+        /// will not be played.</param>
         private void UpdateDisplays(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
@@ -3690,6 +4365,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Plays a short percussion beat using system audio and, if enabled, MIDI output.
+        /// </summary>
+        /// <remarks>The beat consists of a kick, snare, and hi-hat pattern. If MIDI output is enabled,
+        /// the beat is also played on the configured MIDI device. The duration of the beat is determined by the current
+        /// BPM setting.</remarks>
+        /// <returns>The total duration of the beat sound, in milliseconds.</returns>
         private int PlayBeatSound()
         {
             // The original developer thought this "techno beat" was a masterpiece.
@@ -3742,6 +4425,16 @@ namespace NeoBleeper
             NotePlayer.StopAllNotes();
             return (length * 2) + (length / 2); // Total length of the beat sound
         }
+
+        /// <summary>
+        /// Converts a decimal beat value to its traditional fractional beat notation as a string.
+        /// </summary>
+        /// <remarks>The returned string uses common fractional beat formats (such as "1/2", "1/4", etc.)
+        /// and may include a whole number if the value exceeds one beat. If the decimal value cannot be precisely
+        /// represented as a standard fraction, an error message is included in the result.</remarks>
+        /// <param name="decimalBeat">The beat value expressed as a decimal, where 4 represents a whole beat.</param>
+        /// <returns>A string representing the traditional fractional notation of the beat. Returns an error message if the value
+        /// cannot be accurately converted.</returns>
         private string ConvertDecimalBeatToTraditional(double decimalBeat)
         {
             double fractionOfWhole = decimalBeat / 4;
@@ -3820,6 +4513,14 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Calculates the greatest common divisor (GCD) of two integers using the Euclidean algorithm.
+        /// </summary>
+        /// <remarks>The result is always non-negative, regardless of the sign of the input
+        /// values.</remarks>
+        /// <param name="a">The first integer value. Can be positive, negative, or zero.</param>
+        /// <param name="b">The second integer value. Can be positive, negative, or zero.</param>
+        /// <returns>The greatest common divisor of the two specified integers. If both values are zero, returns zero.</returns>
         private int GCD(int a, int b)
         {
             while (b != 0)
@@ -3830,6 +4531,13 @@ namespace NeoBleeper
             }
             return a;
         }
+
+        /// <summary>
+        /// Determines the color to represent the beat status based on the specified text.
+        /// </summary>
+        /// <param name="text">The text to evaluate for determining the beat status color.</param>
+        /// <returns>A Color value representing the beat status. Returns Color.Red if the text indicates an error; otherwise,
+        /// returns Color.Green.</returns>
         private Color SetTraditionalBeatColor(string text)
         {
             Color textColor;
@@ -3843,6 +4551,19 @@ namespace NeoBleeper
             }
             return textColor;
         }
+
+        /// <summary>
+        /// Calculates the note duration in beats based on the specified ListViewItem's note type, modifier, and
+        /// articulation.
+        /// </summary>
+        /// <remarks>The method interprets the ListViewItem's subitems according to expected musical
+        /// notation conventions. If a subitem does not match a known value, default values are used (quarter note for
+        /// note type, no modifier, and no articulation).</remarks>
+        /// <param name="listViewItem">The ListViewItem containing subitems that specify the note type, modifier (such as dotted or triplet), and
+        /// articulation (such as staccato or fermata). The subitems are expected to follow a specific order
+        /// corresponding to these attributes.</param>
+        /// <returns>A double representing the calculated duration of the note in beats, adjusted for any modifiers and
+        /// articulations.</returns>
         private double NoteLengthToBeats(ListViewItem listViewItem)
         {
             decimal length = 0m;
@@ -3911,6 +4632,17 @@ namespace NeoBleeper
             decimal result = length * modifier * articulation;
             return Convert.ToDouble(Math.Round(result, 8));
         }
+
+        /// <summary>
+        /// Formats a double-precision floating-point number as a string with up to four decimal places, omitting
+        /// unnecessary trailing zeros.
+        /// </summary>
+        /// <remarks>The formatted string uses a period (".") as the decimal separator, regardless of the
+        /// current culture. This method is useful for generating culture-invariant numeric strings for display or
+        /// serialization.</remarks>
+        /// <param name="number">The number to format as a string.</param>
+        /// <returns>A string representation of the number with up to four decimal places. If the number is an integer, the
+        /// result includes one decimal place (e.g., "42.0").</returns>
         public static string FormatNumber(double number)
         {
             string numberString = number.ToString("G17", System.Globalization.CultureInfo.InvariantCulture); // Maksimum hassasiyetle string'e çevir
@@ -3936,12 +4668,26 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Opens the Synchronized Play window and associates it with the current instance.
+        /// </summary>
+        /// <remarks>This method creates a new Synchronized Play window, displays it to the user, and
+        /// stores a reference to the window in the Tag property of the synchronized play checkbox. This allows for
+        /// later retrieval or management of the window instance.</remarks>
         private void OpenSynchronizedPlayWindow()
         {
             SynchronizedPlayWindow syncPlayWindow = new SynchronizedPlayWindow(this);
             syncPlayWindow.Show();
             checkBox_synchronized_play.Tag = syncPlayWindow;
         }
+
+        /// <summary>
+        /// Closes the currently associated synchronized play window, if one is present.
+        /// </summary>
+        /// <remarks>This method attempts to close the window referenced by the Tag property of the
+        /// checkBox_synchronized_play control. If no synchronized play window is associated, this method has no
+        /// effect.</remarks>
         private void CloseSynchronizedPlayWindow()
         {
             SynchronizedPlayWindow syncPlayWindow = checkBox_synchronized_play.Tag as SynchronizedPlayWindow;
@@ -3960,6 +4706,13 @@ namespace NeoBleeper
                 Logger.Log("Synchronized play window is closed.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Stops all currently playing sounds and voices before the application closes.
+        /// </summary>
+        /// <remarks>This method ensures that all note playback, voice output, and
+        /// microcontroller-generated sounds are stopped prior to application shutdown. It should be called as part of
+        /// the application's closing sequence to prevent lingering audio.</remarks>
         private async void StopAllSoundsBeforeClosing()
         {
             NotePlayer.StopAllNotes();
@@ -4060,6 +4813,13 @@ namespace NeoBleeper
             TemporarySettings.CreatingSounds.isPlaybackMuted = checkBox_mute_playback.Checked;
             Logger.Log($"Playback muted: {TemporarySettings.CreatingSounds.isPlaybackMuted}", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Displays the keyboard shortcut text on all associated buttons in the user interface.
+        /// </summary>
+        /// <remarks>This method updates the text of each button to show its corresponding keyboard
+        /// shortcut. If called from a thread other than the UI thread, the update is marshaled to the UI thread to
+        /// ensure thread safety.</remarks>
         private void ShowKeyboardKeysShortcuts()
         {
             foreach (var entry in buttonShortcuts)
@@ -4074,6 +4834,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Clears the text of all keyboard key shortcut buttons asynchronously on the UI thread.
+        /// </summary>
+        /// <remarks>This method iterates through all registered shortcut buttons and sets their text to
+        /// an empty string. If a button requires invocation on the UI thread, the update is performed using the
+        /// appropriate thread marshaling. This operation is performed asynchronously and may not complete
+        /// immediately.</remarks>
         private void HideKeyboardKeysShortcuts()
         {
             Task.Run(() =>
@@ -4107,6 +4875,15 @@ namespace NeoBleeper
             }
             EnableDisableTabStopOnEntireForm(this);
         }
+
+        /// <summary>
+        /// Enables or disables the TabStop property for all controls on the specified form based on the current
+        /// keyboard mode setting.
+        /// </summary>
+        /// <remarks>This method updates the TabStop and CausesValidation properties for the form and all
+        /// of its immediate child controls. Typically used to prevent or allow tab navigation when the keyboard is
+        /// being used as a piano input device.</remarks>
+        /// <param name="form">The form whose controls will have their TabStop property enabled or disabled.</param>
         private void EnableDisableTabStopOnEntireForm(Form form)
         {
             this.TabStop = !checkBox_use_keyboard_as_piano.Checked;
@@ -4116,6 +4893,15 @@ namespace NeoBleeper
                 EnableDisableTabStop(control);
             }
         }
+
+        /// <summary>
+        /// Enables or disables the TabStop and CausesValidation properties for the specified control and all of its
+        /// child controls based on the current keyboard mode setting.
+        /// </summary>
+        /// <remarks>This method recursively updates all descendant controls. Controls will have TabStop
+        /// and CausesValidation set to false when keyboard-as-piano mode is enabled, and true otherwise.</remarks>
+        /// <param name="ctrl">The control whose TabStop and CausesValidation properties, as well as those of its child controls, will be
+        /// updated.</param>
         private void EnableDisableTabStop(Control ctrl)
         {
             ctrl.TabStop = !checkBox_use_keyboard_as_piano.Checked;
@@ -4140,7 +4926,7 @@ namespace NeoBleeper
             }
         }
 
-        // The feature that Robbi-985 (aka SomethingUnreal) that planned add to Bleeper Music Maker long time ago, but he abandoned the project and never added this feature.
+        // The feature that Robbi-985 (aka SomethingUnreal) planned add to his Bleeper Music Maker long time ago, but he abandoned his project and never added this feature.
         private void main_window_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -4150,12 +4936,30 @@ namespace NeoBleeper
                 OpenFiles(fileName, FileOpenMode.DragAndDrop);
             }
         }
+
+        /// <summary>
+        /// Specifies the method by which a file was opened within the application.
+        /// </summary>
+        /// <remarks>Use this enumeration to determine whether a file was opened via drag-and-drop or as a
+        /// command-line argument. This can be useful for customizing application behavior based on how the file was
+        /// provided by the user.</remarks>
         enum FileOpenMode
         {
             DragAndDrop,
             OpenedAsArg,
         }
         private FileOpenMode fileOpenMode;
+
+        /// <summary>
+        /// Opens the specified file using the provided file open mode, handling supported MIDI and Bleeper Music Maker
+        /// project files.
+        /// </summary>
+        /// <remarks>If the file is not supported or is corrupted, an error message is displayed to the
+        /// user. Supported files include standard MIDI files and Bleeper Music Maker project files. The method logs
+        /// actions and errors according to the file open mode.</remarks>
+        /// <param name="fileName">The path to the file to open. Must refer to a valid MIDI or Bleeper Music Maker project file.</param>
+        /// <param name="fileOpenMode">Specifies how the file is being opened, such as via drag-and-drop or as a command-line argument. Determines
+        /// how user prompts and error messages are displayed.</param>
         private void OpenFiles(string fileName, FileOpenMode fileOpenMode)
         {
             try
@@ -4210,6 +5014,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Opens a MIDI file in the MIDI file player dialog if playback is not muted and MIDI output is enabled.
+        /// </summary>
+        /// <remarks>If the specified file is not a valid MIDI file or is inaccessible, an error message
+        /// is displayed and the file is not opened. The method does not open the player if playback is muted and MIDI
+        /// output is disabled.</remarks>
+        /// <param name="fileName">The full path to the MIDI file to open. Must refer to a valid, accessible MIDI file.</param>
         private void OpenMIDIFilePlayer(string fileName)
         {
             if (!(checkBox_mute_playback.Checked && !TemporarySettings.MIDIDevices.useMIDIoutput))
@@ -4233,6 +5045,14 @@ namespace NeoBleeper
                 MessageForm.Show(Resources.MIDIFilePlayerMutedError, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Serializes the specified NeoBleeper project file to XML and saves it to the given file path.
+        /// </summary>
+        /// <remarks>The resulting XML file will not include XML namespaces or an XML declaration. If a
+        /// file already exists at the specified path, it will be overwritten.</remarks>
+        /// <param name="filePath">The path to the file where the XML representation of the project will be saved. Must not be null or empty.</param>
+        /// <param name="projectFile">The NeoBleeper project file to serialize. Must not be null.</param>
         private static void SerializeXML(string filePath, NBPMLFile.NeoBleeperProjectFile projectFile)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
@@ -4352,6 +5172,14 @@ namespace NeoBleeper
         {
             CopyToClipboard();
         }
+
+        /// <summary>
+        /// Copies the text of all selected and checked notes in the list view to the system clipboard in a
+        /// tab-delimited format.
+        /// </summary>
+        /// <remarks>If both selected and checked items overlap, each item's text is included only once.
+        /// The copied text is standardized for localization and includes all subitem values separated by tabs, with
+        /// each item on a new line. A notification is displayed upon successful copy.</remarks>
         private void CopyToClipboard()
         {
             // Combine selected and checked items into a single collection
@@ -4386,6 +5214,18 @@ namespace NeoBleeper
                 Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Converts localized musical note length modifiers and articulations in the specified text to their
+        /// standardized English abbreviations.
+        /// </summary>
+        /// <remarks>This method is useful for normalizing musical notation text that may contain
+        /// localized terms, ensuring consistent processing or display regardless of the original language. Only
+        /// recognized terms are replaced; all other text remains unchanged.</remarks>
+        /// <param name="rawClipboardText">The input text containing localized musical note length modifiers and articulations to be standardized.
+        /// Cannot be null.</param>
+        /// <returns>A string with all recognized localized note length modifiers and articulations replaced by their
+        /// standardized English abbreviations.</returns>
         private string StandardizeLocalizedLengthModsAndArticulations(string rawClipboardText)
         {
             string standardizedText = rawClipboardText
@@ -4407,6 +5247,15 @@ namespace NeoBleeper
             PasteFromClipboard();
         }
 
+        /// <summary>
+        /// Pastes note data from the clipboard into the notes list at the selected position or at the end if no item is
+        /// selected.
+        /// </summary>
+        /// <remarks>The method expects the clipboard to contain tab-delimited text with at least seven
+        /// columns per line, corresponding to note fields. If one or more items are selected in the notes list, the
+        /// pasted notes are inserted at the position of the first selected item; otherwise, they are appended to the
+        /// end of the list. The method updates the modified state and ensures the newly inserted notes are visible in
+        /// the list.</remarks>
         private void PasteFromClipboard()
         {
             if (!Clipboard.ContainsText()) return;
@@ -4456,6 +5305,17 @@ namespace NeoBleeper
                 Logger.Log("Paste is executed.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Replaces standardized musical length modifiers and articulations in the specified text with their localized
+        /// equivalents.
+        /// </summary>
+        /// <remarks>This method is intended to support localization of musical notation terms such as
+        /// note lengths and articulations. Only recognized terms are replaced; all other text remains
+        /// unchanged.</remarks>
+        /// <param name="standardizedClipboardText">The text containing standardized musical terms to be localized. Cannot be null.</param>
+        /// <returns>A string in which recognized musical length modifiers and articulations have been replaced with their
+        /// localized representations.</returns>
         private string LocalizeLengthModsAndArticulations(string standardizedClipboardText)
         {
             string localizedText = standardizedClipboardText.Replace("Whole", Resources.WholeNote)
@@ -4526,6 +5386,13 @@ namespace NeoBleeper
             }
             Logger.Log("Redo is executed.", Logger.LogTypes.Info);
         }
+
+        /// <summary>
+        /// Applies the current theme colors to all items and subitems in the notes list view.
+        /// </summary>
+        /// <remarks>This method updates the background and foreground colors of each item and subitem in
+        /// the list view to match the selected theme. It should be called whenever the theme changes to ensure that the
+        /// list view items reflect the correct appearance.</remarks>
         private void SetThemeOfListViewItems()
         {
             if (listViewNotes.Items.Count > 0)
@@ -4600,7 +5467,16 @@ namespace NeoBleeper
         {
             CutToClipboard();
         }
+
         // The feature that Robbi-985 (aka SomethingUnreal) didn't thought of in Bleeper Music Maker :D
+
+        /// <summary>
+        /// Cuts the selected and checked notes from the list view, copies them to the clipboard in a tab-delimited
+        /// format, and removes them from the list.
+        /// </summary>
+        /// <remarks>This method combines both selected and checked notes, ensuring each note is only
+        /// included once. The copied text is formatted for easy pasting into spreadsheet applications. After cutting,
+        /// the method updates the form state and displays a notification to the user.</remarks>
         private void CutToClipboard()
         {
             var itemsToCut = listViewNotes.SelectedItems.Cast<ListViewItem>()
@@ -4638,6 +5514,12 @@ namespace NeoBleeper
                 Logger.Log("Cut is executed.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Updates the 'Open Recent' menu to reflect the current list of recently accessed files.
+        /// </summary>
+        /// <remarks>Enables or disables the 'Open Recent' menu based on whether any recent files are
+        /// available. Files that no longer exist are shown as unavailable and cannot be selected.</remarks>
         private void UpdateRecentFilesMenu()
         {
             openRecentToolStripMenuItem.DropDownItems.Clear();
@@ -4664,10 +5546,25 @@ namespace NeoBleeper
                 openRecentToolStripMenuItem.Enabled = false;
             }
         }
+
+        /// <summary>
+        /// Opens the specified recent file, prompting the user to save changes if the current document has been
+        /// modified.
+        /// </summary>
+        /// <param name="filePath">The full path of the file to open. Cannot be null or empty.</param>
         private void OpenRecentFile(string filePath)
         {
             AskForSavingIfModified(new Action(() => OpenFileAndUpdateMenu(filePath)));
         }
+
+        /// <summary>
+        /// Prompts the user to save changes if there are unsaved modifications before executing the specified action.
+        /// </summary>
+        /// <remarks>If there are unsaved changes, the user is prompted to save, discard, or cancel. The
+        /// specified action is executed only if the user chooses to save (and saving succeeds) or to discard changes.
+        /// If the user cancels, the action is not executed.</remarks>
+        /// <param name="action">The action to execute after handling any unsaved changes. This action is invoked only if the user chooses to
+        /// proceed.</param>
         private void AskForSavingIfModified(Action action) // Action to execute after handling unsaved changes
         {
             if (isModified == true) // Ask for saving if there are unsaved changes
@@ -4697,6 +5594,14 @@ namespace NeoBleeper
                 action();
             }
         }
+
+        /// <summary>
+        /// Opens the specified file if it exists and updates the recent files menu accordingly.
+        /// </summary>
+        /// <remarks>If the file does not exist, an error message is displayed, the file is removed from
+        /// the recent files list, and the menu is updated. Any errors encountered during the operation are logged and
+        /// shown to the user.</remarks>
+        /// <param name="filePath">The full path of the file to open. Cannot be null or empty.</param>
         private void OpenFileAndUpdateMenu(string filePath)
         {
             try
@@ -4720,6 +5625,13 @@ namespace NeoBleeper
                 MessageForm.Show($"{Resources.MessageErrorFileOpening} {ex.Message}", Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Opens the specified file and initializes the application's state based on its contents.
+        /// </summary>
+        /// <remarks>After opening the file, the application's state is reset and the undo/redo history is
+        /// cleared. Any unsaved changes will be lost.</remarks>
+        /// <param name="filePath">The path to the file to open. Cannot be null or empty.</param>
         private void OpenAFile(string filePath)
         {
             FileParser(filePath);
@@ -4896,6 +5808,15 @@ namespace NeoBleeper
             }
         }
         int retryCount = 0;
+
+        /// <summary>
+        /// Attempts to save a file and, upon success, executes the specified action. Retries the save operation up to
+        /// three times before executing the action regardless of save success.
+        /// </summary>
+        /// <remarks>If the save operation fails three times consecutively, the action is executed without
+        /// saving. The retry count is reset after each sequence of attempts. This method is not thread-safe.</remarks>
+        /// <param name="action">The action to execute after a successful save operation, or after three failed save attempts. Cannot be
+        /// null.</param>
         private void SaveRunAndRetry(Action action)
         {
             SaveTheFile(); // Try to save file
@@ -4920,6 +5841,13 @@ namespace NeoBleeper
             }
         }
         // This method is used to update the form title with the current file path and modification status.
+
+        /// <summary>
+        /// Updates the form's title to reflect the current file path and modification status.
+        /// </summary>
+        /// <remarks>The title is set to include the application's friendly name, the current file path if
+        /// available, and an asterisk if the file has unsaved changes. If no file path is present and the form title
+        /// contains the AI-generated music label, that label is appended instead.</remarks>
         private void UpdateFormTitle()
         {
             string title = System.AppDomain.CurrentDomain.FriendlyName;
@@ -4942,6 +5870,19 @@ namespace NeoBleeper
 
             this.Text = title;
         }
+
+        /// <summary>
+        /// Restores the user interface and internal variable values for tempo, alternating note length, time signature,
+        /// and note silence ratio to the specified values.
+        /// </summary>
+        /// <remarks>This method updates both the UI controls and the corresponding internal variables.
+        /// Value change events are temporarily suppressed during the update to prevent unintended side
+        /// effects.</remarks>
+        /// <param name="bpmValue">The beats per minute (BPM) value to set. Must be within the valid range supported by the UI control.</param>
+        /// <param name="alternatingNoteLength">The length of the alternating note to set. Must be a valid value accepted by the UI control.</param>
+        /// <param name="timeSignature">The time signature value to set. Must be within the supported range of the UI control.</param>
+        /// <param name="noteSilenceRatio">The ratio of silence to note duration, as a double between 0.0 and 1.0, where 0.0 means no silence and 1.0
+        /// means full silence.</param>
         public void RestoreVariableValues(int bpmValue, int alternatingNoteLength,
             int timeSignature, double noteSilenceRatio)
         {
@@ -4983,6 +5924,11 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Opens the Play Beat Sound window, creating a new instance if necessary.
+        /// </summary>
+        /// <remarks>If the Play Beat Sound window is already open and not disposed, this method brings it
+        /// to the foreground. Otherwise, it creates and displays a new window instance.</remarks>
         private void OpenPlayBeatSoundWindow()
         {
             if (playBeatWindow == null || playBeatWindow.IsDisposed)
@@ -4992,6 +5938,13 @@ namespace NeoBleeper
             playBeatWindow.Show();
             checkBox_play_beat_sound.Tag = playBeatWindow;
         }
+
+        /// <summary>
+        /// Opens the Bleeper portamento configuration window, creating a new instance if necessary.
+        /// </summary>
+        /// <remarks>If the portamento window is already open and not disposed, this method brings it to
+        /// the foreground. Otherwise, it creates and displays a new window. The window instance is also associated with
+        /// the related checkbox control for later reference.</remarks>
         private void OpenBleeperPortamentoWindow()
         {
             if (portamentoWindow == null || portamentoWindow.IsDisposed)
@@ -5001,6 +5954,13 @@ namespace NeoBleeper
             portamentoWindow.Show();
             checkBox_bleeper_portamento.Tag = portamentoWindow;
         }
+
+        /// <summary>
+        /// Opens the Voice Internals window, creating a new instance if necessary.
+        /// </summary>
+        /// <remarks>If the Voice Internals window is already open and not disposed, this method brings it
+        /// to the foreground. Otherwise, it creates and displays a new instance. This method associates the window with
+        /// the related UI control for later reference.</remarks>
         private void OpenVoiceInternalsWindow()
         {
             if (voiceInternalsWindow == null || voiceInternalsWindow.IsDisposed)
@@ -5010,16 +5970,29 @@ namespace NeoBleeper
             voiceInternalsWindow.Show();
             checkBox_use_voice_system.Tag = voiceInternalsWindow;
         }
+
+        /// <summary>
+        /// Closes the window used for playing beat sounds if it is currently open.
+        /// </summary>
         private void ClosePlayBeatSoundWindow()
         {
             PlayBeatWindow playBeatWindow = checkBox_play_beat_sound.Tag as PlayBeatWindow;
             playBeatWindow.Close();
         }
+
+        /// <summary>
+        /// Closes the portamento window associated with the current control.
+        /// </summary>
+        /// <remarks>If no portamento window is associated, this method has no effect.</remarks>
         private void ClosePortamentoWindow()
         {
             PortamentoWindow portamentoWindow = checkBox_bleeper_portamento.Tag as PortamentoWindow;
             portamentoWindow.Close();
         }
+
+        /// <summary>
+        /// Closes the Voice Internals window if it is currently open.
+        /// </summary>
         private void CloseVoiceInternalsWindow()
         {
             VoiceInternalsWindow voiceInternalsWindow = checkBox_use_voice_system.Tag as VoiceInternalsWindow;
@@ -5042,6 +6015,15 @@ namespace NeoBleeper
                 Logger.Log("Play a beat sound window is closed.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Converts a localized note length string to its corresponding unlocalized note length identifier.
+        /// </summary>
+        /// <param name="noteLength">The localized name of the note length to convert. This value is typically obtained from localized resources
+        /// and should match one of the supported note length names.</param>
+        /// <returns>A string representing the unlocalized note length identifier, such as "Whole", "Half", "Quarter", "1/8",
+        /// "1/16", or "1/32". If the input does not match a known note length, returns the unlocalized identifier for a
+        /// whole note.</returns>
         private string ConvertLocalizedNoteLengthIntoUnlocalized(string noteLength)
         {
             switch (noteLength)
@@ -5062,6 +6044,16 @@ namespace NeoBleeper
                     return Resources.WholeNote;
             }
         }
+
+        /// <summary>
+        /// Converts a localized modifier string to its corresponding unlocalized modifier code.
+        /// </summary>
+        /// <remarks>This method maps specific localized modifier strings, such as those for dotted or
+        /// triplet notation, to their standard unlocalized codes (e.g., "Dot", "Tri"). If the input does not match a
+        /// recognized modifier, the method returns an empty string.</remarks>
+        /// <param name="modifier">The localized modifier string to convert. This value is typically obtained from localized resources.</param>
+        /// <returns>A string containing the unlocalized modifier code if the input matches a known localized modifier;
+        /// otherwise, an empty string.</returns>
         private string ConvertLocalizedModifiersIntoUnlocalized(string modifier)
         {
             switch (modifier)
@@ -5074,6 +6066,17 @@ namespace NeoBleeper
                     return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Converts a localized articulation name to its corresponding unlocalized abbreviation.
+        /// </summary>
+        /// <remarks>This method maps specific localized articulation names to their standard
+        /// abbreviations. If the input does not match a known articulation, the method returns an empty
+        /// string.</remarks>
+        /// <param name="articulation">The localized name of the articulation to convert. This value is typically obtained from localized
+        /// resources.</param>
+        /// <returns>A string containing the unlocalized abbreviation for the specified articulation, or an empty string if the
+        /// articulation is not recognized.</returns>
         private string ConvertLocalizedArticulationsIntoUnlocalized(string articulation)
         {
             switch (articulation)
@@ -5088,6 +6091,15 @@ namespace NeoBleeper
                     return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Converts the current project data and settings to an NBPML-formatted XML string.
+        /// </summary>
+        /// <remarks>The returned XML string does not include XML namespaces. This method captures the
+        /// current state of all relevant project settings and note data for export or persistence in the NBPML
+        /// format.</remarks>
+        /// <returns>A string containing the serialized NBPML XML representation of the current project. Returns an empty string
+        /// if the conversion fails.</returns>
         private String ConvertToNBPMLString()
         {
             try
@@ -5205,6 +6217,17 @@ namespace NeoBleeper
         [DllImport("user32.dll")]
         private static extern IntPtr GetKeyboardLayout(uint idThread);
 
+        /// <summary>
+        /// Returns a user-friendly display string for the specified key, suitable for use in UI labels or shortcut
+        /// descriptions.
+        /// </summary>
+        /// <remarks>The returned string is localized for specialized keys if resources are available. For
+        /// letter keys, the display text is capitalized. This method is intended to provide consistent and readable key
+        /// labels for end users.</remarks>
+        /// <param name="key">The key for which to retrieve the display text.</param>
+        /// <returns>A string representing the display text for the specified key. Specialized keys such as Shift, Ctrl, Alt,
+        /// Tab, Escape, and Space are returned as their common names; other keys are returned as their display
+        /// character or name.</returns>
         private string GetKeyDisplayText(Keys key)
         {
             // Label specialized keys manually
@@ -5254,6 +6277,13 @@ namespace NeoBleeper
                 return fallback;
             }
         }
+
+        /// <summary>
+        /// Initializes the mapping between keyboard shortcuts and their corresponding button controls.
+        /// </summary>
+        /// <remarks>This method associates specific keyboard keys with button controls to enable
+        /// keyboard-based interaction. It should be called during form initialization to ensure that all button
+        /// shortcuts are set up before user input is processed.</remarks>
         private void InitializeButtonShortcuts()
         {
             // Key code and button mapping
@@ -5343,6 +6373,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Restarts the beep sound if it was muted early, based on the specified frequency and current portamento
+        /// settings.
+        /// </summary>
+        /// <remarks>The beep is only restarted if portamento is disabled or configured to always produce
+        /// sound. This method has no effect if the beep was not muted early.</remarks>
+        /// <param name="frequency">The frequency, in hertz, at which to restart the beep if it was previously muted early.</param>
         private async void RestartBeepIfMutedEarly(int frequency)
         {
             if (IsBeepMutedEarly())
@@ -5363,6 +6401,13 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Determines whether the beep sound is muted at an early stage based on the current playback and sound device
+        /// settings.
+        /// </summary>
+        /// <returns>true if the beep is considered muted early according to the playback and sound device configuration;
+        /// otherwise, false.</returns>
         private bool IsBeepMutedEarly()
         {
             if (!TemporarySettings.CreatingSounds.isPlaybackMuted)
@@ -5385,6 +6430,14 @@ namespace NeoBleeper
         {
             RemoveKey((int)e.KeyCode);
         }
+
+        /// <summary>
+        /// Removes the specified key from the set of currently pressed keys and updates the keyboard state accordingly.
+        /// </summary>
+        /// <remarks>If portamento is enabled and set to always produce sound, removing a key does not
+        /// stop all notes. Otherwise, all notes are stopped after the key is removed. The method also updates the
+        /// visual state of the keyboard to reflect the current set of pressed keys.</remarks>
+        /// <param name="keyCode">The code of the key to remove from the set of pressed keys.</param>
         private void RemoveKey(int keyCode)
         {
             pressedKeys.Remove(keyCode);
@@ -5419,6 +6472,12 @@ namespace NeoBleeper
                 PlayWithRegularKeyboard();
             }
         }
+
+        /// <summary>
+        /// Removes all currently pressed keys from the collection.
+        /// </summary>
+        /// <remarks>This method clears the internal state of pressed keys by removing each key
+        /// individually. After calling this method, the collection of pressed keys will be empty.</remarks>
         private void RemoveAllKeys()
         {
             foreach (int key in pressedKeys)
@@ -5426,6 +6485,17 @@ namespace NeoBleeper
                 RemoveKey(key);
             }
         }
+
+        /// <summary>
+        /// Calculates the frequency, in hertz, corresponding to a given keyboard key code based on a predefined mapping
+        /// of keys to musical notes and octaves.
+        /// </summary>
+        /// <remarks>The mapping associates specific keyboard keys with musical notes across several
+        /// octaves. The resulting frequency depends on both the mapped note and the current octave setting. If the key
+        /// code is not recognized, the method returns 0.</remarks>
+        /// <param name="keyCode">The integer value representing the keyboard key code to map to a musical note frequency.</param>
+        /// <returns>The frequency in hertz associated with the specified key code. Returns 0 if the key code does not correspond
+        /// to a mapped note.</returns>
         private int GetFrequencyFromKeyCode(int keyCode)
         {
             // Key and octave offset mapping
@@ -5478,6 +6548,13 @@ namespace NeoBleeper
             }
             return 0;
         }
+
+        /// <summary>
+        /// Removes MIDI notes from the active set that no longer correspond to currently pressed keys.
+        /// </summary>
+        /// <remarks>This method should be called to ensure that only notes corresponding to actively
+        /// pressed keys remain active. It stops any MIDI notes that are no longer associated with a pressed key and
+        /// updates the active note set accordingly.</remarks>
         private void RemoveUnpressedKeys()
         {
             if (keyCharNum != null)
@@ -5495,6 +6572,15 @@ namespace NeoBleeper
         private HashSet<int> activeMidiInNotes = new HashSet<int>();
         private int singleNote = 0; // Variable to store the single note being played
         private bool isAlternatingPlayingRegularKeyboard = false;
+
+        /// <summary>
+        /// Plays musical notes using the computer keyboard as input, emulating a piano or MIDI keyboard.
+        /// </summary>
+        /// <remarks>This method responds to key presses when the option to use the keyboard as a piano is
+        /// enabled. It supports both single and multiple key presses, allowing for polyphonic playback. If MIDI output
+        /// is enabled, notes are sent to the configured MIDI device; otherwise, notes are played using the system
+        /// beeper. The method respects user settings such as portamento and note length. This method is intended to be
+        /// called in response to keyboard events and is not thread-safe.</remarks>
         private async void PlayWithRegularKeyboard() // Play notes with regular keyboard (the keyboard of the computer, not MIDI keyboard)
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
@@ -5573,10 +6659,29 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Asynchronously plays a beep sound with the specified frequency and duration, and optionally prevents
+        /// interruption by other sounds.
+        /// </summary>
+        /// <param name="frequency">The frequency of the beep, in hertz. Must be a positive integer.</param>
+        /// <param name="duration">The duration of the beep, in milliseconds. Must be a positive integer.</param>
+        /// <param name="nonStopping">true to prevent the beep from being interrupted by other sounds; otherwise, false.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task PlayBeepWithLabelAsync(int frequency, int duration, bool nonStopping = false)
         {
             await Task.Run(() => PlayBeepWithLabel(frequency, duration, nonStopping));
         }
+
+        /// <summary>
+        /// Marks up the corresponding piano key button with a highlight color when the specified keyboard key is
+        /// pressed, if keyboard-to-piano mapping is enabled.
+        /// </summary>
+        /// <remarks>This method only applies the markup if the option to use the keyboard as a piano is
+        /// enabled. The highlight color is determined by the current application settings. If the pressed key does not
+        /// correspond to a mapped piano key, no action is taken.</remarks>
+        /// <param name="keyCode">The key code of the keyboard key that was pressed. This value is typically obtained from a key event and
+        /// determines which piano key button, if any, will be marked up.</param>
         private void MarkupTheKeyWhenKeyIsPressed(int keyCode)
         {
             if (!checkBox_use_keyboard_as_piano.Checked)
@@ -5836,6 +6941,13 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Resets the background color of all button controls on the keyboard panel to their default key colors.
+        /// </summary>
+        /// <remarks>This method restores the appearance of both white and black keys by setting their
+        /// background colors to standard values. It is typically used to clear any visual markings or highlights
+        /// applied to the keys.</remarks>
         private void UnmarkAllButtons()
         {
             Color whiteKeyColor = Color.White; // Define the color to reset the button
@@ -5856,6 +6968,12 @@ namespace NeoBleeper
             }
         }
         // This method checks if a key is part of the piano keyboard
+
+        /// <summary>
+        /// Determines whether the specified key corresponds to a piano key on the keyboard layout.
+        /// </summary>
+        /// <param name="keyCode">The key to evaluate as a member of the piano keyboard mapping.</param>
+        /// <returns>true if the specified key is mapped to a piano key; otherwise, false.</returns>
         private bool IsKeyboardPianoKey(Keys keyCode)
         {
             // Define all the keys that should trigger the piano functionality
@@ -5874,6 +6992,13 @@ namespace NeoBleeper
 
             return pianoKeys.Contains(keyCode);
         }
+
+        /// <summary>
+        /// Initializes MIDI input and begins listening for incoming MIDI messages if MIDI input is enabled.
+        /// </summary>
+        /// <remarks>This method attaches the necessary event handler and starts the MIDI input device. It
+        /// has no effect if MIDI input is disabled or the MIDI input device is not available. Call this method before
+        /// attempting to receive MIDI input events.</remarks>
         private void InitializeMidiInput()
         {
             if (!TemporarySettings.MIDIDevices.useMIDIinput || MIDIIOUtils._midiIn == null)
@@ -6052,6 +7177,16 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Initiates a portamento effect, smoothly transitioning the currently playing note to the specified target
+        /// frequency according to the configured portamento settings.
+        /// </summary>
+        /// <remarks>If a portamento is already in progress, it is canceled and replaced by the new
+        /// transition. The behavior and speed of the portamento are determined by the current portamento settings. This
+        /// method is asynchronous and returns immediately; the transition occurs in the background.</remarks>
+        /// <param name="targetFrequency">The frequency, in hertz, to which the note should glide. Must be a positive integer representing the target
+        /// pitch.</param>
         private void PlayPortamento(int targetFrequency)
         {
             // Cancel any ongoing portamento
@@ -6104,6 +7239,14 @@ namespace NeoBleeper
                 }
             });
         }
+
+        /// <summary>
+        /// Plays all currently active MIDI notes in an alternating sequence on a background thread.
+        /// </summary>
+        /// <remarks>This method starts playback asynchronously and continues to play the active notes
+        /// until the alternating playback is stopped. It is intended to be called when alternating note playback is
+        /// required, and should not be called multiple times concurrently. Thread safety is managed internally for the
+        /// active MIDI notes collection.</remarks>
         private void PlayAlternatingNotes()
         {
             Task.Run(() =>
@@ -6124,6 +7267,18 @@ namespace NeoBleeper
                 while (isAlternatingPlaying == true);
             });
         }
+
+        /// <summary>
+        /// Updates the active MIDI input device to the specified device number, reconfiguring event handlers and input
+        /// state as needed.
+        /// </summary>
+        /// <remarks>If a MIDI input device is already active, this method stops and detaches it before
+        /// switching to the new device. If MIDI input is enabled in settings, the new device is started and event
+        /// handlers are attached. Any active alternating notes playback is stopped, and the list of active MIDI input
+        /// notes is cleared. This method should be called when the user selects a different MIDI input device at
+        /// runtime.</remarks>
+        /// <param name="deviceNumber">The zero-based index of the MIDI input device to activate. Must correspond to a valid device available on
+        /// the system.</param>
         public void UpdateMidiInputDevice(int deviceNumber)
         {
             if (MIDIIOUtils._midiIn != null)
@@ -6151,6 +7306,13 @@ namespace NeoBleeper
             }
             activeMidiInNotes.Clear();
         }
+
+        /// <summary>
+        /// Stops all currently playing sounds and resets the playback state of the keyboard.
+        /// </summary>
+        /// <remarks>Call this method to ensure that all notes are silenced and any playback flags or key
+        /// states are cleared. This is typically used when resetting the keyboard or when all keys have been
+        /// released.</remarks>
         private void StopAllSounds()
         {
             // Stop alternating playback and reset flags
@@ -6179,6 +7341,13 @@ namespace NeoBleeper
         {
             ShowHelp(); // Open the help manual in the preferred language
         }
+
+        /// <summary>
+        /// Opens the user manual in the preferred language using the default web browser.
+        /// </summary>
+        /// <remarks>The manual is selected based on the application's current language preference. If a
+        /// manual is not available for the selected language, the English version is opened by default. This method
+        /// launches an external process to display the manual in a web browser.</remarks>
         private void ShowHelp() // Method to open the help manual in the preferred language
         {
             string language = Settings1.Default.preferredLanguage;
@@ -6294,11 +7463,23 @@ namespace NeoBleeper
             }
         }
         int previous_time_signature = Variables.timeSignature;
+
+        /// <summary>
+        /// Prepares the object for a time signature change by marking the value as being modified and storing the
+        /// current time signature.
+        /// </summary>
         private void SetTimeSignatureValueChanging()
         {
             variableIsChanging = true;
             previous_time_signature = Variables.timeSignature;
         }
+
+        /// <summary>
+        /// Handles changes to the time signature value and updates the application state accordingly.
+        /// </summary>
+        /// <remarks>This method should be called after the time signature value is modified to ensure
+        /// that changes are tracked and the user interface reflects the current state. It records the change for
+        /// undo/redo functionality and updates the form title to indicate unsaved changes.</remarks>
         private void SetTimeSignatureValueChanged()
         {
             variableIsChanging = false;
@@ -6328,12 +7509,26 @@ namespace NeoBleeper
         }
         double previousNoteSilenceRatio = Variables.noteSilenceRatio;
         bool variableIsChanging = false;
+
+        /// <summary>
+        /// Marks the note silence ratio value as being in the process of changing.
+        /// </summary>
+        /// <remarks>Call this method before updating the note silence ratio to indicate that a change is
+        /// in progress. This can be used to prevent triggering events or logic that should only occur after the value
+        /// has been finalized.</remarks>
         private void SetNoteSilenceValueChanging()
         {
             variableIsChanging = true;
             previousNoteSilenceRatio = Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100;
 
         }
+
+        /// <summary>
+        /// Handles changes to the note silence ratio value and updates the application state accordingly.
+        /// </summary>
+        /// <remarks>This method should be called when the value of the note silence ratio track bar is
+        /// modified by the user. It ensures that changes are tracked and the undo/redo command stack is updated if the
+        /// value has changed.</remarks>
         private void SetNoteSilenceValueChanged()
         {
             variableIsChanging = false;

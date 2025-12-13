@@ -1008,4 +1008,16 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Eksik NBPML İçeriği</value>
   </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>İstek Zaman Aşımı</value>
+  </data>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>İstek tamamlanmadan önce zaman aşımına uğradı. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
+  <data name="TitleInfiniteLoop" xml:space="preserve">
+    <value>Sonsuz Döngü Tespit Edildi</value>
+  </data>
+  <data name="MessageInfiniteLoop" xml:space="preserve">
+    <value>Yapay zeka modeli sonsuz bir döngüye girmiş veya kendini sürekli tekrarlıyor. Yapay zeka ile müzik oluşturma işlemi iptal edildi.</value>
+  </data>
 </root>

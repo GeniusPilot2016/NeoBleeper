@@ -34,6 +34,13 @@ public class CommandManager
 
     public event EventHandler StateChanged;
 
+    /// <summary>
+    /// Executes the specified command and records it for undo and redo operations.
+    /// </summary>
+    /// <remarks>This method saves the current state before executing the command, enabling the operation to
+    /// be undone or redone later. After execution, the redo history is cleared. If the command is null, an exception
+    /// may be thrown.</remarks>
+    /// <param name="command">The command to execute. Cannot be null.</param>
     public void ExecuteCommand(ICommand command)
     {
         undoMementos.Push(originator.CreateMemento());
@@ -44,6 +51,11 @@ public class CommandManager
         OnStateChanged();
     }
 
+    /// <summary>
+    /// Clears all undo and redo history, resetting the state tracking to the current state.
+    /// </summary>
+    /// <remarks>After calling this method, all previous undo and redo operations are discarded. The current
+    /// state becomes the new baseline for future undo and redo actions.</remarks>
     public void ClearHistory()
     {
         undoStack.Clear();
@@ -54,6 +66,11 @@ public class CommandManager
         OnStateChanged();
     }
 
+    /// <summary>
+    /// Reverses the most recent operation, restoring the previous state if an undo is available.
+    /// </summary>
+    /// <remarks>This method has no effect if there are no operations to undo. After calling this method, the
+    /// state can be redone using the corresponding redo functionality, if available.</remarks>
     public void Undo()
     {
         if (CanUndo)
@@ -67,6 +84,11 @@ public class CommandManager
         }
     }
 
+    /// <summary>
+    /// Performs the most recent undone operation, if a redo is available.
+    /// </summary>
+    /// <remarks>Call this method to reapply the last operation that was undone using the undo functionality.
+    /// If there are no operations available to redo, this method has no effect.</remarks>
     public void Redo()
     {
         if (CanRedo)
@@ -80,11 +102,24 @@ public class CommandManager
         }
     }
 
+    /// <summary>
+    /// Raises the StateChanged event to notify subscribers of a change in state.
+    /// </summary>
+    /// <remarks>Override this method in a derived class to provide custom logic when the state changes. This
+    /// method invokes the StateChanged event with the current instance as the sender and an empty EventArgs
+    /// object.</remarks>
     protected virtual void OnStateChanged()
     {
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Determines whether the current state matches the initial state with no undo or redo operations pending.
+    /// </summary>
+    /// <remarks>Use this method to check if all changes have been undone and the object is in its original
+    /// state. This can be useful for enabling or disabling reset or save functionality in user interfaces.</remarks>
+    /// <returns>true if the state is unchanged from its initial value and both the undo and redo stacks are empty; otherwise,
+    /// false.</returns>
     public bool IsAtInitialState()
     {
         return undoStack.Count == 0 && redoStack.Count == 0 && originator.CreateMemento().Equals(initialMemento);

@@ -18,6 +18,18 @@ namespace NeoBleeper
 {
     public static class NotePlayer
     {
+
+        /// <summary>
+        /// Plays a single note with the specified frequency and duration using the available sound output device.
+        /// </summary>
+        /// <remarks>The output device and waveform used to play the note depend on the current
+        /// application settings. If sound playback is muted or the frequency is out of range for the system speaker,
+        /// the method will wait for the specified duration without producing sound. This method is asynchronous and
+        /// returns immediately if <paramref name="nonStopping"/> is <see langword="true"/>.</remarks>
+        /// <param name="frequency">The frequency of the note to play, in hertz. Must be between 37 and 32,767 when using the system speaker.</param>
+        /// <param name="length">The duration of the note, in milliseconds. Must be a non-negative value.</param>
+        /// <param name="nonStopping">If set to <see langword="true"/>, the note is played asynchronously and does not block the calling thread;
+        /// otherwise, the method blocks until the note has finished playing.</param>
         public static async void PlayNote(int frequency, int length, bool nonStopping = false) // Create a beep with the specified frequency and length
         {
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller) // If the microcontroller is enabled
@@ -79,6 +91,13 @@ namespace NeoBleeper
                     }
             }
         }
+
+        /// <summary>
+        /// Stops all currently playing notes, regardless of the output device.
+        /// </summary>
+        /// <remarks>This method halts sound output from both the system speaker and the sound device,
+        /// depending on the current configuration. It is typically used to ensure that no notes continue to play after
+        /// a stop or reset operation.</remarks>
         public static void StopAllNotes() // Stop all notes
         {
             switch (TemporarySettings.CreatingSounds.createBeepWithSoundDevice) // Create a beep with the soundcard or the system speaker
@@ -95,10 +114,28 @@ namespace NeoBleeper
                     }
             }
         }
+
+        /// <summary>
+        /// Plays a beep sound using only the system speaker at the specified frequency and duration.
+        /// </summary>
+        /// <remarks>This method produces sound exclusively through the system (PC) speaker, regardless of
+        /// other audio devices. The actual frequency and duration may be limited by hardware capabilities on some
+        /// systems.</remarks>
+        /// <param name="frequency">The frequency of the beep, in hertz. Must be a positive integer representing the pitch of the sound.</param>
+        /// <param name="length">The duration of the beep, in milliseconds. Must be a positive integer specifying how long the beep will
+        /// play.</param>
         public static void PlayOnlySystemSpeakerBeep(int frequency, int length) // Play only the system speaker beep
         {
             SoundRenderingEngine.SystemSpeakerBeepEngine.Beep(frequency, length, false); // Create a beep with the system speaker (aka PC speaker)
         }
+
+        /// <summary>
+        /// Stops any sound currently being produced by the connected microcontroller, such as a buzzer or motor sound.
+        /// </summary>
+        /// <remarks>This method determines the type of microcontroller device and sends the appropriate
+        /// command to stop sound output. If an error occurs while communicating with the microcontroller, the error is
+        /// logged and no exception is thrown to the caller. This method is asynchronous but returns void; callers
+        /// cannot await its completion or catch exceptions directly.</remarks>
         public static async void StopMicrocontrollerSound() // Stop the sound from the microcontroller
         {
             try
@@ -118,6 +155,19 @@ namespace NeoBleeper
                 Logger.Log($"Error stopping microcontroller sound: {ex.Message}", Logger.LogTypes.Error); // Log the error message
             }
         }
+
+        /// <summary>
+        /// Sends a command to the connected microcontroller to play a sound at the specified frequency and duration.
+        /// </summary>
+        /// <remarks>The behavior of this method depends on the type of microcontroller device configured
+        /// in the application settings. For devices configured as a DC motor or buzzer, the sound is played using the
+        /// buzzer. For stepper motor devices, the sound is played using the motor. If an error occurs while
+        /// communicating with the microcontroller, the error is logged and the exception is not propagated.</remarks>
+        /// <param name="frequency">The frequency of the sound to play, in hertz. Must be a positive integer supported by the microcontroller.</param>
+        /// <param name="length">The duration of the sound, in milliseconds. Must be a positive integer.</param>
+        /// <param name="nonStopping">true to play the sound in non-stopping mode (allowing overlap or continuous play, depending on device
+        /// capabilities); otherwise, false.</param>
+        /// <returns>A task that represents the asynchronous operation of sending the sound command to the microcontroller.</returns>
         private static async Task CreateSoundWithMicroController(int frequency, int length, bool nonStopping = false) // Create a sound with the microcontroller
         {
             try

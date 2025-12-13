@@ -1392,6 +1392,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The AI model appears in an infinite loop or keeps repeating itself. The generation has been cancelled. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageInfiniteLoop {
+            get {
+                return ResourceManager.GetString("MessageInfiniteLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageInternalError {
@@ -1581,6 +1590,15 @@ namespace NeoBleeper.Properties {
         public static string MessageProhibitedContent {
             get {
                 return ResourceManager.GetString("MessageProhibitedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The request timed out before completion. Please try again later. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageRequestTimeout {
+            get {
+                return ResourceManager.GetString("MessageRequestTimeout", resourceCulture);
             }
         }
         
@@ -2583,6 +2601,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Infinite Loop Detected benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleInfiniteLoop {
+            get {
+                return ResourceManager.GetString("TitleInfiniteLoop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Internal Error benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TitleInternalError {
@@ -2660,6 +2687,15 @@ namespace NeoBleeper.Properties {
         public static string TitleProhibitedContent {
             get {
                 return ResourceManager.GetString("TitleProhibitedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Request Timeout benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleRequestTimeout {
+            get {
+                return ResourceManager.GetString("TitleRequestTimeout", resourceCulture);
             }
         }
         

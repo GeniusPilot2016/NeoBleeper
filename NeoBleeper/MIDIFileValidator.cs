@@ -18,6 +18,16 @@ namespace NeoBleeper
 {
     public class MIDIFileValidator
     {
+        /// <summary>
+        /// Determines whether the specified file is a valid Standard MIDI file (SMF) based on its structure and
+        /// content.
+        /// </summary>
+        /// <remarks>This method checks the file's header and track structure to ensure it conforms to the
+        /// MIDI file format. It can be used to distinguish genuine MIDI files from files with a .mid extension that are
+        /// actually other file types or are corrupted. The method does not throw exceptions for invalid or unreadable
+        /// files; instead, it returns false in such cases.</remarks>
+        /// <param name="filePath">The full path to the file to validate as a MIDI file. The file must exist and be accessible for reading.</param>
+        /// <returns>true if the file at the specified path is a valid MIDI file; otherwise, false.</returns>
         public static bool IsMidiFile(string filePath) // Validates if the file at filePath is a valid MIDI file 
         // For example, if a file such as a .mid file is actually foreign file such as an image, text, executable, etc., or the .mid file is corrupted or malformed, this function will return false.
         {
@@ -171,6 +181,18 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Reads a variable-length quantity (VLQ) from the specified binary stream.
+        /// </summary>
+        /// <remarks>A variable-length quantity is encoded using one to four bytes, where each byte uses
+        /// the lower 7 bits for data and the highest bit as a continuation flag. This method reads up to four bytes to
+        /// decode the value. If the VLQ is malformed or exceeds four bytes, the method returns false.</remarks>
+        /// <param name="br">The binary reader from which to read the variable-length quantity. Must not be null and must be positioned
+        /// at the start of the VLQ.</param>
+        /// <param name="value">When this method returns, contains the integer value of the variable-length quantity read from the stream,
+        /// if successful; otherwise, the value is undefined.</param>
+        /// <returns>true if a valid variable-length quantity was read; otherwise, false if the data is not a valid VLQ (for
+        /// example, if it exceeds the maximum supported length).</returns>
         private static bool ReadVariableLengthQuantity(BinaryReader br, out int value)
         {
             value = 0;

@@ -24,11 +24,7 @@ namespace NeoBleeper
 {
     internal static class Program
     {
-        /// <summary>
-        /// 508b2fc7b16f37635377da7bc575a7e0
-        ///  The main entry point for the application.
-        /// </summary>
-        /// 
+        // 508b2fc7b16f37635377da7bc575a7e0
         // The core of the NeoBleeper application, which Robbi-985 (aka SomethingUnreal) would be proud of.
         // Powered by nostalgia and a passion for sound, this program brings the classic system speaker beeps back to life with modern enhancements - Thanks Robbi-985 (aka SomethingUnreal)!
         public static string filePath = null;
@@ -36,6 +32,15 @@ namespace NeoBleeper
         public static SplashScreen splashScreen = new SplashScreen();
         public static bool isAffectedChipsetChecked = false; // Flag to indicate if the affected chipset has been checked
         public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
+        /// <summary>
+        /// Serves as the main entry point for the NeoBleeper application.
+        /// </summary>
+        /// <remarks>This method initializes application configuration, performs hardware and environment
+        /// checks, validates user settings, and starts the main application window. It also handles application startup
+        /// errors and ensures proper cleanup on exit. The method must be called with the [STAThread] attribute, as
+        /// required for Windows Forms applications.</remarks>
+        /// <param name="args">An array of command-line arguments supplied to the application. The first argument, if provided, is used as
+        /// the file path to open at startup.</param>
         [STAThread]
         static void Main(string[] args)
         {
@@ -226,6 +231,13 @@ namespace NeoBleeper
                 Logger.Log("NeoBleeper is exited.", LogTypes.Info); // Exit from application when main form is closed, on error or user chooses to exit from warning
             }
         }
+
+        /// <summary>
+        /// Releases resources and performs cleanup for all extended event managers.
+        /// </summary>
+        /// <remarks>Call this method to uninitialize event managers related to themes, power management,
+        /// and input language handling. After calling this method, extended event functionality may no longer be
+        /// available until reinitialized.</remarks>
         public static void UninitializeExtendedEvents()
         {
             Logger.Log("Uninitializing extended event managers...", LogTypes.Info);
@@ -234,12 +246,23 @@ namespace NeoBleeper
             InputLanguageManager.Cleanup();
             Logger.Log("Extended event managers uninitialization completed.", LogTypes.Info);
         }
+
+        /// <summary>
+        /// Releases resources and shuts down MIDI input and output subsystems.
+        /// </summary>
+        /// <remarks>Call this method to cleanly uninitialize MIDI functionality when it is no longer
+        /// needed. After calling this method, MIDI input and output operations will no longer be available until
+        /// reinitialized.</remarks>
         public static void UninitializeMIDI()
         {
             Logger.Log("Uninitializing MIDI input/output...", LogTypes.Info);
             MIDIIOUtils.DisposeMidiOutput();
             Logger.Log("MIDI input/output uninitialization completed.", LogTypes.Info);
         }
+
+        /// <summary>
+        /// Specifies the type of warning that can be reported by the system.
+        /// </summary>
         enum WarningType
         {
             DisplayResolution,
@@ -248,6 +271,15 @@ namespace NeoBleeper
             UnknownComputer
         }
 
+        /// <summary>
+        /// Displays a centralized warning dialog corresponding to the specified warning type and returns the user's
+        /// decision.
+        /// </summary>
+        /// <remarks>Use this method to present standardized warning dialogs for various system
+        /// conditions. The method blocks until the user responds to the dialog. If an unrecognized warning type is
+        /// provided, no dialog is shown and the method returns true.</remarks>
+        /// <param name="type">The type of warning to display. Determines which warning dialog is shown to the user.</param>
+        /// <returns>true if the user chooses to proceed or if no warning is shown; otherwise, false.</returns>
         static bool ShowCentralizedWarning(WarningType type)
         {
             Form warningForm = null;
@@ -272,6 +304,15 @@ namespace NeoBleeper
             }
             return true;
         }
+
+        /// <summary>
+        /// Displays the specified warning form as a modal dialog and returns the user's decision to continue or exit.
+        /// </summary>
+        /// <remarks>The method logs the user's decision and closes any active splash screen before
+        /// displaying the warning form. If the dialog result is neither Yes nor No, the method returns false.</remarks>
+        /// <param name="warningForm">The warning form to display to the user. Must not be null. The form should return a DialogResult of Yes or
+        /// No to indicate the user's choice.</param>
+        /// <returns>true if the user chooses to continue; otherwise, false.</returns>
         private static bool ShowWarningAndGetUserDecision(Form warningForm)
         {
             splashScreen.UpdateStatus(Resources.StatusInitializationCompleted, 0, true);
@@ -289,6 +330,14 @@ namespace NeoBleeper
             }
             return false;
         }
+
+        /// <summary>
+        /// Configures core application services and applies user interface settings at startup.
+        /// </summary>
+        /// <remarks>This method initializes essential managers and sets application-wide options such as
+        /// power management, theme, input language, and visual style state. It should be called once during application
+        /// startup before displaying any user interface elements to ensure consistent behavior and
+        /// appearance.</remarks>
         private static void ConfigureApplication()
         {
             PowerManager.Initialize();
@@ -305,6 +354,15 @@ namespace NeoBleeper
             }
             UIHelper.SetLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
         }
+
+        /// <summary>
+        /// Synchronizes the language and theme settings with the beep stopper component if the application is not
+        /// running on ARM64 architecture.
+        /// </summary>
+        /// <remarks>This method ensures that the beep stopper's settings for language and theme match
+        /// those of the main application. Synchronization is skipped on ARM64 platforms, as the beep stopper is not
+        /// supported on that architecture. If a mismatch is detected, the beep stopper's settings are updated to
+        /// reflect the current application preferences.</remarks>
         private static void SynchronizeSettings()
         {
             // Synchronize settings with beep stopper if not running on ARM64 architecture for sync Beep Stopper settings (language and theme)
@@ -329,6 +387,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Updates the splash screen and logs status messages to reflect the current Classic Bleeper mode and preferred
+        /// language settings during application startup.
+        /// </summary>
+        /// <remarks>This method should be called during the application's initialization phase to ensure
+        /// that the user is informed of the selected mode and language. The status messages are displayed on the splash
+        /// screen and written to the application log for diagnostic purposes.</remarks>
         private static void SetStatusForClassicBleeperModeAndLanguage()
         {
             switch (Settings1.Default.ClassicBleeperMode)
@@ -345,6 +411,14 @@ namespace NeoBleeper
             Logger.Log($"NeoBleeper is starting with language: {Settings1.Default.preferredLanguage}", LogTypes.Info);
             splashScreen.UpdateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
         }
+
+        /// <summary>
+        /// Checks for the presence and integrity of the InpOutx64.dll file and places it in the application directory
+        /// if necessary.
+        /// </summary>
+        /// <remarks>This method skips placement of InpOutx64.dll on ARM64 architectures, as system
+        /// speaker support is not available on most ARM64 devices. The method updates the splash screen with status
+        /// messages to inform the user of progress and any errors encountered during the process.</remarks>
         private static void CheckAndPlaceInpOutX64()
         {
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64) // Skip InpOutx64.dll placement on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
@@ -372,6 +446,15 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Determines whether the InpOutx64.dll file is present in the application's base directory and matches the
+        /// expected SHA256 hash.
+        /// </summary>
+        /// <remarks>This method verifies both the presence and integrity of the InpOutx64.dll file by
+        /// comparing its SHA256 hash to the expected value. Use this check to ensure that the DLL has not been tampered
+        /// with or replaced.</remarks>
+        /// <returns>true if InpOutx64.dll exists and its SHA256 hash matches the expected value; otherwise, false.</returns>
         private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
         {
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
@@ -393,6 +476,14 @@ namespace NeoBleeper
             }
             return false; // File does not exist
         }
+
+        /// <summary>
+        /// Sets the application's preferred language based on the operating system's user interface language if no
+        /// saved language setting is found.
+        /// </summary>
+        /// <remarks>If the operating system's language is not among the supported languages, the
+        /// preferred language is set to English by default. This method should be called before loading user interface
+        /// resources that depend on the application's language setting.</remarks>
         private static void SetLanguageBasedOnOSLanguage() // Set application language based on OS language if no saved settings is found
         {
             var osLanguage = System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
@@ -431,6 +522,14 @@ namespace NeoBleeper
             }
             Settings1.Default.Save();
         }
+
+        /// <summary>
+        /// Ensures that application settings are loaded and upgraded if necessary.
+        /// </summary>
+        /// <remarks>This method checks whether the application settings have been upgraded from a
+        /// previous version. If not, it performs the upgrade and saves the updated settings. If no previous settings
+        /// are found, it initializes certain settings based on the operating system language. This method is intended
+        /// to be called before accessing settings that may require migration or initialization.</remarks>
         private static void LoadSettingsIfNeeded()
         {
             if (!Settings1.Default.HasSettingsUpgraded)

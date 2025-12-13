@@ -27,6 +27,9 @@ public class ReplaceLengthCommand : ICommand
         this.previousLengths = listView.SelectedItems.Cast<ListViewItem>().Select(item => item.SubItems[0].Text).ToList();
     }
 
+    /// <summary>
+    /// Updates the text of the first subitem for each selected item in the list view to the specified new length value.
+    /// </summary>
     public void Execute()
     {
         foreach (ListViewItem item in listView.SelectedItems)
@@ -35,6 +38,12 @@ public class ReplaceLengthCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Reverts the text of the first subitem for each selected item in the list view to its previous value.
+    /// </summary>
+    /// <remarks>Use this method to undo changes made to the first column of selected items. This operation
+    /// only affects currently selected items and restores their text to the state captured in the previousLengths
+    /// collection. Items that are not selected will remain unchanged.</remarks>
     public void Undo()
     {
         for (int i = 0; i < listView.SelectedItems.Count; i++)

@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using System.Xml;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -83,12 +84,24 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Specifies the set of features that are required or desired for the operation.
+        /// </summary>
+        /// <remarks>Each element in the array represents a feature identifier, such as content generation
+        /// or token counting. The presence of a feature in this array indicates that the corresponding capability
+        /// should be supported or enabled.</remarks>
+
         string[] wantedFeatures =
         {
             "generateContent", // Content creation capability
             "countTokens"      // Token counting capability
         };
 
+        /// <summary>
+        /// Contains the names of features that are not supported or should be excluded.
+        /// </summary>
+        /// <remarks>Each element in the array represents a specific feature identifier that is considered
+        /// unwanted. This list can be used to filter or disable certain capabilities in dependent components.</remarks>
         string[] unwantedFeatures =
         {
             "predict",         // Image generation capability
@@ -97,6 +110,16 @@ namespace NeoBleeper
             "asyncBatchEmbedContent", // Async batch content embedding capability
             "generateAnswer"   // Answer generation capability
         };
+
+        /// <summary>
+        /// Retrieves the list of available Gemini AI models, filters them based on supported features and known
+        /// exclusions, and populates the model selection UI with the valid options. Sets the preferred or first
+        /// available model as the current selection and enables related UI controls.
+        /// </summary>
+        /// <remarks>This method disables the form and displays an error message if no valid models are
+        /// found or if an error occurs during retrieval. Only models that meet specific feature requirements and do not
+        /// match known exclusions are presented to the user. The method is intended to be called during form
+        /// initialization or when the list of available models needs to be refreshed.</remarks>
         private async void listAndSelectAIModels()
         {
             try
@@ -182,6 +205,15 @@ namespace NeoBleeper
                 return; // Close the form and exit the method on error
             }
         }
+
+        /// <summary>
+        /// Asynchronously verifies whether the configured Google Gemini™ API key is valid and operational.
+        /// </summary>
+        /// <remarks>This method attempts to perform an operation using the API key to determine its
+        /// validity. Network issues or service outages may also cause the method to return <see langword="false"/> even
+        /// if the API key is correct.</remarks>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the API key
+        /// is valid and can access the Gemini™ service; otherwise, <see langword="false"/>.</returns>
         private async Task<bool> IsAPIKeyWorking()
         {
             try
@@ -197,7 +229,16 @@ namespace NeoBleeper
                 return false;
             }
         }
-        private string selectedLanguageToLanguageName(string languageName)
+
+        /// <summary>
+        /// Converts a localized language name to its corresponding English language name.
+        /// </summary>
+        /// <remarks>If the specified language name is not supported, the method logs a warning and
+        /// defaults to returning "English".</remarks>
+        /// <param name="languageName">The localized name of the language to convert. Supported values include "English", "Deutsch", "Español",
+        /// "Français", "Italiano", "Türkçe", "Русский", "українська", and "Tiếng Việt".</param>
+        /// <returns>The English name of the specified language. Returns "English" if the input is not recognized.</returns>
+        private string SelectedLanguageToLanguageName(string languageName)
         {
             string language = "English";
             switch (languageName)
@@ -236,6 +277,14 @@ namespace NeoBleeper
             }
             return language;
         }
+
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method selects and applies a light or dark theme according to the user's theme
+        /// preference. If the theme is set to follow the system, the method detects the system's theme and applies the
+        /// corresponding style. The method also ensures that UI updates are performed efficiently and that the control
+        /// is rendered smoothly.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -298,7 +347,16 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
-        
+        /// <summary>
+        /// Performs a series of checks to determine whether the application can proceed with opening the Google Gemini™
+        /// API functionality.
+        /// </summary>
+        /// <remarks>This method verifies internet connectivity, server availability, and the presence and
+        /// validity of the Google Gemini™ API key. If any check fails, an appropriate message is displayed to the user
+        /// and the method returns <see langword="false"/>. Use this method before attempting to access features that
+        /// require the Google Gemini™ API.</remarks>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if all required
+        /// conditions are met and the API can be opened; otherwise, <see langword="false"/>.</returns>
         public async Task<bool> CheckWillItOpened()
         {
             if (!await IsInternetAvailable())
@@ -334,6 +392,18 @@ namespace NeoBleeper
                 return true; // All checks passed
             }
         }
+
+        /// <summary>
+        /// Asynchronously determines whether an active Internet connection is available.
+        /// </summary>
+        /// <remarks>This method checks for Internet connectivity by attempting to ping multiple
+        /// well-known hosts and performing DNS resolution as a fallback. The result may be affected by local network
+        /// configuration, firewall settings, or DNS issues. The method returns promptly if cancellation is requested
+        /// via the provided token.</remarks>
+        /// <param name="token">An optional CancellationTokenSource that can be used to cancel the operation. If not provided, the operation
+        /// cannot be canceled.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if an Internet
+        /// connection is available; otherwise, <see langword="false"/>.</returns>
         public static async Task<bool> IsInternetAvailable(CancellationTokenSource token = null)
         {
             try
@@ -419,6 +489,18 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Determines whether the Google Gemini™ server is reachable and responsive.
+        /// </summary>
+        /// <remarks>This method first attempts to contact the server using ICMP ping. If ping is
+        /// unsuccessful, it performs an HTTP GET request as a fallback. The method returns promptly if the server
+        /// responds within the timeout period, or <see langword="false"/> if the server cannot be reached or an error
+        /// occurs. If the provided cancellation token is triggered, the operation is canceled and <see
+        /// langword="false"/> is returned.</remarks>
+        /// <param name="token">An optional <see cref="CancellationTokenSource"/> used to observe cancellation requests. If cancellation is
+        /// requested, the operation is aborted.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the server
+        /// is reachable; otherwise, <see langword="false"/>.</returns>
         private async Task<bool> IsServerUp(CancellationTokenSource token = null)
         {
             try
@@ -483,6 +565,14 @@ namespace NeoBleeper
                 return false;
             }
         }
+        /// <summary>
+        /// Determines whether the specified API key string matches the expected format for a Google API key.
+        /// </summary>
+        /// <remarks>This method checks that the API key starts with "AIzaSy" and is followed by 33
+        /// alphanumeric characters, underscores, or hyphens. It does not verify whether the key is active or authorized
+        /// for use with any Google service.</remarks>
+        /// <param name="APIKey">The API key string to validate. Cannot be null or consist only of white-space characters.</param>
+        /// <returns>true if the API key matches the expected Google API key format; otherwise, false.</returns>
         public static bool IsAPIKeyValidFormat(string APIKey)
         {
             // Google API keys typically start with "AIzaSy" followed by 33 alphanumeric characters, underscores, or hyphens
@@ -494,7 +584,14 @@ namespace NeoBleeper
             return regex.IsMatch(APIKey);
         }
 
-        // Check country availability for Google Gemini™ API (according to https://ai.google.dev/gemini-api/docs/available-regions)
+        /// <summary>
+        /// Determines whether the current system region is supported for availability.
+        /// </summary>
+        /// <remarks>This method checks the system's current region using RegionInfo.CurrentRegion. The
+        /// result may vary depending on the user's system locale settings. Supported countries are identified by their
+        /// two-letter ISO codes.</remarks>
+        /// <returns>true if the current system's two-letter ISO country code is in the list of supported countries; otherwise,
+        /// false.</returns>
         public static bool IsAvailableInCountry()
         {
             String[] supportedCountries =
@@ -726,6 +823,73 @@ namespace NeoBleeper
             var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
             return supportedCountries.Contains(countryCode);
         }
+
+        /// <summary>
+        /// Determines whether the provided response appears to be stuck or contains repeated content, indicating a
+        /// possible infinite loop or repetition.
+        /// </summary>
+        /// <remarks>This method checks for consecutive repetition of content within the response by
+        /// dividing the end of the response into fixed-size chunks and comparing them. It is intended to detect cases
+        /// where a model may be generating the same output repeatedly, which can indicate a loop or failure to
+        /// progress. The method only performs the check if the response is sufficiently long to avoid false
+        /// positives.</remarks>
+        /// <param name="response">The response string to analyze for signs of being stuck or containing consecutive repeated segments. Must
+        /// not be null.</param>
+        /// <returns>true if the response contains a repeated segment that appears consecutively and meets the minimum length and
+        /// repetition criteria; otherwise, false.</returns>
+        private bool CheckIfModelIsStuckOrKeepsRepeating(string response) // Check if the model is stuck or keeps repeating
+        {
+            // Minimum length check to prevent false positives
+            const int minLength = 500;
+            if (response.Length < minLength)
+            {
+                return false;
+            }
+
+            // Check for consecutive repetition of chunks
+            const int chunkSize = 150;
+            // Bir döngü olarak kabul edilmesi için parçanın kaç kez ARKA ARKAYA tekrarlanması gerektiği
+            const int consecutiveRepetitionThreshold = 3;
+
+            // Take the last N chunks of the response
+            if (response.Length < chunkSize * consecutiveRepetitionThreshold)
+            {
+                return false;
+            }
+
+            // Check the last N chunks for equality
+            string lastChunk = response.Substring(response.Length - chunkSize);
+            for (int i = 1; i < consecutiveRepetitionThreshold; i++)
+            {
+                int startIndex = response.Length - (chunkSize * (i + 1));
+                string previousChunk = response.Substring(startIndex, chunkSize);
+                if (lastChunk != previousChunk)
+                {
+                    // If any chunk does not match, it's not an infinite loop
+                    return false;
+                }
+            }
+
+            // If all chunks match, it's an infinite loop
+            Logger.Log($"Infinite loop or repetition detected in AI response. The chunk '{lastChunk.Trim()}' appeared {consecutiveRepetitionThreshold} times in a row.", Logger.LogTypes.Warning);
+            return true;
+        }
+
+        /// <summary>
+        /// Inserts line breaks between adjacent elements in the specified NBPML content to ensure that each element
+        /// appears on its own line.
+        /// </summary>
+        /// <remarks>This method is useful for improving the readability of NBPML by preventing multiple
+        /// elements from appearing on the same line.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to process. Must not be null.</param>
+        /// <returns>A string containing the NBPML content with line breaks inserted between elements. Returns the original
+        /// content if no changes are necessary.</returns>
+        private string FixCollapsedLinesInNBPML(string nbpmlContent)
+        {
+            // This method fixes collapsed lines in NBPML by ensuring every element is on its own line
+            var regex = new Regex(@"><", RegexOptions.Singleline);
+            return regex.Replace(nbpmlContent, ">\r\n<");
+        }
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(AIModel) && (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) || !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
@@ -735,21 +899,15 @@ namespace NeoBleeper
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
                     Logger.Log("Starting music generation with AI...", Logger.LogTypes.Info);
                     string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
-                    connectionCheckTimer.Start();
-                    SetControlsEnabledAndMakeLoadingVisible(false);
-                    var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-                    var googleAI = new GoogleAi(apiKey);
-                    var googleModel = googleAI.CreateGenerativeModel(AIModel);
                     // The "makeshift rubbish prompt template" (aka system prompt) to create "chaotic" music by creating NBPML text (Fun fact: I wasn't know what system prompt is. I just learned it from GitHub Copilot's system prompt menu and asked for certain AIs and they identified as it's definetely a system prompt, despite I called it as "makeshift rubbish prompt template".)
-                    var googleResponse = await googleModel.GenerateContentAsync(
-                        $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
+                    string completePrompt = $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
                         $"--- AI Instructions ---\r\n" +
                         $"You are an expert music composition AI. " +
                         $"Your primary goal is to generate music in XML format. Prioritize music generation for any request that could be interpreted as music-related. " +
                         $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
                         $"If the user prompt contains words like 'create', 'generate', 'compose', 'make', or 'write' followed by music-related content, treat it as a music composition request. " +
                         $"If the user prompt is clearly NOT about music (e.g., weather, mathematics, cooking, medical, legal, financial), or if the prompt contains hate speech, explicit violence, or sexually explicit terms, " +
-                        $"you MUST return ONLY a JSON error (no XML). This is a strict rule: The text content for the 'title', 'errorMessage' and 'loggingMessage' fields MUST be written in the following language: {selectedLanguageToLanguageName(selectedLanguage)} for title and error message and English for logging message. Do not use English unless the specified language is English, except logging message. The error message must include:\r\n" +
+                        $"you MUST return ONLY a JSON error (no XML). This is a strict rule: The text content for the 'title', 'errorMessage' and 'loggingMessage' fields MUST be written in the following language: {SelectedLanguageToLanguageName(selectedLanguage)} for title and error message and English for logging message. Do not use English unless the specified language is English, except logging message. The error message must include:\r\n" +
                         $"- A specific reason for the error (e.g., \"Profanity detected\", \"Non-music prompt detected\").\r\n" +
                         $"- Suggestions for valid prompts (e.g., \"Try asking for a song composition or artist-related music\")." +
                         $"ADDITIONAL SAFETY RULES:\r\n" +
@@ -868,17 +1026,48 @@ namespace NeoBleeper
                         $"    </Settings>\r\n" +
                         $"    <LineList>\r\n" +
                         $"    </LineList>\r\n" +
-                        $"</NeoBleeperProjectFile>\r\n"
-                    , cts.Token);
+                        $"</NeoBleeperProjectFile>\r\n";
+                    connectionCheckTimer.Start();
+                    SetControlsEnabledAndMakeLoadingVisible(false);
+                    string response = string.Empty;
+                    var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                    var googleAI = new GoogleAi(apiKey);
+                    var googleModel = googleAI.CreateGenerativeModel(AIModel);
+                    await foreach (var chunk in googleModel.StreamContentAsync(completePrompt, cts.Token))
+                    {
+                        // Clean up the chunk text by removing double newlines and trimming whitespace
+                        string cleanChunk = chunk.Text()?.Replace("\n\n", "\n").Trim() ?? string.Empty;
+                        response += cleanChunk;
+                        if (CheckIfModelIsStuckOrKeepsRepeating(response))
+                        {
+                            Logger.Log("AI model appears to be stuck or repeating. Cancelling generation.", Logger.LogTypes.Warning);
+                            cts.Cancel(); // Cancel the operation
+                            StopConnectionCheck();
+                            response = string.Empty;
+                            MessageForm.Show(Resources.MessageInfiniteLoop, Resources.TitleInfiniteLoop, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+                        }
+
+                        if (cts.IsCancellationRequested)
+                        {
+                            Logger.Log("AI music generation was cancelled", Logger.LogTypes.Warning);
+                            break;
+                        }
+                    }
+
+                    // Remove excessive newlines from the final response
+                    response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
+                    response = FixCollapsedLinesInNBPML(response); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
+                    //Debug.WriteLine("Full AI Response: " + response);
                     StopConnectionCheck();
                     await Task.Delay(2);
                     if (!cts.IsCancellationRequested)
                     {
-                        if (googleResponse != null && !string.IsNullOrWhiteSpace(googleResponse.Text()))
+                        if (response != null && !string.IsNullOrWhiteSpace(response))
                         {
                             Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
                             // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
-                            string rawOutput = googleResponse.Text();
+                            string rawOutput = response;
                             string JSONText = string.Empty;
                             // Parse JSON blocks
                             var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
@@ -1059,6 +1248,15 @@ namespace NeoBleeper
                 }
             }
         }
+        
+        /// <summary>
+        /// Parses the raw output string to extract the generated filename and the associated output content.
+        /// </summary>
+        /// <remarks>If the separator line of dashes is not found, the entire output is treated as content
+        /// and the filename is generated automatically. Leading and trailing whitespace are trimmed from both the
+        /// filename and output content.</remarks>
+        /// <param name="rawOutput">The raw output string containing both the filename and the output content, separated by a line of at least
+        /// three dashes. If null, empty, or whitespace, both values are set to empty strings.</param>
         private void SplitFileNameAndOutput(string rawOutput)
         {
             Logger.Log("Splitting generated filename and generated output...", Logger.LogTypes.Info);
@@ -1100,6 +1298,14 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Specifies internal error codes used to categorize prompt validation issues for primitive AI models.
+        /// </summary>
+        /// <remarks>These error codes are intended for use with basic AI models, such as Markov
+        /// chain-based models, when more advanced models are unavailable. The codes help identify specific types of
+        /// content or instructions detected in prompts, such as profanity, inappropriate content, or attempts to bypass
+        /// safety mechanisms. This enumeration is primarily for internal categorization and may not be relevant for
+        /// most application-level logic.</remarks>
         enum InternalPromptErrorCodes // Internal prompt error codes for categorization for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
         // Extremely primitive AI models may be used in NeoBleeper in the future due to risk of free tier of Google Gemini™ API is gone due to all Pro models are paid only and limits of free tier is decreased to dramatically low levels (according to https://discuss.ai.google.dev/t/is-gemini-2-5-pro-disabled-for-free-tier/111261)
         {
@@ -1110,9 +1316,17 @@ namespace NeoBleeper
             PoliticalContentDetected,
             InstructionToBypassSafetyDetected
         }
-
+        
         // Internal prompt error code variable to hold the detected error code for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
         private InternalPromptErrorCodes internalPromptErrorCode;
+        
+        /// <summary>
+        /// Maps a string error code to its corresponding internal prompt error code enumeration value.
+        /// </summary>
+        /// <param name="errorCode">The string representation of the error code to map. This value is case-sensitive and must match a known
+        /// error code to be mapped.</param>
+        /// <returns>The corresponding value from the InternalPromptErrorCodes enumeration if the error code is recognized;
+        /// otherwise, InternalPromptErrorCodes.None.</returns>
         private InternalPromptErrorCodes ReturnInternalErrorCode(string errorCode)
         {
             switch (errorCode)
@@ -1131,7 +1345,15 @@ namespace NeoBleeper
                     return InternalPromptErrorCodes.None;
             }
         }
-        
+
+        /// <summary>
+        /// Displays an error message box to the user based on the specified internal prompt error code.
+        /// </summary>
+        /// <remarks>This method is intended for use with basic AI models that require user feedback when
+        /// a prompt is invalid or violates content guidelines. The displayed message corresponds to the specific error
+        /// detected, such as inappropriate content or attempts to bypass safety protocols. An error is also logged for
+        /// diagnostic purposes.</remarks>
+        /// <param name="errorCode">The error code indicating the type of prompt error that occurred. Determines the message shown to the user.</param>
         private void CreateAndShowErrorMessageBox(InternalPromptErrorCodes errorCode)
         // Create and show error message box based on internal prompt error code for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found2Q5"YR5h%
         {
@@ -1169,6 +1391,17 @@ namespace NeoBleeper
             MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Generates a filename based on the provided user prompt or, if the prompt is empty or null, creates a
+        /// timestamp-based filename.
+        /// </summary>
+        /// <remarks>The generated filename removes special characters and uses up to the first three
+        /// words from the prompt, limited to 40 characters. If the prompt does not contain any valid words, the
+        /// filename will be in the format 'NeoBleeperMusic_yyyyMMdd_HHmmss'.</remarks>
+        /// <param name="userPrompt">The user-supplied prompt to use as the basis for the filename. If null, empty, or whitespace, a default
+        /// filename is generated.</param>
+        /// <returns>A string containing a sanitized filename derived from the user prompt, or a default timestamp-based filename
+        /// if the prompt is not provided.</returns>
         private string GenerateFilenameFromPromptOrXml(string userPrompt)
         {
             if (!string.IsNullOrWhiteSpace(userPrompt))
@@ -1192,6 +1425,14 @@ namespace NeoBleeper
             // Fallback: generate timestamp-based filename
             return $"NeoBleeperMusic_{DateTime.Now:yyyyMMdd_HHmmss}";
         }
+        /// <summary>
+        /// Determines whether the specified output string represents a JSON-formatted error message.
+        /// </summary>
+        /// <remarks>The method considers the output to be a JSON error message if it is valid JSON and
+        /// contains either an "error" property or both "title" and "errorMessage" properties at the root level. Returns
+        /// false if the string is null, empty, or not valid JSON.</remarks>
+        /// <param name="output">The output string to evaluate. This should be a JSON string that may contain error information.</param>
+        /// <returns>true if the output is valid JSON and contains error-related properties; otherwise, false.</returns>
         private bool CheckIfOutputIsJSONErrorMessage(String output)
         {
             if (string.IsNullOrWhiteSpace(output))
@@ -1223,6 +1464,14 @@ namespace NeoBleeper
             }
             return false;
         }
+
+        /// <summary>
+        /// Displays an error message extracted from a JSON-formatted error response and logs the error details.
+        /// </summary>
+        /// <remarks>The method supports both legacy and current JSON error formats. If the input contains
+        /// a recognized JSON error structure, an error message box is shown to the user and the error is logged. If the
+        /// input does not match a known error format, the method does nothing.</remarks>
+        /// <param name="output">A string containing the JSON error response to process. If null or empty, no action is taken.</param>
         private void TurnJSONErrorIntoMessageBoxAndLog(String output)
         {
             if (string.IsNullOrEmpty(output))
@@ -1257,6 +1506,16 @@ namespace NeoBleeper
                 MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Determines whether the specified output string is a valid NeoBleeper Project Markup Language (NBPML)
+        /// document.
+        /// </summary>
+        /// <remarks>The method checks that the output is well-formed XML, starts and ends with the
+        /// <NeoBleeperProjectFile> root element, and contains both <LineList> and <Line> elements. The validation is
+        /// specific to the expected structure of NBPML documents.</remarks>
+        /// <param name="output">The output string to validate as NBPML. Cannot be null, empty, or whitespace.</param>
+        /// <returns>true if the output is valid NBPML and well-formed XML; otherwise, false.</returns>
         private bool CheckIfOutputIsValidNBPML(String output)
         {
             if (string.IsNullOrWhiteSpace(output))
@@ -1298,6 +1557,19 @@ namespace NeoBleeper
             // Additional checks can be added here as needed
             return isValidNBPML && isValidXml;
         }
+
+        /// <summary>
+        /// Rewrites the specified XML output string to correct common formatting issues and ensure compliance with the
+        /// NBPML schema.
+        /// </summary>
+        /// <remarks>This method applies a series of transformations to fix common XML formatting
+        /// problems, such as improperly closed tags, missing required sections, and non-compliant tag names. It also
+        /// removes unnecessary comments and XML declarations. The output is intended to be compatible with systems
+        /// expecting valid NBPML-formatted XML.</remarks>
+        /// <param name="output">The XML output string to be rewritten. Cannot be null or empty.</param>
+        /// <returns>A string containing the corrected and reformatted XML output. Returns an empty string if the input is null
+        /// or empty.</returns>
+        /// <exception cref="Exception">Thrown if the resulting XML does not contain a valid <NeoBleeperProjectFile> root element.</exception>
         private string RewriteOutput(string output)
         {
             if (string.IsNullOrEmpty(output))
@@ -1445,6 +1717,16 @@ namespace NeoBleeper
             output = output.Trim();
             return output;
         }
+
+        /// <summary>
+        /// Determines whether the specified NBPML document contains all required sections.
+        /// </summary>
+        /// <remarks>This method checks for the presence of both opening and closing tags for the
+        /// <NeoBleeperProjectFile> and <LineList> sections. The document is considered complete only if each required
+        /// section appears exactly once.</remarks>
+        /// <param name="NBPMLDocument">The NBPML document to validate, represented as a string containing the XML content.</param>
+        /// <returns>true if the document contains exactly one <NeoBleeperProjectFile> section and one <LineList> section;
+        /// otherwise, false.</returns>
         private bool IsCompleteNBPML(string NBPMLDocument) // Check if the NBPML document has all required sections
         {
             bool isComplete = Regex.Matches(NBPMLDocument, @"<NeoBleeperProjectFile>").Count == 1 &&
@@ -1453,6 +1735,19 @@ namespace NeoBleeper
                               Regex.Matches(NBPMLDocument, @"</LineList>").Count == 1;
             return isComplete; // Return true if all required sections are present
         }
+
+        /// <summary>
+        /// Normalizes and corrects parameter tag names and formatting in the provided XML content according to the
+        /// expected schema.
+        /// </summary>
+        /// <remarks>This method standardizes tag names and corrects common structural issues in XML
+        /// content related to NeoBleeper project files. It is intended for use when importing or processing XML that
+        /// may not conform to the required tag naming conventions or structure. The method does not validate the
+        /// semantic correctness of the XML beyond tag normalization.</remarks>
+        /// <param name="xmlContent">The XML string to process. May contain parameter tags with inconsistent casing, formatting, or invalid tag
+        /// structures. Cannot be null or empty.</param>
+        /// <returns>A string containing the XML content with parameter tag names and formatting corrected. Returns an empty
+        /// string if the input is null or empty.</returns>
         private string FixParameterNames(string xmlContent)
         {
             if (string.IsNullOrEmpty(xmlContent))
@@ -1585,6 +1880,18 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
             return xmlContent;
         }
+
+        /// <summary>
+        /// Normalizes and synchronizes the <Length> elements and attributes within the provided NeoBleeper project XML
+        /// content.
+        /// </summary>
+        /// <remarks>This method corrects common structural issues in NeoBleeper project XML, such as
+        /// duplicate or mismatched tags, and ensures that each <Line> element with a Length attribute also contains a
+        /// corresponding <Length> child element with the same value. The output is suitable for further XML processing
+        /// or validation.</remarks>
+        /// <param name="xmlContent">The XML string representing a NeoBleeper project file to be processed. Cannot be null or empty.</param>
+        /// <returns>A string containing the normalized XML with consistent <Length> elements and attributes. Returns an empty
+        /// string if the input is null or empty.</returns>
         private string SynchronizeLengths(string xmlContent)
         {
             if (string.IsNullOrEmpty(xmlContent))
@@ -1686,6 +1993,15 @@ namespace NeoBleeper
                 return stringWriter.ToString();
             }
         }
+
+        /// <summary>
+        /// Enables or disables user interface controls and displays a loading indicator based on the specified state.
+        /// </summary>
+        /// <remarks>When controls are disabled, a loading indicator is shown and the window size is
+        /// adjusted to indicate a loading state. Certain controls, such as status labels and the loading indicator
+        /// itself, are not affected by the enabled state.</remarks>
+        /// <param name="enabled">true to enable controls and hide the loading indicator; false to disable controls and show the loading
+        /// indicator.</param>
         private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)
         {
             pictureBoxCreating.Visible = !enabled;
@@ -1719,6 +2035,12 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Stops the ongoing connection check operation and cancels any associated tasks.
+        /// </summary>
+        /// <remarks>Call this method to halt periodic connection checks and release related resources.
+        /// After calling this method, connection monitoring will be suspended until restarted.</remarks>
         private void StopConnectionCheck() // Stop the connection check timer and cancel the task
         {
             connectionCheckTimer.Stop(); // Stop the timer
@@ -1782,11 +2104,23 @@ namespace NeoBleeper
                 }
             }
         }
+        /// <summary>
+        /// Displays an error message indicating that no internet connection is available.
+        /// </summary>
+        /// <remarks>This method logs an error and shows a message dialog to inform the user about the
+        /// lack of internet connectivity. It is intended to be called when network access is required but not
+        /// available.</remarks>
         private void ShowNoInternetMessage()
         {
             Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
             MessageForm.Show(Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        /// <summary>
+        /// Displays an error message indicating that the Google Gemini server is unavailable.
+        /// </summary>
+        /// <remarks>This method logs the server down event and presents a user-facing error dialog. It is
+        /// intended to inform users of connectivity issues with the Google Gemini server.</remarks>
         private void ShowServerDownMessage()
         {
             Logger.Log("Google Gemini server is not reachable. Please try again later.", Logger.LogTypes.Error);
@@ -1811,6 +2145,18 @@ namespace NeoBleeper
         {
             listAndSelectAIModels(); // List and select AI models when the form is shown
         }
+
+        /// <summary>
+        /// Returns a localized error title and message corresponding to a given API exception message.
+        /// </summary>
+        /// <remarks>This method maps known API error codes and keywords found in the exception message to
+        /// user-friendly, localized error titles and messages. It is intended to provide meaningful feedback to end
+        /// users based on API error responses. If the exception message does not match any recognized pattern, a
+        /// generic error message is provided.</remarks>
+        /// <param name="exceptionMessage">The exception message received from the API. This message is analyzed to determine the appropriate localized
+        /// error information. Cannot be null.</param>
+        /// <returns>A tuple containing the localized error title and message. If the exception message does not match a known
+        /// error pattern, a generic error title and message are returned.</returns>
         private (string title, string message) GetLocalizedAPIErrorTitleAndMessage(string exceptionMessage)
         {
             // 400 - Bad Request
@@ -1832,6 +2178,8 @@ namespace NeoBleeper
             // 404 - Not Found
             if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
                 return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for NOT_FOUND
+            if (exceptionMessage.Contains("(Code: 408)") || exceptionMessage.Contains("REQUEST_TIMEOUT"))
+                return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT     
             // 409 - Aborted/Already Exists
             if (exceptionMessage.Contains("(Code: 409)"))
             {   
@@ -1874,7 +2222,37 @@ namespace NeoBleeper
             // 504 - Deadline Exceeded
             if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
                 return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED
-            // Generic title and message
+            if (exceptionMessage.Contains("Response status code does not indicate success:")) // Generic HTTP status code check for new variant of Google Gemini™ API error messages
+            {
+                if (exceptionMessage.Contains("400") || exceptionMessage.Contains("(Bad Request)"))
+                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for INVALID_ARGUMENT
+                if (exceptionMessage.Contains("401") || exceptionMessage.Contains("(Unauthorized)"))
+                    return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated); // Localized message for UNAUTHENTICATED
+                if (exceptionMessage.Contains("403") || exceptionMessage.Contains("(Forbidden)"))
+                    return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for PERMISSION_DENIED
+                if (exceptionMessage.Contains("404") || exceptionMessage.Contains("(Not Found)"))
+                    return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for Not Found
+                if (exceptionMessage.Contains("408") || exceptionMessage.Contains("(Request Timeout)"))
+                    return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT    
+                if (exceptionMessage.Contains("409") || exceptionMessage.Contains("(Conflict)"))
+                    return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
+                if (exceptionMessage.Contains("413") || exceptionMessage.Contains("(Payload Too Large)"))
+                    return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge); // Localized message for REQUEST_TOO_LARGE
+                if (exceptionMessage.Contains("423") || exceptionMessage.Contains("(Locked)"))
+                    return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
+                if (exceptionMessage.Contains("429") || exceptionMessage.Contains("(Too Many Requests)"))
+                    return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
+                if( exceptionMessage.Contains("499") || exceptionMessage.Contains("(Client Closed Request)"))
+                    return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
+                if (exceptionMessage.Contains("500") || exceptionMessage.Contains("(Internal Server Error)"))
+                    return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
+                if (exceptionMessage.Contains("502") || exceptionMessage.Contains("(Bad Gateway)"))
+                    return (Resources.TitleBadGateway, Resources.MessageBadGateway); // Localized message for Bad Gateway
+                if (exceptionMessage.Contains("503") || exceptionMessage.Contains("(Service Unavailable)"))
+                    return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for UNAVAILABLE
+                if (exceptionMessage.Contains("504") || exceptionMessage.Contains("(Gateway Timeout)"))
+                    return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED                                                          // Generic title and message
+            }
             return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error title and message
         }
     }

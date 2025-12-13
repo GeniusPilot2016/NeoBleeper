@@ -40,6 +40,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the control's appearance to match the selected theme. If the
+        /// theme is set to follow the system, the method detects the system's light or dark mode and applies the
+        /// corresponding theme. The method also enables double buffering to improve rendering performance and forces a
+        /// UI update to ensure changes take effect immediately.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates

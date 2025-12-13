@@ -55,19 +55,13 @@ namespace NeoBleeper
             }
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_SETTINGCHANGE = 0x001A;
-            base.WndProc(ref m);
-
-            if (m.Msg == WM_SETTINGCHANGE)
-            {
-                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
-                {
-                    SetTheme();
-                }
-            }
-        }
+        /// <summary>
+        /// Applies the current application theme to the form based on user or system preferences.
+        /// </summary>
+        /// <remarks>This method selects and applies a light or dark theme according to the application's
+        /// theme settings. If the theme is set to follow the system, the method detects the system's current theme and
+        /// applies the corresponding style. The method also ensures that UI updates are performed efficiently and that
+        /// the form is refreshed to reflect the new theme.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -131,8 +125,21 @@ namespace NeoBleeper
             Toast.ShowToast(this, Resources.MessageConvertedBeepCommandCopied, 2000);
         }
 
+
         StringBuilder beepCommandBuilder = new StringBuilder();
         int elapsedElementTime = 0; // Equivalent of Stopwatch.ElapsedMilliseconds for text based timing
+
+        /// <summary>
+        /// Parses a music project string and generates a formatted beep command sequence representing the extracted
+        /// notes.
+        /// </summary>
+        /// <remarks>The returned beep command sequence encodes the timing and pitch information for each
+        /// note as specified in the input music project. The method applies default values for certain settings if they
+        /// are missing from the input. The output can be used as input to a beep-compatible audio tool or command-line
+        /// utility.</remarks>
+        /// <param name="musicString">A string containing the serialized music project data to parse for note extraction. Cannot be null.</param>
+        /// <returns>A string containing the formatted beep command sequence for the extracted notes. Returns an empty string if
+        /// no notes are found or if the input is invalid.</returns>
         private String ExtractNotes(string musicString)
         {
             List<NoteInfo> notes = new List<NoteInfo>();
@@ -202,7 +209,7 @@ namespace NeoBleeper
                 if (silence > 0)
                 {
                     // Pass endOfLine so that last element doesn't get a trailing -n
-                    beepCommandBuilder.Append(createDelay(silence, endOfLine).duration);
+                    beepCommandBuilder.Append(CreateDelay(silence, endOfLine).duration);
                 }
 
             }
@@ -210,8 +217,28 @@ namespace NeoBleeper
             string trimmedOutput = rawOutput.TrimEnd();
             return trimmedOutput;
         }
+
+        /// <summary>
+        /// Inserts one or more musical notes into the beep command sequence, specifying which notes to play, their
+        /// order, and duration.
+        /// </summary>
+        /// <remarks>The order and alternation of notes depend on the current playback mode. Only notes
+        /// marked to be played and with non-empty names are included. If no notes are selected, a delay of the
+        /// specified length is inserted instead.</remarks>
+        /// <param name="note1">The name of the first note to include in the sequence. Can be null or empty if not used.</param>
+        /// <param name="note2">The name of the second note to include in the sequence. Can be null or empty if not used.</param>
+        /// <param name="note3">The name of the third note to include in the sequence. Can be null or empty if not used.</param>
+        /// <param name="note4">The name of the fourth note to include in the sequence. Can be null or empty if not used.</param>
+        /// <param name="playNote1">true to play the note specified by note1; otherwise, false.</param>
+        /// <param name="playNote2">true to play the note specified by note2; otherwise, false.</param>
+        /// <param name="playNote3">true to play the note specified by note3; otherwise, false.</param>
+        /// <param name="playNote4">true to play the note specified by note4; otherwise, false.</param>
+        /// <param name="length">The total duration, in milliseconds, for which the notes should be played. Must be a positive integer.</param>
+        /// <param name="endOfLine">true to indicate that this is the last note or group of notes in the line; otherwise, false. The default is
+        /// false.</param>
+        /// <returns>The total elapsed time, in milliseconds, for the inserted notes or delay.</returns>
         private int insert_note_to_beep_command(String note1, String note2, String note3, String note4,
-bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool endOfLine = false) // Play note in a line
+        bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool endOfLine = false) // Play note in a line
         {
             int elapsedTime = 0;
             double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
@@ -355,7 +382,7 @@ bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool
                         }
                         else
                         {
-                            generatedBeepCommand = createDelay(remainingLength, endOfLine).duration;
+                            generatedBeepCommand = CreateDelay(remainingLength, endOfLine).duration;
                             beepCommandBuilder.Append(generatedBeepCommand + Environment.NewLine);
                             remainingLength = 0;
                             break;
@@ -370,11 +397,26 @@ bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool
             }
             else
             {
-                beepCommandBuilder.Append(createDelay(length, endOfLine).duration);
+                beepCommandBuilder.Append(CreateDelay(length, endOfLine).duration);
                 return length;
             }
             return elapsedTime;
         }
+
+        /// <summary>
+        /// Creates a command-line argument string representing a beep with the specified frequency and duration, and
+        /// calculates the total duration including any required delays.
+        /// </summary>
+        /// <remarks>If the specified frequency matches a known resonant frequency, it is incremented by 1
+        /// Hz to prevent potential playback issues. When nonStopping is false, an extra delay is added to ensure the
+        /// beep plays correctly.</remarks>
+        /// <param name="frequency">The frequency of the beep, in hertz. If the value matches a known resonant frequency, it is automatically
+        /// adjusted to avoid issues.</param>
+        /// <param name="duration">The duration of the beep, in milliseconds. Must be a non-negative integer.</param>
+        /// <param name="endOfLine">true if the beep is at the end of a line and should not be followed by a new beep; otherwise, false.</param>
+        /// <param name="nonStopping">true to omit the additional delay and stop sequence after the beep; otherwise, false. The default is false.</param>
+        /// <returns>A tuple containing the constructed command-line argument string for the beep and the total duration in
+        /// milliseconds, including any additional delay if applicable.</returns>
         private (string frequencyAndLength, int totalDuration) CreateFrequencyAndDurationDuo(int frequency, int duration, bool endOfLine, bool nonStopping = false)
         {
             if (probableResonantFrequencies.Contains(frequency))
@@ -393,7 +435,14 @@ bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool
             }
             return (result, nonStopping ? duration : duration + 5);
         }
-        private (string duration, int totalDuration) createDelay(int duration, bool endOfLine)
+
+        /// <summary>
+        /// Creates a delay command string and returns the corresponding duration information.
+        /// </summary>
+        /// <param name="duration">The length of the delay, in milliseconds. Must be a non-negative integer.</param>
+        /// <param name="endOfLine">true to indicate the delay is at the end of a line; otherwise, false to start a new beep after the delay.</param>
+        /// <returns>A tuple containing the delay command string and the total duration in milliseconds.</returns>
+        private (string duration, int totalDuration) CreateDelay(int duration, bool endOfLine)
         {
             string result = $" -f 0 -l 0 -D {duration}"; // Add delay
             if (!endOfLine)
@@ -402,6 +451,14 @@ bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool
             }
             return (result, duration);
         }
+
+        /// <summary>
+        /// Deserializes an XML representation of a NeoBleeper project file from the specified string reader.
+        /// </summary>
+        /// <param name="stringReader">A StringReader containing the XML data to deserialize. Must not be null and must contain a valid XML
+        /// representation of a NeoBleeper project file.</param>
+        /// <returns>A NeoBleeperProjectFile object deserialized from the XML data, or null if the XML does not represent a valid
+        /// NeoBleeper project file.</returns>
         private NBPMLFile.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));

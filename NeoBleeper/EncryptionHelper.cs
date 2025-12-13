@@ -23,7 +23,11 @@ public class EncryptionHelper
     private static byte[] _key;
     private static byte[] _iv;
 
-    // Add property accessors that always fetch the current values
+    /// <summary>
+    /// Gets the cryptographic key used for encryption and decryption operations.
+    /// </summary>
+    /// <remarks>The key is retrieved from application settings and is expected to be a Base64-encoded string.
+    /// Accessing this property will throw an exception if the key is not set in the configuration.</remarks>
     private static byte[] Key
     {
         get
@@ -42,6 +46,11 @@ public class EncryptionHelper
         }
     }
 
+    /// <summary>
+    /// Gets the initialization vector (IV) used for cryptographic operations.
+    /// </summary>
+    /// <remarks>The IV is retrieved from application settings as a Base64-encoded string and converted to a
+    /// byte array on first access. The value must be set in the application settings before use.</remarks>
     private static byte[] IV
     {
         get
@@ -60,8 +69,17 @@ public class EncryptionHelper
         }
     }
 
-    // Encrypts a string and returns the encrypted data as a base64-encoded string
-
+    /// <summary>
+    /// Encrypts the specified plain text string using the configured AES key and initialization vector (IV), and
+    /// returns the result as a Base64-encoded string.
+    /// </summary>
+    /// <remarks>The method uses AES encryption with the key and IV provided by the static fields. Ensure that
+    /// the key and IV are securely generated and managed. The caller is responsible for providing valid key and IV
+    /// values before calling this method.</remarks>
+    /// <param name="plainText">The plain text string to encrypt. If null or empty, the method returns an empty string.</param>
+    /// <returns>A Base64-encoded string containing the encrypted representation of the input plain text. Returns an empty string
+    /// if the input is null or empty.</returns>
+    /// <exception cref="ArgumentException">Thrown if the configured AES key is not 16, 24, or 32 bytes in length, or if the IV is not 16 bytes in length.</exception>
     public static string EncryptString(string plainText)
     {
         if (string.IsNullOrEmpty(plainText))
@@ -105,6 +123,14 @@ public class EncryptionHelper
         }
     }
 
+    /// <summary>
+    /// Decrypts the specified Base64-encoded string using the configured AES key and initialization vector (IV).
+    /// </summary>
+    /// <remarks>The method expects the AES key and IV to be set and valid before calling. If decryption fails
+    /// due to an invalid input or cryptographic error, the exception is logged and rethrown.</remarks>
+    /// <param name="cipherText">The encrypted string to decrypt, encoded in Base64. Cannot be null or empty.</param>
+    /// <returns>The decrypted plain text string. Returns an empty string if the input is null or empty.</returns>
+    /// <exception cref="ArgumentException">Thrown if the configured AES key is not 16, 24, or 32 bytes in length, or if the IV is not 16 bytes.</exception>
     public static string DecryptString(string cipherText)
     {
         if (string.IsNullOrEmpty(cipherText))
@@ -145,6 +171,14 @@ public class EncryptionHelper
         }
     }
 
+    /// <summary>
+    /// Generates and stores a new encryption key and initialization vector (IV) for AES encryption in the application
+    /// settings.
+    /// </summary>
+    /// <remarks>Call this method to rotate the application's encryption key and IV. After calling this
+    /// method, any data encrypted with the previous key and IV will no longer be decryptable unless the old values are
+    /// preserved elsewhere. This operation updates the stored key and IV and resets any cached values to ensure the new
+    /// credentials are used in subsequent cryptographic operations.</remarks>
     public static void ChangeKeyAndIV()
     {
         try

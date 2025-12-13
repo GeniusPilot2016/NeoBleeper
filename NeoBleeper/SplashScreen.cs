@@ -16,6 +16,15 @@ namespace NeoBleeper
             AddShadowToBackOfForm();
             RoundCornersOfForm();
         }
+        /// <summary>
+        /// Updates the status message and progress indicator for the operation.
+        /// </summary>
+        /// <remarks>If called from a thread other than the UI thread, this method marshals the update to
+        /// the UI thread. The method ensures the UI remains responsive during status updates.</remarks>
+        /// <param name="status">The status message to display to the user. Cannot be null.</param>
+        /// <param name="percent">The amount, as a percentage, to increment the progress indicator. Must be between 0 and 100. Defaults to 0.</param>
+        /// <param name="completed">A value indicating whether the operation is complete. If <see langword="true"/>, the progress indicator is
+        /// set to 100%. Defaults to <see langword="false"/>.</param>
         public void UpdateStatus(string status, int percent = 0, bool completed = false)
         {
             if (!this.IsHandleCreated || this.IsDisposed || willTerminated) return;
@@ -46,6 +55,16 @@ namespace NeoBleeper
             ResponsiveWait(1000);
             this.completed = completed;
         }
+
+        /// <summary>
+        /// Processes Windows messages and waits for the specified number of milliseconds, allowing the application to
+        /// remain responsive during the wait period.
+        /// </summary>
+        /// <remarks>This method keeps the application's UI responsive by processing pending Windows
+        /// messages during the wait. It is typically used in Windows Forms applications to avoid freezing the UI thread
+        /// during short waits. Avoid using this method for long waits or in performance-critical code, as it may impact
+        /// application responsiveness and CPU usage.</remarks>
+        /// <param name="milliseconds">The number of milliseconds to wait. Must be non-negative.</param>
         public void ResponsiveWait(int milliseconds)
         {
             var sw = Stopwatch.StartNew();
@@ -140,6 +159,10 @@ namespace NeoBleeper
         {
             StopDragging();
         }
+
+        /// <summary>
+        /// Ends the current drag operation and resets the dragging state.
+        /// </summary>
         private void StopDragging()
         {
             isDragging = false;
@@ -186,12 +209,25 @@ namespace NeoBleeper
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int SetClassLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
+        /// <summary>
+        /// Adds a drop shadow effect to the back of the form window.
+        /// </summary>
+        /// <remarks>This method modifies the window class style to enable a shadow behind the form. The
+        /// effect may not be supported on all Windows versions or with certain window styles. Call this method after
+        /// the form handle has been created.</remarks>
         private void AddShadowToBackOfForm()
         {
             int classStyle = GetClassLong(this.Handle, GCL_STYLE);
             classStyle |= CS_DROPSHADOW;
             SetClassLong(this.Handle, GCL_STYLE, classStyle);
         }
+
+        /// <summary>
+        /// Removes the drop shadow effect from the form's window.
+        /// </summary>
+        /// <remarks>This method modifies the window class style to disable the drop shadow typically
+        /// rendered behind the form. Use this method when you need to remove visual shadow effects, such as for custom
+        /// window rendering or to comply with specific UI requirements.</remarks>
         private void RemoveShadowFromBackOfForm()
         {
             int classStyle = GetClassLong(this.Handle, GCL_STYLE);

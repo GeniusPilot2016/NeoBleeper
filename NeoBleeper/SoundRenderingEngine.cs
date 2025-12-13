@@ -39,6 +39,17 @@ namespace NeoBleeper
             static systemStorageType StorageType = systemStorageType.HDD; // Default to HDD to prevent resonance issues, should be set by the main program based on actual storage device
             static int storageRPM = 5400; // Default RPM for HDD, should be set by the main program based on actual storage device
             static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
+            
+            /// <summary>
+            /// Detects the system's primary storage type and configures related settings to prevent resonance issues
+            /// during operation.
+            /// </summary>
+            /// <remarks>This method examines the connected storage devices to determine whether the
+            /// system uses NVMe, SSD, HDD, or another storage type. Based on the detected type, it sets internal
+            /// parameters such as resonance frequency and storage type, which may affect hardware-related features. On
+            /// ARM64 architectures, storage type detection is skipped because system speaker access is not supported.
+            /// If detection fails or the storage type is unknown, the method applies conservative settings to minimize
+            /// potential resonance issues.</remarks>
             public static void SpecifyStorageType()
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -103,6 +114,14 @@ namespace NeoBleeper
                     Logger.Log("Storage type specification skipped on ARM64 architecture due to ARM64 doesn't support system speaker access.", Logger.LogTypes.Info);
                 }
             }
+
+            /// <summary>
+            /// Specifies the types of storage devices recognized by the system.
+            /// </summary>
+            /// <remarks>Use this enumeration to identify the storage device type when handling
+            /// operations that may be affected by device characteristics, such as susceptibility to resonance or
+            /// performance differences. Certain storage types, such as HDDs, may be more vulnerable to physical
+            /// resonance effects compared to SSDs or NVMe devices.</remarks>
             public enum systemStorageType // Enum for different types of storage devices to prevent critical crashes by preventing resonance frequencies on certain devices because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
                                           // Fun fact: Janet Jackson's "Rhythm Nation" has a bass frequency of 50 Hz, which can cause resonance in HDDs and lead to crashes
             {
@@ -114,6 +133,7 @@ namespace NeoBleeper
             static SystemSpeakerBeepEngine()
             {
                 // Safe stop to avoid stuck beeps on exit or crash
+
                 void SafeStop()
                 {
                     try
@@ -144,6 +164,19 @@ namespace NeoBleeper
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
             extern static char Inp32(short PortAddress);
+
+            /// <summary>
+            /// Generates a beep sound using the system speaker at the specified frequency and duration.
+            /// </summary>
+            /// <remarks>On devices with ARM64 architecture, the system speaker is not supported and
+            /// no sound will be produced, but the method will still wait for the specified duration. On other
+            /// platforms, certain frequencies may be shifted to prevent potential hardware issues with specific storage
+            /// devices.</remarks>
+            /// <param name="freq">The frequency of the beep, in hertz. Must be a positive integer. Certain frequencies may be adjusted
+            /// internally to avoid hardware resonance issues.</param>
+            /// <param name="ms">The duration of the beep, in milliseconds. Must be a non-negative integer.</param>
+            /// <param name="nonStopping">If set to <see langword="true"/>, the beep will continue after the specified duration until stopped by
+            /// other means; otherwise, the beep stops automatically after the duration elapses.</param>
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -179,6 +212,13 @@ namespace NeoBleeper
                     // But at least it can run NeoBleeper without crashing, right? :)
                 }
             }
+
+            /// <summary>
+            /// Stops the system speaker (PC speaker) from producing a beep sound, if supported by the current platform.
+            /// </summary>
+            /// <remarks>On platforms where the system speaker is not present or not supported (such
+            /// as most ARM64-based devices), this method performs no operation. This method has no effect if the system
+            /// speaker is already silent.</remarks>
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
                 if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
@@ -188,6 +228,14 @@ namespace NeoBleeper
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
             }
+
+            /// <summary>
+            /// Stops the system speaker beep if it is currently active or stuck.
+            /// </summary>
+            /// <remarks>This method checks whether the system speaker beep is in a stuck state and
+            /// attempts to stop it if necessary. Any exceptions that occur during this process are suppressed. This
+            /// method is typically used to ensure that unwanted or continuous beeping is silenced in scenarios where
+            /// the system speaker may not stop beeping automatically.</remarks>
             public static void StopBeepIfNeeded()
             {
                 try
@@ -202,6 +250,15 @@ namespace NeoBleeper
                     return;
                 }
             }
+
+            /// <summary>
+            /// Determines whether the system speaker is currently emitting a continuous beep, indicating it may be
+            /// stuck in the 'on' state.
+            /// </summary>
+            /// <remarks>On ARM64 devices, such as most Copilot+ devices, system speaker access is not
+            /// supported and this method always returns false. If an error occurs while checking the speaker status,
+            /// the method also returns false.</remarks>
+            /// <returns>true if the system speaker is detected to be continuously beeping; otherwise, false.</returns>
             public static bool IsSystemSpeakerBeepStuck()
             {
                 try
@@ -221,6 +278,17 @@ namespace NeoBleeper
             }
             private const int ULTRASONIC_FREQ = 30000; // 30 kHz - Inaudible frequency to users but can still cause electrical feedback if the speaker is functional
             private const int PIT_BASE_FREQ = 1193180;
+
+            /// <summary>
+            /// Enables the PC speaker to emit an ultrasonic frequency by configuring the programmable interval timer
+            /// (PIT) and updating the speaker control port.
+            /// </summary>
+            /// <remarks>This method is intended for low-level hardware control and should be used
+            /// only in environments where direct access to hardware ports is permitted. The method temporarily modifies
+            /// the speaker control port to enable ultrasonic output and may not be supported on all hardware or
+            /// operating systems.</remarks>
+            /// <param name="originalState">The original value of the speaker control port (I/O port 0x61) to preserve and restore non-related bits
+            /// during speaker activation.</param>
             private static void UltraSoftEnableSpeaker(byte originalState)
             {
                 // Configure PIT channel 2 for the ultrasonic frequency
@@ -239,6 +307,14 @@ namespace NeoBleeper
                 Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
             }
 
+            /// <summary>
+            /// Disables the system speaker by restoring the specified original port state.
+            /// </summary>
+            /// <remarks>This method is intended for low-level hardware control and should only be
+            /// used in trusted contexts where direct port access is permitted. Incorrect usage may affect system audio
+            /// behavior.</remarks>
+            /// <param name="originalState">The original value of the port state to restore after disabling the speaker. Typically obtained prior to
+            /// any modifications.</param>
             private static void UltraSoftDisableSpeaker(byte originalState)
             {
                 // Close speaker data (bit 1) first
@@ -250,6 +326,14 @@ namespace NeoBleeper
                 Program.splashScreen.ResponsiveWait(10);
             }
 
+            /// <summary>
+            /// Checks whether electrical feedback is present and responsive on the designated hardware port.
+            /// </summary>
+            /// <remarks>This method performs a series of hardware port reads and writes to determine
+            /// if the electrical feedback mechanism is functioning correctly. It is intended for use in environments
+            /// where direct hardware access is available. If an error occurs during the check, the method returns
+            /// false.</remarks>
+            /// <returns>true if electrical feedback is detected and the port responds as expected; otherwise, false.</returns>
             public static bool CheckElectricalFeedbackOnPort()
             {
                 try
@@ -296,6 +380,15 @@ namespace NeoBleeper
                 }
             }
 
+            /// <summary>
+            /// Checks whether the state of the hardware port at address 0x61 is stable and responsive by sampling its
+            /// value and analyzing bit transitions.
+            /// </summary>
+            /// <remarks>This method is typically used to verify that the hardware port is functioning
+            /// correctly before performing further operations that depend on its responsiveness. If an error occurs
+            /// during the check, the method returns false.</remarks>
+            /// <returns>true if the port's bit 5 shows sufficient variation and transitions during sampling, indicating a stable
+            /// and responsive state; otherwise, false.</returns>
             public static bool CheckPortStateStability()
             {
                 try
@@ -338,6 +431,17 @@ namespace NeoBleeper
                     return false;
                 }
             }
+
+            /// <summary>
+            /// Performs a diagnostic test to verify whether high-frequency signals can be generated and detected using
+            /// the system's programmable interval timer and speaker circuitry.
+            /// </summary>
+            /// <remarks>This test is intended to run silently by using only high frequencies that are
+            /// typically inaudible to users. It is useful for determining whether the system's hardware supports
+            /// frequency generation and detection at the specified ranges. The method restores the original hardware
+            /// state after the test completes.</remarks>
+            /// <returns>true if at least one of the tested high frequencies is successfully generated and detected; otherwise,
+            /// false.</returns>
             public static bool AdvancedFrequencySweepTest()
             {
                 try
@@ -408,6 +512,15 @@ namespace NeoBleeper
             }
             private static readonly Mutex SystemSpeakerMutex = new Mutex(false, "Global\\NeoBleeperSystemSpeakerMutex"); // Mutex to prevent concurrent access to system speaker checks
 
+            /// <summary>
+            /// Determines whether the system speaker is functional based on a series of hardware checks.
+            /// </summary>
+            /// <remarks>This method attempts to acquire a mutex before performing hardware checks to
+            /// ensure thread safety. If the mutex cannot be acquired within the timeout period, the method returns
+            /// false. The checks performed may include electrical feedback validation, port state stability, and a
+            /// frequency sweep test. This method is intended for internal use when verifying system speaker
+            /// functionality.</remarks>
+            /// <returns>true if at least one of the system speaker validation checks passes; otherwise, false.</returns>
             private static bool IsFunctionalSystemSpeaker()
             {
                 bool acquired = false;
@@ -436,6 +549,14 @@ namespace NeoBleeper
                     }
                 }
             }
+
+            /// <summary>
+            /// Determines whether a system speaker (PC speaker) is present and accessible on the current device.
+            /// </summary>
+            /// <remarks>On devices where a system speaker is not present or cannot be detected, the
+            /// application will fall back to using the sound card for beep functionality. System speaker detection is
+            /// not supported on ARM64 architectures; in such cases, this method always returns false.</remarks>
+            /// <returns>true if a system speaker is detected and can be accessed; otherwise, false.</returns>
             public static bool IsSystemSpeakerExist()
             {
                 // No system speaker, no problem.
@@ -486,12 +607,28 @@ namespace NeoBleeper
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
+
+            /// <summary>
+            /// Specifies the manufacturer of a processor.
+            /// </summary>
+            /// <remarks>Use this enumeration to identify the vendor of a processor, such as Intel or
+            /// AMD. The value 'Other' represents manufacturers not explicitly listed.</remarks>
             enum ProcessorManufacturer // Enum for known processor manufacturers
             {
                 Intel,
                 AMD,
                 Other
             }
+
+            /// <summary>
+            /// Determines whether the current system's chipset is known to be affected by system speaker issues that
+            /// may cause incorrect or degraded beep sounds.
+            /// </summary>
+            /// <remarks>This method checks for specific Intel and AMD chipset patterns that have been
+            /// reported to exhibit system speaker problems, such as distorted or incomplete beeps. The check is not
+            /// performed on ARM64 devices, which typically do not support system speaker access. If an error occurs
+            /// during detection, the method returns false and assumes the chipset is not affected.</remarks>
+            /// <returns>true if the chipset is identified as affected by known system speaker issues; otherwise, false.</returns>
             public static bool CheckIfChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
@@ -597,6 +734,15 @@ namespace NeoBleeper
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
             }
+
+            /// <summary>
+            /// Attempts to restore functionality of the system speaker on affected chipsets by simulating a sleep and
+            /// wake-up sequence.
+            /// </summary>
+            /// <remarks>This method is intended for use on non-ARM64 systems where the system speaker
+            /// may become unresponsive due to known hardware issues. It has no effect on systems that are not affected.
+            /// The method is thread-safe and will not block indefinitely if the speaker is currently being reset by
+            /// another process.</remarks>
             public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -672,6 +818,14 @@ namespace NeoBleeper
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
                 waveOut.Init(signalGenerator);
             }
+
+            /// <summary>
+            /// Determines whether any enabled sound device is present on the system.
+            /// </summary>
+            /// <remarks>This method checks for sound devices that are both present and enabled, using
+            /// system management queries. It may return false if no enabled sound devices are found or if an error
+            /// occurs while accessing device information.</remarks>
+            /// <returns>true if at least one enabled sound device is detected; otherwise, false.</returns>
             public static bool CheckIfAnySoundDeviceExistAndEnabled()
             {
                 using (var enumerator = new MMDeviceEnumerator())
@@ -693,6 +847,13 @@ namespace NeoBleeper
                     }
                 }
             }
+
+            /// <summary>
+            /// Sets the current audio sample provider for playback.
+            /// </summary>
+            /// <remarks>If the specified provider differs from the current provider, playback is
+            /// stopped and reinitialized with the new provider. This method is thread-safe.</remarks>
+            /// <param name="provider">The audio sample provider to use for playback. Cannot be null.</param>
             private static void SetCurrentProvider(ISampleProvider provider)
             {
                 lock (AudioLock)
@@ -709,6 +870,17 @@ namespace NeoBleeper
                 }
             }
 
+            /// <summary>
+            /// Plays a sound for the specified duration, with optional control over whether playback is stopped
+            /// automatically.
+            /// </summary>
+            /// <remarks>This method is thread-safe. If called while audio is already playing, it will
+            /// not restart playback. When <paramref name="nonStopping"/> is <see langword="false"/>, playback is
+            /// stopped after the specified duration; otherwise, the caller is responsible for stopping
+            /// playback.</remarks>
+            /// <param name="ms">The duration, in milliseconds, to play the sound. Specify 0 to play without a timed stop.</param>
+            /// <param name="nonStopping">If <see langword="true"/>, the sound continues playing after the method returns; otherwise, playback is
+            /// stopped automatically after the specified duration.</param>
             private static void PlaySound(int ms, bool nonStopping)
             {
                 lock (AudioLock)
@@ -737,6 +909,14 @@ namespace NeoBleeper
                 }
             }
 
+            /// <summary>
+            /// Determines whether all audio wave outputs are currently muted based on the active audio provider's gain
+            /// settings.
+            /// </summary>
+            /// <remarks>This method checks the gain of the current audio provider to determine if
+            /// audio output is effectively muted. If no provider is active, the method considers the output
+            /// muted.</remarks>
+            /// <returns>true if the active audio provider's gain is zero or if no provider is active; otherwise, false.</returns>
             public static bool AreWavesMutedEarly() 
             {                 
                 lock (AudioLock)
@@ -752,6 +932,12 @@ namespace NeoBleeper
                     return true; // If no provider is active, consider it muted
                 }
             }
+
+            /// <summary>
+            /// Stops audio synthesis by muting the currently active audio provider, if any.
+            /// </summary>
+            /// <remarks>This method is thread-safe and can be called at any time to immediately
+            /// silence audio output. It has no effect if no audio provider is currently active.</remarks>
             public static void StopSynth()
             {
                 lock (AudioLock)
@@ -766,6 +952,15 @@ namespace NeoBleeper
                     }
                 }
             }
+
+            /// <summary>
+            /// Plays a synthesized audio wave of the specified type, frequency, and duration.
+            /// </summary>
+            /// <param name="type">The type of waveform to generate for the audio signal.</param>
+            /// <param name="freq">The frequency of the wave, in hertz. Must be a positive integer.</param>
+            /// <param name="ms">The duration of the sound to play, in milliseconds. Must be greater than zero.</param>
+            /// <param name="nonStopping">If set to <see langword="true"/>, the sound will play without interrupting any currently playing sound;
+            /// otherwise, it may interrupt ongoing playback.</param>
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
                 lock (AudioLock)
@@ -783,6 +978,15 @@ namespace NeoBleeper
                 }
                 PlaySound(ms, nonStopping);
             }
+
+            /// <summary>
+            /// Plays a band-pass filtered noise sound at the specified center frequency for a given duration.
+            /// </summary>
+            /// <param name="freq">The center frequency, in hertz, of the band-pass filter to apply to the noise. Must be a positive
+            /// integer.</param>
+            /// <param name="ms">The duration, in milliseconds, for which the filtered noise will be played. Must be greater than zero.</param>
+            /// <param name="nonStopping">If set to <see langword="true"/>, the sound will not be interrupted by other playback requests;
+            /// otherwise, it may be stopped by subsequent calls.</param>
 
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
@@ -809,21 +1013,49 @@ namespace NeoBleeper
                 PlaySound(ms, nonStopping);
             }
 
+            /// <summary>
+            /// Plays a square wave tone with the specified frequency and duration.
+            /// </summary>
+            /// <param name="freq">The frequency of the square wave, in hertz. Must be a positive integer.</param>
+            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
+            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
+            /// currently playing tone before starting the new one.</param>
             public static void SquareWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Square, freq, ms, nonStopping);
             }
 
+            /// <summary>
+            /// Plays a sine wave tone with the specified frequency and duration.
+            /// </summary>
+            /// <param name="freq">The frequency of the sine wave, in hertz. Must be a positive integer.</param>
+            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
+            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
+            /// currently playing tone before starting the new one.</param>
             public static void SineWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Sin, freq, ms, nonStopping);
             }
 
+            /// <summary>
+            /// Plays a triangle wave tone with the specified frequency and duration.
+            /// </summary>
+            /// <param name="freq">The frequency of the triangle wave, in hertz. Must be a positive integer.</param>
+            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
+            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
+            /// currently playing tone before starting the new one.</param>
             public static void TriangleWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Triangle, freq, ms, nonStopping);
             }
 
+            /// <summary>
+            /// Plays a noise with the specified frequency and duration.
+            /// </summary>
+            /// <param name="freq">The frequency of the noise, in hertz. Must be a positive integer.</param>
+            /// <param name="ms">The duration of the noise, in milliseconds. Must be a non-negative integer.</param>
+            /// <param name="nonStopping">true to allow overlapping noises to play without stopping previous ones; otherwise, false to stop any
+            /// currently playing tone before starting the new one.</param>
             public static void Noise(int freq, int ms, bool nonStopping)
             {
                 PlayFilteredNoise(freq, ms, nonStopping);
@@ -842,6 +1074,20 @@ namespace NeoBleeper
 
             public WaveFormat WaveFormat => noiseGenerator.WaveFormat;
 
+            /// <summary>
+            /// Reads a sequence of band-pass filtered noise samples into the specified buffer.
+            /// </summary>
+            /// <remarks>Each sample written to the buffer is processed through a band-pass filter
+            /// before being stored. The method does not clear the buffer; only the written elements are
+            /// modified.</remarks>
+            /// <param name="buffer">The array of single-precision floating-point values that receives the filtered samples. Must not be
+            /// null.</param>
+            /// <param name="offset">The zero-based index in the buffer at which to begin storing the samples. Must be non-negative and less
+            /// than the length of the buffer.</param>
+            /// <param name="count">The maximum number of samples to read. Must be non-negative and the sum of offset and count must not
+            /// exceed the length of the buffer.</param>
+            /// <returns>The total number of samples read into the buffer. This value may be less than the requested count if the
+            /// end of the data is reached.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
                 int samplesRead = noiseGenerator.Read(buffer, offset, count);
@@ -853,6 +1099,13 @@ namespace NeoBleeper
             }
 
             // Update the center frequency dynamically  
+
+            /// <summary>
+            /// Updates the center frequency and reconfigures the band-pass filter with the specified parameters.
+            /// </summary>
+            /// <param name="newFrequency">The new center frequency, in hertz, to set for the band-pass filter.</param>
+            /// <param name="sampleRate">The sample rate, in hertz, used to configure the filter. Must be greater than zero.</param>
+            /// <param name="bandwidth">The bandwidth, in hertz, for the band-pass filter. Must be greater than zero.</param>
             public void UpdateFrequency(float newFrequency, int sampleRate, float bandwidth)
             {
                 bandPassFilter = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, newFrequency, bandwidth);
@@ -874,15 +1127,41 @@ namespace NeoBleeper
                 this.filter = filter;
                 this.gain = gain;
             }
+
+            /// <summary>
+            /// Sets the gain value to the specified amount.
+            /// </summary>
+            /// <param name="newGain">The new gain value to set.</param>
             public void UpdateGain(double newGain)
             {
                 gain = newGain;
             }
             public WaveFormat WaveFormat => source.WaveFormat;
+
+            /// <summary>
+            /// Replaces the current filter with the specified BiQuad filter.
+            /// </summary>
+            /// <param name="newFilter">The new BiQuadFilter instance to use. Cannot be null.</param>
             public void UpdateFilter(BiQuadFilter newFilter)
             {
                 filter = newFilter;
             }
+
+            /// <summary>
+            /// Reads a sequence of samples from the source, applies filtering and gain adjustment, and writes the
+            /// results to the specified buffer.
+            /// </summary>
+            /// <remarks>Each sample read from the source is processed through the filter and
+            /// multiplied by the current gain before being written to the buffer. The method does not modify the
+            /// contents of the buffer outside the specified range.</remarks>
+            /// <param name="buffer">The array of floats that receives the filtered and gain-adjusted samples. Must not be null and must have
+            /// sufficient space to accommodate the requested number of samples starting at the specified offset.</param>
+            /// <param name="offset">The zero-based index in the buffer at which to begin storing the samples. Must be non-negative and less
+            /// than the length of the buffer.</param>
+            /// <param name="count">The maximum number of samples to read and process. Must be non-negative and the range defined by offset
+            /// and count must not exceed the length of the buffer.</param>
+            /// <returns>The number of samples read and written to the buffer. This value may be less than the requested count if
+            /// the end of the source is reached.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
                 int samplesRead = source.Read(buffer, offset, count);
@@ -916,6 +1195,20 @@ namespace NeoBleeper
                 position = 0;
             }
             public WaveFormat WaveFormat => cached.WaveFormat;
+
+            /// <summary>
+            /// Reads a sequence of audio samples from the current position into the specified buffer.
+            /// </summary>
+            /// <remarks>If looping is enabled, reading continues from the beginning of the audio data
+            /// when the end is reached, until the requested number of samples is read or the buffer is filled. If
+            /// looping is disabled, reading stops at the end of the audio data and the number of samples read may be
+            /// less than requested.</remarks>
+            /// <param name="buffer">The array of floats that receives the audio samples read from the source. Must not be null.</param>
+            /// <param name="offset">The zero-based index in the buffer at which to begin storing the audio samples.</param>
+            /// <param name="count">The maximum number of audio samples to read. Must be non-negative and the range defined by offset and
+            /// count must not exceed the length of the buffer.</param>
+            /// <returns>The total number of audio samples read into the buffer. This value may be less than the number of
+            /// samples requested if the end of the audio data is reached and looping is not enabled.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
                 int written = 0;
@@ -938,7 +1231,7 @@ namespace NeoBleeper
         }
         public static class VoiceSynthesisEngine // Voice synthesis by emulating FMOD that is used in Bleeper Music Maker using NAudio
         {
-            // "Rubbish" system? At least it can synthesize voices better than nothing.
+            // "Rubbish" system? At least it can synthesize voices better than nothing. 
             private static readonly object synthLock = new();
             // Single master mixer
             private static readonly MixingSampleProvider masterMixer;
@@ -975,6 +1268,18 @@ namespace NeoBleeper
                 public RemovableSampleProvider(ISampleProvider inner) => this.inner = inner;
                 public void Remove() => removed = true;
                 public WaveFormat WaveFormat => inner.WaveFormat;
+
+                /// <summary>
+                /// Reads a sequence of samples from the current stream into the specified buffer.
+                /// </summary>
+                /// <param name="buffer">The array of floats that receives the samples read from the stream. Cannot be null.</param>
+                /// <param name="offset">The zero-based index in the buffer at which to begin storing the data read from the stream. Must be
+                /// non-negative and less than the length of the buffer.</param>
+                /// <param name="count">The maximum number of samples to read. Must be non-negative and the sum of offset and count must not
+                /// exceed the length of the buffer.</param>
+                /// <returns>The total number of samples read into the buffer. This can be less than the number of samples
+                /// requested if that many samples are not currently available, or zero if the end of the stream has
+                /// been reached.</returns>
                 public int Read(float[] buffer, int offset, int count)
                 {
                     if (removed)
@@ -985,6 +1290,13 @@ namespace NeoBleeper
                     return inner.Read(buffer, offset, count);
                 }
             }
+
+            /// <summary>
+            /// Applies the current frequency values to all active voices.
+            /// </summary>
+            /// <remarks>This method updates each voice with its corresponding cached frequency if the
+            /// voice is currently active. It is typically used to synchronize the state of all voices after frequency
+            /// values have changed.</remarks>
             public static void ApplyValues()
             {
                 int frequency = 0;
@@ -1016,6 +1328,19 @@ namespace NeoBleeper
                     }
                 }
             }
+
+            /// <summary>
+            /// Creates and configures signal generators for sine and triangle waveforms using the specified frequency
+            /// and master volume.
+            /// </summary>
+            /// <remarks>The gain for each signal generator is calculated based on the provided master
+            /// volume and internal settings. Both generators use the same sample rate and channel count as the master
+            /// mixer.</remarks>
+            /// <param name="modulatedFrequency">The frequency, in hertz, to use for both the sine and triangle signal generators. Must be a positive
+            /// value.</param>
+            /// <param name="masterVolume">The master volume level to apply to the generated signals. Must be a non-negative value.</param>
+            /// <returns>A tuple containing the configured sine and triangle signal generators. The first item is the sine
+            /// generator; the second is the triangle generator.</returns>
             private static (SignalGenerator sineSource, SignalGenerator triangleSource) CreateSignalGenerators(double modulatedFrequency, double masterVolume)
             {
                 var wf = masterMixer.WaveFormat;
@@ -1023,18 +1348,28 @@ namespace NeoBleeper
                 {
                     Type = SignalGeneratorType.Sin,
                     Frequency = modulatedFrequency,
-                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0) * 0.3
+                    Gain = masterVolume * (VoiceInternalSettings.sawVolume / 1000.0) * 0.3
                 };
 
                 SignalGenerator triangleSource = new SignalGenerator(wf.SampleRate, wf.Channels)
                 {
                     Type = SignalGeneratorType.SawTooth,
                     Frequency = modulatedFrequency,
-                    Gain = masterVolume * (VoiceInternalSettings.SawVolume / 1000.0) * 1.2
+                    Gain = masterVolume * (VoiceInternalSettings.sawVolume / 1000.0) * 1.2
                 };
 
                 return (sineSource, triangleSource);
             }
+
+            /// <summary>
+            /// Updates the frequency and filter parameters for the specified audio channel based on the provided base
+            /// frequency and current voice settings.
+            /// </summary>
+            /// <remarks>This method applies randomized pitch variation and updates formant and
+            /// low-pass filter parameters according to the current voice settings. Thread safety is ensured for channel
+            /// updates. If the specified channel does not exist, no action is taken.</remarks>
+            /// <param name="channelId">The identifier of the audio channel to update. Must correspond to an existing channel.</param>
+            /// <param name="baseFrequency">The base frequency, in hertz, used to calculate the new pitch and filter settings for the channel.</param>
             public static void ChangeValues(int channelId, int baseFrequency)
             {
                 lock (synthLock)
@@ -1043,8 +1378,8 @@ namespace NeoBleeper
                     {
                         const int sampleRate = 44100;
 
-                        double rawTimbre = TemporarySettings.VoiceInternalSettings.Timbre;
-                        double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange;
+                        double rawTimbre = TemporarySettings.VoiceInternalSettings.timbre;
+                        double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.randomizedFrequencyRange;
 
                         double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
                         double finalPitchMultiplier = (1 + rawTimbre) * 0.25;
@@ -1056,20 +1391,20 @@ namespace NeoBleeper
 
                         // Take formant frequencies and volumes
                         double[] currentFormantFreqs = new double[] {
-                VoiceInternalSettings.Formant1Frequency,
-                VoiceInternalSettings.Formant2Frequency,
-                VoiceInternalSettings.Formant3Frequency,
-                VoiceInternalSettings.Formant4Frequency
+                VoiceInternalSettings.formant1Frequency,
+                VoiceInternalSettings.formant2Frequency,
+                VoiceInternalSettings.formant3Frequency,
+                VoiceInternalSettings.formant4Frequency
             };
 
                         double[] currentFormantVols = new double[] {
-                VoiceInternalSettings.Formant1Volume / 100.0,
-                VoiceInternalSettings.Formant2Volume / 100.0,
-                VoiceInternalSettings.Formant3Volume / 100.0,
-                VoiceInternalSettings.Formant4Volume / 100.0
+                VoiceInternalSettings.formant1Volume / 100.0,
+                VoiceInternalSettings.formant2Volume / 100.0,
+                VoiceInternalSettings.formant3Volume / 100.0,
+                VoiceInternalSettings.formant4Volume / 100.0
             };
 
-                        double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 100.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
+                        double noiseToFormantScale = VoiceInternalSettings.noiseVolume / 100.0 * (VoiceInternalSettings.noiseVolume > 0 ? 1.0 : 0.0);
                         float BaseFormantQ(int bf) => bf < 2000 ? 2.0f : 1.0f;
 
                         // Update formant providers
@@ -1099,7 +1434,7 @@ namespace NeoBleeper
                         }
 
                         // Update lowpass filter
-                        var newLowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.CutoffFrequency, 1.0f);
+                        var newLowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.cutoffFrequency, 1.0f);
                         tuple.finalFiltered.UpdateFilter(newLowPass);
                     }
                 }
@@ -1112,6 +1447,18 @@ namespace NeoBleeper
             static bool voice2Playing = false;
             static bool voice3Playing = false;
             static bool voice4Playing = false;
+
+            /// <summary>
+            /// Starts audio synthesis on the specified voice channel using the given base frequency and current voice
+            /// settings.
+            /// </summary>
+            /// <remarks>This method applies the current voice synthesis settings, including timbre,
+            /// formant, and noise parameters, to the specified channel. If the channel is already active, its previous
+            /// audio is stopped and replaced. Only one voice can be active per channel at a time. This method is not
+            /// thread-safe and should be called from the main audio thread.</remarks>
+            /// <param name="channelId">The zero-based index of the voice channel to start. Valid values are 0 through 3, each corresponding to
+            /// a separate voice channel.</param>
+            /// <param name="baseFrequency">The base frequency, in hertz, to use for the synthesized voice. Must be a positive integer.</param>
             public static void StartVoice(int channelId, int baseFrequency)
             {
                 switch (channelId)
@@ -1135,8 +1482,8 @@ namespace NeoBleeper
                 }
                 const int sampleRate = 44100;
 
-                double rawTimbre = TemporarySettings.VoiceInternalSettings.Timbre;
-                double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.RandomizedFrequencyRange;
+                double rawTimbre = TemporarySettings.VoiceInternalSettings.timbre;
+                double rawRandomizedFrequencyRange = TemporarySettings.VoiceInternalSettings.randomizedFrequencyRange;
 
                 // Apply random variations
                 double randomVariation = (Random.Shared.NextDouble() - 0.5) * 2.0 * rawRandomizedFrequencyRange * 16;
@@ -1145,7 +1492,7 @@ namespace NeoBleeper
 
                 double modulatedFrequency = ((baseFrequency * finalPitchMultiplier / 4)) + randomVariation;
 
-                double masterVolume = VoiceInternalSettings.VoiceVolume / 400.0;
+                double masterVolume = VoiceInternalSettings.voiceVolume / 400.0;
 
                 var (sineSource, triangleSource) = CreateSignalGenerators(modulatedFrequency, masterVolume);
                 var mixingProvider = new MixingSampleProvider(new[] { sineSource, triangleSource });
@@ -1163,7 +1510,7 @@ namespace NeoBleeper
                 if (read < totalSamples) Array.Clear(renderBuffer, read, totalSamples - read);
                 var cachedVoiced = new CachedSound(renderBuffer, wf);
 
-                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = (masterVolume * (VoiceInternalSettings.NoiseVolume / 100.0)) / 10 };
+                SignalGenerator noiseGen = new SignalGenerator() { Type = SignalGeneratorType.White, Frequency = 0, Gain = (masterVolume * (VoiceInternalSettings.noiseVolume / 100.0)) / 10 };
                 float[] noiseBuffer = new float[totalSamples];
                 read = 0;
                 while (read < totalSamples)
@@ -1179,25 +1526,25 @@ namespace NeoBleeper
                 BiQuadFilter MakeBP(int sr, double center, float q) => BiQuadFilter.BandPassFilterConstantPeakGain(sr, (float)center, q);
 
                 double[] formantFreqs = new double[] {
-        VoiceInternalSettings.Formant1Frequency,
-        VoiceInternalSettings.Formant2Frequency,
-        VoiceInternalSettings.Formant3Frequency,
-        VoiceInternalSettings.Formant4Frequency
+        VoiceInternalSettings.formant1Frequency,
+        VoiceInternalSettings.formant2Frequency,
+        VoiceInternalSettings.formant3Frequency,
+        VoiceInternalSettings.formant4Frequency
     };
                 double[] formantVols = new double[] {
-        VoiceInternalSettings.Formant1Volume / 100.0,
-        VoiceInternalSettings.Formant2Volume / 100.0,
-        VoiceInternalSettings.Formant3Volume / 100.0,
-        VoiceInternalSettings.Formant4Volume / 100.0
+        VoiceInternalSettings.formant1Volume / 100.0,
+        VoiceInternalSettings.formant2Volume / 100.0,
+        VoiceInternalSettings.formant3Volume / 100.0,
+        VoiceInternalSettings.formant4Volume / 100.0
     };
-                double noiseToFormantScale = VoiceInternalSettings.NoiseVolume / 100.0 * (VoiceInternalSettings.NoiseVolume > 0 ? 1.0 : 0.0);
+                double noiseToFormantScale = VoiceInternalSettings.noiseVolume / 100.0 * (VoiceInternalSettings.noiseVolume > 0 ? 1.0 : 0.0);
 
-                var lowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.CutoffFrequency, 1.0f);
+                var lowPass = BiQuadFilter.LowPassFilter(sampleRate, VoiceInternalSettings.cutoffFrequency, 1.0f);
 
-                double syb1Vol = VoiceInternalSettings.Sybillance1Volume * 0.18;
-                double syb2Vol = VoiceInternalSettings.Sybillance2Volume * 0.15;
-                double syb3Vol = VoiceInternalSettings.Sybillance3Volume * 0.12;
-                double syb4Vol = VoiceInternalSettings.Sybillance4Volume * 0.10;
+                double syb1Vol = VoiceInternalSettings.sybillance1Volume * 0.18;
+                double syb2Vol = VoiceInternalSettings.sybillance2Volume * 0.15;
+                double syb3Vol = VoiceInternalSettings.sybillance3Volume * 0.12;
+                double syb4Vol = VoiceInternalSettings.sybillance4Volume * 0.10;
 
                 var providers = new List<ISampleProvider>();
 
@@ -1215,10 +1562,10 @@ namespace NeoBleeper
                     providers.Add(new FilteredWaveProvider(noiseReader, noiseFilter, noiseToFormantScale * fVol * 1.2));
                 }
 
-                var sybillanceFilter1 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance1Frequency, (float)VoiceInternalSettings.Sybillance1Range * 1.5f);
-                var sybillanceFilter2 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance2Frequency, (float)VoiceInternalSettings.Sybillance2Range * 1.5f);
-                var sybillanceFilter3 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance3Frequency, (float)VoiceInternalSettings.Sybillance3Range * 1.5f);
-                var sybillanceFilter4 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.Sybillance4Frequency, (float)VoiceInternalSettings.Sybillance4Range * 1.5f);
+                var sybillanceFilter1 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.sybillance1Frequency, (float)VoiceInternalSettings.sybillance1Range * 1.5f);
+                var sybillanceFilter2 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.sybillance2Frequency, (float)VoiceInternalSettings.sybillance2Range * 1.5f);
+                var sybillanceFilter3 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.sybillance3Frequency, (float)VoiceInternalSettings.sybillance3Range * 1.5f);
+                var sybillanceFilter4 = BiQuadFilter.BandPassFilterConstantPeakGain(sampleRate, VoiceInternalSettings.sybillance4Frequency, (float)VoiceInternalSettings.sybillance4Range * 1.5f);
 
                 providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter1, syb1Vol));
                 providers.Add(new FilteredWaveProvider(new CachedSoundSampleProvider(cachedNoise, true), sybillanceFilter2, syb2Vol));
@@ -1254,6 +1601,13 @@ namespace NeoBleeper
                 }
             }
 
+            /// <summary>
+            /// Stops audio playback on the specified voice channel and releases associated resources.
+            /// </summary>
+            /// <remarks>If the specified channel is not currently active, this method has no effect.
+            /// This method is thread-safe and can be called concurrently from multiple threads.</remarks>
+            /// <param name="channelId">The identifier of the voice channel to stop. Must correspond to an active channel; otherwise, no action
+            /// is taken.</param>
             public static void StopVoice(int channelId)
             {
                 switch (channelId)

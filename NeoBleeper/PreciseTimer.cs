@@ -37,6 +37,11 @@ namespace NeoBleeper
             _timer = new System.Threading.Timer(OnTimerTick, null, Timeout.Infinite, Timeout.Infinite);
         }
 
+        /// <summary>
+        /// Starts the timer if it is not already running.
+        /// </summary>
+        /// <remarks>Subsequent calls to this method have no effect if the timer is already
+        /// running.</remarks>
         public void Start()
         {
             if (!_isRunning)
@@ -47,6 +52,10 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Stops the timer if it is currently running.
+        /// </summary>
+        /// <remarks>Calling this method has no effect if the timer is not running.</remarks>
         public void Stop()
         {
             if (_isRunning)
@@ -57,12 +66,22 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Resets the timer to its initial state, stopping it if it is currently running.
+        /// </summary>
+        /// <remarks>After calling this method, the elapsed time is set to zero and the timer is not
+        /// running. Use this method to prepare the timer for a new measurement.</remarks>
         public void Reset()
         {
             Stop();
             _stopwatch.Reset();
         }
 
+        /// <summary>
+        /// Stops and then starts the operation, effectively resetting its state.
+        /// </summary>
+        /// <remarks>Use this method to reinitialize the operation as if starting from the beginning. Any
+        /// progress or state from a previous run will be cleared.</remarks>
         public void Restart()
         {
             Reset();
@@ -96,6 +115,11 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Releases all resources used by the current instance of the class.
+        /// </summary>
+        /// <remarks>Call this method when you are finished using the instance to free unmanaged resources
+        /// and perform necessary cleanup. After calling this method, the instance should not be used.</remarks>
         public void Dispose()
         {
             Stop();

@@ -100,6 +100,13 @@ namespace NeoBleeper
             StopPlaying();
         }
 
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the control's appearance to match the selected theme. If the
+        /// theme is set to follow the system, the method detects the system's light or dark mode and applies the
+        /// corresponding theme. The method also enables double buffering to reduce flicker during the update and forces
+        /// a UI refresh to ensure changes take effect immediately.</remarks>
         public void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -170,6 +177,13 @@ namespace NeoBleeper
             });
         }
 
+        /// <summary>
+        /// Begins music playback if the application is in a waiting state.
+        /// </summary>
+        /// <remarks>This method initiates playback based on the user's selection, either from the
+        /// beginning of the music or from the currently selected line. It also updates the user interface to reflect
+        /// the playing state and logs the actual and target start times. This method is intended to be called
+        /// internally and should not be invoked directly from external code.</remarks>
         private async void StartPlaying()
         {
             if (waiting)
@@ -200,6 +214,11 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Updates the user interface to reflect the playing state.
+        /// </summary>
+        /// <remarks>Call this method to update UI elements when playback starts. This method is intended
+        /// to be used internally to ensure the UI accurately represents the current playback status.</remarks>
         private void UpdateUIForPlaying()
         {
             SafeBeginInvoke(() =>
@@ -211,6 +230,15 @@ namespace NeoBleeper
                 ResumeLayout(performLayout: true);
             });
         }
+
+        /// <summary>
+        /// Determines whether the time selected in the date and time picker is equal to or earlier than the current
+        /// system time.
+        /// </summary>
+        /// <remarks>This method compares only the time components (hour, minute, and second) of the
+        /// selected value and the current system time. The date component is not considered in the
+        /// comparison.</remarks>
+        /// <returns>true if the selected time is equal to or earlier than the current system time; otherwise, false.</returns>
         private bool isCurrentTimeIsEqualOrGreaterThan()
         {
             int Hour = dateTimePicker1.Value.Hour;
@@ -232,6 +260,12 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Stops music playback and updates the user interface to reflect the stopped state.
+        /// </summary>
+        /// <remarks>If music is currently playing, this method stops playback and ensures that related
+        /// event handlers are managed appropriately. After calling this method, the application will no longer be in a
+        /// playing or waiting state.</remarks>
         private async void StopPlaying()
         {
             try
@@ -252,6 +286,16 @@ namespace NeoBleeper
                 MessageForm.Show(Resources.MessageAnErrorOccurredWhileStoppingMusic + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Invokes the specified action asynchronously on the UI thread, if the control is not disposed and its handle
+        /// is created.
+        /// </summary>
+        /// <remarks>Use this method to safely perform UI updates from a non-UI thread. The method checks
+        /// whether the control is disposed or its handle is not created before attempting to invoke the action, helping
+        /// to prevent cross-thread operation exceptions. If the control is disposed during invocation, the action will
+        /// not be executed.</remarks>
+        /// <param name="action">The action to execute on the UI thread. Cannot be null.</param>
         private void SafeBeginInvoke(Action action)
         {
             if (this.IsDisposed || !this.IsHandleCreated) return;
@@ -262,6 +306,13 @@ namespace NeoBleeper
             }
             catch (ObjectDisposedException) { /* ignore */ }
         }
+
+        /// <summary>
+        /// Updates the user interface to reflect that the waiting process has stopped.
+        /// </summary>
+        /// <remarks>Enables relevant controls and updates status indicators to indicate that the
+        /// application is not currently waiting. This method should be called from the UI thread or using a mechanism
+        /// that safely marshals the call to the UI thread.</remarks>
         private void UpdateUIForStopped()
         {
             SafeBeginInvoke(() =>
@@ -306,6 +357,13 @@ namespace NeoBleeper
                 StopWaiting(); // Stop waiting if already waiting or no music is available
             }
         }
+
+        /// <summary>
+        /// Stops the waiting state and restores the user interface to allow new actions.
+        /// </summary>
+        /// <remarks>This method re-enables the date and time picker, updates related UI elements to
+        /// indicate that waiting has ended, and stops any ongoing music playback if necessary. It should be called when
+        /// the application needs to exit a waiting or monitoring mode and return to normal operation.</remarks>
         private void StopWaiting()
         {
             dateTimePicker1.Enabled = true; // Enable the date time picker when not waiting

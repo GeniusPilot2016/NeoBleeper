@@ -88,6 +88,13 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Creates a new font instance using the first available private font family with the specified size and style.
+        /// </summary>
+        /// <param name="size">The size, in points, of the font to create. Must be greater than 0.</param>
+        /// <param name="style">The style to apply to the font, such as bold or italic.</param>
+        /// <returns>A <see cref="Font"/> object initialized with the specified size and style.</returns>
+        /// <exception cref="ObjectDisposedException">Thrown if the UIFonts object has been disposed.</exception>
         public Font SetUIFont(float size, FontStyle style)
         {
             if (disposed) throw new ObjectDisposedException(nameof(UIFonts));
@@ -95,6 +102,12 @@ namespace NeoBleeper
             return font;
         }
 
+        /// <summary>
+        /// Creates a new font instance from the primary private font family at the specified size.
+        /// </summary>
+        /// <param name="size">The size, in points, of the font to create. Must be greater than zero.</param>
+        /// <returns>A <see cref="Font"/> object representing the primary private font family at the specified size.</returns>
+        /// <exception cref="ObjectDisposedException">Thrown if the UIFonts object has been disposed.</exception>
         public Font SetUIFont(float size)
         {
             if (disposed) throw new ObjectDisposedException(nameof(UIFonts));
@@ -102,6 +115,14 @@ namespace NeoBleeper
             return font;
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources used by the object and, optionally, releases the managed resources.
+        /// </summary>
+        /// <remarks>This method is called by both the public Dispose() method and the finalizer. When
+        /// disposing is true, this method releases all resources held by managed objects. When disposing is false, only
+        /// unmanaged resources are released. Override this method to release additional resources in a derived
+        /// class.</remarks>
+        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -133,6 +154,16 @@ namespace NeoBleeper
                 disposed = true;
             }
         }
+
+        /// <summary>
+        /// Applies the application's standard UI fonts to all controls within the specified form, including context
+        /// menu items.
+        /// </summary>
+        /// <remarks>This method updates the fonts of all controls recursively within the provided form,
+        /// as well as any context menu items defined as fields. It is typically used to ensure a consistent look and
+        /// feel across the application's user interface. The method suspends and resumes the form's layout to optimize
+        /// performance during the update.</remarks>
+        /// <param name="form">The form whose controls and context menu items will have their fonts updated. Cannot be null.</param>
         public static void SetFonts(Form form)
         {
             form.SuspendLayout();
@@ -212,6 +243,13 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Releases all resources used by the current instance of the class.
+        /// </summary>
+        /// <remarks>Call this method when you are finished using the object to free unmanaged resources
+        /// and perform other cleanup operations. After calling Dispose, the object should not be used
+        /// further.</remarks>
         public void Dispose()
         {
             Dispose(disposing: true);

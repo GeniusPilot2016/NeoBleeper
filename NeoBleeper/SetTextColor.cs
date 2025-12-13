@@ -18,6 +18,16 @@ namespace NeoBleeper
 {
     public static class SetTextColor
     {
+        /// <summary>
+        /// Determines an appropriate text color (black or white) for readability against the specified background
+        /// color.
+        /// </summary>
+        /// <remarks>This method uses a standard brightness calculation to select a text color that
+        /// ensures sufficient contrast for readability. It is useful for dynamically setting text color in user
+        /// interfaces based on varying background colors.</remarks>
+        /// <param name="backgroundColor">The background color for which to determine a contrasting text color.</param>
+        /// <returns>A Color value of either Color.Black or Color.White, chosen to provide optimal contrast with the specified
+        /// background color.</returns>
         public static Color GetTextColor(Color backgroundColor)
         {
             // Brightness calculation (YIQ Equation)

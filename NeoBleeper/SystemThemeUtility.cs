@@ -20,6 +20,13 @@ namespace NeoBleeper
 {
     public static class SystemThemeUtility
     {
+        /// <summary>
+        /// Determines whether the current Windows system theme is set to dark mode for applications.
+        /// </summary>
+        /// <remarks>This method checks the Windows registry setting for the current user's application
+        /// theme preference. If the theme cannot be determined, the method returns false. This method is specific to
+        /// Windows and may not work on other operating systems.</remarks>
+        /// <returns>true if the system is configured to use dark mode for applications; otherwise, false.</returns>
         public static bool IsDarkTheme()
         {
             try

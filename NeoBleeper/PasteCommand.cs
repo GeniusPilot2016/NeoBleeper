@@ -27,6 +27,13 @@ public class PasteCommand : ICommand
         this.insertIndex = insertIndex;
     }
 
+    /// <summary>
+    /// Inserts a new item into the list view at the specified index, or appends it to the end if the index is out of
+    /// range.
+    /// </summary>
+    /// <remarks>If the insertion index is less than zero or greater than the number of items in the list
+    /// view, the new item is added to the end of the list. This method modifies the contents of the list
+    /// view.</remarks>
     public void Execute()
     {
         if (insertIndex >= 0 && insertIndex < listView.Items.Count)
@@ -39,6 +46,12 @@ public class PasteCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Reverts the addition of the most recently added item to the list view.
+    /// </summary>
+    /// <remarks>Call this method to undo the last add operation performed on the list view. This method is
+    /// asynchronous and returns immediately; however, exceptions that occur during execution will be raised on the
+    /// calling thread. Use caution when calling from UI code.</remarks>
     public async void Undo()
     {
         listView.Items.Remove(newItem);

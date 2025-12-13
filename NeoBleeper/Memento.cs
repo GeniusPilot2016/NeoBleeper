@@ -23,6 +23,14 @@ public class Memento
         Items = items;
     }
 
+    /// <summary>
+    /// Determines whether the specified object is equal to the current Memento instance.
+    /// </summary>
+    /// <remarks>Equality is determined by comparing the Items collections of both Memento instances using a
+    /// ListViewItemComparer. This method is intended to support value-based equality for Memento objects.</remarks>
+    /// <param name="obj">The object to compare with the current Memento instance.</param>
+    /// <returns>true if the specified object is a Memento and its items are equal to those of the current instance; otherwise,
+    /// false.</returns>
     public override bool Equals(object obj)
     {
         if (obj is Memento other)
@@ -32,6 +40,12 @@ public class Memento
         return false;
     }
 
+    /// <summary>
+    /// Serves as the default hash function for the object.
+    /// </summary>
+    /// <remarks>The hash code is based on the value of the Items property. Objects that are considered equal
+    /// should return the same hash code.</remarks>
+    /// <returns>A 32-bit signed integer hash code representing the current object.</returns>
     public override int GetHashCode()
     {
         return Items.GetHashCode();

@@ -57,6 +57,14 @@ namespace NeoBleeper
             }
         }
         protected override bool ShowWithoutActivation => true;
+
+        /// <summary>
+        /// Applies the current application theme based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the application's appearance to match the selected theme
+        /// preference. If the theme is set to follow the system, the method detects the system's light or dark mode and
+        /// applies the corresponding theme. This method should be called after any change to the theme setting to
+        /// ensure the UI reflects the updated preference.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout();
@@ -94,6 +102,13 @@ namespace NeoBleeper
             this.BackColor = SystemColors.ControlLight;
             this.ForeColor = SystemColors.ControlText;
         }
+
+        /// <summary>
+        /// Positions the toast notification near the bottom center of the parent form.
+        /// </summary>
+        /// <remarks>This method should be called to ensure the toast appears in a consistent location
+        /// relative to its parent form. The toast is offset from the bottom edge of the parent form by a fixed
+        /// distance, providing visibility without overlapping the form's border.</remarks>
         private void PositionToast()
         {
             int semiWidthOfForm = this.parentForm.Width / 2;
@@ -121,6 +136,15 @@ namespace NeoBleeper
             this.Close();
             this.Dispose();
         }
+
+        /// <summary>
+        /// Calculates the pixel padding value after scaling for the current display's DPI setting.
+        /// </summary>
+        /// <remarks>Use this method to ensure consistent visual spacing across displays with different
+        /// DPI settings. The returned value may differ from the input if the display DPI is not 96.</remarks>
+        /// <param name="padding">The padding value, in pixels, based on a standard DPI of 96. This value will be scaled according to the
+        /// actual DPI of the display.</param>
+        /// <returns>The padding value, in pixels, adjusted for the current display's DPI.</returns>
         private int CalculatePaddingAfterText(int padding)
         {
             double dpi = 96; // Default DPI

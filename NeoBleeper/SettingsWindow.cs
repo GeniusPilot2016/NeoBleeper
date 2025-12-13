@@ -176,6 +176,14 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Contains the set of ISO 3166-1 alpha-2 country codes where the API may be subject to paid access
+        /// requirements.
+        /// </summary>
+        /// <remarks>This set includes all countries in the European Economic Area (EEA), as well as
+        /// Switzerland and the United Kingdom. Use this collection to determine if a given country code is associated
+        /// with regions where API usage may incur charges or require special handling.</remarks>
         private static readonly HashSet<string> PotentiallyPaidApiCountries = new()
         {
             // European Economic Area (EEA) countries (ISO 3166-1 alpha-2 codes)
@@ -186,6 +194,12 @@ namespace NeoBleeper
             "CH", "GB"
         };
 
+        /// <summary>
+        /// Determines whether the current user's country is considered a potentially paid API country.
+        /// </summary>
+        /// <remarks>This method uses the current system region settings to identify the user's country.
+        /// If the country cannot be determined due to an error, the method returns false.</remarks>
+        /// <returns>true if the user's country is in the list of potentially paid API countries; otherwise, false.</returns>
         public static bool IsPotentiallyPaidApiCountry()
         {
             try
@@ -350,6 +364,12 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
+        /// <summary>
+        /// Applies the current application theme to the control based on user or system settings.
+        /// </summary>
+        /// <remarks>This method updates the control's appearance to match the selected theme, which may
+        /// be determined by user preferences or the operating system's theme. It should be called when the theme
+        /// setting changes to ensure the UI reflects the correct style.</remarks>
         private void SetTheme()
         {
             this.SuspendLayout(); // Suspend layout to batch updates
@@ -385,6 +405,14 @@ namespace NeoBleeper
                 this.ResumeLayout();
             }
         }
+
+        /// <summary>
+        /// Asynchronously tests the system speaker by playing a randomly selected tune or beep sequence.
+        /// </summary>
+        /// <remarks>If a test is already in progress, the method plays a simple beep instead of starting
+        /// a new test. This method is intended to prevent multiple simultaneous speaker tests and provides audible
+        /// feedback to indicate the current state.</remarks>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task TestSystemSpeakerAsync() // Asynchronous method to test the system speaker
         {
             if (!isTestingSystemSpeaker)
@@ -566,6 +594,15 @@ namespace NeoBleeper
                 }
             }
         }
+
+        /// <summary>
+        /// Displays a warning dialog before disabling the 'Use Sound Device to Create Beep' feature, allowing the user
+        /// to confirm or cancel the action.
+        /// </summary>
+        /// <remarks>If the user has previously chosen not to show the warning again, the feature remains
+        /// enabled without prompting. The method updates the application settings based on the user's choice in the
+        /// dialog.</remarks>
+        /// <param name="form">The parent form used to display the warning dialog to the user. Cannot be null.</param>
         private void DisableSoundDeviceBeepWithWarning(Form form)
         {
             if (!Settings1.Default.dont_show_disable_create_beep_from_soundcard_warnings_again)
@@ -593,6 +630,13 @@ namespace NeoBleeper
                 Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
             }
         }
+
+        /// <summary>
+        /// Plays the opening notes of Beethoven's "Für Elise" using the system speaker.
+        /// </summary>
+        /// <remarks>This method produces audible tones through the system speaker and may not be
+        /// supported on all platforms. The method is intended for demonstration or entertainment purposes and does not
+        /// provide playback controls or error handling.</remarks>
         private void PlayFurElise()
         {
             int[][] melody = new int[][]
@@ -613,6 +657,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the main theme melody from the game Tetris using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method produces audible tones through the system speaker. It is intended for use
+        /// in environments where system beeps are supported. No sound will be produced if the system speaker is
+        /// unavailable or disabled.</remarks>
         private void PlayTetrisTheme()
         {
             int[][] melody = new int[][]
@@ -632,6 +683,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the main theme melody from the Super Mario Bros. video game using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method produces audible tones through the system speaker. The melody is played
+        /// synchronously and may block the calling thread until playback is complete.</remarks>
         private void PlaySuperMarioTheme()
         {
             int[][] melody = new int[][]
@@ -650,6 +707,12 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the main melody of Pachelbel's Canon in D using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method produces audible tones through the system speaker. It is intended for
+        /// demonstration or entertainment purposes and does not provide playback control or error handling.</remarks>
         private void PlayCanonInD()
         {
             int[][] melody = new int[][]
@@ -669,6 +732,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the opening phrase of "The Entertainer" using system speaker beeps.
+        /// </summary>
+        /// <remarks>This method produces audible tones through the system speaker. The melody is played
+        /// synchronously; the method blocks until all notes have finished playing. Ensure that the system speaker is
+        /// available and enabled for the beeps to be audible.</remarks>
         private void PlayTheEntertainer()
         {
             int[][] melody = new int[][]
@@ -687,6 +757,13 @@ namespace NeoBleeper
                 NotePlayer.PlayOnlySystemSpeakerBeep(note[0], note[1]);
             }
         }
+
+        /// <summary>
+        /// Plays the melody of "Minuet in G" using the system speaker.
+        /// </summary>
+        /// <remarks>This method plays a short sequence of notes corresponding to the opening phrase of
+        /// "Minuet in G" by Johann Sebastian Bach. The melody is rendered using the system speaker and may not be
+        /// audible on all hardware configurations.</remarks>
         private void PlayMinuetInG()
         {
             int[][] melody = new int[][]

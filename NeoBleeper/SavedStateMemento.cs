@@ -55,6 +55,12 @@ public class RewindCommand : ICommand
         this.mainWindow = mainWindow ?? (Application.OpenForms.Count > 0 ? Application.OpenForms[0] as MainWindow : null);
     }
 
+    /// <summary>
+    /// Restores the application state to a previously saved state and reloads related musical parameters.
+    /// </summary>
+    /// <remarks>This method reverts the originator to the provided saved state and updates the main window's
+    /// BPM, alternating note length, time signature, and note silence ratio values accordingly. If an error occurs
+    /// during the operation, the exception is logged and rethrown.</remarks>
     public void Execute()
     {
         // Save current state
@@ -79,6 +85,12 @@ public class RewindCommand : ICommand
         }
     }
 
+    /// <summary>
+    /// Reverts the target object to its previous state.
+    /// </summary>
+    /// <remarks>Use this method to undo the most recent change applied to the object managed by this command.
+    /// The ability to undo depends on the availability of a previously saved state. If no prior state exists, the
+    /// object's state remains unchanged.</remarks>
     public void Undo()
     {
         try

@@ -23,6 +23,13 @@ public class Originator
         this.listView = listView;
     }
 
+    /// <summary>
+    /// Creates a memento that captures the current state of the list view items.
+    /// </summary>
+    /// <remarks>The returned memento contains copies of the list view items as they exist at the time of the
+    /// call. Subsequent changes to the list view or its items are not reflected in the memento.</remarks>
+    /// <returns>A <see cref="Memento"/> object containing a snapshot of the current list view items. The memento can be used to
+    /// restore the list view to this state at a later time.</returns>
     public Memento CreateMemento()
     {
         var items = listView.Items.Cast<ListViewItem>().Select(item => (ListViewItem)item.Clone()).ToList();
@@ -36,6 +43,12 @@ public class Originator
         return new SavedStateMemento(items, bpmValue, alternatingNoteLength, noteSilenceRatio, timeSignature);
     }
 
+    /// <summary>
+    /// Restores the state of the list view from the specified memento.
+    /// </summary>
+    /// <param name="memento">The memento containing the state to restore. Must not be null, and its Items collection must not be null.</param>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="memento"/> is null.</exception>
+    /// <exception cref="ArgumentException">Thrown if <paramref name="memento"/>.Items is null.</exception>
     public void SetMemento(Memento memento)
     {
         if (memento == null)
