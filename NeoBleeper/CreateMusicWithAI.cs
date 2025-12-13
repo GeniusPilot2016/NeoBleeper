@@ -1145,7 +1145,7 @@ namespace NeoBleeper
                             output = Regex.Replace(output, @"\bGs(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"\bAs(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
-                            output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
+                            output = Regex.Replace(output, @"<Note(\d)>\s*(?:Rest|REST|rest|R|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
                             output = Regex.Replace(output, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"<Note(\d)>\s*Silence\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                             output = Regex.Replace(output, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
@@ -1174,6 +1174,11 @@ namespace NeoBleeper
                                 "<${tag}>$2</${tag}>",
                                 RegexOptions.Singleline
                             );
+
+                            // Fix modifiers and articulations as self-closing tags inside modifier or articulation tag due to hallucination
+                            output = Regex.Replace(output, @"<(?<tag>Art|Mod)>\s*<(?<innerTag>\w+)\s*/>\s*</\k<tag>>",
+                                "<${tag}>${innerTag}</${tag}>", RegexOptions.IgnoreCase);
+
                             // Fix TimeSignature if written as a fraction due to hallucination
                             output =  Regex.Replace(
                                 output,
