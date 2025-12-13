@@ -4764,7 +4764,7 @@ namespace NeoBleeper
             {
                 StopPlaying();
             }
-            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
+            int visibleLine = GetVisibleIndex();
             if (initialMemento == null)
             {
                 MessageForm.Show(Resources.MessageNoSavedVersion, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -4785,9 +4785,9 @@ namespace NeoBleeper
                 SetThemeOfListViewItems(); // Set theme of list view items after rewinding if theme when rewinding is different
                 if (listViewNotes.Items.Count > 0)
                 {
-                    if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                    if (visibleLine != -1 && visibleLine < listViewNotes.Items.Count)
                     {
-                        listViewNotes.EnsureVisible(selectedLine);
+                        listViewNotes.EnsureVisible(visibleLine);
                     }
                     else
                     {
@@ -4795,7 +4795,7 @@ namespace NeoBleeper
                     }
                 }
                 // Log states of variables
-                Logger.Log($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternatingNoteLength}", Logger.LogTypes.Info);
+                Logger.Log($"Rewind to saved version - BPM: {Variables.bpm}, Alt Notes: {Variables.alternatingNoteLength}, Note Silence Ratio: {Variables.noteSilenceRatio}, Time Signature: {Variables.timeSignature}, Octave: {Variables.octave}", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
@@ -5331,20 +5331,45 @@ namespace NeoBleeper
                 .Replace("Fer", Resources.FermataArticulation);
             return localizedText;
         }
+        private int GetVisibleIndex()
+        {
+            if (listViewNotes.Items.Count == 0)
+            {
+                return -1;
+            }
+
+            // Check if there is a top visible item
+            if (listViewNotes.TopItem != null)
+            {
+                // Get the index of the top visible item
+                int topIndex = listViewNotes.TopItem.Index;
+                int headerHeight = listViewNotes.Height - listViewNotes.ClientSize.Height;
+
+                // Calculate the number of fully visible items
+                int visibleItemsCount = listViewNotes.ClientSize.Height / listViewNotes.TopItem.Bounds.Height;
+
+                // Calculate the index of the last visible item
+                int lastVisibleIndex = Math.Min((topIndex + visibleItemsCount - 1) - 1, listViewNotes.Items.Count - 1);
+
+                return lastVisibleIndex;
+            }
+
+            return -1; // Return -1 if no item is visible
+        }
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (isMusicPlaying == true)
             {
                 StopPlaying();
             }
-            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
+            int visibleLine = GetVisibleIndex();
             commandManager.Undo();
             SetThemeOfListViewItems(); // Set theme of list view items after undoing if theme when undoing is different 
             if (listViewNotes.Items.Count > 0)
             {
-                if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                if (visibleLine != -1 && visibleLine < listViewNotes.Items.Count)
                 {
-                    listViewNotes.EnsureVisible(selectedLine);
+                    listViewNotes.EnsureVisible(visibleLine);
                 }
                 else
                 {
@@ -5365,14 +5390,14 @@ namespace NeoBleeper
             {
                 StopPlaying();
             }
-            int selectedLine = listViewNotes.SelectedItems.Count > 0 ? listViewNotes.SelectedIndices[0] : -1;
+            int visibleIndex = GetVisibleIndex();
             commandManager.Redo();
             SetThemeOfListViewItems(); // Set theme of list view items after redoing if theme when redoing is different
             if (listViewNotes.Items.Count > 0)
             {
-                if (selectedLine != -1 && selectedLine < listViewNotes.Items.Count)
+                if (visibleIndex != -1 && visibleIndex < listViewNotes.Items.Count)
                 {
-                    listViewNotes.EnsureVisible(selectedLine);
+                    listViewNotes.EnsureVisible(visibleIndex);
                 }
                 else
                 {
@@ -5910,7 +5935,7 @@ namespace NeoBleeper
                 lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}",
                     ((int)(noteSilenceRatio * 100)).ToString());
 
-                Logger.Log($"Values restored: BPM={bpmValue}, Alt Notes={alternatingNoteLength}", Logger.LogTypes.Info);
+                Logger.Log($"Values restored: BPM={bpmValue}, Alt Notes={alternatingNoteLength}, Time Sig={timeSignature}, Silence Ratio={noteSilenceRatio}", Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
@@ -6352,7 +6377,10 @@ namespace NeoBleeper
                 currentlyPressedKeys.Add((int)e.KeyCode);
                 if (!isAlternatingPlaying)
                 {
-                    RestartBeepIfMutedEarly(GetFrequencyFromKeyCode((int)e.KeyCode));
+                    if (checkBox_use_keyboard_as_piano.Checked)
+                    {
+                        RestartBeepIfMutedEarly(GetFrequencyFromKeyCode((int)e.KeyCode));
+                    }
                     if (currentlyPressedKeys == pressedKeys)
                     {
                         // If the key is already pressed, do nothing
