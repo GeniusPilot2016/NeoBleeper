@@ -1714,6 +1714,8 @@ namespace NeoBleeper
             // Remove unnecessary comments if present
             output = Regex.Replace(output, @"<!--.*?-->", String.Empty, RegexOptions.Singleline); // Remove single-line comments
             output = Regex.Replace(output, @"/\*.*?\*/", String.Empty, RegexOptions.Singleline); // Remove multi-line comments
+            // Remove the remaining line break after removing comments
+            output = Regex.Replace(output, @"^\s*$\n|\r", String.Empty, RegexOptions.Multiline);
             output = output.Trim();
             return output;
         }
