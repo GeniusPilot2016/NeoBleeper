@@ -174,3 +174,9 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 ## ⭐️ Supporta NeoBleeper!
 
 Se questo progetto ti piace, considera di [lasciare una stella ⭐️ su GitHub](https://github.com/GeniusPilot2016/NeoBleeper) per aiutare gli altri a scoprirlo!
+
+## 🌟 Un traguardo dalle emozioni contrastanti
+
+La quinta stella a questo progetto è stata aggiunta in un momento profondamente personale e agrodolce: all'alba, dopo aver appreso della scomparsa di mio padre mentre era all'estero, [Handsome Gato Inc.](https://github.com/handsomegato) (un'azienda di eccellenza nello sviluppo WordPress e nel marketing digitale) mi ha assegnato una stella, e poco dopo sono seguiti circa 20 nuovi download.
+
+Ci ricorda che l'open source non riguarda solo codice e funzionalità, ma anche i percorsi personali e le storie dietro ogni commit e ogni stella. Grazie per aver preso parte a questo percorso.
