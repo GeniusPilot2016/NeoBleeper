@@ -173,3 +173,9 @@ git clone https://github.com/GeniusPilot2016/NeoBleeper.git
 ## ⭐️ Support NeoBleeper!
 
 If you like this project, please consider [leaving a star ⭐️ on GitHub](https://github.com/GeniusPilot2016/NeoBleeper) to help others discover it!
+
+## 🌟 A Milestone with Mixed Emotions
+
+The 5th star on this project was added at a deeply personal and bittersweet moment: at dawn, two days after hearing of my father's passing while he was abroad, a star was granted by [Handsome Gato Inc.](https://github.com/handsomegato) (a WordPress development & digital marketing excellence company), and 20 new downloads followed soon after. 
+
+It’s a reminder that open source is not just about code and features, but also about the personal journeys and stories behind every commit and every star. Thank you for being a part of this journey.
