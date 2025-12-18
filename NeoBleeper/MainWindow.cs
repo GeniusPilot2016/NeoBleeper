@@ -5779,8 +5779,14 @@ namespace NeoBleeper
             Logger.Log($"Checked state of fermata is changed to: {checkBox_fermata.Checked}", Logger.LogTypes.Info);
         }
 
+        bool allowOpenAIMusicCreator = true;
         private async void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(!allowOpenAIMusicCreator)
+            {
+                Logger.Log("Create Music with AI is already running.", Logger.LogTypes.Warning);
+                return; // Prevent multiple instances
+            }
             try
             {
                 StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
@@ -5794,6 +5800,8 @@ namespace NeoBleeper
                 }
                 else
                 {
+                    allowOpenAIMusicCreator = false; // Prevent multiple instances
+                    this.Cursor = Cursors.WaitCursor; // Change cursor to wait cursor
                     if (await createMusicWithAI.CheckWillItOpened())
                     {
                         createMusicWithAI.ShowDialog();
@@ -5825,10 +5833,14 @@ namespace NeoBleeper
                     {
                         return;
                     }
+                    allowOpenAIMusicCreator = true; // Allow opening again
+                    this.Cursor = Cursors.Default;
                 }
             }
             catch (ObjectDisposedException)
             {
+                allowOpenAIMusicCreator = true; // Allow opening again
+                this.Cursor = Cursors.Default;
                 return;
             }
         }
