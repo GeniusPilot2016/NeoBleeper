@@ -1019,4 +1019,16 @@ Puede usar esta ventana para controlar la reproducción de todas las instancias 
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>El modelo de IA aparece en un bucle infinito o se repite constantemente. Se ha cancelado la creación musical con IA.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Advertencia</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
 </root>

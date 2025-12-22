@@ -61,10 +61,11 @@ namespace NeoBleeper
         Dictionary<string, string> aiModelMapping = new Dictionary<string, string>
         {
         };
-        public CreateMusicWithAI()
+        public CreateMusicWithAI(Form owner)
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
+            this.Owner = owner;
             normalWindowSize = this.Size;
             loadingWindowSize = new Size(normalWindowSize.Width, (int)(normalWindowSize.Height + (normalWindowSize.Height * scaleFraction)));
             UIFonts.SetFonts(this);
@@ -187,7 +188,7 @@ namespace NeoBleeper
                     else
                     {
                         Logger.Log("ERROR: No valid models available!", Logger.LogTypes.Error);
-                        MessageForm.Show(Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageForm.Show(this, Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Close();
                         return; // Close the form and exit the method if no models are available
                     }
@@ -200,7 +201,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"Error listing AI models: {ex.Message}", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageErrorListingAImodels, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.MessageErrorListingAImodels, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return; // Close the form and exit the method on error
             }
@@ -372,19 +373,19 @@ namespace NeoBleeper
             else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Return false if API key is not set
             }
             else if (!IsAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Return false if API key format is invalid  
             }
             else if (!await IsAPIKeyWorking())
             {
                 Logger.Log("The Google Gemini™ API key is not working. Please check the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Return false if API key is not working
             }
             else
@@ -1044,7 +1045,7 @@ namespace NeoBleeper
                             cts.Cancel(); // Cancel the operation
                             StopConnectionCheck();
                             response = string.Empty;
-                            MessageForm.Show(Resources.MessageInfiniteLoop, Resources.TitleInfiniteLoop, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageForm.Show(this, Resources.MessageInfiniteLoop, Resources.TitleInfiniteLoop, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
                         }
 
@@ -1192,7 +1193,7 @@ namespace NeoBleeper
                             if(!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
-                                MessageForm.Show(Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 generatedFilename = string.Empty; // Clear the filename if it's incomplete
                                 output = String.Empty; // Clear the output if it's incomplete
                                 this.Close(); // Close the form after handling the incomplete output
@@ -1211,7 +1212,7 @@ namespace NeoBleeper
                             isCreatedAnything = false; // Set the flag to false
                             generatedFilename = string.Empty; // Clear the filename
                             output = String.Empty; // Clear the output
-                            MessageForm.Show(Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageForm.Show(this, Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     // If the operation was cancelled, do nothing
@@ -1227,7 +1228,7 @@ namespace NeoBleeper
                     output = String.Empty; // Clear the output
                     string title  = GetLocalizedAPIErrorTitleAndMessage(ex.Message).title;
                     string message = GetLocalizedAPIErrorTitleAndMessage(ex.Message).message;
-                    MessageForm.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -1393,7 +1394,7 @@ namespace NeoBleeper
                     break;
             }
             Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
-            MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1508,7 +1509,7 @@ namespace NeoBleeper
                 }
 
                 Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
-                MessageForm.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -2120,7 +2121,7 @@ namespace NeoBleeper
         private void ShowNoInternetMessage()
         {
             Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
-            MessageForm.Show(Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageForm.Show(this, Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -2131,7 +2132,7 @@ namespace NeoBleeper
         private void ShowServerDownMessage()
         {
             Logger.Log("Google Gemini server is not reachable. Please try again later.", Logger.LogTypes.Error);
-            MessageForm.Show(Resources.GoogleGeminiServerDown, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageForm.Show(this, Resources.GoogleGeminiServerDown, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)

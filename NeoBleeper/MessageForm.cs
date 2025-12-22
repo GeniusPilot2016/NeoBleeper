@@ -20,6 +20,29 @@ namespace NeoBleeper
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             this.Text = title;
+            if(string.IsNullOrEmpty(title))
+            {
+                string defaultTitle = string.Empty;
+                switch (icon)
+                {
+                    case MessageBoxIcon.Information:
+                        defaultTitle = Resources.TextInformation;
+                        break;
+                    case MessageBoxIcon.Warning:
+                        defaultTitle = Resources.TextWarning;
+                        break;
+                    case MessageBoxIcon.Error:
+                        defaultTitle = Resources.TextError;
+                        break;
+                    case MessageBoxIcon.Question:
+                        defaultTitle = Resources.TextQuestion;
+                        break;
+                    case MessageBoxIcon.None:
+                        defaultTitle = Resources.TextMessage;
+                        break;
+                }
+               this.Text = defaultTitle;
+            }
             this.title = title;
             labelMessage.Text = message;
             AssignButtons(buttons);

@@ -1018,4 +1018,16 @@ Vuoi aprire comunque questo file?</value>
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Il modello di IA appare in un ciclo infinito o continua a ripetersi. La creazione musicale con l'IA è stata annullata.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Avvertimento</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Domanda</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Messaggio</value>
+  </data>
 </root>

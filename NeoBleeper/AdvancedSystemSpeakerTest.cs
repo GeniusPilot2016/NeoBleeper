@@ -7,9 +7,10 @@ namespace NeoBleeper
     {
         bool darkTheme = false;
         bool currentlyTesting = false;
-        public AdvancedSystemSpeakerTest()
+        public AdvancedSystemSpeakerTest(Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             SetTheme();
             UIFonts.SetFonts(this);

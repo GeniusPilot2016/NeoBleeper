@@ -11,10 +11,11 @@ namespace NeoBleeper
         private DateTime dateOfBirth = DateTime.Now.AddYears(-13);
         bool agreedTermsOfServiceAgreement = false;
         bool darkTheme = false;
-        public GoogleGeminiTermsOfServiceAgreement()
+        public GoogleGeminiTermsOfServiceAgreement(Form owner)
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
+            this.Owner = owner;
             UIFonts.SetFonts(this);
             dateTimePickerDateOfBirth.MaxDate = DateTime.Now.AddYears(-13);
             dateTimePickerDateOfBirth.Value = DateTime.Now.AddYears(-13).Date;
@@ -287,15 +288,15 @@ namespace NeoBleeper
         /// <param name="action">The action to perform if the user agrees to the terms of service and is at least 18 years old.</param>
         /// <param name="rejectAction">The action to perform if the user does not agree to the terms of service or does not meet the age
         /// requirement.</param>
-        public static void AskToAgreeTermsAndDoAction(Action action, Action rejectAction)
+        public static void AskToAgreeTermsAndDoAction(Form owner, Action action, Action rejectAction)
         {
-            GoogleGeminiTermsOfServiceAgreement agreement = new GoogleGeminiTermsOfServiceAgreement();
+            GoogleGeminiTermsOfServiceAgreement agreement = new GoogleGeminiTermsOfServiceAgreement(owner);
             agreement.ShowDialog();
             if (agreement.agreedTermsOfServiceAgreement)
             {
                 if (agreement.dateOfBirth.AddYears(18) > DateTime.Now)
                 {
-                    MessageForm.Show(Resources.AISettingsAgeRestrictionWarning, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageForm.Show(owner, Resources.AISettingsAgeRestrictionWarning, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     rejectAction();
                 }
                 else

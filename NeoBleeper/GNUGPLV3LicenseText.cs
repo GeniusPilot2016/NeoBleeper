@@ -21,9 +21,10 @@ namespace NeoBleeper
     public partial class GNUGPLV3LicenseText : Form
     {
         bool darkTheme = false;
-        public GNUGPLV3LicenseText()
+        public GNUGPLV3LicenseText(Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
             SetTheme();

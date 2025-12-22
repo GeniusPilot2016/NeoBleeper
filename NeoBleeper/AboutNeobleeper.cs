@@ -21,9 +21,10 @@ namespace NeoBleeper
     public partial class AboutNeobleeper : Form
     {
         bool darkTheme = false;
-        public AboutNeobleeper()
+        public AboutNeobleeper(Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             UIFonts.SetFonts(this);
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             lbl_version.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}";
@@ -129,7 +130,7 @@ namespace NeoBleeper
 
         private void button_view_license_text_Click(object sender, EventArgs e)
         {
-            GNUGPLV3LicenseText gnuGplV3LicenseText = new GNUGPLV3LicenseText();
+            GNUGPLV3LicenseText gnuGplV3LicenseText = new GNUGPLV3LicenseText(this);
             gnuGplV3LicenseText.ShowDialog();
         }
         private void button_visit_icons8_Click(object sender, EventArgs e)

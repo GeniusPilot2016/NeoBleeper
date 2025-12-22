@@ -1021,4 +1021,16 @@
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Модель ИИ появляется в бесконечном цикле или постоянно повторяется. Создание музыки с помощью ИИ было отменено.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
 </root>

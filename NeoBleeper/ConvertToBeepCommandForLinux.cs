@@ -35,6 +35,7 @@ namespace NeoBleeper
         public ConvertToBeepCommandForLinux(string musicFile, MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            this.Owner = mainWindow;
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
@@ -475,12 +476,12 @@ namespace NeoBleeper
                     textToSave = textToSave.Replace("\n", string.Empty);
                     System.IO.File.WriteAllText(saveFileDialog1.FileName, textToSave);
                     Logger.Log("Beep command saved as shell script: " + saveFileDialog1.FileName, Logger.LogTypes.Info);
-                    MessageForm.Show(Resources.MessageBeepCommandSaved, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageForm.Show(this, Resources.MessageBeepCommandSaved, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     Logger.Log("Error saving beep command as shell script: " + ex.Message, Logger.LogTypes.Error);
-                    MessageForm.Show(Resources.MessageBeepCommandSavingError + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, Resources.MessageBeepCommandSavingError + ex.Message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

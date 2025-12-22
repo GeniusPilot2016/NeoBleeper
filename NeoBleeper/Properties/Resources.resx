@@ -1039,4 +1039,16 @@ Do you want to open this file anyway?</value>
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>The AI model appears in an infinite loop or keeps repeating itself. The generation has been cancelled.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
 </root>

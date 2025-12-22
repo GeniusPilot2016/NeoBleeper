@@ -1019,4 +1019,16 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Mô hình AI xuất hiện trong một vòng lặp vô hạn hoặc liên tục lặp lại chính nó. Quá trình tạo nhạc bằng AI đã bị hủy bỏ.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Thông tin</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Cảnh báo</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Câu hỏi</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Tin nhắn</value>
+  </data>
 </root>

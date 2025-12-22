@@ -22,9 +22,10 @@ namespace NeoBleeper
     public partial class GetFirmwareWindow : Form
     {
         bool darkTheme = false;
-        public GetFirmwareWindow()
+        public GetFirmwareWindow(Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
             richTextBoxFirmware.Font = new Font("Courier New", richTextBoxFirmware.Font.Size);
