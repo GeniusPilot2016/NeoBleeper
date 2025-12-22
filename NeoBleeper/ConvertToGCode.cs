@@ -34,9 +34,10 @@ namespace NeoBleeper
         int bpm = 120; // Default BPM
         int noteSilenceRatio = 50;
         bool nonStopping = false;
-        public ConvertToGCode(String musicFile)
+        public ConvertToGCode(String musicFile, Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
             SetTheme();
@@ -341,13 +342,13 @@ namespace NeoBleeper
                         writer.Close();
                     }
                     Logger.Log("GCode exported to " + filePath, Logger.LogTypes.Info);
-                    MessageForm.Show(Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageForm.Show(this, Resources.MessageGCodeExported, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
                 Logger.Log("No notes found to convert to GCode.", Logger.LogTypes.Error);
-                MessageForm.Show(Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.MessageGCodeEmptyNoteList, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

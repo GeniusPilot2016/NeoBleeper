@@ -1019,4 +1019,16 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Le modèle d'IA semble bloqué dans une boucle infinie ou se répète sans cesse. La création musicale par IA a été annulée.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
 </root>

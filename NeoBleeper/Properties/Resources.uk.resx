@@ -1021,4 +1021,16 @@
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Модель штучного інтелекту відображається в нескінченному циклі або постійно повторюється. Створення музики за допомогою штучного інтелекту скасовано.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Інформація</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Увага</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Питання</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
 </root>

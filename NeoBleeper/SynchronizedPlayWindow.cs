@@ -283,7 +283,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageForm.Show(Resources.MessageAnErrorOccurredWhileStoppingMusic + ex.Message);
+                MessageForm.Show(this, Resources.MessageAnErrorOccurredWhileStoppingMusic + ex.Message);
             }
         }
 

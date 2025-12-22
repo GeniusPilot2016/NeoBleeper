@@ -1020,4 +1020,16 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="MessageInfiniteLoop" xml:space="preserve">
     <value>Yapay zeka modeli sonsuz bir döngüye girmiş veya kendini sürekli tekrarlıyor. Yapay zeka ile müzik oluşturma işlemi iptal edildi.</value>
   </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Bilgi</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="TextQuestion" xml:space="preserve">
+    <value>Soru</value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
 </root>

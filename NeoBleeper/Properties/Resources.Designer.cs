@@ -2384,6 +2384,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Information benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextInformation {
+            get {
+                return ResourceManager.GetString("TextInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Message benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextMessage {
+            get {
+                return ResourceManager.GetString("TextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   MIDI events are being collected... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextMIDIEventsAreBeingCollected {
@@ -2475,6 +2493,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Question benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextQuestion {
+            get {
+                return ResourceManager.GetString("TextQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextShow {
@@ -2516,6 +2543,15 @@ namespace NeoBleeper.Properties {
         public static string TextTheMIDIFileIsBeingLoaded {
             get {
                 return ResourceManager.GetString("TextTheMIDIFileIsBeingLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Warning benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextWarning {
+            get {
+                return ResourceManager.GetString("TextWarning", resourceCulture);
             }
         }
         

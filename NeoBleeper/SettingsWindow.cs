@@ -33,6 +33,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.Owner = mainWindow;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             checkBox_use_microcontroller.Enabled = SerialPortHelper.IsAnyPortThatIsMicrocontrollerAvailable(); // Enable or disable the microcontroller checkbox based on availability
             if (!checkBox_use_microcontroller.Enabled)
@@ -1616,7 +1617,7 @@ namespace NeoBleeper
 
                         buttonUpdateAPIKey.Enabled = false;
                         buttonResetAPIKey.Enabled = true;
-                        MessageForm.Show(Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageForm.Show(this, Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
                     };
                     Action rejectAction = () =>
@@ -1626,7 +1627,7 @@ namespace NeoBleeper
                     };
                     if (!Settings1.Default.googleGeminiTermsOfServiceAccepted)
                     {
-                        GoogleGeminiTermsOfServiceAgreement.AskToAgreeTermsAndDoAction(acceptAction, rejectAction);
+                        GoogleGeminiTermsOfServiceAgreement.AskToAgreeTermsAndDoAction(this, acceptAction, rejectAction);
                     }
                     else
                     {
@@ -1636,13 +1637,13 @@ namespace NeoBleeper
                 else
                 {
                     Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
-                    MessageForm.Show(Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log("Error saving API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageForm.Show(Resources.ErrorSavingAPIKey + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.ErrorSavingAPIKey + ex.Message, Resources.TextError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1670,12 +1671,12 @@ namespace NeoBleeper
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
                 Logger.Log("Google Gemini™ API key reset successfully.", Logger.LogTypes.Info);
-                MessageForm.Show(Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show(this, Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 Logger.Log("Error resetting API key: " + ex.Message, Logger.LogTypes.Error);
-                MessageForm.Show(Resources.ErrorResettingAPIKey + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, Resources.ErrorResettingAPIKey + ex.Message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1846,7 +1847,7 @@ namespace NeoBleeper
                 catch (Exception ex)
                 {
                     Logger.Log($"An error occurred while lyrics/text event size is changing: {ex.Message}", Logger.LogTypes.Error);
-                    MessageForm.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, $"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1868,7 +1869,7 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"An error occurred while showing lyrics: {ex.Message}", Logger.LogTypes.Error);
-                MessageForm.Show($"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageForm.Show(this, $"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public static bool willRestartForChanges = false; // Flag to indicate if the application will restart for changes to take effect
@@ -1885,14 +1886,14 @@ namespace NeoBleeper
                     synchronizedSettings.Language = Settings1.Default.preferredLanguage;
                 }
                 willRestartForChanges = true; // Set the flag to true to indicate restart is needed
-                MessageForm.Show(Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show(this, Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Restart(); // Restart the application to apply the new language
             }
         }
 
         private void button_get_firmware_Click(object sender, EventArgs e)
         {
-            GetFirmwareWindow getFirmwareWindow = new GetFirmwareWindow();
+            GetFirmwareWindow getFirmwareWindow = new GetFirmwareWindow(this);
             getFirmwareWindow.ShowDialog();
         }
 
@@ -1910,7 +1911,7 @@ namespace NeoBleeper
                 isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
                 Logger.Log("Opening advanced system speaker test window...", Logger.LogTypes.Info);
                 isTestingSystemSpeaker = true; // Set the flag to true to indicate that the system speaker is being tested
-                AdvancedSystemSpeakerTest advancedSystemSpeakerTest = new AdvancedSystemSpeakerTest();
+                AdvancedSystemSpeakerTest advancedSystemSpeakerTest = new AdvancedSystemSpeakerTest(this);
                 advancedSystemSpeakerTest.ShowDialog();
                 isTestingSystemSpeaker = false; // Reset the flag after the tune is played
                 isTestingSystemSpeaker = false; // Reset the flag after the tune is played

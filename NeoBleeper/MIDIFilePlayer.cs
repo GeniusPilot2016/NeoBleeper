@@ -38,9 +38,10 @@ namespace NeoBleeper
         private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
         private LyricsOverlay lyricsOverlay;
-        public MIDIFilePlayer(string filename)
+        public MIDIFilePlayer(string filename, Form owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             PowerManager.SystemSleeping += PowerManager_SystemSleeping;
             PowerManager.PreparingToShutdown += PowerManager_PreparingToShutdown;
@@ -207,7 +208,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    MessageForm.Show(Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, Resources.MessageNonValidMIDIFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Logger.Log("This file is not a valid MIDI file or the file is corrupted.", Logger.LogTypes.Error);
                 }
             }
@@ -241,13 +242,13 @@ namespace NeoBleeper
                     else
                     {
                         Logger.Log("The file you dragged is not supported by NeoBleeper MIDI player or is corrupted.", Logger.LogTypes.Error);
-                        MessageForm.Show(Resources.MessageMIDIFilePlayerNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageForm.Show(this, Resources.MessageMIDIFilePlayerNonSupportedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
                     Logger.Log("The file you dragged is corrupted or the file is in use by another process.", Logger.LogTypes.Error);
-                    MessageForm.Show(Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageForm.Show(this, Resources.MessageCorruptedOrCurrentlyUsedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -485,7 +486,7 @@ namespace NeoBleeper
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
                 groupBox1.Enabled = false; // Disable controls on error
-                MessageForm.Show($"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
+                MessageForm.Show(this, $"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
             }
@@ -576,7 +577,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageForm.Show($"{Resources.MessagePlaybackStartingError} {ex.Message}");
+                MessageForm.Show(this, $"{Resources.MessagePlaybackStartingError} {ex.Message}");
                 _isPlaying = false;
             }
             finally
@@ -1173,7 +1174,7 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                MessageForm.Show($"{Resources.MessageErrorClosingForm} {ex.Message}");
+                MessageForm.Show(this, $"{Resources.MessageErrorClosingForm} {ex.Message}");
             }
         }
 
