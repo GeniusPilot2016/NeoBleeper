@@ -412,62 +412,37 @@ namespace NeoBleeper
                 Application.DoEvents();
                 token?.Token.ThrowIfCancellationRequested();
 
-                // Check network interface availability
                 if (!NetworkInterface.GetIsNetworkAvailable())
                 {
                     Logger.Log("No network interfaces are available.", Logger.LogTypes.Error);
                     return false;
                 }
 
-                // Ping to multiple reliable hosts
-                string[] hosts = { "8.8.8.8", "1.1.1.1", "google.com" }; 
-                using (var ping = new Ping())
-                {
-                    foreach (var host in hosts)
-                    {
-                        try
-                        {
-                            var pingTask = ping.SendPingAsync(host, 5000);
-                            var completedTask = await Task.WhenAny(
-                                pingTask,
-                                Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
-                            );
-                            token?.Token.ThrowIfCancellationRequested();
+                // Tolerance for slower connections
+                const int attempts = 3;
+                TimeSpan perAttemptTimeout = TimeSpan.FromSeconds(8);
+                TimeSpan delayBetweenAttempts = TimeSpan.FromMilliseconds(250);
 
-                            if (completedTask == pingTask)
-                            {
-                                var reply = await pingTask;
-                                if (reply.Status == IPStatus.Success && reply.RoundtripTime < 5000)
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                        catch (PingException ex)
-                        {
-                            Logger.Log($"Ping hatası ({host}): {ex.Message}", Logger.LogTypes.Warning);
-                        }
-                    }
-                }
-
-                // Try DNS resolution as a fallback
-                try
+                for (int attempt = 1; attempt <= attempts; attempt++)
                 {
-                    var dnsTask = Dns.GetHostEntryAsync("www.microsoft.com");
-                    var completedTask = await Task.WhenAny(
-                        dnsTask,
-                        Task.Delay(5000, token?.Token ?? CancellationToken.None)
-                    );
                     token?.Token.ThrowIfCancellationRequested();
 
-                    if (completedTask == dnsTask && dnsTask.Result != null)
+                    // 1) DNS resolution (It could be reliable in TMCP-blocked networks)
+                    if (await TryDnsAsync("www.microsoft.com", perAttemptTimeout, token?.Token ?? CancellationToken.None))
                     {
                         return true;
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log($"DNS resolution error: {ex.Message}", Logger.LogTypes.Error);
+
+                    // 2) Ping (Can be blocked by firewalls, so try multiple well-known addresses)
+                    if (await TryPingAnyAsync(new[] { "1.1.1.1", "8.8.8.8" }, perAttemptTimeout, token?.Token ?? CancellationToken.None))
+                    {
+                        return true;
+                    }
+
+                    if (attempt < attempts)
+                    {
+                        await Task.Delay(delayBetweenAttempts, token?.Token ?? CancellationToken.None);
+                    }
                 }
 
                 Logger.Log("No Internet connection available or unreachable.", Logger.LogTypes.Error);
@@ -509,42 +484,30 @@ namespace NeoBleeper
                 Application.DoEvents();
                 token?.Token.ThrowIfCancellationRequested();
 
-                // Ping the server
-                using (var ping = new Ping())
+                const int attempts = 3;
+                TimeSpan perAttemptTimeout = TimeSpan.FromSeconds(10);
+                TimeSpan delayBetweenAttempts = TimeSpan.FromMilliseconds(250);
+
+                for (int attempt = 1; attempt <= attempts; attempt++)
                 {
-                    var pingTask = ping.SendPingAsync("generativelanguage.googleapis.com", 5000);
-                    var completedTask = await Task.WhenAny(
-                        pingTask,
-                        Task.Delay(Timeout.Infinite, token?.Token ?? CancellationToken.None)
-                    );
                     token?.Token.ThrowIfCancellationRequested();
 
-                    if (completedTask == pingTask)
+                    // 1) HTTP check to test server responsiveness
+                    if (await TryHttpAsync("https://generativelanguage.googleapis.com", perAttemptTimeout, token?.Token ?? CancellationToken.None))
                     {
-                        var reply = await pingTask;
-                        if (reply.Status == IPStatus.Success && reply.RoundtripTime < 5000)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
-                }
 
-                // Check HTTP response as a fallback
-                try
-                {
-                    using (var httpClient = new HttpClient())
+                    // 2) Ping is just a signal that the server is reachable
+                    if (await TryPingAnyAsync(new[] { "generativelanguage.googleapis.com" }, perAttemptTimeout, token?.Token ?? CancellationToken.None))
                     {
-                        httpClient.Timeout = TimeSpan.FromSeconds(5);
-                        var response = await httpClient.GetAsync("https://generativelanguage.googleapis.com", token?.Token ?? CancellationToken.None);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log($"HTTP server check error: {ex.Message}", Logger.LogTypes.Error);
+
+                    if (attempt < attempts)
+                    {
+                        await Task.Delay(delayBetweenAttempts, token?.Token ?? CancellationToken.None);
+                    }
                 }
 
                 Logger.Log("Unable to reach the Google Gemini™ server.", Logger.LogTypes.Error);
@@ -566,6 +529,29 @@ namespace NeoBleeper
                 return false;
             }
         }
+
+        private static async Task<bool> TryHttpAsync(string url, TimeSpan timeout, CancellationToken token)
+        {
+            try
+            {
+                using var httpClient = new HttpClient
+                {
+                    Timeout = timeout
+                };
+
+                // HEAD can be blocked by some servers, so use GET
+                using var request = new HttpRequestMessage(HttpMethod.Get, url);
+                using var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, token);
+
+                // 2xx/3xx are usually OK, 4xx means client error (server is reachable), 5xx means server error
+                return (int)response.StatusCode >= 200 && (int)response.StatusCode < 500;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Determines whether the specified API key string matches the expected format for a Google API key.
         /// </summary>
@@ -840,40 +826,154 @@ namespace NeoBleeper
         /// repetition criteria; otherwise, false.</returns>
         private bool CheckIfModelIsStuckOrKeepsRepeating(string response) // Check if the model is stuck or keeps repeating
         {
-            // Minimum length check to prevent false positives
             const int minLength = 500;
             if (response.Length < minLength)
             {
                 return false;
             }
 
-            // Check for consecutive repetition of chunks
+            // 1) Serial repeating chunks
             const int chunkSize = 150;
-            // Bir döngü olarak kabul edilmesi için parçanın kaç kez ARKA ARKAYA tekrarlanması gerektiği
             const int consecutiveRepetitionThreshold = 3;
 
-            // Take the last N chunks of the response
-            if (response.Length < chunkSize * consecutiveRepetitionThreshold)
+            if (response.Length >= chunkSize * consecutiveRepetitionThreshold)
             {
-                return false;
-            }
+                string lastChunk = response.Substring(response.Length - chunkSize);
+                bool isSame = true;
 
-            // Check the last N chunks for equality
-            string lastChunk = response.Substring(response.Length - chunkSize);
-            for (int i = 1; i < consecutiveRepetitionThreshold; i++)
-            {
-                int startIndex = response.Length - (chunkSize * (i + 1));
-                string previousChunk = response.Substring(startIndex, chunkSize);
-                if (lastChunk != previousChunk)
+                for (int i = 1; i < consecutiveRepetitionThreshold; i++)
                 {
-                    // If any chunk does not match, it's not an infinite loop
-                    return false;
+                    int startIndex = response.Length - (chunkSize * (i + 1));
+                    string previousChunk = response.Substring(startIndex, chunkSize);
+
+                    if (!string.Equals(lastChunk, previousChunk, StringComparison.Ordinal))
+                    {
+                        isSame = false;
+                        break;
+                    }
+                }
+
+                if (isSame)
+                {
+                    Logger.Log($"Infinite loop or repetition detected in AI response. The chunk '{lastChunk.Trim()}' appeared {consecutiveRepetitionThreshold} times in a row.", Logger.LogTypes.Warning);
+                    return true;
                 }
             }
 
-            // If all chunks match, it's an infinite loop
-            Logger.Log($"Infinite loop or repetition detected in AI response. The chunk '{lastChunk.Trim()}' appeared {consecutiveRepetitionThreshold} times in a row.", Logger.LogTypes.Warning);
-            return true;
+            // Analyze the tail for performance
+            const int tailWindowSize = 4000;
+            string tail = response.Length > tailWindowSize ? response.Substring(response.Length - tailWindowSize) : response;
+
+            // Mask seperators to prevent false positives
+            tail = Regex.Replace(tail, @"(?m)^\s*-{10,}\s*$", " <NBPML_SEPARATOR> ");
+            tail = Regex.Replace(tail, @"(?m)^\s*_{10,}\s*$", " <NBPML_SEPARATOR> ");
+            tail = Regex.Replace(tail, @"(?m)^\s*={10,}\s*$", " <NBPML_SEPARATOR> ");
+
+            // 2) Serial repeat of same character, except file name and content seperator.
+            const int repeatedCharThreshold = 80;
+            var repeatedCharMatch = Regex.Match(tail, $@"(.)\1{{{repeatedCharThreshold},}}", RegexOptions.Singleline);
+            if (repeatedCharMatch.Success)
+            {
+                Logger.Log("Infinite loop detected: repeated character sequence.", Logger.LogTypes.Warning);
+                return true;
+            }
+
+            // 3) Token based serial repeatings
+            const int tokenRunThreshold = 40;
+
+            var tokenMatches = Regex.Matches(
+                tail,
+                @"</?[^>]+>|[\p{L}\p{N}]+|.",
+                RegexOptions.Singleline);
+
+            if (tokenMatches.Count >= tokenRunThreshold)
+            {
+                string? lastToken = null;
+                int run = 0;
+
+                for (int i = 0; i < tokenMatches.Count; i++)
+                {
+                    string token = tokenMatches[i].Value;
+
+                    if (string.IsNullOrWhiteSpace(token))
+                    {
+                        continue;
+                    }
+
+                    string normalizedToken = token;
+                    if (Regex.IsMatch(token, @"^[\p{L}\p{N}]+$", RegexOptions.Singleline))
+                    {
+                        normalizedToken = token.ToLowerInvariant();
+                    }
+
+                    if (lastToken is null)
+                    {
+                        lastToken = normalizedToken;
+                        run = 1;
+                        continue;
+                    }
+
+                    if (string.Equals(lastToken, normalizedToken, StringComparison.Ordinal))
+                    {
+                        run++;
+                        if (run >= tokenRunThreshold)
+                        {
+                            Logger.Log($"Infinite loop detected: token '{lastToken}' repeated {run} times in series.", Logger.LogTypes.Warning);
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        lastToken = normalizedToken;
+                        run = 1;
+                    }
+                }
+            }
+
+            // 4) Motif check
+            string compact = Regex.Replace(tail, @"\s+", "");
+
+            const int minMotifLength = 4;
+            const int maxMotifLength = 80;
+            const int motifRepeatThreshold = 6;
+
+            for (int motifLen = minMotifLength; motifLen <= maxMotifLength; motifLen++)
+            {
+                if (compact.Length < motifLen * motifRepeatThreshold)
+                {
+                    break;
+                }
+
+                string motif = compact.Substring(compact.Length - motifLen, motifLen);
+
+                if (motif.Distinct().Count() == 1)
+                {
+                    continue;
+                }
+
+                int repeats = 1;
+                int pos = compact.Length - motifLen;
+
+                while (pos - motifLen >= 0)
+                {
+                    string prev = compact.Substring(pos - motifLen, motifLen);
+                    if (!string.Equals(prev, motif, StringComparison.Ordinal))
+                    {
+                        break;
+                    }
+
+                    repeats++;
+                    pos -= motifLen;
+
+                    if (repeats >= motifRepeatThreshold)
+                    {
+                        Logger.Log("Infinite loop detected: repeated phrase/motif in series.", Logger.LogTypes.Warning);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -1181,7 +1281,7 @@ namespace NeoBleeper
                                 "<${tag}>${innerTag}</${tag}>", RegexOptions.IgnoreCase);
 
                             // Fix TimeSignature if written as a fraction due to hallucination
-                            output =  Regex.Replace(
+                            output = Regex.Replace(
                                 output,
                                 @"<TimeSignature>\s*(\d+)\s*/\s*\d+\s*</TimeSignature>",
                                 m => $"<TimeSignature>{m.Groups[1].Value}</TimeSignature>",
@@ -1190,7 +1290,7 @@ namespace NeoBleeper
                             // Trim leading/trailing whitespace
                             output = output.Trim();
                             output = RewriteOutput(output).Trim();
-                            if(!IsCompleteNBPML(output)) // Check for completeness of NBPML content
+                            if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
                                 MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1226,7 +1326,13 @@ namespace NeoBleeper
                     isCreatedAnything = false;
                     generatedFilename = string.Empty; // Clear the filename
                     output = String.Empty; // Clear the output
-                    string title  = GetLocalizedAPIErrorTitleAndMessage(ex.Message).title;
+
+                    // Check if the exception is due to task cancellation and skip showing the message box by swallowing
+                    if (ex is TaskCanceledException || ex is OperationCanceledException)
+                    {
+                        return; // Exit the method if the task was cancelled
+                    }
+                    string title = GetLocalizedAPIErrorTitleAndMessage(ex.Message).title;
                     string message = GetLocalizedAPIErrorTitleAndMessage(ex.Message).message;
                     MessageForm.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -1254,7 +1360,7 @@ namespace NeoBleeper
                 }
             }
         }
-        
+
         /// <summary>
         /// Parses the raw output string to extract the generated filename and the associated output content.
         /// </summary>
@@ -1322,10 +1428,10 @@ namespace NeoBleeper
             PoliticalContentDetected,
             InstructionToBypassSafetyDetected
         }
-        
+
         // Internal prompt error code variable to hold the detected error code for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
         private InternalPromptErrorCodes internalPromptErrorCode;
-        
+
         /// <summary>
         /// Maps a string error code to its corresponding internal prompt error code enumeration value.
         /// </summary>
@@ -1936,12 +2042,6 @@ namespace NeoBleeper
                 m => $"<{m.Groups[1].Value}</{m.Groups[2].Value}>",
                 RegexOptions.Singleline
             );
-            // Make empty note tags self-closing
-            xmlContent = Regex.Replace(
-                output,
-                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
-                "<$1 />",
-                RegexOptions.Multiline);
             // Fix remaining mismatched tags
             xmlContent = Regex.Replace(
                 xmlContent,
@@ -1959,13 +2059,24 @@ namespace NeoBleeper
             // Fix to remove extra space before tag names
             output = Regex.Replace(output, @"<\s+/?", m => m.Value.Replace(" ", ""), RegexOptions.Multiline);
             output = Regex.Replace(output, @"</\s+", "</", RegexOptions.Multiline);
+            // Make empty note tags self-closing
+            xmlContent = Regex.Replace(
+                output,
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>\s*</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
+            xmlContent = Regex.Replace(
+                output,
+                @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)></(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
+                "<$1 />",
+                RegexOptions.Multiline);
             // Trim and normalize the XML content
             xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
             //Debug.WriteLine(xmlContent); // For debugging purposes
-            if(!IsCompleteNBPML(xmlContent))
+            if (!IsCompleteNBPML(xmlContent))
             {
                 return xmlContent; // Return original content if not complete
             }
@@ -2081,9 +2192,9 @@ namespace NeoBleeper
             }
             if (!await IsInternetAvailable(connectionCts))
             {
-                if(!isCreatedAnything)
+                if (!isCreatedAnything)
                 {
-                    if(!cts.IsCancellationRequested)
+                    if (!cts.IsCancellationRequested)
                     {
                         cts.Cancel(); // Cancel any ongoing AI requests
                     }
@@ -2190,7 +2301,7 @@ namespace NeoBleeper
                 return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT     
             // 409 - Aborted/Already Exists
             if (exceptionMessage.Contains("(Code: 409)"))
-            {   
+            {
                 if (exceptionMessage.Contains("ABORTED"))
                     return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
                 if (exceptionMessage.Contains("ALREADY_EXISTS"))
@@ -2210,7 +2321,7 @@ namespace NeoBleeper
                 return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
             // 500 - Internal Error
             if (exceptionMessage.Contains("(Code: 500)"))
-            {   
+            {
                 if (exceptionMessage.Contains("INTERNAL"))
                     return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
                 if (exceptionMessage.Contains("DATA_LOSS"))
@@ -2219,7 +2330,7 @@ namespace NeoBleeper
                     return (Resources.TitleUnknownError, Resources.MessageUnknownError); // Localized message for UNKNOWN
             }
             // 501 - Not Implemented
-            if (exceptionMessage.Contains("(Code: 501)") || exceptionMessage.Contains("NOT_IMPLEMENTED")) 
+            if (exceptionMessage.Contains("(Code: 501)") || exceptionMessage.Contains("NOT_IMPLEMENTED"))
                 return (Resources.TitleNotImplemented, Resources.MessageNotImplemented); // Localized message for NOT_IMPLEMENTED
             // 502 - Bad Gateway
             if (exceptionMessage.Contains("(Code: 502)") || exceptionMessage.Contains("BAD_GATEWAY"))
@@ -2250,7 +2361,7 @@ namespace NeoBleeper
                     return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
                 if (exceptionMessage.Contains("429") || exceptionMessage.Contains("(Too Many Requests)"))
                     return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
-                if( exceptionMessage.Contains("499") || exceptionMessage.Contains("(Client Closed Request)"))
+                if (exceptionMessage.Contains("499") || exceptionMessage.Contains("(Client Closed Request)"))
                     return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
                 if (exceptionMessage.Contains("500") || exceptionMessage.Contains("(Internal Server Error)"))
                     return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
@@ -2263,5 +2374,84 @@ namespace NeoBleeper
             }
             return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error title and message
         }
+
+        /// <summary>
+        /// Attempts to resolve the specified host name to an IP address within the given timeout period.
+        /// </summary>
+        /// <remarks>If the DNS resolution fails, times out, or is canceled, the method returns false.
+        /// This method does not throw exceptions for DNS failures or timeouts, but will propagate cancellation if the
+        /// provided token is canceled.</remarks>
+        /// <param name="host">The DNS host name to resolve. Cannot be null or empty.</param>
+        /// <param name="timeout">The maximum duration to wait for the DNS resolution to complete.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the operation.</param>
+        /// <returns>true if the host name was successfully resolved within the timeout period; otherwise, false.</returns>
+        private static async Task<bool> TryDnsAsync(string host, TimeSpan timeout, CancellationToken token)
+        {
+            try
+            {
+                var dnsTask = Dns.GetHostEntryAsync(host);
+                var completed = await Task.WhenAny(dnsTask, Task.Delay(timeout, token));
+                token.ThrowIfCancellationRequested();
+
+                return completed == dnsTask && dnsTask.Result != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to send an ICMP echo request (ping) to each host in the specified collection and determines whether
+        /// any host responds successfully within the given timeout period.
+        /// </summary>
+        /// <remarks>If the operation is canceled via the <paramref name="token"/>, the method returns
+        /// <see langword="false"/>. Ping exceptions for individual hosts are ignored, allowing the method to continue
+        /// attempting other hosts.</remarks>
+        /// <param name="hosts">A collection of host names or IP addresses to ping. Each host is attempted in sequence until a successful
+        /// response is received or all hosts have been tried.</param>
+        /// <param name="timeout">The maximum amount of time to wait for a response from each host. Must be a non-negative time span.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the operation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if at least one
+        /// host responds successfully to a ping request within the specified timeout; otherwise, <see
+        /// langword="false"/>.</returns>
+        private static async Task<bool> TryPingAnyAsync(IEnumerable<string> hosts, TimeSpan timeout, CancellationToken token)
+        {
+            try
+            {
+                using var ping = new Ping();
+
+                foreach (var host in hosts)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    try
+                    {
+                        var pingTask = ping.SendPingAsync(host, (int)timeout.TotalMilliseconds);
+                        var completed = await Task.WhenAny(pingTask, Task.Delay(timeout, token));
+                        token.ThrowIfCancellationRequested();
+
+                        if (completed == pingTask)
+                        {
+                            var reply = await pingTask;
+                            if (reply.Status == IPStatus.Success)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    catch (PingException)
+                    {
+                        // Swallow ping exceptions since some PingExceptions aren't mean no connectivity
+                    }
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        } 
     }
 }
