@@ -2060,6 +2060,8 @@ namespace NeoBleeper
             // Fix to remove extra space before tag names
             output = Regex.Replace(output, @"<\s+/?", m => m.Value.Replace(" ", ""), RegexOptions.Multiline);
             output = Regex.Replace(output, @"</\s+", "</", RegexOptions.Multiline);
+            // Fix to add missing "<" before tag names or ">" after tag names in both opening and closing tags
+            output = Regex.Replace(output, @"(?<=^|\s)([A-Za-z_][\w\-\.]*>)", "<$1", RegexOptions.Multiline);
             // Make empty note tags self-closing
             xmlContent = Regex.Replace(
                 output,
