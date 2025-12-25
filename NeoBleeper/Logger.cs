@@ -143,7 +143,27 @@ namespace NeoBleeper
                 "Early text-to-speech programs like 'SAM' (Software Automatic Mouth) used clever algorithms to produce recognizable speech through the system speaker.",
                 "The system speaker's timing precision made it useful for generating accurate clock signals in some scientific applications.",
                 "Some bootloader programs use the system speaker to indicate loading progress with different pitch patterns.",
-                "The FreeDOS project maintains system speaker support to ensure compatibility with vintage software and games."
+                "The FreeDOS project maintains system speaker support to ensure compatibility with vintage software and games.",
+                "AI music generation can sketch melodies that are later adapted to the system speaker by simplifying harmony into fast arpeggios.",
+                "Because the system speaker is monophonic, AI-arranged music often relies on rhythm and melodic contour to imply chords.",
+                "An AI can propose chord progressions, but system speaker music typically encodes them as rapid note alternation to simulate harmony.",
+                "AI-generated drum patterns can be approximated on the system speaker using short, percussive bursts and pitch jumps.",
+                "Turning rich AI compositions into system speaker music is an exercise in musical reduction: keep the hook, drop the layers.",
+                "AI can optimize note density for system speaker playback so melodies remain recognizable without polyphony.",
+                "The system speaker outputs a square wave, so AI 'sound choices' must be translated into music via rhythm, register, and articulation.",
+                "AI can suggest counter-melodies, but system speaker music must schedule them as time-sliced fragments between main notes.",
+                "AI-assisted composition can test many musical ideas quickly, then the chosen result is quantized for stable system speaker pitch timing.",
+                "When mapping AI music to the system speaker, musical groove often matters more than complex harmony due to the single-voice limit.",
+                "AI can generate motifs and variations, which fit well with system speaker music where repetition strengthens musical identity.",
+                "System speaker arrangements often use octave jumps for impact; AI can learn where those jumps support musical tension and release.",
+                "AI can generate long-form musical structure, while the system speaker version focuses on clear sections and a memorable lead line.",
+                "AI can generate melodies in any key, but system speaker music benefits from pitch ranges that avoid overly piercing frequencies.",
+                "A common workflow is: AI generates symbolic music (notes), then a system speaker renderer converts it into frequency and duration events.",
+                "AI can help decide which musical voice to keep when collapsing multi-track music into a single system speaker line.",
+                "System speaker constraints encourage chiptune-like writing; AI can be guided to produce music that survives extreme simplification.",
+                "AI can propose expressive timing, but system speaker music often needs strict quantization to keep rhythm and pitch consistent.",
+                "Because system speaker output is essentially one waveform, AI must express musical color through phrasing instead of instrumentation.",
+                "AI can generate many musical candidates, and the system speaker version becomes a distilled lead-sheet of the most memorable notes.",
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             logText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";

@@ -880,7 +880,7 @@ namespace NeoBleeper
             }
 
             // 3) Token based serial repeatings
-            const int tokenRunThreshold = 40;
+            const int tokenRunThreshold = 100;
 
             var tokenMatches = Regex.Matches(
                 tail,
@@ -1062,7 +1062,7 @@ namespace NeoBleeper
                         $"- The output should be a new composition inspired by the specified song, if the prompt requests a copyrighted song, ambigious or general, create an original piece in the style of that song or artist without directly replicating it.\r\n" +
                         $"- If the user prompt is public domain music (e.g., Beethoven, Mozart, Fur Elise, Fréré Jacques), generate music that closely follows the original composition's melody, harmony, and structure.\r\n" +
                         $"- The output should last between 30 seconds to 3 minutes in length when played back at the specified BPM.\r\n" +
-                        $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes, followed by the complete NeoBleeper XML content.\r\n" +
+                        $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes (at least 3 and at most 80 dashes), followed by the complete NeoBleeper XML content.\r\n" +
                         $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
                         $"- Do not include text outside XML. Escape special characters properly.\r\n" +
                         $"- Do not include any text, comments, or markers outside the XML structure.\r\n" +
