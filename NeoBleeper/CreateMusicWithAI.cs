@@ -1160,7 +1160,6 @@ namespace NeoBleeper
                     // Remove excessive newlines from the final response
                     response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
                     response = FixCollapsedLinesInNBPML(response); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
-                    //Debug.WriteLine("Full AI Response: " + response);
                     StopConnectionCheck();
                     await Task.Delay(2);
                     if (!cts.IsCancellationRequested)
@@ -1810,7 +1809,6 @@ namespace NeoBleeper
             // Additional transformations for NBPML compliance
             output = FixParameterNames(output);
             output = output.Trim();
-            //Debug.WriteLine(output);
             output = SynchronizeLengths(output);
             output = output.Trim();
 
@@ -2083,7 +2081,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
             xmlContent = Regex.Replace(
                 xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
-            //Debug.WriteLine(xmlContent); // For debugging purposes
+            xmlContent = RecoverNBPMLStructure(xmlContent); // Recover structure if malformed
             if (!IsCompleteNBPML(xmlContent))
             {
                 return xmlContent; // Return original content if not complete
@@ -2119,6 +2117,170 @@ namespace NeoBleeper
                 xmlDoc.Save(stringWriter);
                 return stringWriter.ToString();
             }
+        }
+
+        /// <summary>
+        /// Restores the structure of a malformed NBPML document to a valid format suitable for parsing.
+        /// </summary>
+        /// <param name="nbpmlContent">The NBPML content as a string that may contain structural errors or formatting issues.</param>
+        /// <returns>A string containing the corrected NBPML content with its structure recovered. Returns the original content
+        /// if no corrections are necessary.</returns>
+        private string RecoverNBPMLStructure(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+            {
+                return string.Empty;
+            }
+
+            // Ensure root tags are present
+            if (!nbpmlContent.StartsWith("<NeoBleeperProjectFile>"))
+            {
+                nbpmlContent = "<NeoBleeperProjectFile>\r\n" + nbpmlContent;
+            }
+            if (!nbpmlContent.EndsWith("</NeoBleeperProjectFile>"))
+            {
+                nbpmlContent += "\r\n</NeoBleeperProjectFile>";
+            }
+
+            // Fix orphaned tags that should be within <Line>...</Line>
+            nbpmlContent = FixOrphanedTagsInNBPML(nbpmlContent);
+
+            // Realign all tags to ensure proper nesting (remove extra spaces inside tags)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<\s*(/)?\s*(\w+)\s*>", m => $"<{(m.Groups[1].Success ? "/" : "")}{m.Groups[2].Value}>", RegexOptions.Multiline);
+
+            // Make all empty tags self-closing
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<(\w+)></\1>",
+                m => $"<{m.Groups[1].Value} />",
+                RegexOptions.Multiline);
+
+            // Fix indentation
+            nbpmlContent = FixNBPMLIndentation(nbpmlContent);
+
+            // Return the corrected content
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Fixes the indentation of NBPML content to ensure consistent formatting.
+        /// </summary>
+        /// <param name="nbpmlContent">The NBPML content to format.</param>
+        /// <returns>The NBPML content with corrected indentation.</returns>
+        private string FixNBPMLIndentation(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                //Debug.WriteLine(nbpmlContent);
+                // Try to parse and reformat using XmlDocument for proper indentation
+                var nbpmlDoc = new XmlDocument(); // Fun fact: NBPML format of NeoBleeper is actually XML-based format
+                nbpmlDoc.PreserveWhitespace = false;
+                nbpmlDoc.LoadXml(nbpmlContent);
+
+                using var stringWriter = new System.IO.StringWriter();
+                using var xmlWriter = new XmlTextWriter(stringWriter)
+                {
+                    Formatting = Formatting.Indented,
+                    Indentation = 4,
+                    IndentChar = ' '
+                };
+
+                nbpmlDoc.WriteTo(xmlWriter);
+                xmlWriter.Flush();
+
+                string result = stringWriter.ToString();
+
+                // Remove XML declaration if added
+                result = Regex.Replace(result, @"<\?xml[^?]*\?>\s*", string.Empty, RegexOptions.IgnoreCase);
+
+                return result.Trim();
+            }
+            catch (XmlException)
+            {
+                // If XML parsing fails, fall back to regex-based indentation
+                return FixNBPMLIndentationWithRegex(nbpmlContent);
+            }
+        }
+
+        /// <summary>
+        /// Fallback method to fix NBPML indentation using regex when XmlDocument parsing fails.
+        /// </summary>
+        /// <param name="nbpmlContent">The NBPML content to format.</param>
+        /// <returns>The NBPML content with corrected indentation.</returns>
+        private string FixNBPMLIndentationWithRegex(string nbpmlContent)
+        {
+            // Split content into lines and trim each line
+            var lines = nbpmlContent.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            var result = new System.Text.StringBuilder();
+            int indentLevel = 0;
+            const string indentUnit = "    "; // 4 spaces
+
+            foreach (var rawLine in lines)
+            {
+                string line = rawLine.Trim();
+                if (string.IsNullOrEmpty(line))
+                    continue;
+
+                // Check if line is a closing tag
+                bool isClosingTag = line.StartsWith("</");
+                // Check if line is a self-closing tag
+                bool isSelfClosing = line.EndsWith("/>") || Regex.IsMatch(line, @"<\w+\s*/>");
+                // Check if line contains both opening and closing tags (e.g., <Tag>Value</Tag>)
+                bool isCompleteLine = Regex.IsMatch(line, @"^<\w+[^/]*>.*</\w+>$");
+
+                // Decrease indent before writing closing tag
+                if (isClosingTag && indentLevel > 0)
+                {
+                    indentLevel--;
+                }
+
+                // Write the line with proper indentation
+                result.AppendLine(new string(' ', indentLevel * 4) + line);
+
+                // Increase indent after opening tag (unless it's self-closing or complete)
+                if (!isClosingTag && !isSelfClosing && !isCompleteLine && line.StartsWith("<") && !line.StartsWith("<?"))
+                {
+                    indentLevel++;
+                }
+            }
+            //Debug.WriteLine(result);
+            return result.ToString().TrimEnd();
+        }
+
+        private string FixOrphanedTagsInNBPML(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+            {
+                return string.Empty;
+            }
+            // Find single-line orphaned tags such as <Length>...</Length> not within <Line>...</Line>
+            var regex = new Regex(
+                @"(?<!<Line>\s*)(<Length>.*?</Length>\s*(<Mod\s*/>\s*)?(<Art\s*/>\s*)?(<Note1>.*?</Note1>\s*)?(<Note2>.*?</Note2>\s*)?(<Note3>.*?</Note3>\s*)?(<Note4>.*?</Note4>\s*)?)(?!\s*</Line>)",
+                RegexOptions.Singleline);
+            // Find multi-line orphaned tags such as <Line>...</Line> that wrap multiple lines
+            nbpmlContent = regex.Replace(nbpmlContent, match =>
+            {
+                return $"<Line>\r\n{match.Groups[1].Value.Trim()}\r\n</Line>";
+            });
+
+            // Remove extra nested tags if added incorrectly - loop until no more changes
+            string previousContent;
+            do
+            {
+                previousContent = nbpmlContent;
+                nbpmlContent = Regex.Replace(
+                    nbpmlContent,
+                    @"<(?<tag>\w+)>\s*<\k<tag>>(?<content>[\s\S]*?)</\k<tag>>\s*</\k<tag>>",
+                    "<${tag}>${content}</${tag}>",
+                    RegexOptions.Singleline);
+            } while (nbpmlContent != previousContent);
+
+            return nbpmlContent;
         }
 
         /// <summary>
