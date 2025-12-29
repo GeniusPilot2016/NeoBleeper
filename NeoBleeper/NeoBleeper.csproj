@@ -18,7 +18,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x64;ARM64</Platforms>
-    <Copyright>© 2023-2025 GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
+    <Year>$([System.DateTime]::Now.Year)</Year>
+    <CopyrightYear Condition="'$(Year)' == '2023'">2023</CopyrightYear>
+    <CopyrightYear Condition="'$(Year)' != '2023'">2023-$(Year)</CopyrightYear>
+    <Copyright>© $(CopyrightYear) GeniusPilot2016. NeoBleeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</Copyright>
     <PackageProjectUrl>https://github.com/GeniusPilot2016/NeoBleeper</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>music, beep, pc-speaker, buzzer, tune, pc-beeper, system-speaker, neobleeper, bleeper, motherboard-speaker, motherboard-buzzer</PackageTags>
@@ -27,12 +30,14 @@
     <PackageIcon>neobleeper_icon.png</PackageIcon>
     <NeutralLanguage>en-001</NeutralLanguage>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="cmdwtf.BuildTimestampGenerator" Version="*" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="cmdwtf.BuildTimestampGenerator" Version="1.1.0" />
     <PackageReference Include="Google_GenerativeAI" Version="3.6.1" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />

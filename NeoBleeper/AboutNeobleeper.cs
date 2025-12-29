@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using cmdwtf;
+using System.Globalization;
+using System.Reflection;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -25,6 +28,8 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.Owner = owner;
+            string buildYear = GetBuildDate().Year.ToString();
+            lbl_credit.Text = lbl_credit.Text.Replace("2023", buildYear == "2023" ? "2023" :  "2023-" + buildYear); // Update copyright year range based on build date of the assembly to include the current year if different from origin (early planning stages started in 2023 since developer learned about original Bleeper Music Maker is actually abandoned years ago)
             UIFonts.SetFonts(this);
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             lbl_version.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}";
@@ -40,6 +45,15 @@ namespace NeoBleeper
                     SetTheme();
                 }
             }
+        }
+
+        /// <summary>
+        /// Retrieves the date and time when the current assembly was built.
+        /// </summary>
+        /// <returns>A <see cref="DateTime"/> value representing the build date and time of the assembly.</returns>
+        private static DateTime GetBuildDate()
+        {
+            return BuildTimestamp.BuildTime;
         }
 
         /// <summary>

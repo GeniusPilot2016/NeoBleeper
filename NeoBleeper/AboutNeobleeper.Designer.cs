@@ -127,8 +127,8 @@
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
             resources.ApplyResources(panel1, "panel1");
+            panel1.BackgroundImage = Properties.Resources.neobleeper_pattern;
             panel1.Controls.Add(lbl_name);
             panel1.Controls.Add(lbl_version);
             panel1.Controls.Add(pictureBox1);
@@ -139,7 +139,7 @@
             resources.ApplyResources(lbl_credit, "lbl_credit");
             lbl_credit.Name = "lbl_credit";
             // 
-            // about_neobleeper
+            // AboutNeobleeper
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -153,7 +153,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "about_neobleeper";
+            Name = "AboutNeobleeper";
             ShowIcon = false;
             ShowInTaskbar = false;
             SystemColorsChanged += about_neobleeper_SystemColorsChanged;
