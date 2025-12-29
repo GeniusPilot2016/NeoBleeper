@@ -1359,7 +1359,7 @@ namespace NeoBleeper
             // Remove the entire tag if "False"
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*(False)?\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if False
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*</\k<tag>>", string.Empty, RegexOptions.IgnoreCase); // Remove tag if empty
-                                                                                                                                  // Remove self-closing tags at the end of lines
+                                                                                                                                              // Remove self-closing tags at the end of lines
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Sta|Dot|Tri|Spi|Fer) />(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)/>(?=\s*$)", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(
@@ -2137,7 +2137,8 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(
                 xmlContent,
                 @"<(?<open>\w+)>(.*?)</(?<close>\w+)>",
-                m => {
+                m =>
+                {
                     var open = m.Groups["open"].Value;
                     var close = m.Groups["close"].Value;
                     var content = m.Groups[2].Value;
@@ -2736,6 +2737,6 @@ namespace NeoBleeper
             {
                 return false;
             }
-        } 
+        }
     }
 }
