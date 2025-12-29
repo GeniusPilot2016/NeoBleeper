@@ -3050,128 +3050,133 @@ namespace NeoBleeper
             int baseLength = 0;
 
             EnableDisableCommonControls(false);
-
-            // Use a single, high-resolution timer for the entire playback duration
-            await HighPrecisionSleep.SleepAsync(1); // Sleep briefly to ensure accurate timing
-            Stopwatch globalStopwatch = new Stopwatch();
-            globalStopwatch.Start();
-
-            // Store the total elapsed time of all previous notes
-            double totalElapsedNoteDuration = 0.0;
-
-            while (listViewNotes.SelectedItems.Count > 0 && isMusicPlaying)
+            try
             {
-                if (Variables.bpm > 0)
+                // Use a single, high-resolution timer for the entire playback duration
+                await HighPrecisionSleep.SleepAsync(1); // Sleep briefly to ensure accurate timing
+                Stopwatch globalStopwatch = new Stopwatch();
+                globalStopwatch.Start();
+
+                // Store the total elapsed time of all previous notes
+                double totalElapsedNoteDuration = 0.0;
+
+                while (listViewNotes.SelectedItems.Count > 0 && isMusicPlaying)
                 {
-                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
-                }
-
-                nonStopping = trackBar_note_silence_ratio.Value == 100;
-                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                double noteDuration = CalculateLineLength(baseLength); // + beat_length;
-                int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
-
-                // Calculate the expected end time for the current note
-                double expectedEndTime = totalElapsedNoteDuration + noteDuration;
-
-                // Get the current elapsed time from the global stopwatch
-                double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
-
-                // Calculate the drift
-                double drift = currentTime - totalElapsedNoteDuration;
-
-                if (drift > 0) // Handle positive drift
-                {
-                    rawNoteDuration = (int)Math.Max(0, rawNoteDuration - drift);
-                    if (drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
+                    if (Variables.bpm > 0)
                     {
-                        int cachedNoteDuration = noteSound_int;
-                        // Adjust the note sound duration to compensate for drift
-                        noteSound_int = Math.Max(1, noteSound_int - (int)drift);
-                        if (drift - cachedNoteDuration > 0) // If drift exceeds the original note duration, adjust silence accordingly
-                        {
-                            silence_int = (Math.Max(0, (int)(drift - cachedNoteDuration)));
-                        }
-                        drift -= drift; // Reset drift after adjustment
+                        baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
                     }
-                    else // If drift exceeds the note duration, skip to the next note
+
+                    nonStopping = trackBar_note_silence_ratio.Value == 100;
+                    var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
+                    double noteDuration = CalculateLineLength(baseLength); // + beat_length;
+                    int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
+
+                    // Calculate the expected end time for the current note
+                    double expectedEndTime = totalElapsedNoteDuration + noteDuration;
+
+                    // Get the current elapsed time from the global stopwatch
+                    double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
+
+                    // Calculate the drift
+                    double drift = currentTime - totalElapsedNoteDuration;
+
+                    if (drift > 0) // Handle positive drift
                     {
-                        currentNoteIndex++;
-                        if (currentNoteIndex > (listViewNotes.Items.Count - 1))
+                        rawNoteDuration = (int)Math.Max(0, rawNoteDuration - drift);
+                        if (drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
                         {
-                            if (listViewNotes.Items.Count == 0)
+                            int cachedNoteDuration = noteSound_int;
+                            // Adjust the note sound duration to compensate for drift
+                            noteSound_int = Math.Max(1, noteSound_int - (int)drift);
+                            if (drift - cachedNoteDuration > 0) // If drift exceeds the original note duration, adjust silence accordingly
                             {
-                                StopPlaying();
-                                return;
+                                silence_int = (Math.Max(0, (int)(drift - cachedNoteDuration)));
                             }
-                            int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
-                            int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
-                            if (checkBox_loop.Checked)
-                            {
-                                // Looping enabled - wrap around to the start
-                                currentNoteIndex = startIndex + indexOverflow;
-                            }
-                            else
-                            {
-                                // End of list reached and not looping - stop playback
-                                StopPlaying();
-                                listViewNotes.SelectedItems.Clear();
-                                break;
-                            }
+                            drift -= drift; // Reset drift after adjustment
                         }
-                        UpdateListViewSelection(currentNoteIndex);
-                        drift -= noteDuration;
-                        totalElapsedNoteDuration += noteDuration;
-                        continue; // Skip to the next note if drift exceeds note duration
+                        else // If drift exceeds the note duration, skip to the next note
+                        {
+                            currentNoteIndex++;
+                            if (currentNoteIndex > (listViewNotes.Items.Count - 1))
+                            {
+                                if (listViewNotes.Items.Count == 0)
+                                {
+                                    StopPlaying();
+                                    return;
+                                }
+                                int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
+                                int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
+                                if (checkBox_loop.Checked)
+                                {
+                                    // Looping enabled - wrap around to the start
+                                    currentNoteIndex = startIndex + indexOverflow;
+                                }
+                                else
+                                {
+                                    // End of list reached and not looping - stop playback
+                                    StopPlaying();
+                                    listViewNotes.SelectedItems.Clear();
+                                    break;
+                                }
+                            }
+                            UpdateListViewSelection(currentNoteIndex);
+                            drift -= noteDuration;
+                            totalElapsedNoteDuration += noteDuration;
+                            continue; // Skip to the next note if drift exceeds note duration
+                        }
                     }
-                }
-                // Normal playing flow
-                HandleMidiOutput(noteSound_int);
-                await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
+                    // Normal playing flow
+                    HandleMidiOutput(noteSound_int);
+                    await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
 
-                if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
-                {
-                    UpdateLabelVisible(false);
-                    await HighPrecisionSleep.SleepAsync(silence_int);
-                }
-                if (drift < 0) // Handle negative drift
-                {
-                    await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
-                    drift -= drift;
-                }
-                // Update the total elapsed note duration for the next loop iteration
-                totalElapsedNoteDuration += noteDuration;
-
-                currentNoteIndex++;
-
-                // Check if it's reached the end and handle looping
-                if (currentNoteIndex >= listViewNotes.Items.Count)
-                {
-                    if (checkBox_loop.Checked)
+                    if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
                     {
-                        UpdateListViewSelection(startIndex);
-                        currentNoteIndex = startIndex;
+                        UpdateLabelVisible(false);
+                        await HighPrecisionSleep.SleepAsync(silence_int);
+                    }
+                    if (drift < 0) // Handle negative drift
+                    {
+                        await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
+                        drift -= drift;
+                    }
+                    // Update the total elapsed note duration for the next loop iteration
+                    totalElapsedNoteDuration += noteDuration;
+
+                    currentNoteIndex++;
+
+                    // Check if it's reached the end and handle looping
+                    if (currentNoteIndex >= listViewNotes.Items.Count)
+                    {
+                        if (checkBox_loop.Checked)
+                        {
+                            UpdateListViewSelection(startIndex);
+                            currentNoteIndex = startIndex;
+                        }
+                        else
+                        {
+                            // End of list reached and not looping - stop playback
+                            StopPlaying();
+                            listViewNotes.SelectedItems.Clear();
+                            break;
+                        }
                     }
                     else
                     {
-                        // End of list reached and not looping - stop playback
-                        StopPlaying();
-                        listViewNotes.SelectedItems.Clear();
-                        break;
+                        // Normal progression - update selection to current note
+                        UpdateListViewSelection(currentNoteIndex);
                     }
                 }
-                else
+                if (nonStopping)
                 {
-                    // Normal progression - update selection to current note
-                    UpdateListViewSelection(currentNoteIndex);
+                    StopAllNotesAfterPlaying();
                 }
+                await StopAllVoices();
             }
-            if (nonStopping)
+            finally
             {
-                StopAllNotesAfterPlaying();
-            }
-            await StopAllVoices();
-            EnableDisableCommonControls(true);
+                EnableDisableCommonControls(true);
+            }  
         }
 
         // ListView update method
@@ -3700,41 +3705,46 @@ namespace NeoBleeper
             {
                 return;
             }
-
             StopPlaying();
             EnableDisableCommonControls(false);
             if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
             {
-                int baseLength = 0;
-                Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                if (Variables.bpm != 0)
+                try
                 {
-                    baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
+                    int baseLength = 0;
+                    Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    if (Variables.bpm != 0)
+                    {
+                        baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
+                    }
+                    if (listViewNotes.SelectedItems.Count > 0)
+                    {
+                        UpdateDisplays(listViewNotes.SelectedIndices[0]);
+                    }
+                    HighPrecisionSleep.Sleep(1);
+                    var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
+                    int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
+                    HandleMidiOutput(noteSound_int);
+                    bool nonStopping;
+                    if (trackBar_note_silence_ratio.Value == 100)
+                    {
+                        nonStopping = true;
+                    }
+                    else
+                    {
+                        nonStopping = false;
+                    }
+                    await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
+                    await StopAllVoices(); // Stop all voices if using voice system
+                    if (nonStopping == true)
+                    {
+                        StopAllNotesAfterPlaying();
+                    }
                 }
-                if (listViewNotes.SelectedItems.Count > 0)
+                finally
                 {
-                    UpdateDisplays(listViewNotes.SelectedIndices[0]);
+                    EnableDisableCommonControls(true);
                 }
-                HighPrecisionSleep.Sleep(1);
-                var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
-                HandleMidiOutput(noteSound_int);
-                bool nonStopping;
-                if (trackBar_note_silence_ratio.Value == 100)
-                {
-                    nonStopping = true;
-                }
-                else
-                {
-                    nonStopping = false;
-                }
-                await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
-                await StopAllVoices(); // Stop all voices if using voice system
-                if (nonStopping == true)
-                {
-                    StopAllNotesAfterPlaying();
-                }
-                EnableDisableCommonControls(true);
                 if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0) // Multi-lingual compatible logging of selected line as English 
                 {
                     string length = "Quarter"; // Default to quarter note
