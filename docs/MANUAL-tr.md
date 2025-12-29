@@ -351,7 +351,7 @@
 
     Bu sekme, NeoBleeper'ın harici MIDI donanımı, sanal enstrümanlar ve diğer harici donanımlarla nasıl etkileşim kuracağını yapılandırmanıza olanak tanır. İster canlı girişi entegre ediyor olun ister çıkışı bir sentezleyiciye yönlendiriyor olun, sinyal akışınızı burada tanımlayabilirsiniz.
 
-    ![image](https://github.com/user-attachments/assets/bda3663f-5e9a-4b45-b229-a05e2c7ca1c4)
+    ![image](https://github.com/user-attachments/assets/ad04eed3-fd0c-446e-ab1b-83f4b22eed09)
 
     - #### MIDI Giriş Aygıtları
       **Canlı MIDI girişini kullan:** Harici kontrol cihazlarından veya yazılımlardan gerçek zamanlı MIDI sinyal alımını etkinleştirir. İşaretlendiğinde, NeoBleeper gelen MIDI mesajlarını dinleyerek sesleri veya eylemleri tetikler.   
