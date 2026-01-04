@@ -21,7 +21,7 @@ NeoBleeper es el primer software de creación de melodías con IA que utiliza el
 
 ## Vídeo
 
-[![Ver el vídeo](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
+[![Ver el vídeo](https://img.youtube.com/vi/izg5NYQzuuM/maxresdefault.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Estado
 
