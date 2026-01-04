@@ -21,7 +21,7 @@ NeoBleeper è il primo software al mondo per la creazione di brani musicali basa
 
 ## Video
 
-[![Guarda il video](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
+[![Guarda il video](https://img.youtube.com/vi/izg5NYQzuuM/maxresdefault.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Stato
 
