@@ -21,7 +21,7 @@ NeoBleeper ist die weltweit erste KI-gestützte Software zur Musikproduktion, di
 
 ## Video
 
-[![Video ansehen](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
+[![Video ansehen](https://img.youtube.com/vi/izg5NYQzuuM/maxresdefault.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Status
 
