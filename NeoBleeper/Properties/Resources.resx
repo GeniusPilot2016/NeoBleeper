@@ -695,6 +695,51 @@ You can then use this window to control the playback of all instances of NeoBlee
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Produce a funky bass-driven groove with rhythmic percussion</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Compose a medieval-style tune with modal harmony</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Create a blues progression with expressive notes</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Generate a graceful waltz in 3/4 time</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Compose a ceremonial march with steady tempo</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Create a gentle lullaby for peaceful sleep</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Generate an experimental composition with unusual time signature</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Create an upbeat electronic dance rhythm</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Generate a traditional folk melody with simple harmony</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Compose an epic orchestral-style fanfare</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Create a jazz-inspired melody with swing rhythm</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Generate a minimalist composition with repeating motifs</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Create an 8-bit style video game boss battle theme</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Compose a rhythmic pattern with syncopated beats</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Generate a calm ambient soundscape for relaxation</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Create a baroque-style composition with intricate counterpoint</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Show</value>
   </data>

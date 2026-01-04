@@ -677,6 +677,51 @@ Abilitando questa funzione, si aprirà una nuova finestra che mostra i controlli
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Produci un groove funky guidato dal basso con percussioni ritmiche</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Componi una melodia medievale con armonia modale</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Crea una progressione blues con note espressive</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Genera un valzer elegante in 3/4</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Componi una marcia cerimoniale con tempo costante</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Crea una dolce ninna nanna per un sonno tranquillo</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Genera una composizione sperimentale con tempo insolito</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Crea un ritmo dance elettronico energico</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Genera una melodia folk tradizionale con armonia semplice</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Componi una fanfara orchestrale epica</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Crea una melodia jazz con ritmo swing</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Genera una composizione minimalista con motivi ripetuti</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Crea un tema boss battle in stile 8-bit per videogiochi</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Componi un pattern ritmico con battiti sincopati</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Genera un paesaggio sonoro ambientale calmo per il relax</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Crea una composizione in stile barocco con contrappunto intricato</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Mostra</value>
   </data>

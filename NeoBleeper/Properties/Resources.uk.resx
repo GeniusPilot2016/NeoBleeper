@@ -680,6 +680,51 @@
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Створи фанковий грув з потужним басом і ритмічною перкусією</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Склади середньовічну мелодію з модальною гармонією</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Створи блюзову прогресію з виразними нотами</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Згенеруй елегантний вальс на 3/4</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Склади церемоніальний марш зі сталим темпом</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Створи ніжну колискову для спокійного сну</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Згенеруй експериментальну композицію з незвичайним розміром</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Створи енергійний електронний танцювальний ритм</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Згенеруй традиційну народну мелодію з простою гармонією</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Склади епічну оркестрову фанфару</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Створи джазову мелодію з ритмом свінг</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Згенеруй мінімалістичну композицію з повторюваними мотивами</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Створи тему битви з босом у 8-бітному стилі для відеогри</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Склади ритмічний патерн із синкопованими ударами</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Згенеруй спокійний ембієнт для релаксації</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Створи композицію в стилі бароко зі складним контрапунктом</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Показати</value>
   </data>

@@ -678,6 +678,51 @@ Sau đó, bạn có thể sử dụng cửa sổ này để điều khiển vi�
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Sản xuất một giai điệu funky dựa trên bass với bộ gõ nhịp nhàng</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Sáng tác một giai điệu trung cổ với hòa âm điệu thức</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Tạo một tiến trình blues với các nốt biểu cảm</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Tạo một bản valse trang nhã theo nhịp 3/4</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Sáng tác một bản hành khúc lễ nghi với nhịp độ đều đặn</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Tạo một bài hát ru nhẹ nhàng cho giấc ngủ yên bình</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Tạo một bản nhạc thử nghiệm với nhịp không thông thường</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Tạo một nhịp nhạc điện tử sôi động</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Tạo một giai điệu dân gian truyền thống với hòa âm đơn giản</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Sáng tác một bản kèn hiệu dàn nhạc hoành tráng</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Tạo một giai điệu jazz với nhịp swing</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Tạo một bản nhạc tối giản với các motif lặp lại</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Tạo nhạc nền đánh boss 8-bit cho trò chơi điện tử</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Sáng tác một mẫu nhịp điệu với nhịp đảo phách</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Tạo một bản nhạc ambient yên tĩnh để thư giãn</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Tạo một bản nhạc phong cách Baroque với đối âm phức tạp</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Hiển thị</value>
   </data>

@@ -678,6 +678,51 @@ Vous pouvez ensuite utiliser cette fenêtre pour contrôler la lecture de toutes
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Produire un groove funky avec une basse puissante et des percussions rythmiques</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Composez un air médiéval avec une harmonie modale</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Créez une progression blues avec des notes expressives</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Créez une valse élégante à 3/4</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Composez une marche cérémonielle au tempo régulier</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Créez une berceuse douce pour un sommeil paisible</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Créez une composition expérimentale avec une signature rythmique inhabituelle</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Créez un rythme de danse électronique énergique</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Créez une mélodie folklorique traditionnelle avec une harmonie simple</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Composez une fanfare orchestrale épique</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Créez une mélodie jazz avec un rythme swing</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Créez une composition minimaliste avec des motifs répétitifs</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Créez un thème de combat de boss de jeu vidéo de style 8 bits</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Composez un motif rythmique avec des temps syncopés</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Créez une ambiance sonore apaisante pour la détente</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Créez une composition de style baroque avec un contrepoint complexe</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Montrer</value>
   </data>

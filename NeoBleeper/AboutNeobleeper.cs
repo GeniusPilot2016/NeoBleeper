@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using cmdwtf;
 using System.Globalization;
 using System.Reflection;
 using static UIHelper;
@@ -28,7 +27,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             this.Owner = owner;
-            string buildYear = GetBuildDate().Year.ToString();
+            string buildYear = GetBuildYearFromMetadata();
             lbl_credit.Text = lbl_credit.Text.Replace("2023", buildYear == "2023" ? "2023" :  "2023-" + buildYear); // Update copyright year range based on build date of the assembly to include the current year if different from origin (early planning stages started in 2023 since developer learned about original Bleeper Music Maker is actually abandoned years ago)
             UIFonts.SetFonts(this);
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
@@ -48,12 +47,18 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Retrieves the date and time when the current assembly was built.
+        /// Retrieves the build year from the assembly metadata.
         /// </summary>
-        /// <returns>A <see cref="DateTime"/> value representing the build date and time of the assembly.</returns>
-        private static DateTime GetBuildDate()
+        /// <remarks>The method looks for an assembly metadata attribute with the key "Year" in the
+        /// executing assembly. If the attribute is not found, the default value "2023" is returned.</remarks>
+        /// <returns>A string containing the build year specified in the assembly's metadata. Returns "2023" if the year metadata
+        /// is not present.</returns>
+        private static string GetBuildYearFromMetadata()
         {
-            return BuildTimestamp.BuildTime;
+            var assembly = Assembly.GetExecutingAssembly();
+            var yearAttr = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+                .FirstOrDefault(a => a.Key == "Year");
+            return yearAttr?.Value ?? "2023";
         }
 
         /// <summary>

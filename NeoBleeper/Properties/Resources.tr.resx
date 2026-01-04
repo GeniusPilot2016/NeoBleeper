@@ -678,6 +678,51 @@ Daha sonra bu pencereyi kullanarak bilgisayarınızdaki tüm NeoBleeper örnekle
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Ritmik perküsyonlu funky bas ağırlıklı bir groove üret</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Modal armoni ile ortaçağ tarzında bir ezgi bestele</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>İfadeli notalarla blues ilerlemesi oluştur</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>3/4'lük zamanda zarif bir vals oluştur</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Sabit tempo ile törensel bir marş bestele</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Huzurlu bir uyku için nazik bir ninni oluştur</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Alışılmadık ölçü ile deneysel bir kompozisyon oluştur</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Enerjik bir elektronik dans ritmi oluştur</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Basit armoni ile geleneksel bir halk melodisi oluştur</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Epik orkestra tarzında bir fanfar bestele</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Swing ritmiyle caz tarzında bir melodi oluştur</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Tekrarlayan motiflerle minimalist bir kompozisyon oluştur</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>8-bit tarzında bir video oyunu patron savaşı teması oluştur</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Senkoplu vuruşlarla ritmik bir kalıp oluştur</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Rahatlama için sakin bir ortam ses manzarası oluştur</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Karmaşık kontrpuan içeren barok tarzda bir beste oluştur</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Göster</value>
   </data>

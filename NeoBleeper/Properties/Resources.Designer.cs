@@ -353,6 +353,42 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Create a baroque-style composition with intricate counterpoint benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt16 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a calm ambient soundscape for relaxation benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt17 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a rhythmic pattern with syncopated beats benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt18 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create an 8-bit style video game boss battle theme benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt19 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Generate a rock song inspired by The Beatles benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ExamplePrompt2 {
@@ -362,11 +398,110 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Generate a minimalist composition with repeating motifs benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt20 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create a jazz-inspired melody with swing rhythm benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt21 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose an epic orchestral-style fanfare benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt22 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a traditional folk melody with simple harmony benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt23 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create an upbeat electronic dance rhythm benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt24 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a medieval-style tune with modal harmony benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt25 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate an experimental composition with unusual time signature benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt26 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create a gentle lullaby for peaceful sleep benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt27 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Compose a ceremonial march with steady tempo benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt28 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generate a graceful waltz in 3/4 time benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt29 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt29", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Compose a jazz melody with a swing rhythm benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ExamplePrompt3 {
             get {
                 return ResourceManager.GetString("ExamplePrompt3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create a blues progression with expressive notes benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ExamplePrompt30 {
+            get {
+                return ResourceManager.GetString("ExamplePrompt30", resourceCulture);
             }
         }
         

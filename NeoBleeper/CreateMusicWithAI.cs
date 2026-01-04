@@ -16,9 +16,12 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System.Collections;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Xml;
 using static UIHelper;
@@ -28,23 +31,7 @@ namespace NeoBleeper
     public partial class CreateMusicWithAI : Form
     {
         // Created as byproduct of my old school project, which is the AI-powered Paint-like program called "ArtFusion", to create chaotic music with AI without any expectation (however, our school projects were prohibited to exhibit in school exhibition until final exam points are given, so I exhibited this program instead, instead of exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management system" which are boring and useless for normal users)
-        string[] examplePrompts =         {
-            Resources.ExamplePrompt1,
-            Resources.ExamplePrompt2,
-            Resources.ExamplePrompt3,
-            Resources.ExamplePrompt4,
-            Resources.ExamplePrompt5,
-            Resources.ExamplePrompt6,
-            Resources.ExamplePrompt7,
-            Resources.ExamplePrompt8,
-            Resources.ExamplePrompt9,
-            Resources.ExamplePrompt10,
-            Resources.ExamplePrompt11,
-            Resources.ExamplePrompt12,
-            Resources.ExamplePrompt13,
-            Resources.ExamplePrompt14,
-            Resources.ExamplePrompt15
-        };
+        string[] examplePrompts = LoadExamplePrompts();
         string examplePrompt = "";
         bool isCreatedAnything = false; // Flag to indicate if anything was created by AI
         bool darkTheme = false;
@@ -74,6 +61,30 @@ namespace NeoBleeper
             textBoxPrompt.PlaceholderText = examplePrompt;
         }
 
+        /// <summary>
+        /// Retrieves all example prompt strings defined as public static properties in the <see cref="Resources"/>
+        /// class whose names begin with "ExamplePrompt".
+        /// </summary>
+        /// <remarks>This method uses reflection to enumerate properties in the <see cref="Resources"/>
+        /// class. Only properties with names starting with "ExamplePrompt" and non-empty values are included in the
+        /// result.</remarks>
+        /// <returns>An array of strings containing the values of all matching example prompt properties. The array will be empty
+        /// if no such properties are found or if their values are null or whitespace.</returns>
+        private static string[] LoadExamplePrompts()
+        {
+            var examplePrompts = new List<string>();
+            var properties = typeof(Resources).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            foreach (var prop in properties)
+            {
+                if (prop.Name.StartsWith("ExamplePrompt", StringComparison.Ordinal))
+                {
+                    string value = prop.GetValue(null)?.ToString();
+                    if (!string.IsNullOrWhiteSpace(value))
+                        examplePrompts.Add(value);
+                }
+            }
+            return examplePrompts.ToArray();
+        }
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
         {
             if (this.IsHandleCreated && !this.IsDisposed)
@@ -421,7 +432,7 @@ namespace NeoBleeper
                 }
 
                 // Increased tolerance for slower connections
-                const int attempts = 4; // Number of attempts
+                int attempts = 4; // Number of attempts
                 TimeSpan perAttemptTimeout = TimeSpan.FromSeconds(12); // Timeout per attempt
                 TimeSpan delayBetweenAttempts = TimeSpan.FromMilliseconds(500); // Delay between attempts
 
@@ -485,7 +496,7 @@ namespace NeoBleeper
                 Application.DoEvents();
                 token?.Token.ThrowIfCancellationRequested();
 
-                const int attempts = 4; // Number of attempts to check server status
+                int attempts = 4; // Number of attempts to check server status
                 TimeSpan perAttemptTimeout = TimeSpan.FromSeconds(15); // Timeout for each attempt
                 TimeSpan delayBetweenAttempts = TimeSpan.FromMilliseconds(500); // Delay between attempts
 
@@ -583,6 +594,7 @@ namespace NeoBleeper
         public static bool IsAvailableInCountry()
         {
             String[] supportedCountries =
+
             {
               "AL",
               "DZ",
@@ -827,15 +839,15 @@ namespace NeoBleeper
         /// repetition criteria; otherwise, false.</returns>
         private bool CheckIfModelIsStuckOrKeepsRepeating(string response) // Check if the model is stuck or keeps repeating
         {
-            const int minLength = 500;
+            int minLength = 500;
             if (response.Length < minLength)
             {
                 return false;
             }
 
             // 1) Serial repeating chunks
-            const int chunkSize = 150;
-            const int consecutiveRepetitionThreshold = 3;
+            int chunkSize = 150;
+            int consecutiveRepetitionThreshold = 3;
 
             if (response.Length >= chunkSize * consecutiveRepetitionThreshold)
             {
@@ -862,7 +874,7 @@ namespace NeoBleeper
             }
 
             // Analyze the tail for performance
-            const int tailWindowSize = 4000;
+            int tailWindowSize = 4000;
             string tail = response.Length > tailWindowSize ? response.Substring(response.Length - tailWindowSize) : response;
 
             // Mask seperators to prevent false positives
@@ -871,7 +883,7 @@ namespace NeoBleeper
             tail = Regex.Replace(tail, @"(?m)^\s*={10,}\s*$", " <NBPML_SEPARATOR> ");
 
             // 2) Serial repeat of same character, except file name and content seperator.
-            const int repeatedCharThreshold = 80;
+            int repeatedCharThreshold = 80;
             var repeatedCharMatch = Regex.Match(tail, $@"(.)\1{{{repeatedCharThreshold},}}", RegexOptions.Singleline);
             if (repeatedCharMatch.Success)
             {
@@ -880,7 +892,7 @@ namespace NeoBleeper
             }
 
             // 3) Token based serial repeatings
-            const int tokenRunThreshold = 100;
+            int tokenRunThreshold = 100;
 
             var tokenMatches = Regex.Matches(
                 tail,
@@ -934,9 +946,9 @@ namespace NeoBleeper
             // 4) Motif check
             string compact = Regex.Replace(tail, @"\s+", "");
 
-            const int minMotifLength = 4;
-            const int maxMotifLength = 80;
-            const int motifRepeatThreshold = 6;
+            int minMotifLength = 4;
+            int maxMotifLength = 80;
+            int motifRepeatThreshold = 6;
 
             for (int motifLen = minMotifLength; motifLen <= maxMotifLength; motifLen++)
             {
@@ -2036,7 +2048,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"</(\w+)\s+>", "</$1>", RegexOptions.Multiline);
 
             // Make sure all opening and closing tags are properly formatted (NBPML whitelist only)
-            const string allowedTagsPattern =
+            string allowedTagsPattern =
                 @"NeoBleeperProjectFile|Settings|RandomSettings|PlaybackSettings|ClickPlayNotes|PlayNotes|LineList|Line|" +
                 @"KeyboardOctave|BPM|TimeSignature|NoteSilenceRatio|NoteLength|AlternateTime|" +
                 @"NoteClickPlay|NoteClickAdd|NoteReplace|NoteLengthReplace|" +
@@ -2322,7 +2334,7 @@ namespace NeoBleeper
             var lines = nbpmlContent.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
             var result = new System.Text.StringBuilder();
             int indentLevel = 0;
-            const string indentUnit = "    "; // 4 spaces
+            string indentUnit = "    "; // 4 spaces
 
             foreach (var rawLine in lines)
             {

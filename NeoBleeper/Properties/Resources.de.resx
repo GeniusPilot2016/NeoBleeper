@@ -678,6 +678,51 @@ Deshalb empfiehlt es sich, die Systemuhren vor der Nutzung dieser Funktion zu sy
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Produziere einen funkigen Bass-getriebenen Groove mit rhythmischen Percussion</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Komponiere eine mittelalterliche Melodie mit modaler Harmonie</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Erstelle eine Blues-Progression mit ausdrucksvollen Noten</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Erzeuge einen eleganten Walzer im 3/4-Takt</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Komponiere einen zeremoniellen Marsch mit gleichmäßigem Tempo</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Erstelle ein sanftes Wiegenlied für friedlichen Schlaf</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Erzeuge eine experimentelle Komposition mit ungewöhnlicher Taktart</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Erstelle einen energiegeladenen elektronischen Tanzrhythmus</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Erzeuge eine traditionelle Volksmelodie mit einfacher Harmonie</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Komponiere eine epische Orchesterstreicher-Fanfare</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Erstelle eine jazzinspirierte Melodie mit Swing-Rhythmus</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Erzeuge eine minimalistische Komposition mit sich wiederholenden Motiven</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Erstelle ein Bosskampf-Thema im 8-Bit-Stil für Videospiele</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Erstelle ein rhythmisches Muster mit synkopierten Schlägen</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Erzeuge eine ruhige Klangkulisse zur Entspannung</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Erschaffe eine Komposition im Barockstil mit kunstvollem Kontrapunkt</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Zeigen</value>
   </data>

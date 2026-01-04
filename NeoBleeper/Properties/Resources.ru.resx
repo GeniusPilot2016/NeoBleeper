@@ -680,6 +680,51 @@
   <data name="ExamplePrompt15" xml:space="preserve">
     <value>Произведи фанковый грув с мощным басом и ритмичной перкуссией</value>
   </data>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Сочини средневековую мелодию с модальной гармонией</value>
+  </data>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Создай блюзовую прогрессию с выразительными нотами</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Сгенерируй изящный вальс на 3/4</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Сочини церемониальный марш с постоянным темпом</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Создай нежную колыбельную для спокойного сна</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Сгенерируй экспериментальную композицию с необычным размером</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Создай энергичный электронный танцевальный ритм</value>
+  </data>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Сгенерируй традиционную народную мелодию с простой гармонией</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Сочини эпическую оркестровую фанфару</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Создай джазовую мелодию с ритмом свинг</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Сгенерируй минималистичную композицию с повторяющимися мотивами</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Создай тему битвы с боссом в 8-битном стиле для видеоигры</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Сочини ритмический паттерн с синкопированными ударами</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Сгенерируй спокойный эмбиент для релаксации</value>
+  </data>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Создай композицию в стиле барокко со сложным контрапунктом</value>
+  </data>
   <data name="TextShow" xml:space="preserve">
     <value>Показывать</value>
   </data>
