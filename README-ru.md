@@ -21,7 +21,7 @@ NeoBleeper — первое в мире программное обеспече�
 
 ## Видео
 
-[![Смотреть видео](https://img.youtube.com/vi/izg5NYQzuuM/0.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
+[![Смотреть видео](https://img.youtube.com/vi/izg5NYQzuuM/maxresdefault.jpg)](https://youtube.com/shorts/izg5NYQzuuM?si=pmTgzoNnz_i_96gM)
 
 ## 🚧 Статус
 
