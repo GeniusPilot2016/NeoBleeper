@@ -132,7 +132,7 @@ namespace NeoBleeper
         /// found or if an error occurs during retrieval. Only models that meet specific feature requirements and do not
         /// match known exclusions are presented to the user. The method is intended to be called during form
         /// initialization or when the list of available models needs to be refreshed.</remarks>
-        private async void listAndSelectAIModels()
+        private async void ListAndSelectAIModels()
         {
             try
             {
@@ -1350,6 +1350,7 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"\bAs(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*(?:Rest|REST|rest|R|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*N/A\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase); // Handle N/A as rest
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*None\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*Silence\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
@@ -1386,16 +1387,330 @@ namespace NeoBleeper
                 "<${tag}>${innerTag}</${tag}>", RegexOptions.IgnoreCase);
 
             // Fix TimeSignature if written as a fraction due to hallucination
+            nbpmlContent = FixTimeSignature(nbpmlContent);
+
+            // Convert note length representations to index values
+            nbpmlContent = ConvertLengthToIndex(nbpmlContent);
+
+            // Fix hallucinated KeyboardOctave values
+            nbpmlContent = FixOctaveValueFormat(nbpmlContent);
+
+            // Fix hallucinated BPM values
+            nbpmlContent = FixBPMFormat(nbpmlContent);
+
+            // Fix AlternateTime values
+            nbpmlContent = FixAlternateTimeValue(nbpmlContent);
+
+            // Trim leading/trailing whitespace
+            nbpmlContent = nbpmlContent.Trim();
+
+            // Return the corrected NBPML content
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Normalizes the <AlternateTime> element values in the specified NBPML content, ensuring they are valid and
+        /// within the accepted range.
+        /// </summary>
+        /// <remarks>This method replaces invalid, empty, or ambiguous <AlternateTime> values (such as
+        /// "None", "null", or "default") with a default value of 30. If the value is outside the range of 5 to 200, it
+        /// is clamped to the nearest valid value. If the value is "random", it is replaced with a random integer
+        /// between 5 and 200, inclusive.</remarks>
+        /// <param name="nbpmlContent">The NBPML content as a string to be processed and corrected.</param>
+        /// <returns>A string containing the NBPML content with all <AlternateTime> elements set to a valid integer value between
+        /// 5 and 200, inclusive.</returns>
+        private string FixAlternateTimeValue(string nbpmlContent)
+        {
+            // Ensure AlternateTime is between 5 and 200
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*(\d+)\s*</AlternateTime>", m =>
+            {
+                int value = int.Parse(m.Groups[1].Value);
+                if (value < 5) value = 5;
+                if (value > 200) value = 200;
+                return $"<AlternateTime>{value}</AlternateTime>";
+            }, RegexOptions.IgnoreCase);
+
+            // If AlternateTime is empty, add a default value of 30
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*</AlternateTime>", "<AlternateTime>30</AlternateTime>", RegexOptions.IgnoreCase);
+
+            // Fix ambiguous AlternateTime values like "default", "none"
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*(None|null|default)?\s*</AlternateTime>", "<AlternateTime>30</AlternateTime>", RegexOptions.IgnoreCase);
+
+            // Fix "random" AlternateTime values by setting to random value between 5 and 200
+            Random rnd = new Random();
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*random\s*</AlternateTime>", m =>
+            {
+                int randomValue = rnd.Next(5, 201); // Random value between 5 and 200
+                return $"<AlternateTime>{randomValue}</AlternateTime>";
+            }, RegexOptions.IgnoreCase);
+
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Normalizes <TimeSignature> elements in the specified NBPML content by converting various representations to
+        /// a standardized numeric form.
+        /// </summary>
+        /// <remarks>This method replaces fractional, named, empty, or invalid time signature
+        /// representations with their corresponding numeric values. If a time signature is missing, empty, or
+        /// unrecognized, it defaults to 4 (common time).</remarks>
+        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more <TimeSignature> elements to be normalized.</param>
+        /// <returns>A string containing the NBPML content with all <TimeSignature> elements replaced by their standardized
+        /// numeric values.</returns>
+        private string FixTimeSignature(string nbpmlContent)
+        {
+            // Fractional time signatures
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
                 @"<TimeSignature>\s*(\d+)\s*/\s*\d+\s*</TimeSignature>",
                 m => $"<TimeSignature>{m.Groups[1].Value}</TimeSignature>",
                 RegexOptions.IgnoreCase
             );
-            // Trim leading/trailing whitespace
-            nbpmlContent = nbpmlContent.Trim();
 
-            // Return the corrected NBPML content
+            // Common named time signatures
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Common\s*Time\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*C\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Cut\s*Time\s*</TimeSignature>", "<TimeSignature>2</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Alla\s*Breve\s*</TimeSignature>", "<TimeSignature>2</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Duple\s*</TimeSignature>", "<TimeSignature>2</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Triple\s*</TimeSignature>", "<TimeSignature>3</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Quadruple\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Quintuple\s*</TimeSignature>", "<TimeSignature>5</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Sextuple\s*</TimeSignature>", "<TimeSignature>6</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Septuple\s*</TimeSignature>", "<TimeSignature>7</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*Octuple\s*</TimeSignature>", "<TimeSignature>8</TimeSignature>", RegexOptions.IgnoreCase);
+
+            // Hallucinated or empty time signatures
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*(None|null|default|random)?\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+
+            // Common numeric time signatures
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*2\s*</TimeSignature>", "<TimeSignature>2</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*3\s*</TimeSignature>", "<TimeSignature>3</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*4\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*5\s*</TimeSignature>", "<TimeSignature>5</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*6\s*</TimeSignature>", "<TimeSignature>6</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*7\s*</TimeSignature>", "<TimeSignature>7</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*8\s*</TimeSignature>", "<TimeSignature>8</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*9\s*</TimeSignature>", "<TimeSignature>9</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*12\s*</TimeSignature>", "<TimeSignature>12</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*16\s*</TimeSignature>", "<TimeSignature>16</TimeSignature>", RegexOptions.IgnoreCase);
+
+            // Fallback for empty time signature
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Converts note length representations in the specified NBPML content to their corresponding numeric index
+        /// values.
+        /// </summary>
+        /// <remarks>This method replaces both fractional and named note length elements (such as
+        /// <NoteLength>1/4</NoteLength> or <Length>Quarter</Length>) with a standardized numeric index format (e.g.,
+        /// <Length>2</Length>). The conversion is case-insensitive.</remarks>
+        /// <param name="nbpmlContent">The NBPML content containing note length elements to be converted. Cannot be null.</param>
+        /// <returns>A string containing the modified NBPMLcontent with note length values replaced by their numeric index
+        /// equivalents in note lengths comboBox.</returns>
+        private string ConvertLengthToIndex(string nbpmlContent)
+        {
+            if(string.IsNullOrWhiteSpace(nbpmlContent))
+            {
+                return nbpmlContent;
+            }
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1</NoteLength>", "<Length>0</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1/2</NoteLength>", "<Length>1</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1/4</NoteLength>", "<Length>2</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1/8</NoteLength>", "<Length>3</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1/16</NoteLength>", "<Length>4</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>1/32</NoteLength>", "<Length>5</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Whole</Length>", "<Length>0</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Half</Length>", "<Length>1</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Quarter</Length>", "<Length>2</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Eighth</Length>", "<Length>3</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Sixteenth</Length>", "<Length>4</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Thirty-second</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Thirty Second</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>ThirtySecond</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Normalizes all <KeyboardOctave> values in the specified NBPML content to a standard numeric format within
+        /// the valid range of 2 to 9.
+        /// </summary>
+        /// <remarks>This method corrects <KeyboardOctave> values expressed as words, Roman numerals, or
+        /// ambiguous terms (such as "low", "middle", or "high") to their corresponding numeric values. Values outside
+        /// the valid range are clamped to the nearest valid value. The value "random" is replaced with a random integer
+        /// between 2 and 9. Empty or unrecognized octave values are set to the default value of 4.</remarks>
+        /// <param name="nbpmlContent">The NBPML content string containing <KeyboardOctave> elements to be validated and corrected.</param>
+        /// <returns>A string containing the modified NBPML content with all <KeyboardOctave> values converted to numeric values
+        /// between 2 and 9, inclusive. If the input is null, empty, or whitespace, the original value is returned.</returns>
+        private string FixOctaveValueFormat(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+            {
+                return nbpmlContent;
+            }
+            // Fix octave values that are not in the range of 2-9
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>(\d+)</KeyboardOctave>", m =>
+            {
+                int octave = int.Parse(m.Groups[1].Value);
+                if (octave < 2) octave = 2;
+                if (octave > 9) octave = 9;
+                return $"<KeyboardOctave>{octave}</KeyboardOctave>";
+            }, RegexOptions.IgnoreCase);
+            // Fix "zero" to default octave 4
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*zero\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix octave values written as words to numeric values
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*one\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*two\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*three\s*</KeyboardOctave>", "<KeyboardOctave>3</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*four\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*five\s*</KeyboardOctave>", "<KeyboardOctave>5</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*six\s*</KeyboardOctave>", "<KeyboardOctave>6</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*seven\s*</KeyboardOctave>", "<KeyboardOctave>7</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*eight\s*</KeyboardOctave>", "<KeyboardOctave>8</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*nine\s*</KeyboardOctave>", "<KeyboardOctave>9</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*ten\s*</KeyboardOctave>", "<KeyboardOctave>9</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix octave values written as numerals with extra spaces
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*2\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*3\s*</KeyboardOctave>", "<KeyboardOctave>3</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*4\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*5\s*</KeyboardOctave>", "<KeyboardOctave>5</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*6\s*</KeyboardOctave>", "<KeyboardOctave>6</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*7\s*</KeyboardOctave>", "<KeyboardOctave>7</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*8\s*</KeyboardOctave>", "<KeyboardOctave>8</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*9\s*</KeyboardOctave>", "<KeyboardOctave>9</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix ambigious octave values like "high", "low", "middle"
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*low\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*middle\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*high\s*</KeyboardOctave>", "<KeyboardOctave>7</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix octave values written as Roman numerals
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*I\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*II\s*</KeyboardOctave>", "<KeyboardOctave>2</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*III\s*</KeyboardOctave>", "<KeyboardOctave>3</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*IV\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*V\s*</KeyboardOctave>", "<KeyboardOctave>5</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*VI\s*</KeyboardOctave>", "<KeyboardOctave>6</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*VII\s*</KeyboardOctave>", "<KeyboardOctave>7</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*VIII\s*</KeyboardOctave>", "<KeyboardOctave>8</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*IX\s*</KeyboardOctave>", "<KeyboardOctave>9</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*X\s*</KeyboardOctave>", "<KeyboardOctave>9</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix "default" to default octave 4
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*default\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            // Fix "random" to random octave between 2 and 9
+            Random rnd = new Random();
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*random\s*</KeyboardOctave>", m =>
+            {
+                int randomOctave = rnd.Next(2, 10); // Generates a random number between 2 and 9
+                return $"<KeyboardOctave>{randomOctave}</KeyboardOctave>";
+            }, RegexOptions.IgnoreCase);
+
+            // Fix empty octave value to default octave 4
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+
+            // Return the modified content
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Normalizes BPM values in the specified NBPML content by converting ambiguous, invalid, or out-of-range BPM
+        /// entries to standardized numeric values.
+        /// </summary>
+        /// <remarks>This method replaces BPM values expressed as ambiguous terms (such as 'slow', 'fast',
+        /// or musical tempo markings) with their corresponding numeric BPM equivalents. Numeric BPM values outside the
+        /// range of 40 to 300 are clamped to that range. Special cases such as 'None', 'null', 'default', or empty BPM
+        /// values are set to 120. If a BPM value is 'random', it is replaced with a random integer between 40 and 300,
+        /// inclusive. The method does not validate the overall structure of the NBPML content beyond the <BPM>
+        /// elements.</remarks>
+        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more <BPM> elements to be validated and corrected.</param>
+        /// <returns>A string containing the NBPML content with all <BPM> elements replaced by valid numeric BPM values. If the
+        /// input is null, empty, or whitespace, the original value is returned.</returns>
+        private string FixBPMFormat(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+            {
+                return nbpmlContent;
+            }
+            // Fix BPM values that are not in the range of 20-300
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>(\d+)</BPM>", m =>
+            {
+                int bpm = int.Parse(m.Groups[1].Value);
+                if (bpm < 40) bpm = 40;
+                if (bpm > 300) bpm = 300;
+                return $"<BPM>{bpm}</BPM>";
+            }, RegexOptions.IgnoreCase);
+
+            // Fix BPM values written as ambiguous terms
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*slow\s*</BPM>", "<BPM>60</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*medium\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*fast\s*</BPM>", "<BPM>180</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*very fast\s*</BPM>", "<BPM>240</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*extremely fast\s*</BPM>", "<BPM>300</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix BPM values written as musical tempo markings
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*larghissimo\s*</BPM>", "<BPM>24</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*grave\s*</BPM>", "<BPM>40</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*largo\s*</BPM>", "<BPM>50</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*larghetto\s*</BPM>", "<BPM>60</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*adagio\s*</BPM>", "<BPM>70</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*adagietto\s*</BPM>", "<BPM>72</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andante\s*</BPM>", "<BPM>90</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andantino\s*</BPM>", "<BPM>100</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*marcia moderato\s*</BPM>", "<BPM>83</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*moderato\s*</BPM>", "<BPM>110</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegretto\s*</BPM>", "<BPM>130</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro moderato\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro\s*</BPM>", "<BPM>140</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*vivace\s*</BPM>", "<BPM>160</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*vivacissimo\s*</BPM>", "<BPM>172</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegrissimo\s*</BPM>", "<BPM>168</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*presto\s*</BPM>", "<BPM>180</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*prestissimo\s*</BPM>", "<BPM>200</BPM>", RegexOptions.IgnoreCase);
+
+            // Common combinations
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*molto allegro\s*</BPM>", "<BPM>150</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro assai\s*</BPM>", "<BPM>170</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro con brio\s*</BPM>", "<BPM>160</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro brillante\s*</BPM>", "<BPM>150</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro energico\s*</BPM>", "<BPM>160</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*allegro ma non troppo\s*</BPM>", "<BPM>140</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*presto agitato\s*</BPM>", "<BPM>200</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*presto molto\s*</BPM>", "<BPM>200</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*presto con fuoco\s*</BPM>", "<BPM>220</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*presto scherzando\s*</BPM>", "<BPM>190</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andante moderato\s*</BPM>", "<BPM>80</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andante cantabile\s*</BPM>", "<BPM>90</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andante grazioso\s*</BPM>", "<BPM>90</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*andante un poco mosso\s*</BPM>", "<BPM>100</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*adagio sostenuto\s*</BPM>", "<BPM>70</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*adagio ma non troppo\s*</BPM>", "<BPM>80</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*adagio molto\s*</BPM>", "<BPM>60</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*lento\s*</BPM>", "<BPM>60</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*lento assai\s*</BPM>", "<BPM>50</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*moderato assai\s*</BPM>", "<BPM>110</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*moderato cantabile\s*</BPM>", "<BPM>100</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*vivace assai\s*</BPM>", "<BPM>180</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix "None" BPM to default BPM 120
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*None\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix "null" BPM to default BPM 120
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*null\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix empty BPM value to default BPM 120
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix "default" BPM to default BPM 120
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*default\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+
+            // Fix "random" BPM to random BPM between 40 and 300
+            Random rnd = new Random();
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*random\s*</BPM>", m =>
+            {
+                int randomBPM = rnd.Next(40, 301); // Generates a random number between 40 and 300
+                return $"<BPM>{randomBPM}</BPM>";
+            }, RegexOptions.IgnoreCase);
             return nbpmlContent;
         }
 
@@ -2559,7 +2874,7 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_Shown(object sender, EventArgs e)
         {
-            listAndSelectAIModels(); // List and select AI models when the form is shown
+            ListAndSelectAIModels(); // List and select AI models when the form is shown
         }
 
         /// <summary>
