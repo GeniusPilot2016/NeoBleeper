@@ -1376,8 +1376,7 @@ namespace NeoBleeper
                 return m.Value;
             }, RegexOptions.Singleline);
 
-            // Standardize modifier and articulation tags
-            //Leave only the tag name if "True"
+            // Leave only the tag name if "True"
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Sta|Dot|Tri|Spi|Fer)>\s*True\s*</\k<tag>>", "${tag}", RegexOptions.IgnoreCase);
 
             // Remove the entire tag if "False"
@@ -1392,6 +1391,29 @@ namespace NeoBleeper
                 "<${tag}>$2</${tag}>",
                 RegexOptions.Singleline
             );
+
+            // Fix parameter tags that are incorrectly wrapped in <Value> tags
+            string[] paramTags = { "BPM", "KeyboardOctave", "TimeSignature", "AlternateTime", "NoteSilenceRatio", "Length" };
+            foreach (var tag in paramTags)
+            {
+                nbpmlContent = Regex.Replace(
+                    nbpmlContent,
+                    $@"<{tag}>\s*<Value>(.*?)</Value>\s*</{tag}>",
+                    $"<{tag}>$1</{tag}>",
+                    RegexOptions.IgnoreCase);
+            }
+
+            // Remove articulation and modifier tags if they aren't compliant with NeoBleeper's expected format
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<Art>(?!Sta|Spi|Fer)\w+</Art>",
+                string.Empty,
+                RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<Mod>(?!Dot|Tri)\w+</Mod>",
+                string.Empty,
+                RegexOptions.IgnoreCase);
 
             // Fix modifiers and articulations as self-closing tags inside modifier or articulation tag due to hallucination
             nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>Art|Mod)>\s*<(?<innerTag>\w+)\s*/>\s*</\k<tag>>",
@@ -1455,6 +1477,14 @@ namespace NeoBleeper
                 return $"<AlternateTime>{randomValue}</AlternateTime>";
             }, RegexOptions.IgnoreCase);
 
+            // Final check to ensure AlternateTime is valid integer between 5 and 200
+            string value = Regex.Match(nbpmlContent, @"<AlternateTime>\s*(\d+)\s*</AlternateTime>").Groups[1].Value;
+            int alternateLength;
+            if(string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out alternateLength) || alternateLength < 5 || alternateLength > 200)
+            {
+                nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*(\d+)?\s*</AlternateTime>", "<AlternateTime>30</AlternateTime>", RegexOptions.IgnoreCase);
+            }
+
             return nbpmlContent;
         }
 
@@ -1509,6 +1539,14 @@ namespace NeoBleeper
             // Fallback for empty time signature
             nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
 
+            // Validate numeric time signature values
+            string value = Regex.Match(nbpmlContent, @"<TimeSignature>\s*(\d+)\s*</TimeSignature>").Groups[1].Value;
+            int timeSig;
+            if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out timeSig) || timeSig < 1 || timeSig > 32)
+            {
+                nbpmlContent = Regex.Replace(nbpmlContent, @"<TimeSignature>\s*(\d+)?\s*</TimeSignature>", "<TimeSignature>4</TimeSignature>", RegexOptions.IgnoreCase);
+            }
+
             return nbpmlContent;
         }
 
@@ -1542,6 +1580,15 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Thirty-second</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>Thirty Second</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>ThirtySecond</Length>", "<Length>5</Length>", RegexOptions.IgnoreCase);
+
+            // Final check to ensure Length is valid index between 0 and 5
+            string value = Regex.Match(nbpmlContent, @"<Length>\s*(\d+)\s*</Length>").Groups[1].Value;
+            int noteLengthIndex;
+            if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out noteLengthIndex) || noteLengthIndex < 0 || noteLengthIndex > 5)
+            {
+                nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>\s*(\d+)?\s*</Length>", "<Length>2</Length>", RegexOptions.IgnoreCase);
+            }
+
             return nbpmlContent;
         }
 
@@ -1619,6 +1666,15 @@ namespace NeoBleeper
 
             // Fix empty octave value to default octave 4
             nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+
+            // Final check to ensure KeyboardOctave is valid integer between 2 and 9
+            string value = Regex.Match(nbpmlContent, @"<KeyboardOctave>\s*(\d+)\s*</KeyboardOctave>").Groups[1].Value;
+            int octave;
+
+            if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out octave) || octave < 2 || octave > 9)
+            {
+                nbpmlContent = Regex.Replace(nbpmlContent, @"<KeyboardOctave>\s*(\d+)?\s*</KeyboardOctave>", "<KeyboardOctave>4</KeyboardOctave>", RegexOptions.IgnoreCase);
+            }
 
             // Return the modified content
             return nbpmlContent;
@@ -1722,6 +1778,15 @@ namespace NeoBleeper
                 int randomBPM = rnd.Next(40, 301); // Generates a random number between 40 and 300
                 return $"<BPM>{randomBPM}</BPM>";
             }, RegexOptions.IgnoreCase);
+
+            // Final check to ensure BPM is valid integer between 40 and 300
+            string value = Regex.Match(nbpmlContent, @"<BPM>\s*(\d+)\s*</BPM>").Groups[1].Value;
+            int bpmValue;
+            if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out bpmValue) || bpmValue < 40 || bpmValue > 300)
+            {
+                nbpmlContent = Regex.Replace(nbpmlContent, @"<BPM>\s*(\d+)?\s*</BPM>", "<BPM>120</BPM>", RegexOptions.IgnoreCase);
+            }
+
             return nbpmlContent;
         }
 
