@@ -1000,9 +1000,20 @@ namespace NeoBleeper
         /// content if no changes are necessary.</returns>
         private string FixCollapsedLinesInNBPML(string nbpmlContent)
         {
-            // This method fixes collapsed lines in NBPML by ensuring every element is on its own line
-            var regex = new Regex(@"><", RegexOptions.Singleline);
-            return regex.Replace(nbpmlContent, ">\r\n<");
+            if (string.IsNullOrEmpty(nbpmlContent))
+            {
+                return nbpmlContent;
+            }
+            // Seperate collapsed seperators and content if no line breaks, which is "-"s at least 3 times
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"(-{3,})(<)",
+                "$1\r\n$2",
+                RegexOptions.Singleline
+            );
+            // Insert line breaks between collapsed tags
+            nbpmlContent = Regex.Replace(nbpmlContent, @"><", ">\r\n<", RegexOptions.Singleline); // First, remove existing multiple blank lines
+            return nbpmlContent;
         }
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
