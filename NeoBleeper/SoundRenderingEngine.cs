@@ -39,7 +39,7 @@ namespace NeoBleeper
             static systemStorageType StorageType = systemStorageType.HDD; // Default to HDD to prevent resonance issues, should be set by the main program based on actual storage device
             static int storageRPM = 5400; // Default RPM for HDD, should be set by the main program based on actual storage device
             static int resonanceFrequency = 50; // Default resonance frequency to avoid, should be set by the main program based on actual storage device
-            
+
             /// <summary>
             /// Detects the system's primary storage type and configures related settings to prevent resonance issues
             /// during operation.
@@ -917,8 +917,8 @@ namespace NeoBleeper
             /// audio output is effectively muted. If no provider is active, the method considers the output
             /// muted.</remarks>
             /// <returns>true if the active audio provider's gain is zero or if no provider is active; otherwise, false.</returns>
-            public static bool AreWavesMutedEarly() 
-            {                 
+            public static bool AreWavesMutedEarly()
+            {
                 lock (AudioLock)
                 {
                     if (currentProvider == signalGenerator)

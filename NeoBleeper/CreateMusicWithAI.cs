@@ -16,12 +16,8 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
-using System.Collections;
-using System.Diagnostics;
-using System.Globalization;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -1495,7 +1491,7 @@ namespace NeoBleeper
             // Final check to ensure AlternateTime is valid integer between 5 and 200
             string value = Regex.Match(nbpmlContent, @"<AlternateTime>\s*(\d+)\s*</AlternateTime>").Groups[1].Value;
             int alternateLength;
-            if(string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out alternateLength) || alternateLength < 5 || alternateLength > 200)
+            if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out alternateLength) || alternateLength < 5 || alternateLength > 200)
             {
                 nbpmlContent = Regex.Replace(nbpmlContent, @"<AlternateTime>\s*(\d+)?\s*</AlternateTime>", "<AlternateTime>30</AlternateTime>", RegexOptions.IgnoreCase);
             }
@@ -1577,7 +1573,7 @@ namespace NeoBleeper
         /// equivalents in note lengths comboBox.</returns>
         private string ConvertLengthToIndex(string nbpmlContent)
         {
-            if(string.IsNullOrWhiteSpace(nbpmlContent))
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
             {
                 return nbpmlContent;
             }

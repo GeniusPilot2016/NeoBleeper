@@ -16,9 +16,7 @@
 
 using NAudio.Midi;
 using NeoBleeper.Properties;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1954,7 +1952,7 @@ namespace NeoBleeper
                 AddFileToRecentFilesMenu(filename);
             }
         }
-        
+
         /// <summary>
         /// Adds the specified file to the recent files menu if it is not already present.
         /// </summary>
@@ -3176,7 +3174,7 @@ namespace NeoBleeper
             finally
             {
                 EnableDisableCommonControls(true);
-            }  
+            }
         }
 
         // ListView update method
@@ -4286,7 +4284,7 @@ namespace NeoBleeper
             }
         }
         int beatLength = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
-        
+
         /// <summary>
         /// Updates the measure and beat display values based on the specified line index, and optionally plays a beat
         /// sound depending on user interaction and settings.

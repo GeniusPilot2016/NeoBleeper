@@ -1303,7 +1303,7 @@ namespace NeoBleeper
                 if (_wasPlayingBeforeScroll && !_isPlaying)
                 {
                     _wasPlayingBeforeScroll = false; // Reset the flag
-                    Play(); 
+                    Play();
                 }
                 else
                 {

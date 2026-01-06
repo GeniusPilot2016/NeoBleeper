@@ -488,7 +488,7 @@ namespace NeoBleeper
         {
             var osLanguage = System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
             switch (osLanguage)
-            { 
+            {
                 case "en":
                     Settings1.Default.preferredLanguage = "English";
                     break;

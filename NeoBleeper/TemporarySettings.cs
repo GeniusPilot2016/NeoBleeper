@@ -179,7 +179,7 @@ namespace NeoBleeper
             public static int note3OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static int note4OutputDeviceIndex = 1; // Default to system speaker/sound device beep
             public static PlayingVoiceOnLineOptions playingVoiceOnLineOptions = PlayingVoiceOnLineOptions.PlayVoiceOnAllLines;
-            
+
             /// <summary>
             /// Specifies the options for playing a voice message on one or more lines.
             /// </summary>

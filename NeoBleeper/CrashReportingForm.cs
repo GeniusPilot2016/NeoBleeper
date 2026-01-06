@@ -46,7 +46,7 @@ namespace NeoBleeper
                 }
             }
         }
-        
+
         /// <summary>
         /// Applies the current application theme to the control based on user or system settings.
         /// </summary>

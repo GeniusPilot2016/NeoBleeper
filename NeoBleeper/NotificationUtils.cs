@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
@@ -62,13 +59,13 @@ namespace NeoBleeper
             // Show notification only if the application window is obscured
             if (baseForm != null)
             {
-                if(string.IsNullOrEmpty(title) && string.IsNullOrEmpty(message))
+                if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(message))
                     return; // No content to show in notification
-                if(string.IsNullOrEmpty(title))
+                if (string.IsNullOrEmpty(title))
                     title = " "; // Prevent empty title
-                if(string.IsNullOrEmpty(message))
+                if (string.IsNullOrEmpty(message))
                     message = " "; // Prevent empty message
-                savedSenderForm = senderForm; 
+                savedSenderForm = senderForm;
                 if (baseForm.InvokeRequired)
                 {
                     baseForm.Invoke(new Action(() =>

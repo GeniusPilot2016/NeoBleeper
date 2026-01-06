@@ -2,6 +2,18 @@
 
 namespace SystemSpeakerSensorTest
 {
+    /// <summary>
+    /// Provides methods for detecting and testing the presence and functionality of the system speaker or buzzer using
+    /// silent ultrasonic frequencies. Intended for use in development and diagnostics of system speaker sensors,
+    /// particularly for environments where audible output is undesirable.
+    /// </summary>
+    /// <remarks>This class interacts directly with hardware I/O ports to perform low-level tests on the
+    /// system speaker, including electrical feedback checks, port state stability analysis, and ultrasonic frequency
+    /// sweeps. All detection methods are designed to minimize audible clicks or sounds by using frequencies above the
+    /// human hearing range and gradual state transitions. Requires access to the inpoutx64.dll native library and
+    /// sufficient privileges to access hardware ports; may not function in virtualized environments or on systems where
+    /// direct port access is restricted. Thread safety is not guaranteed, and concurrent access to hardware ports
+    /// should be avoided.</remarks>
     internal class Program // Console program for testing silent system speaker detection using ultrasonic frequencies to help development of system speaker sensor in NeoBleeper
     {
         [DllImport("inpoutx64.dll")]
@@ -11,6 +23,16 @@ namespace SystemSpeakerSensorTest
 
         private const int ULTRASONIC_FREQ = 30000; // 30 kHz - high enough to be inaudible to users
         private const int PIT_BASE_FREQ = 1193180;
+
+        /// <summary>
+        /// Gradually enables the system speaker using the specified original port state to minimize audible clicks during
+        /// activation.
+        /// </summary>
+        /// <remarks>This method performs a soft enable sequence for the system speaker, reducing the
+        /// likelihood of producing audible clicks. It is intended for scenarios where minimizing sound artifacts during
+        /// speaker activation is important.</remarks>
+        /// <param name="originalState">The original value of the speaker control port. Used to preserve existing port state while enabling the
+        /// speaker.</param>
 
         // Very soft enable/disable to minimize audible clicks
         private static void UltraSoftEnableSpeaker(byte originalState)
@@ -31,6 +53,14 @@ namespace SystemSpeakerSensorTest
             Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
         }
 
+        /// <summary>
+        /// Disables the PC speaker by restoring its control port to the specified original state.
+        /// </summary>
+        /// <remarks>This method is intended for low-level hardware control and should be used with
+        /// caution. It restores the speaker control port in two steps to ensure proper deactivation of the speaker.
+        /// Requires appropriate permissions to access hardware ports.</remarks>
+        /// <param name="originalState">The original value of the speaker control port to restore. This value should represent the state prior to
+        /// any modifications made for speaker output.</param>
         private static void UltraSoftDisableSpeaker(byte originalState)
         {
             // Close speaker data first (bit 1)
@@ -42,6 +72,13 @@ namespace SystemSpeakerSensorTest
             Thread.Sleep(10);
         }
 
+        /// <summary>
+        /// Checks whether electrical feedback is present and the gate is responsive on port 0x61.
+        /// </summary>
+        /// <remarks>This method performs a series of read and write operations on port 0x61 to determine
+        /// the presence of electrical feedback and gate responsiveness. It is intended for use with hardware that
+        /// supports direct port access. If an error occurs during the check, the method returns false.</remarks>
+        /// <returns>true if electrical feedback is detected and the gate responds as expected; otherwise, false.</returns>
         public static bool CheckElectricalFeedbackOnPort()
         {
             try
@@ -89,6 +126,17 @@ namespace SystemSpeakerSensorTest
             }
         }
 
+
+        /// <summary>
+        /// Determines whether the state of the hardware port at address 0x61 is stable by sampling and analyzing bit 5
+        /// transitions.
+        /// </summary>
+        /// <remarks>This method performs multiple rapid reads of the port at address 0x61 and analyzes
+        /// the variability and transitions of bit 5 to assess stability. It is intended for use in scenarios where
+        /// reliable detection of port state changes is required. If an error occurs during the operation, the method
+        /// returns false.</remarks>
+        /// <returns>true if bit 5 of the port state varies and at least three transitions are detected during sampling;
+        /// otherwise, false.</returns>
         public static bool CheckPortStateStability()
         {
             try
@@ -133,6 +181,14 @@ namespace SystemSpeakerSensorTest
             }
         }
 
+        /// <summary>
+        /// Performs an advanced frequency sweep test using ultrasonic frequencies to verify speaker output
+        /// functionality.
+        /// </summary>
+        /// <remarks>This test uses frequencies above the audible range to avoid producing audible sounds.
+        /// It configures the system timer and speaker control ports to generate and detect output transitions. The
+        /// method is intended for diagnostic purposes and may require appropriate hardware access privileges.</remarks>
+        /// <returns>true if at least one tested ultrasonic frequency produces detectable output transitions; otherwise, false.</returns>
         public static bool AdvancedFrequencySweepTest()
         {
             try
@@ -204,6 +260,13 @@ namespace SystemSpeakerSensorTest
             }
         }
 
+        /// <summary>
+        /// Determines whether the system speaker is currently functional based on available hardware diagnostics.
+        /// </summary>
+        /// <remarks>This method performs multiple hardware checks to assess the functionality of the
+        /// system speaker. It is suitable for use in scenarios where reliable audio output is required and hardware
+        /// status must be verified before proceeding.</remarks>
+        /// <returns>true if at least one diagnostic test indicates the system speaker is operational; otherwise, false.</returns>
         public static bool IsFunctionalSystemSpeaker()
         {
             bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
@@ -213,6 +276,14 @@ namespace SystemSpeakerSensorTest
             return electricalFeedbackValid || portStateStable || frequencySweepWorks;
         }
 
+        /// <summary>
+        /// Performs a diagnostic test to detect the presence and functionality of the system speaker or buzzer using
+        /// silent electrical and frequency-based checks. The results are output to the console.
+        /// </summary>
+        /// <remarks>This method does not produce audible sounds and is suitable for environments where
+        /// silent hardware verification is required. The output includes detailed port state information and possible
+        /// reasons for detection failure. This method is intended for use on systems with direct hardware access;
+        /// results may vary on virtual machines or systems with restricted port access.</remarks>
         public static void LogSystemSpeakerStatus()
         {
             Console.WriteLine("=== System Speaker Detection Test (ULTRA SILENT MODE) ===\n");
@@ -248,6 +319,14 @@ namespace SystemSpeakerSensorTest
             }
         }
 
+        /// <summary>
+        /// Displays detailed diagnostic information about the behavior of the debug port when interacting with
+        /// ultrasonic frequencies.
+        /// </summary>
+        /// <remarks>This method samples the port state multiple times at a specified ultrasonic frequency
+        /// and outputs the results to the console for analysis. It is intended for debugging and hardware investigation
+        /// scenarios, and does not modify application state beyond console output. Use this method to observe port bit
+        /// patterns and speaker control behavior during ultrasonic operations.</remarks>
         public static void DebugPortBehavior()
         {
             Console.WriteLine("\n=== Debug: Detailed Port Behavior (Ultrasonic) ===");
@@ -267,6 +346,11 @@ namespace SystemSpeakerSensorTest
             Out32(0x61, originalState);
         }
 
+        /// <summary>
+        /// Serves as the entry point for the application.
+        /// </summary>
+        /// <remarks>This method is called automatically when the program starts. It initializes the
+        /// application by invoking startup routines as required.</remarks>
         static void Main()
         {
             LogSystemSpeakerStatus();

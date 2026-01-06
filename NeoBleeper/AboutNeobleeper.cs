@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System.Globalization;
 using System.Reflection;
 using static UIHelper;
 
@@ -28,7 +27,7 @@ namespace NeoBleeper
             InitializeComponent();
             this.Owner = owner;
             string buildYear = GetBuildYearFromMetadata();
-            lbl_credit.Text = lbl_credit.Text.Replace("2023", buildYear == "2023" ? "2023" :  "2023-" + buildYear); // Update copyright year range based on build date of the assembly to include the current year if different from origin (early planning stages started in 2023 since developer learned about original Bleeper Music Maker is actually abandoned years ago)
+            lbl_credit.Text = lbl_credit.Text.Replace("2023", buildYear == "2023" ? "2023" : "2023-" + buildYear); // Update copyright year range based on build date of the assembly to include the current year if different from origin (early planning stages started in 2023 since developer learned about original Bleeper Music Maker is actually abandoned years ago)
             UIFonts.SetFonts(this);
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             lbl_version.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}";
@@ -177,7 +176,7 @@ namespace NeoBleeper
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 if (listView1.SelectedItems.Count > 0)
                 {

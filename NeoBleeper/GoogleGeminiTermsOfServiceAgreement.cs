@@ -1,6 +1,5 @@
 ﻿using NeoBleeper.Properties;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using static UIHelper;
 
 namespace NeoBleeper

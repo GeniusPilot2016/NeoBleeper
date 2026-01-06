@@ -1,8 +1,5 @@
 ﻿using NeoBleeper.Properties;
-using System.Drawing;
 using System.Media;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -20,7 +17,7 @@ namespace NeoBleeper
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             this.Text = title;
-            if(string.IsNullOrEmpty(title))
+            if (string.IsNullOrEmpty(title))
             {
                 string defaultTitle = string.Empty;
                 switch (icon)
@@ -41,7 +38,7 @@ namespace NeoBleeper
                         defaultTitle = Resources.TextMessage;
                         break;
                 }
-               this.Text = defaultTitle;
+                this.Text = defaultTitle;
             }
             this.title = title;
             labelMessage.Text = message;

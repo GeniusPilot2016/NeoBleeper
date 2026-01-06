@@ -24,7 +24,7 @@ namespace NeoBleeper
         public static string GlobalSystemInfo;
         static bool IsSystemSpeakerPresent = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent;
         static bool IsChipsetAffected = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
-        
+
         /// <summary>
         /// Retrieves the current assembly's version number and release status as a tuple.
         /// </summary>
