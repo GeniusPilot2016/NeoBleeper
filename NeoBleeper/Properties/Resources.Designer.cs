@@ -883,6 +883,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_convert_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-convert-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_copy_to_clipboard_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-copy-to-clipboard-48", resourceCulture);
@@ -946,6 +956,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_help_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-help-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_history_folder_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-history-folder-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1146,6 +1166,16 @@ namespace NeoBleeper.Properties {
         public static System.Drawing.Bitmap icons8_save_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-save-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_save_as_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-save-as-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

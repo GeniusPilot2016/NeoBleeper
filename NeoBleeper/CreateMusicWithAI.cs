@@ -22,6 +22,7 @@ using System.Globalization;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Resources;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using static UIHelper;
@@ -1154,6 +1155,7 @@ namespace NeoBleeper
                         $"</NeoBleeperProjectFile>\r\n";
                     connectionCheckTimer.Start();
                     SetControlsEnabledAndMakeLoadingVisible(false);
+                    var resultBuilder = new StringBuilder();
                     string response = string.Empty;
                     var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     var googleAI = new GoogleAi(apiKey);
@@ -1161,8 +1163,20 @@ namespace NeoBleeper
                     await foreach (var chunk in googleModel.StreamContentAsync(completePrompt, cts.Token))
                     {
                         // Clean up the chunk text by removing double newlines and trimming whitespace
-                        string cleanChunk = chunk.Text()?.Replace("\n\n", "\n").Trim() ?? string.Empty;
-                        response += cleanChunk;
+                        if (chunk?.Candidates == null) continue;
+
+                        foreach (var candidate in chunk.Candidates)
+                        {
+                            // Step 1: Get the text parts from the candidate
+                            var chunkText = string.Join(string.Empty, candidate.Content.Parts.Select(p => p.Text));
+
+                            // Step 2: Append the chunk text to the result builder
+                            resultBuilder.Append(chunkText);
+                        }
+                        // Step 3: Convert the result builder to a string for analysis and rendering to make ready to use
+                        response = resultBuilder.ToString();
+
+                        // Check if the model is stuck or keeps repeating
                         if (CheckIfModelIsStuckOrKeepsRepeating(response))
                         {
                             Logger.Log("AI model appears to be stuck or repeating. Cancelling generation.", Logger.LogTypes.Warning);
@@ -1173,6 +1187,7 @@ namespace NeoBleeper
                             break;
                         }
 
+                        // Check is cancellation is requested
                         if (cts.IsCancellationRequested)
                         {
                             Logger.Log("AI music generation was cancelled", Logger.LogTypes.Warning);

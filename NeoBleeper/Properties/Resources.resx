@@ -117,358 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
-    <value>Invalid or corrupted music file</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icons8-new-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-new-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LyricsExampleText" xml:space="preserve">
-    <value>Example text</value>
-  </data>
-  <data name="FermataArticulation" xml:space="preserve">
-    <value>Fer</value>
-  </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>No saved version to rewind to.</value>
-  </data>
-  <data name="PercussionNames" xml:space="preserve">
-    <value>Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, High Agogo, Low Agogo, Cabasa, Maracas, Whistle Short, Whistle Long, Guiro Short, Guiro Long, Claves, High Woodblock, Low Woodblock, Cuica High, Cuica Low, Triangle Mute, Triangle Open, Shaker, Sleigh Bell, Bell Tree, Castanets, Surdu Dead Stroke, Surdu, Güiro, Clave, Wood Block, Snare Drum Rod, Ocean Drum, Snare Drum Brush</value>
-  </data>
-  <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
-    <value>Error converting to Beep command for Linux: </value>
-  </data>
-  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
-    <value>System speaker output is present. System speaker will be used to create beeps</value>
-  </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Port state stability test: </value>
-  </data>
-  <data name="TextFailed" xml:space="preserve">
-    <value>FAILED</value>
-  </data>
-  <data name="TextStartWaiting" xml:space="preserve">
-    <value>Start waiting</value>
-  </data>
-  <data name="SpiccatoArticulation" xml:space="preserve">
-    <value>Spi</value>
-  </data>
-  <data name="ExamplePrompt8" xml:space="preserve">
-    <value>Create a pop song with catchy melodies</value>
-  </data>
-  <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="EighthNote" xml:space="preserve">
-    <value>1/8</value>
-  </data>
-  <data name="TextAIGeneratedMusic" xml:space="preserve">
-    <value>AI Generated Music</value>
-  </data>
-  <data name="TextPercent" xml:space="preserve">
-    <value>{number}%</value>
-  </data>
-  <data name="MessageErrorSavingFile" xml:space="preserve">
-    <value>Error saving NeoBleeper file:</value>
-  </data>
-  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
-    <value>The MIDI file is being loaded...</value>
-  </data>
-  <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>System speaker output is present, but it is a compact computer. NeoBleeper will use the sound card to create beeps to avoid issues with compact computers.</value>
-  </data>
-  <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
-    <value>Play a Beat Sound</value>
-  </data>
-  <data name="icons8-rhythm-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-rhythm-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HalfNote" xml:space="preserve">
-    <value>Half</value>
-  </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Google Gemini™ server is currently unreachable. Please try again later.</value>
-  </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Electrical feedback test: </value>
-  </data>
-  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
-    <value>System speaker output is not present. Sound device will be used to create beeps</value>
-  </data>
-  <data name="MessageLanguageChanged" xml:space="preserve">
-    <value>The language has been changed and the application will now restart to apply the new language, and changes in open projects will be discarded.</value>
-  </data>
-  <data name="MessageNonValidMIDIFile" xml:space="preserve">
-    <value>This file is not a valid MIDI file, or it is corrupted or is being used by another process.</value>
-  </data>
-  <data name="TitleOpenMIDIFile" xml:space="preserve">
-    <value>Open MIDI File</value>
-  </data>
-  <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
-    <value>MIDI events are being collected...</value>
-  </data>
-  <data name="WholeNote" xml:space="preserve">
-    <value>Whole</value>
-  </data>
-  <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
-    <value>The converted Beep command has been copied to clipboard</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Google Gemini™ API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
-  </data>
-  <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Google Gemini™ API key is not set. Please set the API key in the "General" tab in settings.</value>
-  </data>
-  <data name="PlayBeatSoundHelp" xml:space="preserve">
-    <value>This feature allows you to play beat-like sounds from the system speaker/sound device. 
-
-You can choose the sound to play by clicking the 'Change Beat Sound' button.</value>
-  </data>
-  <data name="MessageAnErrorOccurred" xml:space="preserve">
-    <value>An error occurred:</value>
-  </data>
-  <data name="MessageErrorClosingForm" xml:space="preserve">
-    <value>Error closing the form: </value>
-  </data>
-  <data name="DoNotUpdateHelp" xml:space="preserve">
-    <value>This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
-
-When enabled, the position table will not update when the music is playing.
-
-If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.</value>
-  </data>
-  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonAbort" xml:space="preserve">
-    <value>&amp;Abort</value>
-  </data>
-  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
-    <value>InpOutx64.dll is missing or corrupted. Placing InpOutx64.dll...</value>
-  </data>
-  <data name="TextPlaying" xml:space="preserve">
-    <value>Playing</value>
-  </data>
-  <data name="ButtonIgnore" xml:space="preserve">
-    <value>&amp;Ignore</value>
-  </data>
-  <data name="ShowAPIKeyToolTip" xml:space="preserve">
-    <value>Show the API key in the API key field.
-Click again to hide it.</value>
-  </data>
-  <data name="ExamplePrompt12" xml:space="preserve">
-    <value>Compose a calm ambient soundscape for relaxation and meditation</value>
-  </data>
-  <data name="ToastMessageNotesCopy" xml:space="preserve">
-    <value>Notes are copied to clipboard.</value>
-  </data>
-  <data name="StatusSpecifyingStorageType" xml:space="preserve">
-    <value>Specifying storage type for resonance prevention...</value>
-  </data>
   <data name="StatusComputerTypeDetecting" xml:space="preserve">
     <value>Detecting type of computer...</value>
   </data>
-  <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MessageFailedPrecondition" xml:space="preserve">
+    <value>The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service.</value>
   </data>
-  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
-    <value>An error occurred during the test. Check logs for details.</value>
+  <data name="MessageRequestTimeout" xml:space="preserve">
+    <value>The request timed out before completion. Please try again later.</value>
   </data>
-  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HarmonyOS_Sans_Regular_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Regular_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="TitlePermissionDenied" xml:space="preserve">
+    <value>Permission Denied</value>
   </data>
-  <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
+    <value>Empty note list can't be converted to Beep command for Linux.</value>
   </data>
-  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
-    <value>The file you dragged is not supported by NeoBleeper or is corrupted.</value>
-  </data>
-  <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Google Gemini™ API key is validating...</value>
-  </data>
-  <data name="ErrorSavingAPIKey" xml:space="preserve">
-    <value>Error saving API key: </value>
-  </data>
-  <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonOK" xml:space="preserve">
-    <value>&amp;OK</value>
-  </data>
-  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ExamplePrompt9" xml:space="preserve">
-    <value>Write a blues progression in E major</value>
-  </data>
-  <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked, "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox is unchecked and "Use MIDI output" checkbox is unchecked.
-
-Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox or uncheck "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox to use this feature.</value>
-  </data>
-  <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
-    <value>Use Keyboard As Piano</value>
-  </data>
-  <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TitleOutOfRange" xml:space="preserve">
+    <value>Out of Range</value>
   </data>
   <data name="StatusDisplayResolutionCheck" xml:space="preserve">
     <value>Checking for display resolution...</value>
   </data>
-  <data name="TextBeatError" xml:space="preserve">
-    <value>(Error)</value>
+  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
-    <value>Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.</value>
+  <data name="ExamplePrompt3" xml:space="preserve">
+    <value>Compose a jazz melody with a swing rhythm</value>
   </data>
-  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
-    <value>The file you opened is not supported by NeoBleeper or is corrupted.</value>
+  <data name="TitleDataLoss" xml:space="preserve">
+    <value>Data Loss</value>
   </data>
-  <data name="MessageUnsavedChanges" xml:space="preserve">
-    <value>There are unsaved changes. Do you want to save before exiting?</value>
+  <data name="TitleOpenMIDIFile" xml:space="preserve">
+    <value>Open MIDI File</value>
   </data>
-  <data name="FilterProjectFileFormats" xml:space="preserve">
-    <value>NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*</value>
+  <data name="ExamplePrompt23" xml:space="preserve">
+    <value>Generate a traditional folk melody with simple harmony</value>
   </data>
-  <data name="MessageFileNotFoundError" xml:space="preserve">
-    <value>The file is not found:</value>
+  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
+    <value>The MIDI file has been loaded successfully.</value>
   </data>
-  <data name="StatusHDDStorageType" xml:space="preserve">
-    <value>Detected HDD storage. Avoiding resonance frequency of {value} Hz.</value>
+  <data name="TitleProhibitedContent" xml:space="preserve">
+    <value>Prohibited Content</value>
   </data>
-  <data name="icons8-question-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-question-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SpiccatoArticulation" xml:space="preserve">
+    <value>Spi</value>
   </data>
-  <data name="ExamplePrompt5" xml:space="preserve">
-    <value>Make an electronic dance track with a fast tempo</value>
+  <data name="MessageResourceExhausted" xml:space="preserve">
+    <value>You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan.</value>
   </data>
-  <data name="TextError" xml:space="preserve">
-    <value>Error</value>
+  <data name="UseVoiceSystemHelp" xml:space="preserve">
+    <value>This feature makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
   </data>
-  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Google Gemini™ API key validation is successful</value>
-  </data>
-  <data name="ExamplePrompt13" xml:space="preserve">
-    <value>Generate a retro 8-bit chiptune soundtrack inspired by classic video games</value>
-  </data>
-  <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
-    <value>Use Voice System</value>
-  </data>
-  <data name="ButtonNo" xml:space="preserve">
-    <value>&amp;No</value>
-  </data>
-  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
-    <value>Currently not waiting</value>
-  </data>
-  <data name="TextMIDIFileLoadingError" xml:space="preserve">
-    <value>An error occurred while loading MIDI file.</value>
-  </data>
-  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
-    <value>Do Not Update Beat Indicators</value>
-  </data>
-  <data name="icons8-playlist-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-playlist-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
-    <value>The file you dragged is corrupted or the file is in use by another process.</value>
-  </data>
-  <data name="ExamplePrompt11" xml:space="preserve">
-    <value>Create an upbeat electronic dance track with energetic synth melodies</value>
-  </data>
-  <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
-    <value>Empty note list cannot be exported.</value>
-  </data>
-  <data name="MessageConvertToGCodeError" xml:space="preserve">
-    <value>Error converting to GCode:</value>
-  </data>
-  <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageFirmwareCopied" xml:space="preserve">
-    <value>Firmware code has been copied to clipboard</value>
-  </data>
-  <data name="HideAPIKeyToolTip" xml:space="preserve">
-    <value>Hide the API key in the API key field.
-Click again to show it.</value>
-  </data>
-  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking sounds)</value>
-  </data>
-  <data name="ExamplePrompt7" xml:space="preserve">
-    <value>Compose a soundtrack for a fantasy game</value>
-  </data>
-  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
-    <value>MIDI input/output initialization completed.</value>
-  </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll is present and valid.</value>
-  </data>
-  <data name="icons8-hardware-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-hardware-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Google Gemini™ API key reset successfully.</value>
-  </data>
-  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>System speaker output is present, but it is an unknown types of computer. NeoBleeper will use the sound card to create beeps to avoid issues with unknown types of computers.</value>
-  </data>
-  <data name="TitleUnsavedChanges" xml:space="preserve">
-    <value>Unsaved Changes</value>
-  </data>
-  <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
-    <value>The AI response is null or empty</value>
-  </data>
-  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
-    <value>Synchronized Play</value>
-  </data>
-  <data name="ToastMessageNotesCut" xml:space="preserve">
-    <value>Notes are cut to clipboard.</value>
-  </data>
-  <data name="TextEventsAreBeingSorted" xml:space="preserve">
-    <value>Events are being sorted...</value>
-  </data>
-  <data name="icons8-clock-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-clock-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StaccatoArticulation" xml:space="preserve">
-    <value>Sta</value>
-  </data>
-  <data name="StatusUnknownStorageType" xml:space="preserve">
-    <value>Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.</value>
+  <data name="TitleAborted" xml:space="preserve">
+    <value>Aborted</value>
   </data>
   <data name="UseKeyboardAsPianoHelp" xml:space="preserve">
     <value>This feature allows you to use your computer keyboard as a piano keyboard. 
@@ -477,181 +185,804 @@ When enabled, you can play notes by pressing the corresponding keys on your keyb
 
 You can see the key mappings on the buttons at the top of the window.</value>
   </data>
-  <data name="QuarterNote" xml:space="preserve">
-    <value>Quarter</value>
+  <data name="MessageNotImplemented" xml:space="preserve">
+    <value>The requested functionality is not implemented.</value>
   </data>
-  <data name="ExamplePrompt4" xml:space="preserve">
-    <value>Write a relaxing piano solo</value>
+  <data name="icons8-rhythm-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rhythm-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
-    <value>Empty note list can't be converted to Beep command for Linux.</value>
+  <data name="GoogleGeminiServerDown" xml:space="preserve">
+    <value>Google Gemini™ server is currently unreachable. Please try again later.</value>
   </data>
-  <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
-    <value>The file you dragged is not supported by the NeoBleeper MIDI player or is corrupted.</value>
+  <data name="ExamplePrompt30" xml:space="preserve">
+    <value>Create a blues progression with expressive notes</value>
   </data>
-  <data name="TitleOpenProjectFile" xml:space="preserve">
-    <value>Open Project File</value>
+  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
+    <value>Advanced frequency sweep test: </value>
   </data>
-  <data name="StatusSystemInformationsGathered" xml:space="preserve">
-    <value>System information has been gathered.</value>
-  </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>The API key format is invalid. Please check and try again.</value>
-  </data>
-  <data name="icons8-cut-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-cut-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
-    <value>Display resolution is supported.</value>
-  </data>
-  <data name="icons8-uncheck-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-uncheck-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
-    <value>Chipset {chipset} is known to have system speaker issues. The system speaker may not detected or function properly.</value>
-  </data>
-  <data name="MessageMIDIFileLoadingError" xml:space="preserve">
-    <value>Error loading MIDI file:</value>
-  </data>
-  <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>Google Gemini™ API is not available in your country. Please check the list of supported countries.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ExamplePrompt25" xml:space="preserve">
+    <value>Compose a medieval-style tune with modal harmony</value>
   </data>
-  <data name="InpOutX64PlaceError" xml:space="preserve">
-    <value>Failed to place InpOutx64.dll: </value>
+  <data name="TextCurrentlyNotWaiting" xml:space="preserve">
+    <value>Currently not waiting</value>
   </data>
-  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
-    <value>Display resolution is not supported. NeoBleeper requires a minimum resolution of 1024x768 to run properly.</value>
+  <data name="TextStopPlaying" xml:space="preserve">
+    <value>Stop playing</value>
   </data>
-  <data name="DottedModifier" xml:space="preserve">
-    <value>Dot</value>
+  <data name="MessageAIMusicCreationFailed" xml:space="preserve">
+    <value>AI music creation failed: </value>
   </data>
-  <data name="MessageBeepCommandSaved" xml:space="preserve">
-    <value>The Beep command as shell script has been saved successfully.</value>
+  <data name="TextPlaying" xml:space="preserve">
+    <value>Playing</value>
   </data>
-  <data name="ExamplePrompt6" xml:space="preserve">
-    <value>Generate a lullaby for children</value>
+  <data name="MessageBadGateway" xml:space="preserve">
+    <value>Received an invalid response from the upstream server.</value>
   </data>
-  <data name="MoreText" xml:space="preserve">
-    <value>({number} More)</value>
+  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Error waking up system speaker: </value>
   </data>
-  <data name="PortamentoHelp" xml:space="preserve">
-    <value>Only for the case where music is played in real time on the keyboard. 
-
-This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.</value>
+  <data name="TextMIDIFileLoadingError" xml:space="preserve">
+    <value>An error occurred while loading MIDI file.</value>
   </data>
-  <data name="icons8-linux-terminal-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-linux-terminal-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TitleDeadlineExceeded" xml:space="preserve">
+    <value>Deadline Exceeded</value>
   </data>
-  <data name="MessageGCodeExported" xml:space="preserve">
-    <value>GCode file exported successfully!</value>
-  </data>
-  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
-    <value>Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.</value>
-  </data>
-  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
-    <value>Checking chipset for system speaker issues...</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Google Gemini™ API key saved successfully.</value>
-  </data>
-  <data name="ErrorResettingAPIKey" xml:space="preserve">
-    <value>Error resetting API key: </value>
-  </data>
-  <data name="icons8-information-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-information-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OverallResult" xml:space="preserve">
-    <value>Overall result: </value>
-  </data>
-  <data name="StatusSSDStorageType" xml:space="preserve">
-    <value>Detected SSD storage. Resonance prevention is not necessary.</value>
-  </data>
-  <data name="MessageNoInternet" xml:space="preserve">
-    <value>Internet connection is not available. Please check your connection.</value>
-  </data>
-  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
-    <value>Checking for system speaker (PC speaker) output presence in step 1/2...</value>
-  </data>
-  <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonTryAgain" xml:space="preserve">
-    <value>&amp;Try Again</value>
-  </data>
-  <data name="SixteenthNote" xml:space="preserve">
-    <value>1/16</value>
-  </data>
-  <data name="ExamplePrompt14" xml:space="preserve">
-    <value>Make a dramatic orchestral piece with epic crescendos</value>
-  </data>
-  <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="neobleeper_splash_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_splash_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextNotFound" xml:space="preserve">
-    <value>(Not Found)</value>
-  </data>
-  <data name="UseVoiceSystemHelp" xml:space="preserve">
-    <value>This feature makes the program use voice system to mimic speech formants to make selected notes mimic "singing".</value>
-  </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>No valid Google Gemini™ models are available.</value>
+  <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusNVMeStorageType" xml:space="preserve">
     <value>Detected NVMe storage. Resonance prevention is not necessary.</value>
   </data>
-  <data name="TextMilliseconds" xml:space="preserve">
-    <value> mS</value>
+  <data name="StatusMIDIIOInitializing" xml:space="preserve">
+    <value>MIDI input/output is being initialized...</value>
+  </data>
+  <data name="TextMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI file loaded successfully.</value>
+  </data>
+  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UseKeyboardAsPianoHelpTitle" xml:space="preserve">
+    <value>Use Keyboard As Piano</value>
+  </data>
+  <data name="icons8-linux-terminal-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-linux-terminal-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SynchronizedPlayHelpTitle" xml:space="preserve">
+    <value>Synchronized Play</value>
+  </data>
+  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
+    <value>Chipset is not known to have system speaker issues.</value>
+  </data>
+  <data name="ExamplePrompt19" xml:space="preserve">
+    <value>Create an 8-bit style video game boss battle theme</value>
+  </data>
+  <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
+    <value>The file you dragged is not supported by the NeoBleeper MIDI player or is corrupted.</value>
+  </data>
+  <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
+    <value>Play a Beat Sound</value>
+  </data>
+  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
+    <value>Waking up system speaker for affected chipsets... (you may hear clicking sounds)</value>
+  </data>
+  <data name="StatusSystemInformationsGathered" xml:space="preserve">
+    <value>System information has been gathered.</value>
+  </data>
+  <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
+    <value>Cannot start MIDI input device:</value>
+  </data>
+  <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-question-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-question-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNoInternet" xml:space="preserve">
+    <value>Internet connection is not available. Please check your connection.</value>
+  </data>
+  <data name="TitleInternalError" xml:space="preserve">
+    <value>Internal Error</value>
+  </data>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Failed Precondition</value>
+  </data>
+  <data name="EighthNote" xml:space="preserve">
+    <value>1/8</value>
+  </data>
+  <data name="icons8-processor-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-processor-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-wait-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-wait-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageFirmwareCopied" xml:space="preserve">
+    <value>Firmware code has been copied to clipboard</value>
+  </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>The resource already exists.</value>
+  </data>
+  <data name="WholeNote" xml:space="preserve">
+    <value>Whole</value>
+  </data>
+  <data name="TextNotFound" xml:space="preserve">
+    <value>(Not Found)</value>
+  </data>
+  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
+    <value>The API key format is invalid. Please check and try again.</value>
   </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 This key plays this percussion sound: {percussionName}</value>
+  </data>
+  <data name="LyricsExampleText" xml:space="preserve">
+    <value>Example text</value>
+  </data>
+  <data name="MessageMIDIFileLoadingError" xml:space="preserve">
+    <value>Error loading MIDI file:</value>
+  </data>
+  <data name="TitleNotImplemented" xml:space="preserve">
+    <value>Not Implemented</value>
+  </data>
+  <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
+    <value>The file you dragged is not supported by NeoBleeper or is corrupted.</value>
+  </data>
+  <data name="MessageGCodeExported" xml:space="preserve">
+    <value>GCode file exported successfully!</value>
+  </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>Detected HDD storage. Avoiding resonance frequency of {value} Hz.</value>
+  </data>
+  <data name="MessageConvertToGCodeError" xml:space="preserve">
+    <value>Error converting to GCode:</value>
+  </data>
+  <data name="ExamplePrompt1" xml:space="preserve">
+    <value>Create a classical music piece in the style of Beethoven</value>
+  </data>
+  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt4" xml:space="preserve">
+    <value>Write a relaxing piano solo</value>
+  </data>
+  <data name="StatusCompactComputerDetected" xml:space="preserve">
+    <value>System speaker output is present, but it is a compact computer. NeoBleeper will use the sound card to create beeps to avoid issues with compact computers.</value>
+  </data>
+  <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
+    <value>Checking chipset for system speaker issues...</value>
+  </data>
+  <data name="MessagePermissionDenied" xml:space="preserve">
+    <value>Your API key does not have permission to access the requested resource. Please check your API key and permissions.</value>
+  </data>
+  <data name="MessageBeepCommandSavingError" xml:space="preserve">
+    <value>Error saving the Beep command as shell script: </value>
+  </data>
+  <data name="icons8-error-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-error-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageDeadlineExceeded" xml:space="preserve">
+    <value>The service is unable to finish processing within the deadline.</value>
+  </data>
+  <data name="DoNotUpdateHelp" xml:space="preserve">
+    <value>This feature disables the automatic updating of the position table when playing the music. However, it will continue to update during editing. 
+
+When enabled, the position table will not update when the music is playing.
+
+If you are experiencing problems with fluidity or skipping while playing the music in the list, it is recommended that you disable this option.</value>
+  </data>
+  <data name="MessageRequestTooLarge" xml:space="preserve">
+    <value>The request is too large to be processed.</value>
+  </data>
+  <data name="AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="icons8-4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
+    <value>Incomplete NBPML Content</value>
+  </data>
+  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
+    <value>Checking InpOutx64.dll presence and integrity...</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TabKey" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
+    <value>Google Gemini™ API key reset successfully.</value>
+  </data>
+  <data name="ExamplePrompt2" xml:space="preserve">
+    <value>Generate a rock song inspired by The Beatles</value>
+  </data>
+  <data name="StatusInpOutX64Placed" xml:space="preserve">
+    <value>InpOutx64.dll has been placed successfully.</value>
+  </data>
+  <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
+    <value>An error occurred during the test. Check logs for details.</value>
+  </data>
+  <data name="PlayBeatSoundHelp" xml:space="preserve">
+    <value>This feature allows you to play beat-like sounds from the system speaker/sound device. 
+
+You can choose the sound to play by clicking the 'Change Beat Sound' button.</value>
+  </data>
+  <data name="MessageAborted" xml:space="preserve">
+    <value>The operation was aborted.</value>
+  </data>
+  <data name="MIDIDeviceErrorTitle" xml:space="preserve">
+    <value>MIDI Device Error</value>
+  </data>
+  <data name="ExamplePrompt27" xml:space="preserve">
+    <value>Create a gentle lullaby for peaceful sleep</value>
+  </data>
+  <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorResettingAPIKey" xml:space="preserve">
+    <value>Error resetting API key: </value>
+  </data>
+  <data name="StatusSpecifyingStorageType" xml:space="preserve">
+    <value>Specifying storage type for resonance prevention...</value>
+  </data>
+  <data name="ExamplePrompt22" xml:space="preserve">
+    <value>Compose an epic orchestral-style fanfare</value>
+  </data>
+  <data name="ExamplePrompt11" xml:space="preserve">
+    <value>Create an upbeat electronic dance track with energetic synth melodies</value>
+  </data>
+  <data name="neobleeper_pattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_pattern.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusSSDStorageType" xml:space="preserve">
+    <value>Detected SSD storage. Resonance prevention is not necessary.</value>
+  </data>
+  <data name="MessageInfiniteLoop" xml:space="preserve">
+    <value>The AI model appears in an infinite loop or keeps repeating itself. The generation has been cancelled.</value>
+  </data>
+  <data name="ButtonContinue" xml:space="preserve">
+    <value>C&amp;ontinue</value>
+  </data>
+  <data name="icons8-cut-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-cut-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HideAPIKeyToolTip" xml:space="preserve">
+    <value>Hide the API key in the API key field.
+Click again to show it.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Google Gemini™ API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
+  </data>
+  <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
+    <value>MIDI input/output initialization completed.</value>
+  </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>You must be at least 18 years old to use this feature.</value>
+  </data>
+  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExamplePrompt29" xml:space="preserve">
+    <value>Generate a graceful waltz in 3/4 time</value>
+  </data>
+  <data name="MessageUnsavedChanges" xml:space="preserve">
+    <value>There are unsaved changes. Do you want to save before exiting?</value>
+  </data>
+  <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
+    <value>Display resolution is not supported. NeoBleeper requires a minimum resolution of 1024x768 to run properly.</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Create an upbeat electronic dance rhythm</value>
+  </data>
+  <data name="ExamplePrompt17" xml:space="preserve">
+    <value>Generate a calm ambient soundscape for relaxation</value>
+  </data>
+  <data name="MessageErrorSavingFile" xml:space="preserve">
+    <value>Error saving NeoBleeper file:</value>
+  </data>
+  <data name="MessageNonValidMIDIFile" xml:space="preserve">
+    <value>This file is not a valid MIDI file, or it is corrupted or is being used by another process.</value>
+  </data>
+  <data name="CtrlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>No saved version to rewind to.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
+  </data>
+  <data name="SpaceKey" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="MessageErrorClosingForm" xml:space="preserve">
+    <value>Error closing the form: </value>
+  </data>
+  <data name="CrashReportCopied" xml:space="preserve">
+    <value>Crash report copied to clipboard.</value>
+  </data>
+  <data name="ShowAPIKeyToolTip" xml:space="preserve">
+    <value>Show the API key in the API key field.
+Click again to hide it.</value>
+  </data>
+  <data name="TextHide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="icons8-uncheck-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-uncheck-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoreText" xml:space="preserve">
+    <value>({number} More)</value>
+  </data>
+  <data name="TextCurrentlyWaiting" xml:space="preserve">
+    <value>Currently waiting</value>
+  </data>
+  <data name="StatusDisplayResolutionIsSupported" xml:space="preserve">
+    <value>Display resolution is supported.</value>
+  </data>
+  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TitleResourceExhausted" xml:space="preserve">
+    <value>Resource Exhausted</value>
+  </data>
+  <data name="TextInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedDraggedFile" xml:space="preserve">
+    <value>The file you dragged is corrupted or the file is in use by another process.</value>
+  </data>
+  <data name="MessageBeepCommandSaved" xml:space="preserve">
+    <value>The Beep command as shell script has been saved successfully.</value>
+  </data>
+  <data name="ButtonIgnore" xml:space="preserve">
+    <value>&amp;Ignore</value>
+  </data>
+  <data name="FilterProjectFileFormats" xml:space="preserve">
+    <value>NeoBleeper Project Markup Language Files|*.NBPML|Bleeper Music Maker Files|*.BMM|All Files|*.*</value>
+  </data>
+  <data name="ButtonNo" xml:space="preserve">
+    <value>&amp;No</value>
+  </data>
+  <data name="ThirtySecondNote" xml:space="preserve">
+    <value>1/32</value>
+  </data>
+  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
+    <value>An error occurred while running the application: </value>
+  </data>
+  <data name="MessagePlaybackStartingError" xml:space="preserve">
+    <value>Error starting playback:</value>
+  </data>
+  <data name="HarmonyOS_Sans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TripletModifier" xml:space="preserve">
+    <value>Tri</value>
+  </data>
+  <data name="icons8-hardware-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-hardware-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt20" xml:space="preserve">
+    <value>Generate a minimalist composition with repeating motifs</value>
+  </data>
+  <data name="HarmonyOS_Sans_Regular_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Regular_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
+    <value>Empty note list cannot be exported.</value>
+  </data>
+  <data name="TextStopWaiting" xml:space="preserve">
+    <value>Stop waiting</value>
+  </data>
+  <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
+    <value>The MIDI file is being loaded...</value>
+  </data>
+  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ButtonAbort" xml:space="preserve">
+    <value>&amp;Abort</value>
+  </data>
+  <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
+    <value>Use Voice System</value>
+  </data>
+  <data name="TitleCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="TextHeldNotes" xml:space="preserve">
+    <value>Notes which are currently being held on:</value>
+  </data>
+  <data name="TextMIDIEventsAreBeingCollected" xml:space="preserve">
+    <value>MIDI events are being collected...</value>
+  </data>
+  <data name="icons8-help-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-help-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ButtonTryAgain" xml:space="preserve">
+    <value>&amp;Try Again</value>
+  </data>
+  <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleRequestTooLarge" xml:space="preserve">
+    <value>Request Too Large</value>
+  </data>
+  <data name="PortamentoHelpTitle" xml:space="preserve">
+    <value>Bleeper Portamento</value>
+  </data>
+  <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageCancelled" xml:space="preserve">
+    <value>The operation was cancelled.</value>
+  </data>
+  <data name="TextWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ToastMessageNotesCopy" xml:space="preserve">
+    <value>Notes are copied to clipboard.</value>
+  </data>
+  <data name="HalfNote" xml:space="preserve">
+    <value>Half</value>
+  </data>
+  <data name="MessageProhibitedContent" xml:space="preserve">
+    <value>The response was blocked due to prohibited content.</value>
+  </data>
+  <data name="QuarterNote" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="StatusProgramLanguage" xml:space="preserve">
+    <value>NeoBleeper is starting with language: </value>
+  </data>
+  <data name="MessageFileNotFoundError" xml:space="preserve">
+    <value>The file is not found:</value>
+  </data>
+  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNotFound" xml:space="preserve">
+    <value>The requested resource or model was not found. Please check the endpoint and try again.</value>
+  </data>
+  <data name="TextFailed" xml:space="preserve">
+    <value>FAILED</value>
+  </data>
+  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
+    <value>The file you opened is corrupted or the file is in use by another process.</value>
+  </data>
+  <data name="TitleNotFound" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="MessageErrorListingAImodels" xml:space="preserve">
+    <value>AI model listing failed. Please check your Google Gemini™ API key and internet connection.</value>
+  </data>
+  <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt15" xml:space="preserve">
+    <value>Produce a funky bass-driven groove with rhythmic percussion</value>
+  </data>
+  <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
+    <value>This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. 
+
+Do you want to open this file anyway?</value>
+  </data>
+  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
+    <value>InpOutx64.dll is missing or corrupted. Placing InpOutx64.dll...</value>
+  </data>
+  <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="icons8-clock-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clock-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>An error occurred:</value>
+  </data>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Request Timeout</value>
+  </data>
+  <data name="TextPosition" xml:space="preserve">
+    <value>Position:</value>
+  </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>AI Music Created</value>
+  </data>
+  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
+    <value>Google Gemini™ API key saved successfully.</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Compose a ceremonial march with steady tempo</value>
+  </data>
+  <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExamplePrompt14" xml:space="preserve">
+    <value>Make a dramatic orchestral piece with epic crescendos</value>
+  </data>
+  <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
+    <value>Classic Bleeper Mode is enabled. NeoBleeper will run in Classic Bleeper mode.</value>
+  </data>
+  <data name="TextPassed" xml:space="preserve">
+    <value>PASSED</value>
+  </data>
+  <data name="StatusSystemInformationsGathering" xml:space="preserve">
+    <value>Gathering system information...</value>
+  </data>
+  <data name="FilterMIDIFileFormat" xml:space="preserve">
+    <value>MIDI Files|*.mid</value>
+  </data>
+  <data name="MessageDataLoss" xml:space="preserve">
+    <value>Unrecoverable data loss or corruption.</value>
+  </data>
+  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageLanguageChanged" xml:space="preserve">
+    <value>The language has been changed and the application will now restart to apply the new language, and changes in open projects will be discarded.</value>
+  </data>
+  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
+    <value>Do Not Update Beat Indicators</value>
+  </data>
+  <data name="icons8-convert-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-convert-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Create a jazz-inspired melody with swing rhythm</value>
+  </data>
+  <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
+    <value>Chipset {chipset} is known to have system speaker issues. The system speaker may not detected or function properly.</value>
+  </data>
+  <data name="icons8-playlist-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-playlist-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleInfiniteLoop" xml:space="preserve">
+    <value>Infinite Loop Detected</value>
+  </data>
+  <data name="EscKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="neobleeper_background_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_background_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorSavingAPIKey" xml:space="preserve">
+    <value>Error saving API key: </value>
+  </data>
+  <data name="icons8-line-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageNonStandardNeoBleeperFile" xml:space="preserve">
     <value>This NeoBleeper file contains invalid elements that do not comply with the syntax of NeoBleeper file format.
 
 Do you want to open this file anyway?</value>
   </data>
-  <data name="ExamplePrompt2" xml:space="preserve">
-    <value>Generate a rock song inspired by The Beatles</value>
+  <data name="icons8-error-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-error-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MIDIDeviceErrorTitle" xml:space="preserve">
-    <value>MIDI Device Error</value>
+  <data name="icons8-question-mark-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StatusMIDIIOInitializing" xml:space="preserve">
-    <value>MIDI input/output is being initialized...</value>
+  <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
+    <value>NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.</value>
   </data>
-  <data name="StatusErrorCheckingChipset" xml:space="preserve">
-    <value>Error checking chipset manufacturer. So, it's unknown if it's affected.</value>
+  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
+    <value>System speaker has been woken up.</value>
   </data>
-  <data name="TextPassed" xml:space="preserve">
-    <value>PASSED</value>
+  <data name="ExamplePrompt8" xml:space="preserve">
+    <value>Create a pop song with catchy melodies</value>
   </data>
-  <data name="TextHeldNotes" xml:space="preserve">
-    <value>Notes which are currently being held on:</value>
+  <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
+    <value>Classic Bleeper Mode is disabled. NeoBleeper will run in standard mode.</value>
+  </data>
+  <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TitleInvalidArgument" xml:space="preserve">
+    <value>Invalid Argument</value>
+  </data>
+  <data name="TextEventsAreBeingSorted" xml:space="preserve">
+    <value>Events are being sorted...</value>
+  </data>
+  <data name="TitleUnsavedChanges" xml:space="preserve">
+    <value>Unsaved Changes</value>
   </data>
   <data name="StatusInitializationCompleted" xml:space="preserve">
     <value>NeoBleeper initialization is completed</value>
   </data>
-  <data name="FilterMIDIFileFormat" xml:space="preserve">
-    <value>MIDI Files|*.mid</value>
+  <data name="StatusModularComputerDetected" xml:space="preserve">
+    <value>System speaker output is present and it is a modular computer. NeoBleeper will use the system speaker to create beeps.</value>
   </data>
-  <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
+    <value>MIDI File Loaded</value>
+  </data>
+  <data name="neobleeper_splash_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\neobleeper_splash_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
+    <value>The converted Beep command has been copied to clipboard</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Port state stability test: </value>
+  </data>
+  <data name="StatusUnknownStorageType" xml:space="preserve">
+    <value>Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.</value>
+  </data>
+  <data name="MessageUnauthenticated" xml:space="preserve">
+    <value>Authentication is required and has failed or has not yet been provided.</value>
+  </data>
+  <data name="TextAIGeneratedMusic" xml:space="preserve">
+    <value>AI Generated Music</value>
+  </data>
+  <data name="ExamplePrompt6" xml:space="preserve">
+    <value>Generate a lullaby for children</value>
+  </data>
+  <data name="StatusErrorCheckingChipset" xml:space="preserve">
+    <value>Error checking chipset manufacturer. So, it's unknown if it's affected.</value>
+  </data>
+  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
+    <value>The generated output appears to be incomplete NBPML content and cannot be used.</value>
+  </data>
+  <data name="TextMilliseconds" xml:space="preserve">
+    <value> mS</value>
+  </data>
+  <data name="ExamplePrompt9" xml:space="preserve">
+    <value>Write a blues progression in E major</value>
+  </data>
+  <data name="TextFramesAreBeingCreated" xml:space="preserve">
+    <value>Frames are being created...</value>
+  </data>
+  <data name="ExamplePrompt26" xml:space="preserve">
+    <value>Generate an experimental composition with unusual time signature</value>
+  </data>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="ToastMessageNotesCut" xml:space="preserve">
+    <value>Notes are cut to clipboard.</value>
   </data>
   <data name="MessageErrorFileOpening" xml:space="preserve">
     <value>Error opening file:</value>
+  </data>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>An unknown error occurred.</value>
+  </data>
+  <data name="MessageAnErrorOccurredWhileStoppingMusic" xml:space="preserve">
+    <value>An error occurred while stopping the music: </value>
+  </data>
+  <data name="TitleOpenProjectFile" xml:space="preserve">
+    <value>Open Project File</value>
+  </data>
+  <data name="TextBeatError" xml:space="preserve">
+    <value>(Error)</value>
+  </data>
+  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextEventsAreBeingCollected" xml:space="preserve">
+    <value>Events are being collected...</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Checking for system speaker (PC speaker) output presence in step 1/2...</value>
+  </data>
+  <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ButtonRetry" xml:space="preserve">
+    <value>&amp;Retry</value>
+  </data>
+  <data name="TitleAlreadyExists" xml:space="preserve">
+    <value>Already Exists</value>
+  </data>
+  <data name="ButtonYes" xml:space="preserve">
+    <value>&amp;Yes</value>
+  </data>
+  <data name="SixteenthNote" xml:space="preserve">
+    <value>1/16</value>
+  </data>
+  <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-save-as-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-save-as-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InpOutX64PlaceError" xml:space="preserve">
+    <value>Failed to place InpOutx64.dll: </value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Generate a retro 8-bit chiptune soundtrack inspired by classic video games</value>
+  </data>
+  <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
+    <value>Try refreshing the device list.</value>
+  </data>
+  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageErrorRewinding" xml:space="preserve">
+    <value>Error rewinding to saved version:</value>
+  </data>
+  <data name="ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="TextStartWaiting" xml:space="preserve">
+    <value>Start waiting</value>
+  </data>
+  <data name="OverallResult" xml:space="preserve">
+    <value>Overall result: </value>
+  </data>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
+    <value>Error converting to Beep command for Linux: </value>
+  </data>
+  <data name="ExamplePrompt12" xml:space="preserve">
+    <value>Compose a calm ambient soundscape for relaxation and meditation</value>
+  </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>The request contains invalid parameters. Please check your input and try again.</value>
+  </data>
+  <data name="icons8-information-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-information-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExamplePrompt7" xml:space="preserve">
+    <value>Compose a soundtrack for a fantasy game</value>
+  </data>
+  <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-new-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-new-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
+    <value>System speaker output is not present. Sound device will be used to create beeps</value>
+  </data>
+  <data name="TitleBadGateway" xml:space="preserve">
+    <value>Bad Gateway</value>
+  </data>
+  <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
+    <value>No valid Google Gemini™ models are available.</value>
+  </data>
+  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StaccatoArticulation" xml:space="preserve">
+    <value>Sta</value>
+  </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking sounds)</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Compose a rhythmic pattern with syncopated beats</value>
+  </data>
+  <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
+    <value>The file you opened is not supported by NeoBleeper or is corrupted.</value>
+  </data>
+  <data name="TitleUnknownError" xml:space="preserve">
+    <value>Unknown Error</value>
+  </data>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll is present and valid.</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>This feature allows you to synchronize the playback of multiple instances of NeoBleeper. 
@@ -662,438 +993,116 @@ When you enable this feature, a new window will open, showing the synchronized p
 
 You can then use this window to control the playback of all instances of NeoBleeper on your computer.</value>
   </data>
-  <data name="MessageCorruptedOrCurrentlyUsedOpenedFile" xml:space="preserve">
-    <value>The file you opened is corrupted or the file is in use by another process.</value>
-  </data>
-  <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-copy-to-clipboard-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-copy-to-clipboard-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonCancel" xml:space="preserve">
-    <value>&amp;Cancel</value>
-  </data>
-  <data name="ExamplePrompt10" xml:space="preserve">
-    <value>Generate a folk tune with acoustic guitar</value>
-  </data>
-  <data name="MessageAnErrorOccurredWhileStoppingMusic" xml:space="preserve">
-    <value>An error occurred while stopping the music: </value>
-  </data>
-  <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ThirtySecondNote" xml:space="preserve">
-    <value>1/32</value>
-  </data>
-  <data name="MessageBeepCommandSavingError" xml:space="preserve">
-    <value>Error saving the Beep command as shell script: </value>
-  </data>
-  <data name="icons8-close-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-close-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ExamplePrompt15" xml:space="preserve">
-    <value>Produce a funky bass-driven groove with rhythmic percussion</value>
-  </data>
-  <data name="ExamplePrompt25" xml:space="preserve">
-    <value>Compose a medieval-style tune with modal harmony</value>
-  </data>
-  <data name="ExamplePrompt30" xml:space="preserve">
-    <value>Create a blues progression with expressive notes</value>
-  </data>
-  <data name="ExamplePrompt29" xml:space="preserve">
-    <value>Generate a graceful waltz in 3/4 time</value>
-  </data>
-  <data name="ExamplePrompt28" xml:space="preserve">
-    <value>Compose a ceremonial march with steady tempo</value>
-  </data>
-  <data name="ExamplePrompt27" xml:space="preserve">
-    <value>Create a gentle lullaby for peaceful sleep</value>
-  </data>
-  <data name="ExamplePrompt26" xml:space="preserve">
-    <value>Generate an experimental composition with unusual time signature</value>
-  </data>
-  <data name="ExamplePrompt24" xml:space="preserve">
-    <value>Create an upbeat electronic dance rhythm</value>
-  </data>
-  <data name="ExamplePrompt23" xml:space="preserve">
-    <value>Generate a traditional folk melody with simple harmony</value>
-  </data>
-  <data name="ExamplePrompt22" xml:space="preserve">
-    <value>Compose an epic orchestral-style fanfare</value>
-  </data>
-  <data name="ExamplePrompt21" xml:space="preserve">
-    <value>Create a jazz-inspired melody with swing rhythm</value>
-  </data>
-  <data name="ExamplePrompt20" xml:space="preserve">
-    <value>Generate a minimalist composition with repeating motifs</value>
-  </data>
-  <data name="ExamplePrompt19" xml:space="preserve">
-    <value>Create an 8-bit style video game boss battle theme</value>
-  </data>
-  <data name="ExamplePrompt18" xml:space="preserve">
-    <value>Compose a rhythmic pattern with syncopated beats</value>
-  </data>
-  <data name="ExamplePrompt17" xml:space="preserve">
-    <value>Generate a calm ambient soundscape for relaxation</value>
-  </data>
-  <data name="ExamplePrompt16" xml:space="preserve">
-    <value>Create a baroque-style composition with intricate counterpoint</value>
-  </data>
-  <data name="TextShow" xml:space="preserve">
-    <value>Show</value>
-  </data>
-  <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextMIDIFileLoaded" xml:space="preserve">
-    <value>MIDI file loaded successfully.</value>
-  </data>
-  <data name="TextHide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="PortamentoHelpTitle" xml:space="preserve">
-    <value>Bleeper Portamento</value>
-  </data>
-  <data name="HarmonyOS_Sans_Light_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Light_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="StatusInpOutX64Placed" xml:space="preserve">
-    <value>InpOutx64.dll has been placed successfully.</value>
-  </data>
-  <data name="MessageStartMIDIInputDeviceError" xml:space="preserve">
-    <value>Cannot start MIDI input device:</value>
-  </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Advanced frequency sweep test: </value>
-  </data>
-  <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TripletModifier" xml:space="preserve">
-    <value>Tri</value>
-  </data>
-  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
-    <value>Checking InpOutx64.dll presence and integrity...</value>
-  </data>
-  <data name="ExamplePrompt1" xml:space="preserve">
-    <value>Create a classical music piece in the style of Beethoven</value>
-  </data>
-  <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageErrorRewinding" xml:space="preserve">
-    <value>Error rewinding to saved version:</value>
-  </data>
-  <data name="icons8-artificial-intelligence-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-artificial-intelligence-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusModularComputerDetected" xml:space="preserve">
-    <value>System speaker output is present and it is a modular computer. NeoBleeper will use the system speaker to create beeps.</value>
-  </data>
-  <data name="MessageNonStandardBleeperMusicMakerFile" xml:space="preserve">
-    <value>This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. 
-
-Do you want to open this file anyway?</value>
-  </data>
-  <data name="MessagePlaybackStartingError" xml:space="preserve">
-    <value>Error starting playback:</value>
-  </data>
-  <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
-    <value>Try refreshing the device list.</value>
-  </data>
-  <data name="TextPosition" xml:space="preserve">
-    <value>Position:</value>
-  </data>
-  <data name="TextCurrentlyWaiting" xml:space="preserve">
-    <value>Currently waiting</value>
-  </data>
-  <data name="StatusChipsetIsNotAffected" xml:space="preserve">
-    <value>Chipset is not known to have system speaker issues.</value>
-  </data>
-  <data name="icons8-laptop-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-laptop-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>Google Gemini™ API is not available in your country. Please check the list of supported countries.</value>
-  </data>
-  <data name="ButtonContinue" xml:space="preserve">
-    <value>C&amp;ontinue</value>
-  </data>
-  <data name="HarmonyOS_Sans_Thin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Thin.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ButtonYes" xml:space="preserve">
-    <value>&amp;Yes</value>
-  </data>
-  <data name="StatusProgramLanguage" xml:space="preserve">
-    <value>NeoBleeper is starting with language: </value>
-  </data>
-  <data name="ExamplePrompt3" xml:space="preserve">
-    <value>Compose a jazz melody with a swing rhythm</value>
-  </data>
-  <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.</value>
-  </data>
-  <data name="TextEventsAreBeingCollected" xml:space="preserve">
-    <value>Events are being collected...</value>
-  </data>
-  <data name="TextStopWaiting" xml:space="preserve">
-    <value>Stop waiting</value>
-  </data>
-  <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-play-property-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-play-property-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AnErrorOccurredWhileRunningApplication" xml:space="preserve">
-    <value>An error occurred while running the application: </value>
-  </data>
-  <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="icons8-4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-processor-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-processor-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MessageAIMusicCreationFailed" xml:space="preserve">
-    <value>AI music creation failed: </value>
-  </data>
-  <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StatusSystemInformationsGathering" xml:space="preserve">
-    <value>Gathering system information...</value>
-  </data>
-  <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonRetry" xml:space="preserve">
-    <value>&amp;Retry</value>
-  </data>
-  <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
-    <value>Advanced system speaker test is started.</value>
-  </data>
-  <data name="TextFramesAreBeingCreated" xml:space="preserve">
-    <value>Frames are being created...</value>
-  </data>
-  <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextStopPlaying" xml:space="preserve">
-    <value>Stop playing</value>
-  </data>
-  <data name="icons8-error-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-error-482.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CrashReportCopied" xml:space="preserve">
-    <value>Crash report copied to clipboard.</value>
-  </data>
-  <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Waking up system speaker for affected chipsets... (you may hear clicking sounds)</value>
-  </data>
-  <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
-    <value>System speaker has been woken up.</value>
-  </data>
-  <data name="StatusErrorWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Error waking up system speaker: </value>
-  </data>
-  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
-    <value>You must be at least 18 years old to use this feature.</value>
-  </data>
-  <data name="ShiftKey" xml:space="preserve">
-    <value>Shift</value>
-  </data>
-  <data name="TabKey" xml:space="preserve">
-    <value>Tab</value>
-  </data>
-  <data name="CtrlKey" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="AltKey" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="EscKey" xml:space="preserve">
-    <value>Esc</value>
-  </data>
-  <data name="SpaceKey" xml:space="preserve">
-    <value>Space</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
-  </data>
-  <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>AI model listing failed. Please check your Google Gemini™ API key and internet connection.</value>
-  </data>
-  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
-    <value>AI Music Created</value>
-  </data>
-  <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
-    <value>MIDI File Loaded</value>
-  </data>
   <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
     <value>The AI-generated music has been created successfully.</value>
   </data>
-  <data name="NotificationMessageMIDIFileLoaded" xml:space="preserve">
-    <value>The MIDI file has been loaded successfully.</value>
+  <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
+    <value>The AI response is null or empty</value>
   </data>
-  <data name="TitleInvalidArgument" xml:space="preserve">
-    <value>Invalid Argument</value>
+  <data name="PortamentoHelp" xml:space="preserve">
+    <value>Only for the case where music is played in real time on the keyboard. 
+
+This feature makes the system speaker/sound device increase or decrease in pitch to the note that you clicked.</value>
   </data>
-  <data name="MessageInvalidArgument" xml:space="preserve">
-    <value>The request contains invalid parameters. Please check your input and try again.</value>
-  </data>
-  <data name="TitleFailedPrecondition" xml:space="preserve">
-    <value>Failed Precondition</value>
-  </data>
-  <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service.</value>
-  </data>
-  <data name="TitlePermissionDenied" xml:space="preserve">
-    <value>Permission Denied</value>
-  </data>
-  <data name="MessagePermissionDenied" xml:space="preserve">
-    <value>Your API key does not have permission to access the requested resource. Please check your API key and permissions.</value>
-  </data>
-  <data name="TitleNotFound" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="MessageNotFound" xml:space="preserve">
-    <value>The requested resource or model was not found. Please check the endpoint and try again.</value>
-  </data>
-  <data name="TitleResourceExhausted" xml:space="preserve">
-    <value>Resource Exhausted</value>
-  </data>
-  <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan.</value>
-  </data>
-  <data name="TitleUnavailable" xml:space="preserve">
-    <value>Service/Model Unavailable or Overloaded</value>
-  </data>
-  <data name="MessageUnavailable" xml:space="preserve">
-    <value>The service/model is currently unavailable or overloaded. Please try again later.</value>
-  </data>
-  <data name="TitleDeadlineExceeded" xml:space="preserve">
-    <value>Deadline Exceeded</value>
-  </data>
-  <data name="MessageDeadlineExceeded" xml:space="preserve">
-    <value>The service is unable to finish processing within the deadline.</value>
-  </data>
-  <data name="TitleInternalError" xml:space="preserve">
-    <value>Internal Error</value>
+  <data name="HarmonyOS_Sans_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
     <value>The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input.</value>
   </data>
-  <data name="TitleOutOfRange" xml:space="preserve">
-    <value>Out of Range</value>
+  <data name="ExamplePrompt16" xml:space="preserve">
+    <value>Create a baroque-style composition with intricate counterpoint</value>
   </data>
-  <data name="MessageOutOfRange" xml:space="preserve">
-    <value>A value is out of the allowed range.</value>
+  <data name="MIDIFilePlayerMutedError" xml:space="preserve">
+    <value>The MIDI file player cannot be opened when "Mute playback" checkbox is checked, "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox is unchecked and "Use MIDI output" checkbox is unchecked.
+
+Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox or uncheck "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox to use this feature.</value>
+  </data>
+  <data name="StatusAPIKeyValidating" xml:space="preserve">
+    <value>Google Gemini™ API key is validating...</value>
+  </data>
+  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
+    <value>Advanced system speaker test is started.</value>
+  </data>
+  <data name="DottedModifier" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
+    <value>Google Gemini™ API key is not set. Please set the API key in the "General" tab in settings.</value>
+  </data>
+  <data name="ExamplePrompt10" xml:space="preserve">
+    <value>Generate a folk tune with acoustic guitar</value>
   </data>
   <data name="TitleUnauthenticated" xml:space="preserve">
     <value>Unauthenticated</value>
   </data>
-  <data name="MessageUnauthenticated" xml:space="preserve">
-    <value>Authentication is required and has failed or has not yet been provided.</value>
+  <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
+    <value>Invalid or corrupted music file</value>
   </data>
-  <data name="TitleAborted" xml:space="preserve">
-    <value>Aborted</value>
+  <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
+    <value>System speaker output is present. System speaker will be used to create beeps</value>
   </data>
-  <data name="MessageAborted" xml:space="preserve">
-    <value>The operation was aborted.</value>
+  <data name="MessageUnavailable" xml:space="preserve">
+    <value>The service/model is currently unavailable or overloaded. Please try again later.</value>
   </data>
-  <data name="TitleAlreadyExists" xml:space="preserve">
-    <value>Already Exists</value>
+  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageAlreadyExists" xml:space="preserve">
-    <value>The resource already exists.</value>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>System speaker output is present, but it is an unknown types of computer. NeoBleeper will use the sound card to create beeps to avoid issues with unknown types of computers.</value>
   </data>
-  <data name="TitleRequestTooLarge" xml:space="preserve">
-    <value>Request Too Large</value>
+  <data name="FermataArticulation" xml:space="preserve">
+    <value>Fer</value>
   </data>
-  <data name="MessageRequestTooLarge" xml:space="preserve">
-    <value>The request is too large to be processed.</value>
+  <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleProhibitedContent" xml:space="preserve">
-    <value>Prohibited Content</value>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Electrical feedback test: </value>
   </data>
-  <data name="MessageProhibitedContent" xml:space="preserve">
-    <value>The response was blocked due to prohibited content.</value>
+  <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleCancelled" xml:space="preserve">
-    <value>Cancelled</value>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Service/Model Unavailable or Overloaded</value>
   </data>
-  <data name="MessageCancelled" xml:space="preserve">
-    <value>The operation was cancelled.</value>
+  <data name="TextPercent" xml:space="preserve">
+    <value>{number}%</value>
   </data>
-  <data name="TitleDataLoss" xml:space="preserve">
-    <value>Data Loss</value>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
   </data>
-  <data name="MessageDataLoss" xml:space="preserve">
-    <value>Unrecoverable data loss or corruption.</value>
+  <data name="MessageOutOfRange" xml:space="preserve">
+    <value>A value is out of the allowed range.</value>
   </data>
-  <data name="TitleUnknownError" xml:space="preserve">
-    <value>Unknown Error</value>
+  <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
+    <value>Google Gemini™ API key validation is successful</value>
   </data>
-  <data name="MessageUnknownError" xml:space="preserve">
-    <value>An unknown error occurred.</value>
+  <data name="PercussionNames" xml:space="preserve">
+    <value>Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, High Agogo, Low Agogo, Cabasa, Maracas, Whistle Short, Whistle Long, Guiro Short, Guiro Long, Claves, High Woodblock, Low Woodblock, Cuica High, Cuica Low, Triangle Mute, Triangle Open, Shaker, Sleigh Bell, Bell Tree, Castanets, Surdu Dead Stroke, Surdu, Güiro, Clave, Wood Block, Snare Drum Rod, Ocean Drum, Snare Drum Brush</value>
   </data>
-  <data name="TitleNotImplemented" xml:space="preserve">
-    <value>Not Implemented</value>
+  <data name="TextShow" xml:space="preserve">
+    <value>Show</value>
   </data>
-  <data name="MessageNotImplemented" xml:space="preserve">
-    <value>The requested functionality is not implemented.</value>
+  <data name="ExamplePrompt5" xml:space="preserve">
+    <value>Make an electronic dance track with a fast tempo</value>
   </data>
-  <data name="TitleBadGateway" xml:space="preserve">
-    <value>Bad Gateway</value>
-  </data>
-  <data name="MessageBadGateway" xml:space="preserve">
-    <value>Received an invalid response from the upstream server.</value>
-  </data>
-  <data name="MessageIncompleteNBPMLContent" xml:space="preserve">
-    <value>The generated output appears to be incomplete NBPML content and cannot be used.</value>
-  </data>
-  <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
-    <value>Incomplete NBPML Content</value>
-  </data>
-  <data name="TitleRequestTimeout" xml:space="preserve">
-    <value>Request Timeout</value>
-  </data>
-  <data name="MessageRequestTimeout" xml:space="preserve">
-    <value>The request timed out before completion. Please try again later.</value>
-  </data>
-  <data name="TitleInfiniteLoop" xml:space="preserve">
-    <value>Infinite Loop Detected</value>
-  </data>
-  <data name="MessageInfiniteLoop" xml:space="preserve">
-    <value>The AI model appears in an infinite loop or keeps repeating itself. The generation has been cancelled.</value>
-  </data>
-  <data name="TextInformation" xml:space="preserve">
-    <value>Information</value>
-  </data>
-  <data name="TextWarning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="TextError" xml:space="preserve">
+    <value>Error</value>
   </data>
   <data name="TextQuestion" xml:space="preserve">
     <value>Question</value>
   </data>
-  <data name="TextMessage" xml:space="preserve">
-    <value>Message</value>
+  <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-history-folder-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-history-folder-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

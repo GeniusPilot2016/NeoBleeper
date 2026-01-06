@@ -489,6 +489,7 @@
             // openRecentToolStripMenuItem
             // 
             resources.ApplyResources(openRecentToolStripMenuItem, "openRecentToolStripMenuItem");
+            openRecentToolStripMenuItem.Image = Properties.Resources.icons8_history_folder_48;
             openRecentToolStripMenuItem.Name = "openRecentToolStripMenuItem";
             // 
             // toolStripSeparator1
@@ -506,6 +507,7 @@
             // saveAsToolStripMenuItem
             // 
             resources.ApplyResources(saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
+            saveAsToolStripMenuItem.Image = Properties.Resources.icons8_save_as_48;
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
             // 
@@ -530,6 +532,7 @@
             // convertToToolStripMenuItem
             // 
             convertToToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { convertToGCodeToolStripMenuItem, convertToBeepCommandForLinuxToolStripMenuItem });
+            convertToToolStripMenuItem.Image = Properties.Resources.icons8_convert_48;
             convertToToolStripMenuItem.Name = "convertToToolStripMenuItem";
             resources.ApplyResources(convertToToolStripMenuItem, "convertToToolStripMenuItem");
             // 
