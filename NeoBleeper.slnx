@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="BeepStopper/BeepStopper.csproj">
+    <Platform Project="x64" />
+    <Build Solution="Release|*" Project="false" />
+  </Project>
+  <Project Path="NeoBleeper/NeoBleeper.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="Debug|ARM64" Project="x64" />
+    <Platform Solution="Release|ARM64" Project="ARM64" />
+    <Build Solution="Release|x64" Project="false" />
+  </Project>
+  <Project Path="SystemSpeakerSensorTest/SystemSpeakerSensorTest.csproj" />
+</Solution>

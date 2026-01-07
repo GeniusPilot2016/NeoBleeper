@@ -2314,6 +2314,7 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"<bpm>(.*?)</bpm>", "<BPM>$1</BPM>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<timesignature>(.*?)</timesignature>", "<TimeSignature>$1</TimeSignature>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio>(.*?)</notesilenceratio>", "<NoteSilenceRatio>$1</NoteSilenceRatio>", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>(.*?)</notelengthreplace>", "<NoteLengthReplace>$1</NoteLengthReplace>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<notelength>(.*?)</notelength>", "<NoteLength>$1</NoteLength>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<alternatetime>(.*?)</alternatetime>", "<AlternateTime>$1</AlternateTime>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<noteclickplay>(.*?)</noteclickplay>", "<NoteClickPlay>$1</NoteClickPlay>", RegexOptions.IgnoreCase);
@@ -2323,7 +2324,6 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"<addnote3>(.*?)</addnote3>", "<AddNote3>$1</AddNote3>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<addnote4>(.*?)</addnote4>", "<AddNote4>$1</AddNote4>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<notereplace>(.*?)</notereplace>", "<NoteReplace>$1</NoteReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>(.*?)</notelengthreplace>", "<NoteLengthReplace>$1</NoteLengthReplace>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1>(.*?)</clickplaynote1>", "<ClickPlayNote1>$1</ClickPlayNote1>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2>(.*?)</clickplaynote2>", "<ClickPlayNote2>$1</ClickPlayNote2>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3>(.*?)</clickplaynote3>", "<ClickPlayNote3>$1</ClickPlayNote3>", RegexOptions.IgnoreCase);
@@ -2353,8 +2353,8 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, @"<addnote2\s*/>", "<AddNote2 />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<addnote3\s*/>", "<AddNote3 />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<addnote4\s*/>", "<AddNote4 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notereplace\s*/>", "<NoteReplace />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace\s*/>", "<NoteLengthReplace />", RegexOptions.IgnoreCase);
+            xmlContent = Regex.Replace(xmlContent, @"<notereplace\s*/>", "<NoteReplace />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1\s*/>", "<ClickPlayNote1 />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2\s*/>", "<ClickPlayNote2 />", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3\s*/>", "<ClickPlayNote3 />", RegexOptions.IgnoreCase);
