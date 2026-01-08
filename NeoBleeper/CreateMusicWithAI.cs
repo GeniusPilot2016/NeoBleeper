@@ -1010,6 +1010,13 @@ namespace NeoBleeper
             );
             // Insert line breaks between collapsed tags
             nbpmlContent = Regex.Replace(nbpmlContent, @"><", ">\r\n<", RegexOptions.Singleline); // First, remove existing multiple blank lines
+            // Remove tag value, which is only new line between opening and closing tag 
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<(\w+)>\s*\r?\n\s*<\/\1>",
+                "<$1></$1>",
+                RegexOptions.Singleline
+                );
             return nbpmlContent;
         }
         private async void buttonCreate_Click(object sender, EventArgs e)
@@ -1171,6 +1178,7 @@ namespace NeoBleeper
                         }
                         // Step 3: Convert the result builder to a string for analysis and rendering to make ready to use
                         response = resultBuilder.ToString();
+                        LogStatus(response); // Log the current status of the response
 
                         // Check if the model is stuck or keeps repeating
                         if (CheckIfModelIsStuckOrKeepsRepeating(response))
@@ -1202,6 +1210,7 @@ namespace NeoBleeper
                         {
                             Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
                             // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
+                            //System.Diagnostics.Debug.WriteLine("Raw output: " + response);
                             string rawOutput = response;
                             string JSONText = string.Empty;
                             // Parse JSON blocks
@@ -1233,6 +1242,7 @@ namespace NeoBleeper
                             Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
                             output = FixNBPMLToComply(output); // Fix NBPML to comply with expected format
                             output = RewriteOutput(output).Trim();
+                            //System.Diagnostics.Debug.WriteLine("Processed output: " + output);
                             if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
@@ -1301,6 +1311,101 @@ namespace NeoBleeper
                         this.Close(); // Close the form after handling the invalid output
                     }
                 }
+            }
+        }
+
+        private string cachedLastLine = string.Empty; // Cache the last line to detect if last line is different
+        private bool logSeparatorFound = false;
+        private bool logXmlStarted = false;
+        private bool logSettingsLogged = false;
+        private bool logLineListLogged = false;
+        private int logLineCount = 0;
+        private int cachedProcessedLength = 0;
+
+        /// <summary>
+        /// Analyzes the provided NBPML content and logs key parsing stages based on the last line of the input.
+        /// </summary>
+        /// <remarks>This method logs informational messages when significant sections or markers are
+        /// detected in the NBPML content, such as the start of the file, the <Settings> section, the <LineList>
+        /// section, and the completion of the content. Only changes in the last line of the content trigger
+        /// logging.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to analyze. Cannot be null or whitespace.</param>
+
+        private void LogStatus(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return;
+
+            // Reset the cached states if the content length has decreased
+            if (nbpmlContent.Length < cachedProcessedLength)
+            {
+                cachedProcessedLength = 0;
+                logSeparatorFound = false;
+                logXmlStarted = false;
+                logSettingsLogged = false;
+                logLineListLogged = false;
+                logLineCount = 0;
+                cachedLastLine = string.Empty;
+            }
+
+            // Take the new part of the content that hasn't been processed yet
+            string newPart = nbpmlContent.Substring(cachedProcessedLength);
+            cachedProcessedLength = nbpmlContent.Length;
+
+            // Handle new lines in the new part
+            var lines = newPart.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            foreach (var rawLine in lines)
+            {
+                var line = rawLine.Trim();
+                if (string.IsNullOrEmpty(line))
+                    continue;
+
+                // Skip the handling same last line
+                if (line == cachedLastLine)
+                    continue;
+
+                // Seperator line (---)
+                if (!logSeparatorFound && Regex.IsMatch(line, @"^-{3,}$"))
+                {
+                    Logger.Log("Separator line is found", Logger.LogTypes.Info);
+                    logSeparatorFound = true;
+                }
+
+                // NBPML start
+                if (!logXmlStarted && line.StartsWith("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.Log("NBPML start point is found", Logger.LogTypes.Info);
+                    logXmlStarted = true;
+                }
+
+                // <Settings>
+                if (logXmlStarted && !logSettingsLogged && line.StartsWith("<Settings>", StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.Log("<Settings> section is started", Logger.LogTypes.Info);
+                    logSettingsLogged = true;
+                }
+
+                // <LineList>
+                if (logXmlStarted && !logLineListLogged && line.StartsWith("<LineList>", StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.Log("<LineList> section is started", Logger.LogTypes.Info);
+                    logLineListLogged = true;
+                }
+
+                // <Line> lines
+                if (logLineListLogged && line.StartsWith("<Line>", StringComparison.OrdinalIgnoreCase))
+                {
+                    logLineCount++;
+                    Logger.Log($"Line #{logLineCount} is added.", Logger.LogTypes.Info);
+                }
+
+                // Completion of NBPML
+                if (logLineCount > 0 && line.EndsWith("</LineList>", StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.Log($"NBPML content is completed. Total <Line> count: {logLineCount}.", Logger.LogTypes.Info);
+                }
+
+                cachedLastLine = line;
             }
         }
 
@@ -2460,14 +2565,14 @@ namespace NeoBleeper
             // Add missing '<' only for allowed opening tags (e.g., "LineList>" -> "<LineList>")
             xmlContent = Regex.Replace(
                 xmlContent,
-                $@"(?<=^|\s)(?<tag>{allowedTagsPattern})\s*>",
+                $@"(?<=^|\s|>)(?<tag>{allowedTagsPattern})\s*>",
                 "<${tag}>",
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
             // Add missing '</' only for allowed closing tags (e.g., "/LineList>" -> "</LineList>")
             xmlContent = Regex.Replace(
                 xmlContent,
-                $@"(?<=^|\s)/(?<tag>{allowedTagsPattern})\s*>",
+                $@"(?<=^|\s|>)/(?<tag>{allowedTagsPattern})\s*>",
                 "</${tag}>",
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
