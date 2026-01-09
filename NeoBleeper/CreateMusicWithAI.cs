@@ -16,6 +16,8 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System;
+using System.Data.SqlTypes;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -1210,7 +1212,7 @@ namespace NeoBleeper
                         {
                             Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
                             // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
-                            //System.Diagnostics.Debug.WriteLine("Raw output: " + response);
+                            // System.Diagnostics.Debug.WriteLine("Raw output: " + response);
                             string rawOutput = response;
                             string JSONText = string.Empty;
                             // Parse JSON blocks
@@ -1242,7 +1244,7 @@ namespace NeoBleeper
                             Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
                             output = FixNBPMLToComply(output); // Fix NBPML to comply with expected format
                             output = RewriteOutput(output).Trim();
-                            //System.Diagnostics.Debug.WriteLine("Processed output: " + output);
+                            // System.Diagnostics.Debug.WriteLine("Processed output: " + output);
                             if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
@@ -1326,7 +1328,7 @@ namespace NeoBleeper
         /// Analyzes the provided NBPML content and logs key parsing stages based on the last line of the input.
         /// </summary>
         /// <remarks>This method logs informational messages when significant sections or markers are
-        /// detected in the NBPML content, such as the start of the file, the <Settings> section, the <LineList>
+        /// detected in the NBPML content, such as the start of the file, the &lt;Settings&gt; section, the &lt;LineList&gt;
         /// section, and the completion of the content. Only changes in the last line of the content trigger
         /// logging.</remarks>
         /// <param name="nbpmlContent">The NBPML content to analyze. Cannot be null or whitespace.</param>
@@ -1571,15 +1573,15 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Normalizes the <AlternateTime> element values in the specified NBPML content, ensuring they are valid and
+        /// Normalizes the &lt;AlternateTime&gt; element values in the specified NBPML content, ensuring they are valid and
         /// within the accepted range.
         /// </summary>
-        /// <remarks>This method replaces invalid, empty, or ambiguous <AlternateTime> values (such as
+        /// <remarks>This method replaces invalid, empty, or ambiguous &lt;AlternateTime&gt; values (such as
         /// "None", "null", or "default") with a default value of 30. If the value is outside the range of 5 to 200, it
         /// is clamped to the nearest valid value. If the value is "random", it is replaced with a random integer
         /// between 5 and 200, inclusive.</remarks>
         /// <param name="nbpmlContent">The NBPML content as a string to be processed and corrected.</param>
-        /// <returns>A string containing the NBPML content with all <AlternateTime> elements set to a valid integer value between
+        /// <returns>A string containing the NBPML content with all &lt;AlternateTime&gt; elements set to a valid integer value between
         /// 5 and 200, inclusive.</returns>
         private string FixAlternateTimeValue(string nbpmlContent)
         {
@@ -1618,14 +1620,14 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Normalizes <TimeSignature> elements in the specified NBPML content by converting various representations to
+        /// Normalizes &lt;TimeSignature&gt; elements in the specified NBPML content by converting various representations to
         /// a standardized numeric form.
         /// </summary>
         /// <remarks>This method replaces fractional, named, empty, or invalid time signature
         /// representations with their corresponding numeric values. If a time signature is missing, empty, or
         /// unrecognized, it defaults to 4 (common time).</remarks>
-        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more <TimeSignature> elements to be normalized.</param>
-        /// <returns>A string containing the NBPML content with all <TimeSignature> elements replaced by their standardized
+        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more &lt;TimeSignature&gt; elements to be normalized.</param>
+        /// <returns>A string containing the NBPML content with all &lt;TimeSignature&gt; elements replaced by their standardized
         /// numeric values.</returns>
         private string FixTimeSignature(string nbpmlContent)
         {
@@ -1684,8 +1686,8 @@ namespace NeoBleeper
         /// values.
         /// </summary>
         /// <remarks>This method replaces both fractional and named note length elements (such as
-        /// <NoteLength>1/4</NoteLength> or <Length>Quarter</Length>) with a standardized numeric index format (e.g.,
-        /// <Length>2</Length>). The conversion is case-insensitive.</remarks>
+        /// &lt;NoteLength&gt;1/4&lt;NoteLength&gt; or &lt;Length&gt;Quarter&lt;Length&gt;) with a standardized numeric index format (e.g.,
+        /// &lt;Length&gt;2&lt;Length&gt;). The conversion is case-insensitive.</remarks>
         /// <param name="nbpmlContent">The NBPML content containing note length elements to be converted. Cannot be null.</param>
         /// <returns>A string containing the modified NBPMLcontent with note length values replaced by their numeric index
         /// equivalents in note lengths comboBox.</returns>
@@ -1722,15 +1724,15 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Normalizes all <KeyboardOctave> values in the specified NBPML content to a standard numeric format within
+        /// Normalizes all &lt;KeyboardOctave&gt; values in the specified NBPML content to a standard numeric format within
         /// the valid range of 2 to 9.
         /// </summary>
-        /// <remarks>This method corrects <KeyboardOctave> values expressed as words, Roman numerals, or
+        /// <remarks>This method corrects &lt;KeyboardOctave&gt; values expressed as words, Roman numerals, or
         /// ambiguous terms (such as "low", "middle", or "high") to their corresponding numeric values. Values outside
         /// the valid range are clamped to the nearest valid value. The value "random" is replaced with a random integer
         /// between 2 and 9. Empty or unrecognized octave values are set to the default value of 4.</remarks>
-        /// <param name="nbpmlContent">The NBPML content string containing <KeyboardOctave> elements to be validated and corrected.</param>
-        /// <returns>A string containing the modified NBPML content with all <KeyboardOctave> values converted to numeric values
+        /// <param name="nbpmlContent">The NBPML content string containing &lt;KeyboardOctave&gt; elements to be validated and corrected.</param>
+        /// <returns>A string containing the modified NBPML content with all &lt;KeyboardOctave&gt; values converted to numeric values
         /// between 2 and 9, inclusive. If the input is null, empty, or whitespace, the original value is returned.</returns>
         private string FixOctaveValueFormat(string nbpmlContent)
         {
@@ -1817,10 +1819,10 @@ namespace NeoBleeper
         /// or musical tempo markings) with their corresponding numeric BPM equivalents. Numeric BPM values outside the
         /// range of 40 to 300 are clamped to that range. Special cases such as 'None', 'null', 'default', or empty BPM
         /// values are set to 120. If a BPM value is 'random', it is replaced with a random integer between 40 and 300,
-        /// inclusive. The method does not validate the overall structure of the NBPML content beyond the <BPM>
+        /// inclusive. The method does not validate the overall structure of the NBPML content beyond the &lt;BPM&gt;
         /// elements.</remarks>
-        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more <BPM> elements to be validated and corrected.</param>
-        /// <returns>A string containing the NBPML content with all <BPM> elements replaced by valid numeric BPM values. If the
+        /// <param name="nbpmlContent">The NBPML content as a string, containing one or more &lt;BPM&gt; elements to be validated and corrected.</param>
+        /// <returns>A string containing the NBPML content with all &lt;BPM&gt; elements replaced by valid numeric BPM values. If the
         /// input is null, empty, or whitespace, the original value is returned.</returns>
         private string FixBPMFormat(string nbpmlContent)
         {
@@ -2182,7 +2184,7 @@ namespace NeoBleeper
         /// document.
         /// </summary>
         /// <remarks>The method checks that the output is well-formed XML, starts and ends with the
-        /// <NeoBleeperProjectFile> root element, and contains both <LineList> and <Line> elements. The validation is
+        /// &lt;NeoBleeperProjectFile&gt; root element, and contains both &lt;LineList&gt; and &lt;Line&gt; elements. The validation is
         /// specific to the expected structure of NBPML documents.</remarks>
         /// <param name="output">The output string to validate as NBPML. Cannot be null, empty, or whitespace.</param>
         /// <returns>true if the output is valid NBPML and well-formed XML; otherwise, false.</returns>
@@ -2239,7 +2241,7 @@ namespace NeoBleeper
         /// <param name="nbpmlString">The XML output string to be rewritten. Cannot be null or empty.</param>
         /// <returns>A string containing the corrected and reformatted XML output. Returns an empty string if the input is null
         /// or empty.</returns>
-        /// <exception cref="Exception">Thrown if the resulting XML does not contain a valid <NeoBleeperProjectFile> root element.</exception>
+        /// <exception cref="Exception">Thrown if the resulting XML does not contain a valid &lt;NeoBleeperProjectFile&gt; root element.</exception>
         private string RewriteOutput(string nbpmlString)
         {
             if (string.IsNullOrEmpty(nbpmlString))
@@ -2247,6 +2249,10 @@ namespace NeoBleeper
                 return string.Empty;
             }
             // Regex spaghetti to fix common issues in the AI-generated XML output
+
+            // Close missing PlayNotes tag
+            nbpmlString = CloseMissingPlayNotesInLines(nbpmlString);
+
             // Make all empty tags self-closing
             nbpmlString = MakeEmptyTagsSelfClosing(nbpmlString);
 
@@ -2313,6 +2319,9 @@ namespace NeoBleeper
             nbpmlString = Regex.Replace(nbpmlString, @"</Note3\s*</Note3>", "</Note3>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</Note2\s*</Note2>", "</Note2>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</Note1\s*</Note1>", "</Note1>", RegexOptions.IgnoreCase);
+
+            // Expand minified NBPML strings
+            nbpmlString = ExpandMinifiedNBPML(nbpmlString);
 
             // Fix unfinished tags
             nbpmlString = FixUnfinishedTags(nbpmlString);
@@ -2387,19 +2396,30 @@ namespace NeoBleeper
                 // If closing tag found, check if there is at least one <Line> before it
                 if (lastLineOpenIndex > lastLineCloseIndex)
                 {
-                    // Add missing closing tag for <Line>
                     int lineListCloseIndex = nbpmlString.LastIndexOf("</LineList>", StringComparison.OrdinalIgnoreCase);
+                    string closing = "\r\n</Line>";
                     if (lineListCloseIndex != -1)
                     {
-                        nbpmlString = nbpmlString.Insert(lineListCloseIndex, "\r\n</Line>");
+                        var before = nbpmlString.Substring(0, lineListCloseIndex);
+                        if (!Regex.IsMatch(before, @"</Line>\s*$", RegexOptions.IgnoreCase))
+                            nbpmlString = nbpmlString.Insert(lineListCloseIndex, closing);
                     }
                     else
                     {
-                        // Add at the end of the document before </LineList>
-                        nbpmlString += "\r\n</Line>";
+                        if (!Regex.IsMatch(nbpmlString, @"</Line>\s*$", RegexOptions.IgnoreCase))
+                            nbpmlString += closing;
                     }
                 }
             }
+
+            // Remove last <Line> if it is empty
+            nbpmlString = Regex.Replace(
+                nbpmlString,
+                @"<Line>\s*</Line>\s*(</LineList>)",
+                "$1",
+                RegexOptions.IgnoreCase
+            );
+
             // Ensure all tags are properly closed and formatted
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NeoBleeperProjectFile>.*?</NeoBleeperProjectFile>)", "<$1", RegexOptions.IgnoreCase);
 
@@ -2420,6 +2440,9 @@ namespace NeoBleeper
             nbpmlString = nbpmlString.Trim();
             nbpmlString = SynchronizeLengths(nbpmlString);
             nbpmlString = nbpmlString.Trim();
+
+            // Close missing PlayNotes tag
+            nbpmlString = CloseMissingPlayNotesInLines(nbpmlString);
 
             // Make empty tags self-closing
             nbpmlString = MakeEmptyTagsSelfClosing(nbpmlString);
@@ -2491,7 +2514,7 @@ namespace NeoBleeper
         /// Replaces numeric length values in the specified NBPML content with their corresponding musical note length
         /// names.
         /// </summary>
-        /// <remarks>Numeric values within <Length> elements are mapped to note names such as Whole, Half,
+        /// <remarks>Numeric values within &lt;Length&gt; elements are mapped to note names such as Whole, Half,
         /// Quarter, 1/8, 1/16, and 1/32. Any unrecognized numeric value defaults to Quarter. The replacement is
         /// case-insensitive.</remarks>
         /// <param name="nbpmlContent">The NBPML-formatted string in which numeric length values will be replaced. Cannot be null.</param>
@@ -2547,10 +2570,10 @@ namespace NeoBleeper
         /// Determines whether the specified NBPML document contains all required sections.
         /// </summary>
         /// <remarks>This method checks for the presence of both opening and closing tags for the
-        /// <NeoBleeperProjectFile> and <LineList> sections. The document is considered complete only if each required
+        /// &lt;NeoBleeperProjectFile&gt; and &lt;LineList&gt; sections. The document is considered complete only if each required
         /// section appears exactly once.</remarks>
         /// <param name="NBPMLDocument">The NBPML document to validate, represented as a string containing the XML content.</param>
-        /// <returns>true if the document contains exactly one <NeoBleeperProjectFile> section and one <LineList> section;
+        /// <returns>true if the document contains exactly one &lt;NeoBleeperProjectFile&gt; section and one &lt;LineList&gt; section;
         /// otherwise, false.</returns>
         private bool IsCompleteNBPML(string NBPMLDocument) // Check if the NBPML document has all required sections
         {
@@ -2569,86 +2592,86 @@ namespace NeoBleeper
         /// content related to NeoBleeper project files. It is intended for use when importing or processing XML that
         /// may not conform to the required tag naming conventions or structure. The method does not validate the
         /// semantic correctness of the XML beyond tag normalization.</remarks>
-        /// <param name="xmlContent">The XML string to process. May contain parameter tags with inconsistent casing, formatting, or invalid tag
+        /// <param name="nbpmlContent">The XML string to process. May contain parameter tags with inconsistent casing, formatting, or invalid tag
         /// structures. Cannot be null or empty.</param>
         /// <returns>A string containing the XML content with parameter tag names and formatting corrected. Returns an empty
         /// string if the input is null or empty.</returns>
-        private string FixParameterNames(string xmlContent)
+        private string FixParameterNames(string nbpmlContent)
         {
-            if (string.IsNullOrEmpty(xmlContent))
+            if (string.IsNullOrEmpty(nbpmlContent))
             {
                 return string.Empty;
             }
 
             // Another batch of regex spaghetti to fix parameter names
             // Fix all parameter names according to Clementi Sonatina No. 3, Op 36.NBPML syntax
-            xmlContent = Regex.Replace(xmlContent, @"<length>(.*?)</length>", "<Length>$1</Length>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note1>(.*?)</note1>", "<Note1>$1</Note1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note2>(.*?)</note2>", "<Note2>$1</Note2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note3>(.*?)</note3>", "<Note3>$1</Note3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note4>(.*?)</note4>", "<Note4>$1</Note4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<mod>(.*?)</mod>", "<Mod>$1</Mod>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<art>(.*?)</art>", "<Art>$1</Art>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave>(.*?)</keyboardoctave>", "<KeyboardOctave>$1</KeyboardOctave>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<bpm>(.*?)</bpm>", "<BPM>$1</BPM>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<timesignature>(.*?)</timesignature>", "<TimeSignature>$1</TimeSignature>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio>(.*?)</notesilenceratio>", "<NoteSilenceRatio>$1</NoteSilenceRatio>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace>(.*?)</notelengthreplace>", "<NoteLengthReplace>$1</NoteLengthReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelength>(.*?)</notelength>", "<NoteLength>$1</NoteLength>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<alternatetime>(.*?)</alternatetime>", "<AlternateTime>$1</AlternateTime>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay>(.*?)</noteclickplay>", "<NoteClickPlay>$1</NoteClickPlay>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd>(.*?)</noteclickadd>", "<NoteClickAdd>$1</NoteClickAdd>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote1>(.*?)</addnote1>", "<AddNote1>$1</AddNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote2>(.*?)</addnote2>", "<AddNote2>$1</AddNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote3>(.*?)</addnote3>", "<AddNote3>$1</AddNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote4>(.*?)</addnote4>", "<AddNote4>$1</AddNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notereplace>(.*?)</notereplace>", "<NoteReplace>$1</NoteReplace>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1>(.*?)</clickplaynote1>", "<ClickPlayNote1>$1</ClickPlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2>(.*?)</clickplaynote2>", "<ClickPlayNote2>$1</ClickPlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3>(.*?)</clickplaynote3>", "<ClickPlayNote3>$1</ClickPlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4>(.*?)</clickplaynote4>", "<ClickPlayNote4>$1</ClickPlayNote4>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote1>(.*?)</playnote1>", "<PlayNote1>$1</PlayNote1>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote2>(.*?)</playnote2>", "<PlayNote2>$1</PlayNote2>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote3>(.*?)</playnote3>", "<PlayNote3>$1</PlayNote3>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote4>(.*?)</playnote4>", "<PlayNote4>$1</PlayNote4>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<length>(.*?)</length>", "<Length>$1</Length>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note1>(.*?)</note1>", "<Note1>$1</Note1>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note2>(.*?)</note2>", "<Note2>$1</Note2>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note3>(.*?)</note3>", "<Note3>$1</Note3>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note4>(.*?)</note4>", "<Note4>$1</Note4>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<mod>(.*?)</mod>", "<Mod>$1</Mod>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<art>(.*?)</art>", "<Art>$1</Art>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<keyboardoctave>(.*?)</keyboardoctave>", "<KeyboardOctave>$1</KeyboardOctave>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<bpm>(.*?)</bpm>", "<BPM>$1</BPM>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<timesignature>(.*?)</timesignature>", "<TimeSignature>$1</TimeSignature>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notesilenceratio>(.*?)</notesilenceratio>", "<NoteSilenceRatio>$1</NoteSilenceRatio>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notelengthreplace>(.*?)</notelengthreplace>", "<NoteLengthReplace>$1</NoteLengthReplace>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notelength>(.*?)</notelength>", "<NoteLength>$1</NoteLength>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<alternatetime>(.*?)</alternatetime>", "<AlternateTime>$1</AlternateTime>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<noteclickplay>(.*?)</noteclickplay>", "<NoteClickPlay>$1</NoteClickPlay>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<noteclickadd>(.*?)</noteclickadd>", "<NoteClickAdd>$1</NoteClickAdd>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote1>(.*?)</addnote1>", "<AddNote1>$1</AddNote1>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote2>(.*?)</addnote2>", "<AddNote2>$1</AddNote2>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote3>(.*?)</addnote3>", "<AddNote3>$1</AddNote3>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote4>(.*?)</addnote4>", "<AddNote4>$1</AddNote4>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notereplace>(.*?)</notereplace>", "<NoteReplace>$1</NoteReplace>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote1>(.*?)</clickplaynote1>", "<ClickPlayNote1>$1</ClickPlayNote1>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote2>(.*?)</clickplaynote2>", "<ClickPlayNote2>$1</ClickPlayNote2>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote3>(.*?)</clickplaynote3>", "<ClickPlayNote3>$1</ClickPlayNote3>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote4>(.*?)</clickplaynote4>", "<ClickPlayNote4>$1</ClickPlayNote4>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote1>(.*?)</playnote1>", "<PlayNote1>$1</PlayNote1>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote2>(.*?)</playnote2>", "<PlayNote2>$1</PlayNote2>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote3>(.*?)</playnote3>", "<PlayNote3>$1</PlayNote3>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote4>(.*?)</playnote4>", "<PlayNote4>$1</PlayNote4>", RegexOptions.IgnoreCase);
 
             // Another batch of regex spaghetti to fix self-closing parameter names
-            xmlContent = Regex.Replace(xmlContent, @"<length\s*/>", "<Length />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note1\s*/>", "<Note1 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note2\s*/>", "<Note2 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note3\s*/>", "<Note3 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<note4\s*/>", "<Note4 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<mod\s*/>", "<Mod />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<art\s*/>", "<Art />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<keyboardoctave\s*/>", "<KeyboardOctave />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<bpm\s*/>", "<BPM />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<timesignature\s*/>", "<TimeSignature />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notesilenceratio\s*/>", "<NoteSilenceRatio />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelength\s*/>", "<NoteLength />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<alternatetime\s*/>", "<AlternateTime />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickplay\s*/>", "<NoteClickPlay />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<noteclickadd\s*/>", "<NoteClickAdd />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote1\s*/>", "<AddNote1 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote2\s*/>", "<AddNote2 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote3\s*/>", "<AddNote3 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<addnote4\s*/>", "<AddNote4 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notelengthreplace\s*/>", "<NoteLengthReplace />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<notereplace\s*/>", "<NoteReplace />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote1\s*/>", "<ClickPlayNote1 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote2\s*/>", "<ClickPlayNote2 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote3\s*/>", "<ClickPlayNote3 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<clickplaynote4\s*/>", "<ClickPlayNote4 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote1\s*/>", "<PlayNote1 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote2\s*/>", "<PlayNote2 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote3\s*/>", "<PlayNote3 />", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"<playnote4\s*/>", "<PlayNote4 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<length\s*/>", "<Length />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note1\s*/>", "<Note1 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note2\s*/>", "<Note2 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note3\s*/>", "<Note3 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<note4\s*/>", "<Note4 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<mod\s*/>", "<Mod />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<art\s*/>", "<Art />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<keyboardoctave\s*/>", "<KeyboardOctave />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<bpm\s*/>", "<BPM />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<timesignature\s*/>", "<TimeSignature />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notesilenceratio\s*/>", "<NoteSilenceRatio />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notelength\s*/>", "<NoteLength />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<alternatetime\s*/>", "<AlternateTime />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<noteclickplay\s*/>", "<NoteClickPlay />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<noteclickadd\s*/>", "<NoteClickAdd />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote1\s*/>", "<AddNote1 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote2\s*/>", "<AddNote2 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote3\s*/>", "<AddNote3 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<addnote4\s*/>", "<AddNote4 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notelengthreplace\s*/>", "<NoteLengthReplace />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<notereplace\s*/>", "<NoteReplace />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote1\s*/>", "<ClickPlayNote1 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote2\s*/>", "<ClickPlayNote2 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote3\s*/>", "<ClickPlayNote3 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<clickplaynote4\s*/>", "<ClickPlayNote4 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote1\s*/>", "<PlayNote1 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote2\s*/>", "<PlayNote2 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote3\s*/>", "<PlayNote3 />", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<playnote4\s*/>", "<PlayNote4 />", RegexOptions.IgnoreCase);
 
             // Fix genuine "reversed tags" without trying to parse nested XML.
             // 1) </Tag>value</Tag>  => <Tag>value</Tag>
             // 2) <Tag>value<Tag>    => <Tag>value</Tag>
             // Safety: do not touch if the "value" contains '<' (likely nested markup).
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"</(?<tag>\w+)>(?<content>[^<]*)</(?<tag2>\w+)>",
                 m =>
                 {
@@ -2663,8 +2686,8 @@ namespace NeoBleeper
                 },
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<(?<tag>\w+)>(?<content>[^<]*)<(?<tag2>\w+)>",
                 m =>
                 {
@@ -2680,53 +2703,56 @@ namespace NeoBleeper
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
             // Fix for wrong closing tags
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
                 "</$1>",
                 RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"</<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>>",
                 "</$1>",
                 RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>>",
                 "<$1>",
                 RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>",
                 "<$1>",
                 RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)",
                 "<$1>",
                 RegexOptions.IgnoreCase);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"</(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)(?!>)",
                 "</$1>",
                 RegexOptions.IgnoreCase);
 
-            // Make empty tags self-closing
-            xmlContent = MakeEmptyTagsSelfClosing(xmlContent);
+            // Close missing PlayNotes tag
+            nbpmlContent = CloseMissingPlayNotesInLines(nbpmlContent);
 
-            xmlContent = Regex.Replace(
-                xmlContent,
+            // Make empty tags self-closing
+            nbpmlContent = MakeEmptyTagsSelfClosing(nbpmlContent);
+
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<(NeoBleeperProjectFile|RandomSettings|PlaybackSettings|ClickPlayNotes|ClickPlayNote[1-4]|NoteLengthReplace|NoteSilenceRatio|AlternateTime|NoteClickPlay|NoteClickAdd|AddNote[1-4]|NoteReplace|PlayNotes|PlayNote[1-4]|LineList|KeyboardOctave|TimeSignature|NoteLength|Settings|Note[1-4]|Length|Line|BPM|Mod|Art)>/>",
                 "<$1/>",
                 RegexOptions.IgnoreCase);
 
             // Remove any spaces before closing tags
-            xmlContent = Regex.Replace(xmlContent, @"</(\w+)\s+>", "</$1>", RegexOptions.Multiline);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"</(\w+)\s+>", "</$1>", RegexOptions.Multiline);
 
             // Make sure all opening and closing tags are properly formatted (NBPML whitelist only)
             string allowedTagsPattern =
@@ -2737,75 +2763,75 @@ namespace NeoBleeper
                 @"Length|Mod|Art|Note[1-4]";
 
             // Add missing '<' only for allowed opening tags (e.g., "LineList>" -> "<LineList>")
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 $@"(?<=^|\s|>)(?<tag>{allowedTagsPattern})\s*>",
                 "<${tag}>",
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
             // Add missing '</' only for allowed closing tags (e.g., "/LineList>" -> "</LineList>")
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 $@"(?<=^|\s|>)/(?<tag>{allowedTagsPattern})\s*>",
                 "</${tag}>",
                 RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
             // "<Tag> />" -> "<Tag />"
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 $@"<(?<tag>{allowedTagsPattern})>\s*/\s*>",
                 "<${tag} />",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             // "<Tag>/>" -> "<Tag />"
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 $@"<(?<tag>{allowedTagsPattern})>\s*/>",
                 "<${tag} />",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             // Normalize "<Tag/>" or "<Tag />" spacing (optional but keeps output consistent)
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 $@"<(?<tag>{allowedTagsPattern})\s*/>",
                 "<${tag} />",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            xmlContent = Regex.Replace(xmlContent, "<Line>List>", "<LineList>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, "</Line>List>", "</LineList>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, "<Line>List>", "<LineList>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, "</Line>List>", "</LineList>", RegexOptions.IgnoreCase);
 
             // Fix accidentally broken tags
-            xmlContent = FixAccidentallyBrokenTags(xmlContent);
+            nbpmlContent = FixAccidentallyBrokenTags(nbpmlContent);
 
             // Filter foreign texts before "<NeoBleeperProjectFile>" tag and after "</NeoBleeperProjectFile>" tag
-            xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
-            return xmlContent;
+            nbpmlContent = Regex.Replace(nbpmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
+            return nbpmlContent;
         }
 
         /// <summary>
-        /// Normalizes and synchronizes the <Length> elements and attributes within the provided NeoBleeper project XML
+        /// Normalizes and synchronizes the &lt;Length&gt; elements and attributes within the provided NeoBleeper project XML
         /// content.
         /// </summary>
         /// <remarks>This method corrects common structural issues in NeoBleeper project XML, such as
-        /// duplicate or mismatched tags, and ensures that each <Line> element with a Length attribute also contains a
-        /// corresponding <Length> child element with the same value. The output is suitable for further XML processing
+        /// duplicate or mismatched tags, and ensures that each &lt;Line&gt; element with a Length attribute also contains a
+        /// corresponding &lt;Length&gt; child element with the same value. The output is suitable for further XML processing
         /// or validation.</remarks>
-        /// <param name="xmlContent">The XML string representing a NeoBleeper project file to be processed. Cannot be null or empty.</param>
-        /// <returns>A string containing the normalized XML with consistent <Length> elements and attributes. Returns an empty
+        /// <param name="nbpmlContent">The XML string representing a NeoBleeper project file to be processed. Cannot be null or empty.</param>
+        /// <returns>A string containing the normalized XML with consistent &lt;Length&gt; elements and attributes. Returns an empty
         /// string if the input is null or empty.</returns>
-        private string SynchronizeLengths(string xmlContent)
+        private string SynchronizeLengths(string nbpmlContent)
         {
-            if (string.IsNullOrEmpty(xmlContent))
+            if (string.IsNullOrEmpty(nbpmlContent))
             {
                 return string.Empty;
             }
 
             // Remove extra <NeoBleeperProjectFile> and </NeoBleeperProjectFile> tags
-            xmlContent = Regex.Replace(xmlContent, @"(<NeoBleeperProjectFile>)+", "<NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)+", "</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(<NeoBleeperProjectFile>)+", "<NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(</NeoBleeperProjectFile>)+", "</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
             // Fix mismatched tags (case-insensitive) to prevent exceptions during XML parsing
-            xmlContent = Regex.Replace(
-                   xmlContent,
+            nbpmlContent = Regex.Replace(
+                   nbpmlContent,
                    @"<(?<openTag>\w+)>.*?</(?<closeTag>\w+)>",
                    m =>
                    {
@@ -2823,15 +2849,15 @@ namespace NeoBleeper
                    },
                    RegexOptions.Multiline | RegexOptions.IgnoreCase
                );
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"(?<!<)(\w+>)</(\w+)>",
                 m => $"<{m.Groups[1].Value}</{m.Groups[2].Value}>",
                 RegexOptions.Singleline
             );
             // Fix remaining mismatched tags
-            xmlContent = Regex.Replace(
-                xmlContent,
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
                 @"<(?<open>\w+)>(.*?)</(?<close>\w+)>",
                 m =>
                 {
@@ -2845,26 +2871,28 @@ namespace NeoBleeper
                 RegexOptions.Multiline | RegexOptions.IgnoreCase
             );
             // Fix to remove extra space before tag names
-            xmlContent = Regex.Replace(xmlContent, @"<\s+/?", m => m.Value.Replace(" ", ""), RegexOptions.Multiline);
-            xmlContent = Regex.Replace(xmlContent, @"</\s+", "</", RegexOptions.Multiline);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<\s+/?", m => m.Value.Replace(" ", ""), RegexOptions.Multiline);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"</\s+", "</", RegexOptions.Multiline);
             // Fix to add missing "<" before tag names or ">" after tag names in both opening and closing tags
-            xmlContent = Regex.Replace(xmlContent, @"(?<=^|\s)([A-Za-z_][\w\-\.]*>)", "<$1", RegexOptions.Multiline);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(?<=^|\s)([A-Za-z_][\w\-\.]*>)", "<$1", RegexOptions.Multiline);
+            // Close missing PlayNotes tag
+            nbpmlContent = CloseMissingPlayNotesInLines(nbpmlContent);
             // Make empty tags self-closing
-            xmlContent = MakeEmptyTagsSelfClosing(xmlContent);
+            nbpmlContent = MakeEmptyTagsSelfClosing(nbpmlContent);
             // Trim and normalize the XML content
-            xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
-            xmlContent = Regex.Replace(xmlContent, @"</<(\w+)>", @"</$1>");
-            xmlContent = Regex.Replace(
-                xmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
-            xmlContent = RecoverNBPMLStructure(xmlContent); // Recover structure if malformed
-            if (!IsCompleteNBPML(xmlContent))
+            nbpmlContent = Regex.Replace(nbpmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"</<(\w+)>", @"</$1>");
+            nbpmlContent = Regex.Replace(
+                nbpmlContent, @"<\?xml.*?\?>", string.Empty, RegexOptions.IgnoreCase);
+            nbpmlContent = RecoverNBPMLStructure(nbpmlContent); // Recover structure if malformed
+            if (!IsCompleteNBPML(nbpmlContent))
             {
-                return xmlContent; // Return original content if not complete
+                return nbpmlContent; // Return original content if not complete
             }
-            //System.Diagnostics.Debug.WriteLine("Output before Length synchronization: " + xmlContent);
+            // System.Diagnostics.Debug.WriteLine("Output before Length synchronization: " + nbpmlContent);
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
-            xmlDoc.LoadXml(xmlContent);
+            xmlDoc.LoadXml(nbpmlContent);
 
             var lineNodes = xmlDoc.SelectNodes("//Line[@Length]");
             foreach (System.Xml.XmlNode lineNode in lineNodes)
@@ -2896,6 +2924,256 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Removes nested &lt;Line&gt; tags from the specified NBPML content, ensuring that all &lt;Line&gt; elements are properly
+        /// flattened.
+        /// </summary>
+        /// <remarks>This method repeatedly processes the input to eliminate any &lt;Line&gt; elements that are
+        /// nested within other &lt;Line&gt; elements, resulting in a structure where all &lt;Line&gt; tags are at the same level.
+        /// Leading and trailing whitespace within each &lt;Line&gt; element is also trimmed. The method does not validate the
+        /// overall structure of the NBPML content.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to process. May contain nested &lt;Line&gt; tags.</param>
+        /// <returns>A string containing the NBPML content with all nested &lt;Line&gt; tags flattened. If the input is null or empty,
+        /// the original value is returned.</returns>
+        private string FixNestedLineTags(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+                return nbpmlContent;
+
+            // Try to fix nested <Line> tags using XmlDocument
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(nbpmlContent);
+
+                var lineList = xmlDoc.SelectSingleNode("//LineList");
+                if (lineList == null)
+                    return nbpmlContent;
+
+                // Target tags to be restructured
+                var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    "Length","Mod","Art","Note1","Note2","Note3","Note4"
+                };
+
+                // Children nodes that will be restructured
+                var newFrag = xmlDoc.CreateDocumentFragment();
+
+                XmlElement currentLine = null;
+
+                // Note: Add XmlNodeList to List to avoid modification issues during iteration
+                var children = lineList.ChildNodes.Cast<XmlNode>().ToList();
+
+                foreach (var node in children)
+                {
+                    if (node.NodeType != XmlNodeType.Element)
+                    {
+                        // Skip or trim text nodes
+                        var txt = node.OuterXml;
+                        if (!string.IsNullOrWhiteSpace(txt))
+                        {
+                            newFrag.AppendChild(xmlDoc.ImportNode(node, true));
+                        }
+                        continue;
+                    }
+
+                    var el = (XmlElement)node;
+
+                    if (string.Equals(el.Name, "Line", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // If the <Line> tag is found
+                        newFrag.AppendChild(xmlDoc.ImportNode(el, true));
+                        currentLine = null; // Reset currentLine
+                    }
+                    else if (allowed.Contains(el.Name))
+                    {
+                        // Orphaned tag -> Add to current Line or create new one
+                        if (currentLine == null)
+                        {
+                            currentLine = xmlDoc.CreateElement("Line");
+                            newFrag.AppendChild(currentLine);
+                        }
+                        currentLine.AppendChild(xmlDoc.ImportNode(el, true));
+                    }
+                    else
+                    {
+                        // Unexpected tag -> If 
+                        newFrag.AppendChild(xmlDoc.ImportNode(el, true));
+                        currentLine = null;
+                    }
+                }
+
+                // Replace LineList contents
+                lineList.RemoveAll();
+                lineList.AppendChild(newFrag);
+
+                // Serialize back
+                using var sw = new System.IO.StringWriter();
+                xmlDoc.Save(sw);
+                var result = sw.ToString();
+                // Remove XML declaration if present
+                result = Regex.Replace(result, @"<\?xml.*?\?>\s*", string.Empty, RegexOptions.IgnoreCase).Trim();
+                return result;
+            }
+            catch (XmlException)
+            {
+                // RegEx-based fallback if XML parsing fails
+                try
+                {
+                    // Example: </Line>\s*(<Length>...)</ -> </Line>\n<Line>\n<Length>...
+                    var safer = Regex.Replace(
+                        nbpmlContent,
+                        @"</Line>\s*(?=(<(Length|Mod|Art|Note[1-4])\b))",
+                        "</Line>\r\n<Line>\r\n",
+                        RegexOptions.IgnoreCase);
+
+                    // Add <Line> at the start if orphaned tag found
+                    safer = Regex.Replace(
+                        safer,
+                        @"^(?=\s*<(Length|Mod|Art|Note[1-4])\b)",
+                        "<Line>\r\n",
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+                    // Add </Line> at the end if orphaned tag found
+                    safer = Regex.Replace(
+                        safer,
+                        @"(?<=<(Length|Mod|Art|Note[1-4])[\s\S]*?)(?=\s*</NeoBleeperProjectFile>)",
+                        m => m.Value + "\r\n</Line>",
+                        RegexOptions.IgnoreCase);
+
+                    return safer;
+                }
+                catch
+                {
+                    // Son çare: orijinal içeriği döndür
+                    return nbpmlContent;
+                }
+            }
+        }
+
+        private string RemoveOtherUnnecessaryNestedTags(string nbpmlContent) // Remove other nested tags inside <Line>...</Line>
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+                return nbpmlContent;
+
+            var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "Length", "Mod", "Art", "Note1", "Note2", "Note3", "Note4"
+    };
+
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(nbpmlContent);
+
+                var lineNodes = xmlDoc.SelectNodes("//Line");
+                if (lineNodes != null)
+                {
+                    foreach (XmlNode lineNode in lineNodes)
+                    {
+                        // Remove any descendant element that is not in the allowed list
+                        var descendants = lineNode.SelectNodes(".//*").Cast<XmlNode>().ToList();
+                        foreach (var desc in descendants)
+                        {
+                            if (desc.NodeType != XmlNodeType.Element)
+                                continue;
+
+                            if (!allowed.Contains(desc.Name))
+                            {
+                                desc.ParentNode?.RemoveChild(desc);
+                                continue;
+                            }
+
+                            // If allowed element contains child elements, keep only inner text (strip nested elements/attributes)
+                            if (desc.HasChildNodes)
+                            {
+                                var childElements = desc.ChildNodes.Cast<XmlNode>().Where(n => n.NodeType == XmlNodeType.Element).ToList();
+                                if (childElements.Count > 0)
+                                {
+                                    string text = desc.InnerText; // preserve text content
+                                    desc.RemoveAll();
+                                    desc.InnerText = text;
+                                }
+                            }
+
+                            // Remove attributes from allowed tags to keep them simple
+                            if (desc.Attributes != null && desc.Attributes.Count > 0)
+                            {
+                                desc.Attributes.RemoveAll();
+                            }
+                        }
+
+                        // Also remove any attributes on the Line element itself
+                        if (lineNode.Attributes != null && lineNode.Attributes.Count > 0)
+                        {
+                            lineNode.Attributes.RemoveAll();
+                        }
+                    }
+                }
+
+                using var sw = new System.IO.StringWriter();
+                xmlDoc.Save(sw);
+                var result = sw.ToString();
+
+                // Remove XML declaration added by XmlDocument serializer to keep parity with the rest of the pipeline
+                result = Regex.Replace(result, @"<\?xml.*?\?>\s*", string.Empty, RegexOptions.IgnoreCase);
+                return result.Trim();
+            }
+            catch (XmlException)
+            {
+                // Fallback: regex-based conservative cleanup for malformed XML
+                var allowedPattern = "Length|Mod|Art|Note1|Note2|Note3|Note4";
+                var lineBlockRegex = new Regex(@"(<Line\b[^>]*>)(.*?)(</Line>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                var sb = new StringBuilder();
+                int lastIndex = 0;
+
+                foreach (Match m in lineBlockRegex.Matches(nbpmlContent))
+                {
+                    sb.Append(nbpmlContent, lastIndex, m.Index - lastIndex);
+
+                    string open = m.Groups[1].Value;
+                    string inner = m.Groups[2].Value;
+                    string close = m.Groups[3].Value;
+
+                    // Remove any full tag blocks that are not allowed
+                    inner = Regex.Replace(inner, $@"<\s*(?!{allowedPattern})\w+\b[^>]*>[\s\S]*?</\s*\w+\s*>", string.Empty, RegexOptions.IgnoreCase);
+                    // Remove any self-closing tags not allowed
+                    inner = Regex.Replace(inner, $@"<\s*(?!{allowedPattern})\w+\b[^>]*/\s*>", string.Empty, RegexOptions.IgnoreCase);
+
+                    // Strip attributes from allowed tags: <Note1 attr="...">X</Note1> -> <Note1>X</Note1>
+                    inner = Regex.Replace(inner, $@"<\s*({allowedPattern})\b[^>]*>(.*?)</\s*\1\s*>", "<$1>$2</$1>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+                    // Remove any remaining PlayNote* or ClickPlayNote* artifacts
+                    inner = Regex.Replace(inner, @"<\s*(PlayNote|ClickPlayNote)\d+\b[^>]*>[\s\S]*?</\s*\1\d+\s*>", string.Empty, RegexOptions.IgnoreCase);
+
+                    // Trim cleaned inner content and reconstruct block
+                    inner = inner.Trim();
+                    if (!string.IsNullOrEmpty(inner))
+                    {
+                        sb.AppendLine(open.Trim());
+                        sb.AppendLine(inner);
+                        sb.Append(close.Trim());
+                    }
+                    else
+                    {
+                        // Produce an empty self-closing Line to avoid leaving broken structure
+                        sb.Append("<Line />");
+                    }
+
+                    lastIndex = m.Index + m.Length;
+                }
+
+                if (lastIndex < nbpmlContent.Length)
+                {
+                    sb.Append(nbpmlContent, lastIndex, nbpmlContent.Length - lastIndex);
+                }
+
+                var resultFallback = sb.ToString();
+                resultFallback = Regex.Replace(resultFallback, @"\r\n{2,}", "\r\n"); // collapse multiple blank lines
+                return resultFallback.Trim();
+            }
+        }
+
+        /// <summary>
         /// Converts empty element tags in the specified NBPML (NeoBleeper Project Markup Language) content to self-closing form.
         /// </summary>
         /// <remarks>This method identifies tags with no content (e.g., <tag></tag>) and rewrites them as
@@ -2910,12 +3188,14 @@ namespace NeoBleeper
             {
                 return string.Empty;
             }
-            // Make empty tags self-closing
+
+            // Exclude Line and LineList tags
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
-                @"<(\w+)>(\s*?)</\1>",
+                @"<(?!Line\b|LineList\b)(\w+)>(\s*?)</\1>",
                 m => $"<{m.Groups[1].Value} />",
-                RegexOptions.Singleline);
+                RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
             return nbpmlContent;
         }
 
@@ -2942,11 +3222,17 @@ namespace NeoBleeper
                 nbpmlContent += "\r\n</NeoBleeperProjectFile>";
             }
 
+            // Close missing PlayNotes tag
+            nbpmlContent = CloseMissingPlayNotesInLines(nbpmlContent);
+
             // Fix orphaned tags that should be within <Line>...</Line>
             nbpmlContent = FixOrphanedTagsInNBPML(nbpmlContent);
 
             // Realign all tags to ensure proper nesting (remove extra spaces inside tags)
             nbpmlContent = Regex.Replace(nbpmlContent, @"<\s*(/)?\s*(\w+)\s*>", m => $"<{(m.Groups[1].Success ? "/" : "")}{m.Groups[2].Value}>", RegexOptions.Multiline);
+
+            // Close missing PlayNotes tag
+            nbpmlContent = CloseMissingPlayNotesInLines(nbpmlContent);
 
             // Make all empty tags self-closing
             nbpmlContent = MakeEmptyTagsSelfClosing(nbpmlContent);
@@ -2954,8 +3240,107 @@ namespace NeoBleeper
             // Fix indentation
             nbpmlContent = FixNBPMLIndentation(nbpmlContent);
 
+            // Fix nested <Line> tags
+            nbpmlContent = FixNestedLineTags(nbpmlContent);
+
+            // Remove other unnecessary nested tags inside <Line>...</Line>
+            nbpmlContent = RemoveOtherUnnecessaryNestedTags(nbpmlContent);
+
             // Return the corrected content
             return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Expands and formats minified NBPML (NeoBleeper Project Markup Language) content to improve readability
+        /// and ensure proper tag closure within &lt;Line&gt; blocks.
+        /// </summary>
+        /// <remarks>This method ensures that each child tag within a &lt;Line&gt; block (such as &lt;Length&gt;,
+        /// &lt;Mod&gt;, &lt;Art&gt;, &lt;Note1&gt;, &lt;Note2&gt;, &lt;Note3&gt;, and &lt;Note4&gt;) is properly closed if missing, and that each appears
+        /// on its own indented line. It also converts empty tags to self-closing form and collapses excessive blank
+        /// lines. Use this method to prepare NBPML content for easier human inspection or further processing.</remarks>
+        /// <param name="nbpmlContent">The minified NBPML content to expand and normalize. Cannot be null or whitespace.</param>
+        /// <returns>A formatted NBPML string with expanded lines, normalized indentation, and properly closed child tags.
+        /// Returns an empty string if the input is null or whitespace.</returns>
+
+        private string ExpandMinifiedNBPML(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return string.Empty;
+
+            // Normalize immediate collapsed tags (ensure > < becomes >\r\n<)
+            nbpmlContent = Regex.Replace(nbpmlContent, @">\s*<", ">\r\n<", RegexOptions.Singleline);
+
+            // Find all <Line>...</Line> blocks
+            var lineBlockRegex = new Regex(@"(<Line\b[^>]*>)(.*?)(</Line>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            var sb = new StringBuilder();
+            int lastIndex = 0;
+
+            foreach (Match m in lineBlockRegex.Matches(nbpmlContent))
+            {
+                // Append content before this match unchanged
+                sb.Append(nbpmlContent, lastIndex, m.Index - lastIndex);
+
+                string open = m.Groups[1].Value;
+                string inner = m.Groups[2].Value;
+                string close = m.Groups[3].Value;
+
+                // Normalize inner spacing
+                inner = inner.Trim();
+
+                // Child tags to ensure closed when missing
+                string[] childTags = { "Length", "Mod", "Art", "Note1", "Note2", "Note3", "Note4" };
+
+                foreach (var tag in childTags)
+                {
+                    // If opening tag exists but closing tag does not within this <Line> block, close the first occurrence
+                    if (Regex.IsMatch(inner, $@"\<{tag}\>", RegexOptions.IgnoreCase) &&
+                        !Regex.IsMatch(inner, $@"\</{tag}\>", RegexOptions.IgnoreCase))
+                    {
+                        // Replace first occurrence of <Tag>someText (without nested '<') with <Tag>someText</Tag>
+                        bool replaced = false;
+                        inner = Regex.Replace(inner,
+                            $@"\<{tag}\>([^\<]*)",
+                            (Match mm) =>
+                            {
+                                if (replaced) // only first
+                                    return mm.Value;
+                                replaced = true;
+                                var content = mm.Groups[1].Value.Trim();
+                                // If content is empty, produce self-closing form later in pipeline; keep empty now
+                                return $"<{tag}>{content}</{tag}>";
+                            },
+                            RegexOptions.IgnoreCase);
+                    }
+                }
+
+                // Ensure each child appears on its own line with indentation
+                var innerLines = inner.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries)
+                                      .Select(l => "    " + l.Trim());
+                string normalizedInner = string.Join("\r\n", innerLines);
+
+                // Reconstruct cleaned Line block
+                sb.AppendLine(open.Trim());
+                if (!string.IsNullOrWhiteSpace(normalizedInner))
+                {
+                    sb.AppendLine(normalizedInner);
+                }
+                sb.Append(close.Trim());
+                lastIndex = m.Index + m.Length;
+            }
+
+            // Append any remaining tail
+            if (lastIndex < nbpmlContent.Length)
+                sb.Append(nbpmlContent, lastIndex, nbpmlContent.Length - lastIndex);
+
+            var result = sb.ToString();
+
+            // Final normalization passes: make empty tags self-closing and fix accidental duplicates of closing tags
+
+            result = CloseMissingPlayNotesInLines(result);
+            result = MakeEmptyTagsSelfClosing(result);
+            result = Regex.Replace(result, @"\r\n{2,}", "\r\n"); // collapse multiple blank lines
+
+            return result.Trim();
         }
 
         /// <summary>
@@ -2972,7 +3357,7 @@ namespace NeoBleeper
 
             try
             {
-                //System.Diagnostics.Debug.WriteLine("Output before indentation fix using XML parsing: " + nbpmlContent);
+                // System.Diagnostics.Debug.WriteLine("Output before indentation fix using XML parsing: " + nbpmlContent);
                 // Try to parse and reformat using XmlDocument for proper indentation
                 var nbpmlDoc = new XmlDocument(); // Fun fact: NBPML format of NeoBleeper is actually XML-based format
                 nbpmlDoc.PreserveWhitespace = false;
@@ -3054,14 +3439,14 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Identifies and wraps orphaned tag groups in the specified NBPML content with <Line> elements to ensure
+        /// Identifies and wraps orphaned tag groups in the specified NBPML content with &lt;Line&gt; elements to ensure
         /// proper structure.
         /// </summary>
         /// <remarks>This method is useful for correcting NBPML documents where certain tag groups, such
-        /// as <Length> and related tags, appear outside of <Line> elements. It also removes unnecessary nested tags
+        /// as &lt;Length&gt; and related tags, appear outside of &lt;Line&gt; elements. It also removes unnecessary nested tags
         /// that may result from the wrapping process.</remarks>
         /// <param name="nbpmlContent">The NBPML content to process. Must not be null or empty.</param>
-        /// <returns>A string containing the NBPML content with orphaned tags wrapped in <Line> elements. Returns an empty string
+        /// <returns>A string containing the NBPML content with orphaned tags wrapped in &lt;Line&gt; elements. Returns an empty string
         /// if the input is null or empty.</returns>
         private string FixOrphanedTagsInNBPML(string nbpmlContent)
         {
@@ -3434,6 +3819,44 @@ namespace NeoBleeper
             {
                 return false;
             }
+        }
+        /// <summary>
+        /// Ensures that each &lt;Line&gt; element in the specified NBPMl content has a properly closed &lt;PlayNotes&gt; section by
+        /// inserting missing closing &lt;PlayNotes&gt; tags where necessary.
+        /// </summary>
+        /// <remarks>This method scans each &lt;Line&gt; element and adds a closing &lt;PlayNotes&gt; tag if an
+        /// opening &lt;PlayNotes&gt; tag is present without a corresponding closing tag. The operation is case-insensitive
+        /// and preserves the original formatting except for the inserted tags.</remarks>
+        /// <param name="nbpmlContent">The NBPMl-formatted string to process. Must not be null or empty.</param>
+        /// <returns>A string containing the NBPMl content with missing &lt;PlayNotes&gt; tags inserted before each &lt;Line&gt; where
+        /// required. If no changes are needed, returns the original content.</returns>
+        private string CloseMissingPlayNotesInLines(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+                return nbpmlContent;
+
+            // Add missing </PlayNotes> before </Line> if <PlayNotes> is opened but not closed
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"(<Line\b[^>]*>)([\s\S]*?)(</Line>)",
+                m =>
+                {
+                    var open = m.Groups[1].Value;
+                    var inner = m.Groups[2].Value;
+                    var close = m.Groups[3].Value;
+
+                    if (Regex.IsMatch(inner, @"<PlayNotes\b", RegexOptions.IgnoreCase) &&
+                        !Regex.IsMatch(inner, @"</PlayNotes>", RegexOptions.IgnoreCase))
+                    {
+                        // Add closing tag if missing
+                        inner = inner.TrimEnd() + "\r\n</PlayNotes>";
+                    }
+
+                    return open + inner + close;
+                },
+                RegexOptions.IgnoreCase);
+
+            return nbpmlContent;
         }
     }
 }
