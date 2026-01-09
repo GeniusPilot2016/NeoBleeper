@@ -1422,6 +1422,9 @@ namespace NeoBleeper
 
         private string FixNBPMLToComply(string nbpmlContent)
         {
+            // Convert escaped characters back to normal characters
+            nbpmlContent = FixEscapedCharacters(nbpmlContent);
+
             // Remove XML declarations and extraneous <xml> tags because NBPML doesn't use them
             nbpmlContent = Regex.Replace(nbpmlContent, @"<xml>", String.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"</xml>", String.Empty, RegexOptions.IgnoreCase);
@@ -1438,6 +1441,16 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*32nd\s*$", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*16th\s*$", "1/16", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*8th\s*$", "1/8", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Quarter Note\s*$", "Quarter", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Half Note\s*$", "Half", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Whole Note\s*$", "Whole", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Eighth Note\s*$", "1/8", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Sixteenth Note\s*$", "1/16", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty-second Note\s*$", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty Second Note\s*$", "1/32", RegexOptions.IgnoreCase);
 
             // Standardize note and silence representations
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
@@ -2250,8 +2263,8 @@ namespace NeoBleeper
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NoteClickPlay>.*?</NoteClickPlay>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NoteClickAdd>.*?</NoteClickAdd>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(AddNote[1-4]>.*?</AddNote[1-4]>)", "<$1", RegexOptions.IgnoreCase);
-            nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NoteReplace>.*?</NoteReplace>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NoteLengthReplace>.*?</NoteLengthReplace>)", "<$1", RegexOptions.IgnoreCase);
+            nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(NoteReplace>.*?</NoteReplace>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(ClickPlayNotes>.*?</ClickPlayNotes>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(ClickPlayNote[1-4]>.*?</ClickPlayNote[1-4]>)", "<$1", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"(?<!<)(PlayNotes>.*?</PlayNotes>)", "<$1", RegexOptions.IgnoreCase);
@@ -2279,8 +2292,8 @@ namespace NeoBleeper
             nbpmlString = Regex.Replace(nbpmlString, @"</AddNote2\s*</AddNote2>", "</AddNote2>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</AddNote3\s*</AddNote3>", "</AddNote3>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</AddNote4\s*</AddNote4>", "</AddNote4>", RegexOptions.IgnoreCase);
-            nbpmlString = Regex.Replace(nbpmlString, @"</NoteReplace\s*</NoteReplace>", "</NoteReplace>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</NoteLengthReplace\s*</NoteLengthReplace>", "</NoteLengthReplace>", RegexOptions.IgnoreCase);
+            nbpmlString = Regex.Replace(nbpmlString, @"</NoteReplace\s*</NoteReplace>", "</NoteReplace>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</ClickPlayNotes\s*</ClickPlayNotes>", "</ClickPlayNotes>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</ClickPlayNote1\s*</ClickPlayNote1>", "</ClickPlayNote1>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</ClickPlayNote2\s*</ClickPlayNote2>", "</ClickPlayNote2>", RegexOptions.IgnoreCase);
@@ -2300,6 +2313,7 @@ namespace NeoBleeper
             nbpmlString = Regex.Replace(nbpmlString, @"</Note3\s*</Note3>", "</Note3>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</Note2\s*</Note2>", "</Note2>", RegexOptions.IgnoreCase);
             nbpmlString = Regex.Replace(nbpmlString, @"</Note1\s*</Note1>", "</Note1>", RegexOptions.IgnoreCase);
+
             // Apply additional transformations to ensure NBPML format compliance
             nbpmlString = Regex.Replace(nbpmlString, @"<\s*/?\s*alternatetime\s*>", m =>
             {
@@ -2317,6 +2331,7 @@ namespace NeoBleeper
                 else
                     return "<NoteSilenceRatio>";
             }, RegexOptions.IgnoreCase);
+
             // Ensure <NeoBleeperProjectFile> starts and ends correctly
             if (!nbpmlString.StartsWith("<NeoBleeperProjectFile>"))
             {
@@ -2330,7 +2345,32 @@ namespace NeoBleeper
             // Ensure <LineList> section exists
             if (!nbpmlString.Contains("<LineList>"))
             {
-                nbpmlString = nbpmlString.Replace("</Settings>", "</Settings>\r\n<LineList>\r\n</LineList>");
+                nbpmlString = Regex.Replace(
+                    nbpmlString,
+                    @"(</Settings\s*>)",
+                    "$1\r\n    <LineList>\r\n    </LineList>",
+                    RegexOptions.IgnoreCase
+                );
+            }
+            // Add only opening tag if only opening tag is missing
+            else if (nbpmlString.Contains("<LineList>") && !nbpmlString.Contains("</LineList>"))
+            {
+                nbpmlString = Regex.Replace(
+                    nbpmlString,
+                    @"(</NeoBleeperProjectFile\s*>)",
+                    "    </LineList>\r\n$1",
+                    RegexOptions.IgnoreCase
+                );
+            }
+            // Add only closing tag if only closing tag is missing
+            else if (!nbpmlString.Contains("<LineList>") && nbpmlString.Contains("</LineList>"))
+            {
+                nbpmlString = Regex.Replace(
+                    nbpmlString,
+                    @"(</Settings\s*>)",
+                    "$1\r\n    <LineList>",
+                    RegexOptions.IgnoreCase
+                );
             }
 
             // Ensure all tags are properly closed and formatted
@@ -2357,6 +2397,9 @@ namespace NeoBleeper
             // Make empty tags self-closing
             nbpmlString = MakeEmptyTagsSelfClosing(nbpmlString);
 
+            // Fix last remaining values if present
+            nbpmlString = FixLastRemainingValues(nbpmlString);
+
             // Remove XML declaration if present
             nbpmlString = Regex.Replace(nbpmlString, @"<\?xml.*?\?>", String.Empty, RegexOptions.IgnoreCase);
 
@@ -2365,8 +2408,88 @@ namespace NeoBleeper
             nbpmlString = Regex.Replace(nbpmlString, @"/\*.*?\*/", String.Empty, RegexOptions.Singleline); // Remove multi-line comments
             // Remove the remaining line break after removing comments
             nbpmlString = Regex.Replace(nbpmlString, @"^\s*$\n|\r", String.Empty, RegexOptions.Multiline);
+
+            // Fix accidentally broken tags
+            nbpmlString = FixAccidentallyBrokenTags(nbpmlString);
+
             nbpmlString = nbpmlString.Trim();
             return nbpmlString;
+        }
+
+        /// <summary>
+        /// Repairs malformed XML-like tags in the input string that may have been broken by previous regular expression
+        /// operations.
+        /// </summary>
+        /// <remarks>This method is intended for use in scenarios where automated text processing has
+        /// inadvertently broken tag structures, such as during regex-based replacements. It does not perform general
+        /// XML validation and should not be used as a substitute for a full XML parser.</remarks>
+        /// <param name="input">The input string containing potentially broken tags to be fixed.</param>
+        /// <returns>A string with corrected tags, where accidentally split or malformed tags have been restored to their proper
+        /// form.</returns>
+        string FixAccidentallyBrokenTags(string input)
+        {
+            // <Ta>g>Value</Ta>g> -> <Tag>Value</Tag>
+            return Regex.Replace(
+                input,
+                @"<(\w+)>((\w+)>)((.|\s)*?)</\1>\3>",
+                m => $"<{m.Groups[1].Value}{m.Groups[3].Value}>{m.Groups[4].Value}</{m.Groups[1].Value}{m.Groups[3].Value}>",
+                RegexOptions.Multiline);
+        }
+
+        /// <summary>
+        /// Replaces numeric length values in the specified NBPML content with their corresponding musical note length
+        /// names.
+        /// </summary>
+        /// <remarks>Numeric values within <Length> elements are mapped to note names such as Whole, Half,
+        /// Quarter, 1/8, 1/16, and 1/32. Any unrecognized numeric value defaults to Quarter. The replacement is
+        /// case-insensitive.</remarks>
+        /// <param name="nbpmlContent">The NBPML-formatted string in which numeric length values will be replaced. Cannot be null.</param>
+        /// <returns>A string containing the updated NBPML content with numeric length values replaced by note length names.</returns>
+        private string FixLastRemainingValues(string nbpmlContent)
+        {
+            // Translate number (index) into note values
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Length>\s*(\d+)\s*</Length>", m =>
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "0": return "<Length>Whole</Length>";
+                    case "1": return "<Length>Half</Length>";
+                    case "2": return "<Length>Quarter</Length>";
+                    case "3": return "<Length>1/8</Length>";
+                    case "4": return "<Length>1/16</Length>";
+                    case "5": return "<Length>1/32</Length>";
+                    default: return "<Length>Quarter</Length>"; // Geçersizse varsayılan
+                }
+            }, RegexOptions.IgnoreCase);
+            return nbpmlContent;
+        }
+
+        private string FixEscapedCharacters(string nbpmlContent)
+        {
+            // Convert escaped characters back to normal characters
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&lt;", "<", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&gt;", ">", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&amp;", "&", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&apos;", "'", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&quot;", "\"", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x27;", "'", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#39;", "'", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x2F;", "/", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#47;", "/", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#60;", "<", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#62;", ">", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#34;", "\"", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x22;", "\"", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x3C;", "<", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x3E;", ">", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x26;", "&", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x5C;", "\\", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#92;", "\\", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#96;", "`", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x60;", "`", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&#xA0;", " ", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"&nbsp;", " ", RegexOptions.IgnoreCase);
+            return nbpmlContent;
         }
 
         /// <summary>
@@ -2599,6 +2722,9 @@ namespace NeoBleeper
             xmlContent = Regex.Replace(xmlContent, "<Line>List>", "<LineList>", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, "</Line>List>", "</LineList>", RegexOptions.IgnoreCase);
 
+            // Fix accidentally broken tags
+            xmlContent = FixAccidentallyBrokenTags(xmlContent);
+
             // Filter foreign texts before "<NeoBleeperProjectFile>" tag and after "</NeoBleeperProjectFile>" tag
             xmlContent = Regex.Replace(xmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             xmlContent = Regex.Replace(xmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
@@ -2684,6 +2810,7 @@ namespace NeoBleeper
             {
                 return xmlContent; // Return original content if not complete
             }
+            //System.Diagnostics.Debug.WriteLine("Output before Length synchronization: " + xmlContent);
             // Load the XML content into an XmlDocument
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(xmlContent);
@@ -2735,14 +2862,9 @@ namespace NeoBleeper
             // Make empty tags self-closing
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
-                @"<(\w+)>\s*</\1>",
+                @"<(\w+)>(\s*?)</\1>",
                 m => $"<{m.Groups[1].Value} />",
-                RegexOptions.Multiline);
-            nbpmlContent = Regex.Replace(
-                nbpmlContent,
-                @"<(\w+)>(\n|\r\n)</\1>",
-                m => $"<{m.Groups[1].Value} />",
-                RegexOptions.Multiline);
+                RegexOptions.Singleline);
             return nbpmlContent;
         }
 
@@ -2799,7 +2921,7 @@ namespace NeoBleeper
 
             try
             {
-                //Debug.WriteLine(nbpmlContent); // For debugging purposes
+                //System.Diagnostics.Debug.WriteLine("Output before indentation fix using XML parsing: " + nbpmlContent);
                 // Try to parse and reformat using XmlDocument for proper indentation
                 var nbpmlDoc = new XmlDocument(); // Fun fact: NBPML format of NeoBleeper is actually XML-based format
                 nbpmlDoc.PreserveWhitespace = false;
@@ -2820,6 +2942,9 @@ namespace NeoBleeper
 
                 // Remove XML declaration if added
                 result = Regex.Replace(result, @"<\?xml[^?]*\?>\s*", string.Empty, RegexOptions.IgnoreCase);
+
+                // Fix escaped characters by replacing them with normal characters
+                result = FixEscapedCharacters(result);
 
                 return result.Trim();
             }
@@ -2871,8 +2996,10 @@ namespace NeoBleeper
                     indentLevel++;
                 }
             }
-            //Debug.WriteLine(result); // For debugging purposes
-            return result.ToString().TrimEnd();
+            //Debug.WriteLine(result); // For debugging purposes,
+            string resultString = result.ToString();
+            resultString = FixEscapedCharacters(resultString);
+            return resultString.TrimEnd();
         }
 
         /// <summary>
