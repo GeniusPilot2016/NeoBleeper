@@ -29,7 +29,17 @@ namespace NeoBleeper
 {
     public partial class CreateMusicWithAI : Form
     {
-        // Created as byproduct of my old school project, which is the AI-powered Paint-like program called "ArtFusion", to create chaotic music with AI without any expectation (however, our school projects were prohibited to exhibit in school exhibition until final exam points are given, so I exhibited this program instead, instead of exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management system" which are boring and useless for normal users)
+        /* Created as byproduct of my old school project, which is the AI-powered Paint-like program
+        called "LibreCanvas" (formerly "ArtFusion"), to create chaotic music with AI without any
+        expectation (however, our school projects were prohibited to exhibit in school exhibition
+        until final exam points are given, so I exhibited this program instead, instead of
+        exhibiting "ugly" automation projects like "Hotel reservation system" and "Library management
+        system" which are boring and useless for normal users).
+
+        /* Footnote: I didn't expect the AI will create music that sounds like "DOS game music" or
+        "human-made music" instead of "chaotic music" as I expected. Maybe because the AI was trained 
+        with human-made music samples, so it learned to create music that sounds like human-made music,
+        especially with new Gemini 3 model. */
         string[] examplePrompts = LoadExamplePrompts();
         string examplePrompt = "";
         bool isCreatedAnything = false; // Flag to indicate if anything was created by AI
@@ -47,6 +57,7 @@ namespace NeoBleeper
         Dictionary<string, string> aiModelMapping = new Dictionary<string, string>
         {
         };
+        private bool isMusicGenerationStarted = false; // Flag to indicate if music generation has started
         public CreateMusicWithAI(Form owner)
         {
             InitializeComponent();
@@ -1119,7 +1130,8 @@ namespace NeoBleeper
                         $"  - Avoid extreme variations in note durations and ensure coherent melodies.\r\n" +
                         $"  - Do not use numbered tags (e.g., <Mod1>, <Art2>) or unsupported values (e.g., Vib, Arp, Gliss).\r\n" +
                         $"  - Do not include any explanations, apologies, or disclaimers in the output.\r\n" +
-                        $"- Ensure the output adheres to the NeoBleeper XML structure template below:\r\n\r\n" +
+                        $"  - Do NOT generate minified NBPML or XML. The output MUST be fully expanded and human-readable, with each tag and element on its own line and proper indentation. Do not collapse multiple tags onto a single line. Always format the output for maximum readability.\r\n" +
+                        $"  - Ensure the output adheres to the NeoBleeper XML structure template below:\r\n\r\n" +
                         $"[Generated file name without extension]\r\n" +
                         $"-----------------------------------------------------------\r\n" +
                         $"<NeoBleeperProjectFile>\r\n" +
@@ -1165,6 +1177,7 @@ namespace NeoBleeper
                     var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     var googleAI = new GoogleAi(apiKey);
                     var googleModel = googleAI.CreateGenerativeModel(AIModel);
+                    isMusicGenerationStarted = true; // Set the flag to indicate music generation has started
                     await foreach (var chunk in googleModel.StreamContentAsync(completePrompt, cts.Token))
                     {
                         // Clean up the chunk text by removing double newlines and trimming whitespace
@@ -1223,9 +1236,11 @@ namespace NeoBleeper
                             }
                             if (CheckIfOutputIsJSONErrorMessage(JSONText))
                             {
+                                isMusicGenerationStarted = false; // Reset the flag as music generation has ended
                                 TurnJSONErrorIntoMessageBoxAndLog(JSONText);
                                 generatedFilename = string.Empty; // Clear the filename if it's an error message
                                 output = String.Empty; // Clear the output if it's an error message
+                                MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
                                 this.Close(); // Close the form after handling the error message
                                 return;
                             }
@@ -1247,10 +1262,12 @@ namespace NeoBleeper
                             // System.Diagnostics.Debug.WriteLine("Processed output: " + output);
                             if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
+                                isMusicGenerationStarted = false; // Reset the flag as music generation has ended
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
                                 MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 generatedFilename = string.Empty; // Clear the filename if it's incomplete
                                 output = String.Empty; // Clear the output if it's incomplete
+                                MainWindow.lastCreateTime = DateTime.Now;
                                 this.Close(); // Close the form after handling the incomplete output
                                 return; // Exit the method
                             }
@@ -1263,11 +1280,14 @@ namespace NeoBleeper
                         else
                         {
                             // AI response is null or empty - show an error message and log the error
+                            isMusicGenerationStarted = false; // Reset the flag as music generation has ended
                             Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
                             isCreatedAnything = false; // Set the flag to false
                             generatedFilename = string.Empty; // Clear the filename
                             output = String.Empty; // Clear the output
                             MessageForm.Show(this, Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            generatedFilename = string.Empty;
+                            this.Close(); // Close the form after handling the empty response
                         }
                     }
                     // If the operation was cancelled, do nothing
@@ -1293,6 +1313,8 @@ namespace NeoBleeper
                 }
                 finally
                 {
+                    isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                    MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
                     // Re-enable controls and handle the output
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     if (CheckIfOutputIsValidNBPML(output))
@@ -3615,6 +3637,10 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (isMusicGenerationStarted)
+            {
+                MainWindow.lastCreateTime = DateTime.Now; // Update last create time only if music generation was started
+            }
             StopConnectionCheck(); // Stop the connection check timer and cancel the task
             if (!isCreatedAnything)
             {

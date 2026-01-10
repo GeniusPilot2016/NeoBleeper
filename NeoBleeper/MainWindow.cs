@@ -11,6 +11,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
+//
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
@@ -44,6 +45,8 @@ namespace NeoBleeper
         string lastOpenedProjectFileName = string.Empty;
         public static string lastOpenedMIDIFileName = string.Empty;
         private string keyToolTip = string.Empty;
+        public static DateTime lastCreateTime = DateTime.MinValue;
+        private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(10); // 10 seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
         protected virtual void OnNotesChanged(EventArgs e)
         {
             NotesChanged?.Invoke(this, e);
@@ -5798,12 +5801,18 @@ namespace NeoBleeper
                 CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI(this);
                 if (!CreateMusicWithAI.IsAvailableInCountry())
                 {
+                    createMusicWithAI.Dispose();
                     Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
                     MessageForm.Show(this, Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit the method if not available
                 }
                 else
                 {
+                    if (DateTime.Now - lastCreateTime < createCooldown)
+                    {
+                        MessageForm.Show(this, Resources.MessageAICreationCooldown, Resources.TitlePleaseWait, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Exit the method if still in cooldown
+                    }
                     busyFormhelper.SetFormBusy(this, true);
                     if (await createMusicWithAI.CheckWillItOpened())
                     {
