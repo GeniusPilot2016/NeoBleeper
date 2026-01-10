@@ -1105,4 +1105,10 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="icons8-history-folder-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-history-folder-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageAICreationCooldown" xml:space="preserve">
+    <value>Please wait a moment before creating music with AI again.</value>
+  </data>
+  <data name="TitlePleaseWait" xml:space="preserve">
+    <value>Please Wait</value>
+  </data>
 </root>

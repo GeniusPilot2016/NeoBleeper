@@ -1278,6 +1278,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Please wait a moment before creating music with AI again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAICreationCooldown {
+            get {
+                return ResourceManager.GetString("MessageAICreationCooldown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   AI music creation failed:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAIMusicCreationFailed {
@@ -2879,6 +2888,15 @@ namespace NeoBleeper.Properties {
         public static string TitlePermissionDenied {
             get {
                 return ResourceManager.GetString("TitlePermissionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please Wait benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitlePleaseWait {
+            get {
+                return ResourceManager.GetString("TitlePleaseWait", resourceCulture);
             }
         }
         
