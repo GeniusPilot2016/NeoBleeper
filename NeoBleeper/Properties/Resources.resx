@@ -1111,4 +1111,10 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Please Wait</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>The selected file does not exist.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>The file name is empty.</value>
+  </data>
 </root>

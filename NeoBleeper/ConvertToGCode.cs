@@ -332,8 +332,8 @@ namespace NeoBleeper
             String notes = ExtractNotes(musicString);
             if (!string.IsNullOrEmpty(notes))
             {
-                DialogResult result = exportGCodeFile.ShowDialog(this);
-                if (result == DialogResult.OK)
+                MainWindow.SetFallbackInitialFolderForSaveFileDialog(exportGCodeFile);
+                if (exportGCodeFile.ShowDialog(this) == DialogResult.OK)
                 {
                     string filePath = exportGCodeFile.FileName;
                     using (StreamWriter writer = new StreamWriter(filePath))

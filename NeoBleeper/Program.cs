@@ -32,6 +32,7 @@ namespace NeoBleeper
         public static SplashScreen splashScreen = new SplashScreen();
         public static bool isAffectedChipsetChecked = false; // Flag to indicate if the affected chipset has been checked
         public static bool isExistenceOfSystemSpeakerChecked = false; // Flag to indicate if the existence of system speaker has been checked
+        public static bool isFirstRun = false; // Flag to indicate if it's the first run of the application
         /// <summary>
         /// Serves as the main entry point for the NeoBleeper application.
         /// </summary>
@@ -540,6 +541,7 @@ namespace NeoBleeper
                 bool currentState = Settings1.Default.HasSettingsUpgraded;
                 if (formerState == currentState) // This means no saved settings is found from previous versions
                 {
+                    isFirstRun = true; // Mark as first run if no saved settings is found
                     SetLanguageBasedOnOSLanguage(); // Set language based on OS language if no saved settings is found
                 }
                 Settings1.Default.HasSettingsUpgraded = true;

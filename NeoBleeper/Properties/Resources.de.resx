@@ -1082,4 +1082,10 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Bitte warten</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Die ausgewählte Datei existiert nicht.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Der Dateiname ist leer.</value>
+  </data>
 </root>

@@ -1503,6 +1503,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The selected file does not exist. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFileDoesNotExist {
+            get {
+                return ResourceManager.GetString("MessageFileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file name is empty. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFileNameIsEmpty {
+            get {
+                return ResourceManager.GetString("MessageFileNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The file is not found: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageFileNotFoundError {

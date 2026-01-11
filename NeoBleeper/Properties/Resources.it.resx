@@ -1081,4 +1081,10 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Attendere prego</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Il file selezionato non esiste.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Il nome del file è vuoto.</value>
+  </data>
 </root>
