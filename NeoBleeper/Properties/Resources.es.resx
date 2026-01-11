@@ -1082,4 +1082,10 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Por favor, espere</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>El archivo seleccionado no existe.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>El nombre del archivo está vacío.</value>
+  </data>
 </root>

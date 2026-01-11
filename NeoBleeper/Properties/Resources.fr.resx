@@ -1082,4 +1082,10 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Veuillez patienter</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Le fichier sélectionné n'existe pas.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Le nom du fichier est vide.</value>
+  </data>
 </root>

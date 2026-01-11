@@ -1082,4 +1082,10 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Vui lòng đợi</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Tệp đã chọn không tồn tại.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Tên tệp tin trống.</value>
+  </data>
 </root>

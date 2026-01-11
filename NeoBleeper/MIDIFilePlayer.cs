@@ -1,6 +1,6 @@
 ﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
 // Copyright (C) 2023 GeniusPilot2016
-//
+//p
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,12 @@ using static UIHelper;
 
 namespace NeoBleeper
 {
+    /* The MIDI file player of NeoBleeper application, which plays MIDI files using system speaker
+    and can show lyrics overlay if the MIDI file contains lyrics.*/
+
+    /* Note: Notes are alternated like telephone ringing or playing one of notes if multiple notes are held
+    and it may cause crackling sound in some systems that uses piezo buzzer for system speaker.
+    This is because the system speaker can only play one note at a time.*/
     public partial class MIDIFilePlayer : Form
     {
         bool darkTheme = false;
@@ -194,17 +200,22 @@ namespace NeoBleeper
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
-        private async void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             Stop();
             openFileDialog.FileName = MainWindow.lastOpenedMIDIFileName;
+            MainWindow.SetFallbackInitialFolderForOpenFileDialog(openFileDialog);
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 if (MIDIFileValidator.IsMidiFile(openFileDialog.FileName))
                 {
-                    MainWindow.lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
-                    textBox1.Text = openFileDialog.FileName;
-                    await LoadMIDI(openFileDialog.FileName);
+                    Action action = async () =>
+                    {
+                        MainWindow.lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
+                        textBox1.Text = openFileDialog.FileName;
+                        await LoadMIDI(openFileDialog.FileName);
+                    };  
+                    MainWindow.DoActionIfFileIsExist(openFileDialog.FileName, this, action);
                 }
                 else
                 {

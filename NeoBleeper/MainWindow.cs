@@ -47,6 +47,7 @@ namespace NeoBleeper
         private string keyToolTip = string.Empty;
         public static DateTime lastCreateTime = DateTime.MinValue;
         private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(10); // 10 seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
+        public static string defaultOpenAndSaveDirectory = Path.Combine(AppContext.BaseDirectory, "Music");
         protected virtual void OnNotesChanged(EventArgs e)
         {
             NotesChanged?.Invoke(this, e);
@@ -96,6 +97,15 @@ namespace NeoBleeper
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             this.SuspendLayout();
+            if(!Directory.Exists(defaultOpenAndSaveDirectory))
+            {
+                Directory.CreateDirectory(defaultOpenAndSaveDirectory);
+            }
+            if (Program.isFirstRun)
+            {
+                openFileDialog.InitialDirectory = defaultOpenAndSaveDirectory;
+                saveFileDialog.InitialDirectory = defaultOpenAndSaveDirectory;
+            }
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             PowerManager.SystemSleeping += PowerManager_SystemSleeping;
             PowerManager.PreparingToShutdown += PowerManager_PreparingToShutdown;
@@ -2011,17 +2021,79 @@ namespace NeoBleeper
             openFileDialog.Title = Resources.TitleOpenProjectFile;
             openFileDialog.Filter = Resources.FilterProjectFileFormats;
             openFileDialog.FileName = lastOpenedProjectFileName;
+            SetFallbackInitialFolderForOpenFileDialog(openFileDialog);
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                lastOpenedProjectFileName = System.IO.Path.GetFileName(filePath);
-                FileParser(filePath);
+                Action action = new Action(() => 
+                {
+                    lastOpenedProjectFileName = System.IO.Path.GetFileName(filePath);
+                    FileParser(filePath);
+                });
+                DoActionIfFileIsExist(filePath, this, action);
             }
         }
         bool isSaved = false;
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveTheFile();
+        }
+
+        /// <summary>
+        /// Performs the specified action if the file exists; otherwise, displays an appropriate message to the user.
+        /// </summary>
+        /// <remarks>If the file name is null or empty, a warning message is shown to the user. If the
+        /// file does not exist, a different warning message is displayed. The action is only invoked if the file
+        /// exists.</remarks>
+        /// <param name="fileName">The path of the file to check for existence. Cannot be null or empty.</param>
+        /// <param name="parent">The parent form used to display message dialogs if the file name is invalid or the file does not exist.</param>
+        /// <param name="action">The action to perform if the file exists. Cannot be null.</param>
+        public static void DoActionIfFileIsExist(string fileName, Form parent, Action action)
+        {
+            if(!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+            {
+                action();
+            }
+            else if(string.IsNullOrEmpty(fileName))
+            {
+                MessageForm.Show(parent, Resources.MessageFileNameIsEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if(!File.Exists(fileName))
+            {
+                MessageForm.Show(parent, Resources.MessageFileDoesNotExist, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// Sets a fallback initial folder for the specified OpenFileDialog if its InitialDirectory is empty or invalid.
+        /// </summary>
+        /// <remarks>If the dialog's InitialDirectory property is empty or refers to a non-existent
+        /// directory, this method assigns a default directory to InitialDirectory and clears the FileName property to
+        /// prevent issues when displaying the dialog.</remarks>
+        /// <param name="dialog">The OpenFileDialog instance for which to set the fallback initial folder. Cannot be null.</param>
+        public static void SetFallbackInitialFolderForOpenFileDialog(OpenFileDialog dialog)
+        {
+            if(!string.IsNullOrEmpty(dialog.InitialDirectory) && !Directory.Exists(dialog.InitialDirectory))
+            {
+                dialog.FileName = string.Empty; // Clear the filename to avoid issues
+                dialog.InitialDirectory = defaultOpenAndSaveDirectory;
+            }
+        }
+
+        /// <summary>
+        /// Sets a fallback initial directory for the specified SaveFileDialog if its InitialDirectory property is empty
+        /// or refers to a non-existent directory.
+        /// </summary>
+        /// <remarks>This method updates the InitialDirectory property of the dialog only if it is
+        /// currently set to an empty string or a directory that does not exist. The fallback directory is determined by
+        /// the application's default settings.</remarks>
+        /// <param name="dialog">The SaveFileDialog instance for which to set the fallback initial directory. Cannot be null.</param>
+        public static void SetFallbackInitialFolderForSaveFileDialog(SaveFileDialog dialog)
+        {
+            if (dialog.InitialDirectory == string.Empty || !Directory.Exists(dialog.InitialDirectory))
+            {
+                dialog.InitialDirectory = defaultOpenAndSaveDirectory;
+            }
         }
 
         /// <summary>
@@ -2034,7 +2106,8 @@ namespace NeoBleeper
         /// and file name.</remarks>
         private void SaveTheFile()
         {
-            if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML"))
+            if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML") && 
+                File.Exists(currentFilePath))
             {
                 try
                 {
@@ -2065,7 +2138,7 @@ namespace NeoBleeper
             }
             else
             {
-                OpenSaveAsDialog(); // Open Save As dialog if no file path is set or if the file is not a NBPML file
+                OpenSaveAsDialog(); // Open Save As dialog if no file path is set, the file does not exist, or the extension is not .NBPML
             }
         }
 
@@ -2082,6 +2155,7 @@ namespace NeoBleeper
             isSaved = false;
             StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
             CloseAllOpenWindows(); // Close all open windows before opening the Save As dialog
+            SetFallbackInitialFolderForSaveFileDialog(saveFileDialog);
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -5094,9 +5168,11 @@ namespace NeoBleeper
                 openFileDialog.Filter = Resources.FilterMIDIFileFormat;
                 openFileDialog.Title = Resources.TitleOpenMIDIFile;
                 openFileDialog.FileName = lastOpenedMIDIFileName;
+                SetFallbackInitialFolderForOpenFileDialog(openFileDialog);
                 if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    OpenMIDIFilePlayer(openFileDialog.FileName);
+                    Action action = () => OpenMIDIFilePlayer(openFileDialog.FileName);
+                    DoActionIfFileIsExist(openFileDialog.FileName, this, action);
                 }
             }
             else

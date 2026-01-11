@@ -1084,4 +1084,10 @@
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Будь ласка, зачекайте</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Вибраний файл не існує.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Ім'я файлу порожнє.</value>
+  </data>
 </root>

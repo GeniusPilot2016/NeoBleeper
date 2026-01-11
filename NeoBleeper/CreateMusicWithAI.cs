@@ -1185,14 +1185,16 @@ namespace NeoBleeper
 
                         foreach (var candidate in chunk.Candidates)
                         {
-                            // Step 1: Get the text parts from the candidate
-                            var chunkText = string.Join(string.Empty, candidate.Content.Parts.Select(p => p.Text));
+                            var parts = candidate?.Content?.Parts;
+                            if (parts == null) continue; // Blocked, null or invalid part
 
-                            // Step 2: Append the chunk text to the result builder
-                            resultBuilder.Append(chunkText);
+                            var chunkText = string.Join(string.Empty,
+                                parts.Where(p => p?.Text != null).Select(p => p.Text));
+                            if (!string.IsNullOrEmpty(chunkText))
+                                resultBuilder.Append(chunkText);
                         }
                         // Step 3: Convert the result builder to a string for analysis and rendering to make ready to use
-                        response = resultBuilder.ToString();
+                        response = FixCollapsedLinesInNBPML(resultBuilder.ToString());
                         LogStatus(response); // Log the current status of the response
 
                         // Check if the model is stuck or keeps repeating
@@ -1477,41 +1479,12 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty Second Note\s*$", "1/32", RegexOptions.IgnoreCase);
 
             // Standardize note and silence representations
+            
+            // Standardize rests
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G])", "$2$1");
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G]#?)", "$2$1");
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G][#b]?)", "$2$1");
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\b([A-G]#?)-(\d+)\b", "$1$2", RegexOptions.IgnoreCase); // Fix for "C-5" format
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bD♭(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bE♭(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bG♭(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bA♭(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bB♭(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bC♯(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bD♯(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDflat(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEflat(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGflat(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAflat(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBflat(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCsharp(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDsharp(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCs(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDs(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFs(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGs(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAs(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"\bR(\d+)\b", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*(?:Rest|REST|rest|R|\-+)?\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline);
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*N/A\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline | RegexOptions.IgnoreCase); // Handle N/A as rest
@@ -1520,7 +1493,111 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*-\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle single dash as rest
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s*_+\s*</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle underscores as rest
             nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>\s+?</Note(\d)>", m => $"<Note{m.Groups[1].Value}></Note{m.Groups[2].Value}>", RegexOptions.Singleline); // Handle whitespace-only as rest
-            nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>(.*?)</Note(\d)>", m =>
+
+            // Fix notes in "C-5" format to "C5"
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b([A-G]#?)-(\d+)\b", "$1$2", RegexOptions.IgnoreCase); // Fix for "C-5" format
+
+            // Convert solfege formats to letter notes (with sharp/flat support)
+            // First handle sharps and flats, then natural notes to avoid conflicts
+
+            // Common solfege note format for all regions
+            // Solfege sharps (notes with sharps)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDo#(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bRe#(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMi#(\d+)\b", "F$1", RegexOptions.IgnoreCase); // Mi# = F natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFa#(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSol#(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLa#(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bTi#(\d+)\b", "B$1", RegexOptions.IgnoreCase); // B# = B natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSi#(\d+)\b", "B$1", RegexOptions.IgnoreCase); // B# = B natural (rare but possible)
+
+            // Solfege flats converted to sharp equivalents (flats are converted to sharps)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bReb(\d+)\b", "C#$1", RegexOptions.IgnoreCase); // Reb = Do#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMib(\d+)\b", "D#$1", RegexOptions.IgnoreCase); // Mib = Re#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFab(\d+)\b", "E$1", RegexOptions.IgnoreCase);  // Fab = Mi natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSolb(\d+)\b", "F#$1", RegexOptions.IgnoreCase); // Solb = Fa#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLab(\d+)\b", "G#$1", RegexOptions.IgnoreCase); // Lab = Sol#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bTib(\d+)\b", "A#$1", RegexOptions.IgnoreCase); // Tib = La#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSib(\d+)\b", "A#$1", RegexOptions.IgnoreCase); // Sib = La#
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDob(\d+)\b", "C$1", RegexOptions.IgnoreCase);  // Dob = Do natural (rare but possible)
+
+            // Natural solfege notes (natural notes - without sharps/flats)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDo(\d+)\b", "C$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bRe(\d+)\b", "D$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMi(\d+)\b", "E$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFa(\d+)\b", "F$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSol(\d+)\b", "G$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLa(\d+)\b", "A$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bTi(\d+)\b", "B$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSi(\d+)\b", "B$1", RegexOptions.IgnoreCase);
+
+            // Extended solfege notes (used in some regions)
+            // French and Portuguese accented solfege notes
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bRé(\d+)\b", "D$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMí(\d+)\b", "E$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFá(\d+)\b", "F$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLá(\d+)\b", "A$1", RegexOptions.IgnoreCase);
+
+            // Accented sharps
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bRé#(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFá#(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLá#(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+
+            // Accented flats
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bRéb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMíb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bLáb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+
+            // Rare accented solfege note combinations (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFáb(\d+)\b", "E$1", RegexOptions.IgnoreCase); // Fb = E natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bMí#(\d+)\b", "F$1", RegexOptions.IgnoreCase); // Mi# = F natural (rare but possible)
+
+            // Standardize flat notes to sharps
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDb(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEb(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFb(\d+)\b", "E$1", RegexOptions.IgnoreCase); // Fb = E natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGb(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAb(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBb(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCb(\d+)\b", "C$1", RegexOptions.IgnoreCase); // Cb = C natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bD♭(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bE♭(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bF♭(\d+)\b", "E$1", RegexOptions.IgnoreCase); // Fb = E natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bG♭(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bA♭(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bB♭(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bC♭(\d+)\b", "C$1", RegexOptions.IgnoreCase); // Cb = C natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bC♯(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bD♯(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bE♯(\d+)\b", "F$1", RegexOptions.IgnoreCase); // E# = F natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bF♯(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bG♯(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bA♯(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bB♯(\d+)\b", "B$1", RegexOptions.IgnoreCase); // B# = B natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDflat(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEflat(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFflat(\d+)\b", "E$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGflat(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAflat(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBflat(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCflat(\d+)\b", "C$1", RegexOptions.IgnoreCase); // Cb = C natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCsharp(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDsharp(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEsharp(\d+)\b", "F$1", RegexOptions.IgnoreCase); // E# = F natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFsharp(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGsharp(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAsharp(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBsharp(\d+)\b", "B$1", RegexOptions.IgnoreCase); // B# = B natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bCs(\d+)\b", "C#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bDs(\d+)\b", "D#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEs(\d+)\b", "F$1", RegexOptions.IgnoreCase); // E# = F natural (rare but possible)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bFs(\d+)\b", "F#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bGs(\d+)\b", "G#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bAs(\d+)\b", "A#$1", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bBs(\d+)\b", "B$1", RegexOptions.IgnoreCase); // B# = B natural (rare but possible)
+
+            // Fix mismatched Note tags
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<Note(\d)>(.*?)</Note(\d)>", m => 
             {
                 var open = m.Groups[1].Value;
                 var close = m.Groups[3].Value;

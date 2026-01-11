@@ -468,6 +468,7 @@ namespace NeoBleeper
 
         private void buttonSaveAsShFile_Click(object sender, EventArgs e)
         {
+            MainWindow.SetFallbackInitialFolderForSaveFileDialog(saveFileDialog1);
             if (saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 try

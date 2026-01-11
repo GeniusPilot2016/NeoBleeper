@@ -1083,4 +1083,10 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="TitlePleaseWait" xml:space="preserve">
     <value>Lütfen Bekleyiniz</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Seçilen dosya mevcut değil.</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Dosya adı boş.</value>
+  </data>
 </root>
