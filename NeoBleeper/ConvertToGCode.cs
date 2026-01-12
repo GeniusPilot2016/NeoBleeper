@@ -580,7 +580,7 @@ namespace NeoBleeper
                 sb.AppendLine("G4 P5");
 
             int totalLengthReported = nonStopping ? durationMs : durationMs + 5;
-            return (sb.ToString(), totalLengthReported);
+            return (sb.ToString().TrimEnd(), totalLengthReported);
         }
 
         /// <summary>
