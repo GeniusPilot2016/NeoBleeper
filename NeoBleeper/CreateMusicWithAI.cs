@@ -2595,6 +2595,21 @@ namespace NeoBleeper
                 @"<(?<tag>\w+)>([^<\r\n]+)</?(?<partial>\w{0,})(?=\s*$|\r?$|<|</)",
                 m => $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>",
                 RegexOptions.Multiline);
+
+            // Fix tags like <Tag>Value</ or <Tag>Value< -> <Tag>Value</Tag>
+            input = Regex.Replace(
+                input,
+                @"<(?<tag>\w+)>([^<\r\n]+)<\s*$",
+                m => $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>",
+                RegexOptions.Multiline);
+
+            // Fix tags like <Tag>Value -> <Tag>Value</Tag>
+            input = Regex.Replace(
+                input,
+                @"<(?<tag>\w+)>([^<\r\n]+)\s*$",
+                m => $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>",
+                RegexOptions.Multiline);
+            
             // Remove unfinished start tags or self-closing tags at the end of lines
             input = Regex.Replace(
                 input,
