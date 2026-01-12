@@ -117,24 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 92</value>
+  </data>
   <data name="label_note1.Text" xml:space="preserve">
     <value>Nota 1</value>
+  </data>
+  <data name="comboBox_component_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 90</value>
+  </data>
+  <data name="checkBox_play_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 93</value>
   </data>
   <data name="checkBox_play_note1.Text" xml:space="preserve">
     <value>Nota 1'i Çal</value>
   </data>
+  <data name="label_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 123</value>
+  </data>
   <data name="label_note2.Text" xml:space="preserve">
     <value>Nota 2</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="comboBox_component_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 121</value>
+  </data>
+  <data name="checkBox_play_note2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 124</value>
+  </data>
   <data name="checkBox_play_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
   </data>
   <data name="checkBox_play_note2.Text" xml:space="preserve">
     <value>Nota 2'yi Çal</value>
   </data>
+  <data name="label_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 154</value>
+  </data>
   <data name="label_note3.Text" xml:space="preserve">
     <value>Nota 3</value>
+  </data>
+  <data name="comboBox_component_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 152</value>
+  </data>
+  <data name="checkBox_play_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 155</value>
   </data>
   <data name="checkBox_play_note3.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 20</value>
@@ -142,8 +169,17 @@
   <data name="checkBox_play_note3.Text" xml:space="preserve">
     <value>Nota 3'ü Çal</value>
   </data>
+  <data name="label_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 187</value>
+  </data>
   <data name="label_note4.Text" xml:space="preserve">
     <value>Nota 4</value>
+  </data>
+  <data name="comboBox_component_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 185</value>
+  </data>
+  <data name="checkBox_play_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 188</value>
   </data>
   <data name="checkBox_play_note4.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 20</value>
@@ -155,42 +191,64 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPAcAAAJNU0Z0AUkBTAMBAQAB
-        jAEAAYwBAAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wD/
-        AJwAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYD
-        PAFmAx0BKf8AAQADTwGZAXcBbQFiAf8BbAFjAVoB/wFsAWMBWgH/AYwBbgF0Af8BlAFwAXoB/wGTAXAB
-        egH/AZMBcAF6Af8BkwFxAXoB/wGTAXEBegH/AZEBbQF3Af8BjwFrAXUB/wGIAWkBbwH/AWwBYwFaAf8B
-        ewFwAWUB/wM8AWb/AAEAA08BmQFcAVYBTgH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B
-        6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB/wHVAUoBrAH/AbIBQwGRAf8DJQH/AW4BZgFcAf8D
-        PAFm/wABAANPAZkBXQFXAVAB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegBZgHIAf8B
-        5gFnAccB/wHlAWcBxwH/AdsBVgG3Af8B1QFKAawB/wGyAUMBkQH/AyUB/wFvAWcBXgH/AzwBZv8AAQAD
-        TwGZAV4BWAFRAf8DJQH/AyUB/wHDAVgBqAH/AekBZgHIAf8B6QFmAcgB/wHoAWYByAH/AeYBZwHHAf8B
-        5QFnAccB/wHbAVYBtwH/AdUBSwGtAf8BsgFDAZEB/wMlAf8BcQFpAWAB/wM8AWb/AAEAA08BmQFfAVkB
-        UwH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B
-        2wFWAbcB/wHVAUsBrQH/AbIBQwGSAf8DJQH/AXIBawFiAf8DPAFm/wABAANPAZkBYAFbAVQB/wMlAf8D
-        JQH/AcMBWAGoAf8B6QFmAcgB/wHZAWEBuwH/AcEBWQGnAf8BvwFaAacB/wG/AVoBpwH/AbcBTAGaAf8B
-        sgFDAZIB/wGWAT0BfAH/AyUB/wF0AW0BZAH/AzwBZv8AAQADTwGZAWEBXAFWAf8DJQH/AyUB/wHDAVgB
-        qAH/AekBZgHIAf8BmwFMAYcB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8BdQFuAWYB/wM8AWb/
-        AAEAA08BmQFiAV0BVwH/AyUB/wMlAf8BRQEvAT8B/wF9AV8BbQH/AW0BWQFgAf8DJQH/AyUB/wMlAf8D
-        JQH/AyUB/wMlAf8DJQH/AXYBcAFoAf8DPAFm/wABAANPAZkBYwFeAVgB/wMlAf8DJQH/AyUB/wFYAVIB
-        SwH/AVgBUgFLAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXgBcQFqAf8DPAFm/wABAANPAZkB
-        ZAFfAVoB/wMlAf8DJQH/AyUB/wFRAUsBRAH/AVEBSwFEAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8D
-        JQH/AXoBcwFsAf8DPAFm/wABAANPAZkBZwFiAV0B/wMpAf8DJQH/AyUB/wFKAUUBPwH/AUwBRwFBAf8B
-        KgEpASgB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wF7AXUBbQH/AzwBZv8AAQADTwGZAXABawFmAf8B
-        OQI3Af8DJQH/AyUB/wEvAS4BLAH/ATsBOAE1Af8BPAE5ATYB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB
-        /wF8AXYBbwH/AzwBZv8AAQADTwGZAY0BhgF/Af8BggF8AXUB/wF+AXgBcgH/AX4BeAFyAf8BpwGbAWAB
-        /wHMAbkBUAH/AdgBwwFLAf8B0wG/AUcB/wHTAb8BRwH/AaABlQFhAf8BmAGUAZAB/wGyAbABrQH/AX4B
-        eAFyAf8BjwGIAYEB/wM8AWb/AAEAAzYBWANcAb4BlgGPAYcB/wGWAY8BhwH/AZYBjwGHAf8BzwG+AWkB
-        /wH5AeEBUwL/AeYBUAL/AeYBUAL/AeYBUAH/AcABsgFxAf8BowGdAZYB/wGwAasBpQH/AZYBjwGHAf8B
-        lgGPAYcB/wM8AWb/AAEAAxQBGwM2AVgDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkD
-        TwGZA08BmQNPAZkDTwGZAykBPf8A/wD/AHsAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB
-        8BcAA/8BAAL/AfAJAAL/AfAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQAB
-        wAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQAB
-        MAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAv8B8AkAAv8B8AkACw==
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAZAwAAAJNU0Z0AUkBTAIBAQIB
+        AAGkAQABpAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
+        AKcAA04BmANZAcwDWQHMA1kBzANZAcwDWQHMA1kBzANZAcwDWQHMA1kBzANZAcwDWAHMA1gBzANYAcwD
+        WAHMA1gBzANWAcwDWAHKAyMBM6gAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwB
+        ZgM8AWYDPAFmAzwBZgM8AWYDPAFmAx0BKQwAA1QB+wFJAV4BZQH/AUIBZgFzAf8BQgFmAXMB/wFBAWUB
+        cgH/AUABZQFyAf8BQAFkAXEB/wFAAWQBcQH/AT8BYwFwAf8BPgFiAXAB/wE+AWIBcAH/AT4BYQFvAf8B
+        PQFhAW8B/wE8AWABbgH/ATwBYAFuAf8BPAFfAW0B/wE7AV8BbQH/A0gB/wNKAYqoAANPAZkBdwFtAWIB
+        /wFsAWMBWgH/AWwBYwFaAf8BjAFuAXQB/wGUAXABegH/AZMBcAF6Af8BkwFwAXoB/wGTAXEBegH/AZMB
+        cQF6Af8BkQFtAXcB/wGPAWsBdQH/AYgBaQFvAf8BbAFjAVoB/wF7AXABZQH/AzwBZgwAAz4BawFPAVgB
+        WwH/AQoBvwH+Af8BCgG/Af4B/wEKAb8B/gH/AQoBvgH+Af8BCQG+Af4B/wEJAb0B/gH/AQ4BogHYAf8B
+        GgFqAYcB/wEIAbsB/gH/AQgBvAH+Af8BCAG7Af4B/wEIAbsB/gH/AQcBuwH+Af8BBwG6Af4B/wEVAaEB
+        1wH/A08B+AMLAQ6oAANPAZkBXAFWAU4B/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegB
+        ZgHIAf8B5gFnAccB/wHlAWcBxwH/AdsBVgG3Af8B1QFKAawB/wGyAUMBkQH/AyUB/wFuAWYBXAH/AzwB
+        ZhAAA1sB7AEuAY0BrgH/AQsBwQH+Af8BCwHBAf4B/wELAcAB/gH/AQsBwAH+Af8BCgG/Af4B/wElAU0B
+        WgH/AywB/wESAZYBxAH/AQkBvgH+Af8BCQG9Af4B/wEJAb0B/gH/AQkBvAH+Af8BCAG8Af4B/wFGAVUB
+        WwH/A0YBfqwAA08BmQFdAVcBUAH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB
+        /wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB/wHVAUoBrAH/AbIBQwGRAf8DJQH/AW8BZwFeAf8DPAFmEAAD
+        KgE/AVMBWAFaAf8BEQG+AfYB/wENAcIB/gH/AQwBwgH+Af8BDAHCAf4B/wEMAcEB/gH/AQ0BvAH2Af8B
+        FgGZAcUB/wELAcAB/gH/AQsBwAH+Af8BCgG/Af4B/wEKAb8B/gH/AQoBvgH+Af8BJgGQAbYB/wNOAfaw
+        AANPAZkBXgFYAVEB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegBZgHIAf8B5gFnAccB
+        /wHlAWcBxwH/AdsBVgG3Af8B1QFLAa0B/wGyAUMBkQH/AyUB/wFxAWkBYAH/AzwBZhQAA1wB2QE7AYEB
+        lgH/AQ4BxQH+Af8BDgHFAf4B/wEOAcQB/gH/AQ4BxAH+Af8BHgGGAagB/wExAUIBSAH/AQ0BwwH+Af8B
+        DQHCAf4B/wEMAcIB/gH/AQwBwgH+Af8BDAHBAf4B/wFOAVEBUgH/AycBObAAA08BmQFfAVkBUwH/AyUB
+        /wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB
+        /wHVAUsBrQH/AbIBQwGSAf8DJQH/AXIBawFiAf8DPAFmFAADFQEcA1oB/gETAcIB9wH/AQ8BxwH+Af8B
+        DwHGAf4B/wEPAcYB/gH/ASYBeQGTAf8DOAH/AQ4BxQH+Af8BDgHEAf4B/wEOAcQB/gH/AQ0BxAH+Af8B
+        PAF0AYYB/wNaAc+0AANPAZkBYAFbAVQB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHZAWEBuwH/AcEB
+        WQGnAf8BvwFaAacB/wG/AVoBpwH/AbcBTAGaAf8BsgFDAZIB/wGWAT0BfAH/AyUB/wF0AW0BZAH/AzwB
+        ZhgAA1QBpgFSAWIBZwH/AREBygL/AREByQL/AREByQL/ASsBdgGLAf8DPAH/ARAByAH+Af8BEAHHAf4B
+        /wEPAccB/gH/ARcBtwHoAf8DUwH/AxoBI7QAA08BmQFhAVwBVgH/AyUB/wMlAf8BwwFYAagB/wHpAWYB
+        yAH/AZsBTAGHAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXUBbgFmAf8DPAFmGAAEAQNaAf8B
+        KAGpAc0B/wESAcsC/wESAcsC/wEvAXMBhgH/Az4B/wESAcYB+gH/AREByQL/AREByQL/AUcBbAF3Af8D
+        XAHOuAADTwGZAWIBXQFXAf8DJQH/AyUB/wFFAS8BPwH/AX0BXwFtAf8BbQFZAWAB/wMlAf8DJQH/AyUB
+        /wMlAf8DJQH/AyUB/wMlAf8BdgFwAWgB/wM8AWYcAANCAXQBVAFkAWgB/wEVAcsB/AH/ARMBzQL/ATMB
+        cAGAAf8DQAH/ARYBwAHvAf8BEgHLAv8BIgGwAdgB/wNZAf68AANPAZkBYwFeAVgB/wMlAf8DJQH/AyUB
+        /wFYAVIBSwH/AVgBUgFLAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXgBcQFqAf8DPAFmIAAD
+        XwHzATQBngG4Af8BFQHQAv8BNAF0AYUB/wNBAf8BFwHBAe4B/wEUAc4C/wFWAVwBXgH/A0MBdrwAA08B
+        mQFkAV8BWgH/AyUB/wMlAf8DJQH/AVEBSwFEAf8BUQFLAUQB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB
+        /wMlAf8BegFzAWwB/wM8AWYgAAMuAUcDXQH/ARgBzwH7Af8BFgHRAv8BFgHRAv8BFgHQAv8BOAGWAa0B
+        /wNdAfAEAbwAA08BmQFnAWIBXQH/AykB/wMlAf8DJQH/AUoBRQE/Af8BTAFHAUEB/wEqASkBKAH/AyUB
+        /wMlAf8DJQH/AyUB/wMlAf8DJQH/AXsBdQFtAf8DPAFmJAADYAHbAUsBfgGKAf8BGAHUAv8BGAHUAv8B
+        GwHLAfUB/wFaAV8BYAH/AzABSsAAA08BmQFwAWsBZgH/ATkCNwH/AyUB/wMlAf8BLwEuASwB/wE7ATgB
+        NQH/ATwBOQE2Af8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8BfAF2AW8B/wM8AWYkAAMKAQ0DXwH/ASQB
+        wwHlAf8BGQHWAv8BRQGIAZcB/wNgAfHEAANPAZkBjQGGAX8B/wGCAXwBdQH/AX4BeAFyAf8BfgF4AXIB
+        /wGnAZsBYAH/AcwBuQFQAf8B2AHDAUsB/wHTAb8BRwH/AdMBvwFHAf8BoAGVAWEB/wGYAZQBkAH/AbIB
+        sAGtAf8BfgF4AXIB/wGPAYgBgQH/AzwBZigAA1YBrgFVAXQBegH/AR8B0AH1Af8DXwH/AxkBIsQAAzYB
+        WANcAb4BlgGPAYcB/wGWAY8BhwH/AZYBjwGHAf8BzwG+AWkB/wH5AeEBUwL/AeYBUAL/AeYBUAL/AeYB
+        UAH/AcABsgFxAf8BowGdAZYB/wGwAasBpQH/AZYBjwGHAf8BlgGPAYcB/wM8AWYoAAMLAQ4DXwH9AV0B
+        aAFqAf8DWAGzyAADFAEbAzYBWANPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkD
+        TwGZA08BmQNPAZkDKQE9LAADRwF/A2IB+AMIAQr/AP8A/wBDAAFCAU0BPgcAAT4DAAEoAwABUAMAARQD
+        AAEBAQABAQUAAfAXAAP/AQAF/wcAAv8B+AkAAcABAAE4CQABwAEAATgJAAHAAQABPAEAAQEHAAHAAQAB
+        PAEAAQMHAAHAAQABPgEAAQMHAAHAAQABPgEAAQcHAAHAAQABPwEAAQcHAAHAAQABPwEAAQ8HAAHAAQAB
+        PwGAAR8HAAHAAQABPwHAAR8HAAHAAQABPwHAAR8HAAHAAQABPwHgAT8HAAHAAQABPwHgAX8HAAHAAQAB
+        PwHwAX8HAAHAAQABPwHwAf8HAAHAAQABPwH4Af8HAAX/BwAF/wcACw==
 </value>
   </data>
   <data name="button_export_as_gcode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 324</value>
+    <value>96, 430</value>
   </data>
   <data name="button_export_as_gcode.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 31</value>
@@ -198,13 +256,14 @@
   <data name="button_export_as_gcode.Text" xml:space="preserve">
     <value>GCode Olarak Dışa Aktar</value>
   </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 15</value>
+  </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 48</value>
+    <value>259, 32</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>3D yazıcı/CNC makinesinde çalmak istediğiniz notaları ve bileşen türünü seçiniz.
-
-</value>
+    <value>3D yazıcı/CNC makinesinde çalmak istediğiniz notaları ve bileşen türünü seçiniz.</value>
   </data>
   <data name="exportGCodeFile.Filter" xml:space="preserve">
     <value>GCode Dosyaları (*.gcode)|*.gcode</value>
@@ -213,7 +272,7 @@
     <value>GCode Dosyasını Dışa Aktar</value>
   </data>
   <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 199</value>
+    <value>83, 313</value>
   </data>
   <data name="lbl_alternating_note_options.Size" type="System.Drawing.Size, System.Drawing">
     <value>184, 16</value>
@@ -221,14 +280,53 @@
   <data name="lbl_alternating_note_options.Text" xml:space="preserve">
     <value>Dalgalı Nota Çalma Seçenekleri</value>
   </data>
+  <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 363</value>
+  </data>
   <data name="radioButtonPlay_alternating_notes2.Text" xml:space="preserve">
     <value>Dalgalı notaları ilk önce tek sütunlardan, daha sonra çift sütunlardan çal</value>
+  </data>
+  <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 332</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 25</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Text" xml:space="preserve">
     <value>Dalgalı notaları sıralı olarak çal</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 62</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 16</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Yazılım</value>
+  </data>
+  <data name="comboBoxFirmware.Items22" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="comboBoxFirmware.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 59</value>
+  </data>
+  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 260</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>    G0/G1 komutu ekseni hızla hareket ettirir. Yanlış kullanım mekanik hasara neden olabilir!</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 223</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 16</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Eksen</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>360, 472</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Dosyayı GCode'a Dönüştür</value>

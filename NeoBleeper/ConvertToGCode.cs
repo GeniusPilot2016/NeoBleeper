@@ -1,4 +1,5 @@
 ﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
 // Copyright (C) 2023 GeniusPilot2016
 //
 // This program is free software: you can redistribute it and/or modify
@@ -25,15 +26,65 @@ namespace NeoBleeper
     public partial class ConvertToGCode : Form
     {
         bool darkTheme = false;
-        int note1Component = 0;
-        int note2Component = 0;
-        int note3Component = 0;
-        int note4Component = 0;
+        ComponentTypes note1Component = 0;
+        ComponentTypes note2Component = 0;
+        ComponentTypes note3Component = 0;
+        ComponentTypes note4Component = 0;
         String musicString;
         int alternateLength = 30;
         int bpm = 120; // Default BPM
         int noteSilenceRatio = 50;
         bool nonStopping = false;
+
+        // Enum for different firmware types
+        private enum FirmwareTypes
+        {
+            Marlin,
+            GRBL,
+            Repetier,
+            Smoothieware,
+            Klipper,
+            RepRapFirmware,
+            TinyG,
+            LinuxCNC,
+            Mach3,
+            Mach4,
+            FlashForge,
+            Sailfish,
+            Duet,
+            PathPilot,
+            FluidNC,
+            GrblHAL,
+            Smoothieboard,
+            MakerBot,
+            Snapmaker,
+            OctoPrint,
+            PrusaFirmware,
+            Creality,
+            Other
+        }
+
+        // Enum for different component types
+        private enum ComponentTypes
+        {
+            Motor,
+            Buzzer
+        }
+
+        private enum SelectedAxis
+        {
+            X,
+            Y,
+            Z
+        }
+
+        private SelectedAxis selectedAxis = SelectedAxis.X;
+
+        // Constant values for unit conversions
+        public const int MillimetersPerMinuteToMillimetersPerSecond = 60; // 1 mm/s = 60 mm/minute
+        public const double InchesPerMinuteToMillimetersPerMinute = 25.4; // 1 inch/minute = 25.4 mm/minute
+        public const int SecondsPerMinute = 60;
+
         public ConvertToGCode(String musicFile, Form owner)
         {
             InitializeComponent();
@@ -42,10 +93,11 @@ namespace NeoBleeper
             UIFonts.SetFonts(this);
             SetTheme();
             musicString = musicFile;
-            comboBox_component_note1.SelectedIndex = 0;
-            comboBox_component_note2.SelectedIndex = 0;
-            comboBox_component_note3.SelectedIndex = 0;
-            comboBox_component_note4.SelectedIndex = 0;
+            comboBoxFirmware.SelectedIndex = (int)FirmwareTypes.Marlin;
+            comboBox_component_note1.SelectedIndex = (int)ComponentTypes.Motor;
+            comboBox_component_note2.SelectedIndex = (int)ComponentTypes.Motor;
+            comboBox_component_note3.SelectedIndex = (int)ComponentTypes.Motor;
+            comboBox_component_note4.SelectedIndex = (int)ComponentTypes.Motor;
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -90,6 +142,8 @@ namespace NeoBleeper
             label_note3.ForeColor = Color.White;
             label_note4.ForeColor = Color.White;
             button_export_as_gcode.BackColor = Color.FromArgb(32, 32, 32);
+            comboBoxFirmware.BackColor = Color.Black;
+            comboBoxFirmware.ForeColor = Color.White;
             comboBox_component_note1.BackColor = Color.Black;
             comboBox_component_note2.BackColor = Color.Black;
             comboBox_component_note3.BackColor = Color.Black;
@@ -110,6 +164,8 @@ namespace NeoBleeper
             label_note3.ForeColor = SystemColors.ControlText;
             label_note4.ForeColor = SystemColors.ControlText;
             button_export_as_gcode.BackColor = Color.Transparent;
+            comboBoxFirmware.BackColor = SystemColors.Window;
+            comboBoxFirmware.ForeColor = SystemColors.WindowText;
             comboBox_component_note1.BackColor = SystemColors.Window;
             comboBox_component_note2.BackColor = SystemColors.Window;
             comboBox_component_note3.BackColor = SystemColors.Window;
@@ -262,7 +318,7 @@ namespace NeoBleeper
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note1Component = comboBox_component_note1.SelectedIndex;
+            note1Component = (ComponentTypes)comboBox_component_note1.SelectedIndex;
         }
 
         /// <summary>
@@ -288,7 +344,10 @@ namespace NeoBleeper
             if (checkBox_play_note1.Checked)
             {
                 label_note1.Enabled = true;
-                comboBox_component_note1.Enabled = true;
+                if (M300SupportedFirmwares.Contains((FirmwareTypes)comboBoxFirmware.SelectedIndex))
+                {
+                    comboBox_component_note1.Enabled = true;
+                }
             }
             else
             {
@@ -298,7 +357,10 @@ namespace NeoBleeper
             if (checkBox_play_note2.Checked)
             {
                 label_note2.Enabled = true;
-                comboBox_component_note2.Enabled = true;
+                if (M300SupportedFirmwares.Contains((FirmwareTypes)comboBoxFirmware.SelectedIndex))
+                {
+                    comboBox_component_note2.Enabled = true;
+                }
             }
             else
             {
@@ -308,7 +370,10 @@ namespace NeoBleeper
             if (checkBox_play_note3.Checked)
             {
                 label_note3.Enabled = true;
-                comboBox_component_note3.Enabled = true;
+                if (M300SupportedFirmwares.Contains((FirmwareTypes)comboBoxFirmware.SelectedIndex))
+                {
+                    comboBox_component_note3.Enabled = true;
+                }
             }
             else
             {
@@ -318,7 +383,10 @@ namespace NeoBleeper
             if (checkBox_play_note4.Checked)
             {
                 label_note4.Enabled = true;
-                comboBox_component_note4.Enabled = true;
+                if (M300SupportedFirmwares.Contains((FirmwareTypes)comboBoxFirmware.SelectedIndex))
+                {
+                    comboBox_component_note4.Enabled = true;
+                }
             }
             else
             {
@@ -354,18 +422,27 @@ namespace NeoBleeper
 
         private void comboBox_component_note2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note2Component = comboBox_component_note2.SelectedIndex;
+            note2Component = (ComponentTypes)comboBox_component_note2.SelectedIndex;
         }
 
         private void comboBox_component_note3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note3Component = comboBox_component_note3.SelectedIndex;
+            note3Component = (ComponentTypes)comboBox_component_note3.SelectedIndex;
         }
 
         private void comboBox_component_note4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            note4Component = comboBox_component_note4.SelectedIndex;
+            note4Component = (ComponentTypes)comboBox_component_note4.SelectedIndex;
         }
+
+        // List of firmware types that support the M300 command
+        private FirmwareTypes[] M300SupportedFirmwares = {
+                FirmwareTypes.Marlin,
+                FirmwareTypes.Repetier,
+                FirmwareTypes.Smoothieware,
+                FirmwareTypes.Klipper,
+                FirmwareTypes.RepRapFirmware
+            };
 
         /// <summary>
         /// Generates a G-code command sequence to play a buzzer note at the specified frequency and duration.
@@ -378,38 +455,152 @@ namespace NeoBleeper
         /// includes an additional 5 ms if <paramref name="nonStopping"/> is <see langword="false"/>.</returns>
         private (string output, int length) GenerateGCodeForBuzzerNote(double frequency, int length, bool nonStopping = false)
         {
-            string delay = nonStopping ? "G4 P5\n" : string.Empty;
-            return ($"G4 P5\nM300 S{frequency} P{length}", nonStopping ? length : length + 5);
+            if (M300SupportedFirmwares.Contains((FirmwareTypes)comboBoxFirmware.SelectedIndex))
+            {
+                string delay = nonStopping ? "G4 P5\n" : string.Empty;
+                return ($"G4 P5\nM300 S{frequency} P{length}", nonStopping ? length : length + 5);
+            }
+            else
+            {
+                // Fallback with silence if M300 is not supported by the selected firmware
+                return ($"G4 P{length}", length);
+            }
         }
 
         /// <summary>
-        /// Generates a G-code command sequence to control a motor for a specified duration and frequency.
+        /// Generates a G-code command sequence to control a motor for a specified duration and frequency using G0/G1 movements.
         /// </summary>
         /// <param name="frequency">The frequency, in hertz, at which the motor should operate. Must be a positive integer.</param>
         /// <param name="length">The duration, in milliseconds, for which the motor should run. Must be a non-negative integer.</param>
         /// <param name="nonStopping">If set to <see langword="true"/>, the generated G-code will not include a stop command after the specified
-        /// duration; otherwise, the motor will be stopped at the end of the sequence. The default is <see
-        /// langword="false"/>.</param>
-        /// <returns>A tuple containing the generated G-code command sequence as a string and the total duration in milliseconds.
-        /// The duration reflects the time the motor will run, including any additional delay if the motor is stopped at
-        /// the end.</returns>
+        /// duration; otherwise, the motor will be stopped at the end of the sequence. The default is <see langword="false"/>.</param>
+        /// <returns>A tuple containing the generated G-code command sequence as a string and the total duration in milliseconds.</returns>
         private (string output, int length) GenerateGCodeForMotorNote(int frequency, int length, bool nonStopping = false)
         {
-            // Convert frequency to RPM
-            int rpm = FrequencyToRPM(frequency);
-            string delay = nonStopping ? "G4 P5\n" : string.Empty;
-            // Start the motor, then wait for the specified length, then stop the motor
-            return (delay + $"G4 P5\nM3 S{rpm}\nG4 P{length}\nM5", nonStopping ? length : length + 5);
+            // Validate input parameters
+            if (frequency <= 0 || length <= 0)
+            {
+                return ($"G4 P{length}", length);
+            }
+
+            // Get axis letter based on selected axis
+            string axisLetter = "X";
+            switch(selectedAxis)
+            {
+                case SelectedAxis.X:
+                    axisLetter = "X";
+                    break;
+                case SelectedAxis.Y:
+                    axisLetter = "Y";
+                    break;
+                case SelectedAxis.Z:
+                    axisLetter = "Z";
+                    break;
+                default:
+                    axisLetter = "X";
+                    break;
+            }
+
+            // Get selected firmware type
+            FirmwareTypes selectedFirmware = (FirmwareTypes)comboBoxFirmware.SelectedIndex;
+
+            // Determine if firmware uses inches (G20) or millimeters (G21)
+            bool usesInches = IsInchBasedFirmware(selectedFirmware);
+
+            // Parameters
+            double targetFrequency = Math.Max(1, frequency); // Hz
+            int durationMs = Math.Max(0, length);
+
+            // Calculate number of cycles needed
+            double periodSeconds = 1.0 / targetFrequency; // one complete cycle (seconds)
+            double totalSeconds = durationMs / 1000.0;
+            int cycles = (int)Math.Floor(totalSeconds / periodSeconds);
+
+            if (cycles <= 0)
+            {
+                // Duration is shorter than one period, just add a delay
+                return ($"G4 P{length}", length);
+            }
+
+            // Base travel distance in mm
+            double travelMm = 0.1; // 0.1 mm starting value
+
+            // Convert to inches if needed
+            double travelDistance = usesInches ? (travelMm / InchesPerMinuteToMillimetersPerMinute) : travelMm;
+
+            // Calculate time per movement (two movements = one cycle: forward + backward)
+            double secondsPerMove = periodSeconds / 2.0; // seconds
+            double minutesPerMove = secondsPerMove / 60.0; // minutes
+
+            // Calculate feed rate (distance/time)
+            double feed = travelDistance / minutesPerMove;
+
+            // Apply safety limits based on firmware and units
+            double maxFeed = usesInches ? 2000.0 : 60000.0; // inches/min or mm/min
+            if (feed > maxFeed)
+            {
+                // Reduce travel distance to bring feed within limits
+                travelDistance = Math.Max(usesInches ? 0.0004 : 0.01, (maxFeed * minutesPerMove));
+                feed = travelDistance / minutesPerMove;
+            }
+
+            // Build G-code sequence
+            var sb = new StringBuilder();
+
+            // Set unit mode based on firmware
+            if (usesInches)
+            {
+                sb.AppendLine("G20"); // Set units to inches
+            }
+            else
+            {
+                sb.AppendLine("G21"); // Set units to millimeters
+            }
+
+            // Switch to incremental positioning for easier +/- movements
+            sb.AppendLine("G91");
+
+            // Optional initial delay for compatibility
+            if (!nonStopping)
+                sb.AppendLine("G4 P5");
+
+            // Generate movement cycles
+            for (int c = 0; c < cycles; c++)
+            {
+                // Forward movement
+                sb.AppendLine($"G1 {axisLetter}{travelDistance.ToString("F4", System.Globalization.CultureInfo.InvariantCulture)} F{Math.Round(feed)}");
+                // Backward movement
+                sb.AppendLine($"G1 {axisLetter}-{travelDistance.ToString("F4", System.Globalization.CultureInfo.InvariantCulture)} F{Math.Round(feed)}");
+            }
+
+            // Return to absolute positioning
+            sb.AppendLine("G90");
+
+            // Final delay for compatibility
+            if (!nonStopping)
+                sb.AppendLine("G4 P5");
+
+            int totalLengthReported = nonStopping ? durationMs : durationMs + 5;
+            return (sb.ToString(), totalLengthReported);
         }
 
         /// <summary>
-        /// Converts a frequency value, in hertz, to revolutions per minute (RPM).
+        /// Determines if the specified firmware type uses inches as default units instead of millimeters.
         /// </summary>
-        /// <param name="frequency">The frequency in hertz to convert to RPM. Must be a non-negative value.</param>
-        /// <returns>The equivalent value in revolutions per minute (RPM), calculated as frequency multiplied by 60.</returns>
-        private int FrequencyToRPM(double frequency)
+        /// <param name="firmware">The firmware type to check.</param>
+        /// <returns>True if the firmware typically uses inches; false if it uses millimeters.</returns>
+        private bool IsInchBasedFirmware(FirmwareTypes firmware)
         {
-            return (int)(frequency * 60); // Convert frequency to RPM
+            // Firmware types that commonly use or support inches
+            return firmware switch
+            {
+                FirmwareTypes.Mach3 => true,
+                FirmwareTypes.Mach4 => true,
+                FirmwareTypes.LinuxCNC => false, // LinuxCNC genellikle mm kullanır, ama her ikisini de destekler
+                FirmwareTypes.TinyG => false, // TinyG varsayılan mm'dir
+                FirmwareTypes.GRBL => false, // GRBL varsayılan mm'dir
+                _ => false // Diğer tüm firmware'ler mm kullanır
+            };
         }
 
         /// <summary>
@@ -488,7 +679,7 @@ namespace NeoBleeper
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note1Frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForBuzzerNote((int)note1Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -505,7 +696,7 @@ namespace NeoBleeper
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note2Frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForBuzzerNote((int)note2Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -522,7 +713,7 @@ namespace NeoBleeper
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note3Frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForBuzzerNote((int)note3Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -539,7 +730,7 @@ namespace NeoBleeper
                             elapsedTime = motorNote.length;
                             break;
                         case 1:
-                            var buzzerNote = GenerateGCodeForMotorNote((int)note4Frequency, length, nonStopping);
+                            var buzzerNote = GenerateGCodeForBuzzerNote((int)note4Frequency, length, nonStopping);
                             gcodeBuilder.AppendLine(buzzerNote.output);
                             elapsedTime = buzzerNote.length;
                             break;
@@ -673,6 +864,65 @@ namespace NeoBleeper
         private void ConvertToGCode_SystemColorsChanged(object sender, EventArgs e)
         {
             SetTheme();
+        }
+
+        private void comboBoxFirmware_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Disable component selection if firmware does not support it
+            FirmwareTypes selectedFirmware = (FirmwareTypes)comboBoxFirmware.SelectedIndex;
+            // Check if selected firmware supports M300 command
+            if (!M300SupportedFirmwares.Contains(selectedFirmware))
+            {
+                // Set all component selections to Motor and disable them
+                comboBox_component_note1.SelectedIndex = (int)ComponentTypes.Motor;
+                comboBox_component_note2.SelectedIndex = (int)ComponentTypes.Motor;
+                comboBox_component_note3.SelectedIndex = (int)ComponentTypes.Motor;
+                comboBox_component_note4.SelectedIndex = (int)ComponentTypes.Motor;
+                comboBox_component_note1.Enabled = false;
+                comboBox_component_note2.Enabled = false;
+                comboBox_component_note3.Enabled = false;
+                comboBox_component_note4.Enabled = false;
+            }
+            else
+            {
+                // Enable component selection
+                if (checkBox_play_note1.Checked)
+                {
+                    comboBox_component_note1.Enabled = true;
+                }
+                if (checkBox_play_note2.Checked)
+                {
+                    comboBox_component_note2.Enabled = true;
+                }
+                if (checkBox_play_note3.Checked)
+                {
+                    comboBox_component_note3.Enabled = true;
+                }
+                if (checkBox_play_note4.Checked)
+                {
+                    comboBox_component_note4.Enabled = true;
+                }
+            }
+        }
+
+        private void AxisRadioButtonsCheckedChanged(object sender, EventArgs e)
+        {
+            if (sender == radioButtonX)
+            {
+                selectedAxis = SelectedAxis.X;
+            }
+            else if (sender == radioButtonY)
+            {
+                selectedAxis = SelectedAxis.Y;
+            }
+            else if (sender == radioButtonZ)
+            {
+                selectedAxis = SelectedAxis.Z;
+            }
+            else
+            {
+                selectedAxis = SelectedAxis.X;
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace NeoBleeper
         public static string lastOpenedMIDIFileName = string.Empty;
         private string keyToolTip = string.Empty;
         public static DateTime lastCreateTime = DateTime.MinValue;
-        private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(10); // 10 seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
+        private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(15); // 15-seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
         public static string defaultOpenAndSaveDirectory = Path.Combine(AppContext.BaseDirectory, "Music");
         protected virtual void OnNotesChanged(EventArgs e)
         {
@@ -2090,7 +2090,7 @@ namespace NeoBleeper
         /// <param name="dialog">The SaveFileDialog instance for which to set the fallback initial directory. Cannot be null.</param>
         public static void SetFallbackInitialFolderForSaveFileDialog(SaveFileDialog dialog)
         {
-            if (dialog.InitialDirectory == string.Empty || !Directory.Exists(dialog.InitialDirectory))
+            if (!string.IsNullOrEmpty(dialog.InitialDirectory) && !Directory.Exists(dialog.InitialDirectory))
             {
                 dialog.InitialDirectory = defaultOpenAndSaveDirectory;
             }
@@ -5886,6 +5886,7 @@ namespace NeoBleeper
                 {
                     if (DateTime.Now - lastCreateTime < createCooldown)
                     {
+                        Logger.Log("Please wait before creating AI-generated music again due to cooldown.", Logger.LogTypes.Warning);
                         MessageForm.Show(this, Resources.MessageAICreationCooldown, Resources.TitlePleaseWait, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return; // Exit the method if still in cooldown
                     }

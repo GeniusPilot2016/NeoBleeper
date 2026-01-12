@@ -161,6 +161,9 @@
     <None Update="Music\Eine Kleine Nachtmusik.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Music\Elegant Waltz.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Music\Ozzy Osbourne - Crazy Train.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

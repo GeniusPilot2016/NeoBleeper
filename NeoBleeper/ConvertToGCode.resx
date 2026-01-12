@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label_note1.AutoSize" type="System.Boolean, mscorlib">
@@ -130,7 +130,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 72</value>
+    <value>26, 94</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -155,28 +155,28 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_note1.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>21</value>
   </data>
   <data name="comboBox_component_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left, Right</value>
   </data>
   <data name="comboBox_component_note1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="comboBox_component_note1.Items" xml:space="preserve">
-    <value>M3/M5 - Motor</value>
+    <value>G0/G1 - Motor</value>
   </data>
   <data name="comboBox_component_note1.Items1" xml:space="preserve">
     <value>M300 - Buzzer</value>
   </data>
   <data name="comboBox_component_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 70</value>
+    <value>75, 92</value>
   </data>
   <data name="comboBox_component_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_component_note1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
+    <value>161, 24</value>
   </data>
   <data name="comboBox_component_note1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -191,10 +191,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_component_note1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>19</value>
   </data>
   <data name="checkBox_play_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Right</value>
   </data>
   <data name="checkBox_play_note1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -203,7 +203,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="checkBox_play_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 73</value>
+    <value>251, 95</value>
   </data>
   <data name="checkBox_play_note1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -227,10 +227,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="label_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left</value>
   </data>
   <data name="label_note2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -239,7 +239,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 103</value>
+    <value>26, 125</value>
   </data>
   <data name="label_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -263,28 +263,28 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_note2.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="comboBox_component_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left, Right</value>
   </data>
   <data name="comboBox_component_note2.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="comboBox_component_note2.Items" xml:space="preserve">
-    <value>M3/M5 - Motor</value>
+    <value>G0/G1 - Motor</value>
   </data>
   <data name="comboBox_component_note2.Items1" xml:space="preserve">
     <value>M300 - Buzzer</value>
   </data>
   <data name="comboBox_component_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 101</value>
+    <value>75, 123</value>
   </data>
   <data name="comboBox_component_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_component_note2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
+    <value>161, 24</value>
   </data>
   <data name="comboBox_component_note2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -299,10 +299,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_component_note2.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="checkBox_play_note2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Right</value>
   </data>
   <data name="checkBox_play_note2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -311,7 +311,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="checkBox_play_note2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 104</value>
+    <value>251, 126</value>
   </data>
   <data name="checkBox_play_note2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -335,10 +335,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note2.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left</value>
   </data>
   <data name="label_note3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -347,7 +347,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 134</value>
+    <value>26, 156</value>
   </data>
   <data name="label_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -371,28 +371,28 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_note3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="comboBox_component_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left, Right</value>
   </data>
   <data name="comboBox_component_note3.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="comboBox_component_note3.Items" xml:space="preserve">
-    <value>M3/M5 - Motor</value>
+    <value>G0/G1 - Motor</value>
   </data>
   <data name="comboBox_component_note3.Items1" xml:space="preserve">
     <value>M300 - Buzzer</value>
   </data>
   <data name="comboBox_component_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 132</value>
+    <value>75, 154</value>
   </data>
   <data name="comboBox_component_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_component_note3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
+    <value>161, 24</value>
   </data>
   <data name="comboBox_component_note3.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -407,10 +407,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_component_note3.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="checkBox_play_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Right</value>
   </data>
   <data name="checkBox_play_note3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -419,7 +419,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="checkBox_play_note3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 135</value>
+    <value>251, 157</value>
   </data>
   <data name="checkBox_play_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -443,10 +443,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left</value>
   </data>
   <data name="label_note4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -455,7 +455,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 167</value>
+    <value>26, 189</value>
   </data>
   <data name="label_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -479,28 +479,28 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label_note4.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="comboBox_component_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Left, Right</value>
   </data>
   <data name="comboBox_component_note4.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="comboBox_component_note4.Items" xml:space="preserve">
-    <value>M3/M5 - Motor</value>
+    <value>G0/G1 - Motor</value>
   </data>
   <data name="comboBox_component_note4.Items1" xml:space="preserve">
     <value>M300 - Buzzer</value>
   </data>
   <data name="comboBox_component_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 165</value>
+    <value>75, 187</value>
   </data>
   <data name="comboBox_component_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="comboBox_component_note4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 24</value>
+    <value>161, 24</value>
   </data>
   <data name="comboBox_component_note4.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -515,10 +515,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox_component_note4.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="checkBox_play_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+    <value>Right</value>
   </data>
   <data name="checkBox_play_note4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -527,7 +527,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="checkBox_play_note4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 168</value>
+    <value>251, 190</value>
   </data>
   <data name="checkBox_play_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -551,7 +551,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="button_export_as_gcode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
@@ -569,42 +569,64 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPAcAAAJNU0Z0AUkBTAMBAQAB
-        zAEAAcwBAAEUAQABFAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAVADAAEUAwABAQEAASAGAAEZ/wD/
-        AJwAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYD
-        PAFmAx0BKf8AAQADTwGZAXcBbQFiAf8BbAFjAVoB/wFsAWMBWgH/AYwBbgF0Af8BlAFwAXoB/wGTAXAB
-        egH/AZMBcAF6Af8BkwFxAXoB/wGTAXEBegH/AZEBbQF3Af8BjwFrAXUB/wGIAWkBbwH/AWwBYwFaAf8B
-        ewFwAWUB/wM8AWb/AAEAA08BmQFcAVYBTgH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B
-        6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB/wHVAUoBrAH/AbIBQwGRAf8DJQH/AW4BZgFcAf8D
-        PAFm/wABAANPAZkBXQFXAVAB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegBZgHIAf8B
-        5gFnAccB/wHlAWcBxwH/AdsBVgG3Af8B1QFKAawB/wGyAUMBkQH/AyUB/wFvAWcBXgH/AzwBZv8AAQAD
-        TwGZAV4BWAFRAf8DJQH/AyUB/wHDAVgBqAH/AekBZgHIAf8B6QFmAcgB/wHoAWYByAH/AeYBZwHHAf8B
-        5QFnAccB/wHbAVYBtwH/AdUBSwGtAf8BsgFDAZEB/wMlAf8BcQFpAWAB/wM8AWb/AAEAA08BmQFfAVkB
-        UwH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B
-        2wFWAbcB/wHVAUsBrQH/AbIBQwGSAf8DJQH/AXIBawFiAf8DPAFm/wABAANPAZkBYAFbAVQB/wMlAf8D
-        JQH/AcMBWAGoAf8B6QFmAcgB/wHZAWEBuwH/AcEBWQGnAf8BvwFaAacB/wG/AVoBpwH/AbcBTAGaAf8B
-        sgFDAZIB/wGWAT0BfAH/AyUB/wF0AW0BZAH/AzwBZv8AAQADTwGZAWEBXAFWAf8DJQH/AyUB/wHDAVgB
-        qAH/AekBZgHIAf8BmwFMAYcB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8BdQFuAWYB/wM8AWb/
-        AAEAA08BmQFiAV0BVwH/AyUB/wMlAf8BRQEvAT8B/wF9AV8BbQH/AW0BWQFgAf8DJQH/AyUB/wMlAf8D
-        JQH/AyUB/wMlAf8DJQH/AXYBcAFoAf8DPAFm/wABAANPAZkBYwFeAVgB/wMlAf8DJQH/AyUB/wFYAVIB
-        SwH/AVgBUgFLAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXgBcQFqAf8DPAFm/wABAANPAZkB
-        ZAFfAVoB/wMlAf8DJQH/AyUB/wFRAUsBRAH/AVEBSwFEAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8D
-        JQH/AXoBcwFsAf8DPAFm/wABAANPAZkBZwFiAV0B/wMpAf8DJQH/AyUB/wFKAUUBPwH/AUwBRwFBAf8B
-        KgEpASgB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wF7AXUBbQH/AzwBZv8AAQADTwGZAXABawFmAf8B
-        OQI3Af8DJQH/AyUB/wEvAS4BLAH/ATsBOAE1Af8BPAE5ATYB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB
-        /wF8AXYBbwH/AzwBZv8AAQADTwGZAY0BhgF/Af8BggF8AXUB/wF+AXgBcgH/AX4BeAFyAf8BpwGbAWAB
-        /wHMAbkBUAH/AdgBwwFLAf8B0wG/AUcB/wHTAb8BRwH/AaABlQFhAf8BmAGUAZAB/wGyAbABrQH/AX4B
-        eAFyAf8BjwGIAYEB/wM8AWb/AAEAAzYBWANcAb4BlgGPAYcB/wGWAY8BhwH/AZYBjwGHAf8BzwG+AWkB
-        /wH5AeEBUwL/AeYBUAL/AeYBUAL/AeYBUAH/AcABsgFxAf8BowGdAZYB/wGwAasBpQH/AZYBjwGHAf8B
-        lgGPAYcB/wM8AWb/AAEAAxQBGwM2AVgDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkD
-        TwGZA08BmQNPAZkDTwGZAykBPf8A/wD/AHsAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB
-        8BcAA/8BAAL/AfAJAAL/AfAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQAB
-        wAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAcABAAEwCQABwAEAATAJAAHAAQAB
-        MAkAAcABAAEwCQABwAEAATAJAAHAAQABMAkAAv8B8AkAAv8B8AkACw==
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAZAwAAAJNU0Z0AUkBTAIBAQIB
+        AAHQAQEB0AEBARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
+        AKcAA04BmANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwD
+        XQHMA10BzANdAcwDWwHKAyMBM6gAAykBPQM8AWYDPAFmAzwBZgM8AWYDPAFmAzwBZgM8AWYDPAFmAzwB
+        ZgM8AWYDPAFmAzwBZgM8AWYDPAFmAx0BKQwAA10B+wFJAV4BZQH/AUIBZgFzAf8BQgFmAXMB/wFBAWUB
+        cgH/AUABZQFyAf8BQAFkAXEB/wFAAWQBcQH/AT8BYwFwAf8BPgFiAXAB/wE+AWIBcAH/AT4BYQFvAf8B
+        PQFhAW8B/wE8AWABbgH/ATwBYAFuAf8BPAFfAW0B/wE7AV8BbQH/A0gB/wNKAYqoAANPAZkBdwFtAWIB
+        /wFsAWMBWgH/AWwBYwFaAf8BjAFuAXQB/wGUAXABegH/AZMBcAF6Af8BkwFwAXoB/wGTAXEBegH/AZMB
+        cQF6Af8BkQFtAXcB/wGPAWsBdQH/AYgBaQFvAf8BbAFjAVoB/wF7AXABZQH/AzwBZgwAAz4BawFPAVgB
+        WwH/AQoBvwH+Af8BCgG/Af4B/wEKAb8B/gH/AQoBvgH+Af8BCQG+Af4B/wEJAb0B/gH/AQ4BogHYAf8B
+        GgFqAYcB/wEIAbsB/gH/AQgBvAH+Af8BCAG7Af4B/wEIAbsB/gH/AQcBuwH+Af8BBwG6Af4B/wEVAaEB
+        1wH/A1wB+AMLAQ6oAANPAZkBXAFWAU4B/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegB
+        ZgHIAf8B5gFnAccB/wHlAWcBxwH/AdsBVgG3Af8B1QFKAawB/wGyAUMBkQH/AyUB/wFuAWYBXAH/AzwB
+        ZhAAA10B7AEuAY0BrgH/AQsBwQH+Af8BCwHBAf4B/wELAcAB/gH/AQsBwAH+Af8BCgG/Af4B/wElAU0B
+        WgH/AywB/wESAZYBxAH/AQkBvgH+Af8BCQG9Af4B/wEJAb0B/gH/AQkBvAH+Af8BCAG8Af4B/wFGAVUB
+        WwH/A0YBfqwAA08BmQFdAVcBUAH/AyUB/wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB
+        /wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB/wHVAUoBrAH/AbIBQwGRAf8DJQH/AW8BZwFeAf8DPAFmEAAD
+        KgE/AVMBWAFaAf8BEQG+AfYB/wENAcIB/gH/AQwBwgH+Af8BDAHCAf4B/wEMAcEB/gH/AQ0BvAH2Af8B
+        FgGZAcUB/wELAcAB/gH/AQsBwAH+Af8BCgG/Af4B/wEKAb8B/gH/AQoBvgH+Af8BJgGQAbYB/wNOAfaw
+        AANPAZkBXgFYAVEB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHpAWYByAH/AegBZgHIAf8B5gFnAccB
+        /wHlAWcBxwH/AdsBVgG3Af8B1QFLAa0B/wGyAUMBkQH/AyUB/wFxAWkBYAH/AzwBZhQAA1wB2QE7AYEB
+        lgH/AQ4BxQH+Af8BDgHFAf4B/wEOAcQB/gH/AQ4BxAH+Af8BHgGGAagB/wExAUIBSAH/AQ0BwwH+Af8B
+        DQHCAf4B/wEMAcIB/gH/AQwBwgH+Af8BDAHBAf4B/wFOAVEBUgH/AycBObAAA08BmQFfAVkBUwH/AyUB
+        /wMlAf8BwwFYAagB/wHpAWYByAH/AekBZgHIAf8B6AFmAcgB/wHmAWcBxwH/AeUBZwHHAf8B2wFWAbcB
+        /wHVAUsBrQH/AbIBQwGSAf8DJQH/AXIBawFiAf8DPAFmFAADFQEcA2MB/gETAcIB9wH/AQ8BxwH+Af8B
+        DwHGAf4B/wEPAcYB/gH/ASYBeQGTAf8DOAH/AQ4BxQH+Af8BDgHEAf4B/wEOAcQB/gH/AQ0BxAH+Af8B
+        PAF0AYYB/wNdAc+0AANPAZkBYAFbAVQB/wMlAf8DJQH/AcMBWAGoAf8B6QFmAcgB/wHZAWEBuwH/AcEB
+        WQGnAf8BvwFaAacB/wG/AVoBpwH/AbcBTAGaAf8BsgFDAZIB/wGWAT0BfAH/AyUB/wF0AW0BZAH/AzwB
+        ZhgAA1QBpgFSAWIBZwH/AREBygL/AREByQL/AREByQL/ASsBdgGLAf8DPAH/ARAByAH+Af8BEAHHAf4B
+        /wEPAccB/gH/ARcBtwHoAf8DUwH/AxoBI7QAA08BmQFhAVwBVgH/AyUB/wMlAf8BwwFYAagB/wHpAWYB
+        yAH/AZsBTAGHAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXUBbgFmAf8DPAFmGAAEAQNaAf8B
+        KAGpAc0B/wESAcsC/wESAcsC/wEvAXMBhgH/Az4B/wESAcYB+gH/AREByQL/AREByQL/AUcBbAF3Af8D
+        XQHOuAADTwGZAWIBXQFXAf8DJQH/AyUB/wFFAS8BPwH/AX0BXwFtAf8BbQFZAWAB/wMlAf8DJQH/AyUB
+        /wMlAf8DJQH/AyUB/wMlAf8BdgFwAWgB/wM8AWYcAANCAXQBVAFkAWgB/wEVAcsB/AH/ARMBzQL/ATMB
+        cAGAAf8DQAH/ARYBwAHvAf8BEgHLAv8BIgGwAdgB/wNiAf68AANPAZkBYwFeAVgB/wMlAf8DJQH/AyUB
+        /wFYAVIBSwH/AVgBUgFLAf8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AXgBcQFqAf8DPAFmIAAD
+        YAHzATQBngG4Af8BFQHQAv8BNAF0AYUB/wNBAf8BFwHBAe4B/wEUAc4C/wFWAVwBXgH/A0MBdrwAA08B
+        mQFkAV8BWgH/AyUB/wMlAf8DJQH/AVEBSwFEAf8BUQFLAUQB/wMlAf8DJQH/AyUB/wMlAf8DJQH/AyUB
+        /wMlAf8BegFzAWwB/wM8AWYgAAMuAUcDXQH/ARgBzwH7Af8BFgHRAv8BFgHRAv8BFgHQAv8BOAGWAa0B
+        /wNeAfAEAbwAA08BmQFnAWIBXQH/AykB/wMlAf8DJQH/AUoBRQE/Af8BTAFHAUEB/wEqASkBKAH/AyUB
+        /wMlAf8DJQH/AyUB/wMlAf8DJQH/AXsBdQFtAf8DPAFmJAADYAHbAUsBfgGKAf8BGAHUAv8BGAHUAv8B
+        GwHLAfUB/wFaAV8BYAH/AzABSsAAA08BmQFwAWsBZgH/ATkCNwH/AyUB/wMlAf8BLwEuASwB/wE7ATgB
+        NQH/ATwBOQE2Af8DJQH/AyUB/wMlAf8DJQH/AyUB/wMlAf8BfAF2AW8B/wM8AWYkAAMKAQ0DXwH/ASQB
+        wwHlAf8BGQHWAv8BRQGIAZcB/wNlAfHEAANPAZkBjQGGAX8B/wGCAXwBdQH/AX4BeAFyAf8BfgF4AXIB
+        /wGnAZsBYAH/AcwBuQFQAf8B2AHDAUsB/wHTAb8BRwH/AdMBvwFHAf8BoAGVAWEB/wGYAZQBkAH/AbIB
+        sAGtAf8BfgF4AXIB/wGPAYgBgQH/AzwBZigAA1YBrgFVAXQBegH/AR8B0AH1Af8DXwH/AxkBIsQAAzYB
+        WANcAb4BlgGPAYcB/wGWAY8BhwH/AZYBjwGHAf8BzwG+AWkB/wH5AeEBUwL/AeYBUAL/AeYBUAL/AeYB
+        UAH/AcABsgFxAf8BowGdAZYB/wGwAasBpQH/AZYBjwGHAf8BlgGPAYcB/wM8AWYoAAMLAQ4DVgH9AV0B
+        aAFqAf8DWAGzyAADFAEbAzYBWANPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkDTwGZA08BmQNPAZkD
+        TwGZA08BmQNPAZkDKQE9LAADRgF/A1wB+AMIAQr/AP8A/wBDAAFCAU0BPgcAAT4DAAEoAwABUAMAARQD
+        AAEBAQABAQUAAfAXAAP/AQAF/wcAAv8B+AkAAcABAAE4CQABwAEAATgJAAHAAQABPAEAAQEHAAHAAQAB
+        PAEAAQMHAAHAAQABPgEAAQMHAAHAAQABPgEAAQcHAAHAAQABPwEAAQcHAAHAAQABPwEAAQ8HAAHAAQAB
+        PwGAAR8HAAHAAQABPwHAAR8HAAHAAQABPwHAAR8HAAHAAQABPwHgAT8HAAHAAQABPwHgAX8HAAHAAQAB
+        PwHwAX8HAAHAAQABPwHwAf8HAAHAAQABPwH4Af8HAAX/BwAF/wcACw==
 </value>
   </data>
   <data name="button_export_as_gcode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 325</value>
+    <value>114, 436</value>
   </data>
   <data name="button_export_as_gcode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -634,7 +656,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button_export_as_gcode.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -646,7 +668,7 @@
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 18</value>
+    <value>42, 18</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -676,7 +698,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <metadata name="exportGCodeFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>115, 15</value>
@@ -700,7 +722,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbl_alternating_note_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 199</value>
+    <value>81, 315</value>
   </data>
   <data name="lbl_alternating_note_options.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -730,7 +752,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_alternating_note_options.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -745,7 +767,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 257</value>
+    <value>49, 370</value>
   </data>
   <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -775,7 +797,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonPlay_alternating_notes2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -790,7 +812,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 226</value>
+    <value>49, 339</value>
   </data>
   <data name="radioButtonPlay_alternating_notes1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -820,7 +842,346 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;radioButtonPlay_alternating_notes1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 64</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 16</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Firmware</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="comboBoxFirmware.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="comboBoxFirmware.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="comboBoxFirmware.Items" xml:space="preserve">
+    <value>Marlin</value>
+  </data>
+  <data name="comboBoxFirmware.Items1" xml:space="preserve">
+    <value>GRBL</value>
+  </data>
+  <data name="comboBoxFirmware.Items2" xml:space="preserve">
+    <value>Repetier</value>
+  </data>
+  <data name="comboBoxFirmware.Items3" xml:space="preserve">
+    <value>Smoothieware</value>
+  </data>
+  <data name="comboBoxFirmware.Items4" xml:space="preserve">
+    <value>Klipper</value>
+  </data>
+  <data name="comboBoxFirmware.Items5" xml:space="preserve">
+    <value>RepRapFirmware</value>
+  </data>
+  <data name="comboBoxFirmware.Items6" xml:space="preserve">
+    <value>TinyG</value>
+  </data>
+  <data name="comboBoxFirmware.Items7" xml:space="preserve">
+    <value>LinuxCNC</value>
+  </data>
+  <data name="comboBoxFirmware.Items8" xml:space="preserve">
+    <value>Mach3</value>
+  </data>
+  <data name="comboBoxFirmware.Items9" xml:space="preserve">
+    <value>Mach4</value>
+  </data>
+  <data name="comboBoxFirmware.Items10" xml:space="preserve">
+    <value>FlashForge</value>
+  </data>
+  <data name="comboBoxFirmware.Items11" xml:space="preserve">
+    <value>Sailfish</value>
+  </data>
+  <data name="comboBoxFirmware.Items12" xml:space="preserve">
+    <value>Duet</value>
+  </data>
+  <data name="comboBoxFirmware.Items13" xml:space="preserve">
+    <value>PathPilot</value>
+  </data>
+  <data name="comboBoxFirmware.Items14" xml:space="preserve">
+    <value>FluidNC</value>
+  </data>
+  <data name="comboBoxFirmware.Items15" xml:space="preserve">
+    <value>GrblHAL</value>
+  </data>
+  <data name="comboBoxFirmware.Items16" xml:space="preserve">
+    <value>Smoothieboard</value>
+  </data>
+  <data name="comboBoxFirmware.Items17" xml:space="preserve">
+    <value>MakerBot</value>
+  </data>
+  <data name="comboBoxFirmware.Items18" xml:space="preserve">
+    <value>Snapmaker</value>
+  </data>
+  <data name="comboBoxFirmware.Items19" xml:space="preserve">
+    <value>OctoPrint</value>
+  </data>
+  <data name="comboBoxFirmware.Items20" xml:space="preserve">
+    <value>PrusaFirmware</value>
+  </data>
+  <data name="comboBoxFirmware.Items21" xml:space="preserve">
+    <value>Creality</value>
+  </data>
+  <data name="comboBoxFirmware.Items22" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="comboBoxFirmware.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 61</value>
+  </data>
+  <data name="comboBoxFirmware.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="comboBoxFirmware.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 24</value>
+  </data>
+  <data name="comboBoxFirmware.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFirmware.Name" xml:space="preserve">
+    <value>comboBoxFirmware</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFirmware.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFirmware.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxFirmware.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="labelWarning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="labelWarning.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="labelWarning.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="labelWarning.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelWarning.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 262</value>
+  </data>
+  <data name="labelWarning.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 41</value>
+  </data>
+  <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>    The G0/G1 command moves the axis rapidly. Incorrect use may cause mechanical damage!</value>
+  </data>
+  <data name="labelWarning.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
+    <value>labelWarning</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 224</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 16</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Axis</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="flowLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="radioButtonX.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonX.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButtonX.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="radioButtonX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 20</value>
+  </data>
+  <data name="radioButtonX.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioButtonX.Text" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="&gt;&gt;radioButtonX.Name" xml:space="preserve">
+    <value>radioButtonX</value>
+  </data>
+  <data name="&gt;&gt;radioButtonX.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonX.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonX.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButtonY.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonY.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButtonY.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 3</value>
+  </data>
+  <data name="radioButtonY.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 20</value>
+  </data>
+  <data name="radioButtonY.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radioButtonY.Text" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="&gt;&gt;radioButtonY.Name" xml:space="preserve">
+    <value>radioButtonY</value>
+  </data>
+  <data name="&gt;&gt;radioButtonY.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonY.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonY.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButtonZ.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonZ.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="radioButtonZ.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonZ.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 3</value>
+  </data>
+  <data name="radioButtonZ.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 20</value>
+  </data>
+  <data name="radioButtonZ.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radioButtonZ.Text" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="&gt;&gt;radioButtonZ.Name" xml:space="preserve">
+    <value>radioButtonZ</value>
+  </data>
+  <data name="&gt;&gt;radioButtonZ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonZ.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;radioButtonZ.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 220</value>
+  </data>
+  <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 25</value>
+  </data>
+  <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>118</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Name" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -832,7 +1193,7 @@
     <value>True</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>329, 366</value>
+    <value>360, 477</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
