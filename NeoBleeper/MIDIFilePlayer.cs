@@ -787,156 +787,107 @@ namespace NeoBleeper
         // Play multiple notes alternating
 
         /// <summary>
-        /// Plays multiple musical notes in an alternating sequence for the specified duration.
+        /// Plays multiple musical notes in an alternating sequence for the specified duration, supporting cancellation
+        /// via a token.
         /// </summary>
-        /// <remarks>This method alternates between the specified notes because the system speaker cannot
-        /// play multiple notes simultaneously. The playback pattern and timing are influenced by user interface
-        /// settings, such as cycle duration and whether each note is played individually per cycle. If the duration is
-        /// shorter than a full cycle, playback may be truncated.</remarks>
-        /// <param name="frequencies">An array of frequencies, in hertz, representing the notes to be played. Each frequency must be a positive
-        /// integer.</param>
-        /// <param name="duration">The total duration, in milliseconds, for which the notes are played. Must be a positive integer.</param>
-        private void PlayMultipleNotes(int[] frequencies, int duration)
+        /// <remarks>If the cancellation token is triggered during playback, the operation stops
+        /// immediately and no further notes are played. The playback sequence and timing may be affected by user
+        /// interface settings or controls. This method does not throw exceptions for invalid frequencies; ensure all
+        /// values are valid before calling.</remarks>
+        /// <param name="frequencies">An array of frequencies, in hertz, representing the notes to be played in the alternating sequence. Each
+        /// value must be a positive integer.</param>
+        /// <param name="duration">The total duration, in milliseconds, for which the notes should be played. Must be a positive integer.</param>
+        /// <param name="token">A cancellation token that can be used to cancel the playback operation before completion.</param>
+        /// <returns>A task that represents the asynchronous operation of playing the notes. The task completes when playback
+        /// finishes or is canceled.</returns>
+        private async Task PlayMultipleNotesAsync(int[] frequencies, int duration, CancellationToken token)
         {
             _isAlternatingPlayback = true;
-            // Convert frequencies to note numbers for highlighting
             var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
-            Stopwatch totalStopwatch = new Stopwatch();
-            totalStopwatch.Start();
+            var totalStopwatch = Stopwatch.StartNew();
 
-            // Determine interval based on UI settings first
-            int interval;
-            if (checkBox_make_each_cycle_last_30ms.Checked)
-            {
-                interval = 30;
-            }
-            else
-            {
-                interval = Convert.ToInt32(numericUpDown_alternating_note.Value);
-            }
-            interval = Math.Max(1, interval); // Ensure interval is at least 1 ms
+            int interval = checkBox_make_each_cycle_last_30ms.Checked ? 30 : Convert.ToInt32(numericUpDown_alternating_note.Value);
+            interval = Math.Max(1, interval);
 
-            if (checkBox_play_each_note.Checked)
+            try
             {
-                // --- Play each note once per cycle ---
-
-                // Calculate cycle duration
-                int cycleDuration;
-                if (checkBox_make_each_cycle_last_30ms.Checked)
+                if (checkBox_play_each_note.Checked)
                 {
-                    cycleDuration = 30; // 30ms cycle duration
+                    int cycleDuration = checkBox_make_each_cycle_last_30ms.Checked ? 30 : interval;
+
+                    if (totalStopwatch.ElapsedMilliseconds + cycleDuration > duration)
+                        return;
+
+                    int timePerNote = Math.Max(1, cycleDuration / Math.Max(1, frequencies.Length));
+
+                    for (int i = 0; i < frequencies.Length; i++)
+                    {
+                        token.ThrowIfCancellationRequested();
+                        if (totalStopwatch.ElapsedMilliseconds >= duration) break;
+
+                        int notePlayDuration;
+                        if (checkBox_make_each_cycle_last_30ms.Checked)
+                            notePlayDuration = Math.Min(15, timePerNote);
+                        else
+                            notePlayDuration = Math.Min(timePerNote, (int)(duration - totalStopwatch.ElapsedMilliseconds));
+
+                        notePlayDuration = Math.Max(1, notePlayDuration);
+
+                        int currentNoteIndex = i;
+                        HighlightNoteLabel(currentNoteIndex);
+                        // Run the actual sound generation off the calling context but avoid spinning extra Task.Run loops.
+                        await Task.Run(() => NotePlayer.PlayNote(frequencies[currentNoteIndex], notePlayDuration), token);
+                        UnHighlightNoteLabel(currentNoteIndex);
+
+                        int gap = Math.Max(0, timePerNote - notePlayDuration);
+                        if (gap > 0)
+                            await HighPrecisionSleep.SleepAsync(gap);
+                    }
+
+                    // Ensure the cycle completes with remaining silence if needed
+                    int remainingSilence = Math.Max(0, duration - (int)totalStopwatch.ElapsedMilliseconds);
+                    UpdateNoteLabels(new HashSet<int>());
+                    if (remainingSilence > 0)
+                        await HighPrecisionSleep.SleepAsync(remainingSilence);
                 }
                 else
                 {
-                    cycleDuration = interval; // User-defined interval
-                }
+                    int notesPerCycle = frequencies.Length;
+                    double timePerNote = (double)interval / Math.Max(1, notesPerCycle);
+                    int noteIndex = 0;
 
-                // Check if there's enough time left for another cycle
-                if (totalStopwatch.ElapsedMilliseconds + cycleDuration > duration)
-                {
-                    // Skip the cycle if not enough time remains
-                    return;
-                }
-
-                Stopwatch cycleStopwatch = Stopwatch.StartNew();
-
-                // Time per note in the cycle
-                int timePerNote = Math.Max(1, cycleDuration / frequencies.Length);
-
-                // Play all notes in the cycle
-                for (int i = 0; i < frequencies.Length; i++)
-                {
-                    // Check if total duration exceeded
-                    if (totalStopwatch.ElapsedMilliseconds >= duration) break;
-
-                    int notePlayDuration;
-                    if (checkBox_make_each_cycle_last_30ms.Checked)
+                    while (totalStopwatch.ElapsedMilliseconds < duration)
                     {
-                        // Every note lasts 15ms or less
-                        notePlayDuration = Math.Min(15, timePerNote);
+                        token.ThrowIfCancellationRequested();
+
+                        int notePlayDuration;
+                        if (checkBox_make_each_cycle_last_30ms.Checked)
+                            notePlayDuration = Math.Min(15, Math.Max(1, (int)Math.Round((double)interval / frequencies.Length, MidpointRounding.ToZero)));
+                        else
+                            notePlayDuration = interval;
+
+                        HighlightNoteLabel(noteIndex);
+                        await Task.Run(() => NotePlayer.PlayNote(frequencies[noteIndex], notePlayDuration), token);
+                        UnHighlightNoteLabel(noteIndex);
+
+                        // Wait until next note time (approximate)
+                        int wait = Math.Max(0, (int)Math.Round(timePerNote) - notePlayDuration);
+                        if (wait > 0)
+                            await HighPrecisionSleep.SleepAsync(wait);
+
+                        noteIndex = (noteIndex + 1) % frequencies.Length;
                     }
-                    else
-                    {
-                        // User-defined interval
-                        notePlayDuration = Math.Min(timePerNote, (int)(duration - totalStopwatch.ElapsedMilliseconds));
-                    }
-
-                    notePlayDuration = Math.Max(1, notePlayDuration);
-
-                    Stopwatch noteStopwatch = Stopwatch.StartNew();
-
-                    // Play note and highlight
-                    int currentNoteIndex = i;
-                    HighlightNoteLabel(currentNoteIndex);
-                    NotePlayer.PlayNote(frequencies[currentNoteIndex], notePlayDuration);
-                    UnHighlightNoteLabel(currentNoteIndex);
-
-                    noteStopwatch.Stop();
-
-                    // Gap between notes
-                    int noteGap = Math.Max(0, timePerNote - (int)noteStopwatch.ElapsedMilliseconds);
-                    if (noteGap > 0 && i < frequencies.Length - 1)
-                    {
-                        HighPrecisionSleep.Sleep(noteGap);
-                    }
-                }
-
-                cycleStopwatch.Stop();
-
-                // Silence until the cycle duration is complete
-                int cycleElapsed = (int)cycleStopwatch.ElapsedMilliseconds;
-                int remainingSilence = Math.Max(0, duration - (int)totalStopwatch.ElapsedMilliseconds);
-
-                // Clean all note labels
-                UpdateNoteLabels(new HashSet<int>());
-
-                // Add remaining silence to complete the cycle duration
-                if (remainingSilence > 0)
-                {
-                    HighPrecisionSleep.Sleep(remainingSilence);
                 }
             }
-            else
+            catch (OperationCanceledException)
             {
-                // --- Alternate notes for the whole duration (because the system speaker can't play multiple notes same time)---
-                int notesPerCycle = frequencies.Length;
-                double timePerNote = (double)interval / notesPerCycle;
-                int noteIndex = 0;
-
-                while (totalStopwatch.ElapsedMilliseconds < duration)
-                {
-                    int notePlayDuration;
-                    if (checkBox_make_each_cycle_last_30ms.Checked)
-                    {
-                        notePlayDuration = Math.Min(15, Math.Max(1, (int)Math.Round((double)interval / frequencies.Length, MidpointRounding.ToZero)));
-                    }
-                    else
-                    {
-                        notePlayDuration = interval;
-                    }
-
-                    Stopwatch noteStopwatch = new Stopwatch();
-                    noteStopwatch.Start();
-
-                    HighlightNoteLabel(noteIndex);
-                    NotePlayer.PlayNote(frequencies[noteIndex], notePlayDuration);
-                    UnHighlightNoteLabel(noteIndex);
-
-                    noteStopwatch.Stop();
-                    long noteElapsed = noteStopwatch.ElapsedMilliseconds;
-
-                    double timeToNextNote = timePerNote - noteElapsed;
-                    if (timeToNextNote > 0)
-                    {
-                        HighPrecisionSleep.Sleep((int)timeToNextNote);
-                    }
-
-                    noteIndex = (noteIndex + 1) % frequencies.Length;
-                }
+                // playback was canceled — let caller handle cleanup
             }
-
-            totalStopwatch.Stop();
-            _isAlternatingPlayback = false;
+            finally
+            {
+                totalStopwatch.Stop();
+                _isAlternatingPlayback = false;
+            }
         }
 
         /// <summary>
@@ -1684,7 +1635,7 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    await Task.Run(() => PlayMultipleNotes(frequencies, durationMsInt), token);
+                    await PlayMultipleNotesAsync(frequencies, durationMsInt, token);
                 }
             }
             driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
