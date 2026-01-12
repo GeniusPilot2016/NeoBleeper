@@ -1347,91 +1347,106 @@ namespace NeoBleeper
         private bool logLineListLogged = false;
         private int logLineCount = 0;
         private int cachedProcessedLength = 0;
+        private int cachedLineTagCount = 0;
+        private bool logCompletedLogged = false;
+
+        private static readonly Regex SeparatorRegex = new Regex(@"(?m)^\s*-{3,}\s*$", RegexOptions.Compiled);
+        private static readonly Regex LineOpenTagRegex = new Regex(@"<Line\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex LineListCloseRegex = new Regex(@"</LineList>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         /// <summary>
-        /// Analyzes the provided NBPML content and logs key parsing stages based on the last line of the input.
+        /// Analyzes the specified NBPML content and logs status messages for key parsing milestones and sections.
         /// </summary>
-        /// <remarks>This method logs informational messages when significant sections or markers are
-        /// detected in the NBPML content, such as the start of the file, the &lt;Settings&gt; section, the &lt;LineList&gt;
-        /// section, and the completion of the content. Only changes in the last line of the content trigger
-        /// logging.</remarks>
-        /// <param name="nbpmlContent">The NBPML content to analyze. Cannot be null or whitespace.</param>
-
+        /// <remarks>This method tracks the progress of parsing NBPML content and logs informational
+        /// messages when significant sections or milestones are detected, such as the start of the file, the beginning
+        /// of the &lt;Settings&gt; or &lt;LineList&gt; sections, the addition of new &lt;Line&gt; elements, and the completion of the
+        /// content. If the content is reset or truncated, internal state is also reset to ensure accurate logging. No
+        /// action is taken if the input is null or consists only of whitespace.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to analyze and monitor for status updates. Cannot be null or whitespace.</param>
         private void LogStatus(string nbpmlContent)
         {
             if (string.IsNullOrWhiteSpace(nbpmlContent))
+            {
                 return;
+            }
 
-            // Reset the cached states if the content length has decreased
             if (nbpmlContent.Length < cachedProcessedLength)
             {
                 cachedProcessedLength = 0;
+                cachedLineTagCount = 0;
+
                 logSeparatorFound = false;
                 logXmlStarted = false;
                 logSettingsLogged = false;
                 logLineListLogged = false;
+                logCompletedLogged = false;
+
                 logLineCount = 0;
                 cachedLastLine = string.Empty;
             }
 
-            // Take the new part of the content that hasn't been processed yet
-            string newPart = nbpmlContent.Substring(cachedProcessedLength);
+            if (!logSeparatorFound && SeparatorRegex.IsMatch(nbpmlContent))
+            {
+                Logger.Log("Separator line is found", Logger.LogTypes.Info);
+                logSeparatorFound = true;
+            }
+
+            if (!logXmlStarted && nbpmlContent.Contains("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.Log("NBPML start point is found", Logger.LogTypes.Info);
+                logXmlStarted = true;
+            }
+
+            if (logXmlStarted && !logSettingsLogged && nbpmlContent.Contains("<Settings>", StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.Log("<Settings> section is started", Logger.LogTypes.Info);
+                logSettingsLogged = true;
+            }
+
+            if (logXmlStarted && !logLineListLogged && nbpmlContent.Contains("<LineList>", StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.Log("<LineList> section is started", Logger.LogTypes.Info);
+                logLineListLogged = true;
+            }
+
+            int safeProcessedLength = Math.Clamp(cachedProcessedLength, 0, nbpmlContent.Length);
+            string newPart = nbpmlContent.Substring(safeProcessedLength);
             cachedProcessedLength = nbpmlContent.Length;
 
-            // Handle new lines in the new part
-            var lines = newPart.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            foreach (var rawLine in lines)
+            if (logLineListLogged && newPart.Length > 0)
             {
-                var line = rawLine.Trim();
+                int totalLineOpenTags = cachedLineTagCount + LineOpenTagRegex.Matches(newPart).Count;
+
+                if (totalLineOpenTags > cachedLineTagCount)
+                {
+                    int added = totalLineOpenTags - cachedLineTagCount;
+                    cachedLineTagCount = totalLineOpenTags;
+
+                    for (int i = 0; i < added; i++)
+                    {
+                        logLineCount++;
+                        Logger.Log($"Line #{logLineCount} is added.", Logger.LogTypes.Info);
+                    }
+                }
+            }
+
+            if (!logCompletedLogged && logLineListLogged && logLineCount > 0 && LineListCloseRegex.IsMatch(nbpmlContent))
+            {
+                Logger.Log($"NBPML content is completed. Total <Line> count: {logLineCount}.", Logger.LogTypes.Info);
+                logCompletedLogged = true;
+            }
+
+            var lines = newPart.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            for (int i = lines.Length - 1; i >= 0; i--)
+            {
+                var line = lines[i].Trim();
                 if (string.IsNullOrEmpty(line))
+                {
                     continue;
-
-                // Skip the handling same last line
-                if (line == cachedLastLine)
-                    continue;
-
-                // Seperator line (---)
-                if (!logSeparatorFound && Regex.IsMatch(line, @"^-{3,}$"))
-                {
-                    Logger.Log("Separator line is found", Logger.LogTypes.Info);
-                    logSeparatorFound = true;
-                }
-
-                // NBPML start
-                if (!logXmlStarted && line.StartsWith("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
-                {
-                    Logger.Log("NBPML start point is found", Logger.LogTypes.Info);
-                    logXmlStarted = true;
-                }
-
-                // <Settings>
-                if (logXmlStarted && !logSettingsLogged && line.StartsWith("<Settings>", StringComparison.OrdinalIgnoreCase))
-                {
-                    Logger.Log("<Settings> section is started", Logger.LogTypes.Info);
-                    logSettingsLogged = true;
-                }
-
-                // <LineList>
-                if (logXmlStarted && !logLineListLogged && line.StartsWith("<LineList>", StringComparison.OrdinalIgnoreCase))
-                {
-                    Logger.Log("<LineList> section is started", Logger.LogTypes.Info);
-                    logLineListLogged = true;
-                }
-
-                // <Line> lines
-                if (logLineListLogged && line.StartsWith("<Line>", StringComparison.OrdinalIgnoreCase))
-                {
-                    logLineCount++;
-                    Logger.Log($"Line #{logLineCount} is added.", Logger.LogTypes.Info);
-                }
-
-                // Completion of NBPML
-                if (logLineCount > 0 && line.EndsWith("</LineList>", StringComparison.OrdinalIgnoreCase))
-                {
-                    Logger.Log($"NBPML content is completed. Total <Line> count: {logLineCount}.", Logger.LogTypes.Info);
                 }
 
                 cachedLastLine = line;
+                break;
             }
         }
 

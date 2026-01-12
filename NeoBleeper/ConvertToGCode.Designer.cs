@@ -49,6 +49,15 @@
             lbl_alternating_note_options = new Label();
             radioButtonPlay_alternating_notes2 = new RadioButton();
             radioButtonPlay_alternating_notes1 = new RadioButton();
+            label1 = new Label();
+            comboBoxFirmware = new ComboBox();
+            labelWarning = new Label();
+            label2 = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            radioButtonX = new RadioButton();
+            radioButtonY = new RadioButton();
+            radioButtonZ = new RadioButton();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // label_note1
@@ -157,6 +166,7 @@
             icons.ImageStream = (ImageListStreamer)resources.GetObject("icons.ImageStream");
             icons.TransparentColor = Color.Transparent;
             icons.Images.SetKeyName(0, "icons8-3d-printer-48.png");
+            icons.Images.SetKeyName(1, "icons8-warning-48.png");
             // 
             // label5
             // 
@@ -186,13 +196,71 @@
             radioButtonPlay_alternating_notes1.TabStop = true;
             radioButtonPlay_alternating_notes1.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
+            // 
+            // comboBoxFirmware
+            // 
+            resources.ApplyResources(comboBoxFirmware, "comboBoxFirmware");
+            comboBoxFirmware.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxFirmware.FormattingEnabled = true;
+            comboBoxFirmware.Items.AddRange(new object[] { resources.GetString("comboBoxFirmware.Items"), resources.GetString("comboBoxFirmware.Items1"), resources.GetString("comboBoxFirmware.Items2"), resources.GetString("comboBoxFirmware.Items3"), resources.GetString("comboBoxFirmware.Items4"), resources.GetString("comboBoxFirmware.Items5"), resources.GetString("comboBoxFirmware.Items6"), resources.GetString("comboBoxFirmware.Items7"), resources.GetString("comboBoxFirmware.Items8"), resources.GetString("comboBoxFirmware.Items9"), resources.GetString("comboBoxFirmware.Items10"), resources.GetString("comboBoxFirmware.Items11"), resources.GetString("comboBoxFirmware.Items12"), resources.GetString("comboBoxFirmware.Items13"), resources.GetString("comboBoxFirmware.Items14"), resources.GetString("comboBoxFirmware.Items15"), resources.GetString("comboBoxFirmware.Items16"), resources.GetString("comboBoxFirmware.Items17"), resources.GetString("comboBoxFirmware.Items18"), resources.GetString("comboBoxFirmware.Items19"), resources.GetString("comboBoxFirmware.Items20"), resources.GetString("comboBoxFirmware.Items21"), resources.GetString("comboBoxFirmware.Items22") });
+            comboBoxFirmware.Name = "comboBoxFirmware";
+            comboBoxFirmware.SelectedIndexChanged += comboBoxFirmware_SelectedIndexChanged;
+            // 
+            // labelWarning
+            // 
+            resources.ApplyResources(labelWarning, "labelWarning");
+            labelWarning.ImageList = icons;
+            labelWarning.Name = "labelWarning";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.Name = "label2";
+            // 
+            // flowLayoutPanel1
+            // 
+            resources.ApplyResources(flowLayoutPanel1, "flowLayoutPanel1");
+            flowLayoutPanel1.Controls.Add(radioButtonX);
+            flowLayoutPanel1.Controls.Add(radioButtonY);
+            flowLayoutPanel1.Controls.Add(radioButtonZ);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // radioButtonX
+            // 
+            resources.ApplyResources(radioButtonX, "radioButtonX");
+            radioButtonX.Checked = true;
+            radioButtonX.Name = "radioButtonX";
+            radioButtonX.TabStop = true;
+            radioButtonX.UseVisualStyleBackColor = true;
+            radioButtonX.CheckedChanged += AxisRadioButtonsCheckedChanged;
+            // 
+            // radioButtonY
+            // 
+            resources.ApplyResources(radioButtonY, "radioButtonY");
+            radioButtonY.Name = "radioButtonY";
+            radioButtonY.UseVisualStyleBackColor = true;
+            radioButtonY.CheckedChanged += AxisRadioButtonsCheckedChanged;
+            // 
+            // radioButtonZ
+            // 
+            resources.ApplyResources(radioButtonZ, "radioButtonZ");
+            radioButtonZ.Name = "radioButtonZ";
+            radioButtonZ.UseVisualStyleBackColor = true;
+            radioButtonZ.CheckedChanged += AxisRadioButtonsCheckedChanged;
+            // 
             // ConvertToGCode
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(lbl_alternating_note_options);
             Controls.Add(radioButtonPlay_alternating_notes2);
             Controls.Add(radioButtonPlay_alternating_notes1);
+            Controls.Add(labelWarning);
             Controls.Add(label5);
             Controls.Add(button_export_as_gcode);
             Controls.Add(checkBox_play_note4);
@@ -200,12 +268,15 @@
             Controls.Add(checkBox_play_note3);
             Controls.Add(comboBox_component_note3);
             Controls.Add(checkBox_play_note2);
+            Controls.Add(label2);
             Controls.Add(label_note4);
             Controls.Add(comboBox_component_note2);
             Controls.Add(label_note3);
             Controls.Add(checkBox_play_note1);
             Controls.Add(label_note2);
+            Controls.Add(comboBoxFirmware);
             Controls.Add(comboBox_component_note1);
+            Controls.Add(label1);
             Controls.Add(label_note1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -213,6 +284,8 @@
             Name = "ConvertToGCode";
             ShowIcon = false;
             SystemColorsChanged += ConvertToGCode_SystemColorsChanged;
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -238,5 +311,15 @@
         private Label lbl_alternating_note_options;
         private RadioButton radioButtonPlay_alternating_notes2;
         private RadioButton radioButtonPlay_alternating_notes1;
+        private Label label1;
+        private ComboBox comboBoxFirmware;
+        private Label labelWarning;
+        private Label label2;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
+        private RadioButton radioButtonX;
+        private RadioButton radioButtonY;
+        private RadioButton radioButtonZ;
     }
 }

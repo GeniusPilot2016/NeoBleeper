@@ -46,7 +46,7 @@ namespace NeoBleeper
         public static string lastOpenedMIDIFileName = string.Empty;
         private string keyToolTip = string.Empty;
         public static DateTime lastCreateTime = DateTime.MinValue;
-        private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(10); // 10 seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
+        private readonly TimeSpan createCooldown = TimeSpan.FromSeconds(15); // 15-seconds cooldown to prevent out-of-RPM (Requests Per Minute) quota errors
         public static string defaultOpenAndSaveDirectory = Path.Combine(AppContext.BaseDirectory, "Music");
         protected virtual void OnNotesChanged(EventArgs e)
         {
