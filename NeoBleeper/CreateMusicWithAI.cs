@@ -3085,6 +3085,29 @@ namespace NeoBleeper
                 var xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(nbpmlContent);
 
+                // First, recursively unwrap any nested <Line> tags (e.g. <Line><Line>...</Line></Line>)
+                // This prevents data loss when processing siblings or rebuilding structure.
+                bool foundNested;
+                do
+                {
+                    foundNested = false;
+                    var nestedLines = xmlDoc.SelectNodes("//Line/Line");
+                    if (nestedLines != null && nestedLines.Count > 0)
+                    {
+                        foreach (XmlNode nested in nestedLines)
+                        {
+                            foundNested = true;
+                            // Move children to parent
+                            var parent = nested.ParentNode;
+                            while (nested.HasChildNodes)
+                            {
+                                parent.InsertBefore(nested.FirstChild, nested);
+                            }
+                            parent.RemoveChild(nested);
+                        }
+                    }
+                } while (foundNested);
+
                 var lineList = xmlDoc.SelectSingleNode("//LineList");
                 if (lineList == null)
                     return nbpmlContent;
@@ -3150,7 +3173,7 @@ namespace NeoBleeper
                 using var sw = new System.IO.StringWriter();
                 xmlDoc.Save(sw);
                 var result = sw.ToString();
-                // Remove XML declaration if present
+                // Remove XML declaration added by XmlDocument serializer to keep parity with the rest of the pipeline
                 result = Regex.Replace(result, @"<\?xml.*?\?>\s*", string.Empty, RegexOptions.IgnoreCase).Trim();
                 return result;
             }
@@ -3596,7 +3619,7 @@ namespace NeoBleeper
             }
             // Find single-line orphaned tags such as <Length>...</Length> not within <Line>...</Line>
             var regex = new Regex(
-                @"(?<!<Line>\s*)(<Length>.*?</Length>\s*(<Mod\s*/>\s*)?(<Art\s*/>\s*)?(<Note1>.*?</Note1>\s*)?(<Note2>.*?</Note2>\s*)?(<Note3>.*?</Note3>\s*)?(<Note4>.*?</Note4>\s*)?)(?!\s*</Line>)",
+                @"(?<!<Line(\s+[^>]*)?>\s*)(<Length>.*?</Length>\s*(<Mod\s*/>\s*)?(<Art\s*/>\s*)?(<Note1>.*?</Note1>\s*)?(<Note2>.*?</Note2>\s*)?(<Note3>.*?</Note3>\s*)?(<Note4>.*?</Note4>\s*)?)(?!\s*</Line>)",
                 RegexOptions.Singleline);
             // Find multi-line orphaned tags such as <Line>...</Line> that wrap multiple lines
             nbpmlContent = regex.Replace(nbpmlContent, match =>
