@@ -1239,10 +1239,10 @@ namespace NeoBleeper
                             if (CheckIfOutputIsJSONErrorMessage(JSONText))
                             {
                                 isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                                MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
                                 TurnJSONErrorIntoMessageBoxAndLog(JSONText);
                                 generatedFilename = string.Empty; // Clear the filename if it's an error message
-                                output = String.Empty; // Clear the output if it's an error message
-                                MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
+                                output = String.Empty; // Clear the output if it's an error message                             
                                 this.Close(); // Close the form after handling the error message
                                 return;
                             }
@@ -1265,11 +1265,11 @@ namespace NeoBleeper
                             if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                                MainWindow.lastCreateTime = DateTime.Now;
                                 Logger.Log("Generated output is incomplete NBPML content.", Logger.LogTypes.Error);
                                 MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 generatedFilename = string.Empty; // Clear the filename if it's incomplete
                                 output = String.Empty; // Clear the output if it's incomplete
-                                MainWindow.lastCreateTime = DateTime.Now;
                                 this.Close(); // Close the form after handling the incomplete output
                                 return; // Exit the method
                             }
