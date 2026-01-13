@@ -1088,4 +1088,10 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>Le nom du fichier est vide.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Aucune note n'a été générée. Veuillez réessayer avec une autre invite ou d'autres paramètres.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Aucune note générée</value>
+  </data>
 </root>

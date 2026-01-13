@@ -1117,4 +1117,10 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>The file name is empty.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>No notes were generated in the output. Please try again with a different prompt or settings.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>No Notes Generated</value>
+  </data>
 </root>

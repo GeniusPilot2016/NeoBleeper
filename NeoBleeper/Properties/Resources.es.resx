@@ -1088,4 +1088,10 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>El nombre del archivo está vacío.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>No se generaron notas en la salida. Inténtalo de nuevo con un mensaje o una configuración diferentes.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>No se generaron notas</value>
+  </data>
 </root>

@@ -1088,4 +1088,10 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>Tên tệp tin trống.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Không có nốt nào được tạo ra trong kết quả. Vui lòng thử lại với lời nhắc hoặc cài đặt khác.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Không có nốt nào được tạo ra.</value>
+  </data>
 </root>

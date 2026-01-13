@@ -1088,4 +1088,10 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>Der Dateiname ist leer.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Es wurden keine Noten ausgegeben. Bitte versuchen Sie es erneut mit einer anderen Eingabeaufforderung oder anderen Einstellungen.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Es wurden keine Noten generiert</value>
+  </data>
 </root>

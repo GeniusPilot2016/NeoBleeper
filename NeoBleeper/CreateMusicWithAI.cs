@@ -1262,6 +1262,17 @@ namespace NeoBleeper
                             output = FixNBPMLToComply(output); // Fix NBPML to comply with expected format
                             output = RewriteOutput(output).Trim();
                             // System.Diagnostics.Debug.WriteLine("Processed output: " + output);
+                            if (CountLines(output) <= 0)  // Check if there are at least 1 line of notes
+                            {
+                                isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                                MainWindow.lastCreateTime = DateTime.Now;
+                                Logger.Log("No notes were generated in the output.", Logger.LogTypes.Error);
+                                MessageForm.Show(this, Resources.MessageNoNotesGenerated, Resources.TitleNoNotesGenerated, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                generatedFilename = string.Empty; // Clear the filename if it has insufficient lines
+                                output = String.Empty; // Clear the output if it has insufficient lines
+                                this.Close(); // Close the form after handling the insufficient lines
+                                return; // Exit the method
+                            }
                             if (!IsCompleteNBPML(output)) // Check for completeness of NBPML content
                             {
                                 isMusicGenerationStarted = false; // Reset the flag as music generation has ended
@@ -3990,6 +4001,20 @@ namespace NeoBleeper
                 RegexOptions.IgnoreCase);
 
             return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Counts the number of &lt;Line&gt; elements in the specified NBPML content.
+        /// </summary>
+        /// <param name="nbpmlContent">The NBPML-formatted string to search for &lt;Line&gt; elements. Can be null or empty.</param>
+        /// <returns>The number of &lt;Line&gt; elements found in the provided content. Returns 0 if the content is null or empty.</returns>
+        private int CountLines(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+                return 0;
+            // Count the number of <Line> tags in the content
+            var lineCount = Regex.Matches(nbpmlContent, @"<Line\b[^>]*>", RegexOptions.IgnoreCase).Count;
+            return lineCount;
         }
     }
 }

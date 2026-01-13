@@ -1089,4 +1089,10 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>Dosya adı boş.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Çıktıda hiçbir nota oluşturulmadı. Lütfen farklı bir komut veya ayar kullanarak tekrar deneyin.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Nota oluşturulmadı</value>
+  </data>
 </root>

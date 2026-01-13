@@ -1090,4 +1090,10 @@
   <data name="MessageFileNameIsEmpty" xml:space="preserve">
     <value>Имя файла пустое.</value>
   </data>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>В результате не были сгенерированы ноты. Пожалуйста, попробуйте еще раз, используя другую подсказку или настройки.</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Ноты не сгенерированы</value>
+  </data>
 </root>

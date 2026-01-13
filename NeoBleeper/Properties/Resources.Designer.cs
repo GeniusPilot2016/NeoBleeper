@@ -1674,6 +1674,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   No notes were generated in the output. Please try again with a different prompt or settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageNoNotesGenerated {
+            get {
+                return ResourceManager.GetString("MessageNoNotesGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This Bleeper Music Maker file contains invalid elements that do not comply with the syntax of Bleeper Music Maker file format. 
         ///
         ///Do you want to open this file anyway? benzeri yerelleştirilmiş bir dize arar.
@@ -2852,6 +2861,15 @@ namespace NeoBleeper.Properties {
         public static string TitleInvalidArgument {
             get {
                 return ResourceManager.GetString("TitleInvalidArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No Notes Generated benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitleNoNotesGenerated {
+            get {
+                return ResourceManager.GetString("TitleNoNotesGenerated", resourceCulture);
             }
         }
         
