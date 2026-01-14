@@ -264,7 +264,7 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
     <value>Bir Vuruş Sesi Çal</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Etkilenen yonga setleri için sistem hoparlörü uyandırılıyor... (tıklama sesleri duyabilirsiniz)</value>
+    <value>Etkilenen yonga setleri için sistem hoparlörü uyandırılıyor... (tıklama/çıtlama sesleri duyabilirsiniz)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Sistem bilgileri toplandı.</value>
@@ -346,7 +346,7 @@ Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
     <value>Rahatlatıcı bir ninni bestele</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut, ancak bilgisayarın türü bilinmiyor. NeoBleeper, bilinmeyen bilgisayar türlerinde sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
+    <value>Sistem hoparlörü çıkışı mevcut, ancak bu bilgisayar kompakt bir bilgisayardır. NeoBleeper, kompakt bilgisayarlarda oluşabilecek sorunları önlemek için ses kartını kullanarak bip sesleri çıkaracaktır.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Sistem hoparlörü sorunları için yonga seti kontrol ediliyor...</value>
@@ -944,7 +944,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)</value>
+    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama/çıtlama sesleri duyabilirsiniz)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Senkoplu vuruşlarla ritmik bir kalıp oluştur</value>
@@ -1027,7 +1027,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut, ancak kompakt bir bilgisayar. NeoBleeper, kompakt bilgisayarlarda sorun yaşamamak için bip sesleri oluşturmak üzere ses kartını kullanacaktır.</value>
+    <value>Sistem hoparlörü çıkışı mevcut, ancak bilinmeyen bir bilgisayar türü söz konusu. NeoBleeper, bilinmeyen bilgisayar türleriyle ilgili sorunları önlemek için ses kartını kullanarak bip sesleri çıkaracaktır.</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
     <value>Fer</value>

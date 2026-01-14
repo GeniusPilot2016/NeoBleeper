@@ -264,7 +264,7 @@
     <value>Відтворити звук ритму</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Пробудження системного динаміка для уражених чипсетів... (можливо, ви чуєте клацання)</value>
+    <value>Пробудження системного динаміка для уражених чипсетів... (ви можете чути клацання/хлопки)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Зібрано системну інформацію.</value>
@@ -944,7 +944,7 @@
     <value>Ста</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Перевірка наявності виходу системного динаміка (динаміка ПК) на кроці 2/2... (можливо, ви чуєте клацання)</value>
+    <value>Перевірка наявності виходу системного динаміка (динаміка ПК) на кроці 2/2... (можливо, ви чуєте клацання/хлопки)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Склади ритмічний патерн із синкопованими ударами</value>

@@ -627,7 +627,7 @@ namespace NeoBleeper
             }
             else
             {
-                TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true;
+                TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false;
                 Logger.Log("Beep creation from sound card enabled.", Logger.LogTypes.Info);
             }
         }

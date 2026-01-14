@@ -264,7 +264,7 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
     <value>Phát âm thanh nhịp điệu</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Đánh thức loa hệ thống cho các chipset bị ảnh hưởng... (bạn có thể nghe thấy tiếng lách cách)</value>
+    <value>Đang kích hoạt loa hệ thống cho các chipset bị ảnh hưởng... (bạn có thể nghe thấy tiếng lách cách/lụp bụp)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Thông tin hệ thống đang được thu thập.</value>
@@ -943,7 +943,7 @@ Bạn có muốn mở tệp này không?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng tách tách)</value>
+    <value>Kiểm tra sự hiện diện của âm thanh đầu ra từ loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng lách cách/lụp bụp)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Sáng tác một mẫu nhịp điệu với nhịp đảo phách</value>

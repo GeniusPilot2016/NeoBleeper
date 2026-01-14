@@ -98,7 +98,7 @@ namespace NeoBleeper
         public Font SetUIFont(float size, FontStyle style)
         {
             if (disposed) throw new ObjectDisposedException(nameof(UIFonts));
-            Font font = new Font(privateFonts.Families[0], size, style);
+            Font font = new Font(privateFonts.Families[0], size, style, GraphicsUnit.Point);
             return font;
         }
 
@@ -111,7 +111,7 @@ namespace NeoBleeper
         public Font SetUIFont(float size)
         {
             if (disposed) throw new ObjectDisposedException(nameof(UIFonts));
-            Font font = new Font(privateFonts.Families[0], size);
+            Font font = new Font(privateFonts.Families[0], size, GraphicsUnit.Point);
             return font;
         }
 
@@ -169,27 +169,49 @@ namespace NeoBleeper
             form.SuspendLayout();
             UIFonts uiFonts = UIFonts.Instance;
             SetFontsRecursive(form, uiFonts);
+
             foreach (var field in form.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
             {
                 if (field.FieldType == typeof(ContextMenuStrip))
                 {
                     if (field.GetValue(form) is ContextMenuStrip cms)
                     {
-                        foreach (ToolStripMenuItem item in cms.Items)
-                        {
-                            try
-                            {
-                                item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.Log($"Error setting font for context menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
-                            }
-                        }
+                        SetToolStripItemFontsRecursive(cms.Items, uiFonts);
                     }
                 }
             }
             form.ResumeLayout();
+        }
+
+        /// <summary>
+        /// Recursively sets the font of each ToolStripItem in the specified collection and all nested drop-down items
+        /// using the provided UI font settings.
+        /// </summary>
+        /// <remarks>If an item in the collection is a ToolStripMenuItem with drop-down items, the method
+        /// applies the font settings recursively to all nested items. If an error occurs while setting the font for an
+        /// item, the error is logged and processing continues for the remaining items.</remarks>
+        /// <param name="items">The collection of ToolStripItem objects whose fonts will be updated. This may include menu items, buttons,
+        /// or other ToolStrip controls.</param>
+        /// <param name="uiFonts">The UIFonts instance used to determine and apply the desired font settings to each ToolStripItem.</param>
+        private static void SetToolStripItemFontsRecursive(ToolStripItemCollection items, UIFonts uiFonts)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                try
+                {
+                    item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"Error setting font for menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
+                }
+
+                // Eğer item bir ToolStripMenuItem ise, alt menü öğelerine de uygula
+                if (item is ToolStripMenuItem menuItem && menuItem.HasDropDownItems)
+                {
+                    SetToolStripItemFontsRecursive(menuItem.DropDownItems, uiFonts);
+                }
+            }
         }
 
         private static void SetFontsRecursive(Control parent, UIFonts uiFonts)
@@ -205,36 +227,14 @@ namespace NeoBleeper
                     Logger.Log($"Error setting font for control {ctrl.Name}: {ex.Message}", Logger.LogTypes.Error);
                 }
 
-                // Special Handling for MenuStrip and ToolStrip
+                // MenuStrip ve ToolStrip için özel işlem
                 if (ctrl is MenuStrip menuStrip)
                 {
-                    foreach (ToolStripItem item in menuStrip.Items)
-                    {
-                        try
-                        {
-                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log($"Error setting font for menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
-                        }
-                    }
+                    SetToolStripItemFontsRecursive(menuStrip.Items, uiFonts);
                 }
-
-                // Other ToolStrip types
-                if (ctrl is ToolStrip toolStrip)
+                else if (ctrl is ToolStrip toolStrip)
                 {
-                    foreach (ToolStripItem item in toolStrip.Items)
-                    {
-                        try
-                        {
-                            item.Font = uiFonts.SetUIFont(item.Font.Size, item.Font.Style);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log($"Error setting font for toolstrip item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
-                        }
-                    }
+                    SetToolStripItemFontsRecursive(toolStrip.Items, uiFonts);
                 }
 
                 if (ctrl.HasChildren)
