@@ -167,6 +167,9 @@
     <None Update="Music\Ozzy Osbourne - Crazy Train.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Music\Rock-style Energetic Track.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Music\Rush E.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
