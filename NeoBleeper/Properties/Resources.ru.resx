@@ -264,7 +264,7 @@
     <value>Воспроизвести звук бита</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Активация системного динамика для затронутых чипсетов... (могут быть слышны щелчки)</value>
+    <value>Включение системных динамиков для затронутых чипсетов... (вы можете услышать щелчки/треск)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Сбор системной информации.</value>
@@ -944,7 +944,7 @@
     <value>Ста</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Проверка наличия выходного сигнала системного динамика (динамика ПК) на шаге 2/2... (могут быть слышны щелчки)</value>
+    <value>Проверка наличия звука от системных динамиков (динамиков ПК) на шаге 2/2... (вы можете услышать щелчки/треск)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Сочини ритмический паттерн с синкопированными ударами</value>

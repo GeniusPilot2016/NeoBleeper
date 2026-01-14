@@ -2410,7 +2410,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking sounds) benzeri yerelleştirilmiş bir dize arar.
+        ///   Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking/popping sounds) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusSystemSpeakerSensorStep2 {
             get {
@@ -2446,7 +2446,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Waking up system speaker for affected chipsets... (you may hear clicking sounds) benzeri yerelleştirilmiş bir dize arar.
+        ///   Waking up system speaker for affected chipsets... (you may hear clicking/popping sounds) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusWakingUpSystemSpeaker {
             get {

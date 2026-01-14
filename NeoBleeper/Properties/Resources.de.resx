@@ -267,7 +267,7 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
     <value>Spielen Sie einen Beat-Sound ab</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klickgeräusche zu hören)</value>
+    <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klick-/Knallgeräusche zu hören)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Systeminformationen werden erfasst.</value>
@@ -946,7 +946,7 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 2/2... (Klickgeräusche sind möglicherweise zu hören)</value>
+    <value>Überprüfung des Vorhandenseins des Systemlautsprechers (PC-Lautsprecher) in Schritt 2/2... (möglicherweise sind Klick-/Knackgeräusche zu hören)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Erstelle ein rhythmisches Muster mit synkopierten Schlägen</value>

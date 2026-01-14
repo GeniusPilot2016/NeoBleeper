@@ -264,7 +264,7 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
     <value>Jouer un son rythmique</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Activation du haut-parleur système pour les puces concernées... (vous pouvez entendre des cliquetis)</value>
+    <value>Activation du haut-parleur système pour les puces concernées... (vous pouvez entendre des cliquetis/crépitements)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Les informations système sont collectées.</value>
@@ -943,7 +943,7 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Vérification de la présence du haut-parleur système (Haut-parleur PC) à l'étape 2/2… (Vous pourriez entendre des clics)</value>
+    <value>Vérification de la présence de la sortie haut-parleur du système (haut-parleur du PC) à l'étape 2/2... (vous pouvez entendre des cliquetis/craquements)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Composez un motif rythmique avec des temps syncopés</value>

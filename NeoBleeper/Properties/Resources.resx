@@ -270,7 +270,7 @@ You can see the key mappings on the buttons at the top of the window.</value>
     <value>Play a Beat Sound</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Waking up system speaker for affected chipsets... (you may hear clicking sounds)</value>
+    <value>Waking up system speaker for affected chipsets... (you may hear clicking/popping sounds)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>System information has been gathered.</value>
@@ -970,7 +970,7 @@ Do you want to open this file anyway?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking sounds)</value>
+    <value>Checking for system speaker (PC speaker) output presence in step 2/2... (you may hear clicking/popping sounds)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Compose a rhythmic pattern with syncopated beats</value>
