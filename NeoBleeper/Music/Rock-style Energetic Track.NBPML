@@ -1,0 +1,3197 @@
+<NeoBleeperProjectFile>
+  <!-- The rock-style energetic track that created by Gemini 2.5 Flash model while debuggging the 
+  "Create Music with AI" feature. -->
+  <Settings>
+    <RandomSettings>
+      <KeyboardOctave>5</KeyboardOctave>
+      <BPM>150</BPM>
+      <TimeSignature>4</TimeSignature>
+      <NoteSilenceRatio>90</NoteSilenceRatio>
+      <NoteLength>3</NoteLength>
+      <AlternateTime>10</AlternateTime>
+    </RandomSettings>
+    <PlaybackSettings>
+      <NoteClickPlay>True</NoteClickPlay>
+      <NoteClickAdd>True</NoteClickAdd>
+      <AddNote1>False</AddNote1>
+      <AddNote2>False</AddNote2>
+      <AddNote3>True</AddNote3>
+      <AddNote4>False</AddNote4>
+      <NoteReplace>True</NoteReplace>
+      <NoteLengthReplace>False</NoteLengthReplace>
+    </PlaybackSettings>
+    <ClickPlayNotes>
+      <ClickPlayNote1>True</ClickPlayNote1>
+      <ClickPlayNote2>True</ClickPlayNote2>
+      <ClickPlayNote3>True</ClickPlayNote3>
+      <ClickPlayNote4>True</ClickPlayNote4>
+    </ClickPlayNotes>
+    <PlayNotes>
+      <PlayNote1>True</PlayNote1>
+      <PlayNote2>True</PlayNote2>
+      <PlayNote3>True</PlayNote3>
+      <PlayNote4>True</PlayNote4>
+    </PlayNotes>
+  </Settings>
+  <LineList>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>B3</Note2>
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>F#3</Note2>
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>B3</Note2>
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>F#3</Note2>
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>G3</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3>D4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1 />
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>A5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>C5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G3</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>A5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>C5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>C3</Note1>
+      <Note2>G3</Note2>
+      <Note3>C4</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>C4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>E5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>B3</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G3</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>A5</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>G5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>D5</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>A4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>G4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>1/8</Length>
+      <Note1 />
+      <Note2 />
+      <Note3 />
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>G2</Note1>
+      <Note2>D3</Note2>
+      <Note3>G3</Note3>
+      <Note4>D4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>D3</Note1>
+      <Note2>A3</Note2>
+      <Note3>D4</Note3>
+      <Note4>F#4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>A2</Note1>
+      <Note2>E3</Note2>
+      <Note3>A3</Note3>
+      <Note4>E4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4 />
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art>Spi</Art>
+    </Line>
+    <Line>
+      <Length>Quarter</Length>
+      <Note1>E2</Note1>
+      <Note2 />
+      <Note3 />
+      <Note4 />
+      <Mod />
+      <Art />
+    </Line>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Half</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Sta</Art>
+    </Line>
+    <Line>
+      <Length>Whole</Length>
+      <Note1>E2</Note1>
+      <Note2>B3</Note2>
+      <Note3>E4</Note3>
+      <Note4>B4</Note4>
+      <Mod />
+      <Art>Fer</Art>
+    </Line>
+  </LineList>
+</NeoBleeperProjectFile>
