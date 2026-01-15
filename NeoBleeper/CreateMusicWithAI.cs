@@ -2047,13 +2047,16 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Parses the raw output string to extract the generated filename and the associated output content.
+        /// Parses the specified raw output string to extract a generated filename and its associated output content.
         /// </summary>
-        /// <remarks>If the separator line of dashes is not found, the entire output is treated as content
-        /// and the filename is generated automatically. Leading and trailing whitespace are trimmed from both the
-        /// filename and output content.</remarks>
-        /// <param name="rawOutput">The raw output string containing both the filename and the output content, separated by a line of at least
-        /// three dashes. If null, empty, or whitespace, both values are set to empty strings.</param>
+        /// <remarks>If the input contains one or more dashed separator lines (three or more consecutive
+        /// dashes on a line), the method uses the last such separator to split the filename and output. The line
+        /// immediately before the last separator is treated as the filename, and the content after the separator is
+        /// treated as the output. If no separator is found, the entire input is treated as output, and the filename is
+        /// generated from the prompt or XML content. If the input is null or whitespace, both the filename and output
+        /// are set to empty strings.</remarks>
+        /// <param name="rawOutput">The raw output string containing the generated filename and output content, typically separated by a dashed
+        /// line. Can be null or whitespace.</param>
         private void SplitFileNameAndOutput(string rawOutput)
         {
             Logger.Log("Splitting generated filename and generated output...", Logger.LogTypes.Info);
@@ -2064,32 +2067,31 @@ namespace NeoBleeper
                 return;
             }
 
-            // Find the separator line made of dashes (at least 3 dashes)
-            var separatorMatch = Regex.Match(rawOutput, @"^-{3,}$", RegexOptions.Multiline);
+            // Find all dashed separator lines
+            var allSeparators = Regex.Matches(rawOutput, @"^-{3,}$", RegexOptions.Multiline);
 
-            if (separatorMatch.Success)
+            if (allSeparators.Count > 0)
             {
-                // Find position of the separator
-                int separatorIndex = separatorMatch.Index;
+                // Find the last separator line
+                var lastSeparator = allSeparators[allSeparators.Count - 1];
+                int separatorIndex = lastSeparator.Index;
+                int separatorLength = lastSeparator.Length;
 
-                // Take the part before the separator as filename
-                string filenamePart = rawOutput.Substring(0, separatorIndex).Trim();
+                // The text before the separator line
+                string beforeSeparator = rawOutput.Substring(0, separatorIndex).Trim();
 
-                // Length of the separator line
-                int separatorLength = separatorMatch.Length;
-
-                // Take the part after the separator as XML content
+                // The text after the separator line
                 int xmlStartIndex = separatorIndex + separatorLength;
-                string xmlPart = rawOutput.Substring(xmlStartIndex).Trim();
+                string afterSeparator = rawOutput.Substring(xmlStartIndex).Trim();
 
-                // Extract the last line from the filename part as the actual filename
-                generatedFilename = filenamePart.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-                                               .LastOrDefault() ?? string.Empty;
-                output = xmlPart;
+                // Use the last line before the separator as the filename
+                generatedFilename = beforeSeparator.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                                                   .LastOrDefault() ?? string.Empty;
+                output = afterSeparator;
             }
             else
             {
-                // No separator found; treat entire output as XML content
+                // If there's no separator, treat entire output as content
                 output = rawOutput.Trim();
                 generatedFilename = GenerateFilenameFromPromptOrXml(textBoxPrompt.Text);
             }
