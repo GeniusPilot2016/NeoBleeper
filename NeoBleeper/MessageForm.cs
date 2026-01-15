@@ -41,12 +41,12 @@ namespace NeoBleeper
                 this.Text = defaultTitle;
             }
             this.title = title;
+            UIFonts.SetFonts(this);
             labelMessage.Text = message;
             AssignButtons(buttons);
             AssignIcon(icon);
             WriteMessage(message);
             SetTheme();
-            UIFonts.SetFonts(this);
         }
 
         /// <summary>
