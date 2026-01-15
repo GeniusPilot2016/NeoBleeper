@@ -124,17 +124,11 @@
   <data name="general_settings.Text" xml:space="preserve">
     <value>Genel</value>
   </data>
-  <data name="general_settings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 617</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Ses Oluşturma</value>
-  </data>
-  <data name="creating_sound_settings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 617</value>
@@ -142,24 +136,18 @@
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Aygıtlar</value>
   </data>
-  <data name="devices_settings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 617</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Görünüm</value>
   </data>
-  <data name="appearance.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAH8AQcB/AEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEEAQgBBAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -496,20 +484,11 @@
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>431, 652</value>
   </data>
-  <data name="tabControl_settings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 607</value>
   </data>
-  <data name="flowLayoutPanelGeneralSettings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Dil Ayarları</value>
-  </data>
-  <data name="groupBoxLanguageSettings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>36, 26</value>
@@ -527,14 +506,8 @@
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Dil</value>
   </data>
-  <data name="labelLanguage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="groupBox_appearance.Text" xml:space="preserve">
     <value>Genel Görünüm</value>
-  </data>
-  <data name="groupBox_appearance.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 20</value>
@@ -550,9 +523,6 @@
   </data>
   <data name="lbl_theme.Text" xml:space="preserve">
     <value>Tema</value>
-  </data>
-  <data name="lbl_theme.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comboBox_theme.Items" xml:space="preserve">
     <value>Sistem temasını kullan</value>
@@ -574,9 +544,6 @@
   </data>
   <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
     <value>Yapay Zeka ile Müzik Oluştur</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>83, 145</value>
@@ -619,20 +586,18 @@ Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklam
     <value>Uyarı: Güvenliğiniz için Google Gemini™ API anahtarınızı 
 başkaları ile paylaşmayınız.</value>
   </data>
-  <data name="labelAPIKeyWarning.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 16</value>
   </data>
   <data name="labelAPIKey.Text" xml:space="preserve">
     <value>Google Gemini™ API Anahtarı</value>
   </data>
-  <data name="labelAPIKey.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>296, 23</value>
+  </data>
+  <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
+    <value>Yapay zekâ destekli müzik oluşturma özelliğini kullanmak için API anahtarınızı buraya giriniz.
+API anahtarınızı https://aistudio.google.com/app/apikey adresinden alabilirsiniz.</value>
   </data>
   <data name="labelGoogleGeminiAPIWarning.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 52</value>
@@ -641,9 +606,6 @@ başkaları ile paylaşmayınız.</value>
     <value>Bölgenizde (Avrupa Ekonomik Alanı, İsviçre veya Birleşik Krallık), 
 Google Gemini™ API yalnızca ücretli bir hizmet olarak kullanılabilir. 
 Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</value>
-  </data>
-  <data name="labelGoogleGeminiAPIWarning.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 399</value>
@@ -654,20 +616,14 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
     <value>Sistem Hoparlörünü Test Etme</value>
   </data>
-  <data name="groupBox_system_speaker_test.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 22</value>
+    <value>110, 22</value>
   </data>
   <data name="btn_test_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
     <value>193, 30</value>
   </data>
   <data name="btn_test_system_speaker.Text" xml:space="preserve">
     <value>Sistem Hoparlörünü Test Et</value>
-  </data>
-  <data name="btn_test_system_speaker.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_test_system_speaker_message.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 57</value>
@@ -678,38 +634,20 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Eğer hiçbir ses duymazsanız "Bip sesi oluşturmak için ses aygıtını kullan" özelliğini kullanabilirsiniz.</value>
   </data>
-  <data name="label_test_system_speaker_message.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 511</value>
-  </data>
-  <data name="panelSystemSpeakerWarnings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_test_system_speaker_message_2.Text" xml:space="preserve">
     <value>Sistem hoparlörü çıkışı bulunmayan bilgisayarlarda veya standart olmayan sistem hoparlörü çıkışı bulunan bilgisayarlarda sistem hoparlörü test edildiğinde hiçbir ses duymayabilirsiniz, veya kararsızlıklara ya da istenmeyen davranışlara yol açabilir.</value>
   </data>
-  <data name="label_test_system_speaker_message_2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_test_system_speaker_message_3.Text" xml:space="preserve">
     <value>Kompakt bilgisayarlarda ve bilinmeyen tipteki bilgisayarlarda, ana hoparlörler gerçek sistem hoparlörü yerine sistem hoparlörü çıkışına bağlanmış olabilir ve sistem hoparlörü test edildiğinde hiçbir ses duymayabilirsiniz veya kararsızlıklara ya da istenmeyen davranışlara neden olabilir</value>
-  </data>
-  <data name="label_test_system_speaker_message_3.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
     <value>Eğer hiçbir ses duymuyorsanız veya ses bozuksa, bilgisayarınızı uyku moduna alıp uyandırmayı deneyin. Bu, etkilenen yonga setlerinde sistem hoparlörünün yeniden başlatılmasına yardımcı olabilir.</value>
   </data>
-  <data name="label_test_system_speaker_message_4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 607</value>
-  </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 20</value>
@@ -730,20 +668,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
     <value>Ses Aygıtından Bip Sesi Oluşturma Seçenekleri</value>
   </data>
-  <data name="group_beep_creation_from_sound_card_settings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 101</value>
   </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>389, 58</value>
-  </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 48</value>
@@ -751,17 +680,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Text" xml:space="preserve">
     <value>"Bip sesi oluşturmak için ses aygıtını kullan" özelliği bilgisayarın kompakt bir bilgisayar olması veya tipinin bilinmemesi nedeniyle otomatik olarak etkinleştirilmiştir</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 48</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_1.Text" xml:space="preserve">
     <value>"Bip sesi oluşturmak için ses aygıtını kullan özelliği" sistem hoparlörü çıkışının algılanamaması veya sistem hoparlörü çıkışının standart dışı olması nedeniyle otomatik olarak etkinleştirilmiştir.</value>
-  </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 48</value>
@@ -769,17 +692,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
     <value>Sistem sınırlamaları veya yonga seti uyumluluk sorunları nedeniyle, kararlı ses çıkışı sağlamak için "Bip sesi oluşturmak için ses aygıtını kullan" özelliği otomatik olarak etkinleştirilmiştir.</value>
   </data>
-  <data name="label_create_beep_from_soundcard_automatically_activated_message_3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 67</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Bu durumun nedenini göster</value>
-  </data>
-  <data name="button_show_reason.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="group_tone_waveform.Size" type="System.Drawing.Size, System.Drawing">
     <value>395, 102</value>
@@ -787,17 +704,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="group_tone_waveform.Text" xml:space="preserve">
     <value>Ton Dalga Şekli</value>
   </data>
-  <data name="group_tone_waveform.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 20</value>
   </data>
   <data name="radioButton_noise.Text" xml:space="preserve">
     <value>Gürültü (ses efektleri oluşturmak için)</value>
-  </data>
-  <data name="radioButton_noise.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="radioButton_triangle.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 20</value>
@@ -808,17 +719,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="radioButton_triangle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="radioButton_triangle.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="radioButton_sine.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 20</value>
   </data>
   <data name="radioButton_sine.Text" xml:space="preserve">
     <value>Sinüs</value>
-  </data>
-  <data name="radioButton_sine.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="radioButton_square.Size" type="System.Drawing.Size, System.Drawing">
     <value>118, 20</value>
@@ -826,14 +731,8 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Kare (Varsayılan)</value>
   </data>
-  <data name="radioButton_square.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 607</value>
-  </data>
-  <data name="flowLayoutPanelDevicesSettings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 20</value>
@@ -847,9 +746,6 @@ Bir MIDI klavyeniz varsa, NeoBleeper'da nota çalmak için bunu kullanabilirsini
   </data>
   <data name="group_midi_input_devices.Text" xml:space="preserve">
     <value>MIDI Giriş Aygıtları</value>
-  </data>
-  <data name="group_midi_input_devices.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="refresh_midi_input_button.Text" xml:space="preserve">
     <value>Yenile</value>
@@ -867,9 +763,6 @@ Birden fazla aygıtınıx varsa, giriş için kullanmak istediğiniz aygıtı se
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>MIDI Giriş Aygıtını Seçiniz</value>
   </data>
-  <data name="label_midi_input_device.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 20</value>
   </data>
@@ -882,9 +775,6 @@ Bu, harici MIDI aygıtlarını veya yazılım sentezleyicilerini kullanmanıza o
   </data>
   <data name="group_midi_output_devices.Text" xml:space="preserve">
     <value>MIDI Çıkış Aygıtları</value>
-  </data>
-  <data name="group_midi_output_devices.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comboBox_midi_output_instrument.Items" xml:space="preserve">
     <value>Akustik Kuyruklu Piyano</value>
@@ -1278,9 +1168,6 @@ Emin değilseniz, olduğu gibi bırakın.</value>
   <data name="label_instrument.Text" xml:space="preserve">
     <value>Enstrüman</value>
   </data>
-  <data name="label_instrument.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label_channel.Location" type="System.Drawing.Point, System.Drawing">
     <value>33, 78</value>
   </data>
@@ -1289,9 +1176,6 @@ Emin değilseniz, olduğu gibi bırakın.</value>
   </data>
   <data name="label_channel.Text" xml:space="preserve">
     <value>Kanal</value>
-  </data>
-  <data name="label_channel.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="refresh_midi_output_button.Text" xml:space="preserve">
     <value>Yenile</value>
@@ -1309,17 +1193,11 @@ Bağlı bir MIDI aygıtınız varsa burada görünmelidir.</value>
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>MIDI Çıkış Aygıtını Seçiniz</value>
   </data>
-  <data name="label_midi_output_device.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 284</value>
   </data>
   <data name="groupBox_other_devices.Text" xml:space="preserve">
     <value>Diğer Aygıtlar</value>
-  </data>
-  <data name="groupBox_other_devices.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
     <value>100, 252</value>
@@ -1337,9 +1215,6 @@ Bağlı bir MIDI aygıtınız varsa burada görünmelidir.</value>
     <value>Uyarı: Lütfen bu özelliği kullanmadan önce mikrodenetleyicinize aşağıdaki düğmeye tıklayarak bulabileceğiniz uyumlu bir yazılım yüklenmiş olduğundan emin olunuz.
 Eğer mikrodenetleyicinize yazılım yüklenmemiş ise onay kutusu grileşmiş olarak kalacaktır.</value>
   </data>
-  <data name="label_firmware_warning.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="trackBar_stepper_motor_octave.Location" type="System.Drawing.Point, System.Drawing">
     <value>124, 129</value>
   </data>
@@ -1354,14 +1229,8 @@ Step motoru, seçilen oktava karşılık gelen bir hızda çalışacaktır.
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Step motoru oktavı</value>
   </data>
-  <data name="label_stepper_motor_octave.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="groupBox_type_of_device.Text" xml:space="preserve">
     <value>Aygıt Türü</value>
-  </data>
-  <data name="groupBox_type_of_device.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 20</value>
@@ -1397,14 +1266,8 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 607</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="group_keyboard_colors.Text" xml:space="preserve">
     <value>Klavye Renkleri</value>
-  </data>
-  <data name="group_keyboard_colors.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 71</value>
@@ -1436,20 +1299,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="third_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 75</value>
   </data>
-  <data name="third_octave_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="second_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 51</value>
   </data>
-  <data name="second_octave_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="first_octave_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 27</value>
-  </data>
-  <data name="first_octave_color.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 75</value>
@@ -1460,9 +1314,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label4.Text" xml:space="preserve">
     <value>Üçüncü Oktav Rengi</value>
   </data>
-  <data name="label4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 51</value>
   </data>
@@ -1471,9 +1322,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>İkinci Oktav Rengi</value>
-  </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 27</value>
@@ -1484,14 +1332,8 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label2.Text" xml:space="preserve">
     <value>İlk Oktav Rengi</value>
   </data>
-  <data name="label2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
     <value>Düğme ve Kontrol Renkleri</value>
-  </data>
-  <data name="group_buttons_and_controls_colors.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 163</value>
@@ -1559,44 +1401,23 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="markup_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 167</value>
   </data>
-  <data name="markup_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="metronome_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 141</value>
-  </data>
-  <data name="metronome_color.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="playback_buttons_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 117</value>
   </data>
-  <data name="playback_buttons_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="erase_whole_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 93</value>
-  </data>
-  <data name="erase_whole_line_color.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="unselect_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 69</value>
   </data>
-  <data name="unselect_line_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="clear_notes_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 45</value>
   </data>
-  <data name="clear_notes_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="blank_line_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 22</value>
-  </data>
-  <data name="blank_line_color.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1610,9 +1431,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label1.Text" xml:space="preserve">
     <value>Klavye İşaretleme Rengi</value>
   </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1624,9 +1442,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>Metronom Rengi</value>
-  </data>
-  <data name="label10.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1640,9 +1455,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label8.Text" xml:space="preserve">
     <value>Oynatma Düğmeleri Rengi</value>
   </data>
-  <data name="label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1654,9 +1466,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Tüm Satırı Silme Rengi</value>
-  </data>
-  <data name="label9.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1670,9 +1479,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label5.Text" xml:space="preserve">
     <value>Seçimi Kaldırma Rengi</value>
   </data>
-  <data name="label5.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
@@ -1684,9 +1490,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Notaları Temizleme Rengi</value>
-  </data>
-  <data name="label6.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1700,14 +1503,8 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label7.Text" xml:space="preserve">
     <value>Boş Satır Rengi</value>
   </data>
-  <data name="label7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="group_indicator_colors.Text" xml:space="preserve">
     <value>Gösterge Renkleri</value>
-  </data>
-  <data name="group_indicator_colors.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 47</value>
@@ -1736,20 +1533,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label12.Text" xml:space="preserve">
     <value>Nota Göstergesi Rengi</value>
   </data>
-  <data name="label12.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="beep_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 27</value>
   </data>
-  <data name="beep_indicator_color.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="note_indicator_color.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 51</value>
-  </data>
-  <data name="note_indicator_color.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 27</value>
@@ -1760,9 +1548,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="label11.Text" xml:space="preserve">
     <value>Bip Sesi Göstergesi Rengi</value>
   </data>
-  <data name="label11.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="group_lyrics_size_settings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -1771,9 +1556,6 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   </data>
   <data name="group_lyrics_size_settings.Text" xml:space="preserve">
     <value>Şarkı Sözü/Metin Etkinlikleri</value>
-  </data>
-  <data name="group_lyrics_size_settings.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="buttonPreviewLyrics.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 64</value>
@@ -1784,20 +1566,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
   <data name="buttonPreviewLyrics.Text" xml:space="preserve">
     <value>Şarkı Sözleri/Metin Olay Ayarlarını Önizle</value>
   </data>
-  <data name="buttonPreviewLyrics.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="labelPt.Location" type="System.Drawing.Point, System.Drawing">
     <value>270, 32</value>
   </data>
-  <data name="labelPt.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="numericUpDownLyricsSize.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 29</value>
-  </data>
-  <data name="numericUpDownLyricsSize.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
@@ -1812,17 +1585,11 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
     <value>Şarkı Sözü/Metin Etkinlikleri 
 Boyutu</value>
   </data>
-  <data name="label13.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>56, 501</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 53</value>
-  </data>
-  <data name="panel2.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 4</value>
@@ -1841,9 +1608,6 @@ Boyutu</value>
   </data>
   <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
     <value>244, 48</value>
-  </data>
-  <data name="contextMenuStripSystemSpeakerTests.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="standardTuneTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>243, 22</value>
@@ -2188,8 +1952,5 @@ Boyutu</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>NeoBleeper Ayarları</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

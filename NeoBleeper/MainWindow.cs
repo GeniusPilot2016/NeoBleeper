@@ -127,7 +127,6 @@ namespace NeoBleeper
             trackBar_note_silence_ratio.DoubleBuffering(true);
             trackBar_time_signature.DoubleBuffering(true);
             UpdateUndoRedoButtons();
-            ResizeCheckBoxTextSizes();
             ResizeColumn();
             RefreshMainWindow();
             comboBox_note_length.SelectedIndex = 3; // Default to "1/8" note length
@@ -142,60 +141,6 @@ namespace NeoBleeper
             }
             InitializePercussionNames();
             this.ResumeLayout();
-        }
-
-        /// <summary>
-        /// Adjusts the text size of multiple check box controls to ensure consistent appearance.
-        /// </summary>
-        /// <remarks>This method updates the text size for a predefined set of check box controls,
-        /// typically to maintain visual consistency after font or DPI changes. It should be called whenever the
-        /// application's UI is updated in a way that may affect control sizing.</remarks>
-        private void ResizeCheckBoxTextSizes()
-        {
-            ResizeCheckBoxTextSizes(checkBox_mute_playback);
-            ResizeCheckBoxTextSizes(checkBox_bleeper_portamento);
-            ResizeCheckBoxTextSizes(checkBox_use_voice_system);
-            ResizeCheckBoxTextSizes(checkBox_synchronized_play);
-            ResizeCheckBoxTextSizes(checkBox_play_beat_sound);
-            ResizeCheckBoxTextSizes(checkBox_use_keyboard_as_piano);
-            ResizeCheckBoxTextSizes(checkBox_do_not_update);
-        }
-        /// <summary>
-        /// Adjusts the font size of the specified CheckBox so that its text fits within the control's bounds.
-        /// </summary>
-        /// <remarks>This method reduces the font size of the CheckBox text as needed to ensure the entire
-        /// text is visible within the CheckBox's width and height. The font size will not be reduced below a minimum
-        /// threshold. If the text already fits, no changes are made.</remarks>
-        /// <param name="checkBox">The CheckBox control whose text font size will be adjusted. Cannot be null and must have non-empty text.</param>
-        private void ResizeCheckBoxTextSizes(CheckBox checkBox)
-        {
-            if (checkBox == null || string.IsNullOrEmpty(checkBox.Text))
-                return;
-
-            float minFontSize = 6.0f; // Minimum font size sınırı
-            float fontSize = checkBox.Font.Size;
-            Font originalFont = checkBox.Font;
-
-            using (Graphics g = checkBox.CreateGraphics())
-            {
-                SizeF textSize = g.MeasureString(checkBox.Text, checkBox.Font);
-
-                // Reduce font size until the text fits within the CheckBox bounds
-                while ((textSize.Width > checkBox.Width || textSize.Height > checkBox.Height) && fontSize > minFontSize)
-                {
-                    fontSize -= 0.5f;
-                    using (Font testFont = new Font(originalFont.FontFamily, fontSize, originalFont.Style))
-                    {
-                        textSize = g.MeasureString(checkBox.Text, testFont);
-                    }
-                }
-            }
-
-            // Apply the new font size if it has changed
-            if (fontSize != checkBox.Font.Size)
-            {
-                checkBox.Font = new Font(checkBox.Font.FontFamily, fontSize, checkBox.Font.Style);
-            }
         }
         private void InputLanguageManager_InputLanguageChanged(object? sender, EventArgs e)
         {
