@@ -2133,7 +2133,6 @@
             Controls.Add(button_bleeper_portamento_help);
             Controls.Add(button_play_beat_sound_help);
             Controls.Add(button_synchronized_play_help);
-            Controls.Add(checkBox_use_voice_system);
             Controls.Add(checkBox_use_keyboard_as_piano);
             Controls.Add(keyboard_panel);
             Controls.Add(checkBox_loop);
@@ -2146,7 +2145,6 @@
             Controls.Add(lbl_time_signature);
             Controls.Add(lbl_note_silence_ratio);
             Controls.Add(lbl_alternating_note_options);
-            Controls.Add(checkBox_do_not_update);
             Controls.Add(radioButtonPlay_alternating_notes2);
             Controls.Add(checkBox_spiccato);
             Controls.Add(checkBox_fermata);
@@ -2180,6 +2178,8 @@
             Controls.Add(btn_octave_increase);
             Controls.Add(btn_octave_decrease);
             Controls.Add(menuStrip1);
+            Controls.Add(checkBox_do_not_update);
+            Controls.Add(checkBox_use_voice_system);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
