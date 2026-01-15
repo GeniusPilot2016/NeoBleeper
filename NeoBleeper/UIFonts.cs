@@ -206,7 +206,7 @@ namespace NeoBleeper
                     Logger.Log($"Error setting font for menu item {item.Name}: {ex.Message}", Logger.LogTypes.Error);
                 }
 
-                // Eğer item bir ToolStripMenuItem ise, alt menü öğelerine de uygula
+                // Apply recursively for drop-down items
                 if (item is ToolStripMenuItem menuItem && menuItem.HasDropDownItems)
                 {
                     SetToolStripItemFontsRecursive(menuItem.DropDownItems, uiFonts);
@@ -227,7 +227,7 @@ namespace NeoBleeper
                     Logger.Log($"Error setting font for control {ctrl.Name}: {ex.Message}", Logger.LogTypes.Error);
                 }
 
-                // MenuStrip ve ToolStrip için özel işlem
+                // Special handling for ToolStrip controls
                 if (ctrl is MenuStrip menuStrip)
                 {
                     SetToolStripItemFontsRecursive(menuStrip.Items, uiFonts);
@@ -236,11 +236,98 @@ namespace NeoBleeper
                 {
                     SetToolStripItemFontsRecursive(toolStrip.Items, uiFonts);
                 }
+                // Special handling for ListView items
+                else if (ctrl is ListView listView)
+                {
+                    foreach (ListViewItem item in listView.Items)
+                    {
+                        try
+                        {
+                            item.Font = uiFonts.SetUIFont(listView.Font.Size, listView.Font.Style);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Log($"Error setting font for ListViewItem {item.Text}: {ex.Message}", Logger.LogTypes.Error);
+                        }
+                    }
+                }
+                // Special handling for TreeView nodes
+                else if (ctrl is TreeView treeView)
+                {
+                    foreach (TreeNode node in treeView.Nodes)
+                    {
+                        SetTreeNodeFontRecursive(node, uiFonts, treeView.Font.Size, treeView.Font.Style);
+                    }
+                }
+                // Special handling for TabControl pages
+                else if (ctrl is TabControl tabControl)
+                {
+                    foreach (TabPage page in tabControl.TabPages)
+                    {
+                        try
+                        {
+                            page.Font = uiFonts.SetUIFont(page.Font.Size, page.Font.Style);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Log($"Error setting font for TabPage {page.Name}: {ex.Message}", Logger.LogTypes.Error);
+                        }
+                        SetFontsRecursive(page, uiFonts);
+                    }
+                }
+                // Special handling for DataGridView (set font for cells)
+                else if (ctrl is DataGridView dgv)
+                {
+                    try
+                    {
+                        dgv.Font = uiFonts.SetUIFont(dgv.Font.Size, dgv.Font.Style);
+                        foreach (DataGridViewColumn col in dgv.Columns)
+                        {
+                            col.DefaultCellStyle.Font = uiFonts.SetUIFont(dgv.Font.Size, dgv.Font.Style);
+                        }
+                        foreach (DataGridViewRow row in dgv.Rows)
+                        {
+                            row.DefaultCellStyle.Font = uiFonts.SetUIFont(dgv.Font.Size, dgv.Font.Style);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"Error setting font for DataGridView: {ex.Message}", Logger.LogTypes.Error);
+                    }
+                }
+                // Special handling for PropertyGrid controls (set font for grid)
+                else if (ctrl is PropertyGrid propertyGrid)
+                {
+                    try
+                    {
+                        propertyGrid.Font = uiFonts.SetUIFont(propertyGrid.Font.Size, propertyGrid.Font.Style);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"Error setting font for PropertyGrid: {ex.Message}", Logger.LogTypes.Error);
+                    }
+                }
 
                 if (ctrl.HasChildren)
                 {
                     SetFontsRecursive(ctrl, uiFonts);
                 }
+            }
+        }
+
+        private static void SetTreeNodeFontRecursive(TreeNode node, UIFonts uiFonts, float size, FontStyle style)
+        {
+            try
+            {
+                node.NodeFont = uiFonts.SetUIFont(size, style);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error setting font for TreeNode {node.Text}: {ex.Message}", Logger.LogTypes.Error);
+            }
+            foreach (TreeNode child in node.Nodes)
+            {
+                SetTreeNodeFontRecursive(child, uiFonts, size, style);
             }
         }
 
