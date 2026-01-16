@@ -29,6 +29,7 @@ namespace NeoBleeper
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
         LyricsOverlay lyricsOverlay = new LyricsOverlay();
+        private string decryptedAPIKey = String.Empty;
         public SettingsWindow(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -160,7 +161,18 @@ namespace NeoBleeper
                     labelGoogleGeminiAPIWarning.Visible = true;
                 }
             }
-            textBoxAPIKey.Text = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            try
+            {
+                if(!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                {
+                    decryptedAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                }                
+            }
+            catch
+            {
+                decryptedAPIKey = string.Empty;
+            }
+            textBoxAPIKey.Text = decryptedAPIKey;
             if (Settings1.Default.geminiAPIKey != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
@@ -507,10 +519,12 @@ namespace NeoBleeper
         }
         private void tabControl_settings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent == true)
-            {
-                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
-            }
+            // When the Settings tab is changed, ensure the API key textbox and show/hide button are updated accordingly
+            buttonShowHide.Text = Properties.Resources.TextShow;
+            toolTip1.SetToolTip(buttonShowHide, Properties.Resources.ShowAPIKeyToolTip);
+            buttonShowHide.ImageIndex = 12;
+            textBoxAPIKey.UseSystemPasswordChar = true;
+            textBoxAPIKey.Text = decryptedAPIKey; // Refresh the API key textbox when the tab index changes if text is changed, but not saved yet
         }
         bool isTestingSystemSpeaker = false;
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
@@ -1612,7 +1626,9 @@ namespace NeoBleeper
                         EncryptionHelper.ChangeKeyAndIV();
 
                         // Now encrypt and save the API key with the new keys
-                        Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(textBoxAPIKey.Text);
+                        string unEncryptedAPIKey = textBoxAPIKey.Text;
+                        decryptedAPIKey = unEncryptedAPIKey;
+                        Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(unEncryptedAPIKey);
                         Settings1.Default.Save();
 
                         buttonUpdateAPIKey.Enabled = false;
@@ -1622,6 +1638,7 @@ namespace NeoBleeper
                     };
                     Action rejectAction = () =>
                     {
+                        decryptedAPIKey = string.Empty;
                         textBoxAPIKey.Text = string.Empty;
                         Logger.Log("User rejected the Google Gemini™ Terms of Service. API key not saved.", Logger.LogTypes.Info);
                     };
@@ -1664,6 +1681,7 @@ namespace NeoBleeper
         {
             try
             {
+                decryptedAPIKey = string.Empty;
                 Settings1.Default.geminiAPIKey = string.Empty;
                 Settings1.Default.Save();
                 EncryptionHelper.ChangeKeyAndIV();
