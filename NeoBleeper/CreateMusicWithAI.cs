@@ -63,9 +63,9 @@ namespace NeoBleeper
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             this.Owner = owner;
+            UIFonts.SetFonts(this);
             normalWindowSize = this.Size;
             loadingWindowSize = new Size(normalWindowSize.Width, (int)(normalWindowSize.Height + (normalWindowSize.Height * scaleFraction)));
-            UIFonts.SetFonts(this);
             SetTheme();
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
@@ -1486,28 +1486,28 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*```\s*$", String.Empty);
 
             // Standardize duration and note representations for NeoBleeper's expected format
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*1\s*$", "Whole", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*1/2\s*$", "Half", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*1/4\s*$", "Quarter", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Eighth\s*$", "1/8", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Sixteenth\s*$", "1/16", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty-second\s*$", "1/32", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty Second\s*$", "1/32", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*32nd\s*$", "1/32", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*16th\s*$", "1/16", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*8th\s*$", "1/8", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Quarter Note\s*$", "Quarter", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Half Note\s*$", "Half", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Whole Note\s*$", "Whole", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Eighth Note\s*$", "1/8", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Sixteenth Note\s*$", "1/16", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty-second Note\s*$", "1/32", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*Thirty Second Note\s*$", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b1/2\b", "Half", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b1/4\b", "Quarter", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(?<=^|\W)1(?![/])(?=\W|$)", "Whole", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEighth\b", "1/8", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSixteenth\b", "1/16", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bThirty-second\b", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bThirty Second\b", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b32nd\b", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b16th\b", "1/16", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\b8th\b", "1/8", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bQuarter Note\b", "Quarter", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bHalf Note\b", "Half", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bWhole Note\b", "Whole", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bEighth Note\b", "1/8", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bSixteenth Note\b", "1/16", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bThirty-second Note\b", "1/32", RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bThirty Second Note\b", "1/32", RegexOptions.IgnoreCase);
 
             // Standardize note and silence representations
             
             // Standardize rests
-            nbpmlContent = Regex.Replace(nbpmlContent, @"\s*R\s*$", string.Empty, RegexOptions.IgnoreCase);
+            nbpmlContent = Regex.Replace(nbpmlContent, @"\bR\b", string.Empty, RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G])", "$2$1");
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G]#?)", "$2$1");
             nbpmlContent = Regex.Replace(nbpmlContent, @"N(\d)([A-G][#b]?)", "$2$1");
@@ -2562,6 +2562,12 @@ namespace NeoBleeper
                 throw new Exception("Invalid XML: Root element is missing or incorrect.");
             }
 
+            // Fix residual broken tags
+            nbpmlString = FixResidualBrokenTags(nbpmlString);
+
+            // Remove remaining foreign texts outside of tags
+            nbpmlString = RemoveForeignTextInsideNBPMLContent(nbpmlString);
+
             // Additional transformations for NBPML compliance
             nbpmlString = FixParameterNames(nbpmlString);
             nbpmlString = nbpmlString.Trim();
@@ -2591,6 +2597,51 @@ namespace NeoBleeper
 
             nbpmlString = nbpmlString.Trim();
             return nbpmlString;
+        }
+
+        /// <summary>
+        /// Cleans up residual or malformed XML tags in the specified NBPML content string to ensure structural
+        /// consistency.
+        /// </summary>
+        /// <remarks>This method removes redundant or empty tags, and ensures that required closing tags
+        /// for &lt;LineList&gt; and &lt;NeoBleeperProjectFile&gt; elements are present. It is intended to help maintain well-formed
+        /// NBPMl XML content before further processing or parsing.</remarks>
+        /// <param name="nbpmlContent">The NBPML content as a string to be checked and corrected for broken or orphaned XML tags.</param>
+        /// <returns>A string containing the corrected NBPMl content with extraneous or malformed tags removed and missing
+        /// closing tags added as needed.</returns>
+        private string FixResidualBrokenTags(string nbpmlContent)
+        {
+            // Remove <Tag>Tag</Tag> tags entirely
+            nbpmlContent = Regex.Replace(
+            nbpmlContent,
+            @"<(?<tag>\w+)>\s*\k<tag>\s*</\k<tag>>",
+            string.Empty,
+            RegexOptions.IgnoreCase);
+
+            // Remove orphaned tags without any value (except NeoBleeperProjectFile and LineList)
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<(?<tag>(?!NeoBleeperProjectFile|LineList)\w+)>\s*</\k<tag>>",
+                string.Empty,
+                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+            // Add missing </LineList> if <LineList> exists without closing tag before </NeoBleeperProjectFile>
+            if (nbpmlContent.Contains("<LineList>") && !nbpmlContent.Contains("</LineList>"))
+            {
+                nbpmlContent = Regex.Replace(
+                    nbpmlContent,
+                    @"(</NeoBleeperProjectFile\s*>)",
+                    "    </LineList>\r\n$1",
+                    RegexOptions.IgnoreCase
+                );
+            }
+
+            // Add missing </NeoBleeperProjectFile> if <NeoBleeperProjectFile> exists without closing tag at the end
+            if (nbpmlContent.Contains("<NeoBleeperProjectFile>") && !nbpmlContent.Contains("</NeoBleeperProjectFile>"))
+            {
+                nbpmlContent += "\r\n</NeoBleeperProjectFile>";
+            }
+            return nbpmlContent;
         }
 
         /// <summary>
@@ -2948,6 +2999,41 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
             nbpmlContent = Regex.Replace(nbpmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
             return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Removes any non-NBPML (foreign) text that appears outside or between tags in the specified NBPML content
+        /// string.
+        /// </summary>
+        /// <remarks>This method is useful for sanitizing NBPML files that may have been corrupted or
+        /// contain unexpected text outside the expected XML structure. Only the content within the
+        /// <NeoBleeperProjectFile> root element and its valid child tags is preserved.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to process. May contain extraneous text before, after, or between XML tags.</param>
+        /// <returns>A string containing only the cleaned NBPML content, with all foreign text outside or between tags removed.
+        /// Returns an empty string if the input is null or empty.</returns>
+        private string RemoveForeignTextInsideNBPMLContent(string nbpmlContent)
+        {
+            if (string.IsNullOrEmpty(nbpmlContent))
+            {
+                return string.Empty;
+            }
+            // Clean foreign text before the root tag (<NeoBleeperProjectFile>)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"^[\s\S]*(<NeoBleeperProjectFile>)", "$1", RegexOptions.IgnoreCase);
+
+            // Clean foreign text after the closing root tag (</NeoBleeperProjectFile>)
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(</NeoBleeperProjectFile>)[\s\S]*", "$1", RegexOptions.IgnoreCase);
+
+            // 1. Clear foreign text that appears before an opening tag at the beginning of a line (for example: "incomplete <Line>")
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(?m)^[^<>\n]+(?=<)", string.Empty);
+
+            // 2. Clear foreign text that appears after a closing tag at the end of a line (for example: "</Line> incomplete")
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(?m)(?<=/>|>)[^<>\n]+$", string.Empty);
+
+            // 3. Clear foreign text that appears between tags on the same line (for example: "<Tag> incomplete </Tag>")
+            // This regex targets text between tags that is not just whitespace
+            nbpmlContent = Regex.Replace(nbpmlContent, @"(?<=/>|</\w+>)\s*[^<>\s][^<>]*?\s*(?=<)", string.Empty, RegexOptions.Multiline);
+
+            return nbpmlContent.Trim();
         }
 
         /// <summary>

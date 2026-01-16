@@ -118,36 +118,66 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 26</value>
   </data>
-  <data name="general_settings.Text" xml:space="preserve">
-    <value>Загальне</value>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 24</value>
   </data>
-  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
+    <value>Змінити мову програми</value>
   </data>
-  <data name="creating_sound_settings.Text" xml:space="preserve">
-    <value>Створення звуків</value>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
   </data>
-  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Мова</value>
   </data>
-  <data name="devices_settings.Text" xml:space="preserve">
-    <value>Пристрої</value>
+  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
+    <value>Мовні налаштування</value>
   </data>
-  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 20</value>
   </data>
-  <data name="appearance.Text" xml:space="preserve">
-    <value>Зовнішній вигляд</value>
+  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
+    <value>Класичний режим зумеру</value>
+  </data>
+  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
+    <value>Увімкнення або вимкнення класичного режиму Bleeper</value>
+  </data>
+  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 16</value>
+  </data>
+  <data name="lbl_theme.Text" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="comboBox_theme.Items" xml:space="preserve">
+    <value>Використати системну тему</value>
+  </data>
+  <data name="comboBox_theme.Items1" xml:space="preserve">
+    <value>Світла</value>
+  </data>
+  <data name="comboBox_theme.Items2" xml:space="preserve">
+    <value>Темна</value>
+  </data>
+  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 24</value>
+  </data>
+  <data name="comboBox_theme.ToolTip" xml:space="preserve">
+    <value>Змінити тему програми</value>
+  </data>
+  <data name="groupBox_appearance.Text" xml:space="preserve">
+    <value>Загальний вигляд</value>
   </data>
   <data name="imageList_settings.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApk0AAAJNU0Z0AUkBTAIBARIB
-        AAGwAQcBsAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAHAAQcBwAEHARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -182,7 +212,7 @@
         ewH/AYwBgwF5Af8BiwGBAXcB/wGJAYABdQH/AYcBfgFzAf+cAAJVAVMBqhz/A/AB/wPwAf8D8AH/A/AB
         /wPwAf8D8AH/A/AB/wHdAaABUAH/FAADNQFVBAABCAG8Af4B/wgAAQgBvAH+Af8EAAM1AVUIAAEIAbwB
         /gH/oAADIwEyAfoB8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAAB
-        XgJqAe0IAAFdAWoBbAHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
+        XgJqAe0IAAFdAWgBagHsBAADMgFPCAABXgJqAe3/AP8A/wD/AP8AvQADHgErAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -481,72 +511,6 @@
         AAn/AwAL
 </value>
   </data>
-  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 688</value>
-  </data>
-  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 643</value>
-  </data>
-  <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
-    <value>Мовні налаштування</value>
-  </data>
-  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>53, 26</value>
-  </data>
-  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 24</value>
-  </data>
-  <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
-    <value>Змінити мову програми</value>
-  </data>
-  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 16</value>
-  </data>
-  <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Мова</value>
-  </data>
-  <data name="groupBox_appearance.Text" xml:space="preserve">
-    <value>Загальний вигляд</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 20</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.Text" xml:space="preserve">
-    <value>Класичний режим зумеру</value>
-  </data>
-  <data name="checkBoxClassicBleeperMode.ToolTip" xml:space="preserve">
-    <value>Увімкнення або вимкнення класичного режиму Bleeper</value>
-  </data>
-  <data name="lbl_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 16</value>
-  </data>
-  <data name="lbl_theme.Text" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-  <data name="comboBox_theme.Items" xml:space="preserve">
-    <value>Використати системну тему</value>
-  </data>
-  <data name="comboBox_theme.Items1" xml:space="preserve">
-    <value>Світла</value>
-  </data>
-  <data name="comboBox_theme.Items2" xml:space="preserve">
-    <value>Темна</value>
-  </data>
-  <data name="comboBox_theme.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 25</value>
-  </data>
-  <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 24</value>
-  </data>
-  <data name="comboBox_theme.ToolTip" xml:space="preserve">
-    <value>Змінити тему програми</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 175</value>
-  </data>
-  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
-    <value>Створюйте музику за допомогою штучного інтелекту</value>
-  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 140</value>
   </data>
@@ -600,12 +564,21 @@
   <data name="labelAPIKey.Text" xml:space="preserve">
     <value>Ключ API Google Gemini™</value>
   </data>
+  <data name="textBoxAPIKey.PlaceholderText" xml:space="preserve">
+    <value>Введіть тут ключ API Google Gemini™...</value>
+  </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>280, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
     <value>Встановіть тут свій ключ API, щоб використовувати функцію генерації музики за допомогою штучного інтелекту.
 Ви можете отримати свій ключ API за посиланням https://aistudio.google.com/app/apikey.</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 175</value>
+  </data>
+  <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
+    <value>Створюйте музику за допомогою штучного інтелекту</value>
   </data>
   <data name="labelGoogleGeminiAPIWarning.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 340</value>
@@ -617,15 +590,6 @@
     <value>У вашому регіоні (Європейська економічна зона, 
 Швейцарія або Велика Британія) API Google Gemini™ 
 може бути доступний лише як платна послуга. Переконайтеся, що ваш ключ API призначений для платного облікового запису.</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 407</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 117</value>
-  </data>
-  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
-    <value>Тестування системи динаміка</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
     <value>112, 22</value>
@@ -645,11 +609,14 @@
   <data name="label_test_system_speaker_message.Text" xml:space="preserve">
     <value>Якщо ви не чуєте жодного звуку, можна скористатися функцією «Використовувати звуковий пристрій для створення звукового сигналу».</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 530</value>
+  <data name="groupBox_system_speaker_test.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 407</value>
   </data>
-  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 109</value>
+  <data name="groupBox_system_speaker_test.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 117</value>
+  </data>
+  <data name="groupBox_system_speaker_test.Text" xml:space="preserve">
+    <value>Тестування системи динаміка</value>
   </data>
   <data name="label_test_system_speaker_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 99</value>
@@ -669,8 +636,20 @@
   <data name="label_test_system_speaker_message_4.Text" xml:space="preserve">
     <value>Якщо ви не чуєте звуку або звук пошкоджений, спробуйте перевести комп’ютер у режим сну та розбудити його. Це може допомогти переініціалізувати системний динамік на уражених чипсетах.</value>
   </data>
-  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 530</value>
+  </data>
+  <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 109</value>
+  </data>
+  <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
+  </data>
+  <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 653</value>
+  </data>
+  <data name="general_settings.Text" xml:space="preserve">
+    <value>Загальне</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>395, 36</value>
@@ -681,21 +660,6 @@
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.ToolTip" xml:space="preserve">
     <value>Використовуйте звуковий пристрій замість системного динаміка для створення звукового сигналу</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 45</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 248</value>
-  </data>
-  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
-    <value>Створення звукового сигналу з налаштувань звукового пристрою</value>
-  </data>
-  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 114</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 71</value>
   </data>
   <data name="label_create_beep_from_soundcard_automatically_activated_message_2.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 61</value>
@@ -715,14 +679,17 @@
   <data name="label_create_beep_from_soundcard_automatically_activated_message_3.Text" xml:space="preserve">
     <value>Функція «Використовувати звуковий пристрій для створення звукового сигналу» автоматично вмикається через системні обмеження або проблеми сумісності чіпсета для забезпечення стабільного виводу звуку.</value>
   </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 71</value>
+  </data>
   <data name="button_show_reason.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 80</value>
   </data>
   <data name="button_show_reason.Text" xml:space="preserve">
     <value>Покажіть причину цієї ситуації</value>
   </data>
-  <data name="group_tone_waveform.Text" xml:space="preserve">
-    <value>Тональна хвиля</value>
+  <data name="flowLayoutPanelSoundDeviceBeepEnabledInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 114</value>
   </data>
   <data name="radioButton_noise.Size" type="System.Drawing.Size, System.Drawing">
     <value>243, 20</value>
@@ -748,8 +715,26 @@
   <data name="radioButton_square.Text" xml:space="preserve">
     <value>Квадрат (за замовчуванням)</value>
   </data>
-  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_tone_waveform.Text" xml:space="preserve">
+    <value>Тональна хвиля</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 45</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 248</value>
+  </data>
+  <data name="group_beep_creation_from_sound_card_settings.Text" xml:space="preserve">
+    <value>Створення звукового сигналу з налаштувань звукового пристрою</value>
+  </data>
+  <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
+  </data>
+  <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 653</value>
+  </data>
+  <data name="creating_sound_settings.Text" xml:space="preserve">
+    <value>Створення звуків</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 20</value>
@@ -759,9 +744,6 @@
   </data>
   <data name="checkBox_use_midi_input.ToolTip" xml:space="preserve">
     <value>Використовуйте пристрій введення MIDI для надсилання нот на NeoBleeper.</value>
-  </data>
-  <data name="group_midi_input_devices.Text" xml:space="preserve">
-    <value>Вхідні пристрої MIDI</value>
   </data>
   <data name="refresh_midi_input_button.Location" type="System.Drawing.Point, System.Drawing">
     <value>317, 37</value>
@@ -788,6 +770,9 @@
   <data name="label_midi_input_device.Text" xml:space="preserve">
     <value>Виберіть MIDI-пристрій введення</value>
   </data>
+  <data name="group_midi_input_devices.Text" xml:space="preserve">
+    <value>Вхідні пристрої MIDI</value>
+  </data>
   <data name="checkBox_use_midi_output.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 20</value>
   </data>
@@ -796,9 +781,6 @@
   </data>
   <data name="checkBox_use_midi_output.ToolTip" xml:space="preserve">
     <value>Використовуйте вихідний MIDI-пристрій для відтворення нот.</value>
-  </data>
-  <data name="group_midi_output_devices.Text" xml:space="preserve">
-    <value>Вихідні MIDI-пристрої</value>
   </data>
   <data name="comboBox_midi_output_instrument.Items" xml:space="preserve">
     <value>Акустичний рояль</value>
@@ -1286,11 +1268,8 @@
   <data name="label_midi_output_device.Text" xml:space="preserve">
     <value>Виберіть вихідний MIDI-пристрій</value>
   </data>
-  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
-    <value>407, 302</value>
-  </data>
-  <data name="groupBox_other_devices.Text" xml:space="preserve">
-    <value>Інші пристрої</value>
+  <data name="group_midi_output_devices.Text" xml:space="preserve">
+    <value>Вихідні MIDI-пристрої</value>
   </data>
   <data name="button_get_firmware.Location" type="System.Drawing.Point, System.Drawing">
     <value>98, 267</value>
@@ -1325,9 +1304,6 @@
   <data name="label_stepper_motor_octave.Text" xml:space="preserve">
     <value>Октава крокового двигуна</value>
   </data>
-  <data name="groupBox_type_of_device.Text" xml:space="preserve">
-    <value>Тип пристрою</value>
-  </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 20</value>
   </data>
@@ -1351,6 +1327,9 @@
 Також його можна використовувати для генерації звуку шляхом регулювання швидкості обертання для створення різних частот.
 Він використовує контакт 9 для напрямку та контакт 10 для кроку в Arduino, GPIO 21 для напрямку та GPIO 20 для кроку в Raspberry Pi, а також контакт 27 для напрямку та контакт 26 для кроку в ESP32.</value>
   </data>
+  <data name="groupBox_type_of_device.Text" xml:space="preserve">
+    <value>Тип пристрою</value>
+  </data>
   <data name="checkBox_use_microcontroller.Size" type="System.Drawing.Size, System.Drawing">
     <value>391, 38</value>
   </data>
@@ -1361,14 +1340,20 @@
     <value>Використовуйте мікроконтролер для роботи з двигуном або зумером.
 Якщо ви використовуєте двигун, ви можете керувати його швидкістю за допомогою повзунка модулятора швидкості двигуна.</value>
   </data>
-  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="groupBox_other_devices.Size" type="System.Drawing.Size, System.Drawing">
+    <value>407, 302</value>
+  </data>
+  <data name="groupBox_other_devices.Text" xml:space="preserve">
+    <value>Інші пристрої</value>
+  </data>
+  <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
   </data>
-  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 2</value>
+  <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 653</value>
   </data>
-  <data name="group_keyboard_colors.Text" xml:space="preserve">
-    <value>Кольори клавіатури</value>
+  <data name="devices_settings.Text" xml:space="preserve">
+    <value>Пристрої</value>
   </data>
   <data name="third_octave_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>321, 70</value>
@@ -1451,11 +1436,11 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Колір першої октави</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 109</value>
+  <data name="group_keyboard_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 2</value>
   </data>
-  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
-    <value>Кольори кнопок та елементів керування</value>
+  <data name="group_keyboard_colors.Text" xml:space="preserve">
+    <value>Кольори клавіатури</value>
   </data>
   <data name="markup_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>321, 165</value>
@@ -1643,11 +1628,11 @@
   <data name="label7.Text" xml:space="preserve">
     <value>Колір порожнього рядка</value>
   </data>
-  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 309</value>
+  <data name="group_buttons_and_controls_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 109</value>
   </data>
-  <data name="group_indicator_colors.Text" xml:space="preserve">
-    <value>Кольори індикаторів</value>
+  <data name="group_buttons_and_controls_colors.Text" xml:space="preserve">
+    <value>Кольори кнопок та елементів керування</value>
   </data>
   <data name="note_indicator_color_change.Location" type="System.Drawing.Point, System.Drawing">
     <value>321, 46</value>
@@ -1703,14 +1688,11 @@
   <data name="label11.Text" xml:space="preserve">
     <value>Колір індикатора звукового сигналу</value>
   </data>
-  <data name="group_lyrics_size_settings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 393</value>
+  <data name="group_indicator_colors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 309</value>
   </data>
-  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 109</value>
-  </data>
-  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
-    <value>Тексти пісень/Події з текстами пісень</value>
+  <data name="group_indicator_colors.Text" xml:space="preserve">
+    <value>Кольори індикаторів</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonPreviewLyrics.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -1752,11 +1734,14 @@
   <data name="label13.Text" xml:space="preserve">
     <value>Розмір подій тексту/тексту пісні</value>
   </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 507</value>
+  <data name="group_lyrics_size_settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 393</value>
   </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 50</value>
+  <data name="group_lyrics_size_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>408, 109</value>
+  </data>
+  <data name="group_lyrics_size_settings.Text" xml:space="preserve">
+    <value>Тексти пісень/Події з текстами пісень</value>
   </data>
   <data name="reset_appearance_settings.Location" type="System.Drawing.Point, System.Drawing">
     <value>62, 4</value>
@@ -1773,8 +1758,23 @@
   <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
     <value>Скинути всі налаштування зовнішнього вигляду до значень за замовчуванням</value>
   </data>
-  <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 48</value>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 507</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>408, 50</value>
+  </data>
+  <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>413, 643</value>
+  </data>
+  <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 653</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Зовнішній вигляд</value>
+  </data>
+  <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>431, 688</value>
   </data>
   <data name="standardTuneTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>295, 22</value>
@@ -1793,6 +1793,9 @@
   </data>
   <data name="advancedSystemSpeakerTestToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Перевірте функції та діагностику розширених системних динаміків.</value>
+  </data>
+  <data name="contextMenuStripSystemSpeakerTests.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 48</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>439, 696</value>
