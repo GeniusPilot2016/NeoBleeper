@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using System.Xml;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -25,7 +26,7 @@ namespace NeoBleeper
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            richTextBox1.Text = text;
+            WriteToRichTextBoxAndHighlightError(text);
             UIFonts.SetFonts(this);
             richTextBox1.Font = new Font("Consolas", richTextBox1.Font.Size);
             SetTheme();
@@ -111,6 +112,77 @@ namespace NeoBleeper
         private void AIGeneratedNBPMLError_SystemColorsChanged(object sender, EventArgs e)
         {
             SetTheme();
+        }
+
+        /// <summary>
+        /// Parses the specified XML string, displays it in a RichTextBox, and highlights the first character where a
+        /// parsing error occurs.
+        /// </summary>
+        /// <remarks>This method visually distinguishes the first XML parsing error by highlighting the
+        /// corresponding character in the RichTextBox. Only the first error encountered is highlighted; subsequent
+        /// errors are not marked. The method does not modify the input string.</remarks>
+        /// <param name="brokenXML">The XML string to display and analyze for errors. If the string contains invalid XML, the first problematic
+        /// character will be highlighted.</param>
+        private void WriteToRichTextBoxAndHighlightError(string brokenXML)
+        {
+            // Collect parts of the XML with error info
+            List<(string text, bool isError)> parts = new();
+            string xml = brokenXML;
+            int offset = 0;
+
+            while (!string.IsNullOrEmpty(xml))
+            {
+                try
+                {
+                    // Try to parse the 'broken' XML
+                    var doc = new XmlDocument();
+                    doc.LoadXml(xml);
+                    // If successful, add the remaining part and exit
+                    parts.Add((xml, false));
+                    break;
+                }
+                catch (XmlException ex)
+                {
+                    // Find error position
+                    int line = ex.LineNumber;
+                    int pos = ex.LinePosition;
+
+                    // Find character index in the string
+                    int charIndex = 0;
+                    string[] lines = xml.Split('\n');
+                    for (int i = 0; i < line - 1 && i < lines.Length; i++)
+                        charIndex += lines[i].Length + 1;
+                    charIndex += pos - 1;
+
+                    // Seperate the string into parts
+                    string before = xml.Substring(0, Math.Min(charIndex, xml.Length));
+                    string errorChar = (charIndex < xml.Length) ? xml.Substring(charIndex, 1) : "";
+                    string after = (charIndex + 1 < xml.Length) ? xml.Substring(charIndex + 1) : "";
+
+                    if (!string.IsNullOrEmpty(before))
+                        parts.Add((before, false));
+                    if (!string.IsNullOrEmpty(errorChar))
+                        parts.Add((errorChar, true));
+
+                    // Retry with the remaining string
+                    xml = after;
+                    offset += charIndex + 1;
+                }
+            }
+
+            // Create RTF content with highlights
+            string EscapeRtf(string s) => s.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}");
+            var rtf = @"{\rtf1\ansi{\colortbl ;\red255\green255\blue255;\red255\green0\blue0;}";
+            foreach (var part in parts)
+            {
+                if (part.isError)
+                    rtf += @"{\highlight2\cf2 " + EscapeRtf(part.text) + "}";
+                else
+                    rtf += EscapeRtf(part.text);
+            }
+            rtf += "}";
+
+            richTextBox1.Rtf = rtf;
         }
     }
 }

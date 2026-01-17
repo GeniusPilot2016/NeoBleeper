@@ -215,13 +215,13 @@ namespace NeoBleeper
                 {
                     splashScreen.UpdateStatus(Resources.StatusInitializationCompleted, 0, true);
                     splashScreen.ResponsiveWait(2000);
-                    splashScreen.Close();
+                    CloseSplashAndSetClassicBleeperMode(); // Close splash screen and set Classic Bleeper mode
                     Application.Run(new MainWindow());
                 }
             }
             catch (Exception ex)
             {
-                splashScreen.Close();
+                splashScreen.Close(); // Ensure splash screen is closed on error without setting Classic Bleeper mode
                 Logger.Log("An error occurred while running the application: " + ex.Message, LogTypes.Error);
                 CrashReportingForm.GenerateAndShowCrashReport(ex.GetType().ToString(), ex.Message, ex.StackTrace);
                 Application.Exit();
@@ -317,7 +317,7 @@ namespace NeoBleeper
         private static bool ShowWarningAndGetUserDecision(Form warningForm)
         {
             splashScreen.UpdateStatus(Resources.StatusInitializationCompleted, 0, true);
-            splashScreen.Close();
+            CloseSplashAndSetClassicBleeperMode(); // Close splash screen and set Classic Bleeper mode
             DialogResult result = warningForm.ShowDialog();
             if (result == DialogResult.Yes)
             {
@@ -344,6 +344,18 @@ namespace NeoBleeper
             PowerManager.Initialize();
             ThemeManager.Initialize();
             InputLanguageManager.Initialize();
+            UIHelper.SetLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
+        }
+
+        /// <summary>
+        /// Configures the application's visual style state based on the Classic Bleeper mode setting.
+        /// </summary>
+        /// <remarks>This method updates the application's visual style to match the user's preference for
+        /// Classic Bleeper mode to resemble the original Bleeper Music Maker by Robbi-985 (aka SomethingUnreal). 
+        /// It should be called when the Classic Bleeper mode setting changes to ensure the application's appearance 
+        /// is consistent with the selected mode.</remarks>
+        private static void SetClassicBleeperMode()
+        {
             switch (Settings1.Default.ClassicBleeperMode)
             {
                 case true:
@@ -353,7 +365,6 @@ namespace NeoBleeper
                     Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
                     break;
             }
-            UIHelper.SetLanguageByName(Settings1.Default.preferredLanguage); // Set the language based on user preference
         }
 
         /// <summary>
@@ -522,6 +533,12 @@ namespace NeoBleeper
                     break;
             }
             Settings1.Default.Save();
+        }
+
+        private static void CloseSplashAndSetClassicBleeperMode()
+        {
+            splashScreen.Close();
+            SetClassicBleeperMode();
         }
 
         /// <summary>

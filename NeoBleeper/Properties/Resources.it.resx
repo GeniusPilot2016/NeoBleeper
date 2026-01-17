@@ -264,7 +264,7 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
     <value>Riproduci un suono ritmico</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Riattivazione degli altoparlanti di sistema per i chipset interessati... (potresti sentire dei clic/scoppiettii)</value>
+    <value>Riattivazione degli altoparlanti di sistema per i chipset interessati... (potresti sentire dei clic/lievi rumori)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Vengono raccolte informazioni di sistema.</value>
@@ -943,7 +943,7 @@ Vuoi aprire comunque questo file?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Controllo della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire dei clic/scoppiettii)</value>
+    <value>Controllo della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire dei clic/lievi rumori)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Componi un pattern ritmico con battiti sincopati</value>

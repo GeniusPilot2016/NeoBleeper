@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAEUAQgBFAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEsAQgBLAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -620,7 +620,7 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
     <value>Sistem Hoparlörünü Test Etme</value>
   </data>
   <data name="btn_test_system_speaker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 22</value>
+    <value>105, 22</value>
   </data>
   <data name="btn_test_system_speaker.Size" type="System.Drawing.Size, System.Drawing">
     <value>193, 30</value>
@@ -830,285 +830,6 @@ Bu, harici MIDI aygıtlarını veya yazılım sentezleyicilerini kullanmanıza o
   <data name="comboBox_midi_output_instrument.Items19" xml:space="preserve">
     <value>Kilise Orgu</value>
   </data>
-  <data name="comboBox_midi_output_instrument.Items20" xml:space="preserve">
-    <value>Kamışlı Org</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items21" xml:space="preserve">
-    <value>Akordeon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items22" xml:space="preserve">
-    <value>Armonika</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items23" xml:space="preserve">
-    <value>Tango Akordeonu</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items24" xml:space="preserve">
-    <value>Akustik Gitar (naylon)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items25" xml:space="preserve">
-    <value>Akustik Gitar (çelik)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items26" xml:space="preserve">
-    <value>Elektro Gitar (caz)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items27" xml:space="preserve">
-    <value>Elektro Gitar (temiz)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items28" xml:space="preserve">
-    <value>Elektro Gitar (susturulmuş)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items29" xml:space="preserve">
-    <value>Aşırı Yüklenmiş Gitar</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items30" xml:space="preserve">
-    <value>Distorsiyon Gitar</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items31" xml:space="preserve">
-    <value>Gitar harmonikleri</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items32" xml:space="preserve">
-    <value>Akustik Bas</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items33" xml:space="preserve">
-    <value>Elektrik Bas (parmak)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items34" xml:space="preserve">
-    <value>Elektrik Bas (mızrap)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items35" xml:space="preserve">
-    <value>Perdesiz Bas</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items36" xml:space="preserve">
-    <value>Slap Bas 1</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items37" xml:space="preserve">
-    <value>Slap Bas 2</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items38" xml:space="preserve">
-    <value>Synth Bas 1</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items39" xml:space="preserve">
-    <value>Synth Bas 2</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items40" xml:space="preserve">
-    <value>Keman</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items41" xml:space="preserve">
-    <value>Viyola</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items42" xml:space="preserve">
-    <value>Viyolonsel</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items43" xml:space="preserve">
-    <value>Kontrbas</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items44" xml:space="preserve">
-    <value>Tremolo Yaylılar</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items45" xml:space="preserve">
-    <value>Pizzicato Yaylılar</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items46" xml:space="preserve">
-    <value>Orkestra Arpı</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items48" xml:space="preserve">
-    <value>Yaylı Topluluğu 1</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items49" xml:space="preserve">
-    <value>Yaylı Topluluğu 2</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items50" xml:space="preserve">
-    <value>Synth Yaylılar 1</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items51" xml:space="preserve">
-    <value>Synth Yaylılar 2</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items52" xml:space="preserve">
-    <value>Koro Aahs</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items53" xml:space="preserve">
-    <value>Ses Oohs</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items54" xml:space="preserve">
-    <value>Ses</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items55" xml:space="preserve">
-    <value>Orkestra Vuruşu</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items56" xml:space="preserve">
-    <value>Trompet</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items57" xml:space="preserve">
-    <value>Trombon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items59" xml:space="preserve">
-    <value>Susturuculu Trompet</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items60" xml:space="preserve">
-    <value>Korno</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items61" xml:space="preserve">
-    <value>Bakır Üflemeliler Bölümü</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items62" xml:space="preserve">
-    <value>Synth Bakır 1</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items63" xml:space="preserve">
-    <value>Synth Bakır 2</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items64" xml:space="preserve">
-    <value>Soprano Saksafon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items65" xml:space="preserve">
-    <value>Alto Saksafon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items66" xml:space="preserve">
-    <value>Tenor Saksafon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items67" xml:space="preserve">
-    <value>Bariton Saksafon</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items68" xml:space="preserve">
-    <value>Obua</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items69" xml:space="preserve">
-    <value>İngiliz Kornosu</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items70" xml:space="preserve">
-    <value>Fagot</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items71" xml:space="preserve">
-    <value>Klarnet</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items72" xml:space="preserve">
-    <value>Pikolo</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items73" xml:space="preserve">
-    <value>Flüt</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items74" xml:space="preserve">
-    <value>Blokflüt</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items75" xml:space="preserve">
-    <value>Pan Flüt</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items76" xml:space="preserve">
-    <value>Üflenen Şişe</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items78" xml:space="preserve">
-    <value>Düdük</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items79" xml:space="preserve">
-    <value>Okarina</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items80" xml:space="preserve">
-    <value>Lead 1 (kare)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items81" xml:space="preserve">
-    <value>Lead 2 (testere dişi)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items85" xml:space="preserve">
-    <value>Lead 6 (ses)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items86" xml:space="preserve">
-    <value>Lead 7 (beşliler)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items87" xml:space="preserve">
-    <value>Lead 8 (bas + lead)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items89" xml:space="preserve">
-    <value>Pad 2 (sıcak)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items91" xml:space="preserve">
-    <value>Pad 4 (koro)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items92" xml:space="preserve">
-    <value>Pad 5 (yaylı)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items93" xml:space="preserve">
-    <value>Pad 6 (metalik)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items94" xml:space="preserve">
-    <value>Pad 7 (hale)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items95" xml:space="preserve">
-    <value>Pad 8 (süpürme)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items96" xml:space="preserve">
-    <value>FX 1 (yağmur)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items97" xml:space="preserve">
-    <value>FX 2 (film müziği)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items98" xml:space="preserve">
-    <value>FX 3 (kristal)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items99" xml:space="preserve">
-    <value>FX 4 (atmosfer)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items100" xml:space="preserve">
-    <value>FX 5 (parlaklık)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items101" xml:space="preserve">
-    <value>FX 6 (cinler)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items102" xml:space="preserve">
-    <value>FX 7 (yankılar)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items103" xml:space="preserve">
-    <value>FX 8 (bilim kurgu)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items109" xml:space="preserve">
-    <value>Gayda</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items110" xml:space="preserve">
-    <value>Keman (halk)</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items112" xml:space="preserve">
-    <value>Çıngırak Çan</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items114" xml:space="preserve">
-    <value>Çelik Davullar</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items115" xml:space="preserve">
-    <value>Tahta Blok</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items116" xml:space="preserve">
-    <value>Taiko Davul</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items117" xml:space="preserve">
-    <value>Melodik Tom</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items118" xml:space="preserve">
-    <value>Synth Davul</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items119" xml:space="preserve">
-    <value>Ters Zil</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items120" xml:space="preserve">
-    <value>Gitar Perde Sesi</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items121" xml:space="preserve">
-    <value>Nefes Sesi</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items122" xml:space="preserve">
-    <value>Deniz Kıyısı</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items123" xml:space="preserve">
-    <value>Kuş Cıvıltısı</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items124" xml:space="preserve">
-    <value>Telefon Zili</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items125" xml:space="preserve">
-    <value>Helikopter</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items126" xml:space="preserve">
-    <value>Alkış</value>
-  </data>
-  <data name="comboBox_midi_output_instrument.Items127" xml:space="preserve">
-    <value>Silah Sesi</value>
-  </data>
   <data name="comboBox_midi_output_instrument.ToolTip" xml:space="preserve">
     <value>MIDI çıkışı için kullanılacak enstrümanı seçiniz
 Enstrüman tüm MIDI çıkışları için kullanılacaktır.</value>
@@ -1234,6 +955,9 @@ Step motoru, seçilen oktava karşılık gelen bir hızda çalışacaktır.
   </data>
   <data name="groupBox_type_of_device.Text" xml:space="preserve">
     <value>Aygıt Türü</value>
+  </data>
+  <data name="radioButtonDCMotorOrBuzzer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 40</value>
   </data>
   <data name="radioButtonDCMotorOrBuzzer.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 20</value>
@@ -1605,9 +1329,6 @@ Boyutu</value>
   </data>
   <data name="reset_appearance_settings.Text" xml:space="preserve">
     <value>Görünüm Ayarlarını Varsayılan Değerlere Sıfırla</value>
-  </data>
-  <data name="reset_appearance_settings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
   </data>
   <data name="reset_appearance_settings.ToolTip" xml:space="preserve">
     <value>Tüm görünüm ayarlatını varsayolan değerlerine sıfırla</value>

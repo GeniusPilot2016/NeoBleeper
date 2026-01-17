@@ -264,7 +264,7 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
     <value>Reproducir un sonido rítmico</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Activación del altavoz del sistema para los chipsets afectados... (es posible que escuche ruidos de clic o estallidos)</value>
+    <value>Activación del altavoz del sistema para los chipsets afectados... (es posible que escuche ruidos de clic o chasquidos)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Se está recopilando información del sistema.</value>
@@ -943,7 +943,7 @@ Haz clic de nuevo para ocultarla.</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Comprobación de la presencia de salida del altavoz del sistema (altavoz de la PC) en el paso 2/2... (es posible que escuche ruidos de clic o estallidos)</value>
+    <value>Comprobación de la presencia de salida del altavoz del sistema (altavoz de la PC) en el paso 2/2... (es posible que escuche ruidos de clic o chasquidos)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Compón un patrón rítmico con ritmos sincopados</value>

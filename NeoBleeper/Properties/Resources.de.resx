@@ -267,7 +267,7 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
     <value>Spielen Sie einen Beat-Sound ab</value>
   </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
-    <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klick-/Knallgeräusche zu hören)</value>
+    <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klick-/"Knackgeräusche zu hören)</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Systeminformationen werden erfasst.</value>
