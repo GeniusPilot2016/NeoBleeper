@@ -2318,7 +2318,16 @@ namespace NeoBleeper
         { @"\bEighth Note\b", "1/8" },
         { @"\bSixteenth Note\b", "1/16" },
         { @"\bThirty-second Note\b", "1/32" },
-        { @"\bThirty Second Note\b", "1/32" }
+        { @"\bThirty Second Note\b", "1/32" },
+
+        // With index values
+        { @"<Length>\s*0\s*</Length>", "<Length>Whole</Length>" },
+        { @"<Length>\s*1\s*</Length>", "<Length>Half</Length>" },
+        { @"<Length>\s*2\s*</Length>", "<Length>Quarter</Length>" },
+        { @"<Length>\s*3\s*</Length>", "<Length>1/8</Length>" },
+        { @"<Length>\s*4\s*</Length>", "<Length>1/16</Length>" },
+        { @"<Length>\s*5\s*</Length>", "<Length>1/32</Length>" }
+
     };
 
             foreach (var pair in durationMap)
@@ -2409,54 +2418,68 @@ namespace NeoBleeper
             if (string.IsNullOrWhiteSpace(nbpmlContent))
                 return string.Empty;
 
+            // 1. <Tag=Value> veya <Tag="Value"> -> <Tag>Value</Tag>
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<(\w+)\s*=\s*""?([^"">]+)""?\s*>",
+                "<$1>$2</$1>",
+                RegexOptions.IgnoreCase);
+
+            // 2. <Tag=Value/> veya <Tag="Value"/> -> <Tag>Value</Tag>
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<(\w+)\s*=\s*""?([^""/>]+)""?\s*/>",
+                "<$1>$2</$1>",
+                RegexOptions.IgnoreCase);
+
             // Define correct tag name mappings
             var tagMappings = new Dictionary<string, string>
-    {
-        // Structure tags
-        { "neobleeperprojectfile", "NeoBleeperProjectFile" },
-        { "settings", "Settings" },
-        { "randomsettings", "RandomSettings" },
-        { "playbacksettings", "PlaybackSettings" },
-        { "clickplaynotes", "ClickPlayNotes" },
-        { "playnotes", "PlayNotes" },
-        { "linelist", "LineList" },
-        { "line", "Line" },
+            {
+                // Structure tags
+                { "neobleeperprojectfile", "NeoBleeperProjectFile" },
+                { "settings", "Settings" },
+                { "randomsettings", "RandomSettings" },
+                { "playbacksettings", "PlaybackSettings" },
+                { "clickplaynotes", "ClickPlayNotes" },
+                { "playnotes", "PlayNotes" },
+                { "linelist", "LineList" },
+                { "line", "Line" },
         
-        // Parameter tags
-        { "keyboardoctave", "KeyboardOctave" },
-        { "bpm", "BPM" },
-        { "timesignature", "TimeSignature" },
-        { "notesilenceratio", "NoteSilenceRatio" },
-        { "notelength", "NoteLength" },
-        { "alternatetime", "AlternateTime" },
-        { "noteclickplay", "NoteClickPlay" },
-        { "noteclickadd", "NoteClickAdd" },
-        { "notereplace", "NoteReplace" },
-        { "notelengthreplace", "NoteLengthReplace" },
+                // Parameter tags
+                { "keyboardoctave", "KeyboardOctave" },
+                { "bpm", "BPM" },
+                { "timesignature", "TimeSignature" },
+                { "notesilenceratio", "NoteSilenceRatio" },
+                { "notelength", "NoteLength" },
+                { "alternatetime", "AlternateTime" },
+                { "noteclickplay", "NoteClickPlay" },
+                { "noteclickadd", "NoteClickAdd" },
+                { "notereplace", "NoteReplace" },
+                { "notelengthreplace", "NoteLengthReplace" },
         
-        // Line content tags
-        { "length", "Length" },
-        { "mod", "Mod" },
-        { "art", "Art" },
-        { "note1", "Note1" },
-        { "note2", "Note2" },
-        { "note3", "Note3" },
-        { "note4", "Note4" },
+                // Line content tags
+                { "length", "Length" },
+                { "mod", "Mod" },
+                { "art", "Art" },
+                { "note1", "Note1" },
+                { "note2", "Note2" },
+                { "note3", "Note3" },
+                { "note4", "Note4" },
         
-        // Boolean tags
-        { "addnote1", "AddNote1" },
-        { "addnote2", "AddNote2" },
-        { "addnote3", "AddNote3" },
-        { "addnote4", "AddNote4" },
-        { "clickplaynote1", "ClickPlayNote1" },
-        { "clickplaynote2", "ClickPlayNote2" },
-        { "clickplaynote3", "ClickPlayNote3" },
-        { "clickplaynote4", "ClickPlayNote4" },
-        { "playnote1", "PlayNote1" },
-        { "playnote2", "PlayNote2" },
-        { "playnote3", "PlayNote3" },
-        { "playnote4", "PlayNote4" }
-    };
+                // Boolean tags
+                { "addnote1", "AddNote1" },
+                { "addnote2", "AddNote2" },
+                { "addnote3", "AddNote3" },
+                { "addnote4", "AddNote4" },
+                { "clickplaynote1", "ClickPlayNote1" },
+                { "clickplaynote2", "ClickPlayNote2" },
+                { "clickplaynote3", "ClickPlayNote3" },
+                { "clickplaynote4", "ClickPlayNote4" },
+                { "playnote1", "PlayNote1" },
+                { "playnote2", "PlayNote2" },
+                { "playnote3", "PlayNote3" },
+                { "playnote4", "PlayNote4" }
+            };
 
             // Fix opening tags
             foreach (var mapping in tagMappings)
@@ -2522,11 +2545,25 @@ namespace NeoBleeper
                 m => $"<{m.Groups["tag"].Value}>{m.Groups[2].Value}</{m.Groups["tag"].Value}>",
                 RegexOptions.Multiline);
 
-            // Remove unfinished start/self-closing tags at the end of lines
+            // Remove unstarted tags, which is just "<"
             input = Regex.Replace(
                 input,
-                @"<(?<partial>\w{0,})\s*$",
+                @"^(?<partial><\s*)\s*$",
                 "",
+                RegexOptions.Multiline);
+
+            // Remove unfinished, incomplete tags without any values like "<Tag", which was supposed to be "<Tag>", but got cut off
+            input = Regex.Replace(
+                input,
+                @"^(?<partial><\s*\w{1,})\s*$",
+                "",
+                RegexOptions.Multiline);
+
+            // Convert orphaned opening tags without any value like "<Tag>" at the end of the content to self-closing "<Tag />"
+            input = Regex.Replace(
+                input,
+                @"^(?<partial><\s*\w{1,}>)\s*$",
+                m => m.Groups["partial"].Value.Insert(m.Groups["partial"].Value.Length - 1, " /"),
                 RegexOptions.Multiline);
 
             return input;
