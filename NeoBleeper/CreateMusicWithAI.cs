@@ -2318,7 +2318,16 @@ namespace NeoBleeper
         { @"\bEighth Note\b", "1/8" },
         { @"\bSixteenth Note\b", "1/16" },
         { @"\bThirty-second Note\b", "1/32" },
-        { @"\bThirty Second Note\b", "1/32" }
+        { @"\bThirty Second Note\b", "1/32" },
+
+        // With index values
+        { @"<Length>\s*0\s*</Length>", "<Length>Whole</Length>" },
+        { @"<Length>\s*1\s*</Length>", "<Length>Half</Length>" },
+        { @"<Length>\s*2\s*</Length>", "<Length>Quarter</Length>" },
+        { @"<Length>\s*3\s*</Length>", "<Length>1/8</Length>" },
+        { @"<Length>\s*4\s*</Length>", "<Length>1/16</Length>" },
+        { @"<Length>\s*5\s*</Length>", "<Length>1/32</Length>" }
+
     };
 
             foreach (var pair in durationMap)
