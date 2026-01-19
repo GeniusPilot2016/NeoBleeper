@@ -3323,6 +3323,10 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
+                if(isMusicPlaying)
+                {
+                    return; // Prevent multiple concurrent playbacks
+                }
                 isMusicPlaying = true;
                 listViewNotes.Items[0].Selected = true;
                 EnsureSpecificIndexVisible(0);
@@ -3340,6 +3344,10 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
+                if (isMusicPlaying)
+                {
+                    return; // Prevent multiple concurrent playbacks
+                }
                 isMusicPlaying = true;
                 if (listViewNotes.SelectedItems.Count < 1)
                 {
@@ -3413,6 +3421,10 @@ namespace NeoBleeper
         /// subscribers.</remarks>
         public void StopPlaying()
         {
+            if (!isMusicPlaying)
+            {
+                return; // No music is playing, so nothing to stop
+            }
             isMusicPlaying = false;
             Logger.Log("Music stopped", Logger.LogTypes.Info);
             OnMusicStopped(EventArgs.Empty);
@@ -3767,6 +3779,7 @@ namespace NeoBleeper
             UnselectLine();
         }
         bool rightClicked = false;
+        bool noteAlreadyPlaying = false; // Flag to indicate if a note is already playing
         private async void listViewNotes_Click(object sender, EventArgs e) // Stop music and play clicked note
         {
             if (rightClicked)
@@ -3781,10 +3794,12 @@ namespace NeoBleeper
             }
             StopPlaying();
             EnableDisableCommonControls(false);
-            if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0)
+            if (listViewNotes.FocusedItem != null && listViewNotes.SelectedItems.Count > 0 &&
+                !noteAlreadyPlaying)
             {
                 try
                 {
+                    noteAlreadyPlaying = true; // Set the flag to indicate a note is playing
                     int baseLength = 0;
                     Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                     if (Variables.bpm != 0)
@@ -3818,6 +3833,7 @@ namespace NeoBleeper
                 finally
                 {
                     EnableDisableCommonControls(true);
+                    noteAlreadyPlaying = false; // Reset the flag after playback is done
                 }
                 if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0) // Multi-lingual compatible logging of selected line as English 
                 {

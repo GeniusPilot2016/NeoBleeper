@@ -1030,6 +1030,7 @@ namespace NeoBleeper
                 );
             return nbpmlContent;
         }
+        private bool wasAnythingCreated = false;
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(AIModel) && (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) || !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
@@ -1215,7 +1216,14 @@ namespace NeoBleeper
                             var chunkText = string.Join(string.Empty,
                                 parts.Where(p => p?.Text != null).Select(p => p.Text));
                             if (!string.IsNullOrEmpty(chunkText))
+                            {
                                 resultBuilder.Append(chunkText);
+                                if (!string.IsNullOrEmpty(resultBuilder.ToString().Trim()) && 
+                                    !wasAnythingCreated)
+                                {
+                                    wasAnythingCreated = true; // Set the flag to true if any content is generated
+                                }
+                            }
                         }
                         // Step 3: Convert the result builder to a string for analysis and rendering to make ready to use
                         response = FixCollapsedLinesInNBPML(resultBuilder.ToString());
@@ -1357,7 +1365,10 @@ namespace NeoBleeper
                 finally
                 {
                     isMusicGenerationStarted = false; // Reset the flag as music generation has ended
-                    MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
+                    if(wasAnythingCreated)
+                    {
+                        MainWindow.lastCreateTime = DateTime.Now; // Update the last create time only if something was created
+                    }
                     // Re-enable controls and handle the output
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     if (CheckIfOutputIsValidNBPML(output))
@@ -2404,7 +2415,74 @@ namespace NeoBleeper
                 return "<NoteSilenceRatio>95</NoteSilenceRatio>";
             }, RegexOptions.IgnoreCase);
 
+            // Fix NoteLength (0-5 range)
+
+            // Convert note names into index values, clamping to valid range or defaulting to Quarter if invalid
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<NoteLength>([^<]+)</NoteLength>", m =>
+            {
+                string value = m.Groups[1].Value.Trim();
+                var noteLengthMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "Whole", 0 },
+                    { "Half", 1 },
+                    { "Quarter", 2 },
+                    { "1/8", 3 },
+                    { "1/16", 4 },
+                    { "1/32", 5 }
+                };
+                if (noteLengthMap.TryGetValue(value, out int index))
+                {
+                    return $"<NoteLength>{index}</NoteLength>";
+                }
+                else if (int.TryParse(value, out int numericValue))
+                {
+                    numericValue = Math.Clamp(numericValue, 0, 5);
+                    return $"<NoteLength>{numericValue}</NoteLength>";
+                }
+                return "<NoteLength>2</NoteLength>"; // Default to Quarter
+            }, RegexOptions.IgnoreCase);
+
+            /* NoteClickPlay, NoteClickAdd, AddNote[1-4], ClickPlayNote[1-4], PlayNote[1-4], 
+            NoteReplace, NoteLengthReplace are boolean values (true/false).*/
+
+            nbpmlContent = Regex.Replace(nbpmlContent, @"<(?<tag>NoteClickPlay|NoteClickAdd|AddNote[1-4]|ClickPlayNote[1-4]|PlayNote[1-4]|NoteReplace|NoteLengthReplace)>([^<]+)</\k<tag>>", m =>
+            {
+                string value = m.Groups[1].Value.Trim().ToLower();
+                if (value == "true" || value == "false")
+                {
+                    return $"<{m.Groups["tag"].Value}>{CapitalizeFirstLetter(value)}</{m.Groups["tag"].Value}>";
+                }
+                if(value == "yes" || value == "no")
+                {
+                    if(value == "yes")
+                    {
+                        return $"<{m.Groups["tag"].Value}>True</{m.Groups["tag"].Value}>";
+                    }
+                    if (value == "no")
+                    {
+                        return $"<{m.Groups["tag"].Value}>False</{m.Groups["tag"].Value}>";
+                    }
+                }
+                return $"<{m.Groups["tag"].Value}>False</{m.Groups["tag"].Value}>"; // Default to true
+            }, RegexOptions.IgnoreCase);
+
             return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Returns a copy of the specified string with the first character converted to uppercase using the invariant
+        /// culture.
+        /// </summary>
+        /// <param name="value">The string to capitalize. Can be null or empty.</param>
+        /// <returns>A string with the first character converted to uppercase. If the input is null or empty, the original value
+        /// is returned.</returns>
+        private static string CapitalizeFirstLetter(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+            if (value.Length == 1)
+                return value.ToUpperInvariant();
+            return char.ToUpperInvariant(value[0]) + value.Substring(1);
         }
 
         /// <summary>
@@ -2428,7 +2506,7 @@ namespace NeoBleeper
             // 2. <Tag=Value/> veya <Tag="Value"/> -> <Tag>Value</Tag>
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
-                @"<(\w+)\s*=\s*""?([^""/>]+)""?\s*/>",
+                @"<(\w+)\s*=\s*""?([^""/>]+)""?\s*/> ",
                 "<$1>$2</$1>",
                 RegexOptions.IgnoreCase);
 
@@ -2565,6 +2643,22 @@ namespace NeoBleeper
                 @"^(?<partial><\s*\w{1,}>)\s*$",
                 m => m.Groups["partial"].Value.Insert(m.Groups["partial"].Value.Length - 1, " /"),
                 RegexOptions.Multiline);
+
+            // Additional cleanup for remaining incomplete tags
+            input = Regex.Replace(input, @"(?m)^\s*<\s*$", "", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"(?m)^\s*</\s*$", "", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"<\s*(?=\s|$)", "", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"</\s*(?=\s|$)", "", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"<(\w+)\s*>\s*(?=\r?\n|$)", "<$1 />", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"<\w{1,20}$", "", RegexOptions.Multiline);
+            input = Regex.Replace(input, @"</\w{1,20}$", "", RegexOptions.Multiline);
+
+            // Remove remaining orphaned opening tags without any values
+            input = Regex.Replace(
+            input,
+            @"(?m)^\s*<\w+>\s*$",
+            "",
+            RegexOptions.Multiline);
 
             return input;
         }
@@ -3132,36 +3226,36 @@ namespace NeoBleeper
         /// <returns>The NBPML content with corrected indentation.</returns>
         private string FixNBPMLIndentationWithRegex(string nbpmlContent)
         {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return string.Empty;
+
             var lines = nbpmlContent.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
             var result = new System.Text.StringBuilder();
             int indentLevel = 0;
-            string indentUnit = "    "; // 4 spaces
 
-            foreach (var rawLine in lines)
+            foreach (var line in lines)
             {
-                string line = rawLine.Trim();
-                if (string.IsNullOrEmpty(line))
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    result.AppendLine();
                     continue;
-
-                // Multiple closing tags can be on the same line
-                var tags = Regex.Matches(line, @"</\w+>");
-                foreach (Match tag in tags)
-                {
-                    if (indentLevel > 0)
-                        indentLevel--;
                 }
 
-                result.AppendLine(new string(' ', indentLevel * 4) + line);
+                // Decrease indent level for closing tags
+                var closingTags = Regex.Matches(line, @"</\w+>");
+                indentLevel -= closingTags.Count;
 
-                // Increase indent level for opening tags that are not self-closing
-                if (Regex.IsMatch(line, @"^<\w+[^>/]*>$") && !Regex.IsMatch(line, @"^<\w+[^>]*?/>$"))
-                {
-                    indentLevel++;
-                }
+                // Add indentation
+                string indentedLine = new string(' ', Math.Max(0, indentLevel * 4)) + line.Trim();
+                result.AppendLine(indentedLine);
+
+                // Increase indent level for opening tags (excluding self-closing tags)
+                var openingTags = Regex.Matches(line, @"<\w+[^>/]*>");
+                var selfClosingTags = Regex.Matches(line, @"<\w+[^>]*/>");
+                indentLevel += openingTags.Count - selfClosingTags.Count;
             }
-            string resultString = result.ToString();
-            resultString = FixEscapedCharacters(resultString);
-            return resultString.TrimEnd();
+
+            return result.ToString().TrimEnd();
         }
 
         /// <summary>
@@ -3341,7 +3435,7 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (isMusicGenerationStarted)
+            if (isMusicGenerationStarted && wasAnythingCreated)
             {
                 MainWindow.lastCreateTime = DateTime.Now; // Update last create time only if music generation was started
             }
