@@ -1250,7 +1250,7 @@ namespace NeoBleeper
 
                     // Remove excessive newlines from the final response
                     response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
-                    response = FixCollapsedLinesInNBPML(response); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
+                    response = ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(response)); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
                     StopConnectionCheck();
                     await Task.Delay(2);
                     if (!cts.IsCancellationRequested)
@@ -2173,6 +2173,7 @@ namespace NeoBleeper
             // Fix indentation
             nbpmlString = FixNBPMLIndentation(nbpmlString);
 
+
             return nbpmlString;
         }
 
@@ -2229,8 +2230,11 @@ namespace NeoBleeper
             nbpmlContent = RepairOverlappingTags(nbpmlContent);
 
             // Remove comments
-            nbpmlContent = Regex.Replace(nbpmlContent, @"<!--.*?-->", string.Empty, RegexOptions.Singleline);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"/\*.*?\*/", string.Empty, RegexOptions.Singleline);
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"(?s)<!--.*?-->|/\*.*?\*/|&lt;!--.*?--&gt;",
+                string.Empty,
+                RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
             // Fix common tag issues
             nbpmlContent = FixMissingOpeningAngleBrackets(nbpmlContent);
