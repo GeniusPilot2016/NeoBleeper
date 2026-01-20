@@ -1957,8 +1957,8 @@ namespace NeoBleeper
             // Step 5: Final validation
             recovered = recovered.Trim();
 
-            output = FixUnfinishedTags(output);
-            output = RewriteOutput(output).Trim();
+            recovered = FixUnfinishedTags(recovered);
+            recovered = RewriteOutput(recovered).Trim();
 
             Logger.Log("Recovery attempt completed", Logger.LogTypes.Info);
             return recovered;
@@ -2001,13 +2001,44 @@ namespace NeoBleeper
             nbpmlString = CloseMissingPlayNotesInLines(nbpmlString);
             nbpmlString = RemoveForeignTextInsideNBPMLContent(nbpmlString);
 
-            // Step 8: Final cleanup
+            // Step 8: Fix mismatched tags
+            nbpmlString = FixMismatchedTags(nbpmlString);
+
+            // Step 9: Final cleanup
             nbpmlString = nbpmlString.Trim();
 
             // Fix indentation
             nbpmlString = FixNBPMLIndentation(nbpmlString);
 
+
             return nbpmlString;
+        }
+
+        private string FixMismatchedTags(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+
+            // Apply regex-based fix for mismatched tags
+            var pattern = new Regex(@"<(?<tag>[A-Za-z][A-Za-z0-9]*?)\s*>(?<content>[^<]*?)</(?<wrongTag>[A-Za-z][A-Za-z0-9]*?)>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            string prev;
+            do
+            {
+                prev = nbpmlContent;
+                nbpmlContent = pattern.Replace(nbpmlContent, m =>
+                {
+                    string tag = m.Groups["tag"].Value;
+                    string wrongTag = m.Groups["wrongTag"].Value;
+                    string content = m.Groups["content"].Value;
+                    if (!string.Equals(tag, wrongTag, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return $"<{tag}>{content}</{tag}>";
+                    }
+                    return m.Value;
+                });
+            } while (nbpmlContent != prev);
+
+            return nbpmlContent;
         }
 
         /// <summary>
