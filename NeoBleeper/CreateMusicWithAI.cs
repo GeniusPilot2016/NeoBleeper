@@ -1277,14 +1277,14 @@ namespace NeoBleeper
                                 this.Close(); // Close the form after handling the error message
                                 return;
                             }
-                            var xmlMatch = Regex.Match(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>");
-                            if (xmlMatch.Success)
+                            var xmlMatches = Regex.Matches(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
+                            if (xmlMatches.Count > 0)
                             {
-                                output = xmlMatch.Value.Trim();
+                                var last = xmlMatches[xmlMatches.Count - 1];
+                                output = last.Value.Trim();
                             }
                             else
                             {
-                                // Preserve current behaivor if no valid XML is found.
                                 output = rawOutput.Trim();
                             }
                             SplitFileNameAndOutput(rawOutput);
@@ -1402,7 +1402,7 @@ namespace NeoBleeper
         private int cachedLineTagCount = 0;
         private bool logCompletedLogged = false;
 
-        private static readonly Regex SeparatorRegex = new Regex(@"(?m)^\s*-{3,}\s*$", RegexOptions.Compiled);
+        private static readonly Regex SeparatorRegex = new Regex(@"(?m)^\s*[\p{Pd}]{3,}\s*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex LineOpenTagRegex = new Regex(@"<Line\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex LineListCloseRegex = new Regex(@"</LineList>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
@@ -1523,32 +1523,60 @@ namespace NeoBleeper
                 return;
             }
 
-            // Find all dashed separator lines
-            var allSeparators = Regex.Matches(rawOutput, @"^-{3,}$", RegexOptions.Multiline);
+            // Normalize newlines
+            var normalized = rawOutput.Replace("\r\n", "\n").Replace("\r", "\n");
 
-            if (allSeparators.Count > 0)
+            // Remove markdown/code fences that commonly wrap XML
+            normalized = Regex.Replace(normalized, @"^\s*```(?:xml)?\s*\n", string.Empty, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            normalized = Regex.Replace(normalized, @"\n\s*```\s*$", string.Empty, RegexOptions.Multiline);
+
+            // Also remove stray leading/trailing markers like ```xml``` on a single line
+            normalized = normalized.Trim();
+
+            // Match separator lines that include Unicode dash punctuation
+            var separatorPattern = new Regex(@"(?m)^\s*[\p{Pd}]{3,}\s*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            var matches = separatorPattern.Matches(normalized);
+
+            if (matches.Count > 0)
             {
-                // Find the last separator line
-                var lastSeparator = allSeparators[allSeparators.Count - 1];
-                int separatorIndex = lastSeparator.Index;
-                int separatorLength = lastSeparator.Length;
+                var last = matches[matches.Count - 1];
+                int afterIndex = last.Index + last.Length;
+                if (afterIndex < normalized.Length && normalized[afterIndex] == '\n') afterIndex++;
 
-                // The text before the separator line
-                string beforeSeparator = rawOutput.Substring(0, separatorIndex).Trim();
+                string beforeSeparator = normalized.Substring(0, last.Index).TrimEnd();
+                string afterSeparator = normalized.Substring(afterIndex).Trim();
 
-                // The text after the separator line
-                int xmlStartIndex = separatorIndex + separatorLength;
-                string afterSeparator = rawOutput.Substring(xmlStartIndex).Trim();
+                // Choose filename as the last reasonable plain-text line before separator:
+                var beforeLines = beforeSeparator.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                                                 .Select(l => l.Trim())
+                                                 .Where(l => !string.IsNullOrWhiteSpace(l))
+                                                 .ToArray();
 
-                // Use the last line before the separator as the filename
-                generatedFilename = beforeSeparator.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-                                                   .LastOrDefault() ?? string.Empty;
+                string candidateFilename = string.Empty;
+                if (beforeLines.Length > 0)
+                {
+                    // Prefer the last line that does NOT look like XML (doesn't start with '<')
+                    for (int i = beforeLines.Length - 1; i >= 0; i--)
+                    {
+                        var line = beforeLines[i];
+                        if (!line.TrimStart().StartsWith("<"))
+                        {
+                            candidateFilename = line;
+                            break;
+                        }
+                    }
+                    // Fallback: last non-empty line
+                    if (string.IsNullOrEmpty(candidateFilename))
+                        candidateFilename = beforeLines[beforeLines.Length - 1];
+                }
+
+                generatedFilename = candidateFilename;
                 output = afterSeparator;
             }
             else
             {
-                // If there's no separator, treat entire output as content
-                output = rawOutput.Trim();
+                // No separator: treat all as content
+                output = normalized.Trim();
                 generatedFilename = GenerateFilenameFromPromptOrXml(textBoxPrompt.Text);
             }
         }
@@ -1777,40 +1805,37 @@ namespace NeoBleeper
             {
                 return false;
             }
-            bool isValidXml = false;
-            bool isValidNBPML = false;
-            // Check if the output is valid XML
+
             try
             {
-                var xmlDoc = new System.Xml.XmlDocument();
-                xmlDoc.LoadXml(output);
-                isValidXml = true;
+                var xmlDoc = new XmlDocument();
+                // Clean the output before loading
+                var candidate = output.Trim();
+                // Load the XML
+                xmlDoc.LoadXml(candidate);
+
+                var root = xmlDoc.DocumentElement;
+                if (root == null || !string.Equals(root.Name, "NeoBleeperProjectFile", StringComparison.OrdinalIgnoreCase))
+                    return false;
+
+                var lineList = root.SelectSingleNode(".//LineList");
+                if (lineList == null)
+                    return false;
+
+                var anyLine = lineList.SelectSingleNode(".//Line") ?? xmlDoc.SelectSingleNode("//Line");
+                if (anyLine == null)
+                    return false;
+
+                return true;
             }
-            catch (System.Xml.XmlException)
+            catch (XmlException)
             {
-                isValidXml = false;
+                return false;
             }
-            // Check if the output starts with <NeoBleeperProjectFile> and ends with </NeoBleeperProjectFile>
-            if (!output.StartsWith("<NeoBleeperProjectFile>") ||
-                !output.EndsWith("</NeoBleeperProjectFile>"))
+            catch
             {
-                isValidNBPML = false;
+                return false;
             }
-            else
-            {
-                isValidNBPML = true;
-            }
-            // Check for the presence of <LineList> and <Line> elements
-            if (!output.Contains("<LineList>") || !output.Contains("<Line>"))
-            {
-                isValidNBPML = false;
-            }
-            else
-            {
-                isValidNBPML = true;
-            }
-            // Additional checks can be added here as needed
-            return isValidNBPML && isValidXml;
         }
 
         /// <summary>
@@ -1957,11 +1982,143 @@ namespace NeoBleeper
             // Step 5: Final validation
             recovered = recovered.Trim();
 
-            output = FixUnfinishedTags(output);
-            output = RewriteOutput(output).Trim();
+            recovered = FixUnfinishedTags(recovered);
+            recovered = RewriteOutput(recovered).Trim();
 
             Logger.Log("Recovery attempt completed", Logger.LogTypes.Info);
             return recovered;
+        }
+
+        /// <summary>
+        /// Processes the specified NBPML XML content by converting any CDATA sections to regular text nodes.
+        /// </summary>
+        /// <remarks>This method attempts to parse the input as XML and replace all CDATA sections with
+        /// equivalent text nodes. If the input cannot be parsed as XML, no changes are made and the original content is
+        /// returned.</remarks>
+        /// <param name="nbpmlContent">The NBPML XML content to process. Cannot be null or empty.</param>
+        /// <returns>A string containing the XML content with CDATA sections replaced by text nodes. If the input is not valid
+        /// XML, the original content is returned.</returns>
+        private string HandleCDataInNBPML(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(nbpmlContent);
+
+                // Find and process CDATA sections
+                var cdataNodes = xmlDoc.SelectNodes("//text()[self::*[local-name()='']]"); // CDATA düğümlerini seç
+                foreach (XmlCDataSection cdata in cdataNodes)
+                {
+                    // Convert CDATA to regular text node
+                    var parent = cdata.ParentNode;
+                    var textNode = xmlDoc.CreateTextNode(cdata.Value);
+                    parent.ReplaceChild(textNode, cdata);
+                }
+
+                using (var sw = new StringWriter())
+                {
+                    xmlDoc.Save(sw);
+                    return sw.ToString();
+                }
+            }
+            catch (XmlException)
+            {
+                // Return original content if XML parsing fails
+                return nbpmlContent;
+            }
+        }
+
+        /// <summary>
+        /// Removes all XML namespace declarations from the specified NBPML content.
+        /// </summary>
+        /// <remarks>This method processes the input as XML and removes all attributes that declare
+        /// namespaces (attributes starting with 'xmlns'). If the input is not well-formed XML, no changes are
+        /// made.</remarks>
+        /// <param name="nbpmlContent">The NBPML content as a string. Must be a well-formed XML document to have namespaces removed.</param>
+        /// <returns>A string containing the NBPML content with all XML namespace declarations removed. If the input is not valid
+        /// XML, the original content is returned unchanged.</returns>
+        private string HandleNamespacesInNBPML(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(nbpmlContent);
+
+                // Ad alanlarını kaldır
+                foreach (XmlNode node in xmlDoc.SelectNodes("//*"))
+                {
+                    if (node.Attributes != null)
+                    {
+                        var xmlnsAttrs = node.Attributes.Cast<XmlAttribute>()
+                            .Where(attr => attr.Name.StartsWith("xmlns")).ToList();
+                        foreach (var attr in xmlnsAttrs)
+                        {
+                            node.Attributes.Remove(attr);
+                        }
+                    }
+                }
+
+                using (var sw = new StringWriter())
+                {
+                    xmlDoc.Save(sw);
+                    return sw.ToString();
+                }
+            }
+            catch (XmlException)
+            {
+                return nbpmlContent;
+            }
+        }
+
+        /// <summary>
+        /// Removes invalid or unexpected attributes from the provided NBPML XML content.
+        /// </summary>
+        /// <remarks>This method processes the input XML and removes all attributes from elements, as
+        /// NBPML does not support attributes. If the input cannot be parsed as XML, it is returned unchanged.</remarks>
+        /// <param name="nbpmlContent">The NBPML XML content as a string. This should be a well-formed XML document.</param>
+        /// <returns>A string containing the NBPML XML content with invalid attributes removed. If the input is null, empty, or
+        /// not valid XML, the original content is returned.</returns>
+        private string HandleInvalidAttributesInNBPML(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(nbpmlContent);
+
+                // Remove invalid attributes
+                var allowedAttrs = new HashSet<string>(); // Empty for NBPML
+                foreach (XmlNode node in xmlDoc.SelectNodes("//*"))
+                {
+                    if (node.Attributes != null)
+                    {
+                        var toRemove = node.Attributes.Cast<XmlAttribute>()
+                            .Where(attr => !allowedAttrs.Contains(attr.Name)).ToList();
+                        foreach (var attr in toRemove)
+                        {
+                            node.Attributes.Remove(attr);
+                        }
+                    }
+                }
+
+                using (var sw = new StringWriter())
+                {
+                    xmlDoc.Save(sw);
+                    return sw.ToString();
+                }
+            }
+            catch (XmlException)
+            {
+                return nbpmlContent;
+            }
         }
 
         /// <summary>
@@ -1978,36 +2135,72 @@ namespace NeoBleeper
             if (string.IsNullOrEmpty(nbpmlString))
                 return string.Empty;
 
-            // Step 1: Clean raw content first
+            // Step 1: Handle CDATA sections first
+            nbpmlString = HandleCDataInNBPML(nbpmlString);
+
+            // Step 2: Clean raw content first
             nbpmlString = CleanRawNBPMLContent(nbpmlString);
 
-            // Step 2: Standardize tag names
+            // Step 3: Standardize tag names
             nbpmlString = StandardizeTagNames(nbpmlString);
 
-            // Step 3: Normalize note values
+            // Step 4: Normalize note values
             nbpmlString = NormalizeNoteValues(nbpmlString);
 
-            // Step 4: Normalize duration values
+            // Step 5: Normalize duration values
             nbpmlString = NormalizeDurationValues(nbpmlString);
 
-            // Step 5: Fix parameter values
+            // Step 6: Fix parameter values
             nbpmlString = FixParameterValues(nbpmlString);
 
-            // Step 6: Convert empty tags to self-closing
+            // Step 7: Convert empty tags to self-closing
             nbpmlString = ConvertEmptyTagsToSelfClosing(nbpmlString);
 
-            // Step 7: Fix structural issues (use existing methods)
+            // Step 8: Fix structural issues (use existing methods)
             nbpmlString = FixCollapsedLinesInNBPML(nbpmlString);
             nbpmlString = CloseMissingPlayNotesInLines(nbpmlString);
             nbpmlString = RemoveForeignTextInsideNBPMLContent(nbpmlString);
 
-            // Step 8: Final cleanup
+            // Step 9: Fix mismatched tags
+            nbpmlString = FixMismatchedTags(nbpmlString);
+
+            // Step 10: Handle namespaces
+            nbpmlString = HandleNamespacesInNBPML(nbpmlString);
+
+            // Step 11: Final cleanup
             nbpmlString = nbpmlString.Trim();
 
             // Fix indentation
             nbpmlString = FixNBPMLIndentation(nbpmlString);
 
             return nbpmlString;
+        }
+
+        private string FixMismatchedTags(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+
+            // Apply regex-based fix for mismatched tags
+            var pattern = new Regex(@"<(?<tag>[A-Za-z][A-Za-z0-9]*?)\s*>(?<content>[^<]*?)</(?<wrongTag>[A-Za-z][A-Za-z0-9]*?)>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            string prev;
+            do
+            {
+                prev = nbpmlContent;
+                nbpmlContent = pattern.Replace(nbpmlContent, m =>
+                {
+                    string tag = m.Groups["tag"].Value;
+                    string wrongTag = m.Groups["wrongTag"].Value;
+                    string content = m.Groups["content"].Value;
+                    if (!string.Equals(tag, wrongTag, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return $"<{tag}>{content}</{tag}>";
+                    }
+                    return m.Value;
+                });
+            } while (nbpmlContent != prev);
+
+            return nbpmlContent;
         }
 
         /// <summary>
@@ -2032,7 +2225,8 @@ namespace NeoBleeper
             nbpmlContent = Regex.Replace(nbpmlContent, @"\s*```\s*$", string.Empty, RegexOptions.Multiline);
 
             // Unescape XML entities
-            nbpmlContent = FixEscapedCharacters(nbpmlContent);
+            nbpmlContent = UnescapeEntitiesUntilStable(nbpmlContent);
+            nbpmlContent = RepairOverlappingTags(nbpmlContent);
 
             // Remove comments
             nbpmlContent = Regex.Replace(nbpmlContent, @"<!--.*?-->", string.Empty, RegexOptions.Singleline);
@@ -2496,14 +2690,17 @@ namespace NeoBleeper
             if (string.IsNullOrWhiteSpace(nbpmlContent))
                 return string.Empty;
 
-            // 1. <Tag=Value> veya <Tag="Value"> -> <Tag>Value</Tag>
+            // Handle invalid attributes
+            nbpmlContent = HandleInvalidAttributesInNBPML(nbpmlContent);
+
+            // 1. <Tag=Value> or <Tag="Value"> -> <Tag>Value</Tag>
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
                 @"<(\w+)\s*=\s*""?([^"">]+)""?\s*>",
                 "<$1>$2</$1>",
                 RegexOptions.IgnoreCase);
 
-            // 2. <Tag=Value/> veya <Tag="Value"/> -> <Tag>Value</Tag>
+            // 2. <Tag=Value/> or <Tag="Value"/> -> <Tag>Value</Tag>
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
                 @"<(\w+)\s*=\s*""?([^""/>]+)""?\s*/> ",
@@ -2593,6 +2790,145 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Decodes HTML entities in the specified string repeatedly until no further changes occur or the maximum
+        /// number of iterations is reached.
+        /// </summary>
+        /// <remarks>This method is useful for decoding strings that may contain nested or repeated HTML
+        /// entity encodings, such as "&amp;lt;". The decoding process stops early if the string does not change after
+        /// an iteration. Excessively large values for maxIterations may impact performance if the input is deeply
+        /// nested.</remarks>
+        /// <param name="input">The string containing HTML entities to decode. If null or empty, the method returns the input unchanged.</param>
+        /// <param name="maxIterations">The maximum number of decoding iterations to perform. Must be a non-negative integer. Defaults to 6.</param>
+        /// <returns>A string with HTML entities decoded. If no further decoding is possible or the maximum number of iterations
+        /// is reached, returns the resulting string.</returns>
+        private string UnescapeEntitiesUntilStable(string input, int maxIterations = 6)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            string prev;
+            int iter = 0;
+            do
+            {
+                prev = input;
+                // WebUtility.HtmlDecode çözer: &amp;lt; &lt; &amp; -> uygun karakterlere
+                input = System.Net.WebUtility.HtmlDecode(input);
+                iter++;
+            } while (iter < maxIterations && input != prev);
+
+            return input;
+        }
+
+        /// <summary>
+        /// Repairs overlapping or mismatched XML-like tags in the specified input string to produce a well-formed tag
+        /// structure.
+        /// </summary>
+        /// <remarks>This method is intended for simple XML-like or HTML-like markup and does not perform
+        /// full XML validation. It attempts to correct common tag mismatches by closing any unclosed tags and ignoring
+        /// orphaned closing tags. Self-closing tags are preserved as-is. Use this method when you need to sanitize or
+        /// repair markup for further processing or display, but do not rely on it for strict XML compliance.</remarks>
+        /// <param name="input">The input string containing XML-like tags that may be overlapping, mismatched, or malformed.</param>
+        /// <returns>A string with corrected tag nesting, where overlapping or orphaned tags are closed or ignored as needed to
+        /// ensure a well-formed structure. Returns the original string if it is null or empty.</returns>
+        private string RepairOverlappingTags(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            var tokenRegex = new Regex(@"(?s)(</?[A-Za-z][A-Za-z0-9]*\b[^>]*?/?>)|([^<]+)");
+            var openingTagName = new Regex(@"^<\s*([A-Za-z][A-Za-z0-9]*)", RegexOptions.Compiled);
+            var closingTagName = new Regex(@"^</\s*([A-Za-z][A-Za-z0-9]*)", RegexOptions.Compiled);
+
+            var stack = new Stack<string>();
+            var sb = new StringBuilder();
+
+            foreach (Match m in tokenRegex.Matches(input))
+            {
+                string token = m.Value;
+                if (token.StartsWith("<"))
+                {
+                    // Self-closing?
+                    if (token.EndsWith("/>"))
+                    {
+                        sb.Append(token);
+                        continue;
+                    }
+
+                    var closeMatch = closingTagName.Match(token);
+                    if (closeMatch.Success)
+                    {
+                        var tag = closeMatch.Groups[1].Value;
+                        if (stack.Count == 0)
+                        {
+                            // orphan closing - ignore it
+                            continue;
+                        }
+                        if (string.Equals(stack.Peek(), tag, StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Normal close
+                            stack.Pop();
+                            sb.Append(token);
+                        }
+                        else
+                        {
+                            // Overlapping close: try to pop until found
+                            var popped = new List<string>();
+                            bool found = false;
+                            while (stack.Count > 0)
+                            {
+                                var top = stack.Pop();
+                                popped.Add(top);
+                                // insert missing closing tags for popped ones (they were implicitly closed)
+                                sb.Append($"</{top}>");
+                                if (string.Equals(top, tag, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found)
+                            {
+                                // closing tag not matched - ignore
+                                continue;
+                            }
+                            // we have already appended the matched closing
+                        }
+                    }
+                    else
+                    {
+                        // Opening tag
+                        var openMatch = openingTagName.Match(token);
+                        if (openMatch.Success)
+                        {
+                            var tag = openMatch.Groups[1].Value;
+                            stack.Push(tag);
+                            sb.Append(token);
+                        }
+                        else
+                        {
+                            // malformed tag, append as-is
+                            sb.Append(token);
+                        }
+                    }
+                }
+                else
+                {
+                    // text node
+                    sb.Append(token);
+                }
+            }
+
+            // Close any remaining open tags to produce well-formed-ish document
+            while (stack.Count > 0)
+            {
+                var t = stack.Pop();
+                sb.Append($"</{t}>");
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Attempts to fix incomplete or unfinished XML tags in the output caused by abrupt truncation.
         /// </summary>
         /// <param name="input">The NBPML content with possibly unfinished tags</param>
@@ -2663,33 +2999,6 @@ namespace NeoBleeper
             return input;
         }
 
-        private string FixEscapedCharacters(string nbpmlContent)
-        {
-            // Convert escaped characters back to normal characters
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&lt;", "<", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&gt;", ">", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&amp;", "&", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&apos;", "'", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&quot;", "\"", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x27;", "'", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#39;", "'", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x2F;", "/", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#47;", "/", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#60;", "<", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#62;", ">", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#34;", "\"", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x22;", "\"", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x3C;", "<", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x3E;", ">", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x26;", "&", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x5C;", "\\", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#92;", "\\", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#96;", "`", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#x60;", "`", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&#xA0;", " ", RegexOptions.IgnoreCase);
-            nbpmlContent = Regex.Replace(nbpmlContent, @"&nbsp;", " ", RegexOptions.IgnoreCase);
-            return nbpmlContent;
-        }
 
         /// <summary>
         /// Removes any non-NBPML (foreign) text that appears outside or between tags in the specified NBPML content
@@ -3208,7 +3517,8 @@ namespace NeoBleeper
                 result = Regex.Replace(result, @"<\?xml[^?]*\?>\s*", string.Empty, RegexOptions.IgnoreCase);
 
                 // Fix escaped characters by replacing them with normal characters
-                result = FixEscapedCharacters(result);
+                nbpmlContent = UnescapeEntitiesUntilStable(nbpmlContent);
+                nbpmlContent = RepairOverlappingTags(nbpmlContent);
 
                 return result.Trim();
             }
