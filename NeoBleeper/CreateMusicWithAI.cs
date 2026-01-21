@@ -1040,7 +1040,7 @@ namespace NeoBleeper
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
                     Logger.Log("Starting music generation with AI...", Logger.LogTypes.Info);
                     string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
-                    
+
                     /* The "makeshift rubbish prompt template" (aka system prompt) to create "chaotic" music 
                     by creating NBPML text (Fun fact: I wasn't know what system prompt is. 
                     I just learned it from GitHub Copilot's system prompt menu and asked for certain AIs and 
@@ -1218,7 +1218,7 @@ namespace NeoBleeper
                             if (!string.IsNullOrEmpty(chunkText))
                             {
                                 resultBuilder.Append(chunkText);
-                                if (!string.IsNullOrEmpty(resultBuilder.ToString().Trim()) && 
+                                if (!string.IsNullOrEmpty(resultBuilder.ToString().Trim()) &&
                                     !wasAnythingCreated)
                                 {
                                     wasAnythingCreated = true; // Set the flag to true if any content is generated
@@ -1365,7 +1365,7 @@ namespace NeoBleeper
                 finally
                 {
                     isMusicGenerationStarted = false; // Reset the flag as music generation has ended
-                    if(wasAnythingCreated)
+                    if (wasAnythingCreated)
                     {
                         MainWindow.lastCreateTime = DateTime.Now; // Update the last create time only if something was created
                     }
@@ -1502,6 +1502,126 @@ namespace NeoBleeper
             }
         }
 
+
+        private string NormalizeEscapedUnicodeAndMojibake(string input, int maxIterations = 4)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            string s = input;
+
+            // Remove surrounding quotes
+            s = s.Trim().Trim('"', '\'');
+
+            // Iteratively try multiple normalization passes to handle nested/double-encoded cases
+            for (int iter = 0; iter < maxIterations; iter++)
+            {
+                string prev = s;
+
+                // 1) Decode common escape sequences: \uXXXX, \UXXXXXXXX, \xXX
+                s = Regex.Replace(s, @"\\u([0-9A-Fa-f]{4})", m =>
+                {
+                    try
+                    {
+                        int code = int.Parse(m.Groups[1].Value, System.Globalization.NumberStyles.HexNumber);
+                        return char.ConvertFromUtf32(code);
+                    }
+                    catch { return m.Value; }
+                }, RegexOptions.Compiled);
+
+                s = Regex.Replace(s, @"\\U([0-9A-Fa-f]{8})", m =>
+                {
+                    try
+                    {
+                        int code = Convert.ToInt32(m.Groups[1].Value, 16);
+                        return char.ConvertFromUtf32(code);
+                    }
+                    catch { return m.Value; }
+                }, RegexOptions.Compiled);
+
+                s = Regex.Replace(s, @"\\x([0-9A-Fa-f]{2})", m =>
+                {
+                    try
+                    {
+                        int code = int.Parse(m.Groups[1].Value, System.Globalization.NumberStyles.HexNumber);
+                        return ((char)code).ToString();
+                    }
+                    catch { return m.Value; }
+                }, RegexOptions.Compiled);
+
+                // 2) Decode numeric character references: &#1234; and &#x4D2;
+                s = Regex.Replace(s, @"&#x([0-9A-Fa-f]+);", m =>
+                {
+                    try
+                    {
+                        int code = int.Parse(m.Groups[1].Value, System.Globalization.NumberStyles.HexNumber);
+                        return char.ConvertFromUtf32(code);
+                    }
+                    catch { return m.Value; }
+                }, RegexOptions.Compiled);
+
+                s = Regex.Replace(s, @"&#([0-9]+);", m =>
+                {
+                    try
+                    {
+                        int code = int.Parse(m.Groups[1].Value, System.Globalization.NumberStyles.Integer);
+                        return char.ConvertFromUtf32(code);
+                    }
+                    catch { return m.Value; }
+                }, RegexOptions.Compiled);
+
+                // 3) HTML entity decode repeatedly (handles &amp;lt; &amp;amp; sequences)
+                s = UnescapeEntitiesUntilStable(s, 4);
+
+                // 4) Percent / URL decode
+                try
+                {
+                    var urlDecoded = System.Net.WebUtility.UrlDecode(s);
+                    if (!string.IsNullOrEmpty(urlDecoded))
+                        s = urlDecoded;
+                }
+                catch { /* ignore */ }
+
+                // 5) Replace literal escaped newlines/tabs with real ones
+                s = s.Replace("\\r\\n", "\r\n").Replace("\\n", "\n").Replace("\\t", "\t");
+
+                // 6) Trim control characters (except newline, carriage, tab)
+                s = Regex.Replace(s, @"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+", " ");
+
+                // 7) Detect common UTF-8 -> Windows-1252/ISO-8859-1 mojibake patterns (e.g., Ã¼, Ã¶, Ã‡, â€™, â€œ, â€“)
+                if (Regex.IsMatch(s, @"[ÃÂ][\u0080-\u00BF]|â[^\s]|Ã[^\s]", RegexOptions.Compiled))
+                {
+                    try
+                    {
+                        // Interpret current string bytes as ISO-8859-1 (Latin1 / Windows-1252) and decode as UTF-8
+                        var bytes = Encoding.GetEncoding(1252).GetBytes(s);
+                        var round = Encoding.UTF8.GetString(bytes);
+
+                        // If the "repaired" version contains fewer suspicious sequences, accept it
+                        int suspiciousOriginal = Regex.Matches(s, @"[ÃÂâ][\u0080-\u00BF]").Count;
+                        int suspiciousRound = Regex.Matches(round, @"[ÃÂâ][\u0080-\u00BF]").Count;
+                        if (suspiciousRound < suspiciousOriginal)
+                            s = round;
+                    }
+                    catch { /* ignore conversion failures */ }
+                }
+
+                // 8) Handle double-encoded HTML entities like &amp;#x00f6; -> ö
+                s = Regex.Replace(s, @"&amp;(#x[0-9A-Fa-f]+;)", "&$1", RegexOptions.Compiled);
+                s = Regex.Replace(s, @"&amp;(#\d+;)", "&$1", RegexOptions.Compiled);
+                s = System.Net.WebUtility.HtmlDecode(s);
+
+                // If nothing changed in this pass, break early
+                if (s == prev)
+                    break;
+            }
+
+            // Final whitespace normalization
+            s = Regex.Replace(s, @"\s+", " ").Trim();
+
+            return s;
+        }
+
         /// <summary>
         /// Parses the specified raw output string to extract a generated filename and its associated output content.
         /// </summary>
@@ -1570,14 +1690,14 @@ namespace NeoBleeper
                         candidateFilename = beforeLines[beforeLines.Length - 1];
                 }
 
-                generatedFilename = candidateFilename;
+                generatedFilename = NormalizeEscapedUnicodeAndMojibake(candidateFilename);
                 output = afterSeparator;
             }
             else
             {
                 // No separator: treat all as content
                 output = normalized.Trim();
-                generatedFilename = GenerateFilenameFromPromptOrXml(textBoxPrompt.Text);
+                generatedFilename = NormalizeEscapedUnicodeAndMojibake(GenerateFilenameFromPromptOrXml(textBoxPrompt.Text));
             }
         }
 
@@ -2232,7 +2352,7 @@ namespace NeoBleeper
             // Remove comments
             nbpmlContent = Regex.Replace(
                 nbpmlContent,
-                @"(?s)<!--.*?-->|/\*.*?\*/|&lt;!--.*?--&gt;",
+                @"(?is)(?:&lt;|<)?!--[\s\S]*?(?:--&gt;|-->)|/\*[\s\S]*?\*/",
                 string.Empty,
                 RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
@@ -2650,9 +2770,9 @@ namespace NeoBleeper
                 {
                     return $"<{m.Groups["tag"].Value}>{CapitalizeFirstLetter(value)}</{m.Groups["tag"].Value}>";
                 }
-                if(value == "yes" || value == "no")
+                if (value == "yes" || value == "no")
                 {
-                    if(value == "yes")
+                    if (value == "yes")
                     {
                         return $"<{m.Groups["tag"].Value}>True</{m.Groups["tag"].Value}>";
                     }
@@ -2815,7 +2935,6 @@ namespace NeoBleeper
             do
             {
                 prev = input;
-                // WebUtility.HtmlDecode çözer: &amp;lt; &lt; &amp; -> uygun karakterlere
                 input = System.Net.WebUtility.HtmlDecode(input);
                 iter++;
             } while (iter < maxIterations && input != prev);
@@ -2941,6 +3060,9 @@ namespace NeoBleeper
         {
             if (string.IsNullOrWhiteSpace(input))
                 return string.Empty;
+
+            // Recombine split comment start: line with "<" followed by line starting with "!--" -> "<!--"
+            input = Regex.Replace(input, @"(?m)^(?<indent>\s*)<\s*\r?\n\s*!--", "${indent}<!--");
 
             // <Tag>Value</Ta -> <Tag>Value</Tag>
             input = Regex.Replace(
