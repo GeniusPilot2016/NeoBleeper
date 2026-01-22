@@ -81,26 +81,22 @@ NeoBleeper inclut une logique de détection permettant de vérifier si votre sys
 #### Que signifie « sortie de haut-parleur système non standard » ? 
   Certains ordinateurs, ordinateurs portables ou machines virtuelles modernes ne disposent pas de véritable haut-parleur PC, ou le routage du signal est non standard. NeoBleeper tente désormais de détecter et d'utiliser ces sorties de haut-parleurs système cachées (non identifiées comme périphériques PNP0800), mais ne peut activer l'option haut-parleur système que si elle est accessible au niveau matériel. Si aucune sortie utilisable n'est trouvée, vous devrez utiliser votre périphérique audio habituel.
 
-## 2.1 Test de sortie des haut-parleurs système (détection des fréquences ultrasoniques)
+## 2.1 Test de sortie du haut-parleur système (détection de fréquence ultrasonique)
 
-  NeoBleeper intègre désormais un nouveau test matériel avancé permettant de détecter la sortie des haut-parleurs système (également appelés haut-parleurs PC), même si le périphérique n'est pas signalé par Windows (avec certains identifiants comme PNP0C02 au lieu de PNP0800). Ce test utilise des fréquences ultrasoniques (généralement 30 à 38 kHz, inaudibles) et analyse le retour électrique sur le port du haut-parleur système.
+NeoBleeper intègre désormais un nouveau test matériel avancé pour détecter la sortie du haut-parleur système (également appelé haut-parleur PC), même si le périphérique n’est pas signalé par Windows (par exemple via PNP0C02 au lieu de PNP0800) ou si la connexion est non standard.
 
-- **Fonctionnement** :
+- **Comment ça fonctionne :**  
+  Au démarrage, NeoBleeper effectue une seconde étape, après la vérification habituelle de l’ID du périphérique. Il envoie des signaux ultrasoniques au port du haut-parleur système et surveille le retour matériel pour détecter la présence d’une sortie haut-parleur fonctionnelle.
 
-  Au démarrage, NeoBleeper effectue une deuxième étape après la vérification habituelle de l'identifiant du périphérique. Il envoie des signaux ultrasoniques au port du haut-parleur système et surveille le retour matériel afin de détecter la présence d'une sortie de haut-parleur fonctionnelle, même masquée ou non standard.
+- **Ce que vous pouvez remarquer :**  
+  Sur certains systèmes, **que le haut-parleur soit un buzzer piézoélectrique ou d’un autre type**, vous pouvez entendre de faibles **bruits de clics ou de craquements** pendant cette étape. Ceci est normal et indique que le test matériel est en cours.
 
-- **Remarques possibles** :
+  ![image1](https://github.com/user-attachments/assets/4e8d2fec-b0ca-4a6e-b163-eb76d4968cd1)
 
-  Sur certains systèmes, notamment ceux équipés de buzzers piézoélectriques, vous pouvez entendre de légers clics pendant cette étape. Ce phénomène est normal et indique que le test matériel est en cours.
-  
-  ![image4](https://github.com/user-attachments/assets/2eb416d0-bdb5-4d16-8899-1dbc3c9642fc)
-  
-  *Vérification de la présence du haut-parleur système (Haut-parleur PC) à l'étape 2/2... (Vous pourriez entendre des clics)*
+  *Vérification de la présence de sortie du haut-parleur système (haut-parleur PC) à l’étape 2/2… (vous pouvez entendre des bruits de clics/craquements)*
 
-- **Pourquoi ce test ?**
-
-  De nombreux systèmes modernes ne sont pas équipés d'un haut-parleur PNP0800, mais disposent tout de même d'une sortie haut-parleur utilisable (masquée). NeoBleeper utilise cette méthode avancée pour activer les fonctions de bip sur davantage de matériel.
-
+- **Pourquoi ce test ?**  
+  Beaucoup de systèmes modernes n’ont pas de périphérique haut-parleur système PNP0800, mais possèdent cependant une sortie haut-parleur "cachée" utilisable. NeoBleeper emploie cette méthode avancée pour activer la fonction de bip sur un plus grand nombre de matériels.
 ---
 
 ## 3. Compatibilité et limitations ARM64
@@ -283,8 +279,8 @@ _Cette solution est indiquée dans les paramètres :_
 ### Q : Pourquoi entends-je des clics au démarrage ?
 **R :** Lors du test avancé des sorties des haut-parleurs système (étape 2), NeoBleeper envoie des signaux ultrasoniques au matériel pour détecter les sorties de haut-parleurs masquées ou non standard. Sur certains systèmes (notamment ceux équipés de buzzers piézoélectriques), cela peut provoquer de légers clics. Ce phénomène est normal et n'indique aucun problème ; cela signifie simplement que le test matériel est en cours d'exécution.
 
-### Q : Le test matériel par ultrasons (étape 2) peut-il détecter des haut-parleurs système défectueux (circuit ouvert) ou déconnectés ?
-**R :** Ce test n'a pas encore été testé et est inconnu. Bien que le test vérifie la rétroaction électrique et l'activité des ports, il peut ne pas faire la distinction entre un haut-parleur physiquement présent mais défectueux (circuit ouvert) ou déconnecté et un haut-parleur absent. Si le haut-parleur est complètement défectueux ou déconnecté (circuit ouvert), le test peut renvoyer un résultat erroné, indiquant qu'aucune sortie fonctionnelle n'est détectée. Cependant, ce comportement n'est pas garanti et peut dépendre du matériel et du mode de défaillance. Si vous pensez que votre haut-parleur système ne fonctionne pas, une inspection physique ou l'utilisation d'un multimètre est recommandée.
+### Q : Pourquoi j’entends des bruits de clics ou de craquements au démarrage ?
+**R :** Pendant le test avancé de sortie du haut-parleur système (étape 2), NeoBleeper envoie des signaux ultrasoniques au matériel afin de détecter les sorties du haut-parleur cachées ou non standards. **Quel que soit le type de haut-parleur utilisé par votre système (buzzer piézoélectrique ou autre), il est possible d’entendre des bruits de clics et de craquements.** Comme indiqué sur l’écran de démarrage du programme, ces bruits peuvent survenir lors de la vérification de la sortie du haut-parleur système (haut-parleur PC) à l’étape 2/2.
 
 ### Q : Pourquoi les options de haut-parleur système et de bip sonore sont-elles absentes de mon appareil ARM64 ?
 **R :** Sur les systèmes Windows ARM64, NeoBleeper désactive les paramètres relatifs au haut-parleur système, car les plateformes ARM64 ne prennent pas en charge l’accès direct au matériel du haut-parleur système. Tous les bips sont diffusés via votre périphérique de sortie audio habituel (haut-parleurs ou casque), et les options « Tester le haut-parleur système » et « Utiliser un périphérique audio pour émettre un bip » sont automatiquement masquées. Ce comportement est normal et ne constitue pas une erreur.
