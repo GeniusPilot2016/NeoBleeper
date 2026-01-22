@@ -87,7 +87,7 @@ alternees toutes les: ... ms ».
   
   NeoBleeper peut également ouvrir les fichiers « .BMM », qui sont le format de fichier de Bleeper Music Maker, mais ils ne peuvent pas être écrasés et doivent être enregistrés dans un fichier « .NBPML » distinct.
 
-  ![image](https://github.com/user-attachments/assets/94cd1a9d-8e50-41eb-a42f-e2c55f769ec3)
+  ![image](https://github.com/user-attachments/assets/4cd8097e-a972-43c3-9da1-4d99bae645df)
 
 - ## Conseils pour l'édition musicale
   Les fichiers NBPML et BMM sont au format texte et compatibles avec les éditeurs de texte standard. Les fonctions copier-coller et rechercher-remplacer peuvent faciliter les tâches répétitives ou la correction d'erreurs.
@@ -577,17 +577,31 @@ alternees toutes les: ... ms ».
               
     - ### Convertir en GCode - `Ctrl + Majuscule + G`
 
-      Transformez des données musicales en GCode pour les buzzers ou les moteurs de machines CNC ou d'imprimantes 3D. Cela comble le fossé entre le son et le mouvement, permettant des représentations physiques de séquences musicales, idéales pour l'art expérimental ou les outils pédagogiques.
+      Générez du GCode à partir de données musicales pour contrôler des imprimantes 3D ou des machines CNC, et faites ainsi jouer physiquement des séquences musicales via des moteurs ou autres composants. La fenêtre mise à jour "Convertir le fichier en GCode" (voir ci-dessous) simplifie la sélection des notes, du firmware et des options de lecture.
 
-      ![image](https://github.com/user-attachments/assets/cdf644fa-ba27-4575-827e-eb3b0f62429e)
-
-      Cette fonctionnalité convertit les configurations de notes de musique sélectionnées en instructions GCode utilisables avec des machines CNC ou des imprimantes 3D. Jusqu'à quatre notes peuvent être définies, chacune affectée à un type de composant (moteur M3/M4 et M300 pour le buzzer). Les notes peuvent être modifiées individuellement.
-
-      L'ordre de lecture peut être configuré pour alterner les notes séquentiellement ou par parité de colonnes (colonnes impaires d'abord, puis paires).
+      ![image1](https://github.com/user-attachments/assets/ac537402-6c19-4d06-b8e4-ccb9253cfda7)
       
-      Lorsqu'elle est activée, le système génère un GCode qui déclenche les composants assignés selon le motif de notes sélectionné. Le timing et la modulation sont déterminés par la logique de lecture.
+      **Fonctionnalités et options principales :**
+      - **Sélection du firmware :**  
+        Choisissez le firmware cible pour votre fichier GCode, comme "Marlin", afin d’assurer la compatibilité avec votre imprimante 3D ou machine CNC.
       
-      Utilisez le bouton « Exporter en GCode » pour enregistrer le résultat. Assurez-vous de la compatibilité avec votre machine cible avant l'exécution.
+      - **Notes et types de composants :**  
+        Pour les Notes 1 à 4, sélectionnez le type de commande GCode (G0/G1 – Moteur) pour associer chaque note à un axe mécanique ou autre composant.  
+        Utilisez les cases à cocher à côté de chaque note pour spécifier quelles notes seront jouées dans la sortie GCode (« Jouer Note 1 », etc.).
+      
+      - **Sélection de l’axe :**  
+        Choisissez quel axe (X, Y ou Z) les commandes G0/G1 doivent déplacer.  
+        **Avertissement :** La commande G0/G1 déplace l'axe rapidement. Une mauvaise utilisation peut causer des dommages mécaniques ! Vérifiez toujours votre configuration.
+      
+      - **Options d’alternance des notes :**  
+        * Jouer les notes en alternance dans l’ordre  
+        * Jouer d’abord les notes dans les colonnes impaires, puis dans les colonnes paires  
+        Ces options déterminent la manière dont plusieurs notes sont séquencées dans le fichier GCode généré.
+      
+      - **Exporter en GCode :**  
+        Une fois vos paramètres configurés, cliquez sur « Exporter en GCode » pour sauvegarder le fichier destiné à votre machine.
+      
+      Ce processus offre un contrôle précis sur ce qui est joué par chaque axe ou composant, quelles notes sont utilisées et comment l’alternance des notes est gérée – idéal pour des intégrations expérimentales musique-mouvement.
 
      - ### Conversion en commande de Beep pour Linux - Ctrl + Majuscule + B
 
