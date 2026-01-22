@@ -81,8 +81,9 @@
   Nhạc và cài đặt có thể được lưu và tải bằng các nút "Mở", "Lưu" và "Lưu Dưới Dạng" trong nút "Tệp" trên thanh menu. Thao tác lưu bao gồm danh sách nhạc và hầu hết các tùy chọn cấu hình.  
   Các tệp đã lưu sử dụng phần mở rộng ".NBPML" và được định dạng văn bản XML. Các tệp này có thể được chỉnh sửa bằng các trình soạn thảo văn bản như Notepad.  
   Ngoài ra, NeoBleeper có thể mở các tệp ".BMM", định dạng tệp của Bleeper Music Maker, nhưng không thể ghi đè và nên được lưu dưới dạng tệp ".NBPML" riêng biệt.
-  
-  ![image](https://github.com/user-attachments/assets/b324b9ac-b77c-495c-b04b-bb954c220bce)
+  <img width="266" height="310" alt="image" src="" />
+
+  ![image](https://github.com/user-attachments/assets/adbe4535-7c4a-4271-b629-00df01031e97)
 
  - ## Mẹo khi chỉnh sửa nhạc
   Cả tệp NBPML và BMM đều ở dạng văn bản và tương thích với các trình soạn thảo văn bản tiêu chuẩn. Các chức năng sao chép và dán và tìm và thay thế có thể hỗ trợ các tác vụ lặp lại hoặc sửa lỗi.
@@ -527,18 +528,31 @@
         
     - ### Chuyển đổi sang GCode - `Ctrl + Shift + G`
 
-      Chuyển đổi dữ liệu âm nhạc thành GCode cho còi báo động hoặc động cơ của máy CNC hoặc máy in 3D. Điều này thu hẹp khoảng cách giữa âm thanh và chuyển động, cho phép biểu diễn vật lý các chuỗi âm nhạc, hoàn hảo cho nghệ thuật thử nghiệm hoặc công cụ giáo dục.
+      Tạo mã GCode từ dữ liệu âm nhạc để sử dụng trên máy in 3D hoặc máy CNC, cho phép phát các chuỗi nhạc một cách vật lý bằng động cơ hoặc các bộ phận khác. Cửa sổ “Chuyển đổi tệp thành GCode” đã được cập nhật (xem bên dưới) giúp đơn giản hóa việc chọn nốt, firmware và các tùy chọn phát nhạc.
 
-      ![image](https://github.com/user-attachments/assets/50d5e15e-8c43-42e2-b893-4cf4ee551096)
+      ![image1](https://github.com/user-attachments/assets/9d226adc-2b17-4154-8437-8c8d7ccc6189)
       
-      Tính năng này chuyển đổi các cấu hình nốt nhạc đã chọn thành các lệnh GCode để sử dụng với máy CNC hoặc máy in 3D. Có thể định nghĩa tối đa bốn nốt nhạc, mỗi nốt được gán cho một loại thành phần (động cơ M3/M4 và M300 cho còi báo động). Các nốt nhạc có thể được chuyển đổi riêng lẻ.
+      **Các tính năng và tùy chọn chính:**
+      - **Chọn Firmware:**  
+        Chọn firmware đích cho tệp GCode, ví dụ như “Marlin”, để đảm bảo khả năng tương thích với máy in 3D hoặc máy CNC của bạn.
       
-      Thứ tự phát lại có thể được cấu hình để xen kẽ các nốt nhạc theo trình tự hoặc theo cột chẵn lẻ (các cột số lẻ trước, sau đó là các cột số chẵn).
+      - **Nốt & loại thành phần:**  
+        Đối với Nốt 1–4, hãy chọn loại lệnh GCode (G0/G1 – Động cơ) để gán mỗi nốt cho một trục cơ khí hoặc thành phần nào đó.  
+        Sử dụng các hộp kiểm bên cạnh mỗi nốt để xác định nốt nào sẽ được phát trong tệp GCode xuất ra (“Phát Nốt 1”, v.v.).
       
-      Khi được kích hoạt, hệ thống sẽ tạo ra GCode kích hoạt các thành phần được chỉ định theo mẫu nốt nhạc đã chọn. Thời gian và điều chế được xác định bởi logic phát lại.
+      - **Chọn Trục:**  
+        Chọn trục nào (X, Y hoặc Z) sẽ được điều khiển bởi các lệnh G0/G1.  
+        **Cảnh báo:** Lệnh G0/G1 di chuyển trục rất nhanh. Sử dụng sai có thể gây hư hại cơ học! Luôn kiểm tra cài đặt thật kỹ.
       
-      Sử dụng nút "Xuất dưới dạng GCode" để lưu đầu ra. Hãy đảm bảo tính tương thích với máy đích của bạn trước khi thực hiện.
-
+      - **Tùy chọn phát nốt luân phiên:**  
+        * Phát các nốt luân phiên theo thứ tự  
+        * Phát trước các nốt ở cột lẻ, sau đó là cột chẵn  
+        Các tùy chọn này quyết định cách nhiều nốt được sắp xếp trong tệp GCode được tạo ra.
+      
+      - **Xuất thành GCode:**  
+        Sau khi đã thiết lập xong, hãy nhấp vào “Xuất thành GCode” để lưu tệp xuất ra cho thiết bị của bạn.
+      
+      Quy trình cập nhật này giúp kiểm soát chi tiết việc mỗi trục/thành phần phát nốt nào, sử dụng nốt nào và cách các nốt luân phiên — lý tưởng cho mục đích tích hợp thử nghiệm giữa âm nhạc và chuyển động.
     - ### Chuyển đổi sang lệnh Beep cho Linux - `Ctrl + Shift + B`
 
     Nhanh chóng chuyển đổi các tác phẩm âm nhạc của bạn thành tập lệnh lệnh beep tương thích với Linux để dễ dàng phát lại trên các hệ thống Linux.
