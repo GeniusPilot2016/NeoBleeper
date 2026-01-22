@@ -79,17 +79,17 @@ Some modern computers, laptops, or virtual machines do not have a true PC speake
 
 ## 2.1 System Speaker Output Test (Ultrasonic Frequency Detection)
 
-NeoBleeper now includes a new, advanced hardware test to detect system speaker (aka PC speaker) output, even if the device is not reported by Windows (in certain IDs such as PNP0C02 instead of PNP0800). This test uses ultrasonic frequencies (typically 30–38 kHz, which are inaudible) and analyzes electrical feedback on the system speaker port.
+NeoBleeper now includes a new, advanced hardware test to detect system speaker (aka PC speaker) output, even if the device is not reported by Windows (in certain IDs such as PNP0C02 instead of PNP0800) or when the connection is non-standard.
 
 - **How it works:**  
-  During startup, NeoBleeper performs a second step after the usual device ID check. It sends ultrasonic signals to the system speaker port and monitors hardware feedback to detect the presence of a functional speaker output—even if hidden or non-standard.
+  During startup, NeoBleeper performs a second step after the usual device ID check. It sends ultrasonic signals to the system speaker port and monitors hardware feedback to detect the presence of a functional speaker output.
 
 - **What you may notice:**  
-  On some systems, especially those with piezo buzzers, you might hear faint clicking noises during this stage. This is normal and indicates the hardware test is running.
+  On some systems, **regardless of whether the system speaker is a piezo buzzer or any other type**, you may hear faint **clicking or popping sounds** during this stage. This is normal and indicates the hardware test is running.
 
-  ![image4](https://github.com/user-attachments/assets/2bccd68c-6ed6-4a7d-8c89-34da8996ef9f)
+  ![image1](https://github.com/user-attachments/assets/cedc20f1-011d-4219-97d1-472d84ae7c38)
   
-  *Checking for system speaker (PC speaker) output presence in step 2/2… (you may hear clicking sounds)*
+  *Checking for system speaker (PC speaker) output presence in step 2/2… (you may hear clicking/popping sounds)*
 
 - **Why this test?**  
   Many modern systems lack a PNP0800 system speaker device, but still have a usable (hidden) speaker output. NeoBleeper uses this advanced method to enable beep features on more hardware.
@@ -248,8 +248,8 @@ _This workaround is highlighted in the settings:_
 ### Q: What if the Beep Stopper tool does not stop the stuck beep?
 **A:** Restart your computer to reset the speaker hardware if the Beep Stopper utility fails.
 
-### Q: Why do I hear clicking sounds during startup?
-**A:** During the advanced system speaker output test (step 2), NeoBleeper sends ultrasonic signals to the hardware to detect hidden or non-standard speaker outputs. On some systems (especially those with piezo buzzers), this may cause faint clicking noises. This is normal and does not indicate a problem; it simply means the hardware test is running.
+### Q: Why do I hear clicking or popping sounds during startup?
+**A:** During the advanced system speaker output test (step 2), NeoBleeper sends ultrasonic signals to the hardware to detect hidden or non-standard speaker outputs. **Regardless of whether the system uses a piezo buzzer or other speaker type, you may hear clicking and popping sounds.** As shown in the program's splash screen, these sounds occur while NeoBleeper is checking for system speaker (PC speaker) output presence in step 2/2.
 
 ### Q: Can the ultrasonic hardware test (step 2) detect broken (open circuit) or disconnected system speakers?
 **A:** This is currently untested and unknown. While the test checks for electrical feedback and port activity, it may not reliably distinguish between a physically present but broken (open circuit) or disconnected speaker and a missing speaker. If the speaker is completely broken or disconnected (open circuit), the test may return false, indicating no functional output detected. However, this behavior is not guaranteed and may depend on the specific hardware and failure mode. If you suspect your system speaker is not working, physical inspection or using a multimeter is recommended.
