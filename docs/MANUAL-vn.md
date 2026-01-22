@@ -457,7 +457,7 @@
   - ## Công cụ
     Những công cụ nhỏ gọn nhưng mạnh mẽ này trong menu `File` cung cấp quyền truy cập nhanh vào ba tính năng cốt lõi của NeoBleeper, mỗi tính năng được thiết kế để hợp lý hóa quy trình làm việc và mở rộng khả năng sáng tạo của bạn. Mỗi tùy chọn được kết hợp với một phím tắt để điều khiển nhanh chóng và trực quan:
 
-    ![image](https://github.com/user-attachments/assets/c755c746-0128-4f1b-8a32-c61651052f35)
+    ![image](https://github.com/user-attachments/assets/3873d5db-eaff-4eef-9c2d-75d4a3e05b1e)
 
     - ### Phát tệp MIDI - `Ctrl + M`
       Tải và phát tệp MIDI ngay lập tức thông qua loa hệ thống hoặc tệp thiết bị âm thanh trong NeoBleeper. Tính năng này lý tưởng để xem trước các tác phẩm, kiểm tra độ chính xác khi phát lại hoặc tích hợp dữ liệu MIDI bên ngoài vào quy trình làm việc của bạn.
