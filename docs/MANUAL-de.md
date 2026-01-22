@@ -478,7 +478,7 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
   - ## Werkzeuge
     Diese kompakten und dennoch leistungsstarken Werkzeuge im Menü „Datei“ bieten schnellen Zugriff auf drei Kernfunktionen von NeoBleeper. Jede Funktion optimiert Ihren Workflow und erweitert Ihre kreativen Möglichkeiten. Jede Option ist mit einem Tastenkürzel für eine schnelle und praktische Steuerung verknüpft:
 
-    ![image](https://github.com/user-attachments/assets/922c3cfa-5f11-40b1-822c-45431482127d)
+    ![image](https://github.com/user-attachments/assets/420da3fe-5c44-42cf-b040-a90d8bf95275)
 
     - ### MIDI-Datei abspielen - Strg + M
       Laden und spielen Sie MIDI-Dateien direkt über den Systemlautsprecher oder ein Soundgerät in NeoBleeper ab. Diese Funktion eignet sich ideal zum Vorhören von Kompositionen, zum Testen der Wiedergabegenauigkeit oder zum Integrieren externer MIDI-Daten in Ihren Workflow.
