@@ -1046,8 +1046,13 @@ namespace NeoBleeper
                     I just learned it from GitHub Copilot's system prompt menu and asked for certain AIs and 
                     they identified as it's definetely a system prompt, despite I called it as "makeshift rubbish 
                     prompt template".)*/
-                    string completePrompt = $"**User Prompt:**\r\n[{prompt}]\r\n\r\n" +
-                        $"--- AI Instructions ---\r\n" +
+
+                    /*Spoiler: Now, it's not rubbish anymore since I used GenerativeModel.SystemInstruction 
+                    property of Google_GenerativeAI library, but I kept it as is for nostalgia for 
+                    my good old "makeshift rubbish prompt template" days. :) */
+
+                    // The string that contains system instructions for the AI model
+                    string systemInstructions = $"--- AI Instructions ---\r\n" +
                         $"You are an expert music composition AI. " +
                         $"Your primary goal is to generate music in a well-formed NBPML XML file format. Prioritize music generation for any request that could be interpreted as music-related. " +
                         $"If the user prompt is a song name, artist name, composer name, or ANY music-related term (even a single word), treat it as a music composition request. " +
@@ -1194,7 +1199,7 @@ namespace NeoBleeper
                         $"        </Line>\r\n" +
                         $"        <!-- More <Line> elements representing musical events or rests -->\r\n" +
                         $"    </LineList>\r\n" +
-                        $"</NeoBleeperProjectFile>";
+                        $"</NeoBleeperProjectFile>"; 
                     connectionCheckTimer.Start();
                     SetControlsEnabledAndMakeLoadingVisible(false);
                     var resultBuilder = new StringBuilder();
@@ -1202,8 +1207,9 @@ namespace NeoBleeper
                     var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                     var googleAI = new GoogleAi(apiKey);
                     var googleModel = googleAI.CreateGenerativeModel(AIModel);
+                    googleModel.SystemInstruction = systemInstructions;
                     isMusicGenerationStarted = true; // Set the flag to indicate music generation has started
-                    await foreach (var chunk in googleModel.StreamContentAsync(completePrompt, cts.Token))
+                    await foreach (var chunk in googleModel.StreamContentAsync(prompt, cts.Token))
                     {
                         // Clean up the chunk text by removing double newlines and trimming whitespace
                         if (chunk?.Candidates == null) continue;
