@@ -115,63 +115,65 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Parses the specified XML string, displays it in a RichTextBox, and highlights the first character where a
+        /// Parses the specified XML string, displays it in a RichTextBox, and highlights the entire tag where a
         /// parsing error occurs.
         /// </summary>
         /// <remarks>This method visually distinguishes the first XML parsing error by highlighting the
-        /// corresponding character in the RichTextBox. Only the first error encountered is highlighted; subsequent
+        /// entire tag containing the error in the RichTextBox. Only the first error encountered is highlighted; subsequent
         /// errors are not marked. The method does not modify the input string.</remarks>
-        /// <param name="brokenXML">The XML string to display and analyze for errors. If the string contains invalid XML, the first problematic
+        /// <param name="brokenXML">The XML string to display and analyze for errors. If the string contains invalid XML, the entire tag with the first problematic
         /// character will be highlighted.</param>
         private void WriteToRichTextBoxAndHighlightError(string brokenXML)
         {
             // Collect parts of the XML with error info
             List<(string text, bool isError)> parts = new();
             string xml = brokenXML;
-            int offset = 0;
 
-            while (!string.IsNullOrEmpty(xml))
+            try
             {
-                try
-                {
-                    // Try to parse the 'broken' XML
-                    var doc = new XmlDocument();
-                    doc.LoadXml(xml);
-                    // If successful, add the remaining part and exit
-                    parts.Add((xml, false));
-                    break;
-                }
-                catch (XmlException ex)
-                {
-                    // Find error position
-                    int line = ex.LineNumber;
-                    int pos = ex.LinePosition;
+                // Try to parse the entire XML
+                var doc = new XmlDocument();
+                doc.LoadXml(xml);
+                // If successful, add the entire string as normal
+                parts.Add((xml, false));
+            }
+            catch (XmlException ex)
+            {
+                // Find error position
+                int line = ex.LineNumber;
+                int pos = ex.LinePosition;
 
-                    // Find character index in the string
-                    int charIndex = 0;
-                    string[] lines = xml.Split('\n');
-                    for (int i = 0; i < line - 1 && i < lines.Length; i++)
-                        charIndex += lines[i].Length + 1;
-                    charIndex += pos - 1;
+                // Find character index in the string
+                int charIndex = 0;
+                string[] lines = xml.Split('\n');
+                for (int i = 0; i < line - 1 && i < lines.Length; i++)
+                    charIndex += lines[i].Length + 1;
+                charIndex += pos - 1;
 
-                    // Seperate the string into parts
-                    string before = xml.Substring(0, Math.Min(charIndex, xml.Length));
-                    string errorChar = (charIndex < xml.Length) ? xml.Substring(charIndex, 1) : "";
-                    string after = (charIndex + 1 < xml.Length) ? xml.Substring(charIndex + 1) : "";
+                // Find the start of the tag (last '<' before error)
+                int tagStart = xml.LastIndexOf('<', charIndex);
+                if (tagStart == -1) tagStart = 0;
 
-                    if (!string.IsNullOrEmpty(before))
-                        parts.Add((before, false));
-                    if (!string.IsNullOrEmpty(errorChar))
-                        parts.Add((errorChar, true));
+                // Find the end of the tag (next '>' after error)
+                int tagEnd = xml.IndexOf('>', charIndex);
+                if (tagEnd == -1) tagEnd = xml.Length;
+                else tagEnd += 1; // Include the '>'
 
-                    // Retry with the remaining string
-                    xml = after;
-                    offset += charIndex + 1;
-                }
+                // Separate the string into parts: before tag (normal), tag (highlighted), after tag (normal)
+                string before = xml.Substring(0, tagStart);
+                string errorTag = xml.Substring(tagStart, tagEnd - tagStart);
+                string after = (tagEnd < xml.Length) ? xml.Substring(tagEnd) : "";
+
+                if (!string.IsNullOrEmpty(before))
+                    parts.Add((before, false));
+                if (!string.IsNullOrEmpty(errorTag))
+                    parts.Add((errorTag, true));
+                if (!string.IsNullOrEmpty(after))
+                    parts.Add((after, false));
             }
 
-            // Create RTF content with highlights
-            string EscapeRtf(string s) => s.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}");
+            // Create RTF content with highlights and proper newline handling
+            string EscapeRtf(string s) => s.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}").Replace("\n", "\\line ");
             var rtf = @"{\rtf1\ansi{\colortbl ;\red255\green255\blue255;\red255\green0\blue0;}";
             foreach (var part in parts)
             {
