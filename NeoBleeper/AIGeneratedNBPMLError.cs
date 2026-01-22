@@ -125,54 +125,64 @@ namespace NeoBleeper
         /// character will be highlighted.</param>
         private void WriteToRichTextBoxAndHighlightError(string brokenXML)
         {
-            // Collect parts of the XML with error info
             List<(string text, bool isError)> parts = new();
             string xml = brokenXML;
 
             try
             {
-                // Try to parse the entire XML
                 var doc = new XmlDocument();
                 doc.LoadXml(xml);
-                // If successful, add the entire string as normal
                 parts.Add((xml, false));
             }
             catch (XmlException ex)
             {
-                // Find error position
                 int line = ex.LineNumber;
                 int pos = ex.LinePosition;
 
-                // Find character index in the string
                 int charIndex = 0;
                 string[] lines = xml.Split('\n');
                 for (int i = 0; i < line - 1 && i < lines.Length; i++)
                     charIndex += lines[i].Length + 1;
                 charIndex += pos - 1;
 
-                // Find the start of the tag (last '<' before error)
-                int tagStart = xml.LastIndexOf('<', charIndex);
-                if (tagStart == -1) tagStart = 0;
+                // Boundary checks
+                if (charIndex < 0) charIndex = 0;
+                if (charIndex > xml.Length) charIndex = xml.Length;
 
-                // Find the end of the tag (next '>' after error)
+                int tagStart = xml.LastIndexOf('<', Math.Min(charIndex, xml.Length - 1));
+                if (tagStart < 0 || tagStart > xml.Length - 1) tagStart = 0;
+
                 int tagEnd = xml.IndexOf('>', charIndex);
-                if (tagEnd == -1) tagEnd = xml.Length;
-                else tagEnd += 1; // Include the '>'
+                if (tagEnd < 0 || tagEnd > xml.Length) tagEnd = xml.Length;
+                else tagEnd += 1;
+                if (tagEnd < tagStart) tagEnd = xml.Length;
 
-                // Separate the string into parts: before tag (normal), tag (highlighted), after tag (normal)
-                string before = xml.Substring(0, tagStart);
-                string errorTag = xml.Substring(tagStart, tagEnd - tagStart);
+                // Last sanity checks
+                if (tagStart < 0) tagStart = 0;
+                if (tagStart > xml.Length) tagStart = xml.Length;
+                if (tagEnd < tagStart) tagEnd = tagStart;
+                if (tagEnd > xml.Length) tagEnd = xml.Length;
+
+                string before = tagStart > 0 ? xml.Substring(0, tagStart) : "";
+                string errorTag = (tagEnd > tagStart && tagStart < xml.Length) ? xml.Substring(tagStart, tagEnd - tagStart) : "";
                 string after = (tagEnd < xml.Length) ? xml.Substring(tagEnd) : "";
 
-                if (!string.IsNullOrEmpty(before))
-                    parts.Add((before, false));
-                if (!string.IsNullOrEmpty(errorTag))
-                    parts.Add((errorTag, true));
-                if (!string.IsNullOrEmpty(after))
-                    parts.Add((after, false));
+                // If no valid tag found, treat entire NBPML (XML) as error
+                if (string.IsNullOrEmpty(errorTag))
+                {
+                    parts.Add((xml, true));
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(before))
+                        parts.Add((before, false));
+                    if (!string.IsNullOrEmpty(errorTag))
+                        parts.Add((errorTag, true));
+                    if (!string.IsNullOrEmpty(after))
+                        parts.Add((after, false));
+                }
             }
 
-            // Create RTF content with highlights and proper newline handling
             string EscapeRtf(string s) => s.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}").Replace("\n", "\\line ");
             var rtf = @"{\rtf1\ansi{\colortbl ;\red255\green255\blue255;\red255\green0\blue0;}";
             foreach (var part in parts)
