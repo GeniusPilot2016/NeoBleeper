@@ -495,7 +495,7 @@ alternees toutes les: ... ms ».
 
     Ces outils compacts et puissants du menu « Fichier » offrent un accès rapide à trois fonctionnalités clés de NeoBleeper, chacune conçue pour optimiser votre flux de travail et élargir vos possibilités créatives. Chaque option est associée à un raccourci clavier pour un contrôle rapide et pratique :
 
-    ![image](https://github.com/user-attachments/assets/eafc1e97-7189-4b5c-9f47-27c6a902f9dd)
+    ![image](https://github.com/user-attachments/assets/33e9118a-2b32-49db-ac9a-a2409d581c6f)
 
     - ### Lecture d'un fichier MIDI - Ctrl + M
       
