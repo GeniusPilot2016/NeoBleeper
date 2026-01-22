@@ -83,7 +83,7 @@
   Saved files use the ".NBPML" extension and are XML text-based. These files can be edited with text editors such as Notepad.
   Also, NeoBleeper can open ".BMM" files, which is file format of Bleeper Music Maker, but it can't be overwrited and it should be saved as seperate ".NBPML" file.
 
-  ![image](https://github.com/user-attachments/assets/e1bf6628-de78-4e81-bcf3-9c7d18ca8e70)
+  ![image](https://github.com/user-attachments/assets/d08d0395-8075-4467-b6ac-ee0a094c3d78)
 
  - ## Tips for While Editing Music
    Both NBPML and BMM files are text-based and compatible with standard text editors. Copy-and-paste and find-and-replace functions can assist with repetitive tasks or correcting errors.
@@ -553,18 +553,32 @@
       - Assign AI music to specific note columns and combine with traditional or voice synthesis features for unique results.
         
     - ### Convert to GCode - `Ctrl + Shift + G`
+    
+      Generate GCode from musical input for output on 3D printers or CNC machines, enabling you to physically play musical sequences on motors or other components. The updated "Convert File to GCode" window (see below) streamlines choosing notes, firmware, and playback options.
 
-      Transform musical data into GCode for buzzers or motors of CNC machines or 3D printers. This bridges the gap between sound and motion, enabling physical representations of musical sequences, perfect for experimental art or educational tools.
-
-      ![image](https://github.com/user-attachments/assets/340f6ab2-a148-46ad-b236-552849911067)
-
-      This feature converts selected musical note configurations into GCode instructions for use with CNC machines or 3D printers. Up to four notes can be defined, each assigned to a component type (M3/M4 motor and M300 for buzzer). Notes can be toggled individually.
+      ![image1](https://github.com/user-attachments/assets/3ad705cb-2c4b-424c-be9c-2d1fbe45fe69)
       
-      Playback order can be configured to alternate notes sequentially or by column parity (odd-numbered columns first, then even-numbered).
-
-      When activated, the system generates GCode that triggers the assigned components in accordance with the selected note pattern. Timing and modulation are determined by the playback logic.
-
-      Use the "Export As GCode" button to save the output. Ensure compatibility with your target machine before execution.
+      **Key Features and Options:**
+      - **Firmware Selection:**  
+        Choose the target firmware for your GCode file, such as "Marlin," ensuring compatibility with your 3D printer or CNC machine.
+      
+      - **Notes & Component Types:**  
+        For Note 1–4, select the type of GCode command (G0/G1 – Motor) to assign each note to a mechanical axis or component.  
+        Use the checkboxes beside each note to specify which notes should be played in the GCode output (Play Note 1, etc.).
+      
+      - **Axis Selection:**  
+        Choose which axis (X, Y, or Z) the G0/G1 commands will control.  
+        **Warning:** The G0/G1 command moves the axis rapidly. Incorrect use may cause mechanical damage! Always verify your configuration.
+      
+      - **Playing Alternating Note Options:**  
+        * Play alternating notes in order  
+        * Play alternating notes in the odd-numbered columns first, then in even-numbered columns  
+        These options control how multiple notes are sequenced in the generated GCode file.
+      
+      - **Export As GCode:**  
+        Once your settings are configured, click "Export As GCode" to save the output for your machine.
+      
+      This updated workflow gives fine control over what is played by each axis/component, which notes are used, and how note alternation is handled—making it ideal for experimental music-movement integration.
 
     - ### Convert to Beep Command for Linux - `Ctrl + Shift + B`
 
