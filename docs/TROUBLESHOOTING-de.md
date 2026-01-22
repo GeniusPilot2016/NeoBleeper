@@ -79,19 +79,22 @@ NeoBleeper verfügt über eine Erkennungslogik, die prüft, ob Ihr System über 
 #### Was bedeutet „nicht standardmäßiger Systemlautsprecherausgang“?
 Manche moderne Computer, Laptops oder virtuelle Maschinen verfügen nicht über einen echten PC-Lautsprecher, oder die Signalführung ist nicht standardmäßig. NeoBleeper versucht nun, solche versteckten Systemlautsprecherausgänge (nicht als PNP0800-Geräte identifiziert) zu erkennen und zu nutzen, kann die Systemlautsprecheroption jedoch nur aktivieren, wenn sie auf Hardwareebene tatsächlich zugänglich ist. Wenn kein nutzbarer Ausgang gefunden wird, müssen Sie Ihr normales Audiogerät verwenden.
 
-## 2.1 Systemlautsprecher-Ausgangstest (Ultraschallfrequenzerkennung)
+## 2.1 Systemlautsprecher-Ausgabetest (Ultraschallfrequenz-Erkennung)
 
-NeoBleeper enthält jetzt einen neuen, erweiterten Hardwaretest zur Erkennung des Systemlautsprecherausgangs (auch PC-Lautsprecher genannt), selbst wenn das Gerät von Windows nicht erkannt wird (z. B. bei bestimmten IDs wie PNP0C02 statt PNP0800). Dieser Test verwendet Ultraschallfrequenzen (typischerweise 30–38 kHz, die nicht hörbar sind) und analysiert die elektrische Rückkopplung am Systemlautsprecheranschluss.
+NeoBleeper enthält jetzt einen neuen, erweiterten Hardwaretest zum Erkennen des Systemlautsprechers (auch PC-Lautsprecher genannt), selbst wenn das Gerät von Windows nicht gemeldet wird (z. B. als PNP0C02 statt PNP0800) oder die Verbindung nicht dem Standard entspricht.
 
-- **Funktionsweise:**
-Beim Start führt NeoBleeper nach der üblichen Geräte-ID-Prüfung einen zweiten Schritt durch. Es sendet Ultraschallsignale an den Systemlautsprecheranschluss und überwacht die Hardware-Rückkopplung, um das Vorhandensein eines funktionierenden Lautsprecherausgangs zu erkennen – auch wenn dieser versteckt oder nicht standardmäßig ist.
+- **Funktionsweise:**  
+  Beim Start führt NeoBleeper einen zweiten Schritt nach der üblichen Geräte-ID-Prüfung durch. Es werden Ultraschallsignale zum Systemlautsprecher-Port gesendet und per Hardware-Feedback überprüft, ob eine funktionale Lautsprecher-Ausgabe vorhanden ist.
 
-- **Was Sie bemerken könnten:**
-Auf einigen Systemen, insbesondere solchen mit Piezo-Summern, können während dieser Phase leise Klickgeräusche auftreten. Dies ist normal und zeigt an, dass der Hardwaretest ausgeführt wird.
+- **Was Sie bemerken könnten:**  
+  Auf einigen Systemen, **unabhängig davon, ob der Lautsprecher ein Piezo-Buzzer oder ein anderer Typ ist**, können Sie während dieses Vorgangs leise **Klickgeräusche oder Knackgeräusche** hören. Dies ist normal und zeigt an, dass der Hardwaretest läuft.
 
-![image4](https://github.com/user-attachments/assets/b6c4a7ea-5c7c-4c8e-ad70-9834f7610c33)
+  ![image1](https://github.com/user-attachments/assets/11d8568f-3a3a-46fc-9338-8960df4b8854)
 
-*Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 2/2... (Klickgeräusche sind möglicherweise zu hören)*
+  *Prüfung auf Systemlautsprecher (PC-Lautsprecher)-Ausgabe bei Schritt 2/2… (Sie können Klick- oder Knackgeräusche hören)*
+
+- **Warum dieser Test?**  
+  Viele moderne Systeme verfügen nicht über ein PNP0800-Systemlautsprechergerät, besitzen aber dennoch eine verwendbare (versteckte) Lautsprecherausgabe. NeoBleeper nutzt diese erweiterte Methode, um die Piepton-Funktion auf mehr Hardware zu ermöglichen.
 
 - **Warum dieser Test?** Viele moderne Systeme besitzen keinen PNP0800-Systemlautsprecher, haben aber dennoch einen nutzbaren (versteckten) Lautsprecherausgang. NeoBleeper verwendet diese fortschrittliche Methode, um die Piepton-Funktion auf mehr Hardware zu aktivieren.
 
@@ -277,8 +280,8 @@ _Diese Problemumgehung ist in den Einstellungen hervorgehoben:_
 ### F: Was ist, wenn das Beep-Stopper-Tool den feststeckenden Signalton nicht stoppt?
 **A:** Starten Sie Ihren Computer neu, um die Lautsprecherhardware zurückzusetzen, falls das Dienstprogramm „Beep Stopper“ fehlschlägt.
 
-### F: Warum höre ich beim Start Klickgeräusche?
-**A:** Während des erweiterten System-Lautsprecherausgangstests (Schritt 2) sendet NeoBleeper Ultraschallsignale an die Hardware, um versteckte oder nicht standardmäßige Lautsprecherausgänge zu erkennen. Bei manchen Systemen (insbesondere mit Piezo-Summern) kann dies zu leisen Klickgeräuschen führen. Dies ist normal und stellt kein Problem dar; es bedeutet lediglich, dass der Hardwaretest läuft.
+### F: Warum höre ich während des Starts Klick- und Knackgeräusche?
+**A:** Während des erweiterten Systemlautsprecher-Ausgabetests (Schritt 2) sendet NeoBleeper Ultraschallsignale an die Hardware, um versteckte oder nicht standardmäßige Lautsprecherausgänge zu erkennen. **Unabhängig davon, ob Ihr System einen Piezo-Buzzer oder einen anderen Lautsprechertyp verwendet, können Klick- und Knackgeräusche auftreten.** Wie im Splashscreen des Programms dargestellt, treten diese Geräusche auf, während NeoBleeper bei Schritt 2/2 die Systemlautsprecher-Ausgabe prüft.
 
 ### F: Kann der Ultraschall-Hardwaretest (Schritt 2) defekte (offene Leitung) oder nicht angeschlossene Systemlautsprecher erkennen?
 **A:** Dies ist derzeit nicht getestet und unbekannt. Der Test prüft zwar auf elektrische Rückkopplung und Portaktivität, unterscheidet jedoch möglicherweise nicht zuverlässig zwischen einem physisch vorhandenen, aber defekten (offenen Leitung) oder nicht angeschlossenen Lautsprecher und einem fehlenden Lautsprecher. Ist der Lautsprecher vollständig defekt oder nicht angeschlossen (offene Leitung), kann der Test „false“ zurückgeben, was bedeutet, dass kein funktionsfähiger Ausgang erkannt wurde. Dieses Verhalten ist jedoch nicht garantiert und kann von der jeweiligen Hardware und dem Fehlermodus abhängen. Wenn Sie vermuten, dass Ihr Systemlautsprecher nicht funktioniert, empfehlen wir eine physische Überprüfung oder die Verwendung eines Multimeters.
