@@ -78,22 +78,22 @@ NeoBleeper incluye lógica de detección para comprobar si su sistema dispone de
 #### ¿Qué significa "salida de altavoz del sistema no estándar"?
 Algunas computadoras, portátiles o máquinas virtuales modernas no tienen un altavoz de PC real o el enrutamiento de la señal no es estándar. NeoBleeper ahora intenta detectar y utilizar estas salidas de altavoz del sistema ocultas (no identificadas como dispositivos PNP0800), pero solo puede habilitar la opción de altavoz del sistema si es realmente accesible a nivel de hardware. Si no se encuentra ninguna salida utilizable, deberá usar su dispositivo de sonido habitual.
 
-## 2.1 Prueba de Salida de Altavoz del Sistema (Detección de Frecuencia Ultrasónica)
+## 2.1 Prueba de salida del altavoz del sistema (detección de frecuencia ultrasónica)
 
-NeoBleeper ahora incluye una nueva prueba de hardware avanzada para detectar la salida del altavoz del sistema (también conocido como altavoz del PC), incluso si Windows no lo detecta (en ciertos identificadores como PNP0C02 en lugar de PNP0800). Esta prueba utiliza frecuencias ultrasónicas (normalmente de 30 a 38 kHz, que son inaudibles) y analiza la retroalimentación eléctrica en el puerto del altavoz del sistema.
+NeoBleeper ahora incluye una nueva prueba avanzada de hardware para detectar la salida del altavoz del sistema (también conocido como altavoz PC), incluso si el dispositivo no se reporta en Windows (por ejemplo, como PNP0C02 en vez de PNP0800) o si la conexión es no estándar.
 
-- **Cómo funciona:**
-  Durante el inicio, NeoBleeper realiza un segundo paso después de la comprobación habitual del identificador del dispositivo. Envía señales ultrasónicas al puerto del altavoz del sistema y monitoriza la retroalimentación del hardware para detectar la presencia de una salida de altavoz funcional, incluso si está oculta o no es estándar.
+- **Cómo funciona:**  
+  Al iniciar, NeoBleeper realiza un segundo paso después de la comprobación habitual de la ID del dispositivo. Se envían señales ultrasónicas al puerto del altavoz del sistema y se monitoriza la respuesta del hardware para detectar la presencia de una salida de altavoz funcional.
 
-- **Qué puede notar:**
-  En algunos sistemas, especialmente aquellos con zumbadores piezoeléctricos, es posible que escuche leves clics durante esta etapa. Esto es normal e indica que la prueba de hardware se está ejecutando.
+- **Qué puedes notar:**  
+  En algunos sistemas, **independientemente de si el altavoz es un zumbador piezoeléctrico o de otro tipo**, puedes escuchar **clics o chasquidos** durante esta etapa. Esto es normal e indica que la prueba de hardware está en progreso.
 
-  ![image4](https://github.com/user-attachments/assets/b6e06f36-6ffc-41e7-a020-a16693adf281)
-  
-  *Comprobando la presencia de la salida del altavoz del sistema (altavoz de PC) en el paso 2/2... (puede que oiga clics)*
+  ![image1](https://github.com/user-attachments/assets/ebcf9c20-1ea9-4ecb-b816-d3c0d16e2380)
 
-- **¿Por qué esta prueba?**
-  Muchos sistemas modernos carecen de un altavoz del sistema PNP0800, pero aún tienen una salida de altavoz utilizable (oculta). NeoBleeper utiliza este método avanzado para habilitar funciones de pitido en más hardware.
+  *Comprobando la presencia de salida del altavoz del sistema (altavoz PC) en el paso 2/2… (puede que escuches clics/chasquidos)*
+
+- **¿Por qué esta prueba?**  
+  Muchos sistemas modernos no tienen un dispositivo de altavoz del sistema PNP0800, pero sí una salida “oculta” utilizable. NeoBleeper utiliza este método avanzado para habilitar la función de beep en más hardware.
   
 ---
 
@@ -274,8 +274,8 @@ _Esta solución alternativa se destaca en la configuración:_
 
 ### P: ¿Qué pasa si la herramienta Beep Stopper no detiene el pitido bloqueado? **R:** Reinicie su computadora para restablecer el hardware de los altavoces si la utilidad Beep Stopper falla.
 
-### P: ¿Por qué escucho clics al iniciar?
-**R:** Durante la prueba avanzada de salida de los altavoces del sistema (paso 2), NeoBleeper envía señales ultrasónicas al hardware para detectar salidas de altavoz ocultas o no estándar. En algunos sistemas (especialmente aquellos con zumbadores piezoeléctricos), esto puede causar leves clics. Esto es normal y no indica un problema; simplemente significa que la prueba de hardware se está ejecutando.
+### P: ¿Por qué escucho clics y chasquidos al iniciar?
+**R:** Durante la prueba avanzada de salida del altavoz del sistema (paso 2), NeoBleeper envía señales ultrasónicas al hardware para detectar salidas de altavoz ocultas o no estándar. **Independientemente de si tu sistema usa un zumbador piezoeléctrico o otro tipo de altavoz, puedes escuchar clics y chasquidos.** Tal como se muestra en la pantalla de inicio del programa, estos sonidos ocurren mientras NeoBleeper comprueba la presencia de salida del altavoz del sistema (altavoz PC) en el paso 2/2.
 
 ### P: ¿Puede la prueba ultrasónica de hardware (paso 2) detectar altavoces del sistema rotos (circuito abierto) o desconectados?
 **R:** Esto no se ha probado actualmente y se desconoce. Si bien la prueba verifica la retroalimentación eléctrica y la actividad del puerto, es posible que no distinga de forma fiable entre un altavoz físicamente presente pero roto (circuito abierto) o desconectado y uno que falta. Si el altavoz está completamente roto o desconectado (circuito abierto), la prueba puede dar un resultado falso, lo que indica que no se detecta ninguna salida funcional. Sin embargo, este comportamiento no está garantizado y puede depender del hardware específico y del modo de fallo. Si sospecha que el altavoz de su sistema no funciona, se recomienda realizar una inspección física o usar un multímetro.
