@@ -5219,11 +5219,19 @@ namespace NeoBleeper
 
         private void playAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(noteAlreadyPlaying)
+            {
+                return; // Prevent starting playback if notes are already playing
+            }
             PlayAll();
         }
 
         private void playFromSelectedLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (noteAlreadyPlaying)
+            {
+                return; // Prevent starting playback if notes are already playing
+            }
             PlayFromSelectedLine();
         }
 
