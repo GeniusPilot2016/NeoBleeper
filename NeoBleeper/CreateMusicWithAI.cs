@@ -2285,10 +2285,13 @@ namespace NeoBleeper
             // Step 9: Fix mismatched tags
             nbpmlString = FixMismatchedTags(nbpmlString);
 
-            // Step 10: Handle namespaces
+            // Step 10: Remove empty parent tags to clean up visually
+            nbpmlString = RemoveEmptyParentTags(nbpmlString);
+
+            // Step 11: Handle namespaces
             nbpmlString = HandleNamespacesInNBPML(nbpmlString);
 
-            // Step 11: Final cleanup
+            // Step 12: Final cleanup
             nbpmlString = nbpmlString.Trim();
 
             // Fix indentation
@@ -2297,6 +2300,41 @@ namespace NeoBleeper
 
             return nbpmlString;
         }
+
+        /// <summary>
+        /// Removes empty parent XML tags from the specified NBPMl content string.
+        /// </summary>
+        /// <remarks>Empty parent tags are defined as tags with no content or only whitespace between
+        /// their opening and closing tags, such as &lt;Line&gt;&lt;/Line&gt; or &lt;Settings&gt;   &lt;/Settings&gt;. The method performs
+        /// repeated removal until no empty parent tags remain.</remarks>
+        /// <param name="nbpmlContent">The NBPML content to process. May contain XML tags that are empty or contain only whitespace.</param>
+        /// <returns>A string with all empty parent XML tags removed. If no empty tags are found, returns the original content.</returns>
+        private string RemoveEmptyParentTags(string nbpmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(nbpmlContent))
+                return nbpmlContent;
+            // Regex pattern to match empty parent tags such as <Line></Line> or <Settings>   </Settings>
+            var pattern = new Regex(@"<(?<tag>[A-Za-z][A-Za-z0-9]*?)\s*>\s*</\k<tag>>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            string prev;
+            do
+            {
+                prev = nbpmlContent;
+                nbpmlContent = pattern.Replace(nbpmlContent, string.Empty);
+            } while (nbpmlContent != prev);
+            return nbpmlContent;
+        }
+
+        /// <summary>
+        /// Corrects mismatched XML-like tags in the specified NBPMl content string by ensuring that opening and closing
+        /// tags match.
+        /// </summary>
+        /// <remarks>This method uses a regular expression to identify and fix mismatched tags in NBPMl
+        /// content. Only simple, non-nested tags are corrected; complex or deeply nested structures may not be fully
+        /// resolved. The method does not validate overall NBPMl or XML correctness beyond tag matching.</remarks>
+        /// <param name="nbpmlContent">The NBPMl content to process and fix. If the string is null, empty, or consists only of whitespace, it is
+        /// returned unchanged.</param>
+        /// <returns>A string containing the NBPMl content with mismatched tags corrected. If no mismatches are found, or if the
+        /// input is null or whitespace, the original content is returned.</returns>
 
         private string FixMismatchedTags(string nbpmlContent)
         {
