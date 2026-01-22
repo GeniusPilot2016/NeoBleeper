@@ -83,7 +83,7 @@ Die Reihenfolge der Notenwechsel kann ebenfalls über die Optionsfelder im Textf
   Gespeicherte Dateien verwenden die Erweiterung „.NBPML“ und sind XML-textbasiert. Diese Dateien können mit Texteditoren wie Notepad bearbeitet werden.
 Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleeper Music Maker. Dieses Format kann jedoch nicht überschrieben werden und sollte als separate „.NBPML“-Datei gespeichert werden.
 
-  ![image](https://github.com/user-attachments/assets/b1026020-9a70-48e7-9fb5-a44443f2048c)
+  ![image](https://github.com/user-attachments/assets/86bbdfa7-b08a-48dd-96b7-35b1c7d5dc15)
 
  - ## Tipps zur Musikbearbeitung
    Sowohl NBPML- als auch BMM-Dateien sind textbasiert und mit Standard-Texteditoren kompatibel. Die Funktionen „Kopieren und Einfügen“ sowie „Suchen und Ersetzen“ unterstützen Sie bei wiederkehrenden Aufgaben oder der Fehlerkorrektur.
@@ -559,18 +559,31 @@ Außerdem kann NeoBleeper „.BMM“-Dateien öffnen, das Dateiformat von Bleepe
         
     - ### In GCode konvertieren - Strg + Umschalt + G
 
-      Konvertieren Sie Musikdaten in GCode für Summer, Motoren von CNC-Maschinen oder 3D-Druckern. Dies schließt die Lücke zwischen Klang und Bewegung und ermöglicht die physische Darstellung von Musiksequenzen - ideal für experimentelle Kunst oder Lehrmittel.
-      
-      ![image](https://github.com/user-attachments/assets/de3f8759-cf22-4f82-9d40-6e7f607ef24b)
+       Erzeuge aus musikalischen Daten GCode für die Ausgabe auf 3D-Druckern oder CNC-Maschinen und lasse so musikalische Sequenzen von Motoren oder anderen Komponenten physisch abspielen. Das aktualisierte Fenster "Datei in GCode umwandeln" (siehe unten) vereinfacht die Auswahl von Noten, Firmware und Wiedergabeoptionen.
 
-      Diese Funktion konvertiert ausgewählte Notenkonfigurationen in GCode-Anweisungen für CNC-Maschinen oder 3D-Drucker. Bis zu vier Noten können definiert und jeweils einem Komponententyp (M3/M4-Motor und M300 für den Summer) zugeordnet werden. Die Noten können einzeln umgeschaltet werden.
-
-      Die Wiedergabereihenfolge kann so konfiguriert werden, dass die Noten sequenziell oder nach Spaltenparität (zuerst ungerade Spalten, dann gerade Spalten) abgespielt werden.
+      ![image1](https://github.com/user-attachments/assets/c2cb8b7b-cfeb-44dc-938f-edafc83b0254)
       
-      Bei Aktivierung generiert das System GCode, der die zugewiesenen Komponenten entsprechend dem ausgewählten Notenmuster auslöst. Timing und Modulation werden durch die Wiedergabelogik bestimmt.
+      **Hauptfunktionen und Optionen:**
+      - **Firmware-Auswahl:**  
+        Wähle die Ziel-Firmware für deine GCode-Datei, z. B. "Marlin", um Kompatibilität mit deinem 3D-Drucker oder CNC-Gerät zu gewährleisten.
       
-      Speichern Sie die Ausgabe über die Schaltfläche „Als GCode exportieren“. Stellen Sie vor der Ausführung die Kompatibilität mit Ihrem Zielgerät sicher.
-
+      - **Noten & Komponententypen:**  
+        Für Note 1–4 kann der Typ des GCode-Befehls (G0/G1 – Motor) ausgewählt werden, um jeder Note einer mechanischen Achse oder Komponente zuzuweisen.  
+        Über die Kontrollkästchen neben jeder Note bestimmst du, welche Noten im GCode-Ausgabe verwendet werden ("Note 1 spielen" usw.).
+      
+      - **Achsen-Auswahl:**  
+        Wähle, welche Achse (X, Y oder Z) die G0/G1-Befehle ansteuern sollen.  
+        **Warnung:** Der G0/G1-Befehl bewegt die Achse sehr schnell! Eine falsche Anwendung kann zu mechanischen Schäden führen – prüfe die Konfiguration sorgfältig.
+      
+      - **Optionen für alternierende Noten:**  
+        * Alternierende Noten der Reihe nach abspielen  
+        * Zuerst alle Noten in ungeraden Spalten, dann alle in geraden Spalten abspielen  
+        Diese Optionen steuern, wie mehrere Noten im generierten GCode nacheinander ausgegeben werden.
+      
+      - **Als GCode exportieren:**  
+        Nach der Konfiguration kannst du mit "Als GCode exportieren" die Datei für dein Gerät speichern.
+      
+      Dieser Ablauf ermöglicht eine präzise Kontrolle darüber, welche Achse/Komponente was spielt, welche Noten verwendet werden und wie die Alternierung der Noten erfolgt – ideal für experimentelle Musik-Bewegungs-Integrationen.
     - ### Konvertieren in einen Beep-Befehl für Linux - Strg + Umschalt + B
 
       Konvertieren Sie Ihre Musikkompositionen schnell in ein Linux-kompatibles Beep-Befehlsskript für die einfache Wiedergabe auf Linux-Systemen.
