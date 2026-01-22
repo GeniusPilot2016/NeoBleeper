@@ -78,22 +78,22 @@ Ora è possibile disabilitare questa funzione se viene rilevata un'uscita altopa
 #### Cosa significa "uscita altoparlante di sistema non standard"? 
 Alcuni computer, laptop o macchine virtuali moderni non dispongono di un vero altoparlante per PC, oppure il routing del segnale non è standard. NeoBleeper ora tenta di rilevare e utilizzare tali uscite nascoste degli altoparlanti di sistema (non identificate come dispositivi PNP0800), ma può abilitare l'opzione degli altoparlanti di sistema solo se è effettivamente accessibile a livello hardware. Se non viene trovata alcuna uscita utilizzabile, sarà necessario utilizzare il dispositivo audio standard.
 
-## 2.1 Test di uscita degli altoparlanti di sistema (rilevamento della frequenza ultrasonica)
+## 2.1 Test dell’uscita dell’altoparlante di sistema (rilevamento della frequenza ultrasonica)
 
-NeoBleeper ora include un nuovo test hardware avanzato per rilevare l'uscita degli altoparlanti di sistema (ovvero degli altoparlanti del PC), anche se il dispositivo non è segnalato da Windows (con determinati ID come PNP0C02 anziché PNP0800). Questo test utilizza frequenze ultrasoniche (in genere 30-38 kHz, non udibili) e analizza il feedback elettrico sulla porta degli altoparlanti di sistema.
+NeoBleeper ora include un nuovo test hardware avanzato per rilevare l’uscita dell’altoparlante di sistema (anche chiamato altoparlante PC), anche se il dispositivo non viene segnalato da Windows (ad esempio come PNP0C02 invece di PNP0800) o se la connessione è non standard.
 
-- **Come funziona:**
-  Durante l'avvio, NeoBleeper esegue una seconda fase dopo il consueto controllo dell'ID del dispositivo. Invia segnali ultrasonici alla porta degli altoparlanti di sistema e monitora il feedback hardware per rilevare la presenza di un'uscita altoparlante funzionante, anche se nascosta o non standard.
+- **Come funziona:**  
+  All’avvio, NeoBleeper esegue una seconda fase dopo il normale controllo dell’ID dispositivo. Vengono inviati segnali ultrasonici alla porta dell’altoparlante di sistema e viene monitorato il feedback hardware per rilevare la presenza di un’uscita altoparlante funzionante.
 
-- **Cosa potresti notare:**
-  Su alcuni sistemi, in particolare quelli con buzzer piezoelettrici, potresti udire lievi clic durante questa fase. Questo è normale e indica che il test hardware è in esecuzione.
+- **Cosa puoi notare:**  
+  Su alcuni sistemi, **indipendentemente dal fatto che l’altoparlante sia un buzzer piezoelettrico o di altro tipo**, potresti sentire dei **clic o scoppiettii** durante questa fase. Questo è normale e indica che il test hardware è in corso.
 
-  ![image4](https://github.com/user-attachments/assets/cc438e9a-fbdb-4438-b054-91f619482348)
-  
-  *Verifica della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire dei clic)*
+  ![image1](https://github.com/user-attachments/assets/75799b91-b0de-4866-9f9a-b1c3e33ce50d)
 
-- **Perché questo test?**
-  Molti sistemi moderni non dispongono di un dispositivo altoparlante di sistema PNP0800, ma dispongono comunque di un'uscita altoparlante utilizzabile (nascosta). NeoBleeper utilizza questo metodo avanzato per abilitare le funzionalità di segnale acustico su più hardware.
+  *Verifica della presenza dell’uscita dell’altoparlante di sistema (altoparlante PC) nella fase 2/2… (potresti sentire clic/scoppiettii)*
+
+- **Perché questo test?**  
+  Molti sistemi moderni non hanno un dispositivo altoparlante di sistema PNP0800, ma dispongono comunque di un’uscita “nascosta” utilizzabile. NeoBleeper usa questo metodo avanzato per abilitare la funzione beep su più hardware.
 
 ---
 
@@ -248,8 +248,8 @@ _Questa soluzione alternativa è evidenziata nelle impostazioni:_
 ### D: Cosa succede se lo strumento Beep Stopper non interrompe il segnale acustico bloccato?
 **R:** Riavvia il computer per ripristinare l'hardware degli altoparlanti se l'utilità Beep Stopper non funziona.
 
-### D: Perché sento dei clic durante l'avvio?
-**R:** Durante il test avanzato dell'uscita degli altoparlanti di sistema (fase 2), NeoBleeper invia segnali a ultrasuoni all'hardware per rilevare uscite nascoste o non standard degli altoparlanti. Su alcuni sistemi (in particolare quelli con buzzer piezoelettrici), ciò potrebbe causare lievi clic. Questo è normale e non indica un problema; significa semplicemente che il test hardware è in esecuzione.
+### D: Perché sento dei clic e degli scoppiettii durante l’avvio?
+**R:** Durante il test avanzato dell’uscita dell’altoparlante di sistema (fase 2), NeoBleeper invia segnali ultrasonici all’hardware per rilevare uscite dell’altoparlante nascoste o non standard. **Indipendentemente dal fatto che il tuo sistema utilizzi un buzzer piezoelettrico o un altro tipo di altoparlante, potresti sentire clic e scoppiettii.** Come mostrato nello splash screen del programma, questi suoni si verificano durante la verifica della presenza dell’uscita dell’altoparlante di sistema (altoparlante PC) nella fase 2/2.
 
 ### D: Il test hardware a ultrasuoni (fase 2) può rilevare altoparlanti di sistema rotti (circuito aperto) o scollegati?
 **R:** Questa funzionalità non è attualmente testata e non è nota. Sebbene il test verifichi il feedback elettrico e l'attività delle porte, potrebbe non distinguere in modo affidabile tra un altoparlante fisicamente presente ma rotto (circuito aperto) o scollegato e un altoparlante mancante. Se l'altoparlante è completamente rotto o scollegato (circuito aperto), il test potrebbe restituire un risultato falso, indicando che non è stata rilevata alcuna uscita funzionale. Tuttavia, questo comportamento non è garantito e potrebbe dipendere dall'hardware specifico e dalla modalità di errore. Se si sospetta che l'altoparlante del sistema non funzioni, si consiglia un'ispezione fisica o l'utilizzo di un multimetro.
