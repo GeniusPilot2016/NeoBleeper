@@ -470,8 +470,8 @@
 
   - ## Strumenti
     Questi strumenti compatti ma potenti nel menu `File` forniscono un rapido accesso a tre funzionalità principali di NeoBleeper, ciascuna progettata per semplificare il flusso di lavoro ed espandere le possibilità creative. Ogni opzione è abbinata a una scorciatoia da tastiera per un controllo rapido e pratico:
-    
-    ![image](https://github.com/user-attachments/assets/5305805f-c8b4-4a1d-9b66-d08b1245f711)
+
+    ![image](https://github.com/user-attachments/assets/a15698e0-b073-49d8-a351-ffa333016ae6)
 
     - ### Riproduci file MIDI - `Ctrl + M`
       Carica e riproduci istantaneamente un file MIDI tramite altoparlante di sistema o dispositivo audio all'interno di NeoBleeper. Questa funzione è ideale per l'anteprima delle composizioni, per testare l'accuratezza della riproduzione o per integrare dati MIDI esterni nel tuo flusso di lavoro.
