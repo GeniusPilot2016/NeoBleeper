@@ -81,7 +81,7 @@
   
   Kaydedilen dosyalar ".NBPML" uzantısını kullanır ve XML metin tabanlıdır. Bu dosyalar, Not Defteri gibi metin düzenleyicilerle düzenlenebilir. Ayrıca NeoBleeper, Bleeper Music Maker'ın dosya formatı olan ".BMM" dosyalarını açabilir, ancak üzerine yazılamaz ve ayrı bir ".NBPML" dosyası olarak kaydedilmelidir.
 
-  ![image](https://github.com/user-attachments/assets/78d8fbbd-0f2c-4cd5-9dcb-f6e0dc3f059d)
+  ![image](https://github.com/user-attachments/assets/deab133c-345d-491b-8dc8-bdf52d50630c)
 
  - ## Müzik Düzenleme İpuçları
    Hem NBPML hem de BMM dosyaları metin tabanlıdır ve standart metin düzenleyicileriyle uyumludur. Kopyala-yapıştır ve bul-değiştir işlevleri, tekrarlayan görevlerde veya hataları düzeltmede yardımcı olabilir.
@@ -521,17 +521,31 @@
         
     - ### GCode'a Dönüştür - `Ctrl + Shift + G`
 
-      Müzik verilerini CNC makinelerinin veya 3D yazıcıların buzzer'ları veya motorları için GCode'a dönüştürün. Bu, ses ve hareket arasındaki boşluğu doldurarak müzik dizilerinin fiziksel temsillerini mümkün kılar ve deneysel sanat veya eğitim araçları için mükemmeldir.
+      Müzik verilerini kullanarak 3D yazıcılar veya CNC makineleri için GCode oluşturun; böylece motorlar veya diğer bileşenlerle müzik dizilerini fiziksel olarak çalabilirsiniz. Güncellenen "Dosyayı GCode'a Dönüştür" penceresi (aşağıda gösterilmiştir) nota, yazılım ve oynatma seçeneklerinin seçimini kolaylaştırır.
 
-      ![image](https://github.com/user-attachments/assets/0d5025ae-2e1a-4bff-9593-925ce4d3e919)
+      ![image1](https://github.com/user-attachments/assets/8c8e145c-6dea-40f4-aa9b-74f3a5b93541)
       
-      Bu özellik, seçili müzik notası yapılandırmalarını CNC makineleri veya 3D yazıcılarla kullanım için GCode talimatlarına dönüştürür. Her biri bir bileşen türüne (M3/M4 motor ve buzzer için M300) atanan en fazla dört nota tanımlanabilir. Notalar ayrı ayrı değiştirilebilir.
+      **Temel Özellikler ve Seçenekler:**
+      - **Yazılım (Firmware) Seçimi:**  
+        GCode dosyanız için "Marlin" gibi hedef yazılımı seçin; böylece 3D yazıcınız veya CNC makinenizle uyumluluk sağlanır.
       
-      Çalma sırası, notaların sırayla veya sütun paritesine göre (önce tek sayılı sütunlar, sonra çift sayılı sütunlar) dönüşümlü olarak çalınması için yapılandırılabilir.
+      - **Notalar ve Bileşen Tipleri:**  
+        Nota 1–4 için GCode komut türünü (G0/G1 – Motor) seçin ve her notayı bir mekanik eksene veya bileşene atayın.  
+        Her notanın yanındaki onay kutularını kullanarak GCode çıktısında hangi notaların çalınacağını belirleyebilirsiniz (“Nota 1 çal”, vb.).
       
-      Etkinleştirildiğinde, sistem seçilen nota düzenine göre atanan bileşenleri tetikleyen GCode üretir. Zamanlama ve modülasyon, oynatma mantığı tarafından belirlenir.
+      - **Eksen Seçimi:**  
+        G0/G1 komutlarının hangi ekseni (X, Y veya Z) kontrol edeceğini seçin.  
+        **Uyarı:** G0/G1 komutu ekseni çok hızlı hareket ettirir. Yanlış kullanımda mekanik hasar oluşabilir! Ayarınızı mutlaka kontrol edin.
       
-      Çıktıyı kaydetmek için "GCode Olarak Dışa Aktar" düğmesini kullanın. Çalıştırmadan önce hedef makinenizle uyumluluğundan emin olun.
+      - **Notaları Sırayla/Tek-Çift Dalgalı Çalma Seçenekleri:**  
+        * Notaları sırayla dalgalı olarak çal  
+        * Önce tek numaralı sütunlardaki notaları, ardından çift numaralı sütunlardakileri çal  
+        Bu seçenekler, birden fazla notanın üretilen GCode dosyasında nasıl sıraya alınacağını belirler.
+      
+      - **GCode Olarak Dışa Aktar:**  
+        Ayarlarınızı tamamladıktan sonra “GCode Olarak Dışa Aktar” düğmesine tıklayarak makineniz için çıktıyı kaydedebilirsiniz.
+      
+      Bu güncel süreç, hangi eksen/bileşenin hangi notayı oynattığı, hangi notaların kullanıldığı ve notaların alternasyonunun nasıl gerçekleştiği üzerinde hassas kontrol sağlar – deneysel müzik-hareket entegrasyonları için idealdir.
       
       - ### Linux için Beep Komutuna Dönüştür - `Ctrl + Shift + B`
       
