@@ -474,7 +474,7 @@
   - ## Herramientas
     Estas herramientas compactas pero potentes del menú "Archivo" ofrecen acceso rápido a tres funciones principales de NeoBleeper, cada una diseñada para optimizar tu flujo de trabajo y ampliar tus posibilidades creativas. Cada opción incluye un atajo de teclado para un control rápido y práctico:
     
-    ![image](https://github.com/user-attachments/assets/68a9143c-c6b8-4ae0-8d16-bc45d87ef349)
+    ![image](https://github.com/user-attachments/assets/8dbc0ede-4b9c-4c34-abc4-a44ca169814f)
 
     - ### Reproducir archivo MIDI - `Ctrl + M`
       Carga y reproduce instantáneamente un archivo MIDI a través del altavoz del sistema o del dispositivo de sonido en NeoBleeper. Esta función es ideal para previsualizar composiciones, comprobar la precisión de la reproducción o integrar datos MIDI externos en tu flujo de trabajo.
