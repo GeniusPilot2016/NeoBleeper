@@ -474,7 +474,7 @@
   - ## Tools
     These compact yet powerful tools in `File` menu provides quick access to three core features of NeoBleeper, each designed to streamline your workflow and expand creative possibilities. Each option is paired with a keyboard shortcut for fast, hands-on control:
 
-    ![image](https://github.com/user-attachments/assets/96e98471-f754-4521-b1d1-183bd27ff48e)
+    ![image](https://github.com/user-attachments/assets/5d8a7dc6-6d87-4819-b8b5-1ea00971dd34)
 
     - ### Play MIDI File - `Ctrl + M`
       Instantly load and play a MIDI through system speaker or sound device file within NeoBleeper. This feature is ideal for previewing compositions, testing playback accuracy, or integrating external MIDI data into your workflow.
