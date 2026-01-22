@@ -82,7 +82,7 @@
   Los archivos guardados tienen la extensión ".NBPML" y están basados ​​en texto XML. Estos archivos se pueden editar con editores de texto como el Bloc de notas.
   Además, NeoBleeper puede abrir archivos ".BMM", que es el formato de archivo de Bleeper Music Maker, pero no se pueden sobrescribir y deben guardarse como un archivo ".NBPML" independiente.
 
-  ![image](https://github.com/user-attachments/assets/b63002ba-e8d5-4d4e-a7ca-4cca34dabbc0)
+  ![image](https://github.com/user-attachments/assets/9486f12d-45aa-4a0e-9f99-653bfde8a8a3)
 
 - ## Consejos para editar música
    Tanto los archivos NBPML como BMM están basados ​​en texto y son compatibles con editores de texto estándar. Las funciones de copiar y pegar, y buscar y reemplazar pueden ayudar con tareas repetitivas o la corrección de errores.
@@ -555,17 +555,31 @@
           
     - ### Convertir a GCode - `Ctrl + Shift + G`
 
-      Transforma datos musicales en GCode para zumbadores o motores de máquinas CNC o impresoras 3D. Esto conecta el sonido con el movimiento, permitiendo representaciones físicas de secuencias musicales, ideal para arte experimental o herramientas educativas.
+      Genera GCode a partir de datos musicales para su uso en impresoras 3D o máquinas CNC, permitiendo reproducir físicamente secuencias musicales usando motores u otros componentes. La ventana actualizada "Convertir archivo a GCode" (ver abajo) facilita la selección de notas, firmware y opciones de reproducción.
+
+      ![image1](https://github.com/user-attachments/assets/cf0a72a4-a6ed-434a-9eb5-33884018525e)
       
-      ![image](https://github.com/user-attachments/assets/0f6d8845-3953-4a9f-9823-97e2986b7743)
+      **Funciones y opciones principales:**
+      - **Selección de firmware:**  
+        Elige el firmware de destino para tu archivo GCode, como "Marlin", asegurando la compatibilidad con tu impresora 3D o máquina CNC.
       
-      Esta función convierte configuraciones de notas musicales seleccionadas en instrucciones GCode para su uso con máquinas CNC o impresoras 3D. Se pueden definir hasta cuatro notas, cada una asignada a un tipo de componente (motor M3/M4 y M300 para zumbador). Las notas se pueden alternar individualmente.
+      - **Notas y tipos de componente:**  
+        Para las notas 1–4, selecciona el tipo de comando GCode (G0/G1 – Motor) y asigna cada nota a un eje mecánico o componente.  
+        Usa las casillas de verificación al lado de cada nota para especificar cuáles notas se incluirán en la salida GCode (“Reproducir Nota 1”, etc.).
       
-      El orden de reproducción se puede configurar para alternar notas secuencialmente o por paridad de columnas (primero las columnas impares, luego las pares).
+      - **Selección de eje:**  
+        Elige qué eje (X, Y o Z) controlarán los comandos G0/G1.  
+        **Advertencia:** El comando G0/G1 mueve el eje rápidamente. ¡Un uso incorrecto puede causar daños mecánicos! Verifica siempre tu configuración.
       
-      Al activarse, el sistema genera un código G que activa los componentes asignados según el patrón de notas seleccionado. La sincronización y la modulación se determinan mediante la lógica de reproducción.
+      - **Opciones para alternancia de notas:**  
+        * Reproducir notas alternadas en orden  
+        * Reproducir primero las notas en columnas impares, luego en columnas pares  
+        Estas opciones determinan cómo se secuencian varias notas en el archivo GCode generado.
       
-      Utilice el botón "Exportar como código G" para guardar el resultado. Asegúrese de que sea compatible con el equipo de destino antes de ejecutarlo.
+      - **Exportar como GCode:**  
+        Una vez configurados todos los ajustes, haz clic en “Exportar como GCode” para guardar el archivo para tu máquina.
+      
+      Este flujo actualizado brinda control preciso sobre qué eje o componente reproduce cada nota, cuáles notas se usan y cómo se alternan, siendo ideal para integraciones experimentales de música y movimiento.
 
     - ### Convertir a comando de pitido para Linux - `Ctrl + Shift + B`
 
