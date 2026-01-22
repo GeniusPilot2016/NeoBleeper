@@ -81,20 +81,21 @@ NeoBleeper, sisteminizde standart bir PC hoparlörü çıkışı olup olmadığ�
 Bazı modern bilgisayarlarda, dizüstü bilgisayarlarda veya sanal makinelerde gerçek bir PC hoparlörü bulunmaz veya sinyal yönlendirmesi standart dışıdır. NeoBleeper artık bu tür gizli sistem hoparlörü çıkışlarını (PNP0800 cihazları olarak tanımlanmayan) algılayıp kullanmaya çalışır, ancak sistem hoparlörü seçeneğini yalnızca donanım düzeyinde erişilebilirse etkinleştirebilir. Kullanılabilir bir çıkış bulunamazsa, normal ses cihazınızı kullanmanız gerekecektir.
 
 ## 2.1 Sistem Hoparlörü Çıkış Testi (Ultrasonik Frekans Algılama)
-  NeoBleeper, cihaz Windows tarafından bildirilmese bile (PNP0800 yerine PNP0C02 gibi belirli kimliklerle), sistem hoparlörü (diğer adıyla PC hoparlörü) çıkışını algılamak için yeni ve gelişmiş bir donanım testi içeriyor. Bu test, ultrasonik frekansları (genellikle duyulamayan 30–38 kHz) kullanır ve sistem hoparlörü bağlantı noktasındaki elektriksel geri bildirimi analiz eder.
 
-- **Nasıl çalışır:**
-  Başlangıç ​​sırasında NeoBleeper, normal cihaz kimliği kontrolünden sonra ikinci bir adım gerçekleştirir. Sistem hoparlörü bağlantı noktasına ultrasonik sinyaller gönderir ve gizli veya standart dışı olsa bile işlevsel bir hoparlör çıkışının varlığını algılamak için donanım geri bildirimini izler.
+NeoBleeper artık, sistem hoparlörü (PC hoparlörü olarak da bilinir) çıkışını tespit etmek için gelişmiş bir donanım testi içeriyor. Bu test, cihaz Windows tarafından bildirilmemiş olsa bile (örneğin PNP0C02, PNP0800 yerine) veya bağlantı standart dışıysa bile çalışır.
 
-- **Neleri fark edebilirsiniz:**
-  Bazı sistemlerde, özellikle piezo buzzer bulunan kısmında, bu aşamada hafif tıklama sesleri duyabilirsiniz. Bu normaldir ve donanım testinin çalıştığını gösterir.
+- **Nasıl çalışır:**  
+  Başlangıçta, NeoBleeper cihaz kimliği kontrolünden sonra ikinci bir adım uygular. Sistem hoparlörü portuna ultrasonik sinyaller gönderir ve donanım geri bildirimini izleyerek işlevsel hoparlör çıkışı var mı tespit eder.
 
-  ![image4](https://github.com/user-attachments/assets/7c205527-8fe5-4ff4-9772-b8da11f2c521)
-  
-  *Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama sesleri duyabilirsiniz)*
+- **Ne fark edebilirsiniz:**  
+  Bazı sistemlerde, **hoparlörünüz piezo buzzer ya da başka bir tip olsa dahi**, bu aşamada hafif **tıklama veya çıtlama sesleri** duyabilirsiniz. Bu, donanım testinin çalıştığını gösterir ve tamamen normaldir.
 
-- **Bu test neden yapılmaktadır?**
-  Birçok modern sistemde PNP0800 sistem hoparlörü aygıtı bulunmaz, ancak yine de kullanılabilir (gizli) bir hoparlör çıkışı vardır. NeoBleeper, daha fazla donanımda bip sesi özelliklerini etkinleştirmek için bu gelişmiş yöntemi kullanır.
+  ![image1](https://github.com/user-attachments/assets/de48f443-c9b4-40d9-b366-a384daf8cc09)
+
+  *Sistem hoparlörü (PC hoparlörü) çıkış varlığı 2/2. adımda kontrol ediliyor… (tıklama/çıtlama sesleri duyabilirsiniz)*
+
+- **Bu testin amacı nedir?**  
+  Birçok modern sistemde PNP0800 cihazı yoktur; ancak kullanılabilir “gizli” bir hoparlör çıkışı bulunabilir. NeoBleeper, daha fazla donanımda bip özelliği sunabilmek için bu ileri metodu kullanır.
 
 ---
 
@@ -250,8 +251,8 @@ _Bu geçici çözüm ayarlar bölümünde vurgulanmıştır:_
 ### S: Bip Sesi Durdurucu aracı takılı kalan bip sesini durdurmazsa ne olur?
 **C:** Bip Sesi Durdurucu yardımcı programı başarısız olursa, hoparlör donanımını sıfırlamak için bilgisayarınızı yeniden başlatınız.
 
-### S: Başlatma sırasında neden tıklama sesleri duyuyorum?
-**C:** Gelişmiş sistem hoparlörü çıkış testi sırasında (2. adım), NeoBleeper gizli veya standart dışı hoparlör çıkışlarını tespit etmek için donanıma ultrasonik sinyaller gönderir. Bazı sistemlerde (özellikle piezo buzzer bulunan kısmında) bu durum hafif tıklama seslerine neden olabilir. Bu normaldir ve bir sorun olduğunu göstermez; yalnızca donanım testinin çalıştığı anlamına gelir.
+### S: Başlangıçta neden tıklama veya çıtlama sesleri duyuyorum?
+**C:** Gelişmiş sistem hoparlörü çıkış testi (2. adım) sırasında NeoBleeper, gizli veya standart dışı hoparlör çıkışlarını algılamak için donanıma ultrasonik sinyaller gönderir. **Sisteminize piezo buzzer ya da başka tür hoparlör takılı olsa bile tıklama veya çıtlama sesleri duyabilirsiniz.** Programın açılış ekranında da belirtildiği gibi, bu sesler NeoBleeper’ın sistem hoparlörü çıkış varlığını 2/2. adımda kontrol ettiği sırada ortaya çıkar.
 
 ### S: Ultrasonik donanım testi (2. adım) bozuk (açık devre) veya bağlantısı kesilmiş sistem hoparlörlerini tespit edebilir mi?
 **C:** Bu şu anda test edilmemiştir ve bilinmemektedir. Test, elektriksel geri beslemeyi ve port etkinliğini kontrol etse de, fiziksel olarak mevcut ancak bozuk (açık devre) veya bağlantısı kesilmiş bir hoparlör ile eksik bir hoparlör arasında güvenilir bir şekilde ayrım yapamayabilir. Hoparlör tamamen bozuk veya bağlantısı kesilmişse (açık devre), test negatif olarak döndürebilir ve işlevsel bir çıkış algılanmadığını gösterebilir. Ancak, bu davranış garanti edilmez ve belirli donanıma ve arıza moduna bağlı olabilir. Sistem hoparlörünüzün çalışmadığından şüpheleniyorsanız, fiziksel inceleme yapmanız veya bir multimetre kullanmanız önerilir.
