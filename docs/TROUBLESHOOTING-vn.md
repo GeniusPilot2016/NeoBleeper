@@ -78,22 +78,23 @@ NeoBleeper bao gồm logic phát hiện để kiểm tra xem hệ thống của 
 #### "Đầu ra loa hệ thống không chuẩn" nghĩa là gì?
 Một số máy tính, máy tính xách tay hoặc máy ảo hiện đại không có loa PC thực sự, hoặc đường truyền tín hiệu không chuẩn. NeoBleeper hiện đang cố gắng phát hiện và sử dụng các đầu ra loa hệ thống ẩn này (không được xác định là thiết bị PNP0800), nhưng chỉ có thể bật tùy chọn loa hệ thống nếu nó thực sự có thể truy cập được ở cấp độ phần cứng. Nếu không tìm thấy đầu ra nào khả dụng, bạn sẽ cần sử dụng thiết bị âm thanh thông thường của mình.
 
-## 2.1 Kiểm tra Đầu ra Loa Hệ thống (Phát hiện Tần số Siêu âm)
-NeoBleeper hiện bao gồm một bài kiểm tra phần cứng mới, nâng cao để phát hiện đầu ra loa hệ thống (hay còn gọi là loa PC), ngay cả khi thiết bị không được Windows báo cáo (trong một số ID nhất định như PNP0C02 thay vì PNP0800). Bài kiểm tra này sử dụng tần số siêu âm (thường là 30–38 kHz, không thể nghe thấy) và phân tích phản hồi điện trên cổng loa hệ thống.
+## 2.1 Kiểm tra đầu ra loa hệ thống (phát hiện tần số siêu âm)
 
-- **Cách thức hoạt động:**
-  Trong quá trình khởi động, NeoBleeper thực hiện bước thứ hai sau khi kiểm tra ID thiết bị thông thường. Nó gửi tín hiệu siêu âm đến cổng loa hệ thống và theo dõi phản hồi phần cứng để phát hiện sự hiện diện của đầu ra loa đang hoạt động—ngay cả khi bị ẩn hoặc không chuẩn.
+NeoBleeper hiện có một bài kiểm tra phần cứng nâng cao để nhận diện đầu ra của loa hệ thống (còn gọi là loa PC), kể cả khi thiết bị này không được Windows nhận ra (ví dụ, xuất hiện là PNP0C02 thay vì PNP0800) hoặc khi kết nối không đúng chuẩn.
 
-- **Những điều bạn có thể nhận thấy:**
-  Trên một số hệ thống, đặc biệt là những hệ thống có còi áp điện, bạn có thể nghe thấy tiếng lách cách nhỏ trong giai đoạn này. Điều này là bình thường và cho biết bài kiểm tra phần cứng đang chạy.
+- **Cách thức hoạt động:**  
+  Khi khởi động, NeoBleeper thực hiện bước thứ hai sau khi kiểm tra mã thiết bị thông thường. Các tín hiệu siêu âm sẽ được gửi tới cổng loa hệ thống và phần mềm sẽ theo dõi phản hồi phần cứng để phát hiện sự hiện diện của đầu ra loa còn hoạt động.
 
-  ![image4](https://github.com/user-attachments/assets/e2eacab0-ddda-44fc-a9fb-737e8a2ccb6b)
+- **Những gì bạn có thể nhận thấy:**  
+  Trên một số hệ thống, **dù loa là loại piezo-buzzer hay bất kỳ loại nào khác**, bạn có thể nghe thấy **tiếng lách cách hoặc tiếng tách** khi diễn ra quá trình này. Đây là hiện tượng bình thường và báo hiệu kiểm tra phần cứng đang diễn ra.
+
+  ![image1](https://github.com/user-attachments/assets/2dab4568-5144-4a1d-a776-6e883c60e101)
+
+  *Đang kiểm tra sự hiện diện đầu ra loa hệ thống (loa PC) ở bước 2/2… (bạn có thể nghe thấy tiếng lách cách/tách)*
+
+- **Tại sao lại có kiểm tra này?**  
+  Nhiều hệ thống hiện đại không có thiết bị loa hệ thống PNP0800, nhưng vẫn có thể có một đầu ra “ẩn” sử dụng được. NeoBleeper dùng phương pháp này để hỗ trợ chức năng beep trên nhiều loại phần cứng hơn.
   
-  *Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng tách tách)*
-
-- **Tại sao phải kiểm tra?**
-  Nhiều hệ thống hiện đại không có thiết bị loa hệ thống PNP0800, nhưng vẫn có đầu ra loa có thể sử dụng được (ẩn). NeoBleeper sử dụng phương pháp tiên tiến này để bật tính năng phát tiếng bíp trên nhiều phần cứng hơn.
-
 ---
 
 ## 3. Hỗ trợ và Hạn chế ARM64
@@ -249,9 +250,8 @@ _Giải pháp thay thế này được nêu bật trong phần cài đặt:_
 ### H: Điều gì sẽ xảy ra nếu công cụ Chặn Tiếng Bíp không dừng được tiếng bíp bị kẹt?
 **A:** Khởi động lại máy tính để thiết lập lại phần cứng loa nếu tiện ích Nút Chặn Tiếng Bíp bị lỗi.
 
-### H: Tại sao tôi nghe thấy tiếng lách cách khi khởi động?
-**A:** Trong quá trình kiểm tra đầu ra loa hệ thống nâng cao (bước 2), NeoBleeper gửi tín hiệu siêu âm đến phần cứng để phát hiện các đầu ra loa ẩn hoặc không chuẩn. Trên một số hệ thống (đặc biệt là những hệ thống có còi áp điện), điều này có thể gây ra tiếng lách cách yếu ớt. Điều này là bình thường và không phải là dấu hiệu của sự cố; nó chỉ đơn giản có nghĩa là bài kiểm tra phần cứng đang chạy.
-
+### H: Tại sao khi khởi động tôi nghe thấy tiếng lách cách và tách?
+**A:** Trong quá trình kiểm tra đầu ra loa hệ thống nâng cao (bước 2), NeoBleeper gửi các tín hiệu siêu âm đến phần cứng nhằm phát hiện các đầu ra loa bị ẩn hoặc không chuẩn. **Dù hệ thống của bạn dùng loa piezo-buzzer hay loại loa nào khác, bạn đều có thể nghe thấy tiếng lách cách và tiếng tách.** Như đã thể hiện trên màn hình khởi động của chương trình, các âm thanh này có thể xuất hiện khi NeoBleeper đang kiểm tra sự hiện diện đầu ra loa hệ thống (loa PC) ở bước 2/2.
 ### H: Bài kiểm tra phần cứng siêu âm (bước 2) có thể phát hiện loa hệ thống bị hỏng (hở mạch) hoặc bị ngắt kết nối không?
 **A:** Hiện tại, điều này chưa được kiểm tra và chưa rõ. Mặc dù bài kiểm tra này kiểm tra phản hồi điện và hoạt động của cổng, nhưng nó có thể không phân biệt chính xác giữa loa hiện diện nhưng bị hỏng (hở mạch) hoặc bị ngắt kết nối và loa bị mất. Nếu loa bị hỏng hoàn toàn hoặc bị ngắt kết nối (hở mạch), bài kiểm tra có thể trả về kết quả sai, cho biết không phát hiện thấy đầu ra hoạt động. Tuy nhiên, kết quả này không được đảm bảo và có thể phụ thuộc vào phần cứng và chế độ lỗi cụ thể. Nếu bạn nghi ngờ loa hệ thống của mình không hoạt động, hãy kiểm tra thực tế hoặc sử dụng đồng hồ vạn năng.
 
