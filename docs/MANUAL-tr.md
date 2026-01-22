@@ -442,7 +442,7 @@
   - ## Araçlar
     `Dosya` menüsündeki bu kompakt ancak güçlü araçlar, NeoBleeper'ın iş akışınızı kolaylaştırmak ve yaratıcı olanaklarınızı genişletmek için tasarlanmış üç temel özelliğine hızlı erişim sağlar. Her seçenek, hızlı ve pratik kontrol için bir klavye kısayoluyla eşleştirilmiştir:
 
-    ![image](https://github.com/user-attachments/assets/c61c0b79-a413-4bfb-ad89-2089223e5cee)
+    ![image](https://github.com/user-attachments/assets/4befd643-768a-4ee3-813a-7b56d9c48de3)
 
     - ### MIDI Dosyasını Oynat - `Ctrl + M`
       NeoBleeper'da sistem hoparlörü veya ses aygıtı dosyası aracılığıyla anında bir MIDI yükleyin ve çalın. Bu özellik, besteleri önizlemek, çalma doğruluğunu test etmek veya harici MIDI verilerini iş akışınıza entegre etmek için idealdir.
