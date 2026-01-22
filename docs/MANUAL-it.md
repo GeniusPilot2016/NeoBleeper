@@ -82,8 +82,8 @@
   
   I file salvati utilizzano l'estensione ".NBPML" e sono basati su testo XML. Questi file possono essere modificati con editor di testo come Blocco note.
   Inoltre, NeoBleeper può aprire file ".BMM", il formato di file di Bleeper Music Maker, ma non possono essere sovrascritti e devono essere salvati come file ".NBPML" separato.
-
-  ![image](https://github.com/user-attachments/assets/0632588b-e6dd-44b0-8e86-4cde0a768f73)
+  
+  ![image](https://github.com/user-attachments/assets/50ccb1a2-0586-42e1-bdbf-1fb369c9f8da)
 
  - ## Suggerimenti per la modifica della musica
   Sia i file NBPML che BMM sono basati su testo e compatibili con gli editor di testo standard. Le funzioni di copia e incolla e di ricerca e sostituzione possono essere utili per le attività ripetitive o per correggere errori.
@@ -549,17 +549,31 @@
   
     - ### Converti in GCode - `Ctrl + Maiusc + G`
 
-      Trasforma i dati musicali in GCode per buzzer o motori di macchine CNC o stampanti 3D. Questo colma il divario tra suono e movimento, consentendo rappresentazioni fisiche di sequenze musicali, perfette per l'arte sperimentale o strumenti didattici.
+      Genera GCode a partire da dati musicali per l’output su stampanti 3D o macchine CNC, consentendo di riprodurre fisicamente sequenze musicali tramite motori o altri componenti. La finestra aggiornata "Converti file in GCode" (vedi sotto) semplifica la scelta delle note, del firmware e delle opzioni di riproduzione.
 
-      ![immagine](https://github.com/user-attachments/assets/6321d015-62a7-490a-bc12-093d64240740)
+      ![image1](https://github.com/user-attachments/assets/9d0fe43b-5a4a-45a1-afdc-06b5532b42d1)
       
-      Questa funzione converte le configurazioni di note musicali selezionate in istruzioni GCode da utilizzare con macchine CNC o stampanti 3D. È possibile definire fino a quattro note, ciascuna assegnata a un tipo di componente (motore M3/M4 e M300 per il buzzer). Le note possono essere attivate/disattivate singolarmente.
+      **Funzionalità e opzioni principali:**
+      - **Selezione firmware:**  
+        Scegli il firmware di destinazione per il tuo file GCode, ad esempio "Marlin", per garantirne la compatibilità con la tua stampante 3D o macchina CNC.
       
-      L'ordine di riproduzione può essere configurato per alternare le note in sequenza o per parità di colonna (prima le colonne dispari, poi quelle pari).
+      - **Note e tipi di componente:**  
+        Per le Note da 1 a 4, seleziona il tipo di comando GCode (G0/G1 – Motore) così da assegnare ogni nota a un asse meccanico o a un componente.  
+        Utilizza le caselle di controllo accanto a ciascuna nota per specificare quali note verranno riprodotte nel GCode (“Riproduci Nota 1”, ecc.).
       
-      Una volta attivato, il sistema genera un GCode che attiva i componenti assegnati in base al pattern di note selezionato. Il timing e la modulazione sono determinati dalla logica di riproduzione.
+      - **Selezione asse:**  
+        Scegli quale asse (X, Y oppure Z) verrà controllato dai comandi G0/G1.  
+        **Attenzione:** Il comando G0/G1 muove l’asse rapidamente. Un uso scorretto può causare danni meccanici! Verifica sempre la configurazione.
       
-      Utilizzare il pulsante "Esporta come GCode" per salvare l'output. Verificare la compatibilità con il computer di destinazione prima dell'esecuzione.
+      - **Opzioni per alternanza delle note:**  
+        * Riproduci le note alternate in ordine  
+        * Riproduci prima le note nelle colonne dispari, poi quelle nelle colonne pari  
+        Queste opzioni determinano in che modo più note vengono sequenziate nel GCode generato.
+      
+      - **Esporta come GCode:**  
+        Al termine della configurazione, clicca su “Esporta come GCode” per salvare l’output per la tua macchina.
+      
+      Questo processo garantisce massimo controllo su quale asse/componente riproduce cosa, quali note vengono utilizzate e come viene gestita l’alternanza – ideale per integrazioni sperimentali fra musica e movimento.
 
     - ### Converti in comando Beep per Linux - `Ctrl + Maiusc + B`
 
