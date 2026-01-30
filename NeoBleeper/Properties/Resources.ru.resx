@@ -1096,4 +1096,13 @@
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Ноты не сгенерированы</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Для использования этой функции вам должно быть не менее 18 лет.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Список строк пуст. Пожалуйста, добавьте примечания перед началом воспроизведения.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Музыка уже играет. Пожалуйста, остановите воспроизведение, прежде чем начать ждать.</value>
+  </data>
 </root>

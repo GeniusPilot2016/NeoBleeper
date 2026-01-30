@@ -1095,4 +1095,13 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Nota oluşturulmadı</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Bu özelliği kullanabilmek için en az 18 yaşında olmanız gerekmektedir.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Satır listesi boş. Lütfen oynatmaya başlamadan önce nota ekleyiniz.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Müzik zaten oynatılıyor. Beklemeye başlamadan önce lütfen oynatmayı durdurunuz.</value>
+  </data>
 </root>

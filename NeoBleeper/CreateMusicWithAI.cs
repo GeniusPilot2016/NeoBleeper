@@ -2530,6 +2530,22 @@ namespace NeoBleeper
             if (string.IsNullOrWhiteSpace(nbpmlContent))
                 return string.Empty;
 
+            // Convert notes with duration to standard format (e.g., C Whole -> C4)
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<Note([1-4])>\s*([A-G])\s*([#♯b♭]?)\s*(Whole|Half|Quarter|1/8|1/16|1/32)\s*</Note\1>",
+                m =>
+                {
+                    var idx = m.Groups[1].Value;
+                    var letter = m.Groups[2].Value.ToUpperInvariant();
+                    var accidental = m.Groups[3].Value; // may be "" or one of #, ♯, b, ♭
+                    // Normalize unicode flats/sharps to ASCII where later code expects '#'
+                    if (accidental == "♯") accidental = "#";
+                    if (accidental == "♭") accidental = "b";
+                    return $"<Note{idx}>{letter}{accidental}4</Note{idx}>";
+                },
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
             // Convert solfege to letter notes
             var solfegeMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -2541,23 +2557,23 @@ namespace NeoBleeper
             };
 
             foreach (var pair in solfegeMap)
-{
-    nbpmlContent = Regex.Replace(
-        nbpmlContent,
-        $@"<Note([1-4])>\s*{Regex.Escape(pair.Key)}([#b♯♭]?)(\d*)\s*</Note\1>",
-        m =>
-        {
-            var noteLetter = pair.Value;
-            var accidental = m.Groups[2].Value; // #, b, ♯, ♭ veya boş
-            var octave = m.Groups[3].Value;     // Oktav numarası veya boş
-            // Oktav yoksa 4 ekle
-            if (string.IsNullOrEmpty(octave))
-                octave = "4";
-            return $"<Note{m.Groups[1].Value}>{noteLetter}{accidental}{octave}</Note{m.Groups[1].Value}>";
-        },
-        RegexOptions.IgnoreCase
-    );
-}
+            {
+                nbpmlContent = Regex.Replace(
+                    nbpmlContent,
+                    $@"<Note([1-4])>\s*{Regex.Escape(pair.Key)}([#b♯♭]?)(\d*)\s*</Note\1>",
+                    m =>
+                    {
+                        var noteLetter = pair.Value;
+                        var accidental = m.Groups[2].Value; // #, b, ♯, ♭ or empty
+                        var octave = m.Groups[3].Value;     // Octave number or empty
+                        // Add default octave 4 if missing
+                        if (string.IsNullOrEmpty(octave))
+                            octave = "4";
+                        return $"<Note{m.Groups[1].Value}>{noteLetter}{accidental}{octave}</Note{m.Groups[1].Value}>";
+                    },
+                    RegexOptions.IgnoreCase
+                );
+            }
 
             // Fix notes with ambigious octaves (e.g., C, D#, A, Gb without octave)
             nbpmlContent = Regex.Replace(

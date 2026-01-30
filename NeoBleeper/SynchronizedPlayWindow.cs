@@ -73,7 +73,7 @@ namespace NeoBleeper
                     var currentTime = DateTime.UtcNow;
 
                     // Check if the target time has been reached or exceeded
-                    if (isCurrentTimeIsEqualOrGreaterThan())
+                    if (currentTime >= targetTime)  // Direct UTC comparison for accuracy
                     {
                         Logger.Log($"Target time reached! Starting music immediately.", Logger.LogTypes.Info);
                         Logger.Log($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
@@ -232,35 +232,6 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Determines whether the time selected in the date and time picker is equal to or earlier than the current
-        /// system time.
-        /// </summary>
-        /// <remarks>This method compares only the time components (hour, minute, and second) of the
-        /// selected value and the current system time. The date component is not considered in the
-        /// comparison.</remarks>
-        /// <returns>true if the selected time is equal to or earlier than the current system time; otherwise, false.</returns>
-        private bool isCurrentTimeIsEqualOrGreaterThan()
-        {
-            int Hour = dateTimePicker1.Value.Hour;
-            int Minute = dateTimePicker1.Value.Minute;
-            int Second = dateTimePicker1.Value.Second;
-            int currentHour = DateTime.Now.Hour;
-            int currentMinute = DateTime.Now.Minute;
-            int currentSecond = DateTime.Now.Second;
-            if (currentHour <= 12)
-            {
-                return (Hour < currentHour) ||
-                       (Hour == currentHour && Minute < currentMinute) ||
-                       (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
-            }
-            else
-            {
-                return (Hour == currentHour && Minute < currentMinute) ||
-                       (Hour == currentHour && Minute == currentMinute && Second <= currentSecond);
-            }
-        }
-
-        /// <summary>
         /// Stops music playback and updates the user interface to reflect the stopped state.
         /// </summary>
         /// <remarks>If music is currently playing, this method stops playback and ensures that related
@@ -327,16 +298,29 @@ namespace NeoBleeper
         }
         private async void button_wait_Click(object sender, EventArgs e)
         {
-            if (waiting == false && mainWindow.listViewNotes.Items.Count > 0)
+            bool playbackStarted = false; // To distinguish between already playing and played after waiting
+            errorProviderWaiting.Clear(); // Clear previous errors
+            if (waiting)
             {
-                dateTimePicker1.Enabled = false; // Disable the date time picker while waiting
+                StopWaiting();
+                return;
+            }
+            else if (isPlaying || mainWindow.isMusicPlaying)
+            {
+                StopPlaying();
+            }
+            else if (mainWindow.listViewNotes.Items.Count > 0)
+            {
+                // Starting logic
+                dateTimePicker1.Enabled = false;
                 waiting = true;
                 if (mainWindow.isMusicPlaying)
                 {
-                    mainWindow.StopPlaying(); // Stop the music if it is playing
+                    mainWindow.StopPlaying();
                 }
                 if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
                 {
+                    playbackStarted = true;
                     StartPlaying();
                 }
                 else
@@ -352,9 +336,17 @@ namespace NeoBleeper
                     });
                 }
             }
-            else
+            if (mainWindow.listViewNotes.Items.Count == 0)
             {
-                StopWaiting(); // Stop waiting if already waiting or no music is available
+                errorProviderWaiting.SetIconAlignment(button_wait, ErrorIconAlignment.MiddleLeft);
+                errorProviderWaiting.SetIconPadding(button_wait, 5);
+                errorProviderWaiting.SetError(button_wait, Resources.ErrorLineIsEmpty);
+            }
+            else if (mainWindow.isMusicPlaying && !playbackStarted)
+            {
+                errorProviderWaiting.SetIconAlignment(button_wait, ErrorIconAlignment.MiddleLeft);
+                errorProviderWaiting.SetIconPadding(button_wait, 5);
+                errorProviderWaiting.SetError(button_wait, Resources.ErrorMusicIsAlreadyPlaying);
             }
         }
 
@@ -411,6 +403,16 @@ namespace NeoBleeper
         private void synchronized_play_window_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainWindow.checkBox_synchronized_play.Checked = false;
+        }
+
+        private void SynchronizedPlayWindow_Deactivate(object sender, EventArgs e)
+        {
+            errorProviderWaiting.Clear(); // Clear previous errors
+        }
+
+        private void SynchronizedPlayWindow_Click(object sender, EventArgs e)
+        {
+            errorProviderWaiting.Clear(); // Clear previous errors
         }
     }
 }

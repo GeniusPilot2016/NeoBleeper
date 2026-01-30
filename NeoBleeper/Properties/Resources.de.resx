@@ -1094,4 +1094,13 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Es wurden keine Noten generiert</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Um diese Funktion nutzen zu können, müssen Sie mindestens 18 Jahre alt sein.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Die Zeilenliste ist leer. Bitte fügen Sie vor dem Abspielen Noten hinzu.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Die Musik wird bereits abgespielt. Bitte stoppen Sie die Wiedergabe, bevor Sie mit dem Warten beginnen.</value>
+  </data>
 </root>

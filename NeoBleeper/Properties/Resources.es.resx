@@ -1094,4 +1094,13 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>No se generaron notas</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Para utilizar esta función debes tener al menos 18 años.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>La lista de líneas está vacía. Añada notas antes de iniciar la reproducción.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>La música ya está sonando. Por favor, detén la reproducción antes de empezar a esperar.</value>
+  </data>
 </root>

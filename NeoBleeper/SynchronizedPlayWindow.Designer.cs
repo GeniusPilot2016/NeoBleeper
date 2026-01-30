@@ -45,9 +45,11 @@
             timer_time = new System.Windows.Forms.Timer(components);
             pictureBox1 = new PictureBox();
             lbl_waiting = new Label();
+            errorProviderWaiting = new ErrorProvider(components);
             groupBox_time.SuspendLayout();
             groupBox_position.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProviderWaiting).BeginInit();
             SuspendLayout();
             // 
             // groupBox_time
@@ -146,8 +148,8 @@
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Image = Properties.Resources.icons8_clock_48;
+            resources.ApplyResources(pictureBox1, "pictureBox1");
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
@@ -158,7 +160,11 @@
             lbl_waiting.ForeColor = SystemColors.ControlText;
             lbl_waiting.Name = "lbl_waiting";
             // 
-            // synchronized_play_window
+            // errorProviderWaiting
+            // 
+            errorProviderWaiting.ContainerControl = this;
+            // 
+            // SynchronizedPlayWindow
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -172,16 +178,19 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "synchronized_play_window";
+            Name = "SynchronizedPlayWindow";
             ShowIcon = false;
+            Deactivate += SynchronizedPlayWindow_Deactivate;
             FormClosing += synchronized_play_window_FormClosing;
             FormClosed += synchronized_play_window_FormClosed;
+            Click += SynchronizedPlayWindow_Click;
             SystemColorsChanged += synchronized_play_window_SystemColorsChanged;
             groupBox_time.ResumeLayout(false);
             groupBox_time.PerformLayout();
             groupBox_position.ResumeLayout(false);
             groupBox_position.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProviderWaiting).EndInit();
             ResumeLayout(false);
         }
 
@@ -202,5 +211,6 @@
         private ImageList imageList_synchronized_play;
         private PictureBox pictureBox1;
         private Label lbl_waiting;
+        private ErrorProvider errorProviderWaiting;
     }
 }

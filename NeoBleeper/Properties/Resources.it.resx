@@ -1093,4 +1093,13 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Nessuna nota generata</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Per utilizzare questa funzione devi avere almeno 18 anni.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>L'elenco delle righe è vuoto. Aggiungi delle note prima di iniziare la riproduzione.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>La musica è già in riproduzione. Interrompere la riproduzione prima di iniziare l'attesa.</value>
+  </data>
 </root>

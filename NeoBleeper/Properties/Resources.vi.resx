@@ -1094,4 +1094,13 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Không có nốt nào được tạo ra.</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Bạn phải ít nhất 18 tuổi mới có thể sử dụng tính năng này.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Danh sách dòng trống. Vui lòng thêm ghi chú trước khi bắt đầu phát lại.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Nhạc đang phát. Vui lòng dừng phát nhạc trước khi bắt đầu chờ.</value>
+  </data>
 </root>

@@ -1094,4 +1094,13 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Aucune note générée</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>Vous devez avoir au moins 18 ans pour utiliser cette fonctionnalité.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>La liste des lignes est vide. Veuillez ajouter des notes avant de commencer la lecture.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>La musique est déjà en cours de lecture. Veuillez l'arrêter avant de commencer à attendre.</value>
+  </data>
 </root>

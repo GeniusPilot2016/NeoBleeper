@@ -263,6 +263,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The line list is empty. Please add notes before starting playback. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ErrorLineIsEmpty {
+            get {
+                return ResourceManager.GetString("ErrorLineIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The music is already playing. Please stop playback before starting waiting. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ErrorMusicIsAlreadyPlaying {
+            get {
+                return ResourceManager.GetString("ErrorMusicIsAlreadyPlaying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error resetting API key:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ErrorResettingAPIKey {

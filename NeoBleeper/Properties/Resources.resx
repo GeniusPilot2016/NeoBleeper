@@ -1123,4 +1123,13 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>No Notes Generated</value>
   </data>
+  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
+    <value>You must be at least 18 years old to use this feature.</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>The line list is empty. Please add notes before starting playback.</value>
+  </data>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>The music is already playing. Please stop playback before starting waiting.</value>
+  </data>
 </root>
