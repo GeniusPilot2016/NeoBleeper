@@ -1447,9 +1447,18 @@ namespace NeoBleeper
                 label_channel.Enabled = true;
                 comboBox_midi_output_channel.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
                 comboBox_midi_output_channel.Enabled = true;
-                label_instrument.Enabled = true;
-                comboBox_midi_output_instrument.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
-                comboBox_midi_output_instrument.Enabled = true;
+                if (TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel != 9)
+                {
+                    label_instrument.Enabled = true;
+                    comboBox_midi_output_instrument.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
+                    comboBox_midi_output_instrument.Enabled = true;
+                }
+                else
+                {
+                    label_instrument.Enabled = false;
+                    comboBox_midi_output_instrument.Enabled = false;
+                    comboBox_midi_output_instrument.SelectedIndex = -1; // Deselect instrument
+                }
             }
             else
             {
@@ -1521,6 +1530,10 @@ namespace NeoBleeper
 
         private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(comboBox_midi_output_devices.SelectedIndex < 0)
+            {
+                return; // No device selected or deselected due to no available devices
+            }
             TemporarySettings.MIDIDevices.MIDIOutputDevice = comboBox_midi_output_devices.SelectedIndex;
             MIDIIOUtils.ChangeOutputDevice(TemporarySettings.MIDIDevices.MIDIOutputDevice);
             Logger.Log("MIDI output device selected: " + comboBox_midi_output_devices.SelectedItem.ToString(), Logger.LogTypes.Info);
@@ -1528,12 +1541,36 @@ namespace NeoBleeper
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(comboBox_midi_output_channel.SelectedIndex < 0)
+            {
+                return; // No channel selected or deselected due to no available devices
+            }
             TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
-            Logger.Log("MIDI output channel selected: " + comboBox_midi_output_channel.SelectedItem.ToString(), Logger.LogTypes.Info);
+            Logger.Log("MIDI output channel selected: Channel " + ((comboBox_midi_output_channel.SelectedIndex + 1) != 10 ?
+                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() : 
+                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() + " (Percussion)"), 
+                Logger.LogTypes.Info); // +1 to convert zero-based index to one-based channel number while logging
+            if (TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) // Percussion  channel
+            {
+                label_instrument.Enabled = false; // Disable the label
+                comboBox_midi_output_instrument.Enabled = false; // Disable instrument selection
+                comboBox_midi_output_instrument.SelectedIndex = -1; // Deselect instrument
+                Logger.Log("Percussion or sound effects channel selected; instrument selection disabled.", Logger.LogTypes.Info);
+            }
+            else
+            {
+                label_instrument.Enabled = true; // Enable the label
+                comboBox_midi_output_instrument.SelectedIndex = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
+                comboBox_midi_output_instrument.Enabled = true; // Enable instrument selection
+            }
         }
 
         private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(comboBox_midi_output_instrument.SelectedIndex < 0)
+            {
+                return; // No instrument selected or deselected by percussion channel or no available devices
+            }
             TemporarySettings.MIDIDevices.MIDIOutputInstrument = comboBox_midi_output_instrument.SelectedIndex;
             MIDIIOUtils.ChangeInstrument(MIDIIOUtils._midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument,
             TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
