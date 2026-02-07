@@ -3,6 +3,7 @@
     <Platform Name="ARM64" />
     <Platform Name="x64" />
   </Configurations>
+  <Project Path="BeepBridge/BeepBridge.csproj" Id="74102ba8-6756-4a80-8a7f-ac515943dc8c" />
   <Project Path="BeepStopper/BeepStopper.csproj">
     <Platform Project="x64" />
     <Build Solution="Release|*" Project="false" />
