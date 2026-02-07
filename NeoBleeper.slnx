@@ -14,5 +14,6 @@
     <Platform Solution="Release|ARM64" Project="ARM64" />
     <Build Solution="Release|x64" Project="false" />
   </Project>
+  <Project Path="SoundChannelInspector/SoundChannelInspector.csproj" Id="a230641f-da63-4e20-8eeb-25a15401ffa7" />
   <Project Path="SystemSpeakerSensorTest/SystemSpeakerSensorTest.csproj" />
 </Solution>
