@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace SystemSpeakerSensorTest
 {
@@ -121,7 +121,9 @@ namespace SystemSpeakerSensorTest
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error checking electrical feedback on port 0x61: {ex.Message}");
+                Console.ResetColor();
                 return false;
             }
         }
@@ -176,7 +178,9 @@ namespace SystemSpeakerSensorTest
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error checking port state stability: {ex.Message}");
+                Console.ResetColor();
                 return false;
             }
         }
@@ -193,7 +197,9 @@ namespace SystemSpeakerSensorTest
         {
             try
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\n=== Advanced Frequency Sweep Test (Ultrasonic) ===");
+                Console.ResetColor();
                 byte originalState = (byte)Inp32(0x61);
                 bool anyFrequencyWorks = false;
 
@@ -240,7 +246,9 @@ namespace SystemSpeakerSensorTest
                             transitions++;
                     }
 
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"  {freq} Hz: {transitions} transitions (SILENT)");
+                    Console.ResetColor();
 
                     if (transitions >= 2)
                     {
@@ -255,7 +263,9 @@ namespace SystemSpeakerSensorTest
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error in frequency sweep test: {ex.Message}");
+                Console.ResetColor();
                 return false;
             }
         }
@@ -286,36 +296,56 @@ namespace SystemSpeakerSensorTest
         /// results may vary on virtual machines or systems with restricted port access.</remarks>
         public static void LogSystemSpeakerStatus()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("=== System Speaker Detection Test (ULTRA SILENT MODE) ===\n");
+            Console.ResetColor();
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Using ultrasonic frequency: {ULTRASONIC_FREQ} Hz with ramped transitions\n");
+            Console.ResetColor();
 
             byte initialState = (byte)Inp32(0x61);
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"Initial port 0x61 state: 0x{initialState:X2} (binary: {Convert.ToString(initialState, 2).PadLeft(8, '0')})");
             Console.WriteLine($"  Bit 0 (Timer 2 gate): {(initialState & 0x01) != 0}");
             Console.WriteLine($"  Bit 1 (Speaker data): {(initialState & 0x02) != 0}");
             Console.WriteLine($"  Bit 5 (Timer 2 out): {(initialState & 0x20) != 0}\n");
+            Console.ResetColor();
 
             bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
+            Console.ForegroundColor = electricalFeedbackValid ? ConsoleColor.Green : ConsoleColor.Red;
             Console.WriteLine($"Electrical feedback valid: {electricalFeedbackValid}");
+            Console.ResetColor();
 
             bool portStateStable = CheckPortStateStability();
+            Console.ForegroundColor = portStateStable ? ConsoleColor.Green : ConsoleColor.Red;
             Console.WriteLine($"Port state stable: {portStateStable}");
+            Console.ResetColor();
 
             bool frequencySweepWorks = AdvancedFrequencySweepTest();
+            Console.ForegroundColor = frequencySweepWorks ? ConsoleColor.Green : ConsoleColor.Red;
             Console.WriteLine($"Frequency sweep test: {frequencySweepWorks}\n");
+            Console.ResetColor();
 
             if (electricalFeedbackValid || portStateStable || frequencySweepWorks)
             {
-                Console.WriteLine("✓ Functional system speaker or buzzer detected (SILENTLY).");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("? Functional system speaker or buzzer detected (SILENTLY).");
+                Console.ResetColor();
             }
             else
             {
-                Console.WriteLine("✗ No functional system speaker or buzzer detected.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("? No functional system speaker or buzzer detected.");
+                Console.ResetColor();
+                
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\nPossible reasons:");
                 Console.WriteLine("  - System speaker hardware not present");
                 Console.WriteLine("  - Speaker disabled in BIOS/UEFI");
                 Console.WriteLine("  - Port access restricted by OS/driver");
                 Console.WriteLine("  - Virtual machine with no speaker emulation");
+                Console.ResetColor();
             }
         }
 
@@ -329,21 +359,60 @@ namespace SystemSpeakerSensorTest
         /// patterns and speaker control behavior during ultrasonic operations.</remarks>
         public static void DebugPortBehavior()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n=== Debug: Detailed Port Behavior (Ultrasonic) ===");
+            Console.ResetColor();
 
             byte originalState = (byte)Inp32(0x61);
             UltraSoftEnableSpeaker(originalState);
             Thread.Sleep(50);
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Sampling with {ULTRASONIC_FREQ} Hz (silent frequency):");
+            Console.ResetColor();
+            
+            Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < 50; i++)
             {
                 byte sample = (byte)Inp32(0x61);
                 Console.WriteLine($"Sample {i:D2}: 0x{sample:X2} | Bit5={((sample & 0x20) != 0 ? "1" : "0")} Bits0-1={sample & 0x03:X}");
             }
+            Console.ResetColor();
 
             UltraSoftDisableSpeaker(originalState);
             Out32(0x61, originalState);
+        }
+
+        private static void PrintColorASCIIArtLogo()
+        {
+            Console.WriteLine();
+            string ASCIIArt = "  ____            _                   ____                   _              \r\n / ___| _   _ ___| |_ ___ _ __ ___   / ___| _ __   ___  __ _| | _____ _ __  \r\n \\___ \\| | | / __| __/ _ \\ '_ ` _ \\  \\___ \\| '_ \\ / _ \\/ _` | |/ / _ \\ '__| \r\n  ___) | |_| \\__ \\ ||  __/ | | | | |  ___) | |_) |  __/ (_| |   <  __/ |    \r\n |____/ \\__, |___/\\__\\___|_| |_| |_|_|____/| .__/ \\___|\\__,_|_|\\_\\___|_|    \r\n / ___| |___/_ __  ___  ___  _ __  |_   _|_|_|___| |_                       \r\n \\___ \\ / _ \\ '_ \\/ __|/ _ \\| '__|   | |/ _ \\/ __| __|                      \r\n  ___) |  __/ | | \\__ \\ (_) | |      | |  __/\\__ \\ |_                       \r\n |____/ \\___|_| |_|___/\\___/|_|      |_|\\___||___/\\__|                      \r\n                                                                            ";
+            
+            // 2-color gradient from Cyan to Magenta
+            int rStart = 0, gStart = 255, bStart = 255;
+            int rEnd = 255, gEnd = 0, bEnd = 255;
+
+            for (int i = 0; i < ASCIIArt.Length; i++)
+            {
+                double t = (double)i / ASCIIArt.Length;
+                int r = (int)(rStart + (rEnd - rStart) * t);
+                int g = (int)(gStart + (gEnd - gStart) * t);
+                int b = (int)(bStart + (bEnd - bStart) * t);
+                Console.Write($"\u001b[38;2;{r};{g};{b}m{ASCIIArt[i]}");
+            }
+            Console.Write("\u001b[0m");
+            Console.WriteLine();
+
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("=== NeoBleeper System Speaker Sensor Test Suite ===\n");
+            Console.ResetColor();
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Testing system speaker functionality with silent ultrasonic frequencies...\n");
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -353,6 +422,7 @@ namespace SystemSpeakerSensorTest
         /// application by invoking startup routines as required.</remarks>
         static void Main()
         {
+            PrintColorASCIIArtLogo();
             LogSystemSpeakerStatus();
             //DebugPortBehavior();
         }
