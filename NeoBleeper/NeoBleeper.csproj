@@ -179,6 +179,9 @@
     <None Update="Music\Rush E.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Music\Waltz Op.64 No.1.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\HarmonyOS_Sans_Black.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
