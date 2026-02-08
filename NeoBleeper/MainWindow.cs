@@ -935,28 +935,28 @@ namespace NeoBleeper
                 {
                     Line.note1 = note;
                     ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 1, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 1, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note2.Checked == true)
                 {
                     Line.note2 = note;
                     ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 2, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 2, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note3.Checked == true)
                 {
                     Line.note3 = note;
                     ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 3, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 3, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note4.Checked == true)
                 {
                     Line.note4 = note;
                     ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, listViewNotes.SelectedItems[0].SubItems[0].Text, 4, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 4, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 isModified = true;

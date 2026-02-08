@@ -836,7 +836,7 @@ namespace NeoBleeper
                         int currentNoteIndex = i;
                         HighlightNoteLabel(currentNoteIndex);
                         // Run the actual sound generation off the calling context but avoid spinning extra Task.Run loops.
-                        await Task.Run(() => NotePlayer.PlayNote(frequencies[currentNoteIndex], notePlayDuration), token);
+                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[currentNoteIndex], notePlayDuration), token);
                         UnHighlightNoteLabel(currentNoteIndex);
 
                         int gap = Math.Max(0, timePerNote - notePlayDuration);
@@ -867,7 +867,7 @@ namespace NeoBleeper
                             notePlayDuration = interval;
 
                         HighlightNoteLabel(noteIndex);
-                        await Task.Run(() => NotePlayer.PlayNote(frequencies[noteIndex], notePlayDuration), token);
+                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[noteIndex], notePlayDuration), token);
                         UnHighlightNoteLabel(noteIndex);
 
                         // Wait until next note time (approximate)
@@ -1631,7 +1631,7 @@ namespace NeoBleeper
                 var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
                 if (frequencies.Length == 1)
                 {
-                    await Task.Run(() => NotePlayer.PlayNote(frequencies[0], durationMsInt), token);
+                    await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], durationMsInt), token);
                 }
                 else
                 {
