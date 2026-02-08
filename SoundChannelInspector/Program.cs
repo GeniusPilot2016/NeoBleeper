@@ -1,4 +1,4 @@
-﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi;
 using System.Data;
 using System.Management;
 using System.Runtime.Versioning;
@@ -81,7 +81,7 @@ static class Program
                 string flowLabel = device.DataFlow == DataFlow.Render ? "Output" : "Input";
 
                 Console.ForegroundColor = device.State == DeviceState.Active ? ConsoleColor.Green : ConsoleColor.DarkGray;
-                Console.WriteLine($"─────────────────────────────────────────────");
+                Console.WriteLine($"-------------------------------");
                 Console.WriteLine($"  Device: {device.FriendlyName}");
                 Console.WriteLine($"  Flow:   {flowLabel}");
                 Console.WriteLine($"  State:  {stateLabel}");
@@ -141,9 +141,14 @@ static class Program
         }
     }
 
-    // ──────────────────────────────────────────────────────────
+    // ----------------------------------------------------------------
     //  DeviceTopology COM interop to discover slider/part names
-    // ──────────────────────────────────────────────────────────
+    // ----------------------------------------------------------------
+
+    [DllImport("ole32.dll")]
+    private static extern int CoCreateInstance(
+        ref Guid rclsid, IntPtr pUnkOuter, uint dwClsContext,
+        ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppv);
 
     [SupportedOSPlatform("windows")]
     private static void EnumerateTopologyParts(MMDevice device, HashSet<string> walkedHardwareDevices)
@@ -192,13 +197,14 @@ static class Program
         topo.GetConnectorCount(out uint connectorCount);
 
         var visitedPartIds = new HashSet<string>();
-
-        // Collect endpoint-visible part global IDs so we can mark others as hidden
         var endpointPartIds = new HashSet<string>();
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine($"  Endpoint Topology Parts:");
         Console.ResetColor();
+
+        // Collect the hardware filter device ID from the connected-to side of endpoint connectors
+        string hwDeviceId = null;
 
         for (uint c = 0; c < connectorCount; c++)
         {
@@ -208,6 +214,12 @@ static class Program
                 connector.IsConnected(out bool isConnected);
                 if (!isConnected)
                     continue;
+
+                // Get the hardware filter device ID from the endpoint's connector
+                if (hwDeviceId == null)
+                {
+                    try { connector.GetDeviceIdConnectedTo(out hwDeviceId); } catch { }
+                }
 
                 connector.GetConnectedTo(out IConnector connectedTo);
 
@@ -221,32 +233,23 @@ static class Program
                         try
                         {
                             var part = (IPart)Marshal.GetObjectForIUnknown(partPtr);
-
-                            // Collect endpoint-visible IDs first
                             CollectPartIds(part, endpointPartIds, new HashSet<string>());
-
-                            // Then print them (not hidden)
                             WalkParts(part, depth: 2, visitedPartIds, endpointPartIds, isHardwareFilter: false);
 
-                            // Follow into the hardware filter topology via GetTopologyObject
-                            try
+                            // Fallback: get HW device ID from the part's topology object
+                            if (hwDeviceId == null)
                             {
-                                part.GetTopologyObject(out IDeviceTopology hwTopo);
-                                if (hwTopo != null)
+                                try
                                 {
-                                    hwTopo.GetDeviceId(out string hwDeviceId);
-                                    if (!string.IsNullOrEmpty(hwDeviceId) &&
-                                        walkedHardwareDevices.Add(hwDeviceId))
+                                    part.GetTopologyObject(out IDeviceTopology partTopo);
+                                    if (partTopo != null)
                                     {
-                                        WalkHardwareFilterTopology(hwTopo, visitedPartIds, endpointPartIds);
-                                    }
-                                    else
-                                    {
-                                        Marshal.ReleaseComObject(hwTopo);
+                                        partTopo.GetDeviceId(out hwDeviceId);
+                                        Marshal.ReleaseComObject(partTopo);
                                     }
                                 }
+                                catch { }
                             }
-                            catch (COMException) { }
                         }
                         finally
                         {
@@ -261,13 +264,64 @@ static class Program
 
                 Marshal.ReleaseComObject(connectedTo);
             }
-            catch (COMException)
-            {
-                // Not connected - skip
-            }
+            catch (COMException) { }
             finally
             {
                 Marshal.ReleaseComObject(connector);
+            }
+        }
+
+        // Walk the ACTUAL hardware filter topology to find hidden mixer lines.
+        // The hardware filter is a SEPARATE device with its own IDeviceTopology.
+        // We must activate it via IMMDeviceEnumerator::GetDevice using the device ID
+        // obtained from the endpoint's connector. This is the only way to reach
+        // parts like PC Beep, S/PDIF, CD Audio, Aux, etc. that are NOT exposed
+        // through the endpoint topology.
+        if (!string.IsNullOrEmpty(hwDeviceId) && walkedHardwareDevices.Add(hwDeviceId))
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"  Hardware Filter Topology (all mixer lines including hidden):");
+            Console.ResetColor();
+
+            try
+            {
+                Guid CLSID_MMDeviceEnumerator = new Guid("BCDE0395-E52F-467C-8E3D-C4579291692E");
+                Guid IID_IMMDeviceEnumerator = new Guid("A95664D2-9614-4F35-A746-DE8DB63617E6");
+
+                int hrCreate = CoCreateInstance(
+                    ref CLSID_MMDeviceEnumerator, IntPtr.Zero, CLSCTX_ALL,
+                    ref IID_IMMDeviceEnumerator, out object enumObj);
+
+                if (hrCreate == 0 && enumObj != null)
+                {
+                    var mmEnum = (IMMDeviceEnumeratorNative)enumObj;
+                    int hrGetDev = mmEnum.GetDevice(hwDeviceId, out IMMDevice hwDevice);
+
+                    if (hrGetDev == 0 && hwDevice != null)
+                    {
+                        Guid iidTopo = typeof(IDeviceTopology).GUID;
+                        int hrAct = hwDevice.Activate(ref iidTopo, CLSCTX_ALL, IntPtr.Zero, out object hwTopoObj);
+
+                        if (hrAct == 0 && hwTopoObj != null)
+                        {
+                            var hwTopo = (IDeviceTopology)hwTopoObj;
+                            // Use a SEPARATE visited set for the hardware filter walk
+                            // so parts already seen in the endpoint walk are still printed
+                            // and correctly classified as hidden or not
+                            var hwVisitedPartIds = new HashSet<string>();
+                            WalkHardwareFilterTopologyDirect(hwTopo, hwVisitedPartIds, endpointPartIds);
+                            Marshal.ReleaseComObject(hwTopoObj);
+                        }
+                    }
+
+                    Marshal.ReleaseComObject(enumObj);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"  (Could not walk hardware filter topology: {ex.Message})");
+                Console.ResetColor();
             }
         }
 
@@ -324,17 +378,14 @@ static class Program
     }
 
     /// <summary>
-    /// Walks the hardware filter device topology obtained via IPart::GetTopologyObject()
-    /// to discover hidden mixer lines like PC Beep, S/PDIF, CD Audio, Aux, etc.
+    /// Walks the hardware filter device topology directly to discover ALL mixer lines,
+    /// including hidden ones like PC Beep, S/PDIF, CD Audio, Aux, etc.
+    /// This enumerates both subunits and connectors at the device level.
     /// </summary>
     [SupportedOSPlatform("windows")]
-    private static void WalkHardwareFilterTopology(IDeviceTopology hwTopo, HashSet<string> visitedPartIds, HashSet<string> endpointPartIds)
+    private static void WalkHardwareFilterTopologyDirect(IDeviceTopology hwTopo, HashSet<string> visitedPartIds, HashSet<string> endpointPartIds)
     {
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine($"  Hardware Filter Topology (includes hidden channels):");
-        Console.ResetColor();
-
-        // Walk all subunits - these contain volume/mute controls for hidden lines
+        // Walk all subunits - these contain volume/mute controls for mixer lines
         hwTopo.GetSubunitCount(out uint subunitCount);
         for (uint s = 0; s < subunitCount; s++)
         {
@@ -365,13 +416,18 @@ static class Program
             }
         }
 
-        // Walk all connectors - input connectors are where PC Beep, S/PDIF, etc. live
+        // Walk ALL connectors - this is where PC Beep, S/PDIF, etc. are exposed
+        // Hidden channels are typically INPUT connectors (DataFlow.Capture/Recording)
         hwTopo.GetConnectorCount(out uint hwConnCount);
         for (uint c = 0; c < hwConnCount; c++)
         {
             hwTopo.GetConnector(c, out IConnector hwConn);
             try
             {
+                // Check connector data flow to identify input lines
+                hwConn.GetDataFlow(out uint dataFlow);
+                string flowType = dataFlow == 0 ? "Render/Output" : "Capture/Input";
+
                 IntPtr hwConnPtr = Marshal.GetIUnknownForObject(hwConn);
                 try
                 {
@@ -382,6 +438,16 @@ static class Program
                         try
                         {
                             var part = (IPart)Marshal.GetObjectForIUnknown(partPtr);
+                            
+                            // Display connector flow direction before walking
+                            part.GetName(out string connName);
+                            if (!string.IsNullOrWhiteSpace(connName))
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                Console.WriteLine($"    [{flowType}]");
+                                Console.ResetColor();
+                            }
+                            
                             WalkParts(part, depth: 2, visitedPartIds, endpointPartIds, isHardwareFilter: true);
                         }
                         finally
@@ -400,8 +466,6 @@ static class Program
                 Marshal.ReleaseComObject(hwConn);
             }
         }
-
-        Marshal.ReleaseComObject(hwTopo);
     }
 
     [SupportedOSPlatform("windows")]
@@ -467,7 +531,7 @@ static class Program
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.WriteLine($"{indent}├─ {name} ({typeLabel}){markers}");
+            Console.WriteLine($"{indent} - {typeLabel}: {name}{markers}");
             Console.ResetColor();
         }
 
@@ -508,9 +572,30 @@ static class Program
         catch { }
     }
 
-    // ──────────────────────────────────────────────
+    // ------------------------------------------------
     //  COM interface declarations
-    // ──────────────────────────────────────────────
+    // ------------------------------------------------
+
+    [ComImport]
+    [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IMMDeviceEnumeratorNative
+    {
+        [PreserveSig]
+        int EnumAudioEndpoints(int dataFlow, int dwStateMask, out IntPtr ppDevices);
+
+        [PreserveSig]
+        int GetDefaultAudioEndpoint(int dataFlow, int role, out IntPtr ppEndpoint);
+
+        [PreserveSig]
+        int GetDevice([MarshalAs(UnmanagedType.LPWStr)] string pwstrId, out IMMDevice ppDevice);
+
+        [PreserveSig]
+        int RegisterEndpointNotificationCallback(IntPtr pClient);
+
+        [PreserveSig]
+        int UnregisterEndpointNotificationCallback(IntPtr pClient);
+    }
 
     [ComImport]
     [Guid("D666063F-1587-4E43-81F1-B948E807363F")]
