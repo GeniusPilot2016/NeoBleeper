@@ -93,6 +93,21 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Plays a musical note at the specified frequency and duration without introducing a gap between consecutive
+        /// notes.
+        /// </summary>
+        /// <remarks>This method is intended for scenarios where seamless, gapless playback of notes is
+        /// required, such as in musical sequences. Calling this method will stop any currently playing notes to prevent
+        /// overlap.</remarks>
+        /// <param name="frequency">The frequency of the note to play, in hertz. Must be a positive integer representing the pitch of the note.</param>
+        /// <param name="length">The duration of the note to play, in milliseconds. Must be a positive integer.</param>
+        public static async void PlayNoteWithoutGap(int frequency, int length)
+        {
+            PlayNote(frequency, length, true); // Play the note in non-stopping mode to allow for gapless playback
+            StopAllNotes(); // Stop all currently playing notes to prevent overlap and ensure gapless playback
+        }
+
+        /// <summary>
         /// Stops all currently playing notes, regardless of the output device.
         /// </summary>
         /// <remarks>This method halts sound output from both the system speaker and the sound device,
