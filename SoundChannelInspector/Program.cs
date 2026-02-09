@@ -87,21 +87,30 @@ static class Program
     {
         Console.WriteLine();
         string ASCIIArt = "   _____                       _    _____ _                            _ \r\n  / ____|                     | |  / ____| |                          | |\r\n | (___   ___  _   _ _ __   __| | | |    | |__   __ _ _ __  _ __   ___| |\r\n  \\___ \\ / _ \\| | | | '_ \\ / _` | | |    | '_ \\ / _` | '_ \\| '_ \\ / _ \\ |\r\n  ____) | (_) | |_| | | | | (_| | | |____| | | | (_| | | | | | | |  __/ |\r\n |_____/ \\___/ \\__,_|_| |_|\\__,_| _\\_____|_| |_|\\__,_|_| |_|_| |_|\\___|_|\r\n |_   _|                         | |                                     \r\n   | |  _ __  ___ _ __   ___  ___| |_ ___  _ __                          \r\n   | | | '_ \\/ __| '_ \\ / _ \\/ __| __/ _ \\| '__|                         \r\n  _| |_| | | \\__ \\ |_) |  __/ (__| || (_) | |                            \r\n |_____|_| |_|___/ .__/ \\___|\\___|\\__\\___/|_|                            \r\n                 | |                                                     \r\n                 |_|                                                     ";
-
-        // 2-color gradient from Red to Pink
-        int rStart = 255, gStart = 80, bStart = 80;
-        int rEnd = 255, gEnd = 0, bEnd = 180;
-
-        for (int i = 0; i < ASCIIArt.Length; i++)
+        if (!(Environment.OSVersion.Version.Major < 10 || (Environment.OSVersion.Version.Major == 10 && Environment.OSVersion.Version.Build < 22000)))
         {
-            double t = (double)i / ASCIIArt.Length;
-            int r = (int)(rStart + (rEnd - rStart) * t);
-            int g = (int)(gStart + (gEnd - gStart) * t);
-            int b = (int)(bStart + (bEnd - bStart) * t);
-            Console.Write($"\u001b[38;2;{r};{g};{b}m{ASCIIArt[i]}");
+            // 2-color gradient from Red to Pink
+            int rStart = 255, gStart = 0, bStart = 0;
+            int rEnd = 255, gEnd = 0, bEnd = 180;
+
+            for (int i = 0; i < ASCIIArt.Length; i++)
+            {
+                double t = (double)i / ASCIIArt.Length;
+                int r = (int)(rStart + (rEnd - rStart) * t);
+                int g = (int)(gStart + (gEnd - gStart) * t);
+                int b = (int)(bStart + (bEnd - bStart) * t);
+                Console.Write($"\u001b[38;2;{r};{g};{b}m{ASCIIArt[i]}");
+            }
+            Console.Write("\u001b[0m");
+            Console.WriteLine();
         }
-        Console.Write("\u001b[0m");
-        Console.WriteLine();
+        else
+        {
+            // Fallback: single color
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ASCIIArt);
+
+        }
 
         Console.ResetColor();
         Console.WriteLine();
