@@ -8,7 +8,6 @@
     <Platform Project="x64" />
     <Build Solution="Release|*" Project="false" />
   </Project>
-  <Project Path="DriverPolicyExplorer/DriverPolicyExplorer.csproj" Id="914bc9bd-b5ec-4e69-a04c-61b6c07613a7" />
   <Project Path="NeoBleeper/NeoBleeper.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="Debug|ARM64" Project="x64" />

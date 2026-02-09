@@ -10,77 +10,12 @@ using System.Globalization;
 
 static class Program
 {
-    // Known PC Speaker/Beep channel GUIDs with their English names
-    private static readonly Dictionary<string, string> PCBeepGUIDs = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-    {
-        { "{185FEDF0-9905-11D1-95A9-00C04FB925D3}", "PC Beep Volume" },
-        { "{185FEDF1-9905-11D1-95A9-00C04FB925D3}", "PC Beep Mute" },
-        { "{185FEDFF-9905-11D1-95A9-00C04FB925D3}", "PC Speaker" },
-        { "{185FEE00-9905-11D1-95A9-00C04FB925D3}", "PC Speaker (Related)" }
-    };
-
-    // Common media category GUIDs with their English names (hardcoded fallback)
-    private static readonly Dictionary<string, string> KnownMediaCategoryNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-    {
-        // PC Speaker/Beep related
-        { "{185FEDF0-9905-11D1-95A9-00C04FB925D3}", "PC Beep Volume" },
-        { "{185FEDF1-9905-11D1-95A9-00C04FB925D3}", "PC Beep Mute" },
-        { "{185FEDFF-9905-11D1-95A9-00C04FB925D3}", "PC Speaker" },
-        { "{185FEE00-9905-11D1-95A9-00C04FB925D3}", "PC Speaker (Related)" },
-        
-        // Common audio categories
-        { "{6994AD04-93EF-11D0-A3CC-00A0C9223196}", "Master Volume" },
-        { "{6994AD05-93EF-11D0-A3CC-00A0C9223196}", "Master Mute" },
-        { "{185FEDE0-9905-11D1-95A9-00C04FB925D3}", "Line In Volume" },
-        { "{185FEDE1-9905-11D1-95A9-00C04FB925D3}", "Line In Mute" },
-        { "{185FEDE2-9905-11D1-95A9-00C04FB925D3}", "Microphone Volume" },
-        { "{185FEDE3-9905-11D1-95A9-00C04FB925D3}", "Microphone Mute" },
-        { "{185FEDE4-9905-11D1-95A9-00C04FB925D3}", "CD Audio Volume" },
-        { "{185FEDE5-9905-11D1-95A9-00C04FB925D3}", "CD Audio Mute" },
-        { "{185FEDE6-9905-11D1-95A9-00C04FB925D3}", "Auxiliary Volume" },
-        { "{185FEDE7-9905-11D1-95A9-00C04FB925D3}", "Auxiliary Mute" },
-        { "{185FEDE8-9905-11D1-95A9-00C04FB925D3}", "Wave Out Volume" },
-        { "{185FEDE9-9905-11D1-95A9-00C04FB925D3}", "Wave Out Mute" },
-        { "{185FEDEA-9905-11D1-95A9-00C04FB925D3}", "MIDI Out Volume" },
-        { "{185FEDEB-9905-11D1-95A9-00C04FB925D3}", "MIDI Out Mute" },
-        { "{185FEDEC-9905-11D1-95A9-00C04FB925D3}", "Headphones Volume" },
-        { "{185FEDED-9905-11D1-95A9-00C04FB925D3}", "Headphones Mute" },
-        { "{185FEDEE-9905-11D1-95A9-00C04FB925D3}", "Stereo Mix Volume" },
-        { "{185FEDEF-9905-11D1-95A9-00C04FB925D3}", "Stereo Mix Mute" },
-        { "{185FEDF2-9905-11D1-95A9-00C04FB925D3}", "Mono Mix Volume" },
-        { "{185FEDF3-9905-11D1-95A9-00C04FB925D3}", "Mono Mix Mute" },
-        { "{185FEDF4-9905-11D1-95A9-00C04FB925D3}", "Front Volume" },
-        { "{185FEDF5-9905-11D1-95A9-00C04FB925D3}", "Front Mute" },
-        { "{185FEDF6-9905-11D1-95A9-00C04FB925D3}", "Surround Volume" },
-        { "{185FEDF7-9905-11D1-95A9-00C04FB925D3}", "Surround Mute" },
-        { "{185FEDF8-9905-11D1-95A9-00C04FB925D3}", "Center Volume" },
-        { "{185FEDF9-9905-11D1-95A9-00C04FB925D3}", "Center Mute" },
-        { "{185FEDFA-9905-11D1-95A9-00C04FB925D3}", "LFE Volume" },
-        { "{185FEDFB-9905-11D1-95A9-00C04FB925D3}", "LFE Mute" },
-        { "{185FEDFC-9905-11D1-95A9-00C04FB925D3}", "S/PDIF Volume" },
-        { "{185FEDFD-9905-11D1-95A9-00C04FB925D3}", "S/PDIF Mute" }
-    };
-
-    // P/Invoke declarations for loading string resources
-    [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    private static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hFile, uint dwFlags);
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool FreeLibrary(IntPtr hModule);
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadStringW")]
-    private static extern int LoadString(IntPtr hInstance, uint uID, StringBuilder lpBuffer, int nBufferMax);
-
-    private const uint LOAD_LIBRARY_AS_DATAFILE = 0x00000002;
-    private const uint LOAD_LIBRARY_AS_IMAGE_RESOURCE = 0x00000020;
-
     static void Main()
     {
         // To find and research about "PC Beep" or equivalent channel that stole about 8 years of my life (July 2018-January 2026)
         // (also it's the reason why "2023-[year]" is written in "About NeoBleeper" instead of "2018-[year]" because I couldn't start developing NeoBleeper until I mounted a system speaker to my desktop PC and played tunes "accidentally" through it in mid-2023)
         PrintColorASCIIArtLogo();
-        ListAndMarkMediaChannels();
+        EnumerateAllEndpointChannels();
     }
 
     private static void PrintColorASCIIArtLogo()
@@ -125,909 +60,685 @@ static class Program
     }
 
 
-    private static void ListAndMarkMediaChannels()
+    [SupportedOSPlatform("windows")]
+    private static void EnumerateAllEndpointChannels()
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("Sound Channel Names:");
-        Console.ResetColor();
+        using var enumerator = new MMDeviceEnumerator();
 
-        string mediaCategoriesPath = @"SYSTEM\CurrentControlSet\Control\MediaCategories";
+        var allDevices = enumerator.EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active | DeviceState.Disabled | DeviceState.Unplugged);
 
-        try
+        if (allDevices.Count == 0)
         {
-            // First, collect all visible/enabled channels
-            var visibleChannels = GetVisibleMediaChannels();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("No audio endpoints found.");
+            Console.ResetColor();
+            return;
+        }
 
-            using (var key = Registry.LocalMachine.OpenSubKey(mediaCategoriesPath))
+        // Track hardware filter device IDs already walked to avoid duplicates
+        var walkedHardwareDevices = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var device in allDevices)
+        {
+            try
             {
-                if (key == null)
+                string stateLabel = device.State switch
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Warning: Media Categories registry key not found.");
-                    Console.ResetColor();
-                    return;
-                }
+                    DeviceState.Active => "Active",
+                    DeviceState.Disabled => "Disabled (Hidden)",
+                    DeviceState.Unplugged => "Unplugged (Hidden)",
+                    DeviceState.NotPresent => "Not Present (Hidden)",
+                    _ => device.State.ToString()
+                };
 
-                var subKeyNames = key.GetSubKeyNames();
-                Console.WriteLine($"Found {subKeyNames.Length} total media categories\n");
+                string flowLabel = device.DataFlow == DataFlow.Render ? "Output" : "Input";
 
-                var enabledChannels = new List<(string name, string guid, bool isPCBeep)>();
-                var disabledChannels = new List<(string name, string guid, bool isPCBeep)>();
+                Console.ForegroundColor = device.State == DeviceState.Active ? ConsoleColor.Green : ConsoleColor.DarkGray;
+                Console.WriteLine($"-------------------------------");
+                Console.WriteLine($"  Device: {device.FriendlyName}");
+                Console.WriteLine($"  Flow:   {flowLabel}");
+                Console.WriteLine($"  State:  {stateLabel}");
+                Console.ResetColor();
 
-                foreach (var subKeyName in subKeyNames)
+                if (device.State == DeviceState.Active)
                 {
-                    using (var subKey = key.OpenSubKey(subKeyName))
+                    try
                     {
-                        if (subKey == null) continue;
+                        var epVol = device.AudioEndpointVolume;
+                        int channelCount = epVol.Channels.Count;
 
-                        // Get English name (hardcoded if known, otherwise try to load from resources)
-                        string englishName = GetEnglishChannelName(subKeyName, subKey);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine($"  Master Volume: {Math.Round(epVol.MasterVolumeLevelScalar * 100)}%");
+                        Console.WriteLine($"  Channel Count: {channelCount}");
 
-                        // Check if this channel is visible/enabled
-                        bool isEnabled = visibleChannels.Contains(subKeyName);
-
-                        // Check if this is a PC Beep/Speaker related channel
-                        bool isPCBeepChannel = PCBeepGUIDs.ContainsKey(subKeyName);
-
-                        if (isEnabled)
+                        for (int ch = 0; ch < channelCount; ch++)
                         {
-                            enabledChannels.Add((englishName, subKeyName, isPCBeepChannel));
+                            float level = epVol.Channels[ch].VolumeLevelScalar;
+                            Console.WriteLine($"    Channel {ch}: {Math.Round(level * 100)}%");
                         }
-                        else
-                        {
-                            disabledChannels.Add((englishName, subKeyName, isPCBeepChannel));
-                        }
-                    }
-                }
-
-                // Sort enabled channels alphabetically by name
-                enabledChannels.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.OrdinalIgnoreCase));
-
-                // Sort disabled channels: first by isPCBeep (true first), then by name
-                disabledChannels.Sort((a, b) =>
-                {
-                    int beepCompare = b.isPCBeep.CompareTo(a.isPCBeep); // true before false
-                    if (beepCompare != 0) return beepCompare;
-                    return string.Compare(a.name, b.name, StringComparison.OrdinalIgnoreCase);
-                });
-
-                // Print enabled channels
-                foreach (var (name, guid, isPCBeep) in enabledChannels)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(name);
-                    Console.ResetColor();
-
-                    // Add special note for PC Beep channels
-                    if (isPCBeep)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(" -> This is a PC Speaker/Beep channel!");
                         Console.ResetColor();
                     }
-                    Console.WriteLine();
-                }
-
-                // Print disabled channels
-                foreach (var (name, guid, isPCBeep) in disabledChannels)
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write(name);
-                    Console.ResetColor();
-
-                    // Add special note for PC Beep channels
-                    if (isPCBeep)
+                    catch (Exception ex)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(" -> This is a PC Speaker/Beep channel!");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"  (Could not read endpoint volume: {ex.Message})");
                         Console.ResetColor();
                     }
-                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"  Volume: N/A (device is {stateLabel.ToLower()})");
+                    Console.ResetColor();
                 }
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"\nSummary: {enabledChannels.Count} enabled channels out of {subKeyNames.Length} total categories");
+                try
+                {
+                    EnumerateTopologyParts(device, walkedHardwareDevices);
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"  (Could not read topology: {ex.Message})");
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"  Error reading device: {ex.Message}");
                 Console.ResetColor();
             }
         }
-        catch (Exception ex)
+    }
+
+    // ----------------------------------------------------------------
+    //  DeviceTopology COM interop to discover slider/part names
+    // ----------------------------------------------------------------
+
+    [DllImport("ole32.dll")]
+    private static extern int CoCreateInstance(
+        ref Guid rclsid, IntPtr pUnkOuter, uint dwClsContext,
+        ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppv);
+
+    [SupportedOSPlatform("windows")]
+    private static void EnumerateTopologyParts(MMDevice device, HashSet<string> walkedHardwareDevices)
+    {
+        var realDeviceField = typeof(MMDevice).GetField("_realDevice",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        if (realDeviceField == null)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Error reading Media Categories: {ex.Message}");
+            realDeviceField = typeof(MMDevice).GetField("deviceInterface",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        }
+
+        if (realDeviceField == null)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("  (Could not access internal IMMDevice field via reflection)");
             Console.ResetColor();
-        }
-    }
-
-    // -----------------------------------------------------------------------
-    // Cached reverse-lookup: localized string -> English string
-    // Built once from known multimedia DLLs by scanning all string IDs in bulk.
-    // -----------------------------------------------------------------------
-
-    private static readonly object _cacheLock = new object();
-    private static Dictionary<string, string> _localizedToEnglishCache;
-
-    /// <summary>
-    /// Looks up a localized channel name in a pre-built cache that maps
-    /// localized strings to their English equivalents from known MUI DLLs.
-    /// The cache is built lazily on the first call (one-time cost).
-    /// </summary>
-    private static string TryResolveFromKnownMuiDlls(string localizedName)
-    {
-        EnsureMuiCacheBuilt();
-
-        if (_localizedToEnglishCache != null &&
-            _localizedToEnglishCache.TryGetValue(localizedName, out string englishName))
-        {
-            return englishName;
-        }
-
-        return null;
-    }
-
-    private static void EnsureMuiCacheBuilt()
-    {
-        if (_localizedToEnglishCache != null)
             return;
-
-        lock (_cacheLock)
-        {
-            if (_localizedToEnglishCache != null)
-                return;
-
-            var cache = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
-
-            // Known DLLs that contain media category strings
-            string[] knownDlls = ["mmres.dll", "mmsys.cpl", "mmdevapi.dll"];
-
-            foreach (string dll in knownDlls)
-            {
-                string dllPath = Path.Combine(system32, dll);
-                if (!File.Exists(dllPath))
-                    continue;
-
-                string enUsMuiPath = TryFindEnUsMuiFile(dllPath);
-                if (string.IsNullOrEmpty(enUsMuiPath) || !File.Exists(enUsMuiPath))
-                    continue;
-
-                // Also find the tr-TR (current language) MUI file
-                string trTrMuiPath = TryFindCurrentLanguageMuiFile(dllPath);
-
-                // Load the main DLL
-                IntPtr hMain = LoadLibraryEx(dllPath, IntPtr.Zero,
-                    LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-
-                // Load tr-TR MUI (if exists) — this has the localized strings
-                IntPtr hLocalized = IntPtr.Zero;
-                if (!string.IsNullOrEmpty(trTrMuiPath) && File.Exists(trTrMuiPath))
-                {
-                    hLocalized = LoadLibraryEx(trTrMuiPath, IntPtr.Zero,
-                        LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-                }
-
-                // If no tr-TR MUI, fall back to main DLL for localized strings
-                if (hLocalized == IntPtr.Zero)
-                    hLocalized = hMain;
-
-                // Load the en-US MUI file
-                IntPtr hEnUs = LoadLibraryEx(enUsMuiPath, IntPtr.Zero,
-                    LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-
-                if (hEnUs == IntPtr.Zero)
-                {
-                    if (hLocalized != IntPtr.Zero && hLocalized != hMain) FreeLibrary(hLocalized);
-                    if (hMain != IntPtr.Zero) FreeLibrary(hMain);
-                    continue;
-                }
-
-                try
-                {
-                    // Build both string tables in bulk, then match by ID
-                    var localizedStrings = LoadAllStringsFromModule(hLocalized);
-                    var englishStrings = LoadAllStringsFromModule(hEnUs);
-
-                    // --- DIAGNOSTIC ---
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine($"  [CACHE-DIAG] {dll}: localized={localizedStrings.Count} strings, english={englishStrings.Count} strings");
-                    // Print first 5 entries from each for inspection
-                    int count = 0;
-                    foreach (var (id, s) in localizedStrings)
-                    {
-                        englishStrings.TryGetValue(id, out string en);
-                        Console.WriteLine($"    ID={id}: loc=\"{s}\" -> en=\"{en}\"");
-                        if (++count >= 5) break;
-                    }
-                    Console.ResetColor();
-                    // --- END DIAGNOSTIC ---
-
-                    foreach (var (id, locStr) in localizedStrings)
-                    {
-                        if (englishStrings.TryGetValue(id, out string enStr) &&
-                            !string.IsNullOrEmpty(enStr) &&
-                            !cache.ContainsKey(locStr))
-                        {
-                            cache[locStr] = enStr;
-                        }
-                    }
-                }
-                finally
-                {
-                    FreeLibrary(hEnUs);
-                    if (hLocalized != IntPtr.Zero && hLocalized != hMain) FreeLibrary(hLocalized);
-                    if (hMain != IntPtr.Zero) FreeLibrary(hMain);
-                }
-            }
-
-            _localizedToEnglishCache = cache;
-        }
-    }
-
-    /// <summary>
-    /// Loads all strings from a module's RT_STRING resources by enumerating
-    /// resource names, avoiding the need for a brute-force ID scan.
-    /// </summary>
-    private static Dictionary<uint, string> LoadAllStringsFromModule(IntPtr hModule)
-    {
-        var result = new Dictionary<uint, string>();
-
-        // Enumerate all RT_STRING blocks using EnumResourceNames
-        var blockIds = new List<ushort>();
-        EnumResNameProc callback = (hMod, lpType, lpName, lParam) =>
-        {
-            // lpName is an integer ID (MAKEINTRESOURCE) for RT_STRING blocks
-            if (((long)lpName & 0xFFFF0000) == 0)
-            {
-                blockIds.Add((ushort)(long)lpName);
-            }
-            return true;
-        };
-
-        EnumResourceNames(hModule, (IntPtr)RT_STRING, callback, IntPtr.Zero);
-        GC.KeepAlive(callback);
-
-        // Language IDs to try when reading each block
-        ushort[] langs = [0x0000, 0x0409, 0x041F, 0x0009];
-
-        foreach (ushort blockId in blockIds)
-        {
-            // Each block contains string IDs: (blockId - 1) * 16  ..  (blockId - 1) * 16 + 15
-            uint baseId = ((uint)blockId - 1) * 16;
-
-            foreach (ushort lang in langs)
-            {
-                IntPtr hResInfo = FindResourceEx(hModule, (IntPtr)RT_STRING, (IntPtr)blockId, lang);
-                if (hResInfo == IntPtr.Zero)
-                    continue;
-
-                IntPtr hResData = LoadResource(hModule, hResInfo);
-                if (hResData == IntPtr.Zero)
-                    continue;
-
-                IntPtr pRes = LockResource(hResData);
-                if (pRes == IntPtr.Zero)
-                    continue;
-
-                uint size = SizeofResource(hModule, hResInfo);
-                if (size == 0)
-                    continue;
-
-                // Parse all 16 strings in this block
-                int offsetBytes = 0;
-                for (int i = 0; i < 16; i++)
-                {
-                    if (offsetBytes + 2 > size)
-                        break;
-
-                    ushort charCount = (ushort)Marshal.ReadInt16(pRes, offsetBytes);
-                    offsetBytes += 2;
-
-                    int byteCount = charCount * 2;
-                    if (offsetBytes + byteCount > size)
-                        break;
-
-                    if (charCount > 0)
-                    {
-                        uint stringId = baseId + (uint)i;
-                        if (!result.ContainsKey(stringId))
-                        {
-                            result[stringId] = Marshal.PtrToStringUni(pRes + offsetBytes, charCount);
-                        }
-                    }
-
-                    offsetBytes += byteCount;
-                }
-
-                // Found strings for this block, skip other languages
-                break;
-            }
         }
 
-        return result;
-    }
-
-    private delegate bool EnumResNameProc(IntPtr hModule, IntPtr lpType, IntPtr lpName, IntPtr lParam);
-
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool EnumResourceNames(IntPtr hModule, IntPtr lpType, EnumResNameProc lpEnumFunc, IntPtr lParam);
-
-
-    /// <summary>
-    /// Loads a string from a module trying multiple language IDs.
-    /// </summary>
-    private static string LoadAnyLangString(IntPtr hModule, uint stringId)
-    {
-        // Try common language tags
-        ushort[] langs = [0x0000, 0x0409, 0x041F, 0x0009];
-        foreach (ushort lang in langs)
+        var realDevice = realDeviceField.GetValue(device);
+        if (realDevice == null)
         {
-            string s = LoadStringFromModuleWithLang(hModule, stringId, lang);
-            if (!string.IsNullOrEmpty(s))
-                return s;
-        }
-        return null;
-    }
-
-    private static string TryFindCurrentLanguageMuiFile(string modulePath)
-    {
-        try
-        {
-            string dir = Path.GetDirectoryName(modulePath) ?? string.Empty;
-            string fileName = Path.GetFileName(modulePath);
-            string cultureName = CultureInfo.CurrentUICulture.Name; // e.g., "tr-TR"
-
-            string candidate = Path.Combine(dir, cultureName, fileName + ".mui");
-            if (File.Exists(candidate)) return candidate;
-
-            string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
-            candidate = Path.Combine(system32, cultureName, fileName + ".mui");
-            if (File.Exists(candidate)) return candidate;
-        }
-        catch { }
-        return null;
-    }
-
-    // Eklenen/Değiştirilen bölümler: LoadEnglishStringFromResource genişletildi; ek yardımcı metodlar eklendi; SetThreadUILanguage DllImport eklendi.
-    // Yapılan değişiklikler, kaynak referanslarından "unlocalized" (LANG_NEUTRAL) veya İngilizce (en-US) stringleri güvenilir şekilde elde etmeyi amaçlar.
-    // Aşağıdaki kod parçacığını mevcut `Program.cs` dosyanızdaki aynı isimli method'un yerine yapıştırın.
-    // Ayrıca bu blokta kullanılan DllImport'lar (SetThreadUILanguage) mevcut P/Invoke bloğunuzla aynı bölüme eklenmelidir.
-
-    private const ushort LANG_EN_US = 0x0409;
-
-    [DllImport("kernel32.dll")]
-    private static extern ushort SetThreadUILanguage(ushort langId);
-
-    private static string LoadEnglishStringFromResource(string resourceReference)
-    {
-        if (string.IsNullOrWhiteSpace(resourceReference))
-            return null;
-
-        if (!resourceReference.StartsWith("@", StringComparison.Ordinal))
-            return null;
-
-        var parts = resourceReference.Substring(1).Split(new[] { ',' }, 2, StringSplitOptions.None);
-        if (parts.Length != 2)
-            return null;
-
-        string modulePath = parts[0].Trim();
-        string idPart = parts[1].Trim();
-
-        if (!int.TryParse(idPart.TrimStart('-'), NumberStyles.Integer, CultureInfo.InvariantCulture, out int resourceIdSigned))
-            return null;
-
-        uint resourceId = (uint)Math.Abs(resourceIdSigned);
-
-        modulePath = Environment.ExpandEnvironmentVariables(modulePath);
-
-        if (!Path.IsPathRooted(modulePath))
-        {
-            string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
-            modulePath = Path.Combine(system32, modulePath);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("  (Internal IMMDevice is null)");
+            Console.ResetColor();
+            return;
         }
 
-        if (!modulePath.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
-            !modulePath.EndsWith(".cpl", StringComparison.OrdinalIgnoreCase) &&
-            !modulePath.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+        Guid iidDeviceTopology = typeof(IDeviceTopology).GUID;
+        const uint CLSCTX_ALL = 0x17;
+
+        var immDevice = (IMMDevice)realDevice;
+        int hr = immDevice.Activate(ref iidDeviceTopology, CLSCTX_ALL, IntPtr.Zero, out object topoObj);
+
+        if (hr != 0 || topoObj == null)
         {
-            modulePath += ".dll";
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"  (IDeviceTopology activation failed, HRESULT: 0x{hr:X8})");
+            Console.ResetColor();
+            return;
         }
 
-        // 1) HIGHEST PRIORITY: Try en-US MUI file first — this is the most reliable
-        //    source for English strings on a non-English OS.
-        //    MUI files store strings as LANG_NEUTRAL inside the file itself.
-        string muiCandidate = TryFindEnUsMuiFile(modulePath);
-        if (!string.IsNullOrEmpty(muiCandidate) && File.Exists(muiCandidate))
+        var topo = (IDeviceTopology)topoObj;
+        topo.GetConnectorCount(out uint connectorCount);
+
+        var visitedPartIds = new HashSet<string>();
+        var endpointPartIds = new HashSet<string>();
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"  Endpoint Topology Parts:");
+        Console.ResetColor();
+
+        // Collect the hardware filter device ID from the connected-to side of endpoint connectors
+        string hwDeviceId = null;
+
+        for (uint c = 0; c < connectorCount; c++)
         {
-            IntPtr hMui = LoadLibraryEx(muiCandidate, IntPtr.Zero, LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-            if (hMui != IntPtr.Zero)
-            {
-                try
-                {
-                    // MUI files typically embed strings as LANG_NEUTRAL
-                    var s = LoadStringFromModuleWithLang(hMui, resourceId, 0x0000);
-                    if (!string.IsNullOrEmpty(s))
-                        return s;
-
-                    // Also try explicit en-US language tag
-                    s = LoadStringFromModuleWithLang(hMui, resourceId, LANG_EN_US);
-                    if (!string.IsNullOrEmpty(s))
-                        return s;
-
-                    // Try LANG_ENGLISH_NEUTRAL (0x0009) — some resources use sublang-neutral English
-                    s = LoadStringFromModuleWithLang(hMui, resourceId, 0x0009);
-                    if (!string.IsNullOrEmpty(s))
-                        return s;
-                }
-                finally
-                {
-                    FreeLibrary(hMui);
-                }
-            }
-        }
-
-        // 2) Try SHLoadIndirectString with thread UI language forced to en-US.
-        //    This uses Windows' own MUI resolution with en-US preference.
-        try
-        {
-            ushort prev = SetThreadUILanguage(LANG_EN_US);
+            topo.GetConnector(c, out IConnector connector);
             try
             {
-                StringBuilder sb = new StringBuilder(512);
-                int hr = SHLoadIndirectString(resourceReference, sb, (uint)sb.Capacity, IntPtr.Zero);
-                if (hr == 0)
+                connector.IsConnected(out bool isConnected);
+                if (!isConnected)
+                    continue;
+
+                // Get the hardware filter device ID from the endpoint's connector
+                if (hwDeviceId == null)
                 {
-                    string outStr = sb.ToString();
-                    if (!string.IsNullOrWhiteSpace(outStr))
-                        return outStr;
+                    try { connector.GetDeviceIdConnectedTo(out hwDeviceId); } catch { }
+                }
+
+                connector.GetConnectedTo(out IConnector connectedTo);
+
+                IntPtr connectedToPtr = Marshal.GetIUnknownForObject(connectedTo);
+                try
+                {
+                    Guid iidPart = typeof(IPart).GUID;
+                    int hrQI = Marshal.QueryInterface(connectedToPtr, ref iidPart, out IntPtr partPtr);
+                    if (hrQI == 0 && partPtr != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            var part = (IPart)Marshal.GetObjectForIUnknown(partPtr);
+                            CollectPartIds(part, endpointPartIds, new HashSet<string>());
+                            WalkParts(part, depth: 2, visitedPartIds, endpointPartIds, isHardwareFilter: false);
+
+                            // Fallback: get HW device ID from the part's topology object
+                            if (hwDeviceId == null)
+                            {
+                                try
+                                {
+                                    part.GetTopologyObject(out IDeviceTopology partTopo);
+                                    if (partTopo != null)
+                                    {
+                                        partTopo.GetDeviceId(out hwDeviceId);
+                                        Marshal.ReleaseComObject(partTopo);
+                                    }
+                                }
+                                catch { }
+                            }
+                        }
+                        finally
+                        {
+                            Marshal.Release(partPtr);
+                        }
+                    }
+                }
+                finally
+                {
+                    Marshal.Release(connectedToPtr);
+                }
+
+                Marshal.ReleaseComObject(connectedTo);
+            }
+            catch (COMException) { }
+            finally
+            {
+                Marshal.ReleaseComObject(connector);
+            }
+        }
+
+        // Walk the ACTUAL hardware filter topology to find hidden mixer lines.
+        // The hardware filter is a SEPARATE device with its own IDeviceTopology.
+        // We must activate it via IMMDeviceEnumerator::GetDevice using the device ID
+        // obtained from the endpoint's connector. This is the only way to reach
+        // parts like PC Beep, S/PDIF, CD Audio, Aux, etc. that are NOT exposed
+        // through the endpoint topology.
+        if (!string.IsNullOrEmpty(hwDeviceId) && walkedHardwareDevices.Add(hwDeviceId))
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"  Hardware Filter Topology (all mixer lines including hidden):");
+            Console.ResetColor();
+
+            try
+            {
+                Guid CLSID_MMDeviceEnumerator = new Guid("BCDE0395-E52F-467C-8E3D-C4579291692E");
+                Guid IID_IMMDeviceEnumerator = new Guid("A95664D2-9614-4F35-A746-DE8DB63617E6");
+
+                int hrCreate = CoCreateInstance(
+                    ref CLSID_MMDeviceEnumerator, IntPtr.Zero, CLSCTX_ALL,
+                    ref IID_IMMDeviceEnumerator, out object enumObj);
+
+                if (hrCreate == 0 && enumObj != null)
+                {
+                    var mmEnum = (IMMDeviceEnumeratorNative)enumObj;
+                    int hrGetDev = mmEnum.GetDevice(hwDeviceId, out IMMDevice hwDevice);
+
+                    if (hrGetDev == 0 && hwDevice != null)
+                    {
+                        Guid iidTopo = typeof(IDeviceTopology).GUID;
+                        int hrAct = hwDevice.Activate(ref iidTopo, CLSCTX_ALL, IntPtr.Zero, out object hwTopoObj);
+
+                        if (hrAct == 0 && hwTopoObj != null)
+                        {
+                            var hwTopo = (IDeviceTopology)hwTopoObj;
+                            // Use a SEPARATE visited set for the hardware filter walk
+                            // so parts already seen in the endpoint walk are still printed
+                            // and correctly classified as hidden or not
+                            var hwVisitedPartIds = new HashSet<string>();
+                            WalkHardwareFilterTopologyDirect(hwTopo, hwVisitedPartIds, endpointPartIds);
+                            Marshal.ReleaseComObject(hwTopoObj);
+                        }
+                    }
+
+                    Marshal.ReleaseComObject(enumObj);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"  (Could not walk hardware filter topology: {ex.Message})");
+                Console.ResetColor();
+            }
+        }
+
+        Marshal.ReleaseComObject(topoObj);
+    }
+
+    /// <summary>
+    /// Recursively collects all global part IDs reachable from the endpoint topology
+    /// so we can determine which parts in the hardware filter are "hidden".
+    /// </summary>
+    [SupportedOSPlatform("windows")]
+    private static void CollectPartIds(IPart part, HashSet<string> ids, HashSet<string> visited)
+    {
+        string globalId = null;
+        try { part.GetGlobalId(out globalId); } catch { }
+        if (string.IsNullOrEmpty(globalId) || !visited.Add(globalId))
+            return;
+
+        ids.Add(globalId);
+
+        try
+        {
+            part.EnumPartsIncoming(out IPartsList list);
+            if (list != null)
+            {
+                list.GetCount(out uint count);
+                for (uint i = 0; i < count; i++)
+                {
+                    list.GetPart(i, out IPart child);
+                    CollectPartIds(child, ids, visited);
+                    Marshal.ReleaseComObject(child);
+                }
+                Marshal.ReleaseComObject(list);
+            }
+        }
+        catch { }
+
+        try
+        {
+            part.EnumPartsOutgoing(out IPartsList list);
+            if (list != null)
+            {
+                list.GetCount(out uint count);
+                for (uint i = 0; i < count; i++)
+                {
+                    list.GetPart(i, out IPart child);
+                    CollectPartIds(child, ids, visited);
+                    Marshal.ReleaseComObject(child);
+                }
+                Marshal.ReleaseComObject(list);
+            }
+        }
+        catch { }
+    }
+
+    /// <summary>
+    /// Walks the hardware filter device topology directly to discover ALL mixer lines,
+    /// including hidden ones like PC Beep, S/PDIF, CD Audio, Aux, etc.
+    /// This enumerates both subunits and connectors at the device level.
+    /// </summary>
+    [SupportedOSPlatform("windows")]
+    private static void WalkHardwareFilterTopologyDirect(IDeviceTopology hwTopo, HashSet<string> visitedPartIds, HashSet<string> endpointPartIds)
+    {
+        // Walk all subunits - these contain volume/mute controls for mixer lines
+        hwTopo.GetSubunitCount(out uint subunitCount);
+        for (uint s = 0; s < subunitCount; s++)
+        {
+            hwTopo.GetSubunit(s, out IntPtr subunitPtr);
+            if (subunitPtr != IntPtr.Zero)
+            {
+                try
+                {
+                    Guid iidPart = typeof(IPart).GUID;
+                    int hrQI = Marshal.QueryInterface(subunitPtr, ref iidPart, out IntPtr partPtr);
+                    if (hrQI == 0 && partPtr != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            var part = (IPart)Marshal.GetObjectForIUnknown(partPtr);
+                            WalkParts(part, depth: 2, visitedPartIds, endpointPartIds, isHardwareFilter: true);
+                        }
+                        finally
+                        {
+                            Marshal.Release(partPtr);
+                        }
+                    }
+                }
+                finally
+                {
+                    Marshal.Release(subunitPtr);
+                }
+            }
+        }
+
+        // Walk ALL connectors - this is where PC Beep, S/PDIF, etc. are exposed
+        // Hidden channels are typically INPUT connectors (DataFlow.Capture/Recording)
+        hwTopo.GetConnectorCount(out uint hwConnCount);
+        for (uint c = 0; c < hwConnCount; c++)
+        {
+            hwTopo.GetConnector(c, out IConnector hwConn);
+            try
+            {
+                // Check connector data flow to identify input lines
+                hwConn.GetDataFlow(out uint dataFlow);
+                string flowType = dataFlow == 0 ? "Render/Output" : "Capture/Input";
+
+                IntPtr hwConnPtr = Marshal.GetIUnknownForObject(hwConn);
+                try
+                {
+                    Guid iidPart = typeof(IPart).GUID;
+                    int hrQI = Marshal.QueryInterface(hwConnPtr, ref iidPart, out IntPtr partPtr);
+                    if (hrQI == 0 && partPtr != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            var part = (IPart)Marshal.GetObjectForIUnknown(partPtr);
+
+                            // Display connector flow direction before walking
+                            part.GetName(out string connName);
+                            if (!string.IsNullOrWhiteSpace(connName))
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                Console.WriteLine($"    [{flowType}]");
+                                Console.ResetColor();
+                            }
+
+                            WalkParts(part, depth: 2, visitedPartIds, endpointPartIds, isHardwareFilter: true);
+                        }
+                        finally
+                        {
+                            Marshal.Release(partPtr);
+                        }
+                    }
+                }
+                finally
+                {
+                    Marshal.Release(hwConnPtr);
                 }
             }
             finally
             {
-                SetThreadUILanguage(prev);
+                Marshal.ReleaseComObject(hwConn);
             }
         }
-        catch
-        {
-            // swallow — best-effort fallback
-        }
-
-        // 3) LAST RESORT: Try main module with en-US only (skip LANG_NEUTRAL here
-        //    because on a Turkish OS, LANG_NEUTRAL resolves to Turkish).
-        if (File.Exists(modulePath))
-        {
-            IntPtr hModule = LoadLibraryEx(modulePath, IntPtr.Zero, LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-            if (hModule != IntPtr.Zero)
-            {
-                try
-                {
-                    var s = LoadStringFromModuleWithLang(hModule, resourceId, LANG_EN_US);
-                    if (!string.IsNullOrEmpty(s))
-                        return s;
-                }
-                finally
-                {
-                    FreeLibrary(hModule);
-                }
-            }
-        }
-
-        return null;
     }
 
-    // Yardımcı: en-US .mui dosyasının olası yollarını dener
-    private static string TryFindEnUsMuiFile(string modulePath)
+    [SupportedOSPlatform("windows")]
+    private static void WalkParts(IPart part, int depth, HashSet<string> visitedPartIds,
+        HashSet<string> endpointPartIds, bool isHardwareFilter)
     {
-        try
+        string globalId = null;
+        try { part.GetGlobalId(out globalId); } catch { }
+        if (!string.IsNullOrEmpty(globalId) && !visitedPartIds.Add(globalId))
+            return;
+
+        string indent = new string(' ', depth * 2);
+
+        part.GetName(out string name);
+        part.GetPartType(out uint partType);
+
+        string typeLabel = partType == 0 ? "Connector" : "Subunit";
+
+        if (!string.IsNullOrWhiteSpace(name))
         {
-            string dir = Path.GetDirectoryName(modulePath) ?? string.Empty;
-            string fileName = Path.GetFileName(modulePath);
+            // Determine if this part is hidden:
+            // A part is hidden if it exists in the hardware filter topology
+            // but is NOT reachable from the endpoint topology
+            bool isHidden = isHardwareFilter &&
+                            !string.IsNullOrEmpty(globalId) &&
+                            !endpointPartIds.Contains(globalId);
 
-            // 1) same folder -> en-US subfolder
-            string candidate = Path.Combine(dir, "en-US", fileName + ".mui");
-            if (File.Exists(candidate)) return candidate;
-
-            // 2) system32\en-US\<file>.mui
-            string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
-            candidate = Path.Combine(system32, "en-US", fileName + ".mui");
-            if (File.Exists(candidate)) return candidate;
-
-            // 3) try adding .mui next to module (module.mui)
-            candidate = modulePath + ".mui";
-            if (File.Exists(candidate)) return candidate;
-
-            // 4) try fallback to WinSxS — expensive, optional (not implemented here)
-        }
-        catch { }
-        return null;
-    }
-
-    private static string LoadStringFromModuleWithLang(IntPtr hModule, uint stringId, ushort langId)
-    {
-        // Windows string tables:
-        // - RT_STRING (type=6)
-        // - Each resource block contains 16 strings.
-        // - Block ID = (stringId / 16) + 1
-        // - Index in block = stringId % 16
-        uint blockId = (stringId / 16) + 1;
-        int indexInBlock = (int)(stringId % 16);
-
-        IntPtr hResInfo = FindResourceEx(hModule, (IntPtr)RT_STRING, (IntPtr)blockId, langId);
-        if (hResInfo == IntPtr.Zero)
-            return null;
-
-        IntPtr hResData = LoadResource(hModule, hResInfo);
-        if (hResData == IntPtr.Zero)
-            return null;
-
-        IntPtr pRes = LockResource(hResData);
-        if (pRes == IntPtr.Zero)
-            return null;
-
-        uint size = SizeofResource(hModule, hResInfo);
-        if (size == 0)
-            return null;
-
-        // Parse UTF-16 string-table format: sequence of (WORD length, WCHAR[length] text)
-        int offsetBytes = 0;
-
-        for (int i = 0; i < 16; i++)
-        {
-            if (offsetBytes + 2 > size)
-                return null;
-
-            ushort charCount = (ushort)Marshal.ReadInt16(pRes, offsetBytes);
-            offsetBytes += 2;
-
-            int byteCount = charCount * 2;
-            if (offsetBytes + byteCount > size)
-                return null;
-
-            if (i == indexInBlock)
-            {
-                if (charCount == 0)
-                    return null;
-
-                return Marshal.PtrToStringUni(pRes + offsetBytes, charCount);
-            }
-
-            offsetBytes += byteCount;
-        }
-
-        return null;
-    }
-
-    private const int RT_STRING = 6;
-
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-    private static extern IntPtr FindResourceEx(IntPtr hModule, IntPtr lpType, IntPtr lpName, ushort wLanguage);
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    private static extern IntPtr LoadResource(IntPtr hModule, IntPtr hResInfo);
-
-    [DllImport("kernel32.dll", SetLastError = false)]
-    private static extern IntPtr LockResource(IntPtr hResData);
-
-    [DllImport("kernel32.dll", SetLastError = true)]
-    private static extern uint SizeofResource(IntPtr hModule, IntPtr hResInfo);
-    private static HashSet<string> GetVisibleMediaChannels()
-    {
-        var visibleChannels = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        try
-        {
-            // Check audio devices and their topology to find which media categories are actually in use
-            using var enumerator = new MMDeviceEnumerator();
-            var devices = enumerator.EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
-
-            foreach (var device in devices)
-            {
-                try
-                {
-                    // Try to extract GUIDs from device properties
-                    var propertyStore = device.Properties;
-
-                    // Common property keys that might contain category GUIDs
-                    for (int i = 0; i < propertyStore.Count; i++)
-                    {
-                        try
-                        {
-                            var prop = propertyStore[i];
-                            if (prop.Value != null)
-                            {
-                                string valueStr = prop.Value.ToString();
-                                // Look for "GUID" patterns in the value
-                                if (valueStr.Contains("{") && valueStr.Contains("}"))
-                                {
-                                    var guidMatch = System.Text.RegularExpressions.Regex.Match(
-                                        valueStr,
-                                        @"\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}"
-                                    );
-
-                                    if (guidMatch.Success)
-                                    {
-                                        visibleChannels.Add(guidMatch.Value);
-                                    }
-                                }
-                            }
-                        }
-                        catch { }
-                    }
-                }
-                catch { }
-            }
-
-            // Also check the mixer device for enabled channels
-            string mixerPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render";
+            bool hasVolume = false;
             try
             {
-                using (var mixerKey = Registry.LocalMachine.OpenSubKey(mixerPath))
+                Guid iidAudioVolumeLevel = new Guid("7FB7B48F-531D-44A2-BCB3-5AD5A134B3DC");
+                part.Activate(0x17, ref iidAudioVolumeLevel, out object volObj);
+                if (volObj != null)
                 {
-                    if (mixerKey != null)
-                    {
-                        foreach (var deviceId in mixerKey.GetSubKeyNames())
-                        {
-                            using (var deviceKey = mixerKey.OpenSubKey($"{deviceId}\\Properties"))
-                            {
-                                if (deviceKey != null)
-                                {
-                                    foreach (var valueName in deviceKey.GetValueNames())
-                                    {
-                                        try
-                                        {
-                                            var value = deviceKey.GetValue(valueName);
-                                            if (value != null)
-                                            {
-                                                string valueStr = value.ToString();
-                                                if (valueStr.Contains("{") && valueStr.Contains("}"))
-                                                {
-                                                    var guidMatch = System.Text.RegularExpressions.Regex.Match(
-                                                        valueStr,
-                                                        @"\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}"
-                                                    );
-
-                                                    if (guidMatch.Success)
-                                                    {
-                                                        visibleChannels.Add(guidMatch.Value);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        catch { }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    hasVolume = true;
+                    Marshal.ReleaseComObject(volObj);
                 }
             }
             catch { }
+
+            bool hasMute = false;
+            try
+            {
+                Guid iidAudioMute = new Guid("DF45AEEA-B74A-4B6B-AFAD-2366B6AA012E");
+                part.Activate(0x17, ref iidAudioMute, out object muteObj);
+                if (muteObj != null)
+                {
+                    hasMute = true;
+                    Marshal.ReleaseComObject(muteObj);
+                }
+            }
+            catch { }
+
+            string markers = "";
+            if (hasVolume) markers += " [Volume Slider]";
+            if (hasMute) markers += " [Mute]";
+            if (isHidden) markers += " [HIDDEN]";
+
+            if (isHidden)
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+            else if (hasVolume)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            else
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+            Console.WriteLine($"{indent} - {typeLabel}: {name}{markers}");
+            Console.ResetColor();
+        }
+
+        // Walk incoming parts
+        try
+        {
+            part.EnumPartsIncoming(out IPartsList partsList);
+            if (partsList != null)
+            {
+                partsList.GetCount(out uint count);
+                for (uint i = 0; i < count; i++)
+                {
+                    partsList.GetPart(i, out IPart child);
+                    WalkParts(child, depth + 1, visitedPartIds, endpointPartIds, isHardwareFilter);
+                    Marshal.ReleaseComObject(child);
+                }
+                Marshal.ReleaseComObject(partsList);
+            }
         }
         catch { }
 
-        return visibleChannels;
+        // Walk outgoing parts
+        try
+        {
+            part.EnumPartsOutgoing(out IPartsList partsListOut);
+            if (partsListOut != null)
+            {
+                partsListOut.GetCount(out uint count);
+                for (uint i = 0; i < count; i++)
+                {
+                    partsListOut.GetPart(i, out IPart child);
+                    WalkParts(child, depth + 1, visitedPartIds, endpointPartIds, isHardwareFilter);
+                    Marshal.ReleaseComObject(child);
+                }
+                Marshal.ReleaseComObject(partsListOut);
+            }
+        }
+        catch { }
     }
 
-    private static string FormatRegistryValue(object value, RegistryValueKind kind)
+    // ------------------------------------------------
+    //  COM interface declarations
+    // ------------------------------------------------
+
+    [ComImport]
+    [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IMMDeviceEnumeratorNative
     {
-        if (value == null)
-            return "(null)";
+        [PreserveSig]
+        int EnumAudioEndpoints(int dataFlow, int dwStateMask, out IntPtr ppDevices);
 
-        switch (kind)
-        {
-            case RegistryValueKind.DWord:
-            case RegistryValueKind.QWord:
-                return $"{value} (0x{Convert.ToInt64(value):X})";
+        [PreserveSig]
+        int GetDefaultAudioEndpoint(int dataFlow, int role, out IntPtr ppEndpoint);
 
-            case RegistryValueKind.String:
-            case RegistryValueKind.ExpandString:
-                return $"\"{value}\"";
+        [PreserveSig]
+        int GetDevice([MarshalAs(UnmanagedType.LPWStr)] string pwstrId, out IMMDevice ppDevice);
 
-            case RegistryValueKind.Binary:
-                byte[] bytes = (byte[])value;
-                if (bytes.Length > 16)
-                    return $"[Binary {bytes.Length} bytes]";
-                return BitConverter.ToString(bytes).Replace("-", " ");
+        [PreserveSig]
+        int RegisterEndpointNotificationCallback(IntPtr pClient);
 
-            case RegistryValueKind.MultiString:
-                string[] strings = (string[])value;
-                return $"[{strings.Length} strings]";
-
-            default:
-                return value.ToString();
-        }
+        [PreserveSig]
+        int UnregisterEndpointNotificationCallback(IntPtr pClient);
     }
-    // Ekle: SHLoadIndirectString bildirimi (mevcut P/Invoke bloklarının yanına)
-    [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-    private static extern int SHLoadIndirectString(string pszSource, StringBuilder pszOutBuf, uint cchOutBuf, IntPtr ppvReserved);
-    // Complete mapping of standard Windows KS Category GUIDs to English names.
-    // Since Windows writes these as localized plain text in the registry (without resource DLL refs),
-    // hardcoding the English names for these known GUIDs is the ONLY way to get them in English on a non-English OS.
-    private static readonly Dictionary<string, string> GuidToEnglishName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+
+    [ComImport]
+    [Guid("D666063F-1587-4E43-81F1-B948E807363F")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IMMDevice
     {
-        // --- KS Node Types (ksmedia.h) ---
-        { "{00DFF077-96E3-11d2-AC4C-00C04F8EFB68}", "Stereo Mix" },
-        { "{00DFF078-96E3-11d2-AC4C-00C04F8EFB68}", "Mono Mix" },
-        { "{02B223C0-C557-11D0-8A2B-00A0C9255AC1}", "Mute" },
-        { "{085AFF00-62CE-11CF-A5D6-28DB04C10000}", "Bridge" },
-        { "{0A4252A0-7E70-11D0-A5D6-28DB04C10000}", "Splitter" },
-        { "{144981E0-C558-11D0-8A2B-00A0C9255AC1}", "Delay" },
-        { "{15DC9025-22AD-41b3-8875-F4CEB0299E20}", "Digital Audio (S/PDIF)" },
-        { "{185FEDE0-9905-11D1-95A9-00C04FB925D3}", "Bass" },
-        { "{185FEDE1-9905-11D1-95A9-00C04FB925D3}", "Treble" },
-        { "{185FEDE2-9905-11D1-95A9-00C04FB925D3}", "3D Stereo" },
-        { "{185FEDE3-9905-11D1-95A9-00C04FB925D3}", "Speakers" },
-        { "{185FEDE4-9905-11D1-95A9-00C04FB925D3}", "Master Mute" },
-        { "{185FEDE5-9905-11D1-95A9-00C04FB925D3}", "Wave Volume" },
-        { "{185FEDE6-9905-11D1-95A9-00C04FB925D3}", "Wave Mute" },
-        { "{185FEDE7-9905-11D1-95A9-00C04FB925D3}", "MIDI Volume" },
-        { "{185FEDE8-9905-11D1-95A9-00C04FB925D3}", "MIDI Mute" },
-        { "{185FEDE9-9905-11D1-95A9-00C04FB925D3}", "CD Volume" },
-        { "{185FEDEA-9905-11D1-95A9-00C04FB925D3}", "CD Mute" },
-        { "{185FEDEB-9905-11D1-95A9-00C04FB925D3}", "Line Volume" },
-        { "{185FEDEC-9905-11D1-95A9-00C04FB925D3}", "Line Mute" },
-        { "{185FEDED-9905-11D1-95A9-00C04FB925D3}", "Microphone Volume" },
-        { "{185FEDEE-9905-11D1-95A9-00C04FB925D3}", "Microphone Mute" },
-        { "{185FEDEF-9905-11D1-95A9-00C04FB925D3}", "Recording Source" },
-        { "{185FEDF0-9905-11D1-95A9-00C04FB925D3}", "PC Speaker Volume" },
-        { "{185FEDF1-9905-11D1-95A9-00C04FB925D3}", "PC Speaker Mute" },
-        { "{185FEDF2-9905-11D1-95A9-00C04FB925D3}", "MIDI In Volume" },
-        { "{185FEDF3-9905-11D1-95A9-00C04FB925D3}", "CD In Volume" },
-        { "{185FEDF4-9905-11D1-95A9-00C04FB925D3}", "Line In Volume" },
-        { "{185FEDF5-9905-11D1-95A9-00C04FB925D3}", "Mic In Volume" },
-        { "{185FEDF6-9905-11D1-95A9-00C04FB925D3}", "Wave In Volume" },
-        { "{185FEDF7-9905-11D1-95A9-00C04FB925D3}", "Volume Control" },
-        { "{185FEDF8-9905-11D1-95A9-00C04FB925D3}", "MIDI" },
-        { "{185FEDF9-9905-11D1-95A9-00C04FB925D3}", "Line In" },
-        { "{185FEDFA-9905-11D1-95A9-00C04FB925D3}", "Recording Control" },
-        { "{185FEDFB-9905-11D1-95A9-00C04FB925D3}", "CD Audio" },
-        { "{185FEDFC-9905-11D1-95A9-00C04FB925D3}", "Auxiliary Volume" },
-        { "{185FEDFD-9905-11D1-95A9-00C04FB925D3}", "Auxiliary Mute" },
-        { "{185FEDFE-9905-11D1-95A9-00C04FB925D3}", "Auxiliary" },
-        { "{185FEDFF-9905-11D1-95A9-00C04FB925D3}", "PC Speaker" },
-        { "{185FEE00-9905-11D1-95A9-00C04FB925D3}", "Wave Out Mix" },
-        { "{1A71EBE0-959E-11D1-B448-00A0C9255AC1}", "Bass Boost" },
-        { "{1AD247EB-96E3-11d2-AC4C-00C04F8EFB68}", "Mono Out Volume" },
-        { "{1AD247EC-96E3-11d2-AC4C-00C04F8EFB68}", "Mono Out Mute" },
-        { "{1AD247ED-96E3-11d2-AC4C-00C04F8EFB68}", "Stereo Mix Volume" },
-        { "{1E84C900-7E70-11D0-A5D6-28DB04C10000}", "Compressor" },
-        { "{20173F20-C559-11D0-8A2B-00A0C9255AC1}", "Chorus" },
-        { "{21FBB329-1A4A-48da-A076-2318A3C59B26}", "Digital Audio (DisplayPort)" },
-        { "{22B0EAFD-96E3-11d2-AC4C-00C04F8EFB68}", "Stereo Mix Mute" },
-        { "{22B0EAFE-96E3-11d2-AC4C-00C04F8EFB68}", "Mono Mix Volume" },
-        { "{2721AE20-7E70-11D0-A5D6-28DB04C10000}", "Decompressor" },
-        { "{2BC31D69-96E3-11d2-AC4C-00C04F8EFB68}", "Mono Mix Mute" },
-        { "{2BC31D6A-96E3-11d2-AC4C-00C04F8EFB68}", "Microphone Boost" },
-        { "{2BC31D6B-96E3-11d2-AC4C-00C04F8EFB68}", "Alternative Microphone" },
-        { "{2CEAF780-C556-11D0-8A2B-00A0C9255AC1}", "Mux" },
-        { "{2EB07EA0-7E70-11D0-A5D6-28DB04C10000}", "Data Transform" },
-        { "{387BFC03-E7EF-4901-86E0-35B7C32B00EF}", "Digital Audio (HDMI)" },
-        { "{3A264481-E52C-4b82-8E7A-C8E2F91DC380}", "Digital Audio (S/PDIF)" },
-        { "{3A5ACC00-C557-11D0-8A2B-00A0C9255AC1}", "Volume" },
-        { "{41887440-C558-11D0-8A2B-00A0C9255AC1}", "Loudness" },
-        { "{423274A0-8B81-11D1-A050-0000F8004788}", "SW Synth" },
-        { "{497B34AD-D67F-411c-8076-80D5B4250D67}", "HD Audio Headphone" },
-        { "{4D837FE0-C555-11D0-8A2B-00A0C9255AC1}", "ADC" },
-        { "{507AE360-C554-11D0-8A2B-00A0C9255AC1}", "DAC" },
-        { "{55515860-C559-11D0-8A2B-00A0C9255AC1}", "3D Effects" },
-        { "{57E24340-FC5B-4612-A562-72B11A29DFAE}", "Peak Meter" },
-        { "{63FF5747-991F-11d2-AC4D-00C04F8EFB68}", "3D Depth" },
-        { "{65E8773D-8F56-11D0-A3B9-00A0C9223196}", "Capture" },
-        { "{65E8773E-8F56-11D0-A3B9-00A0C9223196}", "Render" },
-        { "{6994AD04-93EF-11D0-A3CC-00A0C9223196}", "Master Volume" },
-        { "{6994AD05-93EF-11D0-A3CC-00A0C9223196}", "Master Mute" },
-        { "{7607E580-C557-11D0-8A2B-00A0C9255AC1}", "Tone" },
-        { "{831C2C80-C558-11D0-8A2B-00A0C9255AC1}", "Dolby ProLogic Decoder" },
-        { "{915DAEC4-A434-11d2-AC52-00C04F8EFB68}", "Video" },
-        { "{941C7AC0-C559-11D0-8A2B-00A0C9255AC1}", "Device Specific" },
-        { "{947FCC8F-33C8-4896-9B84-F9466BB75CF6}", "Internal Speaker/Headphone" },
-        { "{9B46E708-992A-11d2-AC4D-00C04F8EFB68}", "Video Volume" },
-        { "{9B46E709-992A-11d2-AC4D-00C04F8EFB68}", "Video Mute" },
-        { "{9D41B4A0-C557-11D0-8A2B-00A0C9255AC1}", "Equalizer" },
-        { "{9DB7B9E0-C555-11D0-8A2B-00A0C9255AC1}", "Sample Rate Converter" },
-        { "{9F0670B4-991F-11d2-AC4D-00C04F8EFB68}", "3D Center" },
-        { "{A2CBE478-AE84-49A1-8B72-4AD09B78ED34}", "Center" },
-        { "{A9E69800-C558-11D0-8A2B-00A0C9255AC1}", "Stereo Wide" },
-        { "{AD809C00-7B88-11D0-A5D6-28DB04C10000}", "Mixer" },
-        { "{AF6878AC-E83F-11D0-958A-00C04FB925D3}", "Stereo Enhance" },
-        { "{BF963D80-C559-11D0-8A2B-00A0C9255AC1}", "Acoustic Echo Cancel" },
-        { "{C0EB67D4-E807-11D0-958A-00C04FB925D3}", "Demux" },
-        { "{CB9BEFA0-A251-11D1-A050-0000F8004788}", "Microsoft GS Wavetable SW Synth" },
-        { "{CF1DDA2C-9743-11D0-A3EE-00A0C9223196}", "Communication Transform" },
-        { "{CF1DDA2D-9743-11D0-A3EE-00A0C9223196}", "Interface Transform" },
-        { "{CF1DDA2E-9743-11D0-A3EE-00A0C9223196}", "Medium Transform" },
-        { "{DA441A60-C556-11D0-8A2B-00A0C9255AC1}", "Sum" },
-        { "{DFF21BE1-F70F-11D0-B917-00A0C9223196}", "Microphone" },
-        { "{DFF21BE2-F70F-11D0-B917-00A0C9223196}", "Desktop Microphone" },
-        { "{DFF21BE3-F70F-11D0-B917-00A0C9223196}", "Head Mounted Display Mic" },
-        { "{DFF21BE4-F70F-11D0-B917-00A0C9223196}", "Omni-Directional Microphone" },
-        { "{DFF21BE5-F70F-11D0-B917-00A0C9223196}", "Microphone Array" },
-        { "{DFF21BE6-F70F-11D0-B917-00A0C9223196}", "Microphone Array" },
-        { "{DFF21CE1-F70F-11D0-B917-00A0C9223196}", "Speakers" },
-        { "{DFF21CE2-F70F-11D0-B917-00A0C9223196}", "Headphones" },
-        { "{DFF21CE3-F70F-11D0-B917-00A0C9223196}", "Head Mounted Display Audio" },
-        { "{DFF21CE4-F70F-11D0-B917-00A0C9223196}", "Desktop Speaker" },
-        { "{DFF21CE5-F70F-11D0-B917-00A0C9223196}", "Room Speaker" },
-        { "{DFF21CE6-F70F-11D0-B917-00A0C9223196}", "Communication Speaker" },
-        { "{DFF21CE7-F70F-11D0-B917-00A0C9223196}", "Low Frequency Effects Speaker" },
-        { "{DFF21DE1-F70F-11D0-B917-00A0C9223196}", "Handset" },
-        { "{DFF21DE2-F70F-11D0-B917-00A0C9223196}", "Headset" },
-        { "{DFF21DE3-F70F-11D0-B917-00A0C9223196}", "Speakerphone" },
-        { "{DFF21DE4-F70F-11D0-B917-00A0C9223196}", "Echo Suppressing Speakerphone" },
-        { "{DFF21DE5-F70F-11D0-B917-00A0C9223196}", "Echo Canceling Speakerphone" },
-        { "{DFF21EE1-F70F-11D0-B917-00A0C9223196}", "Phone Line" },
-        { "{DFF21EE2-F70F-11D0-B917-00A0C9223196}", "Telephone" },
-        { "{DFF21EE3-F70F-11D0-B917-00A0C9223196}", "Down Line Phone" },
-        { "{DFF21FE1-F70F-11D0-B917-00A0C9223196}", "Analog Connector" },
-        { "{DFF21FE2-F70F-11D0-B917-00A0C9223196}", "Digital Audio Interface" },
-        { "{DFF21FE3-F70F-11D0-B917-00A0C9223196}", "Line" },
-        { "{DFF21FE4-F70F-11D0-B917-00A0C9223196}", "Wave" },
-        { "{DFF21FE5-F70F-11D0-B917-00A0C9223196}", "SPDIF Interface" },
-        { "{DFF21FE6-F70F-11D0-B917-00A0C9223196}", "1394 Digital Audio Stream" },
-        { "{DFF21FE7-F70F-11D0-B917-00A0C9223196}", "1394 Digital Video Soundtrack" },
-        { "{DFF220E1-F70F-11D0-B917-00A0C9223196}", "Level Calibration Noise Source" },
-        { "{DFF220E2-F70F-11D0-B917-00A0C9223196}", "Equalization Noise" },
-        { "{DFF220E3-F70F-11D0-B917-00A0C9223196}", "CD Player" },
-        { "{DFF220E4-F70F-11D0-B917-00A0C9223196}", "DAT" },
-        { "{DFF220E5-F70F-11D0-B917-00A0C9223196}", "DCC" },
-        { "{DFF220E6-F70F-11D0-B917-00A0C9223196}", "Minidisk" },
-        { "{DFF220E7-F70F-11D0-B917-00A0C9223196}", "Analog Tape" },
-        { "{DFF220E8-F70F-11D0-B917-00A0C9223196}", "Phonograph" },
-        { "{DFF220E9-F70F-11D0-B917-00A0C9223196}", "VCR Audio" },
-        { "{DFF220EA-F70F-11D0-B917-00A0C9223196}", "Video Disc Audio" },
-        { "{DFF220EB-F70F-11D0-B917-00A0C9223196}", "DVD Audio" },
-        { "{DFF220EC-F70F-11D0-B917-00A0C9223196}", "TV Tuner Audio" },
-        { "{DFF220ED-F70F-11D0-B917-00A0C9223196}", "Satellite Audio" },
-        { "{DFF220EE-F70F-11D0-B917-00A0C9223196}", "Cable Audio" },
-        { "{DFF220EF-F70F-11D0-B917-00A0C9223196}", "DSS Audio" },
-        { "{DFF220F0-F70F-11D0-B917-00A0C9223196}", "Radio Receiver" },
-        { "{DFF220F1-F70F-11D0-B917-00A0C9223196}", "Radio Transmitter" },
-        { "{DFF220F2-F70F-11D0-B917-00A0C9223196}", "Multi-track Recorder" },
-        { "{DFF220F3-F70F-11D0-B917-00A0C9223196}", "Synthesizer" },
-        { "{DFF229E1-F70F-11D0-B917-00A0C9223196}", "Video Streaming" },
-        { "{DFF229E2-F70F-11D0-B917-00A0C9223196}", "Video Input Terminal" },
-        { "{DFF229E3-F70F-11D0-B917-00A0C9223196}", "Video Output Terminal" },
-        { "{DFF229E4-F70F-11D0-B917-00A0C9223196}", "Video Selector" },
-        { "{DFF229E5-F70F-11D0-B917-00A0C9223196}", "Video Processing" },
-        { "{DFF229E6-F70F-11D0-B917-00A0C9223196}", "Video Camera Terminal" },
-        { "{DFF229E7-F70F-11D0-B917-00A0C9223196}", "Video Input Media Transport Terminal" },
-        { "{DFF229E8-F70F-11D0-B917-00A0C9223196}", "Video Output Media Transport Terminal" },
-        { "{E573ADC0-C555-11D0-8A2B-00A0C9255AC1}", "SuperMix" },
-        { "{E88C9BA0-C557-11D0-8A2B-00A0C9255AC1}", "AGC" },
-        { "{EEF86A90-3742-4974-B8D2-5370E1C540F6}", "HD Audio Line Out" },
-        { "{EF0328E0-C558-11D0-8A2B-00A0C9255AC1}", "Reverb" },
-        { "{F06BB67D-5C2F-48ad-A307-B449E3B217D6}", "Disable Digital Output" },
-        { "{F9B41DC3-96E2-11d2-AC4C-00C04F8EFB68}", "Mono Out" },
-        { "{FB6C4281-0353-11d1-905F-0000C0CC16BA}", "Capture" },
-        { "{FB6C4282-0353-11d1-905F-0000C0CC16BA}", "Preview" },
-        { "{FB6C4283-0353-11d1-905F-0000C0CC16BA}", "Analog Video In" },
-        { "{FB6C4284-0353-11d1-905F-0000C0CC16BA}", "VBI" },
-        { "{FB6C4285-0353-11d1-905F-0000C0CC16BA}", "VP" },
-        { "{FB6C4287-0353-11d1-905F-0000C0CC16BA}", "EDS" },
-        { "{FB6C4288-0353-11d1-905F-0000C0CC16BA}", "Teletext" },
-        { "{FB6C4289-0353-11d1-905F-0000C0CC16BA}", "CC" },
-        { "{FB6C428A-0353-11d1-905F-0000C0CC16BA}", "Still" },
-        { "{FB6C428B-0353-11d1-905F-0000C0CC16BA}", "Timecode" },
-        { "{FB6C428C-0353-11d1-905F-0000C0CC16BA}", "VPVBI" },
-        { "{FC576919-7CF0-463B-A72F-A5BF64C86EBA}", "MIDI Function" },
-        { "{FD4F0300-9632-11D1-B448-00A0C9255AC1}", "Stereo Extender" },
-    };
+        [PreserveSig]
+        int Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, [MarshalAs(UnmanagedType.IUnknown)] out object ppInterface);
 
-    private static string GetEnglishChannelName(string guid, RegistryKey subKey)
+        [PreserveSig]
+        int OpenPropertyStore(int stgmAccess, out IntPtr ppProperties);
+
+        [PreserveSig]
+        int GetId([MarshalAs(UnmanagedType.LPWStr)] out string ppstrId);
+
+        [PreserveSig]
+        int GetState(out int pdwState);
+    }
+
+    [ComImport]
+    [Guid("2A07407E-6497-4A18-9787-32F79BD0D98F")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IDeviceTopology
     {
-        // 1. Orijinal İngilizce adı standart GUID sözlüğünden al
-        if (GuidToEnglishName.TryGetValue(guid, out string englishName))
-        {
-            return englishName;
-        }
+        [PreserveSig]
+        int GetConnectorCount(out uint pCount);
 
-        // 2. Sözlükte yoksa, muhtemelen 3. parti veya özel bir sürücü girdisidir.
-        // Bu durumda elimizdeki tek isim registry'deki "Name" değeridir (genelde zaten İngilizce olur)
-        string name = subKey.GetValue("Name") as string;
-        if (!string.IsNullOrEmpty(name))
-        {
-            return name;
-        }
+        [PreserveSig]
+        int GetConnector(uint nIndex, out IConnector ppConnector);
 
-        return "(No Name)";
+        [PreserveSig]
+        int GetSubunitCount(out uint pCount);
+
+        [PreserveSig]
+        int GetSubunit(uint nIndex, out IntPtr ppSubunit);
+
+        [PreserveSig]
+        int GetPartById(uint nId, out IntPtr ppPart);
+
+        [PreserveSig]
+        int GetDeviceId([MarshalAs(UnmanagedType.LPWStr)] out string ppwstrDeviceId);
+
+        [PreserveSig]
+        int GetSignalPath(IPart pIPartFrom, IPart pIPartTo, bool bRejectMixedPaths, out IntPtr ppParts);
+    }
+
+    [ComImport]
+    [Guid("9C2C4058-23F5-41DE-877A-DF3AF236A09E")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IConnector
+    {
+        [PreserveSig]
+        int GetType(out uint pType);
+
+        [PreserveSig]
+        int GetDataFlow(out uint pFlow);
+
+        [PreserveSig]
+        int ConnectTo(IConnector pConnectTo);
+
+        [PreserveSig]
+        int Disconnect();
+
+        [PreserveSig]
+        int IsConnected(out bool pbConnected);
+
+        [PreserveSig]
+        int GetConnectedTo(out IConnector ppConTo);
+
+        [PreserveSig]
+        int GetConnectorIdConnectedTo([MarshalAs(UnmanagedType.LPWStr)] out string ppwstrConnectorId);
+
+        [PreserveSig]
+        int GetDeviceIdConnectedTo([MarshalAs(UnmanagedType.LPWStr)] out string ppwstrDeviceId);
+    }
+
+    [ComImport]
+    [Guid("AE2DE0E4-5BCA-4F2D-AA46-5D13F8FDB3A9")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IPart
+    {
+        [PreserveSig]
+        int GetName([MarshalAs(UnmanagedType.LPWStr)] out string ppwstrName);
+
+        [PreserveSig]
+        int GetLocalId(out uint pnId);
+
+        [PreserveSig]
+        int GetGlobalId([MarshalAs(UnmanagedType.LPWStr)] out string ppwstrGlobalId);
+
+        [PreserveSig]
+        int GetPartType(out uint pPartType);
+
+        [PreserveSig]
+        int GetSubType(out Guid pSubType);
+
+        [PreserveSig]
+        int GetControlInterfaceCount(out uint pCount);
+
+        [PreserveSig]
+        int GetControlInterface(uint nIndex, out IntPtr ppInterfaceDesc);
+
+        [PreserveSig]
+        int EnumPartsIncoming(out IPartsList ppParts);
+
+        [PreserveSig]
+        int EnumPartsOutgoing(out IPartsList ppParts);
+
+        [PreserveSig]
+        int GetTopologyObject(out IDeviceTopology ppTopology);
+
+        [PreserveSig]
+        int Activate(uint dwClsContext, ref Guid refiid, [MarshalAs(UnmanagedType.IUnknown)] out object ppvObject);
+
+        [PreserveSig]
+        int RegisterControlChangeCallback(ref Guid riid, IntPtr pNotify);
+
+        [PreserveSig]
+        int UnregisterControlChangeCallback(IntPtr pNotify);
+    }
+
+    [ComImport]
+    [Guid("6DAA848C-5EB0-45CC-AEA5-998A2CDA1FFB")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IPartsList
+    {
+        [PreserveSig]
+        int GetCount(out uint pCount);
+
+        [PreserveSig]
+        int GetPart(uint nIndex, out IPart ppPart);
     }
 }
