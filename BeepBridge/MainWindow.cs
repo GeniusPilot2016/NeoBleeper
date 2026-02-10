@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using NAudio.Mixer;
+using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace BeepBridge
@@ -32,7 +35,7 @@ namespace BeepBridge
             try
             {
                 progressBar1.Visible = true; // Show the progress bar to indicate that the process is underway.
-                
+
                 // Take restoration point before making any changes to the system. This allows users to easily revert any changes made by the Beep Bridge in case something goes wrong.
                 TakeRestorationPoint();
 
@@ -87,109 +90,25 @@ namespace BeepBridge
             // Code to enable the beep slider goes here.
         }
 
-        // Windows Multimedia API Sabitleri
-        private const uint MMSYSERR_NOERROR = 0;
-        private const uint MIXER_GETLINEINFOF_DESTINATION = 0x00000000;
-        private const uint MIXER_GETLINEINFOF_SOURCE = 0x00000001;
-        private const uint MIXER_GETLINEINFOF_COMPONENTTYPE = 0x00000003;
-        private const uint MIXERLINE_COMPONENTTYPE_SRC_PCSPKR = 0x00000007;
-
-        // Windows Multimedia API Yapýlarý
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        private struct MIXERLINE
-        {
-            public uint cbStruct;
-            public uint dwDestination;
-            public uint dwSource;
-            public uint dwLineID;
-            public uint fdwLine;
-            public UIntPtr dwUser;
-            public uint dwComponentType;
-            public uint cChannels;
-            public uint cConnections;
-            public uint cControls;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-            public string szShortName;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public string szName;
-            public uint dwType;
-            public uint dwDeviceID;
-            public ushort wMid;
-            public ushort wPid;
-            public uint vDriverVersion;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-            public string szPname;
-        }
-
-        // Windows Multimedia API P/Invoke Tanýmlarý
-        [DllImport("winmm.dll")]
-        private static extern uint mixerGetNumDevs();
-
-        [DllImport("winmm.dll")]
-        private static extern uint mixerOpen(out IntPtr phmx, uint uMxId, IntPtr dwCallback, IntPtr dwInstance, uint fdwOpen);
-
-        [DllImport("winmm.dll")]
-        private static extern uint mixerClose(IntPtr hmx);
-
-        [DllImport("winmm.dll", CharSet = CharSet.Auto)]
-        private static extern uint mixerGetLineInfo(IntPtr hmx, ref MIXERLINE pmxl, uint fdwInfo);
-
         private bool IsBeepSliderAlreadyEnabled()
         {
-            // Bu metod mikserdeki tüm hatlarý derinlemesine tarar ve isim bazlý eþleþme yapar.
-            // SRC_PCSPKR kontrolü bazý sürücülerde güvenilmez olduðu için isim taramasý (Beep/Bip) eklenmiþtir.
-
-            uint numDevs = mixerGetNumDevs();
-            for (uint i = 0; i < numDevs; i++)
+            try
             {
-                IntPtr hmx;
-                if (mixerOpen(out hmx, i, IntPtr.Zero, IntPtr.Zero, 0) == MMSYSERR_NOERROR)
+                try
                 {
-                    // Her mikser cihazýndaki varýþ noktalarýný (playback, record vb.) tarýyoruz.
-                    // GENEL NOT: Çoðu ses kartýnda Playback (Hoparlör) 0. varýþ noktasýdýr.
-                    for (uint dest = 0; dest < 5; dest++)
-                    {
-                        MIXERLINE mxlDest = new MIXERLINE();
-                        mxlDest.cbStruct = (uint)Marshal.SizeOf(mxlDest);
-                        mxlDest.dwDestination = dest;
-
-                        if (mixerGetLineInfo(hmx, ref mxlDest, MIXER_GETLINEINFOF_DESTINATION) != MMSYSERR_NOERROR)
-                            break;
-
-                        // Varýþ noktasýnýn ismini kontrol et (Örn: "PC Beep" ana çýkýþ olarak tanýmlanmýþsa)
-                        if (IsBeepRelatedName(mxlDest.szName) || IsBeepRelatedName(mxlDest.szShortName))
-                        {
-                            mixerClose(hmx);
-                            return true;
-                        }
-
-                        // Bu varýþ noktasýna baðlý tüm kaynak hatlarýný (Internal Beep, Line In, Mic vb.) tara
-                        uint connections = mxlDest.cConnections;
-                        for (uint src = 0; src < connections; src++)
-                        {
-                            MIXERLINE mxlSrc = new MIXERLINE();
-                            mxlSrc.cbStruct = (uint)Marshal.SizeOf(mxlSrc);
-                            mxlSrc.dwDestination = dest;
-                            mxlSrc.dwSource = src;
-
-                            if (mixerGetLineInfo(hmx, ref mxlSrc, MIXER_GETLINEINFOF_SOURCE) == MMSYSERR_NOERROR)
-                            {
-                                // Kaynak hattý ismi "Beep" veya "Bip" içeriyor mu? 
-                                // Ya da standart SRC_PCSPKR tipinde mi?
-                                if (IsBeepRelatedName(mxlSrc.szName) ||
-                                    IsBeepRelatedName(mxlSrc.szShortName) ||
-                                    mxlSrc.dwComponentType == MIXERLINE_COMPONENTTYPE_SRC_PCSPKR)
-                                {
-                                    mixerClose(hmx);
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    mixerClose(hmx);
+                    return TopologyHelper.TopologyContainsBeep();
+                }
+                catch (Exception exTopo)
+                {
+                    Debug.WriteLine($"TopologyHelper failed: {exTopo.Message}");
+                    return false;
                 }
             }
-            return false;
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"IsBeepSliderAlreadyEnabled unexpected error: {ex.Message}");
+                return false;
+            }
         }
 
         private bool IsBeepRelatedName(string name)
@@ -197,7 +116,10 @@ namespace BeepBridge
             if (string.IsNullOrWhiteSpace(name)) return false;
             string lower = name.ToLowerInvariant();
             // Names for system speaker-related lines are often named as "Beep", "PC Beep", "PC Speaker", "System Beep"
-            return lower.Contains("beep") || lower.Contains("pc speaker") || lower.Contains("system beep") || lower.Contains("pc beep");
+            return lower.Contains("beep") ||
+                   lower.Contains("pc speaker") ||
+                   lower.Contains("system beep") ||
+                   lower.Contains("pc beep");
         }
         private bool IsBackupPresent()
         {
@@ -222,7 +144,7 @@ namespace BeepBridge
             // This is important to check because if the beep slider is already enabled as default, then there is no need to take a backup or restoration point, and the user can directly use the Beep Bridge without any additional steps.
             bool isBeepSliderAlreadyEnabled = IsBeepSliderAlreadyEnabled();
             // If backup is not present, it means the beep slider is enabled as default.
-            bool isBackupPresent = !IsBackupPresent(); 
+            bool isBackupPresent = !IsBackupPresent();
             return isBeepSliderAlreadyEnabled && isBackupPresent; // If the beep slider is already enabled and there is no backup, it means the beep slider is enabled as default.
         }
     }
