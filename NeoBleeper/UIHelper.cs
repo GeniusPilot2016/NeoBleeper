@@ -22,12 +22,59 @@ public static class UIHelper
     [DllImport("user32.dll")]
     private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
+    [StructLayout(LayoutKind.Sequential)]
+    private struct Margins
+    {
+        public int cxLeftWidth;
+        public int cxRightWidth;
+        public int cyTopHeight;
+        public int cyBottomHeight;
+    }
+
+    [DllImport("dwmapi.dll")]
+    private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct AccentPolicy
+    {
+        public int AccentState;
+        public int AccentFlags;
+        public int GradientColor;
+        public int AnimationId;
+    }
+
+    private enum AccentState
+    {
+        ACCENT_ENABLE_BLURBEHIND = 3,
+        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
+    }
+
+    private enum WindowCompositionAttribute
+    {
+        WCA_ACCENT_POLICY = 19
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WindowCompositionAttributeData
+    {
+        public int Attribute;
+        public IntPtr Data;
+        public int SizeOfData;
+    }
+
+    [DllImport("user32.dll")]
+    private static extern int SetWindowCompositionAttribute(IntPtr hWnd, ref WindowCompositionAttributeData data);
+
+
     private const uint SWP_NOZORDER = 0x0004;
     private const uint SWP_NOACTIVATE = 0x0010;
     private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_9586 = 19;
     private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
     private const uint SWP_NOMOVE = 0x0002;
     private const uint SWP_NOSIZE = 0x0001;
+    private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_LAYERED = 0x00080000;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
 
     private static int cachedColorRef = -1;
     private static Color cachedColor;
@@ -131,9 +178,9 @@ public static class UIHelper
         {  "Français", "fr-FR" },
         {  "Italiano", "it-IT" },
         {  "Türkçe", "tr-TR" },
-        {  "Русский", "ru-RU" },
-        {  "українська", "uk-UA" },
-        {  "Tiếng Việt", "vi-VN" }
+        {  "???????", "ru-RU" },
+        {  "??????????", "uk-UA" },
+        {  "Ti?ng Vi?t", "vi-VN" }
     };
 
     /// <summary>
@@ -402,4 +449,33 @@ public static class UIHelper
             }
         }
     }
+    private const int DWMWA_SYSTEMBACKDROP_TYPE = 38;
+    public static void SetFormBackgroundFluent(Form form, bool darkMode, bool useTabbedMica = false)
+    {
+        // Fluent (Mica/Acrylic) arka plan efektleri Windows 11 Build 22523 ve üzerinde desteklenir.
+        if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523)
+        {
+            // Eski sürümler için fallback (yedek) olarak Fluent sistemine benzer katı bir renk atanabilir
+            // Örnek: Varsayılan açık tema Fluent rengi (Eğer koyu tema kullanıyorsanız Color.FromArgb(32, 32, 32) yapabilirsiniz)
+            
+            return;
+        }
+
+        if (!form.IsHandleCreated)
+        {
+            form.CreateControl();
+        }
+        form.TransparencyKey = form.BackColor;
+        // Arka plan materyali türleri:
+        // 1 = Auto
+        // 2 = Mica (Standart Fluent arka planı)
+        // 3 = Acrylic (Daha şeffaf, bağlamsal menüler/açılır pencereler için)
+        // 4 = Tabbed (Mica Alt - daha belirgin bir arka plan)
+        int backdropType = 3;
+
+        // Pencereye Fluent tasarım arka planını uygulamak için DWM çağrısı:
+        DwmSetWindowAttribute(form.Handle, DWMWA_SYSTEMBACKDROP_TYPE, ref backdropType, 4);
+    }
 }
+
+
