@@ -72,9 +72,6 @@ public static class UIHelper
     private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
     private const uint SWP_NOMOVE = 0x0002;
     private const uint SWP_NOSIZE = 0x0001;
-    private const int GWL_EXSTYLE = -20;
-    private const int WS_EX_LAYERED = 0x00080000;
-    private const int WS_EX_TRANSPARENT = 0x00000020;
 
     private static int cachedColorRef = -1;
     private static Color cachedColor;
@@ -178,9 +175,9 @@ public static class UIHelper
         {  "Français", "fr-FR" },
         {  "Italiano", "it-IT" },
         {  "Türkçe", "tr-TR" },
-        {  "???????", "ru-RU" },
-        {  "??????????", "uk-UA" },
-        {  "Ti?ng Vi?t", "vi-VN" }
+        {  "Русский", "ru-RU" },
+        {  "українська", "uk-UA" },
+        {  "Tiếng Việt", "vi-VN" }
     };
 
     /// <summary>
@@ -450,32 +447,56 @@ public static class UIHelper
         }
     }
     private const int DWMWA_SYSTEMBACKDROP_TYPE = 38;
-    public static void SetFormBackgroundFluent(Form form, bool darkMode, bool useTabbedMica = false)
+    public static void SetFormBackgroundFluent(Form form, bool darkMode)
     {
-        // Fluent (Mica/Acrylic) arka plan efektleri Windows 11 Build 22523 ve üzerinde desteklenir.
         if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523)
-        {
-            // Eski sürümler için fallback (yedek) olarak Fluent sistemine benzer katı bir renk atanabilir
-            // Örnek: Varsayılan açık tema Fluent rengi (Eğer koyu tema kullanıyorsanız Color.FromArgb(32, 32, 32) yapabilirsiniz)
-            
             return;
-        }
 
         if (!form.IsHandleCreated)
-        {
             form.CreateControl();
-        }
-        form.BackColor = Color.FromArgb(180, 180, 180);
-        form.TransparencyKey = form.BackColor;
-        // Arka plan materyali türleri:
-        // 1 = Auto
-        // 2 = Mica (Standart Fluent arka planı)
-        // 3 = Acrylic (Daha şeffaf, bağlamsal menüler/açılır pencereler için)
-        // 4 = Tabbed (Mica Alt - daha belirgin bir arka plan)
-        int backdropType = 3;
 
-        // Pencereye Fluent tasarım arka planını uygulamak için DWM çağrısı:
+        // Set the backdrop type to mica 
+        int backdropType = 3;
         DwmSetWindowAttribute(form.Handle, DWMWA_SYSTEMBACKDROP_TYPE, ref backdropType, 4);
+
+        // Tint color from the form's BackColor to create a custom acrylic effect. The alpha component is set to 0 to increase transparency.
+        Color tint = form.BackColor;
+
+        // GradientColor format: 0xAABBGGRR (Win32 COLORREF + alpha)
+        // Set alpha to 0 for maximum transparency, and use the form's BackColor for the RGB components
+        int alpha = 0;
+        int gradientColor = (alpha << 24) | (tint.B << 16) | (tint.G << 8) | tint.R;
+
+        var accent = new AccentPolicy
+        {
+            AccentState = (int)AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+            AccentFlags = 2, // Enable blur behind the entire window (including title bar) instead of just the client area
+            GradientColor = gradientColor,
+            AnimationId = 0
+        };
+
+        int accentSize = Marshal.SizeOf(accent);
+        IntPtr accentPtr = Marshal.AllocHGlobal(accentSize);
+        try
+        {
+            Marshal.StructureToPtr(accent, accentPtr, false);
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = (int)WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentSize,
+                Data = accentPtr
+            };
+            SetWindowCompositionAttribute(form.Handle, ref data);
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(accentPtr);
+        }
+
+        // Set the form's BackColor to a darker shade to enhance the acrylic effect, especially in dark mode. The TransparencyKey is set to the same color to make it fully transparent.
+        form.BackColor = darkMode ? Color.FromArgb(40, 40, 40) :
+            Color.FromArgb(SystemColors.Control.R - 32, SystemColors.Control.G - 32, SystemColors.Control.B - 32);
+        form.TransparencyKey = form.BackColor;
     }
 }
 
