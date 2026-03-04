@@ -494,8 +494,8 @@ public static class UIHelper
         }
 
         // Set the form's BackColor to a darker shade to enhance the acrylic effect, especially in dark mode. The TransparencyKey is set to the same color to make it fully transparent.
-        form.BackColor = darkMode ? Color.FromArgb(40, 40, 40) :
-            Color.FromArgb(SystemColors.Control.R - 32, SystemColors.Control.G - 32, SystemColors.Control.B - 32);
+        form.BackColor = darkMode ? Color.FromArgb(40, 40, 41) :
+            Color.FromArgb(SystemColors.Control.R - 32, SystemColors.Control.G - 32, SystemColors.Control.B - 33);
         form.TransparencyKey = form.BackColor;
     }
 }
