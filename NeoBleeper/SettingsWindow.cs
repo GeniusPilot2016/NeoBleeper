@@ -1743,11 +1743,13 @@ namespace NeoBleeper
             if (Settings1.Default.ClassicBleeperMode == true)
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
+                UIHelper.RemoveFluentBackground(this, darkTheme); // Remove Fluent background to achieve a more classic look
                 Logger.Log("Classic Bleeper Mode enabled.", Logger.LogTypes.Info);
             }
             else
             {
                 Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
+                UIHelper.SetFormBackgroundFluent(this, darkTheme); // Restore Fluent background when Classic Bleeper Mode is disabled
                 Logger.Log("Classic Bleeper Mode disabled.", Logger.LogTypes.Info);
             }
             foreach (Form openForm in Application.OpenForms)

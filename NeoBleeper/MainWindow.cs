@@ -931,32 +931,36 @@ namespace NeoBleeper
         {
             if (checkBox_add_note_to_list.Checked == true && listViewNotes.SelectedItems.Count > 0)
             {
+                // Only prepare a new length when replace-length is enabled
+                string lengthToPass = listViewNotes.SelectedItems[0].SubItems[0].Text.ToString();
+                if (checkBox_replace_length.Checked == true)
+                {
+                    ReplaceLengthWithoutSavingToMemento();
+                    lengthToPass = Line.length;
+                }
+
                 if (add_as_note1.Checked == true)
                 {
                     Line.note1 = note;
-                    ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 1, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, lengthToPass, 1, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note2.Checked == true)
                 {
                     Line.note2 = note;
-                    ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 2, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, lengthToPass, 2, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note3.Checked == true)
                 {
                     Line.note3 = note;
-                    ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 3, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, lengthToPass, 3, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 if (add_as_note4.Checked == true)
                 {
                     Line.note4 = note;
-                    ReplaceLengthWithoutSavingToMemento();
-                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, Line.length, 4, note);
+                    var replaceNoteCommand = new ReplaceNoteAndLengthCommand(listViewNotes, lengthToPass, 4, note);
                     commandManager.ExecuteCommand(replaceNoteCommand);
                 }
                 isModified = true;
