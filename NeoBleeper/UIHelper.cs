@@ -447,61 +447,36 @@ public static class UIHelper
         }
     }
     private const int DWMWA_SYSTEMBACKDROP_TYPE = 38;
+    private const int DWMWA_IMMERSIVE_DARK_MODE = 20;
     public static void SetFormBackgroundFluent(Form form, bool darkMode)
     {
-        if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523)
+        if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523 || Settings1.Default.ClassicBleeperMode)
             return;
         if (form == null || form.IsDisposed || form.Disposing) return;
         if (!form.IsHandleCreated)
             form.CreateControl();
 
         // Set the backdrop type to mica 
-        int backdropType = 3;
+        int dark = darkMode ? 1 : 0;
+        int backdropType = 2;
         DwmSetWindowAttribute(form.Handle, DWMWA_SYSTEMBACKDROP_TYPE, ref backdropType, 4);
-
-        // Tint color from the form's BackColor to create a custom acrylic effect. The alpha component is set to 0 to increase transparency.
-        Color tint = form.BackColor;
-
-        // GradientColor format: 0xAABBGGRR (Win32 COLORREF + alpha)
-        // Set alpha to 0 for maximum transparency, and use the form's BackColor for the RGB components
-        int alpha = 64;
-        int gradientColor = (alpha << 24) | (tint.B << 16) | (tint.G << 8) | tint.R;
-
-        var accent = new AccentPolicy
-        {
-            AccentState = (int)AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
-            AccentFlags = 2, // Enable blur behind the entire window (including title bar) instead of just the client area
-            GradientColor = gradientColor,
-            AnimationId = 0
-        };
-
-        int accentSize = Marshal.SizeOf(accent);
-        IntPtr accentPtr = Marshal.AllocHGlobal(accentSize);
-        try
-        {
-            Marshal.StructureToPtr(accent, accentPtr, false);
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = (int)WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentSize,
-                Data = accentPtr
-            };
-            SetWindowCompositionAttribute(form.Handle, ref data);
-        }
-        finally
-        {
-            Marshal.FreeHGlobal(accentPtr);
-        }
+        DwmSetWindowAttribute(form.Handle, DWMWA_IMMERSIVE_DARK_MODE, ref dark, 4);
+        DwmSetWindowAttribute(form.Handle, 35, ref cachedColorRef, 4);
 
         // Set the form's BackColor to a darker shade to enhance the acrylic effect, especially in dark mode. The TransparencyKey is set to the same color to make it fully transparent.
-        form.BackColor = darkMode ? Color.FromArgb(40, 40, 41) :
+        form.BackColor = darkMode ? Color.FromArgb(30, 30, 31) :
             Color.FromArgb(SystemColors.Control.R - 16, SystemColors.Control.G - 16, SystemColors.Control.B - 17);
-        if(form is PortamentoWindow)
+        if (form is PortamentoWindow)
         {
             ChangeTrackbarColors(form);
         }
         form.TransparencyKey = form.BackColor;
+        form.FormClosing += (s, e) =>
+        {
+            RemoveFluentBackground(form, darkMode);
+        };
     }
+
     private static void ChangeTrackbarColors(Form form)
     {
         foreach (Control ctrl in form.Controls)
@@ -530,6 +505,20 @@ public static class UIHelper
                 ChangeTrackbarColorsRecursive(child, backColor);
             }
         }
+    }
+    public static void RemoveFluentBackground(Form form, bool darkMode)
+    {
+        if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523)
+            return;
+        if (form == null || form.IsDisposed || form.Disposing) return;
+        if (!form.IsHandleCreated)
+            form.CreateControl();
+        int backdropType = 0; // Default
+        DwmSetWindowAttribute(form.Handle, DWMWA_SYSTEMBACKDROP_TYPE, ref backdropType, 4);
+        DwmSetWindowAttribute(form.Handle, DWMWA_IMMERSIVE_DARK_MODE, ref backdropType, 4);
+        DwmSetWindowAttribute(form.Handle, 35, ref cachedColorRef, 4);
+        form.BackColor = darkMode ? Color.FromArgb(32, 32, 32) : SystemColors.Control;
+        form.TransparencyKey = Color.Empty;
     }
 }
 
