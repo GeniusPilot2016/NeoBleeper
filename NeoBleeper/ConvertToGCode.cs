@@ -217,6 +217,7 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
                 this.ResumeLayout();
             }
+            UIHelper.SetFormBackgroundFluent(this, darkTheme);
         }
         StringBuilder gcodeBuilder = new StringBuilder();
         int elapsedLineTime = 0; // Equivalent of Stopwatch.ElapsedMilliseconds for text based timing

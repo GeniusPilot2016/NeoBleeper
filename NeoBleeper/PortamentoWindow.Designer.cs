@@ -46,6 +46,7 @@
             // groupBox1
             // 
             resources.ApplyResources(groupBox1, "groupBox1");
+            groupBox1.BackColor = Color.Transparent;
             groupBox1.Controls.Add(labelLength);
             groupBox1.Controls.Add(trackBarLength);
             groupBox1.Controls.Add(radioButtonProduceSoundForManyMilliseconds);
@@ -118,6 +119,7 @@
             MinimizeBox = false;
             Name = "PortamentoWindow";
             ShowIcon = false;
+            FormClosed += PortamentoWindow_FormClosed;
             SystemColorsChanged += PortamentoWindow_SystemColorsChanged;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

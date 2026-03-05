@@ -451,7 +451,7 @@ public static class UIHelper
     {
         if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22523)
             return;
-
+        if (form == null || form.IsDisposed || form.Disposing) return;
         if (!form.IsHandleCreated)
             form.CreateControl();
 
@@ -464,7 +464,7 @@ public static class UIHelper
 
         // GradientColor format: 0xAABBGGRR (Win32 COLORREF + alpha)
         // Set alpha to 0 for maximum transparency, and use the form's BackColor for the RGB components
-        int alpha = 0;
+        int alpha = 64;
         int gradientColor = (alpha << 24) | (tint.B << 16) | (tint.G << 8) | tint.R;
 
         var accent = new AccentPolicy
@@ -495,8 +495,41 @@ public static class UIHelper
 
         // Set the form's BackColor to a darker shade to enhance the acrylic effect, especially in dark mode. The TransparencyKey is set to the same color to make it fully transparent.
         form.BackColor = darkMode ? Color.FromArgb(40, 40, 41) :
-            Color.FromArgb(SystemColors.Control.R - 32, SystemColors.Control.G - 32, SystemColors.Control.B - 33);
+            Color.FromArgb(SystemColors.Control.R - 16, SystemColors.Control.G - 16, SystemColors.Control.B - 17);
+        if(form is PortamentoWindow)
+        {
+            ChangeTrackbarColors(form);
+        }
         form.TransparencyKey = form.BackColor;
+    }
+    private static void ChangeTrackbarColors(Form form)
+    {
+        foreach (Control ctrl in form.Controls)
+        {
+            if (ctrl is TrackBar trackBar)
+            {
+                trackBar.BackColor = form.BackColor;
+            }
+            if(ctrl.HasChildren)
+            {
+                ChangeTrackbarColorsRecursive(ctrl, form.BackColor);
+            }
+        }
+    }
+
+    private static void ChangeTrackbarColorsRecursive(Control ctrl, Color backColor)
+    {
+        foreach (Control child in ctrl.Controls)
+        {
+            if (child is TrackBar trackBar)
+            {
+                trackBar.BackColor = backColor;
+            }
+            if (child.HasChildren)
+            {
+                ChangeTrackbarColorsRecursive(child, backColor);
+            }
+        }
     }
 }
 

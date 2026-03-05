@@ -69,6 +69,7 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
                 this.ResumeLayout();
             }
+            UIHelper.SetFormBackgroundFluent(this, darkTheme);
         }
         private void LightTheme()
         {

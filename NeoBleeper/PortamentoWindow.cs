@@ -98,33 +98,15 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
                 this.ResumeLayout();
             }
+            UIHelper.SetFormBackgroundFluent(this, darkTheme);
         }
         private void LightTheme()
         {
             darkTheme = false;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    if (ctrl is GroupBox groupBox)
-                    {
-                        ctrl.BackColor = SystemColors.Control;
-                        ctrl.ForeColor = SystemColors.ControlText;
-                        foreach (Control childCtrl in groupBox.Controls)
-                        {
-                            childCtrl.BackColor = SystemColors.Control;
-                            childCtrl.ForeColor = SystemColors.ControlText;
-                        }
-                    }
-                    else
-                    {
-                        ctrl.BackColor = SystemColors.Control;
-                        ctrl.ForeColor = SystemColors.ControlText;
-                    }
-                }
-            }
+            groupBox1.ForeColor = SystemColors.ControlText;
+            trackBarLength.BackColor = SystemColors.Control;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
         private void DarkTheme()
@@ -132,27 +114,8 @@ namespace NeoBleeper
             darkTheme = true;
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl.Controls != null)
-                {
-                    if (ctrl is GroupBox groupBox)
-                    {
-                        ctrl.BackColor = Color.FromArgb(32, 32, 32);
-                        ctrl.ForeColor = Color.White;
-                        foreach (Control childCtrl in groupBox.Controls)
-                        {
-                            childCtrl.BackColor = Color.FromArgb(32, 32, 32);
-                            childCtrl.ForeColor = Color.White;
-                        }
-                    }
-                    else
-                    {
-                        ctrl.BackColor = Color.FromArgb(32, 32, 32);
-                        ctrl.ForeColor = Color.White;
-                    }
-                }
-            }
+            groupBox1.ForeColor = Color.White;
+            trackBarLength.BackColor = Color.FromArgb(32, 32, 32);
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
 
@@ -215,7 +178,6 @@ namespace NeoBleeper
 
         private void PortamentoWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
             mainWindow.checkBox_bleeper_portamento.Checked = false;
         }
     }

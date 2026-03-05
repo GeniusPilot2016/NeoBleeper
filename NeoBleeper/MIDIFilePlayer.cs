@@ -62,7 +62,6 @@ namespace NeoBleeper
             this.UpdateStyles();
             UIFonts.SetFonts(this);
             SetTheme();
-            UIHelper.SetFormBackgroundFluent(this, darkTheme);
             _playbackStopwatch = new Stopwatch();
             textBox1.Text = filename;
             LoadMIDI(filename);
@@ -172,6 +171,7 @@ namespace NeoBleeper
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
                 this.ResumeLayout();
             }
+            UIHelper.SetFormBackgroundFluent(this, darkTheme);
         }
         private void DarkTheme()
         {
