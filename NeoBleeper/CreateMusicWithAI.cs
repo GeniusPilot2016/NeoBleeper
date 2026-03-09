@@ -1117,7 +1117,18 @@ namespace NeoBleeper
                         $"- Try to capture the main melodic motifs, rhythm, and overall feel, but do not copy the original exactly. \r\n" +
                         $"- The output should be a new composition inspired by the specified song, if the prompt requests a copyrighted song, ambigious or general, create an original piece in the style of that song or artist without directly replicating it.\r\n" +
                         $"- If the user prompt is public domain music (e.g., Beethoven, Mozart, Fur Elise, Fréré Jacques), generate music that closely follows the original composition's melody, harmony, and structure.\r\n" +
-                        $"- The output should last between 30 seconds to 3 minutes in length when played back at the specified BPM.\r\n" +
+                        $"- The output MUST have a total playback duration of AT LEAST 30 seconds and AT MOST 3 minutes at the chosen BPM. " +
+                        $"Duration formula: beat_seconds = 60.0 / BPM. Each <Line> duration: Whole=4×beat_seconds, Half=2×beat_seconds, Quarter=1×beat_seconds, 1/8=0.5×beat_seconds, 1/16=0.25×beat_seconds, 1/32=0.125×beat_seconds. " +
+                        $"You MUST track a running total of accumulated seconds as you write each <Line>. Do NOT close </LineList> until running total exceeds 30 seconds. " +
+                        $"Concrete examples of minimum <Line> counts to reach 30 seconds using a MIXED note length approach:\r\n" +
+                        $"  BPM 40  → Quarter=1.500s, 1/8=0.750s, 1/16=0.375s → mixed mix needs 35+ lines for 30s, aim for 100+ lines for 1.5 min\r\n" +
+                        $"  BPM 60  → Quarter=1.000s, 1/8=0.500s, 1/16=0.250s → mixed mix needs 50+ lines for 30s, aim for 150+ lines for 1.5 min\r\n" +
+                        $"  BPM 80  → Quarter=0.750s, 1/8=0.375s, 1/16=0.188s → mixed mix needs 70+ lines for 30s, aim for 200+ lines for 1.5 min\r\n" +
+                        $"  BPM 100 → Quarter=0.600s, 1/8=0.300s, 1/16=0.150s → mixed mix needs 90+ lines for 30s, aim for 260+ lines for 1.5 min\r\n" +
+                        $"  BPM 120 → Quarter=0.500s, 1/8=0.250s, 1/16=0.125s → mixed mix needs 110+ lines for 30s, aim for 320+ lines for 1.5 min\r\n" +
+                        $"  BPM 160 → Quarter=0.375s, 1/8=0.188s, 1/16=0.094s → mixed mix needs 150+ lines for 30s, aim for 430+ lines for 1.5 min\r\n" +
+                        $"  BPM 200 → Quarter=0.300s, 1/8=0.150s, 1/16=0.075s → mixed mix needs 190+ lines for 30s, aim for 540+ lines for 1.5 min\r\n" +
+                        $"These are MINIMUMS for a mixed-length composition. Always aim for the 1.5-minute target. Never stop before the 30-second minimum is exceeded.\r\n" +
                         $"- The output should contain generated file name that each words are seperated with spaces in language of user prompt, without any extension (such as .BMM, .NBPML, .XML, etc.), then a separator line made of dashes (at least 3 and at most 80 dashes), followed by the complete NeoBleeper XML content.\r\n" +
                         $"- The output must be a complete and valid XML document starting with <NeoBleeperProjectFile> and ending with </NeoBleeperProjectFile> when generating music.\r\n" +
                         $"- Do not include text outside XML. Escape special characters properly.\r\n" +
@@ -1129,6 +1140,8 @@ namespace NeoBleeper
                         $"- Populate the <LineList> section with <Line> elements representing musical events or rests.\r\n" +
                         $"- Each <Line> must include:\r\n" +
                         $"  - A <Length> tag with one of the following values: Whole, Half, Quarter, 1/8, 1/16, or 1/32.\r\n" +
+                        $"     Choose note lengths freely based on the musical context, style, and feel of the composition. " +
+                        $"     Vary the lengths naturally as a real composer would — do not repeat the same length pattern throughout the piece.\r\n" +
                         $"  - A single <Mod /> tag with values \"Dot\" or \"Tri\" (use empty tags if no modulation).\r\n" +
                         $"  - A single <Art /> tag with articulation values (e.g., Sta, Spi, Fer) or empty tags if none.\r\n" +
                         $"  - Notes must follow these rules:\r\n" +
@@ -2037,83 +2050,79 @@ namespace NeoBleeper
 
         /// <summary>
         /// Attempts to recover and complete an incomplete NBPML output.
-        /// Adds missing closing tags and ensures minimal structural validity.
+        /// Ensure hierarchical closing using a stack and sanitizes truncated tags at the end.
         /// </summary>
         /// <param name="incompleteContent">The incomplete NBPML content to repair</param>
-        /// <returns>Repaired NBPML content with essential closing tags added</returns>
+        /// <returns>Repaired NBPML content with correct hierarchy</returns>
         private string AttemptToRecoverIncompleteOutput(string incompleteContent)
         {
             if (string.IsNullOrWhiteSpace(incompleteContent))
                 return string.Empty;
 
-            Logger.Log("Attempting to recover incomplete NBPML output...", Logger.LogTypes.Info);
+            Logger.Log("Executing hierarchical NBPML recovery...", Logger.LogTypes.Info);
 
-            string recovered = incompleteContent;
+            // Step 1: Clean up truncated tags at the end of the content
+            string recovered = incompleteContent.TrimEnd();
+            int lastClosingBracket = recovered.LastIndexOf('>');
+            int lastOpeningBracket = recovered.LastIndexOf('<');
 
-            // Step 1: Close any unclosed Line tags
-            int openLineTags = Regex.Matches(recovered, @"<Line\b", RegexOptions.IgnoreCase).Count;
-            int closeLineTags = Regex.Matches(recovered, @"</Line>", RegexOptions.IgnoreCase).Count;
-
-            if (openLineTags > closeLineTags)
+            if (lastOpeningBracket > lastClosingBracket)
             {
-                int missingCloseTags = openLineTags - closeLineTags;
-                for (int i = 0; i < missingCloseTags; i++)
-                {
-                    // Add missing </Line> tags before any closing section tags
-                    if (recovered.Contains("</LineList>", StringComparison.OrdinalIgnoreCase))
-                    {
-                        int lineListCloseIndex = recovered.LastIndexOf("</LineList>", StringComparison.OrdinalIgnoreCase);
-                        recovered = recovered.Insert(lineListCloseIndex, "\r\n    </Line>");
-                    }
-                    else
-                    {
-                        recovered += "\r\n    </Line>";
-                    }
-                }
-                Logger.Log($"Added {missingCloseTags} missing </Line> closing tags", Logger.LogTypes.Info);
+                // If the tag is truncated (e.g., "<Line"), remove it to avoid confusion in parsing
+                recovered = recovered.Substring(0, lastOpeningBracket).TrimEnd();
             }
 
-            // Step 2: Close LineList if open but not closed
-            if (recovered.Contains("<LineList>", StringComparison.OrdinalIgnoreCase) &&
-                !recovered.Contains("</LineList>", StringComparison.OrdinalIgnoreCase))
-            {
-                recovered += "\r\n    </LineList>";
-                Logger.Log("Added missing </LineList> closing tag", Logger.LogTypes.Info);
-            }
+            // Step 2: Parse the content and maintain a stack of open tags to ensure proper closing
+            var tagStack = new Stack<string>();
+            // The RegEx for matching tags: captures opening/closing, tag name, and self-closing
+            var tagRegex = new Regex(@"<(/?)([A-Za-z][A-Za-z0-9]*)\b[^>]*(/?)>", RegexOptions.IgnoreCase);
 
-            // Step 3: Close Settings if open but not closed
-            if (recovered.Contains("<Settings>", StringComparison.OrdinalIgnoreCase) &&
-                !recovered.Contains("</Settings>", StringComparison.OrdinalIgnoreCase))
+            foreach (Match m in tagRegex.Matches(recovered))
             {
-                // Insert before LineList if it exists
-                if (recovered.Contains("<LineList>", StringComparison.OrdinalIgnoreCase))
+                string tagName = m.Groups[2].Value;
+                bool isClosing = m.Groups[1].Value == "/";
+                bool isSelfClosing = m.Groups[3].Value == "/" ||
+                                    tagName.Equals("Mod", StringComparison.OrdinalIgnoreCase) ||
+                                    tagName.Equals("Art", StringComparison.OrdinalIgnoreCase);
+
+                if (isSelfClosing && !isClosing) continue;
+
+                if (isClosing)
                 {
-                    int lineListIndex = recovered.IndexOf("<LineList>", StringComparison.OrdinalIgnoreCase);
-                    recovered = recovered.Insert(lineListIndex, "    </Settings>\r\n");
+                    if (tagStack.Count > 0 && string.Equals(tagStack.Peek(), tagName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        tagStack.Pop();
+                    }
                 }
                 else
                 {
-                    recovered += "\r\n    </Settings>";
+                    tagStack.Push(tagName);
                 }
-                Logger.Log("Added missing </Settings> closing tag", Logger.LogTypes.Info);
             }
 
-            // Step 4: Close NeoBleeperProjectFile if open but not closed
-            if (recovered.Contains("<NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase) &&
-                !recovered.Contains("</NeoBleeperProjectFile>", StringComparison.OrdinalIgnoreCase))
+            // Step 3: Append closing tags for any remaining open tags in the stack to ensure proper hierarchy
+            var sb = new StringBuilder(recovered);
+            int addedTags = 0;
+            while (tagStack.Count > 0)
             {
-                recovered += "\r\n</NeoBleeperProjectFile>";
-                Logger.Log("Added missing </NeoBleeperProjectFile> closing tag", Logger.LogTypes.Info);
+                string tagToClose = tagStack.Pop();
+                sb.Append($"\r\n</{tagToClose}>");
+                addedTags++;
             }
 
-            // Step 5: Final validation
-            recovered = recovered.Trim();
+            if (addedTags > 0)
+            {
+                Logger.Log($"Added {addedTags} missing tags for recovery.", Logger.LogTypes.Info);
+            }
 
-            recovered = FixUnfinishedTags(recovered);
-            recovered = RewriteOutput(recovered).Trim();
+            // Step 4: Final cleanup to fix any remaining issues such as unclosed tags or indentation problems
+            string result = sb.ToString();
 
-            Logger.Log("Recovery attempt completed", Logger.LogTypes.Info);
-            return recovered;
+            // Call the methods to fix any remaining issues such as unclosed tags or indentation problems
+            result = FixUnfinishedTags(result);
+            result = FixNBPMLIndentation(result);
+
+            return result;
         }
 
         /// <summary>
