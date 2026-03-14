@@ -155,6 +155,8 @@ namespace NeoBleeper
             }
         }
 
+        private readonly static Random random = new Random();
+
         /// <summary>
         /// Generates a random MIDI velocity value within a typical dynamic range.
         /// </summary>
@@ -164,8 +166,7 @@ namespace NeoBleeper
         /// <returns>An integer representing a randomly selected velocity value between 90 (inclusive) and 127 (exclusive).</returns>
         public static int DynamicVelocity()
         {
-            Random random = new Random();
-            int minVelocity = 90;  // Minimum velocity
+            int minVelocity = 110;  // Minimum velocity
             int maxVelocity = 127; // Maximum velocity
             int dynamicVelocity = random.Next(minVelocity, maxVelocity);
             return dynamicVelocity;

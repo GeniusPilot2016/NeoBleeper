@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using System.Text.RegularExpressions;
+
 namespace NeoBleeper
 {
     public class NoteUtility
@@ -54,8 +56,10 @@ namespace NeoBleeper
             try
             {
                 // Disassemble note name into note and octave
-                string note = noteName.Substring(0, noteName.Length - 1); // "C", "D#", vb.
-                int octave = int.Parse(noteName.Substring(noteName.Length - 1)); // Octave number
+                var m = Regex.Match(noteName.ToUpperInvariant(), @"^([A-G])(#?)(\d+)$");
+                if (!m.Success) return 0;
+                string note = m.Groups[1].Value + (m.Groups[2].Value == "#" ? "#" : "");
+                int octave = int.Parse(m.Groups[3].Value);
                 // Basic frequency for the note in the 4th octave
                 double baseFrequency = note switch
                 {
@@ -162,6 +166,7 @@ namespace NeoBleeper
         /// <returns>The calculated length of the note, in milliseconds.</returns>
         public static double CalculateLineLength(int bpm, string noteType, string modifier = "", string articulation = "")
         {
+            if (bpm == 0) bpm = 1;
             int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
             int baseLength = noteType switch
             {

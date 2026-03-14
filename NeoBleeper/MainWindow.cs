@@ -94,10 +94,9 @@ namespace NeoBleeper
         Boolean isFileValid = false;
         public MainWindow()
         {
-            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             this.SuspendLayout();
-            if(!Directory.Exists(defaultOpenAndSaveDirectory))
+            if (!Directory.Exists(defaultOpenAndSaveDirectory))
             {
                 Directory.CreateDirectory(defaultOpenAndSaveDirectory);
             }
@@ -503,6 +502,7 @@ namespace NeoBleeper
             finally
             {
                 UIHelper.ForceUpdateUI(this); // Force update to apply changes
+                this.ResumeLayout(); // Resume layout after updates
             }
         }
 
@@ -1146,6 +1146,10 @@ namespace NeoBleeper
                 return -1;
             }
 
+            var m = Regex.Match(noteName.ToUpperInvariant(), @"^([A-G])(#?)(\d+)$");
+            if (!m.Success) return -1;
+            string noteValue = m.Groups[1].Value + (m.Groups[2].Value == "#" ? "#" : "");
+            int octaveValue = int.Parse(m.Groups[3].Value);
             int baseMidiNumber = baseMidiNumbers[note];
             int midiNumber = (octave + 1) * 12 + baseMidiNumber;
 
@@ -1235,7 +1239,7 @@ namespace NeoBleeper
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
             lbl_beat_traditional_value.ForeColor = Color.Green;
-            string firstLine = createdMusic.First().ToString().Trim();
+            string firstLine = createdMusic?.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()?.Trim() ?? string.Empty;
             try
             {
                 saveToolStripMenuItem.Enabled = true;
@@ -1559,7 +1563,7 @@ namespace NeoBleeper
                                             add_as_note1.Checked = parts[1] == "True";
                                             break;
                                         case "AddNote2":
-                                            add_as_note2.Checked = parts[1] == "False";
+                                            add_as_note2.Checked = parts[1] == "True";
                                             break;
                                         case "NoteReplace":
                                             checkBox_replace.Checked = parts[1] == "1";
@@ -2028,7 +2032,7 @@ namespace NeoBleeper
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                Action action = new Action(() => 
+                Action action = new Action(() =>
                 {
                     lastOpenedProjectFileName = System.IO.Path.GetFileName(filePath);
                     FileParser(filePath);
@@ -2053,15 +2057,15 @@ namespace NeoBleeper
         /// <param name="action">The action to perform if the file exists. Cannot be null.</param>
         public static void DoActionIfFileIsExist(string fileName, Form parent, Action action)
         {
-            if(!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+            if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
             {
                 action();
             }
-            else if(string.IsNullOrEmpty(fileName))
+            else if (string.IsNullOrEmpty(fileName))
             {
                 MessageForm.Show(parent, Resources.MessageFileNameIsEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if(!File.Exists(fileName))
+            else if (!File.Exists(fileName))
             {
                 MessageForm.Show(parent, Resources.MessageFileDoesNotExist, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -2076,7 +2080,7 @@ namespace NeoBleeper
         /// <param name="dialog">The OpenFileDialog instance for which to set the fallback initial folder. Cannot be null.</param>
         public static void SetFallbackInitialFolderForOpenFileDialog(OpenFileDialog dialog)
         {
-            if(!string.IsNullOrEmpty(dialog.InitialDirectory) && !Directory.Exists(dialog.InitialDirectory))
+            if (!string.IsNullOrEmpty(dialog.InitialDirectory) && !Directory.Exists(dialog.InitialDirectory))
             {
                 dialog.FileName = string.Empty; // Clear the filename to avoid issues
                 dialog.InitialDirectory = defaultOpenAndSaveDirectory;
@@ -2109,7 +2113,7 @@ namespace NeoBleeper
         /// and file name.</remarks>
         private void SaveTheFile()
         {
-            if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML") && 
+            if (!string.IsNullOrWhiteSpace(currentFilePath) && currentFilePath.ToUpper().EndsWith(".NBPML") &&
                 File.Exists(currentFilePath))
             {
                 try
@@ -3107,7 +3111,8 @@ namespace NeoBleeper
         /// input is an integer value.</returns>
         public static double RemoveWholeNumber(double number)
         {
-            return number - Math.Truncate(number);
+            // Compare the input number to its truncated value to determine if it has a fractional part with IEEE 754 precision handling
+            return number - Math.Truncate(number) < 1e-10 && number - Math.Truncate(number) > -1e-10 ? 0 : number - Math.Truncate(number);
         }
 
         /// <summary>
@@ -3140,6 +3145,7 @@ namespace NeoBleeper
 
                 while (listViewNotes.SelectedItems.Count > 0 && isMusicPlaying)
                 {
+                    if (Variables.bpm <= 0) Variables.bpm = 1;
                     if (Variables.bpm > 0)
                     {
                         baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
@@ -3327,7 +3333,7 @@ namespace NeoBleeper
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
-                if(isMusicPlaying)
+                if (isMusicPlaying)
                 {
                     return; // Prevent multiple concurrent playbacks
                 }
@@ -3539,24 +3545,31 @@ namespace NeoBleeper
         /// <param name="visible">true to make the label visible; otherwise, false.</param>
         public void UpdateLabelVisible(bool visible)
         {
-            try
+            Task.Run(() =>
             {
-                if (label_beep.InvokeRequired)
+                try
                 {
-                    label_beep.Invoke(() =>
+                    if (this.InvokeRequired)
                     {
-                        UpdateLabelVisible(visible);
-                        return;
-                    });
+                        this.Invoke(() =>
+                        {
+                            label_beep.SuspendLayout();
+                            label_beep.Visible = visible;
+                            label_beep.ResumeLayout();
+                        });
+                    }
+                    else
+                    {
+                        label_beep.SuspendLayout();
+                        label_beep.Visible = visible;
+                        label_beep.ResumeLayout();
+                    }
                 }
-                label_beep.SuspendLayout();
-                label_beep.Visible = visible;
-                label_beep.ResumeLayout(performLayout: true);
-            }
-            catch
-            {
-                return;
-            }
+                catch
+                {
+                    return;
+                }
+            });
         }
 
         /// <summary>
@@ -3568,6 +3581,7 @@ namespace NeoBleeper
         private void StartMetronome()
         {
             beatCount = 0;
+            if (Variables.bpm <= 0) Variables.bpm = 1;
             double interval = Math.Max(1, 60000.0 / (double)Variables.bpm);
             metronomeTimer.Interval = interval;
             NotePlayer.PlayNote(500, 5);
@@ -3806,6 +3820,7 @@ namespace NeoBleeper
                     noteAlreadyPlaying = true; // Set the flag to indicate a note is playing
                     int baseLength = 0;
                     Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
+                    if (Variables.bpm <= 0) Variables.bpm = 1;
                     if (Variables.bpm != 0)
                     {
                         baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
@@ -4414,12 +4429,27 @@ namespace NeoBleeper
                 beatNumber = beat + 1;
                 Task.Run(() =>
                 {
-                    position_table.SuspendLayout();
-                    lbl_measure_value.Text = measure.ToString();
-                    lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
-                    lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
-                    lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
-                    position_table.ResumeLayout();
+                    if (position_table.InvokeRequired)
+                    {
+                        position_table.Invoke(new Action(() =>
+                        {
+                            position_table.SuspendLayout();
+                            lbl_measure_value.Text = measure.ToString();
+                            lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
+                            lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                            lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
+                            position_table.ResumeLayout();
+                        }));
+                    }
+                    else
+                    {
+                        position_table.SuspendLayout();
+                        lbl_measure_value.Text = measure.ToString();
+                        lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
+                        lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                        lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
+                        position_table.ResumeLayout();
+                    }
                 });
                 if (checkBox_play_beat_sound.Checked == true && clicked == false)
                 {
@@ -5223,7 +5253,7 @@ namespace NeoBleeper
 
         private void playAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(noteAlreadyPlaying)
+            if (noteAlreadyPlaying)
             {
                 return; // Prevent starting playback if notes are already playing
             }
@@ -5463,7 +5493,7 @@ namespace NeoBleeper
                 int visibleItemsCount = listViewNotes.ClientSize.Height / listViewNotes.TopItem.Bounds.Height;
 
                 // Calculate the index of the last visible item
-                int lastVisibleIndex = Math.Min((topIndex + visibleItemsCount - 1) - 1, listViewNotes.Items.Count - 1);
+                int lastVisibleIndex = Math.Min(topIndex + visibleItemsCount - 1, listViewNotes.Items.Count - 1);
 
                 return lastVisibleIndex;
             }
@@ -6193,7 +6223,7 @@ namespace NeoBleeper
                 case var s when s == Resources.ThirtySecondNote:
                     return "1/32";
                 default:
-                    return Resources.WholeNote;
+                    return "Whole";
             }
         }
 
@@ -6635,7 +6665,7 @@ namespace NeoBleeper
         /// individually. After calling this method, the collection of pressed keys will be empty.</remarks>
         private void RemoveAllKeys()
         {
-            foreach (int key in pressedKeys)
+            foreach (int key in pressedKeys.ToArray())
             {
                 RemoveKey(key);
             }
@@ -6763,7 +6793,7 @@ namespace NeoBleeper
                     isAlternatingPlayingRegularKeyboard = true;
                     while (keyPressed && isAlternatingPlayingRegularKeyboard)
                     {
-                        foreach (int key in keyCharNum)
+                        foreach (int key in keyCharNum.ToArray())
                         {
                             int frequency = GetFrequencyFromKeyCode(key);
                             if (checkBox_bleeper_portamento.Checked)
@@ -7724,7 +7754,7 @@ namespace NeoBleeper
                 {
                     int midiNote = activeMidiNotes[0];
                     int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
-                    RestartBeepIfMutedEarly(GetFrequencyFromKeyCode(frequency));
+                    RestartBeepIfMutedEarly(frequency);
                 }
             }
         }
